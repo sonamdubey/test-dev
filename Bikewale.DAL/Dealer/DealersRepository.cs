@@ -508,7 +508,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails = new DealerDetailEntity();
                                 dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
                                 dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
-                                dealers.DealerDetails.Area = new AreaEntityBase
+                                dealers.DealerDetails.objArea = new AreaEntityBase
                                 {
                                     AreaName = Convert.ToString(dr["Area"]),
                                     Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
@@ -616,7 +616,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.MakeName = Convert.ToString(dr["makename"]);
                                 dealers.DealerDetails.MakeMaskingName = Convert.ToString(dr["makemaskingname"]);
                                 dealers.DealerDetails.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
-                                dealers.DealerDetails.Area = new AreaEntityBase
+                                dealers.DealerDetails.objArea = new AreaEntityBase
                                 {
                                     AreaId = SqlReaderConvertor.ParseToUInt32(dr["areaid"]),
                                     AreaName = Convert.ToString(dr["Area"]),

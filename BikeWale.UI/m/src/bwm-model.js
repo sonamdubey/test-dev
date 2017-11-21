@@ -380,6 +380,22 @@ docReady(function () {
     reg = new RegExp('^[0-9]*$');
 
     vmUserReviews = new modelUserReviews();
+
+    var gallerySwiper = new Swiper('#similar-mileage-swiper', {
+        effect: 'slide',
+        speed: 300,
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        preloadImages: false,
+        lazyLoading: true,
+        lazyLoadingInPrevNext: true,
+        watchSlidesProgress: true,
+        watchSlidesVisibility: true,
+        onSlideChangeStart: function (swiper, event) {
+            triggerGA("Model_Page", "Clicked_On_SimilarMileage_Carousel", myBikeName);
+        }
+    });
+
 });
 
 docReady(function () {
@@ -758,7 +774,10 @@ docReady(function () {
 
         }
     }
-});
+
+
+}
+);
 
 function upVoteListReview(e) {
     try {
@@ -994,3 +1013,4 @@ function updateView(reviewId) {
         console.log(e);
     }
 }
+

@@ -1,0 +1,195 @@
+@mixin model-specs-tabs($height: 40px)
+	.model-specs-tabs
+		height: $height
+		position: relative
+		
+.right-bike__desc
+	border: 1px solid transparent
+	.featured-icon
+		display: none
+		
+	&.featured-card
+		.featured-icon
+			display: block
+	
+.find-specs__tabs-container
+	width: 100%
+	display: block
+	background: #fff
+	overflow-x: auto
+	z-index: 2
+	-webkit-overflow-scrolling: touch
+	position: absolute
+	top: 0px
+
+.find-specs-tabs-wrapper
+	width: 100%
+	display: table
+	padding-left: 20px
+	padding-right: 20px
+
+	li
+		display: table-cell
+		width: 1%
+		text-align: center
+		cursor: pointer
+		white-space: nowrap
+		
+.right-bike__desc
+	padding: 10px 20px 0
+	background-color: #f8f8f8
+	position: relative
+	
+.right-bike_carousel-specs
+	min-heigth: 200px
+@mixin rightbike-carousel__model-card($width: 135px, $height: 120px)
+	.rightbike-carousel__model-card
+		width: $width
+		height: $height
+		padding: 10px 20px 5px
+
+@mixin rightbike-carousel__tags($font-size: 10, $color1: #787878, $color2: #ff7c6f)
+	.rightbike-carousel__model-card
+		.recommended-tag
+			color: $color1
+			font-size: $font-size * 1px
+
+		.popular-tag
+			color: $color2
+			font-size: $font-size * 1px
+		
+@mixin rightbike-carousel__image($width: 105px, $height: 65px)
+	.rightbike-carousel__image
+		width: $width
+		height: $height
+
+		img
+			height: $height
+			width: auto
+			max-width: 100%
+@mixin rightbike-caraousel__label($font-size: 12)
+	.rightbike-caraousel__label
+		font-size: $font-size * 1px
+		font-weight: 600
+		padding-top: 5px
+	
+#rightBikeSwiper
+	position: relative
+	
+.right-bike-swiper
+	padding-top: 0
+	
+	&.swiper-container
+		padding-left: 135px
+
+		&:after
+			background: -moz-linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
+			background: -o-linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
+			background: linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
+			content: ''
+			width: 16px
+			height: 100%
+			position: absolute
+			top: 0
+			right: -1px
+			z-index: 2
+
+		&:before
+			background: -moz-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
+			background: -o-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
+			background: linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
+			content: ''
+			width: 16px
+			height: 100%
+			position: absolute
+			top: 0
+			left: 128px
+			z-index: 2
+
+		.swiper-ribbon
+			display: block
+			min-width: 116px
+			height: 33px
+			font-size: 14px
+			color: white
+			font-weight: 600
+			padding: 5px 26px 5px 18px
+			background: #ff7c6f
+			border-radius: 15px 0 0 15px
+			position: absolute
+			right: -119px
+			bottom: 80px
+			z-index: 3
+
+
+		.animate-ribbon
+			-webkit-animation: moveribbon 5s
+			-webkit-animation-direction: alternate
+			animation: moveribbon 5s
+			animation-direction: alternate
+								
+	.rightbike__swiper-card
+		width: 135px
+
+		&.right-bike__swiper-keys
+			position: absolute
+			left: 0
+			top: 0
+			z-index: 2
+			background: #fff
+			height: 100%
+			
+			.rightbike-carousel__model-card
+				padding-right: 10px
+			.right-bike__desc
+				background: #fff
+				color: #787878
+				padding-right: 10px
+				
+			.right-bike__label
+				font-weight: 400
+				
+	.right-bike__desc
+		position: relative
+		font-size: 11px
+
+		.right-bike__label
+			padding-bottom: 20px
+			display: block
+			width: 100%
+			text-overflow: ellipsis
+			white-space: nowrap
+			overflow: hidden
+			font-weight: 600
+		.right-bike__desc
+			font-size: 10px
+			font-weight: 400
+			display: block
+			
+	.featured-card
+		background-color: #fff9f9
+
+		.featured-icon
+			position: absolute
+			top: -10px
+			right: 10px
+
+		.right-bike__label
+			font-weight: 600
+
+.right-bike__sub-label
+	font-size: 10px
+	display: block
+	font-weight: 400
+	
+@keyframes moveribbon
+	0%   
+		right: 0
+	25%   
+		right: -20px
+	50%   
+		right: 0
+	75%   
+		right: -25px
+	100%   
+		right: -125px

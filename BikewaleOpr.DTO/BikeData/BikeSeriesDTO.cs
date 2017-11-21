@@ -1,6 +1,5 @@
 ﻿using BikewaleOpr.DTO.Make;
 using Newtonsoft.Json;
-using System;
 
 namespace BikewaleOpr.DTO.BikeData
 {
@@ -8,7 +7,7 @@ namespace BikewaleOpr.DTO.BikeData
     /// Created by: Vivek Singh Tomar on 12th Sep 2017
     /// Summary : DTO for bike series entity
     /// </summary>
-    public class BikeSeriesDTO: SeriesBase
+    public class BikeSeriesDTO : SeriesBase
     {
         [JsonProperty("createdOn")]
         public string CreatedOn { get; set; }
@@ -22,5 +21,7 @@ namespace BikewaleOpr.DTO.BikeData
         public MakeBase BikeMake { get; set; }
         [JsonProperty("isSeriesPageUrl")]
         public bool IsSeriesPageUrl { get; set; }
+        [JsonProperty("message")]
+        public string Message { get; set; }
     }
 }

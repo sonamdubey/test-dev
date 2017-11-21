@@ -8,7 +8,7 @@ namespace Bikewale.Entities.Schema
     public class Brand
     {
         [JsonProperty("@type")]
-        public string Type { get { return "Thing"; } }
+        public string Type { get { return "Brand"; } }
 
         [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
@@ -18,6 +18,9 @@ namespace Bikewale.Entities.Schema
 
         [JsonProperty("logo", NullValueHandling = NullValueHandling.Ignore)]
         public string Logo { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
 
     }
 }

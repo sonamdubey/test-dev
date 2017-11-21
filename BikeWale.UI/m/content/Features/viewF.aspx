@@ -11,7 +11,7 @@
         keywords = "features, stories, travelogues, specials, drives";
         description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", pageTitle);
         canonical = Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + url;
-        AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+        AdPath = "/1017752/Bikewale_Mobile_NewBikes_";
         AdId = "1398766302464";
         %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->

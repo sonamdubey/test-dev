@@ -7,9 +7,9 @@
         title = "Sell Bike | Sell Used Bike in India - BikeWale";
         description = "Sell your used/second-hand bike on BikeWale for free. Post your Ad for free and get verified buyers on BikeWale. Easy, Quick & Effective.";
         keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
-        canonical = "https://www.bikewale.com/used/sell/";    
-    %> 
-    
+        canonical = "https://www.bikewale.com/used/sell/";
+    %>
+
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link href="<%= staticUrl %>/m/sass/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -26,12 +26,13 @@
         <div id="ub-ajax-loader">
             <div class="cover-popup-loader"></div>
         </div>
-        
-        <section class="hide">            
-            
-            <% if(isAuthorized) { %>
-            <div id="sell-bike-content" class="container bg-white box-shadow margin-bottom20" data-bind="visible:true">  
-                <!-- ko ifnot : isFakeCustomer -->                         
+
+        <section class="hide">
+
+            <% if (isAuthorized)
+                { %>
+            <div id="sell-bike-content" class="container bg-white box-shadow margin-bottom20" data-bind="visible: true">
+                <!-- ko ifnot : isFakeCustomer -->
                 <div data-bind="visible: formStep() < 4">
 
                     <div id="form-step-tabs" class="text-center">
@@ -42,12 +43,14 @@
                                     <span class="sell-bike-sprite" data-bind="css: formStep() == 1 ? 'step-1-active' : 'edit-step'"></span>
                                     <p class="tab-title">Bike details</p>
                                 </div>
-                            </li><li>
+                            </li>
+                            <li>
                                 <div class="tab-item" data-bind="click: gotoStep2">
                                     <span class="sell-bike-sprite" data-bind="css: (formStep() == 2) ? 'step-2-active' : (formStep() > 1) ? 'edit-step' : 'step-2-inactive'"></span>
                                     <p class="tab-title">Personal details</p>
                                 </div>
-                            </li><li>
+                            </li>
+                            <li>
                                 <div class="tab-item">
                                     <span class="sell-bike-sprite" data-bind="css: (formStep() == 3) ? 'step-3-active' : 'step-3-inactive'"></span>
                                     <p class="tab-title">More details</p>
@@ -75,7 +78,7 @@
                             <span class="boundary"></span>
                             <span class="error-text" data-bind="validationMessage: manufacturingDate"></span>
                         </div>
-                    
+
                         <div id="div-kmsRidden" class="input-box form-control-box row-bottom-margin" data-bind="css: kmsRidden().length > 0 ? 'not-empty' : ''">
                             <input type="text" id="kmsRidden" data-value="" data-bind="textInput: kmsRidden, validationElement: kmsRidden" />
                             <label for="kmsRidden">Kms ridden<sup>*</sup></label>
@@ -91,16 +94,16 @@
                                 <span class="error-text" data-bind="validationMessage: city"></span>
                                 <span class="bwmsprite grey-right-icon"></span>
                             </div>
-                        </div>                    
+                        </div>
 
-                        <div id="div-expectedPrice" class="input-box form-control-box row-bottom-margin" data-bind="css:expectedPrice() && expectedPrice().length > 0 ? 'not-empty' : ''">
+                        <div id="div-expectedPrice" class="input-box form-control-box row-bottom-margin" data-bind="css: expectedPrice() && expectedPrice().length > 0 ? 'not-empty' : ''">
                             <input type="text" id="expectedPrice" data-value="" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
                             <label for="expectedPrice">Expected price<sup>*</sup></label>
                             <span class="boundary"></span>
                             <span class="error-text" data-bind="validationMessage: expectedPrice"></span>
                         </div>
 
-                        <div id= "div-owner" class="select-box select-box-no-input row-bottom-margin" >
+                        <div id="div-owner" class="select-box select-box-no-input row-bottom-margin">
                             <p class="select-label">Owner<sup>*</sup></p>
                             <select class="chosen-select" data-bind="chosen: {}, value: owner, validationElement: owner" data-title="Owner">
                                 <option value></option>
@@ -124,7 +127,7 @@
                             </div>
                         </div>
 
-                        <div class="color-box-content row-bottom-margin" >
+                        <div class="color-box-content row-bottom-margin">
                             <div id="select-color-box" class="select-color-box">
                                 <p class="select-color-label color-box-default">Colour<sup>*</sup></p>
                                 <p id="selected-color" class="color-box-default" data-bind="text: color, validationElement: color "></p>
@@ -132,9 +135,9 @@
                                 <span class="error-text" data-bind="validationMessage: color"></span>
                             </div>
                         </div>
-                    
+
                         <div class="text-center margin-bottom15">
-                            <input type="button" id="btnSaveBikeDetails" class="btn btn-orange btn-primary-big" value="Save and Continue"  data-bind="click: saveBikeDetails"/>
+                            <input type="button" id="btnSaveBikeDetails" class="btn btn-orange btn-primary-big" value="Save and Continue" data-bind="click: saveBikeDetails" />
                         </div>
 
                         <!-- select bike starts here -->
@@ -152,22 +155,24 @@
                                     <p class="no-back-btn-label head-label inline-block">Select Make</p>
                                 </div>
                                 <ul class="cover-popup-list with-arrow">
-                                    <% foreach(var make in objMakeList)  { %>
-                                    <li data-bind="click: makeChanged" data-id="<%= make.MakeId %>" data-name="<%= make.MakeName %>" data-makeMasking="<%= make.MaskingName %>"><span><%= make.MakeName %></span></li>    
-                                    <% } %>                                
+                                    <% foreach (var make in objMakeList)
+                                        { %>
+                                    <li data-bind="click: makeChanged" data-id="<%= make.MakeId %>" data-name="<%= make.MakeName %>" data-makemasking="<%= make.MaskingName %>"><span><%= make.MakeName %></span></li>
+                                    <% } %>
                                 </ul>
-                                
+
                             </div>
 
                             <div id="select-model-wrapper" class="cover-popup-body">
                                 <div class="cover-popup-body-head">
                                     <div id="select-model-back-btn" class="body-popup-back cur-pointer inline-block">
                                         <span class="bwmsprite back-long-arrow-left"></span>
-                                    </div><p class="head-label inline-block">Select Model</p>
+                                    </div>
+                                    <p class="head-label inline-block">Select Model</p>
                                 </div>
-                               <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
-                                    <li data-bind=" click: function (d, e) { $parent.modelChanged(d,e) }">
-                                        <span data-bind="text: modelName, attr: { 'data-id': modelId }" ></span>
+                                <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                                    <li data-bind=" click: function (d, e) { $parent.modelChanged(d, e) }">
+                                        <span data-bind="text: modelName, attr: { 'data-id': modelId }"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -175,13 +180,14 @@
                             <div id="select-version-wrapper" class="cover-popup-body">
                                 <div class="cover-popup-body-head">
                                     <div id="select-version-back-btn" class="body-popup-back cur-pointer inline-block" data-bind="style: { 'pointer-events': vmSellBike.isEdit() ? 'none' : '' }">
-                                        <span id="arrow-version-back" class="bwmsprite back-long-arrow-left" ></span>
-                                    </div><p class="head-label inline-block">Select Version</p>
+                                        <span id="arrow-version-back" class="bwmsprite back-long-arrow-left"></span>
+                                    </div>
+                                    <p class="head-label inline-block">Select Version</p>
                                 </div>
                                 <ul class="cover-popup-list" data-bind="foreach: versionArray">
                                     <li data-bind="click: function (d, e) { $parent.versionChanged(d, e) }">
-                                        <span data-bind="text: versionName, attr: { 'data-id': versionId }" ></span>
-                                    </li>                                    
+                                        <span data-bind="text: versionName, attr: { 'data-id': versionId }"></span>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -193,13 +199,14 @@
                         <!-- select bike ends here -->
 
                         <!-- city drawer starts here -->
-                       <div id="city-slideIn-drawer" class="slideIn-drawer-container">
+                        <div id="city-slideIn-drawer" class="slideIn-drawer-container">
                             <div class="form-control-box text-left">
                                 <div class="drawer-top-header">
                                     <div>
                                         <span id="close-city-filter" class="back-arrow-box inline-block">
                                             <span class="bwmsprite back-long-arrow-left"></span>
-                                        </span><p class="head-label inline-block">Select city</p>
+                                        </span>
+                                        <p class="head-label inline-block">Select city</p>
                                     </div>
                                     <div class="filter-input-box">
                                         <div class="form-control-box">
@@ -210,17 +217,17 @@
                                 </div>
                                 <ul class="filter-list" id="filter-city-list" data-bind="visible: ((vmSellBike.bikeDetails().Cities().visibleCities().length == 0) && (vmSellBike.bikeDetails().Cities().cityFilter().length == 0))">
                                     <% foreach (var city in objCityList)
-                                       { %>
-                                    <li data-cityId="<%= city.CityId %>" data-cityName="<%= city.CityName %>" data-cityMasking="<%=city.CityMaskingName %>" data-bind="click: $root.FilterCity"><span><%= city.CityName %></span></li>    
-                                    <% } %>                                                                         
+                                        { %>
+                                    <li data-cityid="<%= city.CityId %>" data-cityname="<%= city.CityName %>" data-citymasking="<%=city.CityMaskingName %>" data-bind="click: $root.FilterCity"><span><%= city.CityName %></span></li>
+                                    <% } %>
                                 </ul>
 
-                                <ul class="filter-list" data-bind="foreach: $root.bikeDetails().Cities().visibleCities(), visible: $root.bikeDetails().Cities().visibleCities().length > 0, click: $root.FilterCity">                                    
-                                    <li data-bind="click: $root.FilterCity, attr: { 'data-cityId': id }" ><span data-bind="text: city"></span></li>                                      
+                                <ul class="filter-list" data-bind="foreach: $root.bikeDetails().Cities().visibleCities(), visible: $root.bikeDetails().Cities().visibleCities().length > 0, click: $root.FilterCity">
+                                    <li data-bind="click: $root.FilterCity, attr: { 'data-cityId': id }"><span data-bind="    text: city"></span></li>
                                 </ul>
 
-                                <ul class="filter-list" data-bind="visible: ((vmSellBike.bikeDetails().Cities().visibleCities().length == 0) && (vmSellBike.bikeDetails().Cities().cityFilter().length > 0))">                                    
-                                    <li>No results found !!</li>                                    
+                                <ul class="filter-list" data-bind="visible: ((vmSellBike.bikeDetails().Cities().visibleCities().length == 0) && (vmSellBike.bikeDetails().Cities().cityFilter().length > 0))">
+                                    <li>No results found !!</li>
                                 </ul>
 
                             </div>
@@ -233,12 +240,12 @@
                             <div class="popup-header">Colour</div>
                             <div class="popup-body">
                                 <ul id="color-popup-ul" class="popup-list popup-color-list margin-bottom15" data-bind="foreach: colorArray">
-                                    <li class="color-list-item" data-bind="click: $parent.colorSelection" >
+                                    <li class="color-list-item" data-bind="click: $parent.colorSelection">
                                         <div class="color-box" data-bind="foreach: hexCode, css: (hexCode.length >= 3) ? 'color-count-three' : (hexCode.length == 2) ? 'color-count-two' : 'color-count-one' ">
                                             <span data-bind="style: { 'background-color': '#' + $data }"></span>
-                                        </div>                                                                                 
+                                        </div>
                                         <p class="color-box-label"><span data-bind="text: colorName, attr: { 'data-colorId': colorId }"></span></p>
-                                    </li>                                                                                   
+                                    </li>
                                 </ul>
                                 <ul>
                                     <li class="other-color-item">
@@ -267,14 +274,14 @@
                             <div class="clear"></div>
                         </div>
                         <!-- color popup ends here -->
-                    
+
                     </div>
 
                     <div class="form-step-body" data-bind="visible: formStep() == 2 && !verificationDetails().status(), with: personalDetails">
                         <h2 class="form-step-title">Personal details</h2>
 
                         <ul id="seller-type-list" data-bind="style: { 'pointer-events': vmSellBike.isEdit() ? 'none' : '' }">
-                            <li data-bind="click: sellerType, attr: { value: 2 }, css: sellerTypeVal() == 2 ? 'checked' : ''" >
+                            <li data-bind="click: sellerType, attr: { value: 2 }, css: sellerTypeVal() == 2 ? 'checked' : ''">
                                 <span class="bwmsprite radio-icon"></span>
                                 <span class="seller-label font16">I am an Individual</span>
                             </li>
@@ -298,7 +305,7 @@
                             <span class="boundary"></span>
                             <span class="error-text" data-bind="validationMessage: sellerEmail"></span>
                         </div>
-                    
+
                         <div class="input-box input-number-box form-control-box row-bottom-margin" data-bind="css: sellerMobile().length > 0 ? 'not-empty' : ''">
                             <input type="tel" maxlength="10" id="sellerMobile" data-bind="textInput: sellerMobile, validationElement: sellerMobile" />
                             <label for="sellerMobile">Mobile number<sup>*</sup></label>
@@ -310,12 +317,16 @@
 
                         <div id="terms-content" class="row-bottom-margin padding-top10">
                             <span class="bwmsprite unchecked-box" data-bind="click: terms, css: termsCheckbox ? 'active' : ''"></span>
-                            <p>I agree with BikeWale sell bike <a href="/TermsConditions.aspx" target="_blank" rel="noopener">Terms & Conditions</a>, <a target="_blank" rel="noopener" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" rel="noopener" href="/privacypolicy.aspx">privacy policy</a> *.<br /><br />I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
+                            <p>
+                                I agree with BikeWale sell bike <a href="/TermsConditions.aspx" target="_blank" rel="noopener">Terms & Conditions</a>, <a target="_blank" rel="noopener" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" rel="noopener" href="/privacypolicy.aspx">privacy policy</a> *.<br />
+                                <br />
+                                I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.
+                            </p>
                             <span class="error-text" data-bind="validationMessage: termsCheckbox"></span>
                         </div>
 
                         <div class="text-center row-bottom-margin">
-                            <input type="button" class="btn btn-white btn-primary-small margin-right20" value="Previous" data-bind="click: backToBikeDetails" /><input type="button" id ="btnListBike" class="btn btn-orange btn-primary-big" value="List your bike" data-bind="click: listYourBike" />
+                            <input type="button" class="btn btn-white btn-primary-small margin-right20" value="Previous" data-bind="click: backToBikeDetails" /><input type="button" id="btnListBike" class="btn btn-orange btn-primary-big" value="List your bike" data-bind="    click: listYourBike" />
                         </div>
 
                     </div>
@@ -370,7 +381,8 @@
                         <div id="add-photos-dropzone" class="dropzone dz-clickable">
                             <div class="dz-message">
                                 <div id="dz-custom-message">
-                                    <span class="sell-bike-sprite add-photo-icon"></span><br />
+                                    <span class="sell-bike-sprite add-photo-icon"></span>
+                                    <br />
                                     <button type="button" class="btn btn-primary-big btn-orange margin-top20 margin-bottom15">Add Images</button>
                                 </div>
                                 <ul id="dz-image-placeholder" class="margin-top10">
@@ -395,7 +407,7 @@
                                 <option value></option>
                                 <option value="Comprehensive">Comprehensive</option>
                                 <option value="Third Party">Third Party</option>
-                                 <option value="No Insurance">No Insurance</option>
+                                <option value="No Insurance">No Insurance</option>
                             </select>
                             <span class="boundary"></span>
                         </div>
@@ -407,7 +419,7 @@
                         </div>
 
                         <div class="text-center">
-                            <input type="button" class="btn btn-white btn-primary-small margin-right20" value="No Thanks" data-bind="click: noThanks" /><input type="button" id="btnUpdateAd" class="btn btn-orange btn-primary-big" value="Update my Ad" data-bind="click: updateAd" />
+                            <input type="button" class="btn btn-white btn-primary-small margin-right20" value="No Thanks" data-bind="click: noThanks" /><input type="button" id="btnUpdateAd" class="btn btn-orange btn-primary-big" value="Update my Ad" data-bind="    click: updateAd" />
                         </div>
 
                     </div>
@@ -420,23 +432,34 @@
                         </div>
                     </div>
                     <div class="margin-top15 margin-bottom15">
-                        <p class="font18 text-bold">Congratulations!</p><br />
-                        <% if(!isEdit) { %>
-                        <p class="font14">Your ad has been successfully submitted.<br /><br />Your profile ID is <span data-bind="text: profileId"></span>.<br />You can find and edit your ad by logging in.<br /><br />Your bike ad will be live after verification.</p>
-                        <% } else { %>
+                        <p class="font18 text-bold">Congratulations!</p>
+                        <br />
+                        <% if (!isEdit)
+                            { %>
+                        <p class="font14">
+                            Your ad has been successfully submitted.<br />
+                            <br />
+                            Your profile ID is <span data-bind="text: profileId"></span>.<br />
+                            You can find and edit your ad by logging in.<br />
+                            <br />
+                            Your bike ad will be live after verification.
+                        </p>
+                        <% }
+                            else
+                            { %>
                         <p class="font14">Your changes have been recorded. Your ad will be live after verification.</p>
                         <% } %>
                     </div>
                     <div id="form-success-btn-group">
-                        <input  type="button" id ="btnEditAd" class="btn btn-white btn-primary-small margin-right20" value="Edit my Ad" data-bind="click: editMyAd" />
-                        <input type="button" class="btn btn-orange btn-primary-small " data-bind="click: congratsScreenDoneFunction" value="Done" />                        
+                        <input type="button" id="btnEditAd" class="btn btn-white btn-primary-small margin-right20" value="Edit my Ad" data-bind="click: editMyAd" />
+                        <input type="button" class="btn btn-orange btn-primary-small " data-bind="click: congratsScreenDoneFunction" value="Done" />
                     </div>
-                </div>                                  
-                <!-- /ko -->                                               
-            
-           <!-- ko if: isFakeCustomer -->
-            <div class="form-response-body text-center icon-size-small">
-                 
+                </div>
+                <!-- /ko -->
+
+                <!-- ko if: isFakeCustomer -->
+                <div class="form-response-body text-center icon-size-small">
+
                     <div class="icon-outer-container rounded-corner50percent">
                         <div class="icon-inner-container rounded-corner50percent">
                             <span class="sell-bike-sprite no-auth-icon margin-top15"></span>
@@ -444,24 +467,30 @@
                     </div>
                     <div class="margin-top15 margin-bottom15">
                         <p class="font18 text-bold margin-bottom10">Sorry!</p>
-                        <p class="font14">You are not authorised to add any listing.<br />Please contact us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a></p>
-                    </div>                        
+                        <p class="font14">
+                            You are not authorised to add any listing.<br />
+                            Please contact us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a>
+                        </p>
+                    </div>
+                </div>
+                <!-- /ko -->
             </div>
-            <!-- /ko -->     
-         </div>  
-            <% } else { %>
-            <!-- not auth to edit -->            
-                <div class="form-response-body text-center icon-size-small">
-                    <div class="icon-outer-container rounded-corner50percent">
-                        <div class="icon-inner-container rounded-corner50percent">
-                            <span class="sell-bike-sprite no-auth-edit-icon margin-top15"></span>
-                        </div>
+            <% }
+                else
+                { %>
+            <!-- not auth to edit -->
+            <div class="form-response-body text-center icon-size-small">
+                <div class="icon-outer-container rounded-corner50percent">
+                    <div class="icon-inner-container rounded-corner50percent">
+                        <span class="sell-bike-sprite no-auth-edit-icon margin-top15"></span>
                     </div>
-                    <div class="margin-top15 margin-bottom15">
-                        <p class="font18 text-bold">Sorry!</p><br />
-                        <p class="font14">You are not authorised to edit this listing</p>
-                    </div>
-                </div>   
+                </div>
+                <div class="margin-top15 margin-bottom15">
+                    <p class="font18 text-bold">Sorry!</p>
+                    <br />
+                    <p class="font14">You are not authorised to edit this listing</p>
+                </div>
+            </div>
             <% } %>
         </section>
 
@@ -475,8 +504,10 @@
                             <span class="bwmsprite arrow-sm-down"></span>
                         </div>
                         <div class="accordion-body">
-                            <p>Every month more than 3.5+ million users visit BikeWale to research about used and new bikes. BikeWale has 5,000+ listings posted across more than 200 cities in India. BikeWale doesn’t charge any fee for posting your Ad. You can post your Ad for FREE. There are no limits on the number of postings.
-BikeWale ensures that only verified buyers can reach out to you. You can re-post your Ad after 90 days if your bike is not sold. It’s Easy, Quick and Reliable!</p>
+                            <p>
+                                Every month more than 3.5+ million users visit BikeWale to research about used and new bikes. BikeWale has 5,000+ listings posted across more than 200 cities in India. BikeWale doesn’t charge any fee for posting your Ad. You can post your Ad for FREE. There are no limits on the number of postings.
+BikeWale ensures that only verified buyers can reach out to you. You can re-post your Ad after 90 days if your bike is not sold. It’s Easy, Quick and Reliable!
+                            </p>
                         </div>
                     </li>
                     <li>
@@ -485,7 +516,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
                             <span class="bwmsprite arrow-sm-down"></span>
                         </div>
                         <div class="accordion-body">
-                             <p>To sell your bike quickly, you should provide correct and comprehensive description about your bike. It is recommended to upload more than 5 high resolution images to make the Ad more effective. The registration city, colours, and make year should be provided with best of your knowledge. You should look out for price of similar bikes and provide a reasonable and competitive pricing to get better responses. Once you provide all the above mentioned information, you are very likely to sell your bike within few days from date of posting.</p>
+                            <p>To sell your bike quickly, you should provide correct and comprehensive description about your bike. It is recommended to upload more than 5 high resolution images to make the Ad more effective. The registration city, colours, and make year should be provided with best of your knowledge. You should look out for price of similar bikes and provide a reasonable and competitive pricing to get better responses. Once you provide all the above mentioned information, you are very likely to sell your bike within few days from date of posting.</p>
                         </div>
                     </li>
                     <li>
@@ -497,7 +528,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
                             <p>Your Ad will be posted for 90 days. If you are not able to sell your bike till then, you can re-post your Ad for FREE. Your bike will be made available again to the buyers.</p>
                         </div>
                     </li>
-					<li>
+                    <li>
                         <div class="accordion-head">
                             <p class="accordion-head-title">Can the details of posted Ad be changed/edited?</p>
                             <span class="bwmsprite arrow-sm-down"></span>
@@ -506,7 +537,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
                             <p>Yes, you can edit your listing by logging in your account. However, we have restricted certain fields like bike make, models, city etc. for the ease of buyers. Your bike will again be made available after approval from BikeWale team and you can continue selling your used bike on BikeWale.</p>
                         </div>
                     </li>
-					<li>
+                    <li>
                         <div class="accordion-head">
                             <p class="accordion-head-title">What can improve the number of responses for your listed bike?</p>
                             <span class="bwmsprite arrow-sm-down"></span>
@@ -528,8 +559,31 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             </div>
         </section>
 
+        <section>
+            <div class="breadcrumb">
+                <span class="breadcrumb-title">You are here:</span>
+                <ul>
+                    <li>
+                        <a class="breadcrumb-link" href="/m/">
+                            <span class="breadcrumb-link__label" itemprop="name">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="breadcrumb-link" href="/m/used/">
+                            <span class="breadcrumb-link__label" itemprop="name">Used Bikes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="breadcrumb-link__label">Sell Your Bike</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
+
         <script type="text/javascript">
-            var userId = '<%= userId%>';            
+            var userId = '<%= userId%>';
             var userName = '<%= userName%>';
             var userEmail = '<%= userEmail%>';
             var isEdit = '<%= isEdit %>';
@@ -540,7 +594,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             var inquiryDetailsJSON = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
             var imgEnv = "<%= Bikewale.Utility.BWConfiguration.Instance.AWSEnvironment %>";
         </script>
-        
+
         <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -551,11 +605,12 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
         <script type="text/javascript" src="<%= staticUrl %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl %>/src/imageUpload.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl %>/src/dropzone.js?<%=staticFileVersion %>"></script>
-        <% if(isAuthorized) { %>
+        <% if (isAuthorized)
+            { %>
         <script type="text/javascript" src="<%= staticUrl %>/m/src/sell-bike.js?<%= staticFileVersion %>"></script>
         <% } %>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
-        
+
         <script type="text/javascript">
             window.onbeforeunload = function () {
                 if (vmSellBike.formStep() < 4) {
@@ -563,7 +618,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
                 }
             }
         </script>
-        
+
     </form>
 </body>
 </html>

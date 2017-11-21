@@ -110,7 +110,8 @@ namespace Bikewale.Utility
             _InnovationBannerModels = String.Empty,
             _UserReviewsReadInSessionCount = string.Empty,
             _PopularCitiesId = String.Empty,
-            _SynopsisSummaryMergeMakeIds = string.Empty;
+            _SynopsisSummaryMergeMakeIds = string.Empty,
+            _PopularityOrderForMake = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -246,7 +247,8 @@ namespace Bikewale.Utility
             _minEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MinEnginePoolSize"]) ? 3 : Convert.ToInt32(ConfigurationManager.AppSettings["MinEnginePoolSize"]);
             _maxEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MaxEnginePoolSize"]) ? 15 : Convert.ToInt32(ConfigurationManager.AppSettings["MaxEnginePoolSize"]);
             _SynopsisSummaryMergeMakeIds = ConfigurationManager.AppSettings["SynopsisSummaryMergeMakeIds"];
-            _useV8Engine= string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? true : Convert.ToBoolean(ConfigurationManager.AppSettings["UseV8Engine"]);
+            _PopularityOrderForMake = ConfigurationManager.AppSettings["PopularityOrderForMake"];
+            _useV8Engine = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? true : Convert.ToBoolean(ConfigurationManager.AppSettings["UseV8Engine"]);
         }
 
         // Static method to provide access to instance
@@ -416,6 +418,7 @@ namespace Bikewale.Utility
         public int MinEnginePoolSize { get { return _minEnginePoolSize; } }
         public string SynopsisSummaryMergeMakeIds { get { return _SynopsisSummaryMergeMakeIds; } }
         public bool UseV8Engine { get { return _useV8Engine; } }
-        
+
+        public string PopularityOrderForMake { get { return _PopularityOrderForMake; } }
     }   // class
 }   // namespace

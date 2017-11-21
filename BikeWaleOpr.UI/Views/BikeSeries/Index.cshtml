@@ -36,7 +36,7 @@
                                     <td><i class="material-icons @((series.IsSeriesPageUrl) ? "icon-green" : "icon-red")">@((series.IsSeriesPageUrl) ? "done" : "close")</i></td>
                                     <td> @series.BikeMake.MakeName </td>
                                     <td><a href="#!" data-target="modal-series-synopsis" data-bind="event : {click : function(d,e) { getSeriesSynopsis(e) }}"><i class="material-icons icon-green">add_circle</i></a></td>
-                                    <td><a href = "#series-edit-update" class="tooltipped" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                                    <td><a href = "#series-edit-update" class="tooltipped" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-makeid="@series.BikeMake.MakeId" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
                                     <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Delete Series" rel="nofollow" data-target="delete-confirm-modal" data-bind="event:{click: function(d, e){ deleteEvent(e)}}" ><i class="material-icons icon-red">delete</i></a></td>
                                     <td>@series.CreatedOn.ToString("dd/MM/yyyy")</td>
                                     <td>@series.UpdatedOn.ToString("dd/MM/yyyy")</td>

@@ -1391,7 +1391,72 @@ namespace Grpc.CMS
             }
         }
 
-        public static GrpcVideo GetVideoByBasicId(int id)
+		public static GrpcVideosList GetSimilarVideos(uint totalCount, string modelIdList, uint id = 0)
+		{
+			Stopwatch sw = null;
+
+			try
+			{
+				if (_logGrpcErrors)
+				{
+					sw = Stopwatch.StartNew();
+				}
+				Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+				int i = m_retryCount;
+				while (i-- >= 0)
+				{
+					if (ch != null)
+					{
+						var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+						try
+						{
+
+							return client.GetSimilarVideos
+								(new GrpcVideosByIdURI()
+								{
+									ApplicationId = 2,
+									Id = (int)id,
+									SimilarModels = modelIdList,
+									StartIndex = 1,
+									EndIndex = totalCount
+								},
+
+								 null, GetForwardTime(m_ChanelWaitTime));
+						}
+						catch (RpcException e)
+						{
+							log.Error(e);
+							if (i > 0)
+							{
+								log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+								ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+							}
+							else
+								break;
+						}
+						catch (Exception e)
+						{
+							log.Error(e);
+						}
+					}
+					else
+						break;
+				}
+				return null;
+			}
+			finally
+			{
+				if (_logGrpcErrors && sw != null)
+				{
+					sw.Stop();
+					if (sw.ElapsedMilliseconds > _msLimit)
+						log.Error("Error105 GetSimilarVideos took " + sw.ElapsedMilliseconds);
+				}
+			}
+		}
+
+		public static GrpcVideo GetVideoByBasicId(int id)
         {
             Stopwatch sw = null;
 

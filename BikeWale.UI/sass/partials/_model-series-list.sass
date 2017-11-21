@@ -1,0 +1,57 @@
+.model-series-list
+	margin: 10px 5px 15px
+	border: 1px solid #d5d5d5
+	display: block
+	
+	li
+		display: block
+		margin-left: 10px
+		margin-right: 10px
+		position: relative
+		padding-top: 10px
+		padding-bottom: 10px
+		border-top: 1px solid #e2e2e2
+		
+		&:first-child
+			border: none
+
+		a
+			display: block
+			color: #4d5057
+
+.right-arrow
+	display: block
+	position: absolute
+	width: 8px
+	height: 14px
+	right: 5px
+	top: 34px
+	
+@mixin model-series-list__img($width: 101, $height: 57)
+	.model-series-list__img
+		display: inline-block
+		vertical-align: middle
+		height: ($height * 1px)
+		width: ($width * 1px)
+		text-align: center
+			
+		img
+			height: $height * 1px
+			width: auto
+			max-width: 100%
+			
+			
+.model-list__label-block
+	display: inline-block
+	vertical-align: middle
+	padding-top: 5px
+
+.model-list__title
+	width: 100%
+	text-align: left
+	text-overflow: ellipsis
+	white-space: nowrap
+	overflow: hidden
+	font-weight: 600
+	margin-bottom: 10px
+	

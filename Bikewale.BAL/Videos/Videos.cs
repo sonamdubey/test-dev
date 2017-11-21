@@ -110,16 +110,21 @@ namespace Bikewale.BAL.Videos
         /// <param name="videoId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, ushort totalCount)
+        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoBasicId, ushort totalCount)
         {
-            return GetSimilarVideosViaGrpc(videoId, totalCount);
+            return GetSimilarVideosViaGrpc(videoBasicId, totalCount);
         }
 
-        /// <summary>
-        /// Author: Prasad Gawde
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<BikeVideoEntity> GetSimilarVideosViaGrpc(uint videoId, ushort totalCount)
+		public IEnumerable<BikeVideoEntity> GetSimilarVideos(ushort totalCount, string modelIdList, uint videoBasicId = 0)
+		{
+			return GetSimilarVideosViaGrpc(totalCount, modelIdList, videoBasicId);
+		}
+
+		/// <summary>
+		/// Author: Prasad Gawde
+		/// </summary>
+		/// <returns></returns>
+		private IEnumerable<BikeVideoEntity> GetSimilarVideosViaGrpc(uint videoId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> videoDTOList = null;
             try
@@ -141,15 +146,35 @@ namespace Bikewale.BAL.Videos
             return videoDTOList;
         }
 
+		private IEnumerable<BikeVideoEntity> GetSimilarVideosViaGrpc(ushort totalCount, string modelIdList, uint videoId = 0)
+		{
+			IEnumerable<BikeVideoEntity> videoDTOList = null;
+			try
+			{
+				GrpcVideosList _objVideoList;
 
-        /// <summary>
-        /// Created By : Sushil Kumar K
-        /// Created On : 18th February 2016
-        /// Description : To get video details based on videoBasic Id
-        /// </summary>
-        /// <param name="videoBasicId"></param>
-        /// <returns></returns>
-        public BikeVideoEntity GetVideoDetails(uint videoBasicId)
+				_objVideoList = GrpcMethods.GetSimilarVideos(totalCount, modelIdList, videoId);
+
+				if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
+				{
+					videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
+				}
+			}
+			catch (Exception err)
+			{
+				_logger.Error(err.Message, err);
+			}
+
+			return videoDTOList;
+		}
+		/// <summary>
+		/// Created By : Sushil Kumar K
+		/// Created On : 18th February 2016
+		/// Description : To get video details based on videoBasic Id
+		/// </summary>
+		/// <param name="videoBasicId"></param>
+		/// <returns></returns>
+		public BikeVideoEntity GetVideoDetails(uint videoBasicId)
         {
             return GetVideoDetailsViaGrpc(videoBasicId);
         }

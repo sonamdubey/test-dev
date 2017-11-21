@@ -31,10 +31,11 @@ namespace Bikewale.Entities.Compare
         Mobile_NewBikes_MostPopular_Compare_Widget = 18,
         Desktop_Comparison_Landing = 19,
         Mobile_Comparison_Landing = 20,
-        Desktop_Home_MostPopular_Compare_Widget=21,
-        Desktop_NewBikes_MostPopular_Compare_Widget=22,
+        Desktop_Home_MostPopular_Compare_Widget = 21,
+        Desktop_NewBikes_MostPopular_Compare_Widget = 22,
         Desktop_SimilarComparisonWidget = 23,
-        Mobile_SimilarComparisonWidget = 24
+        Mobile_SimilarComparisonWidget = 24,
+        Mobile_SeriesPage = 25
 
     }
 }

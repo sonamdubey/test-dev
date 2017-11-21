@@ -19,5 +19,6 @@ namespace BikewaleOpr.Interface.BikeData
         int DeleteMappingOfModelSeries(uint modelId);
         bool UpdateSynopsis(int seriesId, int updatedBy, SynopsisData objSynopsis);
         SynopsisData Getsynopsis(int seriesId);
+        bool IsSeriesMaskingNameExists(uint makeId, string seriesMaskingName);
     }
 }

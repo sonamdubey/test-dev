@@ -1,0 +1,259 @@
+﻿// Partial files
+@import ../../partials/rating
+
+@for $i from 1 through 5
+	@include rating-badge($i)
+
+.padding-15
+	padding: 15px
+
+.font-bold
+	font-weight: 600
+	
+.container
+	margin-bottom: 20px
+		
+/* foldable content*/
+.foldable-content
+	position: relative
+	
+.main-series-model
+	padding-bottom: 5px
+	
+	.truncatable-content
+		margin: 5px 15px 15px
+		font-size: 13px
+		overflow: hidden
+		position: relative 
+		max-height: 90px
+		color: #787878
+
+		&:before
+			content: '...'
+			position: absolute
+			right: 0
+			bottom: 0
+			display: block
+			width: 200px
+			background-color: white
+			padding-left: 3px
+
+		&:after
+			content: ''
+			position: absolute
+			right: 0
+			width: 200px
+			height: 14px
+			margin-top: 0.2em
+			background-color: white
+
+	.read-more-button
+		position: absolute
+		bottom: 15px
+		right: 20px
+
+
+.main-series-model
+	.truncatable-content
+		&[data-readtextflag='0']
+    			max-height: initial
+			
+		&[data-readtextflag='1']
+    			max-height: 90px
+
+
+		 
+
+.star-white
+    width: 12px
+    height: 12px
+    background-position: -172px -447px
+    position: relative
+    top: 1px
+    margin-right: 4px
+
+
+.btn-inv-blue
+	background: #fff
+	color: #0288d1
+	border: 1px solid #0288d1
+	padding: 12px
+	overflow: hidden
+	text-overflow: ellipsis
+	font-weight: 600
+	font-size: 14px
+	
+.bw-model-tabs-data
+	.btn-inv-blue
+		width: 100%
+
+	
+@import ../../partials/model-card
+@import ../../partials/comparision-swiper
+@import ../../partials/overall-floating-tabs
+@import ../../partials/_news-section
+@import ../../partials/video-card-container
+@import ../../partials/model-series-list
+@import ../../partials/find-right-model
+
+//model-card
+@include model-card()
+@include model-card__btn-block()
+@include model-card__image()
+@include summary-specs-list()
+@include featured-card()
+@include model-card__sub-title()
+//comparision-swiper
+@include comparison-swiper()
+@include compare-img()
+
+//latest update tabs
+#modelLatestUpdatesTopContent
+	height: 44px
+
+//news-section
+@include news-section__img()
+@include news-section__desc()
+
+.thumbsup-icon
+	display: inline-block
+	vertical-align: top
+	height: 14px
+	width: 14px
+
+.bw-model-tabs-data
+	padding: 15px
+
+//used model swiper
+
+.used-model-swiper.card-container
+	.swiper-slide
+		width: 310px
+		min-height: 290px
+		margin-left: 0
+		
+		&:nth-of-type(1)
+			margin-left: 10px
+
+		&:last-child
+			.model-card
+				margin-right: 10px			
+
+	.model-card
+		margin-right: 0
+		margin-left: 0
+
+	.model-card__image
+		padding: 0
+		
+//upcoming swiper
+.upcoming-model-swiper.card-container
+	.swiper-slide
+		width: 320px
+		min-height: 290px
+		
+		&:first-child
+			margin-left: 15px
+			
+		&:last-child
+			margin-right: 15px
+
+		.model-card
+			margin-left: 0
+			margin-right: 0
+		
+	.model-card__image
+		padding: 0
+		
+//model series list		
+@include model-series-list__img()
+
+
+//find right model
+
+
+		
+@include model-specs-tabs()
+@include rightbike-caraousel__label()
+@include rightbike-carousel__tags()
+@include rightbike-carousel__image()
+@include rightbike-carousel__model-card()
+		
+.swiper-left-arrow
+	display: inline-block
+	width: 17px
+	height: 9px
+	margin-right: 10px
+	
+.specs-btn
+	border-radius: 15px
+	text-decoration: none
+	text-align: center
+	padding: 7px 10px
+	border: 1px solid #aaa
+	background-color: white
+
+.find-specs-tabs-wrapper
+	.specs-btn
+		display: inline-block
+		margin: 0 5px 10px
+		color: #aaa
+		font-size: 11px
+
+		&:hover
+			border-color: #ff7c6f
+			color: #ff7c6f
+			
+.fixed-tab-nav.overall-specs-tabs-container
+	position: fixed
+	top: 0
+	right: 0
+.news-section__title-block
+	margin-left: 5px
+	width: 60%
+
+	.swiper-card__label
+		text-align: left
+			
+@media only screen and (max-width: 320px)
+	.upcoming-model-swiper.card-container
+		.swiper-slide
+			width: 280px
+			
+	.used-model-swiper
+		&.card-container
+			.swiper-slide
+				width: 280px
+				min-height: 200px		
+	.model-card	
+		width: 280px
+			
+	.comparison-swiper
+		.swiper-slide,
+		.swiper-card
+			width: 290px
+			
+	.news-section__img
+		height: 66px
+		width: 118px
+		
+	.model-card__image
+		height: 140px
+		
+		img
+			height: 140px
+			
+	.news-section__desc
+		.read-more
+			padding-left: 30px
+
+	.news-section__title-block
+		width: 56%
+
+@media only screen and (min-width: 400px)
+	.news-section__title-block
+		width: 64%
+
+@media only screen and (min-width: 700px)
+	.news-section__title-block
+		width: 82%

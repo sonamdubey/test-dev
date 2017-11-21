@@ -5,7 +5,6 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
@@ -111,7 +110,7 @@ namespace Bikewale.Models.UserReviews
                 objPage.RatingQuestions = new Collection<UserReviewQuestion>();
                 objPage.ReviewQuestions = new Collection<UserReviewQuestion>();
 
-                if (objPage.UserReviewDetailsObj != null)
+                if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Questions != null)
                 {
                     foreach (UserReviewQuestion ques in objPage.UserReviewDetailsObj.Questions)
                     {
@@ -178,6 +177,8 @@ namespace Bikewale.Models.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by Sajal Gupt on 10-11-2017       
+        /// desccription : Changed breadcrumbs
         /// </summary>
         private void SetBreadcrumList(UserReviewDetailsVM objPage)
         {
@@ -192,7 +193,7 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
-
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}reviews/", bikeUrl), "Reviews"));
 
             if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null)
             {
@@ -201,9 +202,9 @@ namespace Bikewale.Models.UserReviews
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objPage.UserReviewDetailsObj.Make.MakeName)));
             }
 
-            if (objPage.GenericBikeWidgetData != null && objPage.GenericBikeWidgetData.BikeInfo!=null && objPage.GenericBikeWidgetData.BikeInfo.BodyStyleId.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(objPage.UserReviewDetailsObj.Make.IsScooterOnly))
+            if (objPage.GenericBikeWidgetData != null && objPage.GenericBikeWidgetData.BikeInfo != null && objPage.GenericBikeWidgetData.BikeInfo.BodyStyleId.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(objPage.UserReviewDetailsObj.Make.IsScooterOnly))
             {
-                if(IsMobile)
+                if (IsMobile)
                 {
                     scooterUrl += "m/";
                 }
@@ -212,24 +213,21 @@ namespace Bikewale.Models.UserReviews
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.UserReviewDetailsObj.Make.MakeName)));
             }
 
-            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
+            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null && objPage.UserReviewDetailsObj.Make != null)
             {
                 bikeUrl = string.Format("{0}{1}/", bikeUrl, objPage.UserReviewDetailsObj.Model.MaskingName);
-
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, objPage.UserReviewDetailsObj.Model.ModelName));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName)));
             }
 
-            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
+            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
             {
-                bikeUrl += "user-reviews/";
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "User Reviews"));
+                bikeUrl += "reviews/";
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, objPage.UserReviewDetailsObj.Model.ModelName + " Reviews"));
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPage.Page_H1));
 
-
             objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
-
         }
 
         /// <summary>
@@ -250,9 +248,9 @@ namespace Bikewale.Models.UserReviews
         public void BindUserReviewSWidget(UserReviewDetailsVM objPage)
         {
             try
-            {               
+            {
                 // Set default category to be loaded here
-                FilterBy activeReviewCateory = FilterBy.MostHelpful;
+                FilterBy activeReviewCateory = FilterBy.MostRecent;
 
                 ReviewDataCombinedFilter objFilter = new ReviewDataCombinedFilter()
                 {
@@ -273,7 +271,7 @@ namespace Bikewale.Models.UserReviews
                         SanitizedReviewLength = (uint)(IsMobile ? 150 : 270),
                         BasicDetails = true
                     }
-                };                
+                };
 
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, objFilter, _userReviewsCache, _userReviewsSearch);
                 objUserReviews.IsDesktop = !IsMobile;
@@ -295,17 +293,13 @@ namespace Bikewale.Models.UserReviews
                         objPage.UserReviews.ReviewsInfo.MostRecentReviews = objPage.UserReviews.ReviewsInfo.MostRecentReviews - 1;
                         objPage.UserReviews.ReviewsInfo.MostHelpfulReviews = objPage.UserReviews.ReviewsInfo.MostHelpfulReviews - 1;
 
-                        if (objPage.UserReviewDetailsObj.OverallRating.Value == 3)
+                        if (objPage.UserReviewDetailsObj.OverallRating.Value <= 3)
                         {
-                            objPage.UserReviews.ReviewsInfo.NeutralReviews = objPage.UserReviews.ReviewsInfo.NeutralReviews - 1;
-                        }
-                        else if (objPage.UserReviewDetailsObj.OverallRating.Value > 3)
-                        {
-                            objPage.UserReviews.ReviewsInfo.PostiveReviews = objPage.UserReviews.ReviewsInfo.PostiveReviews - 1;
+                            objPage.UserReviews.ReviewsInfo.NegativeReviews = objPage.UserReviews.ReviewsInfo.NegativeReviews - 1;
                         }
                         else
                         {
-                            objPage.UserReviews.ReviewsInfo.NegativeReviews = objPage.UserReviews.ReviewsInfo.NegativeReviews - 1;
+                            objPage.UserReviews.ReviewsInfo.PostiveReviews = objPage.UserReviews.ReviewsInfo.PostiveReviews - 1;
                         }
                     }
                 }

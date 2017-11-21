@@ -29,17 +29,16 @@ namespace BikewaleOpr.Service.Controllers.Content
         public IHttpActionResult Add(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
         {
             BikeSeriesDTO objBikeSeriesDTO = null;
-            BikeSeriesEntity objBikeSeries = null;
-            objBikeSeries = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
-            if(objBikeSeries != null)
+
+            Tuple<bool, string, BikeSeriesEntity> balResp = null;
+
+            balResp = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
+            if (balResp != null)
             {
                 try
                 {
-                    if (objBikeSeries.SeriesId == 0)
-                    {
-                        return BadRequest("Bike series already exist");
-                    }
-                    objBikeSeriesDTO = BikeSeriesMapper.Convert(objBikeSeries);
+                    objBikeSeriesDTO = BikeSeriesMapper.Convert(balResp.Item3);
+                    objBikeSeriesDTO.Message = balResp.Item2;
                 }
                 catch (Exception ex)
                 {
@@ -62,19 +61,22 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="seriesMaskingName"></param>
         /// <returns></returns>
         [HttpPost, Route("api/series/{seriesId}/edit/")]
-        public IHttpActionResult Edit(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
+        public IHttpActionResult Edit(uint makeId, uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
         {
-            bool IsEdited = false;
+            Tuple<bool, string> balResp = null;
             try
             {
-                IsEdited = _series.EditSeries(seriesId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
-                if (IsEdited)
+                balResp = _series.EditSeries(makeId, seriesId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
+                if (balResp != null)
                 {
-                    return Ok(IsEdited);
+                    if (balResp.Item1)
+                        return Ok(balResp.Item2);
+                    else
+                        return BadRequest(balResp.Item2);
                 }
                 else
                 {
-                    return InternalServerError();
+                    return BadRequest("Input data is not correct");
                 }
             }
             catch (Exception ex)
@@ -108,7 +110,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                     else
                     {
                         return InternalServerError();
-                    } 
+                    }
                 }
                 else
                 {
