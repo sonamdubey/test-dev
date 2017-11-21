@@ -2968,24 +2968,27 @@
     <Content Include="m\sass\modules\_key-specs.sass" />
     <Content Include="m\sass\modules\_button.sass" />
     <Content Include="m\sass\new-launch\_media-query.sass" />
-    <Content Include="pwa\app.bundle.297b239de7cd2d419342.js" />
+    <Content Include="pwa\app.bundle.90178500ed9a0ece920b.js" />
     <Content Include="pwa\app.bundle.js" />
     <Content Include="pwa\appshell.html" />
-    <Content Include="pwa\css\app.297b239de7cd2d419342.css" />
-    <Content Include="pwa\css\news\newsBundle.297b239de7cd2d419342.css" />
-    <Content Include="pwa\css\videos\videosBundle.297b239de7cd2d419342.css" />
-    <Content Include="pwa\manifest.bundle.297b239de7cd2d419342.js" />
+    <Content Include="pwa\css\app.90178500ed9a0ece920b.css" />
+    <Content Include="pwa\css\app.css" />
+    <Content Include="pwa\css\news\newsBundle.90178500ed9a0ece920b.css" />
+    <Content Include="pwa\css\news\newsBundle.css" />
+    <Content Include="pwa\css\videos\videosBundle.90178500ed9a0ece920b.css" />
+    <Content Include="pwa\css\videos\videosBundle.css" />
+    <Content Include="pwa\manifest.bundle.90178500ed9a0ece920b.js" />
     <Content Include="pwa\manifest.bundle.js" />
-    <Content Include="pwa\newsBundle.bundle.297b239de7cd2d419342.js" />
+    <Content Include="pwa\newsBundle.bundle.90178500ed9a0ece920b.js" />
     <Content Include="pwa\NewsBundle.bundle.js" />
     <Content Include="pwa\app.bundle.js" />
     <Content Include="pwa\app.css" />
-    <Content Include="pwa\peripheralComponents.bundle.297b239de7cd2d419342.js" />
+    <Content Include="pwa\peripheralComponents.bundle.90178500ed9a0ece920b.js" />
     <Content Include="pwa\peripheralComponents.bundle.js" />
     <Content Include="pwa\sw-toolbox.js" />
-    <Content Include="pwa\vendor.bundle.297b239de7cd2d419342.js" />
+    <Content Include="pwa\vendor.bundle.90178500ed9a0ece920b.js" />
     <Content Include="pwa\vendor.bundle.js" />
-    <Content Include="pwa\videosBundle.bundle.297b239de7cd2d419342.js" />
+    <Content Include="pwa\videosBundle.bundle.90178500ed9a0ece920b.js" />
     <Content Include="pwa\VideosBundle.bundle.js" />
     <Content Include="pwa\sw-toolbox.js" />
     <Content Include="sass\new-launch\new-launch.sass" />
@@ -3077,9 +3080,6 @@
     <Content Include="sass\review\landing.sass" />
     <Content Include="sass\review\make.sass" />
     <Content Include="sass\m\review\make.sass" />
-    <Content Include="pwa\css\news\newsBundle.297b239de7cd2d419342.css.gz" />
-    <Content Include="pwa\css\videos\videosBundle.297b239de7cd2d419342.css.gz" />
-    <Content Include="pwa\app.bundle.297b239de7cd2d419342.js.gz" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3862,7 +3862,6 @@
     <Content Include="Views\Videos\Details_Mobile_Pwa.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
-    <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />
     <Content Include="Views\Shared\_ServiceWorkerScript.cshtml" />
     <Content Include="Views\Shared\_CssChunksScript.cshtml" />
     <None Include="Web.Debug.config">
@@ -4116,7 +4115,7 @@
   </Target>
   <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />
-    <Exec Command=".\..\node_modules\.bin\gulp" WorkingDirectory="$(ProjectDir)" />
+    <Exec Command=".\..\node_modules\.bin\gulp --env $(Configuration)" WorkingDirectory="$(ProjectDir)" />
   </Target>
   <!--<Target Name="AfterBuild">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(DestFolder)%(RelativeDir)%(Filename)%(Extension)')" />

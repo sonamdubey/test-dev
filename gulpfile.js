@@ -24,7 +24,12 @@ var pattern = {
 	CSS_ATF: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)atf-css(?:[^>]*)\/{0,1}>/ig,
 	INLINE_CSS: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)inline(?:[^>]*)\/{0,1}>/ig
 };
+console.log('here')
+console.log(process.argv[0]);
+		console.log(process.argv[1]);
+		console.log(process.argv[2]);
 
+var Configuration = 'Debug';
 var webpackAssetsJson = require('./webpack-assets.json');
 if(!webpackAssetsJson) {
 	console.log('Webpack assets json not found');
@@ -244,6 +249,21 @@ gulp.task('replace-css-chunk-json',function() {
 		.pipe(gulp.dest(buildFolder));
 })
 
+function getCdnPath() {
+	switch(Configuration) {
+		case "Debug":
+			return '/';
+		case "Staging":
+			return 'https://stb.aeplcdn.com/staging/bikewale/';
+		case "Release":
+			return 'https://stb.aeplcdn.com/bikewale/';
+		default : 
+			console.log('Wrong environment');
+			return '';
+	}
+}
+
+
 gulp.task('swResourceProcesing', function() {
 	return gulp.src([
 		app + 'pwa/appshell.html',
@@ -268,14 +288,18 @@ gulp.task('swResourceProcesing', function() {
 
 gulp.task("replaceSWResouceHashInSW" , function() {
 	var revManifest = require('./'+buildFolder+'rev-manifest.json');
+	var cdnUrlPattern = /var(\s)*baseUrl(\s|\n)*=(\s|\n)*(?:"|')([^,"']*)(?:"|')(\s|\n)*;/
 	return gulp.src([app + 'm/sw.js',
     				app + 'm/news/sw.js'] , { base: app })
-        .pipe(replace(/pwa\/(sw-toolbox|appshell)(-([a-z]|[A-Z]|[0-9])*)?\.(js|html)/g , function(match, p1, offset, string){ 
+        .pipe(replace(/pwa\/(sw-toolbox|appshell)(-(\w)*)?\.(js|html)/g , function(match, p1, offset, string){ 
         	if(match.indexOf("appshell")!==-1)
         		return revManifest["pwa/appshell.html"]
         	else if(match.indexOf("sw-toolbox")!==-1)
         		return revManifest['pwa/sw-toolbox.js'];
         }))
+        .pipe(replace(cdnUrlPattern,function(match, p1, offset, string){
+			return 'var baseUrl = \''+getCdnPath()+'\';';
+		}))
         .pipe(gulp.dest(app));
 });
 
@@ -291,19 +315,24 @@ gulp.task('sass:watch', function () {
 	gulp.watch(app + 'sass/**/*.sass', ['sass']);
 });
 
-gulp.task('default',
-	gulpSequence(
-		'clean',
-		'sass',
-		'minify-css', 'minify-js', 'minify-sass-css',
-		'bw-framework-js',
-		'replace-css-reference',
-		'replace-css-link-reference',
-		// 'replace-mvc-layout-css-reference'//,
-		'replace-css-chunk-json',
-		'replace-js-css-reference',
-		'swResourceProcesing',
-		'replaceSWResouceHashInSW'
-	)
+gulp.task('default', //function() {
+		// console.log(process.argv[0]);
+		// console.log(process.argv[1]);
+		// console.log(process.argv[2]);
+		//configuration = process.argv[4] || configuration;
+		gulpSequence(
+			'clean',
+			'sass',
+			'minify-css', 'minify-js', 'minify-sass-css',
+			'bw-framework-js',
+			'replace-css-reference',
+			'replace-css-link-reference',
+			// 'replace-mvc-layout-css-reference'//,
+			'replace-css-chunk-json',
+			'replace-js-css-reference',
+			'swResourceProcesing',
+			'replaceSWResouceHashInSW'
+		)//;
+//	}
 );
 //end
