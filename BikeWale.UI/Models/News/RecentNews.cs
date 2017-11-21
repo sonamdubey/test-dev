@@ -1,9 +1,9 @@
-﻿using Bikewale.Entities.CMS;
+﻿using System;
+using System.Linq;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Notifications;
-using System;
-using System.Linq;
 
 namespace Bikewale.Models
 {
@@ -103,8 +103,8 @@ namespace Bikewale.Models
                         string bodyStyleId = ((int)EnumBikeBodyStyles.Scooter).ToString();
                         recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, bodyStyleId, _makeId, _modelId);
                     }
-                    //else
-                    //    recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelId);
+                    else
+                        recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelId);
 
                 }
 
