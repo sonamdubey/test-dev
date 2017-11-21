@@ -56,7 +56,6 @@ namespace Bikewale.Cache.BikeData
 		public BikeSeriesModels GetModelsListBySeriesId(uint seriesId, uint cityId = 0)
         {
             BikeSeriesModels objModels = null;
-            string key = string.Format("BW_ModelsBySeriesId_{0}", seriesId);
             try
             {
 				objModels = new BikeSeriesModels();
