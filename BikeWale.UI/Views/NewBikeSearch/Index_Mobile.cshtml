@@ -187,7 +187,12 @@
                     <div id="divMoreSearchResult" data-bind="template: { name: 'loadMoreListing', foreach: searchResult }" class="search-bike-container">
                     </div>
                     <div class="clear"></div>
-                    <div class="load-more-btn-container" style="display: @(String.IsNullOrEmpty(Model.BikeSearch.PageUrl.NextPageUrl) ? "none" : "")" data-bind="visible: IsMoreBikesAvailable()">
+                    <div style="text-align: center;">
+                        <div id="loading" style="display:none;" data-bind="visible : IsLoading()">
+                            <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                        </div>
+                    </div>
+                    <div class="load-more-btn-container" style="display: @(String.IsNullOrEmpty(Model.BikeSearch.PageUrl.NextPageUrl) ? "none" : "")" data-bind="visible: IsMoreBikesAvailable() && !IsLoading()">
                         <a id="loadMoreBikes" title="Load More Bikes" href="javascript:void(0)" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" rel="nofollow" class="btn btn-teal" data-bind="attr: {'data-url' : LoadMoreTarget()}">
                             <span data-bind="visible: (!IsLoadMore() && IsMoreBikesAvailable())">
                                 Load More
@@ -417,7 +422,7 @@
 		<section>
 			<!--  News, reviews and videos code starts here -->
 			<div class="container margin-bottom20">
-				<h2 class="font18 text-center margin-top20 margin-bottom10">Latest updates</h2>
+				<h2 class="font18 text-center margin-top20 margin-bottom10">Latest bike and scooter updates</h2>
 				<div class="grid-12 alpha omega">
 					<div class="content-box-shadow">
 						<div class="bw-tabs-panel article-control padding-bottom20">
@@ -464,7 +469,7 @@
 				</div>
 				<div class="clear"></div>
 			</div>
-
+            <div class="back-to-top" id="back-to-top"></div>
 		</section>
 	}
     @Html.Hidden("min-max-budget", Model.MinMaxBudget);

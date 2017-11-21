@@ -395,13 +395,13 @@
                             </ul>
                         </div>
                         <div class="clear"></div>
-                        <div class="spinner-content" style="display: none" data-bind="visible : IsLoading()">
-                            <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
-                                <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
-                            </svg>
+                        <div style="text-align: center;">
+                            <div id="loading" style="display:none;" data-bind="visible : IsLoading()">
+                                <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                            </div>
                         </div>
                         <div class="clear"></div>
-                        <div class="load-more-btn-container" style="display: @(String.IsNullOrEmpty(Model.BikeSearch.PageUrl.NextPageUrl) ? "none" : "")" data-bind="visible: IsMoreBikesAvailable()">
+                        <div class="load-more-btn-container" style="display: @(String.IsNullOrEmpty(Model.BikeSearch.PageUrl.NextPageUrl) ? "none" : "")" data-bind="visible: IsMoreBikesAvailable() && !IsLoading()">
                             <a id="loadMoreBikes" title="Load More Bikes" href="javascript:void(0)" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" rel="nofollow" class="btn btn-teal" data-bind="attr: {'data-url' : LoadMoreTarget()}">
 								<span data-bind="visible: (!IsLoadMore() && IsMoreBikesAvailable())">
 									Load More
@@ -466,7 +466,7 @@
         {
             <div class="container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest updates from the bike industry</h2>
+                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest bike and scooter updates</h2>
                     <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
                         <div class="@string.Format("text-center {0}", Model.TabCount > 2 ? string.Empty : Model.TabCount > 1 ? "margin-top30 margin-bottom30" : "margin-top10")">
                             <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">

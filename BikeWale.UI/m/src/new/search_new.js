@@ -429,6 +429,8 @@ docReady(function () {
                         if (value.length > 1) {
                             value = value.substring(0, value.length - 1);
                             self.Filters()[name] = value;
+                        } else {
+                            delete self.Filters()[name];
                         }
                     }
                 });
@@ -452,6 +454,8 @@ docReady(function () {
                 if (value.length > 1) {
                     value = value.substring(0, value.length - 1);
                     self.Filters()[name] = value;
+                } else {
+                    delete self.Filters()[name];
                 }
             } catch (e) {
                 console.warn(e.message);
@@ -469,7 +473,7 @@ docReady(function () {
             } catch (e) {
                 console.warn(e.message);
             }
-        }
+        };
 
         self.applySliderFilter = function (element, name) {
             try {

@@ -299,7 +299,7 @@ docReady(function () {
                                 self.IsMoreBikesAvailable(false);
                             }
                             if (filterName) {
-                                self.pushGTACode(response.TotalBikes, filterName);
+                                self.pushGTACode(self.TotalBikes(), filterName);
                             }
                         })
                         .fail(function () {
