@@ -9,13 +9,13 @@
                 <div class="article-item-content">
 
                     <div class="article-image-wrapper">
-                        <a href="@string.Format("/{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title">
-                            <img class="lazy" title="@news.Title" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._144x81, QualityFactor._70)" alt="@news.Title" src="">
+                        <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))" title="@news.Title">
+                            <img class="lazy" title="@news.Title" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@news.Title" src="">
                         </a>
                     </div>
                     <div class="article-desc-wrapper">
                         <h3 class="font14 margin-bottom10">
-                            <a href="@string.Format("/{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" rel="bookmark" class="article-desc__title">@news.Title</a>
+                            <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))" title="@news.Title" rel="bookmark" class="article-desc__title">@news.Title</a>
                         </h3>
                         <div class="font12 text-light-grey margin-bottom20">
                             <div class="article-date">
@@ -33,7 +33,7 @@
                         </div>
                         <div class="font14">
                             <span class="text-slate-grey">
-                                @FormatDescription.TruncateDescription(@news.Description, 180)
+                                @FormatDescription.TruncateDescription(@news.Description, 350)
                             </span>
                             <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))">…Read more</a>
                         </div>

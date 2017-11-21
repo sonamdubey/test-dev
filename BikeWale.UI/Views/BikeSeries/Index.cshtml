@@ -29,7 +29,7 @@
                     <div class="grid-12">
                         <p class="font14 text-light-grey line-height17">
                             <span class="preview-main-content">
-								@FormatDescription.TruncateDescription(Model.SeriesDescription.FullDescription, 430)
+								@FormatDescription.TruncateDescription(Model.SeriesDescription.FullDescription, 550)
                             </span>
                             <span class="preview-more-content hide">
                                 @Model.SeriesDescription.FullDescription
@@ -94,9 +94,12 @@
                 <div id="findRightBikesContent" data-id="#findRightBikesContent" class="bw-model-tabs-data container margin-bottom20 active">
                     <div class="grid-12">
                         <div class="content-box-shadow padding-top20 padding-bottom25">
-                            <div class="carousel-heading-content">
-                                <h2 class="font22">Find The Right Pulsar</h2>
-                            </div>
+							@if (Model.SeriesBase != null)
+							{
+								<div class="carousel-heading-content">
+									<h2 class="font22">Find The Right @Model.SeriesBase.SeriesName</h2>
+								</div>
+							}
                             <p class="padding-left20 font16 font-bold padding-right20">What’s are you looking for?</p>
                             <div class="find-right-bike margin-top15">
                                 @Html.Partial("~/Views/BikeSeries/_BikeSeriesCompareBikesWithSpecs.cshtml", Model.ObjModel)
@@ -210,7 +213,7 @@
                                             <li class="model-list__card">
                                                 <a href="@string.Format("/{0}-bikes/{1}/", Model.BikeMake.MakeMaskingName, series.MaskingName)" title="@string.Format("{0} Series", series.SeriesName)">
                                                     <div class="model-series-list__img">
-                                                        <img class="lazy" data-original="@Image.GetPathToShowImages(series.OriginalImagePath, series.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} Series", series.SeriesName)" src="" border="0" style="display: inline;">
+                                                        <img class="lazy" data-original="@Image.GetPathToShowImages(series.OriginalImagePath, series.HostUrl, ImageSize._144x81, QualityFactor._70)" alt="@string.Format("{0} Series", series.SeriesName)" src="" border="0" style="display: inline;">
                                                     </div>
                                                     <div class="model-list__label-block">
                                                         <p class="model-list__title">@string.Format("{0} Series", series.SeriesName)</p>

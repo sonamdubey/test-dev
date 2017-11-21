@@ -2,9 +2,7 @@
 @using Bikewale.Utility
 @if (Model != null && Model.VideosList != null && Model.VideosList.Any())
 {
-    
-
-        var firstVideo = Model.VideosList.FirstOrDefault();
+        var firstVideo = Model.VideosList.First();
 
         <div class="padding-left20 padding-right20 padding-bottom20 video-section">
 
@@ -70,7 +68,7 @@
         <div class="video-carousel jcarousel-wrapper inner-content-carousel top-divider" data-overlay="none">
             <div class="jcarousel">
                 <ul>
-                    @foreach (var video in Model.VideosList)
+                    @foreach (var video in Model.VideosList.Skip(1))
                     {
                         <li class="video-artical__card">
                             <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="card-target">

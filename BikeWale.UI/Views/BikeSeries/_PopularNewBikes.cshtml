@@ -11,7 +11,7 @@
                 @if (firstModel != null)
                 {
                     <li class="model-card featured-card">
-                        <a href="@string.Format("/m/{0}-bikes/{1}/", firstModel.BikeMake.MakeMaskingName, firstModel.BikeModel.MaskingName)" title="@string.Format("{0} {1}", firstModel.BikeMake.MakeName, firstModel.BikeModel.ModelName)">
+                        <a href="@string.Format("/{0}-bikes/{1}/", firstModel.BikeMake.MakeMaskingName, firstModel.BikeModel.MaskingName)" title="@string.Format("{0} {1}", firstModel.BikeMake.MakeName, firstModel.BikeModel.ModelName)">
                             <div class="model-card__image">
                                 <img class="lazy" data-original="@Image.GetPathToShowImages(firstModel.BikeImage.OriginalImagePath, firstModel.BikeImage.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} {1}", firstModel.BikeMake.MakeName, firstModel.BikeModel.ModelName)" src="" border="0">
                                 <div class="popular-tag">
@@ -74,7 +74,7 @@
                     foreach (var bike in Model.SeriesModels.NewBikes.Skip(1))
                     {
                         <li class="model-card">
-                            <a href="@string.Format("/m/{0}-bikes/{1}/", bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)">
+                            <a href="@string.Format("/{0}-bikes/{1}/", bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)">
                                 <div class="model-card__image">
                                     <img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="" border="0">
                                 </div>

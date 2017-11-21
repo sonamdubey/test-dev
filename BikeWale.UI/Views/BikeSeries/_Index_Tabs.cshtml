@@ -17,11 +17,11 @@
                 {
                     <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUpcomingBikesContent" data-lab="Honda_UpcomingBikes">Upcoming bikes</a>
                 }
-                @if (false)
+                @if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
                 {
                     <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#popularComparison" data-lab="Honda_TopComparisons">Similar bikes</a>
                 }
-                @if (false)
+                @if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Any())
                 {
                     <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#findRightBikesContent" data-lab="Honda_Videos">Right bikes</a>
                 }

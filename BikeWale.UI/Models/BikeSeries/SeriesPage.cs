@@ -159,7 +159,8 @@ namespace Bikewale.Models.BikeSeries
                 };
                 objSeriesPage.ExpertReviews = recentExpertReviews.GetData();
 
-                ushort pageNo = 1, pageSize = 2;
+				ushort pageNo = 1;
+				ushort pageSize = (ushort)(IsMobile ? 2 : 4);
                 RecentVideos recentVideos = new RecentVideos(pageNo, pageSize, modelIdList.ToString(), _videos)
                 {
                     IsScooter = IsScooter
@@ -248,18 +249,18 @@ namespace Bikewale.Models.BikeSeries
                 ushort position = 1;
                 if (IsMobile)
                 {
-                    bikeUrl += "m";
-                    scooterUrl += "m";
+                    bikeUrl += "m/";
+                    scooterUrl += "m/";
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
                 if (objSeriesPage.BikeMake != null)
                 {
-                    bikeUrl = string.Format("{0}/{1}-bikes/", bikeUrl, objSeriesPage.BikeMake.MakeMaskingName);
+                    bikeUrl = string.Format("{0}{1}-bikes/", bikeUrl, objSeriesPage.BikeMake.MakeMaskingName);
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objSeriesPage.BikeMake.MakeName)));
                     if (IsScooter)
                     {
-                        scooterUrl = string.Format("{0}/{1}-scooters/", scooterUrl, objSeriesPage.BikeMake.MakeMaskingName);
+                        scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objSeriesPage.BikeMake.MakeMaskingName);
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objSeriesPage.BikeMake.MakeName)));
                     }
                 }
