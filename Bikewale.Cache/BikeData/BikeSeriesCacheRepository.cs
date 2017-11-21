@@ -115,5 +115,31 @@ namespace Bikewale.Cache.BikeData
 			}
 			return bikeSeriesEntityList;
 		}
-	}
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 20 Nov 2017
+        /// Summary : Function to get the hashtable from cache and return response object for given maskingname
+        /// </summary>
+        /// <param name="maskingName">string value for which model/series details are required.</param>
+        /// <returns>Returns model/series details associated with given masking name.</returns>
+        public SeriesMaskingResponse ProcessMaskingName(string maskingName)
+        {
+            SeriesMaskingResponse objResponse = null;
+
+            try
+            {
+                System.Collections.Hashtable objMaskingtable = _cache.GetFromCache<System.Collections.Hashtable>("BW_ModelSeries_MaskingNames", new TimeSpan(1, 0, 0, 0), () => _bikeSeriesRepository.GetMaskingNames());
+
+                if (objMaskingtable != null && objMaskingtable.Contains(maskingName))
+                {
+                    objResponse = (SeriesMaskingResponse)objMaskingtable[maskingName];
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.BikeData.BikeSeriesCacheRepository.ProcessMaskingName");
+            }
+            return objResponse;
+        }
+    }
 }

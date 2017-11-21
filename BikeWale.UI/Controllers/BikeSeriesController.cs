@@ -5,6 +5,7 @@ using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.BikeSeries;
 using System.Web.Mvc;
+using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Controllers
 {
@@ -34,7 +35,7 @@ namespace Bikewale.Controllers
         /// Description : Action method for desktop.
         /// </summary>
         /// <returns></returns>
-        [Route("model/series/{seriesId}/"), Filters.DeviceDetection]
+        [Route("series/{maskingName}/"), Filters.DeviceDetection]
         public ActionResult Index(uint seriesId)
         {
             SeriesPageVM obj;
@@ -48,15 +49,39 @@ namespace Bikewale.Controllers
         /// Description : Action method for mobile.
         /// </summary>
         /// <returns></returns>
-        [Route("m/model/series/{seriesId}/")]
-        public ActionResult Index_Mobile(uint seriesId)
+        [Route("m/make/{makeMaskingName}/series/{maskingName}/")]
+        public ActionResult Index_Mobile(string makeMaskingName, string maskingName)
         {
-            SeriesPageVM obj;
+            ActionResult objResult = null;
 
-            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos, _compareScooters);
-            seriesPage.IsMobile = true;
-            obj = seriesPage.GetData(seriesId);
-            return View(obj);
+            SeriesMaskingResponse objResponse = _seriesCache.ProcessMaskingName(maskingName);
+
+            if (objResponse != null)
+            {
+                if (!objResponse.IsSeriesPageCreated)
+                {
+                    objResult = RedirectToAction("Index_Mobile", "Model", new { makeMasking = makeMaskingName, modelMasking = maskingName });
+                }
+                else if (objResponse.StatusCode == 301)
+                {
+                    string url = string.Format("/{0}-bikes/{1}/", makeMaskingName, objResponse.NewMaskingName);
+                    objResult = RedirectPermanent(url);
+                }
+                else
+                {
+                    SeriesPageVM obj;
+
+                    SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos, _compareScooters);
+                    seriesPage.IsMobile = true;
+                    obj = seriesPage.GetData(objResponse.Id);
+                    objResult = View(obj);
+                }
+            }
+            else {
+                objResult = Redirect("/m/pagenotfound.aspx");
+            }
+
+            return objResult;
         }
     }
 

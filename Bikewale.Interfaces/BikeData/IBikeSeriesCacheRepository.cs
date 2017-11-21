@@ -16,5 +16,13 @@ namespace Bikewale.Interfaces.BikeData
 		IEnumerable<UpcomingBikeEntityBase> GetUpcomingModels(uint seriesId);
 		BikeDescriptionEntity GetSynopsis(uint seriesId);
 		IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId);
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 20 Nov 2017
+        /// Summary : Function to get the series and model masking details using maskingName
+        /// </summary>
+        /// <param name="maskingName"></param>
+        /// <returns></returns>
+        SeriesMaskingResponse ProcessMaskingName(string maskingName);
 	}
 }
