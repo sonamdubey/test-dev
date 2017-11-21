@@ -4,9 +4,11 @@ using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using Dapper;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 
 namespace BikewaleOpr.DALs.Bikedata
@@ -15,7 +17,7 @@ namespace BikewaleOpr.DALs.Bikedata
     /// Created by: Vivek Singh Tomar on 11th Sep 2017
     /// Summary: DAL for bike series
     /// </summary>
-    public class BikeSeriesRepository: IBikeSeriesRepository
+    public class BikeSeriesRepository : IBikeSeriesRepository
     {
 
         public IEnumerable<BikeSeriesEntity> GetSeries()
@@ -35,7 +37,7 @@ namespace BikewaleOpr.DALs.Bikedata
                                             return bikeseries;
                                         }, splitOn: "MakeId", commandType: CommandType.StoredProcedure
                                     );
-                    if(connection.State == ConnectionState.Open)
+                    if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -58,8 +60,8 @@ namespace BikewaleOpr.DALs.Bikedata
         public void AddSeries(BikeSeriesEntity bikeSeries, uint updatedBy)
         {
             try
-            { 
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_name", bikeSeries.SeriesName);
@@ -73,7 +75,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     connection.Open();
                     connection.Execute("addbikeseries", param: param, commandType: CommandType.StoredProcedure);
                     bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
-                    if(bikeSeries.SeriesId != 0)
+                    if (bikeSeries.SeriesId != 0)
                     {
                         bikeSeries.UpdatedBy = param.Get<string>("par_updatedby");
                         bikeSeries.CreatedOn = param.Get<DateTime>("par_createdon");
@@ -102,13 +104,13 @@ namespace BikewaleOpr.DALs.Bikedata
             IEnumerable<BikeSeriesEntityBase> objBikeSeriesList = null;
             try
             {
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_makeid", makeId);
                     connection.Open();
                     objBikeSeriesList = connection.Query<BikeSeriesEntityBase>("getseriesbymake", param: param, commandType: CommandType.StoredProcedure);
-                    if(connection.State == ConnectionState.Open)
+                    if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -312,6 +314,37 @@ namespace BikewaleOpr.DALs.Bikedata
             }
 
             return rowsAffected > 0;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 21 Nov 2017
+        /// Description :   Check if masking name exists in series table
+        /// </summary>
+        /// <param name="seriesMaskingName"></param>
+        /// <returns></returns>
+        public bool IsSeriesMaskingNameExists(uint makeId, string seriesMaskingName)
+        {
+            bool isExists = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "isseriesmaskingnameexists";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, seriesMaskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.String, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismaskingexist", DbType.Int16, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isExists = Bikewale.Utility.SqlReaderConvertor.ToBoolean(cmd.Parameters["par_ismaskingexist"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.IsSeriesMaskingNameExists({0})", seriesMaskingName));
+            }
+            return isExists;
         }
     }
 }

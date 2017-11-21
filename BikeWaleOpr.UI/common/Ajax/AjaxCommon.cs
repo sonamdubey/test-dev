@@ -4,10 +4,10 @@ using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
-using BikewaleOpr.DALs.ManufactureCampaign;
+using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.Entities.ContractCampaign;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ContractCampaign;
-using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikeWaleOpr.Classified;
 using Enyim.Caching;
 using Microsoft.Practices.Unity;
@@ -27,13 +27,24 @@ namespace BikeWaleOpr.Common
     public class AjaxCommon
     {
         protected static MemcachedClient _mc = null;
-        bool _isMemcachedUsed = false;
+        protected bool _isMemcachedUsed = false;
+
+        private readonly IBikeSeries _series = null;
+
         public AjaxCommon()
         {
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
             if (_mc == null && _isMemcachedUsed)
             {
                 _mc = new MemcachedClient("memcached");
+            }
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
+                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>();
+                _series = container.Resolve<IBikeSeries>();
             }
         }
         /// <summary>
@@ -200,30 +211,41 @@ namespace BikeWaleOpr.Common
         /// <returns>nothing</returns>
 
         [AjaxPro.AjaxMethod()]
-        public bool UpdateModelMaskingName(string maskingName, string updatedBy, string modelId,string oldMaskingName,string makeMasking,string makeName, string modelName)
+        public Tuple<bool, string> UpdateModelMaskingName(string maskingName, string updatedBy, string modelId, string oldMaskingName, string makeMasking, string makeName, string modelName, uint makeId)
         {
-            bool isSuccess = false;
+            Tuple<bool, string> response = new Tuple<bool, string>(false, "Something went wrong. Please try again.");
             try
             {
                 MakeModelVersion mmv = new MakeModelVersion();
-                isSuccess = mmv.UpdateModelMaskingName(maskingName, updatedBy, modelId);
-                if (isSuccess)
+                if (!_series.IsSeriesMaskingNameExists(makeId, maskingName))
                 {
-                    IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
-                    string oldUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, oldMaskingName);
-                    string newUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl,makeMasking, maskingName);
-                    foreach (var mailId in emails)
+                    bool isSuccess = mmv.UpdateModelMaskingName(maskingName, updatedBy, modelId);
+                    if (isSuccess)
                     {
-                        SendEmailOnModelChange.SendModelMaskingNameChangeMail(mailId, makeName, modelName,oldUrl,newUrl);
+                        response = new Tuple<bool, string>(true, "Masking Name Updated Successfully.");
+                        IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
+                        string oldUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, oldMaskingName);
+                        string newUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, maskingName);
+                        foreach (var mailId in emails)
+                        {
+                            SendEmailOnModelChange.SendModelMaskingNameChangeMail(mailId, makeName, modelName, oldUrl, newUrl);
+                        }
                     }
+                    else
+                    {
+                        response = new Tuple<bool, string>(false, "Masking Name Should be Unique.");
+                    }
+                }
+                else
+                {
+                    response = new Tuple<bool, string>(false, "Given Model Masking Name already exists as Series Masking Name. Please change series masking name first then try again.");
                 }
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, String.Format("UpdateModelMaskingName({0},{1},{2})", maskingName, updatedBy, oldMaskingName));
             }
-            return isSuccess;
+            return response;
         }   // End of UpdateModelMaskingName
 
         /// <summary>
