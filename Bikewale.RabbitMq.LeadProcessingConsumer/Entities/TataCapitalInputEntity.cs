@@ -6,6 +6,14 @@
     /// </summary>
     public class TataCapitalInputEntity
     {
+        public TataCapitalInputEntity()
+        {
+            fname = string.Empty;
+            lname = string.Empty;
+            resEmailId = string.Empty;
+            resMobNo = string.Empty;
+            resCity = string.Empty;
+        }
         public string source { get { return "Bikewale"; } }
         public string password { get { return "Bikewale@123"; } }
         public string fname { get; set; }

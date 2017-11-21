@@ -6,15 +6,15 @@ using Bikewale.DTO.Series;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
 
-namespace Bikewale.Service.AutoMappers.NewBikeSearch
+namespace Bikewale.BAL.BikeSearch
 {
     public class SearchOutputMapper
     {
         internal static SearchOutput Convert(SearchOutputEntity objSuggestion)
         {
             Mapper.CreateMap<SearchOutputEntity, SearchOutput>();
-            Mapper.CreateMap<PagingUrl, Pager>();
-            Mapper.CreateMap <SearchOutputEntityBase, SearchOutputBase>();
+            Mapper.CreateMap<PagingUrl, Bikewale.DTO.NewBikeSearch.Pager>();
+            Mapper.CreateMap<SearchOutputEntityBase, SearchOutputBase>();
             Mapper.CreateMap<BikeModelEntity, ModelDetail>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();

@@ -21,8 +21,9 @@ namespace Bikewale.Models
         private readonly string _makeName;
         private readonly string _makeMasking;
         private readonly uint _modelId;
+        private readonly string _modelIdList;
         private readonly string _modelName;
-        private readonly string _modelMasking, _modelIdList;
+        private readonly string _modelMasking;
         public bool IsScooter { get; set; }
         public bool IsViewAllLink { get; set; }
 
@@ -47,8 +48,15 @@ namespace Bikewale.Models
         {
             _totalRecords = totalRecords;
             _makeId = makeId;
-            _modelId = modelId;           
-            _articles = articles;          
+            _modelId = modelId;
+            _articles = articles;
+        }
+
+        public RecentExpertReviews(uint totalRecords, string modelIdList, ICMSCacheContent articles)
+        {
+            _totalRecords = totalRecords;
+            _modelIdList = modelIdList;
+            _articles = articles;
         }
 
         public RecentExpertReviews(uint totalRecords, uint makeId, uint modelId, string makeName, string makeMasking, string modelName, string modelMasking, ICMSCacheContent articles, string title)
@@ -72,7 +80,7 @@ namespace Bikewale.Models
 			_articles = articles;
 		}
         #endregion
-        
+
         #region Functions to get data
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017
@@ -98,9 +106,14 @@ namespace Bikewale.Models
 					string bodyStyleId = "5";
 					recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, bodyStyleId, _makeId, _modelId);
 				}
+                else if (_modelIdList.Length > 0)
+                {
+                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelIdList);
+                }
 				else
-					recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelId);
-
+                {
+                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelId);
+                }
 
 				if (recentReviews.ArticlesList != null)
                 {
@@ -125,7 +138,7 @@ namespace Bikewale.Models
                 {
                     recentReviews.MoreExpertReviewUrl = UrlFormatter.FormatExpertReviewUrl(_makeMasking, _modelMasking);
                 }
-                
+
                 if (!String.IsNullOrEmpty(_modelName) && !String.IsNullOrEmpty(_makeName))
                 {
                     recentReviews.LinkTitle = string.Format("{0} {1} Expert Reviews", _makeName, _modelName);
