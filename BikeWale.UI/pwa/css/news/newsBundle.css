@@ -89,6 +89,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; }
+  .article-stats-content.text-link {
+    color: #0288d1; }
 
 .article-content {
   font-size: 14px;
@@ -102,6 +104,10 @@
 
 .padding-right5 {
   padding-right: 5px; }
+
+.article-content-image-wrapper {
+  min-height: 174px;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif") no-repeat center; }
 
 .calender-grey-sm-icon,
 .author-grey-sm-icon {
