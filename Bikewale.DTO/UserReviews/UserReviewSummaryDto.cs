@@ -86,7 +86,7 @@ namespace Bikewale.DTO.UserReviews
         public string ThanksHeading { get { return "Tell us more about your experience"; } }
 
         [JsonProperty("thanksText"), DataMember]
-        public string ThanksText { get { return "Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. 2,000."; } }
+        public string ThanksText { get { return "Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth &#x20b9;2,000."; } }
 
     }
 }
