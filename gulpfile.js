@@ -24,12 +24,8 @@ var pattern = {
 	CSS_ATF: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)atf-css(?:[^>]*)\/{0,1}>/ig,
 	INLINE_CSS: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)inline(?:[^>]*)\/{0,1}>/ig
 };
-console.log('here')
-console.log(process.argv[0]);
-		console.log(process.argv[1]);
-		console.log(process.argv[2]);
 
-var Configuration = 'Debug';
+var Configuration = process.argv[3] || 'Debug';
 var webpackAssetsJson = require('./webpack-assets.json');
 if(!webpackAssetsJson) {
 	console.log('Webpack assets json not found');
@@ -198,7 +194,7 @@ gulp.task('replace-css-link-reference', function () {
 });
 
 // PWA specific gulp tasks
-var patternJSBundle = /\/pwa\/([a-z]|[A-Z]|[0-9])+.bundle.js/g;
+var patternJSBundle = /\/pwa\/(\w)+.bundle.js/g;
 var replaceJsVersion = function(match, p1, offset, string) { //replace js urls with hashcode
 			if(jsChunksJson[match])
 				return jsChunksJson[match];
@@ -315,24 +311,17 @@ gulp.task('sass:watch', function () {
 	gulp.watch(app + 'sass/**/*.sass', ['sass']);
 });
 
-gulp.task('default', //function() {
-		// console.log(process.argv[0]);
-		// console.log(process.argv[1]);
-		// console.log(process.argv[2]);
-		//configuration = process.argv[4] || configuration;
-		gulpSequence(
+gulp.task('default', gulpSequence(
 			'clean',
 			'sass',
 			'minify-css', 'minify-js', 'minify-sass-css',
 			'bw-framework-js',
 			'replace-css-reference',
 			'replace-css-link-reference',
-			// 'replace-mvc-layout-css-reference'//,
 			'replace-css-chunk-json',
 			'replace-js-css-reference',
 			'swResourceProcesing',
 			'replaceSWResouceHashInSW'
-		)//;
-//	}
+		)
 );
 //end

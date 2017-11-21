@@ -1,7 +1,7 @@
 var version = '6Nov2017v1';
 var baseUrl = '/';
-var APPSHELL = baseUrl + 'pwa/appshell-49da623904.html';
-var SW_TOOLBOX_JS = baseUrl + 'pwa/sw-toolbox-9dfff5d444.js';
+var APPSHELL = baseUrl + 'pwa/appshell.html';
+var SW_TOOLBOX_JS = baseUrl + 'pwa/sw-toolbox.js';
 var IMAGE_EXPIRATION_TIME = 864000;
 var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/;
 var ST_CDN_REGEX_PATTERN = /^https:\/\/stb.aeplcdn.com/;

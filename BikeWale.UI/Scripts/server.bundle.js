@@ -1850,10 +1850,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-/*[{
-    Href : '/m/',
-    Title : 'Home'
-},]*/
 var Breadcrumb = function (_React$Component) {
     _inherits(Breadcrumb, _React$Component);
 
@@ -1872,7 +1868,7 @@ var Breadcrumb = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                     "span",
-                    { "class": "breadcrumb-link__label" },
+                    { className: "breadcrumb-link__label" },
                     item.Title
                 )
             );
@@ -1886,10 +1882,10 @@ var Breadcrumb = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                     "a",
-                    { "class": "breadcrumb-link", href: item.Href, title: item.Title },
+                    { className: "breadcrumb-link", href: item.Href, title: item.Title },
                     _react2.default.createElement(
                         "span",
-                        { "class": "breadcrumb-link__label" },
+                        { className: "breadcrumb-link__label" },
                         item.Title
                     )
                 )
@@ -1905,10 +1901,10 @@ var Breadcrumb = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                     "div",
-                    { "class": "breadcrumb" },
+                    { className: "breadcrumb" },
                     _react2.default.createElement(
                         "span",
-                        { "class": "breadcrumb-title" },
+                        { className: "breadcrumb-title" },
                         "You are here:"
                     ),
                     _react2.default.createElement(
@@ -1922,9 +1918,9 @@ var Breadcrumb = function (_React$Component) {
                             }
                         }.bind(this))
                     ),
-                    _react2.default.createElement("div", { "class": "clear" })
+                    _react2.default.createElement("div", { className: "clear" })
                 ),
-                _react2.default.createElement("div", { "class": "clear" })
+                _react2.default.createElement("div", { className: "clear" })
             );
         }
     }]);
@@ -10718,7 +10714,7 @@ var UserReviewSlug = function (_React$Component) {
 								null,
 								'\u20B9'
 							),
-							'\xA01,000'
+							'\xA02,000'
 						),
 						_react2.default.createElement(
 							'a',
@@ -11423,7 +11419,7 @@ var NavigationDrawer = function (_React$Component) {
                             _react2.default.createElement(
                                 'div',
                                 { className: 'nav-item', onClick: this.toggleNestedNav },
-                                _react2.default.createElement('span', { className: 'bwmsprite newBikes-icon' }),
+                                _react2.default.createElement('span', { className: 'bwmsprite scooter-icon' }),
                                 _react2.default.createElement(
                                     'span',
                                     { onClick: this.pushAnalytics },
@@ -11485,7 +11481,7 @@ var NavigationDrawer = function (_React$Component) {
                             _react2.default.createElement(
                                 'div',
                                 { className: 'nav-item', onClick: this.toggleNestedNav },
-                                _react2.default.createElement('span', { className: 'bwmsprite reviews-icon' }),
+                                _react2.default.createElement('span', { className: 'bwmsprite news-icon' }),
                                 _react2.default.createElement(
                                     'span',
                                     { onClick: this.pushAnalytics.bind() },
@@ -12720,11 +12716,17 @@ var VideoDetailComponent = function (_React$Component) {
 					var initialDataDict = !nextProps.InitialDataDict || nextProps.InitialDataDict.length == 0 ? null : nextProps.InitialDataDict[nextUrlParam.basicId];
 					this.props.fetchVideoDetail(initialDataDict || nextUrlParam.basicId);
 					this.props.fetchModelSlug(nextUrlParam.basicId);
+					if ((0, _commonFunc.isBrowserWithoutScrollSupport)()) {
+						window.scrollTo(0, 0);
+					}
 				} else if (nextProps && nextProps.VideoInfoStatus != _commonVar.Status.IsFetching) {
 					// different basicid loaded but videodetail is null
 					var initialDataDict = !nextProps.InitialDataDict || nextProps.InitialDataDict.length == 0 ? null : nextProps.InitialDataDict[nextUrlParam.basicId];
 					this.props.fetchVideoDetail(initialDataDict || nextUrlParam.basicId);
 					this.props.fetchModelSlug(nextUrlParam.basicId);
+					if ((0, _commonFunc.isBrowserWithoutScrollSupport)()) {
+						window.scrollTo(0, 0);
+					}
 				}
 			} catch (err) {
 				console.log(err);
@@ -12759,6 +12761,9 @@ var VideoDetailComponent = function (_React$Component) {
 			this.logger();
 			this.fetchVideoDetailApi();
 			this.fetchModelSlug(this.props);
+			if ((0, _commonFunc.isBrowserWithoutScrollSupport)()) {
+				window.scrollTo(0, 0);
+			}
 		}
 	}, {
 		key: 'componentWillUnmount',
@@ -12818,7 +12823,7 @@ var VideoDetailComponent = function (_React$Component) {
 				(0, _commonFunc.isServer)() || this.props.VideoInfoStatus === _commonVar.Status.Fetched ? _react2.default.createElement(
 					'div',
 					null,
-					_react2.default.createElement(_Breadcrumb2.default, { breadcrumb: [{ Href: '/m/', Title: 'Home' }, { Href: '/m/bike-videos/', Title: 'Videos' }, { Href: '/m' + video.SectionUrl, Title: video.SectionTitle }, { Href: '', Title: videoTitle }] }),
+					_react2.default.createElement(_Breadcrumb2.default, { breadcrumb: [{ Href: '/m/', Title: 'Home' }, { Href: '/m/bike-videos/', Title: 'Videos' }, { Href: '/m/bike-videos/category' + video.SectionUrl, Title: video.SectionTitle }, { Href: '', Title: videoTitle }] }),
 					_react2.default.createElement(_Footer2.default, null)
 				) : null
 			);
@@ -13262,7 +13267,7 @@ var VideosByCategoryComponent = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			if (!this.props.VideosByCategory) return null;
-			var title = this.props.VideosByCategory.SectionTitle + ' Video';
+			var title = !this.props.VideosByCategory.SectionTitle ? '' : this.props.VideosByCategory.SectionTitle + ' Video';
 			return _react2.default.createElement(
 				'div',
 				null,
