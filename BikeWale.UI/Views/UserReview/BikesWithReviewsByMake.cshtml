@@ -1,0 +1,59 @@
+﻿@model Bikewale.Models.UserReviews.BikesWithReviewsByMakeVM
+@using Bikewale.Utility
+
+@if (Model != null && Model.BikesReviewsList != null)
+{
+    <div class="user-review-container">
+        <ul class="popular-review-list">
+            @foreach (var obj in Model.BikesReviewsList)
+            {
+                if (obj != null && obj.BikeModel != null && obj.MostHelpful != null && obj.MostRecent != null && obj.BikeModel.Make != null && obj.BikeModel.Model != null)
+                {
+                    var bikeName = string.Format("{0} {1}", obj.BikeModel.Make.MakeName, obj.BikeModel.Model.ModelName);
+
+                    <li class="list-item">
+                        <div class="margin-bottom15">
+                            <h3 class="inline-block">@bikeName</h3>
+                            <span class="rate-count-5 rate-count-container rate-star--small">
+                                <span class="star-icon"></span>
+                                <span class="rate-star-count">@obj.BikeModel.OverallRating</span>
+                            </span>
+                            <a href="@UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName)" class="inline-block margin-left5">@string.Format("({0} reviews)", obj.BikeModel.ReviewCount)</a>
+                        </div>
+                        <div>
+                            <a href="@UrlFormatter.BikePageUrl(obj.BikeModel.Make.MaskingName,obj.BikeModel.Model.MaskingName)" class="review-list__image-target">
+                                <img class="lazy" data-original="@Image.GetPathToShowImages(obj.BikeModel.OriginalImagePath,obj.BikeModel.HostUrl, ImageSize._310x174,"75")" src="" alt="@string.Format("{0} Model Image",bikeName)" width="150" height="84">
+                            </a>
+                            <ul class="review-type-list">
+                                <li class="review-type-list__item">
+                                    <p class="review-item__label">Most Popular Review</p>
+                                    <p class="review-item__preview">@FormatDescription.TruncateDescription(obj.MostHelpful.Description, 100)</p>
+                                    <a href="@string.Format("{0}{1}/", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName),obj.MostHelpful.ReviewId)" class="font14">Read more</a>
+                                </li>
+                                <li class="review-type-list__item">
+                                    <p class="review-item__label">Most Recent Review</p>
+                                    <p class="review-item__preview">@FormatDescription.TruncateDescription(obj.MostRecent.Description, 100)</p>
+                                    <a href="@string.Format("{0}{1}/", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName),obj.MostRecent.ReviewId)" class="font14">Read more</a>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </li>
+                }
+
+            }
+
+        </ul>
+
+        <div class="view-all-btn-container">
+            @if (Model.BikesReviewsList.Any())
+            {
+                <a href="@string.Format("/{0}-bikes/reviews/", Model.BikesReviewsList.First().BikeModel.Make.MaskingName)" class="btn view-all-target-btn">
+                    Read all reviews
+                    <span class="bwsprite teal-right"></span>
+                </a>
+            }
+        </div>
+    </div>
+}
+

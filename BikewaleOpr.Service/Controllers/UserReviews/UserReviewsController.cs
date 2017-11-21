@@ -85,6 +85,10 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove("BW_RecentReviews");
                         MemCachedUtil.Remove("BW_UserReviewIdMapping");
                         MemCachedUtil.Remove("BW_BikesByMileage");
+                        if(inputs.MakeId > 0)
+                        {
+                            MemCachedUtil.Remove(string.Format("BW_PopularBikesWithRecentAndHelpfulReviews_Make_{0}", inputs.MakeId));
+                        }
                     }
 
                 }

@@ -478,6 +478,7 @@
     <Compile Include="UserReviews\BikeRatingsReviewsInfo.cs" />
     <Compile Include="UserReviews\BikeReviewIdListByCategory.cs" />
     <Compile Include="UserReviews\BikeReviewsInfo.cs" />
+    <Compile Include="UserReviews\BikesWithReviewByMake .cs" />
     <Compile Include="UserReviews\BikeUserReviewRating.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\InputFilters.cs" />

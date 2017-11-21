@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {
@@ -20,6 +21,8 @@ namespace Bikewale.Models
     /// Description : Added ReturnUrl
     /// Modified by sajal Gupta on 06-11-2017
     /// Descriptition :  Added SelectedSortingId, SelectedSortingText
+    /// Modified By: Snehal Dange on 20th Nov 2017
+    /// Description: Added most helful and most recent user reviews by make
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -61,5 +64,9 @@ namespace Bikewale.Models
         public ushort SelectedSortingId { get; set; }
 
         public string SelectedSortingText { get; set; }
+
+        public BikesWithReviewsByMakeVM PopularBikesUserReviews { get; set; }
+       
+        
     }
 }
