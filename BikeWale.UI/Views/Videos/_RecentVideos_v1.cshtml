@@ -2,9 +2,7 @@
 @using Bikewale.Utility
 @if (Model != null && Model.VideosList != null && Model.VideosList.Any())
 {
-    
-
-        var firstVideo = Model.VideosList.FirstOrDefault();
+        var firstVideo = Model.VideosList.First();
 
         <div class="padding-left20 padding-right20 padding-bottom20 video-section">
 
@@ -70,7 +68,7 @@
         <div class="video-carousel jcarousel-wrapper inner-content-carousel top-divider" data-overlay="none">
             <div class="jcarousel">
                 <ul>
-                    @foreach (var video in Model.VideosList)
+                    @foreach (var video in Model.VideosList.Skip(1))
                     {
                         <li class="video-artical__card">
                             <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="card-target">
@@ -82,14 +80,14 @@
                                     </span>
                                 </div>
                                 <div class="video-card__desc">
-                                    <span class="inline-block margin-right5">
+                                    <span class="inline-block margin-right10">
                                         @FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "MMM dd, yyyy")
                                     </span>
-                                    <span class="inline-block margin-right5">
+                                    <span class="inline-block margin-right10">
                                         @Format.FormatNumeric(video.Views.ToString()) Views
                                     </span>
-                                    <span class="inline-block margin-right5">
-                                        <span class="thumbsup-icon">
+                                    <span class="inline-block">
+                                        <span class="thumbsup-icon margin-right5">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">
                                                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <g id="review-copy-6" transform="translate(-290.000000, -4233.000000)" stroke="#82888B">

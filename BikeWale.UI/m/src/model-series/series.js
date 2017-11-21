@@ -8,6 +8,9 @@ docReady(function () {
         var swiperSlide = $('#rightBikeSwiper').find('.swiper-slide[data-model-index="' + specBtn + '"]');
         var indexOfSlide = swiperSlide.index();
 
+        $(this).closest('.find-specs-tabs-wrapper').find('.active').removeClass('active');
+        $(this).addClass('active');
+
         if (indexOfSlide >= 0)
         {
             var tag = $('#rightBikeSwiper').find('.swiper-slide .recommended-tag:not(.popular-tag)');
