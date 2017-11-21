@@ -75,6 +75,7 @@ namespace BikewaleOpr.BAL
                         _seriesRepo.AddSeries(objBikeSeries, updatedBy);
                         if (objBikeSeries.SeriesId > 0)
                         {
+                            BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
                             respObj = new Tuple<bool, string, BikeSeriesEntity>(true, "Bike series has been updated successfully.", objBikeSeries);
                         }
                         else
@@ -156,6 +157,7 @@ namespace BikewaleOpr.BAL
                         if (isEdited)
                         {
                             BwMemCache.ClearModelsBySeriesId(seriesId);
+                            BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
                         }
                     }
                 }
@@ -184,6 +186,7 @@ namespace BikewaleOpr.BAL
                     if (IsDeleted)
                     {
                         BwMemCache.ClearModelsBySeriesId(bikeSeriesId);
+                        BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
                     }
                 }
             }
@@ -216,6 +219,7 @@ namespace BikewaleOpr.BAL
                     {
                         BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(seriesId));
                         BwMemCache.ClearVersionDetails(modelId);
+                        BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
                     }
                 }
             }

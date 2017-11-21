@@ -223,6 +223,7 @@ namespace BikeWaleOpr.Common
                     if (isSuccess)
                     {
                         response = new Tuple<bool, string>(true, "Masking Name Updated Successfully.");
+                        BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
                         IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
                         string oldUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, oldMaskingName);
                         string newUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, maskingName);
