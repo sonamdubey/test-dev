@@ -18,7 +18,11 @@ using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeSeries
 {
-    public class SeriesPage
+	/// <summary>
+	/// Created by : Ashutosh Sharma on 17 Nov 2017
+	/// Description : Provide methods to get data for series page.
+	/// </summary>
+	public class SeriesPage
     {
         private bool IsScooter;
         public CompareSources CompareSource { get; set; }
@@ -40,7 +44,13 @@ namespace Bikewale.Models.BikeSeries
             _seriesCache = seriesCache;
         }
 
-        public SeriesPageVM GetData(uint seriesId)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Base method to get data for series page.
+		/// </summary>
+		/// <param name="seriesId"></param>
+		/// <returns></returns>
+		public SeriesPageVM GetData(uint seriesId)
         {
             SeriesPageVM objSeriesPage = null;
             try
@@ -86,7 +96,7 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.GetData");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.GetData");
             }
             return objSeriesPage;
         }
@@ -102,7 +112,7 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPage.BindUsedBikeByModel()");
+                ErrorClass objErr = new ErrorClass(ex, "ModelPage.BindUsedBikeByModel()");
             }
 
             return UsedBikeModel;
@@ -110,8 +120,12 @@ namespace Bikewale.Models.BikeSeries
         }
 
 
-
-        private void BindCMSContent(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to bind content for news, videos and expert reviews.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void BindCMSContent(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -126,23 +140,27 @@ namespace Bikewale.Models.BikeSeries
                     modelIdList.Append(bike.BikeModel.ModelId);
                     modelIdList.Append(",");
                 }
+				if (modelIdList.Length > 0)
+				{
+					modelIdList.Remove(modelIdList.Length - 1, 1);
+				}
 
-				ushort topCount = 3;
-				RecentNews recentNews = new RecentNews(topCount, (uint)objSeriesPage.BikeMake.MakeId, modelIdList.ToString(), _articles)
+                ushort topCount = 3;
+                RecentNews recentNews = new RecentNews(topCount, (uint)objSeriesPage.BikeMake.MakeId, modelIdList.ToString(), _articles)
                 {
                     IsScooter = IsScooter
                 };
                 objSeriesPage.News = recentNews.GetData();
                 objSeriesPage.News.Title = string.Format("{0} {1} News", objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName);
 
-				RecentExpertReviews recentExpertReviews = new RecentExpertReviews(topCount, (uint)objSeriesPage.BikeMake.MakeId, modelIdList.ToString(), _articles)
+                RecentExpertReviews recentExpertReviews = new RecentExpertReviews(topCount, (uint)objSeriesPage.BikeMake.MakeId, modelIdList.ToString(), _articles)
                 {
                     IsScooter = IsScooter
                 };
                 objSeriesPage.ExpertReviews = recentExpertReviews.GetData();
 
-				ushort pageNo = 1, pageSize = 2;
-				RecentVideos recentVideos = new RecentVideos(pageNo, pageSize, modelIdList.ToString(), _videos)
+                ushort pageNo = 1, pageSize = 2;
+                RecentVideos recentVideos = new RecentVideos(pageNo, pageSize, modelIdList.ToString(), _videos)
                 {
                     IsScooter = IsScooter
                 };
@@ -150,26 +168,36 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindCMSContent");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindCMSContent");
             }
         }
 
-        private void BindOtherSeriesFromMake(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to bind other series form same make.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void BindOtherSeriesFromMake(SeriesPageVM objSeriesPage)
         {
             try
             {
-				if (objSeriesPage.BikeMake != null && objSeriesPage.SeriesBase != null)
+                if (objSeriesPage.BikeMake != null && objSeriesPage.SeriesBase != null)
                 {
-					 objSeriesPage.OtherSeriesList = _bikeSeries.GetOtherSeriesFromMake(objSeriesPage.BikeMake.MakeId, objSeriesPage.SeriesBase.SeriesId);
+                    objSeriesPage.OtherSeriesList = _bikeSeries.GetOtherSeriesFromMake(objSeriesPage.BikeMake.MakeId, objSeriesPage.SeriesBase.SeriesId);
                 }
             }
             catch (Exception ex)
             {
-				ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindOtherSeriesFromMake");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindOtherSeriesFromMake");
             }
         }
 
-        private void BindSeriesSynopsis(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to bind series synopsis.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void BindSeriesSynopsis(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -182,11 +210,16 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindSeriesSynopsis");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindSeriesSynopsis");
             }
         }
 
-        private void SetPageJSONLDSchema(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to bind Json LD schema.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void SetPageJSONLDSchema(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -195,35 +228,40 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.SetPageJSONLDSchema");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.SetPageJSONLDSchema");
             }
         }
 
-        private void SetBreadcrumList(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to set breadcrum list.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void SetBreadcrumList(SeriesPageVM objSeriesPage)
         {
             try
             {
                 IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-				string bikeUrl, scooterUrl;
+                string bikeUrl, scooterUrl;
                 bikeUrl = "/";
-				scooterUrl = "/";
+                scooterUrl = "/";
                 ushort position = 1;
                 if (IsMobile)
                 {
-					bikeUrl += "m";
-					scooterUrl += "m";
+                    bikeUrl += "m";
+                    scooterUrl += "m";
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
                 if (objSeriesPage.BikeMake != null)
                 {
-					bikeUrl = string.Format("{0}/{1}-bikes/", bikeUrl, objSeriesPage.BikeMake.MakeMaskingName);
-					BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objSeriesPage.BikeMake.MakeName)));
-					if (IsScooter)
-					{
-						scooterUrl = string.Format("{0}/{1}-scooters/", scooterUrl, objSeriesPage.BikeMake.MakeMaskingName);
-						BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objSeriesPage.BikeMake.MakeName)));
-					}
+                    bikeUrl = string.Format("{0}/{1}-bikes/", bikeUrl, objSeriesPage.BikeMake.MakeMaskingName);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objSeriesPage.BikeMake.MakeName)));
+                    if (IsScooter)
+                    {
+                        scooterUrl = string.Format("{0}/{1}-scooters/", scooterUrl, objSeriesPage.BikeMake.MakeMaskingName);
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objSeriesPage.BikeMake.MakeName)));
+                    }
                 }
                 if (objSeriesPage.SeriesBase != null && objSeriesPage.BikeMake != null)
                 {
@@ -233,11 +271,16 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.SetBreadcrumList");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.SetBreadcrumList");
             }
         }
 
-        private void BindPageMetas(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to bind page metas.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void BindPageMetas(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -252,11 +295,11 @@ namespace Bikewale.Models.BikeSeries
                     if (objSeriesPage.SeriesModels != null && objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.NewBikes.Any(b => b.BikeModel != null))
                     {
                         objSeriesPage.PageMetaTags.Description = string.Format("{0} {1} price in India – Rs. {2} - {3}." +
-                        "It is available in {4} models in India. {0} {5} is the most popular {1}. " +
+                        " It is available in {4} models in India. {0} {5} is the most popular {1}. " +
                         "Check out {1} on road price, reviews, mileage, versions, news & images at Bikewale",
                             objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName,
-							Format.FormatPrice(Convert.ToString(objSeriesPage.SeriesModels.NewBikes.Min(x => x.Price.AvgPrice))),
-							Format.FormatPrice(Convert.ToString(objSeriesPage.SeriesModels.NewBikes.Max(x => x.Price.AvgPrice))),
+                            Format.FormatPrice(Convert.ToString(objSeriesPage.SeriesModels.NewBikes.Min(x => x.Price.AvgPrice))),
+                            Format.FormatPrice(Convert.ToString(objSeriesPage.SeriesModels.NewBikes.Max(x => x.Price.AvgPrice))),
                             objSeriesPage.SeriesModels.NewBikes.Count(), objSeriesPage.SeriesModels.NewBikes.FirstOrDefault().BikeModel.ModelName);
                     }
 
@@ -276,7 +319,7 @@ namespace Bikewale.Models.BikeSeries
                         objSeriesPage.PageMetaTags.Keywords = Convert.ToString(str);
                     }
 
-					objSeriesPage.PageMetaTags.CanonicalUrl = UrlFormatter.BikeSeriesUrl(objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName);
+                    objSeriesPage.PageMetaTags.CanonicalUrl = UrlFormatter.BikeSeriesUrl(objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName);
                     objSeriesPage.PageMetaTags.AlternateUrl = string.Format("/m/{0}", objSeriesPage.PageMetaTags.CanonicalUrl);
 					objSeriesPage.AdTags.TargetedSeries = objSeriesPage.SeriesBase.SeriesName;
                     //objSeriesPage.PageMetaTags.OGImage
@@ -285,11 +328,12 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindPageMetas");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindPageMetas");
             }
         }
+
         /// <summary>
-        /// Created By :- Subodh Jain 17-11-2013
+        /// Created By :- Subodh Jain 17-11-2017
         /// Summary :- GetCompareBikes Details
         /// </summary>
         /// <param name="objSeriesPage"></param>
@@ -298,8 +342,14 @@ namespace Bikewale.Models.BikeSeries
 
             try
             {
-				objSeriesPage.ObjModel = new BikeSeriesCompareVM();
+                objSeriesPage.ObjModel = new BikeSeriesCompareVM();
                 objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs = _seriesCache.GetBikesToCompare(objSeriesPage.SeriesBase.SeriesId);
+
+                for (int i = 0; i < objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Count(); i++)
+                {
+                    objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.ElementAt(i).Price = objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.AvgPrice;
+                }
+
 
                 IList<string> objList = new List<string>();
                 objList.Add("Price");
@@ -320,21 +370,17 @@ namespace Bikewale.Models.BikeSeries
                 objSeriesPage.ObjModel.ObjBikeSpecs.Weight = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Weight != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Weight)).Count() + 1);
                 objSeriesPage.ObjModel.ObjBikeSpecs.FuelCapacity = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.FuelCapacity != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.FuelCapacity)).Count() + 1);
                 objSeriesPage.ObjModel.ObjBikeSpecs.Displacement = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Displacement != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Displacement)).Count() + 1);
-				
+
                 objSeriesPage.ObjModel.BikeCompareSegments = objList;
             }
             catch (Exception ex)
             {
-				
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.GetBikesToCompare");
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.GetBikesToCompare");
             }
         }
-        /// <summary>
-        /// Modified by : Aditi Srivastava on 25 Apr 2017
-        /// Summary  :  Moved the comparison logic to common model
-        /// Modified by : Aditi Srivastava on 27 Apr 2017
-        /// Summary  : Added source for comparisons
-        /// </summary>
+
+        
         private void BindCompareScootes(SeriesPageVM objViewModel, CompareSources CompareSource)
         {
             try
@@ -346,9 +392,9 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
+                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
             }
-		}
+        }
 
     }
 }

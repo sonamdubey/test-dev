@@ -8,14 +8,14 @@
 				<h4 class="swiper-card__label">@video.VideoTitle</h4>
 				<div class="model-card__list__video-card">
 					<div class="video-card__video-preview">
-						<iframe width="330" height="186" src="@string.Format("{0}&autoplay=1", video.VideoUrl)" frameborder="0" allowfullscreen></iframe>
+						<iframe width="330" height="186" src="@string.Format("{0}&autoplay=0", video.VideoUrl)" frameborder="0" allowfullscreen></iframe>
 					</div>
 					<div class="video-card__desc clearfix">
 						<div class="grid-6">
-							<p class="font11 text-light-grey">@video.DisplayDate</p>
+							<p class="font11 text-light-grey">@Convert.ToDateTime(video.DisplayDate).ToString("MMM dd, yyy")</p>
 						</div>
 						<div class="grid-6">
-							<span class="model-card__sub-title">@Bikewale.Utility.Format.FormatNumeric(video.Views.ToString())</span>
+							<span class="model-card__sub-title">@Bikewale.Utility.Format.FormatNumeric(video.Views.ToString()) Views</span>
 							<span class="model-card__sub-title margin-left20">
 								<span class="thumbsup-icon">
 									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">

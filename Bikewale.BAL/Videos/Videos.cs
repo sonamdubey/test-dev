@@ -110,9 +110,9 @@ namespace Bikewale.BAL.Videos
         /// <param name="videoId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, ushort totalCount)
+        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoBasicId, ushort totalCount)
         {
-            return GetSimilarVideosViaGrpc(videoId, totalCount);
+            return GetSimilarVideosViaGrpc(videoBasicId, totalCount);
         }
 
 		public IEnumerable<BikeVideoEntity> GetSimilarVideos(ushort totalCount, string modelIdList, uint videoBasicId = 0)

@@ -105,7 +105,7 @@ namespace Bikewale.Cache.Videos
             return videosList;
         }
 
-		public IEnumerable<BikeVideoEntity> GetSimilarVideos(ushort totalCount, string modelIdList, uint videoBasicId = 0)
+		public IEnumerable<BikeVideoEntity> GetSimilarVideos(ushort totalCount, string modelIdList, uint videoBasicId = 1)
 		{
 			IEnumerable<BikeVideoEntity> videosList = null;
 			try

@@ -2,15 +2,14 @@
 @using Bikewale.Utility
 @if (Model != null && Model.VideosList != null && Model.VideosList.Any())
 {
-    if (Model.VideosList.Count() == 1)
-    {
+    
 
         var firstVideo = Model.VideosList.FirstOrDefault();
 
         <div class="padding-left20 padding-right20 padding-bottom20 video-section">
 
             <div class="article-image-wrapper">
-                <iframe width="522" height="294" src="@string.Format("{0}&autoplay=1", firstVideo.VideoUrl)" frameborder="0"></iframe>
+                <iframe width="522" height="294" src="@string.Format("{0}&autoplay=0", firstVideo.VideoUrl)" frameborder="0"></iframe>
             </div>
             <div class="article-desc-wrapper">
                 <h3 class="font14 margin-bottom10">
@@ -18,10 +17,10 @@
                 </h3>
                 <div class="font14 text-light-grey margin-bottom20">
                     <span class="inline-block margin-right20">
-                        @FormatDate.GetFormatDate(Convert.ToString(firstVideo.DisplayDate), "dd MMMM yyyy")
+                        @FormatDate.GetFormatDate(Convert.ToString(firstVideo.DisplayDate), "MMM dd, yyyy")
                     </span>
                     <span class="inline-block margin-right20">
-                        @Format.FormatNumeric(firstVideo.Views.ToString())
+                        @Format.FormatNumeric(firstVideo.Views.ToString()) Views
                     </span>
                     <span class="inline-block margin-right20">
                         <span class="tumbsup-icon">
@@ -59,16 +58,14 @@
                     </span>
                 </div>
                 <div class="font14">
-                    <span class="text-slate-grey">
-                        @FormatDescription.TruncateDescription(firstVideo.Description, 180)
-                    </span>
+                    <span class="text-slate-grey">@FormatDescription.TruncateDescription(firstVideo.Description, 500)</span>
                 </div>
-                <a href="@firstVideo.VideoTitleUrl" title="@firstVideo.VideoTitle" class="margin-top10">Read more</a>
+                <a href="@UrlFormatter.VideoDetailPageUrl(firstVideo.VideoTitleUrl,Convert.ToString(firstVideo.BasicId))" title="@firstVideo.VideoTitle" class="margin-top10">Read more</a>
             </div>
             <div class="clear"></div>
         </div>
-    }
-    else
+    
+    if(Model.VideosList.Count() > 1)
     {
         <div class="video-carousel jcarousel-wrapper inner-content-carousel top-divider" data-overlay="none">
             <div class="jcarousel">
@@ -86,10 +83,10 @@
                                 </div>
                                 <div class="video-card__desc">
                                     <span class="inline-block margin-right5">
-                                        @FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMMM yyyy")
+                                        @FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "MMM dd, yyyy")
                                     </span>
                                     <span class="inline-block margin-right5">
-                                        @Format.FormatNumeric(video.Views.ToString())
+                                        @Format.FormatNumeric(video.Views.ToString()) Views
                                     </span>
                                     <span class="inline-block margin-right5">
                                         <span class="thumbsup-icon">

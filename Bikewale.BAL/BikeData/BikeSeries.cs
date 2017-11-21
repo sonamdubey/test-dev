@@ -17,6 +17,13 @@ namespace Bikewale.BAL.BikeData
             _bikeSeriesCacheRepository = bikeSeriesCacheRepository;
         }
 
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : BAL method to get new models of a series with city price.
+		/// </summary>
+		/// <param name="seriesId"></param>
+		/// <param name="cityId"></param>
+		/// <returns></returns>
 		public IEnumerable<NewBikeEntityBase> GetNewModels(uint seriesId, uint cityId)
 		{
 			IEnumerable<NewBikeEntityBase> objModels = null;
@@ -26,11 +33,17 @@ namespace Bikewale.BAL.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetNewModels_SeriesId = {1}", seriesId));
+				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetNewModels_SeriesId_{0}_CityId_{1}", seriesId, cityId));
 			}
 			return objModels;
 		}
 
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : BAL method to get upcoming models of a series.
+		/// </summary>
+		/// <param name="seriesId"></param>
+		/// <returns></returns>
 		public IEnumerable<UpcomingBikeEntityBase> GetUpcomingModels(uint seriesId)
 		{
 			IEnumerable<UpcomingBikeEntityBase> objModels = null;
@@ -40,7 +53,7 @@ namespace Bikewale.BAL.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetUpcomingModels_SeriesId = {1}", seriesId));
+				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetUpcomingModels_SeriesId_{0}", seriesId));
 			}
 			return objModels;
 		}
@@ -81,6 +94,12 @@ namespace Bikewale.BAL.BikeData
             return objModels;
         }
 
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : BAL method to get synopsis of a series.
+		/// </summary>
+		/// <param name="seriesId"></param>
+		/// <returns></returns>
 		public BikeDescriptionEntity GetSynopsis(uint seriesId)
 		{
 			BikeDescriptionEntity synopsis = null;
@@ -90,11 +109,18 @@ namespace Bikewale.BAL.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetSynopsis_SeriesId = {0}", seriesId));
+				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetSynopsis_SeriesId_{0}", seriesId));
 			}
 			return synopsis;
 		}
 
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : BAL method to get all series of a make.
+		/// </summary>
+		/// <param name="makeId"></param>
+		/// <param name="seriesId"></param>
+		/// <returns></returns>
 		public IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId, uint seriesId)
 		{
 			IEnumerable<BikeSeriesEntity> bikeSeriesEntityList = null;
@@ -108,7 +134,7 @@ namespace Bikewale.BAL.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetOtherSeriesFromMake_makeId = {0}", makeId));
+				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetOtherSeriesFromMake_makeId_{0}_SeriesId_{1}", makeId, seriesId));
 			}
 			return bikeSeriesEntityList;
 		}
