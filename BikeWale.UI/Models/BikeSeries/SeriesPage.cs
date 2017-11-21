@@ -18,11 +18,11 @@ using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeSeries
 {
-	/// <summary>
-	/// Created by : Ashutosh Sharma on 17 Nov 2017
-	/// Description : Provide methods to get data for series page.
-	/// </summary>
-	public class SeriesPage
+    /// <summary>
+    /// Created by : Ashutosh Sharma on 17 Nov 2017
+    /// Description : Provide methods to get data for series page.
+    /// </summary>
+    public class SeriesPage
     {
         private bool IsScooter;
         public CompareSources CompareSource { get; set; }
@@ -44,13 +44,13 @@ namespace Bikewale.Models.BikeSeries
             _seriesCache = seriesCache;
         }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : Base method to get data for series page.
-		/// </summary>
-		/// <param name="seriesId"></param>
-		/// <returns></returns>
-		public SeriesPageVM GetData(uint seriesId)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Base method to get data for series page.
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
+        public SeriesPageVM GetData(uint seriesId)
         {
             SeriesPageVM objSeriesPage = null;
             try
@@ -120,12 +120,12 @@ namespace Bikewale.Models.BikeSeries
         }
 
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : Method to bind content for news, videos and expert reviews.
-		/// </summary>
-		/// <param name="objSeriesPage"></param>
-		private void BindCMSContent(SeriesPageVM objSeriesPage)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Method to bind content for news, videos and expert reviews.
+        /// </summary>
+        /// <param name="objSeriesPage"></param>
+        private void BindCMSContent(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -140,10 +140,10 @@ namespace Bikewale.Models.BikeSeries
                     modelIdList.Append(bike.BikeModel.ModelId);
                     modelIdList.Append(",");
                 }
-				if (modelIdList.Length > 0)
-				{
-					modelIdList.Remove(modelIdList.Length - 1, 1);
-				}
+                if (modelIdList.Length > 0)
+                {
+                    modelIdList.Remove(modelIdList.Length - 1, 1);
+                }
 
                 ushort topCount = 3;
                 RecentNews recentNews = new RecentNews(topCount, (uint)objSeriesPage.BikeMake.MakeId, modelIdList.ToString(), _articles)
@@ -172,12 +172,12 @@ namespace Bikewale.Models.BikeSeries
             }
         }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : Method to bind other series form same make.
-		/// </summary>
-		/// <param name="objSeriesPage"></param>
-		private void BindOtherSeriesFromMake(SeriesPageVM objSeriesPage)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Method to bind other series form same make.
+        /// </summary>
+        /// <param name="objSeriesPage"></param>
+        private void BindOtherSeriesFromMake(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -192,12 +192,12 @@ namespace Bikewale.Models.BikeSeries
             }
         }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : Method to bind series synopsis.
-		/// </summary>
-		/// <param name="objSeriesPage"></param>
-		private void BindSeriesSynopsis(SeriesPageVM objSeriesPage)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Method to bind series synopsis.
+        /// </summary>
+        /// <param name="objSeriesPage"></param>
+        private void BindSeriesSynopsis(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -214,12 +214,12 @@ namespace Bikewale.Models.BikeSeries
             }
         }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : Method to bind Json LD schema.
-		/// </summary>
-		/// <param name="objSeriesPage"></param>
-		private void SetPageJSONLDSchema(SeriesPageVM objSeriesPage)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Method to bind Json LD schema.
+        /// </summary>
+        /// <param name="objSeriesPage"></param>
+        private void SetPageJSONLDSchema(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -232,12 +232,12 @@ namespace Bikewale.Models.BikeSeries
             }
         }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : Method to set breadcrum list.
-		/// </summary>
-		/// <param name="objSeriesPage"></param>
-		private void SetBreadcrumList(SeriesPageVM objSeriesPage)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Method to set breadcrum list.
+        /// </summary>
+        /// <param name="objSeriesPage"></param>
+        private void SetBreadcrumList(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -275,12 +275,12 @@ namespace Bikewale.Models.BikeSeries
             }
         }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : Method to bind page metas.
-		/// </summary>
-		/// <param name="objSeriesPage"></param>
-		private void BindPageMetas(SeriesPageVM objSeriesPage)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Method to bind page metas.
+        /// </summary>
+        /// <param name="objSeriesPage"></param>
+        private void BindPageMetas(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -321,7 +321,7 @@ namespace Bikewale.Models.BikeSeries
 
                     objSeriesPage.PageMetaTags.CanonicalUrl = UrlFormatter.BikeSeriesUrl(objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName);
                     objSeriesPage.PageMetaTags.AlternateUrl = string.Format("/m/{0}", objSeriesPage.PageMetaTags.CanonicalUrl);
-					objSeriesPage.AdTags.TargetedSeries = objSeriesPage.SeriesBase.SeriesName;
+                    objSeriesPage.AdTags.TargetedSeries = objSeriesPage.SeriesBase.SeriesName;
                     //objSeriesPage.PageMetaTags.OGImage
                 }
 
@@ -364,7 +364,7 @@ namespace Bikewale.Models.BikeSeries
 
 
                 objSeriesPage.ObjModel.ObjBikeSpecs = new BikeSpecs();
-
+                objSeriesPage.ObjModel.ObjBikeSpecs.Price = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Price != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Price)).Count() + 1);
                 objSeriesPage.ObjModel.ObjBikeSpecs.MaxPower = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.MaxPower != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.MaxPower)).Count() + 1);
                 objSeriesPage.ObjModel.ObjBikeSpecs.Mileage = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Mileage != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Mileage)).Count() + 1);
                 objSeriesPage.ObjModel.ObjBikeSpecs.Weight = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Weight != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Weight)).Count() + 1);
@@ -380,7 +380,7 @@ namespace Bikewale.Models.BikeSeries
             }
         }
 
-        
+
         private void BindCompareScootes(SeriesPageVM objViewModel, CompareSources CompareSource)
         {
             try
