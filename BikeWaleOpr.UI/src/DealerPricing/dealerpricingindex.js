@@ -206,7 +206,7 @@
         ];
 
         self.cities = ko.observableArray();
-        self.onStateChange = function (data, event) {
+		self.onStateChangeBWPrice = function (data, event) {
 
             progress.showProgress();
             var makesByCityURL = "/api/cities/state/" + event.target.value + "/";
