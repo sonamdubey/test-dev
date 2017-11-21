@@ -44,6 +44,7 @@ namespace Bikewale.Models
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompare _compareBikes = null;
         private readonly IServiceCenter _objSC;
+
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
@@ -466,7 +467,8 @@ namespace Bikewale.Models
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objData.Page_H1));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 
 
             objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
