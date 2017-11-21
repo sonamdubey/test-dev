@@ -67,7 +67,7 @@
                         </div>
                         <div class="right-bike__desc @string.Format("{0}",index==1?"featured-card":"")">
                             <span class="right-bike__label">
-                                @string.Format("{0}", bike.Price > 0 ? string.Format("₹ {0}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))) : "--")
+                               @string.Format("{0}", bike.Displacement > 0 ? string.Format("₹ {0}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))):"--")
                             </span>
                             <span class="right-bike__label">
                                @string.Format("{0}", bike.Displacement > 0 ? string.Format("{0} cc", bike.Displacement) : "--")
@@ -91,8 +91,8 @@
                                 @string.Format("{0}", bike.Gears > 0 ? Convert.ToString(bike.Gears) : "--")
                             </span>
                             <span class="right-bike__label">
-                                @string.Format("{0}", bike.MaxPower > 0 ? string.Format("{0} bhp",bike.MaxPower) : "--")
-                                <span class="right-bike__sub-label">@string.Format("{0}", bike.MaxPowerRpm > 0 ? string.Format("@{0} rpm", bike.MaxPowerRpm) : "--")</span>
+                               @string.Format("{0} bhp", Bikewale.Utility.FormatMinSpecs.ShowAvailable((float)bike.MaxPower))
+                                <span class="right-bike__sub-label">@string.Format("{0}", bike.MaxPowerRpm > 0 ? string.Format("@{0} rpm", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.MaxPowerRpm))) : "--")</span>
                             </span>
                         </div>
                     </li>

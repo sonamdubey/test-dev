@@ -125,8 +125,8 @@
                                 @string.Format("{0}", bike.Gears > 0 ? Convert.ToString(bike.Gears) : "--")
                             </span>
                         <span class="right-bike__label">
-                            @string.Format("{0}", bike.MaxPower > 0 ? string.Format("{0} bhp", bike.MaxPower) : "--")
-                            <span class="right-bike__sub-label">@string.Format("{0}", bike.MaxPowerRpm > 0 ? string.Format("@{0} rpm", bike.MaxPowerRpm) : "--")</span>
+                            @string.Format("{0} bhp", Bikewale.Utility.FormatMinSpecs.ShowAvailable((float)bike.MaxPower))
+                            <span class="right-bike__sub-label">@string.Format("{0}", bike.MaxPowerRpm > 0 ? string.Format("@{0} rpm", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.MaxPowerRpm))) : "--")</span>
                         </span>
                     </div>
                 </div>
