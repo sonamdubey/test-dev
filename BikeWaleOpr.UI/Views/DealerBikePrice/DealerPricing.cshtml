@@ -203,7 +203,7 @@
                         </div>
                         
                         <div class="materialize-select row s12">
-                            <select class="chosen-select" data-bind="event: { change: onStateChange }">
+                            <select class="chosen-select" data-bind="event: { change: onStateChangeBWPrice }">
                                 <option value="0" disabled selected>Select State</option>
                                 @foreach (var state in Model.CopyPricingCities.States)
                                 {

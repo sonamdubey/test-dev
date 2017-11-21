@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Bikewale.DTO.NewBikeSearch
@@ -20,5 +16,7 @@ namespace Bikewale.DTO.NewBikeSearch
 
         [JsonProperty("curPageNo")]
         public int CurrentPageNo { get; set; }
+        [JsonProperty("pqSource")]
+        public int PqSource { get; set; }
     }
 }

@@ -1,9 +1,11 @@
+using System.Web.Mvc;
 using Bikewale.BAL.AdSlot;
 using Bikewale.BAL.Authors;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.BikeData.UpComingBike;
+using Bikewale.BAL.BikeSearch;
 using Bikewale.BAL.CMS;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
@@ -64,6 +66,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.HomePage;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.PWA.CMS;
@@ -75,7 +78,6 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Interface;
 using Microsoft.Practices.Unity;
-using System.Web.Mvc;
 using Unity.Mvc5;
 
 namespace Bikewale
@@ -170,6 +172,9 @@ namespace Bikewale
             container.RegisterType<IAdSlot, AdSlot>();
             container.RegisterType<IAdSlotCacheRepository, AdSlotCacheRepository>();
             container.RegisterType<IAdSlotRepository, DAL.AdSlot.AdSlot>();
+            container.RegisterType<ISearchResult, DAL.NewBikeSearch.SearchResult>();
+            container.RegisterType<IProcessFilter, DAL.NewBikeSearch.ProcessFilter>();
+            container.RegisterType<IBikeSearchResult, BikeSearchResult>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
