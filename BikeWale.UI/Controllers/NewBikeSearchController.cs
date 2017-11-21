@@ -1,11 +1,11 @@
-﻿using Bikewale.Entities.PriceQuote;
+﻿using System.Web.Mvc;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.NewBikeSearch;
-using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
@@ -32,7 +32,7 @@ namespace Bikewale.Controllers
 
         [Route("newbikesearch/")]
         [DeviceDetection]
-        public ActionResult Index(ushort? pageNumber)
+        public ActionResult Index()
         {
             NewBikeSearchModel model = new NewBikeSearchModel(Request, _articles, _videos, _makes, _searchResult, _processFilter, PQSourceEnum.Desktop_NewBikeSearch);
             model.PageSize = 30;
@@ -42,7 +42,7 @@ namespace Bikewale.Controllers
         }
 
         [Route("m/newbikesearch/")]
-        public ActionResult Index_Mobile(ushort? pageNumber)
+        public ActionResult Index_Mobile()
         {
             NewBikeSearchModel model = new NewBikeSearchModel(Request, _articles, _videos, _makes, _searchResult, _processFilter, PQSourceEnum.Mobile_NewBikeSearch);
             model.PageSize = 30;

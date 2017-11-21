@@ -59,7 +59,7 @@ namespace Bikewale.Models.NewBikeSearch
         public NewBikeSearchVM GetData()
         {
             viewModel = new NewBikeSearchVM();
-            viewModel.BikeSearch = BindBikes();
+            viewModel.BikeSearch = BindBikes(this.PageSize.ToString());
             SetPageType();
             if (viewModel.BikeSearch != null)
             {
@@ -77,13 +77,13 @@ namespace Bikewale.Models.NewBikeSearch
         /// Summary : Bind list of bikes
         /// </summary>
         /// <returns></returns>
-        private SearchOutput BindBikes()
+        private SearchOutput BindBikes(string pageSize)
         {
             SearchOutput objResult = null;
             InputBaseEntity input = MapQueryString(_queryString);
             if (null != input)
             {
-                input.PageSize = "30";
+                input.PageSize = pageSize;
                 FilterInput filterInputs = _processFilter.ProcessFilters(input);
                 objResult = _searchResult.GetSearchResult(filterInputs, input);
                 if (objResult != null)
@@ -175,38 +175,45 @@ namespace Bikewale.Models.NewBikeSearch
 
         private void SetPageType()
         {
-            currentPage = new NewSearchPage();
-            string minMaxStr = _request.QueryString["budget"];
-            currentPage.IsPageNoInUrl = !string.IsNullOrEmpty(_request.QueryString["pageno"]);
-            currentPage.PageNo = !currentPage.IsPageNoInUrl ? 1 : Convert.ToInt16(_request.QueryString["pageno"]);
-            if (!string.IsNullOrEmpty(minMaxStr))
+            try
             {
-                string[] budgetArray = minMaxStr.Split('-');
-                if (budgetArray.Length > 1)
+                currentPage = new NewSearchPage();
+                string minMaxStr = _request.QueryString["budget"];
+                currentPage.IsPageNoInUrl = !string.IsNullOrEmpty(_request.QueryString["pageno"]);
+                currentPage.PageNo = !currentPage.IsPageNoInUrl ? 1 : Convert.ToInt16(_request.QueryString["pageno"]);
+                if (!string.IsNullOrEmpty(minMaxStr))
                 {
-                    currentPage.MinPrice = Convert.ToInt32(budgetArray[0]);
-                    currentPage.MinPriceStr = Utility.Format.FormatPrice(currentPage.MinPrice.ToString());
-                    currentPage.MaxPrice = budgetArray[1].Length > 0 ? Convert.ToInt32(budgetArray[1]) : 0;
-                    currentPage.MaxPriceStr = Utility.Format.FormatPrice(currentPage.MaxPrice.ToString());
+                    string[] budgetArray = minMaxStr.Split('-');
+                    if (budgetArray != null && budgetArray.Length > 1)
+                    {
+                        currentPage.MinPrice = Convert.ToInt32(budgetArray[0]);
+                        currentPage.MinPriceStr = Utility.Format.FormatPrice(currentPage.MinPrice.ToString());
+                        currentPage.MaxPrice = budgetArray[1].Length > 0 ? Convert.ToInt32(budgetArray[1]) : 0;
+                        currentPage.MaxPriceStr = Utility.Format.FormatPrice(currentPage.MaxPrice.ToString());
 
-                    if (currentPage.MinPrice == 0 && currentPage.MaxPrice > 0)
-                    {
-                        currentPage.PageType = SearchPageType.Under;
-                    }
-                    else if (currentPage.MinPrice > 0 && currentPage.MaxPrice == 0)
-                    {
-                        currentPage.PageType = SearchPageType.Above;
-                    }
-                    else if (currentPage.MinPrice > 0 && currentPage.MaxPrice > 0)
-                    {
-                        currentPage.PageType = SearchPageType.Between;
+                        if (currentPage.MinPrice == 0 && currentPage.MaxPrice > 0)
+                        {
+                            currentPage.PageType = SearchPageType.Under;
+                        }
+                        else if (currentPage.MinPrice > 0 && currentPage.MaxPrice == 0)
+                        {
+                            currentPage.PageType = SearchPageType.Above;
+                        }
+                        else if (currentPage.MinPrice > 0 && currentPage.MaxPrice > 0)
+                        {
+                            currentPage.PageType = SearchPageType.Between;
+                        }
                     }
                 }
+                if (viewModel.BikeSearch != null && viewModel.BikeSearch.SearchResult != null)
+                {
+                    currentPage.ModelNameList = string.Join(",", viewModel.BikeSearch.SearchResult.Take(5).Select(x => x.BikeModel.ModelName).ToList());
+                    currentPage.ModelIdList = string.Join(",", viewModel.BikeSearch.SearchResult.Take(10).Select(x => x.BikeModel.ModelId).ToList());
+                }
             }
-            if (viewModel.BikeSearch != null && viewModel.BikeSearch.SearchResult != null)
+            catch (Exception ex)
             {
-                currentPage.ModelNameList = string.Join(",", viewModel.BikeSearch.SearchResult.Take(5).Select(x => x.BikeModel.ModelName).ToList());
-                currentPage.ModelIdList = string.Join(",", viewModel.BikeSearch.SearchResult.Take(10).Select(x => x.BikeModel.ModelId).ToList());
+                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.SetPageType()");
             }
         }
 

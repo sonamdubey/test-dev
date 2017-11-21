@@ -300,161 +300,163 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div class="search-bike-list">
-                        <input type="hidden" id="pageLoadData" value="@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeSearch))" />
-                        <div class="grid-12 alpha omega padding-left20 margin-top20 margin-bottom10">
-                            <!-- ko if: models() && models().length > 0 -->
-                            <ul id="divSearchResult" data-bind="visible: (!noBikes() && TotalBikes()), css: IsLoading() ? 'loader-active' : ''">
-                                @foreach (var bike in Model.BikeSearch.SearchResult )
-                                {
+                    @if (Model.BikeSearch != null && Model.BikeSearch.SearchResult != null)
+                    {
+                        <div class="search-bike-list">
+                            <input type="hidden" id="pageLoadData" value="@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeSearch))" />
+                            <div class="grid-12 alpha omega padding-left20 margin-top20 margin-bottom10">
+                                <!-- ko if: models() && models().length > 0 -->
+                                <ul id="divSearchResult" data-bind="visible: (!noBikes() && TotalBikes()), css: IsLoading() ? 'loader-active' : ''">
+                                    @foreach (var bike in Model.BikeSearch.SearchResult)
+                                    {
                                     <!-- ko if: models()[@i] && models()[@i].bikemodel -->
-                                    <li>
-                                        <div class="contentWrapper">
-                                            <div class="imageWrapper">
-                                                <a href="@UrlFormatter.BikePageUrl(bike.BikeModel.MakeBase.MaskingName, bike.BikeModel.MaskingName)" title="@bike.BikeName" class="bw-ga" data-cat="Search_Page" data-lab="@bike.BikeName" data-act="Model_Click" data-bind="attr: {'data-lab': models()[@i].bikeName, title : models()[@i].bikeName, href: '/' +  models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/'}">
-                                                    <img data-bind="attr : { 'src' : (models()[@i].bikemodel.hostUrl!='' ? models()[@i].bikemodel.hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].bikemodel.imagePath!='' ? models()[@i].bikemodel.imagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Image.GetPathToShowImages(bike.BikeModel.OriginalImagePath, bike.BikeModel.HostUrl, ImageSize._310x174)" title="@bike.BikeName" alt="@bike.BikeName" />
-                                                </a>
-                                            </div>
-                                            <div class="bikeDescWrapper">
-                                                <h3 class="bikeTitle margin-bottom10"><a href="@UrlFormatter.BikePageUrl(bike.BikeModel.MakeBase.MaskingName, bike.BikeModel.MaskingName)" title="@bike.BikeName" class="bw-ga" data-cat="Search_Page" data-lab="@bike.BikeName" data-act="Model_Click"  data-bind="attr: {'data-lab': models()[@i].bikeName, href: '/' + models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/', title: models()[@i].bikeName }, text: models()[@i].bikeName ">@bike.BikeName</a></h3>
+                                        <li>
+                                            <div class="contentWrapper">
+                                                <div class="imageWrapper">
+                                                    <a href="@UrlFormatter.BikePageUrl(bike.BikeModel.MakeBase.MaskingName, bike.BikeModel.MaskingName)" title="@bike.BikeName" class="bw-ga" data-cat="Search_Page" data-lab="@bike.BikeName" data-act="Model_Click" data-bind="attr: {'data-lab': models()[@i].bikeName, title : models()[@i].bikeName, href: '/' +  models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/'}">
+                                                        <img data-bind="attr : { 'src' : (models()[@i].bikemodel.hostUrl!='' ? models()[@i].bikemodel.hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].bikemodel.imagePath!='' ? models()[@i].bikemodel.imagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Image.GetPathToShowImages(bike.BikeModel.OriginalImagePath, bike.BikeModel.HostUrl, ImageSize._310x174)" title="@bike.BikeName" alt="@bike.BikeName" />
+                                                    </a>
+                                                </div>
+                                                <div class="bikeDescWrapper">
+                                                    <h3 class="bikeTitle margin-bottom10"><a href="@UrlFormatter.BikePageUrl(bike.BikeModel.MakeBase.MaskingName, bike.BikeModel.MaskingName)" title="@bike.BikeName" class="bw-ga" data-cat="Search_Page" data-lab="@bike.BikeName" data-act="Model_Click" data-bind="attr: {'data-lab': models()[@i].bikeName, href: '/' + models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/', title: models()[@i].bikeName }, text: models()[@i].bikeName ">@bike.BikeName</a></h3>
 
-                                                <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
-                                                    <span class="rate-star-color" data-rate-cl="@bike.BikeModel.ReviewRateStar" data-bind="attr: {'data-rate-cl': models()[@i].bikemodel.reviewRateStar}">
-                                                        <span class="bwsprite star-icon star-size-16"></span><span class="font14 inline-block" data-bind="text: models()[@i].bikemodel.reviewRate ? models()[@i].bikemodel.reviewRate : 'Not rated yet'">@(bike.BikeModel.ReviewRate > 0 ? bike.BikeModel.ReviewRate.ToString() : "Not rated yet")</span>
-                                                    </span>
-                                                    <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: models()[@i].bikemodel.ratingCount }">
+                                                    <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
+                                                        <span class="rate-star-color" data-rate-cl="@bike.BikeModel.ReviewRateStar" data-bind="attr: {'data-rate-cl': models()[@i].bikemodel.reviewRateStar}">
+                                                            <span class="bwsprite star-icon star-size-16"></span><span class="font14 inline-block" data-bind="text: models()[@i].bikemodel.reviewRate ? models()[@i].bikemodel.reviewRate : 'Not rated yet'">@(bike.BikeModel.ReviewRate > 0 ? bike.BikeModel.ReviewRate.ToString() : "Not rated yet")</span>
+                                                        </span>
+                                                        <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: models()[@i].bikemodel.ratingCount }">
                                                             &nbsp;(<span data-bind="text: models()[@i].bikemodel.ratingCount">@bike.BikeModel.RatingCount</span><span data-bind="text: models()[@i].bikemodel.ratingCount == 1 ? ' rating' : ' ratings'">@(bike.BikeModel.RatingCount == 1 ? " rating" : " ratings")</span>)
-                                                    </span>
-                                                    <span style="display:@(bike.BikeModel.ReviewCount == 0 ? "none" : "")" data-bind="visible: models()[@i].bikemodel.reviewCount">
+                                                        </span>
+                                                        <span style="display:@(bike.BikeModel.ReviewCount == 0 ? "none" : "")" data-bind="visible: models()[@i].bikemodel.reviewCount">
                                                             <a class='text-xt-light  inline-block' href="@string.Format("{0}{1}", UrlFormatter.BikePageUrl(bike.BikeModel.MakeBase.MaskingName, bike.BikeModel.MaskingName) ,"reviews/")" title="@string.Format("{0} user reviews", bike.BikeName)" data-bind="attr: { href: '/' + models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/reviews/' , title: models()[@i].bikeName + ' user reviews' }">
                                                                 <span class="review-left-divider" data-bind="text: models()[@i].bikemodel.reviewCount">@bike.BikeModel.ReviewCount</span>&nbsp;<span data-bind="text: models()[@i].bikemodel.reviewCount == 1 ? 'review' : 'reviews' ">@(bike.BikeModel.ReviewCount == 1 ? " review" : " reviews")</span>
                                                             </a>
-                                                    </span>
-                                                </div>
+                                                        </span>
+                                                    </div>
 
-                                                <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
-                                                <div class="text-bold">
-                                                    <span class="bwsprite inr-lg"></span>
-                                                    <span class="font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5 @(bike.FinalPrice.Equals("N/A") ? "hide" : "") " data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
-                                                </div>
-                                                <div class="margin-bottom10 @(bike.FinalPrice.Equals("N/A") ? "hide" : "")" data-bind="visible : models()[@i].price != 'N/A'">
-                                                    <a href="javascript:void(0)" data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : models()[@i].bikemodel.modelId}" data-modelid="@bike.BikeModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                                    <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
+                                                    <div class="text-bold">
+                                                        <span class="bwsprite inr-lg"></span>
+                                                        <span class="font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5 @(bike.FinalPrice.Equals("N/A") ? "hide" : "") " data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
+                                                    </div>
+                                                    <div class="margin-bottom10 @(bike.FinalPrice.Equals("N/A") ? "hide" : "")" data-bind="visible : models()[@i].price != 'N/A'">
+                                                        <a href="javascript:void(0)" data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : models()[@i].bikemodel.modelId}" data-modelid="@bike.BikeModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
                                     <!-- /ko -->
-                                    i++;
-                                }
+                                        i++;
+                                    }
 
-                                @while (i < 30)
-                                {
+                                    @while (i < 30)
+                                    {
                                     <!-- ko if: models()[@i] && models()[@i].bikemodel -->
-                                    <li style="display: none" data-bind="visible: models()[@i]">
-                                        <div class="contentWrapper">
-                                            <div class="imageWrapper">
-                                                <a class="bw-ga" data-cat="Search_Page" data-act="Model_Click" data-bind="attr: {'data-lab': models()[@i].bikeName, title : models()[@i].bikeName, href: '/' +  models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/'}">
-                                                    <img data-bind="attr : { 'src' : (models()[@i].bikemodel.hostUrl!='' ? models()[@i].bikemodel.hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].bikemodel.imagePath!='' ? models()[@i].bikemodel.imagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName"/>
-                                                </a>
-                                            </div>
-                                            <div class="bikeDescWrapper">
-                                                <h3 class="bikeTitle margin-bottom10"><a class="bw-ga" data-cat="Search_Page" data-act="Model_Click" data-bind="attr: {'data-lab': models()[@i].bikeName, href: '/' + models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/', title: models()[@i].bikeName }, text: models()[@i].bikeName "></a></h3>
+                                        <li style="display: none" data-bind="visible: models()[@i]">
+                                            <div class="contentWrapper">
+                                                <div class="imageWrapper">
+                                                    <a class="bw-ga" data-cat="Search_Page" data-act="Model_Click" data-bind="attr: {'data-lab': models()[@i].bikeName, title : models()[@i].bikeName, href: '/' +  models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/'}">
+                                                        <img data-bind="attr : { 'src' : (models()[@i].bikemodel.hostUrl!='' ? models()[@i].bikemodel.hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].bikemodel.imagePath!='' ? models()[@i].bikemodel.imagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" />
+                                                    </a>
+                                                </div>
+                                                <div class="bikeDescWrapper">
+                                                    <h3 class="bikeTitle margin-bottom10"><a class="bw-ga" data-cat="Search_Page" data-act="Model_Click" data-bind="attr: {'data-lab': models()[@i].bikeName, href: '/' + models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/', title: models()[@i].bikeName }, text: models()[@i].bikeName "></a></h3>
 
-                                                <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
-                                                    <span class="rate-star-color" data-bind="attr: {'data-rate-cl': models()[@i].bikemodel.reviewRateStar}">
-                                                        <span class="bwsprite star-icon star-size-16"></span><span class="font14 inline-block" data-bind="text: models()[@i].bikemodel.reviewRate ? models()[@i].bikemodel.reviewRate : 'Not rated yet'"></span>
-                                                    </span>
-                                                    <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: models()[@i].bikemodel.ratingCount }">
-                                                        &nbsp;(<span data-bind="text: models()[@i].bikemodel.ratingCount"></span><span data-bind="text: models()[@i].bikemodel.ratingCount == 1 ? ' rating' : ' ratings'"></span>)
-                                                    </span>
-                                                    <span data-bind="visible: models()[@i].bikemodel.reviewCount">
-                                                        <a class='text-xt-light  inline-block' data-bind="attr: { href: '/' + models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/reviews/' , title: models()[@i].bikeName + ' user reviews' }">
-                                                            <span class="review-left-divider" data-bind="text: models()[@i].bikemodel.reviewCount"></span>&nbsp;<span data-bind="text: models()[@i].bikemodel.reviewCount == 1 ? 'review' : 'reviews' "></span>
-                                                        </a>
-                                                    </span>
-                                                </div>
+                                                    <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
+                                                        <span class="rate-star-color" data-bind="attr: {'data-rate-cl': models()[@i].bikemodel.reviewRateStar}">
+                                                            <span class="bwsprite star-icon star-size-16"></span><span class="font14 inline-block" data-bind="text: models()[@i].bikemodel.reviewRate ? models()[@i].bikemodel.reviewRate : 'Not rated yet'"></span>
+                                                        </span>
+                                                        <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: models()[@i].bikemodel.ratingCount }">
+                                                            &nbsp;(<span data-bind="text: models()[@i].bikemodel.ratingCount"></span><span data-bind="text: models()[@i].bikemodel.ratingCount == 1 ? ' rating' : ' ratings'"></span>)
+                                                        </span>
+                                                        <span data-bind="visible: models()[@i].bikemodel.reviewCount">
+                                                            <a class='text-xt-light  inline-block' data-bind="attr: { href: '/' + models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/reviews/' , title: models()[@i].bikeName + ' user reviews' }">
+                                                                <span class="review-left-divider" data-bind="text: models()[@i].bikemodel.reviewCount"></span>&nbsp;<span data-bind="text: models()[@i].bikemodel.reviewCount == 1 ? 'review' : 'reviews' "></span>
+                                                            </a>
+                                                        </span>
+                                                    </div>
 
-                                                <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
-                                                <div class="text-bold">
-                                                    <span class="bwsprite inr-lg"></span>
-                                                    <span class="font18" data-bind="text: models()[@i].price"></span><span class="font14 padding-left5" data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
-                                                </div>
-                                                <div class="margin-bottom10" data-bind="visible : models()[@i].price != 'N/A'">
-                                                    <a href="javascript:void(0)" data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : models()[@i].bikemodel.modelId}" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                                    <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
+                                                    <div class="text-bold">
+                                                        <span class="bwsprite inr-lg"></span>
+                                                        <span class="font18" data-bind="text: models()[@i].price"></span><span class="font14 padding-left5" data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
+                                                    </div>
+                                                    <div class="margin-bottom10" data-bind="visible : models()[@i].price != 'N/A'">
+                                                        <a href="javascript:void(0)" data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : models()[@i].bikemodel.modelId}" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
                                     <!-- /ko -->
-                                    i++;
-                                }
-                            </ul>
-                            <!-- /ko -->
+                                        i++;
+                                    }
+                                </ul>
+                                <!-- /ko -->
 
-                            <ul id="divMoreSearchResult" data-bind="template: { name: 'loadMoreListing', foreach: searchResult()}">
-                            </ul>
-                        </div>
-                        <div class="clear"></div>
-                        <div style="text-align: center;">
-                            <div id="loading" style="display:none;" data-bind="visible : IsLoading()">
-                                <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                                <ul id="divMoreSearchResult" data-bind="template: { name: 'loadMoreListing', foreach: searchResult()}"></ul>
                             </div>
-                        </div>
-                        <div class="clear"></div>
-                        <div class="load-more-btn-container" style="display: @(String.IsNullOrEmpty(Model.BikeSearch.PageUrl.NextPageUrl) ? "none" : "")" data-bind="visible: IsMoreBikesAvailable() && !IsLoading()">
-                            <a id="loadMoreBikes" title="Load More Bikes" href="javascript:void(0)" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" rel="nofollow" class="btn btn-teal" data-bind="attr: {'data-url' : LoadMoreTarget()}">
-								<span data-bind="visible: (!IsLoadMore() && IsMoreBikesAvailable())">
-									Load More
-									<span class="bwsprite teal-right"></span>
-								</span>
-								<span data-bind="visible: IsLoadMore()" style="display: none">
-									Loading...
-								</span>
-							</a>
-                        </div>
-                        <div style="text-align: center" data-bind="visible: TotalBikes() == 0">
-                            <div id="nobikeresults" class="hide">
-                                <img src="/images/no_result_d.png" />
-                            </div>
-                        </div>
-                        <script type="text/html" id="loadMoreListing">
-                            <li>
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a data-cat="Search_Page" data-act="Model_Click" class="bw-ga" data-bind="attr: {'data-lab': bikeName, title : bikeName, href: '/' +  bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/' }">
-                                            <img data-bind="attr : {'alt' : bikeName, 'title' : bikeName, 'src' : (bikemodel.hostUrl != '' ? bikemodel.hostUrl : 'https://imgd.aeplcdn.com/') +  '/310x174/' + (bikemodel.imagePath != '' ? bikemodel.imagePath : '/bikewaleimg/images/noimage.png') }" />
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <h3 class="bikeTitle margin-bottom10"><a data-cat="Search_Page" class="bw-ga" data-act="Model_Click" data-bind="attr: {'data-lab': bikeName, href: '/' + bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/', title: bikeName }, text: bikeName"></a></h3>
-
-                                        <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
-                                            <span class="rate-star-color" data-bind="attr: {'data-rate-cl': bikemodel.reviewRateStar}">
-                                                <span class="bwsprite star-icon star-size-16"></span><span class="font14 inline-block" data-bind="text: bikemodel.reviewRate ? bikemodel.reviewRate : 'Not rated yet'"></span>
-                                            </span>
-                                            <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: bikemodel.ratingCount }">
-                                                &nbsp;(<span data-bind="text: bikemodel.ratingCount"></span><span data-bind="text: bikemodel.ratingCount == 1 ? ' rating' : ' ratings'"></span>)
-                                            </span>
-                                            <span data-bind="visible: bikemodel.reviewCount">
-                                                <a class='text-xt-light  inline-block' data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/reviews/' , title: bikeName + ' user reviews' }">
-                                                    <span class="review-left-divider" data-bind="text: bikemodel.reviewCount"></span>&nbsp;<span data-bind="text: bikemodel.reviewCount == 1 ? 'review' : 'reviews' "></span>
-                                                </a>
-                                            </span>
-                                        </div>
-
-                                        <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
-                                        <div class="text-bold">
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span class="font18" data-bind="text: price"></span><span class="font14 padding-left5" data-bind="visible: {if : price != 'N/A'}">onwards</span>
-                                        </div>
-                                        <div class="margin-bottom10" data-bind="visible : price != 'N/A'">
-                                            <a data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : bikemodel.modelId}" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
-                                        </div>
-                                    </div>
+                            <div class="clear"></div>
+                            <div style="text-align: center;">
+                                <div id="loading" style="display:none;" data-bind="visible : IsLoading()">
+                                    <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                                 </div>
-                            </li>
-                        </script>
-                    </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="load-more-btn-container" style="display: @(String.IsNullOrEmpty(Model.BikeSearch.PageUrl.NextPageUrl) ? "none" : "")" data-bind="visible: IsMoreBikesAvailable() && !IsLoading()">
+                                <a id="loadMoreBikes" title="Load More Bikes" href="javascript:void(0)" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" rel="nofollow" class="btn btn-teal" data-bind="attr: {'data-url' : LoadMoreTarget()}">
+                                    <span data-bind="visible: (!IsLoadMore() && IsMoreBikesAvailable())">
+                                        Load More
+                                        <span class="bwsprite teal-right"></span>
+                                    </span>
+                                    <span data-bind="visible: IsLoadMore()" style="display: none">
+                                        Loading...
+                                    </span>
+                                </a>
+                            </div>
+                            <div style="text-align: center" data-bind="visible: TotalBikes() == 0">
+                                <div id="nobikeresults" class="hide">
+                                    <img src="/images/no_result_d.png" />
+                                </div>
+                            </div>
+                            <script type="text/html" id="loadMoreListing">
+                                <li>
+                                    <div class="contentWrapper">
+                                        <div class="imageWrapper">
+                                            <a data-cat="Search_Page" data-act="Model_Click" class="bw-ga" data-bind="attr: {'data-lab': bikeName, title : bikeName, href: '/' +  bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/' }">
+                                                <img data-bind="attr : {'alt' : bikeName, 'title' : bikeName, 'src' : (bikemodel.hostUrl != '' ? bikemodel.hostUrl : 'https://imgd.aeplcdn.com/') +  '/310x174/' + (bikemodel.imagePath != '' ? bikemodel.imagePath : '/bikewaleimg/images/noimage.png') }" />
+                                            </a>
+                                        </div>
+                                        <div class="bikeDescWrapper">
+                                            <h3 class="bikeTitle margin-bottom10"><a data-cat="Search_Page" class="bw-ga" data-act="Model_Click" data-bind="attr: {'data-lab': bikeName, href: '/' + bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/', title: bikeName }, text: bikeName"></a></h3>
+
+                                            <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
+                                                <span class="rate-star-color" data-bind="attr: {'data-rate-cl': bikemodel.reviewRateStar}">
+                                                    <span class="bwsprite star-icon star-size-16"></span><span class="font14 inline-block" data-bind="text: bikemodel.reviewRate ? bikemodel.reviewRate : 'Not rated yet'"></span>
+                                                </span>
+                                                <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: bikemodel.ratingCount }">
+                                                    &nbsp;(<span data-bind="text: bikemodel.ratingCount"></span><span data-bind="text: bikemodel.ratingCount == 1 ? ' rating' : ' ratings'"></span>)
+                                                </span>
+                                                <span data-bind="visible: bikemodel.reviewCount">
+                                                    <a class='text-xt-light  inline-block' data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/reviews/' , title: bikeName + ' user reviews' }">
+                                                        <span class="review-left-divider" data-bind="text: bikemodel.reviewCount"></span>&nbsp;<span data-bind="text: bikemodel.reviewCount == 1 ? 'review' : 'reviews' "></span>
+                                                    </a>
+                                                </span>
+                                            </div>
+
+                                            <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
+                                            <div class="text-bold">
+                                                <span class="bwsprite inr-lg"></span>
+                                                <span class="font18" data-bind="text: price"></span><span class="font14 padding-left5" data-bind="visible: {if : price != 'N/A'}">onwards</span>
+                                            </div>
+                                            <div class="margin-bottom10" data-bind="visible : price != 'N/A'">
+                                                <a data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : bikemodel.modelId}" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </script>
+                        </div>
+                    }
                 </div>
             </div>
             <div class="clear"></div>
