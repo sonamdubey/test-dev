@@ -73,6 +73,10 @@
                         {
                             <span class="popular-tag recommended-tag">Most Popular</span>
                         }
+                        else
+                        {
+                            <span class="recommended-tag"></span>
+                        }
 
                     </div>
                     <div class="right-bike__desc @string.Format("{0}",index==1?"featured-card":"")">
@@ -96,10 +100,10 @@
                             </svg>
                         </span>
                             <span class="right-bike__label">
-                                @string.Format("{0}", bike.Price > 0 ? Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price)) : "--")
+                                @string.Format("{0}", bike.Price > 0 ? string.Format("₹ {0}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))) : "--")
                             </span>
                             <span class="right-bike__label">
-                               @string.Format("{0}", bike.Displacement > 0 ? Convert.ToString(bike.Displacement) : "--")
+                               @string.Format("{0}", bike.Displacement > 0 ? string.Format("{0} cc", bike.Weight) : "--")
                             </span>
                             <span class="right-bike__label">
                                 @string.Format("{0}", bike.Weight > 0 ? string.Format("{0} kg", bike.Weight) : "--")
@@ -109,10 +113,10 @@
                                @string.Format("{0}", bike.FuelCapacity > 0 ? string.Format("{0} Lts", bike.FuelCapacity) : "--")
                             </span>
                             <span class="right-bike__label">
-                                @string.Format("{0}", bike.Mileage > 0 ? Convert.ToString(bike.Mileage) : "--")
+                                @string.Format("{0}", bike.Mileage > 0 ?  string.Format("{0} kmpl", bike.Mileage)  : "--")
                             </span>
                             <span class="right-bike__label">
-                                @string.Format("{0}", bike.SeatHeight > 0 ? Convert.ToString(bike.SeatHeight) : "--")
+                                @string.Format("{0}", bike.SeatHeight > 0 ?  Convert.ToString(bike.SeatHeight) : "--")
                             </span>
                             <span class="right-bike__label">
                                 @string.Format("{0}", !string.IsNullOrEmpty(bike.BrakeType) ? bike.BrakeType : "--")
