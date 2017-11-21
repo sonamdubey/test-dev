@@ -71,7 +71,8 @@ namespace Bikewale.Models
             {
 				if (!string.IsNullOrEmpty(_modelIdList))
 				{
-					recentVideos.VideosList = _videos.GetSimilarVideos(_pageSize, _modelIdList);
+					uint videoBasicId = 1; // 1 required to get videos
+					recentVideos.VideosList = _videos.GetSimilarVideos(_pageSize, _modelIdList, videoBasicId);
 				}
 				else if (IsScooter)
 				{

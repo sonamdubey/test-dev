@@ -18,7 +18,11 @@ using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeSeries
 {
-    public class SeriesPage
+	/// <summary>
+	/// Created by : Ashutosh Sharma on 17 Nov 2017
+	/// Description : Provide methods to get data for series page.
+	/// </summary>
+	public class SeriesPage
     {
         private bool IsScooter;
         public CompareSources CompareSource { get; set; }
@@ -40,7 +44,13 @@ namespace Bikewale.Models.BikeSeries
             _seriesCache = seriesCache;
         }
 
-        public SeriesPageVM GetData(uint seriesId)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Base method to get data for series page.
+		/// </summary>
+		/// <param name="seriesId"></param>
+		/// <returns></returns>
+		public SeriesPageVM GetData(uint seriesId)
         {
             SeriesPageVM objSeriesPage = null;
             try
@@ -86,7 +96,7 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.GetData");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.GetData");
             }
             return objSeriesPage;
         }
@@ -102,7 +112,7 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPage.BindUsedBikeByModel()");
+                ErrorClass objErr = new ErrorClass(ex, "ModelPage.BindUsedBikeByModel()");
             }
 
             return UsedBikeModel;
@@ -110,8 +120,12 @@ namespace Bikewale.Models.BikeSeries
         }
 
 
-
-        private void BindCMSContent(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to bind content for news, videos and expert reviews.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void BindCMSContent(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -126,6 +140,10 @@ namespace Bikewale.Models.BikeSeries
                     modelIdList.Append(bike.BikeModel.ModelId);
                     modelIdList.Append(",");
                 }
+				if (modelIdList.Length > 0)
+				{
+					modelIdList.Remove(modelIdList.Length - 1, 1);
+				}
 
 				ushort topCount = 3;
 				RecentNews recentNews = new RecentNews(topCount, (uint)objSeriesPage.BikeMake.MakeId, modelIdList.ToString(), _articles)
@@ -150,11 +168,16 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindCMSContent");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindCMSContent");
             }
         }
 
-        private void BindOtherSeriesFromMake(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to bind other series form same make.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void BindOtherSeriesFromMake(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -169,7 +192,12 @@ namespace Bikewale.Models.BikeSeries
             }
         }
 
-        private void BindSeriesSynopsis(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to bind series synopsis.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void BindSeriesSynopsis(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -182,11 +210,16 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindSeriesSynopsis");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindSeriesSynopsis");
             }
         }
 
-        private void SetPageJSONLDSchema(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to bind Json LD schema.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void SetPageJSONLDSchema(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -195,11 +228,16 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.SetPageJSONLDSchema");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.SetPageJSONLDSchema");
             }
         }
 
-        private void SetBreadcrumList(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to set breadcrum list.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void SetBreadcrumList(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -233,11 +271,16 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.SetBreadcrumList");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.SetBreadcrumList");
             }
         }
 
-        private void BindPageMetas(SeriesPageVM objSeriesPage)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 17 Nov 2017
+		/// Description : Method to bind page metas.
+		/// </summary>
+		/// <param name="objSeriesPage"></param>
+		private void BindPageMetas(SeriesPageVM objSeriesPage)
         {
             try
             {
@@ -252,7 +295,7 @@ namespace Bikewale.Models.BikeSeries
                     if (objSeriesPage.SeriesModels != null && objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.NewBikes.Any(b => b.BikeModel != null))
                     {
                         objSeriesPage.PageMetaTags.Description = string.Format("{0} {1} price in India – Rs. {2} - {3}." +
-                        "It is available in {4} models in India. {0} {5} is the most popular {1}. " +
+                        " It is available in {4} models in India. {0} {5} is the most popular {1}. " +
                         "Check out {1} on road price, reviews, mileage, versions, news & images at Bikewale",
                             objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName,
 							Format.FormatPrice(Convert.ToString(objSeriesPage.SeriesModels.NewBikes.Min(x => x.Price.AvgPrice))),
@@ -285,9 +328,10 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindPageMetas");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindPageMetas");
             }
         }
+
         /// <summary>
         /// Created By :- Subodh Jain 17-11-2013
         /// Summary :- GetCompareBikes Details
@@ -326,15 +370,11 @@ namespace Bikewale.Models.BikeSeries
             catch (Exception ex)
             {
 				
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.GetBikesToCompare");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.GetBikesToCompare");
             }
         }
-        /// <summary>
-        /// Modified by : Aditi Srivastava on 25 Apr 2017
-        /// Summary  :  Moved the comparison logic to common model
-        /// Modified by : Aditi Srivastava on 27 Apr 2017
-        /// Summary  : Added source for comparisons
-        /// </summary>
+
+        
         private void BindCompareScootes(SeriesPageVM objViewModel, CompareSources CompareSource)
         {
             try
@@ -346,7 +386,7 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
+                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
             }
 		}
 
