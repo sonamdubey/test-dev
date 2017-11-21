@@ -1,70 +1,70 @@
-﻿
-@model Bikewale.Models.BikeSeries.SeriesPageVM
+﻿@model Bikewale.Models.BikeSeries.SeriesPageVM
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/model-series/series.css' inline>";
+    Model.Page_JS_Path = "/m/src/model-series/series.js";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
 @using Bikewale.Utility
+
+
 @if (Model != null)
-{
-	{
-		Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/model-series/series.css' inline>";
-		Model.Page_JS_Path = "/m/src/model-series/series.js";
-		Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	}
-
-<section>
-	@if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
-	{
-		<div class="container margin-bottom20 bg-white">
-			<h1 class="padding-15">@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesDescription.Name)</h1>
-			<div class="intro-card">
-				<div class="main-series-model foldable-content" data-toggle="yes">
-					<p class="truncatable-content">
-						@Model.SeriesDescription.FullDescription
-					</p>
-					<a href="javascript:void(0)" class="read-more-button" rel="nofollow">...Read more</a>
-				</div>
-			</div>
-		</div>
-	}
-
-	@Html.Partial("~/Views/BikeSeries/_PopularNewBikes_Mobile.cshtml", Model)
-    
-	@if (Model.SeriesModels != null && Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
-	{
-		<div class="container bg-white">
-			<div class="padding-top20">
-				@if (Model.BikeMake != null && Model.SeriesBase != null)
-				{
-					<h2 class="padding-left20 padding-right20 padding-bottom10">@string.Format("{0} {1} upcoming bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
-				}
-				@Html.Partial("~/Views/BikeSeries/_UpcomingBikes_Mobile.cshtml", Model.SeriesModels.UpcomingBikes)
-			</div>
-		</div>
-	}
-    
-    @if (Model.SimilarCompareScooters != null) { 
-    <div class="container bg-white">
-        <div class="padding-top20 padding-bottom15">
-            <div class="carousel-heading-content">
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2>@Model.SeriesBase.SeriesName Bikes Comparisons</h2>
-                </div>
-                <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="" title="" class="font16">View all</a>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="swiper-container comparison-swiper card-container">
-                <div class="swiper-wrapper">
-                    @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.SimilarCompareScooters)
+{ <section>
+        @if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
+        {
+            <div class="container margin-bottom20 bg-white">
+                <h1 class="padding-15">@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesDescription.Name)</h1>
+                <div class="intro-card">
+                    <div class="main-series-model foldable-content" data-toggle="yes">
+                        <p class="truncatable-content">
+                            @Model.SeriesDescription.FullDescription
+                        </p>
+                        <a href="javascript:void(0)" class="read-more-button" rel="nofollow">...Read more</a>
                     </div>
                 </div>
+            </div>
+        }
+
+        @Html.Partial("~/Views/BikeSeries/_PopularNewBikes_Mobile.cshtml", Model)
+
+        @if (Model.SeriesModels != null && Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
+        {
+            <div class="container bg-white">
+                <div class="padding-top20">
+                    @if (Model.BikeMake != null && Model.SeriesBase != null)
+                    {
+                        <h2 class="padding-left20 padding-right20 padding-bottom10">@string.Format("{0} {1} upcoming bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
+                    }
+                    @Html.Partial("~/Views/BikeSeries/_UpcomingBikes_Mobile.cshtml", Model.SeriesModels.UpcomingBikes)
+                </div>
+            </div>
+        }
+
+        @if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
+        {
+            <div class="container bg-white">
+                <div class="padding-top20 padding-bottom15">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>@Model.SeriesBase.SeriesName Bikes Comparisons</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="/m/comparebikes/" title="View more comparisons" class="font16">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="swiper-container comparison-swiper card-container">
+                        <div class="swiper-wrapper">
+                            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.SimilarCompareScooters)
+                        </div>
+                    </div>
 
                 </div>
             </div>
-    }
-@if (Model.ObjModel!=null)
-    {
-		<div class="container bg-white">
-			<div class="padding-top20">
+        }
+        @if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Any())
+        {
+            <div class="container bg-white">
+                <div class="padding-top20">
                     <h2 class="padding-right20 padding-bottom10 padding-left20">Find The Right @Model.SeriesBase.SeriesName</h2>
                     <p class="padding-left20 font12 font-bold padding-right20">What’s are you looking for?</p>
                     <div class="find-right-bike margin-top15">
@@ -72,61 +72,62 @@
                     </div>
                 </div>
             </div>
-}
-    
-	@if ((Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
-						|| (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
-						|| (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any()))
-	{
-		<div class="container bg-white">
-			@if (Model.SeriesBase != null && !string.IsNullOrEmpty(Model.SeriesBase.SeriesName))
-			{
-				<h2 class="padding-left15 padding-right15 padding-top15">@Model.SeriesBase.SeriesName Latest Updates</h2>
-			}
+        }
 
-			<div id="modelLatestUpdatesWrapper" class="block">
-				<div id="modelLatestUpdatesTopContent" class="overall-specs__top-content margin-bottom5 bg-white position-rel">
-					<div id="overallUpdatesTab" class="overall-specs-tabs-container">
-						<ul class="overall-specs-tabs-wrapper">
-							@if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
-							{
-								<li data-tabs="#newsContent" class="bw-ga active news-tabs">
-									News
-								</li>
-							}
-							@if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
-							{
-								<li data-tabs="#videoContent" class="bw-ga video-tabs">
-									Videos
-								</li>
-							}
-							@if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
-							{
-								<li data-tabs="#reviewContent" class="bw-ga reviews-tabs">
-									Reviews
-								</li>
-							}
-						</ul>
-					</div>
-				</div>
-				@if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
-				{
-					<div id="newsContent" class="bw-model-tabs-data content-details-wrapper active">
-						<h2>News</h2>
-						@Html.Partial("~/Views/News/_RecentNews_v1_Mobile.cshtml", Model.News)
-					</div>
-				}
+        @if ((Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+                        || (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+                        || (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any()))
+        {
+            <div class="container bg-white">
+                @if (Model.SeriesBase != null && !string.IsNullOrEmpty(Model.SeriesBase.SeriesName))
+                {
+                    <h2 class="padding-left15 padding-right15 padding-top15">@Model.SeriesBase.SeriesName Latest Updates</h2>
+                }
 
-				@if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
-				{
-					<div id="videoContent" class="bw-model-tabs-data content-details-wrapper">
-						<h2>Videos</h2>
-						@Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
-					</div>
-				}
+                <div id="modelLatestUpdatesWrapper" class="block">
+                    <div id="modelLatestUpdatesTopContent" class="overall-specs__top-content margin-bottom5 bg-white position-rel">
+                        <div id="overallUpdatesTab" class="overall-specs-tabs-container">
+                            <ul class="overall-specs-tabs-wrapper">
+                                @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+                                {
+                                    <li data-tabs="#newsContent" class="bw-ga active news-tabs">
+                                        News
+                                    </li>
+                                }
+                                @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+                                {
+                                    <li data-tabs="#videoContent" class="bw-ga video-tabs">
+                                        Videos
+                                    </li>
+                                }
+                                @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+                                {
+                                    <li data-tabs="#reviewContent" class="bw-ga reviews-tabs">
+                                        Reviews
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
 
-				@if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
-				{
+                    @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+                    {
+                        <div id="newsContent" class="bw-model-tabs-data content-details-wrapper active">
+                            <h2>News</h2>
+                            @Html.Partial("~/Views/News/_RecentNews_v1_Mobile.cshtml", Model.News)
+                        </div>
+                    }
+
+                    @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+                    {
+                        <div id="videoContent" class="bw-model-tabs-data content-details-wrapper">
+                            <h2>Videos</h2>
+                            @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+                        </div>
+                    }
+
+                    @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+                    {
 
                         <div id="reviewContent" class="bw-model-tabs-data margin-bottom20 content-details-wrapper">
                             <h2>Expert Reviews</h2>
@@ -137,65 +138,71 @@
                     <div id="overallSpecsFooter"></div>
                 </div>
             </div>
-    @if (Model.objUsedBikes!=null) { 
-    
-            <div class="container bg-white padding-top20">
-                <div class="padding-right15 padding-left15">
-                    <div class="swiper-heading-left-grid inline-block">
-                        <h2>@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesDescription.Name)  Used Bikes</h2>
-                    </div>
-                    <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="" title="" class="font16">View all</a>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+        }
+        @if (Model.objUsedBikes != null && Model.objUsedBikes.RecentUsedBikesList !=null &&  Model.objUsedBikes.RecentUsedBikesList.Any())
+        {
 
-                        <div class="swiper-container used-model-swiper card-container">
-                            <div class="swiper-wrapper">
-                                @Html.Partial("~/Views/Used/_UsedBikeByModelCity_Mobile_v1.cshtml", Model.objUsedBikes)
-                            </div>
-                     
+        <div class="container bg-white padding-top20">
+            <div class="padding-right15 padding-left15">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesDescription.Name)  Used Bikes</h2>
                 </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="@string.Format("/m/used/{0}-bikes-in-{1}/", Model.BikeMake.MakeMaskingName, Model.City.CityMaskingName)" title="@string.Format("Second-hand Bikes in {0}", Model.City != null ? Model.City.CityMaskingName : "India")" class="font16">View all</a>
+                </div>
+                <div class="clear"></div>
             </div>
-    }
-            @if (Model.OtherSeriesList != null && Model.OtherSeriesList.Any())
-            {
-                <div class="container bg-white padding-bottom10">
-                    <div class="padding-left10 padding-right10 padding-top20">
-                        @if (Model.BikeMake != null)
-                        {
-                            <h2 class="padding-left5">@string.Format("{0} other series", Model.BikeMake.MakeName)</h2>
-                        }
 
-                        <ul class="model-series-list">
-                            @foreach (var series in Model.OtherSeriesList)
-                            {
-                                <li>
-                                    <a href="@string.Format("/m/{0}-bikes/{1}/", Model.BikeMake.MakeMaskingName, series.MaskingName)" title="@string.Format("{0} Series", series.SeriesName)">
-                                        <div class="model-series-list__img">
-                                            <img class="lazy" data-original="@Image.GetPathToShowImages(series.OriginalImagePath, series.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} Series", series.SeriesName)" src="" border="0">
-                                        </div>
-                                        <div class="model-list__label-block">
-                                            <p class="model-list__title">@string.Format("{0} Series", series.SeriesName)</p>
-                                            <p class="font13">@string.Format("{0} Bikes", series.ModelsCount)</p>
-                                        </div>
-                                        <span class="right-arrow">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="14px" viewBox="0 0 8 14" version="1.1">
-                                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-                                                    <g id="review-copy-6" transform="translate(-320.000000, -5738.000000)" stroke="#AAAAAA" stroke-width="1.0125">
-                                                        <polyline id="Page-1" transform="translate(324.000000, 5745.000000) scale(1, -1) translate(-324.000000, -5745.000000) " points="321 5739 327 5745 321 5751" />
-                                                    </g>
-                                                </g>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
+            <div class="swiper-container used-model-swiper card-container">
+                <div class="swiper-wrapper">
+                    @Html.Partial("~/Views/Used/_UsedBikeByModelCity_Mobile_v1.cshtml", Model.objUsedBikes)
                 </div>
-            }
 
-</section>
+            </div>
+        </div>
+        }
+        @if (Model.OtherSeriesList != null && Model.OtherSeriesList.Any())
+        {
+        <div class="container bg-white padding-bottom10">
+            <div class="padding-left10 padding-right10 padding-top20">
+                @if (Model.BikeMake != null)
+                {
+                    <h2 class="padding-left5">@string.Format("{0} other series", Model.BikeMake.MakeName)</h2>
+                }
 
+                <ul class="model-series-list">
+                    @foreach (var series in Model.OtherSeriesList)
+                    {
+                        <li>
+                            <a href="@string.Format("/m/{0}-bikes/{1}/", Model.BikeMake.MakeMaskingName, series.MaskingName)" title="@string.Format("{0} Series", series.SeriesName)">
+                                <div class="model-series-list__img">
+                                    <img class="lazy" data-original="@Image.GetPathToShowImages(series.OriginalImagePath, series.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} Series", series.SeriesName)" src="" border="0">
+                                </div>
+                                <div class="model-list__label-block">
+                                    <p class="model-list__title">@string.Format("{0} Series", series.SeriesName)</p>
+                                    <p class="font13">@string.Format("{0} Bikes", series.ModelsCount)</p>
+                                </div>
+                                <span class="right-arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="14px" viewBox="0 0 8 14" version="1.1">
+                                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+                                            <g id="review-copy-6" transform="translate(-320.000000, -5738.000000)" stroke="#AAAAAA" stroke-width="1.0125">
+                                                <polyline id="Page-1" transform="translate(324.000000, 5745.000000) scale(1, -1) translate(-324.000000, -5745.000000) " points="321 5739 327 5745 321 5751" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        }
+
+    </section>
 }
+
+
+
+
+
