@@ -111,11 +111,11 @@
             <ul class="filter-list" data-filter="makewise">
                 <li data-bind="click : function(d,e) { setMakeFilter(e);}"> <span>All brands</span> </li>
                 @foreach (var make in Model.Makes)
-                {
-                    <li data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName" data-makename-lower="@make.Make.MakeName.ToLower()" data-bind="click : function(d,e) { setMakeFilter(e);}">
-                        <span>@make.Make.MakeName</span>
-                    </li>
-                }
+{
+    <li  data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName" data-makename-lower="@make.Make.MakeName.ToLower()" data-bind="click : function(d,e) { setMakeFilter(e);}">
+        <span>@make.Make.MakeName</span>
+    </li>
+}
 
             </ul>
         </div>

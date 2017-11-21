@@ -11,10 +11,8 @@ namespace Bikewale.Models
     {
         public NewLaunchesBikesVM NewLaunched { get; set; }
         public UpcomingBikesWidgetVM Upcoming { get; set; }
-        public BrandWidgetVM Brands { get; set; }
         public uint CityId { get; set; }
         public bool HasUpcoming { get { return Upcoming != null && Upcoming.UpcomingBikes != null && Upcoming.UpcomingBikes.Any(); } }
-        public bool HasBrands { get { return Brands != null && Brands.TopBrands != null && Brands.TopBrands.Any(); } }
         public RecentNewsVM News { get; set; }
     }
 }
