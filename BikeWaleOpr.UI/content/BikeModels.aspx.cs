@@ -79,6 +79,7 @@ namespace BikeWaleOpr.Content
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
+                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>();
                 _series = container.Resolve<IBikeSeries>();
             }
@@ -147,69 +148,55 @@ namespace BikeWaleOpr.Content
         {
             Page.Validate();
             if (!Page.IsValid) return;
-            uint _modelId = 0;
-            int seriesId = 0;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel_23102017"))
+                string modelMaskingName = txtMaskingName.Text.Trim();
+                uint makeId = Convert.ToUInt32(cmbMakes.SelectedValue);
+                if (!_series.IsSeriesMaskingNameExists(makeId, modelMaskingName))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txtModel.Text.Trim().Replace("'", "''")));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbType.String, 50, txtMaskingName.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, cmbMakes.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int32, ddlSegment.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32,
-                        int.TryParse(ddlSeries.SelectedValue, out seriesId) && seriesId > 0 ? seriesId : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbType.Boolean, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ParameterDirection.Output));
-
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                    _modelId = Convert.ToUInt32(cmd.Parameters["par_modelid"].Value);
-
-                    if (Convert.ToBoolean(cmd.Parameters["par_ismodelexist"].Value))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel_23102017"))
                     {
-                        lblStatus.Text = "Model Masking Name already exists. Can not insert duplicate name.";
+                        uint _modelId = 0;
+                        int seriesId = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txtModel.Text.Trim().Replace("'", "''")));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbType.String, 50, modelMaskingName));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, cmbMakes.SelectedValue));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int32, ddlSegment.SelectedValue));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32,
+                            int.TryParse(ddlSeries.SelectedValue, out seriesId) && seriesId > 0 ? seriesId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbType.Boolean, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ParameterDirection.Output));
+
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                        _modelId = Convert.ToUInt32(cmd.Parameters["par_modelid"].Value);
+
+                        if (Convert.ToBoolean(cmd.Parameters["par_ismodelexist"].Value))
+                        {
+                            lblStatus.Text = "Model Masking Name already exists. Can not insert duplicate name.";
+                        }
+                        else if (_modelId > 0)
+                        {
+                            // Push Data to Carwale DB
+                            PushToDataSyncConsumer(_modelId);
+
+                            //CLear popularBikes key                       
+                            ClearPopularBikesCache();
+                        }
+
+                        if (_mc != null)
+                        {
+                            ClearMaskingMappingCache();
+                        }
+                        if (seriesId > 0)
+                            BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId((uint)seriesId);
                     }
-                    else if (_modelId > 0)
-                    {
-                        // Push Data to Carwale DB
-                        NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("v_modelId", _modelId.ToString());
-                        nvc.Add("v_MakeId", cmbMakes.SelectedValue);
-                        nvc.Add("v_ModelName", txtModel.Text.Trim().Replace("'", "''"));
-                        nvc.Add("v_ModelMaskingName", txtMaskingName.Text.Trim());
-                        nvc.Add("v_HostUrl", null);
-                        nvc.Add("v_OriginalImagePath", null);
-                        nvc.Add("v_New", "1");
-                        nvc.Add("v_Used", "1");
-                        nvc.Add("v_Futuristic", "0");
-                        SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
-
-                        //CLear popularBikes key                       
-                        UInt32 makeId;
-                        UInt32.TryParse(cmbMakes.SelectedValue, out makeId);
-                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
-                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
-                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
-                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
-                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey(makeId);
-                    }
-
-                    if (_mc != null)
-                    {
-                        if (_mc.Get("BW_ModelMapping") != null)
-                            _mc.Remove("BW_ModelMapping");
-
-                        if (_mc.Get("BW_NewModelMaskingNames") != null)
-                            _mc.Remove("BW_NewModelMaskingNames");
-
-                        if (_mc.Get("BW_OldModelMaskingNames") != null)
-                            _mc.Remove("BW_OldModelMaskingNames");
-                    }
-                    if (seriesId > 0)
-                        BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId((uint)seriesId);
+                }
+                else
+                {
+                    lblStatus.Text = "Given Model Masking Name already exists as Series Masking Name. Please change series masking name first then try again.";
                 }
 
             }
@@ -219,6 +206,37 @@ namespace BikeWaleOpr.Content
                 objErr.SendMail();
             }
             BindGrid();
+        }
+
+        private static void ClearMaskingMappingCache()
+        {
+            BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
+        }
+
+        private void ClearPopularBikesCache()
+        {
+            UInt32 makeId;
+            UInt32.TryParse(cmbMakes.SelectedValue, out makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey(makeId);
+        }
+
+        private void PushToDataSyncConsumer(uint _modelId)
+        {
+            NameValueCollection nvc = new NameValueCollection();
+            nvc.Add("v_modelId", _modelId.ToString());
+            nvc.Add("v_MakeId", cmbMakes.SelectedValue);
+            nvc.Add("v_ModelName", txtModel.Text.Trim().Replace("'", "''"));
+            nvc.Add("v_ModelMaskingName", txtMaskingName.Text.Trim());
+            nvc.Add("v_HostUrl", null);
+            nvc.Add("v_OriginalImagePath", null);
+            nvc.Add("v_New", "1");
+            nvc.Add("v_Used", "1");
+            nvc.Add("v_Futuristic", "0");
+            SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
         }
 
         void cmbMakes_SelectedIndexChanged(object Sender, EventArgs e)

@@ -4,13 +4,14 @@ using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
 {
-    /// <summary>
-    /// Created by : Vivek Singh Tomar on 27th Sep 2017
-    /// Summary : BAL interface for bike series
-    /// </summary>
-    public interface IBikeSeriesRepository
+	/// <summary>
+	/// Created by : Vivek Singh Tomar on 27th Sep 2017
+	/// Summary : BAL interface for bike series
+	/// Modified by : Ashutosh Sharma on 17 Nov 2017
+	/// Description : Added GetNewModels, GetUpcomingModels, GetOtherSeriesFromMake, GetSynopsis, Removed GetModelsListBySeriesId.
+	/// </summary>
+	public interface IBikeSeriesRepository
     {
-        //BikeSeriesModels GetModelsListBySeriesId(uint seriesId);
 		IEnumerable<NewBikeEntityBase> GetNewModels(uint seriesId, uint cityId);
         IEnumerable<BikeSeriesCompareBikes> GetBikesToCompare(uint seriesId);
 		IEnumerable<UpcomingBikeEntityBase> GetUpcomingModels(uint seriesId);

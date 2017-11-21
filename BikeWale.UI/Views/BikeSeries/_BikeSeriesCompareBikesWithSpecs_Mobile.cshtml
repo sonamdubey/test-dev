@@ -1,0 +1,138 @@
+﻿@model Bikewale.Models.BikeSeries.BikeSeriesCompareVM
+<div class="model-specs-tabs">
+    <a href="~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml">~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml</a>
+    <div class="find-specs__tabs-container">
+        <ul class="find-specs-tabs-wrapper">
+            <li>
+                <span class="specs-btn" data-swipe="@Model.ObjBikeSpecs.MaxPower">Max Power</span>
+            </li>
+            <li>
+                <span class="specs-btn" data-swipe="@Model.ObjBikeSpecs.Mileage">Mileage</span>
+            </li>
+            <li>
+                <span class="specs-btn" data-swipe="@Model.ObjBikeSpecs.Price">Price</span>
+            </li>
+            <li>
+                <span class="specs-btn" data-swipe="@Model.ObjBikeSpecs.Weight">weight</span>
+            </li>
+            <li>
+                <span class="specs-btn" data-swipe="@Model.ObjBikeSpecs.Displacement">Displacement</span>
+
+            </li>
+            <li>
+                <span class="specs-btn" data-swipe="@Model.ObjBikeSpecs.FuelCapacity">Fuel Tank Capacity</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="rightBikeSwiper" class="right-bike-swiper">
+    <div class="rightbike__swiper-card right-bike__swiper-keys">
+        <div class="rightbike-carousel__model-card">
+        </div>
+        <div class="right-bike__desc">
+            @foreach (var bike in Model.BikeCompareSegments)
+            {
+                <span class="right-bike__label">
+                    @bike
+                </span>
+            }
+        </div>
+    </div>
+    <div class="right-bike-swiper swiper-container card-container">
+        <div class="swiper-ribbon">
+            <span class="swiper-left-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="11px" viewBox="0 0 18 11" version="1.1">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+                        <g id="review-copy-6" transform="translate(-260.000000, -3098.000000)" stroke="#FFFFFF">
+                            <g id="Group-27" transform="translate(24.000000, 2717.000000)">
+                                <g id="Group-15" transform="translate(236.000000, 382.000000)">
+                                    <polyline id="Page-1" transform="translate(2.500000, 4.500000) scale(-1, -1) translate(-2.500000, -4.500000) " points="0 0 5 4.5 0 9" />
+                                    <path d="M0.5,4.5 L17.5,4.5" id="Line-3" />
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </span>
+            Swipe
+        </div>
+        <div class="swiper-wrapper">
+            @{uint index = 1;}
+            @foreach (var bike in Model.BikeSeriesCompareBikeWithSpecs)
+            {
+                <div class="swiper-slide rightbike__swiper-card popular-card" data-model-index="@index">
+                    <div class="rightbike-carousel__model-card">
+                        <div class="rightbike-carousel__image">
+                            <img class="swiper-lazy" alt="@bike.ModelName" title="@bike.ModelName" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._70)" src="" />
+                        </div>
+                        <p class="rightbike-caraousel__label">
+                            @bike.ModelName
+                        </p>
+                        @if (index == 1)
+                        {
+                            <span class="popular-tag recommended-tag">Most Popular</span>
+                        }
+                        else
+                        {
+                            <span class="recommended-tag"></span>
+                        }
+
+                    </div>
+                    <div class="right-bike__desc @string.Format("{0}",index==1?"featured-card":"")">
+                        <span class="featured-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19px" height="24px" viewBox="0 0 19 24" version="1.1">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="review-copy-6" transform="translate(-227.000000, -2819.000000)" fill="#FF7C6F">
+                                        <g id="Group-27" transform="translate(24.000000, 2717.000000)">
+                                            <g id="Group-11" transform="translate(204.000000, 103.000000)">
+                                                <g id="Group-12">
+                                                    <g id="Group-10">
+                                                        <path d="M5.74758324,12.2666667 L10.5498613,12.2666667 L10.5498613,12.2666667 C11.102146,12.2666667 11.5498613,12.7143819 11.5498613,13.2666667 L11.5498613,21.1118074 L11.5498613,21.1118074 C11.5498613,21.6399904 11.1216843,22.0681673 10.5935014,22.0681673 C10.3398892,22.0681673 10.0966618,21.9674322 9.91731453,21.7881177 L8.96409387,20.835071 L8.96409387,20.835071 C8.58457952,20.4556259 7.97321505,20.4434036 7.57883838,20.8073772 L6.42579649,21.8715292 L6.42579649,21.8715292 C6.01994168,22.2460961 5.38728493,22.2207322 5.01271809,21.8148773 C4.84224335,21.6301627 4.74758324,21.3880227 4.74758324,21.1366641 L4.74758324,13.2666667 L4.74758324,13.2666667 C4.74758324,12.7143819 5.19529849,12.2666667 5.74758324,12.2666667 Z" id="Rectangle-7" />
+                                                        <ellipse id="Oval-3" stroke="#FFFFFF" stroke-width="2" cx="8.30827068" cy="8.05" rx="8.30827068" ry="8.05" />
+                                                    </g>
+                                                    <ellipse id="Oval-3" stroke="#FFFFFF" stroke-width="2" cx="8.30827068" cy="8.21428571" rx="4.32030075" ry="4.27142857" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </span>
+                            <span class="right-bike__label">
+                                @string.Format("{0}", bike.Price > 0 ? string.Format("₹ {0}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))) : "--")
+                            </span>
+                            <span class="right-bike__label">
+                               @string.Format("{0}", bike.Displacement > 0 ? string.Format("{0} cc", bike.Displacement) : "--")
+                            </span>
+                            <span class="right-bike__label">
+                                @string.Format("{0}", bike.Weight > 0 ? string.Format("{0} kg", bike.Weight) : "--")
+                              
+                            </span>
+                            <span class="right-bike__label">
+                               @string.Format("{0}", bike.FuelCapacity > 0 ? string.Format("{0} Lts", bike.FuelCapacity) : "--")
+                            </span>
+                            <span class="right-bike__label">
+                                @string.Format("{0}", bike.Mileage > 0 ?  string.Format("{0} kmpl", bike.Mileage)  : "--")
+                            </span>
+                            <span class="right-bike__label">
+                                @string.Format("{0}", bike.SeatHeight > 0 ?  Convert.ToString(bike.SeatHeight) : "--")
+                            </span>
+                            <span class="right-bike__label">
+                                @string.Format("{0}", !string.IsNullOrEmpty(bike.BrakeType) ? bike.BrakeType : "--")
+                            </span>                                             
+                            <span class="right-bike__label">
+                                @string.Format("{0}", bike.Gears > 0 ? Convert.ToString(bike.Gears) : "--")
+                            </span>
+                        <span class="right-bike__label">
+                            @string.Format("{0}", bike.MaxPower > 0 ? string.Format("{0} bhp", bike.MaxPower) : "--")
+                            <span class="right-bike__sub-label">@string.Format("{0}", bike.MaxPowerRpm > 0 ? string.Format("@{0} rpm", bike.MaxPowerRpm) : "--")</span>
+                        </span>
+                    </div>
+                </div>
+                        index++;
+            }
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

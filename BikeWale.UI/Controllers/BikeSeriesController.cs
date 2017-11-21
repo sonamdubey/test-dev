@@ -1,4 +1,5 @@
-﻿using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Entities.Compare;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.UsedBikes;
@@ -39,6 +40,7 @@ namespace Bikewale.Controllers
         {
             SeriesPageVM obj;
             SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos, _compareScooters);
+            seriesPage.CompareSource = CompareSources.Desktop_SeriesPage;
             obj = seriesPage.GetData(seriesId);
             return View(obj);
         }
@@ -55,6 +57,7 @@ namespace Bikewale.Controllers
 
             SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos, _compareScooters);
             seriesPage.IsMobile = true;
+            seriesPage.CompareSource = CompareSources.Mobile_SeriesPage;
             obj = seriesPage.GetData(seriesId);
             return View(obj);
         }

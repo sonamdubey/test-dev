@@ -349,5 +349,24 @@ namespace BikewaleOpr.Cache
             }
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 21 Nov 2017
+        /// Description :   Clear Masking Mapping Cache
+        /// </summary>
+        public static void ClearMaskingMappingCache()
+        {
+            try
+            {
+                MemCachedUtil.Remove("BW_ModelMapping");
+                MemCachedUtil.Remove("BW_NewModelMaskingNames");
+                MemCachedUtil.Remove("BW_OldModelMaskingNames");
+                MemCachedUtil.Remove("BW_ModelSeries_MaskingNames");
+            }
+            catch (Exception ex)
+            {
+                new ErrorClass(ex, "BwMemcache.ClearMaskingMappingCache");
+            }
+        }
+
     }
 }
