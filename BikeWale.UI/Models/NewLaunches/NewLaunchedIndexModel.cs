@@ -7,7 +7,6 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -52,7 +51,6 @@ namespace Bikewale.Models
                 objVM = new NewLaunchedIndexVM();
                 objVM.Page_H1 = string.Format("NEW BIKE LAUNCHES - {0}", DateTime.Today.Year);
 
-                objVM.Brands = (new BrandWidgetModel(MakeTopCount, _newLaunches)).GetData(EnumBikeType.NewLaunched);
                 objVM.NewLaunched = (new NewLaunchesBikesModel(_newLaunches, _filter, _pqSource)).GetData();
 
                 _totalPagesCount = (uint)(objVM.NewLaunched.Bikes.TotalCount / PageSize);
@@ -164,19 +162,19 @@ namespace Bikewale.Models
         {
             try
             {
-                if (objNewLaunches != null && objNewLaunches.NewLaunched!=null && objNewLaunches.NewLaunched.Bikes!=null)
+                if (objNewLaunches != null && objNewLaunches.NewLaunched != null && objNewLaunches.NewLaunched.Bikes != null)
                 {
                     string modelId = string.Empty;
                     foreach (var obj in objNewLaunches.NewLaunched.Bikes.Bikes)
                     {
-                        modelId = string.IsNullOrEmpty(modelId) ? Convert.ToString(obj.Model.ModelId) : string.Format("{0},{1}", modelId, obj.Model.ModelId); 
+                        modelId = string.IsNullOrEmpty(modelId) ? Convert.ToString(obj.Model.ModelId) : string.Format("{0},{1}", modelId, obj.Model.ModelId);
                     }
                     objNewLaunches.News = new RecentNews(5, 0, modelId, _objArticles).GetData();
                 }
             }
             catch (Exception ex)
             {
-               Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "NewLaunchedIndexModel.BindCMSContent()");
+                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "NewLaunchedIndexModel.BindCMSContent()");
             }
 
         }
