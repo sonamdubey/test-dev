@@ -310,6 +310,7 @@ docReady(function () {
                 dataLessText = readMoreButton.attr('data-text');
                 readMoreButton.attr('data-text', readMoreButton.text()).text(dataLessText);
                 collapsibleContent.attr('data-toggle', 'yes');
+                $("html, body").animate({ scrollTop: dataTruncate.offset().top - 35 }, 500);
                 break;
         }
     });

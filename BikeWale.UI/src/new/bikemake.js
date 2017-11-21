@@ -245,8 +245,6 @@ docReady(function () {
 
     $('.read-more-button').on('click', function () {
         var readMoreButton = $(this);
-        $('#subfooter').find('.left-border').removeClass('left-border');
-        $('#subfooter').find('.right-border').removeClass('right-border');
         var collapsibleContent = readMoreButton.closest('.foldable-content');
         var isDataToggle = collapsibleContent.attr('data-toggle');
         var dataTruncate = collapsibleContent.find('.truncatable-content');
@@ -271,30 +269,13 @@ docReady(function () {
                 collapsibleContent.attr('data-toggle', 'yes');
                 break;
         }
+        $('.make-subfooter').find('.grid-6:nth-of-type(1)').css('height', 'auto');
     });
 
+    // subfooter divider
 
     $('.read-more-button').on('click', function () {
         var subfooter = $(this).closest('.make-subfooter');
-        //var containerHeight = subfooter.height(); //sub-footer heigth
-        //subfooter.find('.border-right').css('height', containerHeight);
-        var rightContainerHeight = subfooter.height();
-        var right=subfooter.find('.grid-6:first-child').height();
-        var left = subfooter.find('.grid-6:last-child').height();
-        if (right > left) {
-            subfooter.find('.grid-6:first-child').addClass('left-border');
-        }
-        else {
-            subfooter.find('.grid-6:last-child').addClass('right-border');
-        }
-        //var leftContainerHeight = subfooter.siblings('.grid-6').height();
-        //var rightBorder = $('#subfooter').find('.border-right');
-        //if (rightContainerHeight > leftContainerHeight) {
-        //    $('.border-right:after').css('height', rightContainerHeight+'px');
-        //}
-        //else {
-        //    $('.border-right:after').css('height', leftContainerHeight+'px');
-        //}
-        //console.log(rightContainerHeight +" And "+ leftContainerHeight+'px');
+        subfooter.find('.grid-6:nth-of-type(1)').css('height', subfooter.height());
     });
 });
