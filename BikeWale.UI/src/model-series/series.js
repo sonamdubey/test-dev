@@ -99,7 +99,8 @@
         var specBtn = $(this).attr('data-swipe');
         var swiperSlide = $('#rightBikeSwiper').find('.rightbike__swiper-card[data-model-index="' + specBtn + '"]');
         var indexOfSlide = swiperSlide.index();
-
+        $(this).closest('.find-specs-tabs-wrapper').find('.active').removeClass('active');
+        $(this).addClass('active');
         if (indexOfSlide >= 0) {
             var tag = $('#rightBikeSwiper').find('.rightbike__swiper-card .recommended-tag:not(.popular-tag)');
 
