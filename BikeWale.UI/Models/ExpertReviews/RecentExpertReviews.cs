@@ -106,10 +106,6 @@ namespace Bikewale.Models
 					string bodyStyleId = "5";
 					recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, bodyStyleId, _makeId, _modelId);
 				}
-                else if (_modelIdList.Length > 0)
-                {
-                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelIdList);
-                }
 				else
                 {
                     recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelId);
