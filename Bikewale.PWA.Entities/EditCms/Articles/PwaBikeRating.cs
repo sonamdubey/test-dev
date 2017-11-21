@@ -12,7 +12,7 @@ namespace Bikewale.Entities.PWA.Articles
         [DataMember]
         public UInt16 ReviewCount { get; set; }
         [DataMember]
-        public float Rating { get; set; }
+        public string Rating { get; set; }
         [DataMember]
         public UInt16 Count { get; set; }
         [DataMember]
