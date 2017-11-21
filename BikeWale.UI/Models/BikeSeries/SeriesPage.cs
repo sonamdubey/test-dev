@@ -278,6 +278,7 @@ namespace Bikewale.Models.BikeSeries
 
 					objSeriesPage.PageMetaTags.CanonicalUrl = UrlFormatter.BikeSeriesUrl(objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName);
                     objSeriesPage.PageMetaTags.AlternateUrl = string.Format("/m/{0}", objSeriesPage.PageMetaTags.CanonicalUrl);
+					objSeriesPage.AdTags.TargetedSeries = objSeriesPage.SeriesBase.SeriesName;
                     //objSeriesPage.PageMetaTags.OGImage
                 }
 

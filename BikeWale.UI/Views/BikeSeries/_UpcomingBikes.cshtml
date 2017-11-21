@@ -49,7 +49,7 @@
                         <li class="upcoming-bike-card">
                             <a href="@string.Format("/m/{0}-bikes/{1}/", bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)">
                                 <div class="upcoming-bike-card__image">
-                                    <img class="lazy" data-src="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="" border="0">
+                                    <img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="" border="0">
                                 </div>
                                 <div class="upcoming-bike-card__label-block">
                                     <h3 class="upcoming-bike-card__label">@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)</h3>
