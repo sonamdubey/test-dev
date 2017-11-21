@@ -6,6 +6,7 @@
     var ManifestJsUrl = "/pwa/manifest.bundle.js";
     var VendorJsUrl = "/pwa/vendor.bundle.js";
     var AppJsUrl = "/pwa/app.bundle.js";
+    var VideosJsUrl = "/pwa/videosBundle.bundle.js";
     var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
         
 }
@@ -86,12 +87,12 @@
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
    
-    <script>window.__CSS_CHUNKS__ = { "app": "/pwa/css/app.css", "newsBundle": "/pwa/css/news/newsBundle.css", "videosBundle": "/pwa/css/videos/videosBundle.css" }</script>
+    @{Html.RenderPartial("/Views/Shared/_CssChunksScript.cshtml");}
     <script type="text/javascript">
         window.state = @Html.Raw(Model.WindowState);
     </script>
     <script>
-        var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl'];
+        var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl','@VideosJsUrl'];
         var numberOfJsToLoad = jsUrls.length;
         function jsLoadedCallback() {
             try {
