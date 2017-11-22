@@ -12,30 +12,27 @@
         </div>
     </div>
 
-    <form action="/make/save/footerdata/" method="post">
 
-        @foreach (var cat in Model.MakeFooterData)
-        {
-            <div class="row">
-                <div class="input-field col s6 offset-s3">
-                    <input id="txt-@cat.CategoryId" data-id="@cat.CategoryId" type="text" class="validate txt-box" maxlength="2000" data-value="@cat.CategoryDescription" value="@cat.CategoryDescription">
-                    <label for="txt-@cat.CategoryId">@cat.CategoryName</label>
-                </div>
-            </div>
-        }
-
-        <input type="hidden" name="footerData" id="input-footerdata" />
-        <input type="hidden" name="userId" id="userId" value="@BikeWaleOpr.Common.CurrentUser.Id" />
-        <input type="hidden" name="makeId" value="@Model.MakeId" />
-
+    @foreach (var cat in Model.MakeFooterData)
+    {
         <div class="row">
-            <div class="col s5 offset-s3">
-                <button id="saveButton" class="btn waves-effect waves-light" type="submit" name="action">
-                    Save
-                </button>
+            <div class="input-field col s6 offset-s3">
+                <textarea id="txt-@cat.CategoryId" data-id="@cat.CategoryId" type="text" class="materialize-textarea txt-box" maxlength="2000" data-value="@cat.CategoryDescription">@cat.CategoryDescription</textarea>
+                <label for="txt-@cat.CategoryId">@cat.CategoryName</label>
             </div>
         </div>
-    </form>
+    }
+
+    <input type="hidden" id="userId" value="@BikeWaleOpr.Common.CurrentUser.Id" />
+    <input type="hidden" id="makeId" value="@Model.MakeId" />
+
+    <div class="row">
+        <div class="col s5 offset-s3">
+            <button id="saveButton" class="btn waves-effect waves-light" name="action">
+                Save
+            </button>
+        </div>
+    </div>
 </div>
 
 <script src="/src/footerdata.js"></script>

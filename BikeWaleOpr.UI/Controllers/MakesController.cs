@@ -12,7 +12,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
     /// <summary>
     /// Created By : Ashish G. kamble on 1 Feb 2017
     /// </summary>
-    [Authorize]
+    
     public class MakesController : Controller
     {
         private readonly IBikeMakesRepository makesRepo;
@@ -180,11 +180,11 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// <param name="makeId"></param>
         /// <returns></returns>
         [Route("make/save/footerdata/")]
-        public ActionResult SaveFooterData(uint makeId, string footerData, string userId)
+        public ActionResult SaveFooterData(uint makeId, uint categoryId, string categoryDescription, string userId)
         {
             try
             {
-                makesRepo.SaveMakeFooterData(makeId, footerData, userId);
+                makesRepo.SaveMakeFooterData(makeId, categoryId, EncodingDecodingHelper.DecodeFrom64(categoryDescription), userId);
             }
             catch (Exception ex)
             {
