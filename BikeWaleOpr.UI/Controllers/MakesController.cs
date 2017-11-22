@@ -12,7 +12,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
     /// <summary>
     /// Created By : Ashish G. kamble on 1 Feb 2017
     /// </summary>
-    
+    [Authorize]
     public class MakesController : Controller
     {
         private readonly IBikeMakesRepository makesRepo;
