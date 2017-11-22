@@ -159,8 +159,8 @@ namespace Bikewale.Models.BikeSeries
                 };
                 objSeriesPage.ExpertReviews = recentExpertReviews.GetData();
 
-				ushort pageNo = 1;
-				ushort pageSize = (ushort)(IsMobile ? 2 : 4);
+                ushort pageNo = 1;
+                ushort pageSize = (ushort)(IsMobile ? 2 : 4);
                 RecentVideos recentVideos = new RecentVideos(pageNo, pageSize, modelIdList.ToString(), _videos)
                 {
                     IsScooter = IsScooter
@@ -348,7 +348,7 @@ namespace Bikewale.Models.BikeSeries
 
                 for (int i = 0; i < objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Count(); i++)
                 {
-                    objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.ElementAt(i).Price = objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.AvgPrice;
+                    objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.ElementAt(i).Price = objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice > 0 ? objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice : objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.AvgPrice;
                 }
 
 
