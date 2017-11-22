@@ -87,6 +87,7 @@
         try {
             numberOfJsToLoad--;
             if (numberOfJsToLoad == 0) {
+                window.FirstRenderWithAppshell = true;
                 AppEntryPoint();
             }
         } catch (e) {
