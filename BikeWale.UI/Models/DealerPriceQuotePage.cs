@@ -189,6 +189,7 @@ namespace Bikewale.Models
                     objData.PageMetaTags.Description = String.Format("{0} {1} {2} price quote", objData.SelectedVersion.MakeBase.MakeName, objData.SelectedVersion.ModelBase.ModelName, objData.SelectedVersion.VersionName);
                     objData.AdTags.TargetedMakes = objData.SelectedVersion.MakeBase.MakeName;
                     objData.AdTags.TargetedModel = objData.SelectedVersion.ModelBase.ModelName;
+                    objData.AdTags.TargetedCity = currentCity;
                 }
 
             }
