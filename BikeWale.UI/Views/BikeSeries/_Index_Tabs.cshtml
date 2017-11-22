@@ -7,46 +7,37 @@
             <div class="overall-specs-tabs-wrapper">
                 @if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelAboutContent" data-lab="Honda_About">About</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelAboutContent" data-lab="@string.Format("{0}_About", Model.BikeMake.MakeName)">About</a>
                 }
                 @if (Model.SeriesModels != null && Model.SeriesModels.NewBikes != null && Model.SeriesModels.NewBikes.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#bikeModeleList" data-lab="Honda_Models">Models</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#bikeModeleList" data-lab="@string.Format("{0}_Models", Model.BikeMake.MakeName)">Bike Models</a>
                 }
                 @if (Model.SeriesModels != null && Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUpcomingBikesContent" data-lab="Honda_UpcomingBikes">Upcoming bikes</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUpcomingBikesContent" data-lab="@string.Format("{0}_UpcomingBikes", Model.BikeMake.MakeName)">Upcoming</a>
                 }
                 @if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#popularComparison" data-lab="Honda_TopComparisons">Similar bikes</a>
-                }
-                @if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Any())
-                {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#findRightBikesContent" data-lab="Honda_Videos">Right bikes</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#popularComparison" data-lab="@string.Format("{0}_TopComparisons", Model.BikeMake.MakeName)">Top Comparisons</a>
                 }
                 @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelNewsContent" data-lab="Honda_News">News</a>
-                }
-                @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
-                {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelVideosContent" data-lab="Honda_Videos">Videos</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelNewsContent" data-lab="@string.Format("{0}_News", Model.BikeMake.MakeName)">News</a>
                 }
                 @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelReviewsContent" data-lab="Honda_Reviews">Reviews</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.BikeMake.MakeName)">Reviews</a>
+                }
+                @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelVideosContent" data-lab="@string.Format("{0}_Videos", Model.BikeMake.MakeName)_Videos">Videos</a>
+                }
+                @if (Model.objUsedBikes != null && Model.objUsedBikes.RecentUsedBikesList != null && Model.objUsedBikes.RecentUsedBikesList.Any())
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUsedBikeContent" data-lab="@string.Format("{0}_UsedBikes", Model.BikeMake.MakeName)">Used Bikes</a>
                 }
                 
-                @if (false)
-                {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUsedBikeContent" data-lab="Honda_UsedBikes">Used Bikes</a>
-                }
-                
-                @if (Model.OtherSeriesList != null && Model.OtherSeriesList.Any())
-                {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#otherBikesContent" data-lab="Honda_Showrooms">Other series</a>
-                }
             </div>
         </div>
     </div>
