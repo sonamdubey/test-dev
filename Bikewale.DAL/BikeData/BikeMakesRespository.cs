@@ -69,8 +69,8 @@ namespace Bikewale.DAL.BikeData
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     LogoUrl = Convert.ToString(dr["LogoUrl"]),
                                     PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
-                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"]),
-                                    MakeCategoryId = SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"])
+                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"]),                                    
+                                    MakeCategoryId = requestType.Equals(EnumBikeType.New) ? SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"]) : (ushort)0
                                 });
                             }
 
