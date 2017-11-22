@@ -1,14 +1,14 @@
-﻿using Bikewale.Entities.Compare;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.BikeSeries;
-using System.Web.Mvc;
-using Bikewale.Entities.BikeData;
-using System;
 using Bikewale.Notifications;
+using System;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
@@ -63,7 +63,7 @@ namespace Bikewale.Controllers
         /// Description :   Masking Name processing for Series and model. If given masking name is not series masking name then redirect to model page
         /// </summary>
         /// <returns></returns>
-        [Route("make/{makeMaskingName}/series/{maskingName}/"),Filters.DeviceDetection]
+        [Route("make/{makeMaskingName}/series/{maskingName}/"), Filters.DeviceDetection]
         public ActionResult Index(string makeMaskingName, string maskingName, uint? versionId)
         {
             ActionResult objResult = null;
@@ -77,7 +77,7 @@ namespace Bikewale.Controllers
                     {
                         //forward Controller context for Model Controller. This is require as ModelController refer Request variables e.g. Request.RawUrl/Request.Cookies
                         _modelController.ControllerContext = new ControllerContext(this.Request.RequestContext, _modelController);
-                        
+
                         //Call Action Method of Model Controller
                         objResult = _modelController.Index(makeMaskingName, maskingName, versionId);
                     }
@@ -96,8 +96,9 @@ namespace Bikewale.Controllers
                     SeriesPageVM obj;
 
                     SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos, _compareScooters);
-            seriesPage.CompareSource = CompareSources.Desktop_SeriesPage;
+                    seriesPage.CompareSource = CompareSources.Desktop_SeriesPage;
                     seriesPage.IsMobile = false;
+                    seriesPage.MaskingName = maskingName;
                     obj = seriesPage.GetData(objResponse.Id);
                     objResult = View(obj);
                 }
@@ -134,7 +135,7 @@ namespace Bikewale.Controllers
                         _modelController.ControllerContext = new ControllerContext(this.Request.RequestContext, _modelController);
 
                         //Call Action Method of Model Controller
-                        objResult = _modelController.Index_Mobile(makeMaskingName, maskingName, versionId); 
+                        objResult = _modelController.Index_Mobile(makeMaskingName, maskingName, versionId);
                     }
                     else
                     {
@@ -152,12 +153,14 @@ namespace Bikewale.Controllers
 
                     SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos, _compareScooters);
                     seriesPage.IsMobile = true;
-            seriesPage.CompareSource = CompareSources.Mobile_SeriesPage;
+                    seriesPage.MaskingName = maskingName;
+                    seriesPage.CompareSource = CompareSources.Mobile_SeriesPage;
                     obj = seriesPage.GetData(objResponse.Id);
                     objResult = View(obj);
                 }
             }
-            else {
+            else
+            {
                 objResult = Redirect("/m/pagenotfound.aspx");
             }
 

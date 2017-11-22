@@ -26,6 +26,7 @@ namespace Bikewale.Models.BikeSeries
     {
         private bool IsScooter;
         public CompareSources CompareSource { get; set; }
+        public string MaskingName { get; set; }
         public bool IsMobile { get; set; }
         private readonly IUsedBikesCache _usedBikesCache;
         private readonly IBikeSeries _bikeSeries = null;
@@ -67,6 +68,7 @@ namespace Bikewale.Models.BikeSeries
                 }
                 objSeriesPage.SeriesBase = new BikeSeriesEntityBase();
                 objSeriesPage.SeriesBase.SeriesId = seriesId;
+                objSeriesPage.SeriesBase.MaskingName = MaskingName;
 
                 BindSeriesSynopsis(objSeriesPage);
 
@@ -320,10 +322,10 @@ namespace Bikewale.Models.BikeSeries
                         objSeriesPage.PageMetaTags.Keywords = Convert.ToString(str);
                     }
 
-                    objSeriesPage.PageMetaTags.CanonicalUrl = UrlFormatter.BikeSeriesUrl(objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName);
-                    objSeriesPage.PageMetaTags.AlternateUrl = string.Format("/m/{0}", objSeriesPage.PageMetaTags.CanonicalUrl);
+                    objSeriesPage.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName);
+                    objSeriesPage.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName);
                     objSeriesPage.AdTags.TargetedSeries = objSeriesPage.SeriesBase.SeriesName;
-                    //objSeriesPage.PageMetaTags.OGImage
+
                 }
 
             }
