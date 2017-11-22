@@ -41,23 +41,25 @@
                 <div class="container bg-white clearfix">
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%= heading %></h1> 
                     <%if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikeModelByCity.FetchCount > 0 || ctrlUsedBikesCityCountByMake.FetchedCount > 0 || ctrlUsedBikesCityCountByModel.FetchedCount > 0)
-                      { %>
+                        { %>
                     <div id="city-model-used-carousel" >                        
                         <h2 class="carousel-heading font14 text-default padding-left20 margin-bottom10">Refine your search further!</h2>
                         <span id="close-city-model-carousel" class="bwmsprite cross-md-dark-grey cur-pointer"></span>
                         <%if (ctrlUsedBikeByModels.FetchCount > 0)
-                          { %>
+                            { %>
                                   <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
                         <% }
-                          else if (ctrlUsedBikesCityCountByMake.FetchedCount > 0)
-                           { %>                        
+                            else if (ctrlUsedBikesCityCountByMake.FetchedCount > 0)
+                            { %>                        
                         <BW:UBCCountByMake runat="server" ID="ctrlUsedBikesCityCountByMake"></BW:UBCCountByMake>  
                           
-                       <%}else if (ctrlUsedBikeModelByCity.FetchCount > 0){%>
+                       <%}
+                           else if (ctrlUsedBikeModelByCity.FetchCount > 0)
+                           {%>
                                   <BW:UsedBikeModelByCity ID="ctrlUsedBikeModelByCity" runat="server" />
                         <% }
-                           else if (ctrlUsedBikesCityCountByModel.FetchedCount > 0)
-                           { %>    
+                            else if (ctrlUsedBikesCityCountByModel.FetchedCount > 0)
+                            { %>    
                         <BW:UBCCountByModel runat="server" ID="ctrlUsedBikesCityCountByModel"></BW:UBCCountByModel> 
                         <%}%>
                       
@@ -65,7 +67,7 @@
                     <%} %>
                     <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
                 <% if (totalListing > 0)
-                   { %>
+                    { %>
                     <div data-bind="visible: OnInit()" class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</div>
                     <% } %>
                     <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
@@ -83,25 +85,27 @@
                     <ul id="used-bikes-list" data-bind="visible: OnInit() && !noBikes()">
 
                         <%if (usedBikesList != null)
-                          {
-                              foreach (var bike in usedBikesList)
-                              {
-                                  string curBikeName = string.Format("{0} {1} {2}", bike.MakeName, bike.ModelName, bike.VersionName);  %>
+                            {
+                                foreach (var bike in usedBikesList)
+                                {
+                                    string curBikeName = string.Format("{0} {1} {2}", bike.MakeName, bike.ModelName, bike.VersionName);  %>
                                 <li >
                                     <div class="model-thumbnail-image">
-                                    <a href="<%= string.Format("/m/used/bikes-in-{0}/{1}-{2}-{3}/",bike.CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName,bike.ProfileId) %>" class="model-image-target">
+                                    <a href="<%= string.Format("/m/used/bikes-in-{0}/{1}-{2}-{3}/", bike.CityMaskingName, bike.MakeMaskingName, bike.ModelMaskingName, bike.ProfileId) %>" class="model-image-target">
                                         <%  if (!(String.IsNullOrEmpty(bike.Photo.OriginalImagePath) || String.IsNullOrEmpty(bike.Photo.HostUrl)))
                                             { %>    
-                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" 
+                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath, bike.Photo.HostUrl, Bikewale.Utility.ImageSize._310x174) %>" 
                                                  alt="<%= curBikeName %>" title="<%= curBikeName %>" border="0" src="" />
-                                        <% } else { %>
+                                        <% }
+                                            else
+                                            { %>
                                         <div class="bg-light-grey">
                                         <span class="bwmsprite no-image-icon margin-bottom15"></span>
                                         <p class="font12 text-bold text-light-grey">Image not available</p>
                                     </div>
                                         <% } %>
                                          <% if (bike.TotalPhotos > 0)
-                                            { %>
+                                             { %>
                                             <div class="model-media-details ">
                                                 <div class="model-media-item">
                                                     <span class="bwmsprite photos-sm"></span>
@@ -113,36 +117,36 @@
                                     </div>
                                     <div class="margin-right20 margin-left20 padding-top10 font14">
                                         <h2 class="margin-bottom5 text-truncate">
-                                        <a href="<%= string.Format("/m/used/bikes-in-{0}/{1}-{2}-{3}/",bike.CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName,bike.ProfileId) %>" title="<%= string.Format("{0}, {1}",bike.ModelYear,curBikeName) %>">
-                                                <%= string.Format("{0}, {1}",!string.IsNullOrEmpty(bike.ModelYear) ? bike.ModelYear : "" ,curBikeName) %>
+                                        <a href="<%= string.Format("/m/used/bikes-in-{0}/{1}-{2}-{3}/", bike.CityMaskingName, bike.MakeMaskingName, bike.ModelMaskingName, bike.ProfileId) %>" title="<%= string.Format("{0}, {1}", bike.ModelYear, curBikeName) %>">
+                                                <%= string.Format("{0}, {1}", !string.IsNullOrEmpty(bike.ModelYear) ? bike.ModelYear : "", curBikeName) %>
                                             </a>
                                         </h2>
                                         <div class="margin-bottom5">
                                             <span class="font12 text-x-light">Updated on: <%= bike.LastUpdated.ToString("dd MMMM yyyy") %></span>
                                         </div>
                                         <%if (!string.IsNullOrEmpty(bike.ModelYear))
-                                          { %>
+                                            { %>
                                         <div class="grid-6 alpha omega margin-bottom5 ">
                                             <span class="bwmsprite model-date-icon"></span>
                                             <span class="model-details-label"><%= bike.ModelYear %> model</span>
                                         </div>
                                          <% } %>
                                              <%if (bike.KmsDriven > 0)
-                                               { %>
+                                                 { %>
                                         <div class="grid-6 alpha omega margin-bottom5 ">
                                             <span class="bwmsprite kms-driven-icon"></span>
                                             <span class="model-details-label"><%= Bikewale.Utility.Format.FormatPrice(bike.KmsDriven.ToString()) %> kms</span>
                                         </div>
                                         <% } %>
                                              <%if (bike.NoOfOwners > 0)
-                                               { %>
+                                                 { %>
                                         <div class="grid-6 alpha omega margin-bottom5 ">
                                             <span class="bwmsprite author-grey-sm-icon"></span>
                                             <span class="model-details-label"><%= Bikewale.Utility.Format.AddNumberOrdinal(bike.NoOfOwners) %> owner</span>
                                         </div>
                                         <% } %>
                                              <%if (!string.IsNullOrEmpty(bike.CityName))
-                                               { %>
+                                                 { %>
                                         <div class="grid-6 alpha omega margin-bottom5">
                                             <span class="bwmsprite model-loc-icon"></span>
                                             <span class="model-details-label"><%= bike.CityName %></span>
@@ -153,8 +157,8 @@
                                     <a href="javascript:void(0)" class="btn btn-orange seller-details-btn used-bike-lead" data-ga-cat="Used_Bike_Listing" data-ga-act="Get_Seller_Details_Clicked" data-profile-id="<%= bike.ProfileId  %>" data-ga-lab="<%= bike.ProfileId %>" rel="nofollow">Get seller details</a>
                                     </div>
                                 </li>
-                        <% }
-                          }  %>
+                             <% }
+                            }  %>
                     </ul>
 
                     <ul id="used-bikes-list" style="display:none" data-bind="visible: !OnInit() && !noBikes() ,foreach : BikeDetails()">
@@ -216,7 +220,7 @@
                         <div class="grid-5 omega text-light-grey" data-bind="visible: TotalBikes() > 0">
                     <div class="font14" data-bind="visible: !OnInit() && TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
                     <% if (totalListing > 0)
-                       { %>
+                        { %>
                             <div data-bind="visible: OnInit()" class="font14"><span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span>  bikes</div>
                     <% } %>
                     </div>
@@ -372,12 +376,12 @@
                         <ul id="filter-city-list" >
                              <li data-cityid="0" data-bind="click: FilterCity" data-citymasking="india">All India</li>
                             <% if (citiesList != null)
-                               { %>
+                                { %>
                             <%foreach (var city in citiesList)
-                              {%>
+                                {%>
                             <li data-cityid="<%= city.CityId %>" data-citymasking="<%= city.CityMaskingName %>" data-bind="click : $root.FilterCity"><%=city.CityName %></li>
                             <%}
-                               } %>
+                                } %>
                           
                         </ul>                    
 
@@ -398,9 +402,9 @@
                     <div class="filter-bike-banner"></div>
                     <ul id="filter-bike-list">
                     <% if (makeModelsList != null)
-                       {
-                           foreach (var make in makeModelsList)
-                           {%>
+                        {
+                            foreach (var make in makeModelsList)
+                            {%>
                         <li>
                             <div class="accordion-tab">
 
@@ -417,19 +421,19 @@
                             </div>
                             <ul class="bike-model-list">
                             <%if (make.Models != null)
-                              {
-                                  foreach (var model in make.Models)
-                                  {%>
+                                {
+                                    foreach (var model in make.Models)
+                                    {%>
                                 <li>
                                 <span data-modelid="<%=model.ModelId %>"  class="bwmsprite unchecked-box"></span>
                                 <span class="bike-model-label"><%=model.ModelName %></span>
                                 </li>
                             <%}
-                              } %>
+                                } %>
                             </ul>
                         </li>
                     <%}
-                       } %>
+                        } %>
                     </ul>
                     <div id="filter-bike-container-footer" class="filter-container-footer">
                         <div class="grid-6 alpha">
@@ -447,7 +451,46 @@
             <!-- filter popup end -->
             </div>
         </div> 
-        
+
+        <section>
+            <div class="breadcrumb">
+                <span class="breadcrumb-title">You are here:</span>
+                <ul>
+
+                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                         <a class="breadcrumb-link"  href="/m/" itemprop="url">
+                                    <span class="breadcrumb-link__label" itemprop="name" title="Home">Home</span>
+                         </a>
+                     </li>
+                    <li itemtype="http://data-vocabulary.org/Breadcrumb">
+                                    
+                        <a class="breadcrumb-link"  href="/m/used/" itemprop="url"><span class="breadcrumb-link__label" itemprop="name" title="Used Bikes">Used Bikes</span>
+                        </a>
+                    </li>
+                    <% if (makeId > 0)
+                        { %>
+                    <li itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a class="breadcrumb-link"  href="/m/used/bikes-in-<%= objCity!=null ? objCity.CityMaskingName : "india" %>/" itemprop="url"><span class="breadcrumb-link__label" itemprop="name" title="<%= cityName %>"><%= cityName %></span></a>
+                    </li> 
+                        <% if (objMake != null && modelId > 0)
+                            { %>
+                            <li itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a class="breadcrumb-link"  href="/m/used/<%= objMake.MaskingName %>-bikes-in-<%= objCity!=null ? objCity.CityMaskingName : "india" %>/" itemprop="url" title="<%= string.Format("{0} Bikes",objMake.MakeName) %>"><span class="breadcrumb-link__label" itemprop="name"><%= string.Format("{0} Bikes",objMake.MakeName) %></span></a>
+                    </li> 
+                    <% }
+                        } %>
+                    <% if (!string.IsNullOrEmpty(heading))
+                        { %>
+                    <li>
+                        <span><%= heading %></span>
+                    </li>
+                    <%} %>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
+
         <div class="back-to-top" id="back-to-top"></div>
         <BW:UBLeadCapturePopup runat="server" ID="ctrlUBLeadCapturePopup"></BW:UBLeadCapturePopup>
         <script type="text/javascript">

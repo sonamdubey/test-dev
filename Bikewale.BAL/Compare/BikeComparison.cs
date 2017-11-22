@@ -1127,11 +1127,11 @@ namespace Bikewale.BAL.Compare
                         reviews.SpecCategory = new List<CompareSubCategory>();
                         //Most Helpful
 
-                        IList<MostHelpfulReviewObject> objHelpfulList = new List<MostHelpfulReviewObject>();
+                        IList<ReviewObject> objRecentList = new List<ReviewObject>();
 
                         foreach (var version in arrVersion)
                         {
-                            MostHelpfulReviewObject objReview = new MostHelpfulReviewObject();
+                            ReviewObject objReview = new ReviewObject();
                             var reviewObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
                             var basicInfoObj = compareEntity.BasicInfo != null ? compareEntity.BasicInfo.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)) : null;
                             if (reviewObj != null && basicInfoObj != null && reviewObj.ModelReview != null && reviewObj.ModelReview.UserReviews != null)
@@ -1142,10 +1142,10 @@ namespace Bikewale.BAL.Compare
                                 objReview.ReviewListUrl = string.Format("/{0}-bikes/{1}/reviews/", basicInfoObj.MakeMaskingName, basicInfoObj.ModelMaskingName);
                                 objReview.ReviewDetailUrl = string.Format("/{0}-bikes/{1}/reviews/{2}/", basicInfoObj.MakeMaskingName, basicInfoObj.ModelMaskingName, reviewObj.ModelReview.UserReviews.ReviewId);
                             }
-                            objHelpfulList.Add(objReview);
+                            objRecentList.Add(objReview);
                         }
 
-                        compareEntity.UserReviewData.MostHelpfulReviews = objHelpfulList;
+                        compareEntity.UserReviewData.MostRecentReviews = objRecentList;
 
                     }
                     #endregion

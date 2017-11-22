@@ -112,6 +112,7 @@ namespace Bikewale.Controllers
         public ActionResult Detail_Mobile(string basicId)
         {
             DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId);
+            objDetail.IsMobile = true;
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");

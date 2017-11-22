@@ -41,7 +41,7 @@ namespace Bikewale.Cache.ServiceCenter
             string key = string.Empty;
             try
             {
-                key = String.Format("BW_ServiceCenterList_Make_{0}", makeId);
+                key = String.Format("BW_ServiceCenterList_Make_V1_{0}", makeId);
                 objStateCityList = _cache.GetFromCache<ServiceCenterLocatorList>(key, new TimeSpan(12, 0, 0), () => _objServiceCenter.GetServiceCenterList(makeId));
             }
             catch (Exception ex)

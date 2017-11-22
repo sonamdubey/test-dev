@@ -595,6 +595,21 @@ var bwAutoComplete = function (options) {
                         },
                         success: function (jsonData) {
                             jsonData = jsonData.suggestionList;
+
+                            if (options.source == '7' && $('#nonUpcomingBikes').attr('data-contentTab') == "expertReview")
+                            {
+                                var arr = new Array();
+                                for (i = 0; i < jsonData.length; i++) {
+                                    if (jsonData[i].payload.expertReviewsCount > 0)
+                                        arr.push(jsonData[i])
+                                }
+                                for (i = 0; i < jsonData.length; i++) {
+                                    if (jsonData[i].payload.expertReviewsCount == 0)
+                                        arr.push(jsonData[i])
+                                }
+                                jsonData = arr;
+                            }                            
+
                             cache[reqTerm + '_' + year] = $.map(jsonData, function (item) {
                                 return { label: item.text, payload: item.payload }
                             });
@@ -1282,7 +1297,7 @@ docReady(function () {
     $(document).on("click", ".bw-ga", function () {
         try {
             var obj = $(this);
-            var category = obj.attr("data-cat") || obj.attr("c");
+            var category = obj.attr("data-cat") || obj.attr("c") || $('body').data('page-name');
             var action = obj.attr("data-act") || obj.attr("a");
             var label = obj.attr("data-lab") || obj.attr("l");
             var variable = obj.attr("data-var") || obj.attr("v");

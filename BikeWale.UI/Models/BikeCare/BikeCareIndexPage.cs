@@ -4,6 +4,7 @@ using Bikewale.Entities.CMS;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -167,6 +168,7 @@ namespace Bikewale.Models
                     objData.PageMetaTags.Description = string.Format("Page {0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Description);
                     objData.PageMetaTags.Title = string.Format("Page {0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
                 }
+                SetBreadcrumList(objData);
             }
             catch (Exception ex)
             {
@@ -247,6 +249,37 @@ namespace Bikewale.Models
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareIndexPage.GetWidgetData");
             }
+        }
+
+        /// <summary>
+        /// Created By :Snehal Dange on 8th Nov 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(BikeCareIndexPageVM objVM)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string bikeUrl;
+                bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    bikeUrl += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Bike Care"));
+
+                objVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareIndexPage.SetBreadcrumList");
+            }
+
         }
         #endregion
 

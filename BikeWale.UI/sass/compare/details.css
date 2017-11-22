@@ -496,6 +496,64 @@ body[data-equivalent="0"] .equivalent-data {
   position: relative;
   top: 1px; }
 
+.compare-with-target .next-grey-icon {
+  position: absolute;
+  right: 20px;
+  top: 15px; }
+
+.compare-with-target {
+  display: block;
+  padding: 10px 35px 10px 20px;
+  position: relative;
+  font-size: 14px;
+  color: #4d5057; }
+  .compare-with-target:before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 85%;
+    height: 1px;
+    border-top: 1px solid #e2e2e2; }
+
+.full-width-select .chosen-container {
+  width: 100% !important; }
+
+.exploremore__imagebackground {
+  margin-top: 25px;
+  margin-left: 25px;
+  margin-right: 25px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background: rgba(65, 180, 196, 0.3); }
+
+.exploremore__icon-background {
+  height: 80px;
+  width: 80px;
+  background: white url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/bike-48x29.png) no-repeat center;
+  margin: 0 auto;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%; }
+
+.exploremore-detailblock {
+  margin: 0 auto;
+  padding-top: 45px;
+  min-height: 170px;
+  width: 175px;
+  text-align: center; }
+
+.detailblock__title {
+  font-size: 14px;
+  color: #4D5057;
+  font-weight: 600;
+  margin-bottom: 15px;
+  line-height: 25px; }
+
+.detailblock__description {
+  font-size: 12px;
+  color: #A2A2A2; }
+
 #bike-comparison-container[data-column-count="3"] .compare-bike-list .list-item {
   width: 270.66667px; }
 

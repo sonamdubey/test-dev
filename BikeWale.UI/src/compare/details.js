@@ -3,7 +3,8 @@
     comparisonFooter = $('#comparison-footer'),
     overallSpecsTabs = $('#overall-tabs'),
     $window = $(window),
-    windowScrollTop;
+    windowScrollTop,
+    hideCheckbox = $(".hideCheckbox");
 var data = {};
 
 docReady(function() {
@@ -126,9 +127,12 @@ docReady(function() {
     }
     $('.compare-bike-list').on('click', '.add-bike-form', function () {
         var listItem = $(this).closest('.list-item');
-
         $(this).hide();
         compareBox.setDropdown(listItem[0]);
+        var bikeNo = listItem.attr("data-add-value"), liFloatingBike = $(".floating-add-compare-btn").closest("li[data-add-value=" + bikeNo + "]"),
+        floatingBtn = liFloatingBike.find(".floating-add-compare-btn");
+        floatingBtn.attr("data-selection-done", 1);
+        floatingBtn.text("Choose bikes");
     });
 
     $('.compare-bike-list').on('change', '.select-box select', function () {
@@ -557,5 +561,32 @@ docReady(function() {
         $('#' + tabId).addClass('active').show();
         $('html, body').animate({ scrollTop: overallSpecsTabs.offset().top - floatingCardHeight }, 500); // 44px accordion tab height
     });
+    
+    $(".floating-add-compare-btn").on('click', function () {
+        var ele = $(this), isSelectionDone = ele.attr("data-selection-done");
+        var bikeNo = ele.closest("li.list-item").attr("data-add-value"), liBike = $(".add-compare-btn").closest("li[data-add-value=" + bikeNo + "]");
+        $('html, body').animate({ scrollTop: 0 }, 500);
+        if (!isSelectionDone)
+        {
+            liBike.find(".add-compare-btn").click();
+            ele.attr("data-selection-done", 1);
+            ele.text("Choose bikes");
+        }
+       
+    });
+    
+    $(".reviewTab").on('click', function () {
+        hideCheckbox.hide();
+    })
 
+    $(".quickAcessTab").on('click', function () {
+        if (hideCheckbox.is(":hidden"))
+        {
+            hideCheckbox.show();
+        }
+    })
+
+    $(document).on('click', '#modelSimilarContent .jcarousel-control-right , #modelSimilarContent .jcarousel-control-left', function () {  
+        triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#modelSimilarContent").data('comptext'));
+    });
 });

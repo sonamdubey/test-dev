@@ -6,7 +6,7 @@
 
                 var bikeName = String.Format("{0} {1}", make, modelName);
     <li>
-        <a href="@UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName)" title="@bikeName" class="jcarousel-card">
+        <a href="@UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName)" title="@bikeName" class="jcarousel-card bw-ga" data-act="Clicked_on_SimilarModel" data-lab="@bikeName">
             <div class="model-jcarousel-image-preview">
                 <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._310x174,Bikewale.Utility.QualityFactor._75)" alt="@bikeName" src="" border="0" />
             </div>
@@ -57,7 +57,7 @@
         }
         @if (Model.Make != null && Model.Model != null && Model.IsNew)
         {
-            <a title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)" href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget)" class="compare-with-target text-truncate">
+            <a title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)" href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget)" data-act="Clicked_on_CompareCard" data-lab='@string.Format("{0} {1} vs {2}", Model.Make.MakeName, Model.Model.ModelName, bikeName)' class="compare-with-target text-truncate bw-ga">
                 <span class="bwsprite compare-sm"></span>Compare with @Model.Model.ModelName<span class="bwsprite next-grey-icon"></span>
             </a>
         }

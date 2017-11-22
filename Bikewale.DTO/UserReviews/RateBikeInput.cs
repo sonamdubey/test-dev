@@ -11,7 +11,7 @@ namespace Bikewale.DTO.UserReviews
     public class RateBikeInput
     {
         [Required]
-        [JsonProperty("modelId")] 
+        [JsonProperty("modelId")]
         public uint ModelId { get; set; }
 
         [Required]
@@ -22,18 +22,17 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("customerId")]
         public ulong CustomerId { get; set; }
 
-       
+
         [JsonProperty("sourceId")]
         public ushort SourceId { get; set; }
 
-        [Required]
         [JsonProperty("selectedRating")]
         public ushort SelectedRating { get; set; }
-       
+
         [JsonProperty("isFake")]
         public bool IsFake { get; set; }
 
-       
+
         [JsonProperty("returnUrl")]
         public string ReturnUrl { get; set; }
 

@@ -1,9 +1,11 @@
 ﻿using ApiGatewayLibrary;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Schema;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,7 @@ namespace Bikewale.Models.Videos
         public ushort PowerDriftTopMusicWidgetTopCount { get; set; }
         public ushort MiscellaneousWidgetTopCount { get; set; }
         public ushort BrandWidgetTopCount { get; set; }
+        public bool IsMobile { get; set; }
 
         private ushort _pageNo = 1;
 
@@ -150,7 +153,9 @@ namespace Bikewale.Models.Videos
                     objPageVM.PageMetaTags.Title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison - BikeWale";
                     objPageVM.PageMetaTags.Keywords = "bike videos, video reviews, expert video reviews, road test videos, bike comparison videos";
                     objPageVM.PageMetaTags.Description = "Check latest bike and scooter videos, watch BikeWale expert's take on latest bikes and scooters - features, performance, price, fuel economy, handling and more.";
+
                 }
+                SetBreadcrumList(objPageVM);
             }
             catch (Exception ex)
             {
@@ -177,5 +182,28 @@ namespace Bikewale.Models.Videos
                 ErrorClass objErr = new ErrorClass(ex, "VideosLandingPage.BindLandingVideos");
             }
         }
+        /// <summary>
+        /// Created By :Snehal Dange on 8th Nov 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(VideosLandingPageVM objVM)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string bikeUrl;
+            bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                bikeUrl += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Videos"));
+
+            objVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
+        }
+
     }
 }

@@ -1,0 +1,113 @@
+﻿@model Bikewale.Models.BikeModels.ModelMileageWidgetVM
+@using Bikewale.Utility
+@using Bikewale.Entities.GenericBikes
+
+@if (Model != null)
+{
+    var currentBike = string.Format("{0} {1}", Model.MileageInfo.Make.MakeName, Model.MileageInfo.Model.ModelName);
+    var bodyType = (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "scooters" : "commuters");
+    <div id="modelMileageContent" data-id ="modelMileageContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin">
+		<table class="mileage-box-list padding-bottom20">
+			<thead>
+				<tr>
+					<th colspan="4">
+						<h2 class="h2-heading content-inner-block-20">@currentBike Mileage</h2>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					@if (Model.MileageInfo != null && Model.MileageInfo.ARAIMileage > 0)
+					{
+						<td>
+							<div class="mileage-box__arai-block">
+								<p class="font14">
+									<span class="font18 font-bold">@Model.MileageInfo.ARAIMileage</span>
+									kmpl
+								</p>
+								<span class="mileage-box__subtitle">ARAI certified</span>
+								<span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+									<span class="bw-tooltip info-tooltip">
+										<span class="bw-tooltip-text">ARAI is a research association under GOI responsible for verifying mileage data for every bike sold in India.</span>
+									</span>
+								</span>
+							</div>
+						</td>
+					}
+
+					<td>
+						<div class="mileage-box__users-block">
+							<p class="font14">
+								<span class="font18 font-bold">@Model.MileageInfo.MileageByUserReviews</span>
+								kmpl
+							</p>
+							<p>
+								<span class="mileage-box__subtitle">Reported by owners</span>
+							</p>
+						</div>
+					</td>
+					<td>
+						<p class="mileage-box__desc margin-bottom5">@string.Format("Average mileage among {0}", bodyType) </p>
+						<div class="inline-block">
+							@if (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter))
+							{
+								<span class="grey-scooter-icon"></span>
+							}
+							else
+							{
+								<span class="grey-bike-icon"></span>
+							}
+							<p class="inline-block font12 padding-left10 text-light-grey">
+								<span class="font14 font-bold">@Math.Round(Model.AvgBodyStyleMileageByUserReviews, 2)</span>
+								kmpl
+							</p>
+						</div>
+					</td>
+					<td>
+						<div class="mileage-box__better-block">
+							<span class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</span>
+							<div class="mileage-box__desc inline-block margin-left5">
+                        @string.Format("{0} has better mileage than {1}% of {2}", Model.MileageInfo.Model !=null ? Model.MileageInfo.Model.ModelName : currentBike, Math.Round(Model.MileageInfo.Percentile), bodyType)
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+        <h3 class="text-bold content-inner-block-20"> @Model.WidgetHeading</h3>
+        <div class="jcarousel-wrapper inner-content-carousel model-mileage-carousel padding-bottom20">
+            <div class="jcarousel">
+                <ul>
+                    @foreach (var similarObj in Model.SimilarBikeList)
+                    {
+                        var bikeName = string.Format("{0} {1}", similarObj.Make.MakeName, similarObj.Model.ModelName);
+                        <li>
+                            <a href="@UrlFormatter.BikePageUrl(similarObj.Make.MaskingName, similarObj.Model.MaskingName)" title="@bikeName" class="jcarousel-card bw-ga" data-cat="Model_Page" data-act="Clicked_On_SimilarMileage_Card" data-lab="@bikeName">
+                                <div class="model-jcarousel-image-preview">
+                                    <img class="lazy" data-original="@Image.GetPathToShowImages(similarObj.OriginalImagePath, similarObj.HostUrl, ImageSize._310x174, "75")" alt="@bikeName" src="" border="0" />
+                                </div>
+                                <div class="card-desc-block">
+                                    <p class="bikeTitle">@bikeName</p>
+                                    <p class="text-light-grey">
+                                        @similarObj.MileageByUserReviews kmpl
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+            <span class="jcarousel-control-left">
+                <a href="#" class="bwsprite jcarousel-control-prev bw-ga" data-cat="Model_Page" data-act="Clicked_On_SimilarMileage_Carousel" data-lab="@currentBike" rel="nofollow"></a>
+            </span>
+            <span class="jcarousel-control-right">
+                <a href="#" class="bwsprite jcarousel-control-next bw-ga" data-cat="Model_Page" data-act="Clicked_On_SimilarMileage_Carousel" data-lab="@currentBike" rel="nofollow"></a>
+            </span>
+
+        </div>
+
+    </div>
+}
+

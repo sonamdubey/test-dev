@@ -1,7 +1,6 @@
 ﻿
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using Bikewale.Models.ServiceCenters;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {
@@ -19,6 +18,8 @@ namespace Bikewale.Models
     /// Description : Added City
     /// Modified by : Ashutosh Sharma on 26 Oct 2017
     /// Description : Added ReturnUrl
+    /// Modified by sajal Gupta on 06-11-2017
+    /// Descriptition :  Added SelectedSortingId, SelectedSortingText
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -54,9 +55,11 @@ namespace Bikewale.Models
         public DealerCardVM Dealers { get; set; }
 
         public IEnumerable<BikeMakeEntityBase> OtherMakes { get; set; }
-        public GlobalCityAreaEntity City{ get; set; }
+        public GlobalCityAreaEntity City { get; set; }
         public string ReturlUrl { get; set; }
 
+        public ushort SelectedSortingId { get; set; }
 
+        public string SelectedSortingText { get; set; }
     }
 }

@@ -9,6 +9,10 @@
     {
         <li data-tabs="#coloursContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Colours">Colours</li>
     }
+    @if (Model.IsMileageByUsersAvailable && Model.Mileage != null)
+    {
+        <li data-tabs="#mileageContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Mileage">Mileage</li>
+    }
     @if (Model.IsSimilarBikesAvailable)
     {
         <li data-tabs="#similarContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;SimilarBikes">Similar @Model.BodyStyleText</li>
@@ -25,14 +29,14 @@
     {
         <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;About">About</li>
     }
-    @if (Model.IsReviewsAvailable)
-    {
-        <li data-tabs="#expertReviewsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;ExpertReviews">Expert Reviews</li>
-    }
     @if (Model.IsUserReviewsAvailable)
     {
         <li data-tabs="#reviewsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;UserReviews">User Reviews</li>
-    }    
+    } 
+    @if (Model.IsReviewsAvailable)
+    {
+        <li data-tabs="#expertReviewsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;ExpertReviews">Expert Reviews</li>
+    }       
     @if (Model.IsNewsAvailable)
     {
         <li data-tabs="#newsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;News">News</li>

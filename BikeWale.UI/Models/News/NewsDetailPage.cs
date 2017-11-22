@@ -287,7 +287,9 @@ namespace Bikewale.Models
                     objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/news/{2}-{3}.html", BWConfiguration.Instance.BwHostUrl, objData.BaseUrl, objData.ArticleDetails.PrevArticle.BasicId, objData.ArticleDetails.PrevArticle.ArticleUrl);
                 if (objData.ArticleDetails.NextArticle != null && objData.ArticleDetails.NextArticle.ArticleUrl != null)
                     objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/news/{2}-{3}.html", BWConfiguration.Instance.BwHostUrl, objData.BaseUrl, objData.ArticleDetails.NextArticle.BasicId, objData.ArticleDetails.NextArticle.ArticleUrl);
+                objData.Page_H1 = objData.ArticleDetails.Title;
 
+                SetBreadcrumList(objData);
                 SetPageJSONSchema(objData);
             }
             catch (Exception ex)
@@ -295,6 +297,32 @@ namespace Bikewale.Models
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.SetPageMetas");
             }
         }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(NewsDetailPageVM objData)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            url += "news/";
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Bike News"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
+
+            objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
+        }
+
 
         /// <summary>
         /// Created By  : Sushil Kumar on 25th Aug 2017
@@ -322,6 +350,15 @@ namespace Bikewale.Models
             objSchema.MainEntityOfPage = new MainEntityOfPage() { PageUrlId = objData.PageMetaTags.CanonicalUrl };
             objSchema.Url = objData.PageMetaTags.CanonicalUrl;
             objData.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
+
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+
         }
 
         /// <summary>

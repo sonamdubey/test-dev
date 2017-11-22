@@ -9,22 +9,6 @@
 
 @if (Model != null)
 {
-    <section>
-        <div class="container">
-            <div class="grid-12">
-                <div class="breadcrumb margin-top15 margin-bottom10">
-                    <ul>
-                        <li><a href="/"><span>Home</span></a></li>
-                        <li><a href="/bike-videos/"><span class="bwsprite fa-angle-right margin-right10"></span>Videos</a></li>
-                        <li><span class="bwsprite fa-angle-right margin-right10"></span>@Model.PageHeading</li>
-                    </ul>
-                </div>
-                <h1 class="font26 margin-bottom5">@Model.PageHeading</h1>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-
     if (Model.Videos != null && Model.Videos.TotalRecords > 0)
     {
         <section id="section-videos-list">
