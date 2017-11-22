@@ -1,5 +1,6 @@
 {
   "videosBundle": {
+<<<<<<< HEAD
     "js": "https://stb.aeplcdn.com/bikewale/pwa/videosBundle.bundle.b312adc9f3074f716ecd.js",
     "css": "https://stb.aeplcdn.com/bikewale/pwa/css/videos/videosBundle.b312adc9f3074f716ecd.css"
   },
@@ -19,5 +20,26 @@
   },
   "manifest": {
     "js": "https://stb.aeplcdn.com/bikewale/pwa/manifest.bundle.b312adc9f3074f716ecd.js"
+=======
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/videosBundle.bundle.3cfd02a4638a1aaf7c5c.js",
+    "css": "https://stb.aeplcdn.com/staging/bikewale/pwa/css/videos/videosBundle.3cfd02a4638a1aaf7c5c.css"
+  },
+  "newsBundle": {
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/newsBundle.bundle.3cfd02a4638a1aaf7c5c.js",
+    "css": "https://stb.aeplcdn.com/staging/bikewale/pwa/css/news/newsBundle.3cfd02a4638a1aaf7c5c.css"
+  },
+  "peripheralComponents": {
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/peripheralComponents.bundle.3cfd02a4638a1aaf7c5c.js"
+  },
+  "vendor": {
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/vendor.bundle.3cfd02a4638a1aaf7c5c.js"
+  },
+  "app": {
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/app.bundle.3cfd02a4638a1aaf7c5c.js",
+    "css": "https://stb.aeplcdn.com/staging/bikewale/pwa/css/app.3cfd02a4638a1aaf7c5c.css"
+  },
+  "manifest": {
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/manifest.bundle.3cfd02a4638a1aaf7c5c.js"
+>>>>>>> parent of eb8b09f3a... -> updated js with all node modules in vendor bundle
   }
 }
