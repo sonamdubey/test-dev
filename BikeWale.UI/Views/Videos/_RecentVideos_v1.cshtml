@@ -18,7 +18,7 @@
                         @FormatDate.GetFormatDate(Convert.ToString(firstVideo.DisplayDate), "MMM dd, yyyy")
                     </span>
                     <span class="inline-block margin-right20">
-                        @Format.FormatNumeric(firstVideo.Views.ToString()) Views
+                        @Format.FormatNumbers(firstVideo.Views) Views
                     </span>
                     <span class="inline-block margin-right20">
                         <span class="tumbsup-icon">
@@ -84,7 +84,7 @@
                                         @FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "MMM dd, yyyy")
                                     </span>
                                     <span class="inline-block margin-right10">
-                                        @Format.FormatNumeric(video.Views.ToString()) Views
+                                        @Format.FormatNumbers(video.Views) Views
                                     </span>
                                     <span class="inline-block">
                                         <span class="thumbsup-icon margin-right5">

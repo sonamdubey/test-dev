@@ -190,8 +190,11 @@ namespace BikeWaleOpr.Content
                         {
                             ClearMaskingMappingCache();
                         }
-                        if (seriesId > 0)
-                            BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId((uint)seriesId);
+						if (seriesId > 0)
+						{
+							BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId((uint)seriesId);
+							BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(seriesId), makeId);
+						}
                     }
                 }
                 else
@@ -318,8 +321,8 @@ namespace BikeWaleOpr.Content
             Page.Validate();
             if (!Page.IsValid) return;
             try
-            {
-                string sql = string.Empty;
+            {	
+				string sql = string.Empty;
                 TextBox txt = (TextBox)e.Item.FindControl("txtModelName");
                 CheckBox chkUsed1 = (CheckBox)e.Item.FindControl("chkUsed");
                 CheckBox chkNew1 = (CheckBox)e.Item.FindControl("chkNew");
@@ -410,9 +413,11 @@ namespace BikeWaleOpr.Content
                 MemCachedUtil.Remove(string.Format("BW_GenericBikeInfo_MO_{0}_V1", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
                 //Refresh memcache object for popularBikes change
                 MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
+				BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(ddlUpdateSeries.SelectedValue), Convert.ToUInt32(cmbMakes.SelectedValue));
 
-                //Refresh memcache object for upcoming bikes
-                BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikes();
+
+				//Refresh memcache object for upcoming bikes
+				BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikes();
 
             }
             catch (SqlException ex)
@@ -697,8 +702,10 @@ namespace BikeWaleOpr.Content
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
-            }
-            catch (Exception ex)
+				BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(ddlUpdateSeries.SelectedValue), Convert.ToUInt32(cmbMakes.SelectedValue));
+
+			}
+			catch (Exception ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, "deleteModelMostPopularBikes");
             }
@@ -790,13 +797,15 @@ namespace BikeWaleOpr.Content
             try
             {
                 string ModelIdsList = hdnModelIdsListSeries.Value;
+				uint seriesId = Convert.ToUInt32(ddlUpdateSeries.SelectedValue);
+				uint makeId = Convert.ToUInt32(cmbMakes.SelectedValue);
 
-                if (ModelIdsList.Length > 0)
+				if (ModelIdsList.Length > 0)
                     ModelIdsList = ModelIdsList.Substring(0, ModelIdsList.Length - 1);
 
                 UpdateModelSeries(ddlUpdateSeries.SelectedValue, ModelIdsList);
 
-                BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(ddlUpdateSeries.SelectedValue));
+                BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId(seriesId);
                 string[] ModelIdArray = ModelIdsList.Split(',');
                 foreach (var item in ModelIdArray)
                 {
@@ -805,7 +814,9 @@ namespace BikeWaleOpr.Content
                         BikewaleOpr.Cache.BwMemCache.ClearVersionDetails(Convert.ToUInt32(item));
                     }
                 }
-                BindGrid();
+				BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(seriesId, makeId);
+
+				BindGrid();
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Series Updated Successfully.');", true);
             }
             catch (Exception ex)
