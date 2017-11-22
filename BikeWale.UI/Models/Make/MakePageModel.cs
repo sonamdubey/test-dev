@@ -154,6 +154,18 @@ namespace Bikewale.Models
                 BindOtherMakes(objData);
                 BindUserReviews(objData);
 
+                objData.BikeCityPopup = new PopUp.BikeCityPopup()
+                {
+                    ApiUrl = "/api/v2/DealerCity/?makeId=" + _makeId,
+                    PopupShowButtonMessage = "Show showrooms",
+                    PopupSubHeading = "See Showrooms in your city!",
+                    FetchDataPopupMessage = "Fetching showrooms for ",
+                    RedirectUrl = string.Format("/{0}-dealer-showrooms-in-", _makeMaskingName),
+                    IsCityWrapperPresent = 1
+                };
+
+                BindShowroomPopularCityWidget(objData);
+
                 #region Set Visible flags
 
                 if (objData != null)
@@ -207,6 +219,33 @@ namespace Bikewale.Models
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objData));
             }
+        }
+
+        private void BindShowroomPopularCityWidget(MakePageVM objMakePage)
+        {
+            DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
+            try
+            {
+                uint topCount = 8;
+                objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(makeId, topCount);
+                objData.MakeMaskingName = objMakePage.Make.MaskingName;
+                objData.MakeName = objMakePage.Make.MakeName;
+                objData.CityCardTitle = "showrooms in";
+                objData.CityCardLink = "dealer-showrooms-in";
+                objData.IsServiceCenterPage = false;
+                objMakePage.DealersServiceCenterPopularCities = objData;
+                if (objData.DealerServiceCenters.DealerDetails.Any())
+                {
+                    objMakePage.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objMakePage.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityId)).ToList();
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindShowroomPopularCityWidget");
+            }
+
         }
 
         /// <summary>
@@ -579,10 +618,10 @@ namespace Bikewale.Models
         {
             try
             {
-                if (_makeId > 0 && objData != null && _cacheUserReviews!=null)
+                if (_makeId > 0 && objData != null && _cacheUserReviews != null)
                 {
                     objData.PopularBikesUserReviews = new BikesWithReviewsByMakeVM();
-                    if (objData.PopularBikesUserReviews!=null)
+                    if (objData.PopularBikesUserReviews != null)
                     {
                         objData.PopularBikesUserReviews.BikesReviewsList = _cacheUserReviews.GetBikesWithReviewsByMake(_makeId);
                     }

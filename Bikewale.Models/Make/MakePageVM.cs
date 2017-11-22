@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Models.PopUp;
 using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 namespace Bikewale.Models
@@ -66,7 +67,7 @@ namespace Bikewale.Models
         public string SelectedSortingText { get; set; }
 
         public BikesWithReviewsByMakeVM PopularBikesUserReviews { get; set; }
-       
-        
+        public BikeCityPopup BikeCityPopup { get; set; }
+        public DealersServiceCentersIndiaWidgetVM DealersServiceCenterPopularCities { get; set; }
     }
 }
