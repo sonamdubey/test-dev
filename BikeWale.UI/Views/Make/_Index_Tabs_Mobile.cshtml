@@ -22,7 +22,7 @@
             {
                 <li data-tabs="#makeNewsContent" data-lab="@string.Format("{0}_News", Model.MakeName)">News</li>
             }
-            @if (Model.IsExpertReviewsAvailable)
+            @if(Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
             {
                 <li data-tabs="#makeReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.MakeName)">Reviews</li>
             }
