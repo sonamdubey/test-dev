@@ -274,8 +274,7 @@ docReady(function () {
     // subfooter divider
 
     $('.make-subfooter .read-more-button').on('click', function () {
-        $('.make-subfooter').find('.grid-6:nth-of-type(1)').css('height', 'auto');
         var subfooter = $(this).closest('.make-subfooter');
-        subfooter.find('.grid-6:nth-of-type(1)').css('height', subfooter.height());
+        subfooter.find('.grid-6:nth-of-type(1)').css('height', 'auto').css('height', subfooter.height());
     });
 });
