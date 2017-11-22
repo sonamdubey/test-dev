@@ -201,7 +201,8 @@ var UserReviews = function () {
                 "ModelMaskingName": summary.model.maskingName,
                 "ModelId": summary.model.modelId,
                 "IsShortListed": self.shortListCheckBox(),
-                "ReviewTips": self.reviewTips()
+                "ReviewTips": self.reviewTips(),
+                "MakeId": summary.make.makeId
             };           
             $.ajax({
                 type: "POST",
@@ -275,7 +276,9 @@ var UserReviews = function () {
                 "BikeName": summary.make.makeName + " " + summary.model.modelName,
                 "MakeMaskingName": summary.make.maskingName,
                 "ModelMaskingName": summary.model.maskingName,
-                "ModelId" : summary.model.modelId
+                "ModelId": summary.model.modelId,
+                "MakeId" : summary.make.makeId
+
 
             };
 
