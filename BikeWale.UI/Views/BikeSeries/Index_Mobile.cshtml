@@ -12,20 +12,24 @@
 
 @if (Model != null)
 { <section>
-        @if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
-        {
+        
             <div class="container margin-bottom20 bg-white">
-                <h1 class="padding-15">@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesDescription.Name)</h1>
-                <div class="intro-card">
-                    <div class="main-series-model foldable-content" data-toggle="yes">
-                        <p class="truncatable-content">
-                            @Model.SeriesDescription.FullDescription
-                        </p>
-                        <a href="javascript:void(0)" class="read-more-button" rel="nofollow">...Read more</a>
-                    </div>
-                </div>
+				@if (Model.BikeMake != null && Model.BikeMake != null)
+				{
+					<h1 class="padding-15">@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h1>
+				}
+				@if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
+				{
+					<div class="intro-card">
+						<div class="main-series-model foldable-content" data-toggle="yes">
+							<p class="truncatable-content">
+								@Model.SeriesDescription.FullDescription
+							</p>
+							<a href="javascript:void(0)" class="read-more-button" rel="nofollow">...Read more</a>
+						</div>
+					</div>
+				}
             </div>
-        }
 
         @Html.Partial("~/Views/BikeSeries/_PopularNewBikes_Mobile.cshtml", Model)
 

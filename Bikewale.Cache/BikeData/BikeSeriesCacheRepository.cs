@@ -91,11 +91,11 @@ namespace Bikewale.Cache.BikeData
             string key = string.Format("BW_BikeSeriesComparision_{0}", seriesId);
             try
             {
-                Obj = _cache.GetFromCache<IEnumerable<BikeSeriesCompareBikes>>(key, new TimeSpan(1, 0, 0), () => _bikeSeriesRepository.GetBikesToCompare(seriesId));
+                Obj = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _bikeSeriesRepository.GetBikesToCompare(seriesId));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Cache.BikeData.BikeSeries.GetBikesToCompare"));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Cache.BikeData.BikeSeries.GetBikesToCompare_SeriesId_{0}", seriesId));
             }
 
             return Obj;

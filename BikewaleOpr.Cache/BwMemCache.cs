@@ -176,13 +176,38 @@ namespace BikewaleOpr.Cache
             return cacheKeyClearStatus;
         }
 
-        /// <summary>
-        /// Created by  :   Sumit Kate on 13 Feb 2017
-        /// Description :   ClearNewLaunchesBikes
-        /// </summary>
-        /// <param name="cityId"></param>
-        /// <returns></returns>
-        public static bool ClearNewLaunchesBikes(string cityId)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 22 Nov 2017
+		/// Description : Method to clear cache for new, upcoming models, synopsis and other makes from make of a bike series.
+		/// </summary>
+		/// <param name="seriesId">Series Id of which cache needs to be clear</param>
+		/// <param name="makeId">Make Id of which cache needs to be clear</param>
+		public static void ClearSeriesCache(uint seriesId, uint makeId)
+		{
+			try
+			{
+				for (int cityId = 0; cityId < 1500; cityId++)
+				{
+					MemCachedUtil.Remove(string.Format("BW_NewModelsBySeriesId_s_{0}_c_{1}", seriesId, cityId));
+				}
+				MemCachedUtil.Remove(string.Format("BW_UpcomingModelsBySeriesId_{0}", seriesId));
+				MemCachedUtil.Remove(string.Format("BW_SynopsisBySeriesId_{0}", seriesId));
+				MemCachedUtil.Remove(string.Format("BW_OtherSeriesByMakeId_{0}", makeId));
+
+			}
+			catch (Exception ex)
+			{
+				ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearSeriesCache_SeriesId_{0}_MakeId_{1}", seriesId, makeId));
+			}
+		}
+
+		/// <summary>
+		/// Created by  :   Sumit Kate on 13 Feb 2017
+		/// Description :   ClearNewLaunchesBikes
+		/// </summary>
+		/// <param name="cityId"></param>
+		/// <returns></returns>
+		public static bool ClearNewLaunchesBikes(string cityId)
         {
             bool cacheKeyClearStatus = false;
             try
