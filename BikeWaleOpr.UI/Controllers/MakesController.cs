@@ -1,5 +1,6 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility;
+using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Interface.BikeData;
@@ -180,11 +181,11 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// <param name="makeId"></param>
         /// <returns></returns>
         [Route("make/save/footerdata/")]
-        public ActionResult SaveFooterData(uint makeId, uint categoryId, string categoryDescription, string userId)
+        public ActionResult SaveFooterData([System.Web.Http.FromBody]MakeFooterDto footerData)
         {
             try
             {
-                makesRepo.SaveMakeFooterData(makeId, categoryId, EncodingDecodingHelper.DecodeFrom64(categoryDescription), userId);
+                makesRepo.SaveMakeFooterData(footerData.MakeId, footerData.CategoryId, footerData.CategoryDescription, footerData.UserId);
             }
             catch (Exception ex)
             {
