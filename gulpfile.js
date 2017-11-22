@@ -296,7 +296,7 @@ gulp.task("replaceSWResouceHashInSW" , function() {
         .pipe(replace(cdnUrlPattern,function(match, p1, offset, string){
 			return 'var baseUrl = \''+getCdnPath()+'\';';
 		}))
-        .pipe(gulp.dest(app));
+        .pipe(gulp.dest(buildFolder));
 });
 
 

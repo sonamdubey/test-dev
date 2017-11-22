@@ -3852,6 +3852,7 @@
     <Content Include="Views\Videos\Details_Mobile_Pwa.cshtml" />
     <Content Include="Views\Shared\_ServiceWorkerScript.cshtml" />
     <Content Include="Views\Shared\_CssChunksScript.cshtml" />
+    <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

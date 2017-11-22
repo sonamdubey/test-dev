@@ -13,7 +13,46 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    @if (Model != null && Model.PageMetaTags != null)
+    {
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
+        {
+            <title>@Model.PageMetaTags.Title</title>
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
+        {
+            <meta name="description" content="@Model.PageMetaTags.Description" />
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
+        {
+            <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
+        }
+        if (Model.PageMetaTags.EnableOG)
+        {
+            <meta property="og:title" content="@Model.PageMetaTags.Title" />
+            <meta property="og:type" content="website" />
+            <meta property="og:description" content="@Model.PageMetaTags.Description" />
+            <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+            {
+                
+                <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
+            }
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+        {
+            <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.PreviousPageUrl))
+        {
+            <link rel="prev" href="@Model.PageMetaTags.PreviousPageUrl" /> }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+        {
+            <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
+        {
+            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> }
+    }
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
