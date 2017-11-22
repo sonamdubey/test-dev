@@ -6,7 +6,7 @@ $("#saveButton").click(function () {
     var userId = $('#userId').val();
 
     $('.txt-box').each(function (i, obj) {
-        if (obj.value && obj.value != obj.getAttribute('data-value')) {
+        if (obj.value != obj.getAttribute('data-value')) {
 
             var footerData = {
                 "makeId": makeId,
