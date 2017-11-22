@@ -8,9 +8,18 @@ $("#saveButton").click(function () {
     $('.txt-box').each(function (i, obj) {
         if (obj.value && obj.value != obj.getAttribute('data-value')) {
 
+            var footerData = {
+                "makeId": makeId,
+                "categoryId": obj.getAttribute('data-id'),
+                "categoryDescription": obj.value,
+                "userId": userId
+            }
+
             $.ajax({
                 type: "Post",
-                url: "/make/save/footerdata/?makeId=" + makeId + "&categoryId=" + obj.getAttribute('data-id') + "&categoryDescription=" + Base64.encode(obj.value) + "&userId=" + userId,
+                data: ko.toJSON(footerData),
+                dataType: 'json',
+                url: "/make/save/footerdata/",
                 contentType: "application/json",
                 dataType: 'json',                                
             });

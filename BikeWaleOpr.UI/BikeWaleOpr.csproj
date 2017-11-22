@@ -429,6 +429,7 @@
     <Compile Include="Controllers\PriceMonitoringController.cs" />
     <Compile Include="Controllers\PageMetasConfigureController.cs" />
     <Compile Include="Controllers\NewBikeDealerEMIController.cs" />
+    <Compile Include="Controllers\SellerDTO.cs" />
     <Compile Include="Controllers\ServiceCenterController.cs" />
     <Compile Include="Controllers\UserReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
