@@ -231,7 +231,7 @@ namespace Bikewale.Models.NewBikeSearch
                 RecentExpertReviews objReviews = new RecentExpertReviews((ushort)EditorialTopCount, currentPage.ModelIdList, _articles);
                 objVM.ExpertReviews = objReviews.GetData();
 
-                RecentVideos objVideos = new RecentVideos(1, (ushort)EditorialTopCount, _videos);
+                RecentVideos objVideos = new RecentVideos(1, (ushort)EditorialTopCount, currentPage.ModelIdList, _videos);
                 objVM.Videos = objVideos.GetData();
 
                 objVM.TabCount = 0;
