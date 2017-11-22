@@ -213,6 +213,7 @@
     <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\PriceAndCityEntityBase.cs" />
     <Compile Include="BikeData\PriceEntityBase.cs" />
+    <Compile Include="BikeData\SeriesMaskingResponse.cs" />
     <Compile Include="BikeData\SimilarBikeComparisions .cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
     <Compile Include="BikeData\BikeSeriesModels.cs" />

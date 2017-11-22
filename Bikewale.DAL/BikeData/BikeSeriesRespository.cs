@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Collections;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -210,14 +211,14 @@ namespace Bikewale.DAL.BikeData
             }
             return objModelsList;
         }
-
+        
 		/// <summary>
 		/// Created by : Ashutosh Sharma on 17 Nov 2017
 		/// Description : DAL method to get synopsis of a series.
 		/// </summary>
 		/// <param name="seriesId"></param>
 		/// <returns></returns>
-		public BikeDescriptionEntity GetSynopsis(uint seriesId)
+        public BikeDescriptionEntity GetSynopsis(uint seriesId)
         {
             BikeDescriptionEntity synopsis = null;
 
@@ -293,6 +294,55 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetOtherSeriesFromMake_makeId_{0}", makeId));
             }
             return bikeSeriesEntityList;
+        }
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 20 Nov 2017
+        /// Summary : Function to get the series and model masking names in the hashtable.
+        /// </summary>
+        /// <returns>Returns series and model masking names in hashtable. Key is MaskingName(model/series). Value is details associated with masking name.</returns>
+        public Hashtable GetMaskingNames()
+        {
+            Hashtable ht = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getseriesmodelmaskingmapping"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            ht = new Hashtable();
+
+                            while (dr.Read())
+                            {
+                                SeriesMaskingResponse objMaskingNames = new SeriesMaskingResponse()
+                                {
+                                    Id = SqlReaderConvertor.ParseToUInt32(dr["Id"]),
+                                    MaskingName = Convert.ToString(dr["MaskingName"]),
+                                    NewMaskingName = Convert.ToString(dr["NewMaskingName"]),
+                                    IsSeriesPageCreated = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]),
+                                    StatusCode = SqlReaderConvertor.ToUInt16(dr["Status"])
+                                };
+
+                                if (!ht.ContainsKey(dr["MaskingName"]))
+                                {
+                                    ht.Add(dr["MaskingName"], objMaskingNames);
+                                }                                
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeData.BikeSeriesRepository.GetMaskingNames");
+            }
+            return ht;
         }
     }   // class
 }   // namespace
