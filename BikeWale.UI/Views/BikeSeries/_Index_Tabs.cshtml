@@ -25,13 +25,14 @@
                 {
                     <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelNewsContent" data-lab="@string.Format("{0}_News", Model.BikeMake.MakeName)">News</a>
                 }
-                @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
-                {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.BikeMake.MakeName)">Reviews</a>
-                }
+              
                 @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
                 {
                     <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelVideosContent" data-lab="@string.Format("{0}_Videos", Model.BikeMake.MakeName)_Videos">Videos</a>
+                }
+                @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.BikeMake.MakeName)">Reviews</a>
                 }
                 @if (Model.objUsedBikes != null && Model.objUsedBikes.RecentUsedBikesList != null && Model.objUsedBikes.RecentUsedBikesList.Any())
                 {
