@@ -14,13 +14,13 @@
                     <li class="list-item">
                         <div class="margin-bottom10">
                             <h3 class="inline-block">
-                                <a href="@string.Format("/m{0}", UrlFormatter.BikePageUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName))" class="text-black">@bikeName</a>
+                                <a href="@string.Format("/m{0}", UrlFormatter.BikePageUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName))"  title="@bikeName" class="text-black">@bikeName</a>
                             </h3>
-                            <span class="rate-count-5 rate-count-container rate-star--small">
+                            <span class="rate-count-container rate-star--small rate-count-@Math.Round(obj.BikeModel.OverallRating)">
                                 <span class="star-icon"></span>
-                                <span class="rate-star-count">@obj.BikeModel.OverallRating</span>
+                                <span class="rate-star-count">@Math.Round(obj.BikeModel.OverallRating, 1)</span>
                             </span>
-                            <a href="@string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName))" class="inline-block margin-left5">@string.Format("({0} reviews)", obj.BikeModel.ReviewCount)</a>
+                            <a href="@string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName))" class="inline-block margin-left5">@string.Format("({0} {1})", obj.BikeModel.ReviewCount, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))</a>
                         </div>
                         <ul class="review-type-list">
                             <li class="review-type-list__item">

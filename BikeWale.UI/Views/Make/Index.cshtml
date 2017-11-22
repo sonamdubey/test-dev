@@ -225,10 +225,10 @@
                         </div>
                     }
                     <!-- news control ends here -->
-                    @if (Model.IsExpertReviewsAvailable || Model.PopularBikesUserReviews !=null)
+                    @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
                     {
                         <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-                           @if (Model.ExpertReviews != null)
+                           @if (Model.IsExpertReviewsAvailable && Model.ExpertReviews != null)
                            {
                             <h2 class="padding-left10 padding-right10">@Model.MakeName Expert Reviews</h2>
                             @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
@@ -238,7 +238,7 @@
                            }
                            
                             <!-- User reviews starts here-->
-                            @if (Model.PopularBikesUserReviews != null)
+                            @if (Model.IsUserReviewsAvailable && Model.PopularBikesUserReviews!=null)
                             {
                                 <div class="padding-top20 border-solid-bottom margin-bottom20"></div>
                                 <div>
