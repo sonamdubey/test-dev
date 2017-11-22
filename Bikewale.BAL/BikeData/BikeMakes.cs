@@ -123,5 +123,17 @@ namespace Bikewale.BAL.BikeData
         {
             return makesRepository.GetScooterMakeDescription(makeId);
         }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 22nd Nov 2017
+        /// Description: Calls GetMakeFooterCategoriesandPrice()
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public MakeSubFooterEntity GetMakeFooterCategoriesandPrice(uint makeId)
+        {
+            return makesRepository.GetMakeFooterCategoriesandPrice(makeId);
+        }
+
     }   // Class
 }   //Namespace

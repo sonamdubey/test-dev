@@ -227,5 +227,29 @@ namespace Bikewale.Cache.BikeData
             }
             return scooterDesc;
         }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 22nd Nov 2017
+        /// Description: To cache sub-footer description and model price list for make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public MakeSubFooterEntity GetMakeFooterCategoriesandPrice(uint makeId)
+        {
+            MakeSubFooterEntity footerContent = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    string key = string.Format("BW_FooterCategoriesandPrice_MK_{0}", makeId);
+                    footerContent = _cache.GetFromCache<MakeSubFooterEntity>(key, new TimeSpan(24, 0, 0), () => _objMakes.GetMakeFooterCategoriesandPrice(makeId));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetMakeFooterCategoriesandPrice MakeId : {0}", makeId));
+            }
+            return footerContent;
+        }
     }
 }

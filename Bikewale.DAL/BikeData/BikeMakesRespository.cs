@@ -607,5 +607,92 @@ namespace Bikewale.DAL.BikeData
 
             return objDesc;
         }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 22nd Nov 2017
+        /// Description: To get sub foooter content and model price list on make page
+        /// </summary>
+        /// <param name="makeId"></param>
+        public MakeSubFooterEntity GetMakeFooterCategoriesandPrice(uint makeId)
+        {
+            MakeSubFooterEntity footerContent = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getmakefootercategoriesandprice"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            if (dr != null && dr.Read())
+                            {
+                                footerContent = new MakeSubFooterEntity();
+                                IList<MakeFooterCategory> makeSummary = new List<MakeFooterCategory>();
+                                IList<BikeVersionPriceEntity> priceList = null;
+                                if (makeSummary != null)
+                                {
+                                    while (dr.Read())
+                                    {
+                                        makeSummary.Add(new MakeFooterCategory()
+                                            {
+
+                                                CategoryId = SqlReaderConvertor.ToUInt32(dr["CategoryId"]),
+                                                CategoryName = Convert.ToString(dr["CategoryName"]),
+                                                CategoryDescription = Convert.ToString(dr["CategoryDescription"])
+                                            }
+                                            );
+                                    }
+                                }
+
+                                if (dr.NextResult())
+                                {
+                                    priceList = new List<BikeVersionPriceEntity>();
+                                    if (priceList != null)
+                                    {
+                                        while (dr.Read())
+                                        {
+                                            priceList.Add(new BikeVersionPriceEntity()
+                                            {
+                                                Make = new BikeMakeBase()
+                                                {
+                                                    MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                                    MakeName = Convert.ToString(dr["Make"]),
+                                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"])
+
+                                                },
+                                                Model = new BikeModelEntityBase()
+                                                {
+                                                    ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]),
+                                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                                    MaskingName = Convert.ToString(dr["ModelMaskingName"])
+                                                },
+                                                VersionPrice = SqlReaderConvertor.ToInt32(dr["VersionPrice"])
+
+                                            }
+                                                );
+
+                                        }
+                                    }
+
+                                }
+                                if (footerContent != null)
+                                {
+                                    footerContent.FooterDescription = makeSummary;
+                                    footerContent.ModelPriceList = priceList;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.GetMakeFooterCategoriesandPrice: MakeId:{0}", makeId));
+            }
+            return footerContent;
+        }
     }
 }
