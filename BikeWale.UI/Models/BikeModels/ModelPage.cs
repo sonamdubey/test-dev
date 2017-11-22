@@ -359,7 +359,7 @@ namespace Bikewale.Models.BikeModels
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
             string bikeUrl, scooterUrl;
-            bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            bikeUrl = scooterUrl = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {

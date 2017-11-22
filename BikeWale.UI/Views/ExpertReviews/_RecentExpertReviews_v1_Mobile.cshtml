@@ -11,14 +11,12 @@
 						<img class="lazy" data-original="@Image.GetPathToShowImages(review.OriginalImgUrl, review.HostUrl, ImageSize._144x81, QualityFactor._70)" alt="@review.Title" src="" border="0">
 					</a>
 					<div class="news-section__title-block">
-						<a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title" class="swiper-card__label">@review.Title</a>
+						<a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title" class="swiper-card__label">@review.Title.Truncate(20) ...</a>
 						<p class="news-section__sub-title">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "dd MMM yyyy")</p>
 						<p class="model-card__sub-title">@review.AuthorName</p>
 					</div>
 				</div>
-				<div class="news-section__desc">
-					@FormatDescription.TruncateDescription(review.Description, 180)
-					<a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title" class="read-more">...Read more</a>
+				<div class="news-section__desc">@FormatDescription.TruncateDescription(review.Description, 120)<a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title" class="read-more">...Read more</a>
 				</div>
 			</li>
 		}
