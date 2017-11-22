@@ -263,27 +263,27 @@ namespace Bikewale.Models
                     tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[0] && x.MakeId != _makeId);
 
                     if (tempBrandsList != null)
-                        popularBrandsList.AddRange(tempBrandsList.OrderByDescending(x => x.PopularityIndex));
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
 
                     tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[1]);
 
                     if (tempBrandsList != null)
-                        popularBrandsList.AddRange(tempBrandsList.OrderByDescending(x => x.PopularityIndex));
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
 
                     tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[2]);
 
                     if (tempBrandsList != null)
-                        popularBrandsList.AddRange(tempBrandsList.OrderByDescending(x => x.PopularityIndex));
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
 
                     tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[3]);
 
                     if (tempBrandsList != null)
-                        popularBrandsList.AddRange(tempBrandsList.OrderByDescending(x => x.PopularityIndex));
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
 
                     tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[4]);
 
                     if (tempBrandsList != null)
-                        popularBrandsList.AddRange(tempBrandsList.OrderByDescending(x => x.PopularityIndex));
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
 
                 }
                 if (popularBrandsList != null && popularBrandsList.Any())
