@@ -25,6 +25,6 @@ namespace BikewaleOpr.Interface.BikeData
         void UpdateSynopsis(int makeId, int updatedBy, SynopsisData objSynopsis);
         IEnumerable<BikeModelEntityBase> GetModelsByMake(EnumBikeType requestType, uint makeId);
         IEnumerable<MakeFooterCategory> GetMakeFooterCategoryData(uint makeId);
-        void SaveMakeFooterData(uint makeId, string footerData, string userId);
+        void SaveMakeFooterData(uint makeId, uint categoryId, string categorydescription, string userId);
     }
 }

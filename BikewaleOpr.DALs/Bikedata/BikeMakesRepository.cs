@@ -132,7 +132,7 @@ namespace BikewaleOpr.DALs.Bikedata
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public void SaveMakeFooterData(uint makeId, string footerData, string userId)
+        public void SaveMakeFooterData(uint makeId, uint categoryId, string categorydescription, string userId)
         {
             try
             {
@@ -144,7 +144,8 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     param.Add("par_makeid", makeId);
                     param.Add("par_userid", userId);
-                    param.Add("par_categorydata", footerData);
+                    param.Add("par_categorydescription", categorydescription);
+                    param.Add("par_categoryId", categoryId);
 
                     connection.Query("savemakefootercategories", param: param, commandType: CommandType.StoredProcedure);
 
