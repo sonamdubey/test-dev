@@ -66,7 +66,8 @@ namespace Bikewale.Models
         public string SelectedSortingText { get; set; }
 
         public BikesWithReviewsByMakeVM PopularBikesUserReviews { get; set; }
-       
-        
+        public bool IsUserReviewsAvailable { get; set; }
+
+
     }
 }

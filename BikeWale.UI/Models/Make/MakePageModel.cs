@@ -160,7 +160,7 @@ namespace Bikewale.Models
                 {
                     objData.IsUpComingBikesAvailable = objData.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes.Any();
                     objData.IsNewsAvailable = objData.News != null && objData.News.ArticlesList != null && objData.News.ArticlesList.Any();
-                    objData.IsExpertReviewsAvailable = objData.News != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Any();
+                    objData.IsExpertReviewsAvailable = objData.ExpertReviews != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Any();
                     objData.IsVideosAvailable = objData.Videos != null && objData.Videos.VideosList != null && objData.Videos.VideosList.Any();
                     objData.IsUsedModelsBikeAvailable = objData.UsedModels != null && objData.UsedModels.UsedBikeModelList != null && objData.UsedModels.UsedBikeModelList.Any();
 
@@ -170,6 +170,8 @@ namespace Bikewale.Models
 
                     objData.IsMakeTabsDataAvailable = (objData.BikeDescription != null && objData.BikeDescription.FullDescription.Length > 0 || objData.IsNewsAvailable ||
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
+
+                    objData.IsUserReviewsAvailable = (objData.PopularBikesUserReviews != null && objData.PopularBikesUserReviews.BikesReviewsList != null && objData.PopularBikesUserReviews.BikesReviewsList.Any() && objData.PopularBikesUserReviews.BikesReviewsList.FirstOrDefault().MostRecent != null);
                 }
 
                 if (IsAmpPage)
@@ -579,10 +581,10 @@ namespace Bikewale.Models
         {
             try
             {
-                if (_makeId > 0 && objData != null && _cacheUserReviews!=null)
+                if (_makeId > 0 && objData != null && _cacheUserReviews != null)
                 {
                     objData.PopularBikesUserReviews = new BikesWithReviewsByMakeVM();
-                    if (objData.PopularBikesUserReviews!=null)
+                    if (objData.PopularBikesUserReviews != null)
                     {
                         objData.PopularBikesUserReviews.BikesReviewsList = _cacheUserReviews.GetBikesWithReviewsByMake(_makeId);
                     }

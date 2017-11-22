@@ -374,6 +374,7 @@
 .review-list__image-target {
 	width: 150px;
 	height: 84px;
+    margin-right: 10px;
 	float: left;
 }
 
@@ -406,7 +407,7 @@
 }
 
 .review-type-list .review-type-list__item:first-child {
-	padding-right: 60px;
+	padding-right: 45px;
 }
 
 
