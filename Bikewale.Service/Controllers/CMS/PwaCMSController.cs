@@ -227,7 +227,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     }
                     else
                     {// negative or zero basic id means send popular Bikes and Upcoming Bikes
-                     //get popular bikes
+                        //get popular bikes
 
                         bikes = _bikeModelEntity.GetMostPopularBikes(EnumBikeType.All, 9, 0, cityId);
                         if (bikes != null && bikes.Any())
@@ -311,11 +311,11 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// Created by : Aditi Srivastava on 29 Mar 2017
         /// Summary    : Get tagged model in article
         /// </summary>
-        private uint GetTaggedBikeListByModel(List<VehicleTag> vehiclTagsList)
+        private uint GetTaggedBikeListByModel(IEnumerable<VehicleTag> vehiclTagsList)
         {
             try
             {
-                if (vehiclTagsList != null && vehiclTagsList.Count > 0)
+                if (vehiclTagsList != null && vehiclTagsList.Any())
                 {
 
                     BikeModelEntityBase model;
@@ -326,7 +326,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     }
                     else
                     {
-                        model = vehiclTagsList.FirstOrDefault().ModelBase;
+                        model = vehiclTagsList.First().ModelBase;
                         if (model != null)
                             return (uint)model.ModelId;
                     }
