@@ -1176,9 +1176,13 @@ namespace Bikewale.Models.BikeModels
                                 }
                                 else
                                 {
-                                    _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                    _objData.BikePrice = _objData.CityId == 0 ? (uint)modelPg.ModelVersions.FirstOrDefault().Price : 0;
-                                }
+									var firstVersion = modelPg.ModelVersions.FirstOrDefault();
+									if (firstVersion != null)
+									{
+										_objData.VersionId = (uint)firstVersion.VersionId;
+										_objData.BikePrice = _objData.CityId == 0 ? (uint)firstVersion.Price : 0;
+									}
+								}
                             }
                         }
                     }

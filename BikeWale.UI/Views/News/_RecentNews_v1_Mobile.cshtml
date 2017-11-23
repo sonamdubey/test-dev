@@ -11,7 +11,7 @@
 						<img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._144x81, QualityFactor._70)" alt="@news.Title" src="" border="0">
 					</a>
 					<div class="news-section__title-block">
-						<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" class="swiper-card__label">@news.Title.Truncate(20) ...</a>
+						<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" class="swiper-card__label">@news.Title.Truncate(25) ...</a>
 						<p class="news-section__sub-title">@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate), "dd MMM yyyy")</p>
 						<p class="model-card__sub-title">@news.AuthorName</p>
 					</div>

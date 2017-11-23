@@ -149,43 +149,46 @@ namespace Bikewale.Models.BikeSeries
         {
             try
             {
-                StringBuilder modelIdList = new StringBuilder("");
-                foreach (var bike in objSeriesPage.SeriesModels.NewBikes)
-                {
-                    modelIdList.Append(bike.BikeModel.ModelId);
-                    modelIdList.Append(",");
-                }
-                foreach (var bike in objSeriesPage.SeriesModels.UpcomingBikes)
-                {
-                    modelIdList.Append(bike.BikeModel.ModelId);
-                    modelIdList.Append(",");
-                }
-                if (modelIdList.Length > 0)
-                {
-                    modelIdList.Remove(modelIdList.Length - 1, 1);
-                }
+				if (objSeriesPage.SeriesModels != null && objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.UpcomingBikes != null)
+				{
+					StringBuilder modelIdList = new StringBuilder("");
+					foreach (var bike in objSeriesPage.SeriesModels.NewBikes)
+					{
+						modelIdList.Append(bike.BikeModel.ModelId);
+						modelIdList.Append(",");
+					}
+					foreach (var bike in objSeriesPage.SeriesModels.UpcomingBikes)
+					{
+						modelIdList.Append(bike.BikeModel.ModelId);
+						modelIdList.Append(",");
+					}
+					if (modelIdList.Length > 0)
+					{
+						modelIdList.Remove(modelIdList.Length - 1, 1);
+					}
 
-                ushort topCount = 3;
-                RecentNews recentNews = new RecentNews(topCount, (uint)objSeriesPage.BikeMake.MakeId, Convert.ToString(modelIdList), _articles)
-                {
-                    IsScooter = IsScooter
-                };
-                objSeriesPage.News = recentNews.GetData();
-                objSeriesPage.News.Title = string.Format("{0} {1} News", objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName);
+					ushort topCount = 3;
+					RecentNews recentNews = new RecentNews(topCount, (uint)objSeriesPage.BikeMake.MakeId, Convert.ToString(modelIdList), _articles)
+					{
+						IsScooter = IsScooter
+					};
+					objSeriesPage.News = recentNews.GetData();
+					objSeriesPage.News.Title = string.Format("{0} {1} News", objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName);
 
-                RecentExpertReviews recentExpertReviews = new RecentExpertReviews(topCount, (uint)objSeriesPage.BikeMake.MakeId, Convert.ToString(modelIdList), _articles)
-                {
-                    IsScooter = IsScooter
-                };
-                objSeriesPage.ExpertReviews = recentExpertReviews.GetData();
+					RecentExpertReviews recentExpertReviews = new RecentExpertReviews(topCount, (uint)objSeriesPage.BikeMake.MakeId, Convert.ToString(modelIdList), _articles)
+					{
+						IsScooter = IsScooter
+					};
+					objSeriesPage.ExpertReviews = recentExpertReviews.GetData();
 
-                ushort pageNo = 1;
-                ushort pageSize = (ushort)(IsMobile ? 2 : 4);
-                RecentVideos recentVideos = new RecentVideos(pageNo, pageSize, Convert.ToString(modelIdList), _videos)
-                {
-                    IsScooter = IsScooter
-                };
-                objSeriesPage.Videos = recentVideos.GetData();
+					ushort pageNo = 1;
+					ushort pageSize = (ushort)(IsMobile ? 2 : 4);
+					RecentVideos recentVideos = new RecentVideos(pageNo, pageSize, Convert.ToString(modelIdList), _videos)
+					{
+						IsScooter = IsScooter
+					};
+					objSeriesPage.Videos = recentVideos.GetData();
+				}
             }
             catch (Exception ex)
             {

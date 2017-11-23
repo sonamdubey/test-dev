@@ -186,7 +186,7 @@
 									</div>
 									<div class="model-list__label-block">
 										<p class="model-list__title">@string.Format("{0} Series", series.SeriesName)</p>
-										<p class="font13">@string.Format("{0} Bikes", series.ModelsCount)</p>
+										<p class="font13">@string.Format("{0} {1}", series.ModelsCount, series.ModelsCount > 1 ? "Bikes" : "Bike")</p>
 									</div>
 									<span class="right-arrow">
 										<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="14px" viewBox="0 0 8 14" version="1.1">
