@@ -98,6 +98,7 @@
 
 <script type="text/javascript">
     var vmbrandcity, BrandsKey, BrandCityKey, cityId, makeId, isDealer, isServiceCenter;
+    var prevCity = "", prevMake = "";
     docReady(function () {
         bwcache.removeAll(true);
         BrandsKey = "BrandCityPopUp_";
@@ -236,6 +237,7 @@
                             isAborted = true;
                             if (self.SelectedCityId() != null) {
                                 self.preselectCity();
+                                prevCity = $("#popupCitiesList").find("li[cityid=" + cityId + "]").text();
                             }
                             else self.selectCity(null);
                         }
@@ -307,10 +309,13 @@
                 self.searchByBrandCityBtnClicked(true);
                 isvalid = self.isValidInfoPopup();
                 if (isvalid) {
+                    var selectedMakeCity = $("#popupMakeList").find("li[makeid=" + self.selectedBrand() + "]").text() + "_" + $("#popupCitiesList").find("li[cityid=" + self.SelectedCityId() + "]").text(), prevMakeCity = prevMake + "_" + prevCity;
                     if (isDealer) {
+                        triggerGA("Dealer_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity + "_To_" + selectedMakeCity);
                         window.location.href = "/m/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
                     }
                     else if (isServiceCenter) {
+                        triggerGA("Service_Center_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity + "_To_" + selectedMakeCity);
                         window.location.href = "/m/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
                     };
                 }
@@ -319,6 +324,7 @@
             self.preselectMake = function () {
                 if (makeId > 0 && self.bookingBrands().length > 0) {
                     self.selectedBrand(self.findMakeById(parseInt(makeId)));
+                    prevMake = $("#popupMakeList").find("li[makeid=" + makeId + "]").text();
                     self.makeChangedPopup();
                 }
             };
