@@ -1,13 +1,11 @@
-﻿@model Bikewale.Models.Videos.VideosLandingPageVM
+﻿﻿@model Bikewale.Models.Videos.VideosLandingPageVM
 @using Bikewale.Utility;
-
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/bwm-videos-landing.css' inline />";
     Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/bike-videos/";
     Model.IsTransparentHeader = true;
 }
-
 
 @if (Model != null)
 {
@@ -38,7 +36,7 @@
             }
         </div>
     </section>
-   
+
     if (Model.ExpertReviewsWidgetData != null && Model.ExpertReviewsWidgetData.VideoList != null && Model.ExpertReviewsWidgetData.VideoList.Videos != null && Model.ExpertReviewsWidgetData.VideoList.Videos.Count() > 0)
     {
         <section class="bg-white">
@@ -126,7 +124,6 @@
         @Html.Partial("~/Views/Videos/_VideosByCategory_Mobile.cshtml", Model.MiscellaneousWidgetData)
     }
 }
-
 <script type="text/javascript">
     docReady(function () {
         $("img.lazy").lazyload();

@@ -1,0 +1,40 @@
+﻿<script defer type="text/javascript">
+    function triggerData(cat, act, lbl) {
+        if (typeof triggerDataToBhrigu == 'function') {
+            triggerDataToBhrigu(cat, act, lbl);
+        }
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistration('/m/news/').then(function(reg) {
+                if(reg && reg.active && reg.active.scriptURL == window.location.origin + '/m/news/sw.js') {
+                    reg.unregister();
+                }
+            });
+                    
+            navigator.serviceWorker.register("/m/sw.js").then(function(registration) {
+                registration.addEventListener('updatefound', function () {
+                    var newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', function () {
+                        if (newWorker.state == 'redundant') {
+                            triggerData('ServiceWorker', 'Registration', 'status=redundant');
+                        }
+                        else if (newWorker.state == 'activated') {
+                            triggerData('ServiceWorker', 'Registration', 'status=successful');
+                        }
+                    })
+                });
+            }).catch(function(err) {
+                triggerData('ServiceWorker','Registration','status=unsuccessful|err='+err);
+                console.log(err);
+            });
+                    
+                
+               
+        }
+        else {
+            triggerData('ServiceWorker','Registration','status=unavailable');
+                
+        }
+    })
+</script>

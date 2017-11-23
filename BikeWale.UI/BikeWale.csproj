@@ -1610,6 +1610,7 @@
       <DependentUpon>UpcomingBikesList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="ObjectDumper.cs" />
     <Compile Include="offerterms.aspx.cs">
       <DependentUpon>offerterms.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2824,6 +2825,7 @@
     <Content Include="m\css\user-review\listing-old.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\videos\video-detail.css" />
+    <Content Include="m\css\videos\video-landing.css" />
     <Content Include="m\css\videos\videos-by-make.css" />
     <Content Include="m\css\videos\VideosByCategory.css" />
     <Content Include="m\css\videos\videosByModel.css" />
@@ -2973,6 +2975,26 @@
     <Content Include="m\sass\modules\_key-specs.sass" />
     <Content Include="m\sass\modules\_button.sass" />
     <Content Include="m\sass\new-launch\_media-query.sass" />
+    <Content Include="pwa\app.bundle.aec06205ff5c05abcf94.js" />
+    <Content Include="pwa\appshell.html" />
+    <Content Include="pwa\css\app.css" />
+    <Content Include="pwa\css\news\newsBundle.aec06205ff5c05abcf94.css" />
+    <Content Include="pwa\css\news\newsBundle.css" />
+    <Content Include="pwa\css\videos\videosBundle.aec06205ff5c05abcf94.css" />
+    <Content Include="pwa\css\videos\videosBundle.css" />
+    <Content Include="pwa\manifest.bundle.aec06205ff5c05abcf94.js" />
+    <Content Include="pwa\manifest.bundle.js" />
+    <Content Include="pwa\newsBundle.bundle.aec06205ff5c05abcf94.js" />
+    <Content Include="pwa\NewsBundle.bundle.js" />
+    <Content Include="pwa\app.bundle.js" />
+    <Content Include="pwa\app.css" />
+    <Content Include="pwa\peripheralComponents.bundle.aec06205ff5c05abcf94.js" />
+    <Content Include="pwa\peripheralComponents.bundle.js" />
+    <Content Include="pwa\vendor.bundle.aec06205ff5c05abcf94.js" />
+    <Content Include="pwa\vendor.bundle.js" />
+    <Content Include="pwa\videosBundle.bundle.aec06205ff5c05abcf94.js" />
+    <Content Include="pwa\VideosBundle.bundle.js" />
+    <Content Include="pwa\sw-toolbox.js" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
     <Content Include="sass\modules\_collapsible-content.sass" />
@@ -3847,6 +3869,11 @@
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\NewBikeSearch\Index.cshtml" />
     <Content Include="Views\NewBikeSearch\Index_Mobile.cshtml" />
+    <Content Include="Views\Videos\CategoryVideos_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Videos\Details_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Shared\_ServiceWorkerScript.cshtml" />
+    <Content Include="Views\Shared\_CssChunksScript.cshtml" />
+    <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />
     <Content Include="Views\BikeSeries\_PopularNewBikes_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs_Mobile.cshtml" />
     <Content Include="Views\Used\_UsedBikeByModelCity_Mobile_v1.cshtml" />
@@ -4115,7 +4142,7 @@
   </Target>
   <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />
-    <Exec Command=".\..\node_modules\.bin\gulp" WorkingDirectory="$(ProjectDir)" />
+    <Exec Command=".\..\node_modules\.bin\gulp --env $(Configuration)" WorkingDirectory="$(ProjectDir)" />
   </Target>
   <!--<Target Name="AfterBuild">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(DestFolder)%(RelativeDir)%(Filename)%(Extension)')" />

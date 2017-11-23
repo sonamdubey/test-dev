@@ -99,7 +99,7 @@ namespace Bikewale.Controllers
                 return Redirect("/m/pagenotfound.aspx");
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
-            {
+            {                
                 return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
             }
             else

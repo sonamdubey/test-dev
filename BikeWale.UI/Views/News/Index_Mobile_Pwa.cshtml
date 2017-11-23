@@ -9,13 +9,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @{
-        var StaticUrlPWA = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-
-        var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/vendor.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion;
-        var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/app.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion;
+        var ManifestJsUrl = "/pwa/manifest.bundle.js";
+        var VendorJsUrl = "/pwa/vendor.bundle.js";
+        var AppJsUrl = "/pwa/app.bundle.js";
+        var NewsJsUrl = "/pwa/newsBundle.bundle.js";
         var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-        var CssBTFUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/m/css/content/app-btf.css?" + Bikewale.Utility.BWConfiguration.Instance.StaticCSSBTFPWAVersion;
+        
     }
 
     @if (Model != null && Model.PageMetaTags != null)
@@ -62,7 +62,7 @@
     <meta name="theme-color" content="#2a2a2a" />
     <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
 
-    <link rel='stylesheet' type='text/css' href='/m/css/content/app.css' atf-css />
+   
     <style type='text/css' rel='stylesheet'>@@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}</style>
     <script defer type="text/javascript">
         !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
@@ -116,27 +116,61 @@
 
 
     </script>
+    <link rel='stylesheet' type='text/css' href='/pwa/css/app.css' atf-css />
+    <link rel='stylesheet' type='text/css' href='/pwa/css/news/newsBundle.css' atf-css />
+
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
-    
-    <script type="text/javascript" src="@VendorJsUrl" defer></script>
-    <script type="text/javascript" src="@AppJsUrl" defer></script>
-    <script type="text/javascript" src="@BwcacheJsUrl" defer></script>
+    @{Html.RenderPartial("/Views/Shared/_CssChunksScript.cshtml");}
+    <script type="text/javascript">
+        window.state = @Html.Raw(Model.WindowState);
+    </script>
+    <script>
+        var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl','@NewsJsUrl'];
+        var numberOfJsToLoad = jsUrls.length;
+        function jsLoadedCallback() {
+            try {
+                numberOfJsToLoad--;
+                if (numberOfJsToLoad == 0) {
+                    AppEntryPoint();
+                }
+            } catch (e) {
+                console.warn(e.message);
+            }
+        };
+        function loadScripts(urls, callback) {
+            try {
+                urls.map(function (url) {
+                    var script = document.createElement("script");
+                    script.async = false;
+                    script.defer = true;
+                    script.type = "text/javascript";
+                    if (script.readyState) {
+                        script.onreadystatechange = function () {
+                            if (script.readyState == "loaded" || script.readyState == "complete") {
+                                script.onreadystatechange = null;
+                                callback();
+                            }
+                        };
+                    }
+                    else {
+                        script.onload = function () { callback(); };
+                    }
+                    script.src = url;
+                    document.getElementsByTagName("head")[0].appendChild(script);
+                })
+            } catch (err) { console.log(err) };
+        };
+        loadScripts(jsUrls, jsLoadedCallback);
+    </script>
+
+
     
 </head>
 <body>
     @Html.Raw(Model.ServerRouterWrapper)
-    <script type="text/javascript">
-        window.state = @Html.Raw(Model.WindowState);
-    </script>
-
     
-    <noscript id="asynced-css">
-        <link href="@CssBTFUrl" rel="stylesheet" type="text/css" />
-    </noscript>
-    <script>
-        var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
-    </script>
+    
     <script defer type="text/javascript">
         if(googletag) {
             googletag.cmd.push(function(){
@@ -144,54 +178,10 @@
                 googletag.display('div-gpt-ad-1395986297721-5');
             });
         }
-        function triggerData(cat,act,lbl) {
-            if(typeof triggerDataToBhrigu == 'function') {
-                triggerDataToBhrigu(cat,act,lbl);
-            }
-        }
-        docReady(function () {
-            try {
-                AppEntryPoint();   
-            } catch (e) {
-                console.warn(e.message);
-            }
-        });
-       
-        window.addEventListener('DOMContentLoaded', function() {
-            if('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistration('/m/news/').then(function(reg) {
-                    if(reg && reg.active && reg.active.scriptURL == window.location.origin + '/m/news/sw.js') {
-                        reg.unregister();
-                    }
-                });
-                    
-                navigator.serviceWorker.register("@Url.Content(Bikewale.Utility.BWConfiguration.Instance.ServiceWorkerPath)").then(function(registration) {
-                    registration.addEventListener('updatefound', function () {
-                        var newWorker = registration.installing;
-                        newWorker.addEventListener('statechange', function () {
-                            if (newWorker.state == 'redundant') {
-                                triggerData('ServiceWorker', 'Registration', 'status=redundant');
-                            }
-                            else if (newWorker.state == 'activated') {
-                                triggerData('ServiceWorker', 'Registration', 'status=successful');
-                            }
-                        })
-                    });
-                }).catch(function(err) {
-                    triggerData('ServiceWorker','Registration','status=unsuccessful|err='+err);
-                    console.log(err);
-                });
-                    
-                
-               
-            }
-            else {
-                triggerData('ServiceWorker','Registration','status=unavailable');
-                
-            }
-
-        })
     </script>
-    <div class="back-to-top" id="back-to-top"></div>
+               
+    @{Html.RenderPartial("/Views/Shared/_ServiceWorkerScript.cshtml");}
+
+<div class="back-to-top" id="back-to-top"></div>
 </body>
 </html>

@@ -14,5 +14,11 @@ namespace Bikewale.Interfaces.PWA.CMS
         IHtmlString GetNewsListDetails(string key, PwaNewsArticleListReducer reducer,string url, string containerId,string componentName);
 
         IHtmlString GetNewsDetails(string key, PwaNewsDetailReducer reducer, string url, string containerId, string componentName);
+
+        IHtmlString GetVideoListDetails(string key, PwaAllVideos reducer, string url, string containerId, string componentName);
+
+        IHtmlString GetVideoBySubCategoryListDetails(string key, PwaVideosBySubcategory reducer, string url, string containerId, string componentName);
+
+        IHtmlString GetVideoDetails(string key, PwaVideoDetailReducer reducer, string url, string containerId, string componentName);
     }
 }
