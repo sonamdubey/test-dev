@@ -48,7 +48,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_30102017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_23112017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, requestType));
@@ -69,7 +69,7 @@ namespace Bikewale.DAL.BikeData
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     LogoUrl = Convert.ToString(dr["LogoUrl"]),
                                     PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
-                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"]),                                    
+                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"]),
                                     MakeCategoryId = requestType.Equals(EnumBikeType.New) ? SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"]) : (ushort)0
                                 });
                             }
