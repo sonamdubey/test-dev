@@ -17,5 +17,7 @@ namespace Bikewale.Entities.Dealer
         public uint TotalDealerCount { get; set; }
         [DataMember]
         public uint TotalServiceCenterCount { get; set; }
+        [DataMember]
+        public uint TotalCitiesCount { get; set; }
     }
 }

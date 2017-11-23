@@ -468,3 +468,20 @@
 	vertical-align: middle;
 }
 /* popular review ends here */
+/* other cities swiper */
+.carousel-type-city .card-target-link {
+    min-height: 205px;
+    display: block;
+}
+
+.carousel-type-city .card-target-link:hover {
+    text-decoration: none;
+}
+
+.carousel-type-city .city-image-preview {
+    padding: 15px 0;
+    margin-right: 15px;
+    margin-left: 15px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}

@@ -752,6 +752,8 @@ namespace Bikewale.DAL.Dealer
         ///                 Calls: GetPopularCityDealer
         /// Modified by :  Subodh Jain on 21 Dec 2016
         /// Description :   Merge Dealer and service center for make and model page
+        /// Modified by sajal Gupta on 23-11-2017
+        /// Desc : added TotalCitiesCount
         /// <param name="makeId"></param>
         /// <returns></returns>
         public PopularDealerServiceCenter GetPopularCityDealer(uint makeId, uint topCount)
@@ -766,7 +768,7 @@ namespace Bikewale.DAL.Dealer
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "getpopularcitydealer_21122016";
+                        cmd.CommandText = "getpopularcitydealer_23112017";
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, Convert.ToInt32(topCount)));
@@ -805,6 +807,13 @@ namespace Bikewale.DAL.Dealer
                                 while (dr.Read())
                                 {
                                     objDealerServiceDetails.TotalServiceCenterCount = SqlReaderConvertor.ToUInt32(dr["ServiceCenterCount"]);
+                                }
+                            }
+                            if (dr.NextResult())
+                            {
+                                while (dr.Read())
+                                {
+                                    objDealerServiceDetails.TotalCitiesCount = SqlReaderConvertor.ToUInt32(dr["cityCount"]);
                                 }
                             }
 

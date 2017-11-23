@@ -55,6 +55,7 @@ namespace Bikewale.Models
         public CompareSources CompareSource { get; set; }
         public bool IsMobile { get; set; }
         public bool IsAmpPage { get; set; }
+        private CityEntityBase cityBase = null;
 
         public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews)
         {
@@ -99,7 +100,7 @@ namespace Bikewale.Models
 
                 uint cityId = 0;
                 string cityName = string.Empty, cityMaskingName = string.Empty;
-                CityEntityBase cityBase = null;
+
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 objData.City = location;
                 if (location != null && location.CityId > 0)
@@ -227,18 +228,18 @@ namespace Bikewale.Models
             try
             {
                 uint topCount = 8;
-                objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(makeId, topCount);
-                objData.MakeMaskingName = objMakePage.Make.MaskingName;
-                objData.MakeName = objMakePage.Make.MakeName;
+                objData.DealerServiceCenters = _cacheDealers.GetPopularCityDealer(_makeId, topCount);
+                objData.MakeMaskingName = objMakePage.MakeMaskingName;
+                objData.MakeName = objMakePage.MakeName;
                 objData.CityCardTitle = "showrooms in";
                 objData.CityCardLink = "dealer-showrooms-in";
                 objData.IsServiceCenterPage = false;
                 objMakePage.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
                 {
-                    objMakePage.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objMakePage.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityId)).ToList();
+                    objMakePage.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objMakePage.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityBase != null ? cityBase.CityId : 0)).ToList();
                 }
-
+                objData.IsIndiaCardNeeded = true;
             }
             catch (System.Exception ex)
             {

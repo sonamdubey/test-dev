@@ -258,7 +258,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
+                    @if (Model.IsDealerServiceDataAvailable || Model.DealersServiceCenterPopularCities != null)
                     {
                         <div id="dealerAndServiceContent" class="bw-model-tabs-data">
                             @if (Model.IsDealerAvailable)
@@ -276,11 +276,29 @@
                                     @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
                                 </div>
                             }
-                            else if (Model.IsDealerServiceDataInIndiaAvailable)
+                            else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
                             {
-                                <div id="makeDealersContent" class="padding-top20 padding-bottom20 font14">
-                                    <h2 class="padding-left20 padding-right20">@Model.MakeName showrooms</h2>
-                                    @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
+                                <div class="padding-top20 padding-bottom20 font14">
+                                    <div class="content-box-shadow padding-bottom20">
+                                        <div class="content-inner-block-20">
+                                            <div class="grid-9 inline-block margin-right-4 alpha">
+                                                <span class="bwsprite dealer-grey"></span>
+                                                <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.MakeName showrooms in other cities</h2>
+                                                <div class="grid-11 alpha">
+                                                    <p class="font14 text-slate-grey">There are @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount cities in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid-3 omega inline-block padding-top20">
+                                                <a href="javascript:void(0)" id="changeCity" data-makemasking="@Model.MakeMaskingName" class="btn changepriceincitypage btn-orange btn-200-32 " rel="nofollow">Select your city</a>
+                                                @Html.Partial("~/Views/PopUp/BikeCityPopup.cshtml", @Model.BikeCityPopup)
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                                        <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.MakeName showrooms in popular cities</h3>
+                                        @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget.cshtml", Model.DealersServiceCenterPopularCities)
+                                    </div>
                                 </div>
                             }
                         </div>
