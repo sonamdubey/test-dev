@@ -79,6 +79,9 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.ManufacturerCampaign.Interface;
 using Microsoft.Practices.Unity;
 using System;
+using Bikewale.Interfaces.Videos;
+using Bikewale.Cache.Videos;
+using Bikewale.DAL.Videos;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -207,7 +210,12 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<Bikewale.Interfaces.Finance.CapitalFirst.IFinanceRepository, Bikewale.DAL.Finance.CapitalFirst.FinanceRepository>();
             container.RegisterType<Bikewale.Interfaces.Finance.ICapitalFirst,
                 Bikewale.BAL.Finance.CapitalFirst>();
+            container.RegisterType<IVideosCacheRepository, VideosCacheRepository>();
+            container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
+            container.RegisterType<IVideoRepository, ModelVideoRepository>();
+
             return container;
+            
         }
     }
 }
