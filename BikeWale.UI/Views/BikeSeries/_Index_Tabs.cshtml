@@ -1,42 +1,41 @@
 ﻿@model Bikewale.Models.BikeSeries.SeriesPageVM
-@using Bikewale.Utility
-@if (Model != null)
+@if (Model != null && Model.SeriesBase != null)
 {
     <div id="seriesOverallTabsWrapper" class="overall-tabs">
         <div id="seriesOverallTabs" class="overall-specs-tabs-container">
             <div class="overall-specs-tabs-wrapper">
                 @if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelAboutContent" data-lab="@string.Format("{0}_About", Model.BikeMake.MakeName)">About</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelAboutContent" data-lab="@string.Format("{0}_About", Model.SeriesBase.SeriesName)">About</a>
                 }
                 @if (Model.SeriesModels != null && Model.SeriesModels.NewBikes != null && Model.SeriesModels.NewBikes.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#bikeModeleList" data-lab="@string.Format("{0}_Models", Model.BikeMake.MakeName)">Bike Models</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#bikeModeleList" data-lab="@string.Format("{0}_BikeModels", Model.SeriesBase.SeriesName)">Bike Models</a>
                 }
                 @if (Model.SeriesModels != null && Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUpcomingBikesContent" data-lab="@string.Format("{0}_UpcomingBikes", Model.BikeMake.MakeName)">Upcoming</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUpcomingBikesContent" data-lab="@string.Format("{0}_UpcomingBikes", Model.SeriesBase.SeriesName)">Upcoming</a>
                 }
                 @if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#popularComparison" data-lab="@string.Format("{0}_TopComparisons", Model.BikeMake.MakeName)">Top Comparisons</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#popularComparison" data-lab="@string.Format("{0}_TopComparisons", Model.SeriesBase.SeriesName)">Top Comparisons</a>
                 }
                 @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelNewsContent" data-lab="@string.Format("{0}_News", Model.BikeMake.MakeName)">News</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelNewsContent" data-lab="@string.Format("{0}_News", Model.SeriesBase.SeriesName)">News</a>
                 }
               
                 @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelVideosContent" data-lab="@string.Format("{0}_Videos", Model.BikeMake.MakeName)_Videos">Videos</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelVideosContent" data-lab="@string.Format("{0}_Videos", Model.SeriesBase.SeriesName)">Videos</a>
                 }
                 @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.BikeMake.MakeName)">Reviews</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.SeriesBase.SeriesName)">Reviews</a>
                 }
                 @if (Model.objUsedBikes != null && Model.objUsedBikes.RecentUsedBikesList != null && Model.objUsedBikes.RecentUsedBikesList.Any())
                 {
-                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUsedBikeContent" data-lab="@string.Format("{0}_UsedBikes", Model.BikeMake.MakeName)">Used Bikes</a>
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUsedBikeContent" data-lab="@string.Format("{0}_UsedBikes", Model.SeriesBase.SeriesName)">Used Bikes</a>
                 }
                 
             </div>

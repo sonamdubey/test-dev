@@ -76,7 +76,7 @@
                                 <div class="video-card__img">
                                     <img class="lazy" alt="@video.VideoTitle" title="@video.VideoTitle" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" src="">
                                     <span class="video-card__time-block">
-                                        13:07
+                                        @Format.FormatTime(video.Duration)
                                     </span>
                                 </div>
                                 <div class="video-card__desc">
