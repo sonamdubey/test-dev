@@ -103,16 +103,21 @@
         $(this).addClass('active');
         if (indexOfSlide >= 0) {
             var tag = $('#rightBikeSwiper').find('.rightbike__swiper-card .recommended-tag:not(.popular-tag)');
-
+            var popTag = $('#rightBikeSwiper').find('.rightbike__swiper-card .recommended-tag.popular-tag');
             tag.text('');
+            var recommendedTag = swiperSlide.find('.recommended-tag');
 
-            if (!swiperSlide.hasClass('popular-card')) {
-                var recommendedTag = swiperSlide.find('.recommended-tag');
+            if (recommendedTag.hasClass('popular-tag')) {
                 recommendedTag.text('Recommended Bike');
             }
+            else {
+                
+                recommendedTag.text('Recommended Bike');
+                popTag.text('Most Popular');
+            }
             $('.right-bike-swiper .jcarousel').jcarousel('scroll', indexOfSlide);
-            $('#rightBikeSwiper').find('.rightbike__swiper-card .featured-card').removeClass('featured-card');
-            swiperSlide.find('.right-bike__desc').addClass('featured-card');
+            $('#rightBikeSwiper').find('.rightbike__swiper-card.featured-card').removeClass('featured-card');
+            swiperSlide.addClass('featured-card');
         }
 
     });

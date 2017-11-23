@@ -84,7 +84,7 @@
             <div class="container bg-white">
                 @if (Model.SeriesBase != null && !string.IsNullOrEmpty(Model.SeriesBase.SeriesName))
                 {
-                    <h2 class="padding-left15 padding-right15 padding-top15">@Model.SeriesBase.SeriesName Latest Updates</h2>
+                    <h2 class="padding-left20 padding-right15 padding-top20">@Model.SeriesBase.SeriesName Latest Updates</h2>
                 }
 
                 <div id="modelLatestUpdatesWrapper" class="block">
@@ -146,7 +146,7 @@
         {
 
         <div class="container bg-white padding-top20">
-            <div class="padding-right15 padding-left15">
+            <div class="padding-right20 padding-left20">
 				@if (Model.BikeMake != null && Model.SeriesBase != null)
 				{
                 <div class="swiper-heading-left-grid inline-block">
@@ -167,7 +167,7 @@
         @if (Model.OtherSeriesList != null && Model.OtherSeriesList.Any())
         {
         <div class="container bg-white padding-bottom10">
-            <div class="padding-left10 padding-right10 padding-top20">
+            <div class="padding-left15 padding-right15 padding-top20">
                 @if (Model.BikeMake != null)
                 {
                     <h2 class="padding-left5">@string.Format("{0} other series", Model.BikeMake.MakeName)</h2>
