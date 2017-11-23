@@ -59,6 +59,7 @@
     var brandcityPopUp,popupcity,popupBrand,vmCityBrandPopup;
     var isDealer = "@Convert.ToBoolean(Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))"== "True";
     var isServiceCenter = "@Convert.ToBoolean(Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))" == "True";
+    var prevCity = "", prevMake="";
 
     var viewModelCityBrandPopup = function () {
         var self = this;
@@ -147,6 +148,7 @@
 
             if (makeid>0) {
                 self.selectedBrand(parseInt(makeid));
+                prevMake = popupBrand.find("option[value=" + makeid + "]").text();
             }
             popupcity.find("option[value='0']").prop('disabled', true);
             popupcity.trigger('chosen:updated');
@@ -164,6 +166,7 @@
                 BrandCityKey = "brandcity_" +'@Model.PageType'+'_' + self.selectedBrand().toString();
                 if (self.selectCity() != null) {
                     self.SelectedCityId(self.selectCity());
+                    prevCity = popupcity.find("option[value=" + cityId + "]").text();
                 }
                 $.ajax({
                     type: "GET",
@@ -293,11 +296,14 @@
             self.searchByBrandCityBtnClicked(true);
             isvalid = self.isValidInfoPopup();
             if (isvalid) {
+                var selectedMakeCity = popupBrand.find("option value=[" + self.selectedBrand() + "]").text() + "_" + popupCity.find("option value=[" + self.SelectedCityId() + "]").text(); prevMakeCity = prevMake + "_" + prevCity;
                 if (isDealer)
                 {
+                    triggerGA("Dealer_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity + "_To_" + selectedMakeCity);
                     window.location.href = "/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
                 }
                 else if (isServiceCenter) {
+                    triggerGA("Service_Center_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity + "_To_" + selectedMakeCity);
             window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
             };
         }
