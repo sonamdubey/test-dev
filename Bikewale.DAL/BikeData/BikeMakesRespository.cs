@@ -665,7 +665,7 @@ namespace Bikewale.DAL.BikeData
                                                 Model = new BikeModelEntityBase()
                                                 {
                                                     ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]),
-                                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                                    ModelName = Convert.ToString(dr["Model"]),
                                                     MaskingName = Convert.ToString(dr["ModelMaskingName"])
                                                 },
                                                 VersionPrice = SqlReaderConvertor.ToInt32(dr["VersionPrice"])

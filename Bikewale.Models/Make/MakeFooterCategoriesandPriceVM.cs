@@ -9,5 +9,6 @@ namespace Bikewale.Models.Make
     public class MakeFooterCategoriesandPriceVM
     {
         public MakeSubFooterEntity FooterContent { get; set; }
+        public BikeMakeBase Make { get; set; }
     }
 }

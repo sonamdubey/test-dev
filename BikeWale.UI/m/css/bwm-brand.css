@@ -733,7 +733,7 @@ header {
     right: 0;
     width: 14px;
     height: 18px;
-    margin-top: 4px;
+    margin-top: -8px;
     background-color: #eee;
 }
 
@@ -743,12 +743,12 @@ header {
 
 .about-make .truncatable-content[data-readTextFlag='1'],
 .about-make .truncatable-content {
-    max-height: 81px;
+    max-height: 114px;
 }
 
 .make-price-block .truncatable-content[data-readTextFlag='1'],
 .make-price-block .truncatable-content {
-    max-height: 205px;
+    max-height: 263px;
 }
 
 .read-more-button {
@@ -773,6 +773,15 @@ header {
     padding: 20px 15px;
 }
 
+.about-make__list-title {
+    margin-bottom: 10px;
+    padding-top: 5px;
+    display: block;
+    font-weight: 600;
+}
+.about-make__list-desc {
+    padding-bottom: 10px;
+}
 .make-price-block {
     padding-top: 20px;
     border-top: 1px solid #e2e2e2;

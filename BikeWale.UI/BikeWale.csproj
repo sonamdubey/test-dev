@@ -3829,6 +3829,7 @@
     <Content Include="Views\UserReview\BikesWithReviewsByMake.cshtml" />
     <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\Make\MakeFooterCategoriesandPrice.cshtml" />
+    <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

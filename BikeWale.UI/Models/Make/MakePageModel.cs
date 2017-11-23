@@ -15,6 +15,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
+using Bikewale.Models.Make;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using System;
@@ -87,7 +88,9 @@ namespace Bikewale.Models
         /// Description : Added BindUserReviews() method.
         /// Modified by: Snehal Dange on 23rd Nov 2017
         /// Description : Added BindMakeFooterCategoriesandPriceWidget() method
-        /// </summary>
+        /// Modified BY: Snehal Dange on 23rd Nov 2017
+        /// Description: Added IsFooterDescriptionAvailable ,IsPriceListingAvailable checks
+        /// </summary>         
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// </returns>
@@ -173,6 +176,10 @@ namespace Bikewale.Models
 
                     objData.IsMakeTabsDataAvailable = (objData.BikeDescription != null && objData.BikeDescription.FullDescription.Length > 0 || objData.IsNewsAvailable ||
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
+
+                    objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
+                    objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
+
                 }
 
                 if (IsAmpPage)
@@ -609,10 +616,11 @@ namespace Bikewale.Models
             {
                 if (_makeId > 0 && objData != null && _bikeMakesCache != null)
                 {
-                    objData.SubFooter = new Make.MakeFooterCategoriesandPriceVM();
+                    objData.SubFooter = new MakeFooterCategoriesandPriceVM();
                     if (objData.SubFooter != null)
                     {
                         objData.SubFooter.FooterContent = _bikeMakesCache.GetMakeFooterCategoriesandPrice(_makeId);
+                        objData.SubFooter.Make = objData.SubFooter.FooterContent.ModelPriceList.First().Make;
                     }
                 }
             }

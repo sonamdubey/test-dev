@@ -781,18 +781,27 @@
     border-spacing: 0;
 }
 
+.about-make__list-title {
+    margin-bottom: 10px;
+    padding-top: 5px;
+    display: block;
+    font-weight: 600;
+}
+.about-make__list-desc {
+    padding-bottom: 10px;
+}
 .foldable-content .truncatable-content[data-readTextFlag='0'] {
     max-height: initial;
 }
 
 .about-make .truncatable-content,
 .about-make .truncatable-content[data-readTextFlag='1'] {
-    max-height: 158px;
+    max-height: 232px;
 }
 
 .make-price .truncatable-content[data-readTextFlag='1'],
 .make-price .truncatable-content {
-    max-height: 185px;
+    max-height: 250px;
 }
 
 /* foldable content*/
@@ -822,7 +831,7 @@
     right: 0;
     width: 14px;
     height: 14px;
-    margin-top: 0.2em;
+    margin-top: -8px;
     background-color: #eee;
 }
 
