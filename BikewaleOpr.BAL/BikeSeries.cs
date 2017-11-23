@@ -5,6 +5,7 @@ using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace BikewaleOpr.BAL
 {
     public class BikeSeries : IBikeSeries
@@ -130,6 +131,7 @@ namespace BikewaleOpr.BAL
         public Tuple<bool, string> EditSeries(uint makeId, uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
         {
             Tuple<bool, string> respObj = null;
+            string oldMaskingName = "";
             try
             {
                 if (seriesId > 0 && !string.IsNullOrEmpty(seriesName) && !string.IsNullOrEmpty(seriesMaskingName) && updatedBy > 0)
@@ -142,7 +144,18 @@ namespace BikewaleOpr.BAL
                         IsSeriesPageUrl = isSeriesPageUrl,
                         UpdatedBy = Convert.ToString(updatedBy)
                     };
-                    if (_seriesRepo.IsSeriesMaskingNameExists(makeId, seriesMaskingName) && isSeriesPageUrl)
+
+                    var series = _seriesRepo.GetSeriesByMake((int)makeId);
+                    if (series != null)
+                    {
+                        var objSeries = series.FirstOrDefault(m => m.SeriesId == seriesId);
+                        if (objSeries != null)
+                        {
+                            oldMaskingName = objSeries.SeriesMaskingName;
+                        }
+                    }
+
+                    if (!oldMaskingName.Equals(seriesMaskingName) && _seriesRepo.IsSeriesMaskingNameExists(makeId, seriesMaskingName) && isSeriesPageUrl)
                     {
                         respObj = new Tuple<bool, string>(false, "Cannot create duplicate series page url");
                     }
@@ -158,7 +171,7 @@ namespace BikewaleOpr.BAL
                         {
                             BwMemCache.ClearModelsBySeriesId(seriesId);
                             BwMemCache.ClearMaskingMappingCache();
-							BwMemCache.ClearSeriesCache(seriesId, makeId);
+                            BwMemCache.ClearSeriesCache(seriesId, makeId);
                         }
                     }
                 }
@@ -188,7 +201,7 @@ namespace BikewaleOpr.BAL
                     {
                         BwMemCache.ClearModelsBySeriesId(bikeSeriesId);
                         BwMemCache.ClearMaskingMappingCache();
-						BwMemCache.ClearSeriesCache(bikeSeriesId, 0);
+                        BwMemCache.ClearSeriesCache(bikeSeriesId, 0);
                     }
                 }
             }
@@ -222,7 +235,7 @@ namespace BikewaleOpr.BAL
                         BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(seriesId));
                         BwMemCache.ClearVersionDetails(modelId);
                         BwMemCache.ClearMaskingMappingCache();
-						BwMemCache.ClearSeriesCache(Convert.ToUInt32(seriesId), 0);
+                        BwMemCache.ClearSeriesCache(Convert.ToUInt32(seriesId), 0);
                     }
                 }
             }
@@ -273,7 +286,7 @@ namespace BikewaleOpr.BAL
                 if (seriesId > 0 && updatedBy > 0 && objSynopsis != null)
                 {
                     isUpdated = _seriesRepo.UpdateSynopsis(seriesId, updatedBy, objSynopsis);
-					BwMemCache.ClearSeriesCache(Convert.ToUInt32(seriesId), 0);
+                    BwMemCache.ClearSeriesCache(Convert.ToUInt32(seriesId), 0);
                 }
             }
             catch (Exception ex)
