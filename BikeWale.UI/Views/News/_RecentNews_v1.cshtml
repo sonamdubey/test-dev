@@ -33,9 +33,9 @@
                         </div>
                         <div class="font14">
                             <span class="text-slate-grey">
-                                @FormatDescription.TruncateDescription(@news.Description, 350)
+                                @FormatDescription.TruncateDescription(news.Description, 350)
                             </span>
-                            <a href="@string.Format("/{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))">…Read more</a>
+                            <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))">…Read more</a>
                         </div>
                     </div>
                     <div class="clear"></div>

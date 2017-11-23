@@ -6,6 +6,31 @@ namespace Bikewale.Utility
 {
     public static class Format
     {
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 23 Nov 2017
+		/// Description : Format time to hh:mm:ss
+		/// </summary>
+		public static string FormatTime(uint seconds)
+		{
+			string time = string.Empty;
+			try
+			{
+				if (seconds > 3600)
+				{
+					time = TimeSpan.FromSeconds(seconds).ToString(@"hh\:mm\:ss");
+				}
+				else
+				{
+					time = TimeSpan.FromSeconds(seconds).ToString(@"mm\:ss");
+				}
+			}
+			catch (Exception ex)
+			{
+				ErrorClass objErr = new ErrorClass(ex, String.Format("FormatTime_seconds_{0}", seconds));
+			}
+			return time;
+		}
+
         public static string FormatPrice(string minPrice, string maxPrice)
         {
             if ((string.IsNullOrEmpty(minPrice) && string.IsNullOrEmpty(maxPrice)) || (minPrice == "0" && maxPrice == "0"))
@@ -223,11 +248,11 @@ namespace Bikewale.Utility
                 }
                 else if (number < 1000000) //less than million
                 {
-                    return String.Format("{0:0.0}k", ((double)number / 1000));
+                    return String.Format("{0:0.#}k", ((double)number / 1000));
                 }
                 else // greater than million
                 {
-                    return String.Format("{0:0.0}m", (number / 1000000));
+                    return String.Format("{0:0.#}m", (number / 1000000));
                 }
 
             }

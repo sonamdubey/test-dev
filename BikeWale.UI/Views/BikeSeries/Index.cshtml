@@ -66,8 +66,7 @@
             </section>
         }
 
-        @if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any() || Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Any())
-        {
+        
             <section>
                 <div id="popularComparison" data-id="#popularComparison" class="bw-model-tabs-data container margin-bottom20 active">
                     @if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
@@ -94,7 +93,7 @@
 
                     }
 
-                    @if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Any())
+                    @if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Count() > 1)
                     {
 
                         <div class="grid-12">
@@ -116,7 +115,7 @@
                     }
                 </div>
             </section>
-        }
+        
 
         @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
         {
