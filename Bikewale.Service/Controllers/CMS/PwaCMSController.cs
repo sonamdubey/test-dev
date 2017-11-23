@@ -145,7 +145,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         if (articleDetails != null)
                         {
                             var makeData = GetTaggedBikeListByMake(articleDetails);
-                            var modelId = GetTaggedBikeListByModel(articleDetails);
+                            var modelId = GetTaggedBikeListByModel(articleDetails.VehiclTagsList);
 
                             uint makeId = makeData == null ? 0 : (uint)makeData.MakeId;
 
@@ -227,7 +227,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     }
                     else
                     {// negative or zero basic id means send popular Bikes and Upcoming Bikes
-                     //get popular bikes
+                        //get popular bikes
 
                         bikes = _bikeModelEntity.GetMostPopularBikes(EnumBikeType.All, 9, 0, cityId);
                         if (bikes != null && bikes.Any())
@@ -311,22 +311,22 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// Created by : Aditi Srivastava on 29 Mar 2017
         /// Summary    : Get tagged model in article
         /// </summary>
-        private uint GetTaggedBikeListByModel(ArticleDetails artDetails)
+        private uint GetTaggedBikeListByModel(IEnumerable<VehicleTag> vehiclTagsList)
         {
             try
             {
-                if (artDetails.VehiclTagsList != null && artDetails.VehiclTagsList.Count > 0)
+                if (vehiclTagsList != null && vehiclTagsList.Any())
                 {
 
                     BikeModelEntityBase model;
-                    var taggedModelObj = artDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.ModelBase.MaskingName));
+                    var taggedModelObj = vehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.ModelBase.MaskingName));
                     if (taggedModelObj != null)
                     {
                         return (uint)taggedModelObj.ModelBase.ModelId;
                     }
                     else
                     {
-                        model = artDetails.VehiclTagsList.FirstOrDefault().ModelBase;
+                        model = vehiclTagsList.First().ModelBase;
                         if (model != null)
                             return (uint)model.ModelId;
                     }
@@ -362,7 +362,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                 {
                     if (_basicId > 0)
                     {
-                        var articleDetails = _CMSCache.GetNewsDetails((uint)_basicId);
+                        var articleDetails = _CMSCache.GetArticlesDetails((uint)_basicId);
 
                         if (articleDetails != null)
                         {
@@ -371,7 +371,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                             if (currentCityArea != null)
                                 cityId = currentCityArea.CityId;
 
-                            var modelId = GetTaggedBikeListByModel(articleDetails);
+                            var modelId = GetTaggedBikeListByModel(articleDetails.VehiclTagsList);
                             objBikeInfo = _bikeInfo.GetBikeInfo(modelId, cityId);
 
                             if (objBikeInfo != null)

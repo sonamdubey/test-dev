@@ -1,4 +1,6 @@
-﻿using Bikewale.Entities.Videos;
+﻿using Bikewale.Entities.PWA.Articles;
+using Bikewale.Entities.Videos;
+using System.Web;
 
 namespace Bikewale.Models.Videos
 {
@@ -9,5 +11,8 @@ namespace Bikewale.Models.Videos
         public string TitleName { get; set; }
         public string PageHeading { get; set; }
         public string CategoryId { get; set; }
+        public PwaReduxStore Store { get; set; }
+        public IHtmlString ServerRouterWrapper { get; set; }
+        public string WindowState { get; set; }
     }
 }

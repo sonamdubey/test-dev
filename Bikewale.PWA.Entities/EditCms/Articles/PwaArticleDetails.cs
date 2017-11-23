@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Bikewale.Entities.PWA.Articles
 {
     /// <summary>
-    /// Created By : Ashwini Todkar on 17 Sept 2014
+    /// Created By: Prasad Gawde
     /// </summary>
     [Serializable, DataContract]
     public class PwaArticleDetails : PwaArticleSummary
