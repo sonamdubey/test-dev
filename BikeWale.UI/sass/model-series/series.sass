@@ -81,11 +81,12 @@
 
 
 .star-white
-    width: 12px
-    height: 12px
-    background-position: -218px -103px
-    position: relative
-    top: 1px
+	margin-right: 4px
+	width: 12px
+	height: 12px
+	background-position: -218px -103px
+	position: relative
+	top: 1px
 
 @for $i from 1 through 5
 	@include rating-badge($i)
@@ -126,6 +127,11 @@
 .used-model-swiper
 	.model-card__image
 		padding: 0
+		margin: 0
+		height: 173px
+
+		img
+			height: 173px
 
 	&.inner-content-carousel 
 		.jcarousel 

@@ -1,3 +1,6 @@
+.find-right-bike
+	.featured-card
+		border: 1px solid transparent
 @mixin model-specs-tabs($height: 40px)
 	.model-specs-tabs
 		height: $height
@@ -5,13 +8,13 @@
 		
 .right-bike__desc
 	border: 1px solid transparent
+	@include border-radius(3px)
 	.featured-icon
 		display: none
 		
 	&.featured-card
 		.featured-icon
 			display: block
-	
 .find-specs__tabs-container
 	width: 100%
 	display: block
@@ -49,14 +52,14 @@
 		padding: 10px 20px 5px
 
 @mixin rightbike-carousel__tags($font-size: 10, $color1: #787878, $color2: #ff7c6f)
-	.rightbike-carousel__model-card
+	.featured-card
 		.recommended-tag
-			color: $color1
-			font-size: $font-size * 1px
-
-		.popular-tag
 			color: $color2
 			font-size: $font-size * 1px
+
+	.popular-tag
+		color: $color1
+		font-size: $font-size * 1px
 		
 @mixin rightbike-carousel__image($width: 105px, $height: 65px)
 	.rightbike-carousel__image
@@ -72,6 +75,9 @@
 		font-size: $font-size * 1px
 		font-weight: 600
 		padding-top: 5px
+		white-space: nowrap
+		overflow: hidden
+		text-overflow: ellipsis
 	
 #rightBikeSwiper
 	position: relative
@@ -165,17 +171,32 @@
 			font-size: 10px
 			font-weight: 400
 			display: block
-			
-	.featured-card
-		background-color: #fff9f9
-
-		.featured-icon
-			position: absolute
-			top: -10px
-			right: 10px
 
 		.right-bike__label
 			font-weight: 600
+			
+.featured-card
+	.right-bike__desc
+		background-color: #fff9f9
+		border: 1px solid #ff7c6f
+
+		&:after
+			content: ''
+			position: absolute
+			height: 24px
+			width: 19px
+			top: -10px
+			right: 10px
+			display: block
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/svg/featured-tag.svg') no-repeat
+
+		.featured-icon
+			display: none
+		
+		&.featured-card
+			.featured-icon
+				display: inline-block
+
 
 .right-bike__sub-label
 	font-size: 10px

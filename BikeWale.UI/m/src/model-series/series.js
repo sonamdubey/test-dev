@@ -14,17 +14,23 @@ docReady(function () {
         if (indexOfSlide >= 0)
         {
             var tag = $('#rightBikeSwiper').find('.swiper-slide .recommended-tag:not(.popular-tag)');
+            var popTag = $('#rightBikeSwiper').find('.rightbike__swiper-card .popular-tag.recommended-tag');
 
             tag.text('');
 
-            if (! swiperSlide.hasClass('popular-card'))
-            {      
-                var recommendedTag = swiperSlide.find('.recommended-tag');
-                    recommendedTag.text('Recommended Bike');
+            var recommendedTag = swiperSlide.find('.recommended-tag');
+
+            if (recommendedTag.hasClass('popular-tag')) {
+                recommendedTag.text('Recommended Bike');
+            }
+            else {
+
+                recommendedTag.text('Recommended Bike');
+                popTag.text('Most Popular');
             }
             $('.right-bike-swiper.swiper-container').data('swiper').slideTo(indexOfSlide, 1000, false);
-			$('#rightBikeSwiper').find('.swiper-slide .featured-card').removeClass('featured-card');
-			swiperSlide.find('.right-bike__desc').addClass('featured-card');
+			$('#rightBikeSwiper').find('.swiper-slide.featured-card').removeClass('featured-card');
+			swiperSlide.addClass('featured-card');
         }
 
     });
@@ -79,7 +85,7 @@ docReady(function () {
         }
 
         if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
-            if (windowScrollTop > modelSpecsFooterOffsetTop - topNavBarHeight) {
+            if (windowScrollTop > Math.ceil(modelSpecsFooterOffsetTop) - (topNavBarHeight)) {
                 overallSpecsTabsContainer.removeClass('fixed-tab-nav');
             }
         }
@@ -117,7 +123,7 @@ docReady(function () {
 	});
 	$('.overall-specs-tabs-wrapper li').click(function () {
         var target = $(this).attr('data-tabs');
-        $('html, body').animate({ scrollTop: $(target).offset().top - topNavBarHeight }, 1000);
+        $('html, body').animate({ scrollTop: Math.ceil($(target).offset().top) - topNavBarHeight }, 1000);
         centerItVariableWidth($(this), '.overall-specs-tabs-container');        
     });
     $('.right-bike-swiper.swiper-container').on('inview', function (event, visible) {
