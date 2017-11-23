@@ -8,7 +8,7 @@
         <div>
             <ul>
                 <li class="upcoming-bike-card">
-                    <a href="@string.Format("/m/{0}-bikes/{1}/", firstUpcomingModel.BikeMake.MakeMaskingName, firstUpcomingModel.BikeModel.MaskingName)" title="@string.Format("{0} {1}", firstUpcomingModel.BikeMake.MakeName, firstUpcomingModel.BikeModel.ModelName)">
+                    <a href="@string.Format("/{0}-bikes/{1}/", firstUpcomingModel.BikeMake.MakeMaskingName, firstUpcomingModel.BikeModel.MaskingName)" title="@string.Format("{0} {1}", firstUpcomingModel.BikeMake.MakeName, firstUpcomingModel.BikeModel.ModelName)">
                         <div class="upcoming-bike-card__image">
                             <img class="lazy" data-original="@Image.GetPathToShowImages(firstUpcomingModel.BikeImage.OriginalImagePath, firstUpcomingModel.BikeImage.HostUrl, ImageSize._210x118, QualityFactor._70)" alt="@string.Format("{0} {1}", firstUpcomingModel.BikeMake.MakeName, firstUpcomingModel.BikeModel.ModelName)" src="" border="0">
                         </div>
@@ -47,7 +47,7 @@
                     @foreach (var bike in Model)
                     {
                         <li class="upcoming-bike-card">
-                            <a href="@string.Format("/m/{0}-bikes/{1}/", bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)">
+                            <a href="@string.Format("/{0}-bikes/{1}/", bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)">
                                 <div class="upcoming-bike-card__image">
                                     <img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._210x118, QualityFactor._70)" alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="" border="0">
                                 </div>
