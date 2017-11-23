@@ -78,7 +78,14 @@ namespace Bikewale.BAL.PWA.CMS
             }
         }
 
-
+        /// <summary>
+        /// Created By: Prasad Gawde
+        /// </summary>
+        /// <param name="reducer"></param>
+        /// <param name="url"></param>
+        /// <param name="containerId"></param>
+        /// <param name="componentName"></param>
+        /// <returns>Returns the Rendered HTML for the News List Page</returns>
         public IHtmlString GetNewsListDetails(PwaNewsArticleListReducer reducer, string url, string containerId, string componentName)
         {
 
@@ -115,7 +122,14 @@ namespace Bikewale.BAL.PWA.CMS
             return renderedHtml;
         }
 
-
+        /// <summary>
+        /// Created by Prasad Gawde
+        /// </summary>
+        /// <param name="reducer"></param>
+        /// <param name="url"></param>
+        /// <param name="containerId"></param>
+        /// <param name="componentName"></param>
+        /// <returns>Returns the Rendered HTML for the News Details Page for the input BasicId for which Store us constructed in Reducer</returns>
         public IHtmlString GetNewsDetails(PwaNewsDetailReducer reducer, string url, string containerId, string componentName)
         {
 
@@ -148,6 +162,129 @@ namespace Bikewale.BAL.PWA.CMS
                 sw.Stop();
                 ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
                 ThreadContext.Properties["PageName"] = "News Detail";
+                _logger.Error(sw.ElapsedMilliseconds);
+            }
+            return renderedHtml;
+        }
+
+        /// <summary>
+        /// Created by Prasad Gawde
+        /// </summary>
+        /// <param name="reducer"></param>
+        /// <param name="url"></param>
+        /// <param name="containerId"></param>
+        /// <param name="componentName"></param>
+        /// <returns>Returns the Rendered HTML for the Video List Page</returns>
+        public IHtmlString GetVideoListDetails(PwaAllVideos reducer, string url, string containerId, string componentName)
+        {
+
+            Stopwatch sw = null;
+            if (_logPWAStats)
+                sw = Stopwatch.StartNew();
+
+            IHtmlString renderedHtml = null;
+            try
+            {
+                renderedHtml = React(componentName, new
+                {
+                    Url = url,
+                    TopVideos = reducer.TopVideos,
+                    OtherVideos = reducer.OtherVideos
+
+                }, containerId: containerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
+
+            if (_logPWAStats)
+            {
+                sw.Stop();
+                ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                ThreadContext.Properties["PageName"] = "Video List";
+                _logger.Error(sw.ElapsedMilliseconds);
+            }
+            return renderedHtml;
+        }
+
+        /// <summary>
+        /// Created By Prasad Gawde
+        /// </summary>
+        /// <param name="reducer"></param>
+        /// <param name="url"></param>
+        /// <param name="containerId"></param>
+        /// <param name="componentName"></param>
+        /// <returns>Returns the Rendered HTML for the Video List when asked for a sub-category list videos i.e. Say Expert-reviews Videos</returns>
+        public IHtmlString GetVideoBySubCategoryListDetails(PwaVideosBySubcategory reducer, string url, string containerId, string componentName)
+        {
+
+            Stopwatch sw = null;
+            if (_logPWAStats)
+                sw = Stopwatch.StartNew();
+
+            IHtmlString renderedHtml = null;
+            try
+            {
+                renderedHtml = React(componentName, new
+                {
+                    Url = url,
+                    VideosByCategory = reducer
+
+                }, containerId: containerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
+
+            if (_logPWAStats)
+            {
+                sw.Stop();
+                ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                ThreadContext.Properties["PageName"] = "Video Subcategory List";
+                _logger.Error(sw.ElapsedMilliseconds);
+            }
+            return renderedHtml;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reducer"></param>
+        /// <param name="url"></param>
+        /// <param name="containerId"></param>
+        /// <param name="componentName"></param>
+        /// <returns>Returns the Rendered HTML for the Video Detail Page</returns>
+        public IHtmlString GetVideoDetails(PwaVideoDetailReducer reducer, string url, string containerId, string componentName)
+        {
+
+            Stopwatch sw = null;
+            if (_logPWAStats)
+                sw = Stopwatch.StartNew();
+
+            IHtmlString renderedHtml = null;
+            try
+            {
+                renderedHtml = React(componentName, new
+                {
+                    Url = url,
+                    ModelInfo = reducer.ModelInfo,
+                    RelatedInfo = reducer.RelatedInfo,
+                    VideoInfo = reducer.VideoInfo
+
+                }, containerId: containerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
+
+            if (_logPWAStats)
+            {
+                sw.Stop();
+                ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                ThreadContext.Properties["PageName"] = "GetVideoDetails";
                 _logger.Error(sw.ElapsedMilliseconds);
             }
             return renderedHtml;
