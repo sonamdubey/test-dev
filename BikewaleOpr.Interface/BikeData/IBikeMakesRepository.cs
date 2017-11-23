@@ -11,7 +11,7 @@ namespace BikewaleOpr.Interface.BikeData
     /// Modified by : Sajal Gupta on 10-03-2017
     /// Description : Added Getsynopsis, UpdateSynopsis
     /// Modified by : Sajal Gupta on 20-11-2017
-    /// Description : Added GetMakeFooterCategoryData, SaveMakeFooterData
+    /// Description : Added GetMakeFooterCategoryData, SaveMakeFooterData, DisableAllMakeFooterCategories
     /// </summary>
     public interface IBikeMakesRepository
     {
@@ -26,5 +26,6 @@ namespace BikewaleOpr.Interface.BikeData
         IEnumerable<BikeModelEntityBase> GetModelsByMake(EnumBikeType requestType, uint makeId);
         IEnumerable<MakeFooterCategory> GetMakeFooterCategoryData(uint makeId);
         void SaveMakeFooterData(uint makeId, uint categoryId, string categorydescription, string userId);
+        void DisableAllMakeFooterCategories(uint makeId, string userId);
     }
 }

@@ -194,5 +194,25 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 20-11-2017
+        /// Desc : Action method for deleting footerdata
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [Route("make/delete/footerdata/")]
+        public ActionResult DisableFooterData(uint makeId, string userId)
+        {
+            try
+            {
+                makesRepo.DisableAllMakeFooterCategories(makeId, userId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "MakesController/DisableFooterData");
+            }
+            return RedirectToAction("Index");
+        }
+
     }   // class
 }   // namespace
