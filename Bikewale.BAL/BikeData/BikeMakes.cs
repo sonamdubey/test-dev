@@ -37,7 +37,6 @@ namespace Bikewale.BAL.BikeData
             return objMakeList;
         }
 
-
         public BikeDescriptionEntity GetMakeDescription(U makeId)
         {
             BikeDescriptionEntity objDescription = null;
