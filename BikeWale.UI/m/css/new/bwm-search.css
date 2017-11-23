@@ -292,10 +292,6 @@ span.ui-helper-hidden-accessible { display: none; }
 	padding-bottom: 30px;
 }
 
-.btn-teal .teal-right {
-	background-position: -204px -49px;
-}
-
 #loadMoreBikes.btn {
     width: 183px;
     padding-top: 8px;

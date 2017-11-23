@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
 /* CSS Document */
-#filter-placeholder, .filter-container { height: 65px; }
+.filter-container { height: 65px; }
 .search-bike-list li { float:left; width:294px; min-height: 380px; height: 290px; margin-right: 20px; margin-bottom: 5px; }
 .search-bike-list li .imageWrapper { width:294px; height:166px; }
 .search-bike-list li .imageWrapper a { width:294px; height:166px; display: block; background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
@@ -217,8 +217,4 @@
 	width: 183px;
 	padding-top: 8px;
 	padding-bottom: 8px;
-}
-
-.btn-teal .teal-right {
-	background-position: -222px -14px;
 }
