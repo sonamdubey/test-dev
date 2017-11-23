@@ -56,6 +56,31 @@ namespace Bikewale.Models.UserReviews
             return objData;
         }
 
+        /// <summary>
+        /// Created by  :   Sushil Kumar on 23rd Nov 2017
+        /// Description :   Bind Other Similar Make list for user reviews
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindOtherMakes(MakePageVM objData)
+        {
+            try
+            {
+                IEnumerable<BikeMakeEntityBase> makes = _bikeMakesCache.GetMakesByType(EnumBikeType.UserReviews);
+
+                var popularBrandsList = Utility.BikeFilter.FilterMakesByCategory(_makeId, makes);
+
+                if (popularBrandsList != null && popularBrandsList.Any())
+                {
+                    objData.OtherMakes = popularBrandsList.Take(9);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass er = new ErrorClass(ex, string.Format("UserReviewByMakePage.BindOtherMakes() => MakeId: {0}", _makeId));
+            }
+        }
+
+
         public void BindPageMetas()
         {
             try
@@ -93,7 +118,12 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            string makepageUrl = String.Format("{0}-bikes/", url, objData.Make.MaskingName);
+
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url + "reviews/", "Reviews"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, makepageUrl, string.Format("{0} Bikes", objData.Make.MakeName)));
+
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 
 
