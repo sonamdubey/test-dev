@@ -626,7 +626,7 @@ namespace Bikewale.DAL.BikeData
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            if (dr != null && dr.Read())
+                            if (dr != null)
                             {
                                 footerContent = new MakeSubFooterEntity();
                                 IList<MakeFooterCategory> makeSummary = new List<MakeFooterCategory>();
@@ -677,6 +677,7 @@ namespace Bikewale.DAL.BikeData
                                     }
 
                                 }
+                                dr.Close();
                                 if (footerContent != null)
                                 {
                                     footerContent.FooterDescription = makeSummary;

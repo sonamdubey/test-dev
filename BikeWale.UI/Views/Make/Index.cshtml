@@ -314,91 +314,17 @@
     }
 </section>
 
-
+<!-- Footer widget starts here-->
 <section>
     <div class="container">
         <div class="grid-12">
-            <div class="content-inner-block-20 margin-bottom20 font14 make-subfooter">
-                <div class="grid-6 alpha">
-                    <h2 class="make-price-table__title margin-bottom10">About Honda</h2>
-                    <div class="about-make foldable-content" data-toggle="yes">
-                        <div class="truncatable-content">
-                            The 2017 model year of the KTM RC200 doesn’t have mechanical updates, other than the fact that the engine is now BS4 compliant. A couple of changes have been made to its appearance – there are orange wheels, a white/orange paint scheme which has been introduced for 2017. Nothing else changes though, not even the price. That makes it a little more value for money, and as far as entry-level crotch rockets go, you can’t get much better than the RC200. There’s still no ABS, even as an option, and just like its elder sibling, it retains the scalpel-sharp handling that made us like it so much. If you’re looking for an all-new RC200, though, you’ll have to wait until the end of 2017 or beyond. There isn’t any real competition for the RC200 - the only other product that is as committed is the Yamaha YZF-R15, and that sits a segment below the RC200. The 2017 model year of the KTM RC200 doesn’t have mechanical updates, other than the fact that the engine is now BS4 compliant. A couple of changes have been made to its appearance – there are orange wheels, a white/orange paint scheme which has been introduced for 2017. Nothing else changes though, not even the price. That makes it a little more value for money, and as far as entry-level crotch rockets go, you can’t get much better than the RC200. There’s still no ABS, even as an option, and just like its elder sibling, it retains the scalpel-sharp handling that made us like it so much. If you’re looking for an all-new RC200, though, you’ll have to wait until the end of 2017 or beyond. There isn’t any real competition for the RC200 - the only other product that is as committed is the Yamaha YZF-R15, and that sits a segment below the RC200.
-                        </div>
-                        <a href="javascript:void(0)" class="read-more-button" rel="nofollow">Read more</a>
-
-                    </div>
-                </div>
-                <div class="grid-6 omega">
-                    <div class="make-price foldable-content" data-toggle="yes">
-                        <div class="truncatable-content">
-                            <table class="make-price-table">
-                                <thead>
-                                    <tr>
-                                        <th class="make-price-table__title" colspan="2">
-                                            <h2>Honda Bikes Price List</h2>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th class="make-price-table__head">
-                                            Model
-                                        </th>
-                                        <th class="make-price-table__head">
-                                            Price
-                                            &nbsp;<span>(Ex-showroom, Mumbai)</span>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td class="make-price__model">CT100</td>
-                                        <td>
-                                            &#x20b9;<span class="text-bold">&nbsp;1,41,604</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="make-price__model">Avenger Street 150</td>
-                                        <td>
-                                            &#x20b9;<span class="text-bold">&nbsp;1,55,291</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="make-price__model">Avenger Cruise 220</td>
-                                        <td>
-                                            &#x20b9;<span class="text-bold">&nbsp;1,55,291</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="make-price__model">CT100</td>
-                                        <td>
-                                            &#x20b9;<span class="text-bold">&nbsp;1,41,604</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="make-price__model">Avenger Street 150</td>
-                                        <td>
-                                            &#x20b9;<span class="text-bold">&nbsp;1,55,291</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="make-price__model">Avenger Cruise 220</td>
-                                        <td>
-                                            &#x20b9;<span class="text-bold">&nbsp;1,55,291</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <a href="javascript:void(0)" class="read-more-button" rel="nofollow">More bikes</a>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
+           @Html.Partial("~/Views/Make/MakeFooterCategoriesandPrice.cshtml" , Model.SubFooter)
         </div>
         <div class="clear"></div>
     </div>
 </section>
 
+<!-- Footer widget ends-->
 
 @if (Model.IsDiscontinuedBikeAvailable)
 {

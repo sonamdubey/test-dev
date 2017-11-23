@@ -85,6 +85,8 @@ namespace Bikewale.Models
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : Snehal Dange on 21st Nov 2017
         /// Description : Added BindUserReviews() method.
+        /// Modified by: Snehal Dange on 23rd Nov 2017
+        /// Description : Added BindMakeFooterCategoriesandPriceWidget() method
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
@@ -153,6 +155,7 @@ namespace Bikewale.Models
                 BindDiscontinuedBikes(objData);
                 BindOtherMakes(objData);
                 BindUserReviews(objData);
+                BindMakeFooterCategoriesandPriceWidget(objData);
 
                 #region Set Visible flags
 
@@ -579,10 +582,10 @@ namespace Bikewale.Models
         {
             try
             {
-                if (_makeId > 0 && objData != null && _cacheUserReviews!=null)
+                if (_makeId > 0 && objData != null && _cacheUserReviews != null)
                 {
                     objData.PopularBikesUserReviews = new BikesWithReviewsByMakeVM();
-                    if (objData.PopularBikesUserReviews!=null)
+                    if (objData.PopularBikesUserReviews != null)
                     {
                         objData.PopularBikesUserReviews.BikesReviewsList = _cacheUserReviews.GetBikesWithReviewsByMake(_makeId);
                     }
@@ -592,6 +595,30 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.BindUserReviews() makeId:{0}", _makeId));
+            }
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 23rd Nov 2017
+        /// Description: Created BindMakeFooterCategoriesandPriceWidget() to bind SubFooter on make page
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMakeFooterCategoriesandPriceWidget(MakePageVM objData)
+        {
+            try
+            {
+                if (_makeId > 0 && objData != null && _bikeMakesCache != null)
+                {
+                    objData.SubFooter = new Make.MakeFooterCategoriesandPriceVM();
+                    if (objData.SubFooter != null)
+                    {
+                        objData.SubFooter.FooterContent = _bikeMakesCache.GetMakeFooterCategoriesandPrice(_makeId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.BindMakeFooterCategoriesandPriceWidget() makeId:{0}", _makeId));
             }
         }
     }

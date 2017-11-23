@@ -1,6 +1,6 @@
-﻿
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Models.Make;
 using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 namespace Bikewale.Models
@@ -66,7 +66,9 @@ namespace Bikewale.Models
         public string SelectedSortingText { get; set; }
 
         public BikesWithReviewsByMakeVM PopularBikesUserReviews { get; set; }
-       
-        
+
+        public MakeFooterCategoriesandPriceVM SubFooter { get; set; }
+
+
     }
 }
