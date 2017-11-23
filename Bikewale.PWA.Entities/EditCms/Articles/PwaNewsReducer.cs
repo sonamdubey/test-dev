@@ -2,17 +2,9 @@
 
 namespace Bikewale.Entities.PWA.Articles
 {
-    public class PwaReduxStore
-    {
-        public PwaNewsReducer NewsReducer { get; private set; }
-
-        public PwaReduxStore()
-        {
-            NewsReducer = new PwaNewsReducer();
-        }
-
-    }
-
+    /// <summary>
+    /// Created By: Prasad Gawde
+    /// </summary>
     public class PwaNewsReducer
     {
         public PwaNewsArticleListReducer NewsArticleListReducer { get; private set; }
@@ -25,6 +17,9 @@ namespace Bikewale.Entities.PWA.Articles
         }
     }
 
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     public class PwaNewsArticleListReducer
     {
         public PwaArticleListData ArticleListData { get; private set; }
@@ -38,17 +33,25 @@ namespace Bikewale.Entities.PWA.Articles
 
     }
 
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     public class PwaArticleListData
     {       
         public PwaContentBase ArticleList { get; set; }
     }
 
-
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     public class PwaNewBikesListData
     {
         public List<PwaBikeNews> NewBikesList { get; set; }
     }
 
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     public class PwaNewsDetailReducer
     {
         public PwaArticleDetailData ArticleDetailData { get; set; }
@@ -63,11 +66,17 @@ namespace Bikewale.Entities.PWA.Articles
         }
     }
 
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     public class PwaArticleDetailData
     {
         public PwaArticleDetails ArticleDetail { get; set; }
     }
 
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     public class PwaRelatedModelObject
     {
         public PwaBikeInfo ModelObject { get; set; }

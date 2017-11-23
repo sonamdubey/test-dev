@@ -1,12 +1,23 @@
 ﻿
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
 using Bikewale.Models.Videos;
+using Bikewale.PWA.Utils;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
+using Bikewale.Controls;
+using Bikewale.Utility;
+using Bikewale.Entities.Videos;
+using log4net;
+using System;
 
 namespace Bikewale.Controllers.Desktop.Videos
 {
@@ -22,8 +33,13 @@ namespace Bikewale.Controllers.Desktop.Videos
         private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly ICityCacheRepository _cityCacheRepo = null;
         private readonly IBikeInfo _bikeInfo = null;
+        private readonly IPWACMSCacheRepository _renderedArticles = null;
+        private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+        static ILog _logger = LogManager.GetLogger("Pwa-Logger-VideoController");
 
-        public VideosController(ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCache, IVideosCacheRepository videos, IVideos video, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
+        public VideosController(ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCache, IVideosCacheRepository videos, IVideos video, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache,
+            IPWACMSCacheRepository renderedArticles,
+             IBikeModelsCacheRepository<int> modelCache)
         {
             _videos = videos;
             _video = video;
@@ -31,6 +47,8 @@ namespace Bikewale.Controllers.Desktop.Videos
             _bikeMakesCache = bikeMakesCache;
             _cityCacheRepo = cityCacheRepo;
             _bikeInfo = bikeInfo;
+            _renderedArticles = renderedArticles;
+            _modelCache = modelCache;
         }
 
         /// <summary>
@@ -67,14 +85,14 @@ namespace Bikewale.Controllers.Desktop.Videos
                 return Redirect("/pagenotfound.aspx");
             }
         }
-
         /// <summary>
         /// Created By : Sajal Gupta on 31-03-2017
+        /// Modified by: Prasad Gawde for PWA
         /// Descripton : This contoller will fetch data for vidoes landing page desktop
         /// </summary>
         /// <returns></returns>
         [Route("m/videos/Index/")]
-        public ActionResult Index_Mobile()
+        public ActionResult Index_Mobile_Pwa()
         {
             try
             {
@@ -93,6 +111,22 @@ namespace Bikewale.Controllers.Desktop.Videos
                 modelObj.IsMobile = true;
                 VideosLandingPageVM objVM = modelObj.GetData();
 
+                //construct the store for PWA
+                try
+                {
+                    objVM.Store = ConstructStoreForListPage(objVM);
+                    var storeJson = JsonConvert.SerializeObject(objVM.Store);
+
+                    objVM.ServerRouterWrapper = _renderedArticles.GetVideoListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objVM.Store.Videos.VideosLanding,
+                                    "/m/bike-videos/", "root", "ServerRouterWrapper");
+
+                    objVM.WindowState = storeJson;
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex);
+                    return View("~/Views/Videos/Index_Mobile.cshtml", objVM);
+                }
                 return View(objVM);
             }
             catch (System.Exception ex)
@@ -101,7 +135,6 @@ namespace Bikewale.Controllers.Desktop.Videos
                 return Redirect("/pagenotfound.aspx");
             }
         }
-
         /// <summary>
         /// Created by Sajal Gupta on 01-04-2017 to fetch data fr category wise desktop videos page.
         /// </summary>
@@ -118,16 +151,34 @@ namespace Bikewale.Controllers.Desktop.Videos
 
         /// <summary>
         /// Created by Sajal Gupta on 01-04-2017 to fetch data fr category wise mobile videos page.
+        /// Modified by: Prasad Gawde for PWA
         /// </summary>
         /// <param name="categoryIdList"></param>
         /// <param name="title"></param>
         /// <returns></returns>
         [Route("m/videos/category/{categoryIdList}/title/{title}")]
-        public ActionResult CategoryVideos_Mobile(string categoryIdList, string title)
+        public ActionResult CategoryVideos_Mobile_Pwa(string categoryIdList, string title)
         {
             VideosByCategoryPage objModel = new VideosByCategoryPage(_videos, categoryIdList, title);
             objModel.IsMobile = true;
             VideosByCategoryPageVM objVM = objModel.GetData(9);
+
+            //construct Store for PWA
+            try
+            {
+                objVM.Store = ConstructStoreForSubCategoryPage(objVM);
+                var storeJson = JsonConvert.SerializeObject(objVM.Store);
+
+                objVM.ServerRouterWrapper = _renderedArticles.GetVideoBySubCategoryListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objVM.Store.Videos.VideosByCategory,
+                                string.Format("/m/bike-videos/category/{0}-{1}", title, categoryIdList), "root", "ServerRouterWrapper");
+
+                objVM.WindowState = storeJson;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                return View("~/Views/Videos/CategoryVideos_Mobile.cshtml", objVM);
+            }
             return View(objVM);
         }
 
@@ -156,21 +207,38 @@ namespace Bikewale.Controllers.Desktop.Videos
                 return Redirect("/pagenotfound.aspx");
             }
         }
-
         /// <summary>
         /// Created by : Sangram Nandkhile on 01 Mar 2017
+        /// Modified by: Prasad Gawde for PWA
         /// Summary: Action method for Video details Page
         /// Modified by :   Sumit Kate on 29 Mar 2017
         /// Description :   Videos details view action method
         /// </summary>
         [Route("m/videos/details/{videoId}/")]
-        public ActionResult Details_Mobile(uint videoId)
+        public ActionResult Details_Mobile_Pwa(uint videoId)
         {
             Bikewale.Models.VideoDetails objModel = new Bikewale.Models.VideoDetails(videoId, _videos);
             if (objModel.Status == Entities.StatusCodes.ContentFound)
             {
                 objModel.IsMobile = true;
                 VideoDetailsPageVM objVM = objModel.GetData();
+
+                //construct Store for PWA
+                try
+                {
+                    objVM.Store = ConstructStoreForDetailsPage(objVM);
+                    var storeJson = JsonConvert.SerializeObject(objVM.Store);
+
+                    objVM.ServerRouterWrapper = _renderedArticles.GetVideoDetails(PwaCmsHelper.GetSha256Hash(storeJson), objVM.Store.Videos.VideoDetail,
+                                    string.Format("/m/bike-videos/{0}-{1}", objVM.Video.VideoTitleUrl, videoId), "root", "ServerRouterWrapper");
+
+                    objVM.WindowState = storeJson;
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex);
+                    return View("~/Views/Videos/Details_Mobile.cshtml", objVM);
+                }
                 return View(objVM);
             }
             else if (objModel.Status == Entities.StatusCodes.ContentNotFound)
@@ -183,7 +251,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
         }
 
-        /// <summary>
+   /// <summary>
         /// Created by Sajal Gupta on 01-04-2017
         /// Description : Controller for videos make wise page desktop 
         /// </summary>
@@ -328,8 +396,6 @@ namespace Bikewale.Controllers.Desktop.Videos
             SimilarVideosModel model = new SimilarVideosModel(modelId, videoId, _video);
             return PartialView("~/views/videos/_SimilarVideos_Mobile.cshtml", model.GetData());
         }
-
-
         /// <summary>
         /// Created by : Ashutosh Sharma on 17-Aug-2017
         /// Description : Action method for scooter videos for desktop .
@@ -355,8 +421,6 @@ namespace Bikewale.Controllers.Desktop.Videos
             
 
         }
-
-
         /// <summary>
         /// Created by : Ashutosh Sharma on 17-Aug-2017
         /// Description : Action method for scooter videos for desktop .
@@ -387,5 +451,152 @@ namespace Bikewale.Controllers.Desktop.Videos
            
 
         }
+
+        #region Construct PWA Redux Store
+        private PwaReduxStore ConstructStoreForListPage(VideosLandingPageVM objVM)
+        {
+            //construct the store for PWA
+            PwaReduxStore store = new PwaReduxStore();
+
+            var allVideos = store.Videos.VideosLanding;
+            var topVideos = new PwaVideosLandingPageTopVideos(); ;
+            var otherVideos = new PwaVideosLandingPageOtherVideos();
+
+            //set top Videos
+            var pwaLandingVideos = new List<PwaBikeVideoEntity>();
+            pwaLandingVideos.Add(ConverterUtility.PwaConvert(objVM.LandingFirstVideoData));
+            ConverterUtility.PwaCovertAndAppend(pwaLandingVideos, objVM.LandingOtherVideosData);
+            topVideos.LandingFirstVideos = pwaLandingVideos;
+
+            if (objVM.ExpertReviewsWidgetData != null)
+            {
+                topVideos.ExpertReviews = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.ExpertReviewsWidgetData.VideoList.Videos, 55,true);
+            }
+            //set other Videos            
+            if (objVM.FirstLookWidgetData != null)
+                otherVideos.FirstLook = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.FirstLookWidgetData.VideoList.Videos, 61);
+
+            if (objVM.FirstRideWidgetData != null)
+                otherVideos.FirstRide = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.FirstRideWidgetData.VideoList.Videos, 57);
+
+            if (objVM.LaunchAlertWidgetData != null)
+                otherVideos.LaunchAlert = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.LaunchAlertWidgetData.VideoList.Videos, 59);
+
+            if (objVM.MiscellaneousWidgetData != null)
+                otherVideos.Miscellaneous = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.MiscellaneousWidgetData.VideoList.Videos, 58);
+
+            if (objVM.MotorSportsWidgetData != null)
+                otherVideos.MotorSports = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.MotorSportsWidgetData.VideoList.Videos, 51);
+
+            if (objVM.PowerDriftBlockbusterWidgetData != null)
+                otherVideos.PowerDriftBlockbuster = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.PowerDriftBlockbusterWidgetData.VideoList.Videos, 62);
+
+            if (objVM.PowerDriftSpecialsWidgetData != null)
+                otherVideos.PowerDriftSpecials = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.PowerDriftSpecialsWidgetData.VideoList.Videos, 63);
+
+            if (objVM.PowerDriftTopMusicWidgetData != null)
+                otherVideos.PowerDriftTopMusic = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.PowerDriftTopMusicWidgetData.VideoList.Videos, 60);
+
+            PwaBrandsInfo pwaBrands = new PwaBrandsInfo();
+            pwaBrands.TopBrands = ConverterUtility.PwaConvert(objVM.Brands.TopBrands);
+            pwaBrands.OtherBrands = ConverterUtility.PwaConvert(objVM.Brands.OtherBrands);
+            otherVideos.Brands = pwaBrands;
+
+            allVideos.TopVideos = topVideos;
+            allVideos.OtherVideos = otherVideos;
+
+            return store;
+        }
+
+        private PwaReduxStore ConstructStoreForDetailsPage(VideoDetailsPageVM objVM)
+        {
+            //construct the store for PWA
+            PwaReduxStore store = new PwaReduxStore();
+            uint videoId = objVM.Video.BasicId;
+            var videoDetail = store.Videos.VideoDetail;
+            uint taggedModel = objVM.TaggedModelId;
+            var videoInfo = videoDetail.VideoInfo;
+
+            videoInfo.VideoInfo = ConverterUtility.PwaConvert(objVM.Video, true);
+
+            var relatedInfoList = new List<PwaBikeVideoRelatedInfo>();
+
+            var modelMaskingName = objVM.Video.MaskingName;
+
+            if (taggedModel != 0) //add related videos only if the model is tagged
+            {
+                relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Video, string.Format("api/pwa/similarvideos/{0}/modelid/{1}", videoId, taggedModel)));
+            }else
+                relatedInfoList.Add(null);
+            //    relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Video, string.Empty));
+
+            relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Bike, string.Format("api/pwa/popularbodystyle/modelid/{0}/count/9", taggedModel)));
+
+            videoInfo.RelatedInfoApi = relatedInfoList;
+
+
+            //similarvideos
+            var pwarelatedInfo = videoDetail.RelatedInfo;
+
+            if (taggedModel > 0) //no simialr videos if model is not tagged
+            {
+                SimilarVideosModel model = new SimilarVideosModel(taggedModel, videoId, _video);
+                var similaVideosData = model.GetData();
+
+                var pwaVidList = new PwaBikeVideos();
+
+                if (similaVideosData != null && similaVideosData.Videos != null)
+                {
+                    pwarelatedInfo.VideoList = pwaVidList;
+                    var videosList = ConverterUtility.PwaConvert(similaVideosData.Videos);
+                    if (videosList != null)
+                        pwaVidList.VideosList = videosList.ToList();
+                    pwaVidList.CompleteListUrl = similaVideosData.ViewAllLinkUrl;
+                    pwaVidList.CompleteListUrlAlternateLabel = similaVideosData.ViewAllLinkTitle;
+                    pwaVidList.Heading = "More related videos";
+                    pwaVidList.CompleteListUrlLabel = similaVideosData.ViewAllLinkText;
+                }
+            }
+            else
+                pwarelatedInfo.VideoList = null;
+
+            //bikelist            
+            var cityArea = GlobalCityArea.GetGlobalCityArea();
+            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetMostPopularBikesByModelBodyStyle((int)taggedModel, 9, objVM.CityId);
+            PwaBikeNews outBikeData = new PwaBikeNews();
+            if (objPopularBodyStyle != null)
+                outBikeData.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objPopularBodyStyle, cityArea.City);
+            outBikeData.Heading = "Popular bikes";
+            outBikeData.CompleteListUrl = "/m/best-bikes-in-india/";
+            outBikeData.CompleteListUrlAlternateLabel = "Best Bikes in India";
+            outBikeData.CompleteListUrlLabel = "View all";
+            pwarelatedInfo.BikeList = outBikeData;
+
+            //tagged bike
+            if (taggedModel != 0)
+            {
+                BikeInfoWidget bikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, taggedModel, objVM.CityId, 3, Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos);
+                var bikeInfoVm = bikeInfo.GetData();
+                videoDetail.ModelInfo = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(bikeInfoVm);
+            }
+            return store;
+        }
+
+        private PwaReduxStore ConstructStoreForSubCategoryPage(VideosByCategoryPageVM objVM)
+        {
+            //construct the store for PWA
+            PwaReduxStore store = new PwaReduxStore();
+
+            var subCatVideos = store.Videos.VideosByCategory;
+            if (objVM.Videos != null)
+            {
+                subCatVideos.Videos = ConverterUtility.PwaConvert(objVM.Videos.Videos);
+                subCatVideos.SectionTitle = objVM.TitleName;
+                subCatVideos.MoreVideosUrl = string.Empty;
+            }
+            return store;
+        }
+
+        #endregion
     }
 }

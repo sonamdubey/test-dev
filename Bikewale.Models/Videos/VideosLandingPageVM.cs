@@ -1,5 +1,8 @@
-﻿using Bikewale.Entities.Videos;
+﻿using Bikewale.Entities.PWA.Articles;
+using Bikewale.Entities.Videos;
 using System.Collections.Generic;
+using System.Web;
+
 namespace Bikewale.Models.Videos
 {
     /// <summary>
@@ -20,5 +23,8 @@ namespace Bikewale.Models.Videos
         public VideosBySubcategoryVM PowerDriftSpecialsWidgetData { get; set; }
         public VideosBySubcategoryVM PowerDriftTopMusicWidgetData { get; set; }
         public VideosBySubcategoryVM MiscellaneousWidgetData { get; set; }
+        public PwaReduxStore Store { get; set; }
+        public IHtmlString ServerRouterWrapper { get; set; }
+        public string WindowState { get; set; }
     }
 }
