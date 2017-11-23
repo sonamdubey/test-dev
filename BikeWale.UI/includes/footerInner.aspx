@@ -89,7 +89,7 @@
         <div class="clear"></div>
          <div class="margin-top10">
             <ul class="font14 popularMakes">
-                <li class="font16 text-white padding-right50">Polular Brands</li>
+                <li class="font16 text-white padding-right50">Popular Brands</li>
                 <li><a href="/honda-bikes/" title="Honda Bikes">Honda Bikes</a></li>
                 <li><a href="/hero-bikes/" title="Hero Bikes">Hero Bikes</a></li>
                 <li><a href="/suzuki-bikes/" title="Suzuki Bikes">Suzuki Bikes</a></li>
