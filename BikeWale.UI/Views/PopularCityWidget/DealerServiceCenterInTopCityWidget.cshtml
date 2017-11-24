@@ -46,7 +46,7 @@
                 @if (Model.IsIndiaCardNeeded)
                 {
                     <li>
-                        <a href="/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showroom in India" class="block">
+                        <a href="/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showrooms in India" class="card-target-link">
                             <div class="city-image-preview">
                                 <span class="city-sprite india-icon"></span>
                             </div>
@@ -54,7 +54,7 @@
                                 <p class="font15 text-default text-bold margin-bottom5">@Model.MakeName outlets in India</p>
                                 @if (Model.DealerServiceCenters.TotalDealerCount > 0)
                                 {  <p class="text-light-grey font14">
-                                    @Model.DealerServiceCenters.TotalDealerCount showrooms
+                                    @Model.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms
                                 </p>
                                 }
                             </div>

@@ -893,3 +893,18 @@
     border-bottom: 1px solid #eee;
     text-align: center;
 }
+
+/* icons */
+.service-center-grey {
+    width: 28px;
+    height: 32px;
+    background-position: -197px -705px;
+    vertical-align: top;
+}
+
+.dealer-grey {
+    width: 25px;
+    height: 29px;
+    background-position: -105px -747px;
+    vertical-align: top;
+}
