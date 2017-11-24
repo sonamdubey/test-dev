@@ -37,18 +37,13 @@
 <footer class="bg-footer padding-top40 padding-bottom20">
     <!-- Footer section code starts here -->
     <div class="container">
-        <div class="text-center border-solid-bottom margin-bottom25 padding-bottom20">
-            <div class="grid-4">
-                <a href="/" class="bwsprite bw-footer-icon" title="Bikewale"></a>
-            </div>
-            <div class="grid-4">
-                <a href="https://www.carwale.com/" target="_blank" rel="noopener" class="bwsprite cw-footer-icon" title="CarWale"></a>
-                <p class="cw-logo-label">ask the experts</p>
-            </div>
-            <div class="grid-4">
-                <a href="https://www.cartrade.com/" target="_blank" rel="noopener" class="bwsprite ct-footer-icon" title="CarTrade"></a>
-            </div>
-            <div class="clear"></div>
+        <div class="margin-top10  border-solid-bottom margin-bottom25 padding-bottom20">
+            <ul class="font14 popularMakes">
+                <li class="font16 text-white padding-right50">Popular Brands</li>
+                <li><a href="/honda-bikes/" title="Honda Bikes">Honda Bikes</a></li>
+                <li><a href="/hero-bikes/" title="Hero Bikes">Hero Bikes</a></li>
+                <li><a href="/suzuki-bikes/" title="Suzuki Bikes">Suzuki Bikes</a></li>
+            </ul>
         </div>
         <div class="grid-4">
             <p class="font18 text-white margin-bottom20">Join us on</p>
@@ -87,13 +82,18 @@
                 </div>
         </div>
         <div class="clear"></div>
-         <div class="margin-top10">
-            <ul class="font14 popularMakes">
-                <li class="font16 text-white padding-right50">Popular Brands</li>
-                <li><a href="/honda-bikes/" title="Honda Bikes">Honda Bikes</a></li>
-                <li><a href="/hero-bikes/" title="Hero Bikes">Hero Bikes</a></li>
-                <li><a href="/suzuki-bikes/" title="Suzuki Bikes">Suzuki Bikes</a></li>
-            </ul>
+         <div class="text-center">
+            <div class="grid-4">
+                <a href="/" class="bwsprite bw-footer-icon" title="Bikewale"></a>
+            </div>
+            <div class="grid-4">
+                <a href="https://www.carwale.com/" target="_blank" rel="noopener" class="bwsprite cw-footer-icon" title="CarWale"></a>
+                <p class="cw-logo-label">ask the experts</p>
+            </div>
+            <div class="grid-4">
+                <a href="https://www.cartrade.com/" target="_blank" rel="noopener" class="bwsprite ct-footer-icon" title="CarTrade"></a>
+            </div>
+            <div class="clear"></div>
         </div>
         <div class="border-solid-top text-white margin-top25 padding-top25">
             <div class="grid-6 alpha font16">&copy; BikeWale India</div>

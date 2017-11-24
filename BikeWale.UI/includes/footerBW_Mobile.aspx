@@ -54,9 +54,17 @@
     </div>
 </div> <!-- global-search-popup code ends here -->
 
-<footer class="bg-footer padding-top30 padding-bottom15"><!-- Footer section code starts here -->
+<footer class="bg-footer padding-top10 padding-bottom15"><!-- Footer section code starts here -->
     <div class="container">
-        <div class="text-center padding-bottom15">
+                <div class="text-center">
+                <p class="font13 text-white margin-bottom10">Popular Brands</p>
+                <ul>
+                    <li><a href="/m/honda-bikes/" title="Honda Bikes">Honda Bikes</a></li>
+                    <li><a href="/m/hero-bikes/" title="Hero Bikes">Hero Bikes</a></li>
+                    <li><a href="/m/suzuki-bikes/" title="Suzuki Bikes">Suzuki Bikes</a></li>
+                </ul>
+            </div>
+        <div class="text-center padding-bottom15 border-solid-top padding-top10">
             <div class="grid-4">
                 <a href="/m/" class="bwmsprite bw-footer-icon" title="Bikewale"></a>
             </div>
@@ -69,14 +77,6 @@
             </div>
             <div class="clear"></div>
         </div>
-         <div class="border-solid-top text-center padding-top10">
-                <p class="font13 text-white margin-bottom10">Popular Brands</p>
-                <ul>
-                    <li><a href="/m/yamaha-bikes/" title="Yamaha Bikes">Yamaha Bikes</a></li>
-                    <li><a href="/m/bajaj-bikes/" title="Bajaj Bikes">Bajaj Bikes</a></li>
-                    <li><a href="/m/royalenfield-bikes/" title="Royal Enfield Bikes">Royal Enfield Bikes</a></li>
-                </ul>
-            </div>
         <div class="border-solid-top text-center">
             <div class="margin-top15">
                 <ul>
