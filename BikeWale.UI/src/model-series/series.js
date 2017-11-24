@@ -157,8 +157,8 @@
         });
 
     });
-    $(".navtab").click(function () {
-
+    $(".navtab").click(function (event) {
+        event.preventDefault();
         try {
             var scrollSectionId = $(this).data('href');
             $('html,body').animate({

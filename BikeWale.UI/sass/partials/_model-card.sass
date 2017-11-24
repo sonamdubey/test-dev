@@ -20,11 +20,6 @@ $default-color: #4d5057
 			&:hover
 				text-decoration: none
 
-		&:hover
-			-ms-transform: scale(1.5);
-			-webkit-transform: scale(1.5);
-			transform: scale(1.5);
-
 		.model-card__image,
 		.model-card__list
 			max-width: $max-width
@@ -103,14 +98,16 @@ $default-color: #4d5057
 	.summary-specs-list
 		font-size: 0
 		padding-top: 10px
-
+		display: table
 		li
-			display: inline-block
 			vertical-align: middle
-			width: $width
+			margin-right: 15px
 			font-size: $font-size * 1px
 			color: #82888b
 			font-weight: $font-weight
+			display: table-cell
+			white-space: nowrap
+			width: 1%
 
 @mixin featured-card($color: 1px)			
 	.featured-card

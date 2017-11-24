@@ -2,14 +2,6 @@ $light-grey: #d5d5d5
 $orange: #ff7c6f
 $light-orange: #fff9f9
 $default-color: #4d5057
-.model-list
-	-webkit-transition: transform 1s
-	transition: transform 1s
-
-	&:hover
-		-ms-transform: scale(1.05)
-		-webkit-transform: scale(1.05)
-		transform: scale(1.05)
 
 @mixin model-card($width: 300px)
 	.model-card
@@ -96,18 +88,20 @@ $default-color: #4d5057
 		color: $default-color
 		text-decoration: none
 
-@mixin summary-specs-list($width: 25%, $font-size: 12, $font-weight: 600)	
+@mixin summary-specs-list($font-size: 12, $font-weight: 600)	
 	.summary-specs-list
 		font-size: 0
 		padding-top: 10px
+		display: table
 
 		li
-			display: inline-block
 			vertical-align: middle
-			width: $width
 			font-size: $font-size * 1px
 			color: #82888b
 			font-weight: $font-weight
+			display: table-cell
+			white-space: nowrap
+			width: 1%
 
 @mixin featured-card($color: 1px)			
 	.featured-card
