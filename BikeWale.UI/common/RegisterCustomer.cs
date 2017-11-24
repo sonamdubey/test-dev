@@ -137,7 +137,7 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = Email;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 50, Email));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null && dr.Read())
                         {
