@@ -179,10 +179,10 @@ docReady(function () {
         });
     });
 
-    $("#cfCompPincode,#cfPincode").on('focus', function () {
+    $("#cfCompPincode").on('focus', function () {
         $.fn.hint = bwHint;
         $.fn.bw_autocomplete = bwAutoComplete;
-        $("#cfCompPincode,#cfPincode").bw_autocomplete({
+        $("#cfCompPincode").bw_autocomplete({
             source: 6,
             recordCount: 3,
             minLength: 2,
@@ -191,11 +191,11 @@ docReady(function () {
             },
             click: function (event, ui, orgTxt) {                
                 if (ui && ui.item) {
-                    $('#cfCompPincode,#cfPincode').closest('.input-box').addClass('not-empty');
-                    $('#cfCompPincode,#cfPincode').val(ui.item.payload.pinCode);
+                    $('#cfCompPincode').closest('.input-box').addClass('not-empty');
+                    $('#cfCompPincode').val(ui.item.payload.pinCode);
                 }
                 else {
-                    $('#cfCompPincode,#cfPincode').val();
+                    $('#cfCompPincode').val();
                 }
 
             },
@@ -203,7 +203,7 @@ docReady(function () {
                 objPinCodes.result = result;
             },
             focusout: function () {
-                if ($('#cfCompPincode,#cfPincode').find('li.ui-state-focus a:visible').text() != "") {
+                if ($('#cfCompPincode').find('li.ui-state-focus a:visible').text() != "") {
                     $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
                     focusedMakeModel = new Object();
                     focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
@@ -239,7 +239,79 @@ docReady(function () {
                     if (focusedMakeModel == null || focusedMakeModel == undefined) {
                         if ($(event.target).val().trim() != '') {
                             $('#errPinCodeSearch,#errPinCodeSearch_office').show();
-                            $('#cfCompPincode,#cfPincode').val();
+                            $('#cfCompPincode').val();
+                        }
+                    }
+                    else {
+                        $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                    }
+
+                }
+            }
+        }).autocomplete({ appendTo: $(event.target).closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
+    });
+
+    $("#cfPincode").on('focus', function () {
+        $.fn.hint = bwHint;
+        $.fn.bw_autocomplete = bwAutoComplete;
+        $("#cfPincode").bw_autocomplete({
+            source: 6,
+            recordCount: 3,
+            minLength: 2,
+            onClear: function () {
+                objPinCodes = new Object();
+            },
+            click: function (event, ui, orgTxt) {
+                if (ui && ui.item) {
+                    $('#cfPincode').closest('.input-box').addClass('not-empty');
+                    $('#cfPincode').val(ui.item.payload.pinCode);
+                }
+                else {
+                    $('#cfPincode').val();
+                }
+
+            },
+            open: function (result) {
+                objPinCodes.result = result;
+            },
+            focusout: function () {
+                if ($('#cfPincode').find('li.ui-state-focus a:visible').text() != "") {
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                    focusedMakeModel = new Object();
+                    focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                }
+                else {
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                }
+            },
+            afterfetch: function (result, searchtext) {
+                if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                }
+                else {
+                    focusedMakeModel = null;
+                    if (searchtext.trim() != "") {
+                        $('#errPinCodeSearch,#errPinCodeSearch_office').show();
+
+                    }
+                }
+            },
+            keyup: function () {
+                if ($(event.target).val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                    focusedMakeModel = new Object();
+                    focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                } else {
+                    if ($(event.target).val().trim() == '') {
+                        $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                    }
+                }
+
+                if ($(event.target).val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                    if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                        if ($(event.target).val().trim() != '') {
+                            $('#errPinCodeSearch,#errPinCodeSearch_office').show();
+                            $('#cfPincode').val();
                         }
                     }
                     else {
