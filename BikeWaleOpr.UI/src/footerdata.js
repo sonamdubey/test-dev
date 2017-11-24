@@ -34,15 +34,18 @@ $("#saveButton").click(function () {
 
 $("#disableButton").click(function () {    
 
-    $.ajax({
-        type: "Post",
-        url: "/make/delete/footerdata/?makeId=" + makeId + "&userId=" + userId,
-        contentType: "application/json"       
-    });
+    if(confirm("Do you want delete all data for this make ?"))
+    {
+        $.ajax({
+            type: "Post",
+            url: "/make/delete/footerdata/?makeId=" + makeId + "&userId=" + userId,
+            contentType: "application/json"
+        });
 
-    Materialize.toast('Data deleted!', 3000);
+        Materialize.toast('Data deleted!', 3000);
 
-    location.reload();  
+        location.reload();
+    }
 
 });
 

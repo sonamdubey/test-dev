@@ -1,6 +1,6 @@
-﻿
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Models.Make;
 using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 namespace Bikewale.Models
@@ -23,6 +23,8 @@ namespace Bikewale.Models
     /// Descriptition :  Added SelectedSortingId, SelectedSortingText
     /// Modified By: Snehal Dange on 20th Nov 2017
     /// Description: Added most helful and most recent user reviews by make
+    /// Modified By:Snehal Dange on 23rd Nov 2017
+    /// Description: Added SubFooter Content
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -53,6 +55,9 @@ namespace Bikewale.Models
         public bool IsDealerServiceDataAvailable { get; set; }
         public bool IsDealerAvailable { get; set; }
         public bool IsMakeTabsDataAvailable { get; set; }
+        public bool IsFooterDescriptionAvailable { get; set; }
+        public bool IsPriceListingAvailable { get; set; }
+
 
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public DealerCardVM Dealers { get; set; }
@@ -67,6 +72,8 @@ namespace Bikewale.Models
 
         public BikesWithReviewsByMakeVM PopularBikesUserReviews { get; set; }
         public bool IsUserReviewsAvailable { get; set; }
+
+        public MakeFooterCategoriesandPriceVM SubFooter { get; set; }
 
 
     }

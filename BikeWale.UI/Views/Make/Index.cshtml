@@ -104,7 +104,8 @@
                                                 else
                                                 {
                                                     <div class="font14 text-light-grey margin-bottom5">
-                                                        <span class="margin-right5">Avg. Ex-showroom price</span><span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+                                                        <span class="margin-right5">Avg. Ex-showroom price</span>
+                                                        <span class="bwsprite info-icon tooltip-icon-target tooltip-top">
                                                             <span class="bw-tooltip info-tooltip">
                                                                 <span class="bw-tooltip-text">Price is not available in @Model.City.City</span>
                                                             </span>
@@ -170,7 +171,8 @@
                                 <div class="carousel-heading-content">
                                     <div class="swiper-heading-left-grid inline-block">
                                         <h2>Popular Comparison of @Model.MakeName Bikes</h2>
-                                    </div><div class="swiper-heading-right-grid inline-block text-right">
+                                    </div>
+                                    <div class="swiper-heading-right-grid inline-block text-right">
                                         <a href="/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
                                     </div>
                                     <div class="clear"></div>
@@ -193,7 +195,8 @@
                                 <div class="carousel-heading-content">
                                     <div class="swiper-heading-left-grid inline-block">
                                         <span class="font16 text-semibold text-black">Other popular brands</span>
-                                    </div><div class="swiper-heading-right-grid inline-block text-right">
+                                    </div>
+                                    <div class="swiper-heading-right-grid inline-block text-right">
                                         <a href="/new-bikes-in-india/" title="New Bikes in India" class="btn view-all-target-btn">View all</a>
                                     </div>
                                     <div class="clear"></div>
@@ -296,7 +299,8 @@
                             <div class="carousel-heading-content padding-top20">
                                 <div class="swiper-heading-left-grid inline-block">
                                     <h2>Second-hand @Model.MakeName bikes in @Model.Location</h2>
-                                </div><div class="swiper-heading-right-grid inline-block text-right">
+                                </div>
+                                <div class="swiper-heading-right-grid inline-block text-right">
                                     <a href="/used/@Model.MakeMaskingName-bikes-in-@Model.LocationMasking/" title="Second-hand Bikes in @Model.Location" class="btn view-all-target-btn">View all</a>
                                 </div>
                                 <div class="clear"></div>
@@ -313,6 +317,21 @@
         </section>
     }
 </section>
+
+@if (Model.IsFooterDescriptionAvailable)
+{
+    <!-- Footer widget starts here-->
+    <section>
+        <div class="container">
+            <div class="grid-12">
+                @Html.Partial("~/Views/Make/MakeFooterCategoriesandPrice.cshtml", Model.SubFooter)
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <!-- Footer widget ends-->
+}
 
 
 @if (Model.IsDiscontinuedBikeAvailable)

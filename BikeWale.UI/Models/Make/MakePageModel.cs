@@ -15,6 +15,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
+using Bikewale.Models.Make;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using System;
@@ -85,7 +86,11 @@ namespace Bikewale.Models
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : Snehal Dange on 21st Nov 2017
         /// Description : Added BindUserReviews() method.
-        /// </summary>
+        /// Modified by: Snehal Dange on 23rd Nov 2017
+        /// Description : Added BindMakeFooterCategoriesandPriceWidget() method
+        /// Modified BY: Snehal Dange on 23rd Nov 2017
+        /// Description: Added IsFooterDescriptionAvailable ,IsPriceListingAvailable checks
+        /// </summary>         
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// </returns>
@@ -153,6 +158,7 @@ namespace Bikewale.Models
                 BindDiscontinuedBikes(objData);
                 BindOtherMakes(objData);
                 BindUserReviews(objData);
+                BindMakeFooterCategoriesandPriceWidget(objData);
 
                 #region Set Visible flags
 
@@ -171,7 +177,10 @@ namespace Bikewale.Models
                     objData.IsMakeTabsDataAvailable = (objData.BikeDescription != null && objData.BikeDescription.FullDescription.Length > 0 || objData.IsNewsAvailable ||
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
 
+                    objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
                     objData.IsUserReviewsAvailable = (objData.PopularBikesUserReviews != null && objData.PopularBikesUserReviews.BikesReviewsList != null && objData.PopularBikesUserReviews.BikesReviewsList.Any() && objData.PopularBikesUserReviews.BikesReviewsList.FirstOrDefault().MostRecent != null);
+                    objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
+
                 }
 
                 if (IsAmpPage)
@@ -532,6 +541,35 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.BindUserReviews() makeId:{0}", _makeId));
+            }
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 23rd Nov 2017
+        /// Description: Created BindMakeFooterCategoriesandPriceWidget() to bind SubFooter on make page
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMakeFooterCategoriesandPriceWidget(MakePageVM objData)
+        {
+            try
+            {
+                if (_makeId > 0 && objData != null && _bikeMakesCache != null)
+                {
+                    objData.SubFooter = new MakeFooterCategoriesandPriceVM();
+                    if (objData.SubFooter != null)
+                    {
+                        objData.SubFooter.FooterContent = _bikeMakesCache.GetMakeFooterCategoriesandPrice(_makeId);
+                        if (objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any())
+                        {
+                            objData.SubFooter.Make = objData.SubFooter.FooterContent.ModelPriceList.First().Make;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.BindMakeFooterCategoriesandPriceWidget() makeId:{0}", _makeId));
             }
         }
     }

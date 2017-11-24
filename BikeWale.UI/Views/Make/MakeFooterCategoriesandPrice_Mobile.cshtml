@@ -1,0 +1,68 @@
+﻿@model Bikewale.Models.Make.MakeFooterCategoriesandPriceVM
+
+@if (Model != null && Model.FooterContent != null)
+{
+    var make = Model.Make != null ? Model.Make.MakeName : "";
+    <div class="make-subfooter">
+
+        @if (Model.FooterContent.FooterDescription != null && Model.FooterContent.FooterDescription.Any())
+        {
+            <div class="about-make">
+                <h2 class="make-price-table__title margin-bottom10">About @make</h2>
+                <div class="foldable-content font14" data-toggle="yes">
+                    <div class="truncatable-content">
+                        @foreach (var obj in Model.FooterContent.FooterDescription)
+                        {
+                            <span class="about-make__list-title">@obj.CategoryName</span>
+                            <p class="about-make__list-desc"> @obj.CategoryDescription</p>
+                        }
+                    </div>
+                    <a href="javascript:void(0)" class="read-more-button" rel="nofollow">Read more</a>
+                </div>
+            </div>
+        }
+
+        @if (Model.FooterContent.ModelPriceList != null && Model.FooterContent.ModelPriceList.Any())
+        {
+            <div class="make-price-block">
+                <div class="foldable-content" data-toggle="yes">
+                    <div class="truncatable-content">
+                        <table class="make-price-table">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">
+                                        <h2 class="make-price-table__title">@string.Format("{0} Bikes Price List", make)</h2>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="make-price__thead make-price__model">
+                                        Model
+                                    </th>
+                                    <th class="make-price__thead make-price-table__price">
+                                        <span class="block">Price</span>
+                                        <span class="font10">(Ex-showroom, Mumbai)</span>
+                                    </th>
+                                </tr>
+                                @foreach (var list in Model.FooterContent.ModelPriceList)
+                                {
+
+                                    <tr>
+                                        <td class="make-price__model">@list.Model.ModelName</td>
+                                        <td>
+                                            &#x20b9;<span class="font-bold">&nbsp;@list.VersionPrice</span>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="javascript:void(0)" class="read-more-button" rel="nofollow">More bikes</a>
+                </div>
+            </div>
+        }
+
+    </div>
+}

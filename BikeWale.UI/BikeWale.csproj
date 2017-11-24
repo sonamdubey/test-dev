@@ -3852,6 +3852,8 @@
     <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\Videos\CategoryVideos_Mobile_Pwa.cshtml" />
     <Content Include="Views\Videos\Details_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Make\MakeFooterCategoriesandPrice.cshtml" />
+    <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile.cshtml" />
     <Content Include="Views\Shared\_ServiceWorkerScript.cshtml" />
     <Content Include="Views\Shared\_CssChunksScript.cshtml" />
     <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />

@@ -296,24 +296,34 @@
     }
 </section>
 
-@if (Model.IsDiscontinuedBikeAvailable)
+@if (Model.IsFooterDescriptionAvailable)
 {
     <section>
         <div class="container">
-            <div class="content-inner-block-10 margin-bottom30">
-                <div id="discontinuedModels" style="display: block;">
-                    <div id="discontinuedLess">
-                        Discontinued @Model.MakeName models: - <span id="spnContent"></span>
-                    </div>
-                    <div id="discontinuedMore">
-                        Discontinued @Model.MakeName models: -
-                        @foreach (var bike in Model.DiscontinuedBikes)
-                        {
-                            <a title="@bike.BikeName" href="@string.Format("/m{0}",bike.Href)">@bike.BikeName</a>
-                        }
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("~/Views/Make/MakeFooterCategoriesandPrice_Mobile.cshtml", Model.SubFooter)
         </div>
     </section>
 }
+
+
+    @if (Model.IsDiscontinuedBikeAvailable)
+    {
+        <section>
+            <div class="container">
+                <div class="content-inner-block-10 margin-bottom30">
+                    <div id="discontinuedModels" style="display: block;">
+                        <div id="discontinuedLess">
+                            Discontinued @Model.MakeName models: - <span id="spnContent"></span>
+                        </div>
+                        <div id="discontinuedMore">
+                            Discontinued @Model.MakeName models: -
+                            @foreach (var bike in Model.DiscontinuedBikes)
+                            {
+                                <a title="@bike.BikeName" href="@string.Format("/m{0}",bike.Href)">@bike.BikeName</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }

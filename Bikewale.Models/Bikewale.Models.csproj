@@ -133,6 +133,7 @@
     <Compile Include="GenericBestBikes\IndexBestBikesVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
+    <Compile Include="Make\MakeFooterCategoriesandPriceVM.cs" />
     <Compile Include="Make\MakeModelPopupVM.cs" />
     <Compile Include="Make\MakePageVM.cs" />
     <Compile Include="BikeCare\RecentBikeCareVM.cs" />
