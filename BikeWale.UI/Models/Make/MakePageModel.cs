@@ -178,7 +178,7 @@ namespace Bikewale.Models
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
 
                     objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
-                    objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
+                    objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
 
                 }
 
@@ -620,7 +620,11 @@ namespace Bikewale.Models
                     if (objData.SubFooter != null)
                     {
                         objData.SubFooter.FooterContent = _bikeMakesCache.GetMakeFooterCategoriesandPrice(_makeId);
-                        objData.SubFooter.Make = objData.SubFooter.FooterContent.ModelPriceList.First().Make;
+                        if (objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any())
+                        {
+                            objData.SubFooter.Make = objData.SubFooter.FooterContent.ModelPriceList.First().Make;
+                        }
+
                     }
                 }
             }
