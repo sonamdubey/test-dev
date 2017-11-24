@@ -34,7 +34,7 @@
     <div class="clear"></div>
 </div>
 
-<footer class="bg-footer padding-top40 padding-bottom20" id="bg-footer"><!-- Footer section code starts here -->
+<footer class="bg-footer padding-top10 padding-bottom20" id="bg-footer"><!-- Footer section code starts here -->
     <div class="container">
         <div class="margin-top10 border-solid-bottom margin-bottom25 padding-bottom20">
             <ul class="font14 popularMakes">
@@ -44,42 +44,44 @@
                 <li><a href="/suzuki-bikes/" title="Suzuki Bikes">Suzuki Bikes</a></li>
             </ul>
         </div>
-        <div class="grid-4">
-            <p class="font18 text-white margin-bottom20">Join us on</p>
-            <div class="footer-social-icons">
+        <div class=" border-solid-bottom margin-bottom25 padding-bottom20">
+            <div class="grid-4">
+                <p class="font18 text-white margin-bottom20">Join us on</p>
+                <div class="footer-social-icons">
                     <a href="https://www.facebook.com/Bikewale.Official" target="_blank" rel="noopener" title="Facebook" class="margin-right30 fa-fb" rel="nofollow">
-                    <span class="bwsprite fa-facebook"></span>
-                </a>
+                        <span class="bwsprite fa-facebook"></span>
+                    </a>
                     <a href="https://twitter.com/bikewale" target="_blank" rel="noopener" title="Twitter" class="margin-right30 fa-tw" rel="nofollow">
-                    <span class="bwsprite fa-twitter"></span>
-                </a>
+                        <span class="bwsprite fa-twitter"></span>
+                    </a>
                     <a href="https://plus.google.com/115751055341108541383/posts" target="_blank" rel="noopener" class="fa-gp" title="Google+" rel="nofollow">
-                    <span class="bwsprite fa-google-plus"></span>
-                </a>
-            </div>
-        </div>
-        <div class="grid-2 footer-company-section-one">
-            <p class="font18 text-white margin-bottom20">Company</p>
-            <ul>
-                <li><a href="/sitemap.aspx">Sitemap</a></li>
-                <li><a href="/contactus.aspx" rel="nofollow">Contact Us</a></li>
-                <li><a href="/advertisewithus.aspx" rel="nofollow">Advertise with us</a></li>
-            </ul>
-        </div>
-        <div class="grid-3 footer-company-section-two">
-            <ul class="margin-top45">
-                <li><a href="/aboutus.aspx" rel="nofollow">About Us</a></li>
-                <li><a href="https://www.bikewale.com/m/">View Mobile Version</a></li>
-            </ul>
-        </div>
-        <div class="grid-3 footer-company-section-three">
-            <p class="font18 text-white margin-bottom30">Download Mobile App</p>
-            <div class="margin-bottom15">
-                <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5" ></a>
+                        <span class="bwsprite fa-google-plus"></span>
+                    </a>
                 </div>
+            </div>
+            <div class="grid-2 footer-company-section-one">
+                <p class="font18 text-white margin-bottom20">Company</p>
+                <ul>
+                    <li><a href="/sitemap.aspx">Sitemap</a></li>
+                    <li><a href="/contactus.aspx" rel="nofollow">Contact Us</a></li>
+                    <li><a href="/advertisewithus.aspx" rel="nofollow">Advertise with us</a></li>
+                </ul>
+            </div>
+            <div class="grid-3 footer-company-section-two">
+                <ul class="margin-top45">
+                    <li><a href="/aboutus.aspx" rel="nofollow">About Us</a></li>
+                    <li><a href="https://www.bikewale.com/m/">View Mobile Version</a></li>
+                </ul>
+            </div>
+            <div class="grid-3 footer-company-section-three">
+                <p class="font18 text-white margin-bottom30">Download Mobile App</p>
+                <div class="margin-bottom15">
+                    <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5"></a>
+                </div>
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-        <div class="text-center">
+        <div class="text-center padding-top10">
             <div class="grid-4">
                 <a href="/" class="bwsprite bw-footer-icon" title="Bikewale"></a>
             </div>
