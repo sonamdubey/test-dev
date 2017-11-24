@@ -299,11 +299,11 @@
                 var selectedMakeCity = popupBrand.find("option[value=" + self.selectedBrand() + "]").text() + "_" + popupcity.find("option[value=" + self.selectCity() + "]").text(), prevMakeCity = prevMake + "_" + prevCity;
                 if (isDealer)
                 {
-                    triggerGA("Dealer_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity + "_To_" + selectedMakeCity);
+                    triggerGA("Dealer_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity.replace(/\s+/g, "_") + "_To_" + selectedMakeCity.replace(/\s+/g, "_"));
                     window.location.href = "/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
                 }
                 else if (isServiceCenter) {
-                    triggerGA("Service_Center_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity + "_To_" + selectedMakeCity);
+                    triggerGA("Service_Center_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity.replace(/\s+/g, "_") + "_To_" + selectedMakeCity.replace(/\s+/g, "_"));
                     window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
             };
         }
