@@ -296,7 +296,7 @@
             self.searchByBrandCityBtnClicked(true);
             isvalid = self.isValidInfoPopup();
             if (isvalid) {
-                var selectedMakeCity = popupBrand.find("option[value=" + self.selectedBrand() + "]").text() + "_" + popupcity.find("option[value=" + self.SelectedCityId() + "]").text(), prevMakeCity = prevMake + "_" + prevCity;
+                var selectedMakeCity = popupBrand.find("option[value=" + self.selectedBrand() + "]").text() + "_" + popupcity.find("option[value=" + self.selectCity() + "]").text(), prevMakeCity = prevMake + "_" + prevCity;
                 if (isDealer)
                 {
                     triggerGA("Dealer_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity + "_To_" + selectedMakeCity);
