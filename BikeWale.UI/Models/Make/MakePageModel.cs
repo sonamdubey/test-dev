@@ -86,6 +86,8 @@ namespace Bikewale.Models
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : Snehal Dange on 21st Nov 2017
         /// Description : Added BindUserReviews() method.
+        /// Modified by sajal Gupta on 24-11-2017
+        /// Descriptition :  Added BikeCityPopup
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
@@ -222,6 +224,11 @@ namespace Bikewale.Models
             }
         }
 
+        /// <summary>
+        /// Created by Sajal on 24-11-2017
+        /// Desc : Widget Bind Showroom Popular City 
+        /// </summary>
+        /// <param name="objMakePage"></param>
         private void BindShowroomPopularCityWidget(MakePageVM objMakePage)
         {
             DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();

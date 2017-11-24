@@ -24,6 +24,9 @@ namespace Bikewale.Models
     /// Descriptition :  Added SelectedSortingId, SelectedSortingText
     /// Modified By: Snehal Dange on 20th Nov 2017
     /// Description: Added most helful and most recent user reviews by make
+    /// 
+    /// Modified by sajal Gupta on 06-11-2017
+    /// Descriptition :  Added BikeCityPopup, DealersServiceCenterPopularCities
     /// </author>
     public class MakePageVM : ModelBase
     {
