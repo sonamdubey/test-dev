@@ -210,6 +210,67 @@
             }
         </div>
     }
+
+    @if (Model.IsDealerServiceDataAvailable || Model.DealersServiceCenterPopularCities != null)
+    {
+
+        <div id="dealerAndServiceContent" class="bw-model-tabs-data">
+            @if (Model.IsDealerAvailable)
+            {
+                <section>
+                    <div class="container font14">
+                        <div class="grid-12 section-bottom-margin">
+                            <div id="makeDealersContent" class="content-box-shadow padding-top20">
+                                <div class="carousel-heading-content">
+                                    <div class="swiper-heading-left-grid inline-block">
+                                        <h2>@Model.MakeName showrooms in @Model.Location</h2>
+                                    </div>
+                                    <div class="swiper-heading-right-grid inline-block text-right"><a href="/@Model.MakeMaskingName-dealer-showrooms-in-@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </section>
+            }
+            else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
+            {
+                <section>
+                    <div class="container font14">
+                        <div class="grid-12 section-bottom-margin">
+                            <div class="content-box-shadow padding-bottom20">
+                                <div class="content-inner-block-20">
+                                    <div class="grid-9 inline-block margin-right-4 alpha">
+                                        <span class="bwsprite dealer-grey"></span>
+                                        <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.MakeName showrooms</h2>
+                                        <div class="grid-11 alpha">
+                                            <p class="font14 text-slate-grey">There are @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount cities in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-3 omega inline-block padding-top20">
+                                        <a href="javascript:void(0)" id="changeCity" data-makemasking="@Model.MakeMaskingName" class="btn changepriceincitypage btn-orange btn-200-32 " rel="nofollow">Select your city</a>
+                                        @Html.Partial("~/Views/PopUp/BikeCityPopup.cshtml", @Model.BikeCityPopup)
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                                <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.MakeName showrooms</h3>
+                                @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget.cshtml", Model.DealersServiceCenterPopularCities)
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </section>
+            }
+        </div>
+
+
+    }
+
     @if (Model.IsMakeTabsDataAvailable)
     {
         <section class="container">
@@ -238,7 +299,7 @@
                                 <div class="padding-left10 more-article-target view-all-btn-container">
                                     <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
                                 </div>
-                               
+
                             }
 
                             <!-- User reviews starts here-->
@@ -265,52 +326,8 @@
                             </div>
                         </div>
                     }
-                    @if (Model.IsDealerServiceDataAvailable || Model.DealersServiceCenterPopularCities != null)
-                    {
-                        <div id="dealerAndServiceContent" class="bw-model-tabs-data">
-                            @if (Model.IsDealerAvailable)
-                            {
-                                <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
-                                    <div class="carousel-heading-content">
-                                        <div class="swiper-heading-left-grid inline-block">
-                                            <h2>@Model.MakeName showrooms in @Model.Location</h2>
-                                        </div>
-                                        <div class="swiper-heading-right-grid inline-block text-right">
-                                            <a href="/@Model.MakeMaskingName-dealer-showrooms-in-@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                    @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
-                                </div>
-                            }
-                            else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
-                            {
-                                <div class="padding-top20 padding-bottom20 font14">
-                                    <div class="content-box-shadow padding-bottom20">
-                                        <div class="content-inner-block-20">
-                                            <div class="grid-9 inline-block margin-right-4 alpha">
-                                                <span class="bwsprite dealer-grey"></span>
-                                                <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.MakeName showrooms in other cities</h2>
-                                                <div class="grid-11 alpha">
-                                                    <p class="font14 text-slate-grey">There are @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount cities in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
-                                                </div>
-                                            </div>
 
-                                            <div class="grid-3 omega inline-block padding-top20">
-                                                <a href="javascript:void(0)" id="changeCity" data-makemasking="@Model.MakeMaskingName" class="btn changepriceincitypage btn-orange btn-200-32 " rel="nofollow">Select your city</a>
                                                 @Html.Partial("~/Views/PopUp/BikeCityPopup.cshtml", Model.BikeCityPopup)
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                        <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
-                                        <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.MakeName showrooms in popular cities</h3>
-                                        @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget.cshtml", Model.DealersServiceCenterPopularCities)
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                        <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                    }
                     @if (Model.IsUsedModelsBikeAvailable)
                     {
                         <div id="makeUsedBikeContent" class="bw-model-tabs-data">

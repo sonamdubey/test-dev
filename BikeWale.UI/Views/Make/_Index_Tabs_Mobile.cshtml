@@ -18,6 +18,10 @@
            {
                 <li data-tabs="#popularComparisonAndOtherBrands" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)">Top Comparisons</li>
             }
+           @if (Model.IsDealerServiceDataAvailable || Model.DealersServiceCenterPopularCities != null)
+           {
+                <li data-tabs="#makeDealersContent" data-lab="@string.Format("{0}_Showrooms", Model.MakeName)">Dealers</li>
+            }
             @if (Model.IsNewsAvailable)
             {
                 <li data-tabs="#makeNewsContent" data-lab="@string.Format("{0}_News", Model.MakeName)">News</li>
@@ -29,11 +33,7 @@
             @if (Model.IsVideosAvailable)
             {
                 <li data-tabs="#makeVideosContent" data-lab="@string.Format("{0}_Videos", Model.MakeName)">Videos</li>
-            }
-            @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
-            {
-                <li data-tabs="#makeDealersContent" data-lab="@string.Format("{0}_Showrooms", Model.MakeName)">Dealers</li>
-            }
+            }           
             @if (Model.IsUsedModelsBikeAvailable)
             {
                 <li data-tabs="#makeUsedBikeContent" data-lab="@string.Format("{0}_UsedBikes", Model.MakeName)">Used Bikes</li>

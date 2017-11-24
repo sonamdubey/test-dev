@@ -814,3 +814,17 @@ header {
 .font-bold {
     font-weight: 600;
 }
+
+.service-center-grey {
+    width: 28px;
+    height: 25px;
+    background-position: 0 -636px;
+    vertical-align: middle;
+}
+
+.dealer-grey{
+    width: 26px;
+    height: 24px;
+    background-position: -32px -638px;
+     vertical-align: top;
+}
