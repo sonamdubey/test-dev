@@ -186,6 +186,7 @@
     <Compile Include="BikeData\BikeVersionEntity.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionMinSpecs.cs" />
+    <Compile Include="BikeData\BikeVersionPriceEntity.cs" />
     <Compile Include="BikeData\BikeVersionSegmentDetails.cs" />
     <Compile Include="BikeData\BikeVersionsListEntity.cs" />
     <Compile Include="BikeData\BikeVersionsSegment.cs" />
@@ -195,7 +196,9 @@
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\FeaturedBikeEntity.cs" />
     <Compile Include="BikeData\Features.cs" />
+    <Compile Include="BikeData\MakeFooterCategory.cs" />
     <Compile Include="BikeData\MakeMaskingResponse.cs" />
+    <Compile Include="BikeData\MakeSubFooterEntity.cs" />
     <Compile Include="BikeData\MileageInfoByBodyStyle.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />

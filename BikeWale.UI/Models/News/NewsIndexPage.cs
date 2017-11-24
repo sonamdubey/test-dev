@@ -215,13 +215,12 @@ namespace Bikewale.Models
                         {
                             //setting the store for Redux
                             objData.ReduxStore = new PwaReduxStore();
-                            objData.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData.ArticleList = pwaCmsContent;
-
+                            objData.ReduxStore.News.NewsArticleListReducer.ArticleListData.ArticleList = pwaCmsContent;                          
                             PopulateStoreForWidgetData(objData, CityName);
 
                             var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
 
-                            objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(ConverterUtility.GetSha256Hash(storeJson), objData.ReduxStore.NewsReducer.NewsArticleListReducer,
+                            objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
                                 "/m/news/", "root", "ServerRouterWrapper");
                             objData.WindowState = storeJson;
                         }
@@ -271,7 +270,7 @@ namespace Bikewale.Models
                 objPwaBikeNews.Add(upcomingBikes);
             }
 
-            objData.ReduxStore.NewsReducer.NewsArticleListReducer.NewBikesListData.NewBikesList = objPwaBikeNews;
+            objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.NewBikesList = objPwaBikeNews;
         }
 
 

@@ -113,5 +113,91 @@ namespace Bikewale.Utility
             }
         }
 
+        /// <summary>
+        ///  Created by Prasad Gawde
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns>returns the Category title for the input Category Id</returns>
+        public static string VideoCategoryTitle(int categoryId)
+        {
+            switch (categoryId)
+            {
+                case 51:
+                    return "Motorsports";
+                case 55:
+                    return "Expert Reviews";
+                case 57:
+                    return "First Ride Impressions";
+                case 58:
+                    return "Miscellaneous";
+                case 59:
+                    return "Launch Alert";
+                case 60:
+                    return "PowerDrift Top Music";
+                case 61:
+                    return "First Look";
+                case 62:
+                    return "PowerDrift Blockbuster";
+                case 63:
+                    return "PowerDrift Specials";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        /// <summary>
+        ///  Created by Prasad Gawde
+        ///  provides the Category name and the moreVideoUrl 
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="catTitle"></param>
+        /// <param name="moreVideoUrl"></param>
+        public static void VideoGetTitleAndUrl(int categoryId, out string catTitle, out string moreVideoUrl)
+        {
+            switch (categoryId)
+            {
+                case 51:
+                    moreVideoUrl = @"/motorsports-51/";
+                    catTitle = @"Motorsports";
+                    break;
+                case 55:
+                    moreVideoUrl = @"/expert-reviews-55/";
+                    catTitle = @"Expert Reviews";
+                    break;
+                case 57:
+                    moreVideoUrl = @"/first-ride-impressions-57/";
+                    catTitle = @"First Ride Impressions";
+                    break;
+                case 58:
+                    moreVideoUrl = @"/miscellaneous-58/";
+                    catTitle = @"Miscellaneous";
+                    break;
+                case 59:
+                    moreVideoUrl = @"/launch-alert-59/";
+                    catTitle = @"Launch Alert";
+                    break;
+                case 60:
+                    moreVideoUrl = @"/powerdrift-top-music-60/";
+                    catTitle = @"PowerDrift Top Music";
+                    break;
+                case 61:
+                    moreVideoUrl = @"/first-look-61/";
+                    catTitle = @"First Look";
+                    break;
+                case 62:
+                    moreVideoUrl = @"/powerdrift-blockbuster-62/";
+                    catTitle = @"PowerDrift Blockbuster";
+                    break;
+                case 63:
+                    moreVideoUrl = @"/powerdrift-specials-63/";
+                    catTitle = @"PowerDrift Specials";
+                    break;
+                default:
+                    moreVideoUrl = string.Empty;
+                    catTitle = string.Empty;
+                    break;
+            }
+        }
+
     }//class end
 }//namespae ended

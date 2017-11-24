@@ -1,12 +1,12 @@
 ﻿
+var makeId = $('#makeId').val();
+var userId = $('#userId').val();
+
 
 $("#saveButton").click(function () {
 
-    var makeId = $('#makeId').val();
-    var userId = $('#userId').val();
-
     $('.txt-box').each(function (i, obj) {
-        if (obj.value && obj.value != obj.getAttribute('data-value')) {
+        if (obj.value != obj.getAttribute('data-value')) {
 
             var footerData = {
                 "makeId": makeId,
@@ -20,8 +20,7 @@ $("#saveButton").click(function () {
                 data: ko.toJSON(footerData),
                 dataType: 'json',
                 url: "/make/save/footerdata/",
-                contentType: "application/json",
-                dataType: 'json',                                
+                contentType: "application/json"                                            
             });
             
         }
@@ -31,4 +30,23 @@ $("#saveButton").click(function () {
 
 });
  
+
+
+$("#disableButton").click(function () {    
+
+    if(confirm("Do you want delete all data for this make ?"))
+    {
+        $.ajax({
+            type: "Post",
+            url: "/make/delete/footerdata/?makeId=" + makeId + "&userId=" + userId,
+            contentType: "application/json"
+        });
+
+        Materialize.toast('Data deleted!', 3000);
+
+        location.reload();
+    }
+
+});
+
 

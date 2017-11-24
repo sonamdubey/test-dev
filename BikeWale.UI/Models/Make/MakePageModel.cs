@@ -15,6 +15,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
+using Bikewale.Models.Make;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using System;
@@ -86,9 +87,13 @@ namespace Bikewale.Models
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : Snehal Dange on 21st Nov 2017
         /// Description : Added BindUserReviews() method.
+        /// Modified by: Snehal Dange on 23rd Nov 2017
+        /// Description : Added BindMakeFooterCategoriesandPriceWidget() method
         /// Modified by sajal Gupta on 24-11-2017
         /// Descriptition :  Added BikeCityPopup
-        /// </summary>
+        /// Modified BY: Snehal Dange on 23rd Nov 2017
+        /// Description: Added IsFooterDescriptionAvailable ,IsPriceListingAvailable checks
+        /// </summary>         
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// </returns>
@@ -156,6 +161,7 @@ namespace Bikewale.Models
                 BindDiscontinuedBikes(objData);
                 BindOtherMakes(objData);
                 BindUserReviews(objData);
+                BindMakeFooterCategoriesandPriceWidget(objData);
 
                 objData.BikeCityPopup = new PopUp.BikeCityPopup()
                 {
@@ -175,7 +181,7 @@ namespace Bikewale.Models
                 {
                     objData.IsUpComingBikesAvailable = objData.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes.Any();
                     objData.IsNewsAvailable = objData.News != null && objData.News.ArticlesList != null && objData.News.ArticlesList.Any();
-                    objData.IsExpertReviewsAvailable = objData.News != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Any();
+                    objData.IsExpertReviewsAvailable = objData.ExpertReviews != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Any();
                     objData.IsVideosAvailable = objData.Videos != null && objData.Videos.VideosList != null && objData.Videos.VideosList.Any();
                     objData.IsUsedModelsBikeAvailable = objData.UsedModels != null && objData.UsedModels.UsedBikeModelList != null && objData.UsedModels.UsedBikeModelList.Any();
 
@@ -185,6 +191,11 @@ namespace Bikewale.Models
 
                     objData.IsMakeTabsDataAvailable = (objData.BikeDescription != null && objData.BikeDescription.FullDescription.Length > 0 || objData.IsNewsAvailable ||
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
+
+                    objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
+                    objData.IsUserReviewsAvailable = (objData.PopularBikesUserReviews != null && objData.PopularBikesUserReviews.BikesReviewsList != null && objData.PopularBikesUserReviews.BikesReviewsList.Any() && objData.PopularBikesUserReviews.BikesReviewsList.FirstOrDefault().MostRecent != null);
+                    objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
+
                 }
 
                 if (IsAmpPage)
@@ -268,71 +279,9 @@ namespace Bikewale.Models
             try
             {
                 IEnumerable<BikeMakeEntityBase> makes = _bikeMakesCache.GetMakesByType(EnumBikeType.New);
-                ushort categoryId = 0;
 
-                if (makes != null)
-                {
-                    var curMake = makes.Where(x => x.MakeId == _makeId).FirstOrDefault();
+                var popularBrandsList = Utility.BikeFilter.FilterMakesByCategory(_makeId, makes);
 
-                    if (curMake != null)
-                        categoryId = curMake.MakeCategoryId;
-                }
-
-                List<BikeMakeEntityBase> popularBrandsList = new List<BikeMakeEntityBase>();
-                IEnumerable<BikeMakeEntityBase> tempBrandsList = null;
-
-                if (categoryId > 0)
-                {
-                    ushort[] arr;
-
-                    switch (categoryId)
-                    {
-                        case 1:
-                            arr = new ushort[] { 1, 2, 3, 4, 5 };
-                            break;
-                        case 2:
-                            arr = new ushort[] { 2, 3, 4, 5, 1 };
-                            break;
-                        case 3:
-                            arr = new ushort[] { 3, 2, 4, 5, 1 };
-                            break;
-                        case 4:
-                            arr = new ushort[] { 4, 5, 3, 2, 1 };
-                            break;
-                        case 5:
-                            arr = new ushort[] { 5, 4, 3, 2, 1 };
-                            break;
-                        default:
-                            arr = new ushort[] { 1, 2, 3, 4, 5 };
-                            break;
-                    }
-
-                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[0] && x.MakeId != _makeId);
-
-                    if (tempBrandsList != null)
-                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
-
-                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[1]);
-
-                    if (tempBrandsList != null)
-                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
-
-                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[2]);
-
-                    if (tempBrandsList != null)
-                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
-
-                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[3]);
-
-                    if (tempBrandsList != null)
-                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
-
-                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[4]);
-
-                    if (tempBrandsList != null)
-                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
-
-                }
                 if (popularBrandsList != null && popularBrandsList.Any())
                 {
                     objData.OtherMakes = popularBrandsList.Take(9);
@@ -639,6 +588,35 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.BindUserReviews() makeId:{0}", _makeId));
+            }
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 23rd Nov 2017
+        /// Description: Created BindMakeFooterCategoriesandPriceWidget() to bind SubFooter on make page
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMakeFooterCategoriesandPriceWidget(MakePageVM objData)
+        {
+            try
+            {
+                if (_makeId > 0 && objData != null && _bikeMakesCache != null)
+                {
+                    objData.SubFooter = new MakeFooterCategoriesandPriceVM();
+                    if (objData.SubFooter != null)
+                    {
+                        objData.SubFooter.FooterContent = _bikeMakesCache.GetMakeFooterCategoriesandPrice(_makeId);
+                        if (objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any())
+                        {
+                            objData.SubFooter.Make = objData.SubFooter.FooterContent.ModelPriceList.First().Make;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.BindMakeFooterCategoriesandPriceWidget() makeId:{0}", _makeId));
             }
         }
     }

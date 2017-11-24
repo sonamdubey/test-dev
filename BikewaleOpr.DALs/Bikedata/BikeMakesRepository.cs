@@ -160,6 +160,37 @@ namespace BikewaleOpr.DALs.Bikedata
         }
 
         /// <summary>
+        /// Createed by Sajal Gupta on 20-11-2017
+        /// Descriptioption : DAL func to delete all make footer category data for amke
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public void DisableAllMakeFooterCategories(uint makeId, string userId)
+        {
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_makeid", makeId);
+                    param.Add("par_userid", userId);
+
+                    connection.Query("disableallmakefootercategoriesformake", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.DisableAllMakeFooterCategories");
+            }
+        }
+
+        /// <summary>
         /// Function to add new make to the bikewale database
         /// </summary>
         /// <param name="make"></param>

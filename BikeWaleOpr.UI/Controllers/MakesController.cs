@@ -1,6 +1,7 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.DTO.BikeData;
+using BikewaleOpr.common;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Interface.BikeData;
@@ -154,6 +155,8 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// <summary>
         /// Created by Sajal Gupta on 20-11-2017
         /// Desc : Action method for page addfooterdata
+        /// Modified by: Snehal Dange on 23rd Nov 2017
+        /// Description: Added refresh cache logic
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
@@ -161,11 +164,17 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         {
             try
             {
-                MakeFooterPageModel objMakeFooter = new MakeFooterPageModel();
-                objMakeFooter.MakeFooterData = makesRepo.GetMakeFooterCategoryData(makeId);
-                objMakeFooter.MakeName = makeName;
-                objMakeFooter.MakeId = makeId;
-                return View(objMakeFooter);
+                if (makeId > 0)
+                {
+                    MakeFooterPageModel objMakeFooter = new MakeFooterPageModel();
+                    objMakeFooter.MakeFooterData = makesRepo.GetMakeFooterCategoryData(makeId);
+                    objMakeFooter.MakeName = makeName;
+                    objMakeFooter.MakeId = makeId;
+
+                    MemCachedUtil.Remove(string.Format("BW_FooterCategoriesandPrice_MK_{0}", makeId));
+                    return View(objMakeFooter);
+                }
+
             }
             catch (Exception ex)
             {
@@ -177,6 +186,8 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// <summary>
         /// Created by Sajal Gupta on 20-11-2017
         /// Desc : Action method for saving addfooterdata
+        /// Modified by: Snehal Dange on 23rd Nov 2017
+        /// Description: Added refresh cache logic
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
@@ -185,11 +196,36 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         {
             try
             {
-                makesRepo.SaveMakeFooterData(footerData.MakeId, footerData.CategoryId, footerData.CategoryDescription, footerData.UserId);
+                if (footerData.MakeId > 0)
+                {
+                    makesRepo.SaveMakeFooterData(footerData.MakeId, footerData.CategoryId, footerData.CategoryDescription, footerData.UserId);
+                    MemCachedUtil.Remove(string.Format("BW_FooterCategoriesandPrice_MK_{0}", footerData.MakeId));
+                }
+
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "MakesController/SaveFooterData");
+            }
+            return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 20-11-2017
+        /// Desc : Action method for deleting footerdata
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [Route("make/delete/footerdata/")]
+        public ActionResult DisableFooterData(uint makeId, string userId)
+        {
+            try
+            {
+                makesRepo.DisableAllMakeFooterCategories(makeId, userId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "MakesController/DisableFooterData");
             }
             return RedirectToAction("Index");
         }

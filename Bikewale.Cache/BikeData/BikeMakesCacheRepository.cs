@@ -36,7 +36,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<Entities.BikeData.BikeMakeEntityBase> GetMakesByType(Entities.BikeData.EnumBikeType makeType)
         {
             IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
-            string key = String.Format("BW_Makes_{0}", makeType.ToString());
+            string key = String.Format("BW_Makes_V1_{0}", makeType.ToString());
             try
             {
                 makes = _cache.GetFromCache<IEnumerable<Entities.BikeData.BikeMakeEntityBase>>(key, new TimeSpan(1, 0, 0, 0), () => _objMakes.GetMakesByType(makeType));
@@ -226,6 +226,30 @@ namespace Bikewale.Cache.BikeData
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetScooterMakeDescription MakeId : {0}", makeId));
             }
             return scooterDesc;
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 22nd Nov 2017
+        /// Description: To cache sub-footer description and model price list for make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public MakeSubFooterEntity GetMakeFooterCategoriesandPrice(uint makeId)
+        {
+            MakeSubFooterEntity footerContent = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    string key = string.Format("BW_FooterCategoriesandPrice_MK_{0}", makeId);
+                    footerContent = _cache.GetFromCache<MakeSubFooterEntity>(key, new TimeSpan(24, 0, 0), () => _objMakes.GetMakeFooterCategoriesandPrice(makeId));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetMakeFooterCategoriesandPrice MakeId : {0}", makeId));
+            }
+            return footerContent;
         }
     }
 }
