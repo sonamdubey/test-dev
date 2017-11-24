@@ -3877,12 +3877,10 @@
     <Content Include="Views\BikeSeries\_PopularNewBikes_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs_Mobile.cshtml" />
     <Content Include="Views\Used\_UsedBikeByModelCity_Mobile_v1.cshtml" />
-    <Content Include="Views\BikeSeries\_UpcomingBikes_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews_v1_Mobile.cshtml" />
     <Content Include="Views\Videos\_RecentVideos_v1_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\Index.cshtml" />
-    <Content Include="Views\BikeSeries\_UpcomingBikes.cshtml" />
     <Content Include="Views\Videos\_RecentVideos_v1.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1.cshtml" />
     <Content Include="Views\BikeSeries\_PopularNewBikes.cshtml" />
@@ -3893,6 +3891,8 @@
     <Content Include="Views\Used\_UsedBikeByModelCity_v1.cshtml" />
     <Content Include="Views\BikeSeries\_OtherSeriesFromMake.cshtml" />
     <Content Include="Views\BikeSeries\_OtherSeriesFromMake_Mobile.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikes_v1.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikes_v1_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
