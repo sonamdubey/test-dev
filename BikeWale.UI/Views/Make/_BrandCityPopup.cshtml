@@ -56,10 +56,9 @@
 <script type="text/javascript">
 
     var BrandsKey = "BrandCityPopUp_",BrandCityKey = "brandcity_",brandcityPopUp, makeid = '@Model.MakeId', cityId = '@Model.CityId';
-    var brandcityPopUp,popupcity,popupBrand,vmCityBrandPopup;
+    var brandcityPopUp,popupcity,popupBrand,vmCityBrandPopup,prevCity,prevMake;
     var isDealer = "@Convert.ToBoolean(Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))"== "True";
     var isServiceCenter = "@Convert.ToBoolean(Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))" == "True";
-    var prevCity = "", prevMake="";
 
     var viewModelCityBrandPopup = function () {
         var self = this;
@@ -148,7 +147,7 @@
 
             if (makeid>0) {
                 self.selectedBrand(parseInt(makeid));
-                prevMake = popupBrand.find("option[value=" + makeid + "]").text();
+                prevMake = prevMake || popupBrand.find("option[value=" + makeid + "]").text();
             }
             popupcity.find("option[value='0']").prop('disabled', true);
             popupcity.trigger('chosen:updated');
@@ -163,10 +162,10 @@
             self.searchByBrandCityBtnClicked(false);
 
             if (self.selectedBrand() != undefined) {
-                BrandCityKey = "brandcity_" +'@Model.PageType'+'_' + self.selectedBrand().toString();
+                BrandCityKey = "brandcity_" + '@Model.PageType' + '_' + self.selectedBrand().toString();
+                
                 if (self.selectCity() != null) {
                     self.SelectedCityId(self.selectCity());
-                    prevCity = popupcity.find("option[value=" + cityId + "]").text();
                 }
                 $.ajax({
                     type: "GET",
@@ -235,6 +234,7 @@
 
             if (self.SelectedCityId() != null) {
                 self.preselectCity();
+                prevCity = prevCity || popupcity.find("option[value=" + cityId + "]").text();
             }
             else self.selectCity(null);
             $('#ddlCityPopup').trigger("chosen:updated");
