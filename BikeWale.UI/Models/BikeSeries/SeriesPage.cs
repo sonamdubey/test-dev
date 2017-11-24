@@ -207,8 +207,12 @@ namespace Bikewale.Models.BikeSeries
             {
                 if (objSeriesPage.BikeMake != null && objSeriesPage.SeriesBase != null)
                 {
-                    objSeriesPage.OtherSeriesList = _bikeSeries.GetOtherSeriesFromMake(objSeriesPage.BikeMake.MakeId, objSeriesPage.SeriesBase.SeriesId);
-                }
+					objSeriesPage.OtherSeries = new OtherSeriesVM
+					{
+						OtherSeriesList = _bikeSeries.GetOtherSeriesFromMake(objSeriesPage.BikeMake.MakeId, objSeriesPage.SeriesBase.SeriesId),
+						BikeMake = objSeriesPage.BikeMake
+					};
+				}
             }
             catch (Exception ex)
             {

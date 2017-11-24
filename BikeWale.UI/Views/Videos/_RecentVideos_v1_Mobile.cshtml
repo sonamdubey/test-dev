@@ -1,4 +1,6 @@
 ﻿@model Bikewale.Models.RecentVideosVM
+@using Bikewale.Utility
+
 @if (Model != null && Model.VideosList != null && Model.VideosList.Any())
 {
 	<ul class="overalltab__section-list">
@@ -48,7 +50,7 @@
 										</g>
 									</svg>
 								</span>
-								@video.Likes
+								@Format.FormatNumeric(Convert.ToString(video.Likes))
 							</span>
 						</div>
 					</div>

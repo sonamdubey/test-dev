@@ -1,17 +1,18 @@
 ﻿@model Bikewale.Models.BikeSeries.SeriesPageVM
-@{
+
+@if (Model != null)
+{
+	{
 		Model.AdTags.AdPath = "/1017752/Bikewale_Model_";
 		Model.AdTags.AdId = "1442913773076";
 		Model.AdTags.Ad_320x50 = true;
 		Model.AdTags.Ad_Bot_320x50 = true;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/model-series/series.css' inline>";
-    Model.Page_JS_Path = "/m/src/model-series/series.js";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-}
-@using Bikewale.Utility
+		Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/model-series/series.css' inline>";
+		Model.Page_JS_Path = "/m/src/model-series/series.js";
+		Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+	}
 
-@if (Model != null)
-{ <section>
+	<section>
         
             <div class="container margin-bottom20 bg-white">
 				@if (Model.BikeMake != null && Model.BikeMake != null)
@@ -146,6 +147,7 @@
                 </div>
             </div>
         }
+
         @if (Model.objUsedBikes != null && Model.objUsedBikes.RecentUsedBikesList !=null &&  Model.objUsedBikes.RecentUsedBikesList.Any())
         {
 
@@ -168,39 +170,17 @@
             </div>
         </div>
         }
-        @if (Model.OtherSeriesList != null && Model.OtherSeriesList.Any())
+
+        @if (Model.OtherSeries != null && Model.OtherSeries.OtherSeriesList != null && Model.OtherSeries.OtherSeriesList.Any())
         {
         <div class="container bg-white padding-bottom10">
             <div class="padding-left15 padding-right15 padding-top20">
-                @if (Model.BikeMake != null)
+                @if (Model.OtherSeries.BikeMake != null)
                 {
-                    <h2 class="padding-left5">@string.Format("{0} other series", Model.BikeMake.MakeName)</h2>
+                    <h2 class="padding-left5">@string.Format("{0} other series", Model.OtherSeries.BikeMake.MakeName)</h2>
                 }
-                <ul class="model-series-list">
-                    @foreach (var series in Model.OtherSeriesList)
-                    {
-							<li>
-								<a href="@string.Format("/m/{0}-bikes/{1}/", Model.BikeMake.MakeMaskingName, series.MaskingName)" title="@string.Format("{0} Series", series.SeriesName)">
-									<div class="model-series-list__img">
-										<img class="lazy" data-original="@Image.GetPathToShowImages(series.OriginalImagePath, series.HostUrl, ImageSize._144x81, QualityFactor._70)" alt="@string.Format("{0} Series", series.SeriesName)" src="" border="0">
-									</div>
-									<div class="model-list__label-block">
-										<p class="model-list__title">@string.Format("{0} Series", series.SeriesName)</p>
-										<p class="font13">@string.Format("{0} {1}", series.ModelsCount, series.ModelsCount > 1 ? "Bikes" : "Bike")</p>
-									</div>
-									<span class="right-arrow">
-										<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="14px" viewBox="0 0 8 14" version="1.1">
-											<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-												<g id="review-copy-6" transform="translate(-320.000000, -5738.000000)" stroke="#AAAAAA" stroke-width="1.0125">
-													<polyline id="Page-1" transform="translate(324.000000, 5745.000000) scale(1, -1) translate(-324.000000, -5745.000000) " points="321 5739 327 5745 321 5751" />
-												</g>
-											</g>
-										</svg>
-									</span>
-								</a>
-							</li>
-                    }
-				</ul>
+				@Html.Partial("~/Views/BikeSeries/_OtherSeriesFromMake_Mobile.cshtml", Model.OtherSeries)
+                
 			</div>
 		</div>
 	}

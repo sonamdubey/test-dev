@@ -3891,6 +3891,8 @@
     <Content Include="Views\CompareBikes\_SimilarComparisons_V1.cshtml" />
     <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs.cshtml" />
     <Content Include="Views\Used\_UsedBikeByModelCity_v1.cshtml" />
+    <Content Include="Views\BikeSeries\_OtherSeriesFromMake.cshtml" />
+    <Content Include="Views\BikeSeries\_OtherSeriesFromMake_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

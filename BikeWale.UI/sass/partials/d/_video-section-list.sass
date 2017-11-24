@@ -4,27 +4,28 @@
 	height: 14px
 	width: 14px
 
-.video-section
+.video-carousel
 	position: relative
-	&:after
+
+	&:before
 		content: ''
 		display: block
-		margin-top: 20px
+		margin: 20px 20px 0
 		border-top: 1px solid #e2e2e2
-		bottom: -20px
 
-.video-carousel.inner-content-carousel
-	padding-bottom: 10px
-	padding-top: 20px
+.video-carousel
+	.inner-content-carousel
+		padding-bottom: 10px
+		padding-top: 20px
 
-	.jcarousel
-		.video-artical__card
-			width: 305px
-			height: 255px
-			margin-left: 10px
+		.jcarousel
+			.video-artical__card
+				width: 305px
+				height: 255px
+				margin-left: 10px
 
-			&:first-child
-				margin-left: 20px
+				&:first-child
+					margin-left: 20px
 
 .video-artical__card
 	>a
