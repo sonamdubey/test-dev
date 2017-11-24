@@ -1,40 +1,98 @@
 ﻿@model IEnumerable<Bikewale.Entities.GenericBikes.BestBikeEntityBase>
 @using Bikewale.Utility;
+@using Bikewale.Entities.GenericBikes;
 
-        @foreach (var bike in Model)
-        {
-            var bikeName = String.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName" class="block">
-                        <div class="swiper-image-preview">
-                            <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._174x98, QualityFactor._70)" title="@bikeName" alt="@bikeName" src="" />
-                            <span class="swiper-lazy-preloader"></span>
-                        </div>
-                        <div class="swiper-details-block">
-                            <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
-                            @if (bike.Price > 0)
-                            {
-                                <p class="text-truncate text-light-grey font11">Ex-showroom, @BWConfiguration.Instance.GetDefaultCityName</p>
-                                <p class="text-default font16">
-                                    @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.Price))</span><span class="font14 text-bold"> onwards</span>
-                                </p>
-                            }
-                            else
-                            {
-                                <p class="text-default">
-                                    <span class="font14 text-light-grey">Price not available </span>
-                                </p>
-                            }
-                        </div>
-                    </a>
-                    
-                        <div class="swiper-btn-block">
-                            <a href="javascript:void(0)" data-pagecatid="0" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_HomePage_BestBikes)" data-makename="@bike.Make.MakeName" data-modelname="@bike.Model.ModelName" data-modelid="@bike.Model.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
-                        </div>
-                    
-                  
+@if (Model != null && Model.Any() && Model.First() != null)
+{
+    foreach (var bike in Model)
+    {
+        var bikeName = String.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+        <div class="swiper-slide">
+            <div class="swiper-card">
+                <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName" class="block">
+                    <div class="swiper-image-preview">
+                        <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._174x98, QualityFactor._70)" title="@bikeName" alt="@bikeName" src="" />
+                        <span class="swiper-lazy-preloader"></span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                        @if (bike.Price > 0)
+                        {
+                            <p class="text-truncate text-light-grey font11">Ex-showroom, @BWConfiguration.Instance.GetDefaultCityName</p>
+                            <p class="text-default font16">
+                                @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.Price))</span><span class="font14 text-bold"> onwards</span>
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="text-default">
+                                <span class="font14 text-light-grey">Price not available </span>
+                            </p>
+                        }
+                    </div>
+                </a>
+
+                <div class="swiper-btn-block">
+                    <a href="javascript:void(0)" data-pagecatid="0" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_HomePage_BestBikes)" data-makename="@bike.Make.MakeName" data-modelname="@bike.Model.ModelName" data-modelid="@bike.Model.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
                 </div>
+
+
             </div>
+        </div>
+    }
+
+    {
+        string imageSrc = null;
+        string bikeList = null;
+        string url = null;
+        string cardTitle = null;
+        switch (Model.First().CurrentPage)
+        {
+
+            case (EnumBikeBodyStyles.Scooter):
+                imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/scooter-style-thumb.jpg?05042017&q=75";
+                url = "/m/best-scooters-in-india/";
+                cardTitle = "Top 10 scooters in India";
+                break;
+
+            case EnumBikeBodyStyles.Mileage:
+                imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/mileage-bikes-thumb.jpg?05042017&q=75";
+                url = "/m/best-mileage-bikes-in-india/";
+                cardTitle = "Top 10 mileage bikes in India";
+                break;
+
+            case EnumBikeBodyStyles.Cruiser:
+                imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/cruiser-style-thumb.jpg?05042017&q=75";
+                url = "/m/best-cruiser-bikes-in-india/";
+                cardTitle = "Top 10 cruiser bikes in India";
+                break;
+
+            case EnumBikeBodyStyles.Sports:
+                imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/sports-style-thumb.jpg?05042017&q=75";
+                url = "/m/best-sports-bikes-in-india/";
+                cardTitle = "Top 10 sports bikes in India";
+                break;
+
         }
-    
+        bikeList = String.Join(", ", Model.Select(x => x.Model.ModelName));
+
+
+
+    <!-- Code for last creative card added -->
+        <div class="swiper-slide">
+            <div class="swiper-card">
+                <a href=@url title="@cardTitle" class="block swiper-card-target">
+                    <div class="swiper-image-preview">
+                        <img class="swiper-lazy" data-src=@imageSrc alt="@cardTitle" src="" />
+                        <span class="swiper-lazy-preloader"></span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="margin-bottom5 text-truncate">@cardTitle</h3>
+                        <p class="font12 text-light-grey text-truncate">@bikeList</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    <!--  Code for last creative card end-->
+    }
+}
