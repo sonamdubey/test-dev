@@ -484,7 +484,7 @@ namespace BikewaleOpr.DALs.Bikedata
         /// </summary>
         /// <param name="modelMaskingName"></param>
         /// <returns></returns>
-        public bool IsModelMaskingNameExists(string modelMaskingName)
+        public bool IsModelMaskingNameExists(uint makeId, string modelMaskingName)
         {
             bool isExists = false;
             try
@@ -493,7 +493,7 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     cmd.CommandText = "ismodelmaskingnameexists";
                     cmd.CommandType = CommandType.StoredProcedure;
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeId", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, modelMaskingName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismaskingexist", DbType.Int16, ParameterDirection.Output));
 

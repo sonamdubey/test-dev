@@ -31,6 +31,6 @@ namespace BikewaleOpr.Interface.BikeData
         IEnumerable<BikeMakeModelData> GetModelsWithMissingColorImage();
         bool UpdateInquiryAsSold(uint inquiryId);
         IEnumerable<BikeVersionEntityBase> GetVersionsByModel(EnumBikeType requestType, uint modelId);
-        bool IsModelMaskingNameExists(string modelMaskingName);
+        bool IsModelMaskingNameExists(uint makeId, string modelMaskingName);
     }
 }

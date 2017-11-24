@@ -66,7 +66,7 @@ namespace BikewaleOpr.BAL
                     {
                         respObj = new Tuple<bool, string, BikeSeriesEntity>(false, "Cannot create duplicate series page url", objBikeSeries);
                     }
-                    else if (_modelRepo.IsModelMaskingNameExists(seriesMaskingName) && isSeriesPageUrl)
+                    else if (_modelRepo.IsModelMaskingNameExists(makeId, seriesMaskingName) && isSeriesPageUrl)
                     {
                         respObj = new Tuple<bool, string, BikeSeriesEntity>(false, "Given Series Masking Name already exists as Model Masking Name.", objBikeSeries);
                     }
@@ -159,7 +159,7 @@ namespace BikewaleOpr.BAL
                     {
                         respObj = new Tuple<bool, string>(false, "Cannot create duplicate series page url");
                     }
-                    else if (_modelRepo.IsModelMaskingNameExists(seriesMaskingName) && isSeriesPageUrl)
+                    else if (_modelRepo.IsModelMaskingNameExists(makeId, seriesMaskingName) && isSeriesPageUrl)
                     {
                         respObj = new Tuple<bool, string>(false, "Given Series Masking Name already exists as Model Masking Name.");
                     }
