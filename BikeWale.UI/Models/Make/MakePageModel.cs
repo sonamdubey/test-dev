@@ -56,6 +56,7 @@ namespace Bikewale.Models
         public CompareSources CompareSource { get; set; }
         public bool IsMobile { get; set; }
         public bool IsAmpPage { get; set; }
+        private CityEntityBase cityBase = null;
 
         public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews)
         {
@@ -88,6 +89,8 @@ namespace Bikewale.Models
         /// Description : Added BindUserReviews() method.
         /// Modified by: Snehal Dange on 23rd Nov 2017
         /// Description : Added BindMakeFooterCategoriesandPriceWidget() method
+        /// Modified by sajal Gupta on 24-11-2017
+        /// Descriptition :  Added BikeCityPopup
         /// Modified BY: Snehal Dange on 23rd Nov 2017
         /// Description: Added IsFooterDescriptionAvailable ,IsPriceListingAvailable checks
         /// </summary>         
@@ -104,7 +107,7 @@ namespace Bikewale.Models
 
                 uint cityId = 0;
                 string cityName = string.Empty, cityMaskingName = string.Empty;
-                CityEntityBase cityBase = null;
+
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 objData.City = location;
                 if (location != null && location.CityId > 0)
@@ -159,6 +162,18 @@ namespace Bikewale.Models
                 BindOtherMakes(objData);
                 BindUserReviews(objData);
                 BindMakeFooterCategoriesandPriceWidget(objData);
+
+                objData.BikeCityPopup = new PopUp.BikeCityPopup()
+                {
+                    ApiUrl = "/api/v2/DealerCity/?makeId=" + _makeId,
+                    PopupShowButtonMessage = "Show showrooms",
+                    PopupSubHeading = "See Showrooms in your city!",
+                    FetchDataPopupMessage = "Fetching showrooms for ",
+                    RedirectUrl = string.Format("/{0}-dealer-showrooms-in-", _makeMaskingName),
+                    IsCityWrapperPresent = 1
+                };
+
+                BindShowroomPopularCityWidget(objData);
 
                 #region Set Visible flags
 
@@ -218,6 +233,38 @@ namespace Bikewale.Models
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objData));
             }
+        }
+
+        /// <summary>
+        /// Created by Sajal on 24-11-2017
+        /// Desc : Widget Bind Showroom Popular City 
+        /// </summary>
+        /// <param name="objMakePage"></param>
+        private void BindShowroomPopularCityWidget(MakePageVM objMakePage)
+        {
+            DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
+            try
+            {
+                uint topCount = 8;
+                objData.DealerServiceCenters = _cacheDealers.GetPopularCityDealer(_makeId, topCount);
+                objData.MakeMaskingName = objMakePage.MakeMaskingName;
+                objData.MakeName = objMakePage.MakeName;
+                objData.CityCardTitle = "showrooms in";
+                objData.CityCardLink = "dealer-showrooms-in";
+                objData.IsServiceCenterPage = false;
+                objMakePage.DealersServiceCenterPopularCities = objData;
+                if (objData.DealerServiceCenters.DealerDetails.Any())
+                {
+                    objMakePage.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objMakePage.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityBase != null ? cityBase.CityId : 0)).ToList();
+                }
+                objData.IsIndiaCardNeeded = true;
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindShowroomPopularCityWidget");
+            }
+
         }
 
         /// <summary>
