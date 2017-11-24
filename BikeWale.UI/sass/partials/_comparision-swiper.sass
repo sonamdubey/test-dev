@@ -2,7 +2,7 @@
 	.comparison-swiper
 		.swiper-slide
 			&:nth-of-type(1)
-				margin-left: 15px
+				margin-left: 10px
 
 		.swiper-slide,
 		.swiper-card
@@ -16,11 +16,18 @@
 				padding-top: 12px
 				padding-bottom: 13px
 				font-size: 14px
-	
+		.swiper-card
+			margin-left: 10px
+
+		.swiper-slide
+			&:last-child
+				.swiper-card
+					margin-right: 15px
+			
 
 		.card-target
 			padding-top: 15px
-			padding-bottom: 15px
+			padding-bottom: 20px
 			display: block
 
 		.grid-6:first-of-type

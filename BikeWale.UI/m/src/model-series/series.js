@@ -1,7 +1,7 @@
 ﻿
 docReady(function () {
     //find bike carousel
-
+    var specsTabsWrapper = $('.find-specs-tabs-wrapper');
     $('.find-specs-tabs-wrapper .specs-btn').on('click', function () {
 
         var specBtn = $(this).attr('data-swipe');
@@ -10,7 +10,7 @@ docReady(function () {
 
         $(this).closest('.find-specs-tabs-wrapper').find('.active').removeClass('active');
         $(this).addClass('active');
-
+        $('html, body').animate({ scrollTop: $('.find-right-bike').offset().top - 20 }, 1000);
         if (indexOfSlide >= 0)
         {
             var tag = $('#rightBikeSwiper').find('.swiper-slide .recommended-tag:not(.popular-tag)');
@@ -31,6 +31,8 @@ docReady(function () {
             $('.right-bike-swiper.swiper-container').data('swiper').slideTo(indexOfSlide, 1000, false);
 			$('#rightBikeSwiper').find('.swiper-slide.featured-card').removeClass('featured-card');
 			swiperSlide.addClass('featured-card');
+			centerItVariableWidth($(this).closest('li'), '.find-specs__tabs-container');
+
         }
 
     });
@@ -122,7 +124,6 @@ docReady(function () {
 		
 	});
     $('.overall-specs-tabs-wrapper li').click(function () {
-
         var target = $(this).attr('data-tabs');
         $('html, body').animate({ scrollTop: Math.ceil($(target).offset().top) - topNavBarHeight }, 1000);
         centerItVariableWidth($(this), '.overall-specs-tabs-container');        

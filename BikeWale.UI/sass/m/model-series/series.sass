@@ -116,6 +116,14 @@
 @include news-section__img()
 @include news-section__desc()
 
+.overalltab__section-list 
+	&> .news-card-container,
+	&> .video-card-container
+		padding-top: 20px
+
+		&:nth-of-type(1)
+			padding-top: 15px	
+
 .thumbsup-icon
 	display: inline-block
 	vertical-align: top
@@ -134,15 +142,17 @@
 		margin-left: 0
 		
 		&:nth-of-type(1)
-			margin-left: 20px
+			margin-left: 10px
 
 		&:last-child
+			margin-right: 20px
 			.model-card
 				margin-right: 10px			
 
 	.model-card
-		margin-right: 0
-		margin-left: 0
+		margin-left: 10px
+		width: 310px
+		min-height: 290px
 
 	.model-card__image
 		padding: 0
@@ -150,9 +160,16 @@
 
 		img
 			height: 173px
+
+	.model-card__desc
+		padding-bottom: 5px
 		
 //upcoming swiper
 .upcoming-model-swiper.card-container
+	.model-card__list
+		> .model-card__list-block
+			padding-bottom: 15px
+
 	.swiper-slide
 		width: 320px
 		min-height: 290px
@@ -173,10 +190,7 @@
 //model series list		
 @include model-series-list__img()
 
-
 //find right model
-
-
 		
 @include model-specs-tabs()
 @include rightbike-caraousel__label()
