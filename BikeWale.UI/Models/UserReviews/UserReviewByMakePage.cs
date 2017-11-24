@@ -72,7 +72,11 @@ namespace Bikewale.Models.UserReviews
 
                 if (popularBrandsList != null && popularBrandsList.Any())
                 {
-                    objData.OtherMakes = popularBrandsList.Take(9);
+                    var otherMakes = new OtherMakesVM();
+                    otherMakes.Makes = popularBrandsList.Take(9);
+                    otherMakes.PageLinkFormat = "/{0}-bikes/reviews/";
+                    objData.OtherMakes = otherMakes;
+
                 }
             }
             catch (Exception ex)

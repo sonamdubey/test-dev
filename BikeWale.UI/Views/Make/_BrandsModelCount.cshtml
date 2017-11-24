@@ -1,14 +1,14 @@
-﻿@model IEnumerable<Bikewale.Entities.BikeData.BikeMakeEntityBase>
+﻿@model Bikewale.Models.OtherMakesVM
 
-@if (Model != null && Model.Count() > 0)
+@if (Model != null && Model.Makes!=null && Model.Makes.Any())
 {
     <div class="jcarousel-wrapper inner-content-carousel brand-type-carousel">
         <div class="jcarousel">
             <ul>
-                @foreach (var BrandCount in Model)
+                @foreach (var BrandCount in Model.Makes)
                 {
                     <li>
-                        <a href="@Bikewale.Utility.UrlFormatter.BikeMakeUrl(BrandCount.MaskingName)" title="@BrandCount.MakeName bikes" class="jcarousel-card">
+                        <a href="@(!string.IsNullOrEmpty(Model.PageLinkFormat) ? string.Format(Model.PageLinkFormat, BrandCount.MaskingName) : Bikewale.Utility.UrlFormatter.BikeMakeUrl(BrandCount.MaskingName))" title="@BrandCount.MakeName bikes" class="jcarousel-card">
                             <div class="brand-logo-image">
                                 <span class="brand-type">
                                     <span class="brandlogosprite @string.Format("brand-{0}", BrandCount.MakeId)"></span>

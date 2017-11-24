@@ -1,7 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using Bikewale.Models.PopUp;
 using Bikewale.Models.Make;
+using Bikewale.Models.PopUp;
 using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 namespace Bikewale.Models
@@ -66,7 +66,7 @@ namespace Bikewale.Models
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public DealerCardVM Dealers { get; set; }
 
-        public IEnumerable<BikeMakeEntityBase> OtherMakes { get; set; }
+        public OtherMakesVM OtherMakes { get; set; }
         public GlobalCityAreaEntity City { get; set; }
         public string ReturlUrl { get; set; }
 

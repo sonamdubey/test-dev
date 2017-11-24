@@ -284,7 +284,10 @@ namespace Bikewale.Models
 
                 if (popularBrandsList != null && popularBrandsList.Any())
                 {
-                    objData.OtherMakes = popularBrandsList.Take(9);
+                    var otherMakes = new OtherMakesVM();
+                    otherMakes.Makes = popularBrandsList.Take(9);
+                    objData.OtherMakes = otherMakes;
+
                 }
             }
             catch (Exception ex)
