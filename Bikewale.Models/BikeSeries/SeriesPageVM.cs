@@ -11,7 +11,7 @@ namespace Bikewale.Models.BikeSeries
         public BikeSeriesEntityBase SeriesBase { get; set; }
         public BikeSeriesModels SeriesModels { get; set; }
         public CityEntityBase City { get; set; }
-        public IEnumerable<BikeSeriesEntity> OtherSeriesList { get; set; }
+		public OtherSeriesVM OtherSeries { get; set; }
         public RecentNewsVM News { get; set; }
         public BikeSeriesCompareVM ObjModel { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
