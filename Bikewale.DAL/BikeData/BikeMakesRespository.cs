@@ -70,7 +70,7 @@ namespace Bikewale.DAL.BikeData
                                     LogoUrl = Convert.ToString(dr["LogoUrl"]),
                                     PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
                                     TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"]),
-                                    MakeCategoryId = requestType.Equals(EnumBikeType.New) ? SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"]) : (ushort)0
+                                    MakeCategoryId = SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"])
                                 });
                             }
 

@@ -47,6 +47,7 @@ namespace Bikewale.Models.UserReviews
 
                     objData.Make = objData.PopularBikes.First().Make;
                 }
+                BindOtherMakes();
                 BindPageMetas();
             }
             catch (Exception ex)
@@ -61,7 +62,7 @@ namespace Bikewale.Models.UserReviews
         /// Description :   Bind Other Similar Make list for user reviews
         /// </summary>
         /// <param name="objData"></param>
-        private void BindOtherMakes(MakePageVM objData)
+        private void BindOtherMakes()
         {
             try
             {
@@ -118,7 +119,7 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-            string makepageUrl = String.Format("{0}-bikes/", url, objData.Make.MaskingName);
+            string makepageUrl = String.Format("{0}{1}-bikes/", url, objData.Make.MaskingName);
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url + "reviews/", "Reviews"));
 

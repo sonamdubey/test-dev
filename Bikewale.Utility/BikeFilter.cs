@@ -26,70 +26,57 @@ namespace Bikewale.Utility
             {
                 if (makeId > 0 && makes != null && makes.Any())
                 {
-                    ushort categoryId = 0;
+                    ushort categoryId = makes.Where(x => x.MakeId == makeId).First().MakeCategoryId;
+                    ushort[] arr;
 
-                    if (makes != null)
+                    switch (categoryId)
                     {
-                        var curMake = makes.Where(x => x.MakeId == makeId).FirstOrDefault();
-
-                        if (curMake != null)
-                            categoryId = curMake.MakeCategoryId;
+                        case 1: // commoner 1
+                            arr = new ushort[] { 1, 2, 3, 4, 5 };
+                            break;
+                        case 2:// commoner 2
+                            arr = new ushort[] { 2, 3, 4, 5, 1 };
+                            break;
+                        case 3: // premium 1
+                            arr = new ushort[] { 3, 2, 4, 5, 1 };
+                            break;
+                        case 4: // premium 2
+                            arr = new ushort[] { 4, 5, 3, 2, 1 };
+                            break;
+                        case 5: // scooters
+                            arr = new ushort[] { 5, 4, 3, 2, 1 };
+                            break;
+                        default:
+                            arr = new ushort[] { 1, 2, 3, 4, 5 };
+                            break;
                     }
 
-                    if (categoryId > 0)
-                    {
-                        ushort[] arr;
+                    popularBrandsList = new List<BikeMakeEntityBase>();
 
-                        switch (categoryId)
-                        {
-                            case 1: // commoner 1
-                                arr = new ushort[] { 1, 2, 3, 4, 5 };
-                                break;
-                            case 2:// commoner 2
-                                arr = new ushort[] { 2, 3, 4, 5, 1 };
-                                break;
-                            case 3: // premium 1
-                                arr = new ushort[] { 3, 2, 4, 5, 1 };
-                                break;
-                            case 4: // premium 2
-                                arr = new ushort[] { 4, 5, 3, 2, 1 };
-                                break;
-                            case 5: // scooters
-                                arr = new ushort[] { 5, 4, 3, 2, 1 };
-                                break;
-                            default:
-                                arr = new ushort[] { 1, 2, 3, 4, 5 };
-                                break;
-                        }
+                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[0] && x.MakeId != makeId);
 
-                        popularBrandsList = new List<BikeMakeEntityBase>();
+                    if (tempBrandsList != null)
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
 
-                        tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[0] && x.MakeId != makeId);
+                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[1]);
 
-                        if (tempBrandsList != null)
-                            popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
+                    if (tempBrandsList != null)
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
 
-                        tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[1]);
+                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[2]);
 
-                        if (tempBrandsList != null)
-                            popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
+                    if (tempBrandsList != null)
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
 
-                        tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[2]);
+                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[3]);
 
-                        if (tempBrandsList != null)
-                            popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
+                    if (tempBrandsList != null)
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
 
-                        tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[3]);
+                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[4]);
 
-                        if (tempBrandsList != null)
-                            popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
-
-                        tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[4]);
-
-                        if (tempBrandsList != null)
-                            popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
-
-                    }
+                    if (tempBrandsList != null)
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
                 }
             }
             catch (System.Exception)
