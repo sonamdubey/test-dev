@@ -42,7 +42,7 @@
                     {
                         <h2 class="padding-left20 padding-right20 padding-bottom10">@string.Format("{0} {1} upcoming bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
                     }
-                    @Html.Partial("~/Views/BikeSeries/_UpcomingBikes_Mobile.cshtml", Model.SeriesModels.UpcomingBikes)
+                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes_v1_Mobile.cshtml", Model.SeriesModels.UpcomingBikes)
                 </div>
             </div>
         }
