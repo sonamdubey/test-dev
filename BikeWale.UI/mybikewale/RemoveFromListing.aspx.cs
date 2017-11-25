@@ -122,8 +122,8 @@ namespace Bikewale.MyBikeWale
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "RemoveFromListing.IsUserLoggedin()");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "RemoveFromListing.IsUserLoggedin()");
+                
                 return false;
             }
         }
@@ -170,8 +170,8 @@ namespace Bikewale.MyBikeWale
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "RemoveFromListing.IsAuthorisedUser()");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "RemoveFromListing.IsAuthorisedUser()");
+                
                 return false;
             }
         }
@@ -228,7 +228,7 @@ namespace Bikewale.MyBikeWale
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
             }
 
         }   // End of UpdateClassifiedInquirySoldStatus method
@@ -252,14 +252,14 @@ namespace Bikewale.MyBikeWale
             catch (SqlException err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             } // catch Exception
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             } // catch Exception
 
         }   // End of UpdateSoldStatus method

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-
-/// <summary>
+﻿/// <summary>
 /// Created By Sanjay Soni ON 1/10/2014
 /// </summary>
 namespace BikeWaleOpr.Classified

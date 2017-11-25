@@ -81,7 +81,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "VideosLandingPage.GetData");
+                ErrorClass.LogError(ex, "VideosLandingPage.GetData");
             }
             return objVM;
         }
@@ -179,7 +179,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "VideosLandingPage.BindLandingVideos");
+                ErrorClass.LogError(ex, "VideosLandingPage.BindLandingVideos");
             }
         }
         /// <summary>

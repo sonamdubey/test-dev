@@ -1,12 +1,7 @@
 ﻿using Bikewale.DTO.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -50,8 +45,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.DPQMobileVerifiedController.Post");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.DPQMobileVerifiedController.Post");
+               
                 return InternalServerError();
             }
         }

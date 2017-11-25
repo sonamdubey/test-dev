@@ -52,7 +52,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewLandingPage.GetData");
+                ErrorClass.LogError(ex, "UserReviewLandingPage.GetData");
             }
             return objData;
         }
@@ -104,7 +104,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewLandingPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "UserReviewLandingPage.BindPageMetas()");
             }
         }
 
@@ -167,7 +167,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", _makeMaskingName));
+                ErrorClass.LogError(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", _makeMaskingName));
             }
             return makeId;
         }

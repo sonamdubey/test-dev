@@ -28,7 +28,7 @@ namespace Bikewale.Models.PriceInCity
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.PriceInCity.ModelPriceInNearestCities.ModelPriceInNearestCities()");
+                ErrorClass.LogError(ex, "Bikewale.Models.PriceInCity.ModelPriceInNearestCities.ModelPriceInNearestCities()");
             }
         }
 
@@ -51,7 +51,7 @@ namespace Bikewale.Models.PriceInCity
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.PriceInCity.ModelPriceInNearestCities.GetData()");
+                ErrorClass.LogError(ex, "Bikewale.Models.PriceInCity.ModelPriceInNearestCities.GetData()");
             }
             return priceInTopCitiesWidgetVM;
         }

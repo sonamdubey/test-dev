@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using Bikewale.DTO.AutoComplete;
 using Bikewale.Entities.AutoComplete;
-using Nest;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.AutoComplete
 {

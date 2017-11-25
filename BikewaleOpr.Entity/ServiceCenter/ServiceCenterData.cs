@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BikewaleOpr.Entity.ServiceCenter
 {
@@ -11,7 +7,7 @@ namespace BikewaleOpr.Entity.ServiceCenter
     /// Created On  : 28 July 2017		
     /// Description : Service center data with Count and List of service centers		
     /// </summary>		
-		
+
     public class ServiceCenterData
     {		
         public uint Count { get; set; }		

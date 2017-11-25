@@ -206,7 +206,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, string.Format("MakePageModel.GetData() => MakeId: {0}", _makeId));
+                ErrorClass.LogError(ex, string.Format("MakePageModel.GetData() => MakeId: {0}", _makeId));
             }
 
             return objData;
@@ -292,7 +292,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, string.Format("MakePageModel.BindOtherMakes() => MakeId: {0}", _makeId));
+                ErrorClass.LogError(ex, string.Format("MakePageModel.BindOtherMakes() => MakeId: {0}", _makeId));
             }
         }
 
@@ -527,7 +527,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.CheckCustomPageMetas() makeId:{0}", _makeId));
+                ErrorClass.LogError(ex, string.Format("MakePageModel.CheckCustomPageMetas() makeId:{0}", _makeId));
             }
         }
 
@@ -565,7 +565,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
+                ErrorClass.LogError(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
             }
         }
 

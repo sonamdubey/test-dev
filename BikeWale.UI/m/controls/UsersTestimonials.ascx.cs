@@ -36,8 +36,8 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UsersTestimonials.BindControls");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "UsersTestimonials.BindControls");
+                
             }
         }
     }

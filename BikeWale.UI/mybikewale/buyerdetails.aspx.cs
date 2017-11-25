@@ -74,14 +74,14 @@ namespace Bikewale.MyBikeWale
             catch (SqlException ex)
             {
                 Trace.Warn("FillBuyersList sql ex : ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 Trace.Warn("FillBuyersList ex : ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         } // End of FillBuyersList method
 

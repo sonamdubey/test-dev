@@ -90,7 +90,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.ProcessQueryString");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.ProcessQueryString");
             }
 
             return true;
@@ -114,7 +114,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetFeatureDetails");
+                ErrorClass.LogError(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetFeatureDetails");
             }
         }
 
@@ -146,7 +146,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetTaggedBikeListByMake");
+                ErrorClass.LogError(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetTaggedBikeListByMake");
 
             }
         }
@@ -179,7 +179,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetTaggedBikeListByModel");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetTaggedBikeListByModel");
             }
         }
 

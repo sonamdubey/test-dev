@@ -88,8 +88,8 @@ namespace Bikewale.Common
 					catch(Exception err)
 					{
 						HttpContext.Current.Trace.Warn("SourceIdCommon.UpdateSourceId : " + err.Message);
-						ErrorClass objErr = new ErrorClass(err,"SourceIdCommon.UpdateSourceId");
-						objErr.SendMail();
+						ErrorClass.LogError(err,"SourceIdCommon.UpdateSourceId");
+						
 					}
 				}
 			}

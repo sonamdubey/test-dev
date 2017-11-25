@@ -84,7 +84,7 @@ namespace Bikewale.Mobile.Content
                 catch (Exception ex)
                 {
                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCare.BikeCareTips");
-                    objErr.SendMail();
+                    
                 }
             }
             else

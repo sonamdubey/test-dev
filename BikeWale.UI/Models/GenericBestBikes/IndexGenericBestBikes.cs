@@ -70,7 +70,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.IndexGenericBestBikes.ParseQueryString");
+                ErrorClass.LogError(ex, "Bikewale.IndexGenericBestBikes.ParseQueryString");
             }
         }
         /// <summary>
@@ -101,7 +101,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.IndexGenericBestBikes.GetData");
+                ErrorClass.LogError(ex, "Bikewale.IndexGenericBestBikes.GetData");
             }
 
             return obj;
@@ -160,7 +160,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.IndexGenericBestBikes.SetPageJSONLDSchema");
+                ErrorClass.LogError(ex, "Bikewale.IndexGenericBestBikes.SetPageJSONLDSchema");
             }
         }
 
@@ -265,7 +265,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("SetPageMetas{0} ", BodyStyleType));
+                ErrorClass.LogError(ex, string.Format("SetPageMetas{0} ", BodyStyleType));
             }
 
         }

@@ -39,8 +39,8 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakeHelper.GetMakeNameByMakeId() - Makeid :{0}", makeId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("MakeHelper.GetMakeNameByMakeId() - Makeid :{0}", makeId));
+                
             }
             return objBikeMakeEntityBase;
         }
@@ -67,8 +67,8 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakeHelper.GetMakeByMaskingName() => Make:{0}", makeMaskingName));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("MakeHelper.GetMakeByMaskingName() => Make:{0}", makeMaskingName));
+                
             }
             return objResponse;
         }

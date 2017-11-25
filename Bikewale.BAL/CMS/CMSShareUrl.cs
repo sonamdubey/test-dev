@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.DTO.CMS.Articles;
+﻿using Bikewale.DTO.CMS.Articles;
 using Bikewale.Entities.CMS;
 using Bikewale.Utility;
+using System.Collections.Generic;
 
 namespace Bikewale.BAL.CMS
 {

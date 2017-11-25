@@ -38,8 +38,8 @@ namespace Bikewale.Cache.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.UsedBikes.GetPopularUsedBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Cache.UsedBikes.GetPopularUsedBikes");
+                
             }
             return objModelPage;
         }

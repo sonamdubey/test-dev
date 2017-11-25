@@ -1,12 +1,4 @@
-﻿using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Location;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.Entities.Dealer
+﻿namespace Bikewale.Entities.Dealer
 {
     /// <summary>
     /// Created By : Sushil Kumar

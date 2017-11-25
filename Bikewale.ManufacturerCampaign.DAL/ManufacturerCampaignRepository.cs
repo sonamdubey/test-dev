@@ -42,7 +42,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.ManufactureCampaign.GetManufactureCampaigns");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.ManufactureCampaign.GetManufactureCampaigns");
             }
 
 
@@ -71,7 +71,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.GetBikeMakes");
+                ErrorClass.LogError(ex, "Bikewale.ManufacturerCampaign.DAL.GetBikeMakes");
             }
             return bikeMakes;
         }
@@ -101,7 +101,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
+                ErrorClass.LogError(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
             }
             return objEntity;
         }
@@ -129,7 +129,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
+                ErrorClass.LogError(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
             }
             return objEntity;
         }
@@ -167,7 +167,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign. CampaignId {0}", campaignId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign. CampaignId {0}", campaignId));
             }
 
             return campaign;
@@ -216,7 +216,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.SaveManufacturerCampaignProperties");
+                ErrorClass.LogError(ex, "Bikewale.ManufacturerCampaign.DAL.SaveManufacturerCampaignProperties");
             }
             return isSaved;
         }
@@ -242,7 +242,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.GetBikeModels. MakeId : {0}", makeId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.GetBikeModels. MakeId : {0}", makeId));
             }
             return bikeModels;
         }
@@ -267,7 +267,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.GetStates");
+                ErrorClass.LogError(ex, "Bikewale.ManufacturerCampaign.DAL.GetStates");
             }
             return states;
         }
@@ -293,7 +293,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.GetCitiesByState. StateId : {0}", stateId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.GetCitiesByState. StateId : {0}", stateId));
             }
             return cities;
         }
@@ -323,7 +323,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.GetManufacturerCampaignRules. CampaignId : {0}", campaignId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.GetManufacturerCampaignRules. CampaignId : {0}", campaignId));
             }
             return mfgRules;
         }
@@ -362,7 +362,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.saveManufacturerCampaign");
+                ErrorClass.LogError(ex, "Bikewale.ManufacturerCampaign.DAL.saveManufacturerCampaign");
             }
             return campaignId;
         }
@@ -392,7 +392,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.saveManufacturerCampaignPopup");
+                ErrorClass.LogError(ex, "Bikewale.ManufacturerCampaign.DAL.saveManufacturerCampaignPopup");
             }
 
         }
@@ -425,7 +425,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.SaveManufacturerCampaignRules. CampaignId : {0}, ModelIds : {1},StateIds : {2}, CityIds : {3}, IsAllIndia : {4}, UserId : {5}", campaignId, modelIds, stateIds, cityIds, isAllIndia, userId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.SaveManufacturerCampaignRules. CampaignId : {0}, ModelIds : {1},StateIds : {2}, CityIds : {3}, IsAllIndia : {4}, UserId : {5}", campaignId, modelIds, stateIds, cityIds, isAllIndia, userId));
             }
             return isSuccess;
         }
@@ -458,7 +458,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.DeleteManufacturerCampaignRules. CampaignId : {0}, ModelId : {1},StateId : {2}, CityId : {3}, UserId : {4}", campaignId, modelId, stateId, cityId, userId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.DeleteManufacturerCampaignRules. CampaignId : {0}, ModelId : {1},StateId : {2}, CityId : {3}, UserId : {4}", campaignId, modelId, stateId, cityId, userId));
             }
             return isSuccess;
         }
@@ -495,7 +495,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignRepository.GetCampaigns({0},{1},{2})", modelId, cityId, pageId));
+                ErrorClass.LogError(ex, string.Format("ManufacturerCampaignRepository.GetCampaigns({0},{1},{2})", modelId, cityId, pageId));
             }
             return config;
         }
@@ -545,7 +545,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignRepository.SaveManufacturerCampaignLead({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})", dealerid, pqId, customerName, customerEmail, customerMobile, leadSourceId, utma, utmz, deviceId, campaignId, retLeadId));
+                ErrorClass.LogError(ex, string.Format("ManufacturerCampaignRepository.SaveManufacturerCampaignLead({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})", dealerid, pqId, customerName, customerEmail, customerMobile, leadSourceId, utma, utmz, deviceId, campaignId, retLeadId));
             }
 
             return retLeadId;
@@ -577,7 +577,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignRepository.ResetTotalLeadDelivered({0},{1})", campaignId, userId));
+                ErrorClass.LogError(ex, string.Format("ManufacturerCampaignRepository.ResetTotalLeadDelivered({0},{1})", campaignId, userId));
             }
             return isSuccess;
         }

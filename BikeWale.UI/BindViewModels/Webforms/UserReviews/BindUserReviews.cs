@@ -35,7 +35,7 @@ namespace Bikewale.BindViewModels.Webforms.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindUserReviews");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.BindUserReviews");
             }
         }
         /// <summary>
@@ -54,7 +54,7 @@ namespace Bikewale.BindViewModels.Webforms.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BindViewModels.Webforms.BindUserReviews.GetDetailsByModel_ModelId_{0}_cityId_{1}", modelId, cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BindViewModels.Webforms.BindUserReviews.GetDetailsByModel_ModelId_{0}_cityId_{1}", modelId, cityId));
             }
             return objReview;
         }
@@ -74,7 +74,7 @@ namespace Bikewale.BindViewModels.Webforms.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BindViewModels.Webforms.BindUserReviews.GetDetailsByVersion_versionId_{0}_cityId_{1}", versionId, cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BindViewModels.Webforms.BindUserReviews.GetDetailsByVersion_versionId_{0}_cityId_{1}", versionId, cityId));
             }
             return objReview;
         }

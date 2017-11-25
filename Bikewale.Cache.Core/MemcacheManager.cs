@@ -96,7 +96,7 @@ namespace Bikewale.Cache.Core
             }
             catch (Exception ex)
             {
-                //ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");
+                //ErrorClass.LogError(ex, "MemcacheManager.GetFromCache");
                 //objErr.SendMail();
             }
             finally
@@ -152,7 +152,7 @@ namespace Bikewale.Cache.Core
             }
             catch (Exception ex)
             {
-                //ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");
+                //ErrorClass.LogError(ex, "MemcacheManager.GetFromCache");
                 //objErr.SendMail();
             }
             finally
@@ -209,7 +209,7 @@ namespace Bikewale.Cache.Core
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");
+                ErrorClass.LogError(ex, "MemcacheManager.GetFromCache");
             }
             finally
             {

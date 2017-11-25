@@ -82,7 +82,7 @@ namespace Bikewale.Models.PopUp
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PopupLeadCaptureModel.ParseQueryString()");
+                ErrorClass.LogError(ex, "PopupLeadCaptureModel.ParseQueryString()");
             }
         }
 

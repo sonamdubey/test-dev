@@ -57,7 +57,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.VideosByCategoryPage.GetData: TotalCount {0}", totalCount));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.Videos.VideosByCategoryPage.GetData: TotalCount {0}", totalCount));
             }
             return objVM;
         }

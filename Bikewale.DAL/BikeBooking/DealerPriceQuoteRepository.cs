@@ -68,7 +68,7 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SaveCustomerDetail ex : " + ex.Message);
+                ErrorClass.LogError(ex, "SaveCustomerDetail ex : " + ex.Message);
                 isSuccess = false;
             }
 
@@ -102,8 +102,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UpdateIsMobileVerified ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "UpdateIsMobileVerified ex : " + ex.Message);
+                
                 isSuccess = false;
             }
 
@@ -136,8 +136,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UpdateMobileNumber ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "UpdateMobileNumber ex : " + ex.Message);
+                
                 isSuccess = false;
             }
 
@@ -170,8 +170,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PushedToAB ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "PushedToAB ex : " + ex.Message);
+                
                 isSuccess = false;
             }
 
@@ -234,8 +234,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetCustomerDetails ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetCustomerDetails ex : " + ex.Message);
+                
                 // isSuccess = false;
             }
             return objCustomer;
@@ -272,8 +272,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "IsNewBikePQExists ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "IsNewBikePQExists ex : " + ex.Message);
+                
                 // isSuccess = false;
             }
             return isVerified;
@@ -316,8 +316,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetVersionList ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetVersionList ex : " + ex.Message);
+                
             }
 
             return objVersions;
@@ -355,8 +355,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SaveRSAOfferClaim ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "SaveRSAOfferClaim ex : " + ex.Message);
+                
             }
 
             return isSuccess;
@@ -389,8 +389,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UpdatePQBikeColor ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "UpdatePQBikeColor ex : " + ex.Message);
+                
                 isSuccess = false;
             }
 
@@ -426,8 +426,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UpdatePQTransactionalDetail ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "UpdatePQTransactionalDetail ex : " + ex.Message);
+                
                 isSuccess = false;
             }
 
@@ -466,8 +466,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "IsDealerNotified ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "IsDealerNotified ex : " + ex.Message);
+                
                 isNotified = false;
             }
             return isNotified;
@@ -502,8 +502,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "IsDealerPriceAvailable ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "IsDealerPriceAvailable ex : " + ex.Message);
+                
                 isDealerAreaAvailable = false;
             }
 
@@ -545,8 +545,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetDefaultPriceQuoteVersion ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetDefaultPriceQuoteVersion ex : " + ex.Message);
+                
             }
 
             return versionId;
@@ -589,8 +589,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("GetDefaultPriceQuoteVersion({0},{1},{2}) : Exception : {3}", modelId, cityId, areaId, ex.Message));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("GetDefaultPriceQuoteVersion({0},{1},{2}) : Exception : {3}", modelId, cityId, areaId, ex.Message));
+                
             }
             return versionId;
         }
@@ -640,8 +640,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetAreaList ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetAreaList ex : " + ex.Message);
+                
             }
             return objArea;
         }   //End of GetAreaList
@@ -875,14 +875,14 @@ namespace Bikewale.DAL.BikeBooking
             catch (SqlException sqEx)
             {
                 HttpContext.Current.Trace.Warn("FetchBookingPageDetails sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("FetchBookingPageDetails ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return entity;
@@ -926,8 +926,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return colors;
@@ -974,8 +974,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return colors;
@@ -1022,8 +1022,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.UpdateDealerDailyLeadCount");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.UpdateDealerDailyLeadCount");
+                
             }
             return isUpdateDealerCount;
         }
@@ -1057,8 +1057,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.IsDealerDailyLeadLimitExceeds");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.IsDealerDailyLeadLimitExceeds");
+                
             }
 
             return islimitexceeds;

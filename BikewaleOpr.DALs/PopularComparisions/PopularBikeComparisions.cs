@@ -55,7 +55,7 @@ namespace BikewaleOpr.DALs.PopularComparisions
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("BikewaleOpr.DALs.PopularComparisions.SaveBikeComparision_{0}_Version1_{1}_Version2_{2}", compareId, versionId1, versionId2));
+                ErrorClass.LogError(err, string.Format("BikewaleOpr.DALs.PopularComparisions.SaveBikeComparision_{0}_Version1_{1}_Version2_{2}", compareId, versionId1, versionId2));
 
             } // catch Exception
 
@@ -114,7 +114,7 @@ namespace BikewaleOpr.DALs.PopularComparisions
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.PopularComparisions.GetBikeComparisions");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.PopularComparisions.GetBikeComparisions");
             }
             return objBikeCamparisions;
         }
@@ -141,8 +141,8 @@ namespace BikewaleOpr.DALs.PopularComparisions
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "BikewaleOpr.DALs.PopularComparisions.DeleteCompareBike_" + deleteId);
-                objErr.SendMail();
+                ErrorClass.LogError(err, "BikewaleOpr.DALs.PopularComparisions.DeleteCompareBike_" + deleteId);
+                
             }
 
             return isDeleted;
@@ -172,8 +172,8 @@ namespace BikewaleOpr.DALs.PopularComparisions
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "BikewaleOpr.DALs.PopularComparisions.UpdatePriorities_" + prioritiesList);
-                objErr.SendMail();
+                ErrorClass.LogError(err, "BikewaleOpr.DALs.PopularComparisions.UpdatePriorities_" + prioritiesList);
+                
             }
 
             return isUpdated;

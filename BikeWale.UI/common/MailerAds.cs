@@ -35,8 +35,8 @@ namespace Bikewale.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "MailerAds.GetAdScript");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "MailerAds.GetAdScript");
+                
             }
 
             return html;

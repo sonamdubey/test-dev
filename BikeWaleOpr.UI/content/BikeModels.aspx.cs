@@ -119,7 +119,7 @@ namespace BikeWaleOpr.Content
                 {
                     Trace.Warn(ex.Message + ex.Source);
                     BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    
                 }
 
                 SortDirection = "";
@@ -216,7 +216,7 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             BindGrid();
         }
@@ -272,7 +272,7 @@ namespace BikeWaleOpr.Content
             {
                 Trace.Warn(err.Message + err.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
         }
 
@@ -378,7 +378,7 @@ namespace BikeWaleOpr.Content
                     catch (Exception ex)
                     {
                         BikeWaleOpr.Common.ErrorClass errObj = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                        errObj.SendMail();
+                        
                     }
                 }
 
@@ -400,12 +400,12 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             catch (Exception ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
 
             dtgrdMembers.EditItemIndex = -1;
@@ -486,14 +486,14 @@ namespace BikeWaleOpr.Content
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             catch (Exception err)
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             } // catch Exception
         }   // End of make upcoming bike method
 
@@ -550,7 +550,7 @@ namespace BikeWaleOpr.Content
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
                 isSaved = false;
             } // catch Exception
 
@@ -613,13 +613,13 @@ namespace BikeWaleOpr.Content
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
 
             return dt;
@@ -649,7 +649,7 @@ namespace BikeWaleOpr.Content
             {
                 Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             BindGrid();
             Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Segment Updated Successfully.');", true);
@@ -711,13 +711,13 @@ namespace BikeWaleOpr.Content
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message + err.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
         }   //End of UpdateModelSegments
 

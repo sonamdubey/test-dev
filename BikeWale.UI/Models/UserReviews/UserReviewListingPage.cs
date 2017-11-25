@@ -90,7 +90,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewListingPage.GetData()");
+                ErrorClass.LogError(ex, "UserReviewListingPage.GetData()");
                 Status = StatusCodes.ContentNotFound;
             }
             return objData;
@@ -166,7 +166,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewListingPage.BindWidgets()");
+                ErrorClass.LogError(ex, "UserReviewListingPage.BindWidgets()");
             }
         }
 
@@ -197,7 +197,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewListingPage.ParseQueryString()");
+                ErrorClass.LogError(ex, "UserReviewListingPage.ParseQueryString()");
             }
         }
         /// <summary>
@@ -247,7 +247,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewListingPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "UserReviewListingPage.BindPageMetas()");
             }
         }
 

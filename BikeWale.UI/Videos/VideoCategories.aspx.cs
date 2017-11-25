@@ -101,7 +101,7 @@ namespace Bikewale.Videos
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
-                objErr.SendMail();
+                
             }
         }   // End of BindVideos
 

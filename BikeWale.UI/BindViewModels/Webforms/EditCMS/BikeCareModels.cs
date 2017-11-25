@@ -99,7 +99,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCareModels.BikeCare");
+                ErrorClass.LogError(ex, "BikeCareModels.BikeCare");
             }
 
         }

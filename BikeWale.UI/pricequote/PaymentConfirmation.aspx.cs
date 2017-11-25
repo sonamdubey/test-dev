@@ -56,8 +56,8 @@ namespace Bikewale.PriceQuote
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                    
                 }
             }
             else
@@ -164,8 +164,8 @@ namespace Bikewale.PriceQuote
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             finally
             {

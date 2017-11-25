@@ -1,8 +1,8 @@
 ﻿
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ContractCampaign;
-using System.Collections.Generic;
 using BikewaleOpr.Entity.DealerCampaign;
+using System.Collections.Generic;
 namespace BikewaleOpr.Interface.ContractCampaign
 {
     /// <summary>

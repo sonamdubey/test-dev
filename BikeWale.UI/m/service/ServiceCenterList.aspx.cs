@@ -160,7 +160,7 @@ namespace Bikewale.Mobile.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterList.BindWidgets");
-                objErr.SendMail();
+                
 
             }
         }
@@ -189,7 +189,7 @@ namespace Bikewale.Mobile.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetCityNameByCityMaskingName");
-                objErr.SendMail();
+                
             }
         }
 
@@ -215,7 +215,7 @@ namespace Bikewale.Mobile.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeNameByMakeId");
-                objErr.SendMail();
+                
             }
         }
 
@@ -250,7 +250,7 @@ namespace Bikewale.Mobile.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindServiceCentersList : ");
-                objErr.SendMail();
+                
             }
         }
         /// <summary>
@@ -297,7 +297,7 @@ namespace Bikewale.Mobile.Service
                 catch (Exception ex)
                 {
                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeIdByMakeMaskingName");
-                    objErr.SendMail();
+                    
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
@@ -384,7 +384,7 @@ namespace Bikewale.Mobile.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, " : ProcessQueryString ");
-                objErr.SendMail();
+                
             }
             return isValidQueryString;
         }

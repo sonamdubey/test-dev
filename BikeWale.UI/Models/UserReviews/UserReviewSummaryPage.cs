@@ -77,7 +77,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewSummaryPage.GetData");
+                ErrorClass.LogError(ex, "UserReviewSummaryPage.GetData");
             }
             return objData;
         }

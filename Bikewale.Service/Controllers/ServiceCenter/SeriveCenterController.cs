@@ -38,8 +38,8 @@ namespace Bikewale.Service.Controllers.ServiceCenter
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.City.SeriveCenterController.Get");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "Bikewale.Service.Controllers.City.SeriveCenterController.Get");
+                   
                     return InternalServerError();
                 }
             }
@@ -66,8 +66,8 @@ namespace Bikewale.Service.Controllers.ServiceCenter
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Service.Controllers.City.SeriveCenterController.GetServiceCenterSMSData {0},{1}", id, mobile));
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controllers.City.SeriveCenterController.GetServiceCenterSMSData {0},{1}", id, mobile));
+                   
                     return InternalServerError();
                 }
             }

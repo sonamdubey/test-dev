@@ -1,10 +1,5 @@
-﻿using System;
+﻿using Bikewale.DTO.AutoBiz;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
-using Bikewale.DTO.AutoBiz;
 
 namespace BikeWale.DTO.AutoBiz
 {

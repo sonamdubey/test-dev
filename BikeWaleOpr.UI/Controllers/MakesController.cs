@@ -51,7 +51,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/Index");
+                ErrorClass.LogError(ex, "MakesController/Index");
             }
 
             return View(objMakes);
@@ -78,7 +78,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/Add");
+                ErrorClass.LogError(ex, "MakesController/Add");
             }
 
             return RedirectToAction("Index");
@@ -118,7 +118,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/Update");
+                ErrorClass.LogError(ex, "MakesController/Update");
             }
 
             return RedirectToAction("Index");
@@ -146,7 +146,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/Delete");
+                ErrorClass.LogError(ex, "MakesController/Delete");
             }
 
             return RedirectToAction("Index");

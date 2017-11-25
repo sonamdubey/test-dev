@@ -66,8 +66,8 @@ namespace Bikewale.MyBikeWale
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MyListing.GetListings()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "MyListing.GetListings()");
+                
             }
         }   // End of GetListings method
 

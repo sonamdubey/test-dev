@@ -1,18 +1,14 @@
-﻿using BikewaleOpr.BAL;
-using BikewaleOpr.Entity.ServiceCenter;
+﻿using BikewaleOpr.Entity.ServiceCenter;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ServiceCenter;
 using BikewaleOpr.Models.ServiceCenter;
 using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
 {
-     /// <summary>		
+    /// <summary>		
     /// Created By:-Snehal Dange 28 July 2017		
     /// Summary:- For service center details		
     /// </summary>

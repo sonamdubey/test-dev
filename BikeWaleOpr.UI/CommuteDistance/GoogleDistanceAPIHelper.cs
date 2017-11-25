@@ -133,8 +133,8 @@ namespace BikewaleOpr.CommuteDistance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetDistanceUsingArrayIndex");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetDistanceUsingArrayIndex");
+                
             }
             if (showShortedFirst)
             {
@@ -180,8 +180,8 @@ namespace BikewaleOpr.CommuteDistance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CallAPI");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CallAPI");
+                
             }
             return response;
         }

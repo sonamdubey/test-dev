@@ -117,7 +117,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterDetailsPage.BindDealersWidget()");
+                ErrorClass.LogError(ex, "ServiceCenterDetailsPage.BindDealersWidget()");
             }
         }
 

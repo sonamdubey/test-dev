@@ -59,7 +59,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewOtherDetailsPage.ParseQueryString()");
+                ErrorClass.LogError(ex, "UserReviewOtherDetailsPage.ParseQueryString()");
             }
         }
 
@@ -130,7 +130,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewOtherDetailsPage.GetData()");
+                ErrorClass.LogError(ex, "UserReviewOtherDetailsPage.GetData()");
             }
             return objPage;
         }

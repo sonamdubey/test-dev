@@ -44,7 +44,7 @@ namespace Bikewale.Service.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.SavePersonalDetails");
+                ErrorClass.LogError(ex, "Bikewale.Service.Controllers.SavePersonalDetails");
 
                 return InternalServerError();
             }
@@ -72,7 +72,7 @@ namespace Bikewale.Service.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.SaveEmployeDetails");
+                ErrorClass.LogError(ex, "Bikewale.Service.Controllers.SaveEmployeDetails");
 
                 return InternalServerError();
             }
@@ -102,7 +102,7 @@ namespace Bikewale.Service.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.Service.Controllers.FinanceController.SaveCapitalFirstVoucherDetails({0},{1})", ctLeadId, Newtonsoft.Json.JsonConvert.SerializeObject(voucher)));
+                    ErrorClass.LogError(ex, String.Format("Bikewale.Service.Controllers.FinanceController.SaveCapitalFirstVoucherDetails({0},{1})", ctLeadId, Newtonsoft.Json.JsonConvert.SerializeObject(voucher)));
                     return InternalServerError(new Exception("Server error has occured."));
                 }
             }
@@ -135,7 +135,7 @@ namespace Bikewale.Service.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.SavePersonalDetails");
+                ErrorClass.LogError(ex, "Bikewale.Service.Controllers.SavePersonalDetails");
 
                 return InternalServerError();
             }

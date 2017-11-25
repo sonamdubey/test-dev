@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.Comparison.Entities
+﻿namespace Bikewale.Comparison.Entities
 {
     /// <summary>
     /// Created by: Sangram Nandkhile 27-Jul-2017

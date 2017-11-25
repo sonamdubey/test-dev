@@ -1,6 +1,5 @@
 ﻿using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
-using System.Collections.Generic;
 using System.Linq;
 namespace BikewaleOpr.Models.ManufacturerCampaign
 {

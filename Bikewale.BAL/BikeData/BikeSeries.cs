@@ -1,7 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using System;
 using Bikewale.Notifications;
+using System;
 using System.Linq;
 
 namespace Bikewale.BAL.BikeData
@@ -46,7 +46,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetModelsListBySeries ModelId = {0} and SeriesId = {1}", modelId, seriesId));
+                ErrorClass.LogError(ex, string.Format("BAL.BikeData.BikeSeries.GetModelsListBySeries ModelId = {0} and SeriesId = {1}", modelId, seriesId));
             }
             return objModels;
         }

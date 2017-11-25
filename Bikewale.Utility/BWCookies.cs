@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.Customer;
-using RabbitMqPublishing.Common;
 using System;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -181,9 +180,9 @@ namespace Bikewale.Utility
                     SetCookie("_bwutmz", 180, string.Format("utmcsr={0}|utmgclid={1}|utmccn={2}|utmcmd={3}", utmcsr, utmgclid, utmccn, utmcmd)); //step 8. Set the BW source cookie with utmcsr=<value>|utmgclid=gclid|utmccn=<value>|utmcmd=<value> with a 6 month expiry
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWCookies.SetBWUtmz");
+                //
             }
         }
 

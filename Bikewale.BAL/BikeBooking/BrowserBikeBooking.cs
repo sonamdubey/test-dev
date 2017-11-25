@@ -6,10 +6,6 @@ using Carwale.Entity.PaymentGateway;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.BAL.BikeBooking
 {
@@ -56,8 +52,8 @@ namespace Bikewale.BAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Ex Bikewale.BAL.BikeBooking.BrowserBikeBooking.DoBookingEx");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Ex Bikewale.BAL.BikeBooking.BrowserBikeBooking.DoBookingEx");
+                
                 return BookingResults.GenericFailure;
             }
         }

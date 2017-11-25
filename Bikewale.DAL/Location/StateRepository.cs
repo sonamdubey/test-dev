@@ -52,8 +52,8 @@ namespace Bikewale.DAL.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return objStateList;
         }   // End of GetStates method
@@ -90,8 +90,8 @@ namespace Bikewale.DAL.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ht;
         }
@@ -139,8 +139,8 @@ namespace Bikewale.DAL.Location
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" :GetDealerStates, makeId = {0} ", makeId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" :GetDealerStates, makeId = {0} ", makeId));
+                
             }
             return objStateList;
         }
@@ -244,8 +244,8 @@ namespace Bikewale.DAL.Location
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format(" :GetDealerStates, makeId = {0} ", makeId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format(" :GetDealerStates, makeId = {0} ", makeId));
+                
             }
             return objStateCityList;
         }

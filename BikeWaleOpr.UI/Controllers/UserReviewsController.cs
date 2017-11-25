@@ -1,8 +1,8 @@
-﻿using System.Web.Mvc;
-using BikewaleOpr.Entity.UserReviews;
+﻿using BikewaleOpr.Entity.UserReviews;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.Models.UserReviews;
+using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
 {

@@ -168,7 +168,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ComparisonTestsIndexPage.GetWidgetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.ComparisonTestsIndexPage.GetWidgetData");
             }
         }
 

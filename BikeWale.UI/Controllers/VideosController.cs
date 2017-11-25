@@ -81,7 +81,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.Index");
+                ErrorClass.LogError(ex, "ServiceCentersController.Index");
                 return Redirect("/pagenotfound.aspx");
             }
         }
@@ -131,7 +131,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.Index_Mobile");
+                ErrorClass.LogError(ex, "ServiceCentersController.Index_Mobile");
                 return Redirect("/pagenotfound.aspx");
             }
         }
@@ -412,7 +412,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.Videos.ScooterVideos");
+                ErrorClass.LogError(ex, "Bikewale.Controllers.Videos.ScooterVideos");
 
             }
 
@@ -443,7 +443,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.Videos.ScooterVideos_Mobile");
+                ErrorClass.LogError(ex, "Bikewale.Controllers.Videos.ScooterVideos_Mobile");
 
             }
 

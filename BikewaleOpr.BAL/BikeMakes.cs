@@ -1,9 +1,9 @@
-﻿using BikewaleOpr.Entities.BikeData;
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
+using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using System;
 using System.Collections.Generic;
-using BikewaleOpr.Entity.BikeData;
 
 namespace BikewaleOpr.BAL
 {
@@ -38,7 +38,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-               ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeMakes.GetModelsByMake_{0}_{1}", requestType, makeId));
+               ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeMakes.GetModelsByMake_{0}_{1}", requestType, makeId));
             }
             return objBikeModelEntityBaseList;
         }
@@ -52,7 +52,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeMakes.GetMakes_{0}", requestType));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeMakes.GetMakes_{0}", requestType));
             }
             return objMakes;
         }

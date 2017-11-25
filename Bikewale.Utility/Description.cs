@@ -1,5 +1,4 @@
-﻿using RabbitMqPublishing.Common;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -47,7 +46,6 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("FormatDescription.TruncateDescription() => {0}", text));
                 return string.Empty;
             }
 

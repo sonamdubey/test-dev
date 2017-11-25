@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Bikewale.DTO.CMS.Articles;
 using Bikewale.DTO.CMS.Photos;
 using Bikewale.DTO.Make;
@@ -8,6 +7,7 @@ using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using System.Collections.Generic;
 
 namespace Bikewale.Automappers
 {

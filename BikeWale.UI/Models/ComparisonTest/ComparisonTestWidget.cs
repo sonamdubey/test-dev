@@ -39,7 +39,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ComparisonTestWidget.GetData()");
+                ErrorClass.LogError(ex, "Bikewale.Models.ComparisonTestWidget.GetData()");
             }
             return ArticlesList;
         }

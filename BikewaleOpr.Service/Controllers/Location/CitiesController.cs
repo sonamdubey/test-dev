@@ -43,7 +43,7 @@ namespace BikewaleOpr.Service.Controllers.Location
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("GetCitiesByState stateId={0}", stateId));
+                    ErrorClass.LogError(ex, string.Format("GetCitiesByState stateId={0}", stateId));
                 }
                 if (cityDtos != null)
                     return Ok(cityDtos);

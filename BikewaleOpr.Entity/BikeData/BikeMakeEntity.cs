@@ -1,5 +1,4 @@
-﻿
-namespace BikewaleOpr.Entities.BikeData
+﻿namespace BikewaleOpr.Entities.BikeData
 {
     /// <summary>
     /// Modified by : Aditi  Srivastava on 24 May 2017

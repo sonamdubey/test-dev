@@ -66,8 +66,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.City.PQCityListController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.City.PQCityListController.Get");
+               
                 return InternalServerError();
             }
         }
@@ -105,8 +105,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.City.PQCityListController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.City.PQCityListController.Get");
+               
                 return InternalServerError();
             }
         }

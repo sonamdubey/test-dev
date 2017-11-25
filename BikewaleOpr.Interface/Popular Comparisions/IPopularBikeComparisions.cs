@@ -1,7 +1,7 @@
 ﻿
 using BikewaleOpr.Entities.PopularComparisions;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 namespace BikewaleOpr.Interface.PopularComparisions
 {
     /// <summary>

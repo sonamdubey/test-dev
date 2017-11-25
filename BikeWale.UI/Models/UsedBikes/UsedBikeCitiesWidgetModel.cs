@@ -40,7 +40,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "UsedBikeCitiesWidgetModel.GetData()");
+                ErrorClass.LogError(ex, "UsedBikeCitiesWidgetModel.GetData()");
             }
             return objData;
         }

@@ -68,8 +68,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.Campaign.MapCampaign.SaveContractDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(dealerContract)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("BikewaleOpr.Campaign.MapCampaign.SaveContractDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(dealerContract)));
+                
             }
         }
 
@@ -108,8 +108,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.MapCampaign.LoadCampaignForContract");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.MapCampaign.LoadCampaignForContract");
+                
             }
         }
 
@@ -185,8 +185,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.MapCampaign.ParseQueryString");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.MapCampaign.ParseQueryString");
+                
             }
             finally
             {

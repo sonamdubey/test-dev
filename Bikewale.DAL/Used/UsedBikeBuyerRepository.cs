@@ -40,8 +40,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "UsedBikeBuyerRepository.IsBuyerEligible");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "UsedBikeBuyerRepository.IsBuyerEligible");
+                
             }
             return status;
         }
@@ -74,8 +74,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("UploadPhotosRequest({0},{1},{2},{3})", sellInquiryId, buyerId, consumerType, buyerMessage));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("UploadPhotosRequest({0},{1},{2},{3})", sellInquiryId, buyerId, consumerType, buyerMessage));
+                
             }
             return isDone;
         }
@@ -120,8 +120,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("HasShownInterestInUsedBike({0},{1},{2})", isDealer, inquiryId, buyerId));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("HasShownInterestInUsedBike({0},{1},{2})", isDealer, inquiryId, buyerId));
+                
             }
             return shownInterest;
         }
@@ -162,8 +162,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("IsPhotoRequestDone({0},{1},{2})", sellInquiryId, buyerId, isDealer));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("IsPhotoRequestDone({0},{1},{2})", sellInquiryId, buyerId, isDealer));
+                
             }
 
             return isDone;

@@ -1,11 +1,6 @@
-﻿using Bikewale.Notifications.NotificationDAL;
-using Bikewale.Entities.BikeData;
-using System;
+﻿using BikewaleOpr.Entities.BikeData;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using BikewaleOpr.Entities.BikeData;
 
 namespace Bikewale.Notifications.MailTemplates
 {

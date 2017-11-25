@@ -42,7 +42,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.ManageBookingAmountPage Dealer Id {0}", dealerId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.ManageBookingAmountPage Dealer Id {0}", dealerId));
             }
             return objManageBookingAmountData;
         }
@@ -82,7 +82,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.ManageBookingAmountPage.AddBookingAmount");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.ManageBookingAmountPage.AddBookingAmount");
             }
             return isUpdated;
         }

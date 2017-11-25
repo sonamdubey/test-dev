@@ -93,8 +93,8 @@ namespace Bikewale.Users
                     catch (Exception ex)
                     {
                         HttpContext.Current.Trace.Warn("can not decr" + ex.Message);
-                        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                        objErr.SendMail();
+                        ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                        
 
                         divErrMsg.InnerText = "You are not authorized to reset the password.";
                         divErrMsg.Visible = true;
@@ -103,8 +103,8 @@ namespace Bikewale.Users
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    
                 }
             }
         }   // End of ValidateToken method

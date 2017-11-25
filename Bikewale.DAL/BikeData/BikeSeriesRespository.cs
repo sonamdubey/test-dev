@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Images;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
-using System.Data;
-using Bikewale.DAL.CoreDAL;
 using Dapper;
-using Bikewale.Entities.Images;
+using System;
+using System.Data;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -59,7 +59,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetModelsListBySeriesId SeriesId = {0}", seriesId));
+                ErrorClass.LogError(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetModelsListBySeriesId SeriesId = {0}", seriesId));
             }
             return objBikeSeriesModels;
         }   // end of GetModelsListBySeriesId

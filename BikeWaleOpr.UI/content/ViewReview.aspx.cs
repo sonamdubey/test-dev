@@ -1,17 +1,13 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using BikeWaleOpr.Common;
-using System.Configuration;
+﻿using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
-using System.Data.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -124,14 +120,14 @@ namespace BikeWaleOpr.Content
                 catch (SqlException ex)
                 {
                     Trace.Warn("UserReviews.detailreview Sql Ex : ", ex.Message);
-                    ErrorClass objErr = new ErrorClass(ex, "UserReviews.detailreview");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "UserReviews.detailreview");
+                    
                 }
                 catch (Exception ex)
                 {
                     Trace.Warn("UserReviews.detailreview Ex : ", ex.Message);
-                    ErrorClass objErr = new ErrorClass(ex, "UserReviews.detailreview");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "UserReviews.detailreview");
+                    
                 }
             }
         }   // End of detailreview function
@@ -184,14 +180,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 Trace.Warn("UserReviews.UpdateReview Sql Ex : ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "UserReviews.UpdateReview");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "UserReviews.UpdateReview");
+                
             }
             catch (Exception ex)
             {
                 Trace.Warn("UserReviews.UpdateReview Ex : ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "UserReviews.UpdateReview");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "UserReviews.UpdateReview");
+                
             }
             detailreview();
         }   // End of UpdateReview method

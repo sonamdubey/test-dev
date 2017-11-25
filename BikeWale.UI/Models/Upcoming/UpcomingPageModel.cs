@@ -103,7 +103,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.GetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.UpcomingPageModel.GetData");
             }
             return objUpcoming;
         }
@@ -133,7 +133,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.BindPageMetaTags");
+                ErrorClass.LogError(ex, "Bikewale.Models.UpcomingPageModel.BindPageMetaTags");
             }
         }
 

@@ -1,13 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.ManufacturerCampaign.DTO.SearchCampaign
 {
-   public class ManufacturerCampaignDetailsDTO
+    public class ManufacturerCampaignDetailsDTO
     {
         [JsonProperty("id")]
         public uint Id { get; set; }

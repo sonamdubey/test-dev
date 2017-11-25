@@ -43,8 +43,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakesByType");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetMakesByType");
+               
             }
             return makes;
         }
@@ -65,8 +65,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetDiscontinuedBikeModelsByMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetDiscontinuedBikeModelsByMake");
+               
             }
             return bikes;
         }
@@ -87,8 +87,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakeDescription");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetMakeDescription");
+               
             }
             return objMakeDesc;
         }
@@ -111,8 +111,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakeDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetMakeDetails");
+               
             }
             return objMakeDetails;
         }
@@ -132,8 +132,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakeDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetMakeDetails");
+               
             }
             return makeModels;
         }
@@ -185,8 +185,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetMakeMaskingResponse({0})", maskingName));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("GetMakeMaskingResponse({0})", maskingName));
+               
             }
             return response;
         }
@@ -205,7 +205,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetScooterMakes");
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetScooterMakes");
             }
             return makes;
         }
@@ -223,7 +223,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetScooterMakeDescription MakeId : {0}", makeId));
+                ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetScooterMakeDescription MakeId : {0}", makeId));
             }
             return scooterDesc;
         }

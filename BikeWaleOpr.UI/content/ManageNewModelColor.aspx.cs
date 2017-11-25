@@ -4,8 +4,6 @@ using BikeWaleOpr.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -61,8 +59,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
                 spnError.InnerHtml = "<b>Error occured while saving the new color hex code.</b>";
             }
             if (isSaved)
@@ -97,8 +95,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
                 spnError.InnerHtml = "<b>Error occured while saving the new color hex code.</b>";
             }
             if (isSaved)
@@ -148,8 +146,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
     }

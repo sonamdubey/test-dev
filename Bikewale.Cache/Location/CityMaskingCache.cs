@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Location;
+﻿using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
+using System;
+using System.Collections;
 
 namespace Bikewale.Cache.Location
 {
@@ -66,8 +62,8 @@ namespace Bikewale.Cache.Location
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CityMaskingCache.GetCityMaskingResponse");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CityMaskingCache.GetCityMaskingResponse");
+                
             }
 
             return response;

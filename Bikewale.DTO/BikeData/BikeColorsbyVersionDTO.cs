@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace Bikewale.DTO.BikeData
 {
@@ -10,7 +8,7 @@ namespace Bikewale.DTO.BikeData
     /// Description: list of all colors by version
     /// </summary>
     /// BikeColorsbyVersionsDTO
-    
+
     public class BikeColorsbyVersionDTO
     {
         [JsonProperty("colors")]

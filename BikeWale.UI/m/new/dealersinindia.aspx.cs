@@ -124,7 +124,7 @@ namespace Bikewale.Mobile.New
                 catch (Exception ex)
                 {
                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                    objErr.SendMail();
+                    
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
@@ -212,8 +212,8 @@ namespace Bikewale.Mobile.New
                 catch (Exception ex)
                 {
                     Trace.Warn(ex.Message);
-                    ErrorClass objErr = new ErrorClass(ex, "checkDealersForMakeCity");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "checkDealersForMakeCity");
+                    
                 }
             }
             return false;

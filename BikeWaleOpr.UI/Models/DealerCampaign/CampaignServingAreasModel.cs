@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using BikewaleOpr.Entities;
+﻿using Bikewale.Utility;
 using BikewaleOpr.Entity.DealerCampaign;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Location;
-using Bikewale.Utility;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BikewaleOpr.Models.DealerCampaign
 {

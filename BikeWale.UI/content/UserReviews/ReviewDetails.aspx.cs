@@ -60,7 +60,7 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
             }
             finally
             {

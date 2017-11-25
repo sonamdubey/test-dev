@@ -61,8 +61,8 @@ namespace Bikewale.Mobile.Insurance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Insurance.Default.GetCities");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Insurance.Default.GetCities");
+                
             }
         }
 
@@ -86,8 +86,8 @@ namespace Bikewale.Mobile.Insurance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Insurance.Default.GetMakes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Insurance.Default.GetMakes");
+                
             }
         }       
 

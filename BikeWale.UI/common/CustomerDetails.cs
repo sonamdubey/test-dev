@@ -93,14 +93,14 @@ namespace Bikewale.Common
             catch (SqlException err)
             {
                 HttpContext.Current.Trace.Warn("Common.CustomerDetails : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.CustomerDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.CustomerDetails");
+                
             } // catch SqlException
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.CustomerDetails : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.CustomerDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.CustomerDetails");
+                
             } // catch Exception
 
         } // SaveData
@@ -411,8 +411,8 @@ namespace Bikewale.Common
         public static bool IsValidEmailId(string emailId)
         {
 
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "CustomerDetails.IsValidEmailId");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "CustomerDetails.IsValidEmailId");
+            
             return false;
 
             //SqlDataReader dr = null;
@@ -434,8 +434,8 @@ namespace Bikewale.Common
             //catch (Exception err)
             //{
             //    HttpContext.Current.Trace.Warn("Common.IsValidEmailId : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, "Common.IsValidEmailId");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "Common.IsValidEmailId");
+            //    
             //} // catch Exception
             //finally
             //{
@@ -474,8 +474,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.GetCustomerIdFromEmail : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.GetCustomerIdFromEmail");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.GetCustomerIdFromEmail");
+                
             } // catch Exception
 
             return id;

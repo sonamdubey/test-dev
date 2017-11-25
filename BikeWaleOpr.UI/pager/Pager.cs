@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BikeWaleOpr.Common;
 using BikeWaleOpr.Entities.Pager;
 using BikeWaleOpr.Interfaces.Pager;
-using BikeWaleOpr.Common;
+using System;
+using System.Collections.Generic;
 
 namespace BikeWaleOpr.BAL.Pager
 {
@@ -86,8 +85,8 @@ namespace BikeWaleOpr.BAL.Pager
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Pager Class Error. GetPager");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Pager Class Error. GetPager");
+                
             }
 
             t.PagesDetail = results;

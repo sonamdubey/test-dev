@@ -31,8 +31,8 @@ namespace BikeWaleOpr
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "ReviewDetail.SetIsReviewed");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ReviewDetail.SetIsReviewed");
+                
             }
         }
 
@@ -56,8 +56,8 @@ namespace BikeWaleOpr
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "ReviewDetail.SetIsDiscarded");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ReviewDetail.SetIsDiscarded");
+                
             }
         }
     }

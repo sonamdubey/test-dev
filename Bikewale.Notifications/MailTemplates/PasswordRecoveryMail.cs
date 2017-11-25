@@ -48,7 +48,6 @@ namespace Bikewale.Notifications.MailTemplates
             catch (Exception err)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.Notification.PasswordRecoveryMail.ComposeBody");
-                objErr.SendMail();
             } // catch Exception
         }
 

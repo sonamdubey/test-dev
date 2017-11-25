@@ -1,14 +1,10 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Common
 {
@@ -49,8 +45,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageBikeAvailbilityByColor.GetModelIdForVersion");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageBikeAvailbilityByColor.GetModelIdForVersion");
+                
             }
 
             return modelId;
@@ -94,8 +90,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageBikeAvailbilityByColor.FetchVersionColorsWithAvailability");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageBikeAvailbilityByColor.FetchVersionColorsWithAvailability");
+                
             }
             return versionColors;
         }
@@ -125,8 +121,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageBikeAvailbilityByColor.UpdateBikeAvailabilityByColor");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageBikeAvailbilityByColor.UpdateBikeAvailabilityByColor");
+                
             }
             return isSaved;
         }
