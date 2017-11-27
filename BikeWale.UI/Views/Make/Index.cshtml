@@ -353,21 +353,6 @@
     }
 </section>
 
-@if (Model.IsFooterDescriptionAvailable)
-{
-    <!-- Footer widget starts here-->
-    <section>
-        <div class="container">
-            <div class="grid-12">
-                @Html.Partial("~/Views/Make/MakeFooterCategoriesandPrice.cshtml", Model.SubFooter)
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-
-    <!-- Footer widget ends-->
-}
-
 
 @if (Model.IsDiscontinuedBikeAvailable)
 {
@@ -393,3 +378,19 @@
         </div>
     </section>
 }
+
+@if (Model.IsFooterDescriptionAvailable)
+{
+    <!-- Footer widget starts here-->
+    <section>
+        <div class="container">
+            <div class="grid-12">
+                @Html.Partial("~/Views/Make/MakeFooterCategoriesandPrice.cshtml", Model.SubFooter)
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <!-- Footer widget ends-->
+}
+
