@@ -664,7 +664,7 @@ namespace Bikewale.Models
                         objVM.Page_H1 = String.Format("{0} price in {1}", objVM.BikeName, objVM.CityEntity.CityName);
 
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
-
+                        BuildPageMetas(objVM);
                         BindManufacturerLeadAdAMP(objVM);
 
 
@@ -746,7 +746,7 @@ namespace Bikewale.Models
                                                priceInCityAMPVM.LeadCampaign.CampaignId, priceInCityAMPVM.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), priceInCityAMPVM.LeadCampaign.PopupHeading,
                                                String.Format(priceInCityAMPVM.LeadCampaign.PopupSuccessMessage, priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.PopupDescription,
                                                priceInCityAMPVM.LeadCampaign.PincodeRequired, priceInCityAMPVM.LeadCampaign.EmailRequired, priceInCityAMPVM.LeadCampaign.DealerRequired,
-                                               priceInCityAMPVM.PageMetaTags.AlternateUrl));
+                                               string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName)));
 
                         str = str.ReplaceHref("leadcapturebtn", url);
 
@@ -1325,7 +1325,7 @@ namespace Bikewale.Models
 
 
                         objData.IsManufacturerLeadAdShown = true;
-                        objData.LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}", objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty, objData.IsManufacturerLeadAdShown, objData.LeadCampaign.DealerId, String.Format(objData.LeadCampaign.LeadsPropertyTextMobile, objData.LeadCampaign.Organization), objData.LeadCampaign.Area, objData.VersionId, objData.LeadCampaign.LeadSourceId, objData.LeadCampaign.PqSourceId, objData.LeadCampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.LeadCampaign.PopupHeading, String.Format(objData.LeadCampaign.PopupSuccessMessage, objData.LeadCampaign.Organization), objData.LeadCampaign.PopupDescription, objData.LeadCampaign.PincodeRequired, objData.LeadCampaign.EmailRequired, objData.LeadCampaign.DealerRequired, objData.PageMetaTags.AlternateUrl)));
+                        objData.LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}", objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty, objData.IsManufacturerLeadAdShown, objData.LeadCampaign.DealerId, String.Format(objData.LeadCampaign.LeadsPropertyTextMobile, objData.LeadCampaign.Organization), objData.LeadCampaign.Area, objData.VersionId, objData.LeadCampaign.LeadSourceId, objData.LeadCampaign.PqSourceId, objData.LeadCampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.LeadCampaign.PopupHeading, String.Format(objData.LeadCampaign.PopupSuccessMessage, objData.LeadCampaign.Organization), objData.LeadCampaign.PopupDescription, objData.LeadCampaign.PincodeRequired, objData.LeadCampaign.EmailRequired, objData.LeadCampaign.DealerRequired, string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName))));
                     }
                     if (campaigns.EMICampaign != null)
                     {
