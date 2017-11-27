@@ -5,7 +5,6 @@
 @if (Model != null && Model.Any())
 {
     string imageSrc, bikeList, url, cardTitle;
-    imageSrc = bikeList = url = cardTitle = null;
 
     switch (Model.First().CurrentPage)
     {
@@ -32,6 +31,12 @@
             imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/sports-style-thumb.jpg?05042017&q=75";
             url = "/best-sports-bikes-in-india/";
             cardTitle = "Top 10 sports bikes in India";
+            break;
+            
+        default:
+            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/best-bikes-thumb.jpg?05042017&q=75";
+            url = "/best-bikes-in-india/";
+            cardTitle = "Top 10 bikes in India";
             break;
 
     }
@@ -77,7 +82,7 @@
     <!-- Code for last creative card added -->
     <div class="swiper-slide">
         <div class="swiper-card">
-            <a href=@url title="@cardTitle" class="block swiper-card-target">
+            <a href="@string.Format("/m{0}",url)"  title="@cardTitle" class="block swiper-card-target">
                 <div class="swiper-image-preview">
                     <img class="swiper-lazy" data-src=@imageSrc alt="@cardTitle" src="" />
                     <span class="swiper-lazy-preloader"></span>

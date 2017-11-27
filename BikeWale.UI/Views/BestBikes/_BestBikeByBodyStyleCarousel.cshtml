@@ -5,7 +5,6 @@
 @if (Model != null && Model.Any())
 {
     string imageSrc, bikeList, url, cardTitle;
-    imageSrc = bikeList = url = cardTitle = null;
 
     switch (Model.First().CurrentPage)
     {
@@ -33,7 +32,12 @@
             url = "/best-sports-bikes-in-india/";
             cardTitle = "Top 10 sports bikes in India";
             break;
-
+            
+        default :
+               imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/best-bikes-thumb.jpg?05042017&q=75";
+               url = "/best-bikes-in-india/";
+               cardTitle = "Top 10 bikes in India";
+               break;
     }
     bikeList = String.Join(", ", Model.Select(x => x.Model.ModelName));
 
