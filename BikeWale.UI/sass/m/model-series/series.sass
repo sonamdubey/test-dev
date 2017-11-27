@@ -5,9 +5,6 @@
 @for $i from 1 through 5
 	@include rating-badge($i)
 
-.padding-15
-	padding: 15px
-
 .font-bold
 	font-weight: 600
 	
@@ -53,17 +50,13 @@
 		bottom: 15px
 		right: 20px
 
-
 .main-series-model
 	.truncatable-content
 		&[data-readtextflag='0']
     			max-height: initial
 			
 		&[data-readtextflag='1']
-    			max-height: 90px
-
-
-		 
+    			max-height: 90px		 
 
 .star-white
     width: 12px
@@ -87,7 +80,6 @@
 .bw-model-tabs-data
 	.btn-inv-blue
 		width: 100%
-
 	
 @import ../../partials/model-card
 @import ../../partials/comparision-swiper

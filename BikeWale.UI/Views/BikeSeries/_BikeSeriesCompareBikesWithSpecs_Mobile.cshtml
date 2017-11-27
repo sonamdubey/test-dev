@@ -60,56 +60,57 @@
             @{uint index = 1;}
             @foreach (var bike in Model.BikeSeriesCompareBikeWithSpecs)
 {
-    <div class="swiper-slide rightbike__swiper-card @string.Format("{0}",index==1?"featured-card":"")" data-model-index="@index">
-        <div class="rightbike-carousel__model-card">
-            <div class="rightbike-carousel__image">
-                <img class="swiper-lazy" alt="@bike.ModelName" title="@bike.ModelName" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._70)" src="" />
+    <div class="swiper-slide">
+        <div class="rightbike__swiper-card @string.Format("{0}",index==1?"featured-card":"")" data-model-index="@index">
+            <a href="" title="" class="rightbike-carousel__model-card">
+                <div class="rightbike-carousel__image">
+                    <img class="swiper-lazy" alt="@bike.ModelName" title="@bike.ModelName" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._70)" src="" />
+                </div>
+                <p class="rightbike-caraousel__label">
+                    @bike.ModelName
+                </p>
+                @if (index == 1)
+                {
+                    <span class="popular-tag recommended-tag">Most Popular</span>
+                }
+                else
+                {
+                    <span class="recommended-tag"></span>
+                }
+
+            </a>
+            <div class="right-bike__desc">
+                <span class="right-bike__label">
+                    @string.Format("{0}", bike.Price > 0 ? string.Format("₹ {0}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))) : "--")
+                </span>
+                <span class="right-bike__label">
+                    @string.Format("{0}", bike.Displacement > 0 ? string.Format("{0} cc", bike.Displacement) : "--")
+                </span>
+                <span class="right-bike__label">
+                    @string.Format("{0}", bike.Weight > 0 ? string.Format("{0} kgs", bike.Weight) : "--")
+
+                </span>
+                <span class="right-bike__label">
+                    @string.Format("{0}", bike.FuelCapacity > 0 ? string.Format("{0} Litres", bike.FuelCapacity) : "--")
+                </span>
+                <span class="right-bike__label">
+                    @string.Format("{0}", bike.Mileage > 0 ? string.Format("{0} kmpl", bike.Mileage) : "--")
+                </span>
+                <span class="right-bike__label">
+                    @string.Format("{0}", bike.SeatHeight > 0 ? string.Format("{0} mm", bike.SeatHeight) : "--")
+                </span>
+                <span class="right-bike__label">
+                    @string.Format("{0}", !string.IsNullOrEmpty(bike.BrakeType) ? bike.BrakeType : "--")
+                </span>
+                <span class="right-bike__label">
+                    @string.Format("{0}", bike.Gears > 0 ? Convert.ToString(bike.Gears) : "--")
+                </span>
+                <span class="right-bike__label">
+                    @string.Format("{0} bhp", Bikewale.Utility.FormatMinSpecs.ShowAvailable((float)bike.MaxPower))
+                    <span class="right-bike__sub-label">@string.Format("{0}", bike.MaxPowerRpm > 0 ? string.Format("@{0} rpm", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.MaxPowerRpm))) : "--")</span>
+                </span>
             </div>
-            <p class="rightbike-caraousel__label">
-                @bike.ModelName
-            </p>
-            @if (index == 1)
-            {
-                <span class="popular-tag recommended-tag">Most Popular</span>
-            }
-            else
-            {
-                <span class="recommended-tag"></span>
-            }
-
         </div>
-        <div class="right-bike__desc">
-            <span class="right-bike__label">
-                @string.Format("{0}", bike.Price > 0 ? string.Format("₹ {0}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))) : "--")
-            </span>
-            <span class="right-bike__label">
-                @string.Format("{0}", bike.Displacement > 0 ? string.Format("{0} cc", bike.Displacement) : "--")
-            </span>
-            <span class="right-bike__label">
-                @string.Format("{0}", bike.Weight > 0 ? string.Format("{0} kgs", bike.Weight) : "--")
-
-            </span>
-            <span class="right-bike__label">
-                @string.Format("{0}", bike.FuelCapacity > 0 ? string.Format("{0} Litres", bike.FuelCapacity) : "--")
-            </span>
-            <span class="right-bike__label">
-                @string.Format("{0}", bike.Mileage > 0 ? string.Format("{0} kmpl", bike.Mileage) : "--")
-            </span>
-            <span class="right-bike__label">
-                @string.Format("{0}", bike.SeatHeight > 0 ? string.Format("{0} mm", bike.SeatHeight) : "--")
-            </span>
-            <span class="right-bike__label">
-                @string.Format("{0}", !string.IsNullOrEmpty(bike.BrakeType) ? bike.BrakeType : "--")
-            </span>
-            <span class="right-bike__label">
-                @string.Format("{0}", bike.Gears > 0 ? Convert.ToString(bike.Gears) : "--")
-            </span>
-            <span class="right-bike__label">
-                @string.Format("{0} bhp", Bikewale.Utility.FormatMinSpecs.ShowAvailable((float)bike.MaxPower))
-                <span class="right-bike__sub-label">@string.Format("{0}", bike.MaxPowerRpm > 0 ? string.Format("@{0} rpm", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.MaxPowerRpm))) : "--")</span>
-            </span>
-        </div>
-
     </div>
             index++;
 }

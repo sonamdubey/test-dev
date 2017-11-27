@@ -44,8 +44,9 @@
                 @{uint index = 1;}
                 @foreach (var bike in Model.BikeSeriesCompareBikeWithSpecs)
 {
-    <li class="rightbike__swiper-card @string.Format("{0}",index==1?"featured-card":"")" data-model-index="@index">
-        <div class="rightbike-carousel__model-card">
+    <li>
+        <div class="rightbike__swiper-card @string.Format("{0}",index==1?"featured-card":"")" data-model-index="@index">
+        <a href="" title="" class="rightbike-carousel__model-card">
             <div class="rightbike-carousel__image">
                 <img class="lazy" alt="@bike.ModelName" title="@bike.ModelName" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._70)" src="" border="0" />
             </div>
@@ -61,8 +62,7 @@
                 <span class="recommended-tag"></span>
             }
 
-        </div>
-        @*<div class="right-bike__desc @string.Format("{0}",index==1?"featured-card":"")">*@
+        </a>
         <div class="right-bike__desc">
             <span class="right-bike__label">
                 @string.Format("{0}", bike.Displacement > 0 ? string.Format("₹ {0}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))) : "--")
@@ -93,6 +93,7 @@
                 <span class="right-bike__sub-label">@string.Format("{0}", bike.MaxPowerRpm > 0 ? string.Format("@{0} rpm", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.MaxPowerRpm))) : "--")</span>
             </span>
         </div>
+            </div>
     </li>
             index++;
 }

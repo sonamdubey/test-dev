@@ -1,7 +1,9 @@
-@mixin model-specs-tabs($height: 40px)
+@mixin model-specs-tabs($height: 40px, $margin-bottom: 20px)
 	.model-specs-tabs
 		height: $height
 		position: relative
+		margin-bottom: $margin-bottom
+
 		
 .right-bike__desc
 	border: 1px solid transparent
@@ -61,8 +63,17 @@
 	.rightbike-carousel__model-card
 		width: $width
 		height: $height
-		padding-top: 15px
-		padding-bottom: 15px
+		margin-top: 15px
+		margin-bottom: 15px
+		display: block
+		color: #4d5057
+
+		&:hover
+			text-decoration: none
+
+			.rightbike-caraousel__label
+				text-decoration: underline
+
 
 @mixin rightbike-carousel__tags($font-size: 10, $color1: #787878, $color2: #ff7c6f)
 	.featured-card
@@ -106,18 +117,22 @@
 				left: 242px
 
 		.jcarousel
-			.rightbike__swiper-card
+			li
 				width: 167px
-				-webkit-box-shadow: none
-				-moz-box-shadow: none
-				box-shadow: none
-				border-color: transparent
+
+				&:last-child
+					.rightbike__swiper-card		
+						margin-right: 20px
+
 		.jcarousel-control-left
 			z-index: 2
 			left: 270px
 			top: 50%
 		.jcarousel-control-right
-			top: 50%			
+			top: 50%	
+			
+		.rightbike__swiper-card
+			border-color: transparent		
 								
 	.rightbike__swiper-card
 		&.right-bike__swiper-keys
@@ -141,15 +156,11 @@
 				
 			.right-bike__label
 				font-weight: 400
-				font-size: 12px
 
 		.jcarousel
 			width: auto
 			left: 0
-
-		
-
-				
+							
 	.right-bike__desc
 		position: relative
 		font-size: 11px
@@ -163,7 +174,7 @@
 			white-space: nowrap
 			overflow: hidden
 			font-weight: 600
-			font-size: 14px
+			font-size: 12px
 			min-height: 40px
 		.right-bike__desc
 			font-size: 14px

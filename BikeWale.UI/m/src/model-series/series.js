@@ -5,15 +5,15 @@ docReady(function () {
     $('.find-specs-tabs-wrapper .specs-btn').on('click', function () {
 
         var specBtn = $(this).attr('data-swipe');
-        var swiperSlide = $('#rightBikeSwiper').find('.swiper-slide[data-model-index="' + specBtn + '"]');
-        var indexOfSlide = swiperSlide.index();
+        var swiperSlide = $('#rightBikeSwiper').find('.rightbike__swiper-card[data-model-index="' + specBtn + '"]');
+        var indexOfSlide = swiperSlide.closest('.swiper-slide').index();
 
         $(this).closest('.find-specs-tabs-wrapper').find('.active').removeClass('active');
         $(this).addClass('active');
         $('html, body').animate({ scrollTop: $('.find-right-bike').offset().top - 20 }, 1000);
         if (indexOfSlide >= 0)
         {
-            var tag = $('#rightBikeSwiper').find('.swiper-slide .recommended-tag:not(.popular-tag)');
+            var tag = $('#rightBikeSwiper').find('.rightbike__swiper-card .recommended-tag:not(.popular-tag)');
             var popTag = $('#rightBikeSwiper').find('.rightbike__swiper-card .popular-tag.recommended-tag');
 
             tag.text('');
@@ -29,7 +29,7 @@ docReady(function () {
                 popTag.text('Most Popular');
             }
             $('.right-bike-swiper.swiper-container').data('swiper').slideTo(indexOfSlide, 1000, false);
-			$('#rightBikeSwiper').find('.swiper-slide.featured-card').removeClass('featured-card');
+			$('#rightBikeSwiper').find('.rightbike__swiper-card.featured-card').removeClass('featured-card');
 			swiperSlide.addClass('featured-card');
 			centerItVariableWidth($(this).closest('li'), '.find-specs__tabs-container');
 

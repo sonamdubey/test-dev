@@ -11,7 +11,7 @@
                 string bike2 = string.Format("{0}", bikedetails.Model2);
 
                 <li>
-                    <a href="@string.Format("/{0}",Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMasking1, bikedetails.MakeMasking2, bikedetails.ModelMasking2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2),bikedetails.ModelId1,bikedetails.ModelId2, Model.CompareSource))" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)" class="card-target">
+                    <a href="@string.Format("/{0}",Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMasking1, bikedetails.MakeMasking2, bikedetails.ModelMasking2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2),bikedetails.ModelId1,bikedetails.ModelId2, Model.CompareSource))" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)" class="card-target carousel-card">
                         <h4 class="carousel-card__label"> @string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2) </h4>
                         <div class="grid-6">
                             <div class="compare-img">
