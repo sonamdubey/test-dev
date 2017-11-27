@@ -155,9 +155,9 @@
             <div class="padding-right20 padding-left20">
 				@if (Model.BikeMake != null && Model.SeriesBase != null)
 				{
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2>@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesDescription.Name)  Used Bikes</h2>
-                </div>
+					<div class="swiper-heading-left-grid inline-block">
+						<h2>@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)  Used Bikes</h2>
+					</div>
 				}
 				
                 <div class="clear"></div>
