@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -5,8 +7,6 @@ using EditCMSWindowsService.Messages;
 using Grpc.Core;
 using GRPCLoadBalancer;
 using log4net;
-using System;
-using System.Diagnostics;
 
 namespace Grpc.CMS
 {
@@ -162,6 +162,8 @@ namespace Grpc.CMS
         /// <summary>
         /// Created By  : Sushil Kumar on 22nd Sep 2017
         /// Description : Addded new overload method to fetch data according to categorylist with multiple model ids 
+        /// Modified By : Vivek Singh Tomar on 27th Nov 2017
+        /// Description : Added model ids as parameter in the grpc call
         /// </summary>
         /// <param name="catIdList"></param>
         /// <param name="startIdx"></param>
@@ -193,7 +195,7 @@ namespace Grpc.CMS
                                 CategoryIdList = catIdList,
                                 EndIndex = endIdx,
                                 MakeId = makeid,
-                                //ModelIds = modelIds,
+                                ModelIds = modelIds,
                                 StartIndex = startIdx
                             },
                           null, GetForwardTime(m_ChanelWaitTime));
