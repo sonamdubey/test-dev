@@ -5,21 +5,28 @@
 {
 
     var make = Model.Make != null ? Model.Make.MakeName : "";
-
+    int showLength =0;
     <div class="content-inner-block-20 margin-bottom20 font14 make-subfooter">
         @if (Model.FooterContent.FooterDescription != null && Model.FooterContent.FooterDescription.Any())
         {
-            <div class="grid-6 alpha">
+            <div class="grid-7 alpha">
                 <h2 class="make-price-table__title margin-bottom10">About @make</h2>
                 <div class="about-make foldable-content" data-toggle="yes">
                     <div class="truncatable-content">
+
                         @foreach (var obj in Model.FooterContent.FooterDescription)
                         {
                             <span class="about-make__list-title">@obj.CategoryName</span>
                             <p class="about-make__list-desc"> @obj.CategoryDescription</p>
+                            showLength = showLength + obj.CategoryDescription.Length;
                         }
                     </div>
-                    <a href="javascript:void(0)" class="read-more-button" rel="nofollow">Read more</a>
+                    
+                    @if (showLength > 758)
+                    {
+                        <a href="javascript:void(0)" class="read-more-button" rel="nofollow">Read more</a>
+                    }
+                   
 
                 </div>
             </div>
@@ -27,7 +34,7 @@
 
         @if (Model.FooterContent.ModelPriceList != null && Model.FooterContent.ModelPriceList.Any())
         {
-            <div class="grid-6 omega">
+            <div class="grid-5 omega">
                 <div class="make-price foldable-content" data-toggle="yes">
                     <div class="truncatable-content">
                         <table class="make-price-table">
@@ -61,7 +68,11 @@
                             </tbody>
                         </table>
                     </div>
-                    <a href="javascript:void(0)" class="read-more-button" rel="nofollow">More bikes</a>
+                    @if (Model.FooterContent.ModelPriceList.Count() > 6)
+                    {
+                        <a href="javascript:void(0)" class="read-more-button" rel="nofollow">More bikes</a>
+                    }
+                   
                 </div>
             </div>
         }
