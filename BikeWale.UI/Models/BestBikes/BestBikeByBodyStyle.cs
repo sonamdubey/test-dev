@@ -36,23 +36,6 @@ namespace Bikewale.Models
                 objData.objBestSportsBikeList = FetchBestBikesList(EnumBikeBodyStyles.Sports);
                 objData.objBestCruiserBikesList = FetchBestBikesList(EnumBikeBodyStyles.Cruiser);
                 objData.objBestMileageBikesList = FetchBestBikesList(EnumBikeBodyStyles.Mileage);
-
-                if (objData.objBestScootersList != null && objData.objBestScootersList.Any())
-                {
-                    objData.objBestScootersList.First().CurrentPage = EnumBikeBodyStyles.Scooter;
-                }
-                if (objData.objBestSportsBikeList != null && objData.objBestSportsBikeList.Any())
-                {
-                    objData.objBestSportsBikeList.First().CurrentPage = EnumBikeBodyStyles.Sports;
-                }
-                if (objData.objBestCruiserBikesList != null && objData.objBestCruiserBikesList.Any())
-                {
-                    objData.objBestCruiserBikesList.First().CurrentPage = EnumBikeBodyStyles.Cruiser;
-                }
-                if (objData.objBestMileageBikesList != null && objData.objBestMileageBikesList.Any())
-                {
-                    objData.objBestMileageBikesList.First().CurrentPage = EnumBikeBodyStyles.Mileage;
-                }
             }
             catch (Exception ex)
             {
@@ -79,6 +62,10 @@ namespace Bikewale.Models
                 {
                     objBikesList = objBikesList.Reverse();
                     objBikesList = objBikesList.Take((int)topCount);
+                    if (objBikesList.Any())
+                    {
+                        objBikesList.First().CurrentPage = BodyStyleType;
+                    }
                 }
 
 
