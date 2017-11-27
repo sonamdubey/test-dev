@@ -3,6 +3,7 @@
 @if (Model != null && Model.FooterContent != null)
 {
     var make = Model.Make != null ? Model.Make.MakeName : "";
+    int showLength = 0;
     <div class="make-subfooter">
 
         @if (Model.FooterContent.FooterDescription != null && Model.FooterContent.FooterDescription.Any())
@@ -15,9 +16,14 @@
                         {
                             <span class="about-make__list-title">@obj.CategoryName</span>
                             <p class="about-make__list-desc"> @obj.CategoryDescription</p>
+                            showLength = showLength + obj.CategoryDescription.Length;
                         }
                     </div>
-                    <a href="javascript:void(0)" class="read-more-button" rel="nofollow">Read more</a>
+                    @if (showLength > 500)
+                    {
+                        <a href="javascript:void(0)" class="read-more-button" rel="nofollow">Read more</a>
+                    }
+                    
                 </div>
             </div>
         }
@@ -59,7 +65,11 @@
                             </tbody>
                         </table>
                     </div>
-                    <a href="javascript:void(0)" class="read-more-button" rel="nofollow">More bikes</a>
+                    @if (Model.FooterContent.ModelPriceList.Count() > 6)
+                    {
+                        <a href="javascript:void(0)" class="read-more-button" rel="nofollow">More bikes</a>
+                    }
+
                 </div>
             </div>
         }
