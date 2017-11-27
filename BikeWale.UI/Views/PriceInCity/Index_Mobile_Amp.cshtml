@@ -713,7 +713,7 @@
                                 <ul id="pcPopupCityList">
                                     @foreach (var City in Model.Cities)
                                     {
-                                    <li role="option" tabindex="1" on="tap:priceInCityPopUpContent.hide, AMP.setState({Popup:{ city:'@City.CityName',cityerrorflag:0, href:'@Bikewale.Utility.BWConfiguration.Instance.BwHostUrl/m/honda-bikes/activa/price-in-@City.CityMaskingName/'}})">@City.CityName</li>
+                                        <li role="option" tabindex="1" on="tap:priceInCityPopUpContent.hide, AMP.setState({Popup:{ city:'@City.CityName',cityerrorflag:0, href:'@Bikewale.Utility.BWConfiguration.Instance.BwHostUrl/m/@Model.Make.MaskingName-bikes/@Model.BikeModel.MaskingName/price-in-@City.CityMaskingName/'}})">@City.CityName</li>
                                     }
                                 </ul>
                             </div>
