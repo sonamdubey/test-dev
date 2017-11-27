@@ -47,7 +47,7 @@
 					@foreach (var bike in Model)
 					{
 						<li class="upcoming-bike-card">
-							<a href="@string.Format("/{0}-bikes/{1}/", bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)">
+							<a href="@string.Format("/{0}-bikes/{1}/", bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" class="carousel-card">
 								<div class="upcoming-bike-card__image">
 									<img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._210x118, QualityFactor._70)" alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="" border="0">
 								</div>
