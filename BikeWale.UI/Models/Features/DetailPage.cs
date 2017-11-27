@@ -108,9 +108,9 @@ namespace Bikewale.Models.Features
                 objData.AmpJsTags.IsCarousel = true;
                 objData.AmpJsTags.IsSidebar = true;
                 objData.AmpJsTags.IsSocialShare = true;
-
-            }
-            catch (Exception ex)
+				objData.AmpJsTags.IsIframe = objData.objFeature != null && objData.objFeature.PageList != null && objData.objFeature.PageList.Any(p => p.Content.Contains("<iframe"));
+			}
+			catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objData));
             }
