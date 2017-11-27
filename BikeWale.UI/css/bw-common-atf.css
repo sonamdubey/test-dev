@@ -179,8 +179,8 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 }
 
 /* nav classes */
-.header-fixed, .header-landing { position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
-.header-not-fixed { padding: 10px 20px; z-index: 3; }
+.header-fixed, .header-landing { position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 201; }
+.header-not-fixed { padding: 10px 20px; z-index: 201; }
 .header-fixed-inner { padding-top: 55px; }
 .header-fixed, .header-fixed-with-bg, .header-not-fixed { background: #595959; }
 .header-landing { background: none !important; }
@@ -230,7 +230,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 
 /* autocomplete class */
 .ui-helper-hidden-accessible { position: absolute; left: -9999px; }
-.ui-autocomplete { z-index: 11; margin: -1px 0 0 -3px; padding:0; width:auto; display:inline-block; background: #fff; border-radius: 0 0 2px 2px; border:1px solid #e2e2e2; border-top: 0; overflow:visible;}
+.ui-autocomplete { z-index: 200; margin: -1px 0 0 -3px; padding:0; width:auto; display:inline-block; background: #fff; border-radius: 0 0 2px 2px; border:1px solid #e2e2e2; border-top: 0; overflow:visible;}
 .ui-autocomplete.source:hover { background: #ddd; }
 .ui-menu .ui-menu-item, .recent-searches-dropdown li { padding: 10px; background:#fff; font-size:14px; cursor:pointer; display: block; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus, .recent-searches-dropdown li:hover, .recent-searches-dropdown li.focus-state { background:#eee; }
