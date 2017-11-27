@@ -412,7 +412,7 @@ namespace Bikewale.DAL.BikeData
                                 t.ModelSeries.SeriesId = SqlReaderConvertor.ToUInt32(dr["bikeseriesid"]);
                                 t.ModelSeries.SeriesName = Convert.ToString(dr["bikeseriesname"]);
                                 t.ModelSeries.MaskingName = Convert.ToString(dr["bikeseriesmaskingname"]);
-								t.ModelSeries.IsSeriesPageUrl = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]);
+                                t.ModelSeries.IsSeriesPageUrl = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]);
                                 t.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
                                 t.RatingCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"]);
                                 t.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
@@ -421,6 +421,7 @@ namespace Bikewale.DAL.BikeData
                                 t.PhotosCount = Convert.ToInt32(dr["PhotosCount"]);
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
                                 t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
+                                t.ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"]);
                             }
 
                             if (dr.NextResult())
@@ -3050,70 +3051,70 @@ namespace Bikewale.DAL.BikeData
             BikeMileageEntity mileageDetails = new BikeMileageEntity();
             try
             {
-               using (DbCommand cmd = DbFactory.GetDBCommand("getbikesdatawithmileage"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikesdatawithmileage"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        if (dr != null)
                         {
-                            if (dr != null)
+                            IList<BikeWithMileageInfo> bikes = new List<BikeWithMileageInfo>();
+                            IList<MileageInfoByBodyStyle> bodyStyleMileage = new List<MileageInfoByBodyStyle>();
+                            while (dr.Read())
                             {
-                                IList<BikeWithMileageInfo> bikes = new List<BikeWithMileageInfo>();
-                                IList<MileageInfoByBodyStyle> bodyStyleMileage = new List<MileageInfoByBodyStyle>();
+                                bikes.Add(
+                               new BikeWithMileageInfo()
+                               {
+                                   Make = new BikeMakeEntityBase()
+                                   {
+                                       MakeId = Convert.ToInt32(dr["makeid"]),
+                                       MakeName = Convert.ToString(dr["make"]),
+                                       MaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                   },
+                                   Model = new BikeModelEntityBase()
+                                   {
+                                       ModelId = Convert.ToInt32(dr["ModelId"]),
+                                       ModelName = Convert.ToString(dr["Model"]),
+                                       MaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                   },
+                                   HostUrl = Convert.ToString(dr["HostUrl"]),
+                                   OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                   BodyStyleId = Convert.ToUInt16(dr["BodyStyleId"]),
+                                   ARAIMileage = SqlReaderConvertor.ToFloat(dr["mileagebyarai"]),
+                                   MileageByUserReviews = SqlReaderConvertor.ToFloat(dr["mileagebyuserreview"]),
+                                   Rank = Convert.ToUInt16(dr["rank"]),
+                                   Percentile = SqlReaderConvertor.ToFloat(dr["percentilescore"])
+                               });
+
+                            }
+
+                            if (dr.NextResult())
+                            {
                                 while (dr.Read())
                                 {
-                                    bikes.Add(
-                                   new BikeWithMileageInfo()
-                                   {
-                                       Make = new BikeMakeEntityBase()
-                                       {
-                                           MakeId = Convert.ToInt32(dr["makeid"]), 
-                                           MakeName = Convert.ToString(dr["make"]),
-                                           MaskingName = Convert.ToString(dr["MakeMaskingName"]),
-                                      },
-                                       Model = new BikeModelEntityBase()
-                                       {
-                                           ModelId = Convert.ToInt32(dr["ModelId"]),
-                                            ModelName = Convert.ToString(dr["Model"]),
-                                            MaskingName = Convert.ToString(dr["ModelMaskingName"]),
-                                      },
-                                        HostUrl = Convert.ToString(dr["HostUrl"]),
-                                        OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
-                                        BodyStyleId = Convert.ToUInt16(dr["BodyStyleId"]),
-                                        ARAIMileage = SqlReaderConvertor.ToFloat(dr["mileagebyarai"]),
-                                        MileageByUserReviews = SqlReaderConvertor.ToFloat(dr["mileagebyuserreview"]),
-                                        Rank = Convert.ToUInt16(dr["rank"]),
-                                        Percentile = SqlReaderConvertor.ToFloat(dr["percentilescore"])
-                                   });
-                                   
+                                    MileageInfoByBodyStyle bodyStyleMileageobj = new MileageInfoByBodyStyle();
+                                    bodyStyleMileageobj.BodyStyleId = Convert.ToUInt16(dr["bodystyleid"]);
+                                    bodyStyleMileageobj.TotalBikesInBodyStyle = Convert.ToUInt16(dr["totalBikes"]);
+                                    bodyStyleMileageobj.AvgBodyStyleMileageByUserReviews = SqlReaderConvertor.ToFloat(dr["avgmileagebyuserreview"]);
+                                    bodyStyleMileageobj.AvgMileageByARAI = SqlReaderConvertor.ToFloat(dr["avgmileagebyarai"]);
+
+                                    bodyStyleMileage.Add(bodyStyleMileageobj);
                                 }
 
-                                if (dr.NextResult())
-                                {
-                                    while (dr.Read())
-                                    {
-                                        MileageInfoByBodyStyle bodyStyleMileageobj = new MileageInfoByBodyStyle();
-                                        bodyStyleMileageobj.BodyStyleId = Convert.ToUInt16(dr["bodystyleid"]);
-                                        bodyStyleMileageobj.TotalBikesInBodyStyle = Convert.ToUInt16(dr["totalBikes"]);
-                                        bodyStyleMileageobj.AvgBodyStyleMileageByUserReviews = SqlReaderConvertor.ToFloat(dr["avgmileagebyuserreview"]);
-                                        bodyStyleMileageobj.AvgMileageByARAI = SqlReaderConvertor.ToFloat(dr["avgmileagebyarai"]);
-
-                                        bodyStyleMileage.Add(bodyStyleMileageobj);
-                                    }
-                                   
-                                }
-                                if (bikes.Any() && bodyStyleMileage.Any())
-                                {
-                                    mileageDetails.Bikes = bikes;
-                                    mileageDetails.BodyStyleMileage = bodyStyleMileage;
-                                }
-
-                                dr.Close();
                             }
+                            if (bikes.Any() && bodyStyleMileage.Any())
+                            {
+                                mileageDetails.Bikes = bikes;
+                                mileageDetails.BodyStyleMileage = bodyStyleMileage;
+                            }
+
+                            dr.Close();
                         }
                     }
-                
+                }
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMileageForModel");
             }

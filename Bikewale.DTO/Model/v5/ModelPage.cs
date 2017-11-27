@@ -1,7 +1,5 @@
 ﻿using Bikewale.DTO.Campaign;
-using Bikewale.DTO.DealerLocator;
 using Bikewale.DTO.Model.v3;
-using Bikewale.DTO.PriceQuote.v2;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -81,6 +79,13 @@ namespace Bikewale.DTO.Model.v5
         public ulong PQId { get; set; }
         [JsonProperty("campaign", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public CampaignBaseDto Campaign { get; set; }
+
+        [JsonProperty("isSpecsAvailable")]
+        public bool IsSpecsAvailable { get; set; }
+        [JsonProperty("gallery")]
+        public Gallery Gallery { get; set; }
+        [JsonProperty("review")]
+        public Review Review { get; set; }
 
 
 
