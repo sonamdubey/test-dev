@@ -68,7 +68,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.GetData()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.GetData()");
             }
             return objVM;
         }
@@ -89,7 +89,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.BindUpcoming()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.BindUpcoming()");
             }
         }
 
@@ -120,7 +120,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.CreatePager()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.CreatePager()");
             }
         }
 
@@ -149,7 +149,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "NewLaunchedIndexModel.CreateMeta()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.CreateMeta()");
             }
         }
 
@@ -174,7 +174,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "NewLaunchedIndexModel.BindCMSContent()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.BindCMSContent()");
             }
 
         }

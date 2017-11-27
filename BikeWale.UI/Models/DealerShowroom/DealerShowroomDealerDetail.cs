@@ -183,7 +183,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindPageMetas()");
             }
         }
 

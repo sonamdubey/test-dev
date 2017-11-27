@@ -247,7 +247,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetMakeFooterCategoriesandPrice MakeId : {0}", makeId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetMakeFooterCategoriesandPrice MakeId : {0}", makeId));
             }
             return footerContent;
         }

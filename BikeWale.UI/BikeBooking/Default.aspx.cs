@@ -87,7 +87,7 @@ namespace Bikewale.BikeBooking
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
                 
             }
         }
@@ -126,7 +126,7 @@ namespace Bikewale.BikeBooking
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
                 
             }
         }

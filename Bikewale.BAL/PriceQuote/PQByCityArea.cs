@@ -138,7 +138,7 @@ namespace Bikewale.BAL.PriceQuote
 
                             catch (Exception ex)
                             {
-                                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "PQByCityArea: " + "GetOnRoadPrice");
+                                ErrorClass.LogError(ex, "PQByCityArea: " + "GetOnRoadPrice");
                                 
                             }
                         }
@@ -147,7 +147,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "PQByCityArea: " + "GetOnRoadPrice");
+                ErrorClass.LogError(ex, "PQByCityArea: " + "GetOnRoadPrice");
                 
             }
             return pqOnRoad;
@@ -170,7 +170,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPageController" + "FetchCityByModelId");
+                ErrorClass.LogError(ex, "ModelPageController" + "FetchCityByModelId");
                 
             }
             return cityList;
@@ -193,7 +193,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPageController" + "GetAreaForCityAndModel");
+                ErrorClass.LogError(ex, "ModelPageController" + "GetAreaForCityAndModel");
                 
             }
 

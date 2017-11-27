@@ -414,7 +414,7 @@ namespace Bikewale.Cache.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsCacheRepository.GetBikesWithReviewsByMake: Make: {0}", makeId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("UserReviewsCacheRepository.GetBikesWithReviewsByMake: Make: {0}", makeId));
             }
             return objBikes;
         }

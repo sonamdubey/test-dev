@@ -139,7 +139,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, System.Web.HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, System.Web.HttpContext.Current.Request.ServerVariables["URL"]);
                 
             }
 
@@ -165,7 +165,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerByMakeCity");
+                ErrorClass.LogError(ex, "GetDealerByMakeCity");
                 
                 return null;
             }
@@ -185,7 +185,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "FetchDealerCitiesByMake");
+                ErrorClass.LogError(ex, "FetchDealerCitiesByMake");
                 
                 return null;
             }
@@ -205,7 +205,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerDetailsAndBikes");
+                ErrorClass.LogError(ex, "GetDealerDetailsAndBikes");
                 
                 return null;
             }
@@ -223,7 +223,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerDetailsAndBikes");
+                ErrorClass.LogError(ex, "GetDealerDetailsAndBikes");
                 
                 return null;
             }
@@ -243,7 +243,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
+                ErrorClass.LogError(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
                 
                 return null;
             }
@@ -265,7 +265,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("UpdateManufaturerLead({0}, {1}, {2}, {3})", pqId, custEmail, mobile, response));
+                ErrorClass.LogError(ex, string.Format("UpdateManufaturerLead({0}, {1}, {2}, {3})", pqId, custEmail, mobile, response));
                 
                 return false;
             }
@@ -306,7 +306,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerByBrandList");
+                ErrorClass.LogError(ex, "GetDealerByBrandList");
                 
                 return null;
             }

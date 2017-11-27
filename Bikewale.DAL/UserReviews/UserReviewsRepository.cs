@@ -2090,7 +2090,7 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.GetBikesWithReviewsByMake_Make_{0}", makeId));
+                Bikewale.Notifications.ErrorClass.LogError(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.GetBikesWithReviewsByMake_Make_{0}", makeId));
             }
             return objBikesWithUserReviews;
         }

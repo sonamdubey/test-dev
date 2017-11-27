@@ -70,7 +70,7 @@ namespace Bikewale.Content
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCare.BikeCareTips");
+                    ErrorClass.LogError(ex, "BikeCare.BikeCareTips");
                     
                 }
             }

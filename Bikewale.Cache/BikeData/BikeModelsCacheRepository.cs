@@ -1474,7 +1474,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMileageDetails");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMileageDetails");
 
             }
             return mileageInfo;

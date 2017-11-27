@@ -165,7 +165,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.CreatePager()");
+                ErrorClass.LogError(ex, "Bikewale.Models.UpcomingPageModel.CreatePager()");
             }
         }
 
@@ -190,7 +190,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.BindCMSContent()");
+                ErrorClass.LogError(ex, "Bikewale.Models.UpcomingPageModel.BindCMSContent()");
             }
 
         }

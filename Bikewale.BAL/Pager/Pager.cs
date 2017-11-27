@@ -264,7 +264,7 @@ namespace Bikewale.BAL.Pager
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BAL.Pager.Pager.GetPagerControl()");
+                ErrorClass.LogError(ex, "Bikewale.BAL.Pager.Pager.GetPagerControl()");
             }
 
             return objPager;

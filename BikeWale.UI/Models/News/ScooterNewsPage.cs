@@ -159,7 +159,7 @@ namespace Bikewale.Models.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Exception : Bikewale.Models.News.NewsScootersPage.BindLinkPager Make:{0} ", objData.Make));
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.Models.News.NewsScootersPage.BindLinkPager Make:{0} ", objData.Make));
             }
         }
 
@@ -200,7 +200,7 @@ namespace Bikewale.Models.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Exception : Bikewale.Models.News.NewsScootersPage.SetPageMetas Make:{0}", objData.Make));
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.Models.News.NewsScootersPage.SetPageMetas Make:{0}", objData.Make));
             }
         }
 
@@ -283,7 +283,7 @@ namespace Bikewale.Models.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Exception : Bikewale.Models.News.NewsScootersPage.GetWidgetData Make:{0}", objData.Make));
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.Models.News.NewsScootersPage.GetWidgetData Make:{0}", objData.Make));
             }
         }
 
@@ -344,7 +344,7 @@ namespace Bikewale.Models.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.News.NewsScootersPage.GetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.News.NewsScootersPage.GetData");
             }
             return objData;
         }
@@ -394,7 +394,7 @@ namespace Bikewale.Models.News
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.News.NewsScootersPage.SetBreadcrumList()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.News.NewsScootersPage.SetBreadcrumList()");
             }
 
 

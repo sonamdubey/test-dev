@@ -120,7 +120,7 @@ namespace Bikewale.Models.Videos
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.ScooterVideos.SetBreadcrumList()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Videos.ScooterVideos.SetBreadcrumList()");
             }
 
 

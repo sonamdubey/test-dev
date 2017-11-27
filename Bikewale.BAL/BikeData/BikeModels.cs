@@ -404,7 +404,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                var objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
             }
 
             return objUpcoming;
@@ -962,7 +962,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BikeModels.GetMileageDetails()_ModelId: {0}", modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("BikeModels.GetMileageDetails()_ModelId: {0}", modelId));
             }
             return mileageWidgetObj;
         }

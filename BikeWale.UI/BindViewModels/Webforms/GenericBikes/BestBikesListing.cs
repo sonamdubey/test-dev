@@ -157,7 +157,7 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("FetchBestBikesList{0} ", BodyStyleType));
+                ErrorClass.LogError(ex, string.Format("FetchBestBikesList{0} ", BodyStyleType));
                 
             }
         }

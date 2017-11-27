@@ -159,7 +159,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterList.BindWidgets");
+                ErrorClass.LogError(ex, "ServiceCenterList.BindWidgets");
                 
 
             }
@@ -188,7 +188,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetCityNameByCityMaskingName");
+                ErrorClass.LogError(ex, "GetCityNameByCityMaskingName");
                 
             }
         }
@@ -214,7 +214,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeNameByMakeId");
+                ErrorClass.LogError(ex, "GetMakeNameByMakeId");
                 
             }
         }
@@ -249,7 +249,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindServiceCentersList : ");
+                ErrorClass.LogError(ex, "BindServiceCentersList : ");
                 
             }
         }
@@ -296,7 +296,7 @@ namespace Bikewale.Mobile.Service
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeIdByMakeMaskingName");
+                    ErrorClass.LogError(ex, "GetMakeIdByMakeMaskingName");
                     
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -383,7 +383,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, " : ProcessQueryString ");
+                ErrorClass.LogError(ex, " : ProcessQueryString ");
                 
             }
             return isValidQueryString;

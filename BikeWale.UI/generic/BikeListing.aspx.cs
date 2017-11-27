@@ -102,7 +102,7 @@ namespace Bikewale.Generic
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Generic.GetBestBikesList.GetBestBikesList");
+                ErrorClass.LogError(ex, "Bikewale.Generic.GetBestBikesList.GetBestBikesList");
                 
             }
         }

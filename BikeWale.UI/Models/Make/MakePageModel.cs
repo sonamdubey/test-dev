@@ -231,7 +231,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objData));
+                ErrorClass.LogError(ex, String.Format("BindAmpJsTags_{0}", objData));
             }
         }
 
@@ -312,7 +312,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakePageModel.BindUsedBikeByModel()");
+                ErrorClass.LogError(ex, "MakePageModel.BindUsedBikeByModel()");
             }
 
             return UsedBikeModel;
@@ -370,7 +370,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakePageModel.BindCompareBikes");
+                ErrorClass.LogError(ex, "MakePageModel.BindCompareBikes");
             }
         }
 
@@ -430,7 +430,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakePageModel.BindPageMetaTags()");
+                ErrorClass.LogError(ex, "MakePageModel.BindPageMetaTags()");
             }
 
         }
@@ -590,7 +590,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.BindUserReviews() makeId:{0}", _makeId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindUserReviews() makeId:{0}", _makeId));
             }
         }
 
@@ -619,7 +619,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.BindMakeFooterCategoriesandPriceWidget() makeId:{0}", _makeId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindMakeFooterCategoriesandPriceWidget() makeId:{0}", _makeId));
             }
         }
     }

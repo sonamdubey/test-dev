@@ -823,7 +823,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
+                ErrorClass.LogError(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
             }
 
             return objDealerServiceDetails;

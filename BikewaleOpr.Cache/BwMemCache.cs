@@ -29,7 +29,7 @@ namespace BikewaleOpr.Cache
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey_{0}", makeId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey_{0}", makeId));
             }
         }
         public static bool ClearPopularBikesCacheKey(uint? topCount = null, uint? makeId = null)
@@ -62,7 +62,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Cache.BwMemCache.ClearAdSlotsCache");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.Cache.BwMemCache.ClearAdSlotsCache");
             }
         }
 

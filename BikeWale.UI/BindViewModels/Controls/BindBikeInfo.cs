@@ -54,7 +54,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikeInfo.BindBikeInfo");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BindBikeInfo.BindBikeInfo");
             }
 
         }
@@ -86,7 +86,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikeInfo.GetBikeInfo");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BindBikeInfo.GetBikeInfo");
             }
             return _genericBikeInfo;
         }
@@ -183,7 +183,7 @@ namespace Bikewale.BindViewModels.Controls
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindGenericBikeInfo.BindInfoWidgetDatas");
+                    Bikewale.Notifications.ErrorClass.LogError(ex, "BindGenericBikeInfo.BindInfoWidgetDatas");
 
 
                 }

@@ -119,7 +119,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetMakeFooterCategoryData");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.GetMakeFooterCategoryData");
             }
 
             return objMakeFooterData;
@@ -155,7 +155,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.SaveMakeFooterData");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.SaveMakeFooterData");
             }
         }
 
@@ -186,7 +186,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.DisableAllMakeFooterCategories");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.DisableAllMakeFooterCategories");
             }
         }
 

@@ -752,7 +752,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.Content.BikeModel: FillSeries");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.Content.BikeModel: FillSeries");
             }
         }
 

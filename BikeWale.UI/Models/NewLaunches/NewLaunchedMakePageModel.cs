@@ -106,7 +106,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedMakePageModel.GetData()");
+                ErrorClass.LogError(ex, "NewLaunchedMakePageModel.GetData()");
             }
             return objVM;
         }
@@ -127,7 +127,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedMakePageModel.BindUpcoming()");
+                ErrorClass.LogError(ex, "NewLaunchedMakePageModel.BindUpcoming()");
             }
         }
 
@@ -159,7 +159,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedMakePageModel.CreatePager()");
+                ErrorClass.LogError(ex, "NewLaunchedMakePageModel.CreatePager()");
             }
         }
 
@@ -192,7 +192,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedMakePageModel.CreateMeta()");
+                ErrorClass.LogError(ex, "NewLaunchedMakePageModel.CreateMeta()");
             }
         }
 
@@ -249,7 +249,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("NewLaunchedMakePageModel.ProcessQueryString({0})", _makeMaskingName));
+                ErrorClass.LogError(ex, String.Format("NewLaunchedMakePageModel.ProcessQueryString({0})", _makeMaskingName));
                 Status = StatusCodes.ContentNotFound;
             }
             finally

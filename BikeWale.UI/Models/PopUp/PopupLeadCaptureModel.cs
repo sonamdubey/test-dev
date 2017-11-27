@@ -100,7 +100,7 @@ namespace Bikewale.Models.PopUp
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "PopupLeadCaptureModel.BindPageMetaTags()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "PopupLeadCaptureModel.BindPageMetaTags()");
             }
         }
 

@@ -105,7 +105,7 @@ namespace Bikewale.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.News.BindNewsDetails");
+                ErrorClass.LogError(ex, "Bikewale.News.BindNewsDetails");
                 
             }
             finally

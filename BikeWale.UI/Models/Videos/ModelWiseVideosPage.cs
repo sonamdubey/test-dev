@@ -194,7 +194,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.SetBreadcrumList");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "ModelWiseVideosPage.SetBreadcrumList");
             }
 
         }

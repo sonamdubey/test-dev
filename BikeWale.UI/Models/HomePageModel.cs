@@ -194,7 +194,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "ModelPage.BindAdSlotTags");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "ModelPage.BindAdSlotTags");
             }
         }
         private UsedBikeModelsWidgetVM BindUsedBikeByModel(uint cityId)
@@ -212,7 +212,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "HomePageModel.BindUsedBikeByModel()");
+                ErrorClass.LogError(ex, "HomePageModel.BindUsedBikeByModel()");
             }
 
             return UsedBikeModel;
@@ -302,7 +302,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "HomePageModel.BindMetas()");
+                ErrorClass.LogError(ex, "HomePageModel.BindMetas()");
             }
         }
 

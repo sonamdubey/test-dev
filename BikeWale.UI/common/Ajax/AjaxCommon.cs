@@ -311,8 +311,8 @@ namespace Bikewale.Ajax
             }
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "AjaxCommon.SaveCustomerFeedback");
-                
+                Bikewale.Notifications.ErrorClass.LogError(ex, "AjaxCommon.SaveCustomerFeedback");
+
             }
 
             return isSaved;
@@ -368,7 +368,7 @@ namespace Bikewale.Ajax
         //    }
         //    catch (Exception ex)
         //    {
-        //        Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "AjaxCommon.GetBikeModelsBySeriesId");
+        //        Bikewale.Notifications.ErrorClass.LogError(ex, "AjaxCommon.GetBikeModelsBySeriesId");
         //        
         //    }
 
@@ -411,8 +411,8 @@ namespace Bikewale.Ajax
             }
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "AjaxCommon.GetModelsNew");
-                
+                Bikewale.Notifications.ErrorClass.LogError(ex, "AjaxCommon.GetModelsNew");
+
             }
 
             return models;

@@ -521,7 +521,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.SubmitOptionReviewInfo");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.SubmitOptionReviewInfo");
                 return InternalServerError();
             }
         }

@@ -116,7 +116,7 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BikeBooking.BillDeskResponse.CompleteTransaction");
+                ErrorClass.LogError(ex, "Bikewale.BikeBooking.BillDeskResponse.CompleteTransaction");
                 
             }
             finally
@@ -151,7 +151,7 @@ namespace Bikewale.BikeBooking
                             if (!PriceQuoteQueryString.IsPQQueryStringExists())
                             {
                                 Exception ex = new Exception();
-                                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex,
+                                ErrorClass.LogError(ex,
                                     "Bikewale.BikeBooking.BillDeskResponse.CompleteTransaction : PriceQuoteQueryString.IsPQQueryStringExists() = false" + Request.Url.PathAndQuery);
                                 
                             }
@@ -160,7 +160,7 @@ namespace Bikewale.BikeBooking
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BikeBooking.BillDeskResponse.CompleteTransaction inner try catch");
+                    ErrorClass.LogError(ex, "Bikewale.BikeBooking.BillDeskResponse.CompleteTransaction inner try catch");
                     
                 }
                 finally
@@ -245,7 +245,7 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BikeBooking.BillDeskResponse.SentSuccessNotification");
+                ErrorClass.LogError(ex, "Bikewale.BikeBooking.BillDeskResponse.SentSuccessNotification");
                 
             }
         }
@@ -331,7 +331,7 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception err)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BikeBooking.BillDeskResponse.GetDetailedQuote");
+                ErrorClass.LogError(err, "Bikewale.BikeBooking.BillDeskResponse.GetDetailedQuote");
                 
             }
         }
@@ -361,7 +361,7 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BikeBooking.BillDeskResponse.getCustomerDetails");
+                ErrorClass.LogError(ex, "Bikewale.BikeBooking.BillDeskResponse.getCustomerDetails");
                 
             }
         }
@@ -421,7 +421,7 @@ namespace Bikewale.BikeBooking
                 }
 
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BikeBooking.BillDeskResponse.PushBikeBookingSuccess");
+                ErrorClass.LogError(err, "Bikewale.BikeBooking.BillDeskResponse.PushBikeBookingSuccess");
                 
             }
         }
@@ -466,7 +466,7 @@ namespace Bikewale.BikeBooking
 
                 data += " : abinquiry Id : " + abInquiryId;
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BikeBooking.BillDeskResponse.PushBikeLeadInAutoBiz + data : " + data);
+                ErrorClass.LogError(err, "Bikewale.BikeBooking.BillDeskResponse.PushBikeLeadInAutoBiz + data : " + data);
                 
             }
         }

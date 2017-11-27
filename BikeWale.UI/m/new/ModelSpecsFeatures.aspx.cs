@@ -167,7 +167,7 @@ namespace Bikewale.Mobile
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
                 
             }
             return modelPg;
@@ -195,7 +195,7 @@ namespace Bikewale.Mobile
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
                 
             }
             return specsFeature;

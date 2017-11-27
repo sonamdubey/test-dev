@@ -80,7 +80,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetData({0})", _videoId));
+                ErrorClass.LogError(ex, string.Format("GetData({0})", _videoId));
                 Status = StatusCodes.ContentNotFound;
             }
             return model;
@@ -101,7 +101,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetTaggedModel({0})", _videoId));
+                ErrorClass.LogError(ex, string.Format("GetTaggedModel({0})", _videoId));
             }
         }
 
@@ -149,7 +149,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, string.Format("VideoDetailsHelper.CreateDescriptionTag() => videoBasicId {0}", _videoId));
+                ErrorClass.LogError(ex, string.Format("VideoDetailsHelper.CreateDescriptionTag() => videoBasicId {0}", _videoId));
             }
         }
         /// <summary>

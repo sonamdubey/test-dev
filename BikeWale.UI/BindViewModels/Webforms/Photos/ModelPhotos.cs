@@ -81,7 +81,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : BindModelPhotos");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : BindModelPhotos");
             }
         }
 
@@ -133,7 +133,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetPhotoGalleryData");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetPhotoGalleryData");
             }
         }
 
@@ -161,7 +161,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : SetPageMetas");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : SetPageMetas");
             }
 
         }
@@ -238,7 +238,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : ParseQueryString");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : ParseQueryString");
                 isRedirectToModelPage = true;
             }
             finally
