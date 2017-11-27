@@ -1,8 +1,18 @@
 @mixin comparison-swiper($width: 310px, $min-height: 210px)
 	.comparison-swiper
 		.swiper-slide
+			margin-left: 0
+					
 			&:nth-of-type(1)
-				margin-left: 15px
+				margin-left: 10px
+
+			&:last-child
+				margin-right: 20px
+				.model-card
+					margin-right: 10px
+
+			.swiper-card
+				margin-left: 10px
 
 		.swiper-slide,
 		.swiper-card
@@ -16,11 +26,13 @@
 				padding-top: 12px
 				padding-bottom: 13px
 				font-size: 14px
-	
+		.swiper-card
+			margin-left: 10px
+			
 
 		.card-target
 			padding-top: 15px
-			padding-bottom: 15px
+			padding-bottom: 20px
 			display: block
 
 		.grid-6:first-of-type
