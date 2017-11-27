@@ -12,5 +12,6 @@ namespace Bikewale.Models
     {
         public IEnumerable<BikeMakeEntityBase> Makes { get; set; }
         public string PageLinkFormat { get; set; }
+        public string PageTitleFormat { get; set; }
     }
 }

@@ -8,7 +8,7 @@
                 @foreach (var BrandCount in Model.Makes)
                 {
                     <li>
-                        <a href="@(!string.IsNullOrEmpty(Model.PageLinkFormat) ? string.Format(Model.PageLinkFormat, BrandCount.MaskingName) : Bikewale.Utility.UrlFormatter.BikeMakeUrl(BrandCount.MaskingName))" title="@BrandCount.MakeName bikes" class="jcarousel-card">
+                        <a href="@(!string.IsNullOrEmpty(Model.PageLinkFormat) ? string.Format(Model.PageLinkFormat, BrandCount.MaskingName) : Bikewale.Utility.UrlFormatter.BikeMakeUrl(BrandCount.MaskingName))" title="@(!string.IsNullOrEmpty(Model.PageTitleFormat) ? string.Format(Model.PageTitleFormat, BrandCount.MakeName) : string.Format("{0} bikes", BrandCount.MakeName))" class="jcarousel-card">
                             <div class="brand-logo-image">
                                 <span class="brand-type">
                                     <span class="brandlogosprite @string.Format("brand-{0}", BrandCount.MakeId)"></span>

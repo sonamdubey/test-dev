@@ -49,13 +49,11 @@
                             <span class="city-sprite c-india-icon"></span>
                         </div>
                         <div class="swiper-details-block font12">
-                            <h3 class="font12 text-black margin-bottom5">
-                                @Model.MakeName outlets in India
-                            </h3>
+                            <h3 class="font12 text-black margin-bottom5">India</h3>
                             @if (Model.DealerServiceCenters.TotalDealerCount > 0)
                             {
                                 <div class="text-default">
-                                    <span>@Model.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms</span>
+                                    <span>@Bikewale.Utility.Format.FormatPrice(Model.DealerServiceCenters.TotalDealerCount.ToString()) @Model.MakeName showrooms</span>
                                 </div>
                             }
                         </div>

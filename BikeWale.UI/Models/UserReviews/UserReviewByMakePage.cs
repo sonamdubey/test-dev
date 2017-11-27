@@ -75,6 +75,7 @@ namespace Bikewale.Models.UserReviews
                     var otherMakes = new OtherMakesVM();
                     otherMakes.Makes = popularBrandsList.Take(9);
                     otherMakes.PageLinkFormat = "/{0}-bikes/reviews/";
+                    otherMakes.PageTitleFormat = "{0} Reviews";
                     objData.OtherMakes = otherMakes;
 
                 }
@@ -129,7 +130,7 @@ namespace Bikewale.Models.UserReviews
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, makepageUrl, string.Format("{0} Bikes", objData.Make.MakeName)));
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, string.Format("{0} Bikes Reviews",objData.Make.MakeName)));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, string.Format("{0} Bikes Reviews", objData.Make.MakeName)));
 
 
             objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
