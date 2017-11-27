@@ -104,7 +104,7 @@ namespace Bikewale.BikeBooking
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
                 
             }
             finally
@@ -144,7 +144,7 @@ namespace Bikewale.BikeBooking
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
                 
             }
 
@@ -272,7 +272,7 @@ namespace Bikewale.BikeBooking
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
                 
             }
         }
@@ -417,7 +417,7 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, "BookingSummary_New.BeginTransaction : " + PriceQuoteQueryString.QueryString + " " + Newtonsoft.Json.JsonConvert.SerializeObject(transaction));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BookingSummary_New.BeginTransaction : " + PriceQuoteQueryString.QueryString + " " + Newtonsoft.Json.JsonConvert.SerializeObject(transaction));
             }
         }
         #endregion
@@ -466,7 +466,7 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, "BookingSummary_New.ProcessCookie : " + Request.Url.PathAndQuery);
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BookingSummary_New.ProcessCookie : " + Request.Url.PathAndQuery);
             }
         }
         #endregion

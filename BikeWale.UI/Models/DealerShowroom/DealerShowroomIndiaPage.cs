@@ -82,7 +82,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.GetData()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.GetData()");
             }
             return objDealerVM;
         }
@@ -105,7 +105,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindNewLaunchesBikes()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindNewLaunchesBikes()");
             }
             return NewLaunchedbikes;
 
@@ -133,7 +133,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindPageMetas()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindPageMetas()");
             }
         }
 
@@ -190,7 +190,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.SetBreadcrumList()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.SetBreadcrumList()");
             }
 
         }
@@ -212,7 +212,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindDealersMapCity()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindDealersMapCity()");
             }
             return states;
         }
@@ -237,7 +237,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindUsedBikeByModel()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindUsedBikeByModel()");
             }
 
             return UsedBikeModel;
@@ -268,7 +268,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindUpCompingBikesWidget()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindUpCompingBikesWidget()");
             }
             return objUpcomingBikes;
         }
@@ -292,7 +292,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindOtherBrandWidget()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindOtherBrandWidget()");
             }
             return AllDealerList;
         }
@@ -347,7 +347,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("DealerShowroomIndiaPage.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("DealerShowroomIndiaPage.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
             }
         }
 

@@ -71,7 +71,7 @@ namespace Bikewale.Insurance
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Bikewale.Insurance.Default.GetCities");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Exception : Bikewale.Insurance.Default.GetCities");
                                 
             }
         }
@@ -95,7 +95,7 @@ namespace Bikewale.Insurance
             }
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "Exception : Bikewale.Insurance.Default.GetMakes");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Exception : Bikewale.Insurance.Default.GetMakes");
                 
             }
         }

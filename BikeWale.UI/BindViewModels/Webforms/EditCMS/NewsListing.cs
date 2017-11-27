@@ -217,7 +217,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewsListing.FetchNewsList");
+                ErrorClass.LogError(ex, "NewsListing.FetchNewsList");
             }
         }
 
@@ -259,7 +259,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Bikewale.News.NewsListing.BindLinkPager");
+                ErrorClass.LogError(ex, "Exception : Bikewale.News.NewsListing.BindLinkPager");
                 
             }
         }
@@ -334,7 +334,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Desktop.News.Default.GetContentCategory");
+                ErrorClass.LogError(ex, "Exception : Desktop.News.Default.GetContentCategory");
                 
             }
             return _category;

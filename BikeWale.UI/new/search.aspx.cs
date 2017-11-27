@@ -66,7 +66,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindRepeaters");
+                ErrorClass.LogError(ex, "BindRepeaters");
                 
             }
         }

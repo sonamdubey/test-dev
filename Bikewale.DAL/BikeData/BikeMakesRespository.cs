@@ -692,7 +692,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.GetMakeFooterCategoriesandPrice: MakeId:{0}", makeId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.GetMakeFooterCategoriesandPrice: MakeId:{0}", makeId));
             }
             return footerContent;
         }

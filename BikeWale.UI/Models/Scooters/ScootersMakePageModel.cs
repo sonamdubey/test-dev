@@ -128,7 +128,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass er = new Notifications.ErrorClass(ex, "ScootersIndexPageModel.GetData()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "ScootersIndexPageModel.GetData()");
             }
             return objData;
         }
@@ -150,7 +150,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
+                ErrorClass.LogError(ex, "ScootersIndexPageModel.BindCompareScootes()");
             }
         }
 
@@ -310,7 +310,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ScootersMakePageModel.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
+                ErrorClass.LogError(ex, string.Format("ScootersMakePageModel.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
             }
         }
 

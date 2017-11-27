@@ -178,7 +178,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/AddFooterData");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "MakesController/AddFooterData");
             }
             return RedirectToAction("Index");
         }
@@ -205,7 +205,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/SaveFooterData");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "MakesController/SaveFooterData");
             }
             return RedirectToAction("Index");
         }
@@ -225,7 +225,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/DisableFooterData");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "MakesController/DisableFooterData");
             }
             return RedirectToAction("Index");
         }

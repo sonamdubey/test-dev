@@ -71,7 +71,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterLandingPage.GetData()");
+                ErrorClass.LogError(ex, "ServiceCenterLandingPage.GetData()");
             }
             return objVM;
         }
@@ -89,7 +89,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterLandingPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "ServiceCenterLandingPage.BindPageMetas()");
             }
         }
 
@@ -107,7 +107,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterLandingPage.BindCity()");
+                ErrorClass.LogError(ex, "ServiceCenterLandingPage.BindCity()");
             }
         }
 
@@ -134,7 +134,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterLandingPage.BindUsedBikeCityWidget()");
+                ErrorClass.LogError(ex, "ServiceCenterLandingPage.BindUsedBikeCityWidget()");
             }
             return widgetObj;
         }
@@ -156,7 +156,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterLandingPage.BindUpCompingBikesWidget()");
+                ErrorClass.LogError(ex, "ServiceCenterLandingPage.BindUpCompingBikesWidget()");
             }
             return objUpcomingBikes;
         }

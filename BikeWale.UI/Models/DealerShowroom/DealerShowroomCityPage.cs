@@ -102,7 +102,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.GetData()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.GetData()");
             }
             return objDealerVM;
         }
@@ -190,7 +190,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.BindPageMetas()");
             }
         }
 
@@ -248,7 +248,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.SetBreadcrumList()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.SetBreadcrumList()");
             }
 
         }
@@ -273,7 +273,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindDataDealers()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.BindDataDealers()");
             }
             return objDealerList;
         }
@@ -297,7 +297,7 @@ namespace Bikewale.Models.DealerShowroom
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindOtherDealerInCitiesWidget()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.BindOtherDealerInCitiesWidget()");
 
             }
 
@@ -355,7 +355,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindUsedBikeByModel()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.BindUsedBikeByModel()");
             }
 
             return UsedBikeModel;

@@ -39,7 +39,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
-using System.Linq.Expressions;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -190,7 +189,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetData({0})", _modelId));
+                ErrorClass.LogError(ex, String.Format("GetData({0})", _modelId));
             }
 
             return _objData;
@@ -212,7 +211,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "ModelPage.BindAdSlotTags");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "ModelPage.BindAdSlotTags");
             }
         }
 
@@ -234,7 +233,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                var err = new Notifications.ErrorClass(ex, String.Format("ShowInnovationBanner({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("ShowInnovationBanner({0})", _modelId));
             }
         }
 
@@ -320,7 +319,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                new ErrorClass(ex, string.Format("Bikewale.ModelPage.SetPageJSONLDSchema => BikeName: {0}", _objData.BikeName));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.ModelPage.SetPageJSONLDSchema => BikeName: {0}", _objData.BikeName));
             }
         }
 
@@ -511,7 +510,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeModels.ModelPage --> BindVersionPriceListSummary()");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeModels.ModelPage --> BindVersionPriceListSummary()");
             }
         }
 
@@ -556,7 +555,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeModels.ModelPage --> BindDescription()");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeModels.ModelPage --> BindDescription()");
             }
         }
 
@@ -652,7 +651,7 @@ namespace Bikewale.Models.BikeModels
                             }
                         }
                     }
-                    
+
                     // Set body style
                     if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0)
                     {
@@ -828,17 +827,17 @@ namespace Bikewale.Models.BikeModels
                 byte percentDeviation = 15;
                 ulong deviatedPriceMin = avgExpectedPrice - (avgExpectedPrice * percentDeviation) / 100;
                 ulong deviatedPriceMax = avgExpectedPrice + (avgExpectedPrice * percentDeviation) / 100;
-             
+
 
                 objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
                 objUpcomingBikes = objUpcoming.GetData();
-                
+
                 if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
                 {
                     objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes
                         .OrderByDescending(
                             m => m.BodyStyleId == (uint)_objData.BodyStyle &&
-                            ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) 
+                            ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax)
                             || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax))
                         )
                         .ThenByDescending(
@@ -847,17 +846,17 @@ namespace Bikewale.Models.BikeModels
                         )
                         .Where(x => x.ModelBase.ModelId != _modelId)
                         .Take(9)
-                        .TakeWhile(m => 
-                            (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)).Take(10).TakeWhile(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) 
+                        .TakeWhile(m =>
+                            (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)).Take(10).TakeWhile(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax)
                             || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
-                        );                                        
+                        );
                 }
-                    
-                    
+
+
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.ModelPage.BindUpCompingBikesWidget()");
+                ErrorClass.LogError(ex, "Bikewale.Models.ModelPage.BindUpCompingBikesWidget()");
             }
             return objUpcomingBikes;
         }
@@ -895,7 +894,6 @@ namespace Bikewale.Models.BikeModels
         }
 
         private void BindBestBikeWidget(EnumBikeBodyStyles BodyStyleType, uint? cityId = null)
-
         {
             try
             {
@@ -905,7 +903,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("FetchBestBikesList{0} ", BodyStyleType));
+                ErrorClass.LogError(ex, string.Format("FetchBestBikesList{0} ", BodyStyleType));
             }
         }
 
@@ -919,7 +917,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPage.BindUsedBikeByModel()");
+                ErrorClass.LogError(ex, "ModelPage.BindUsedBikeByModel()");
             }
 
             return UsedBikeModel;
@@ -1022,7 +1020,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> CreateMetas() ModelId: {0}, MaskingName: {1}", _modelId, ""));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> CreateMetas() ModelId: {0}, MaskingName: {1}", _modelId, ""));
             }
         }
 
@@ -1217,7 +1215,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> LoadVariants() ModelId: {0}, MaskingName: {1}", _modelId, ""));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> LoadVariants() ModelId: {0}, MaskingName: {1}", _modelId, ""));
             }
         }
 
@@ -1264,7 +1262,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ParseQueryString");
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ParseQueryString");
                 Status = StatusCodes.RedirectPermanent;
                 RedirectUrl = "/new-bikes-in-india/";
             }
@@ -1608,7 +1606,7 @@ namespace Bikewale.Models.BikeModels
                             }
                             catch (Exception ex)
                             {
-                                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> GetOnRoadPrice() ModelId: {0}, MaskingName: {1}", _modelId, ""));
+                                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> GetOnRoadPrice() ModelId: {0}, MaskingName: {1}", _modelId, ""));
                             }
                         }
                     }
@@ -1616,7 +1614,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> GetOnRoadPrice() ModelId: {0}, MaskingName: {1}", _modelId, ""));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> GetOnRoadPrice() ModelId: {0}, MaskingName: {1}", _modelId, ""));
             }
             return _pqOnRoad;
         }
@@ -1652,11 +1650,12 @@ namespace Bikewale.Models.BikeModels
                         }
                         else
                         {
-                            _objData.City = new Entities.Location.CityEntityBase {
+                            _objData.City = new Entities.Location.CityEntityBase
+                            {
                                 CityId = _cityId,
                                 CityName = _objData.LocationCookie.City
                             };
-                         
+
 
                         }
                     }
@@ -1693,7 +1692,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeModels.ModelPage -->" + "BindColorString()");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeModels.ModelPage -->" + "BindColorString()");
             }
         }
 
@@ -1774,15 +1773,15 @@ namespace Bikewale.Models.BikeModels
                     if (obj != null)
                     {
                         mileageWidgetObj = new ModelMileageWidgetVM();
-                        if(obj.Bikes!=null && obj.BodyStyleMileage!=null )
+                        if (obj.Bikes != null && obj.BodyStyleMileage != null)
                         {
                             mileageWidgetObj.MileageInfo = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == _modelId);
                             mileageWidgetObj.AvgBodyStyleMileageByUserReviews = obj.BodyStyleMileage.FirstOrDefault().AvgBodyStyleMileageByUserReviews;
                             mileageWidgetObj.SimilarBikeList = obj.Bikes.Where(u => u.Model.ModelId != _modelId);
                         }
-                       
 
-                        if (mileageWidgetObj.MileageInfo!=null)
+
+                        if (mileageWidgetObj.MileageInfo != null)
                         {
                             if (mileageWidgetObj.MileageInfo.Rank <= 3)
                             {
@@ -1797,14 +1796,14 @@ namespace Bikewale.Models.BikeModels
 
                             _objData.IsMileageByUsersAvailable = (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) || mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.SemiFaired) || mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Street)) && (mileageWidgetObj.MileageInfo.MileageByUserReviews > 0);
                         }
-                        
+
                     }
 
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.BindMileageWidget ModelId: {0}", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.BindMileageWidget ModelId: {0}", _modelId));
             }
 
         }

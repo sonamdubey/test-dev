@@ -99,7 +99,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterCityPage.GetData()");
+                ErrorClass.LogError(ex, "ServiceCenterCityPage.GetData()");
             }
             return objVM;
         }
@@ -120,7 +120,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "ServiceCenterIndiaPage.BindPageMetas()");
             }
         }
 
@@ -169,7 +169,7 @@ namespace Bikewale.Models.ServiceCenters
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindUsedBikeByModel()");
+                ErrorClass.LogError(ex, "ServiceCenterIndiaPage.BindUsedBikeByModel()");
             }
             return UsedBikeModel;
         }

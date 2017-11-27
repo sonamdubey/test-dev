@@ -24,7 +24,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "UsersController/Login");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "UsersController/Login");
             }
 
             return View();
@@ -78,7 +78,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "UsersController/Login");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "UsersController/Login");
                 return RedirectToAction("Index", "Home");
             }
         }

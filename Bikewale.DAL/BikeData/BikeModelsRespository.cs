@@ -3121,7 +3121,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMileageForModel");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetMileageForModel");
             }
             return mileageDetails;
         }

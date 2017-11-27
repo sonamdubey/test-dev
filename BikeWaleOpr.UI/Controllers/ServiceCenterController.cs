@@ -96,7 +96,7 @@ namespace BikewaleOpr.Controllers
             }		
             catch (Exception ex)		
             {		
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterController.SaveServiceCenter");		
+                ErrorClass.LogError(ex, "ServiceCenterController.SaveServiceCenter");		
             }		
 		
             return RedirectToAction("SearchServiceCenter");		
@@ -128,7 +128,7 @@ namespace BikewaleOpr.Controllers
             }		
             catch (Exception ex)		
             {		
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterController.EditServiceCenter");		
+                ErrorClass.LogError(ex, "ServiceCenterController.EditServiceCenter");		
             }		
             return View("~/Views/ServiceCenter/AddServiceCenter.cshtml" , objDataModel);		
 		

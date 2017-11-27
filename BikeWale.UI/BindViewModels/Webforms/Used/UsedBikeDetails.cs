@@ -107,7 +107,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetProfileDetails");
+                ErrorClass.LogError(ex, "GetProfileDetails");
                 
             }
         }
@@ -133,7 +133,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "IsValidProfileId");
+                ErrorClass.LogError(ex, "IsValidProfileId");
                 
             }
         }

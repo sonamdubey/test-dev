@@ -112,7 +112,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objData));
+                ErrorClass.LogError(ex, String.Format("BindAmpJsTags_{0}", objData));
             }
         }
 
@@ -318,7 +318,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.SetBreadcrumList");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Features.DetailPage.SetBreadcrumList");
             }
 
         }

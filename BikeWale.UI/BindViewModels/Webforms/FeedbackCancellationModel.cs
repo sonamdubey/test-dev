@@ -32,7 +32,7 @@ namespace Bikewale.BindViewModels.Webforms
             }
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "FeedbackCancellationModel.ProcessFeedbackEmail");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "FeedbackCancellationModel.ProcessFeedbackEmail");
                 
             }
         }

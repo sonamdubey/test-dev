@@ -198,7 +198,7 @@ namespace Bikewale.Notifications.MailTemplates
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Notification.PreBookingConfirmationMailToDealer.ComposeBody");
+                ErrorClass.LogError(ex, "Bikewale.Notification.PreBookingConfirmationMailToDealer.ComposeBody");
             }
             MailHTML = sb.ToString();
         }

@@ -54,7 +54,7 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "Cancellation.feedbackBtn_Click");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Cancellation.feedbackBtn_Click");
                 
             }
         }

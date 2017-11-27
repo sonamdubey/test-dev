@@ -147,7 +147,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesListing.BindLinkPager");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesListing.BindLinkPager");
             }
         }
         /// <summary>

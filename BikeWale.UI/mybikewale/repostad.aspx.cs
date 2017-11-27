@@ -120,7 +120,7 @@ namespace Bikewale.MyBikewale
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "RepostSellBikeAd.ProcessQueryString()");
+                ErrorClass.LogError(ex, "RepostSellBikeAd.ProcessQueryString()");
                 
             }
             return false;

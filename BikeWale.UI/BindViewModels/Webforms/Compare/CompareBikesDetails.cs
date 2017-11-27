@@ -87,7 +87,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.CompareBikesDetails : CompareBikesDetails");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.CompareBikesDetails : CompareBikesDetails");
             }
         }
 

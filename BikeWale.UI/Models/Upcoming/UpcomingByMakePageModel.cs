@@ -241,7 +241,7 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.CreatePager()");
+                ErrorClass.LogError(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.CreatePager()");
             }
         }
 
@@ -259,7 +259,7 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("Bikewale.Models.Upcoming.UpcomingByMakePageModel.ProcessQueryString({0})", _makeMaskingName));
+                ErrorClass.LogError(ex, String.Format("Bikewale.Models.Upcoming.UpcomingByMakePageModel.ProcessQueryString({0})", _makeMaskingName));
                 Status = StatusCodes.ContentNotFound;
             }
             finally

@@ -248,7 +248,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("FetchBestBikesList BodyStyle:{0} cityId:{1}", BodyStyleType, cityId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("FetchBestBikesList BodyStyle:{0} cityId:{1}", BodyStyleType, cityId));
             }
         }
 

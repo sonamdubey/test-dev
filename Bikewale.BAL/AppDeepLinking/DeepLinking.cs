@@ -155,7 +155,7 @@ namespace Bikewale.BAL.AppDeepLinking
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetMakeId({0})", makeMaskingName));
+                ErrorClass.LogError(ex, String.Format("GetMakeId({0})", makeMaskingName));
             }
             finally
             {

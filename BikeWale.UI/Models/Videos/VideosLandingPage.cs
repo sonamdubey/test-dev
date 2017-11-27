@@ -134,7 +134,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "VideosLandingPage.GetDataFromApiGateWay()");
+                ErrorClass.LogError(ex, "VideosLandingPage.GetDataFromApiGateWay()");
 
             }
 
@@ -159,7 +159,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "VideosLandingPage.GetData()");
+                ErrorClass.LogError(ex, "VideosLandingPage.GetData()");
             }
         }
 

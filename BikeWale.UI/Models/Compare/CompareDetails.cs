@@ -212,7 +212,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindSimilarBikes");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.BindSimilarBikes");
             }
         }
 

@@ -146,7 +146,7 @@ namespace Bikewale.Mobile.New
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                    ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "ParseQueryString");
                     
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
