@@ -44,7 +44,7 @@ textarea { width:660px; height:100px; resize: none; border-color:#e2e2e2; paddin
 .cancel-policy-lg-icon { width:30px; height:40px; background-position:-182px -257px; }
 
 /* otp */
-#otpPopup { display:none; width:450px; min-height:495px; background:#fff; margin:0 auto; padding:30px 40px; position:fixed; top:10%; left:5%; right:5%; z-index:10; }
+#otpPopup { display:none; width:450px; min-height:495px; background:#fff; margin:0 auto; padding:30px 40px; position:fixed; top:10%; left:5%; right:5%; z-index:210; }
 .otpPopup-close-btn.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
 #otpPopup .otp-box, #otpPopup .update-mobile-box { width:280px; margin:15px auto; }
 #otpPopup .update-mobile-box .form-control-box { margin-top:25px; margin-bottom:50px; }
