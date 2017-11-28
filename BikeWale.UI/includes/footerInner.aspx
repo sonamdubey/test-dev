@@ -34,10 +34,63 @@
 </div>
 <script type="text/javascript" src="<%= staticUrl  %>/src/bwcache.js?<%= staticFileVersion %>"></script>
 <BW:LocationWidget runat="server" id="ctrlChangeLocation" />
-<footer class="bg-footer padding-top40 padding-bottom20">
+<footer class="bg-footer padding-top10 padding-bottom20">
     <!-- Footer section code starts here -->
     <div class="container">
-        <div class="text-center border-solid-bottom margin-bottom25 padding-bottom20">
+        <div class="margin-top10">
+            <ul class="font14 popularMakes">
+                <li class="font16 text-white padding-right50">Popular Bike Brands</li>
+                <li><a href="/honda-bikes/" title="Honda Bikes">Honda Bikes</a></li>
+                <li><a href="/hero-bikes/" title="Hero Bikes">Hero Bikes</a></li>
+                <li><a href="/suzuki-bikes/" title="Suzuki Bikes">Suzuki Bikes</a></li>
+            </ul>
+        </div>
+         <div class="margin-top10 border-solid-bottom margin-bottom25 padding-bottom20">
+                <ul class="font14 popularMakes">
+                    <li class="font16 text-white padding-right50">Popular Car Brands &nbsp;</li>
+                    <li><a href="https://www.carwale.com/marutisuzuki-cars/" title="Maruti Cars">Maruti Cars&nbsp;</a></li>
+                    <li><a href="https://www.carwale.com/hyundai-cars/" title="Hyundai Cars">Hyundai Cars</a></li>
+                </ul>
+            </div>
+        <div class="border-solid-bottom margin-bottom25 padding-bottom20">
+            <div class="grid-4">
+                <p class="font18 text-white margin-bottom20">Join us on</p>
+                <div class="footer-social-icons">
+                    <a href="https://www.facebook.com/Bikewale.Official" target="_blank" rel="noopener" title="Facebook" class="margin-right30 fa-fb" rel="nofollow">
+                        <span class="bwsprite fa-facebook"></span>
+                    </a>
+                    <a href="https://twitter.com/bikewale" target="_blank" rel="noopener" title="Twitter" class="margin-right30 fa-tw" rel="nofollow">
+                        <span class="bwsprite fa-twitter"></span>
+                    </a>
+                    <a href="https://plus.google.com/115751055341108541383/posts" target="_blank" rel="noopener" class="fa-gp" title="Google+" rel="nofollow">
+                        <span class="bwsprite fa-google-plus"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="grid-2">
+                <p class="font18 text-white margin-bottom20">Company</p>
+                <ul>
+                    <li><a href="/sitemap.aspx">Sitemap</a></li>
+                    <li><a href="/contactus.aspx">Contact Us</a></li>
+                    <li><a href="/advertisewithus.aspx">Advertise with us</a></li>
+                </ul>
+            </div>
+            <div class="grid-3">
+                <ul class="margin-top45">
+
+                    <li><a href="/aboutus.aspx">About Us</a></li>
+                    <li><a href="https://www.bikewale.com/m/">View Mobile Version</a></li>
+                </ul>
+            </div>
+            <div class="grid-3">
+                <p class="font18 text-white margin-bottom30">Download Mobile App</p>
+                <div class="margin-bottom15">
+                    <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5"></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+         <div class="text-center padding-top10">
             <div class="grid-4">
                 <a href="/" class="bwsprite bw-footer-icon" title="Bikewale"></a>
             </div>
@@ -49,51 +102,6 @@
                 <a href="https://www.cartrade.com/" target="_blank" rel="noopener" class="bwsprite ct-footer-icon" title="CarTrade"></a>
             </div>
             <div class="clear"></div>
-        </div>
-        <div class="grid-4">
-            <p class="font18 text-white margin-bottom20">Join us on</p>
-            <div class="footer-social-icons">
-                <a href="https://www.facebook.com/Bikewale.Official" target="_blank" rel="noopener" title="Facebook" class="margin-right30 fa-fb" rel="nofollow">
-                    <span class="bwsprite fa-facebook"></span>
-                </a>
-                <a href="https://twitter.com/bikewale" target="_blank" rel="noopener" title="Twitter" class="margin-right30 fa-tw" rel="nofollow">
-                    <span class="bwsprite fa-twitter"></span>
-                </a>
-                <a href="https://plus.google.com/115751055341108541383/posts" target="_blank" rel="noopener" class="fa-gp" title="Google+" rel="nofollow">
-                    <span class="bwsprite fa-google-plus"></span>
-                </a>
-            </div>
-        </div>
-        <div class="grid-2">
-            <p class="font18 text-white margin-bottom20">Company</p>
-            <ul>
-                <li><a href="/sitemap.aspx">Sitemap</a></li>
-                <li><a href="/contactus.aspx">Contact Us</a></li>
-                <li><a href="/advertisewithus.aspx">Advertise with us</a></li>
-            </ul>
-        </div>
-        <div class="grid-3">
-            <ul class="margin-top45">
-                
-                <li><a href="/aboutus.aspx">About Us</a></li>
-                <li><a href="https://www.bikewale.com/m/">View Mobile Version</a></li>
-            </ul>
-        </div>
-        <div class="grid-3">
-            	<p class="font18 text-white margin-bottom30">Download Mobile App</p>
-                <div class="margin-bottom15">
-                            <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5" >
-			                </a>
-                </div>
-        </div>
-        <div class="clear"></div>
-         <div class="margin-top10">
-            <ul class="font14 popularMakes">
-                <li class="font16 text-white padding-right50">Polular Brands</li>
-                <li><a href="/honda-bikes/" title="Honda Bikes">Honda Bikes</a></li>
-                <li><a href="/hero-bikes/" title="Hero Bikes">Hero Bikes</a></li>
-                <li><a href="/suzuki-bikes/" title="Suzuki Bikes">Suzuki Bikes</a></li>
-            </ul>
         </div>
         <div class="border-solid-top text-white margin-top25 padding-top25">
             <div class="grid-6 alpha font16">&copy; BikeWale India</div>

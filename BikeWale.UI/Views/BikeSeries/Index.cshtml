@@ -1,0 +1,227 @@
+﻿@model Bikewale.Models.BikeSeries.SeriesPageVM
+@using Bikewale.Utility
+
+@if (Model != null)
+{
+    {
+        Model.AdTags.AdPath = "/1017752/Bikewale_Model_";
+        Model.AdTags.AdId = "1442913773076";
+        Model.AdTags.Ad_970x90 = true;
+        Model.AdTags.Ad_970x90Bottom = true;
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/model-series/series.css' inline>";
+        Model.Page_JS_Path = "/src/model-series/series.js";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <section id="seriesTabsContentWrapper" class="overall-tabs-wrapper">
+        <section class="container margin-bottom20">
+            <div class="grid-12">
+                @if (Model.BikeMake != null && Model.SeriesBase != null)
+                {
+                    <div class="content-box-shadow content-inner-block-1420">
+                        <h1>@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h1>
+                    </div>
+                }
+                @Html.Partial("~/Views/BikeSeries/_Index_Tabs.cshtml", Model)
+            </div>
+            @if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
+            {
+                <div id="modelAboutContent" data-id="#modelAboutContent" class="bw-model-tabs-data">
+                    <div class="grid-12">
+                        <div class="content-box-shadow bw-model-tabs-data  content-inner-block-20 border-solid-bottom margin-bottom20">
+                            <p class="font14 text-light-grey line-height17">
+                                <span class="preview-main-content">
+                                    @FormatDescription.TruncateDescription(Model.SeriesDescription.FullDescription, 550)
+                                </span>
+                                <span class="preview-more-content hide">
+                                    @Model.SeriesDescription.FullDescription
+                                </span>
+                                <a href="javascript:void(0)" class="read-more-bike-preview" rel="nofollow">Read more</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            }
+
+            @Html.Partial("~/Views/BikeSeries/_PopularNewBikes.cshtml", Model)
+            <div class="clear"></div>
+        </section>
+        @if (Model.SeriesModels != null && Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
+        {
+            <section>
+                <div id="modelUpcomingBikesContent" data-id="#modelUpcomingBikesContent" class="bw-model-tabs-data container margin-bottom20 active">
+                    <div class="grid-12">
+                        <div class="content-box-shadow padding-top20 padding-bottom25">
+                            @if (Model.BikeMake != null && Model.SeriesBase != null)
+                            {
+                                <div class="carousel-heading-content">
+                                    <h2 class="font22">@string.Format("{0} {1} upcoming bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
+                                </div>
+                            }
+                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_v1.cshtml", Model.SeriesModels.UpcomingBikes)
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </section>
+        }
+
+        
+            <section>
+                <div id="popularComparison" data-id="#popularComparison" class="bw-model-tabs-data container margin-bottom20 active">
+                    @if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
+                    {
+
+                        <div class="grid-12">
+                            <div class="content-box-shadow padding-top20 padding-bottom25 margin-bottom20">
+                                <div class="carousel-heading-content">
+                                    <div class="swiper-heading-left-grid inline-block">
+                                        <h2 class="font22">Pulsar Bikes Comparisons</h2>
+                                    </div><div class="swiper-heading-right-grid inline-block text-right">
+                                        <a href="/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_V1.cshtml", Model.SimilarCompareScooters)
+
+                            </div>
+
+                        </div>
+                        <div class="clear"></div>
+
+
+
+                    }
+
+                    @if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Count() > 1)
+                    {
+
+                        <div class="grid-12">
+                            <div class="content-box-shadow padding-top20 padding-bottom25">
+                                @if (Model.SeriesBase != null)
+                                {
+                                    <div class="carousel-heading-content">
+                                        <h2 class="font22">Find The Right @Model.SeriesBase.SeriesName</h2>
+                                    </div>
+                                }
+                                <p class="padding-left20 font16 font-bold padding-right20">What’s are you looking for?</p>
+                                <div class="find-right-bike margin-top25">
+                                    @Html.Partial("~/Views/BikeSeries/_BikeSeriesCompareBikesWithSpecs.cshtml", Model.ObjModel)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+
+                    }
+                </div>
+            </section>
+        
+
+        @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+        {
+            <section>
+                <div id="modelNewsContent" data-id="#modelNewsContent" class="bw-model-tabs-data container margin-bottom20 active">
+                    <div class="grid-12">
+                        <div class="content-box-shadow padding-top20 padding-bottom25">
+                            @if (Model.BikeMake != null && !string.IsNullOrEmpty(Model.BikeMake.MakeName) && Model.SeriesBase != null && !string.IsNullOrEmpty(Model.SeriesBase.SeriesName))
+                            {
+                                <div class="carousel-heading-content">
+                                    <h2 class="font22">@string.Format("{0} {1} News", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
+                                </div>
+                            }
+                            @Html.Partial("~/Views/News/_RecentNews_v1.cshtml", Model.News)
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </section>
+        }
+        @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+        {
+            <section>
+                <div id="modelVideosContent" data-id="#modelVideosContent" class="bw-model-tabs-data container margin-bottom20 active">
+                    <div class="grid-12">
+                        <div class="content-box-shadow padding-top20 padding-bottom25">
+                            @if (Model.BikeMake != null && !string.IsNullOrEmpty(Model.BikeMake.MakeName) && Model.SeriesBase != null && !string.IsNullOrEmpty(Model.SeriesBase.SeriesName))
+                            {
+                                <div class="carousel-heading-content">
+                                    <h2 class="font22">@string.Format("{0} {1} Videos", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
+                                </div>
+                            }
+                            @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </section>
+        }
+        @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+        {
+            <section>
+                <div id="modelReviewsContent" data-id="#modelReviewsContent" class="bw-model-tabs-data container margin-bottom20 active">
+                    <div class="grid-12">
+                        <div class="content-box-shadow padding-top20 padding-bottom25">
+                            @if (Model.BikeMake != null && !string.IsNullOrEmpty(Model.BikeMake.MakeName) && Model.SeriesBase != null && !string.IsNullOrEmpty(Model.SeriesBase.SeriesName))
+                            {
+                                <div class="carousel-heading-content">
+                                    <h2 class="font22">@string.Format("{0} {1} Expert Reviews", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
+                                </div>
+                            }
+                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_v1.cshtml", Model.ExpertReviews)
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </section>
+        }
+        @if (Model.objUsedBikes != null && Model.objUsedBikes.RecentUsedBikesList != null && Model.objUsedBikes.RecentUsedBikesList.Any())
+        {   <section>
+            <div id="modelUsedBikeContent" data-id="#modelUsedBikeContent" class="bw-model-tabs-data container margin-bottom20 active">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-bottom10">
+						@if (Model.BikeMake != null && Model.SeriesBase != null)
+						{
+							<div class="carousel-heading-content">
+								<h2 class="font22">@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName) Used Bikes</h2>
+							</div>
+						}
+                        
+                        <div class="used-model-swiper jcarousel-wrapper inner-content-carousel" data-overlay="right">
+                            <div class="jcarousel">
+                                @Html.Partial("~/Views/Used/_UsedBikeByModelCity_v1.cshtml", Model.objUsedBikes)
+                            </div>
+                            <span class="jcarousel-control-left">
+                                <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                            </span>
+                            <span class="jcarousel-control-right">
+                                <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        }
+        @if (Model.OtherSeries != null && Model.OtherSeries.OtherSeriesList != null && Model.OtherSeries.OtherSeriesList.Any())
+        {
+            <section>
+                <div id="otherBikesContent" data-id="#otherBikesContent" class="bw-model-tabs-data container margin-bottom20 active">
+                    <div class="grid-12">
+                        <div class="content-box-shadow padding-top20 padding-bottom20">
+                            @if (Model.OtherSeries.BikeMake != null)
+                            {
+                                <div class="carousel-heading-content">
+                                    <h2 class="font22">@string.Format("{0} other series", Model.OtherSeries.BikeMake.MakeName)</h2>
+                                </div>
+                            }
+							@Html.Partial("~/Views/BikeSeries/_OtherSeriesFromMake.cshtml", Model.OtherSeries)
+                            
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </section>
+        }
+    </section>
+}

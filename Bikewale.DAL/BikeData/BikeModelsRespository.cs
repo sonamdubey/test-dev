@@ -100,31 +100,31 @@ namespace Bikewale.DAL.BikeData
             throw new NotImplementedException();
         }
 
-        public BikeModelPageEntity GetModelPage(U modelId, bool isNew)
-        {
-            BikeModelPageEntity modelPage = new BikeModelPageEntity();
+        //public BikeModelPageEntity GetModelPage(U modelId, bool isNew)
+        //{
+        //    BikeModelPageEntity modelPage = new BikeModelPageEntity();
 
-            try
-            {
+        //    try
+        //    {
 
-                modelPage.ModelDetails = GetById(modelId);
-                modelPage.ModelDesc = GetModelSynopsis(modelId);
-                modelPage.ModelVersions = GetVersionMinSpecs(modelId, isNew);
-                modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
-                modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
-                modelPage.ModelColors = GetModelColor(modelId);
-            }
+        //        modelPage.ModelDetails = GetById(modelId);
+        //        modelPage.ModelDesc = GetModelSynopsis(modelId);
+        //        modelPage.ModelVersions = GetVersionMinSpecs(modelId, isNew);
+        //        modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
+        //        modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
+        //        modelPage.ModelColors = GetModelColor(modelId);
+        //    }
 
-            catch (Exception ex)
-            {
+        //    catch (Exception ex)
+        //    {
 
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+        //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
-            }
+        //    }
 
-            return modelPage;
+        //    return modelPage;
 
-        }
+        //}
 
         /// <summary>
         /// Modified By : Sushil Kumar on 21st jan 2016
@@ -138,7 +138,7 @@ namespace Bikewale.DAL.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public BikeModelPageEntity GetModelPage(U modelId)
+        public BikeModelPageEntity GetModelPage(U modelId, int versionId)
         {
             BikeModelPageEntity modelPage = new BikeModelPageEntity();
 
@@ -278,11 +278,12 @@ namespace Bikewale.DAL.BikeData
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_29092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_08112017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
+
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -302,11 +303,14 @@ namespace Bikewale.DAL.BikeData
                                     AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
                                     ElectricStart = !Convert.IsDBNull(dr["ElectricStart"]) ? Convert.ToBoolean(dr["ElectricStart"]) : false,
                                     AntilockBrakingSystem = !Convert.IsDBNull(dr["AntilockBrakingSystem"]) ? Convert.ToBoolean(dr["AntilockBrakingSystem"]) : false,
-                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"])
+                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"]),
+                                    HostUrl = Convert.ToString(dr["HostURL"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
                                 });
                             }
                             dr.Close();
                         }
+
                     }
                 }
 
@@ -338,7 +342,7 @@ namespace Bikewale.DAL.BikeData
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_modelid", modelId);
 
-                    objMinSpecs = connection.Query<BikeVersionMinSpecs>("getfuturisticversions", param: param, commandType: CommandType.StoredProcedure);
+                    objMinSpecs = connection.Query<BikeVersionMinSpecs>("getfuturisticversions_13112017", param: param, commandType: CommandType.StoredProcedure);
                 }
             }
             catch (Exception ex)
@@ -377,7 +381,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_23102017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_20112017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -408,6 +412,7 @@ namespace Bikewale.DAL.BikeData
                                 t.ModelSeries.SeriesId = SqlReaderConvertor.ToUInt32(dr["bikeseriesid"]);
                                 t.ModelSeries.SeriesName = Convert.ToString(dr["bikeseriesname"]);
                                 t.ModelSeries.MaskingName = Convert.ToString(dr["bikeseriesmaskingname"]);
+								t.ModelSeries.IsSeriesPageUrl = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]);
                                 t.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
                                 t.RatingCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"]);
                                 t.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
@@ -1030,17 +1035,12 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("SP_GetModelMappingNames sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("SP_GetModelMappingNames ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
             return ht;
         }
@@ -1068,31 +1068,25 @@ namespace Bikewale.DAL.BikeData
                         {
                             ht = new Hashtable();
 
-                            if (dr != null)
+
+                            while (dr.Read())
                             {
-                                while (dr.Read())
-                                {
-                                    if (!ht.ContainsKey(dr["OldMaskingName"]))
-                                        ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
-                                }
+                                if (!ht.ContainsKey(dr["OldMaskingName"]))
+                                    ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
                             }
+
                             dr.Close();
                         }
                     }
                 }
             }
 
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetOldMaskingNamesList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetOldMaskingNamesList ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
 
             return ht;

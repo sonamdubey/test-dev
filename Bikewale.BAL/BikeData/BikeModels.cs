@@ -664,11 +664,7 @@ namespace Bikewale.BAL.BikeData
                     allPhotos = new List<ColorImageBaseEntity>();
                     IEnumerable<ModelImage> galleryImages = null;
                     galleryImages = GetBikeModelPhotoGallery(modelId);
-                    // Create the delegate.
-                    //AsyncMethodCaller caller = new AsyncMethodCaller(GetBikeModelPhotoGallery);
 
-                    //// Initiate the asychronous call.
-                    //IAsyncResult result = caller.BeginInvoke(modelId, null, null);
 
                     var imageDesc = String.Format("{0} Model Image", objModelPage.ModelDetails.ModelName);
                     //Add Model Image
@@ -680,6 +676,7 @@ namespace Bikewale.BAL.BikeData
                         ImageTitle = imageDesc,
                         ImageType = ImageBaseType.ModelImage
                     });
+
 
                     //Add Color Photos
                     IEnumerable<ModelColorImage> colorPhotos = objModelPage.colorPhotos != null ? objModelPage.colorPhotos.Where(m => !String.IsNullOrEmpty(m.OriginalImagePath)) : null;
@@ -737,6 +734,13 @@ namespace Bikewale.BAL.BikeData
             }
         }
 
+
+
+
+
+
+
+
         /// <summary>
         /// Created by: Sushil Kumar on 4th Oct 2017
         /// Summary: To club all model images which includes modelimage,colorimages and gallery images
@@ -763,6 +767,8 @@ namespace Bikewale.BAL.BikeData
                         ImageTitle = imageDesc,
                         ImageType = ImageBaseType.ModelImage
                     });
+
+
                     if (colorPhotos != null)
                     {
                         var colorImages = colorPhotos.Select(x => new ColorImageBaseEntity()

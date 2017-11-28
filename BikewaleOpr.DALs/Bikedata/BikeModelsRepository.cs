@@ -1,17 +1,17 @@
 ﻿
+using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using Bikewale.DAL.CoreDAL;
-using Dapper;
-using System.Collections.ObjectModel;
 
 namespace BikewaleOpr.DALs.Bikedata
 {
@@ -145,7 +145,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
-                        {               
+                        {
                             objImagesData = new UsedBikeImagesNotificationData();
 
                             _objBikeModels = new List<UsedBikeImagesModel>();
@@ -456,7 +456,7 @@ namespace BikewaleOpr.DALs.Bikedata
             IEnumerable<BikeVersionEntityBase> objBikeVersionEntityBaseList = null;
             try
             {
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     var param = new DynamicParameters();
                     param.Add("par_modelid", modelId);
@@ -464,7 +464,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_cityid", 0);
                     connection.Open();
                     objBikeVersionEntityBaseList = connection.Query<BikeVersionEntityBase>("getbikeversions_new", param: param, commandType: CommandType.StoredProcedure);
-                    if(connection != null && connection.State == ConnectionState.Open)
+                    if (connection != null && connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -477,6 +477,36 @@ namespace BikewaleOpr.DALs.Bikedata
             return objBikeVersionEntityBaseList;
         }
         #endregion
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 21 Nov 2017
+        /// Description :   Check if masking name exists in model table
+        /// </summary>
+        /// <param name="modelMaskingName"></param>
+        /// <returns></returns>
+        public bool IsModelMaskingNameExists(uint makeId, string modelMaskingName)
+        {
+            bool isExists = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "ismodelmaskingnameexists";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeId", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, modelMaskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismaskingexist", DbType.Int16, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isExists = Bikewale.Utility.SqlReaderConvertor.ToBoolean(cmd.Parameters["par_ismaskingexist"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.IsModelMaskingNameExists({0})", modelMaskingName));
+            }
+            return isExists;
+        }
     }
 }
 

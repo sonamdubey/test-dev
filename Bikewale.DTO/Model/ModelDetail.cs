@@ -1,11 +1,7 @@
 ﻿using Bikewale.DTO.Make;
 using Bikewale.DTO.Series;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System;
 
 namespace Bikewale.DTO.Model
 {
@@ -50,5 +46,7 @@ namespace Bikewale.DTO.Model
 
         [JsonProperty("reviewCount")]
         public int ReviewCount { get; set; }
+        [JsonProperty("reviewRateStar")]
+        public byte ReviewRateStar { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace Bikewale.Models
         private readonly string _makeMasking;
         private readonly uint _modelId;
         private readonly string _modelName;
-        private readonly string _modelMasking;
+        private readonly string _modelMasking, _modelIdList;
 
         #region Constructor
         public RecentVideos(ushort pageNo, ushort pageSize, IVideos videos)
@@ -28,8 +28,14 @@ namespace Bikewale.Models
             _pageSize = pageSize;
             _videos = videos;
         }
-
-        public RecentVideos(ushort pageNo, ushort pageSize, uint makeId, string makeName, string makeMasking, IVideos videos)
+		public RecentVideos(ushort pageNo, ushort pageSize, string modelIdList, IVideos videos)
+		{
+			_pageNo = pageNo;
+			_pageSize = pageSize;
+			_modelIdList = modelIdList;
+			_videos = videos;
+		}
+		public RecentVideos(ushort pageNo, ushort pageSize, uint makeId, string makeName, string makeMasking, IVideos videos)
         {
             _pageNo = pageNo;
             _pageSize = pageSize;
@@ -63,14 +69,21 @@ namespace Bikewale.Models
             RecentVideosVM recentVideos = new RecentVideosVM();
             try
             {
-                if (IsScooter)
-                {
-                    string bodyStyleId = "5";
-                    recentVideos.VideosList = _videos.GetVideosByMakeModel(_pageNo, _pageSize, bodyStyleId,_makeId, _modelId);
-                }
-                else
-                recentVideos.VideosList = _videos.GetVideosByMakeModel(_pageNo, _pageSize, _makeId, _modelId);
-                if (recentVideos.VideosList != null)
+				if (!string.IsNullOrEmpty(_modelIdList))
+				{
+					uint videoBasicId = 1; // 1 required to get videos
+					recentVideos.VideosList = _videos.GetSimilarVideos(_pageSize, _modelIdList, videoBasicId);
+				}
+				else if (IsScooter)
+				{
+					string bodyStyleId = "5";
+					recentVideos.VideosList = _videos.GetVideosByMakeModel(_pageNo, _pageSize, bodyStyleId, _makeId, _modelId);
+				}
+				else
+					recentVideos.VideosList = _videos.GetVideosByMakeModel(_pageNo, _pageSize, _makeId, _modelId);
+
+
+				if (recentVideos.VideosList != null)
                 {
                     recentVideos.VideosList = recentVideos.VideosList.Take(_pageSize);
                     if (string.IsNullOrEmpty(_makeMasking) && string.IsNullOrEmpty(_modelMasking))

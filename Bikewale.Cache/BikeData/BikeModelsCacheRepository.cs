@@ -74,7 +74,7 @@ namespace Bikewale.Cache.BikeData
             string key = string.Format("BW_ModelDetail_V1_{0}", modelId);
             try
             {
-                objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => GetModelPageDetailsNew(modelId));
+                objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => GetModelPageDetailsNew(modelId, versionId));
 
                 if (objModelPage != null && objModelPage.ModelVersionSpecsList != null && objModelPage.ModelVersionSpecs != null && objModelPage.ModelVersions.Count > 1)
                 {
@@ -110,10 +110,10 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        private BikeModelPageEntity GetModelPageDetailsNew(U modelId)
+        private BikeModelPageEntity GetModelPageDetailsNew(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;
-            objModelPage = _modelRepository.GetModelPage(modelId);
+            objModelPage = _modelRepository.GetModelPage(modelId, versionId);
             if (objModelPage != null && objModelPage.ModelVersionSpecsList != null)
             {
                 List<TransposeModelSpecEntity> objSpecList = new List<TransposeModelSpecEntity>();

@@ -62,5 +62,37 @@ namespace Bikewale.Utility
                 }
             }
         }
+
+        /// <summary>
+        /// Creates the previous next URL.
+        /// To support different page types forx ex. page/1/ or page-1/
+        /// </summary>
+        /// <param name="totalPages">The total pages.</param>
+        /// <param name="baseUrl">The base URL.</param>
+        /// <param name="pageNumber">The page number.</param>
+        /// <param name="pageBaseUrl">The page base URL.</param>
+        /// <param name="nextPageUrl">The next page URL.</param>
+        /// <param name="prevPageUrl">The previous page URL.</param>
+        public static void CreatePrevNextUrl(int totalPages, string baseUrl, int pageNumber, string pageBaseUrl, ref string nextPageUrl, ref string prevPageUrl)
+        {
+            string _mainUrl = String.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, baseUrl, pageBaseUrl);
+
+            if (totalPages > 1)
+            {
+                if (pageNumber == 1)    //if page is first page
+                {
+                    nextPageUrl = string.Format("{0}2/", _mainUrl);
+                }
+                else if (pageNumber == totalPages)    //if page is last page
+                {
+                    prevPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber - 1);
+                }
+                else
+                {          //for middle pages
+                    prevPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber - 1);
+                    nextPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber + 1);
+                }
+            }
+        }
     }
 }

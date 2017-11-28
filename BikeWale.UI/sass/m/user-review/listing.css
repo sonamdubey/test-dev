@@ -1146,6 +1146,8 @@
       color: #4d5057;
       font-weight: 600;
       pointer-events: none; }
+      .overall-specs-tabs-wrapper li.active > span:nth-of-type(1) {
+        margin-right: 5px; }
 
 .overall-specs-tabs-container::-webkit-scrollbar {
   width: 0;

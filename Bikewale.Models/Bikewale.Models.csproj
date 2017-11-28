@@ -114,7 +114,10 @@
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
     <Compile Include="BikeModels\OtherBestBikesVM.cs" />
+    <Compile Include="BikeSeries\BikeSeriesCompareVM.cs" />
     <Compile Include="BikeSeries\BikeSeriesModelsVM.cs" />
+    <Compile Include="BikeSeries\OtherSeriesVM.cs" />
+    <Compile Include="BikeSeries\SeriesPageVM.cs" />
     <Compile Include="CompareBikes\PopularComparisonsVM.cs" />
     <Compile Include="Compare\CompareDetailsVM.cs" />
     <Compile Include="Compare\CompareVM.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="Make\OtherMakesVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
+    <Compile Include="NewBikeSearch\NewBikeSearchVM.cs" />
     <Compile Include="NewPage\NewPageVM.cs" />
     <Compile Include="News\NewsDetailPageVM.cs" />
     <Compile Include="NewLaunches\NewLaunchedIndexVM.cs" />
@@ -223,6 +227,10 @@
     <ProjectReference Include="..\Bikewale.Comparison.Entities\Bikewale.Comparison.Entities.csproj">
       <Project>{1cdaf20b-89e5-4f96-b8f4-7835e0291a80}</Project>
       <Name>Bikewale.Comparison.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.DTO\Bikewale.DTO.csproj">
+      <Project>{A6404F19-B267-4E37-B186-D8FC010AD2CE}</Project>
+      <Name>Bikewale.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>

@@ -1,7 +1,7 @@
 ﻿@charset "utf-8";
 /* CSS Document */
-.filter-container { height:65px; }
-.search-bike-list li { float:left; width:294px; min-height: 390px; height: 290px; margin-right: 20px; margin-bottom: 5px; }
+.filter-container { height: 65px; }
+.search-bike-list li { float:left; width:294px; min-height: 380px; height: 290px; margin-right: 20px; margin-bottom: 5px; }
 .search-bike-list li .imageWrapper { width:294px; height:166px; }
 .search-bike-list li .imageWrapper a { width:294px; height:166px; display: block; background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .search-bike-list li .imageWrapper a img { width:294px; height:166px; }
@@ -97,38 +97,49 @@
     -o-transform: scale(0.6);
     transform: scale(0.6); }
 
-.rate-count-0 .star-icon {
+.rate-star-color[data-rate-cl="0"] .star-icon {
     background-position: -53px -757px;
 }
-.rate-count-1 .star-icon {
-  background-position: 0 -790px; }
+.rate-star-color[data-rate-cl="1"] .star-icon {
+    background-position: 0 -790px;
+}
 
-.rate-count-2 .star-icon {
-  background-position: -46px -790px; }
+.rate-star-color[data-rate-cl="2"] .star-icon {
+    background-position: -46px -790px;
+}
 
-.rate-count-3 .star-icon {
-  background-position: 0 -757px; }
+.rate-star-color[data-rate-cl="3"] .star-icon {
+    background-position: 0 -757px;
+}
 
-.rate-count-4 .star-icon {
-  background-position: -92px -790px; }
+.rate-star-color[data-rate-cl="4"] .star-icon {
+    background-position: -92px -790px;
+}
 
-.rate-count-5 .star-icon {
-  background-position: -138px -790px; }
-  
-.rate-count-5 {
-  color: #198D55; }
+.rate-star-color[data-rate-cl="5"] .star-icon {
+    background-position: -138px -790px;
+}
 
-.rate-count-4 {
-  color: #13B65D; }
 
-.rate-count-3 {
-  color: #EFD700; }
+.rate-star-color[data-rate-cl="5"] {
+    color: #198D55;
+}
 
-.rate-count-2 {
-  color: #FD971C; }
+.rate-star-color[data-rate-cl="4"] {
+    color: #13B65D;
+}
 
-.rate-count-1 {
-  color: #EF3F30; }
+.rate-star-color[data-rate-cl="3"] {
+    color: #EFD700;
+}
+
+.rate-star-color[data-rate-cl="2"] {
+    color: #FD971C;
+}
+
+.rate-star-color[data-rate-cl="1"] {
+    color: #EF3F30;
+}
 
 
   
@@ -145,4 +156,65 @@
     width: 1px;
     height: 12px;
     border-left: 1px solid #e2e2e2;
+}
+
+.model-preview-image-container {
+    max-width: 292px;
+    height: 164px;
+    display: table;
+    text-align: center;
+    border: 1px solid #e2e2e2;
+}
+.model-preview-image-container a {
+    width: 292px;
+    height: 164px;
+    display: block;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center center;
+}
+.model-preview-image-container a img {
+    width: 100%;
+    height: 164px;
+}
+.more-article-target {
+    text-align: center;
+    font-size: 16px;
+}
+
+.spinner-content {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 45%;
+    left: 4%;
+    right: 0;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+#divSearchResult .loader-active:before {
+    content: '';
+    width: 100%;
+    min-height: 350px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #f5f5f5;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.home-tabs {
+    margin-top: 0 !important;
+}
+
+.load-more-btn-container {
+	text-align: center;
+	padding-bottom: 30px;
+}
+
+#loadMoreBikes.btn {
+	width: 183px;
+	padding-top: 8px;
+	padding-bottom: 8px;
 }

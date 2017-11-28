@@ -29,6 +29,7 @@ using BikewaleOpr.Interface.AdSlot;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Dealers;
@@ -55,6 +56,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
     /// Description : Added IBikeMakes
     /// Modified By : Ashutosh Sharma on 29-07-2017
     /// Description : Added IShowroomPricesRepository registration to BikeShowroomPrices
+    /// Modified by : Ashutosh Sharma on 10 Nov 2017
+    /// Description : Added registration for IBwPrice and BwPrice.
     /// </summary>
     public static class UnityBootstrapper
     {
@@ -102,6 +105,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IPageMetas, PageMetas>();
             container.RegisterType<IAdSlotRepository, AdSlot>();
             container.RegisterType<IAdSlot, BAL.AdSlot.AdSlot>();
+            container.RegisterType<IBwPrice, BwPrice>();
 
             return container;
         }

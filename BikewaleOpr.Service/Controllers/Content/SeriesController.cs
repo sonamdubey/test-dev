@@ -1,6 +1,5 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.DTO.BikeData;
-using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Service.AutoMappers.BikeData;
@@ -30,17 +29,16 @@ namespace BikewaleOpr.Service.Controllers.Content
         public IHttpActionResult Add(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
         {
             BikeSeriesDTO objBikeSeriesDTO = null;
-            BikeSeriesEntity objBikeSeries = null;
-            objBikeSeries = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
-            if(objBikeSeries != null)
+
+            Tuple<bool, string, BikeSeriesEntity> balResp = null;
+
+            balResp = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
+            if (balResp != null)
             {
                 try
                 {
-                    if (objBikeSeries.SeriesId == 0)
-                    {
-                        return BadRequest("Bike series already exist");
-                    }
-                    objBikeSeriesDTO = BikeSeriesMapper.Convert(objBikeSeries);
+                    objBikeSeriesDTO = BikeSeriesMapper.Convert(balResp.Item3);
+                    objBikeSeriesDTO.Message = balResp.Item2;
                 }
                 catch (Exception ex)
                 {
@@ -63,19 +61,22 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="seriesMaskingName"></param>
         /// <returns></returns>
         [HttpPost, Route("api/series/{seriesId}/edit/")]
-        public IHttpActionResult Edit(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
+        public IHttpActionResult Edit(uint makeId, uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
         {
-            bool IsEdited = false;
+            Tuple<bool, string> balResp = null;
             try
             {
-                IsEdited = _series.EditSeries(seriesId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
-                if (IsEdited)
+                balResp = _series.EditSeries(makeId, seriesId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
+                if (balResp != null)
                 {
-                    return Ok(IsEdited);
+                    if (balResp.Item1)
+                        return Ok(balResp.Item2);
+                    else
+                        return BadRequest(balResp.Item2);
                 }
                 else
                 {
-                    return InternalServerError();
+                    return BadRequest("Input data is not correct");
                 }
             }
             catch (Exception ex)
@@ -109,7 +110,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                     else
                     {
                         return InternalServerError();
-                    } 
+                    }
                 }
                 else
                 {
@@ -160,6 +161,75 @@ namespace BikewaleOpr.Service.Controllers.Content
                 ErrorClass objErr = new ErrorClass(ex, string.Format("SeriesController.Delete_{0}", modelId));
                 return InternalServerError();
             }
+        }
+
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Nov 2017
+        ///  Summary : API for get synopsis 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [HttpGet, Route("api/series/{seriesid}/synopsis/")]
+        public IHttpActionResult GetSynopsis(int seriesId)
+        {
+            if (seriesId > 0)
+            {
+                SynopsisData objSynopsis = null;
+
+                try
+                {
+                    objSynopsis = _series.Getsynopsis(seriesId);
+                    if (objSynopsis != null)
+                        return Ok(BikeDataMapper.Convert(objSynopsis));
+                    else
+                        return NotFound();
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "GetSynopsis : Series");
+                    return InternalServerError();
+                }
+            }
+            else
+                return BadRequest();
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Nov 2017
+        /// Summary : API for updating synopsis
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <param name="objSynopsisDto"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/series/{seriesid}/synopsis/")]
+        public IHttpActionResult SaveSynopsis(int seriesId, [FromBody] SynopsisDataDto objSynopsisDto)
+        {
+            SynopsisData objSynopsis = BikeDataMapper.Convert(objSynopsisDto);
+            bool isUpdated = false;
+            if (seriesId > 0)
+            {
+                try
+                {
+                    int userId = 0;
+                    int.TryParse(Bikewale.Utility.OprUser.Id, out userId);
+
+                    isUpdated = _series.UpdateSynopsis(seriesId, userId, objSynopsis);
+                    if (!isUpdated)
+                    {
+                        return Ok(false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "SaveSynopsis");
+                    return InternalServerError();
+                }
+            }
+            else
+                return BadRequest("Invalid inputs");
+
+            return Ok(true);
         }
 
     }

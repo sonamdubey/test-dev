@@ -1,0 +1,76 @@
+﻿.article-list 
+	.article-content
+		padding-right: 20px
+		padding-left: 20px
+
+	.article-item-content
+		padding-top: 20px
+		padding-bottom: 20px
+
+@mixin article-image-wrapper($width: 292, $height: 164)
+	.article-image-wrapper
+		width: $width * 1px
+		margin-right: 20px
+		float: left
+		height: $height * 1px
+		overflow: hidden
+		@include border-radius(3px)
+		a
+			width: $width * 1px
+			height: $height * 1px
+			display: block
+
+		img
+			height: $height * 1px
+
+.article-desc-wrapper
+    width: auto
+
+.article-desc__title
+	font-size: 15px
+	color: #2a2a2a
+	font-weight: 600
+
+.article-date,
+.article-author
+    display: inline-block
+    vertical-align: middle
+
+.article-date
+    min-width: 145px
+    padding-right: 10px
+			
+.calender-grey-icon,
+.author-grey-icon
+    width: 14px
+    height: 15px
+    position: relative
+    top: -2px
+    margin-right: 4px
+
+.calender-grey-icon
+    background-position: -129px -515px
+
+.article-author
+    min-width: 200px
+
+.author-grey-icon
+    background-position: -105px -515px
+
+.text-slate-grey
+	color: #787878
+
+.btn-inv-blue
+	background: #fff
+	color: #0288d1
+	border: 1px solid #0288d1
+	padding: 5px 10px
+	overflow: hidden
+	text-overflow: ellipsis
+	font-weight: 600
+	font-size: 14px
+	width: auto
+	
+	&:hover
+		background-color: #0288d1
+		color: white
