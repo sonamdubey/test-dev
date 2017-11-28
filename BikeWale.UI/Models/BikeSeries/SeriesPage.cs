@@ -398,7 +398,9 @@ namespace Bikewale.Models.BikeSeries
 					objSeriesPage.ObjModel.ObjBikeSpecs.FuelCapacity = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.FuelCapacity != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.FuelCapacity)).Count() + 1);
 					objSeriesPage.ObjModel.ObjBikeSpecs.Displacement = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Displacement != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Displacement)).Count() + 1);
 
-					objSeriesPage.ObjModel.BikeCompareSegments = objList; 
+					objSeriesPage.ObjModel.BikeCompareSegments = objList;
+					objSeriesPage.ObjModel.BikeMake = objSeriesPage.BikeMake;
+					objSeriesPage.ObjModel.SeriesBase = objSeriesPage.SeriesBase;
 				}
             }
             catch (Exception ex)

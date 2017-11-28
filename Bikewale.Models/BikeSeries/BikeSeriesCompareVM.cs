@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeSeries;
 using System.Collections.Generic;
 namespace Bikewale.Models.BikeSeries
@@ -10,9 +11,11 @@ namespace Bikewale.Models.BikeSeries
         public IEnumerable<string> BikeCompareSegments { get; set; }
 
         public BikeSpecs ObjBikeSpecs { get; set; }
+		public BikeMakeBase BikeMake { get; set; }
+		public BikeSeriesEntityBase SeriesBase { get; set; }
 
 
-    }
+	}
     public class BikeSpecs
     {
         public ushort MaxPower { get; set; }
