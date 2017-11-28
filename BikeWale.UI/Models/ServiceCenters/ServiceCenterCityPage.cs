@@ -208,7 +208,8 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
                 {
-                    objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
+                    objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objVM.DealersServiceCenterPopularCities.
+                                                                                    DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
                 }
 
             }
@@ -229,7 +230,7 @@ namespace Bikewale.Models.ServiceCenters
         {
             try
             {
-                if(objPageVM!=null)
+                if (objPageVM != null)
                 {
                     IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
                     string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
@@ -249,9 +250,9 @@ namespace Bikewale.Models.ServiceCenters
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPageVM.Page_H1));
                     objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
                 }
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "ServiceCenterCityPage.SetBreadcrumList");
             }

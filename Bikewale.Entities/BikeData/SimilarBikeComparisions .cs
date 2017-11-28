@@ -14,8 +14,6 @@ namespace Bikewale.Entities.BikeData
         public BikeModelEntityBase Model { get; set; }
         public string HostUrl { get; set; }
         public string OriginalImagePath { get; set; }
-        //public int Price { get; set; }
 
-        //public string City { get; set; }
     }
 }

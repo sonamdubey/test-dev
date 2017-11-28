@@ -290,7 +290,8 @@ namespace Bikewale.Models.UserReviews
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objPage.RatingsInfo.Make.MakeName)));
             }
-            if (objPage.RatingReviewData != null && objPage.RatingReviewData.RatingDetails != null && objPage.RatingReviewData.RatingDetails.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(objPage.RatingsInfo.Make.IsScooterOnly))
+            if (objPage.RatingReviewData != null && objPage.RatingReviewData.RatingDetails != null &&
+                objPage.RatingReviewData.RatingDetails.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(objPage.RatingsInfo.Make.IsScooterOnly))
             {
                 if (IsMobile)
                 {

@@ -1,15 +1,12 @@
 ﻿using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Bikewale.Models
@@ -62,8 +59,8 @@ namespace Bikewale.Models
             SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
             BaseUrl = baseUrl;
             PageSize = pageSize;
-            _objArticles = objArticles; 
-      
+            _objArticles = objArticles;
+
         }
         #endregion
 
@@ -97,7 +94,7 @@ namespace Bikewale.Models
                 objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Any());
                 objUpcoming.YearsList = _upcoming.GetYearList();
                 objUpcoming.MakesList = _upcoming.GetMakeList();
-                BindCMSContent(objUpcoming);
+                BindCmsContent(objUpcoming);
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);
 
             }
@@ -174,23 +171,23 @@ namespace Bikewale.Models
         /// Description: Upcoming bikes news widget
         /// </summary>
         /// <param name="objUpcoming"></param>
-        private void BindCMSContent(UpcomingPageVM objUpcoming)
+        private void BindCmsContent(UpcomingPageVM objUpcoming)
         {
             try
             {
-                if (objUpcoming != null && objUpcoming.UpcomingBikeModels!=null)
+                if (objUpcoming != null && objUpcoming.UpcomingBikeModels != null)
                 {
                     string modelId = string.Empty;
                     foreach (var obj in objUpcoming.UpcomingBikeModels)
                     {
                         modelId = string.IsNullOrEmpty(modelId) ? Convert.ToString(obj.ModelBase.ModelId) : string.Format("{0},{1}", modelId, obj.ModelBase.ModelId);
                     }
-                    objUpcoming.News = new RecentNews(5, 0 , modelId, _objArticles).GetData();
+                    objUpcoming.News = new RecentNews(5, 0, modelId, _objArticles).GetData();
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Bikewale.Models.UpcomingPageModel.BindCMSContent()");
+                ErrorClass.LogError(ex, "Bikewale.Models.UpcomingPageModel.BindCmsContent()");
             }
 
         }
