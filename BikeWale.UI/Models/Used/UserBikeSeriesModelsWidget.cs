@@ -61,7 +61,7 @@ namespace Bikewale.Models.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.Used.UsedBikesByModelCityWidget.GetData()");
+                Bikewale.Notifications.ErrorClass.LogError(err, "Bikewale.Models.Used.UsedBikesByModelCityWidget.GetData()");
             }
 
             return objUsed;

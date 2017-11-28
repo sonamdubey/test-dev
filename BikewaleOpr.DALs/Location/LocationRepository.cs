@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.DAL.CoreDAL;
+﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity;
 using BikewaleOpr.Interface.Location;
 using Dapper;
-using BikewaleOpr.Entity;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace BikewaleOpr.DALs.Location
 {
@@ -43,8 +40,8 @@ namespace BikewaleOpr.DALs.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Location.GetStates");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Location.GetStates");
+                
             }
 
             return objStateList;
@@ -73,7 +70,7 @@ namespace BikewaleOpr.DALs.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetDealerCitites");
+                ErrorClass.LogError(ex, "GetDealerCitites");
             }
 
             return cities;
@@ -104,7 +101,7 @@ namespace BikewaleOpr.DALs.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("GetCitiesByState stateId={0}", stateId));
+                ErrorClass.LogError(ex, string.Format("GetCitiesByState stateId={0}", stateId));
             }
 
             return stateCities;
@@ -133,7 +130,7 @@ namespace BikewaleOpr.DALs.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("GetAllCities"));
+                ErrorClass.LogError(ex, string.Format("GetAllCities"));
             }
 
             return cities;

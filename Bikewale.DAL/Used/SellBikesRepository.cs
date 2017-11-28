@@ -58,8 +58,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.Add({0})", Newtonsoft.Json.JsonConvert.SerializeObject(ad)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.Add({0})", Newtonsoft.Json.JsonConvert.SerializeObject(ad)));
+                
             }
             return inquiryId;
         }
@@ -106,8 +106,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.Update({0})", Newtonsoft.Json.JsonConvert.SerializeObject(ad)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.Update({0})", Newtonsoft.Json.JsonConvert.SerializeObject(ad)));
+                
             }
             return isSuccess;
         }
@@ -140,8 +140,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.UpdateOtherInformation({0},{1},{2})", Newtonsoft.Json.JsonConvert.SerializeObject(otherInfo), inquiryId, customerId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.UpdateOtherInformation({0},{1},{2})", Newtonsoft.Json.JsonConvert.SerializeObject(otherInfo), inquiryId, customerId));
+                
             }
             return isSuccess;
         }
@@ -166,7 +166,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.ChangeInquiryStatus (inquiryId:{0}) => status:{1}", inquiryId, status));
+                ErrorClass.LogError(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.ChangeInquiryStatus (inquiryId:{0}) => status:{1}", inquiryId, status));
             }
         }
 
@@ -245,8 +245,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.GetById({0}) => Customerid:{1}", inquiryId, customerId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.GetById({0}) => Customerid:{1}", inquiryId, customerId));
+                
             }
             return objAd;
         }
@@ -307,8 +307,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("SaveBikePhotos({0},{1},{2},{3},{4})", isMain, isDealer, inquiryId, originalImageName, description));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("SaveBikePhotos({0},{1},{2},{3},{4})", isMain, isDealer, inquiryId, originalImageName, description));
+                
             }
             return photoId;
         }
@@ -347,8 +347,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("UploadImageToCommonDatabase({0},{1},{2},{3})", photoId, imageName, imgC, directoryPath));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("UploadImageToCommonDatabase({0},{1},{2},{3})", photoId, imageName, imgC, directoryPath));
+                
             } // catch Exception
             return url;
         }
@@ -394,8 +394,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("GetBikePhotos({0},{1})", inquiryId, isApproved));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("GetBikePhotos({0},{1})", inquiryId, isApproved));
+                
             }
             return photos;
         }
@@ -426,8 +426,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("MarkMainImage(inquiryId: {0}, photoId: {1}, isDealer: {2}  )", inquiryId, photoId, isDealer));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("MarkMainImage(inquiryId: {0}, photoId: {1}, isDealer: {2}  )", inquiryId, photoId, isDealer));
+                
             }
             return isMain;
         }

@@ -1,13 +1,8 @@
-﻿using Bikewale.Entity.CMS.Photos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Bikewale.Entity.CMS.Photos
 {
-    
+
     public class CMSImage
     {
         public uint RecordCount { get; set; }

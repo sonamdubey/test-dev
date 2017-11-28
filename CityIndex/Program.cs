@@ -1,11 +1,11 @@
 ﻿using Consumer;
+using ElasticClientManager;
 using Nest;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using ElasticClientManager;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 namespace CityAutoSuggest
 {
     class Program

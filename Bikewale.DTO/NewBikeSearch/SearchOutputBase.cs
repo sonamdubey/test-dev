@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.DTO.Model;
 using Newtonsoft.Json;
-using Bikewale.DTO.Model;
 
 namespace Bikewale.DTO.NewBikeSearch
 {

@@ -1,10 +1,6 @@
 ﻿using Bikewale.Notifications;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Cache.Memcache
 {
@@ -26,8 +22,8 @@ namespace Bikewale.Cache.Memcache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetMakeId");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetMakeId");
+                
             }
             return makeId;
         }

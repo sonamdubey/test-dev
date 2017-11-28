@@ -47,14 +47,45 @@ namespace Bikewale.Models.UserReviews
 
                     objData.Make = objData.PopularBikes.First().Make;
                 }
+                BindOtherMakes();
                 BindPageMetas();
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewLandingPage.GetData");
+                ErrorClass.LogError(ex, "UserReviewLandingPage.GetData");
             }
             return objData;
         }
+
+        /// <summary>
+        /// Created by  :   Sushil Kumar on 23rd Nov 2017
+        /// Description :   Bind Other Similar Make list for user reviews
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindOtherMakes()
+        {
+            try
+            {
+                IEnumerable<BikeMakeEntityBase> makes = _bikeMakesCache.GetMakesByType(EnumBikeType.UserReviews);
+
+                var popularBrandsList = Utility.BikeFilter.FilterMakesByCategory(_makeId, makes);
+
+                if (popularBrandsList != null && popularBrandsList.Any())
+                {
+                    var otherMakes = new OtherMakesVM();
+                    otherMakes.Makes = popularBrandsList.Take(9);
+                    otherMakes.PageLinkFormat = "/{0}-bikes/reviews/";
+                    otherMakes.PageTitleFormat = "{0} Reviews";
+                    objData.OtherMakes = otherMakes;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass er = new ErrorClass(ex, string.Format("UserReviewByMakePage.BindOtherMakes() => MakeId: {0}", _makeId));
+            }
+        }
+
 
         public void BindPageMetas()
         {
@@ -74,7 +105,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewLandingPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "UserReviewLandingPage.BindPageMetas()");
             }
         }
 
@@ -93,8 +124,13 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            string makepageUrl = String.Format("{0}{1}-bikes/", url, objData.Make.MaskingName);
+
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url + "reviews/", "Reviews"));
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, makepageUrl, string.Format("{0} Bikes", objData.Make.MakeName)));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, string.Format("{0} Bikes Reviews", objData.Make.MakeName)));
 
 
             objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
@@ -132,7 +168,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", _makeMaskingName));
+                ErrorClass.LogError(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", _makeMaskingName));
             }
             return makeId;
         }

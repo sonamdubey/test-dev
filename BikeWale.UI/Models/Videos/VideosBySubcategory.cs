@@ -43,7 +43,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.VideosBySubCategory.GetData: CategoryId {0}, PageNo {1}, PageSize {2}, SortOrder {3}", categoryIdList, pageNo, pageSize, sortOrder));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.Videos.VideosBySubCategory.GetData: CategoryId {0}, PageNo {1}, PageSize {2}, SortOrder {3}", categoryIdList, pageNo, pageSize, sortOrder));
             }
             finally
             {
@@ -71,7 +71,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.AddGrpcCallsToAPIGateway");
+                ErrorClass.LogError(ex, "Bikewale.Models.Videos.AddGrpcCallsToAPIGateway");
                 widget = null;
             }
 
@@ -107,7 +107,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.AddGrpcCallsToAPIGateway");
+                ErrorClass.LogError(ex, "Bikewale.Models.Videos.AddGrpcCallsToAPIGateway");
             }
 
             return ca;

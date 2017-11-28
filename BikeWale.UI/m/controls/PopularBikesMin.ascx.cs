@@ -61,8 +61,8 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PopularBikesMin.PopularBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "PopularBikesMin.PopularBikes");
+                
             }
         }
 

@@ -1,11 +1,6 @@
 ﻿using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Videos;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData.v2
 {

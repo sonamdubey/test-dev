@@ -3,8 +3,6 @@ using Bikewale.Notifications;
 using Bikewale.Service.TCClientInq.Proxy;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace Bikewale.Service.TCAPI
@@ -52,8 +50,8 @@ namespace Bikewale.Service.TCAPI
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+               
             }
             return isSuccess;
         }
@@ -87,8 +85,8 @@ namespace Bikewale.Service.TCAPI
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+               
             }
             return abInquiryId;
         }

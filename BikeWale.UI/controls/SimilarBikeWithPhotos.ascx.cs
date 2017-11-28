@@ -63,7 +63,7 @@ namespace Bikewale.Controls
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Controls : Page_Load");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Controls : Page_Load");
             }
         }
     }

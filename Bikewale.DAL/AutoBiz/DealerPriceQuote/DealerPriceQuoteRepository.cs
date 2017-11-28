@@ -153,8 +153,8 @@ namespace Bikewale.DAL.AutoBiz
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetDealerPriceQuote ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return objPriceQuote;
@@ -193,8 +193,8 @@ namespace Bikewale.DAL.AutoBiz
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetBikeBookingCities ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return cities;
         }   // End of GetBikeBookingCities
@@ -234,8 +234,8 @@ namespace Bikewale.DAL.AutoBiz
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetBikeMakesInCity ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return makes;
         }   // end of GetBikeMakesInCity
@@ -276,8 +276,8 @@ namespace Bikewale.DAL.AutoBiz
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return offerTerms;
         }
@@ -551,8 +551,8 @@ namespace Bikewale.DAL.AutoBiz
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DealerPriceQuoteRepository.GetDealerPriceQuoteByPackage");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.DealerPriceQuoteRepository.GetDealerPriceQuoteByPackage");
+                
             }
             return objDetailedDealerQuotationEntity;
         }
@@ -875,8 +875,8 @@ namespace Bikewale.DAL.AutoBiz
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DealerPriceQuoteRepository.GetDealerPriceQuoteByPackage");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.DealerPriceQuoteRepository.GetDealerPriceQuoteByPackage");
+                
             }
             return objDetailedDealerQuotationEntity;
         }
@@ -919,7 +919,7 @@ namespace Bikewale.DAL.AutoBiz
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetNearestDealer({0},{1})", modelId, cityId));
+                ErrorClass.LogError(ex, String.Format("GetNearestDealer({0},{1})", modelId, cityId));
             }
             return objDealersList;
         }
@@ -963,7 +963,7 @@ namespace Bikewale.DAL.AutoBiz
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetNearestDealer({0},{1},{2})", modelId, cityId, areaId));
+                ErrorClass.LogError(ex, String.Format("GetNearestDealer({0},{1},{2})", modelId, cityId, areaId));
             }
             return objDealersList;
         }

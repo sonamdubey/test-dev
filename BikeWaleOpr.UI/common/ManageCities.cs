@@ -1,7 +1,6 @@
 ﻿using BikeWaleOpr.VO;
 using MySql.CoreDAL;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -41,15 +40,15 @@ namespace BikeWaleOpr.Common
             catch (SqlException err)
             {
                 HttpContext.Current.Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }//End of GetAllCitiesDetails
@@ -78,13 +77,13 @@ namespace BikeWaleOpr.Common
             //}
             //catch (SqlException err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //catch (Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //finally
             //{
@@ -152,14 +151,14 @@ namespace BikeWaleOpr.Common
             //catch (SqlException ex)
             //{
             //    HttpContext.Current.Trace.Warn("GetCityDetails sql ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //catch (Exception ex)
             //{
             //    HttpContext.Current.Trace.Warn("GetCityDetails ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //finally
             //{
@@ -209,14 +208,14 @@ namespace BikeWaleOpr.Common
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("Update city sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("Update city ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
         }//End of ManageCityDetails
@@ -248,14 +247,14 @@ namespace BikeWaleOpr.Common
             catch (SqlException err)
             {
                 HttpContext.Current.Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }//End GetCities
@@ -286,14 +285,14 @@ namespace BikeWaleOpr.Common
             catch (SqlException err)
             {
                 //HttpContext.Current.Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 //HttpContext.Current.Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }//End GetCities
@@ -320,13 +319,13 @@ namespace BikeWaleOpr.Common
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "sqlex in BikewaleOpr.ManageCities.GetPriceQuoteCities : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "sqlex in BikewaleOpr.ManageCities.GetPriceQuoteCities : " + ex.Message);
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ex in BikewaleOpr.ManageCities.GetPriceQuoteCities : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ex in BikewaleOpr.ManageCities.GetPriceQuoteCities : " + ex.Message);
+                
             }
             return ds;
         }   //End of GetPriceQuoteCities

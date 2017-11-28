@@ -33,8 +33,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Common.ManageArea");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.Common.ManageArea");
+                
             }
             return ds;
         }   //end of GetArea Method

@@ -1,18 +1,6 @@
 using System;
-using System.Text;
-using System.Collections;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
-using BikeWaleOpr.Common;
-using FreeTextBoxControls;
-using Ajax;
 
 namespace BikeWaleOpr.Content
 {

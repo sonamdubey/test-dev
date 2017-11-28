@@ -1,5 +1,4 @@
-﻿using Bikewale.Notifications;
-using BikewaleOpr.Entity.ConfigurePageMetas;
+﻿using BikewaleOpr.Entity.ConfigurePageMetas;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Models.ConfigurePageMetas;
@@ -7,7 +6,6 @@ using BikeWaleOpr.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Models.PageMetasConfiguration
 {

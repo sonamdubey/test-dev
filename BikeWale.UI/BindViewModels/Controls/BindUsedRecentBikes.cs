@@ -47,8 +47,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindUsedRecentBikes.GetRecentUsedBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindUsedRecentBikes.GetRecentUsedBikes");
+                
             }
             return usedRecentBikes;
         }

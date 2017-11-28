@@ -54,7 +54,7 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.Controls.PopularBikesByType");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Mobile.Controls.PopularBikesByType");
             }
         }
     }

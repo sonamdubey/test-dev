@@ -141,6 +141,7 @@
     <Compile Include="AndroidAppAlert\SubscriptionTypes.cs" />
     <Compile Include="APIHost.cs" />
     <Compile Include="BikeBookingCookie.cs" />
+    <Compile Include="BikeFilter.cs" />
     <Compile Include="BikewaleSecurity.cs" />
     <Compile Include="BodyStyleLinks.cs" />
     <Compile Include="BWOprConfiguration.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="MVCHelper.cs" />
     <Compile Include="OprUser.cs" />
     <Compile Include="LinqHelpers\PredicateBuilder.cs" />
+    <Compile Include="SanitizeHTML.cs" />
     <Compile Include="SchemaHelper.cs" />
     <Compile Include="StrinHtmlHelpers.cs" />
     <Compile Include="TermsHtmlFormatting.cs" />

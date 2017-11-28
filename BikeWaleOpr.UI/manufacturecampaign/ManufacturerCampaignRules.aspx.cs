@@ -90,8 +90,8 @@ namespace BikewaleOpr.manufacturecampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.SaveRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.SaveRules");
+                
             }
         }
 
@@ -135,7 +135,7 @@ namespace BikewaleOpr.manufacturecampaign
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.SetSelectedMakeModels");
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.SetSelectedMakeModels");
 
             }
 
@@ -164,8 +164,8 @@ namespace BikewaleOpr.manufacturecampaign
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.FillMakes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.FillMakes");
+                
             }
         }
 
@@ -192,8 +192,8 @@ namespace BikewaleOpr.manufacturecampaign
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.FillMakes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.FillMakes");
+                
             }
         }
 
@@ -219,8 +219,8 @@ namespace BikewaleOpr.manufacturecampaign
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.FillCities");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.FillCities");
+                
             }
         }
 
@@ -254,8 +254,8 @@ namespace BikewaleOpr.manufacturecampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.DeleteRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.DeleteRules");
+                
             }
         }
 
@@ -279,8 +279,8 @@ namespace BikewaleOpr.manufacturecampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ParseQueryString");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ParseQueryString");
+                
             }
         }
 
@@ -310,8 +310,8 @@ namespace BikewaleOpr.manufacturecampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.BindRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.BindRules");
+                
             }
         }
         #endregion

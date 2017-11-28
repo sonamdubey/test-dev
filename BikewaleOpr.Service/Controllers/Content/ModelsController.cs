@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Bikewale.Notifications;
+using BikewaleOpr.DTO.BikeData;
+using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity.BikeData;
+using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Service.AutoMappers.BikeData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using Bikewale.Notifications;
-using BikewaleOpr.DTO.BikeData;
-using BikewaleOpr.Entities.BikeData;
-using BikewaleOpr.Interface.BikeData;
-using BikewaleOpr.Service.AutoMappers.BikeData;
-using BikewaleOpr.Entity.BikeData;
 
 namespace BikewaleOpr.Service.Controllers.Content
 {
@@ -62,7 +62,7 @@ namespace BikewaleOpr.Service.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.Content.GetModels");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.Content.GetModels");
                 return InternalServerError();
             }
         }   // End of GetModels
@@ -86,7 +86,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.Content.ModelsController.GetVersions");
+                    ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.Content.ModelsController.GetVersions");
                     return InternalServerError();
                 }
             }

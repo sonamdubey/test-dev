@@ -96,7 +96,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.Models.SimilarBikesWidget.GetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.SimilarBikesWidget.GetData");
             }
             return objVM;
         }

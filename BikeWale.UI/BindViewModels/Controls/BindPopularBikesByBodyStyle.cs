@@ -52,7 +52,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BindViewModels.Controls.BindPopularBikesByBodyStyle.GetPopularBikesByCategory ModelId: {0}", ModelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BindViewModels.Controls.BindPopularBikesByBodyStyle.GetPopularBikesByCategory ModelId: {0}", ModelId));
             }
             return popularBikesList;
         }

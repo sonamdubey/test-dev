@@ -136,8 +136,8 @@ namespace Bikewale.Service.Controllers.BookingSummary
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BookingSummary.BookingSummaryController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.BookingSummary.BookingSummaryController.Get");
+               
                 return InternalServerError();
             }
         }

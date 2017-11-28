@@ -100,13 +100,13 @@ namespace Bikewale.Used
             }
             catch (SqlException ex)
             {
-                ErrorClass errObj = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
-                ErrorClass errObj = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -137,14 +137,14 @@ namespace Bikewale.Used
         //    catch (SqlException err)
         //    {
         //        Trace.Warn(err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
+        //        ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+        //        
         //    }
         //    catch (Exception err)
         //    {
         //        Trace.Warn(err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
+        //        ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+        //        
         //    }
         //}   // End of FillMakeModel function
 

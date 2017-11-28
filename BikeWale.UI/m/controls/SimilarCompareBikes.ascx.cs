@@ -60,7 +60,7 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Controls.SimilarCompareBikes.BindSimilarCompareBikes" + (!string.IsNullOrEmpty(versionsList) ? versionsList : ""));
+                ErrorClass.LogError(ex, "Bikewale.Mobile.Controls.SimilarCompareBikes.BindSimilarCompareBikes" + (!string.IsNullOrEmpty(versionsList) ? versionsList : ""));
             }
         }
     }

@@ -59,7 +59,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetUserReviewsList");
+                ErrorClass.LogError(ex, "GetUserReviewsList");
             }
             return objResult;
         }
@@ -112,7 +112,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetUserReviewsList");
+                ErrorClass.LogError(ex, "GetUserReviewsList");
             }
             return objResult;
         }
@@ -217,7 +217,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetUserReviewsList");
+                ErrorClass.LogError(ex, "GetUserReviewsList");
             }
             return objResult;
         }
@@ -262,7 +262,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.GetPrevNextUrl");
+                ErrorClass.LogError(ex, "Bikewale.BAL.UserReviewsSearch.GetPrevNextUrl");
 
             }
             return objPager;
@@ -294,7 +294,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.GetApiUrl");
+                ErrorClass.LogError(ex, "Bikewale.BAL.UserReviewsSearch.GetApiUrl");
 
             }
             return apiUrlstr;

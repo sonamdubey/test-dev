@@ -46,8 +46,8 @@ namespace Bikewale.Cache.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetPriceQuoteCities");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CityCacheRepository.GetPriceQuoteCities");
+                
             }
             return topBikeComapareBase;
         }
@@ -69,8 +69,8 @@ namespace Bikewale.Cache.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetAllCities");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CityCacheRepository.GetAllCities");
+                
             }
             return topBikeComapareBase;
         }
@@ -94,8 +94,8 @@ namespace Bikewale.Cache.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetCityDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CityCacheRepository.GetCityDetails");
+                
             }
             return city;
         }
@@ -119,8 +119,8 @@ namespace Bikewale.Cache.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetDealerStateCities");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CityCacheRepository.GetDealerStateCities");
+                
             }
             return objStateCities;
         }
@@ -139,8 +139,8 @@ namespace Bikewale.Cache.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.CityCacheRepository.GetUsedBikeByCityWithCount");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Cache.CityCacheRepository.GetUsedBikeByCityWithCount");
+                
             }
             return objUsedBikesCity;
         }
@@ -158,8 +158,8 @@ namespace Bikewale.Cache.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("CityCacheRepository.GetUsedBikeByMakeCityWithCount_{0}", makeid));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("CityCacheRepository.GetUsedBikeByMakeCityWithCount_{0}", makeid));
+                
             }
             return objUsedBikesCity;
         }

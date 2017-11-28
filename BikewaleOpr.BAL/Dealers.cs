@@ -56,8 +56,8 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DealerPriceQuote.GetAllAvailableDealer");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.DealerPriceQuote.GetAllAvailableDealer");
+                
             }
             return objDealerList;
         }   //End of GetAllAvailableDealer
@@ -140,8 +140,8 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DealerPriceQuote.GetDealerPriceQuoteDetail");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.DealerPriceQuote.GetDealerPriceQuoteDetail");
+                
             }
             return objDealer;
         }

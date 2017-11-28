@@ -35,7 +35,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindUsedBikeModelInCity.BindUsedBikeModelInCity");
+                ErrorClass.LogError(ex, "BindUsedBikeModelInCity.BindUsedBikeModelInCity");
             }
         }
         /// <summary>
@@ -51,7 +51,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikeModelInCity.GetUsedBikeByModelCountInCity_{0}_{1}_{2}", makeid, cityid, topcount));
+                ErrorClass.LogError(ex, string.Format("BindUsedBikeModelInCity.GetUsedBikeByModelCountInCity_{0}_{1}_{2}", makeid, cityid, topcount));
             }
             return objBikeCity;
 
@@ -70,7 +70,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikeModelInCity.GetPopularUsedModelsByMake_{0}_{1}", makeid, topcount));
+                ErrorClass.LogError(ex, string.Format("BindUsedBikeModelInCity.GetPopularUsedModelsByMake_{0}_{1}", makeid, topcount));
             }
             return objBikeCity;
 
@@ -90,7 +90,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikeModelInCity.GetUsedBikeCountInCity_{0}", cityid));
+                ErrorClass.LogError(ex, string.Format("BindUsedBikeModelInCity.GetUsedBikeCountInCity_{0}", cityid));
             }
             return objBikeCity;
 
@@ -109,7 +109,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikeModelInCity.GetUsedBike_{0}", topcount));
+                ErrorClass.LogError(ex, string.Format("BindUsedBikeModelInCity.GetUsedBike_{0}", topcount));
             }
             return objBikeCity;
 

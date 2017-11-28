@@ -1,6 +1,6 @@
 ﻿using Bikewale.Entities.UrlShortner;
-using Bikewale.Utility;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Consumer;
 using System.Collections.Generic;
 

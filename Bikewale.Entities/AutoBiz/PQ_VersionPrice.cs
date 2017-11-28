@@ -1,9 +1,5 @@
 ﻿using Bikewale.Entities.BikeBooking;
-using BikeWale.Entities.AutoBiz;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace BikeWale.Entities.AutoBiz
 {

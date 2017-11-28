@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using AutoMapper;
-using Bikewale.DAL.UserReviews;
-using Bikewale.DTO.Make;
-using Bikewale.DTO.Model;
-using Bikewale.DTO.Version;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.DTO;
+﻿using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
-using Microsoft.Practices.Unity;
-using System.Web.Http.Description;
-using Bikewale.Service.AutoMappers.UserReviews;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.UserReviews;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.UserReviews
 {
@@ -78,8 +68,8 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
+               
                 return InternalServerError();
             }
 

@@ -1,13 +1,5 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Interfaces.UsersTestimonial;
-using Bikewale.Notifications;
-using System;
+﻿using Bikewale.Interfaces.UsersTestimonial;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DAL.UsersTestimonial
 {
@@ -62,8 +54,8 @@ namespace Bikewale.DAL.UsersTestimonial
             //}
             //catch (Exception ex)
             //{
-            //    ErrorClass objErr = new ErrorClass(ex, "UsersTestimonialRepository.FetchUsersTestimonial");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, "UsersTestimonialRepository.FetchUsersTestimonial");
+            //    
             //}
             //finally
             //{

@@ -1,12 +1,4 @@
-﻿using BikewaleOpr.DAL;
-using BikewaleOpr.Entities;
-using BikewaleOpr.Interface;
-using BikeWaleOpr.Common;
-using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI.WebControls;
+﻿using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.NewBikeBooking
 {
@@ -63,8 +55,8 @@ namespace BikeWaleOpr.NewBikeBooking
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetFacilities  ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -86,8 +78,8 @@ namespace BikeWaleOpr.NewBikeBooking
                catch (Exception ex)
                {
                    HttpContext.Current.Trace.Warn("AddFacility ex : " + ex.Message + ex.Source);
-                   ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                   objErr.SendMail();
+                   ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                   
                }
            }
 
@@ -110,8 +102,8 @@ namespace BikeWaleOpr.NewBikeBooking
                catch (Exception ex)
                {
                    HttpContext.Current.Trace.Warn("AddFacility ex : " + ex.Message + ex.Source);
-                   ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                   objErr.SendMail();
+                   ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                   
                }
                GetFacilities();
            }

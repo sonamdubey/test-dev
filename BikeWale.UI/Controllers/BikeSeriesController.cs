@@ -53,7 +53,7 @@ namespace Bikewale.Controllers
             }
             catch (Exception ex)
             {
-                new ErrorClass(ex, "BikeSeriesController.Ctor - Error occured while getting model controller");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikeSeriesController.Ctor - Error occured while getting model controller");
             }
         }
         /// <summary>

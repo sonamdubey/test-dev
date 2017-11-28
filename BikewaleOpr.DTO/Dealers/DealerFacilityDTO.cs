@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.DTO.Dealers
 {
@@ -11,7 +7,7 @@ namespace BikewaleOpr.DTO.Dealers
     /// Written By : Snehal Dange on 7th August 2017
     /// Description : Dto for dealer facility
     /// </summary>
-    
+
     public class DealerFacilityDTO
     {
         [JsonProperty("facilityName")]

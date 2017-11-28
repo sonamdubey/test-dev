@@ -4,10 +4,6 @@ using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Service.AutoMappers.Dealer;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers.DealerFacility
@@ -57,7 +53,7 @@ namespace BikewaleOpr.Service.Controllers.DealerFacility
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Service.Controllers.DealerFacility.AddDealerFacility dealerId: {0}", newId));
+                    ErrorClass.LogError(ex, string.Format("BikewaleOpr.Service.Controllers.DealerFacility.AddDealerFacility dealerId: {0}", newId));
                     return InternalServerError();
                 }
             }
@@ -103,7 +99,7 @@ namespace BikewaleOpr.Service.Controllers.DealerFacility
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Service.Controllers.DealerFacility.UpdateDealerFacility FacilityId: {0} FacilityName: {1} ActiveStatus: {2}", objDTO.FacilityId, objDTO.Facility, objDTO.IsActive));
+                    ErrorClass.LogError(ex, string.Format("BikewaleOpr.Service.Controllers.DealerFacility.UpdateDealerFacility FacilityId: {0} FacilityName: {1} ActiveStatus: {2}", objDTO.FacilityId, objDTO.Facility, objDTO.IsActive));
                     return InternalServerError();
                 }
             }

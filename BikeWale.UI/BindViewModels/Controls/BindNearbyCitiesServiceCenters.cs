@@ -36,8 +36,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Error in BindNearbyCitiesServiceCenters.GetServiceCentersNearbyCitiesByMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Error in BindNearbyCitiesServiceCenters.GetServiceCentersNearbyCitiesByMake");
+                
                 return null;
             }
            

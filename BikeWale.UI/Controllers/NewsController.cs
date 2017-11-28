@@ -280,7 +280,7 @@ namespace Bikewale.Controllers
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "m/news/details/{basicid}/amp/" + basicid);
+                ErrorClass.LogError(err, "m/news/details/{basicid}/amp/" + basicid);
                 return Redirect("/m/pagenotfound.aspx");
             }
         }
@@ -320,7 +320,7 @@ namespace Bikewale.Controllers
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Controllers.Scooters");
+                ErrorClass.LogError(err, "Bikewale.Controllers.Scooters");
             }
             return View(objData);
         }
@@ -358,7 +358,7 @@ namespace Bikewale.Controllers
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Controllers.Scooters_Mobile");
+                ErrorClass.LogError(err, "Bikewale.Controllers.Scooters_Mobile");
             }
             return View(objData);
         }

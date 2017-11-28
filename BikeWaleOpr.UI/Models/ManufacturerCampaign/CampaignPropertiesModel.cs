@@ -2,10 +2,7 @@
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Web;
 
 namespace BikewaleOpr.Models.ManufacturerCampaign
 {
@@ -50,7 +47,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "BikewaleOpr.Models.ManufacturerCampaign.ConfigurePropertiesModel.GetData()");
+                ErrorClass.LogError(ex, "BikewaleOpr.Models.ManufacturerCampaign.ConfigurePropertiesModel.GetData()");
             }
             return objData;
         }
@@ -66,7 +63,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "BikewaleOpr.Models.ManufacturerCampaign.ConfigurePropertiesModel.SaveData()");
+                ErrorClass.LogError(ex, "BikewaleOpr.Models.ManufacturerCampaign.ConfigurePropertiesModel.SaveData()");
             }
             return isSaved;
         }

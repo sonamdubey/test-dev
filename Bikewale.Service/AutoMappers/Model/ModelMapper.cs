@@ -202,7 +202,7 @@ namespace Bikewale.Service.AutoMappers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertToBikeSpecs");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertToBikeSpecs");
                 return default(BikeSpecs);
             }
         }
@@ -749,7 +749,7 @@ namespace Bikewale.Service.AutoMappers.Model
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Model.ModelController.ConvertV5({0})", objModelPage.ModelDetails.ModelId));
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Model.ModelController.ConvertV5({0})", objModelPage.ModelDetails.ModelId));
             }
             return objDTOModelPage;
         }

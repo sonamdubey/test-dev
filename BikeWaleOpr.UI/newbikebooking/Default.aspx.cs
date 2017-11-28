@@ -82,8 +82,8 @@ namespace BikeWaleOpr.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "NewBikebooking.Default.btnCopyDealerPrice_Click");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "NewBikebooking.Default.btnCopyDealerPrice_Click");
+                
             }
         }
 
@@ -150,8 +150,8 @@ namespace BikeWaleOpr.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "NewBikebooking.Default.CopyPricesToDealers");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "NewBikebooking.Default.CopyPricesToDealers");
+                
             }
         }
 
@@ -184,8 +184,8 @@ namespace BikeWaleOpr.BikeBooking
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
         /// <summary>
@@ -256,8 +256,8 @@ namespace BikeWaleOpr.BikeBooking
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
         #endregion
@@ -369,8 +369,8 @@ namespace BikeWaleOpr.BikeBooking
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return sb.ToString();
@@ -553,8 +553,8 @@ namespace BikeWaleOpr.BikeBooking
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -596,8 +596,8 @@ namespace BikeWaleOpr.BikeBooking
                     }
                     catch (Exception err)
                     {
-                        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                        objErr.SendMail();
+                        ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                        
                     }
                 }
             }
@@ -642,8 +642,8 @@ namespace BikeWaleOpr.BikeBooking
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
         protected string GetItemValue(string versionID, string categoryId)
@@ -727,8 +727,8 @@ namespace BikeWaleOpr.BikeBooking
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
         protected DataTable GetPQCommonAttrs()
@@ -767,8 +767,8 @@ namespace BikeWaleOpr.BikeBooking
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
         private void SetDefaultAttribute()
@@ -844,8 +844,8 @@ namespace BikeWaleOpr.BikeBooking
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             GetCategoryItemsList();
         }

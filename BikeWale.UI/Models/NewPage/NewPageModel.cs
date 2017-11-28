@@ -224,7 +224,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "HomePageModel.BindMetas()");
+                ErrorClass.LogError(ex, "HomePageModel.BindMetas()");
             }
         }
 

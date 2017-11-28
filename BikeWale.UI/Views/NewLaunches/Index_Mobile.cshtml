@@ -31,12 +31,7 @@
     @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes_Mobile.cshtml",Model.NewLaunched)
 </section>
 }
-<section>
-    <h2 class="section-heading">Explore new launches by brands</h2>
-    <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
-        @Html.Partial("~/views/Make/_Brands_Mobile.cshtml", Model.Brands)
-    </div>
-</section>
+
 @if (Model.HasUpcoming) { 
 <section>
     <h2 class="section-heading">Upcoming bikes in India</h2>

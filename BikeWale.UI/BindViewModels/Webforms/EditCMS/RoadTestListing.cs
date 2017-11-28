@@ -98,7 +98,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.GetRoadTestList");
+                ErrorClass.LogError(err, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.GetRoadTestList");
             }
         }
 
@@ -143,7 +143,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.ProcessQueryString");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.ProcessQueryString");
                 pageNotFound = true;
             }
 
@@ -158,7 +158,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.ParseQueryString");
+                    ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.ParseQueryString");
                     pageNotFound = true;
                 }
                 finally
@@ -245,7 +245,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.BindLinkPager");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.BindLinkPager");
             }
         }
         /// <summary>

@@ -71,8 +71,8 @@ namespace Bikewale.Ajax
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxPriceQuote.GetPriceQuoteCitiesNew");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "AjaxPriceQuote.GetPriceQuoteCitiesNew");
+                
             }
             return jsonCities;
         }
@@ -105,8 +105,8 @@ namespace Bikewale.Ajax
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxPriceQuote.GetPriceQuoteArea");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "AjaxPriceQuote.GetPriceQuoteArea");
+                
             }
             return jsonCities;
         }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Bikewale.DTO.AutoBiz;
 using Newtonsoft.Json;
-using Bikewale.Entities;
-using Bikewale.DTO.AutoBiz;
+using System.Collections.Generic;
 
 namespace BikeWale.DTO.AutoBiz
 {

@@ -60,7 +60,7 @@ namespace Bikewale.DAL.Dealer
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
 
@@ -124,7 +124,7 @@ namespace Bikewale.DAL.Dealer
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return objDealerList;
@@ -181,7 +181,7 @@ namespace Bikewale.DAL.Dealer
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return objDealerList;
@@ -238,7 +238,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return objDealerList;
@@ -284,7 +284,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
 
@@ -332,7 +332,7 @@ namespace Bikewale.DAL.Dealer
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
             return objCityList;
         }
@@ -372,7 +372,7 @@ namespace Bikewale.DAL.Dealer
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealersRepository.SaveManufacturerLead");
+                ErrorClass.LogError(ex, "DealersRepository.SaveManufacturerLead");
             }
 
             return status;
@@ -473,7 +473,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("DealersRepository.GetDealerByMakeCity({0},{1},{2})", cityId, makeId, modelid));
+                ErrorClass.LogError(ex, String.Format("DealersRepository.GetDealerByMakeCity({0},{1},{2})", cityId, makeId, modelid));
             }
 
             return dealers;
@@ -576,7 +576,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetDealerDetailsAndBikes");
+                ErrorClass.LogError(ex, "GetDealerDetailsAndBikes");
             }
             return dealers;
         }
@@ -695,7 +695,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealersRepository.GetDealerDetailsAndBikes");
+                ErrorClass.LogError(ex, "DealersRepository.GetDealerDetailsAndBikes");
             }
             return dealers;
         }
@@ -740,7 +740,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "FetchDealerCitiesByMake");
+                ErrorClass.LogError(ex, "FetchDealerCitiesByMake");
             }
 
             return objCityList;
@@ -752,6 +752,8 @@ namespace Bikewale.DAL.Dealer
         ///                 Calls: GetPopularCityDealer
         /// Modified by :  Subodh Jain on 21 Dec 2016
         /// Description :   Merge Dealer and service center for make and model page
+        /// Modified by sajal Gupta on 23-11-2017
+        /// Desc : added TotalCitiesCount
         /// <param name="makeId"></param>
         /// <returns></returns>
         public PopularDealerServiceCenter GetPopularCityDealer(uint makeId, uint topCount)
@@ -766,7 +768,7 @@ namespace Bikewale.DAL.Dealer
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "getpopularcitydealer_21122016";
+                        cmd.CommandText = "getpopularcitydealer_23112017";
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, Convert.ToInt32(topCount)));
@@ -807,6 +809,13 @@ namespace Bikewale.DAL.Dealer
                                     objDealerServiceDetails.TotalServiceCenterCount = SqlReaderConvertor.ToUInt32(dr["ServiceCenterCount"]);
                                 }
                             }
+                            if (dr.NextResult())
+                            {
+                                while (dr.Read())
+                                {
+                                    objDealerServiceDetails.TotalCitiesCount = SqlReaderConvertor.ToUInt32(dr["cityCount"]);
+                                }
+                            }
 
                         }
                     }
@@ -814,7 +823,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
+                ErrorClass.LogError(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
             }
 
             return objDealerServiceDetails;
@@ -852,7 +861,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return status;
@@ -895,7 +904,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetDealerByBrandList");
+                ErrorClass.LogError(ex, "GetDealerByBrandList");
             }
             return objDealerList;
 
@@ -943,7 +952,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("exception in Dal for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
+                ErrorClass.LogError(ex, string.Format("exception in Dal for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
             }
             return objDealerCountList;
         }

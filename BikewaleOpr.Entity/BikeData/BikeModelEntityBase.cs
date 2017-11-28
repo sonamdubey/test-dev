@@ -1,6 +1,6 @@
 ﻿
 namespace BikewaleOpr.Entities.BikeData
-{   
+{
     /// <summary>
     /// 
     /// </summary>

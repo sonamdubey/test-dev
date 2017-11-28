@@ -275,7 +275,7 @@ namespace Grpc.CMS
                         catch (RpcException e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
 
                             if (i > 0)
                             {
@@ -288,7 +288,7 @@ namespace Grpc.CMS
                         catch (Exception e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
                         }
                     }
                     else
@@ -300,7 +300,7 @@ namespace Grpc.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
+                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
                 return null;
             }
             finally
@@ -1655,7 +1655,7 @@ namespace Grpc.CMS
                         catch (RpcException e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
 
                             if (i > 0)
                             {
@@ -1668,7 +1668,7 @@ namespace Grpc.CMS
                         catch (Exception e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
                         }
                     }
                     else
@@ -1678,7 +1678,7 @@ namespace Grpc.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
+                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
                 return null;
             }
             finally
@@ -1728,7 +1728,7 @@ namespace Grpc.CMS
                         catch (RpcException e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
 
                             if (i > 0)
                             {
@@ -1741,7 +1741,7 @@ namespace Grpc.CMS
                         catch (Exception e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
                         }
                     }
                     else
@@ -1751,7 +1751,7 @@ namespace Grpc.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
                 return null;
             }
             finally
@@ -1799,7 +1799,7 @@ namespace Grpc.CMS
                         catch (RpcException e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
 
                             if (i > 0)
                             {
@@ -1812,7 +1812,7 @@ namespace Grpc.CMS
                         catch (Exception e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
                         }
                     }
                     else
@@ -1822,7 +1822,7 @@ namespace Grpc.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
                 return null;
             }
             finally

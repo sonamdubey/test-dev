@@ -48,8 +48,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.FetchBWDealerCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaign.FetchBWDealerCampaign");
+                
             }
 
             return dtDealerCampaign;
@@ -102,8 +102,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.InsertBWDealerCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaign.InsertBWDealerCampaign");
+                
             }
 
             return newCampaignId;
@@ -155,8 +155,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.InsertBWDealerCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaign.InsertBWDealerCampaign");
+                
             }
 
             return isSuccess;
@@ -246,8 +246,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.FetchBWCampaigns");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaign.FetchBWCampaigns");
+                
             }
 
             return dealerCampaigns;
@@ -282,8 +282,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindMaskingNumbers");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindMaskingNumbers");
+                
             }
 
             return dtb;
@@ -323,8 +323,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.GetDealerCampaigns");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaign.GetDealerCampaigns");
+                
             }
             return dtDealerCampaigns;
         }
@@ -359,8 +359,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManageDealerCampaign.SaveDealerContract({0})", Newtonsoft.Json.JsonConvert.SerializeObject(contract)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("ManageDealerCampaign.SaveDealerContract({0})", Newtonsoft.Json.JsonConvert.SerializeObject(contract)));
+                
             }
 
             return rowsAffected > 0 ? true : false;
@@ -393,8 +393,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("ManageDealerCampaign.MapContractCampaign({0},{1})", contractId, campaignId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("ManageDealerCampaign.MapContractCampaign({0},{1})", contractId, campaignId));
+                
             }
             return rowsAffected > 0 ? true : false;
         }
@@ -418,8 +418,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("ManageDealerCampaign.ReleaseCampaignMaskingNumber({0})", campaignId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("ManageDealerCampaign.ReleaseCampaignMaskingNumber({0})", campaignId));
+                
             }
             return rowsAffected > 0 ? true : false;
         }

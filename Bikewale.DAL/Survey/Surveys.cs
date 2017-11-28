@@ -1,16 +1,10 @@
-﻿using Bikewale.Interfaces.ServiceCenter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Interfaces;
 using Bikewale.Models.Survey;
-using MySql.CoreDAL;
-using Bikewale.CoreDAL;
-using System.Data.Common;
-using System.Data;
 using Bikewale.Notifications;
-using Bikewale.Interfaces;
+using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
 
 namespace Bikewale.DAL
 {
@@ -43,7 +37,7 @@ namespace Bikewale.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SurveyRepository.InsertBajajSurveyResponse()");
+                ErrorClass.LogError(ex, "SurveyRepository.InsertBajajSurveyResponse()");
             }
         }
     }

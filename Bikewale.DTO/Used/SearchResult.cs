@@ -1,5 +1,4 @@
 ﻿using Bikewale.DTO.BikeBooking;
-using Bikewale.DTO.UsedBikes;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 

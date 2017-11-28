@@ -414,7 +414,6 @@
     <Compile Include="common\AutoBizCommon.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWCommon.cs" />
-    <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
     <Compile Include="common\BWSecurity\ScreenInput.cs" />
     <Compile Include="common\Cities.cs" />
     <Compile Include="common\CityHelper.cs" />
@@ -1690,7 +1689,6 @@
     <Compile Include="used\common\ClassifiedPurchaseInquiries.cs" />
     <Compile Include="used\common\ClassifiedSellerDetails.cs" />
     <Compile Include="used\common\MetaKeywordsUsed.cs" />
-    <Compile Include="used\common\ParseSearchCriteria.cs" />
     <Compile Include="used\common\SearchCommon.cs" />
     <Compile Include="used\common\SellBikeCommon.cs" />
     <Compile Include="used\Default20102016.aspx.cs">
@@ -3866,16 +3864,22 @@
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
     <Content Include="Views\BikeSeries\Index_Mobile.cshtml" />
+    <Content Include="Views\UserReview\BikesWithReviewsByMake.cshtml" />
+    <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\NewBikeSearch\Index.cshtml" />
     <Content Include="Views\NewBikeSearch\Index_Mobile.cshtml" />
     <Content Include="Views\Videos\CategoryVideos_Mobile_Pwa.cshtml" />
     <Content Include="Views\Videos\Details_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Make\MakeFooterCategoriesandPrice.cshtml" />
+    <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile.cshtml" />
     <Content Include="Views\Shared\_ServiceWorkerScript.cshtml" />
     <Content Include="Views\Shared\_CssChunksScript.cshtml" />
     <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />
     <Content Include="Views\BikeSeries\_PopularNewBikes_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs_Mobile.cshtml" />
+    <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
+    <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\Used\_UsedBikeByModelCity_Mobile_v1.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews_v1_Mobile.cshtml" />
@@ -4115,8 +4119,8 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9011/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

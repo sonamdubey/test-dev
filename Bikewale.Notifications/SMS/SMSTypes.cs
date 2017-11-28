@@ -24,9 +24,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.RegistrationSMS : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.RegistrationSMS");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.RegistrationSMS");
+                
             }
 
         }
@@ -43,9 +42,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.SMSDealerAddress : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.SMSDealerAddress");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.SMSDealerAddress");
+                
             }
         }//
 
@@ -70,9 +68,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.SMSNewBikeQuote : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.SMSNewBikeQuote");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.SMSNewBikeQuote");
+                
             }
         }//
 
@@ -99,9 +96,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.SMSNewBikeQuote : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.SMSNewBikeQuote");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.SMSNewBikeQuote");
+                
             }
         }
 
@@ -131,9 +127,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.NewBikePriceQuoteSMSToDealer : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.NewBikePriceQuoteSMSToDealer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.NewBikePriceQuoteSMSToDealer");
+                
             }
         }
 
@@ -181,9 +176,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.NewBikePriceQuoteSMSToCustomer : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.NewBikePriceQuoteSMSToCustomer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.NewBikePriceQuoteSMSToCustomer");
+                
             }
         }
 
@@ -226,9 +220,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.BikeBookingSMSToCustomer : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.BikeBookingSMSToCustomer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.BikeBookingSMSToCustomer");
+                
             }
         }
 
@@ -267,9 +260,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.NewBikePriceQuoteSMSToDealer : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.NewBikePriceQuoteSMSToDealer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.NewBikePriceQuoteSMSToDealer");
+                
             }
         }
 
@@ -284,8 +276,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Notifications.ClaimedOfferSMSToCustomer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.ClaimedOfferSMSToCustomer");
+                
             }
         }
 
@@ -315,9 +307,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.NewBikePriceQuoteSMSToDealer : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.NewBikePriceQuoteSMSToDealer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.NewBikePriceQuoteSMSToDealer");
+                
             }
         }
 
@@ -366,8 +357,8 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Notifications.SaveNewBikePriceQuoteSMSToCustomer : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.NewBikePriceQuoteSMSToCustomer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.NewBikePriceQuoteSMSToCustomer");
+                
             }
         }
 
@@ -453,8 +444,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notifications.SMSTypes.SaveNewBikePriceQuoteSMSToCustomer");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Notifications.SMSTypes.SaveNewBikePriceQuoteSMSToCustomer");
+                
             }
         }
 
@@ -475,9 +466,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.SMSBikeBookingCancellation : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.SMSBikeBookingCancellation");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.SMSBikeBookingCancellation");
+                
             }
         }
         /// <summary>
@@ -503,8 +493,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "SMSTypes.SMSForPhotoUploadTwoDays");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SMSTypes.SMSForPhotoUploadTwoDays");
+                
             }
 
         }
@@ -523,9 +513,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.SMSBikeBookingCancellation : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.SMSBikeBookingCancellation");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Notifications.SMSBikeBookingCancellation");
+                
             }
         }
 
@@ -546,8 +535,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.UsedPurchaseInquirySMSToSeller({0},{1},{2})", number, message, pageurl));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Notifications.UsedPurchaseInquirySMSToSeller({0},{1},{2})", number, message, pageurl));
+                
             }
         }
         /// <summary>
@@ -570,8 +559,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ApprovalUsedSellListingSMSToSeller({0},{1},{2},{3})", number, message, pageurl, profileId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Notifications.ApprovalUsedSellListingSMSToSeller({0},{1},{2},{3})", number, message, pageurl, profileId));
+                
             }
         }
         /// <summary>
@@ -589,8 +578,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.RejectionUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Notifications.RejectionUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
+                
             }
         }
 
@@ -605,8 +594,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.UsedSellSuccessfulListingSMS({0},{1},{2})", number, message, pageurl));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Notifications.UsedSellSuccessfulListingSMS({0},{1},{2})", number, message, pageurl));
+                
             }
         }
         /// <summary>
@@ -624,8 +613,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ApprovalEditedUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Notifications.ApprovalEditedUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
+                
             }
         }
 
@@ -644,8 +633,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.RejectionEditedUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Notifications.RejectionEditedUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
+                
             }
         }
 
@@ -665,8 +654,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ServiceCenterDetailsSMS({0},{1},{2},{3},{4},{5})", number, name, address, phone, city, pageUrl));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Notifications.ServiceCenterDetailsSMS({0},{1},{2},{3},{4},{5})", number, name, address, phone, city, pageUrl));
+                
             }
         }
 
@@ -684,8 +673,8 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3})", number, pageUrl, esms, message));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3})", number, pageUrl, esms, message));
+                
             }
         }
 
@@ -703,7 +692,7 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3})", number, pageUrl, esms, message));
+                ErrorClass.LogError(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3})", number, pageUrl, esms, message));
             }
         }
     }   //End of class

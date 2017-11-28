@@ -68,11 +68,11 @@ namespace Bikewale.Memcache
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString())
                     + "\r\nRequest Type: " + HttpContext.Current.Request.RequestType);
-                objErr.SendMail();
+                
             }
             return ds;
         }   // End of FetchDSfromDb
@@ -96,11 +96,11 @@ namespace Bikewale.Memcache
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString())
                     + "\r\nRequest Type: " + HttpContext.Current.Request.RequestType);
-                objErr.SendMail();
+                
             }
             return ds;
         }   // End of FetchDSfromDb
@@ -137,14 +137,14 @@ namespace Bikewale.Memcache
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return ds;
@@ -192,11 +192,11 @@ namespace Bikewale.Memcache
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString())
                     + "\r\nRequest Type: " + HttpContext.Current.Request.RequestType);
-                objErr.SendMail();
+                
             }
             finally
             {
@@ -251,11 +251,11 @@ namespace Bikewale.Memcache
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString())
                     + "\r\nRequest Type: " + HttpContext.Current.Request.RequestType);
-                objErr.SendMail();
+                
             }
             finally
             {
@@ -464,8 +464,8 @@ namespace Bikewale.Memcache
                 //        {
                 //            HttpContext.Current.Trace.Warn("duplicate key :", dr["ID"].ToString());
                 //            //Exception ex = null;
-                //            //ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]+ "\r\n Duplicate Key in hash table : " + dr["ID"].ToString());
-                //            //objErr.SendMail();
+                //            //ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]+ "\r\n Duplicate Key in hash table : " + dr["ID"].ToString());
+                //            //
                 //        }
                 //    }
                 //}
@@ -487,8 +487,8 @@ namespace Bikewale.Memcache
                 //        {
                 //            HttpContext.Current.Trace.Warn("duplicate key :", dr["ID"].ToString());
                 //            //Exception ex = null;
-                //            //ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]+ "\r\n Duplicate Key in hash table : " + dr["ID"].ToString());
-                //            //objErr.SendMail();
+                //            //ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]+ "\r\n Duplicate Key in hash table : " + dr["ID"].ToString());
+                //            //
                 //        }
                 //    }
                 //}
@@ -511,11 +511,11 @@ namespace Bikewale.Memcache
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString())
                     + "\r\nRequest Type: " + HttpContext.Current.Request.RequestType);
-                objErr.SendMail();
+                
             }
             return ht;
         }   // End of FetchDSfromDb        
@@ -563,11 +563,11 @@ namespace Bikewale.Memcache
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString())
                     + "\r\nRequest Type: " + HttpContext.Current.Request.RequestType);
-                objErr.SendMail();
+                
             }
             finally
             {

@@ -42,8 +42,8 @@ namespace Bikewale.BAL.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return _objArticleList;
@@ -131,8 +131,8 @@ namespace Bikewale.BAL.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return _objArticleList;
@@ -160,8 +160,8 @@ namespace Bikewale.BAL.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return _objArticleList;
@@ -184,8 +184,8 @@ namespace Bikewale.BAL.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return _objArticleList;
@@ -214,8 +214,8 @@ namespace Bikewale.BAL.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return _objArticleList;
@@ -366,8 +366,8 @@ namespace Bikewale.BAL.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return _objArticleList;
@@ -397,8 +397,8 @@ namespace Bikewale.BAL.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return _objArticleList;
@@ -484,8 +484,8 @@ namespace Bikewale.BAL.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryList");
+                
             }
 
             return _objArticleList;
@@ -501,8 +501,8 @@ namespace Bikewale.BAL.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return _objArticleList;
@@ -533,7 +533,7 @@ namespace Bikewale.BAL.EditCMS
             catch (Exception ex)
             {
                 _logger.Error(ex.Message, ex);
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryViaGrpc");
+                ErrorClass.LogError(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryViaGrpc");
             }
             return null;
         }
@@ -563,7 +563,7 @@ namespace Bikewale.BAL.EditCMS
             catch (Exception ex)
             {
                 _logger.Error(ex.Message, ex);
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryViaGrpc");
+                ErrorClass.LogError(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryViaGrpc");
             }
             return null;
         }
@@ -681,8 +681,8 @@ namespace Bikewale.BAL.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
         #endregion

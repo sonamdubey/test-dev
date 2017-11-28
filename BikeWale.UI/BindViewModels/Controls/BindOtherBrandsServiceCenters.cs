@@ -42,8 +42,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetAllServiceCentersbyMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetAllServiceCentersbyMake");
+                
                 return null;
             }
             

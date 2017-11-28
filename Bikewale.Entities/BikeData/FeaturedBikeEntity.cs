@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.Entities.BikeData
+﻿namespace Bikewale.Entities.BikeData
 {
     /// <summary>
     /// Created By : Sadhana Upadhyay on 19 Aug 2015

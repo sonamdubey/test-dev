@@ -96,8 +96,8 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetFeaturedBike_{1}", HttpContext.Current.Request.ServerVariables["URL"], versions));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("{0}_GetFeaturedBike_{1}", HttpContext.Current.Request.ServerVariables["URL"], versions));
+                
             }
 
             return featuredBikeId;
@@ -127,14 +127,14 @@ namespace Bikewale.New
             }
             catch (SqlException exSql)
             {
-                ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 //Response.Write(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }   // End of GetComparisonBikeList
@@ -173,8 +173,8 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 //Response.Write(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }

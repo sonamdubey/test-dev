@@ -25,7 +25,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "PopUpCityArea.GetData()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "PopUpCityArea.GetData()");
             }
             return objPopupCityAreaVM;
         }
@@ -43,7 +43,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "PopUpCityArea.BindPageMetaTags()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "PopUpCityArea.BindPageMetaTags()");
             }
         }
     }

@@ -1,6 +1,8 @@
-﻿
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Models.Make;
+using Bikewale.Models.PopUp;
+using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {
@@ -20,6 +22,13 @@ namespace Bikewale.Models
     /// Description : Added ReturnUrl
     /// Modified by sajal Gupta on 06-11-2017
     /// Descriptition :  Added SelectedSortingId, SelectedSortingText
+    /// Modified By: Snehal Dange on 20th Nov 2017
+    /// Description: Added most helful and most recent user reviews by make
+    /// Modified By:Snehal Dange on 23rd Nov 2017
+    /// Description: Added SubFooter Content
+    /// 
+    /// Modified by sajal Gupta on 06-11-2017
+    /// Descriptition :  Added BikeCityPopup, DealersServiceCenterPopularCities
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -50,16 +59,28 @@ namespace Bikewale.Models
         public bool IsDealerServiceDataAvailable { get; set; }
         public bool IsDealerAvailable { get; set; }
         public bool IsMakeTabsDataAvailable { get; set; }
+        public bool IsFooterDescriptionAvailable { get; set; }
+        public bool IsPriceListingAvailable { get; set; }
+
 
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public DealerCardVM Dealers { get; set; }
 
-        public IEnumerable<BikeMakeEntityBase> OtherMakes { get; set; }
+        public OtherMakesVM OtherMakes { get; set; }
         public GlobalCityAreaEntity City { get; set; }
         public string ReturlUrl { get; set; }
 
         public ushort SelectedSortingId { get; set; }
 
         public string SelectedSortingText { get; set; }
+
+        public BikesWithReviewsByMakeVM PopularBikesUserReviews { get; set; }
+        public bool IsUserReviewsAvailable { get; set; }
+
+        public BikeCityPopup BikeCityPopup { get; set; }
+        public DealersServiceCentersIndiaWidgetVM DealersServiceCenterPopularCities { get; set; }
+        public MakeFooterCategoriesandPriceVM SubFooter { get; set; }
+
+
     }
 }

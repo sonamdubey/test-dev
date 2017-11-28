@@ -36,7 +36,7 @@ namespace Bikewale.BAL.BikeSearch
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeSearchResult.GetSearchResult");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.BikeSearchResult.GetSearchResult");
             }
             return searchResult;
         }

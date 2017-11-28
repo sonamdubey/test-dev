@@ -32,7 +32,7 @@ namespace BikewaleOpr.DALs.AdSlot
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.AdSlot.GetAdSlots");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.DAL.AdSlot.GetAdSlots");
             }
             return objAdSlotList;
         }
@@ -59,7 +59,7 @@ namespace BikewaleOpr.DALs.AdSlot
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.AdSlot.ChangeStatus_{0}_{1}", AdId, UserId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.AdSlot.ChangeStatus_{0}_{1}", AdId, UserId));
             }
             return rowsAffected > 0;
         }

@@ -258,8 +258,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, "CurrentUser.CheckEmailWithCarwale");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "CurrentUser.CheckEmailWithCarwale");
+                
             }
 
             return exist;
@@ -302,8 +302,8 @@ namespace Bikewale.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "CurrentUser.AutomaticLogin");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "CurrentUser.AutomaticLogin");
+                
             }
 
             return allowed;
@@ -334,8 +334,8 @@ namespace Bikewale.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "CurrentUser.AutomaticLogin");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "CurrentUser.AutomaticLogin");
+                
             }
 
             return mappedCustomerId;

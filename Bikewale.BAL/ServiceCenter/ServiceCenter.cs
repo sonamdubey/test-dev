@@ -41,8 +41,8 @@ namespace Bikewale.BAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCenters.GetServiceCentersByCity");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ServiceCenters.GetServiceCentersByCity");
+                
             }
             return objServiceCenterData;
         }
@@ -63,8 +63,8 @@ namespace Bikewale.BAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCenters.GetServiceScheduleByMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ServiceCenters.GetServiceScheduleByMake");
+                
             }
             return objServiceSchedule;
         }
@@ -84,8 +84,8 @@ namespace Bikewale.BAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCenters.GetServiceCenterDataById for parameters serviceCenterId : {0}", serviceCenterId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCenters.GetServiceCenterDataById for parameters serviceCenterId : {0}", serviceCenterId));
+                
             }
             return null;
         }
@@ -130,8 +130,8 @@ namespace Bikewale.BAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCenters.GetServiceCenterSMSData for parameters serviceCenterId : {0}, mobileNumber : {1}", serviceCenterId, mobileNumber));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCenters.GetServiceCenterSMSData for parameters serviceCenterId : {0}, mobileNumber : {1}", serviceCenterId, mobileNumber));
+                
             }
             return 0;
         }

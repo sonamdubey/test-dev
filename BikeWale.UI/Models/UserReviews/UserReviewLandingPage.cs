@@ -40,7 +40,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewLandingPage.GetData");
+                ErrorClass.LogError(ex, "UserReviewLandingPage.GetData");
             }
             return objData;
         }
@@ -73,7 +73,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewLandingPage.BindWidgets");
+                ErrorClass.LogError(ex, "UserReviewLandingPage.BindWidgets");
             }
         }
 
@@ -102,7 +102,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewLandingPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "UserReviewLandingPage.BindPageMetas()");
             }
         }
     }

@@ -114,7 +114,7 @@ namespace Bikewale.BAL.Finance
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SaveVoucherDetails({0},{1})", ctLeadId, Newtonsoft.Json.JsonConvert.SerializeObject(entity)));
+                ErrorClass.LogError(ex, String.Format("CapitalFirst.SaveVoucherDetails({0},{1})", ctLeadId, Newtonsoft.Json.JsonConvert.SerializeObject(entity)));
                 message = CF_MESSAGE_SAVE_FAILURE;
             }
             return message;
@@ -155,7 +155,7 @@ namespace Bikewale.BAL.Finance
             catch (Exception ex)
             {
 
-                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SaveEmployeDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
+                ErrorClass.LogError(ex, String.Format("CapitalFirst.SaveEmployeDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
             return response;
 
@@ -194,7 +194,7 @@ namespace Bikewale.BAL.Finance
             catch (Exception ex)
             {
 
-                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SavePersonalDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
+                ErrorClass.LogError(ex, String.Format("CapitalFirst.SavePersonalDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
             return objId;
 
@@ -264,7 +264,7 @@ namespace Bikewale.BAL.Finance
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SendCustomerDetailsToCarTrade({0},{1})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails), response));
+                ErrorClass.LogError(ex, String.Format("CapitalFirst.SendCustomerDetailsToCarTrade({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
             finally
             {
@@ -305,7 +305,7 @@ namespace Bikewale.BAL.Finance
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.SavePersonalDetails");
+                ErrorClass.LogError(ex, "Bikewale.Service.Controllers.SavePersonalDetails");
             }
             return objCust;
         }
@@ -335,7 +335,7 @@ namespace Bikewale.BAL.Finance
             catch (Exception ex)
             {
 
-                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SubmitLead({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
+                ErrorClass.LogError(ex, String.Format("CapitalFirst.SubmitLead({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
             return id;
         }
@@ -388,7 +388,7 @@ namespace Bikewale.BAL.Finance
             catch (Exception ex)
             {
 
-                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.PushLeadinCTandAutoBiz({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
+                ErrorClass.LogError(ex, String.Format("CapitalFirst.PushLeadinCTandAutoBiz({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
             return response;
         }

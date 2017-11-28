@@ -99,7 +99,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCareModels.BikeCare");
+                ErrorClass.LogError(ex, "BikeCareModels.BikeCare");
             }
 
         }
@@ -151,7 +151,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCareModels.BindLinkPager");
+                ErrorClass.LogError(ex, "BikeCareModels.BindLinkPager");
             }
         }
         /// <summary>
@@ -175,7 +175,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             catch (Exception ex)
             {
                 pageNotFound = true;
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCareModels.ParseQueryString");
+                ErrorClass.LogError(ex, "BikeCareModels.ParseQueryString");
             }
 
 

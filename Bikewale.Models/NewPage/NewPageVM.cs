@@ -1,6 +1,4 @@
-﻿
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.UserReviews;
+﻿using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {

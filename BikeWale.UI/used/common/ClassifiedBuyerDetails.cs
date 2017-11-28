@@ -60,8 +60,8 @@ namespace Bikewale.Used
             catch (Exception ex)
             {
                 objTrace.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, objTrace.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, objTrace.Request.ServerVariables["URL"]);
+                
             }
 
             return isDone;
@@ -89,8 +89,8 @@ namespace Bikewale.Used
             catch (Exception ex)
             {
                 objTrace.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, objTrace.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, objTrace.Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -136,8 +136,8 @@ namespace Bikewale.Used
             //catch (Exception err)
             //{
             //    HttpContext.Current.Trace.Warn("Ajaxfunctions : EntrySaveUsedBike : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, "Ajaxfunctions.EntrySaveUsedBike");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "Ajaxfunctions.EntrySaveUsedBike");
+            //    
             //    returnVal = false;
             //} // catch Exception
             //finally
@@ -174,8 +174,8 @@ namespace Bikewale.Used
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Ajaxfunctions : EntrySaveUsedBike : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Ajaxfunctions.EntrySaveUsedBike");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Ajaxfunctions.EntrySaveUsedBike");
+                
             } // catch Exception
             return status;
         }
@@ -279,13 +279,13 @@ namespace Bikewale.Used
             //catch (SqlException ex)
             //{
             //    HttpContext.Current.Trace.Warn(ex.Message);
-            //    ErrorClass objEx = new ErrorClass(ex, "Ajaxfunctions.EntrySaveUsedBike");
+            //    ErrorClass.LogError(ex, "Ajaxfunctions.EntrySaveUsedBike");
             //}
             //catch (Exception err)
             //{
             //    HttpContext.Current.Trace.Warn("Ajaxfunctions : EntrySaveUsedBike : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, "Ajaxfunctions.EntrySaveUsedBike");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "Ajaxfunctions.EntrySaveUsedBike");
+            //    
             //} // catch Exception
             //finally
             //{

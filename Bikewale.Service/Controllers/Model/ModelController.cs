@@ -1,14 +1,12 @@
 ﻿using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -62,8 +60,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
+               
                 return InternalServerError();
             }
 
@@ -104,8 +102,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
+               
                 return InternalServerError();
             }
         }   // Get 
@@ -150,7 +148,7 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.GetModelContent");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController.GetModelContent");
                 return InternalServerError();
             }
         }
@@ -194,7 +192,7 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : Bikewale.Service.Model.ModelController.GetModelContent({0})", modelId));
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.Service.Model.ModelController.GetModelContent({0})", modelId));
                 return InternalServerError();
             }
         }
@@ -236,7 +234,7 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.GetModelColorPhotos");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController.GetModelColorPhotos");
                 return InternalServerError();
             }
         }
@@ -272,8 +270,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Service.Controllers.GalleryController: GalleryComponents, modelid = {0}", modelId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controllers.GalleryController: GalleryComponents, modelid = {0}", modelId));
+               
                 return InternalServerError();
             }
         }
@@ -308,8 +306,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Service.Controllers.GalleryController: GetColorPhotosByModelId, modelid = {0}", modelId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controllers.GalleryController: GetColorPhotosByModelId, modelid = {0}", modelId));
+               
                 return InternalServerError();
             }
         }

@@ -60,8 +60,8 @@ namespace Bikewale.Ajax
             catch(Exception ex)
             {
                 retVal = false;
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : UsedSearchQueryString");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : UsedSearchQueryString");
+                
             }
 
             return retVal;
