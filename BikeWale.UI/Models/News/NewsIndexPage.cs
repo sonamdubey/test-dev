@@ -377,6 +377,10 @@ namespace Bikewale.Models
 						status = StatusCodes.ContentNotFound;
 					}
 				}
+				else
+				{
+					status = StatusCodes.ContentNotFound;
+				}
 			}
 			catch (Exception ex)
 			{

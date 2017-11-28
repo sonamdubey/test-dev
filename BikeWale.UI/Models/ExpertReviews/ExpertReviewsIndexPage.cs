@@ -226,8 +226,12 @@ namespace Bikewale.Models
                     status = StatusCodes.ContentNotFound;
                 }
             }
-            
-        }
+			else
+			{
+				status = StatusCodes.ContentNotFound;
+			}
+
+		}
 
         /// <summary>
         /// Created by  :  Aditi Srivasava on 30 Mar 2017
