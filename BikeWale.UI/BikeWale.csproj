@@ -412,7 +412,6 @@
     <Compile Include="common\AutoBizCommon.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWCommon.cs" />
-    <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
     <Compile Include="common\BWSecurity\ScreenInput.cs" />
     <Compile Include="common\Cities.cs" />
     <Compile Include="common\CityHelper.cs" />

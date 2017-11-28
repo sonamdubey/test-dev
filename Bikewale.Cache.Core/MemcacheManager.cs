@@ -11,7 +11,7 @@ namespace Bikewale.Cache.Core
 {
     public class MemcacheManager : ICacheManager
     {
-        private static MemcachedClient mc = null;
+        private static MemcachedClient mc;
         private bool _useMemcached;
 
         public MemcacheManager()
