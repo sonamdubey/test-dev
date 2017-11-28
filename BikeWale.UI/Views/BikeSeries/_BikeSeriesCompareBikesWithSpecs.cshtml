@@ -46,7 +46,7 @@
 					{
 						<li>
 							<div class="rightbike__swiper-card @string.Format("{0}",index==1?"featured-card":"")" data-model-index="@index">
-								<a href="@string.Format("/m/{0}-bikes/{1}/", Model.BikeMake.MakeMaskingName,  bike.ModelMaskingName)" title="@string.Format("{0} {1}", Model.BikeMake.MakeName, bike.ModelName)" class="rightbike-carousel__model-card">
+								<a href="@string.Format("/{0}-bikes/{1}/", Model.BikeMake.MakeMaskingName,  bike.ModelMaskingName)" title="@string.Format("{0} {1}", Model.BikeMake.MakeName, bike.ModelName)" class="rightbike-carousel__model-card">
 									<div class="rightbike-carousel__image">
 										<img class="lazy" alt="@bike.ModelName" title="@bike.ModelName" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._70)" src="" border="0" />
 									</div>
