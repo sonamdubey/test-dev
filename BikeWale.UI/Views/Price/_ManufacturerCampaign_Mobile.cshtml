@@ -9,7 +9,7 @@
     }
     catch (Exception ex)
     {
-        Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, String.Format("ManufacturerCampaign.Mobile(CampaignId : {0})", Model.CampaignId));
+        Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("ManufacturerCampaign.Mobile(CampaignId : {0})", Model.CampaignId));
     }
      <!-- Manufacturer Campaign Ad section ends -->
 }
