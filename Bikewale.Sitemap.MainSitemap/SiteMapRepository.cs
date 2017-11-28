@@ -54,7 +54,8 @@ namespace Bikewale.Sitemap.MainSitemap
                     UrlType[] urls = { UrlType.Make, UrlType.Model, UrlType.ModelImage, UrlType.ScooterMake,
                                  UrlType.ModelSpec, UrlType.ModelComparison,UrlType.MakeExpertReviews,
                                  UrlType.ModelExpertReviews,UrlType.MakeNews, UrlType.ModelNews,UrlType.MakeUpcoming
-                                , UrlType.MakeNewLaunches,UrlType.MakeUserReviews,UrlType.ModelUserReviews,UrlType.MakeVideos,UrlType.ModelVideos};
+                                , UrlType.MakeNewLaunches,UrlType.MakeUserReviews,UrlType.ModelUserReviews,UrlType.MakeVideos,UrlType.ModelVideos
+                                    ,UrlType.SeriesPage, UrlType.SeriesNews,UrlType.SeriesExpertReview,UrlType.SeriesVideos };
                     GetData(urls, SitemapList);
                 }
                 else
