@@ -19,7 +19,7 @@ namespace Bikewale.Sitemap.MainSitemap
         private readonly string domain = ConfigurationManager.AppSettings["SiteMapDomain"];
         private readonly int MaxUrlCount = Convert.ToInt32(ConfigurationManager.AppSettings["MaxUrlCount"]);
         private readonly string FileName = ConfigurationManager.AppSettings["FileName"];
-
+        private readonly string sitemapSP = ConfigurationManager.AppSettings["sitemapSP"];
         private const string _extension = ".xml";
 
         private const string MakeUrl = "/{0}-bikes/";
@@ -52,7 +52,7 @@ namespace Bikewale.Sitemap.MainSitemap
             bool isSuccess = false;
             try
             {
-                SiteMapRepository repo = new SiteMapRepository();
+                SiteMapRepository repo = new SiteMapRepository(sitemapSP);
 
                 var data = repo.GetData();
 
