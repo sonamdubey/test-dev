@@ -121,13 +121,13 @@ namespace BikeWaleOpr.Content
                 {
                     Trace.Warn("UserReviews.detailreview Sql Ex : ", ex.Message);
                     ErrorClass.LogError(ex, "UserReviews.detailreview");
-                    
+
                 }
                 catch (Exception ex)
                 {
                     Trace.Warn("UserReviews.detailreview Ex : ", ex.Message);
                     ErrorClass.LogError(ex, "UserReviews.detailreview");
-                    
+
                 }
             }
         }   // End of detailreview function
@@ -143,7 +143,7 @@ namespace BikeWaleOpr.Content
         {
             float overallRating;
 
-            overallRating = (Convert.ToInt32(txtExterior.Text) + Convert.ToInt32(txtComfort.Text) + Convert.ToInt32(txtPerformance.Text) + Convert.ToInt32(txtFuel.Text) + Convert.ToInt32(txtValue.Text)) / 5;
+            overallRating = (float)(Convert.ToInt32(txtExterior.Text) + Convert.ToInt32(txtComfort.Text) + Convert.ToInt32(txtPerformance.Text) + Convert.ToInt32(txtFuel.Text) + Convert.ToInt32(txtValue.Text)) / 5;
 
             try
             {
@@ -161,7 +161,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_overallr", DbType.Int16, overallRating));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_pros", DbType.String, 100, txtPros.Text));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbType.String, 100, txtCons.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 8000, SanitizeHTML.ToSafeHtml(rteDetail.Text)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 8000, Bikewale.Utility.SanitizeHTML.ToSafeHtml(rteDetail.Text)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbType.String, 100, txtTitle.Text));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, reviewId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_familiarity", DbType.Int16, txtFamiliarity.Text));
@@ -174,20 +174,20 @@ namespace BikeWaleOpr.Content
                         errMsg.Visible = true;
                     }
 
-                    
+
                 }
             }
             catch (SqlException ex)
             {
                 Trace.Warn("UserReviews.UpdateReview Sql Ex : ", ex.Message);
                 ErrorClass.LogError(ex, "UserReviews.UpdateReview");
-                
+
             }
             catch (Exception ex)
             {
                 Trace.Warn("UserReviews.UpdateReview Ex : ", ex.Message);
                 ErrorClass.LogError(ex, "UserReviews.UpdateReview");
-                
+
             }
             detailreview();
         }   // End of UpdateReview method
