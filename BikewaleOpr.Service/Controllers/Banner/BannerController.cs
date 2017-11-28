@@ -59,7 +59,7 @@ namespace BikewaleOpr.Service.Controllers
 
                 ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.StopBanner");
                 return InternalServerError();
-            }           
+            }
         }
 
         /// <summary>
@@ -67,16 +67,19 @@ namespace BikewaleOpr.Service.Controllers
         /// Summary :- Banner SaveBanner properties (desktop and mobile)
         /// </summary>
         [HttpPost, Route("api/bannerproperties/save/{platformId}/")]
-        public IHttpActionResult SaveBanner([FromBody] BannerVM objBanner ,uint platformId)
-        {           
+        public IHttpActionResult SaveBanner([FromBody] BannerVM objBanner, uint platformId)
+        {
             if (platformId > 0)
-            {                
+            {
                 try
                 {
                     BannerDetails objBannerDetails = (platformId == 1) ? objBanner.DesktopBannerDetails : objBanner.MobileBannerDetails;
                     bool success = _objBannerRespository.SaveBannerProperties(objBannerDetails, platformId, objBanner.CampaignId);
-                    if(success)
-                    MemCachedUtil.Remove(string.Format("BW_HomePageBanner_PlatformId_{0}", platformId));
+                    if (success)
+                    {
+                        MemCachedUtil.Remove(string.Format("BW_HomePageBanner_PlatformId_{0}", platformId));
+                    }
+
                     return Ok(success);
                 }
                 catch (Exception ex)
