@@ -268,9 +268,10 @@
                 @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
                 {
                     <div id="makeReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+                        <h2 class="text-bold">@Model.MakeName Reviews</h2>
                         @if (Model.IsExpertReviewsAvailable && Model.ExpertReviews != null)
                         {
-                            <h2 class="text-bold">@Model.MakeName Expert Reviews</h2>
+                            <h3>Expert Reviews</h3>
                             @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
                             <div class="view-all-btn-container">
                                 <a title="@Model.ExpertReviews.LinkTitle" href="@string.Format("/m{0}",Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
@@ -286,7 +287,7 @@
                             }
 
                             <div>
-                                <h2 class="text-bold">User Reviews of @Model.MakeName Bikes</h2>
+                                <h3>User Reviews</h3>
                                 @Html.Partial("~/Views/UserReview/BikesWithReviewsByMake_Mobile.cshtml", Model.PopularBikesUserReviews)
                             </div>
                         }
@@ -333,7 +334,7 @@
 {
     <section>
         <div class="container">
-            <div class="content-inner-block-10 margin-bottom30">
+            <div class="content-inner-block-10 margin-bottom20">
                 <div id="discontinuedModels" style="display: block;">
                     <div id="discontinuedLess">
                         Discontinued @Model.MakeName models: - <span id="spnContent"></span>

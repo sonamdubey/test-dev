@@ -275,6 +275,6 @@ docReady(function () {
 
     $('.make-subfooter .read-more-button').on('click', function () {
         var subfooter = $(this).closest('.make-subfooter');
-        subfooter.find('.grid-6:nth-of-type(1)').css('height', 'auto').css('height', subfooter.height());
+        subfooter.find('.content__left-col').css('height', 'auto').css('height', subfooter.height());
     });
 });
