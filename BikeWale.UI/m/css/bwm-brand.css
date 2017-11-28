@@ -736,7 +736,7 @@
 }
 .about-make .truncatable-content[data-readTextFlag='1'],
 .about-make .truncatable-content {
-    max-height: 114px;
+    max-height: 275px;
 }
 .make-price-block .truncatable-content[data-readTextFlag='1'],
 .make-price-block .truncatable-content {
