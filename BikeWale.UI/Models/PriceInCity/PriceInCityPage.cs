@@ -639,8 +639,8 @@ namespace Bikewale.Models
                                     }
                                 }
                             }
-                            BuildPageMetas(objVM);
-                            GetManufacturerCampaign(objVM);
+
+
                             objVM.LeadCapture = new LeadCaptureEntity()
                             {
                                 ModelId = modelId,
@@ -664,9 +664,11 @@ namespace Bikewale.Models
                         objVM.Page_H1 = String.Format("{0} price in {1}", objVM.BikeName, objVM.CityEntity.CityName);
 
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
+                        #region Do not change the order
                         BuildPageMetas(objVM);
+                        GetManufacturerCampaign(objVM);
                         BindManufacturerLeadAdAMP(objVM);
-
+                        #endregion
 
                     }
                     else
