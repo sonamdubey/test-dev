@@ -202,7 +202,8 @@ namespace Bikewale.Models.UserReviews
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objPage.UserReviewDetailsObj.Make.MakeName)));
             }
 
-            if (objPage.GenericBikeWidgetData != null && objPage.GenericBikeWidgetData.BikeInfo != null && objPage.GenericBikeWidgetData.BikeInfo.BodyStyleId.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(objPage.UserReviewDetailsObj.Make.IsScooterOnly))
+            if (objPage.GenericBikeWidgetData != null && objPage.GenericBikeWidgetData.BikeInfo != null &&
+                objPage.GenericBikeWidgetData.BikeInfo.BodyStyleId.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(objPage.UserReviewDetailsObj.Make.IsScooterOnly))
             {
                 if (IsMobile)
                 {

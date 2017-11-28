@@ -347,7 +347,8 @@ namespace Bikewale.Models.BikeModels
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
             }
-            if (_objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(_objData.ModelPageEntity.ModelDetails.MakeBase.IsScooterOnly) && _objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
+            if (_objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(_objData.ModelPageEntity.ModelDetails.MakeBase.IsScooterOnly)
+                && _objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
             {
                 if (IsMobile)
                 {
@@ -1711,7 +1712,7 @@ namespace Bikewale.Models.BikeModels
                     IList<Product> listSimilarBikes = new List<Product>();
                     foreach (var bike in _objData.SimilarBikes.Bikes)
                     {
-                        listSimilarBikes.Add(new Product()
+                        listSimilarBikes.Add(new Product
                         {
                             Name = String.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName),
                             Url = String.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)),

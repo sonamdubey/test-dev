@@ -36,7 +36,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _compareTest = null;
         private readonly ISponsoredComparison _objSponsored = null;
         private readonly IArticles _objArticles = null;
-        private string modelList, modelIdList;
+        private string modelIdList;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
@@ -232,7 +232,7 @@ namespace Bikewale.Models
             {
                 if (obj.Compare != null && obj.Compare.BasicInfo != null)
                 {
-                    bikeList = new List<string>(); bikeMaskingList = new List<string>(); bikeModels = new List<string>(); bikeIdList = new List<string>();
+                    bikeList = new List<string>(); bikeMaskingList = new List<string>(); bikeModels = new List<string>();
                     bikeIdList = new List<string>();
 
                     foreach (var bike in obj.Compare.BasicInfo)
@@ -406,6 +406,7 @@ namespace Bikewale.Models
         private void ProcessQueryString()
         {
             bool isPermanentRedirection = false;
+            string modelList;
             try
             {
                 var request = HttpContext.Current.Request;
@@ -522,7 +523,7 @@ namespace Bikewale.Models
                         IList<SimilarBikeComparisonWidget> comparisonList = new List<SimilarBikeComparisonWidget>();
                         foreach (var similarBikeObj in similarComparisons.SimilarBikes)
                         {
-                            comparisonList.Add(new SimilarBikeComparisonWidget()
+                            comparisonList.Add(new SimilarBikeComparisonWidget
                             {
                                 BikeMake = similarBikeObj.BikeMake,
                                 BikeModel = similarBikeObj.BikeModel,
@@ -536,7 +537,7 @@ namespace Bikewale.Models
                         if (obj.SimilarBikeWidget != null)
                         {
                             obj.SimilarBikeWidget.SimilarBikeComparison = comparisonList;
-                            obj.SimilarBikeWidget.modelComparisionText = obj.comparisionText;
+                            obj.SimilarBikeWidget.ModelComparisionText = obj.comparisionText;
                         }
 
                     }

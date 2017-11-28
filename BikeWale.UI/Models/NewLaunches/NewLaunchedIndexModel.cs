@@ -27,7 +27,8 @@ namespace Bikewale.Models
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
         public ushort MakeTopCount { get; set; }
-        public NewLaunchedIndexModel(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming, InputFilter filter, PQSourceEnum pqSource, ushort? pageNumber, ICMSCacheContent objArticles)
+        public NewLaunchedIndexModel(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming,
+                                     InputFilter filter, PQSourceEnum pqSource, ushort? pageNumber, ICMSCacheContent objArticles)
         {
             _newLaunches = newLaunches;
             _objMakeCache = objMakeCache;
@@ -64,7 +65,7 @@ namespace Bikewale.Models
                     CreatePager(objVM.NewLaunched, objVM.PageMetaTags);
                 }
                 CreateMeta(objVM.PageMetaTags);
-                BindCMSContent(objVM);
+                BindCmsContent(objVM);
             }
             catch (Exception ex)
             {
@@ -158,7 +159,7 @@ namespace Bikewale.Models
         /// Description: New launched page news widget
         /// </summary>
         /// <param name="objUpcoming"></param>
-        private void BindCMSContent(NewLaunchedIndexVM objNewLaunches)
+        private void BindCmsContent(NewLaunchedIndexVM objNewLaunches)
         {
             try
             {
@@ -174,7 +175,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.BindCMSContent()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.BindCmsContent()");
             }
 
         }

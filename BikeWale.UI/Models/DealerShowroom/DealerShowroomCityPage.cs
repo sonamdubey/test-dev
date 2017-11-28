@@ -87,7 +87,7 @@ namespace Bikewale.Models.DealerShowroom
                 BindPageMetas(objDealerVM);
                 BindLeadCapture(objDealerVM);
 
-                objDealerVM.BikeCityPopup = new PopUp.BikeCityPopup()
+                objDealerVM.BikeCityPopup = new PopUp.BikeCityPopup
                 {
                     ApiUrl = "/api/v2/DealerCity/?makeId=" + (uint)objMake.MakeId,
                     PopupShowButtonMessage = "Show showrooms",
@@ -221,7 +221,7 @@ namespace Bikewale.Models.DealerShowroom
 
             try
             {
-                if(objPage!=null)
+                if (objPage != null)
                 {
                     IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
                     string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
@@ -243,7 +243,7 @@ namespace Bikewale.Models.DealerShowroom
 
                     objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -382,7 +382,8 @@ namespace Bikewale.Models.DealerShowroom
                 objDealerDetails.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
                 {
-                    objDealerDetails.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objDealerDetails.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityId)).ToList();
+                    objDealerDetails.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objDealerDetails.DealersServiceCenterPopularCities.
+                                                                                                            DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityId)).ToList();
                 }
 
             }
