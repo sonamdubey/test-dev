@@ -30,8 +30,14 @@
 
 .news-section__sub-title
 	font-size: 11px
+	display: inline-block
+	vertical-align: middle
+	width: 100%
 	color: #82888b
 	padding-bottom: 5px
+	text-overflow: ellipsis
+	white-space: nowrap
+	overflow: hidden
 	
 @mixin news-section__desc($font-size: 13px, $color: #787878)
 	.news-section__desc

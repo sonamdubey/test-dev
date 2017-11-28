@@ -12,8 +12,14 @@
 					</a>
 					<div class="news-section__title-block">
 						<a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title" class="swiper-card__label">@review.Title.Truncate(25) ...</a>
-						<p class="news-section__sub-title">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "dd MMM yyyy")</p>
-                        <p class="news-section__sub-title">@review.AuthorName</p>
+
+                        <div class="grid-6 alpha padding-right5">
+                            <span class="news-section__sub-title">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "dd MMM yyyy")</span>
+                        </div>
+                        <div class="grid-6 alpha omega">
+                            <span class="news-section__sub-title">@review.AuthorName</span>
+                        </div>
+                        <div class="clear"></div>     
 					</div>
 				</div>
 				<div class="news-section__desc">@FormatDescription.TruncateDescription(review.Description, 120)<a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title" class="read-more">...Read more</a>

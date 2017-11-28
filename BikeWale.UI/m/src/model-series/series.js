@@ -10,7 +10,7 @@ docReady(function () {
 
         $(this).closest('.find-specs-tabs-wrapper').find('.active').removeClass('active');
         $(this).addClass('active');
-        $('html, body').animate({ scrollTop: $('.find-right-bike').offset().top - 20 }, 1000);
+        $('html, body').animate({ scrollTop: $('.find-right-bike').offset().top - 70 }, 1000);
         if (indexOfSlide >= 0)
         {
             var tag = $('#rightBikeSwiper').find('.rightbike__swiper-card .recommended-tag:not(.popular-tag)');
