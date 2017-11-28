@@ -185,7 +185,8 @@ namespace Bikewale.DAL.BikeData
                                 objModelsList.Add(new BikeSeriesCompareBikes()
                                 {
                                     ModelName = Convert.ToString(dr["ModelName"]),
-                                    HostUrl = Convert.ToString(dr["HostURL"]),
+									ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+									HostUrl = Convert.ToString(dr["HostURL"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     Displacement = SqlReaderConvertor.ParseToDouble(dr["Displacement"]),
                                     FuelCapacity = SqlReaderConvertor.ParseToDouble(dr["FuelEfficiencyOverall"]),
@@ -196,7 +197,6 @@ namespace Bikewale.DAL.BikeData
                                     Gears = SqlReaderConvertor.ToUInt16(dr["NoOfGears"]),
                                     BrakeType = Convert.ToString(dr["BrakeType"]),
                                     MaxPowerRpm = SqlReaderConvertor.ParseToDouble(dr["MaxPowerRpm"])
-
 
                                 });
                             }

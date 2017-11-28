@@ -19,7 +19,7 @@
 
 .inner-content-carousel.jcarousel-wrapper
 	.jcarousel
-		width: auto
+		width: 100%
 		left: 0
 		padding-left: 0
 		padding-right: 0
@@ -27,9 +27,26 @@
 		li
 			margin-left: 20px
 			margin-right: 0
-			&:last-child
-				margin-right: 40px
+			-webkit-box-shadow: none
+			-moz-box-shadow: none
+			box-shadow: none
+			border: none
 
+	.jcarousel-control-left,
+	.jcarousel-control-right
+		top: 43%
+.jcarousel
+	li
+		&:last-child
+			margin-right: 20px
+
+			.carousel-card
+				margin-right: 20px
+
+		> .carousel-card
+			border: 1px solid #e2e2e2
+			@include border-radius(3px)
+								
 .inner-content-carousel
 	.jcarousel-control-left
 		.jcarousel-control-prev
@@ -75,7 +92,7 @@
 @include model-card()
 @include model-card__btn-block()
 @include model-card__image()
-@include summary-specs-list(12, 400)
+@include summary-specs-list(12, 600)
 @include featured-card()
 @include model-card__sub-title(14)
 
@@ -98,7 +115,11 @@
 @include upcoming-bike-card__image()
 @include upcoming-bike-card__list()
 
-
+.upcoming-bike-carousel
+	&.inner-content-carousel
+		.jcarousel-control-left,
+		.jcarousel-control-right
+			top: 30%
 
 //comparision-carousel
 
@@ -119,7 +140,7 @@
 
 
 @include rightbike-carousel__image(142px, 80px)
-@include rightbike-carousel__model-card(167px, 150px)
+@include rightbike-carousel__model-card(167px, 130px)
 
 
 

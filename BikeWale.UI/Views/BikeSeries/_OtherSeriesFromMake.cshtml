@@ -8,7 +8,7 @@
 				@foreach (var series in Model.OtherSeriesList)
 				{
 					<li class="model-list__card">
-						<a href="@string.Format("/{0}-bikes/{1}/", Model.BikeMake.MakeMaskingName, series.MaskingName)" title="@string.Format("{0} Series", series.SeriesName)">
+						<a href="@string.Format("/{0}-bikes/{1}/", Model.BikeMake.MakeMaskingName, series.MaskingName)" title="@string.Format("{0} Series", series.SeriesName)" class="carousel-card">
 							<div class="model-series-list__img">
 								<img class="lazy" data-original="@Image.GetPathToShowImages(series.OriginalImagePath, series.HostUrl, ImageSize._144x81, QualityFactor._70)" alt="@string.Format("{0} Series", series.SeriesName)" src="" border="0" style="display: inline;">
 							</div>

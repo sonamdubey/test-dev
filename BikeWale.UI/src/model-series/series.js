@@ -78,27 +78,24 @@
             target: '+=2'
         });
 
-
-    $(".jcarousel-control-next").on("jcarouselcontrol:active", function () {
-        $(this).closest('.jcarousel-wrapper').attr('data-overlay', 'both');
-    })
-    $(".jcarousel-control-prev").on("jcarouselcontrol:active", function () {
-        $(this).closest('.jcarousel-wrapper').attr('data-overlay', 'both');
-    })
-    $(".jcarousel-control-next").on("jcarouselcontrol:inactive", function () {
-        $(this).closest('.jcarousel-wrapper').attr('data-overlay', 'left');
-    })
-
-    $(".jcarousel-control-prev").on("jcarouselcontrol:inactive", function () {
-        $(this).closest('.jcarousel-wrapper').attr('data-overlay', 'right');
-    })
+    $(".jcarousel-control-left, .jcarousel-control-right").on('click', function () {
+        if ($(this).find(".jcarousel-control-next").hasClass('inactive')) {
+            $(this).closest('.jcarousel-wrapper').attr('data-overlay', 'left');
+        }
+        else if ($(this).find(".jcarousel-control-prev").hasClass('inactive')) {
+            $(this).closest('.jcarousel-wrapper').attr('data-overlay', 'right');
+        }
+        else {
+            $(this).closest('.jcarousel-wrapper').attr('data-overlay', 'right');
+        }
+    });
     //find bike carousel
 
     $('.find-specs-tabs-wrapper .specs-btn').on('click', function () {
 
         var specBtn = $(this).attr('data-swipe');
         var swiperSlide = $('#rightBikeSwiper').find('.rightbike__swiper-card[data-model-index="' + specBtn + '"]');
-        var indexOfSlide = swiperSlide.index();
+        var indexOfSlide = swiperSlide.closest('li').index();
         $(this).closest('.find-specs-tabs-wrapper').find('.active').removeClass('active');
         $(this).addClass('active');
         if (indexOfSlide >= 0) {

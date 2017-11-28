@@ -11,9 +11,14 @@
 						<img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._144x81, QualityFactor._70)" alt="@news.Title" src="" border="0">
 					</a>
 					<div class="news-section__title-block">
-						<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" class="swiper-card__label">@news.Title.Truncate(25) ...</a>
-						<p class="news-section__sub-title">@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate), "dd MMM yyyy")</p>
-                        <p class="news-section__sub-title">@news.AuthorName</p>
+						<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" class="swiper-card__label">@FormatDescription.TruncateDescription(news.Title, 40)</a>
+                        <div class="grid-6 alpha padding-right5">
+                            <span class="news-section__sub-title">@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate), "dd MMM yyyy")</span>
+                        </div>
+                        <div class="grid-6 alpha omega">
+                            <span class="news-section__sub-title">@news.AuthorName</span>
+                        </div>                        
+                        <div class="clear"></div>                      
 					</div>
 				</div>
 				<div class="news-section__desc">@FormatDescription.TruncateDescription(news.Description, 120) <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" class="read-more">...Read more</a></div>

@@ -17,7 +17,7 @@
             <div class="container margin-bottom20 bg-white">
 				@if (Model.BikeMake != null && Model.BikeMake != null)
 				{
-					<h1 class="padding-15">@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h1>
+					<h1 class="padding-15-20">@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h1>
 				}
 				@if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
 				{
@@ -69,7 +69,7 @@
                 </div>
             </div>
         }
-        @if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Any())
+        @if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Count() > 1)
         {
             <div class="container bg-white">
                 <div class="padding-top20">
@@ -155,9 +155,9 @@
             <div class="padding-right20 padding-left20">
 				@if (Model.BikeMake != null && Model.SeriesBase != null)
 				{
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2>@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesDescription.Name)  Used Bikes</h2>
-                </div>
+					<div class="swiper-heading-left-grid inline-block">
+						<h2>@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)  Used Bikes</h2>
+					</div>
 				}
 				
                 <div class="clear"></div>

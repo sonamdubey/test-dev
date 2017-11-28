@@ -45,11 +45,19 @@
 	
 .right-bike_carousel-specs
 	min-heigth: 200px
-@mixin rightbike-carousel__model-card($width: 135px, $height: 120px)
+@mixin rightbike-carousel__model-card($width: 135px, $height: 125px)
 	.rightbike-carousel__model-card
 		width: $width
 		height: $height
 		padding: 10px 20px 5px
+		display: block
+		color: #4d5057
+			
+		&:hover
+			text-decoration: none
+				
+			.rightbike-caraousel__label
+				text-decoration: underline
 
 @mixin rightbike-carousel__tags($font-size: 10, $color1: #787878, $color2: #ff7c6f)
 	.featured-card
@@ -133,7 +141,11 @@
 			-webkit-animation-direction: alternate
 			animation: moveribbon 5s
 			animation-direction: alternate
-								
+	.swiper-slide
+		width: 135px
+		
+		&:last-child
+			margin-right: 10px					
 	.rightbike__swiper-card
 		width: 135px
 
