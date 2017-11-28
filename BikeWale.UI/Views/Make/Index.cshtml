@@ -292,9 +292,11 @@
                     @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
                     {
                         <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                            <h2 class="padding-left10 padding-right10">@Model.MakeName Reviews</h2>
+
                             @if (Model.IsExpertReviewsAvailable && Model.ExpertReviews != null)
                             {
-                                <h2 class="padding-left10 padding-right10">@Model.MakeName Expert Reviews</h2>
+                                <h3 class="padding-left10 padding-right10">Expert Reviews</h3>
                                 @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
                                 <div class="padding-left10 more-article-target view-all-btn-container">
                                     <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
@@ -310,7 +312,7 @@
                                     <div class="padding-top20 border-solid-bottom margin-bottom20"></div>
                                 }
                                 <div>
-                                    <h2 class="padding-left10 padding-right10">User Reviews of @Model.MakeName Bikes</h2>
+                                    <h3 class="padding-left10 padding-right10">User Reviews</h3>
                                     @Html.Partial("~/Views/UserReview/BikesWithReviewsByMake.cshtml", Model.PopularBikesUserReviews)
                                 </div>
                             }
