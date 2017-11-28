@@ -125,19 +125,7 @@ namespace Bikewale.BAL.EditCMS
 
             try
             {
-                switch (categoryIdList)
-                {
-                    case "8": //EnumCMSContentType.RoadTest
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
-                        break;
-
-                    case "1": //EnumCMSContentType.News
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
-                        break;
-                    default:
-                        break;
-                }
-
+                categoryIdList = ReturnCategoryIds(categoryIdList);
                 _objArticleList = GetMostRecentArticlesViaGrpc(categoryIdList, totalRecords, makeId, modelId);
 
             }
@@ -166,17 +154,7 @@ namespace Bikewale.BAL.EditCMS
 
             try
             {
-                switch (categoryIdList)
-                {
-                    case "8": //EnumCMSContentType.RoadTest
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
-                        break;
-
-                    case "1": //EnumCMSContentType.News
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
-                        break;
-                }
-
+                categoryIdList = ReturnCategoryIds(categoryIdList);
                 _objArticleList = GetMostRecentArticlesViaGrpc(categoryIdList, totalRecords, makeId, modelIds);
 
             }
@@ -200,19 +178,7 @@ namespace Bikewale.BAL.EditCMS
 
             try
             {
-                switch (categoryIdList)
-                {
-                    case "8": //EnumCMSContentType.RoadTest
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
-                        break;
-
-                    case "1": //EnumCMSContentType.News
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
-                        break;
-                    default:
-                        break;
-                }
-
+                categoryIdList = ReturnCategoryIds(categoryIdList);
                 _objArticleList = GetMostRecentArticlesViaGrpc(categoryIdList, totalRecords, bodyStyleId, makeId, modelId);
 
             }
@@ -242,19 +208,7 @@ namespace Bikewale.BAL.EditCMS
 
             try
             {
-                switch (categoryIdList)
-                {
-                    case "8": //EnumCMSContentType.RoadTest
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
-                        break;
-
-                    case "1": //EnumCMSContentType.News
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
-                        break;
-                    default:
-                        break;
-                }
-
+                categoryIdList = ReturnCategoryIds(categoryIdList);
                 _objArticleList = GetMostRecentArticlesViaGrpc(categoryIdList, totalRecords, bodyStyleId, makeId, modelIds);
 
             }
@@ -407,19 +361,7 @@ namespace Bikewale.BAL.EditCMS
             CMSContent _objArticleList = null;
             try
             {
-                switch (categoryIdList)
-                {
-                    case "8": //EnumCMSContentType.RoadTest
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
-                        break;
-
-                    case "1": //EnumCMSContentType.News
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
-                        break;
-                    default:
-                        break;
-                }
-
+                categoryIdList = ReturnCategoryIds(categoryIdList);
                 _objArticleList = GetArticlesByCategoryViaGrpc(categoryIdList, startIndex, endIndex, makeId, modelId);
             }
             catch (Exception ex)
@@ -450,19 +392,7 @@ namespace Bikewale.BAL.EditCMS
             CMSContent _objArticleList = null;
             try
             {
-                switch (categoryIdList)
-                {
-                    case "8": //EnumCMSContentType.RoadTest
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
-                        break;
-
-                    case "1": //EnumCMSContentType.News
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
-                        break;
-                    default:
-                        break;
-                }
-
+                categoryIdList = ReturnCategoryIds(categoryIdList);
                 _objArticleList = GetArticlesByCategoryViaGrpc(categoryIdList, startIndex, endIndex, makeId, modelIds);
             }
             catch (Exception ex)
@@ -549,18 +479,7 @@ namespace Bikewale.BAL.EditCMS
             CMSContent _objArticleList = null;
             try
             {
-                switch (categoryIdList)
-                {
-                    case "8": //EnumCMSContentType.RoadTest
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
-                        break;
-
-                    case "1": //EnumCMSContentType.News
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
-                        break;
-                    default:
-                        break;
-                }
+                categoryIdList = ReturnCategoryIds(categoryIdList);
                 _objArticleList = GetArticlesByCategoryViaGrpc(categoryIdList, startIndex, endIndex, bodyStyleId, makeId);
             }
             catch (Exception ex)
@@ -577,19 +496,7 @@ namespace Bikewale.BAL.EditCMS
             PwaContentBase _objArticleList = null;
             try
             {
-                switch (categoryIdList)
-                {
-                    case "8": //EnumCMSContentType.RoadTest
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
-                        break;
-
-                    case "1": //EnumCMSContentType.News
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
-                        break;
-                    default:
-                        break;
-                }
-
+                categoryIdList = ReturnCategoryIds(categoryIdList);
                 _objArticleList = GetArticlesByCategoryViaGrpcPwa(categoryIdList, startIndex, endIndex, makeId, modelId);
             }
             catch (Exception ex)
@@ -687,7 +594,7 @@ namespace Bikewale.BAL.EditCMS
             return null;
         }
 
-       
+
         #endregion
 
 
@@ -754,6 +661,7 @@ namespace Bikewale.BAL.EditCMS
 
         #endregion
 
+
         #region Update the View Count
         /// <summary>
         /// Created by  :   Sumit Kate on 25 July 2016
@@ -779,5 +687,34 @@ namespace Bikewale.BAL.EditCMS
         }
         #endregion
 
+        #region common business logic
+        /// <summary>
+        /// Returns the category ids.
+        /// Created by : Sangram Nandkhile on 28 Nov 2017
+        /// </summary>
+        /// <param name="categoryId">The category identifier.</param>
+        /// <returns></returns>
+        private string ReturnCategoryIds(string categoryId)
+        {
+            switch (categoryId)
+            {
+                case "8": //EnumCMSContentType.RoadTest
+                    categoryId = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
+                    break;
+
+                case "1": //EnumCMSContentType.News
+                    categoryId = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
+                    break;
+
+                case "6": //EnumCMSContentType.Features
+                    categoryId = Convert.ToString((int)EnumCMSContentType.Features) + "," + (short)EnumCMSContentType.SpecialFeature;
+                    break;
+                default:
+                    break;
+            }
+
+            return categoryId;
+        }
+        #endregion
     }
 }
