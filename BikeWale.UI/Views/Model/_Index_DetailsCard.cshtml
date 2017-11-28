@@ -11,15 +11,6 @@
         </section>
                 }
 
-    @if(Model.IsNewBike && Model.IsMileageByUsersAvailable)
-    {
-        <section>
-            @Html.Partial("~/Views/Model/_Index_MileageDetails.cshtml", Model.Mileage)
-        </section>
-    }
-    
-
-
     @if (Model.IsSimilarBikesAvailable)
     {
         <div id="modelSimilarContent" data-id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
@@ -54,6 +45,17 @@
             @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel.cshtml", Model.PopularBodyStyle)
         </div>
     }
+
+    @if(Model.IsNewBike && Model.IsMileageByUsersAvailable)
+    {
+        <section>
+            @Html.Partial("~/Views/Model/_Index_MileageDetails.cshtml", Model.Mileage)
+        </section>
+    }
+    
+
+
+   
     @if (Model.ModelPageEntity.ModelVersionSpecs != null || (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)))
     {
         <div id="modelSpecsFeaturesAboutContent" data-id="modelSpecsFeaturesAboutContent" class="bw-model-tabs-data">
