@@ -10,7 +10,6 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Bikewale.Models.Videos
 {
@@ -25,7 +24,7 @@ namespace Bikewale.Models.Videos
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeModelsCache = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCacheRepo = null;
-
+        private readonly IBikeSeriesCacheRepository _seriesCache = null;
 
         private string _makeMaskingName = string.Empty, _modelMaskingName = string.Empty;
 
@@ -38,11 +37,12 @@ namespace Bikewale.Models.Videos
 
         public StatusCodes makeStatus;
         public StatusCodes modelStatus;
-
+        public string redirectUrl;
         public ushort SimilarBikeWidgetTopCount { get; set; }
         public bool IsMobile { get; set; }
+        public SeriesMaskingResponse objMaskingResponse;
 
-        public ModelWiseVideosPage(string makeMaskingName, string modelMaskingName, ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IVideosCacheRepository objVideosCache, IBikeMakesCacheRepository bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache)
+        public ModelWiseVideosPage(string makeMaskingName, string modelMaskingName, ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IVideosCacheRepository objVideosCache, IBikeMakesCacheRepository bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, IBikeSeriesCacheRepository seriesCache)
         {
             _makeMaskingName = makeMaskingName;
             _modelMaskingName = modelMaskingName;
@@ -51,8 +51,16 @@ namespace Bikewale.Models.Videos
             _bikeModelsCache = bikeModelsCache;
             _cityCacheRepo = cityCacheRepo;
             _bikeInfo = bikeInfo;
+            _seriesCache = seriesCache;
 
             ProcessQuery(_makeMaskingName, _modelMaskingName);
+        }
+
+        public ModelWiseVideoPageVM GetDataSeries()
+        {
+
+
+
         }
 
         public ModelWiseVideoPageVM GetData()
@@ -132,15 +140,33 @@ namespace Bikewale.Models.Videos
                 makeStatus = StatusCodes.ContentNotFound;
             }
 
+
             if (_makeId > 0)
             {
+                objMaskingResponse = _seriesCache.ProcessMaskingName(modelMaskingName);
                 objModelResponse = _bikeModelsCache.GetModelMaskingResponse(modelMaskingName);
-                if (objModelResponse != null)
+                if (objMaskingResponse != null)
                 {
-                    if (objModelResponse.StatusCode == 200)
+                    if (objMaskingResponse.StatusCode == 200)
                     {
-                        _modelId = objModelResponse.ModelId;
-                        modelStatus = StatusCodes.ContentFound;
+                        if (!objMaskingResponse.IsSeriesPageCreated)
+                        {
+
+
+                            _modelId = objMaskingResponse.Id;
+
+                        }
+                        else
+                        {
+                            BikeSeriesEntityBase objSeries;
+                            objSeries = new BikeSeriesEntityBase
+                            {
+                                SeriesId = objMaskingResponse.Id,
+                                SeriesName = objMaskingResponse.Name,
+                                MaskingName = objMaskingResponse.MaskingName,
+                                IsSeriesPageUrl = true
+                            };
+                        }
                     }
                     else if (objModelResponse.StatusCode == 301)
                     {
@@ -155,6 +181,8 @@ namespace Bikewale.Models.Videos
                 {
                     modelStatus = StatusCodes.ContentNotFound;
                 }
+
+
             }
         }
 
@@ -182,7 +210,7 @@ namespace Bikewale.Models.Videos
                     bikeUrl += string.Format("{0}-bikes/", objVM.Make.MaskingName);
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} Bikes", objVM.Make.MakeName)));
                 }
-                if(objVM.Model!=null)
+                if (objVM.Model != null)
                 {
                     bikeUrl += objVM.Model.MaskingName;
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} {1}", objVM.Make.MakeName, objVM.Model.ModelName)));

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Entities.BikeData
 {
     /// <summary>
@@ -36,5 +31,7 @@ namespace Bikewale.Entities.BikeData
         /// Value can be 200 or 301. Based on this value redirection of the url can be done
         /// </summary>
         public ushort StatusCode { get; set; }
+
+        public string Name { get; set; }
     }
 }
