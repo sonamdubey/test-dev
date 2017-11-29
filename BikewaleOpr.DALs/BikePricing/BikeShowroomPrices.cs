@@ -23,19 +23,21 @@ namespace BikewaleOpr.DALs.BikePricing
     /// </summary>
     public class BikeShowroomPrices : IShowroomPricesRepository
     {
-        /// <summary>
-        /// Writteny By : Ashish G. Kamble on 23 Sept 2016
-        /// Summary : Function to get the existing pricing for the given make and city
-        /// </summary>
-        /// <param name="makeId"></param>
-        /// <param name="cityId"></param>
-        /// <returns></returns>
-        public IEnumerable<BikePrice> GetBikePrices(uint makeId, uint cityId)
+		/// <summary>
+		/// Writteny By : Ashish G. Kamble on 23 Sept 2016
+		/// Summary : Function to get the existing pricing for the given make and city
+		/// Modified by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Changed SP from 'GetVersionPricesByMakeCity_07042017' to 'GetVersionPricesByMakeCity_28112017' to get seriesId
+		/// </summary>
+		/// <param name="makeId"></param>
+		/// <param name="cityId"></param>
+		/// <returns></returns>
+		public IEnumerable<BikePrice> GetBikePrices(uint makeId, uint cityId)
         {
             IList<BikePrice> objPrices = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("GetVersionPricesByMakeCity_07042017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("GetVersionPricesByMakeCity_28112017"))
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.UInt32, cityId));
@@ -55,7 +57,7 @@ namespace BikewaleOpr.DALs.BikePricing
                                 objPrice.ModelName = Convert.ToString(dr["ModelName"]);
                                 objPrice.VersionName = Convert.ToString(dr["VersionName"]);
                                 objPrice.VersionId = Convert.ToUInt32(dr["VersionId"]);
-
+								objPrice.BikeSeriesId = Convert.ToUInt32(dr["BikeSeriesId"]);
                                 objPrice.Price = Convert.ToString(dr["Price"]);
                                 objPrice.Insurance = Convert.ToString(dr["Insurance"]);
                                 objPrice.RTO = Convert.ToString(dr["RTO"]);

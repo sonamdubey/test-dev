@@ -37,15 +37,17 @@ namespace BikewaleOpr.BAL
             return objBikeSeriesList;
         }
 
-        /// <summary>
-        /// Created by : Vivek Singh Tomar on 12th Sep 2017
-        /// Summary : Add new bike series
-        /// </summary>
-        /// <param name="bikeSeries"></param>
-        /// <param name="UpdatedBy"></param>
-        /// <param name="seriesId"></param>
-        /// <param name="isSeriesExist"></param>
-        public Tuple<bool, string, BikeSeriesEntity> AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
+		/// <summary>
+		/// Created by : Vivek Singh Tomar on 12th Sep 2017
+		/// Summary : Add new bike series
+		/// Modified by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Added call to ClearSeriesCache.
+		/// </summary>
+		/// <param name="bikeSeries"></param>
+		/// <param name="UpdatedBy"></param>
+		/// <param name="seriesId"></param>
+		/// <param name="isSeriesExist"></param>
+		public Tuple<bool, string, BikeSeriesEntity> AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
         {
             Tuple<bool, string, BikeSeriesEntity> respObj = null;
             try
@@ -77,6 +79,7 @@ namespace BikewaleOpr.BAL
                         if (objBikeSeries.SeriesId > 0)
                         {
                             BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
+							BwMemCache.ClearSeriesCache(objBikeSeries.SeriesId, makeId);
                             respObj = new Tuple<bool, string, BikeSeriesEntity>(true, "Bike series has been updated successfully.", objBikeSeries);
                         }
                         else
