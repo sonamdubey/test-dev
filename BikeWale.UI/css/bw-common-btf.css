@@ -1095,8 +1095,8 @@ input[type="number"] {
 }
 #leadCapturePopup {
     display: none;
-    width: 450px;
-    min-height: 470px;
+    width: 370px;
+    min-height: 526px;
     background: #fff;
     margin: 0 auto;
     position: fixed;
@@ -1104,7 +1104,7 @@ input[type="number"] {
     right: 5%;
     left: 5%;
     z-index: 10;
-    padding: 15px 40px
+    padding: 25px 40px 15px;
 }
 .personal-info-form-container {
     margin: 10px auto;
@@ -1116,6 +1116,10 @@ input[type="number"] {
     width: 100%;
     float: left;
     border-radius: 0
+}
+#leadCapturePopup .btn {
+    padding-left: 49px;
+    padding-right: 49px;
 }
 .ui-autocomplete.pincode-autocomplete {
     overflow-y: auto;

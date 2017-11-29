@@ -1,17 +1,17 @@
-﻿<div id="emiPopup" data-bind="visible: true" style="display: none;" class="Emi-popup hide">
-    <div class="emi-popup-close-btn bwmsprite"></div>
-    <p class="emi-popup__title border-solid-bottom">EMI Calculator</p>
+﻿<div id="emiPopup" data-bind="visible: true" style="display: none;" class="emi-popup__premium-dealer Emi-popup hide">
+    <div class="emi-popup-close-btn"></div>
+    <p class="emi-popup__title">EMI Calculator</p>
     <div class="finance-emi-container">
-        <div class="emi-calculator__amount-container clearfix border-solid-bottom">
+        <div class="emi-calculator__amount-container">
             <div class="grid-5 text-left">
-                <div class="total-emi-amount font16 text-bold margin-bottom5">
+                <div class="total-emi-amount">
                     &#x20B9;&nbsp;
-                    <span id="totalAmount" data-bind="text: formatPrice(Math.round(totalPayable()))" class="font18"></span>
+                    <span id="totalAmount" data-bind="text: formatPrice(Math.round(totalPayable()))" class="text-bold"></span>
                 </div>
                 <p class="font14 text-bold">Total amount</p>
                 <p class="font12 text-light-grey">(Principal + Interest)</p>
             </div>
-            <div class="grid-7 alpha text-right">
+            <div class="grid-7 alpha text-right margin-top5">
 
                 <div class="indicative-emi-amount">
                     &#x20B9;&nbsp;
@@ -65,7 +65,7 @@
                 <div class="emi-slider-box-left-section">
                     <div class="clearfix font14">
                         <p class="emi-popup__label">Tenure</p>
-                        <div class="emi-popup__label-value">
+                        <div class="emi-popup__label-value text-bold">
                             <span id="tenurePeriod" data-bind="text: tenure"></span>&nbsp;Months
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                 <div class="emi-slider-box-left-section">
                     <div class="clearfix font14">
                         <p class="emi-popup__label">Interest</p>
-                        <div class="emi-popup__label-value">
+                        <div class="emi-popup__label-value text-bold">
                             <span id="rateOfInterestPercentage" data-bind="text: rateofinterest">5</span>&nbsp;%
                         </div>
                     </div>
