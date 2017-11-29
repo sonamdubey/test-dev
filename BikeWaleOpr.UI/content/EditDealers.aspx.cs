@@ -24,6 +24,10 @@ namespace BikeWaleOpr.Content
             btnFind.Click += new EventHandler(btnFind_Click);
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 29 Nov 2017
+        /// Description : Calling RegisterTypeForAjax for both condition whether postback and not.
+        /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
             CommonOpn op = new CommonOpn();
