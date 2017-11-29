@@ -89,7 +89,7 @@ namespace Bikewale.Models
         /// <param name="pqSource"></param>
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -108,6 +108,7 @@ namespace Bikewale.Models
             this.modelMaskingName = modelMaskingName;
             this.cityMaskingName = cityMaskingName;
             _objManufacturerCampaign = objManufacturerCampaign;
+            _objModelEntity = modelEntity;
             ProcessQueryString();
         }
 
@@ -684,6 +685,8 @@ namespace Bikewale.Models
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
                     BindAmpJsTags(objVM);
+                    Series = _objModelEntity.GetSeriesByModelId(modelId);
+                    SetBreadcrumList(objVM);
                 }
             }
             catch (Exception ex)
@@ -1189,7 +1192,7 @@ namespace Bikewale.Models
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
             string url, scooterUrl, seriesUrl;
-            url = scooterUrl = seriesUrl = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl);
+            url = scooterUrl = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
