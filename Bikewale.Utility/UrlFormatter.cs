@@ -94,6 +94,40 @@ namespace Bikewale.Utility
                 return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", makeMasking1, modelMasking1, makeMasking2, modelMasking2, versionId1, versionId2, (source.HasValue ? "&source=" + (int)source.Value : ""));
             }
         }
+        /// <summary>
+        /// Creates the compare URL without Query String
+        /// Author: Sangram Nandkhile on 28 Nov 2017
+        /// </summary>
+        /// <param name="bike">The bike.</param>
+        /// <returns></returns>
+        public static string CreateCompareUrl(Bikewale.Entities.BikeData.SimilarCompareBikeEntity bike)
+        {
+            var first = new { MakeMaking = bike.MakeMasking1, ModelMasking = bike.ModelMasking1, ModelId = bike.ModelId1 };
+            var second = new { MakeMaking = bike.MakeMasking2, ModelMasking = bike.ModelMasking2, ModelId = bike.ModelId2 };
+
+            if (first.ModelId < second.ModelId)
+            {
+                return String.Format("/comparebikes/{0}-{1}-vs-{2}-{3}/", first.MakeMaking, first.ModelMasking, second.MakeMaking, second.ModelMasking);
+            }
+            else if (first.ModelId > second.ModelId)
+            {
+                return String.Format("/comparebikes/{0}-{1}-vs-{2}-{3}/", second.MakeMaking, second.ModelMasking, first.MakeMaking, first.ModelMasking);
+            }
+            else
+            {
+                return String.Format("/comparebikes/{0}-{1}-vs-{2}-{3}/", bike.MakeMasking1, bike.ModelMasking1, bike.MakeMasking2, bike.ModelMasking2);
+            }
+        }
+        /// <summary>
+        /// Author: Sangram Nandkhile
+        /// Summary: To Remove the query string from the URL
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns></returns>
+        public static string RemoveQueryString(string url)
+        {
+            return url.Split('?')[0];
+        }
 
         public static string CreateCompareTitle(string make1, string model1, string make2, string model2)
         {
