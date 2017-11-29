@@ -1,5 +1,4 @@
-﻿
-namespace Bikewale.Entities.BikeData
+﻿namespace Bikewale.Entities.BikeData
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 20 Nov 2017
@@ -32,6 +31,9 @@ namespace Bikewale.Entities.BikeData
         /// </summary>
         public ushort StatusCode { get; set; }
 
+        /// <summary>
+        /// Value would be name of series or model depending on the masking name redirection
+        /// </summary>
         public string Name { get; set; }
     }
 }

@@ -112,7 +112,7 @@ namespace Bikewale.Models
                 objVM.ShowCheckOnRoadCTA = _showCheckOnRoadCTA;
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 objVM.Bikes = _bikeModels.GetMostPopularBikes(_bikeType, TotalWidgetItems, _makeId, CityId);
-                if (objVM.Bikes != null && objVM.Bikes.Count()>0)
+                if (objVM.Bikes != null && objVM.Bikes.Any())
                 {
                     objVM.Bikes = objVM.Bikes.Take(TopCount);
                 }

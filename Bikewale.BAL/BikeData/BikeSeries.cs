@@ -1,10 +1,10 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeSeries;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using Bikewale.Entities.BikeSeries;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -152,5 +152,28 @@ namespace Bikewale.BAL.BikeData
 			}
 			return bikeSeriesCompareBikes;
 		}
-	}   // class
+
+        /// <summary>
+        /// created by : vivek singh tomar on 24th nov 2017
+        /// summary : get modelids as comma separated string by series id
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
+        public string GetModelIdsBySeries(uint seriesId)
+        {
+            string modelIds = string.Empty;
+            try
+            {
+                if(seriesId > 0)
+                {
+                    modelIds = _bikeSeriesCacheRepository.GetModelIdsBySeries(seriesId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeSeries.GetMaskingNames seriesId {0}", seriesId));
+            }
+            return modelIds;
+        }
+    }   // class
 }   // namespace

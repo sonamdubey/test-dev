@@ -1,15 +1,15 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeSeries;
 using Bikewale.Entities.Images;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Collections;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -185,7 +185,8 @@ namespace Bikewale.DAL.BikeData
                                 objModelsList.Add(new BikeSeriesCompareBikes()
                                 {
                                     ModelName = Convert.ToString(dr["ModelName"]),
-                                    HostUrl = Convert.ToString(dr["HostURL"]),
+									ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+									HostUrl = Convert.ToString(dr["HostURL"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     Displacement = SqlReaderConvertor.ParseToDouble(dr["Displacement"]),
                                     FuelCapacity = SqlReaderConvertor.ParseToDouble(dr["FuelEfficiencyOverall"]),
@@ -196,7 +197,6 @@ namespace Bikewale.DAL.BikeData
                                     Gears = SqlReaderConvertor.ToUInt16(dr["NoOfGears"]),
                                     BrakeType = Convert.ToString(dr["BrakeType"]),
                                     MaxPowerRpm = SqlReaderConvertor.ParseToDouble(dr["MaxPowerRpm"])
-
 
                                 });
                             }
@@ -325,7 +325,8 @@ namespace Bikewale.DAL.BikeData
                                     MaskingName = Convert.ToString(dr["MaskingName"]),
                                     NewMaskingName = Convert.ToString(dr["NewMaskingName"]),
                                     IsSeriesPageCreated = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]),
-                                    StatusCode = SqlReaderConvertor.ToUInt16(dr["Status"])
+                                    StatusCode = SqlReaderConvertor.ToUInt16(dr["Status"]),
+                                    Name = Convert.ToString(dr["Name"])
                                 };
 
                                 if (!ht.ContainsKey(dr["MaskingName"]))
@@ -343,6 +344,39 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeData.BikeSeriesRepository.GetMaskingNames");
             }
             return ht;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 24 Nov 2017
+        /// Summary : Get model ids as commar separated string for given series id
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
+        public string GetModelIdsBySeries(uint seriesId)
+        {
+            string modelIds = string.Empty;
+            try
+            {
+                using(DbCommand cmd = DbFactory.GetDBCommand("getmodelidsbyseries"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.UInt32, seriesId));
+                    using(IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null && reader.Read())
+                        {
+                            modelIds = Convert.ToString(reader["modelids"]);
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.BikeSeriesRepository.GetMaskingNames seriesId {0}", seriesId));
+            }
+
+            return modelIds;
         }
     }   // class
 }   // namespace

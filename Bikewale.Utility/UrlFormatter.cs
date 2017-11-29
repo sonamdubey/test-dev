@@ -1,8 +1,8 @@
-﻿using Bikewale.Entities.CMS;
+﻿using System;
+using System.Text.RegularExpressions;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
-using System;
-using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility
 {
@@ -368,6 +368,36 @@ namespace Bikewale.Utility
             else if (String.IsNullOrEmpty(modelMaskingName))
             {
                 url = String.Format("/{0}-bikes/expert-reviews/", makeMaskingName);
+            }
+            else
+            {
+                url = String.Format("/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
+            }
+            return url;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 27th Nove 2017
+        /// Description : Overload for FormarExpertReviewUrl with parameter seriesMaskingName
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="seriesMaskingName"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <returns></returns>
+        public static string FormatExpertReviewUrl(string makeMaskingName, string seriesMaskingName, string modelMaskingName)
+        {
+            string url = string.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = "/expert-reviews/";
+            }
+            else if (String.IsNullOrEmpty(seriesMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/expert-reviews/", makeMaskingName);
+            }
+            else if (String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/{1}/expert-reviews/", makeMaskingName, seriesMaskingName);
             }
             else
             {

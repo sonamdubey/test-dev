@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Models.BikeSeries.SeriesPageVM
-
+@using Bikewale.Utility
 @if (Model != null)
 {
 	{
@@ -69,7 +69,7 @@
                 </div>
             </div>
         }
-        @if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Any())
+        @if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Count() > 1)
         {
             <div class="container bg-white">
                 <div class="padding-top20">
@@ -123,6 +123,14 @@
                         <div id="newsContent" class="bw-model-tabs-data content-details-wrapper active">
                             <h2>News</h2>
                             @Html.Partial("~/Views/News/_RecentNews_v1_Mobile.cshtml", Model.News)
+							@if (Model.BikeMake != null && Model.SeriesBase != null)
+							{
+								<div class="margin-top10">
+									<a href="@string.Format("/m{0}",UrlFormatter.FormatNewsUrl(Model.BikeMake.MakeMaskingName, Model.SeriesBase.MaskingName))" title="@string.Format("{0} {1} News", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)" class="btn btn-inv-blue">
+										Read All News
+									</a>
+								</div>
+							}
                         </div>
                     }
 
@@ -131,6 +139,14 @@
                         <div id="videoContent" class="bw-model-tabs-data content-details-wrapper">
                             <h2>Videos</h2>
                             @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+							@if (Model.BikeMake != null && Model.SeriesBase != null)
+							{
+								<div class="margin-top10">
+									<a href="@string.Format("/m{0}",UrlFormatter.FormatVideoPageUrl(Model.BikeMake.MakeMaskingName, Model.SeriesBase.MaskingName))" title="@string.Format("{0} {1} Videos", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)" class="btn btn-inv-blue">
+										View All Videos
+									</a>
+								</div>
+							}
                         </div>
                     }
 
@@ -139,7 +155,15 @@
 
                         <div id="reviewContent" class="bw-model-tabs-data margin-bottom20 content-details-wrapper">
                             <h2>Expert Reviews</h2>
-                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_v1_Mobile.cshtml", Model.ExpertReviews)
+							@Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_v1_Mobile.cshtml", Model.ExpertReviews)
+							@if (Model.BikeMake != null && Model.SeriesBase != null)
+							{
+								<div class="margin-top10">
+									<a href="@string.Format("/m{0}",UrlFormatter.FormatExpertReviewUrl(Model.BikeMake.MakeMaskingName, Model.SeriesBase.MaskingName))" title="@string.Format("{0} {1} Expert Reviews", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)" class="btn btn-inv-blue">
+										Read All Expert Reviews
+									</a>
+								</div>
+							}
                         </div>
                     }
 

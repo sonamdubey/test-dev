@@ -12,5 +12,6 @@ namespace Bikewale.Models.Videos
         public BikeInfoVM BikeInfoWidgetData { get; set; }
         public IEnumerable<SimilarBikeWithVideo> SimilarBikeVideoList { get; set; }
         public uint CityId { get; set; }
+        public BikeSeriesEntityBase objSeries { get; set; }
     }
 }

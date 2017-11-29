@@ -34,11 +34,14 @@ namespace Bikewale.Controllers.Desktop.Videos
         private readonly IBikeInfo _bikeInfo = null;
         private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+        private readonly IBikeSeries _series = null;
+
+
         static ILog _logger = LogManager.GetLogger("Pwa-Logger-VideoController");
 
         public VideosController(ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCache, IVideosCacheRepository videos, IVideos video, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache,
             IPWACMSCacheRepository renderedArticles,
-             IBikeModelsCacheRepository<int> modelCache, IBikeSeriesCacheRepository seriesCache)
+             IBikeModelsCacheRepository<int> modelCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
         {
             _videos = videos;
             _video = video;
@@ -49,6 +52,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             _renderedArticles = renderedArticles;
             _modelCache = modelCache;
             _seriesCache = seriesCache;
+            _series = series;
         }
 
         /// <summary>
@@ -262,7 +266,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("videos/make/{makeMaskingName}/model/{modelMaskingName}")]
         public ActionResult Models(string makeMaskingName, string modelMaskingName)
         {
-            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache);
+            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series);
             if (objModel != null)
             {
                 if (objModel.makeStatus == Entities.StatusCodes.ContentFound)
@@ -276,6 +280,7 @@ namespace Bikewale.Controllers.Desktop.Videos
                     }
                     else
                     {
+
                         ModelWiseVideoPageVM objVM = objModel.GetDataSeries();
                         return View(objVM);
 
@@ -316,7 +321,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("m/videos/make/{makeMaskingName}/model/{modelMaskingName}")]
         public ActionResult Models_Mobile(string makeMaskingName, string modelMaskingName)
         {
-            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache);
+            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series);
             if (objModel.makeStatus == Entities.StatusCodes.ContentFound && objModel.modelStatus == Entities.StatusCodes.ContentFound)
             {
                 objModel.SimilarBikeWidgetTopCount = 9;

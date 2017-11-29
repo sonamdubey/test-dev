@@ -26,14 +26,16 @@ using System.Web;
 
 namespace Bikewale.Models
 {
-    /// <summary>
-    /// Created by : Aditi Srivastava on 27 Mar 2017
-    /// Summary    : Model to get data for news default page
-    /// Modified by:Snehal Dange on 24 August,2017
-    /// Description: Added _bikeMakesCacheRepository,_objBikeVersionsCache.
-    ///              Added PopularScooterBrandsWidget
-    /// </summary>
-    public class NewsIndexPage
+	/// <summary>
+	/// Created by : Aditi Srivastava on 27 Mar 2017
+	/// Summary    : Model to get data for news default page
+	/// Modified by:Snehal Dange on 24 August,2017
+	/// Description: Added _bikeMakesCacheRepository,_objBikeVersionsCache.
+	///              Added PopularScooterBrandsWidget
+	/// Modified by : Ashutosh Sharma on 27 Nov 2017
+	/// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.             
+	/// </summary>
+	public class NewsIndexPage
     {
         #region Variables for dependency injection and constructor
         private readonly ICMSCacheContent _cacheContent = null;
@@ -45,14 +47,16 @@ namespace Bikewale.Models
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
-        #endregion
+		private readonly IBikeSeriesCacheRepository _seriesCache;
+		private readonly IBikeSeries _series;
+		#endregion
 
-        #region Page level variables
-        private uint MakeId, ModelId, pageCatId = 0, CityId;
+		#region Page level variables
+		private uint MakeId, ModelId, pageCatId = 0, CityId;
         private const int pageSize = 10, pagerSlotSize = 5;
         private int curPageNo = 1;
         private uint _totalPagesCount;
-        private string make = string.Empty, model = string.Empty;
+        private string make = string.Empty, model = string.Empty, series = string.Empty;
         private MakeHelper makeHelper = null;
         private ModelHelper modelHelper = null;
         private GlobalCityAreaEntity currentCityArea = null;
@@ -60,7 +64,8 @@ namespace Bikewale.Models
         public StatusCodes status;
         private BikeModelEntity objModel = null;
         private BikeMakeEntityBase objMake = null;
-        private EnumBikeType bikeType = EnumBikeType.All;
+		private BikeSeriesEntityBase objSeries;
+		private EnumBikeType bikeType = EnumBikeType.All;
         private bool showCheckOnRoadCTA = false;
         private PQSourceEnum pqSource = 0;
         #endregion
@@ -104,7 +109,11 @@ namespace Bikewale.Models
             _allContentTypes = CommonApiOpn.GetContentTypesString(categoryList);
         }
 
-        public NewsIndexPage(ICMSCacheContent cacheContent, IPager pager, IBikeMakesCacheRepository objMakeCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles)
+		/// <summary>
+		/// Modified by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
+		/// </summary>
+		public NewsIndexPage(ICMSCacheContent cacheContent, IPager pager, IBikeMakesCacheRepository objMakeCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
         {
             _articles = articles;
             _cacheContent = cacheContent;
@@ -115,24 +124,30 @@ namespace Bikewale.Models
             _renderedArticles = renderedArticles;
             _objMakeCache = objMakeCache;
             _objBikeVersionsCache = objBikeVersionsCache;
-            ProcessQueryString();
+			_seriesCache = seriesCache;
+			_series = series;
+			ProcessQueryString();
         }
-        #endregion
+		#endregion
 
-        #region Functions
+		#region Functions
 
-        /// <summary>
-        /// Created By : Aditi Srivastava on 27 Mar 2017
-        /// Summary    : Get page data
-        /// </summary>
-        /// <returns></returns>
-        public NewsIndexPageVM GetData(int widgetTopCount)
+		/// <summary>
+		/// Created By : Aditi Srivastava on 27 Mar 2017
+		/// Summary    : Get page data
+		/// Modified by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Added call to GetArticlesByCategoryList for news page of series.
+		/// </summary>
+		/// <returns></returns>
+		public NewsIndexPageVM GetData(int widgetTopCount)
         {
             NewsIndexPageVM objData = new NewsIndexPageVM();
 
             try
             {
-                int _startIndex = 0, _endIndex = 0;
+				string modelIds = string.Empty;
+
+				int _startIndex = 0, _endIndex = 0;
                 _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
 
                 string contentTypeList = (MakeId == 0 && ModelId == 0) ? _allContentTypes : _newsContentType;
@@ -141,10 +156,23 @@ namespace Bikewale.Models
                     objData.Make = objMake;
                 if (objModel != null)
                     objData.Model = objModel;
+				if (objSeries != null)
+				{
+					objData.Series = objSeries;
+				}
+				if (objData.Series != null)
+				{
+					modelIds = _series.GetModelIdsBySeries(objData.Series.SeriesId);
+					objData.Articles = _cacheContent.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, modelIds);
 
-                objData.Articles = _cacheContent.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+				}
+				else
+				{
+					objData.Articles = _cacheContent.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
 
-                _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
+				}
+
+				_totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
@@ -274,11 +302,11 @@ namespace Bikewale.Models
         }
 
 
-        /// <summary>
-        /// Created by : Aditi Srivastava on 27 Mar 2017
-        /// Summary    : Process query string for news page
-        /// </summary>
-        private void ProcessQueryString()
+		/// <summary>
+		/// Created by : Aditi Srivastava on 27 Mar 2017
+		/// Summary    : Process query string for news page
+		/// </summary>
+		private void ProcessQueryString()
         {
             var request = HttpContext.Current.Request;
             var queryString = request != null ? request.QueryString : null;
@@ -295,42 +323,69 @@ namespace Bikewale.Models
                     }
                 }
                 make = queryString["make"];
-                model = queryString["model"];
+                string maskingName = queryString["model"];
 
                 ProcessMakeMaskingName(request, make);
-                ProcessModelMaskingName(request, model);
+                ProcessModelSeriesMaskingName(request, maskingName);
             }
         }
-        /// <summary>
-        /// Created by  :  Aditi Srivasava on 27 Mar 2017
-        /// Summary     :  Processes model masking name
-        /// </summary>
-        private void ProcessModelMaskingName(HttpRequest request, string model)
+		/// <summary>
+		/// Created by  :  Aditi Srivasava on 27 Mar 2017
+		/// Summary     :  Processes model masking name
+		/// Modifies by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Process series and model masking name, get news data of series if series page is created otherwise	model news. Changed method name from 'ProcessModelMaskingName' to 'ProcessModelSeriesMaskingName'
+		/// </summary>
+		private void ProcessModelSeriesMaskingName(HttpRequest request, string maskingName)
         {
-            ModelMaskingResponse modelResponse = null;
-            if (!string.IsNullOrEmpty(model))
-            {
-                modelResponse = new ModelMaskingResponse();
-                modelHelper = new ModelHelper();
-                modelResponse = modelHelper.GetModelDataByMasking(model);
-            }
-            if (modelResponse != null)
-            {
-                if (modelResponse.StatusCode == 200)
-                {
-                    ModelId = modelResponse.ModelId;
-                    objModel = modelHelper.GetModelDataById(ModelId);
-                }
-                else if (modelResponse.StatusCode == 301)
-                {
-                    status = StatusCodes.RedirectPermanent;
-                    redirectUrl = request.RawUrl.Replace(model, modelResponse.MaskingName);
-                }
-                else
-                {
-                    status = StatusCodes.ContentNotFound;
-                }
-            }
+			try
+			{
+				SeriesMaskingResponse objResponse = null;
+				if (!string.IsNullOrEmpty(maskingName))
+				{
+					objResponse = _seriesCache.ProcessMaskingName(maskingName);
+				}
+				if (objResponse != null)
+				{
+					if (objResponse.StatusCode == 200)
+					{
+						if (!objResponse.IsSeriesPageCreated)
+						{
+							modelHelper = new ModelHelper();
+							model = objResponse.MaskingName;
+							ModelId = objResponse.Id;
+							objModel = modelHelper.GetModelDataById(objResponse.Id);
+						}
+						else
+						{
+							series = objResponse.MaskingName;
+							objSeries = new BikeSeriesEntityBase
+							{
+								SeriesId = objResponse.Id,
+								SeriesName = objResponse.Name,
+								MaskingName = series,
+								IsSeriesPageUrl = true
+							};
+						}
+					}
+					else if (objResponse.StatusCode == 301)
+					{
+						status = StatusCodes.RedirectPermanent;
+						redirectUrl = request.RawUrl.Replace(objResponse.MaskingName, objResponse.NewMaskingName);
+					}
+					else
+					{
+						status = StatusCodes.ContentNotFound;
+					}
+				}
+				else
+				{
+					status = StatusCodes.ContentNotFound;
+				}
+			}
+			catch (Exception ex)
+			{
+				Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.News.NewsIndexPage.ProcessModelSeriesMaskingName");
+			}
         }
 
         /// <summary>
@@ -342,7 +397,6 @@ namespace Bikewale.Models
             MakeMaskingResponse makeResponse = null;
             if (!string.IsNullOrEmpty(make))
             {
-                makeResponse = new MakeMaskingResponse();
                 makeHelper = new MakeHelper();
                 makeResponse = makeHelper.GetMakeByMaskingName(make);
             }
@@ -365,66 +419,78 @@ namespace Bikewale.Models
             }
         }
 
-        /// <summary>
-        /// Created by  :  Aditi Srivasava on 28 Mar 2017
-        /// Summary     :  Set page metas and headings
-        /// /// Modified by :- Subodh Jain 19 june 2017
-        /// Summary :- Added TargetModels and Target Make
-        /// Modified by :- Snehal Dange 24 August 2017
-        /// Summary :- Added code for BodyStyle.Scooters
-        /// </summary>
-        private void SetPageMetas(NewsIndexPageVM objData)
+		/// <summary>
+		/// Created by  :  Aditi Srivasava on 28 Mar 2017
+		/// Summary     :  Set page metas and headings
+		/// /// Modified by :- Subodh Jain 19 june 2017
+		/// Summary :- Added TargetModels and Target Make
+		/// Modified by :- Snehal Dange 24 August 2017
+		/// Summary :- Added code for BodyStyle.Scooters
+		/// Modifies by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Added logic for series news page.
+		/// </summary>
+		private void SetPageMetas(NewsIndexPageVM objData)
         {
-            objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatNewsUrl(make, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
-            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatNewsUrl(make, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+            objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatNewsUrl(make, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatNewsUrl(make, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
 
             EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
 
+			if (objData.Series != null && objData.Series.SeriesId > 0 && objMake != null)
+			{
+				objData.PageMetaTags.Title = string.Format("Latest news about all {0} {1} {2} | {0} {1} news - BikeWale", objMake.MakeName, objData.Series.SeriesName, bodyStyle.Equals(EnumBikeBodyStyles.Scooter) ? "scooters" : "bikes");
 
-            if (ModelId > 0)
-            {
-                List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+				objData.PageMetaTags.Description = String.Format("Read the latest news about all {0} {1} {2} on BikeWale. Catch up on the latest buzz around {0}", objMake.MakeName, objData.Series.SeriesName, bodyStyle.Equals(EnumBikeBodyStyles.Scooter) ? "scooters" : "bikes");
 
-                if (objVersionsList != null && objVersionsList.Count > 0)
-                    bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+				objData.PageMetaTags.Keywords = string.Format("News about {0} {1}, {0} {1} News", objMake.MakeName, objData.Series.SeriesName);
+				objData.PageH1 = string.Format("{0} {1} News", objMake.MakeName, objData.Series.SeriesName);
+				objData.PageH2 = string.Format("Latest {0} Bikes News and Views", objMake.MakeName);
+				objData.AdTags.TargetedSeries = objData.Series.SeriesName;
+			}
+			else if (ModelId > 0)
+			{
+				List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
-                if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
-                {
-                    objData.PageMetaTags.Title = string.Format("Latest News about {0} {1} | {0} {1} News - BikeWale", objMake.MakeName, objModel.ModelName);
-                    objData.PageMetaTags.Description = String.Format("Read the latest news about {0} {1} scooters exclusively on BikeWale. Know more about {1}.", objMake.MakeName, objModel.ModelName);
-                    objData.PageH1 = string.Format("{0} {1} Scooters News", objMake.MakeName, objModel.ModelName);
-                    objData.PageH2 = string.Format("Latest {0} {1} Scooters News and Views", objMake.MakeName, objModel.ModelName);
-                    objData.AdTags.TargetedMakes = objMake.MakeName;
-                    objData.AdTags.TargetedModel = objModel.ModelName;
-                }
-                else
-                {
-                    objData.PageMetaTags.Title = string.Format("Latest News about {0} {1} | {0} {1} News - BikeWale", objMake.MakeName, objModel.ModelName);
-                    objData.PageMetaTags.Description = String.Format("Read the latest news about {0} {1} bikes exclusively on BikeWale. Know more about {1}.", objMake.MakeName, objModel.ModelName);
-                    objData.PageH1 = string.Format("{0} {1} Bikes News", objMake.MakeName, objModel.ModelName);
-                    objData.PageH2 = string.Format("Latest {0} {1} Bikes News and Views", objMake.MakeName, objModel.ModelName);
-                    objData.AdTags.TargetedMakes = objMake.MakeName;
-                    objData.AdTags.TargetedModel = objModel.ModelName;
-                }
+				if (objVersionsList != null && objVersionsList.Count > 0)
+					bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+
+				if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+				{
+					objData.PageMetaTags.Title = string.Format("Latest News about {0} {1} | {0} {1} News - BikeWale", objMake.MakeName, objModel.ModelName);
+					objData.PageMetaTags.Description = String.Format("Read the latest news about {0} {1} scooters exclusively on BikeWale. Know more about {1}.", objMake.MakeName, objModel.ModelName);
+					objData.PageH1 = string.Format("{0} {1} Scooters News", objMake.MakeName, objModel.ModelName);
+					objData.PageH2 = string.Format("Latest {0} {1} Scooters News and Views", objMake.MakeName, objModel.ModelName);
+					objData.AdTags.TargetedMakes = objMake.MakeName;
+					objData.AdTags.TargetedModel = objModel.ModelName;
+				}
+				else
+				{
+					objData.PageMetaTags.Title = string.Format("Latest News about {0} {1} | {0} {1} News - BikeWale", objMake.MakeName, objModel.ModelName);
+					objData.PageMetaTags.Description = String.Format("Read the latest news about {0} {1} bikes exclusively on BikeWale. Know more about {1}.", objMake.MakeName, objModel.ModelName);
+					objData.PageH1 = string.Format("{0} {1} Bikes News", objMake.MakeName, objModel.ModelName);
+					objData.PageH2 = string.Format("Latest {0} {1} Bikes News and Views", objMake.MakeName, objModel.ModelName);
+					objData.AdTags.TargetedMakes = objMake.MakeName;
+					objData.AdTags.TargetedModel = objModel.ModelName;
+				}
 
 
-            }
-            else if (MakeId > 0)
-            {
-                objData.PageMetaTags.Title = string.Format("Latest News about {0} Bikes | {0} Bikes News - BikeWale", objMake.MakeName);
-                objData.PageMetaTags.Description = String.Format("Read the latest news about popular and upcoming {0} bikes exclusively on BikeWale. Know more about {0} bikes.", objMake.MakeName);
-                objData.PageH1 = string.Format("{0} Bikes News", objMake.MakeName);
-                objData.PageH2 = string.Format("Latest {0} Bikes News and Views", objMake.MakeName);
-                objData.AdTags.TargetedMakes = objMake.MakeName;
-            }
-            else
-            {
-                objData.PageMetaTags.Title = "Bike News - Latest Indian Bike News & Views | BikeWale";
-                objData.PageMetaTags.Description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
-                objData.PageMetaTags.Keywords = "news, bike news, auto news, latest bike news, indian bike news, bike news of india";
-                objData.PageH1 = "Bike News";
-                objData.PageH2 = "Latest Indian Bikes News and Views";
-            }
+			}
+			else if (MakeId > 0 && objMake != null)
+			{
+				objData.PageMetaTags.Title = string.Format("Latest News about {0} Bikes | {0} Bikes News - BikeWale", objMake.MakeName);
+				objData.PageMetaTags.Description = String.Format("Read the latest news about popular and upcoming {0} bikes exclusively on BikeWale. Know more about {0} bikes.", objMake.MakeName);
+				objData.PageH1 = string.Format("{0} Bikes News", objMake.MakeName);
+				objData.PageH2 = string.Format("Latest {0} Bikes News and Views", objMake.MakeName);
+				objData.AdTags.TargetedMakes = objMake.MakeName;
+			}
+			else
+			{
+				objData.PageMetaTags.Title = "Bike News - Latest Indian Bike News & Views | BikeWale";
+				objData.PageMetaTags.Description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
+				objData.PageMetaTags.Keywords = "news, bike news, auto news, latest bike news, indian bike news, bike news of india";
+				objData.PageH1 = "Bike News";
+				objData.PageH2 = "Latest Indian Bikes News and Views";
+			}
 
             if (curPageNo > 1)
             {
@@ -432,7 +498,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Title = string.Format("Page {0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
             }
             SetBreadcrumList(objData, bodyStyle);
-        }
+		}
 
         /// <summary>
         /// Created by : Aditi Srivastava on 28 Mar 2017
@@ -536,16 +602,25 @@ namespace Bikewale.Models
             }
         }
 
-        /// <summary>
-        /// Created By : Aditi Srivastava on 27 Mar 2017
-        /// Summary    : Bind link pager
-        /// </summary>
-        private void BindLinkPager(NewsIndexPageVM objData, int recordCount)
+		/// <summary>
+		/// Created By : Aditi Srivastava on 27 Mar 2017
+		/// Summary    : Bind link pager
+		/// Modifies by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Added logic for series news page.
+		/// </summary>
+		private void BindLinkPager(NewsIndexPageVM objData, int recordCount)
         {
             try
             {
                 objData.PagerEntity = new PagerEntity();
-                objData.PagerEntity.BaseUrl = string.Format("{0}{1}", (IsMobile ? "/m" : ""), UrlFormatter.FormatNewsUrl(make, model));
+				if (objData.Series != null && objData.Series.IsSeriesPageUrl)
+				{
+					objData.PagerEntity.BaseUrl = string.Format("{0}{1}", (IsMobile ? "/m" : ""), UrlFormatter.FormatNewsUrl(make, objData.Series.MaskingName));
+				}
+				else
+				{
+					objData.PagerEntity.BaseUrl = string.Format("{0}{1}", (IsMobile ? "/m" : ""), UrlFormatter.FormatNewsUrl(make, model));
+				}
                 objData.PagerEntity.PageNo = curPageNo;
                 objData.PagerEntity.PagerSlotSize = pagerSlotSize;
                 objData.PagerEntity.PageUrlType = "page/";
