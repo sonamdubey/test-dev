@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entity.CMS.Articles
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
     /// </summary>
-    
+
     public class ArticleSummary : ArticleBase
     {
         public ushort CategoryId { get; set; }

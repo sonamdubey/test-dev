@@ -258,7 +258,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     overflow: hidden
 }
 .brandlogosprite {
-    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?22Sep20171506080390741') no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?22Nov20171511351092222') no-repeat;
     display: inline-block;
 }
 .brand-2,
@@ -294,7 +294,8 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 .brand-14,
 .brand-81,
 .brand-71,
-.brand-23 {
+.brand-23,
+.brand-72 {
     height: 50px;
 }
 .brand-2 {
@@ -420,6 +421,10 @@ background-position: -2794px 0
 .brand-23 {
     width: 125px;
     background-position: -3026px 0;
+}
+.brand-72 {
+	width: 50px;
+	background-position: -3161px 0;
 }
 
 .city-card-target {

@@ -57,7 +57,7 @@ namespace BikewaleOpr.DALs.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.ServiceCenter.GetServiceCenterCities");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.ServiceCenter.GetServiceCenterCities");
 
             }
             return objCityList;
@@ -101,7 +101,7 @@ namespace BikewaleOpr.DALs.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.ServiceCenter.GetAllCities()");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.ServiceCenter.GetAllCities()");
 
             }
             return objCityList;
@@ -144,7 +144,7 @@ namespace BikewaleOpr.DALs.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersRepository.GetServiceCentersByCity for paramerters cityId : {0}, makeId : {1}", cityId, makeId));
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCentersRepository.GetServiceCentersByCity for paramerters cityId : {0}, makeId : {1}", cityId, makeId));
             }
             return serviceCenters;
         }
@@ -203,7 +203,7 @@ namespace BikewaleOpr.DALs.ServiceCenter
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersRepository.AddServiceCenter()"));
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCentersRepository.AddServiceCenter()"));
 
             }
             return status > 0;
@@ -246,7 +246,7 @@ namespace BikewaleOpr.DALs.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersRepository.DeleteServiceCenter()"));
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCentersRepository.DeleteServiceCenter()"));
             }
             return status > 0;
 
@@ -291,7 +291,7 @@ namespace BikewaleOpr.DALs.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersRepository.GetDataById()"));
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCentersRepository.GetDataById()"));
             }
             return objData;
         }
@@ -332,7 +332,7 @@ namespace BikewaleOpr.DALs.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersRepository.GetStateDetails()"));
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCentersRepository.GetStateDetails()"));
 
             }
             return objData.FirstOrDefault();

@@ -155,6 +155,7 @@ docReady(function () {
             self.Filters()["pageNo"] = 1;
             self.CurPageNo(1);
             self.getNewLaunchedBikes($('#make-slideIn-drawer'));
+            triggerGA("Newly_Launched", "Clicked_on_Brand_Filter", self.selectedMake());
         };
 
         self.setYearFilter = function (e) {

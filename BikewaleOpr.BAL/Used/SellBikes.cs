@@ -4,7 +4,6 @@ using Bikewale.Utility;
 using BikewaleOpr.Interface.Used;
 using System.Collections.Generic;
 using System.Web;
-using Utils;
 
 namespace BikewaleOpr.BAL.Used
 {

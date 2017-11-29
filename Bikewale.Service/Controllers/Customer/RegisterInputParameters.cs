@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Bikewale.Service.Controllers.Customer
+﻿namespace Bikewale.Service.Controllers.Customer
 {
     public class RegisterInputParameters
     {

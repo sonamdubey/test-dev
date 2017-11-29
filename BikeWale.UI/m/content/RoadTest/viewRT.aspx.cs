@@ -110,7 +110,7 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.viewRT.BindExpertReviewdetails");
+                ErrorClass.LogError(ex, "Bikewale.Content.viewRT.BindExpertReviewdetails");
             }
             finally
             {
@@ -171,7 +171,7 @@ namespace Bikewale.Content
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.viewRT.GetRoadTestData");
+                ErrorClass.LogError(ex, "Bikewale.Content.viewRT.GetRoadTestData");
             }
         }
         /// <summary>
@@ -251,7 +251,7 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.viewRT.BindPageWidgets");
+                ErrorClass.LogError(ex, "Bikewale.Content.viewRT.BindPageWidgets");
 
             }
         }

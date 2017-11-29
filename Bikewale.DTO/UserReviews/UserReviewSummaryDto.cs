@@ -81,5 +81,12 @@ namespace Bikewale.DTO.UserReviews
 
         [JsonProperty("reviewUrl"), DataMember]
         public string ReviewUrl { get; set; }
+
+        [JsonProperty("thanksHeading"), DataMember]
+        public string ThanksHeading { get { return "Tell us more about your experience"; } }
+
+        [JsonProperty("thanksText"), DataMember]
+        public string ThanksText { get { return "Write a detailed review and help fellow riders make a decision. Share your experience with the world."; } }
+
     }
 }

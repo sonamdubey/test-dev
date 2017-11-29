@@ -183,8 +183,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GET");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GET");
+               
                 return InternalServerError();
             }
         }
@@ -320,8 +320,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV2");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV2");
+               
                 return InternalServerError();
             }
         }
@@ -464,8 +464,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV3");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV3");
+               
                 return InternalServerError();
             }
         }
@@ -609,7 +609,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV4");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV4");
                 return InternalServerError();
             }
         }
@@ -665,7 +665,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetDealerVersionPrices");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetDealerVersionPrices");
                 return InternalServerError();
             }
         }
@@ -705,7 +705,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetDealerVersionPricesV2");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetDealerVersionPricesV2");
                 return InternalServerError();
 
             }

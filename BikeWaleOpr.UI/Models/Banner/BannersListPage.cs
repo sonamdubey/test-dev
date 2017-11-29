@@ -1,9 +1,6 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Interface.Banner;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Models.Banner
 {
@@ -27,7 +24,7 @@ namespace BikewaleOpr.Models.Banner
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Models.Banner.BannersListPage"));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.Models.Banner.BannersListPage"));
             }
             return objPage;
         }

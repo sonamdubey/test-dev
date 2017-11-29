@@ -77,8 +77,8 @@ namespace Bikewale.BAL.Customer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GenerateAuthenticationToken");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GenerateAuthenticationToken");
+                
             }
 
             return authTicket;
@@ -120,8 +120,8 @@ namespace Bikewale.BAL.Customer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("AuthenticateUser |  email : {0}, password : {1}, createAuthTicket : {2}", email, password, (createAuthTicket.HasValue) ? createAuthTicket.Value : false));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("AuthenticateUser |  email : {0}, password : {1}, createAuthTicket : {2}", email, password, (createAuthTicket.HasValue) ? createAuthTicket.Value : false));
+                
             }
 
             return objCustEntity;

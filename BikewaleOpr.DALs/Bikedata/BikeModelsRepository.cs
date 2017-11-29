@@ -1,17 +1,17 @@
 ﻿
+using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using Bikewale.DAL.CoreDAL;
-using Dapper;
-using System.Collections.ObjectModel;
 
 namespace BikewaleOpr.DALs.Bikedata
 {
@@ -57,8 +57,8 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.GetModels_Make_{0}_RequestType_{1}", makeId, requestType));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.Bikedata.GetModels_Make_{0}_RequestType_{1}", makeId, requestType));
+                
             }
             return _objBikeModels;
         }
@@ -86,7 +86,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.SaveModelUnitSold-{0}-{1}", list, date));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.Bikedata.SaveModelUnitSold-{0}-{1}", list, date));
             }
         }
 
@@ -121,7 +121,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.GetLastSoldUnitData"));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.Bikedata.GetLastSoldUnitData"));
             }
             return dataObj;
         }
@@ -145,7 +145,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
-                        {               
+                        {
                             objImagesData = new UsedBikeImagesNotificationData();
 
                             _objBikeModels = new List<UsedBikeImagesModel>();
@@ -174,7 +174,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetPendingUsedBikesWithoutModelImage()");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.GetPendingUsedBikesWithoutModelImage()");
             }
             return objImagesData;
         }
@@ -213,7 +213,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.BikeModelsRepository.FetchPhotoId");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.BikeModelsRepository.FetchPhotoId");
             }
 
             return photoId;
@@ -239,7 +239,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.BikeModelsRepository.FetchPhotoId");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.BikeModelsRepository.FetchPhotoId");
             }
             return isDeleted;
         }
@@ -285,7 +285,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.BikeModelsRepository.GetUsedBikeModelImageByMake makeId {0}", makeId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.Bikedata.BikeModelsRepository.GetUsedBikeModelImageByMake makeId {0}", makeId));
             }
 
             return objImageList;
@@ -322,7 +322,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetModels");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.UserReviews.GetModels");
             }
 
             return objModels;
@@ -368,7 +368,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.GetModelsByMake : makeId {0}", makeId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.GetModelsByMake : makeId {0}", makeId));
             }
             return models;
         }
@@ -411,7 +411,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.BikeModelsRepository.GetModelsWithMissingColorImage"));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.Bikedata.BikeModelsRepository.GetModelsWithMissingColorImage"));
             }
 
             return objBikeDataList;
@@ -439,7 +439,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UpdateAsSoldInquiry : inquiryId {0}", inquiryId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.UpdateAsSoldInquiry : inquiryId {0}", inquiryId));
             }
             return rowsAffected > 0;
         }
@@ -456,7 +456,7 @@ namespace BikewaleOpr.DALs.Bikedata
             IEnumerable<BikeVersionEntityBase> objBikeVersionEntityBaseList = null;
             try
             {
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     var param = new DynamicParameters();
                     param.Add("par_modelid", modelId);
@@ -464,7 +464,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_cityid", 0);
                     connection.Open();
                     objBikeVersionEntityBaseList = connection.Query<BikeVersionEntityBase>("getbikeversions_new", param: param, commandType: CommandType.StoredProcedure);
-                    if(connection != null && connection.State == ConnectionState.Open)
+                    if (connection != null && connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -472,11 +472,41 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikeData.BikeModelsRepository.GetVersionsByMake");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.BikeData.BikeModelsRepository.GetVersionsByMake");
             }
             return objBikeVersionEntityBaseList;
         }
         #endregion
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 21 Nov 2017
+        /// Description :   Check if masking name exists in model table
+        /// </summary>
+        /// <param name="modelMaskingName"></param>
+        /// <returns></returns>
+        public bool IsModelMaskingNameExists(uint makeId, string modelMaskingName)
+        {
+            bool isExists = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "ismodelmaskingnameexists";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeId", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, modelMaskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismaskingexist", DbType.Int16, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isExists = Bikewale.Utility.SqlReaderConvertor.ToBoolean(cmd.Parameters["par_ismaskingexist"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.IsModelMaskingNameExists({0})", modelMaskingName));
+            }
+            return isExists;
+        }
     }
 }
 

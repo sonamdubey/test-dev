@@ -35,7 +35,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ServiceCenters.ServiceCentersByBrand.GetData()");
+                ErrorClass.LogError(ex, "Bikewale.Models.ServiceCenters.ServiceCentersByBrand.GetData()");
             }
             return AllServiceCenters;
         }

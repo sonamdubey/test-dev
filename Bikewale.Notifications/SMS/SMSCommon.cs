@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 
 namespace Bikewale.Notifications
 {
@@ -165,39 +164,6 @@ namespace Bikewale.Notifications
             }
         }
 
-
-        /// <summary>
-        /// Method to update the database with the details of the SMS data sent.
-        /// Modified By : Ashish G. Kamble on 6 May 2016
-        /// Modified : Added exception handling. BW connection string retrived using configuration class
-        /// </summary>
-        /// <param name="currentId">Id for which the sms was just sent</param>
-        /// <param name="retMsg">The return message from the provider that is received after the SMS is sent</param>
-        private void UpdateSMSSentData(string currentId, string retMsg)
-        {
-
-            if (!String.IsNullOrEmpty(currentId))
-            {
-                string sql = "update smssent set returnedmsg = @retmsg where id = @currentid";
-                try
-                {
-                    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
-                    {
-                        cmd.Parameters.Add(DbFactory.GetDbParam("@currentid", DbType.Int32, Convert.ToInt32(currentId)));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("@retmsg", DbType.String, retMsg));
-
-                        // LogLiveSps.LogSpInGrayLog(cmd);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception err)
-                {
-                    ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
-                    objErr.SendMail();
-                }
-            }
-        }
-
         string SaveSMSSentData(string number, string message, EnumSMSServiceType esms, bool status, string retMsg, string pageUrl)
         {
             string currentId = string.Empty;
@@ -219,15 +185,9 @@ namespace Bikewale.Notifications
                     currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.MasterDatabase));
                 }
             }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
-                objErr.SendMail();
-            } // catch SqlException
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Bikewale.Notifications.SMSCommon");
             } // catch Exception
             return currentId;
         }

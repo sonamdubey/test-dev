@@ -129,14 +129,14 @@ namespace Bikewale.Used
             catch (SqlException err)
             {
                 Trace.Warn("err : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn("err : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
 
             return canEdit;
@@ -252,8 +252,8 @@ namespace Bikewale.Used
             catch (Exception err)
             {
                 Trace.Warn("err : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
                 isCompleted = false;
             }
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BikewaleOpr.Entity.Dealers
+﻿namespace BikewaleOpr.Entity.Dealers
 {
     /// <summary>
     /// Created by  :   Vishnu Teja Yalakuntla on 28-Jul-2017

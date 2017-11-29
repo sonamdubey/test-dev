@@ -15,8 +15,8 @@ namespace Bikewale.Common
         //based on the id of the city as passed
         public DataTable GetNewBikeDealerInCity(string cityId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "LocateDealers.GetNewBikeDealerInCity");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "LocateDealers.GetNewBikeDealerInCity");
+            
             return null;
 
             //DataSet ds = null;
@@ -48,13 +48,13 @@ namespace Bikewale.Common
             //}
             //catch (SqlException err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, "LocateDealers.GetNewBikeDealerInCity");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "LocateDealers.GetNewBikeDealerInCity");
+            //    
             //}
             //catch (Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, "LocateDealers.GetNewBikeDealerInCity");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "LocateDealers.GetNewBikeDealerInCity");
+            //    
             //}
 
             //return dt;
@@ -68,8 +68,8 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetNewBikeMakes(string cityId, string requestType)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "LocateDealers.GetNewBikeMakes");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "LocateDealers.GetNewBikeMakes");
+            
             return null;
 
             //SqlCommand cmd = new SqlCommand("GetMakes_DealerLocation");
@@ -85,14 +85,14 @@ namespace Bikewale.Common
             //}
             //catch (SqlException exSql)
             //{
-            //    ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //catch (Exception ex)
             //{
             //    //Response.Write(ex.Message);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //return dt;
         }
@@ -105,8 +105,8 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetDealersCitiesListByMakeId(uint makeId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "LocateDealers.GetDealersCitiesListByMakeId");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "LocateDealers.GetDealersCitiesListByMakeId");
+            
             return null;
 
             //DataTable dt = new DataTable();
@@ -127,8 +127,8 @@ namespace Bikewale.Common
             //}
             //catch (Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //return dt;
         }

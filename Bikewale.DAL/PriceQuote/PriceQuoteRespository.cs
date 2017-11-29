@@ -74,14 +74,14 @@ namespace Bikewale.DAL.PriceQuote
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("SavePriceQuote sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("SavePriceQuote ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return quoteId;
@@ -131,8 +131,8 @@ namespace Bikewale.DAL.PriceQuote
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetPriceQuote ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return objQuotation;
@@ -197,8 +197,8 @@ namespace Bikewale.DAL.PriceQuote
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetPriceQuote ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return objQuotation;
@@ -266,8 +266,8 @@ namespace Bikewale.DAL.PriceQuote
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetOtherVersionsPrices ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return objVersionInfo;
         }
@@ -303,8 +303,8 @@ namespace Bikewale.DAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return isUpdated;
         }
@@ -338,8 +338,8 @@ namespace Bikewale.DAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return isUpdated;
         }
@@ -386,8 +386,8 @@ namespace Bikewale.DAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return objQuotation;
@@ -442,8 +442,8 @@ namespace Bikewale.DAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + topCount);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + topCount);
+                
             }
 
             return objPrice;
@@ -503,8 +503,8 @@ namespace Bikewale.DAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" inputs: modelId : {0} : topCount : {1} : cityId : {2}", modelId, topCount, cityId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" inputs: modelId : {0} : topCount : {1} : cityId : {2}", modelId, topCount, cityId));
+                
             }
 
             return objPrice;
@@ -585,8 +585,8 @@ namespace Bikewale.DAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - {1}", HttpContext.Current.Request.ServerVariables["URL"], "GetVersionPricesByModelId"));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("{0} - {1}", HttpContext.Current.Request.ServerVariables["URL"], "GetVersionPricesByModelId"));
+                
             }
 
             return bikePrices;
@@ -639,7 +639,7 @@ namespace Bikewale.DAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetOtherVersionsPrices({0},{1})", modelId, cityId));
+                ErrorClass.LogError(ex, String.Format("GetOtherVersionsPrices({0},{1})", modelId, cityId));
             }
             return objVersionInfo;
         }
@@ -683,7 +683,7 @@ namespace Bikewale.DAL.PriceQuote
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, String.Format("PriceQuoteRepository.GetManufacturerDealers()"));
+                ErrorClass.LogError(ex, String.Format("PriceQuoteRepository.GetManufacturerDealers()"));
             }
             return dealers;
         }

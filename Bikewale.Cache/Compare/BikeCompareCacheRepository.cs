@@ -45,7 +45,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.CompareList");
+                ErrorClass.LogError(ex, "BikeCompareCacheRepository.CompareList");
 
             }
             return topBikeComapareBase;
@@ -68,7 +68,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetPopularCompareList- CityId : {0}", cityId));
+                ErrorClass.LogError(ex, string.Format("BikeCompareCacheRepository.GetPopularCompareList- CityId : {0}", cityId));
             }
             return compareBikeList;
         }
@@ -91,7 +91,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.DoCompare");
+                ErrorClass.LogError(ex, "BikeCompareCacheRepository.DoCompare");
 
             }
             return compareEntity;
@@ -121,7 +121,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityid));
+                ErrorClass.LogError(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityid));
             }
             return compareEntity;
         }
@@ -146,7 +146,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikeSponsored_{0}_Cnt_{1}_SP_{2}_City_{3}", versionList, topCount, sponsoredVersionId, cityid));
+                ErrorClass.LogError(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikeSponsored_{0}_Cnt_{1}_SP_{2}_City_{3}", versionList, topCount, sponsoredVersionId, cityid));
 
             }
             return compareEntity;
@@ -172,7 +172,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.DoCompare- {0} - {1}", versions, cityId));
+                ErrorClass.LogError(ex, string.Format("BikeCompareCacheRepository.DoCompare- {0} - {1}", versions, cityId));
 
             }
             return compareEntity;
@@ -191,7 +191,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.ScooterCompareList topCount:{0}", topCount));
+                ErrorClass.LogError(ex, string.Format("BikeCompareCacheRepository.ScooterCompareList topCount:{0}", topCount));
 
             }
             return topScootersComapareBase;
@@ -212,7 +212,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetScooterCompareList- CityId : {0}", cityId));
+                ErrorClass.LogError(ex, string.Format("BikeCompareCacheRepository.GetScooterCompareList- CityId : {0}", cityId));
             }
             return compareBikeList;
         }
@@ -240,7 +240,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetSimilarBikes_{0}_Cnt_{1}", modelList, topCount));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeCompareCacheRepository.GetSimilarBikes_{0}_Cnt_{1}", modelList, topCount));
             }
             return similarbikecomparison;
         }

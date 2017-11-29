@@ -59,8 +59,8 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in getPopularBikes parametres totalCount : {0}, cityId : {1}", totalCount, cityId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in getPopularBikes parametres totalCount : {0}, cityId : {1}", totalCount, cityId));
+                
             }
             return objUsedBikesList;
         }   // End of GetPopularUsedBikes method
@@ -111,8 +111,8 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyMake Parametres makeId : {0}, totalCount : {1}", makeid, totalCount));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyMake Parametres makeId : {0}, totalCount : {1}", makeid, totalCount));
+                
             }
             return objUsedBikesList;
         }//end of GetUsedBikesbyMake
@@ -165,8 +165,8 @@ namespace Bikewale.DAL.UsedBikes
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyModel Parametres modelId : {0}, totalCount : {1}", modelId, totalCount));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyModel Parametres modelId : {0}, totalCount : {1}", modelId, totalCount));
+                
             }
             return objUsedBikesList;
         }//end of GetUsedBikesbyModel
@@ -228,11 +228,74 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyModelCity Parametres modelId : {0}, totalCount : {1}, cityId {2}", modelId, totalCount, cityId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyModelCity Parametres modelId : {0}, totalCount : {1}, cityId {2}", modelId, totalCount, cityId));
+                
             }
             return objUsedBikesList;
         }//end of GetUsedBikesbyModelCity
+
+
+
+
+        /// <summary>
+        /// Created:- by Subodh Jain on 14 sep 2016
+        /// Description:- Fetch Most recent used bikes for particular model and city
+        /// Modified by :   Sangram Nandkhile on 09 Nov 2016
+        /// Description :   Added lower() for profile id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="totalCount"></param>
+        /// <returns></returns>
+        public IEnumerable<MostRecentBikes> GetUsedBikesSeries(uint seriesid, uint cityId)
+        {
+            IList<MostRecentBikes> objUsedBikesList = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesbymodelcitylist"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int16, seriesid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objUsedBikesList = new List<MostRecentBikes>();
+
+                            while (dr.Read())
+                            {
+                                objUsedBikesList.Add(new MostRecentBikes
+                                {
+                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                    AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["AvailableBikes"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    HostUrl = Convert.ToString(dr["HostUrl"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    MinimumPrice = Convert.ToString(dr["price"]),
+                                    ModelId = SqlReaderConvertor.ToUInt32(dr["modelid"]),
+                                    UsedHostUrl = Convert.ToString(dr["usedHostUrl"]),
+                                    UsedOriginalImagePath = Convert.ToString(dr["usedOriginalImagePath"]),
+                                    BikePrice = SqlReaderConvertor.ToUInt32(dr["price"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikesSeries parametres  modelId : {0}, cityId : {1}", seriesid, cityId));
+
+            }
+            return objUsedBikesList;
+        }//end of GetUsedBikesbyModelCity
+
 
         /// <summary>
         /// / Created:- by Subodh Jain on 14 sep 2016
@@ -288,8 +351,8 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyMakeCity Parametres makeId : {0}, totalCount : {1}, cityId {2}", makeId, totalCount, cityId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyMakeCity Parametres makeId : {0}, totalCount : {1}, cityId {2}", makeId, totalCount, cityId));
+                
             }
             return objUsedBikesList;
         }// end of GetUsedBikesbyMakeCity
@@ -329,8 +392,8 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception in UsedRepository.GetUsedBikeMakesWithCount");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception in UsedRepository.GetUsedBikeMakesWithCount");
+                
             }
             return usedMakeList;
 

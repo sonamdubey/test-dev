@@ -142,7 +142,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Error at ExpectedLaunches.btnSave_Click() ==> {0}", selModelId));
+                ErrorClass.LogError(err, string.Format("Error at ExpectedLaunches.btnSave_Click() ==> {0}", selModelId));
             }
 
         }   // End btn_Save_click function
@@ -167,7 +167,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
             }
         }//End of DeleteExpectedLaunchBike
 
@@ -227,13 +227,13 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
 
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
 
             }
         }
@@ -301,14 +301,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException sqlEx)
             {
                 Trace.Warn("Sql Exception ", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 Trace.Warn("Exception ", ex.Message);
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }//End UpdateBikeIsLaunched
     } // class

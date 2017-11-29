@@ -94,8 +94,8 @@ namespace Bikewale.DAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, String.Format("Bikewale.DAL.Used.Search.GetUsedBikesList({0})", searchQuery));
-                objError.SendMail();
+                ErrorClass.LogError(ex, String.Format("Bikewale.DAL.Used.Search.GetUsedBikesList({0})", searchQuery));
+                
             }
 
 

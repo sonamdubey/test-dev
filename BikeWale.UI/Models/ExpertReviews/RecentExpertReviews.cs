@@ -21,6 +21,7 @@ namespace Bikewale.Models
         private readonly string _makeName;
         private readonly string _makeMasking;
         private readonly uint _modelId;
+        private readonly string _modelIdList;
         private readonly string _modelName;
         private readonly string _modelMasking;
         public bool IsScooter { get; set; }
@@ -47,8 +48,15 @@ namespace Bikewale.Models
         {
             _totalRecords = totalRecords;
             _makeId = makeId;
-            _modelId = modelId;           
-            _articles = articles;          
+            _modelId = modelId;
+            _articles = articles;
+        }
+
+        public RecentExpertReviews(uint totalRecords, string modelIdList, ICMSCacheContent articles)
+        {
+            _totalRecords = totalRecords;
+            _modelIdList = modelIdList;
+            _articles = articles;
         }
 
         public RecentExpertReviews(uint totalRecords, uint makeId, uint modelId, string makeName, string makeMasking, string modelName, string modelMasking, ICMSCacheContent articles, string title)
@@ -63,8 +71,16 @@ namespace Bikewale.Models
             _articles = articles;
             Title = title;
         }
+
+		public RecentExpertReviews(uint totalRecords, uint makeId, string modelIdList, ICMSCacheContent articles)
+		{
+			_totalRecords = totalRecords;
+			_makeId = makeId;
+			_modelIdList = modelIdList;
+			_articles = articles;
+		}
         #endregion
-        
+
         #region Functions to get data
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017
@@ -81,14 +97,21 @@ namespace Bikewale.Models
                 categorList.Add(EnumCMSContentType.RoadTest);
                 categorList.Add(EnumCMSContentType.ComparisonTests);
                 string _contentType = CommonApiOpn.GetContentTypesString(categorList);
-                if (IsScooter)
+				if (!string.IsNullOrEmpty(_modelIdList))
+				{
+					recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelIdList);
+				}
+				else if (IsScooter)
+				{
+					string bodyStyleId = "5";
+					recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, bodyStyleId, _makeId, _modelId);
+				}
+				else
                 {
-                    string bodyStyleId = "5";
-                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, bodyStyleId, _makeId, _modelId);
+                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelId);
                 }
-                else
-                recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelId);
-                if (recentReviews.ArticlesList != null)
+
+				if (recentReviews.ArticlesList != null)
                 {
                     recentReviews.FetchedCount = recentReviews.ArticlesList.Count();
                 }
@@ -111,7 +134,7 @@ namespace Bikewale.Models
                 {
                     recentReviews.MoreExpertReviewUrl = UrlFormatter.FormatExpertReviewUrl(_makeMasking, _modelMasking);
                 }
-                
+
                 if (!String.IsNullOrEmpty(_modelName) && !String.IsNullOrEmpty(_makeName))
                 {
                     recentReviews.LinkTitle = string.Format("{0} {1} Expert Reviews", _makeName, _modelName);
@@ -137,7 +160,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.ExpertReviews.RecentExpertReviews.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", _totalRecords, _makeId, _modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviews.RecentExpertReviews.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", _totalRecords, _makeId, _modelId));
             }
             return recentReviews;
         }

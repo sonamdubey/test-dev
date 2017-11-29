@@ -184,16 +184,16 @@ namespace BikeWaleOpr.Content
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 HttpContext.Current.Trace.Warn(err.Message.ToString());
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.UpdateLaunchDate");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxFunctions.UpdateLaunchDate");
+                
                 retVal = false;
                 //retVal = "SqlException : " + err.Message;
             } // catch SqlException
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message.ToString());
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.UpdateLaunchDate");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxFunctions.UpdateLaunchDate");
+                
                 retVal = false;
             } // catch Exception
             return retVal;
@@ -295,14 +295,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 HttpContext.Current.Trace.Warn(err.Message.ToString());
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.GetExpectedBikeLaunches");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxFunctions.GetExpectedBikeLaunches");
+                
             } // catch SqlException
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message.ToString());
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.GetExpectedBikeLaunches");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxFunctions.GetExpectedBikeLaunches");
+                
             } // catch Exception
         }   // End of GetExpectedBikeLaunches
 

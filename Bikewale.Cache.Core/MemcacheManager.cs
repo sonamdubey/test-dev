@@ -11,7 +11,7 @@ namespace Bikewale.Cache.Core
 {
     public class MemcacheManager : ICacheManager
     {
-        private static MemcachedClient mc = null;
+        private static MemcachedClient mc;
         private bool _useMemcached;
 
         public MemcacheManager()
@@ -96,7 +96,7 @@ namespace Bikewale.Cache.Core
             }
             catch (Exception ex)
             {
-                //ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");
+                //ErrorClass.LogError(ex, "MemcacheManager.GetFromCache");
                 //objErr.SendMail();
             }
             finally
@@ -152,7 +152,7 @@ namespace Bikewale.Cache.Core
             }
             catch (Exception ex)
             {
-                //ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");
+                //ErrorClass.LogError(ex, "MemcacheManager.GetFromCache");
                 //objErr.SendMail();
             }
             finally
@@ -209,7 +209,7 @@ namespace Bikewale.Cache.Core
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");
+                ErrorClass.LogError(ex, "MemcacheManager.GetFromCache");
             }
             finally
             {

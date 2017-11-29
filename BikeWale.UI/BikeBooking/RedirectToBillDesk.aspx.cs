@@ -57,8 +57,8 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BikeBooking.RedirectToBillDesk.UpdatePGTranscationId");
-                objErr.SendMail();
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BikeBooking.RedirectToBillDesk.UpdatePGTranscationId");
+                
             }
         }
     }

@@ -91,7 +91,7 @@ namespace Bikewale.Mobile.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Content.newsdetails.BindNewsDetails");
+                ErrorClass.LogError(ex, "Bikewale.Mobile.Content.newsdetails.BindNewsDetails");
             }
             finally
             {
@@ -169,7 +169,7 @@ namespace Bikewale.Mobile.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Content.newsdetails.BindPageWidgets");
+                ErrorClass.LogError(ex, "Bikewale.Mobile.Content.newsdetails.BindPageWidgets");
             }
         }
     }

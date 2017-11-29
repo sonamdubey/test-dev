@@ -147,8 +147,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
+               
                 return InternalServerError();
             }
         }   // Get  Model Page
@@ -254,8 +254,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
+               
                 return InternalServerError();
             }
         }   // Get  Model Page
@@ -314,8 +314,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
+               
                 return InternalServerError();
             }
         }
@@ -413,8 +413,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
+               
                 return InternalServerError();
             }
         }
@@ -510,7 +510,7 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Model.ModelController.GetV5({0},{1},{2})", modelId, cityId, areaId));
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Model.ModelController.GetV5({0},{1},{2})", modelId, cityId, areaId));
                 return InternalServerError();
             }
         }

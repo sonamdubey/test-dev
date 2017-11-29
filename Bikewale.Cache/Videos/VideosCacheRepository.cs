@@ -44,8 +44,8 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideosByCategory");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetVideosByCategory");
+                
             }
             return videosList;
         }
@@ -73,8 +73,8 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideosByCategory");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetVideosByCategory");
+                
             }
             return videosList;
         }
@@ -85,8 +85,8 @@ namespace Bikewale.Cache.Videos
         /// Created By : Sushil Kumar K
         /// Created On : 18th February 2016
         /// Description : Cache Layer for GetSimilar Videos
-        /// Modified by :   Sumit Kate on 17 Oct 2016
-        /// Description :   Removed the caching
+        /// Modified by :  Sumit Kate on 17 Oct 2016
+        /// Description :  Removed the caching
         /// </summary>
         /// <param name="videoBasicId"></param>
         /// <param name="totalCount"></param>
@@ -100,24 +100,37 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetSimilarVideos");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetSimilarVideos");
             }
             return videosList;
         }
-        #endregion
 
-        #region Get Video Details
-        /// <summary>
-        /// Created By : Sushil Kumar K
-        /// Created On : 18th February 2016
-        /// Description : Cache Layer for Videos Details page
-        /// Modified by :   Sumit Kate on 17 Oct 2016
-        /// Description :   Removed the caching
-        /// </summary>
-        /// <param name="videoBasicId"></param>
-        /// <returns></returns>
-        public BikeVideoEntity GetVideoDetails(uint videoBasicId)
+		public IEnumerable<BikeVideoEntity> GetSimilarVideos(ushort totalCount, string modelIdList, uint videoBasicId = 1)
+		{
+			IEnumerable<BikeVideoEntity> videosList = null;
+			try
+			{
+				videosList = _VideosRepository.GetSimilarVideos(totalCount, modelIdList, videoBasicId);
+			}
+			catch (Exception ex)
+			{
+				Bikewale.Notifications.ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetSimilarVideos");
+			}
+			return videosList;
+		}
+		#endregion
+
+		#region Get Video Details
+		/// <summary>
+		/// Created By : Sushil Kumar K
+		/// Created On : 18th February 2016
+		/// Description : Cache Layer for Videos Details page
+		/// Modified by :   Sumit Kate on 17 Oct 2016
+		/// Description :   Removed the caching
+		/// </summary>
+		/// <param name="videoBasicId"></param>
+		/// <returns></returns>
+		public BikeVideoEntity GetVideoDetails(uint videoBasicId)
         {
             BikeVideoEntity video = null;
             try
@@ -126,8 +139,8 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideoDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetVideoDetails");
+                
             }
             return video;
         }
@@ -154,8 +167,8 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideosByCategory");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetVideosByCategory");
+                
             }
             return videosList;
         }
@@ -178,7 +191,7 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.Cache.Videos.GetModelVideos MakeId:{0}",makeId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.Cache.Videos.GetModelVideos MakeId:{0}",makeId));
             }
             return modelVideos;
         }

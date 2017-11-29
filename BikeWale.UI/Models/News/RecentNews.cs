@@ -1,9 +1,9 @@
-﻿using Bikewale.Entities.CMS;
+﻿using System;
+using System.Linq;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Notifications;
-using System;
-using System.Linq;
 
 namespace Bikewale.Models
 {
@@ -72,14 +72,12 @@ namespace Bikewale.Models
 
         }
 
-        public RecentNews(uint totalRecords, uint makeId, string modelId, ICMSCacheContent articles)
+        public RecentNews(uint totalRecords, uint makeId, string modelIdList, ICMSCacheContent articles)
         {
             _totalRecords = totalRecords;
             _makeId = makeId;
-            _modelIdList = modelId;
+            _modelIdList = modelIdList;
             _articles = articles;
-
-
 
         }
         #endregion
@@ -129,7 +127,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.News.RecentNews.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", _totalRecords, _makeId, _modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.News.RecentNews.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", _totalRecords, _makeId, _modelId));
             }
             return recentNews;
         }

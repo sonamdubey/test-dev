@@ -1,10 +1,6 @@
-﻿using Bikewale.DAL.Feedback;
-using Bikewale.Interfaces.Feedback;
+﻿using Bikewale.Interfaces.Feedback;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -50,8 +46,8 @@ namespace Bikewale.Service.Feedback
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Version.VersionController");
+               
                 return InternalServerError();
             }
 

@@ -91,8 +91,8 @@ namespace Bikewale.Mobile.Generic
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.Generic.GetBestBikesList.GetBestBikesList");
-                objErr.SendMail();
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Mobile.Generic.GetBestBikesList.GetBestBikesList");
+                
             }
         }
 

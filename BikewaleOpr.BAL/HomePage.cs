@@ -71,7 +71,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("BikewaleOpr.BAL.HomePage.GetHomePageData id {0}, name {1}", id, userName));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.HomePage.GetHomePageData id {0}, name {1}", id, userName));
             }
             return objHomePageData;
         }

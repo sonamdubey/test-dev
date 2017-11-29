@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
-
-using Nest;
-using System.Configuration;
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
 using Elasticsearch.Net;
+using Nest;
+using System;
+using System.Configuration;
+using System.Linq;
 
 namespace Bikewale.DAL.CoreDAL
 {
@@ -16,10 +15,11 @@ namespace Bikewale.DAL.CoreDAL
 
         static ElasticSearchInstance()
         {
-            
+
         }
 
-        public static ElasticClient GetInstance() {
+        public static ElasticClient GetInstance()
+        {
             return _clientInstance._client;
         }
 
@@ -40,12 +40,11 @@ namespace Bikewale.DAL.CoreDAL
                  .SniffLifeSpan(TimeSpan.FromMinutes(1));
 
                 _client = new ElasticClient(settings);
-               
+
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                var objErr = new ErrorClass(ex, "ElasticClientInstance.ElasticClientInstance()" + ex.InnerException);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ElasticClientInstance.ElasticClientInstance()" + ex.InnerException);
             }
 
         }

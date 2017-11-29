@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DAL.MobileVerification;
 using Bikewale.Entities.MobileVerification;
 using Bikewale.Interfaces.MobileVerification;
-using Bikewale.DAL.MobileVerification;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Bikewale.BAL.MobileVerification
 {

@@ -39,7 +39,7 @@ namespace Bikewale.Models.BikeCare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeCare.RecentBikeCare.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", totalRecords, makeId, modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeCare.RecentBikeCare.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", totalRecords, makeId, modelId));
             }
              return recentBikeCare;
         }

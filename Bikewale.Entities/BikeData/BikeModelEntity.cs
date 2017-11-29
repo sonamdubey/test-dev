@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Bikewale.Entities.SEO;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Bikewale.Entities.SEO;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -9,6 +9,8 @@ namespace Bikewale.Entities.BikeData
     /// <summary>
     /// Modified by : Ashutosh Sharma on 30 Aug 2017 
     /// Description : Removed IsGstPrice property
+    /// Modified by : Vivek Singh Tomar on 10th Nov 2017
+    /// Description : Added ReviewRateStar to hold review rate
     /// </summary>
     [Serializable, DataContract]
     public class BikeModelEntity : BikeModelEntityBase
@@ -55,6 +57,7 @@ namespace Bikewale.Entities.BikeData
         public uint UsedListingsCnt { get; set; }
         [DataMember]
         public IEnumerable<CustomPageMetas> Metas { get; set; }
-
+        [DataMember]
+        public byte ReviewRateStar { get; set; }
     }
 }

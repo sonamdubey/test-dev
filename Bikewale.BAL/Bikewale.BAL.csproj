@@ -94,6 +94,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.BL">
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>
     </Reference>
@@ -202,6 +206,8 @@
     <Compile Include="BikeData\BikeVersions.cs" />
     <Compile Include="BikeData\NewLaunched\NewBikeLaunchesBL.cs" />
     <Compile Include="BikeData\Upcoming.cs" />
+    <Compile Include="BikeSearch\BikeSearchResult.cs" />
+    <Compile Include="BikeSearch\NewBikeSearchMapper.cs" />
     <Compile Include="CMS\CMS.cs" />
     <Compile Include="CMS\CMSData.cs">
       <SubType>Code</SubType>

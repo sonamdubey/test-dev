@@ -59,7 +59,7 @@ namespace Bikewale.Filters
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DeviceDetectionFilterAttribute.OnActionExecuting");
+                ErrorClass.LogError(ex, "DeviceDetectionFilterAttribute.OnActionExecuting");
             }
             finally
             {

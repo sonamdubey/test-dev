@@ -35,7 +35,7 @@ namespace BikewaleOpr.Service.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("AdSlotController.ChangeStatusAdSlot({0},{1})", AdId, UserId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("AdSlotController.ChangeStatusAdSlot({0},{1})", AdId, UserId));
                 return InternalServerError();
             }
         }

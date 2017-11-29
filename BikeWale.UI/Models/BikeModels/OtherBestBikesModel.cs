@@ -67,7 +67,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.GetData()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.GetData()"));
             }
 
             return otherBestBikes;

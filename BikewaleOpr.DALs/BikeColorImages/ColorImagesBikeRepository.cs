@@ -52,7 +52,7 @@ namespace BikewaleOpr.DALs.BikeColorImages
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ColorImagesBikeRepository.SaveBikeColorDetails");
+                ErrorClass.LogError(ex, "ColorImagesBikeRepository.SaveBikeColorDetails");
             }
 
             return photoId;
@@ -81,7 +81,7 @@ namespace BikewaleOpr.DALs.BikeColorImages
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ColorImagesBikeRepository.DeleteBikeColorDetails");
+                ErrorClass.LogError(ex, "ColorImagesBikeRepository.DeleteBikeColorDetails");
             }
 
             return isDeleted;

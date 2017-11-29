@@ -60,8 +60,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetModelMaskingResponse");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetModelMaskingResponse");
+                
             }
 
             return response;
@@ -83,8 +83,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.MVSpecsFeatures");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.MVSpecsFeatures");
+                
             }
 
             return specs;
@@ -108,7 +108,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetById_{0}", modelid));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetById_{0}", modelid));
 
             }
             return objModel;
@@ -142,7 +142,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.BikeData.GetSimilarBikeWithPhotos");
+                ErrorClass.LogError(ex, "Bikewale.Cache.BikeData.GetSimilarBikeWithPhotos");
             }
 
             return similarBikes;
@@ -163,7 +163,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetDetailsByModel_ModelId_{0}_CityId_{1}", modelId, cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.BikeData.GetDetailsByModel_ModelId_{0}_CityId_{1}", modelId, cityId));
             }
 
             return objReview;
@@ -184,7 +184,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetDetailsByVersion_ModelId_{0}_CityId_{1}", versionId, cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.BikeData.GetDetailsByVersion_ModelId_{0}_CityId_{1}", versionId, cityId));
             }
 
             return objReview;
@@ -205,7 +205,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetDetails_ReviewId_{0}", reviewId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.BikeData.GetDetails_ReviewId_{0}", reviewId));
             }
             return objReview;
         }
@@ -224,7 +224,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.BikeData.GetMakeIfVideo");
+                ErrorClass.LogError(ex, "Bikewale.Cache.BikeData.GetMakeIfVideo");
             }
             return objVideoMake;
         }
@@ -245,7 +245,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetSimilarBikesVideos_modelid: {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.BikeData.GetSimilarBikesVideos_modelid: {0}", modelId));
             }
 
             return similarBikes;
@@ -271,7 +271,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetSimilarBikesVideos_modelid: {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.BikeData.GetSimilarBikesVideos_modelid: {0}", modelId));
             }
 
             return similarBikes;

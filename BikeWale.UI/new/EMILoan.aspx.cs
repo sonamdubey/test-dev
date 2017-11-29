@@ -30,8 +30,8 @@ namespace Bikewale.New
                 }
                 catch (Exception err)
                 {
-                    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                    
                 }
             }
             modelId = Request.QueryString["modelid"];
@@ -59,8 +59,8 @@ namespace Bikewale.New
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "EMILoan.BindState");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "EMILoan.BindState");
+                
                 Trace.Warn("err makes : ", err.Message);
             }
         }   //End of BindState

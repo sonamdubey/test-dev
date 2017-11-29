@@ -39,7 +39,7 @@ namespace Bikewale.Cache.UsedBikes
 
             string key = (modelId == 0) ? String.Format("BW_MostRecentUsedBikes_Make_{0}", makeId) : String.Format("BW_MostRecentUsedBikes_Model_{0}", modelId);
             if (cityId != 0)
-                key = String.Format("{1}_CityId_{0}", key, cityId);
+                key = String.Format("{0}_CityId_{1}", key, cityId);
 
             try
             {
@@ -47,12 +47,40 @@ namespace Bikewale.Cache.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikes parametres makeId : {0}, modelId : {1}, cityId : {2}, totalCount : {3}", makeId, modelId, cityId, totalCount));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikes parametres makeId : {0}, modelId : {1}, cityId : {2}, totalCount : {3}", makeId, modelId, cityId, totalCount));
+
             }
             return objUsedBikes;
 
         }
+
+        /// <summary>
+        /// Written By : Sajal Gupta on 14/09/2016
+        /// Description : Get bikes based on model/ make/city .
+        /// </summary>
+        public IEnumerable<MostRecentBikes> GetUsedBikesSeries(uint seriesid, uint cityId)
+        {
+            IEnumerable<MostRecentBikes> objUsedBikes = null;
+
+            string key = String.Format("BW_MostRecentUsedBikesSeries_Model_{0}", seriesid);
+            if (cityId != 0)
+                key = String.Format("{0}_CityId_{1}", key, cityId);
+
+            try
+            {
+                objUsedBikes = _cache.GetFromCache<IEnumerable<MostRecentBikes>>(Convert.ToString(key), new TimeSpan(0, 30, 0), () => _objModels.GetUsedBikesSeries(seriesid, cityId));
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikesSeries parametres  modelId : {0}, cityId : {1}", seriesid, cityId));
+
+            }
+            return objUsedBikes;
+
+        }
+
+
+
         /// <summary>
         /// Created by: Sangram Nandkhile on 06 oct 2016
         /// Summary: Cache the make and used bike counts for make in India
@@ -69,8 +97,8 @@ namespace Bikewale.Cache.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception in Bikewale.Cache.UsedBikes.GetUsedBikeMakesWithCount");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception in Bikewale.Cache.UsedBikes.GetUsedBikeMakesWithCount");
+                
             }
             return objUsedBikes;
         }

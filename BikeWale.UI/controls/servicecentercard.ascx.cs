@@ -75,8 +75,8 @@ namespace Bikewale.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "ServiceCenterCard.BindDealers()");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ServiceCenterCard.BindDealers()");
+                
             }
         }
     }

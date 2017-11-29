@@ -1,8 +1,5 @@
 ﻿using Consumer;
-using log4net.Config;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 
 namespace DataSync
 {

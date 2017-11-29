@@ -49,7 +49,7 @@ namespace Bikewale.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Controls.UsedBikesCityCountByBrand.BindCountList()");
+                ErrorClass.LogError(err, "Bikewale.Controls.UsedBikesCityCountByBrand.BindCountList()");
             }
         }
     }

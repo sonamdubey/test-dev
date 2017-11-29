@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Bikewale.Entities.Dealer;
+﻿using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Dealer
 {
@@ -50,8 +47,8 @@ namespace Bikewale.Service.Controllers.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.Dealers.OffersController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Dealers.OffersController.Get");
+               
                 return InternalServerError();
             }
         }

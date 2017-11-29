@@ -1,6 +1,6 @@
-﻿using BikewaleOpr.Entities.BikeData;
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
 using BikewaleOpr.DTO.BikeData;
+using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Service.AutoMappers.BikeData;
@@ -46,7 +46,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "GetSynopsis");
+                    ErrorClass.LogError(ex, "GetSynopsis");
 
                     return InternalServerError();
                 }
@@ -85,7 +85,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "SaveSynopsis");
+                    ErrorClass.LogError(ex, "SaveSynopsis");
 
                     return InternalServerError();
                 }
@@ -115,7 +115,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.Content.MakesController.GetModels");
+                    ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.Content.MakesController.GetModels");
                     return InternalServerError();
                 }
             }

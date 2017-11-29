@@ -79,8 +79,8 @@ namespace Bikewale.Service.Controllers.Customer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.AuthenticateController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.AuthenticateController.Get");
+               
                 return InternalServerError();
             }
         }   //Get

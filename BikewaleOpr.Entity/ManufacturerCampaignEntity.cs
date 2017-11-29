@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace BikewaleOpr.Entities
+﻿namespace BikewaleOpr.Entities
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 29 Jan 2016

@@ -1,11 +1,6 @@
-﻿using Bikewale.DTO.BikeData;
-using Bikewale.DTO.Widgets.v2;
+﻿using Bikewale.DTO.Widgets.v2;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.DealerLocator
 {

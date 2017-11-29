@@ -121,7 +121,7 @@ namespace BikewaleOpr.BAL.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                ErrorClass.LogError(ex, string.Format(
                     "GetDealerPriceQuotes cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId));
             }
 
@@ -171,7 +171,7 @@ namespace BikewaleOpr.BAL.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                ErrorClass.LogError(ex, string.Format(
                     "DeleteVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2}", dealerId, cityId, versionIdsString));
             }
 
@@ -214,7 +214,7 @@ namespace BikewaleOpr.BAL.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                ErrorClass.LogError(ex, string.Format(
                     "SaveVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2} itemIdsString={3} itemValuesString={4} enteredBy={5}",
                     dealerIds, cityIds, versionIdsString, itemIdsString, itemValuesString, enteredBy));
             }
@@ -264,7 +264,7 @@ namespace BikewaleOpr.BAL.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                ErrorClass.LogError(ex, string.Format(
                     "SaveVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2} itemIdsString={3} itemValuesString={4} enteredBy={5}",
                     dealerIds, cityIds, versionIdsString, itemIdsString, itemValuesString, enteredBy));
             }

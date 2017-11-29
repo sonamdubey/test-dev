@@ -91,7 +91,7 @@ namespace Bikewale.Content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Content.RoadTest.GetRoadTestList");
+                ErrorClass.LogError(err, "Bikewale.Content.RoadTest.GetRoadTestList");
             }
             finally
             {
@@ -161,8 +161,8 @@ namespace Bikewale.Content
               }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.RoadTest.BindPageWidgets");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Content.RoadTest.BindPageWidgets");
+                
             }
         }
     }

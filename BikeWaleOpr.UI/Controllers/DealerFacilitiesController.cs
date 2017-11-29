@@ -50,7 +50,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/Index");
+                ErrorClass.LogError(ex, "MakesController/Index");
             }
 
             return View(viewModel);

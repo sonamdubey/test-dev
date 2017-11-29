@@ -119,8 +119,8 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "checkDealersForMakeCity");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "checkDealersForMakeCity");
+                
             }
             return false;
         }
@@ -147,8 +147,8 @@ namespace Bikewale.New
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
 
         }//function
@@ -246,8 +246,8 @@ namespace Bikewale.New
                 catch (Exception ex)
                 {
                     Trace.Warn("ProcessQueryString Ex: ", ex.Message);
-                    ErrorClass objErr = new ErrorClass(ex, "");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "");
+                    
                     isSuccess = false;
                 }
                 finally
@@ -308,8 +308,8 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetLocationCookie");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetLocationCookie");
+                
             }
         }
         #endregion

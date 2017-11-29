@@ -37,7 +37,7 @@ namespace Bikewale.Service.Controllers.BikeData
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakeModelsController.Get");
+                ErrorClass.LogError(ex, "MakeModelsController.Get");
                 return InternalServerError();
             }
         }

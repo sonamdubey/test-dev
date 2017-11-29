@@ -1,21 +1,11 @@
-﻿using AutoMapper;
-using Bikewale.DAL.BikeData;
-using Bikewale.DTO.BikeData;
-using Bikewale.DTO.Make;
-using Bikewale.DTO.Model;
+﻿using Bikewale.DTO.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
 
 namespace Bikewale.Service.Controllers.BikeData
 {
@@ -58,8 +48,8 @@ namespace Bikewale.Service.Controllers.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.BikeDiscover.GetFeaturedBikeList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.BikeDiscover.GetFeaturedBikeList");
+               
                 return InternalServerError();
             }
         }

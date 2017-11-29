@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Customer;
-
-namespace Bikewale.Interfaces.Customer
+﻿namespace Bikewale.Interfaces.Customer
 {
     /// <summary>
     /// created By : Ashish G. Kamble on 25 Apr 2014

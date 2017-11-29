@@ -175,6 +175,7 @@
     <Compile Include="BikeData\BikeModelPageEntity.cs" />
     <Compile Include="BikeData\BikeModelsListEntity.cs" />
     <Compile Include="BikeData\BikeModelVersionsDetails.cs" />
+    <Compile Include="BikeData\BikeSeriesCompareBikes.cs" />
     <Compile Include="BikeData\BikeSeriesEntity.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -186,6 +187,7 @@
     <Compile Include="BikeData\BikeVersionEntity.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionMinSpecs.cs" />
+    <Compile Include="BikeData\BikeVersionPriceEntity.cs" />
     <Compile Include="BikeData\BikeVersionSegmentDetails.cs" />
     <Compile Include="BikeData\BikeVersionsListEntity.cs" />
     <Compile Include="BikeData\BikeVersionsSegment.cs" />
@@ -195,7 +197,9 @@
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\FeaturedBikeEntity.cs" />
     <Compile Include="BikeData\Features.cs" />
+    <Compile Include="BikeData\MakeFooterCategory.cs" />
     <Compile Include="BikeData\MakeMaskingResponse.cs" />
+    <Compile Include="BikeData\MakeSubFooterEntity.cs" />
     <Compile Include="BikeData\MileageInfoByBodyStyle.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
@@ -212,6 +216,7 @@
     <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\PriceAndCityEntityBase.cs" />
     <Compile Include="BikeData\PriceEntityBase.cs" />
+    <Compile Include="BikeData\SeriesMaskingResponse.cs" />
     <Compile Include="BikeData\SimilarBikeComparisions .cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
     <Compile Include="BikeData\BikeSeriesModels.cs" />
@@ -478,6 +483,7 @@
     <Compile Include="UserReviews\BikeRatingsReviewsInfo.cs" />
     <Compile Include="UserReviews\BikeReviewIdListByCategory.cs" />
     <Compile Include="UserReviews\BikeReviewsInfo.cs" />
+    <Compile Include="UserReviews\BikesWithReviewByMake .cs" />
     <Compile Include="UserReviews\BikeUserReviewRating.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\InputFilters.cs" />

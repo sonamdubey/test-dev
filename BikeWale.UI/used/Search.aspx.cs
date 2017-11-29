@@ -135,7 +135,7 @@ namespace Bikewale.Used
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Used.Search.BindWigets");
+                ErrorClass.LogError(ex, "Bikewale.Used.Search.BindWigets");
             }
         }
 

@@ -121,7 +121,7 @@ namespace Bikewale.Models
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.DealerPriceQuotePage.GetData()");
+                ErrorClass.LogError(err, "Bikewale.Models.DealerPriceQuotePage.GetData()");
             }
 
             return objData;
@@ -144,7 +144,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "ModelPage.BindAdSlotTags");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "ModelPage.BindAdSlotTags");
             }
         }
 
@@ -167,7 +167,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                var err = new Notifications.ErrorClass(ex, String.Format("ShowInnovationBanner({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("ShowInnovationBanner({0})", _modelId));
             }
         }
 
@@ -189,12 +189,13 @@ namespace Bikewale.Models
                     objData.PageMetaTags.Description = String.Format("{0} {1} {2} price quote", objData.SelectedVersion.MakeBase.MakeName, objData.SelectedVersion.ModelBase.ModelName, objData.SelectedVersion.VersionName);
                     objData.AdTags.TargetedMakes = objData.SelectedVersion.MakeBase.MakeName;
                     objData.AdTags.TargetedModel = objData.SelectedVersion.ModelBase.ModelName;
+                    objData.AdTags.TargetedCity = currentCity;
                 }
 
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.DealerPriceQuotePage.SetMetaTags");
+                ErrorClass.LogError(ex, "Bikewale.Models.DealerPriceQuotePage.SetMetaTags");
             }
         }
 
@@ -222,7 +223,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.DealerPriceQuotePage.SetModelVariables()");
+                ErrorClass.LogError(ex, "Bikewale.Models.DealerPriceQuotePage.SetModelVariables()");
             }
 
         }
@@ -253,7 +254,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.DealerPriceQuotePage.BindPageWidgets");
+                ErrorClass.LogError(ex, "Bikewale.Models.DealerPriceQuotePage.BindPageWidgets");
             }
 
         }
@@ -320,7 +321,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.DealerPriceQuotePage.GetLocationCookie");
+                ErrorClass.LogError(ex, "Bikewale.Models.DealerPriceQuotePage.GetLocationCookie");
             }
 
             return location;
@@ -422,7 +423,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.SetDealerPriceQuoteDetail(): versionId {0}", _versionId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.SetDealerPriceQuoteDetail(): versionId {0}", _versionId));
             }
 
             objData.DetailedDealer = detailedDealer;
@@ -463,7 +464,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.GetBikeVersions() versionId {0}", _versionId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.GetBikeVersions() versionId {0}", _versionId));
             }
         }
 
@@ -487,7 +488,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.SetEMIDetails(): versionId {0}", _versionId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.SetEMIDetails(): versionId {0}", _versionId));
             }
             return _objEMI;
         }
@@ -524,7 +525,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.FormatVarientMinSpec(): versionId {0}", _versionId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.FormatVarientMinSpec(): versionId {0}", _versionId));
             }
 
             return minSpecsStr;
@@ -560,7 +561,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.ParseQueryString() versionid {0}, CityId {1}, PQId {2}", _versionId, _cityId, _pqId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.ParseQueryString() versionid {0}, CityId {1}, PQId {2}", _versionId, _cityId, _pqId));
                 Status = StatusCodes.ContentNotFound;
             }
         }
@@ -661,7 +662,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", _modelId, _cityId, ManufacturerCampaignPageId));
+                ErrorClass.LogError(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", _modelId, _cityId, ManufacturerCampaignPageId));
             }
         }
     }

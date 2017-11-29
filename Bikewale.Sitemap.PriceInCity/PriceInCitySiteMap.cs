@@ -9,8 +9,9 @@ namespace Bikewale.Sitemap.PriceInCity
 {
     class PriceInCitySiteMap
     {
-        public void GenerateSiteMap()
+        public bool GenerateSiteMap()
         {
+            bool isSuccess = false;
             string domain = ConfigurationManager.AppSettings["PriceInCitySiteMapDomain"];
             string PriceInCitySitemapLoc = ConfigurationManager.AppSettings["PriceInCitySitemapLoc"];
             IEnumerable<PriceInCityEnitity> SitemapList = null;
@@ -65,6 +66,7 @@ namespace Bikewale.Sitemap.PriceInCity
 
 
                         } while (urlList.Any());
+                        isSuccess = true;
                     }
 
                 }
@@ -72,6 +74,7 @@ namespace Bikewale.Sitemap.PriceInCity
                 {
                     Logs.WriteErrorLog("GenerateSiteMap: Exception " + ex.Message);
                 }
+            return isSuccess;
         }
 
         public IEnumerable<string> CreatePriceInCityUrls(IEnumerable<PriceInCityEnitity> SitemapList)

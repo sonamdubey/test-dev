@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntityBase>
+@using Bikewale.Utility
+@if (Model != null && Model.Any())
+{
+	if (Model != null && Model.Count() == 1)
+	{
+		var firstUpcomingModel = Model.FirstOrDefault();
+		<div>
+			<ul>
+				<li class="upcoming-bike-card">
+					<a href="@string.Format("/{0}-bikes/{1}/", firstUpcomingModel.BikeMake.MakeMaskingName, firstUpcomingModel.BikeModel.MaskingName)" title="@string.Format("{0} {1}", firstUpcomingModel.BikeMake.MakeName, firstUpcomingModel.BikeModel.ModelName)">
+						<div class="upcoming-bike-card__image">
+							<img class="lazy" data-original="@Image.GetPathToShowImages(firstUpcomingModel.BikeImage.OriginalImagePath, firstUpcomingModel.BikeImage.HostUrl, ImageSize._210x118, QualityFactor._70)" alt="@string.Format("{0} {1}", firstUpcomingModel.BikeMake.MakeName, firstUpcomingModel.BikeModel.ModelName)" src="" border="0">
+						</div>
+						<div class="upcoming-bike-card__label-block">
+							<h3 class="upcoming-bike-card__label">@string.Format("{0} {1}", firstUpcomingModel.BikeMake.MakeName, firstUpcomingModel.BikeModel.ModelName)</h3>
+							<ul class="upcoming-bike-card__list margin-top15">
+								<li>
+									<p class="upcoming-bike-card__sub-title">
+										Expected Price Range
+									</p>
+									<p class="font18">
+										₹
+										<span class="font-bold">@Format.FormatPrice(Convert.ToString(firstUpcomingModel.ExpectedPrice.MinPrice), Convert.ToString(firstUpcomingModel.ExpectedPrice.MaxPrice))</span>
+									</p>
+								</li>
+								<li>
+									<p class="upcoming-bike-card__sub-title">
+										Expected launch date
+									</p>
+									<p class="font18">
+										@FormatDate.GetFormatDate(Convert.ToString(firstUpcomingModel.ExpectedLaunch), "MMM yyyy")
+									</p>
+								</li>
+							</ul>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	}
+	else
+	{
+		<div class="upcoming-bike-carousel jcarousel-wrapper inner-content-carousel" data-overlay="right">
+			<div class="jcarousel">
+				<ul>
+					@foreach (var bike in Model)
+					{
+						<li class="upcoming-bike-card">
+							<a href="@string.Format("/{0}-bikes/{1}/", bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" class="carousel-card">
+								<div class="upcoming-bike-card__image">
+									<img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._210x118, QualityFactor._70)" alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="" border="0">
+								</div>
+								<div class="upcoming-bike-card__label-block">
+									<h3 class="upcoming-bike-card__label">@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)</h3>
+									<div class="upcoming-bike-card__list margin-top15">
+										<div class="upcoming-bike__list-card">
+											<p class="upcoming-bike-card__sub-title">
+												Expected Price Range
+											</p>
+											<p class="font18">
+												₹
+												<span class="font-bold">@Format.FormatPrice(Convert.ToString(bike.ExpectedPrice.MinPrice), Convert.ToString(bike.ExpectedPrice.MaxPrice))</span>
+											</p>
+										</div>
+										<div class="upcoming-bike__list-card">
+											<p class="upcoming-bike-card__sub-title">
+												Expected launch date
+											</p>
+											<p class="font18">
+												@FormatDate.GetFormatDate(Convert.ToString(bike.ExpectedLaunch), "MMM yyyy")
+											</p>
+										</div>
+									</div>
+								</div>
+							</a>
+						</li>
+					}
+				</ul>
+			</div>
+			<span class="jcarousel-control-left">
+				<a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+			</span>
+			<span class="jcarousel-control-right">
+				<a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+			</span>
+		</div>
+	}
+
+}

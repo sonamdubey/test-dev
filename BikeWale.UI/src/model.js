@@ -162,14 +162,14 @@ docReady(function () {
         colorElements.removeClass('active');
         colorElements.eq([$(this).index()]).addClass('active');
     });
-
+   
     $("span.carousel-img-container").click(function () {
-
+      
         location.href = $(this).attr("href");
 
 
     });
-
+  
     getCityArea = GetGlobalCityArea();
 
     $(".leadcapturebtn").click(function (e) {

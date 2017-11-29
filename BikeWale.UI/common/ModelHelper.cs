@@ -47,7 +47,7 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetModelDataById() - ModelId :{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("ModelHelper.GetModelDataById() - ModelId :{0}", modelId));
             }
             return objModel;
         }
@@ -74,7 +74,7 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetModelDataByMasking() - modelMaskingName :{0}", modelMaskingName));
+                ErrorClass.LogError(ex, string.Format("ModelHelper.GetModelDataByMasking() - modelMaskingName :{0}", modelMaskingName));
             }
             return objModel;
         }
@@ -105,7 +105,7 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetAreaForModelAndCity() - modelId:{0}, cityId {1}", modelId, cityId));
+                ErrorClass.LogError(ex, string.Format("ModelHelper.GetAreaForModelAndCity() - modelId:{0}, cityId {1}", modelId, cityId));
             }
             return areaList;
         }
@@ -134,7 +134,7 @@ namespace Bikewale.Common
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetCitiesByModelId() - modelId:{0}", modelId));
+                    ErrorClass.LogError(ex, string.Format("ModelHelper.GetCitiesByModelId() - modelId:{0}", modelId));
                 }
             }
             return cityList;
@@ -149,7 +149,7 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetMakeModelData() - modelId:{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("ModelHelper.GetMakeModelData() - modelId:{0}", modelId));
             }
             return objBike;
         }

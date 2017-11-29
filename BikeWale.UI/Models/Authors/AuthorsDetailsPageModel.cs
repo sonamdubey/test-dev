@@ -60,7 +60,7 @@ namespace Bikewale.Models.Authors
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Authors.AuthorsDetailsPageModel: GetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.Authors.AuthorsDetailsPageModel: GetData");
             }
             return objAuthorDetails;
         }
@@ -81,7 +81,7 @@ namespace Bikewale.Models.Authors
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Authors.AuthorsDetailsPageModel: BindPopularNewsWidget");
+                ErrorClass.LogError(ex, "Bikewale.Models.Authors.AuthorsDetailsPageModel: BindPopularNewsWidget");
             }
         }
 
@@ -120,7 +120,7 @@ namespace Bikewale.Models.Authors
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Authors.AuthorsDetailsPageModel: BindPageMetaTags");
+                ErrorClass.LogError(ex, "Bikewale.Models.Authors.AuthorsDetailsPageModel: BindPageMetaTags");
             }
         }
 

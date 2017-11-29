@@ -138,8 +138,8 @@ namespace Bikewale.BAL.PriceQuote
 
                             catch (Exception ex)
                             {
-                                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "PQByCityArea: " + "GetOnRoadPrice");
-                                objErr.SendMail();
+                                ErrorClass.LogError(ex, "PQByCityArea: " + "GetOnRoadPrice");
+                                
                             }
                         }
                     }
@@ -147,8 +147,8 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "PQByCityArea: " + "GetOnRoadPrice");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "PQByCityArea: " + "GetOnRoadPrice");
+                
             }
             return pqOnRoad;
         }
@@ -170,8 +170,8 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPageController" + "FetchCityByModelId");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ModelPageController" + "FetchCityByModelId");
+                
             }
             return cityList;
         }
@@ -193,8 +193,8 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPageController" + "GetAreaForCityAndModel");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ModelPageController" + "GetAreaForCityAndModel");
+                
             }
 
             return areaList;
@@ -314,7 +314,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : PQByCityArea GetVersionList");
+                ErrorClass.LogError(ex, "Exception : PQByCityArea GetVersionList");
             }
             return pqEntity;
         }
@@ -390,8 +390,8 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : PQByCityArea GetPriceQuoteByCityArea");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : PQByCityArea GetPriceQuoteByCityArea");
+                
             }
             return pqOutput;
 
@@ -419,8 +419,8 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : PQByCityArea .SwapVersionList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : PQByCityArea .SwapVersionList");
+                
             }
             return modelVersions;
         }
@@ -624,7 +624,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : PQByCityArea GetVersionList");
+                ErrorClass.LogError(ex, "Exception : PQByCityArea GetVersionList");
             }
             return pqEntity;
         }

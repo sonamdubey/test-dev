@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using BikewaleOpr.Entities;
-using BikewaleOpr.Entity.DealerCampaign;
-using BikewaleOpr.Interface;
+﻿using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Location;
 using BikewaleOpr.Models.DealerCampaign;
+using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
 {

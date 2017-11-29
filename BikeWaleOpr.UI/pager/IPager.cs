@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using BikeWaleOpr.Entities.Pager;
+﻿using BikeWaleOpr.Entities.Pager;
 
 namespace BikeWaleOpr.Interfaces.Pager
 {

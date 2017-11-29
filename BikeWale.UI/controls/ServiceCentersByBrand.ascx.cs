@@ -43,8 +43,8 @@ namespace Bikewale.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersByBrand.GetAllServiceCenters()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ServiceCentersByBrand.GetAllServiceCenters()");
+                
             }
         }
 

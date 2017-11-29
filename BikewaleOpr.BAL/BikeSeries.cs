@@ -5,14 +5,17 @@ using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace BikewaleOpr.BAL
 {
-    public class BikeSeries: IBikeSeries
+    public class BikeSeries : IBikeSeries
     {
         private readonly IBikeSeriesRepository _seriesRepo;
-        public BikeSeries(IBikeSeriesRepository seriesRepo)
+        private readonly IBikeModelsRepository _modelRepo;
+        public BikeSeries(IBikeSeriesRepository seriesRepo, IBikeModelsRepository modelRepo)
         {
             _seriesRepo = seriesRepo;
+            _modelRepo = modelRepo;
         }
 
         /// <summary>
@@ -29,7 +32,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: GetSeries");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeSeries: GetSeries");
             }
             return objBikeSeriesList;
         }
@@ -42,8 +45,9 @@ namespace BikewaleOpr.BAL
         /// <param name="UpdatedBy"></param>
         /// <param name="seriesId"></param>
         /// <param name="isSeriesExist"></param>
-        public BikeSeriesEntity AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
+        public Tuple<bool, string, BikeSeriesEntity> AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
         {
+            Tuple<bool, string, BikeSeriesEntity> respObj = null;
             try
             {
                 if (makeId > 0 && updatedBy > 0 && !string.IsNullOrEmpty(seriesName) && !string.IsNullOrEmpty(seriesMaskingName))
@@ -58,15 +62,40 @@ namespace BikewaleOpr.BAL
                             MakeId = Convert.ToInt32(makeId)
                         }
                     };
-                    _seriesRepo.AddSeries(objBikeSeries, updatedBy);
-                    return objBikeSeries;
+                    if (_seriesRepo.IsSeriesMaskingNameExists(makeId, seriesMaskingName) && isSeriesPageUrl)
+                    {
+                        respObj = new Tuple<bool, string, BikeSeriesEntity>(false, "Cannot create duplicate series page url", objBikeSeries);
+                    }
+                    else if (_modelRepo.IsModelMaskingNameExists(makeId, seriesMaskingName) && isSeriesPageUrl)
+                    {
+                        respObj = new Tuple<bool, string, BikeSeriesEntity>(false, "Given Series Masking Name already exists as Model Masking Name.", objBikeSeries);
+                    }
+                    else
+                    {
+
+                        _seriesRepo.AddSeries(objBikeSeries, updatedBy);
+                        if (objBikeSeries.SeriesId > 0)
+                        {
+                            BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
+                            respObj = new Tuple<bool, string, BikeSeriesEntity>(true, "Bike series has been updated successfully.", objBikeSeries);
+                        }
+                        else
+                        {
+                            respObj = new Tuple<bool, string, BikeSeriesEntity>(false, "Bike series already exist", objBikeSeries);
+                        }
+                    }
+                }
+                else
+                {
+                    respObj = new Tuple<bool, string, BikeSeriesEntity>(false, "Input data is not correct", null);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: AddSeries");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeSeries: AddSeries");
+                respObj = new Tuple<bool, string, BikeSeriesEntity>(false, "Something went wrong, could't update.", null);
             }
-            return null;
+            return respObj;
         }
 
         /// <summary>
@@ -80,14 +109,14 @@ namespace BikewaleOpr.BAL
             IEnumerable<BikeSeriesEntityBase> objBikeSeriesList = null;
             try
             {
-                if(makeId > 0)
+                if (makeId > 0)
                 {
                     objBikeSeriesList = _seriesRepo.GetSeriesByMake(makeId);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: GetSeriesByMake");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeSeries: GetSeriesByMake");
             }
             return objBikeSeriesList;
         }
@@ -99,9 +128,10 @@ namespace BikewaleOpr.BAL
         /// <param name="bikeSeries"></param>
         /// <param name="updatedBy"></param>
         /// <returns></returns>
-        public bool EditSeries(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
+        public Tuple<bool, string> EditSeries(uint makeId, uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
         {
-            bool IsEdited = false;
+            Tuple<bool, string> respObj = null;
+            string oldMaskingName = "";
             try
             {
                 if (seriesId > 0 && !string.IsNullOrEmpty(seriesName) && !string.IsNullOrEmpty(seriesMaskingName) && updatedBy > 0)
@@ -114,19 +144,43 @@ namespace BikewaleOpr.BAL
                         IsSeriesPageUrl = isSeriesPageUrl,
                         UpdatedBy = Convert.ToString(updatedBy)
                     };
-                    IsEdited = _seriesRepo.EditSeries(bikeSeries, updatedBy);
-                    if (IsEdited)
+
+                    var series = _seriesRepo.GetSeriesByMake((int)makeId);
+                    if (series != null)
                     {
-                        BwMemCache.ClearModelsBySeriesId(seriesId);
+                        var objSeries = series.FirstOrDefault(m => m.SeriesId == seriesId);
+                        if (objSeries != null)
+                        {
+                            oldMaskingName = objSeries.SeriesMaskingName;
+                        }
                     }
-                    
+
+                    if (!oldMaskingName.Equals(seriesMaskingName) && _seriesRepo.IsSeriesMaskingNameExists(makeId, seriesMaskingName) && isSeriesPageUrl)
+                    {
+                        respObj = new Tuple<bool, string>(false, "Cannot create duplicate series page url");
+                    }
+                    else if (_modelRepo.IsModelMaskingNameExists(makeId, seriesMaskingName) && isSeriesPageUrl)
+                    {
+                        respObj = new Tuple<bool, string>(false, "Given Series Masking Name already exists as Model Masking Name.");
+                    }
+                    else
+                    {
+                        bool isEdited = _seriesRepo.EditSeries(bikeSeries, updatedBy);
+                        respObj = new Tuple<bool, string>(isEdited, isEdited ? "Updated Successfully" : "Failed to update");
+                        if (isEdited)
+                        {
+                            BwMemCache.ClearModelsBySeriesId(seriesId);
+                            BwMemCache.ClearMaskingMappingCache();
+                            BwMemCache.ClearSeriesCache(seriesId, makeId);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: EditSeries_{0}_{1}", seriesId, updatedBy));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeSeries: EditSeries_{0}_{1}", seriesId, updatedBy));
             }
-            return IsEdited;
+            return respObj;
         }
 
         /// <summary>
@@ -146,12 +200,14 @@ namespace BikewaleOpr.BAL
                     if (IsDeleted)
                     {
                         BwMemCache.ClearModelsBySeriesId(bikeSeriesId);
+                        BwMemCache.ClearMaskingMappingCache();
+                        BwMemCache.ClearSeriesCache(bikeSeriesId, 0);
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteSeries_{0}", bikeSeriesId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteSeries_{0}", bikeSeriesId));
             }
             return IsDeleted;
         }
@@ -178,14 +234,77 @@ namespace BikewaleOpr.BAL
                     {
                         BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(seriesId));
                         BwMemCache.ClearVersionDetails(modelId);
+                        BwMemCache.ClearMaskingMappingCache();
+                        BwMemCache.ClearSeriesCache(Convert.ToUInt32(seriesId), 0);
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteMappingOfModelSeries_{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteMappingOfModelSeries_{0}", modelId));
             }
             return seriesId > 0;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Nov 2017
+        /// Summary : BAL function for get synopsis
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
+        public SynopsisData Getsynopsis(int seriesId)
+        {
+            SynopsisData objSynopsis = null;
+            try
+            {
+                if (seriesId > 0)
+                {
+                    objSynopsis = _seriesRepo.Getsynopsis(seriesId);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BALs.BikeSeries.Getsynopsis");
+            }
+
+            return objSynopsis;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Nov 2017
+        /// Summary : BAL function for update synopsis
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <param name="updatedBy"></param>
+        /// <param name="objSynopsis"></param>
+        /// <returns></returns>
+        public bool UpdateSynopsis(int seriesId, int updatedBy, SynopsisData objSynopsis)
+        {
+            bool isUpdated = false;
+            try
+            {
+                if (seriesId > 0 && updatedBy > 0 && objSynopsis != null)
+                {
+                    isUpdated = _seriesRepo.UpdateSynopsis(seriesId, updatedBy, objSynopsis);
+                    BwMemCache.ClearSeriesCache(Convert.ToUInt32(seriesId), 0);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BALs.BikeSeries.UpdateSynopsis");
+            }
+            return isUpdated;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 21 Nov 2017
+        /// Description :   Calls DAL function
+        /// </summary>
+        /// <param name="seriesMaskingName"></param>
+        /// <returns></returns>
+        public bool IsSeriesMaskingNameExists(uint makeId, string seriesMaskingName)
+        {
+            return _seriesRepo.IsSeriesMaskingNameExists(makeId, seriesMaskingName);
         }
     }
 }

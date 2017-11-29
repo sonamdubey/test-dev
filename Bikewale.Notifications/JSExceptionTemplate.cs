@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Bikewale.Entities.JSErrorLog;
+using System;
 using System.Web;
-using Bikewale.Entities.JSErrorLog;
 
 namespace Bikewale.Notifications
 {

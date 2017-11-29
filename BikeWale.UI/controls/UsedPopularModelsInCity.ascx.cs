@@ -75,7 +75,7 @@ namespace Bikewale.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedPopularModelsInCity.BindUsedBikes_{0}_{1}_{2}", MakeId, CityId, TopCount));
+                ErrorClass.LogError(ex, string.Format("UsedPopularModelsInCity.BindUsedBikes_{0}_{1}_{2}", MakeId, CityId, TopCount));
             }
         }
     }

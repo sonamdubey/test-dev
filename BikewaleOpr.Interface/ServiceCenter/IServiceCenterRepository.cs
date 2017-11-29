@@ -1,18 +1,14 @@
 ﻿using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ServiceCenter;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.Interface.ServiceCenter
 {
     /// <summary>		
-   /// Created BY : Snehal Dange on 28 July 2017		
-   /// Summary : Interface methods related to service center		
-   /// </summary>		
-   public interface IServiceCenterRepository
+    /// Created BY : Snehal Dange on 28 July 2017		
+    /// Summary : Interface methods related to service center		
+    /// </summary>		
+    public interface IServiceCenterRepository
    {		
        IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeId);		
        IEnumerable<CityEntityBase> GetAllCities();		

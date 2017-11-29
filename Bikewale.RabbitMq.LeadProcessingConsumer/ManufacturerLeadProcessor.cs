@@ -127,7 +127,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 Logs.WriteErrorLog(String.Format("ManufacturerLeadHandler.PushLeadToAutoBiz(Msg : {0},{1},{2},{3})", ex.Message, retryAttempt, dealerId, inquiryJSON));
             }
             return (UInt32.TryParse(abInquiryId, out abInqId) && abInqId > 0) ? abInqId : 0;
-
         }
 
         private bool UpdateABInquiryId(uint leadId, uint abInqId, ushort retryAttempt)

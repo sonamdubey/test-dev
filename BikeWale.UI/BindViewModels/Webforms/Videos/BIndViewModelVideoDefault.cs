@@ -38,7 +38,7 @@ namespace Bikewale.BindViewModels.Webforms.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Videos.BindViewModelVideoDefault");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.Videos.BindViewModelVideoDefault");
             }
         }
         /// <summary>
@@ -63,7 +63,7 @@ namespace Bikewale.BindViewModels.Webforms.Videos
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Videos.BindViewModelVideoDefault.GetMakeIfVideo");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.Videos.BindViewModelVideoDefault.GetMakeIfVideo");
             }
             return objVideoMake;
         }

@@ -34,7 +34,7 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
         {
             try
             {
-                SearchOutput searchResult = new SearchOutput();
+                SearchOutput searchResult;
                 FilterInput filterInputs = _processFilter.ProcessFilters(input);
 
                 SearchOutputEntity objSearchList = _searchResult.GetSearchResult(filterInputs, input);
@@ -49,8 +49,8 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.NewBikeSearch.NewBikeSearchController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.NewBikeSearch.NewBikeSearchController");
+               
                 return InternalServerError();
             }
         }

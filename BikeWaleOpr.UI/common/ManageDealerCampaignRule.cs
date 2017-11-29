@@ -45,8 +45,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.FetchBWDealerCampaignRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaignRule.FetchBWDealerCampaignRules");
+                
             }
 
             return dtDealerCampaign;
@@ -87,8 +87,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.InsertBWDealerCampaignRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaignRule.InsertBWDealerCampaignRules");
+                
             }
             return isSuccess;
         }
@@ -118,8 +118,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.DeleteDealerCampaignRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaignRule.DeleteDealerCampaignRules");
+                
             }
 
             return isDeleted;

@@ -40,7 +40,7 @@
                     <div class="budget-container">
                         <ul class="text-center">
                             <li>
-                                <a href="/m/new/bike-search/?budget=0-50000">
+                                <a href="/m/new/bike-search/bikes-under-50000/">
                                     <span class="budget-title-box font14">
                                         Upto
                                     </span>
@@ -51,7 +51,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/m/new/bike-search/?budget=50000-100000">
+                                <a href="/m/new/bike-search/bikes-between-50000-and-100000/">
                                     <span class="budget-title-box font14">
                                         Between
                                     </span>
@@ -65,7 +65,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/m/new/bike-search/?budget=100000-250000">
+                                <a href="/m/new/bike-search/bikes-between-100000-and-250000/">
                                     <span class="budget-title-box font14">
                                         Between
                                     </span>
@@ -81,7 +81,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/m/new/bike-search/?budget=250000-">
+                                <a href="/m/new/bike-search/bikes-above-250000/">
                                     <span class="budget-title-box font14">
                                         Above
                                     </span>
@@ -258,43 +258,8 @@
         <div class="clear"></div>
     </div>
 </section>
-@Html.Partial("~/Views/UserReview/_SearchUserReviewMakeModel_Mobile.cshtml", Model.RecentUserReviewsList)
 
 
-<section>
-    <div class="container contest-participate-banner margin-bottom20">
-        <div class="contest-banner__wrapper">
-            <p class="contest-banner__left-grid inline-block">
-                <span class="contest-banner__title-13">Bike Review</span><br>
-                <span class="contest-banner__title-18">Contest</span>
-            </p>
-                <p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;2,000.</p>
-
-            <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_NewBikePage))" title="Participate &amp; win" class="contest-banner__right-grid inline-block">
-                <p class="contest-banner__target-link">Participate &amp; win <span class="yellow-arrow-7x10"></span></p>
-            </a>
-        </div>
-    </div>
-</section>
-
-@if (Model.IsComparePopularBikesAvailable)
-{
-    <section>
-        <h2 class="font18 margin-bottom20 margin-top20 text-center">Compare Bikes</h2>
-        <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
-            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularBikes)
-            <div class="view-all-btn-container margin-bottom5 margin-top15 text-center">
-                <a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
-            </div>
-        </div>
-    </section>
-}
-@*@if (Model.BestBikes != null)
-{
-    <section>
-        @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
-    </section>
-}*@
 @if (Model.BestBikes != null)
 {
     <section>
@@ -374,9 +339,51 @@
         </div>
     </section>
 }
+
 <section>
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
+
+
+@if (Model.IsComparePopularBikesAvailable)
+{
+    <section>
+        <h2 class="font18 margin-bottom20 margin-top20 text-center">Compare Bikes</h2>
+        <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
+            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularBikes)
+            <div class="view-all-btn-container margin-bottom5 margin-top15 text-center">
+                <a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
+            </div>
+        </div>
+    </section>
+}
+@*@if (Model.BestBikes != null)
+{
+    <section>
+        @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
+    </section>
+}*@
+
+@Html.Partial("~/Views/UserReview/_SearchUserReviewMakeModel_Mobile.cshtml", Model.RecentUserReviewsList)
+
+
+<section>
+    <div class="container contest-participate-banner margin-bottom20">
+        <div class="contest-banner__wrapper">
+            <p class="contest-banner__left-grid inline-block">
+                <span class="contest-banner__title-13">Bike Review</span><br>
+                <span class="contest-banner__title-18">Contest</span>
+            </p>
+            <p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;2,000.</p>
+
+            <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_NewBikePage))" title="Participate &amp; win" class="contest-banner__right-grid inline-block">
+                <p class="contest-banner__target-link">Participate &amp; win <span class="yellow-arrow-7x10"></span></p>
+            </a>
+        </div>
+    </div>
+</section>
+
+
 
 <section class="container">
     <!-- Tools you may need code starts here -->

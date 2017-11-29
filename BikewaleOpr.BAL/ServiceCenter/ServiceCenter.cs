@@ -1,17 +1,13 @@
-﻿using Bikewale.Interfaces.BikeData;
-using BikewaleOpr.Entities;
+﻿using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ServiceCenter;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ServiceCenter;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.BAL.ServiceCenter
 {
-       /// <summary>		
+    /// <summary>		
     /// Created By:-Snehal Dange 28 July 2017		
     /// Summary:- For service center related operations		
     /// </summary>		
@@ -47,7 +43,7 @@ namespace BikewaleOpr.BAL.ServiceCenter
 		
         //    catch (Exception ex)		
         //    {		
-        //        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetBikeMakes");		
+        //        ErrorClass.LogError(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetBikeMakes");		
         //    }		
 		
 		
@@ -72,8 +68,8 @@ namespace BikewaleOpr.BAL.ServiceCenter
                 }		
             }		
             catch (Exception ex)		
-            {		
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetServiceCenterCities");		
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetServiceCenterCities");		
                		
             }		
             return objCityList;		
@@ -98,8 +94,8 @@ namespace BikewaleOpr.BAL.ServiceCenter
                 }		
             }		
             catch (Exception ex)		
-            {		
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetServiceCentersByCity");		
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetServiceCentersByCity");		
                 		
             }		
             return objServiceCenterData;		
@@ -131,9 +127,9 @@ namespace BikewaleOpr.BAL.ServiceCenter
                 }		
             }		
             catch (Exception ex)		
-            {		
-		
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.ServiceCenterBL.AddServiceCenter()");		
+            {
+
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.ServiceCenterBL.AddServiceCenter()");		
 		
             }		
             return status;		
@@ -166,8 +162,8 @@ namespace BikewaleOpr.BAL.ServiceCenter
 		
             }		
             catch (Exception ex)		
-            {		
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.ServiceCenterBL.DeleteServiceCenter()");		
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.ServiceCenterBL.DeleteServiceCenter()");		
 		
             }		
             return status;		
@@ -190,8 +186,8 @@ namespace BikewaleOpr.BAL.ServiceCenter
                 }		
             }		
             catch (Exception ex)		
-            {		
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetAllCities()");		
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetAllCities()");		
                		
             }		
             return objCityList;		
@@ -218,8 +214,8 @@ namespace BikewaleOpr.BAL.ServiceCenter
 		
             }		
             catch (Exception ex)		
-            {		
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetServiceCenterDetailsbyId()");		
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetServiceCenterDetailsbyId()");		
                		
             }		
             return objData;		
@@ -243,8 +239,8 @@ namespace BikewaleOpr.BAL.ServiceCenter
                 }		
             }		
             catch (Exception ex)		
-            {		
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetStateDetailsByCity()");		
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetStateDetailsByCity()");		
 		
             }		
             return objData;		

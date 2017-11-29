@@ -41,8 +41,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindDealersCountInNearByCitiesControl()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindDealersCountInNearByCitiesControl()");
+                
             }
         }
 
@@ -65,8 +65,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindDealersCountInNearByCities");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindDealersCountInNearByCities");
+                
             }
             return DealerCountCityList;
         }

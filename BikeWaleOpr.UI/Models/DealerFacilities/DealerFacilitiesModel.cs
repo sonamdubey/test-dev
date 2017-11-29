@@ -71,7 +71,7 @@ namespace BikewaleOpr.Models.DealerFacilities
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Models.DealerFacilities.GetDealerFacilitiesData(), DealerId:{0}", dealerId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.Models.DealerFacilities.GetDealerFacilitiesData(), DealerId:{0}", dealerId));
             }
             return objFacilities;
         }
@@ -115,7 +115,7 @@ namespace BikewaleOpr.Models.DealerFacilities
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Models.DealerFacilities.GetData() DealerId:{0}", dealerId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.Models.DealerFacilities.GetData() DealerId:{0}", dealerId));
             }
             return viewModel;
         }

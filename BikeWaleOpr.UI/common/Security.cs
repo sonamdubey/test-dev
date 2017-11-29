@@ -2,19 +2,13 @@
 //
 
 using System;
-using System.Web;
-using System.Configuration;
-using System.Web.Mail;
-using System.Text;
-using System.Data.SqlClient;
-using System.Data;
 using System.IO;
-using System.Web.Security;
 using System.Security.Cryptography;
+using System.Web;
 
-namespace BikeWaleOpr.Common 
+namespace BikeWaleOpr.Common
 {
-	public static class CarwaleSecurity
+    public static class CarwaleSecurity
 	{
         // Encrypt a string into a string using a password
         private static readonly string _CWpwd = "CaRwAlEmUmBaI";

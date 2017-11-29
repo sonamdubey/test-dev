@@ -14,8 +14,9 @@ namespace Bikewale.Sitemap.DealerLocator
     /// </summary>
     class DealerLocatorSitemap
     {
-        public void GenerateSiteMap()
+        public bool GenerateSiteMap()
         {
+            bool isSuccess = false;
             string domain = ConfigurationManager.AppSettings["SiteMapDomain"];
             string sitemapLoc = ConfigurationManager.AppSettings["SiteMapLoc"];
             IEnumerable<DealerLocatorEntity> SitemapList = null;
@@ -70,6 +71,7 @@ namespace Bikewale.Sitemap.DealerLocator
 
 
                         } while (urlList.Any());
+                        isSuccess = true;
                     }
 
                 }
@@ -77,6 +79,7 @@ namespace Bikewale.Sitemap.DealerLocator
                 {
                     Logs.WriteErrorLog("Bikewale.Sitemap.DealerLocator: GenerateSiteMap: Exception " + ex.Message);
                 }
+            return isSuccess;
         }
         /// <summary>
         /// Creates the dealer locator urls.

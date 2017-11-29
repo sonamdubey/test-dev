@@ -73,8 +73,8 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return objModelsList;
@@ -100,31 +100,31 @@ namespace Bikewale.DAL.BikeData
             throw new NotImplementedException();
         }
 
-        public BikeModelPageEntity GetModelPage(U modelId, bool isNew)
-        {
-            BikeModelPageEntity modelPage = new BikeModelPageEntity();
+        //public BikeModelPageEntity GetModelPage(U modelId, bool isNew)
+        //{
+        //    BikeModelPageEntity modelPage = new BikeModelPageEntity();
 
-            try
-            {
+        //    try
+        //    {
 
-                modelPage.ModelDetails = GetById(modelId);
-                modelPage.ModelDesc = GetModelSynopsis(modelId);
-                modelPage.ModelVersions = GetVersionMinSpecs(modelId, isNew);
-                modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
-                modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
-                modelPage.ModelColors = GetModelColor(modelId);
-            }
+        //        modelPage.ModelDetails = GetById(modelId);
+        //        modelPage.ModelDesc = GetModelSynopsis(modelId);
+        //        modelPage.ModelVersions = GetVersionMinSpecs(modelId, isNew);
+        //        modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
+        //        modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
+        //        modelPage.ModelColors = GetModelColor(modelId);
+        //    }
 
-            catch (Exception ex)
-            {
+        //    catch (Exception ex)
+        //    {
 
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+        //        Bikewale.Notifications.ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
-            }
+        //    }
 
-            return modelPage;
+        //    return modelPage;
 
-        }
+        //}
 
         /// <summary>
         /// Modified By : Sushil Kumar on 21st jan 2016
@@ -138,7 +138,7 @@ namespace Bikewale.DAL.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public BikeModelPageEntity GetModelPage(U modelId)
+        public BikeModelPageEntity GetModelPage(U modelId, int versionId)
         {
             BikeModelPageEntity modelPage = new BikeModelPageEntity();
 
@@ -179,7 +179,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return modelPage;
@@ -255,7 +255,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return objMultiToneColor;
@@ -278,11 +278,12 @@ namespace Bikewale.DAL.BikeData
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_29092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_08112017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
+
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -302,19 +303,22 @@ namespace Bikewale.DAL.BikeData
                                     AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
                                     ElectricStart = !Convert.IsDBNull(dr["ElectricStart"]) ? Convert.ToBoolean(dr["ElectricStart"]) : false,
                                     AntilockBrakingSystem = !Convert.IsDBNull(dr["AntilockBrakingSystem"]) ? Convert.ToBoolean(dr["AntilockBrakingSystem"]) : false,
-                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"])
+                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"]),
+                                    HostUrl = Convert.ToString(dr["HostURL"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
                                 });
                             }
                             dr.Close();
                         }
+
                     }
                 }
 
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
 
@@ -338,12 +342,12 @@ namespace Bikewale.DAL.BikeData
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_modelid", modelId);
 
-                    objMinSpecs = connection.Query<BikeVersionMinSpecs>("getfuturisticversions", param: param, commandType: CommandType.StoredProcedure);
+                    objMinSpecs = connection.Query<BikeVersionMinSpecs>("getfuturisticversions_13112017", param: param, commandType: CommandType.StoredProcedure);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.BikeModelsRepository.GetFuturisticVersionMinSpecs_{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeModelsRepository.GetFuturisticVersionMinSpecs_{0}", modelId));
             }
             return objMinSpecs;
         }
@@ -377,7 +381,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_23102017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_20112017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -408,6 +412,7 @@ namespace Bikewale.DAL.BikeData
                                 t.ModelSeries.SeriesId = SqlReaderConvertor.ToUInt32(dr["bikeseriesid"]);
                                 t.ModelSeries.SeriesName = Convert.ToString(dr["bikeseriesname"]);
                                 t.ModelSeries.MaskingName = Convert.ToString(dr["bikeseriesmaskingname"]);
+								t.ModelSeries.IsSeriesPageUrl = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]);
                                 t.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
                                 t.RatingCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"]);
                                 t.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
@@ -444,7 +449,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
 
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
             return t;
@@ -496,7 +501,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
 
@@ -535,8 +540,8 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetModelDescription ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return objModel;
         }   // End of GetModelDescription
@@ -578,14 +583,14 @@ namespace Bikewale.DAL.BikeData
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("GetUpcomingBikeDetails sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetUpcomingBikeDetails ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return objModel;
         }   // End of GetUpcomingBikeDetails
@@ -655,8 +660,8 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetUpcomingBikesList ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return objModelList;
@@ -732,8 +737,8 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return newLaunchedBikes;
         }
@@ -804,8 +809,8 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return newLaunchedBikes;
         }
@@ -864,8 +869,8 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return objList;
@@ -925,8 +930,8 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return objList;
         }
@@ -993,7 +998,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.BikeData.BikeModelsRepository_GetMostPopularBikesByMakeWithCityPrice_{0}_{1}", makeId, cityId));
+                ErrorClass.LogError(err, string.Format("Bikewale.DAL.BikeData.BikeModelsRepository_GetMostPopularBikesByMakeWithCityPrice_{0}_{1}", makeId, cityId));
             }
             return objList;
         }
@@ -1030,17 +1035,12 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("SP_GetModelMappingNames sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("SP_GetModelMappingNames ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
             }
             return ht;
         }
@@ -1068,31 +1068,25 @@ namespace Bikewale.DAL.BikeData
                         {
                             ht = new Hashtable();
 
-                            if (dr != null)
+
+                            while (dr.Read())
                             {
-                                while (dr.Read())
-                                {
-                                    if (!ht.ContainsKey(dr["OldMaskingName"]))
-                                        ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
-                                }
+                                if (!ht.ContainsKey(dr["OldMaskingName"]))
+                                    ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
                             }
+
                             dr.Close();
                         }
                     }
                 }
             }
 
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetOldMaskingNamesList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetOldMaskingNamesList ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
             }
 
             return ht;
@@ -1155,13 +1149,13 @@ namespace Bikewale.DAL.BikeData
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Sql Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Sql Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
+                
             }
 
             return objFeatured;
@@ -1217,8 +1211,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
+                
             }
             return objList;
         }   //End of GetAllModels Method
@@ -1271,7 +1265,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelPhotoInfo", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
             }
             return modelPhotos;
         }
@@ -1341,8 +1335,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsRepository.GetMostPopularBikesbymakecity");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsRepository.GetMostPopularBikesbymakecity");
+                
             }
             return objList;
         }
@@ -1458,8 +1452,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeVersionsRepository<T, U>.GetModelSpecifications()=> modelId: {0}", modelId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("BikeVersionsRepository<T, U>.GetModelSpecifications()=> modelId: {0}", modelId));
+                
             }
             return objMinspecs;
         }
@@ -1525,7 +1519,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetSimilarBikesWithPhotosCount_model" + modelId);
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetSimilarBikesWithPhotosCount_model" + modelId);
             }
             return SimilarBikeInfoList;
 
@@ -1549,7 +1543,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetAlternativeBikesWithPhotos_Model" + modelId);
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetAlternativeBikesWithPhotos_Model" + modelId);
             }
             return SimilarBikeInfoList;
         }
@@ -1571,7 +1565,7 @@ namespace Bikewale.DAL.BikeData
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetAlternativeBikesWithPhotosInCity_Model_{0}_City_{1}", modelId, cityId));
+                    ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.GetAlternativeBikesWithPhotosInCity_Model_{0}_City_{1}", modelId, cityId));
                 }
                 return SimilarBikeInfoList;
             }
@@ -1635,7 +1629,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("ModelVersionDescription.GetDetailsByModel_modelid_{0}", modelId));
+                ErrorClass.LogError(err, string.Format("ModelVersionDescription.GetDetailsByModel_modelid_{0}", modelId));
             }
             return objReview;
         }
@@ -1697,7 +1691,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("ModelVersionDescription.GetDetailsByModel_modelid_{0}", versionId));
+                ErrorClass.LogError(err, string.Format("ModelVersionDescription.GetDetailsByModel_modelid_{0}", versionId));
             }
             return objReview;
         }
@@ -1749,7 +1743,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
 
-                ErrorClass objErr = new ErrorClass(err, string.Format(" ModelVersionDescription.GetUserReviewSimilarBike_modelid_{0}_topcount_{1}", modelId, topCount));
+                ErrorClass.LogError(err, string.Format(" ModelVersionDescription.GetUserReviewSimilarBike_modelid_{0}_topcount_{1}", modelId, topCount));
 
             }
             return objUserreview;
@@ -1845,7 +1839,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
 
-                ErrorClass objErr = new ErrorClass(err, string.Format(" ModelVersionDescription.GetDetails_ReviewId_{0}", reviewId));
+                ErrorClass.LogError(err, string.Format(" ModelVersionDescription.GetDetails_ReviewId_{0}", reviewId));
 
             } // catch Exception
             return objReview;
@@ -1883,7 +1877,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetBikeBodyType_ModelId: {0}", modelId));
+                ErrorClass.LogError(ex, string.Format(" GetBikeBodyType_ModelId: {0}", modelId));
             }
             return bodyStyle;
         }
@@ -1953,8 +1947,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManageModelColor.GetModelColorPhotos ==> ModelId {0}", modelId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("ManageModelColor.GetModelColorPhotos ==> ModelId {0}", modelId));
+                
             }
 
             return modelColors;
@@ -2018,7 +2012,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetPopularBikesByBodyStyle_ModelId: {0}, topCount: {1}", modelId, topCount));
+                ErrorClass.LogError(ex, string.Format(" GetPopularBikesByBodyStyle_ModelId: {0}, topCount: {1}", modelId, topCount));
             }
             return popularBikesList;
         }
@@ -2047,7 +2041,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeInfo: ModelId:{0}", modelId));
+                ErrorClass.LogError(ex, String.Format("GenericBikeRepository.GetBikeInfo: ModelId:{0}", modelId));
 
             }
             return genericBikeInfo;
@@ -2111,7 +2105,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "GenericBikeRepository.PopulateGenericBikeInfoEntity: ModelId:{0}");
+                ErrorClass.LogError(ex, "GenericBikeRepository.PopulateGenericBikeInfoEntity: ModelId:{0}");
             }
             return null;
         }
@@ -2146,7 +2140,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeInfo: ModelId:{0}", modelId));
+                ErrorClass.LogError(ex, String.Format("GenericBikeRepository.GetBikeInfo: ModelId:{0}", modelId));
 
             }
             return genericBikeInfo;
@@ -2187,7 +2181,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeRankingByCategory: ModelId:{0}", modelId));
+                ErrorClass.LogError(ex, String.Format("GenericBikeRepository.GetBikeRankingByCategory: ModelId:{0}", modelId));
             }
             return bikeRankObj;
         }
@@ -2267,7 +2261,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBestBikesByCategory: BodyStyleId:{0}", bodyStyle));
+                ErrorClass.LogError(ex, String.Format("GenericBikeRepository.GetBestBikesByCategory: BodyStyleId:{0}", bodyStyle));
             }
             return bestBikesList;
         }
@@ -2327,7 +2321,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBestBikesByCategory: ModelId:{0}", modelId));
+                ErrorClass.LogError(ex, String.Format("GenericBikeRepository.GetBestBikesByCategory: ModelId:{0}", modelId));
             }
             return bestBikesList;
         }
@@ -2393,7 +2387,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBestBikesByCategory: ModelId:{0} Cityid:{1}", modelId, cityId));
+                ErrorClass.LogError(ex, String.Format("GenericBikeRepository.GetBestBikesByCategory: ModelId:{0} Cityid:{1}", modelId, cityId));
             }
             return bestBikesList;
         }
@@ -2439,7 +2433,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
 
-                ErrorClass objErr = new ErrorClass(err, " Bikewale.DAL.BikeData.GetMakeIfVideo");
+                ErrorClass.LogError(err, " Bikewale.DAL.BikeData.GetMakeIfVideo");
 
             } // catch Exception
             return objVideoMake;
@@ -2498,7 +2492,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesVideos_Model: {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesVideos_Model: {0}", modelId));
             }
             return SimilarBikeInfoList;
         }
@@ -2555,7 +2549,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesUserReviews_Model: {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesUserReviews_Model: {0}", modelId));
             }
             return SimilarBikeInfoList;
         }
@@ -2613,7 +2607,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesUserReviews_Model: {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesUserReviews_Model: {0}", modelId));
             }
             return SimilarBikeInfoList;
         }
@@ -2688,7 +2682,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
             }
             return newLaunchedBikes;
         }
@@ -2771,7 +2765,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
             }
             return newLaunchedBikes;
         }
@@ -2842,7 +2836,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
             }
             return popularScooters;
         }
@@ -2903,7 +2897,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.BikeData.GetMostPopularScooters MakeId:{0}", makeId));
+                ErrorClass.LogError(err, string.Format("Bikewale.DAL.BikeData.GetMostPopularScooters MakeId:{0}", makeId));
             }
             return objList;
         }
@@ -2980,7 +2974,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
             }
             return popularScooters;
         }
@@ -3039,7 +3033,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetPopularBikesByBodyStyle_bodyStyleId: {0}, topCount: {1}, cityId: {2}", bodyStyleId, topCount, cityId));
+                ErrorClass.LogError(ex, string.Format(" GetPopularBikesByBodyStyle_bodyStyleId: {0}, topCount: {1}, cityId: {2}", bodyStyleId, topCount, cityId));
             }
             return popularBikesList;
 
@@ -3121,7 +3115,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMileageForModel");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetMileageForModel");
             }
             return mileageDetails;
         }

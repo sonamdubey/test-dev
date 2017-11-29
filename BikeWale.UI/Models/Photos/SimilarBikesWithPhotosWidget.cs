@@ -53,7 +53,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Photos.GetData : ModelId - {0},CityId - {1} ", _modelId, _cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.GetData : ModelId - {0},CityId - {1} ", _modelId, _cityId));
             }
             return objData;
         }

@@ -47,8 +47,7 @@ namespace Bikewale.Notifications.NotificationDAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notifications.NotificationDAL.SavePQNotification.SaveDealerPQTemplate");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Notifications.NotificationDAL.SavePQNotification.SaveDealerPQTemplate");
             }
         }
 
@@ -90,8 +89,7 @@ namespace Bikewale.Notifications.NotificationDAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notifications.NotificationDAL.SavePQNotification.SaveCustomerPQTemplate");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Notifications.NotificationDAL.SavePQNotification.SaveCustomerPQTemplate");
             }
         }
 
@@ -124,8 +122,8 @@ namespace Bikewale.Notifications.NotificationDAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notifications.NotificationDAL.SavePQNotification.SaveDealerPQEmailTemplate");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Notifications.NotificationDAL.SavePQNotification.SaveDealerPQEmailTemplate");
+                
             }
         }
 
@@ -159,8 +157,8 @@ namespace Bikewale.Notifications.NotificationDAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notifications.NotificationDAL.SavePQNotification.SaveDealerPQEmailTemplate");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Notifications.NotificationDAL.SavePQNotification.SaveDealerPQEmailTemplate");
+                
             }
         }
     }   //End of class

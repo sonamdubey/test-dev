@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BikeWaleOpr.Entities.Pager
+﻿namespace BikeWaleOpr.Entities.Pager
 {
     public class PagerEntity
     {

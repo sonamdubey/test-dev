@@ -72,7 +72,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelsRepository.GetUpcomingModels");
+                ErrorClass.LogError(ex, "ModelsRepository.GetUpcomingModels");
             }
 
             return objModelList;

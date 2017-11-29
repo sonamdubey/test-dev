@@ -63,8 +63,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Pwa.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Pwa.CMS.CMSController");
+               
                 return InternalServerError();
             }
             return NotFound();

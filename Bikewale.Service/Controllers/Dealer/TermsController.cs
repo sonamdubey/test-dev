@@ -38,8 +38,8 @@ namespace Bikewale.Service.Controllers.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.AppNotifications.Post");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.AppNotifications.Post");
+               
                 return InternalServerError();
             }
         }

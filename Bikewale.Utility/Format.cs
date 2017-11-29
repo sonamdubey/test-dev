@@ -1,11 +1,35 @@
-﻿using RabbitMqPublishing.Common;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility
 {
     public static class Format
     {
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 23 Nov 2017
+		/// Description : Format time to hh:mm:ss
+		/// </summary>
+		public static string FormatTime(uint seconds)
+		{
+			string time = string.Empty;
+			try
+			{
+				if (seconds > 3600)
+				{
+					time = TimeSpan.FromSeconds(seconds).ToString(@"hh\:mm\:ss");
+				}
+				else
+				{
+					time = TimeSpan.FromSeconds(seconds).ToString(@"mm\:ss");
+				}
+			}
+			catch (Exception)
+			{
+                throw;
+			}
+			return time;
+		}
+
         public static string FormatPrice(string minPrice, string maxPrice)
         {
             if ((string.IsNullOrEmpty(minPrice) && string.IsNullOrEmpty(maxPrice)) || (minPrice == "0" && maxPrice == "0"))
@@ -54,9 +78,9 @@ namespace Bikewale.Utility
                     }
                 }
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("FormatNumeric, input : {0}", numberToFormat));
+                return numberToFormat;
             }
             return formatted;
         }
@@ -146,11 +170,10 @@ namespace Bikewale.Utility
                         break;
                 }
 
-                retValue.Replace(".00", string.Empty);
+                retValue = retValue.Replace(".00", string.Empty);
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("FormatPriceShort, input : {0}", number));
                 return "N/A";
             }
 
@@ -196,10 +219,8 @@ namespace Bikewale.Utility
 
                 retValue.Replace(".00", string.Empty);
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("FormatPriceShort, input : {0}", number));
-                objErr.SendMail();
                 return "N/A";
             }
 
@@ -223,17 +244,16 @@ namespace Bikewale.Utility
                 }
                 else if (number < 1000000) //less than million
                 {
-                    return String.Format("{0:0.0}k", ((double)number / 1000));
+                    return String.Format("{0:0.#}k", ((double)number / 1000));
                 }
                 else // greater than million
                 {
-                    return String.Format("{0:0.0}m", (number / 1000000));
+                    return String.Format("{0:0.#}m", (number / 1000000));
                 }
 
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("FormatPriceShort, input : {0}", number));
                 return "0";
             }
         }
@@ -274,9 +294,9 @@ namespace Bikewale.Utility
                     retVal = String.Format(textToReplace, campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage, PinCodeRequired.ToString().ToLower(), Convert.ToString(EmailRequired).ToLower());
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("FormatManufacturerAd: campaignId {0} ManufacturerName : {1}   MaskingNumber :{2}  dealerid :{3}   dealerArea :{4}  LeadSourceId:{5}  PqSourceId :{6}  action:{7}  category:{8}  label:{9}  hide:{10}   LeadCapturePopupHeading:{11}   LeadCapturePopupDescription:{12}   LeadCapturePopupMessage:{13} PinCodeRequired:{14} EmailRequired:{15}", campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage, PinCodeRequired, EmailRequired));
+                return retVal;
             }
 
             return retVal;
