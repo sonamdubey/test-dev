@@ -33,22 +33,6 @@ namespace Bikewale.Sitemap.MainSitemap
             IDictionary<UrlType, IDictionary<int, ICollection<KeyValuePair<int, string>>>> SitemapList = new Dictionary<UrlType, IDictionary<int, ICollection<KeyValuePair<int, string>>>>();
             try
             {
-                //GetData(UrlType.Make, strMakes, SitemapList);
-                //GetData(UrlType.Model, strModels, SitemapList);
-                //GetData(UrlType.ModelImage, strModelImages, SitemapList);
-                //GetData(UrlType.ScooterMake, strScooterMakes, SitemapList);
-                //GetData(UrlType.ModelSpec, strModelSpecs, SitemapList);
-                //GetData(UrlType.ModelComparison, strModelCompare, SitemapList);
-                //GetData(UrlType.MakeExpertReviews, strMakeExpertReviews, SitemapList);
-                //GetData(UrlType.ModelExpertReviews, strModelExpertReviews, SitemapList);
-                //GetData(UrlType.MakeNews, strMakeNews, SitemapList);
-                //GetData(UrlType.ModelNews, strModelNews, SitemapList);
-                //GetData(UrlType.MakeUpcoming, strMakeUpcoming, SitemapList);
-                //GetData(UrlType.MakeNewLaunches, strMakeNewLaunches, SitemapList);
-                //GetData(UrlType.MakeUserReviews, strMakeUserReviews, SitemapList);
-                //GetData(UrlType.ModelUserReviews, strModelUserReviews, SitemapList);
-                //GetData(UrlType.MakeVideos, strMakeVideos, SitemapList);
-                //GetData(UrlType.ModelVideos, strModelVideos, SitemapList);
                 if (!String.IsNullOrEmpty(_sitemapSP))
                 {
                     UrlType[] urls = { UrlType.Make, UrlType.Model, UrlType.ModelImage, UrlType.ScooterMake,
