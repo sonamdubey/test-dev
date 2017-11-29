@@ -87,10 +87,10 @@
                     itemValues: itemValues
 
                 };
-
+                var selectAll = !($("#allRowsSelect").val() == "true");
                 $.ajax({
                     type: "POST",
-                    url: "/api/dealers/saveprices/",
+                    url: selectAll ? "/api/dealers/saveprices/" : "/api/dealers/copyprices/",
                     data: dealerVersionPriceDto,
                     success: function (resultData, textStatus, xhr) {
                         if (xhr.status == 200) {
