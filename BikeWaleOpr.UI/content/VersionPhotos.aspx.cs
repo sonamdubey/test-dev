@@ -121,8 +121,8 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
 
         } // btnUpdateModel_Click	
@@ -151,13 +151,13 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objerr = new ErrorClass(err, Request.ServerVariables["url"]);
-                objerr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["url"]);
+                
             }
             catch (Exception err)
             {
-                ErrorClass objerr = new ErrorClass(err, Request.ServerVariables["url"]);
-                objerr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["url"]);
+                
             }
         }
 
@@ -238,14 +238,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
 

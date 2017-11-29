@@ -75,8 +75,8 @@ namespace Bikewale.Service.Controllers.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.Compare.BikeCompareController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Compare.BikeCompareController.Get");
+               
                 return InternalServerError();
             }
         }

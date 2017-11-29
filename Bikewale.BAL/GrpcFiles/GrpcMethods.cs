@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -5,8 +7,6 @@ using EditCMSWindowsService.Messages;
 using Grpc.Core;
 using GRPCLoadBalancer;
 using log4net;
-using System;
-using System.Diagnostics;
 
 namespace Grpc.CMS
 {
@@ -162,6 +162,8 @@ namespace Grpc.CMS
         /// <summary>
         /// Created By  : Sushil Kumar on 22nd Sep 2017
         /// Description : Addded new overload method to fetch data according to categorylist with multiple model ids 
+        /// Modified By : Vivek Singh Tomar on 27th Nov 2017
+        /// Description : Added model ids as parameter in the grpc call
         /// </summary>
         /// <param name="catIdList"></param>
         /// <param name="startIdx"></param>
@@ -193,7 +195,7 @@ namespace Grpc.CMS
                                 CategoryIdList = catIdList,
                                 EndIndex = endIdx,
                                 MakeId = makeid,
-                                //ModelIds = modelIds,
+                                ModelIds = modelIds,
                                 StartIndex = startIdx
                             },
                           null, GetForwardTime(m_ChanelWaitTime));
@@ -275,7 +277,7 @@ namespace Grpc.CMS
                         catch (RpcException e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
 
                             if (i > 0)
                             {
@@ -288,7 +290,7 @@ namespace Grpc.CMS
                         catch (Exception e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
                         }
                     }
                     else
@@ -300,7 +302,7 @@ namespace Grpc.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
+                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
                 return null;
             }
             finally
@@ -1655,7 +1657,7 @@ namespace Grpc.CMS
                         catch (RpcException e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
 
                             if (i > 0)
                             {
@@ -1668,7 +1670,7 @@ namespace Grpc.CMS
                         catch (Exception e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
                         }
                     }
                     else
@@ -1678,7 +1680,7 @@ namespace Grpc.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
+                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
                 return null;
             }
             finally
@@ -1728,7 +1730,7 @@ namespace Grpc.CMS
                         catch (RpcException e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
 
                             if (i > 0)
                             {
@@ -1741,7 +1743,7 @@ namespace Grpc.CMS
                         catch (Exception e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
                         }
                     }
                     else
@@ -1751,7 +1753,7 @@ namespace Grpc.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
                 return null;
             }
             finally
@@ -1799,7 +1801,7 @@ namespace Grpc.CMS
                         catch (RpcException e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
 
                             if (i > 0)
                             {
@@ -1812,7 +1814,7 @@ namespace Grpc.CMS
                         catch (Exception e)
                         {
                             log.Error(e);
-                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
                         }
                     }
                     else
@@ -1822,7 +1824,7 @@ namespace Grpc.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
                 return null;
             }
             finally

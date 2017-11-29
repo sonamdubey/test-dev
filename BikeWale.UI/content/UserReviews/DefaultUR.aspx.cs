@@ -99,8 +99,8 @@ namespace Bikewale.Content
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -133,14 +133,14 @@ namespace Bikewale.Content
             catch (SqlException sqlEx)
             {
                 Trace.Warn(sqlEx.Message + sqlEx.Source);
-                ErrorClass objErr = new ErrorClass(sqlEx, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(sqlEx, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -192,8 +192,8 @@ namespace Bikewale.Content
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
 
             return ds;

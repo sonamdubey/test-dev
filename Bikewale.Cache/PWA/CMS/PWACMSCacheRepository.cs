@@ -1,13 +1,8 @@
-﻿using Bikewale.Entities.CMS.Articles;
-using Bikewale.Entities.CMS.Photos;
+﻿using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Notifications;
 using System;
-using System.Collections.Generic;
-using Bikewale.Entities.PWA.Articles;
 using System.Web;
 using Bikewale.Utility;
 
@@ -40,6 +35,7 @@ namespace Bikewale.Cache.PWA.CMS
             catch (Exception ex)
             {
                 PwaErrorClass objErr = new PwaErrorClass(ex, "PWACMSCacheRepository.GetNewsListDetails",url);
+                ErrorClass.LogError(ex, "PWACMSCacheRepository.GetNewsListDetails");
             }
             return outStr;
         }
@@ -59,6 +55,7 @@ namespace Bikewale.Cache.PWA.CMS
             catch (Exception ex)
             {
                 PwaErrorClass objErr = new PwaErrorClass(ex, "PWACMSCacheRepository.GetNewsDetails: ",url);
+                ErrorClass.LogError(ex, "PWACMSCacheRepository.GetNewsDetails");
             }
             return outStr;
         }

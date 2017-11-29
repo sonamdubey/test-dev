@@ -1,26 +1,12 @@
-﻿using BikewaleOpr.BAL.ContractCampaign;
-using BikewaleOpr.common.ContractCampaignAPI;
-using BikewaleOpr.Common;
-using BikewaleOpr.CommuteDistance;
-using BikewaleOpr.DALs.ContractCampaign;
-using BikewaleOpr.Entities;
-using BikewaleOpr.Entities.ContractCampaign;
+﻿using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.Entity.BikePricing;
-using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Interface.Dealers;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using BikewaleOpr.DALs.BikePricing;
-using BikewaleOpr.Interface.Dealers;
 using System.Collections.ObjectModel;
+using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.Campaign
 {
@@ -76,7 +62,7 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Campaign.ManageDealerPriceCategories.GetPriceCategories");
+                ErrorClass.LogError(ex, "BikewaleOpr.Campaign.ManageDealerPriceCategories.GetPriceCategories");
             }
         }
 
@@ -103,7 +89,7 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Campaign.ManageDealerPriceCategories.btnAddCat_Click");
+                ErrorClass.LogError(ex, "BikewaleOpr.Campaign.ManageDealerPriceCategories.btnAddCat_Click");
             }
         }
     }

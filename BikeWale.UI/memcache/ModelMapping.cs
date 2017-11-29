@@ -37,8 +37,8 @@ namespace Bikewale.Memcache
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return modelId;
@@ -58,8 +58,8 @@ namespace Bikewale.Memcache
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return versionId;
         }

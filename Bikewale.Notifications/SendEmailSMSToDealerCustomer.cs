@@ -322,8 +322,7 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notifications.SendEmailSMSToDealerCustomer.SaveSMSToCustomer");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Notifications.SendEmailSMSToDealerCustomer.SaveSMSToCustomer");
             }
         }
 

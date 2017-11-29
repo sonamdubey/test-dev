@@ -52,8 +52,8 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.GetVersions_Model_{0}_RequestType_{1}", modelId, requestType));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.Bikedata.GetVersions_Model_{0}_RequestType_{1}", modelId, requestType));
+                
             }
             return _objBikeVersions;
         }

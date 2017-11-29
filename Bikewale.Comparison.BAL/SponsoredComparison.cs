@@ -42,7 +42,7 @@ namespace Bikewale.Comparison.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("Bikewale.Comparison.BAL.SponsoredComparison.GetSponsoredVersion({0})", targetVersionIds));
+                ErrorClass.LogError(ex, String.Format("Bikewale.Comparison.BAL.SponsoredComparison.GetSponsoredVersion({0})", targetVersionIds));
             }
             return sponsoredVersion;
         }

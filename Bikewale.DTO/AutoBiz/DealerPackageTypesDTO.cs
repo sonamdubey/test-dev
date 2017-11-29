@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace BikeWale.DTO.AutoBiz
+﻿namespace BikeWale.DTO.AutoBiz
 {
     /// <summary>
     /// Author      :   Sumit Kate on 14 Mar 2016

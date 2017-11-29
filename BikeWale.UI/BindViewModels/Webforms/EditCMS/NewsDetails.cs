@@ -76,7 +76,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err,"Bikewale.BindViewModels.Webforms.EditCMS.GetNewsArticleDetails");
+                ErrorClass.LogError(err,"Bikewale.BindViewModels.Webforms.EditCMS.GetNewsArticleDetails");
             }
         }
 
@@ -101,7 +101,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.CreateMetaTags");
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.CreateMetaTags");
             }
         }
 
@@ -131,7 +131,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex,"Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
+                ErrorClass.LogError(ex,"Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
             }
         }
 
@@ -162,7 +162,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
             }
         }
 
@@ -190,7 +190,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.ProcessQueryString");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.EditCMS.ProcessQueryString");
                 return false;
             }
         }

@@ -51,7 +51,7 @@ namespace Bikewale.Service.Videos.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
                 return InternalServerError();
             }
 
@@ -118,8 +118,8 @@ namespace Bikewale.Service.Videos.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Videos.VideosController");
+               
                 return InternalServerError();
             }
 
@@ -184,7 +184,7 @@ namespace Bikewale.Service.Videos.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Videos.VideosController");
                 return InternalServerError();
             }
         }
@@ -255,8 +255,8 @@ namespace Bikewale.Service.Videos.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Videos.VideosController");
+               
                 return InternalServerError();
             }
         }

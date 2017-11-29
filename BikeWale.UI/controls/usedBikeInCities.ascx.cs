@@ -39,7 +39,7 @@ namespace Bikewale.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "usedBikeInCities.BindCityWidgetWithCount");
+                ErrorClass.LogError(ex, "usedBikeInCities.BindCityWidgetWithCount");
 
             }
         }

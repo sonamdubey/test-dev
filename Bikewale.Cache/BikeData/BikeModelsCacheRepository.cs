@@ -52,8 +52,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelPageDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetModelPageDetails");
+                
             }
 
             return objModelPage;
@@ -97,8 +97,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
+                
             }
 
             return objModelPage;
@@ -845,8 +845,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelColor");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetModelColor");
+                
             }
 
             return objModelPage;
@@ -871,7 +871,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(" BikeModelsCacheRepository.GetUserReviewSimilarBike_modelid_{0}_topcount_{1}", modelId, topCount));
+                ErrorClass.LogError(ex, string.Format(" BikeModelsCacheRepository.GetUserReviewSimilarBike_modelid_{0}_topcount_{1}", modelId, topCount));
 
             }
             return objReviewUser;
@@ -922,8 +922,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetUpcomingBikesList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetUpcomingBikesList");
+                
             }
 
             return objUpcoming;
@@ -946,8 +946,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                
             }
 
             return objBikes;
@@ -971,8 +971,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                
             }
 
             return objBikes;
@@ -998,8 +998,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                
             }
 
             return objBikes;
@@ -1022,8 +1022,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelSynopsis");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetModelSynopsis");
+                
             }
 
             return objModelPage;
@@ -1053,8 +1053,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                
             }
 
             return objBikes;
@@ -1070,8 +1070,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                
             }
 
             return objBikes;
@@ -1094,8 +1094,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                
             }
 
             return objBikes;
@@ -1117,7 +1117,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.Getmodelcolorphotos ==> ModelId: {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.Getmodelcolorphotos ==> ModelId: {0}", modelId));
             }
             return objColorImages;
         }
@@ -1137,7 +1137,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetBikeBodyType_ModelId {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetBikeBodyType_ModelId {0}", modelId));
             }
             return bodystyle;
         }
@@ -1161,7 +1161,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetPopularBikesByBodyStyle: ModelId: {0},CityId {1}", modelId, cityId));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetPopularBikesByBodyStyle: ModelId: {0},CityId {1}", modelId, cityId));
 
             }
             return popularBikesList;
@@ -1185,7 +1185,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBikeInfo ModelId:{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BestBikesCacheRepository.GetBikeInfo ModelId:{0}", modelId));
             }
             return objSearchList;
         }
@@ -1211,7 +1211,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBikeInfo ModelId:{0} CityId:{1}", modelId, cityId));
+                ErrorClass.LogError(ex, string.Format("BestBikesCacheRepository.GetBikeInfo ModelId:{0} CityId:{1}", modelId, cityId));
             }
             return objSearchList;
         }
@@ -1231,7 +1231,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBikeRankingByCategory: ModelId:{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BestBikesCacheRepository.GetBikeRankingByCategory: ModelId:{0}", modelId));
 
             }
             return bikeRankObj;
@@ -1261,7 +1261,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
+                ErrorClass.LogError(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
             }
             return bestBikesList;
         }
@@ -1292,7 +1292,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: ModelId:{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: ModelId:{0}", modelId));
             }
             return bestBikesList;
         }
@@ -1313,7 +1313,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository<T, U>.GetModelPhotoInfo: ModelId:{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository<T, U>.GetModelPhotoInfo: ModelId:{0}", modelId));
 
             }
             return modelInfo;
@@ -1333,7 +1333,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
             }
             return bikes;
         }
@@ -1353,7 +1353,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
             }
             return bikes;
         }
@@ -1374,7 +1374,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
             }
             return popularScooters;
         }
@@ -1394,7 +1394,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetMostPopularScooters: MakeId: {0}", makeId));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetMostPopularScooters: MakeId: {0}", makeId));
 
             }
             return popularBikesList;
@@ -1412,7 +1412,7 @@ namespace Bikewale.Cache.BikeData
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetMostPopularScooters({0},{1},{2})", makeId, cityId, topCount));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetMostPopularScooters({0},{1},{2})", makeId, cityId, topCount));
 
             }
             return popularBikesList;
@@ -1450,7 +1450,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetPopularBikesByBodyStyle: BodyStyleId: {0}, topCount: {1}, CityId {2}", bodyStyleId, topCount, cityId));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetPopularBikesByBodyStyle: BodyStyleId: {0}, topCount: {1}, CityId {2}", bodyStyleId, topCount, cityId));
 
             }
             return popularBikesList;
@@ -1474,7 +1474,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMileageDetails");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMileageDetails");
 
             }
             return mileageInfo;
@@ -1497,7 +1497,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetSeriesByModelId modelId = {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetSeriesByModelId modelId = {0}", modelId));
             }
             return objSeries;
         }

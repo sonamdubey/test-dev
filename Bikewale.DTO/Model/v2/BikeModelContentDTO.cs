@@ -1,11 +1,7 @@
 ﻿using Bikewale.DTO.CMS.Articles;
 using Bikewale.DTO.Videos;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.Model.v2
 {

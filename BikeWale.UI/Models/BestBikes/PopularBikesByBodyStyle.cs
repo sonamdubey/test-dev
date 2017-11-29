@@ -51,7 +51,7 @@ namespace Bikewale.Models.BestBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BestBikes.PopularBikesByBodyStyle.GetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.BestBikes.PopularBikesByBodyStyle.GetData");
             }
             return objPopular;
         }

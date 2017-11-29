@@ -161,7 +161,7 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("RegisteredUser({0})", Newtonsoft.Json.JsonConvert.SerializeObject(user)));
+                ErrorClass.LogError(ex, String.Format("RegisteredUser({0})", Newtonsoft.Json.JsonConvert.SerializeObject(user)));
             }
             return user.CustomerId;
         }
@@ -230,7 +230,7 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UsedBikes.SellBikes.ChangeInquiryStatus({0},{1})", inquiryId, status));
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.UsedBikes.SellBikes.ChangeInquiryStatus({0},{1})", inquiryId, status));
             }
         }
 
@@ -268,7 +268,7 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetById({0},{1})", inquiryId, customerId));
+                ErrorClass.LogError(ex, String.Format("GetById({0},{1})", inquiryId, customerId));
                 return null;
             }
         }
@@ -298,7 +298,7 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("RemoveBikePhotos: ProfileId {0}, CustomerId {1}, photoId {2}", profileId, customerId, photoId));
+                ErrorClass.LogError(ex, String.Format("RemoveBikePhotos: ProfileId {0}, CustomerId {1}, photoId {2}", profileId, customerId, photoId));
             }
 
             return isSuccess;
@@ -388,7 +388,7 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("UploadBikeImage({0},{1},{2},{3})", isMain, customerId, profileId, description));
+                ErrorClass.LogError(ex, String.Format("UploadBikeImage({0},{1},{2},{3})", isMain, customerId, profileId, description));
                 result.Status = ImageUploadResultStatus.InternalError;
 
             }
@@ -426,7 +426,7 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("MakeMainImage({0},{1},{2})", photoId, customerId, profileId));
+                ErrorClass.LogError(ex, String.Format("MakeMainImage({0},{1},{2})", photoId, customerId, profileId));
             }
 
             return isSuccess;

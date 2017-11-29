@@ -50,7 +50,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Controls.BindSimilarBikesWithPhotos_ModelId_" + ModelId);
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Controls.BindSimilarBikesWithPhotos_ModelId_" + ModelId);
             }
             return objSimilarBikes;
         }

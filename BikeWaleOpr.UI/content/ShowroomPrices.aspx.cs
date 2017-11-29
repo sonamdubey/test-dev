@@ -8,7 +8,6 @@ using Microsoft.Practices.Unity;
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Web.UI;
@@ -23,7 +22,7 @@ namespace BikeWaleOpr.Content
         protected HiddenField hdnSelectedCity, hdnSelectedCities;
         protected Repeater rptPrices;
         protected string qryStrVersion;
-        private string modelIds;
+        private string modelIds, seriesIds;
 
         protected override void OnInit(EventArgs e)
         {
@@ -107,8 +106,8 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 Trace.Warn("objMS.FillStates  ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -139,8 +138,8 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -199,7 +198,7 @@ namespace BikeWaleOpr.Content
         private void SavePrices()
         {
             string priceData = string.Empty, citiesList = string.Empty;
-            bool isUpdated = false;
+            
 
             priceData = ParsePriceData();
             citiesList = ParseCitiesList();
@@ -209,20 +208,22 @@ namespace BikeWaleOpr.Content
                 container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
                 IShowroomPricesRepository pricesRepo = container.Resolve<IShowroomPricesRepository>();
 
-                isUpdated = pricesRepo.SaveBikePrices(priceData, citiesList, Convert.ToInt32(CurrentUser.Id));
+                pricesRepo.SaveBikePrices(priceData, citiesList, Convert.ToInt32(CurrentUser.Id));
                 ClearBWCache();
             }
 
             ShowBikePrices();
         }
 
-        /// <summary>
-        /// Created by  :   Sumit Kate on 13 Feb 2017
-        /// Description :   ClearBWCache
-        /// Modified By : Vivek Singh Tomar on 31 July 2017
-        /// Description : Clear city list cache for model when city prices is updated
-        /// </summary>
-        private void ClearBWCache()
+		/// <summary>
+		/// Created by  :   Sumit Kate on 13 Feb 2017
+		/// Description :   ClearBWCache
+		/// Modified By : Vivek Singh Tomar on 31 July 2017
+		/// Description : Clear city list cache for model when city prices is updated
+		/// Modified by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Added call to ClearSeriesCache.
+		/// </summary>
+		private void ClearBWCache()
         {
             string cities = hdnSelectedCities.Value;
             string[] arrCity = cities.Split(',');
@@ -241,18 +242,25 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearPriceQuoteCity(Convert.ToUInt32(model));
                 
             }
+			string[] arrSeries = seriesIds.Split(',');
+			foreach (var series in arrSeries)
+			{
+				BwMemCache.ClearSeriesCache(Convert.ToUInt32(series), !String.IsNullOrEmpty(ddlMakes.SelectedValue) ? Convert.ToUInt32(ddlMakes.SelectedValue) : 0);
+			}
             //To clear new launched bikes cache
             MemCachedUtil.Remove("BW_NewLaunchedBikes");
             BwMemCache.ClearPopularBikesByMakes(!String.IsNullOrEmpty(ddlMakes.SelectedValue) ? Convert.ToUInt32(ddlMakes.SelectedValue) : 0);
         }
 
-        /// <summary>
-        /// Function to retrieve the prices from the table and populate them in the string
-        /// e.g. 900#c0l#150000#c0l#3213#c0l#1500|r0w|902#c0l#175000#c0l#3683#c0l#1500
-        /// where |r0w| represents row split string and #c0l# represents column split string
-        /// </summary>
-        /// <returns>Returns prices in the form of the string e.g. </returns>
-        private string ParsePriceData()
+		/// <summary>
+		/// Function to retrieve the prices from the table and populate them in the string
+		/// e.g. 900#c0l#150000#c0l#3213#c0l#1500|r0w|902#c0l#175000#c0l#3683#c0l#1500
+		/// where |r0w| represents row split string and #c0l# represents column split string
+		/// Modified by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Added seriesIds to get series id of all selected models.
+		/// </summary>
+		/// <returns>Returns prices in the form of the string e.g. </returns>
+		private string ParsePriceData()
         {
             string priceData = string.Empty;
 
@@ -268,6 +276,7 @@ namespace BikeWaleOpr.Content
 
                     string versionid = txtPrice.Attributes["VersionId"];
                     string modelId = txtPrice.Attributes["data-modeldid"];
+					string seriesId = txtPrice.Attributes["data-seriesId"];
                     string price = txtPrice.Text;
                     string insurance = txtInsurance.Text;
                     string rto = txtRTO.Text;
@@ -280,18 +289,20 @@ namespace BikeWaleOpr.Content
                         {
                             priceData += String.Format("{0}#c0l#{1}#c0l#{2}#c0l#{3}|r0w|", versionid, price, insurance, rto);
                         }
-                    }
-
-                }
+						seriesIds += string.Format("{0},", seriesId);
+					}
+				}
 
                 priceData = priceData.Substring(0, priceData.LastIndexOf("|r0w|"));
                 modelIds = modelIds.Substring(0, modelIds.LastIndexOf(","));
+				seriesIds = seriesIds.Substring(0, seriesIds.LastIndexOf(','));
 
-            }
-            catch (Exception ex)
+
+			}
+			catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
 
             return priceData;

@@ -53,25 +53,27 @@ namespace BikeWaleOpr.Content
             }
         } // Page_Load
 
-        /// <summary>
-        /// Modified by : Sajal Gupta on 15-12-16
-        /// Desc : Refreshed modeldetails key for new bike launch.
-        /// Modified by : Sangram Nandkhile on 5th Jan 2017
-        /// Desc : Refreshed modeldetails, launch Details, PopularBikesByMake_ keys for new bike launch.
-        /// Modified by : Sajal Gupta on 9-1-2017
-        /// Desc : Refreshed popularbikekeys for new bike launch.
-        /// Modified by : Aditi Srivastava on 12 Jan 2017
-        /// Desc        : Refreshed upcoming bikes key on new bike launch
-        /// Modified by :   Sumit Kate on 10 Feb 2017
-        /// Description :   Clear BW_NewLaunchedBikes memcache object
-        /// Modified by : Vivek Singh Tomar on 27th Sep 2017
-        /// Summary : Changed version of cache key
-        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
-        /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void btnSave_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Modified by : Sajal Gupta on 15-12-16
+		/// Desc : Refreshed modeldetails key for new bike launch.
+		/// Modified by : Sangram Nandkhile on 5th Jan 2017
+		/// Desc : Refreshed modeldetails, launch Details, PopularBikesByMake_ keys for new bike launch.
+		/// Modified by : Sajal Gupta on 9-1-2017
+		/// Desc : Refreshed popularbikekeys for new bike launch.
+		/// Modified by : Aditi Srivastava on 12 Jan 2017
+		/// Desc        : Refreshed upcoming bikes key on new bike launch
+		/// Modified by :   Sumit Kate on 10 Feb 2017
+		/// Description :   Clear BW_NewLaunchedBikes memcache object
+		/// Modified by : Vivek Singh Tomar on 27th Sep 2017
+		/// Summary : Changed version of cache key
+		/// Modified by : Ashutosh Sharma on 29 Sep 2017 
+		/// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
+		/// Modified by : Ashutosh Sharma on 28 Nov 2017
+		/// Description : Added call to ClearSeriesCache.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
@@ -84,8 +86,9 @@ namespace BikeWaleOpr.Content
                         Label lblId = (Label)dtgrdLaunches.Items[i].FindControl("lblId");
                         Label lblModelId = (Label)dtgrdLaunches.Items[i].FindControl("lblModelId");
                         Label lblMakeId = (Label)dtgrdLaunches.Items[i].FindControl("lblMakeId");
+						Label lblSeriesId = (Label)dtgrdLaunches.Items[i].FindControl("lblSeriesId");
 
-                        if (lblId != null)
+						if (lblId != null)
                             selId += lblId.Text + ",";
                         UInt32 makeId, modelId;
                         //Refresh memcache object for newbikelaunches
@@ -125,6 +128,10 @@ namespace BikeWaleOpr.Content
 
 
                         }
+						if (lblMakeId != null && lblSeriesId != null)
+						{
+							BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(lblSeriesId.Text), Convert.ToUInt32(lblMakeId.Text));
+						}
                     }
                 }
                 if (selId != "" && selModelId != "")
@@ -142,7 +149,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Error at ExpectedLaunches.btnSave_Click() ==> {0}", selModelId));
+                ErrorClass.LogError(err, string.Format("Error at ExpectedLaunches.btnSave_Click() ==> {0}", selModelId));
             }
 
         }   // End btn_Save_click function
@@ -167,17 +174,23 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
             }
         }//End of DeleteExpectedLaunchBike
 
+
+		/// <summary>
+		/// Modified by : Ashutosh Sharma on 28 Nov 2017
+		/// Description : Added cmo.BikeSeriesId in sql query.
+		/// </summary>
+		/// <param name="IsPaging"></param>
         void BindGrid(bool IsPaging)
         {
             string sql = "";
             int pageSize = dtgrdLaunches.PageSize;
 
             sql = @" SELECT ec.Id, ec.BikeMakeId, ec.LaunchDate, ec.ExpectedLaunch, ec.BikeModelId, concat(cma.Name ,'-', cmo.Name) AS BikeName 
-                , ec.EstimatedPriceMin, ec.EstimatedPriceMax, ec.HostURL, ec.SmallPicImagePath ,ec.LargePicImagePath
+                , ec.EstimatedPriceMin, ec.EstimatedPriceMax, ec.HostURL, ec.SmallPicImagePath ,ec.LargePicImagePath, cmo.BikeSeriesId
                 from expectedbikelaunches ec 
                 left join bikemodels cmo on ec.bikemodelid = cmo.id 
                 left join bikemakes cma on cmo.bikemakeid = cma.id 
@@ -227,13 +240,13 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
 
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
 
             }
         }
@@ -301,14 +314,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException sqlEx)
             {
                 Trace.Warn("Sql Exception ", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 Trace.Warn("Exception ", ex.Message);
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }//End UpdateBikeIsLaunched
     } // class

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Bikewale.DTO.AppDeepLinking;
 
 namespace Bikewale.DTO.AppDeepLinking
 {

@@ -97,8 +97,8 @@ namespace Bikewale.MyBikewale
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.CheckIsCustomerAuthorized()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.CheckIsCustomerAuthorized()");
+                
             }
             return isAuthorized;
         }
@@ -120,8 +120,8 @@ namespace Bikewale.MyBikewale
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "RepostSellBikeAd.ProcessQueryString()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "RepostSellBikeAd.ProcessQueryString()");
+                
             }
             return false;
         }

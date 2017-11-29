@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.DAL.Feedback;
+﻿using Bikewale.DAL.Feedback;
 using Bikewale.Interfaces.Feedback;
 using Microsoft.Practices.Unity;
 

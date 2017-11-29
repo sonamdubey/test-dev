@@ -43,8 +43,8 @@ namespace BikewaleOpr.Classified
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindEditedListings");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindEditedListings");
+                
             }
         }
     }

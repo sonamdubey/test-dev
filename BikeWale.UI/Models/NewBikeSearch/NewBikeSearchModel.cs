@@ -112,7 +112,7 @@ namespace Bikewale.Models.NewBikeSearch
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.MapQueryString()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewBikeSearchModel.MapQueryString()");
             }
             return input;
         }
@@ -169,7 +169,7 @@ namespace Bikewale.Models.NewBikeSearch
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindMetas()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewBikeSearchModel.BindMetas()");
             }
         }
 
@@ -213,7 +213,7 @@ namespace Bikewale.Models.NewBikeSearch
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.SetPageType()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewBikeSearchModel.SetPageType()");
             }
         }
 
@@ -263,7 +263,7 @@ namespace Bikewale.Models.NewBikeSearch
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindEditorialWidget()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewBikeSearchModel.BindEditorialWidget()");
             }
         }
 
@@ -285,7 +285,7 @@ namespace Bikewale.Models.NewBikeSearch
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindBrands");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewBikeSearchModel.BindBrands");
             }
         }
 
@@ -318,7 +318,7 @@ namespace Bikewale.Models.NewBikeSearch
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewBikeSearchModel.CreatePager()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewBikeSearchModel.CreatePager()");
             }
         }
 

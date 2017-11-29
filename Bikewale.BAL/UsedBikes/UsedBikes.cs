@@ -48,7 +48,7 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception in Bikewale.BAL.UsedBikes.UsedBikes.GetPopularUsedBikes parametres makeId : {0}, modelId : {1}, cityId : {2}, totalCount : {3}", makeId, modelId, cityId, totalCount));
+                ErrorClass.LogError(ex, String.Format("Exception in Bikewale.BAL.UsedBikes.UsedBikes.GetPopularUsedBikes parametres makeId : {0}, modelId : {1}, cityId : {2}, totalCount : {3}", makeId, modelId, cityId, totalCount));
 
                 return null;
             }
@@ -67,7 +67,7 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikesSeries parametres  seriesId : {0}, cityId : {1}", seriesId, cityId));
+                ErrorClass.LogError(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikesSeries parametres  seriesId : {0}, cityId : {1}", seriesId, cityId));
 
             }
             return usedBikeMakes;
@@ -87,8 +87,8 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception in Bikewale.BAL.UsedBikes.UsedBikes.GetUsedBikeMakesWithCount");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception in Bikewale.BAL.UsedBikes.UsedBikes.GetUsedBikeMakesWithCount");
+                
                 return null;
             }
         }
@@ -130,8 +130,8 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in BAL Layer function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}, platformId : {2} ", profileId, customerId, platformId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in BAL Layer function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}, platformId : {2} ", profileId, customerId, platformId));
+                
             }
             return objInquiryDetailsByProfileId;
         }

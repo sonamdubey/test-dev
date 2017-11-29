@@ -99,7 +99,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.NotifyCustomer");
+                ErrorClass.LogError(ex, "LeadNotificationBL.NotifyCustomer");
             }
         }
 
@@ -143,7 +143,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.NotifyDealer");
+                ErrorClass.LogError(ex, "LeadNotificationBL.NotifyDealer");
             }
         }
 
@@ -193,7 +193,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.PushtoAB");
+                ErrorClass.LogError(ex, "LeadNotificationBL.PushtoAB");
             }
         }
 
@@ -220,7 +220,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.UpdateDealerDailyLeadCount");
+                ErrorClass.LogError(ex, "LeadNotificationBL.UpdateDealerDailyLeadCount");
             }
             return isUpdateDealerCount;
         }
@@ -289,7 +289,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.PushLeadToGaadi()");
+                ErrorClass.LogError(ex, "LeadNotificationBL.PushLeadToGaadi()");
             }
             return isSuccess;
         }
@@ -310,7 +310,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.IsFakeMobileNumber");
+                ErrorClass.LogError(ex, "LeadNotificationBL.IsFakeMobileNumber");
             }
             return isFake;
         }

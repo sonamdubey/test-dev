@@ -1,11 +1,8 @@
 ﻿using BikeWaleOpr.Common;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 
 /// <summary>
 /// Created By Sanjay Soni ON 1/10/2014
@@ -73,8 +70,8 @@ namespace BikeWaleOpr.Classified
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("BindRepeater ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
 

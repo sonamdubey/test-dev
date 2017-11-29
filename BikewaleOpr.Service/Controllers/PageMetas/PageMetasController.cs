@@ -2,10 +2,6 @@
 using BikewaleOpr.BAL;
 using BikewaleOpr.Interface;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers.PageMetas
@@ -57,7 +53,7 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("PageMetasController.UpdatePageMetaStatus({0},{1})", pageMetaId, status));
+                ErrorClass.LogError(ex, String.Format("PageMetasController.UpdatePageMetaStatus({0},{1})", pageMetaId, status));
                 return InternalServerError();
             }
         }

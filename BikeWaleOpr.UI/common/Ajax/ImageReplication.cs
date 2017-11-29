@@ -29,8 +29,8 @@ namespace BikeWaleOpr.Common.Ajax
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "ImageReplication.FetchProcessedImagesList");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ImageReplication.FetchProcessedImagesList");
+                
             }
             return json;
         }   //End of FetchProcessedImagesList
@@ -58,8 +58,8 @@ namespace BikeWaleOpr.Common.Ajax
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "ImageReplication.CheckImageStatus");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ImageReplication.CheckImageStatus");
+                
             }
             return json;
         }   //End of CheckImageStatus
@@ -88,8 +88,8 @@ namespace BikeWaleOpr.Common.Ajax
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "ImageReplication.CheckImageStatus");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ImageReplication.CheckImageStatus");
+                
             }
             return json;
         }   //End of CheckImageStatus_ExpLaunch
@@ -118,8 +118,8 @@ namespace BikeWaleOpr.Common.Ajax
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "ImageReplication.checkImageStatus_BikeVersion");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ImageReplication.checkImageStatus_BikeVersion");
+                
             }
             return json;
         }   // End of checkImageStatus_BikeVersion
@@ -145,8 +145,8 @@ namespace BikeWaleOpr.Common.Ajax
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "ImageReplication.checkImageStatus_BikeVersion");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ImageReplication.checkImageStatus_BikeVersion");
+                
             }
             return json;
         }   // End of checkImageStatus_SeriesPhotos
@@ -178,8 +178,8 @@ namespace BikeWaleOpr.Common.Ajax
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "ImageReplication.checkImageStatus_BikeVersion");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ImageReplication.checkImageStatus_BikeVersion");
+                
             }
             return json;
         }

@@ -25,7 +25,7 @@ namespace Bikewale.Notifications.MailTemplates
             }
             catch (Exception err)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.Notification.ModelSoldUnitMail.ComposeBody");
+                ErrorClass.LogError(err, "Bikewale.Notification.ModelSoldUnitMail.ComposeBody");
 
             } // catch Exception
         }

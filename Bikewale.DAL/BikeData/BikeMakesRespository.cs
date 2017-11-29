@@ -36,6 +36,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   GetBikeMakes_New_29032016 support Dealer request type which returns the makes list of BW and AB dealers
         /// Modified by :-Subodh 0n 08 nov 2016
         /// Description : getbikemakes_new_08112016 added ServiceCenter and changed par_request from string to tinyint(2)
+        /// Modified by sajal Gupta on 14-11-2017
+        /// Description : Added MakeCategoryId
         /// </summary>
         /// <param name="makeType">Type of bike data</param>
         /// <returns>Returns list of type BikeMakeEntityBase</returns>
@@ -46,7 +48,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_30102017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_23112017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, requestType));
@@ -67,7 +69,8 @@ namespace Bikewale.DAL.BikeData
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     LogoUrl = Convert.ToString(dr["LogoUrl"]),
                                     PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
-                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"])
+                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"]),
+                                    MakeCategoryId = SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"])
                                 });
                             }
 
@@ -78,9 +81,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return objMakesList;
         }
@@ -148,14 +150,14 @@ namespace Bikewale.DAL.BikeData
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("GetById sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetById ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return t;
@@ -193,8 +195,8 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetMakeDescription ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return objMake;
@@ -224,14 +226,14 @@ namespace Bikewale.DAL.BikeData
                 catch (SqlException ex)
                 {
                     HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    
                 }
                 catch (Exception ex)
                 {
                     HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    
                 }
             }
             return dt;
@@ -295,8 +297,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("BikeMakeEntityBase.GetMakeDetails(): makeId : {0}", makeId));
-                objErr.SendMail();
+                ErrorClass.LogError(err, string.Format("BikeMakeEntityBase.GetMakeDetails(): makeId : {0}", makeId));
+                
             }
 
             return makeDetails;
@@ -341,8 +343,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return makes;
         }
@@ -384,8 +386,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return bikeLinkList;
@@ -472,8 +474,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "GetAllMakeModels");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "GetAllMakeModels");
+                
             }
 
             return makeModels;
@@ -515,8 +517,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeData.BikeMakesRepository.GetOldMaskingNames");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.BikeMakesRepository.GetOldMaskingNames");
+                
             }
 
             return ht;
@@ -560,7 +562,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "BikeMakesRepository<T, U>.GetScooterMakes()");
+                ErrorClass.LogError(err, "BikeMakesRepository<T, U>.GetScooterMakes()");
             }
 
             return bikeLinkList;
@@ -601,10 +603,98 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.GetScooterMakeDescription: MakeId:{0}", makeId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.GetScooterMakeDescription: MakeId:{0}", makeId));
             }
 
             return objDesc;
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 22nd Nov 2017
+        /// Description: To get sub foooter content and model price list on make page
+        /// </summary>
+        /// <param name="makeId"></param>
+        public MakeSubFooterEntity GetMakeFooterCategoriesandPrice(uint makeId)
+        {
+            MakeSubFooterEntity footerContent = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getmakefootercategoriesandprice"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            if (dr != null)
+                            {
+                                footerContent = new MakeSubFooterEntity();
+                                IList<MakeFooterCategory> makeSummary = new List<MakeFooterCategory>();
+                                IList<BikeVersionPriceEntity> priceList = null;
+                                if (makeSummary != null)
+                                {
+                                    while (dr.Read())
+                                    {
+                                        makeSummary.Add(new MakeFooterCategory()
+                                            {
+
+                                                CategoryId = SqlReaderConvertor.ToUInt32(dr["CategoryId"]),
+                                                CategoryName = Convert.ToString(dr["CategoryName"]),
+                                                CategoryDescription = Convert.ToString(dr["CategoryDescription"])
+                                            }
+                                            );
+                                    }
+                                }
+
+                                if (dr.NextResult())
+                                {
+                                    priceList = new List<BikeVersionPriceEntity>();
+                                    if (priceList != null)
+                                    {
+                                        while (dr.Read())
+                                        {
+                                            priceList.Add(new BikeVersionPriceEntity()
+                                            {
+                                                Make = new BikeMakeBase()
+                                                {
+                                                    MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                                    MakeName = Convert.ToString(dr["Make"]),
+                                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"])
+
+                                                },
+                                                Model = new BikeModelEntityBase()
+                                                {
+                                                    ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]),
+                                                    ModelName = Convert.ToString(dr["Model"]),
+                                                    MaskingName = Convert.ToString(dr["ModelMaskingName"])
+                                                },
+                                                VersionPrice = SqlReaderConvertor.ToInt32(dr["VersionPrice"])
+
+                                            }
+                                                );
+
+                                        }
+                                    }
+
+                                }
+                                dr.Close();
+                                if (footerContent != null)
+                                {
+                                    footerContent.FooterDescription = makeSummary;
+                                    footerContent.ModelPriceList = priceList;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.GetMakeFooterCategoriesandPrice: MakeId:{0}", makeId));
+            }
+            return footerContent;
         }
     }
 }

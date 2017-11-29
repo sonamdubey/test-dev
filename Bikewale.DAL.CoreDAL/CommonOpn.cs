@@ -479,8 +479,8 @@ namespace Bikewale.CoreDAL
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "IsSearchEngine");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "IsSearchEngine");
+                
             }
             return ret;
         }
@@ -854,8 +854,8 @@ namespace Bikewale.CoreDAL
             catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SendMail in CommonOpn");
+                
             }
 
         }
@@ -909,8 +909,8 @@ namespace Bikewale.CoreDAL
             catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SendMail in CommonOpn");
+                
             }
 
         }
@@ -962,8 +962,8 @@ namespace Bikewale.CoreDAL
             catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SendMail in CommonOpn");
+                
             }
 
         }
@@ -1022,8 +1022,8 @@ namespace Bikewale.CoreDAL
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SendMail in CommonOpn");
+                
             }
         }
 
@@ -1098,8 +1098,8 @@ namespace Bikewale.CoreDAL
             catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SendMail in CommonOpn");
+                
             }
 
         }
@@ -1513,8 +1513,8 @@ namespace Bikewale.CoreDAL
         public static void SqlError(SqlException err)
         {
             HttpContext.Current.Trace.Warn("sql: " + err.Message + err.Source);
-            ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            objErr.SendMail();
+            ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            
         }
 
         /*  Summary     : Sending Exception to Trace and Mail
@@ -1523,8 +1523,8 @@ namespace Bikewale.CoreDAL
         public static void ExceptionError(Exception err)
         {
             HttpContext.Current.Trace.Warn(err.Message + err.Source);
-            ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            objErr.SendMail();
+            ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            
         }
 
         // Calculates EMI for any price provided,
@@ -1548,8 +1548,8 @@ namespace Bikewale.CoreDAL
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return emi;
@@ -1574,8 +1574,8 @@ namespace Bikewale.CoreDAL
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return emi;
@@ -1602,8 +1602,8 @@ namespace Bikewale.CoreDAL
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return emi;
@@ -1798,8 +1798,8 @@ namespace Bikewale.CoreDAL
         //    catch (Exception err)
         //    {
         //        HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, "Common.GetBikeCity");
-        //        objErr.SendMail();
+        //        ErrorClass.LogError(err, "Common.GetBikeCity");
+        //        
         //    }
         //    finally
         //    {

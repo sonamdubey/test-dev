@@ -5,7 +5,6 @@ using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -42,8 +41,8 @@ namespace BikewaleOpr.Service.Controllers
                 catch (Exception ex)
                 {
                     HttpContext.Current.Trace.Warn("GetDealerPriceQuote ex : " + ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    
                     return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Internal server error");
                 }
                 if (isSuccess)
@@ -94,8 +93,8 @@ namespace BikewaleOpr.Service.Controllers
                 catch (Exception ex)
                 {
                     HttpContext.Current.Trace.Warn("GetAllDealerPriceQuotes ex : " + ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    
                 }
                 if (dealerPriceQuotes != null)
                 {

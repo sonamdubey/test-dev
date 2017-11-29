@@ -37,7 +37,7 @@ namespace BikewaleOpr.Service.Controllers
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.SaveBannerBasicDetails");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.SaveBannerBasicDetails");
 
                 return InternalServerError();
             }
@@ -57,9 +57,9 @@ namespace BikewaleOpr.Service.Controllers
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.StopBanner");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.StopBanner");
                 return InternalServerError();
-            }           
+            }
         }
 
         /// <summary>
@@ -67,21 +67,24 @@ namespace BikewaleOpr.Service.Controllers
         /// Summary :- Banner SaveBanner properties (desktop and mobile)
         /// </summary>
         [HttpPost, Route("api/bannerproperties/save/{platformId}/")]
-        public IHttpActionResult SaveBanner([FromBody] BannerVM objBanner ,uint platformId)
-        {           
+        public IHttpActionResult SaveBanner([FromBody] BannerVM objBanner, uint platformId)
+        {
             if (platformId > 0)
-            {                
+            {
                 try
                 {
                     BannerDetails objBannerDetails = (platformId == 1) ? objBanner.DesktopBannerDetails : objBanner.MobileBannerDetails;
                     bool success = _objBannerRespository.SaveBannerProperties(objBannerDetails, platformId, objBanner.CampaignId);
-                    if(success)
-                    MemCachedUtil.Remove(string.Format("BW_HomePageBanner_PlatformId_{0}", platformId));
+                    if (success)
+                    {
+                        MemCachedUtil.Remove(string.Format("BW_HomePageBanner_PlatformId_{0}", platformId));
+                    }
+
                     return Ok(success);
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.SaveBanner");
+                    ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.SaveBanner");
 
                     return InternalServerError();
                 }

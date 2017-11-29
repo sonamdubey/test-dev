@@ -40,7 +40,7 @@ namespace Bikewale.DAL.MobileAppAlert
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.MobileAppAlert.SaveIMEIFCMData : imei : {0}, gcmid : {1}, osType {2}: ,subsMaterId : {3}", imei, gcmId, osType, subsMasterId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.MobileAppAlert.SaveIMEIFCMData : imei : {0}, gcmid : {1}, osType {2}: ,subsMaterId : {3}", imei, gcmId, osType, subsMasterId));
                 isResult = false;
             }
             return isResult;
@@ -76,7 +76,7 @@ namespace Bikewale.DAL.MobileAppAlert
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, String.Format("MobileAppAlert.CompleteNotificationProcess, alertTypeId = {0} ,alertId = {1}, articleTitle = {2}, status = {3}, messageid = {4}", payload.AlertTypeId, payload.AlertId, payload.Title, result.Error, result.MessageId));
+                    ErrorClass.LogError(ex, String.Format("MobileAppAlert.CompleteNotificationProcess, alertTypeId = {0} ,alertId = {1}, articleTitle = {2}, status = {3}, messageid = {4}", payload.AlertTypeId, payload.AlertId, payload.Title, result.Error, result.MessageId));
                 }
             }
             return isNotificationComplete;

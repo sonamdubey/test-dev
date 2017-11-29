@@ -3,16 +3,8 @@
 	Written by: Satish Sharma On Jan 21, 2008 12:28 PM
 */
 
-using System;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.Text.RegularExpressions;
+using System.Text;
 
 namespace BikeWaleOpr.Common
 {

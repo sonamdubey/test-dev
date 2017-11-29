@@ -57,7 +57,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.VideosByCategoryPage.GetData: TotalCount {0}", totalCount));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.Videos.VideosByCategoryPage.GetData: TotalCount {0}", totalCount));
             }
             return objVM;
         }
@@ -83,7 +83,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.Videos.VideosByCategoryPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "Bikewale.Models.Videos.VideosByCategoryPage.BindPageMetas()");
             }
         }
 
@@ -120,7 +120,7 @@ namespace Bikewale.Models.Videos
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.Videos.VideosByCategoryPage.SetBreadcrumList()");
+                ErrorClass.LogError(ex, "Bikewale.Models.Videos.VideosByCategoryPage.SetBreadcrumList()");
             }
 
 

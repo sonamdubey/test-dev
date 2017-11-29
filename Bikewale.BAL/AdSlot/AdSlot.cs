@@ -1,6 +1,5 @@
 ﻿using Bikewale.Entities.Models;
 using Bikewale.Interfaces.AdSlot;
-using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +38,7 @@ namespace Bikewale.BAL.AdSlot
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BAL.AdSlot.CheckAdSlotStatus");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BAL.AdSlot.CheckAdSlotStatus");
             }
             return IsActive;
         }

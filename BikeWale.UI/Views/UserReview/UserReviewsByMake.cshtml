@@ -53,8 +53,7 @@
                                     @bikeName (@bike.ReviewCount)
                                 </a>
                             </li>
-                        }
-                       
+                        }                       
                     </ul>
                 </div>
             }
@@ -64,4 +63,24 @@
         <div class="clear"></div>
     </div>
 </section>
+
+@if (Model.OtherMakes != null)
+{
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12 content-box-shadow margin-bottom20 alpha omega">
+                <div class="content-box-shadow padding-top20 padding-bottom20">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <span class="font16 text-semibold text-black">Bike reviews of other brands</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    @Html.Partial("~/Views/Make/_BrandsModelCount.cshtml", Model.OtherMakes)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
 

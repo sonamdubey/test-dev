@@ -33,7 +33,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindUsedBikesInCityCount.BindUsedBikesInCityCount");
+                ErrorClass.LogError(ex, "BindUsedBikesInCityCount.BindUsedBikesInCityCount");
             }
         }
 
@@ -52,7 +52,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCountByMake {0} {1}", makeId, topCount));
+                ErrorClass.LogError(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCountByMake {0} {1}", makeId, topCount));
             }
         }
 
@@ -71,7 +71,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCountByModel {0} {1}", modelId, topCount));
+                ErrorClass.LogError(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCountByModel {0} {1}", modelId, topCount));
             }
         }
     }

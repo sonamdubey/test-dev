@@ -109,7 +109,7 @@ namespace Bikewale.Mobile.Videos
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Videos.BindSimilarVideoControl");
+                ErrorClass.LogError(ex, "Bikewale.Mobile.Videos.BindSimilarVideoControl");
             }
         }
         /// <summary>
@@ -151,8 +151,8 @@ namespace Bikewale.Mobile.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
     }

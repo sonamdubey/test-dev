@@ -1,6 +1,5 @@
 ﻿
 using Bikewale.Entities.GenericBikes;
-using System.Collections.Generic;
 
 namespace Bikewale.Models
 {

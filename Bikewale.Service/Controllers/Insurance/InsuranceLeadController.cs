@@ -110,8 +110,8 @@ namespace Bikewale.Service.Controllers.Insurance
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Exception : Bikewale.Service.Controllers.Insurance.SaveLeadOnClient");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Exception : Bikewale.Service.Controllers.Insurance.SaveLeadOnClient");
+               
             }
 
             //Data Submitt on our side
@@ -121,8 +121,8 @@ namespace Bikewale.Service.Controllers.Insurance
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Exception : Bikewale.Service.Controllers.Insurance.InsuranceLeadController.POST");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Exception : Bikewale.Service.Controllers.Insurance.InsuranceLeadController.POST");
+               
                 return InternalServerError();
             }
             return NotFound();

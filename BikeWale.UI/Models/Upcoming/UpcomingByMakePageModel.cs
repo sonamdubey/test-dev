@@ -110,7 +110,7 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.GetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.GetData");
             }
             return objUpcoming;
         }
@@ -136,7 +136,7 @@ namespace Bikewale.Models.Upcoming
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindMostPopularBikes()");
+                ErrorClass.LogError(ex, "DealerShowroomDealerDetail.BindMostPopularBikes()");
             }
             return objPopularBikes;
         }
@@ -170,7 +170,7 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.BindPageMetaTags");
+                ErrorClass.LogError(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.BindPageMetaTags");
             }
         }
 
@@ -241,7 +241,7 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.CreatePager()");
+                ErrorClass.LogError(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.CreatePager()");
             }
         }
 
@@ -259,7 +259,7 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("Bikewale.Models.Upcoming.UpcomingByMakePageModel.ProcessQueryString({0})", _makeMaskingName));
+                ErrorClass.LogError(ex, String.Format("Bikewale.Models.Upcoming.UpcomingByMakePageModel.ProcessQueryString({0})", _makeMaskingName));
                 Status = StatusCodes.ContentNotFound;
             }
             finally

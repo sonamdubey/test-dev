@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Bikewale.Entities.CMS.Photos;
+﻿using Bikewale.Entities.CMS.Photos;
+using System.Collections.Generic;
 
 namespace Bikewale.Models
 {

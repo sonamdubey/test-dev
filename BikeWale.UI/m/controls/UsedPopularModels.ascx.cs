@@ -63,7 +63,7 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass Er = new ErrorClass(ex, string.Format("Bikewale.Mobile.Controls.UsedPopularModels.BindUsedBikes ==> makeid {0}, cityId {1}, topCount {2}", MakeId, CityId, TopCount));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Mobile.Controls.UsedPopularModels.BindUsedBikes ==> makeid {0}, cityId {1}, topCount {2}", MakeId, CityId, TopCount));
             }
         }
     }

@@ -39,8 +39,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindUsedBikesCityWithCount.getusedbikebycitywithcount");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindUsedBikesCityWithCount.getusedbikebycitywithcount");
+                
             }
             return objBikeCity;
         }

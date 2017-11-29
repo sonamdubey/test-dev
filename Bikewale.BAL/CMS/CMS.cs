@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Script.Serialization;
-using Bikewale.Automappers;
+﻿using Bikewale.Automappers;
 using Bikewale.DTO.CMS.Articles;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
+using System;
+using System.Linq;
 
 namespace Bikewale.BAL.CMS
 {
@@ -125,8 +121,8 @@ namespace Bikewale.BAL.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.CMS.CMS.GetArticleDetailsPageJSON");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.CMS.CMS.GetArticleDetailsPageJSON");
+               
             }
             return articleDetails;
         }   // end of GetArticleDetailsPageJSON 
@@ -229,8 +225,8 @@ namespace Bikewale.BAL.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.CMS.CMS.GetArticleDetailsPagesJSON");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.CMS.CMS.GetArticleDetailsPagesJSON");
+               
             }
 
             return articleDetails;

@@ -35,7 +35,7 @@
                 <div class="padding-18-20">
                     <h2 class="font18 text-black text-bold bg-white dealer-heading inline-block margin-right10">@String.Format("{0} {1} showroom{2} in {3}", Model.TotalDealers, Model.Make.MakeName, Model.TotalDealers > 1 ? "s" : "", Model.CityDetails.CityName)</h2>
                     <div class="inline-block">
-                        <span class="edit-blue-link" id="brandSelect"><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
+                        <span class="edit-blue-link" data-lab="" id="brandSelect"><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
                         @if (Model.BrandCityPopUp != null)
                         {
                             @Html.Partial("~/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopUp)

@@ -1,6 +1,4 @@
-﻿
-using Bikewale.Entities;
-using Bikewale.Entities.UrlShortner;
+﻿using Bikewale.Entities.UrlShortner;
 using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates.UsedBikes;
 using Bikewale.Utility;

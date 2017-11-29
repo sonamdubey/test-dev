@@ -43,8 +43,8 @@ namespace Bikewale.Service.Controllers.AutoBiz
             catch (Exception ex)
             {
                 //HttpContext.Current.Trace.Warn("GetBikeBookingCities ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+               
                 return InternalServerError();
             }
 
@@ -80,8 +80,8 @@ namespace Bikewale.Service.Controllers.AutoBiz
                 catch (Exception ex)
                 {
                     //HttpContext.Current.Trace.Warn("GetBikeBookingCities ex : " + ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                   
                     return InternalServerError();
                 }
 

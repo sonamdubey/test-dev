@@ -83,7 +83,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.GetData()");
+                ErrorClass.LogError(ex, "ScootersIndexPageModel.GetData()");
             }
             return objVM;
         }
@@ -105,7 +105,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindPageMetas()");
+                ErrorClass.LogError(ex, "ScootersIndexPageModel.BindPageMetas()");
             }
         }
 
@@ -126,7 +126,7 @@ namespace Bikewale.Models
             }
             catch(Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindComparison");
+                ErrorClass.LogError(ex, "ScootersIndexPageModel.BindComparison");
             }
        }
 
@@ -146,7 +146,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindUpcoming()");
+                ErrorClass.LogError(ex, "ScootersIndexPageModel.BindUpcoming()");
             }
         }
 
@@ -165,7 +165,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindNewLaunches()");
+                ErrorClass.LogError(ex, "ScootersIndexPageModel.BindNewLaunches()");
             }
         }
 
@@ -185,7 +185,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindPopularBikes()");
+                ErrorClass.LogError(ex, "ScootersIndexPageModel.BindPopularBikes()");
             }
         }
         /// <summary>
@@ -237,7 +237,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindEditorialWidget()");
+                ErrorClass.LogError(ex, "ScootersIndexPageModel.BindEditorialWidget()");
             }
         }
 

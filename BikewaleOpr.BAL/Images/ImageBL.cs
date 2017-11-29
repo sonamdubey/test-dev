@@ -59,7 +59,7 @@ namespace BikewaleOpr.BAL.Images
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GenerateImageUploadToken");
+                ErrorClass.LogError(ex, "GenerateImageUploadToken");
             }
             return token;
         }
@@ -102,8 +102,8 @@ namespace BikewaleOpr.BAL.Images
             catch (Exception ex)
             {
                 token.Status = false;
-                ErrorClass objErr = new ErrorClass(ex, "ProcessImageUpload()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ProcessImageUpload()");
+                
             }
             return token;
         }

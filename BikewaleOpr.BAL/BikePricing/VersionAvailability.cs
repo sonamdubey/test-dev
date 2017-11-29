@@ -40,7 +40,7 @@ namespace BikewaleOpr.BAL.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                ErrorClass.LogError(ex, string.Format(
                     "SaveBikeAvailability dealerId={0} bikeVersionId={1} numberOfDays={2}", dealerId, bikeVersionIdStrings, numberOfDaysStrings));
             }
 
@@ -66,7 +66,7 @@ namespace BikewaleOpr.BAL.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                ErrorClass.LogError(ex, string.Format(
                     "DeleteVersionAvailability dealerId={0} bikeVersionId={1}", dealerId, bikeVersionIdStrings));
             }
 

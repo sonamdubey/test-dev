@@ -55,7 +55,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Controllers.ManageBookingAmountController dealer id {0}", dealerId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.Controllers.ManageBookingAmountController dealer id {0}", dealerId));
             }
             return View(dealerBookingAmountInfo);
         }
@@ -76,7 +76,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Controllers.ManageBookingAmountController.Add"));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.Controllers.ManageBookingAmountController.Add"));
             }
             return Redirect(string.Format("/dealers/{0}/bookingamount/?cityId={1}&makeId={2}&dealerName={3}",
                 objBookingAmountEntity.DealerId,

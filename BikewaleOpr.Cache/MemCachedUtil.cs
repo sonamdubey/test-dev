@@ -23,7 +23,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Cache.MemCachedUtil.MemCachedUtil()");
+                ErrorClass.LogError(ex, "BikewaleOpr.Cache.MemCachedUtil.MemCachedUtil()");
             }
         }
 
@@ -35,7 +35,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Cache.MemCachedUtil.Remove");
+                ErrorClass.LogError(ex, "BikewaleOpr.Cache.MemCachedUtil.Remove");
             }
         }
     }

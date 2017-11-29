@@ -1,6 +1,4 @@
-﻿
-using BikewaleOpr.Entities;
-namespace BikewaleOpr.Entities
+﻿namespace BikewaleOpr.Entities
 {
     public class DealerQuotation
     {

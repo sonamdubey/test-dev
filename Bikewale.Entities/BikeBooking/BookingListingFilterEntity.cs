@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.Entities.BikeBooking
+﻿namespace Bikewale.Entities.BikeBooking
 {
     /// <summary>
     /// Create by   :   Sumit Kate on 05 Feb 2016

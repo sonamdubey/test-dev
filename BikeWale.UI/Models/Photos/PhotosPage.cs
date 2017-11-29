@@ -99,7 +99,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.GetData : GetData({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.GetData : GetData({0})", _modelId));
             }
 
             return _objData;
@@ -155,7 +155,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindPhotos : BindPhotos({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindPhotos : BindPhotos({0})", _modelId));
             }
         }
 
@@ -187,7 +187,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.ProcessQueryStringVariables : ProcessQueryStringVariables({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.ProcessQueryStringVariables : ProcessQueryStringVariables({0})", _modelId));
             }
         }
 
@@ -239,7 +239,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindPageWidgets : BindPageWidgets({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindPageWidgets : BindPageWidgets({0})", _modelId));
             }
         }
 
@@ -268,7 +268,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.SetPageMetas : SetPageMetas({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.SetPageMetas : SetPageMetas({0})", _modelId));
             }
 
         }
@@ -324,7 +324,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.SetPageJSONLDSchema : SetPageJSONLDSchema({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.SetPageJSONLDSchema : SetPageJSONLDSchema({0})", _modelId));
             }
         }
 
@@ -433,7 +433,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.GetData : ParseQueryString({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.GetData : ParseQueryString({0})", _modelId));
                 Status = StatusCodes.ContentNotFound;
             }
         }

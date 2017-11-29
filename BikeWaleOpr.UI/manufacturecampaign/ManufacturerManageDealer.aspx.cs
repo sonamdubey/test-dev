@@ -173,7 +173,7 @@ namespace BikewaleOpr.manufacturecampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ShowData");
+                ErrorClass.LogError(ex, "ShowData");
             }
 
         }
@@ -400,7 +400,7 @@ namespace BikewaleOpr.manufacturecampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "InserOrUpdateDealerCampaign");
+                ErrorClass.LogError(ex, "InserOrUpdateDealerCampaign");
             }
 
         }

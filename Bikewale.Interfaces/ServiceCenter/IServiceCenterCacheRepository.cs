@@ -1,7 +1,7 @@
 ﻿using Bikewale.Entities.Location;
 using Bikewale.Entities.service;
-using System.Collections.Generic;
 using Bikewale.Entities.ServiceCenters;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.ServiceCenter
 {

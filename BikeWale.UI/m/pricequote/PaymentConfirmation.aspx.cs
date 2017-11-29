@@ -57,8 +57,8 @@ namespace Bikewale.Mobile.PriceQuote
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+
                 }
             }
             else
@@ -146,7 +146,7 @@ namespace Bikewale.Mobile.PriceQuote
                             IsInsuranceFree = true;
                         }
                         _objPQ.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(_objPQ.objOffers, _objPQ.objQuotation.PriceList);
-                        if (_objPQ.objQuotation.discountedPriceList != null && _objPQ.objQuotation.discountedPriceList != null)
+                        if (_objPQ.objQuotation.discountedPriceList != null)
                         {
                             rptDiscount.DataSource = _objPQ.objQuotation.discountedPriceList;
                             rptDiscount.DataBind();
@@ -162,8 +162,8 @@ namespace Bikewale.Mobile.PriceQuote
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+
             }
             finally
             {
@@ -225,8 +225,8 @@ namespace Bikewale.Mobile.PriceQuote
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+
             }
         }
 

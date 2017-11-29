@@ -4,11 +4,8 @@ using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.AutoComplete;
 using Bikewale.Service.Utilities;
-using Nest;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 namespace Bikewale.Service.Controllers.AutoComplete
@@ -84,8 +81,8 @@ namespace Bikewale.Service.Controllers.AutoComplete
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.AutoComplete.AutoSuggestController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.AutoComplete.AutoSuggestController");
+               
                 return InternalServerError();
             }
         }

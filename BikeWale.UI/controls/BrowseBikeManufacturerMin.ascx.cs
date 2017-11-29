@@ -54,13 +54,13 @@ namespace Bikewale.Controls
             }
             catch (SqlException err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Controls.LoadMakes");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Controls.LoadMakes");
+                
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Controls.LoadMakes");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Controls.LoadMakes");
+                
             }
         }   // End of LoadMakes method
 

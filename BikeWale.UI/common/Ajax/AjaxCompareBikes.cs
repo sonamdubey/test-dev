@@ -57,13 +57,13 @@ namespace Bikewale.Ajax
             }
             catch (SqlException err)
             {
-                ErrorClass objErr = new ErrorClass(err, "AjaxCompareBikes.GetModels");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxCompareBikes.GetModels");
+                
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "AjaxCompareBikes.GetModels");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxCompareBikes.GetModels");
+                
             }
             return jsonModels;
         }
@@ -113,13 +113,13 @@ namespace Bikewale.Ajax
             }
             catch (SqlException err)
             {
-                ErrorClass objErr = new ErrorClass(err, "AjaxCompareBikes.GetModels");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxCompareBikes.GetModels");
+                
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "AjaxCompareBikes.GetModels");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxCompareBikes.GetModels");
+                
             }
 
             return jsonVersions;
@@ -176,8 +176,8 @@ namespace Bikewale.Ajax
             catch (Exception err)
             {
                 retVal = "";
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return retVal;
         }

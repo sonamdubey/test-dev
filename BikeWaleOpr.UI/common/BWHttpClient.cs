@@ -49,14 +49,14 @@ namespace BikeWaleOpr.Common
             catch (HttpRequestException ex)
             {
                 HttpContext.Current.Trace.Warn("GetApiResponse", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("GetApiResponse", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return objTask;
@@ -178,14 +178,14 @@ namespace BikeWaleOpr.Common
             catch (HttpRequestException ex)
             {
                 HttpContext.Current.Trace.Warn("GetApiResponse", ex.Message);
-                //ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                //objErr.SendMail();
+                //ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                //
             }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("GetApiResponse", err.Message);
-                //ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                //objErr.SendMail();
+                //ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                //
             }
 
             return objTask;

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Runtime.Serialization;
-using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Entities.Compare
 {

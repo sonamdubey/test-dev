@@ -2,7 +2,6 @@
 using Bikewale.DTO.CMS.Photos;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
-using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
@@ -14,9 +13,9 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Net.Http;
 
 namespace Bikewale.Service.Controllers.CMS
 {
@@ -78,8 +77,8 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+               
 
                 return InternalServerError();
 
@@ -142,8 +141,8 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+               
                 return InternalServerError();
             }
 
@@ -193,7 +192,7 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");                
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");                
                 return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
             }            
         }  //get article content          
@@ -245,7 +244,7 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");                
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");                
                 return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
             }            
         }  //get News Details
@@ -286,8 +285,8 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+               
                 return InternalServerError();
             }
 

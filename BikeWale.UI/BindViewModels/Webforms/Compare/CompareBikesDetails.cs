@@ -87,7 +87,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.CompareBikesDetails : CompareBikesDetails");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.CompareBikesDetails : CompareBikesDetails");
             }
         }
 
@@ -132,7 +132,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikesDetails.GetComparedBikeDetails");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikesDetails.GetComparedBikeDetails");
                 isPageNotFound = true;
             }
         }
@@ -186,7 +186,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.GetCompareBikeDetails.GetComparisionTextAndMetas");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.Compare.GetCompareBikeDetails.GetComparisionTextAndMetas");
             }
         }
 
@@ -263,7 +263,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CompareBikesDetails.CreateCompareSummary()");
+                ErrorClass.LogError(ex, "CompareBikesDetails.CreateCompareSummary()");
             }
         }
 
@@ -380,7 +380,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.GetCompareBikeDetails.ParseQueryString");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.Compare.GetCompareBikeDetails.ParseQueryString");
             }
             finally
             {

@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Bikewale.Entities.BikeData
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 20 Nov 2017
     /// Summary : Class to hold series and model masking name properties
     /// </summary>
+    [Serializable]
     public class SeriesMaskingResponse
     {
         /// <summary>
@@ -36,5 +32,10 @@ namespace Bikewale.Entities.BikeData
         /// Value can be 200 or 301. Based on this value redirection of the url can be done
         /// </summary>
         public ushort StatusCode { get; set; }
+
+        /// <summary>
+        /// Value would be name of series or model depending on the masking name redirection
+        /// </summary>
+        public string Name { get; set; }
     }
 }

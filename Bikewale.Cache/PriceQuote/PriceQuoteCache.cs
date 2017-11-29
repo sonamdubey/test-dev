@@ -38,8 +38,8 @@ namespace Bikewale.Cache.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PriceQuoteCache.FetchPriceQuoteOfTopCitiesCache");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "PriceQuoteCache.FetchPriceQuoteOfTopCitiesCache");
+                
             }
             return prices;
         }
@@ -65,7 +65,7 @@ namespace Bikewale.Cache.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PriceQuoteCache.GetModelPriceInNearestCities");
+                ErrorClass.LogError(ex, "PriceQuoteCache.GetModelPriceInNearestCities");
             }
             return prices;
         }
@@ -82,7 +82,7 @@ namespace Bikewale.Cache.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PriceQuoteCache.GetOtherVersionsPrices");
+                ErrorClass.LogError(ex, "PriceQuoteCache.GetOtherVersionsPrices");
             }
             return versions;
         }
@@ -108,7 +108,7 @@ namespace Bikewale.Cache.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PriceQuoteCache.GetManufacturerDealers");
+                ErrorClass.LogError(ex, "PriceQuoteCache.GetManufacturerDealers");
             }
             return dealers;
         }

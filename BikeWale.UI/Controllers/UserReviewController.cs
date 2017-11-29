@@ -1,8 +1,8 @@
 ﻿using System;
+using Bikewale.Notifications;
 using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
-using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
@@ -212,10 +212,10 @@ namespace Bikewale.Controllers
                 if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
                     return View(UserReviewVM);
                 else
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return Redirect("/pageNotFound.aspx");
             }
             else
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("/pageNotFound.aspx");
 
         }
 
@@ -238,12 +238,12 @@ namespace Bikewale.Controllers
                 UserReviewVM = objUserReview.GetData();
             }
             else
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("/m/pageNotFound.aspx");
 
             if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
                 return View(UserReviewVM);
             else
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("/m/pageNotFound.aspx");
 
         }
 
@@ -308,12 +308,12 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return Redirect("/pageNotFound.aspx");
                 }
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("/pageNotFound.aspx");
             }
         }
 
@@ -341,12 +341,12 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return Redirect("/pageNotFound.aspx");
                 }
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("/pageNotFound.aspx");
             }
         }
         /// <summary>
@@ -405,9 +405,9 @@ namespace Bikewale.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.UserReviewController.SaveReview()");
+                ErrorClass.LogError(ex, "Bikewale.Controllers.UserReviewController.SaveReview()");
             }
-            return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            return Redirect("/pageNotFound.aspx");
         }
 
 
@@ -430,12 +430,12 @@ namespace Bikewale.Controllers
                     return View(objPageData);
                 }
                 else
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return Redirect("/pageNotFound.aspx");
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "RateOtherDetails()");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                ErrorClass.LogError(ex, "RateOtherDetails()");
+                return Redirect("/pageNotFound.aspx");
             }
         }
 

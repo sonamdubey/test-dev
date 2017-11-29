@@ -1,6 +1,5 @@
 ﻿
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.SEO;
 namespace Bikewale.Models.Mobile.NewLaunches
 {
     public class NewLaunchedBikes

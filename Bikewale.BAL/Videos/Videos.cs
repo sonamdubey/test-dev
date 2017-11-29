@@ -363,7 +363,7 @@ namespace Bikewale.BAL.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeVideosRepository.GetSimilarModelsVideos => {0}", videoId));
+                ErrorClass.LogError(ex, string.Format("BikeVideosRepository.GetSimilarModelsVideos => {0}", videoId));
             }
 
             return objVideosList;

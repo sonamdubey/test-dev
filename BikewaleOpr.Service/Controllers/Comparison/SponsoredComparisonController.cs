@@ -52,7 +52,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("comparison.SponsoredComparisonController.GetSponsoredComparisons", statuses));
+                ErrorClass.LogError(ex, string.Format("comparison.SponsoredComparisonController.GetSponsoredComparisons", statuses));
                 return InternalServerError();
             }
         }
@@ -79,7 +79,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("comparison.SponsoredComparisonController.GetSponsoredVersionMapping: comparison Id: {0}", id));
+                ErrorClass.LogError(ex, string.Format("comparison.SponsoredComparisonController.GetSponsoredVersionMapping: comparison Id: {0}", id));
                 return InternalServerError();
             }
         }
@@ -104,7 +104,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.SaveSponsoredComparison");
+                ErrorClass.LogError(ex, "comparison.SponsoredComparisonController.SaveSponsoredComparison");
                 return InternalServerError();
             }
             return Ok(comparisonId);
@@ -128,7 +128,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.UpdateSponsoredComparisonStatus");
+                ErrorClass.LogError(ex, "comparison.SponsoredComparisonController.UpdateSponsoredComparisonStatus");
                 return InternalServerError();
             }
             return Ok(isSaved);
@@ -150,7 +150,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.SaveSponsoredComparisonsBikeRules");
+                ErrorClass.LogError(ex, "comparison.SponsoredComparisonController.SaveSponsoredComparisonsBikeRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -173,7 +173,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.DeleteSponsoredComparisonRules");
+                ErrorClass.LogError(ex, "comparison.SponsoredComparisonController.DeleteSponsoredComparisonRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -196,7 +196,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.DeleteSponsoredComparisonModelRules");
+                ErrorClass.LogError(ex, "comparison.SponsoredComparisonController.DeleteSponsoredComparisonModelRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -219,7 +219,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.DeleteTargetComparisonModelRules");
+                ErrorClass.LogError(ex, "Camparison.SponsoredComparisonController.DeleteTargetComparisonModelRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);

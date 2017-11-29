@@ -1,4 +1,6 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Web.Mvc;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
@@ -7,8 +9,6 @@ using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.BikeSeries;
 using Bikewale.Notifications;
-using System;
-using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
@@ -53,7 +53,7 @@ namespace Bikewale.Controllers
             }
             catch (Exception ex)
             {
-                new ErrorClass(ex, "BikeSeriesController.Ctor - Error occured while getting model controller");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikeSeriesController.Ctor - Error occured while getting model controller");
             }
         }
         /// <summary>

@@ -50,8 +50,8 @@ namespace Bikewale.NoPhotoListingsCommunication
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in NoPhotoListingsCommunication.NoPhotoSMS : ");
-                ErrorClass objErr = new ErrorClass(ex, "NoPhotoSMS.SendSMSNoPhoto");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "NoPhotoSMS.SendSMSNoPhoto");
+                
             }
             Logs.WriteInfoLog("Ended  NoPhotoUpload SMS and Email Job Succefully in NoPhotoListingsCommunication.NoPhotoSMS : ");
         }
@@ -81,8 +81,8 @@ namespace Bikewale.NoPhotoListingsCommunication
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in NoPhotoSMS.SendSMSTwoDays : ");
-                ErrorClass objErr = new ErrorClass(ex, "NoPhotoSMS.SendSMSTwoDays");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "NoPhotoSMS.SendSMSTwoDays");
+                
             }
         }
         /// <summary>
@@ -104,8 +104,8 @@ namespace Bikewale.NoPhotoListingsCommunication
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in NoPhotoSMS.SendEmailThreeDays : ");
-                ErrorClass objErr = new ErrorClass(ex, "NoPhotoSMS.SendEmailThreeDays");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "NoPhotoSMS.SendEmailThreeDays");
+                
             }
         }
         /// <summary>
@@ -129,8 +129,8 @@ namespace Bikewale.NoPhotoListingsCommunication
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in NoPhotoSMS.SendEmailSevenDays : ");
-                ErrorClass objErr = new ErrorClass(ex, "NoPhotoSMS.SendEmailSevenDays");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "NoPhotoSMS.SendEmailSevenDays");
+                
             }
         }
     }

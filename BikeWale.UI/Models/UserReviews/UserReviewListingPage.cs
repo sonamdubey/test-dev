@@ -93,7 +93,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewListingPage.GetData()");
+                ErrorClass.LogError(ex, "UserReviewListingPage.GetData()");
                 Status = StatusCodes.ContentNotFound;
             }
             return objData;
@@ -169,7 +169,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewListingPage.BindWidgets()");
+                ErrorClass.LogError(ex, "UserReviewListingPage.BindWidgets()");
             }
         }
 
@@ -200,7 +200,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewListingPage.ParseQueryString()");
+                ErrorClass.LogError(ex, "UserReviewListingPage.ParseQueryString()");
             }
         }
         /// <summary>
@@ -252,7 +252,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewListingPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "UserReviewListingPage.BindPageMetas()");
             }
         }
 
@@ -296,7 +296,8 @@ namespace Bikewale.Models.UserReviews
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objPage.RatingsInfo.Make.MakeName)));
             }
-            if (objPage.RatingReviewData != null && objPage.RatingReviewData.RatingDetails != null && objPage.RatingReviewData.RatingDetails.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(objPage.RatingsInfo.Make.IsScooterOnly))
+            if (objPage.RatingReviewData != null && objPage.RatingReviewData.RatingDetails != null &&
+                objPage.RatingReviewData.RatingDetails.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(objPage.RatingsInfo.Make.IsScooterOnly))
             {
                 if (IsMobile)
                 {

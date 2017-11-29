@@ -81,13 +81,13 @@ namespace Bikewale.CV
 			}
             catch (SqlException err)
             { 
-                ErrorClass objErr = new ErrorClass(err, "CustomerVerification.IsMobileVerified sql ");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "CustomerVerification.IsMobileVerified sql ");
+                
             } // catch Exception
 			catch(Exception err)
 			{
-				ErrorClass objErr = new ErrorClass(err,"CustomerVerification.IsMobileVerified");
-				objErr.SendMail();
+				ErrorClass.LogError(err,"CustomerVerification.IsMobileVerified");
+				
 			} // catch Exception
 
             return isMobVer;
@@ -126,8 +126,8 @@ namespace Bikewale.CV
 			}
 			catch(Exception err)
 			{
-				ErrorClass objErr = new ErrorClass(err,"CustomerVerification.SavePendingListData");
-				objErr.SendMail();
+				ErrorClass.LogError(err,"CustomerVerification.SavePendingListData");
+				
 			} // catch Exception
 
 			return verified;

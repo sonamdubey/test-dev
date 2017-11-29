@@ -32,20 +32,22 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: GetSeries");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeSeries: GetSeries");
             }
             return objBikeSeriesList;
         }
 
-        /// <summary>
-        /// Created by : Vivek Singh Tomar on 12th Sep 2017
-        /// Summary : Add new bike series
-        /// </summary>
-        /// <param name="bikeSeries"></param>
-        /// <param name="UpdatedBy"></param>
-        /// <param name="seriesId"></param>
-        /// <param name="isSeriesExist"></param>
-        public Tuple<bool, string, BikeSeriesEntity> AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
+		/// <summary>
+		/// Created by : Vivek Singh Tomar on 12th Sep 2017
+		/// Summary : Add new bike series
+		/// Modified by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Added call to ClearSeriesCache.
+		/// </summary>
+		/// <param name="bikeSeries"></param>
+		/// <param name="UpdatedBy"></param>
+		/// <param name="seriesId"></param>
+		/// <param name="isSeriesExist"></param>
+		public Tuple<bool, string, BikeSeriesEntity> AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
         {
             Tuple<bool, string, BikeSeriesEntity> respObj = null;
             try
@@ -77,6 +79,7 @@ namespace BikewaleOpr.BAL
                         if (objBikeSeries.SeriesId > 0)
                         {
                             BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
+							BwMemCache.ClearSeriesCache(objBikeSeries.SeriesId, makeId);
                             respObj = new Tuple<bool, string, BikeSeriesEntity>(true, "Bike series has been updated successfully.", objBikeSeries);
                         }
                         else
@@ -92,7 +95,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: AddSeries");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeSeries: AddSeries");
                 respObj = new Tuple<bool, string, BikeSeriesEntity>(false, "Something went wrong, could't update.", null);
             }
             return respObj;
@@ -116,7 +119,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: GetSeriesByMake");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeSeries: GetSeriesByMake");
             }
             return objBikeSeriesList;
         }
@@ -178,7 +181,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: EditSeries_{0}_{1}", seriesId, updatedBy));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeSeries: EditSeries_{0}_{1}", seriesId, updatedBy));
             }
             return respObj;
         }
@@ -207,7 +210,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteSeries_{0}", bikeSeriesId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteSeries_{0}", bikeSeriesId));
             }
             return IsDeleted;
         }
@@ -241,7 +244,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteMappingOfModelSeries_{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteMappingOfModelSeries_{0}", modelId));
             }
             return seriesId > 0;
         }
@@ -264,7 +267,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BALs.BikeSeries.Getsynopsis");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BALs.BikeSeries.Getsynopsis");
             }
 
             return objSynopsis;
@@ -291,7 +294,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BALs.BikeSeries.UpdateSynopsis");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BALs.BikeSeries.UpdateSynopsis");
             }
             return isUpdated;
         }

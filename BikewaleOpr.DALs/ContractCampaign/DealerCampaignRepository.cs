@@ -1,16 +1,16 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entity.DealerCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using BikewaleOpr.Entity.DealerCampaign;
-using Bikewale.DAL.CoreDAL;
-using Dapper;
 using System.Linq;
 
 namespace BikewaleOpr.DALs.ContractCampaign
@@ -62,7 +62,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignRepository.FetchBWDealerCampaign({0})", campaignId));
+                ErrorClass.LogError(ex, String.Format("DealerCampaignRepository.FetchBWDealerCampaign({0})", campaignId));
             }
             return dealerCampaign;
         }
@@ -104,7 +104,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCampaignRepository.FetchDealerCallToActions()");
+                ErrorClass.LogError(ex, "DealerCampaignRepository.FetchDealerCallToActions()");
             }
             return callToActions;
         }
@@ -153,8 +153,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCampaignRepository.UpdateBWDealerCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DealerCampaignRepository.UpdateBWDealerCampaign");
+                
             }
 
             return isSuccess;
@@ -204,8 +204,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCampaignRepository.InsertBWDealerCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DealerCampaignRepository.InsertBWDealerCampaign");
+                
             }
 
             return newCampaignId;
@@ -249,7 +249,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignRepository.MakesByDealerCity({0})", cityId));
+                ErrorClass.LogError(ex, String.Format("DealerCampaignRepository.MakesByDealerCity({0})", cityId));
             }
             return callToActions;
         }
@@ -295,7 +295,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignRepository.DealersByMakeCity({0},{1},{2})", cityId, makeId, activecontract));
+                ErrorClass.LogError(ex, String.Format("DealerCampaignRepository.DealersByMakeCity({0},{1},{2})", cityId, makeId, activecontract));
             }
             return callToActions;
         }
@@ -358,7 +358,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignRepository.DealerCampaigns({0},{1})", dealerId, activecontract));
+                ErrorClass.LogError(ex, String.Format("DealerCampaignRepository.DealerCampaigns({0},{1})", dealerId, activecontract));
             }
             return callToActions;
         }
@@ -399,7 +399,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetMappedDealerCampaignAreas");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.UserReviews.GetMappedDealerCampaignAreas");
             }
 
             return objDealerCampaignArea;
@@ -441,7 +441,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.SaveDealerCampaignAreaMapping");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.UserReviews.SaveDealerCampaignAreaMapping");
             }
         }   // end of SaveDealerCampaignAreaMapping 
         #endregion
@@ -490,7 +490,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetDealerToAreasDistance");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.UserReviews.GetDealerToAreasDistance");
             }
 
             return objDistances;
@@ -533,7 +533,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.SaveAdditionalAreasMapping");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.UserReviews.SaveAdditionalAreasMapping");
             }
 
             return objDistances;
@@ -570,7 +570,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.SaveAdditionalAreasMapping");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.UserReviews.SaveAdditionalAreasMapping");
             }
         }   // End of SaveAdditionalAreasMapping 
         #endregion
@@ -604,7 +604,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.DeleteAdditionalMappedAreas");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.UserReviews.DeleteAdditionalMappedAreas");
             }
         }   // End of DeleteAdditionalMappedAreas 
         #endregion

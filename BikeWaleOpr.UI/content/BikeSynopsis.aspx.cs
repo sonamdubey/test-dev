@@ -163,14 +163,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -202,14 +202,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -268,14 +268,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
 
             return lastSavedId;
@@ -322,8 +322,8 @@ namespace BikeWaleOpr.Content
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
                 isSaved = false;
             } // catch Exception
 

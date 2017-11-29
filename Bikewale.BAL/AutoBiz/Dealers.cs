@@ -45,7 +45,7 @@ namespace Bikewale.BAL.AutoBiz
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetSubscriptionDealer({0},{1},{2})", modelId, cityId, areaId));
+                ErrorClass.LogError(ex, String.Format("GetSubscriptionDealer({0},{1},{2})", modelId, cityId, areaId));
             }
             return dealer;
         }

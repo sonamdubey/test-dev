@@ -6,10 +6,6 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.Location;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.PriceQuote
 {

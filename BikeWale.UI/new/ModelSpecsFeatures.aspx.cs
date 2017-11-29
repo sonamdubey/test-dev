@@ -173,8 +173,8 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
+                
             }
             return modelPg;
         }
@@ -201,8 +201,8 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
+                
             }
             return specsFeature;
         }
@@ -257,8 +257,8 @@ namespace Bikewale.New
             {
 
                 Trace.Warn("GetLocationCookie Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQueryString");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQueryString");
+                
             }
             finally
             {
@@ -328,7 +328,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.New.ModelSpecsFeatures.BindSimilarBikes({0})", modelId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.New.ModelSpecsFeatures.BindSimilarBikes({0})", modelId));
             }
         }
 
@@ -362,7 +362,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.New.ModelSpecsFeatures.BindPopularBodyStyle({0})", modelId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.New.ModelSpecsFeatures.BindPopularBodyStyle({0})", modelId));
             }
         }
 

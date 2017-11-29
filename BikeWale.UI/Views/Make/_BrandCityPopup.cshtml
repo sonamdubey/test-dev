@@ -56,7 +56,7 @@
 <script type="text/javascript">
 
     var BrandsKey = "BrandCityPopUp_",BrandCityKey = "brandcity_",brandcityPopUp, makeid = '@Model.MakeId', cityId = '@Model.CityId';
-    var brandcityPopUp,popupcity,popupBrand,vmCityBrandPopup;
+    var brandcityPopUp,popupcity,popupBrand,vmCityBrandPopup,prevCity,prevMake;
     var isDealer = "@Convert.ToBoolean(Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))"== "True";
     var isServiceCenter = "@Convert.ToBoolean(Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))" == "True";
 
@@ -147,6 +147,7 @@
 
             if (makeid>0) {
                 self.selectedBrand(parseInt(makeid));
+                prevMake = prevMake || popupBrand.find("option[value=" + makeid + "]").text();
             }
             popupcity.find("option[value='0']").prop('disabled', true);
             popupcity.trigger('chosen:updated');
@@ -161,7 +162,8 @@
             self.searchByBrandCityBtnClicked(false);
 
             if (self.selectedBrand() != undefined) {
-                BrandCityKey = "brandcity_" +'@Model.PageType'+'_' + self.selectedBrand().toString();
+                BrandCityKey = "brandcity_" + '@Model.PageType' + '_' + self.selectedBrand().toString();
+                
                 if (self.selectCity() != null) {
                     self.SelectedCityId(self.selectCity());
                 }
@@ -232,6 +234,7 @@
 
             if (self.SelectedCityId() != null) {
                 self.preselectCity();
+                prevCity = prevCity || popupcity.find("option[value=" + cityId + "]").text();
             }
             else self.selectCity(null);
             $('#ddlCityPopup').trigger("chosen:updated");
@@ -293,12 +296,15 @@
             self.searchByBrandCityBtnClicked(true);
             isvalid = self.isValidInfoPopup();
             if (isvalid) {
+                var selectedMakeCity = popupBrand.find("option[value=" + self.selectedBrand() + "]").text() + "_" + popupcity.find("option[value=" + self.selectCity() + "]").text(), prevMakeCity = prevMake + "_" + prevCity;
                 if (isDealer)
                 {
+                    triggerGA("Dealer_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity.replace(/\s+/g, "_") + "_To_" + selectedMakeCity.replace(/\s+/g, "_"));
                     window.location.href = "/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
                 }
                 else if (isServiceCenter) {
-            window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
+                    triggerGA("Service_Center_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity.replace(/\s+/g, "_") + "_To_" + selectedMakeCity.replace(/\s+/g, "_"));
+                    window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
             };
         }
     }

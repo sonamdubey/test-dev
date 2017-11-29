@@ -80,8 +80,8 @@ namespace Bikewale.Used.Sell
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindUserId()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.BindUserId()");
+                
             }
         }
 
@@ -105,8 +105,8 @@ namespace Bikewale.Used.Sell
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindMakes()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.BindMakes()");
+                
             }
         }
 
@@ -129,8 +129,8 @@ namespace Bikewale.Used.Sell
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindCities()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.BindCities()");
+                
             }
         }
 
@@ -156,8 +156,8 @@ namespace Bikewale.Used.Sell
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.CheckIsEdit()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.CheckIsEdit()");
+                
             }
         }
 
@@ -201,8 +201,8 @@ namespace Bikewale.Used.Sell
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.GetInquiryDetails()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.GetInquiryDetails()");
+                
             }
 
         }

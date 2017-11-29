@@ -1,5 +1,4 @@
-﻿using RabbitMqPublishing.Common;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility
@@ -24,9 +23,9 @@ namespace Bikewale.Utility
 					time = TimeSpan.FromSeconds(seconds).ToString(@"mm\:ss");
 				}
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				ErrorClass objErr = new ErrorClass(ex, String.Format("FormatTime_seconds_{0}", seconds));
+                throw;
 			}
 			return time;
 		}
@@ -79,9 +78,9 @@ namespace Bikewale.Utility
                     }
                 }
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("FormatNumeric, input : {0}", numberToFormat));
+                return numberToFormat;
             }
             return formatted;
         }
@@ -171,11 +170,10 @@ namespace Bikewale.Utility
                         break;
                 }
 
-                retValue.Replace(".00", string.Empty);
+                retValue = retValue.Replace(".00", string.Empty);
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("FormatPriceShort, input : {0}", number));
                 return "N/A";
             }
 
@@ -221,10 +219,8 @@ namespace Bikewale.Utility
 
                 retValue.Replace(".00", string.Empty);
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("FormatPriceShort, input : {0}", number));
-                objErr.SendMail();
                 return "N/A";
             }
 
@@ -256,9 +252,8 @@ namespace Bikewale.Utility
                 }
 
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("FormatPriceShort, input : {0}", number));
                 return "0";
             }
         }
@@ -299,9 +294,9 @@ namespace Bikewale.Utility
                     retVal = String.Format(textToReplace, campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage, PinCodeRequired.ToString().ToLower(), Convert.ToString(EmailRequired).ToLower());
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("FormatManufacturerAd: campaignId {0} ManufacturerName : {1}   MaskingNumber :{2}  dealerid :{3}   dealerArea :{4}  LeadSourceId:{5}  PqSourceId :{6}  action:{7}  category:{8}  label:{9}  hide:{10}   LeadCapturePopupHeading:{11}   LeadCapturePopupDescription:{12}   LeadCapturePopupMessage:{13} PinCodeRequired:{14} EmailRequired:{15}", campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage, PinCodeRequired, EmailRequired));
+                return retVal;
             }
 
             return retVal;

@@ -12,8 +12,11 @@ using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
+using Bikewale.Models.Make;
+using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -29,6 +32,8 @@ namespace Bikewale.Models
     /// Summary     : Added BL instance instead of cache for comaprison carousel
     /// Modified by : Ashutosh Sharma on 29 Oct 2017
     /// Description : Added property IsAmpPage.
+    /// Modified By :Snehal Dange on 21st Nov 2017
+    /// Description: Added IUserReviewsCache _cacheUserReviews
     /// </summary>
     public class MakePageModel
     {
@@ -44,14 +49,16 @@ namespace Bikewale.Models
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompare _compareBikes = null;
         private readonly IServiceCenter _objSC;
+        private readonly IUserReviewsCache _cacheUserReviews;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
         public CompareSources CompareSource { get; set; }
         public bool IsMobile { get; set; }
         public bool IsAmpPage { get; set; }
+        private CityEntityBase cityBase = null;
 
-        public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
+        public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews)
         {
             this._makeMaskingName = makeMaskingName;
             this._bikeModelsCache = bikeModelsCache;
@@ -64,6 +71,7 @@ namespace Bikewale.Models
             this._upcoming = upcoming;
             this._compareBikes = compareBikes;
             this._objSC = objSC;
+            this._cacheUserReviews = cacheUserReviews;
             ProcessQuery(this._makeMaskingName);
         }
 
@@ -77,7 +85,15 @@ namespace Bikewale.Models
         /// Descriptition :  Chaged default sorting of bikes on page for particuaklar makes
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
-        /// </summary>
+        /// Modified by : Snehal Dange on 21st Nov 2017
+        /// Description : Added BindUserReviews() method.
+        /// Modified by: Snehal Dange on 23rd Nov 2017
+        /// Description : Added BindMakeFooterCategoriesandPriceWidget() method
+        /// Modified by sajal Gupta on 24-11-2017
+        /// Descriptition :  Added BikeCityPopup
+        /// Modified BY: Snehal Dange on 23rd Nov 2017
+        /// Description: Added IsFooterDescriptionAvailable ,IsPriceListingAvailable checks
+        /// </summary>         
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// </returns>
@@ -91,7 +107,7 @@ namespace Bikewale.Models
 
                 uint cityId = 0;
                 string cityName = string.Empty, cityMaskingName = string.Empty;
-                CityEntityBase cityBase = null;
+
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 objData.City = location;
                 if (location != null && location.CityId > 0)
@@ -144,7 +160,20 @@ namespace Bikewale.Models
                 objData.UsedModels = BindUsedBikeByModel(_makeId, cityId);
                 BindDiscontinuedBikes(objData);
                 BindOtherMakes(objData);
+                BindUserReviews(objData);
+                BindMakeFooterCategoriesandPriceWidget(objData);
 
+                objData.BikeCityPopup = new PopUp.BikeCityPopup()
+                {
+                    ApiUrl = "/api/v2/DealerCity/?makeId=" + _makeId,
+                    PopupShowButtonMessage = "Show showrooms",
+                    PopupSubHeading = "See Showrooms in your city!",
+                    FetchDataPopupMessage = "Fetching showrooms for ",
+                    RedirectUrl = string.Format("/{0}-dealer-showrooms-in-", _makeMaskingName),
+                    IsCityWrapperPresent = 1
+                };
+
+                BindShowroomPopularCityWidget(objData);
 
                 #region Set Visible flags
 
@@ -152,7 +181,7 @@ namespace Bikewale.Models
                 {
                     objData.IsUpComingBikesAvailable = objData.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes.Any();
                     objData.IsNewsAvailable = objData.News != null && objData.News.ArticlesList != null && objData.News.ArticlesList.Any();
-                    objData.IsExpertReviewsAvailable = objData.News != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Any();
+                    objData.IsExpertReviewsAvailable = objData.ExpertReviews != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Any();
                     objData.IsVideosAvailable = objData.Videos != null && objData.Videos.VideosList != null && objData.Videos.VideosList.Any();
                     objData.IsUsedModelsBikeAvailable = objData.UsedModels != null && objData.UsedModels.UsedBikeModelList != null && objData.UsedModels.UsedBikeModelList.Any();
 
@@ -162,17 +191,22 @@ namespace Bikewale.Models
 
                     objData.IsMakeTabsDataAvailable = (objData.BikeDescription != null && objData.BikeDescription.FullDescription.Length > 0 || objData.IsNewsAvailable ||
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
+
+                    objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
+                    objData.IsUserReviewsAvailable = (objData.PopularBikesUserReviews != null && objData.PopularBikesUserReviews.BikesReviewsList != null && objData.PopularBikesUserReviews.BikesReviewsList.Any() && objData.PopularBikesUserReviews.BikesReviewsList.FirstOrDefault().MostRecent != null);
+                    objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
+
                 }
 
                 if (IsAmpPage)
                 {
-                    BindAmpJsTags(objData); 
+                    BindAmpJsTags(objData);
                 }
                 #endregion
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, string.Format("MakePageModel.GetData() => MakeId: {0}", _makeId));
+                ErrorClass.LogError(ex, string.Format("MakePageModel.GetData() => MakeId: {0}", _makeId));
             }
 
             return objData;
@@ -197,28 +231,68 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objData));
+                ErrorClass.LogError(ex, String.Format("BindAmpJsTags_{0}", objData));
             }
+        }
+
+        /// <summary>
+        /// Created by Sajal on 24-11-2017
+        /// Desc : Widget Bind Showroom Popular City 
+        /// </summary>
+        /// <param name="objMakePage"></param>
+        private void BindShowroomPopularCityWidget(MakePageVM objMakePage)
+        {
+            DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
+            try
+            {
+                uint topCount = 8;
+                objData.DealerServiceCenters = _cacheDealers.GetPopularCityDealer(_makeId, topCount);
+                objData.MakeMaskingName = objMakePage.MakeMaskingName;
+                objData.MakeName = objMakePage.MakeName;
+                objData.CityCardTitle = "showrooms in";
+                objData.CityCardLink = "dealer-showrooms-in";
+                objData.IsServiceCenterPage = false;
+                objMakePage.DealersServiceCenterPopularCities = objData;
+                if (objData.DealerServiceCenters.DealerDetails.Any())
+                {
+                    objMakePage.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objMakePage.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityBase != null ? cityBase.CityId : 0)).ToList();
+                }
+                objData.IsIndiaCardNeeded = true;
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindShowroomPopularCityWidget");
+            }
+
         }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Aug 2017
         /// Description :   Bind Other Make list
+        /// Modifiwed by Sajal Gupta on 15-11-2017
+        /// Dewsc : Added makecategory sorting logic
         /// </summary>
         /// <param name="objData"></param>
         private void BindOtherMakes(MakePageVM objData)
         {
             try
             {
-                var makes = _bikeMakesCache.GetMakesByType(EnumBikeType.New);
-                if (makes != null && makes.Any())
+                IEnumerable<BikeMakeEntityBase> makes = _bikeMakesCache.GetMakesByType(EnumBikeType.New);
+
+                var popularBrandsList = Utility.BikeFilter.FilterMakesByCategory(_makeId, makes);
+
+                if (popularBrandsList != null && popularBrandsList.Any())
                 {
-                    objData.OtherMakes = makes.Where(m => m.MakeId != _makeId).Take(9);
+                    var otherMakes = new OtherMakesVM();
+                    otherMakes.Makes = popularBrandsList.Take(9);
+                    objData.OtherMakes = otherMakes;
+
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, string.Format("MakePageModel.BindOtherMakes() => MakeId: {0}", _makeId));
+                ErrorClass.LogError(ex, string.Format("MakePageModel.BindOtherMakes() => MakeId: {0}", _makeId));
             }
         }
 
@@ -238,7 +312,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakePageModel.BindUsedBikeByModel()");
+                ErrorClass.LogError(ex, "MakePageModel.BindUsedBikeByModel()");
             }
 
             return UsedBikeModel;
@@ -296,7 +370,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakePageModel.BindCompareBikes");
+                ErrorClass.LogError(ex, "MakePageModel.BindCompareBikes");
             }
         }
 
@@ -356,7 +430,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakePageModel.BindPageMetaTags()");
+                ErrorClass.LogError(ex, "MakePageModel.BindPageMetaTags()");
             }
 
         }
@@ -399,7 +473,8 @@ namespace Bikewale.Models
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objData.Page_H1));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 
 
             objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
@@ -452,7 +527,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.CheckCustomPageMetas() makeId:{0}", _makeId));
+                ErrorClass.LogError(ex, string.Format("MakePageModel.CheckCustomPageMetas() makeId:{0}", _makeId));
             }
         }
 
@@ -490,7 +565,61 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
+                ErrorClass.LogError(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
+            }
+        }
+
+        /// <summary>
+        /// Created By:Snehal Dange on 20th Nov 2017
+        /// Description: Get most recent and helpful reviews by make
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindUserReviews(MakePageVM objData)
+        {
+            try
+            {
+                if (_makeId > 0 && objData != null && _cacheUserReviews != null)
+                {
+                    objData.PopularBikesUserReviews = new BikesWithReviewsByMakeVM();
+                    if (objData.PopularBikesUserReviews != null)
+                    {
+                        objData.PopularBikesUserReviews.BikesReviewsList = _cacheUserReviews.GetBikesWithReviewsByMake(_makeId);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindUserReviews() makeId:{0}", _makeId));
+            }
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 23rd Nov 2017
+        /// Description: Created BindMakeFooterCategoriesandPriceWidget() to bind SubFooter on make page
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMakeFooterCategoriesandPriceWidget(MakePageVM objData)
+        {
+            try
+            {
+                if (_makeId > 0 && objData != null && _bikeMakesCache != null)
+                {
+                    objData.SubFooter = new MakeFooterCategoriesandPriceVM();
+                    if (objData.SubFooter != null)
+                    {
+                        objData.SubFooter.FooterContent = _bikeMakesCache.GetMakeFooterCategoriesandPrice(_makeId);
+                        if (objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any())
+                        {
+                            objData.SubFooter.Make = objData.SubFooter.FooterContent.ModelPriceList.First().Make;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindMakeFooterCategoriesandPriceWidget() makeId:{0}", _makeId));
             }
         }
     }

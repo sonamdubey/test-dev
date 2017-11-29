@@ -216,8 +216,8 @@ namespace Bikewale.DAL.AutoBiz
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("Exception at GetDealerDetails : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+               
             }
 
             return objDetailPQ;
@@ -242,8 +242,8 @@ namespace Bikewale.DAL.AutoBiz
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetDealerCities ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+               
             }
             return dt;
         }
@@ -282,8 +282,8 @@ namespace Bikewale.DAL.AutoBiz
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetAvailabilityDays ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+               
             }
 
             return numOfDays;
@@ -341,8 +341,8 @@ namespace Bikewale.DAL.AutoBiz
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetBikeBookingAmount ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+               
             }
             return objBookingDetails;
         }

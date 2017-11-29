@@ -36,7 +36,7 @@ namespace Bikewale.Cache.AdSlot
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "AdSlotCacheRepository.GetAdSlotStatus");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "AdSlotCacheRepository.GetAdSlotStatus");
             }
             return objAdSlotList;
         }

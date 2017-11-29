@@ -158,8 +158,8 @@ namespace Bikewale.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Bikewale.Notifications.SMSCommon");
+                
             } // catch Exception
             return currentId;
         }
@@ -216,8 +216,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.SMSCommon");
+                
             }
 
             return retVal;
@@ -244,8 +244,8 @@ namespace Bikewale.Common
                 catch (Exception err)
                 {
                     HttpContext.Current.Trace.Warn("Common.SendNanoSMS : " + err.Message);
-                    ErrorClass objErr = new ErrorClass(err, "Common.SendNanoSMS");
-                    objErr.SendMail();
+                    ErrorClass.LogError(err, "Common.SendNanoSMS");
+                    
                 }
             }
             return retVal;

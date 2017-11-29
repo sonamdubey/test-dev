@@ -1,17 +1,13 @@
-﻿using System;
+﻿using Bikewale.Entities.CMS;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Notifications;
+using MySql.CoreDAL;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using Bikewale.Entities.CMS;
-using Bikewale.Interfaces.CMS;
-using Bikewale.CoreDAL;
-using Bikewale.Notifications;
-using System.Data.Common;
-using MySql.CoreDAL;
 
 namespace Bikewale.DAL.CMS
 {
@@ -162,13 +158,13 @@ namespace Bikewale.DAL.CMS
             }
             catch (SqlException err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return v;
@@ -195,13 +191,13 @@ namespace Bikewale.DAL.CMS
             }
             catch (SqlException err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
         }   // End of UpdateViews
@@ -260,14 +256,14 @@ namespace Bikewale.DAL.CMS
             catch (SqlException exSql)
             {
                 HttpContext.Current.Trace.Warn(exSql.Message);
-                ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return featuredList;
@@ -326,14 +322,14 @@ namespace Bikewale.DAL.CMS
             catch (SqlException exSql)
             {
                 HttpContext.Current.Trace.Warn(exSql.Message);
-                ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return featuredList;

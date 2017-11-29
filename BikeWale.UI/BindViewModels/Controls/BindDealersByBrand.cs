@@ -40,8 +40,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindDealersByBrand.GetDealerByBrandList()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindDealersByBrand.GetDealerByBrandList()");
+                
             }
             return dealersData;
         }

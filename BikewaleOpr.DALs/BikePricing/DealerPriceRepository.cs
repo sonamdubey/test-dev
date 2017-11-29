@@ -52,7 +52,7 @@ namespace BikewaleOpr.DALs.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikePricing.DealerPriceRepository.GetAllPriceCategories");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.BikePricing.DealerPriceRepository.GetAllPriceCategories");
             }
             return priceCatList;
         }
@@ -77,7 +77,7 @@ namespace BikewaleOpr.DALs.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.Dals.BikePricing.DealerPriceRepository.SaveBikeCategory : Category:{0}", categoryName));
+                ErrorClass.LogError(ex, String.Format("BikewaleOpr.Dals.BikePricing.DealerPriceRepository.SaveBikeCategory : Category:{0}", categoryName));
             }
             return isSuccess;
         }
@@ -118,7 +118,7 @@ namespace BikewaleOpr.DALs.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                ErrorClass.LogError(ex, string.Format(
                     "GetDealerPrices cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId));
             }
 
@@ -156,7 +156,7 @@ namespace BikewaleOpr.DALs.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                ErrorClass.LogError(ex, string.Format(
                     "DeleteVersionPrices dealerId={0} cityId={1} versionIdList={2}", dealerId, cityId, versionIdList));
             }
 
@@ -203,7 +203,7 @@ namespace BikewaleOpr.DALs.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                ErrorClass.LogError(ex, string.Format(
                     "SaveDealerPrices dealerId={0} cityId={1} versionIdList={2} itemIdList={3} itemValueList={4} enteredBy={5}",
                     dealerIdList, cityIdList, versionIdList, itemIdList, itemValueList, enteredBy));
             }

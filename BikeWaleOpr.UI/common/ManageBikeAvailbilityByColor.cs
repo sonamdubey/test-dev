@@ -1,14 +1,10 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Common
 {
@@ -34,14 +30,13 @@ namespace BikewaleOpr.Common
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbType.Int32, versionId));
 
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {
-                            while (reader.Read())
+                            if (reader.Read())
                             {
                                 modelId = Convert.ToInt32(reader["ModelId"]);
-                                break;
                             }
                         }
                     }
@@ -49,8 +44,7 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageBikeAvailbilityByColor.GetModelIdForVersion");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageBikeAvailbilityByColor.GetModelIdForVersion");
             }
 
             return modelId;
@@ -62,7 +56,7 @@ namespace BikewaleOpr.Common
         /// </summary>
         /// <param name="versionId">Model Id</param>
         /// <returns>Version Color List</returns>
-        public IEnumerable<VersionColorWithAvailability> FetchVersionColorsWithAvailability(int versionId,int dealerId)
+        public IEnumerable<VersionColorWithAvailability> FetchVersionColorsWithAvailability(int versionId, int dealerId)
         {
             IList<VersionColorWithAvailability> versionColors = null;
             try
@@ -79,13 +73,13 @@ namespace BikewaleOpr.Common
                         {
                             versionColors = new List<VersionColorWithAvailability>();
                             while (reader.Read())
-                            {                                            
+                            {
                                 versionColors.Add(new VersionColorWithAvailability()
                                 {
                                     ModelColorID = Convert.ToUInt32(reader["ID"]),
                                     IsActive = Convert.ToBoolean(reader["IsActive"]),
                                     ModelColorName = Convert.ToString(reader["ColorName"]),
-                                    NoOfDays = (String.IsNullOrEmpty(Convert.ToString(reader["NoOfDays"])))?"NA":Convert.ToString(reader["NoOfDays"])
+                                    NoOfDays = (String.IsNullOrEmpty(Convert.ToString(reader["NoOfDays"]))) ? "NA" : Convert.ToString(reader["NoOfDays"])
                                 });
                             }
                         }
@@ -94,8 +88,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageBikeAvailbilityByColor.FetchVersionColorsWithAvailability");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageBikeAvailbilityByColor.FetchVersionColorsWithAvailability");
+
             }
             return versionColors;
         }
@@ -106,7 +100,7 @@ namespace BikewaleOpr.Common
         /// <param name="versionColor">Version Color Entity</param>
         /// <param name="userId">User Id</param>
         /// <returns>Success/Failure</returns>
-        public bool UpdateBikeAvailabilityByColor(VersionColorWithAvailability versionColor, int versionId, int userId,int dealerId)
+        public bool UpdateBikeAvailabilityByColor(VersionColorWithAvailability versionColor, int versionId, int userId, int dealerId)
         {
             bool isSaved = false;
             try
@@ -118,15 +112,15 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, Convert.ToInt32(versionColor.ModelColorID)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_noofdays", DbType.String, 5, versionColor.NoOfDays));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String,100, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String, 100, userId));
 
                     isSaved = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageBikeAvailbilityByColor.UpdateBikeAvailabilityByColor");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageBikeAvailbilityByColor.UpdateBikeAvailabilityByColor");
+
             }
             return isSaved;
         }

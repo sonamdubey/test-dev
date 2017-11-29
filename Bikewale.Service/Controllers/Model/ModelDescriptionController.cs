@@ -52,8 +52,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
+               
                 return InternalServerError();
             }
         }   // Get 

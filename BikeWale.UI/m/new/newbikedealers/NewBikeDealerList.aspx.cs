@@ -150,8 +150,8 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindUserControls : ");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindUserControls : ");
+                
             }
         }
 
@@ -184,8 +184,8 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindDealerList : ");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindDealerList : ");
+                
             }
         }
 
@@ -221,8 +221,8 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindMakesDropdown : ");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindMakesDropdown : ");
+                
             }
         }
 
@@ -266,8 +266,8 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindCitiesDropdown");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindCitiesDropdown");
+                
             }
         }
 
@@ -304,8 +304,8 @@ namespace Bikewale.Mobile.New
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                    
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
@@ -393,8 +393,8 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, " : ProcessQueryString ");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, " : ProcessQueryString ");
+                
             }
             return isValidQueryString;
         }

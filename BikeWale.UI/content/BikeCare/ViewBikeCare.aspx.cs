@@ -87,8 +87,8 @@ namespace Bikewale.Content
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ViewBikeCare.DetailBikeCare");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "ViewBikeCare.DetailBikeCare");
+                    
                 }
             }
             else
@@ -160,8 +160,8 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.BikeCare.BindPageWidgets");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Content.BikeCare.BindPageWidgets");
+                
             }
         }
     }

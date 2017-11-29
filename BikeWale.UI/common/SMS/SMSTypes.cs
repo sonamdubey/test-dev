@@ -75,8 +75,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.SMSCommon");
+                
             }
 
         }
@@ -104,8 +104,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.SMSCommon");
+                
             }
         }
 
@@ -186,8 +186,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.RegistrationSMS : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.RegistrationSMS");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.RegistrationSMS");
+                
             }
 
         }
@@ -205,8 +205,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.SMSDealerAddress : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.SMSDealerAddress");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.SMSDealerAddress");
+                
             }
         }//
 
@@ -232,8 +232,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.SMSNewBikeQuote : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.SMSNewBikeQuote");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.SMSNewBikeQuote");
+                
             }
         }//
 
@@ -262,16 +262,16 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.SMSNewBikeQuote : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.SMSNewBikeQuote");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.SMSNewBikeQuote");
+                
             }
         }
 
         // FUNCTION TO SEND ADDRESS OF THE DEALER TO THE REQUESTED CUSTOMER FROM DEALER SHOWROOM
         private string GetTCNumber(string serviceType)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SMSTypes.GetTCNumber");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "SMSTypes.GetTCNumber");
+            
             return string.Empty;
 
             //Database db = new Database();
@@ -294,8 +294,8 @@ namespace Bikewale.Common
             //catch (Exception err)
             //{
             //    HttpContext.Current.Trace.Warn("Common.GetTCNumber : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, "Common.GetTCNumber");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "Common.GetTCNumber");
+            //    
             //}
             //finally
             //{
@@ -332,8 +332,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.NewBikePriceQuoteSMSToDealer : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.NewBikePriceQuoteSMSToDealer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.NewBikePriceQuoteSMSToDealer");
+                
             }
         }
 
@@ -379,8 +379,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.NewBikePriceQuoteSMSToCustomer : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.NewBikePriceQuoteSMSToCustomer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.NewBikePriceQuoteSMSToCustomer");
+                
             }
         }
 
@@ -424,8 +424,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.BikeBookingSMSToCustomer : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.BikeBookingSMSToCustomer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.BikeBookingSMSToCustomer");
+                
             }
         }
 
@@ -465,8 +465,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Common.NewBikePriceQuoteSMSToDealer : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.NewBikePriceQuoteSMSToDealer");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Common.NewBikePriceQuoteSMSToDealer");
+                
             }
         }
     }   // End of class

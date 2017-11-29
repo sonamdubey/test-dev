@@ -56,8 +56,8 @@ namespace BikewaleOpr.CommuteDistance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetDealer");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetDealer");
+                
             }
 
             return dealers;
@@ -122,8 +122,8 @@ namespace BikewaleOpr.CommuteDistance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetAreaByDealer");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetAreaByDealer");
+                
             }
             finally
             {
@@ -158,8 +158,8 @@ namespace BikewaleOpr.CommuteDistance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UpdateArea");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "UpdateArea");
+                
             }
 
             return resp > 0 ? true : false;

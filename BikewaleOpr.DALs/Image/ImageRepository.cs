@@ -37,7 +37,7 @@ namespace BikewaleOpr.DALs.Images
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ImageRepository.Add()");
+                ErrorClass.LogError(ex, "ImageRepository.Add()");
             }
             return id;
         }

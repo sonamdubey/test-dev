@@ -104,7 +104,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "Bikewale.Models.ScooterExpertReviewsPage.GetData");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.ScooterExpertReviewsPage.GetData");
             }
 
             return objData;
@@ -248,7 +248,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "Bikewale.Models.ScooterExpertReviewsPage.GetWidgetData");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.ScooterExpertReviewsPage.GetWidgetData");
             }
         }
 
@@ -270,7 +270,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "Bikewale.Models.ScooterExpertReviewsPage.BindLinkPager");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.ScooterExpertReviewsPage.BindLinkPager");
             }
         }
         /// <summary>
@@ -343,7 +343,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.ScooterVideos.SetBreadcrumList()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Videos.ScooterVideos.SetBreadcrumList()");
             }
             #endregion
         }

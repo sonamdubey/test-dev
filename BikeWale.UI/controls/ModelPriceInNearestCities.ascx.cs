@@ -91,8 +91,8 @@ namespace Bikewale.Controls
             }
             catch (Exception err)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                Bikewale.Notifications.ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
     }

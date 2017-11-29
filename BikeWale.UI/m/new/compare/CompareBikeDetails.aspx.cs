@@ -88,7 +88,7 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.New.CompareBikeDetails.BindCompareBikes");
+                ErrorClass.LogError(ex, "Bikewale.Mobile.New.CompareBikeDetails.BindCompareBikes");
                 objCompare.isPageNotFound = true;
             }
             finally

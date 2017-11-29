@@ -57,8 +57,8 @@ namespace Bikewale.Service.Controllers.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.Used.UsedBikesSearchController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Used.UsedBikesSearchController.Get");
+               
                 return InternalServerError();
             }
             return NotFound();

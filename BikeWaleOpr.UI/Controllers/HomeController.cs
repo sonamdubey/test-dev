@@ -30,7 +30,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "HomeController/Index");
+                ErrorClass.LogError(ex, "HomeController/Index");
             }
             return View(objHomePageData);
         }

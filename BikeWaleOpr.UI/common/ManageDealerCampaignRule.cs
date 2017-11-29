@@ -45,8 +45,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.FetchBWDealerCampaignRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaignRule.FetchBWDealerCampaignRules");
+                
             }
 
             return dtDealerCampaign;
@@ -56,6 +56,8 @@ namespace BikewaleOpr.Common
         /// Description :   Insert new Campaign Rule/s
         ///                 SP Called : BW_InsertCampaignRule
         ///                 If valid modelId is passed then it adds the rules for all the available dealer bikes of a particular make.
+        /// Updated by  :   Vivek Singh Tomar on 28th Nov 2017
+        /// Description :   Modified the SP added update operation when same rule is given
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="campaignId"></param>
@@ -71,7 +73,7 @@ namespace BikewaleOpr.Common
             bool isSuccess = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertcampaignrule_15052017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertcampaignrule_28112017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
@@ -87,8 +89,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.InsertBWDealerCampaignRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaignRule.InsertBWDealerCampaignRules");
+                
             }
             return isSuccess;
         }
@@ -118,8 +120,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.DeleteDealerCampaignRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageDealerCampaignRule.DeleteDealerCampaignRules");
+                
             }
 
             return isDeleted;

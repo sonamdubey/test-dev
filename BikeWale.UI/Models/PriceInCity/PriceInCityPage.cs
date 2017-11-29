@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bikewale.Common;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
@@ -24,6 +23,7 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.Gallery;
 using Bikewale.Models.PriceInCity;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using Newtonsoft.Json;
 
@@ -182,7 +182,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("ProcessQueryString({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("ProcessQueryString({0},{1})", modelMaskingName, cityMaskingName));
                 Status = StatusCodes.ContentNotFound;
             }
             finally
@@ -281,7 +281,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("CheckCityCookie({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("CheckCityCookie({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -418,7 +418,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("PriceInCityPage.GetData({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, string.Format("PriceInCityPage.GetData({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
         }
@@ -439,7 +439,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "PriceInCityPage.BindAdSlotTags");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "PriceInCityPage.BindAdSlotTags");
             }
         }
 
@@ -461,7 +461,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, string.Format("PriceInCityPage.CheckGallaryLoad_{0}", objVM));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("PriceInCityPage.CheckGallaryLoad_{0}", objVM));
             }
         }
 
@@ -499,7 +499,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, string.Format("PriceInCityPage.BindModelGallery{0}", objVM));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("PriceInCityPage.BindModelGallery{0}", objVM));
             }
         }
 
@@ -524,7 +524,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                var err = new Notifications.ErrorClass(ex, String.Format("ShowInnovationBanner({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("ShowInnovationBanner({0})", _modelId));
             }
         }
 
@@ -641,8 +641,8 @@ namespace Bikewale.Models
                                     }
                                 }
                             }
-                            BuildPageMetas(objVM);
-                            GetManufacturerCampaign(objVM);
+
+
                             objVM.LeadCapture = new LeadCaptureEntity()
                             {
                                 ModelId = modelId,
@@ -666,9 +666,11 @@ namespace Bikewale.Models
                         objVM.Page_H1 = String.Format("{0} price in {1}", objVM.BikeName, objVM.CityEntity.CityName);
 
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
+                        #region Do not change the order
                         BuildPageMetas(objVM);
+                        GetManufacturerCampaign(objVM);
                         BindManufacturerLeadAdAMP(objVM);
-
+                        #endregion
 
                     }
                     else
@@ -691,7 +693,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetDataAMP({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("GetDataAMP({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
         }
@@ -715,7 +717,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objVM));
+                ErrorClass.LogError(ex, String.Format("BindAmpJsTags_{0}", objVM));
             }
         }
 
@@ -759,7 +761,7 @@ namespace Bikewale.Models
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, String.Format("ManufacturerCampaign.Mobile.AMP(CampaignId : {0})", priceInCityAMPVM.LeadCampaign.CampaignId));
+                    Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("ManufacturerCampaign.Mobile.AMP(CampaignId : {0})", priceInCityAMPVM.LeadCampaign.CampaignId));
                 }
 
             }
@@ -838,7 +840,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindEMISlider({0})", objVM));
+                ErrorClass.LogError(ex, String.Format("BindEMISlider({0})", objVM));
             }
         }
 
@@ -861,7 +863,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindPriceInTopCities({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindPriceInTopCities({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -883,7 +885,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindBikeBasicDetails({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindBikeBasicDetails({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -902,7 +904,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindBikeInfoRank({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindBikeInfoRank({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -942,7 +944,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindSimilarBikes({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindSimilarBikes({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -973,7 +975,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass ec = new ErrorClass(ex, String.Format("Bikewale.Models.PriceInCity.BindPopularBodyStyle({0},{1})", modelId, cityId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.Models.PriceInCity.BindPopularBodyStyle({0},{1})", modelId, cityId));
             }
         }
 
@@ -994,7 +996,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindServiceCenters({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindServiceCenters({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -1017,7 +1019,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindDealersWidget({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindDealersWidget({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -1034,7 +1036,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindPriceInNearestCities({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindPriceInNearestCities({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -1069,7 +1071,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.PriceInCityPAge.FormatVarientMinSpec(): versionId {0}", objVersion.VersionId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.PriceInCityPAge.FormatVarientMinSpec(): versionId {0}", objVersion.VersionId));
             }
 
             return minSpecsStr;
@@ -1102,14 +1104,14 @@ namespace Bikewale.Models
 
                 if (firstVersion != null)
                 {
-                    string newBikeDescription = string.Format("{0} {1} on-road price in {2} -   &#x20B9; {3} onwards. It is available in {4} version{5}{6}", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+                    string newBikeDescription = string.Format("{0} {1} on-road price in {2} -   &#x20B9; {3} onwards. It is available in {4} version{5}{6}", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, Bikewale.Common.CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
 
                     if (dealerCount > 0)
                         newBikeDescription = string.Format("{0} {1} is sold by {2} dealership{3} in {4}.", newBikeDescription, firstVersion.ModelName, dealerCount, multiDealer, firstVersion.City);
 
                     newBikeDescription = string.Format("{0} All the colour options and versions of {1} might not be available at all the dealerships in {2}.", newBikeDescription, firstVersion.ModelName, firstVersion.City);
 
-                    string discontinuedDescription = string.Format("The last known ex-showroom price of {0} {1} in {2} was   &#x20B9; {3} onwards. This bike has now been discontinued. It was available in {4} version{5}{6} Click on a {1} version name to know the last known ex-showroom price in {2}.", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+                    string discontinuedDescription = string.Format("The last known ex-showroom price of {0} {1} in {2} was   &#x20B9; {3} onwards. This bike has now been discontinued. It was available in {4} version{5}{6} Click on a {1} version name to know the last known ex-showroom price in {2}.", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, Bikewale.Common.CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
 
                     if (isNew)
                         pageDescription = newBikeDescription;
@@ -1120,7 +1122,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("PageDescription({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("PageDescription({0},{1})", modelMaskingName, cityMaskingName));
             }
             return pageDescription;
         }
@@ -1146,9 +1148,9 @@ namespace Bikewale.Models
                 objVM.PageMetaTags.AmpUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/amp/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
 
                 if (firstVersion != null && !isNew)
-                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
+                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, firstVersion.City, Bikewale.Common.CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
                 else if (firstVersion != null)
-                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get prices for all the versions of and check out the nearest {0} Dealer in {1}", bikeName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
+                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get prices for all the versions of and check out the nearest {0} Dealer in {1}", bikeName, firstVersion.City, Bikewale.Common.CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
                 objVM.PageMetaTags.Keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, firstVersion.City, firstVersion.ModelName);
 
                 objVM.AdTags.TargetedCity = firstVersion.City;
@@ -1163,7 +1165,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BuildPageMetas({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BuildPageMetas({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -1190,31 +1192,33 @@ namespace Bikewale.Models
         /// </summary>
         private void SetBreadcrumList(PriceInCityPageVM objPage)
         {
-            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
             string url, scooterUrl, seriesUrl;
             url = scooterUrl = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl);
-            ushort position = 1;
-            if (IsMobile)
-            {
-                url += "m/";
-            }
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
-
-            if (objPage.Make != null)
-            {
-                url = string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName);
-
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
-            }
-
-            if (objPage.Make != null && objPage.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !objPage.Make.IsScooterOnly)
-            {
+                ushort position = 1;
                 if (IsMobile)
                 {
-                    scooterUrl += "m/";
+                    url += "m/";
                 }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+
+                if (objPage.Make != null)
+                {
+                    url = string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName);
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
+                }
+
+                if (objPage.Make != null && objPage.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !objPage.Make.IsScooterOnly)
+                {
+                    if (IsMobile)
+                    {
+                        scooterUrl += "m/";
+                    }
 
                 scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.Make.MaskingName);
 
@@ -1227,19 +1231,24 @@ namespace Bikewale.Models
                 seriesUrl = string.Format("{0}{1}/", url, Series.MaskingName);
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, Series.SeriesName));
-            }
+                }
 
-            if (objPage.Make != null && objPage.BikeModel != null)
+                if (objPage.Make != null && objPage.BikeModel != null)
+                {
+                    url = string.Format("{0}{1}/", url, objPage.BikeModel.MaskingName);
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.BikeModel.ModelName));
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
+
+
+                objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
             {
-                url = string.Format("{0}{1}/", url, objPage.BikeModel.MaskingName);
-
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.BikeModel.ModelName));
+                ErrorClass.LogError(ex, String.Format("SetBreadcrumList({0},{1})", modelMaskingName, cityMaskingName));
             }
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
-
-
-            objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
 
         }
 
@@ -1262,7 +1271,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetDealerPriceQuote({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("GetDealerPriceQuote({0},{1})", modelMaskingName, cityMaskingName));
             }
             finally
             {
@@ -1275,11 +1284,11 @@ namespace Bikewale.Models
                         {
                             primaryDealerId = objPQOutput.DealerId;
                             objVM.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(cityId, objPQOutput.VersionId, objPQOutput.DealerId, areaId);
-                            objVM.MPQString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString()));
+                            objVM.MPQString = EncodingDecodingHelper.EncodeTo64(Bikewale.Common.PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString()));
                         }
                         catch (Exception ex)
                         {
-                            ErrorClass objErr = new ErrorClass(ex, String.Format("GetDealerQuotationV2({0},{1})", modelMaskingName, cityMaskingName));
+                            ErrorClass.LogError(ex, String.Format("GetDealerQuotationV2({0},{1})", modelMaskingName, cityMaskingName));
                         }
                     }
                 }
@@ -1405,7 +1414,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", modelId, cityId, ManufacturerCampaignPageId));
+                ErrorClass.LogError(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", modelId, cityId, ManufacturerCampaignPageId));
             }
         }
     }

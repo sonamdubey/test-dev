@@ -264,7 +264,6 @@
     <Compile Include="common\BikeWaleAuthentication.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWHttpClient.cs" />
-    <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
     <Compile Include="common\CommonOpn.cs" />
     <Compile Include="common\CompareBike.cs" />
     <Compile Include="common\Configuration.cs" />
@@ -429,6 +428,7 @@
     <Compile Include="Controllers\PriceMonitoringController.cs" />
     <Compile Include="Controllers\PageMetasConfigureController.cs" />
     <Compile Include="Controllers\NewBikeDealerEMIController.cs" />
+    <Compile Include="Controllers\SellerDTO.cs" />
     <Compile Include="Controllers\ServiceCenterController.cs" />
     <Compile Include="Controllers\UserReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -599,6 +599,7 @@
     <Folder Include="bikewaleimg\ec\38\img\m\" />
     <Folder Include="bikewaleimg\ec\7\img\c140\" />
     <Folder Include="bikewaleimg\ec\7\img\c200\" />
+    <Folder Include="common\BWSecurity\" />
     <Folder Include="content\mappingfiles\parsedpricefiles\" />
     <Folder Include="Entities\" />
     <Folder Include="obj\Debug\TempPE\" />
@@ -1960,6 +1961,7 @@
     <Content Include="src\DealerPricing\dealeroperationcollapsable.js" />
     <Content Include="src\DealerPricing\dealerpricingindex.js" />
     <Content Include="src\DealerFacility\DealerFacility.js" />
+    <Content Include="src\footerdata.js" />
     <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
@@ -2045,6 +2047,7 @@
     <Content Include="Views\BikeSeries\Index.cshtml" />
     <Content Include="packages.config" />
     <Content Include="Views\AdSlot\Index.cshtml" />
+    <Content Include="Views\Makes\AddFooterData.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

@@ -74,8 +74,8 @@ namespace Bikewale.BAL.MobileAppAlert
                             else
                             {
                                 msg = string.Format("Android : Subscribing failed for Registration id - {0} : {1} due to {2}", appInput.Imei, appInput.GcmId, result.Error);
-                                ErrorClass objErr = new ErrorClass(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ,subsmasterId : {4}", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg, appInput.SubsMasterId));
-                                objErr.SendMail();
+                                ErrorClass.LogError(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ,subsmasterId : {4}", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg, appInput.SubsMasterId));
+                                
 
                             }
 
@@ -85,7 +85,7 @@ namespace Bikewale.BAL.MobileAppAlert
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMUser : IMEI : {1}, GCMId : {2},subsmasterId : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, appInput.SubsMasterId));
+                ErrorClass.LogError(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMUser : IMEI : {1}, GCMId : {2},subsmasterId : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, appInput.SubsMasterId));
 
             }
 
@@ -118,8 +118,8 @@ namespace Bikewale.BAL.MobileAppAlert
                     if (!string.IsNullOrEmpty(result.Error))
                     {
                         msg = string.Format("Android : UnSubscribing failed for Registration id - {0} : {1} due to {2}", appInput.Imei, appInput.GcmId, result.Error);
-                        ErrorClass objErr = new ErrorClass(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg));
-                        objErr.SendMail();
+                        ErrorClass.LogError(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg));
+                        
                     }
                     else
                     {
@@ -130,7 +130,7 @@ namespace Bikewale.BAL.MobileAppAlert
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.UnSubscribeFCMUser : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId));
+                ErrorClass.LogError(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.UnSubscribeFCMUser : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId));
             }
 
             return isSuccess;
@@ -190,7 +190,7 @@ namespace Bikewale.BAL.MobileAppAlert
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMNotification, action : {1}, payload : {2}, retries : {3}", HttpContext.Current.Request.ServerVariables["URL"], action, payload, retries));
+                ErrorClass.LogError(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMNotification, action : {1}, payload : {2}, retries : {3}", HttpContext.Current.Request.ServerVariables["URL"], action, payload, retries));
             }
 
             return subsResponse;
@@ -249,7 +249,7 @@ namespace Bikewale.BAL.MobileAppAlert
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SendFCMNotification, payload : {1}", HttpContext.Current.Request.ServerVariables["URL"], payload));
+                ErrorClass.LogError(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SendFCMNotification, payload : {1}", HttpContext.Current.Request.ServerVariables["URL"], payload));
             }
 
             return isSuccess;

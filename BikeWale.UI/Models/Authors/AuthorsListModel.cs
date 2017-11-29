@@ -38,7 +38,7 @@ namespace Bikewale.Models.Authors
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Authors.AuthorsListModel");
+                ErrorClass.LogError(ex, "Bikewale.Models.Authors.AuthorsListModel");
             }
             return _objAuthorsList;
         }
@@ -59,7 +59,7 @@ namespace Bikewale.Models.Authors
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Authors.AuthorsListModel");
+                ErrorClass.LogError(ex, "Bikewale.Models.Authors.AuthorsListModel");
             }
         }
 
@@ -80,7 +80,7 @@ namespace Bikewale.Models.Authors
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Authors.AuthorsListModel");
+                ErrorClass.LogError(ex, "Bikewale.Models.Authors.AuthorsListModel");
             }
         }
     }

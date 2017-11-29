@@ -44,7 +44,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "Bikewale.Models.GetData()");
+                ErrorClass.LogError(ex, "Bikewale.Models.GetData()");
             }
             return objData;
         }
@@ -69,7 +69,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-             ErrorClass objErr = new ErrorClass(ex, string.Format("FetchBestBikesList BodyStyle:{0}", BodyStyleType));
+             ErrorClass.LogError(ex, string.Format("FetchBestBikesList BodyStyle:{0}", BodyStyleType));
             }
             return BikeList;
         }

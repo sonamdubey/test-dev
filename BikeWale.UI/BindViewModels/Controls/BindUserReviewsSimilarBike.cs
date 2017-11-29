@@ -43,7 +43,7 @@ namespace Bikewale.BindViewModels.Controls
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, " Bikewale.BindViewModels.Controls.BindUserReviewsSimilarBike");
+                ErrorClass.LogError(ex, " Bikewale.BindViewModels.Controls.BindUserReviewsSimilarBike");
             }
         }
         /// <summary>
@@ -61,7 +61,7 @@ namespace Bikewale.BindViewModels.Controls
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format(" Bikewale.BindViewModels.Controls.GetUserReviewSimilarBike_modelid_{0}_topcount_{1}", modelId, topCount));
+                ErrorClass.LogError(ex, string.Format(" Bikewale.BindViewModels.Controls.GetUserReviewSimilarBike_modelid_{0}_topcount_{1}", modelId, topCount));
             }
             return objReviewUser;
         }

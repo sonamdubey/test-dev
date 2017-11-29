@@ -92,7 +92,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("BindServiceCenterData for serviceCenterId : {0} ", serviceCenterId));
+                ErrorClass.LogError(ex, string.Format("BindServiceCenterData for serviceCenterId : {0} ", serviceCenterId));
             }
         }
         /// <summary>
@@ -156,7 +156,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindControls");
+                ErrorClass.LogError(ex, "BindControls");
             }
 
         }
@@ -184,8 +184,8 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterDetails.GetMakeNameByMakeId");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ServiceCenterDetails.GetMakeNameByMakeId");
+                
             }
         }
 
@@ -216,8 +216,8 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, currentReq.ServerVariables["URL"]);
+                
                 isSucess = false;
             }
             return isSucess;
