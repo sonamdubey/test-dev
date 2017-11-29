@@ -515,6 +515,7 @@
 		        var objOldMask = $(this).siblings();
 		        var oldMaskingName = objOldMask.text();
 		        var makeName;
+		        var makeId;
 		        var modelName=$(this).attr("data-modelname");
 
 		        objYes.click(function(){
@@ -550,23 +551,31 @@
 
 		                if ($("#cmbMakes option:selected").val() != '0') 
 		                {
-		                    makeName = $("#cmbMakes option:selected").text();		                    
+		                    makeName = $("#cmbMakes option:selected").text();	
+		                    makeId = $("#cmbMakes option:selected").val();
 		                }
 		                
 		                $.ajax({
 		                    type: "POST",
 		                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-		                    data: '{"maskingName":"' + maskName + '","updatedBy":"'+ updBy +'","modelId":"' + modelId + '","makeMasking":"'+ makeMasking + '","oldMaskingName":"'+ oldMaskingName+'","makeName":"'+ makeName+'","modelName":"'+ modelName+'"}',
+		                    data: '{"maskingName":"' + maskName + '","updatedBy":"'+ updBy +'","modelId":"' + modelId +'","makeId":"' + makeId + '","makeMasking":"'+ makeMasking + '","oldMaskingName":"'+ oldMaskingName+'","makeName":"'+ makeName+'","modelName":"'+ modelName+'"}',		                    
 		                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "UpdateModelMaskingName"); },
-		                    success: function (response) {
-		                        if(eval('(' + response + ')').value)
+		                    success: function (response) {		                        
+		                        var respObj = JSON.parse(response);
+		                        if(respObj && respObj.value)
 		                        {
-		                            boxObj.find("#divUpdMaskName").html("Masking Name Updated Successfully.");
-		                            objOldMask.text(maskName);
+		                            if(respObj.value.Item1)
+		                            {
+		                                boxObj.find("#divUpdMaskName").html(respObj.value.Item2);
+		                                objOldMask.text(maskName);
+		                            }
+		                            else{
+		                                boxObj.find("#divUpdMaskName").html(respObj.value.Item2).addClass('errorMessage');	  
+		                            }
 		                        }
 		                        else
 		                        {
-		                            boxObj.find("#divUpdMaskName").html("Masking Name Should be Unique.").addClass('errorMessage');	                           
+		                            boxObj.find("#divUpdMaskName").html(respObj.value.Item2).addClass('errorMessage');
 		                        }
 		                        //$("#"+ID).remove();
 		                    }

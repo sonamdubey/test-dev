@@ -47,8 +47,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "UnitSoldUpload.intializeComponent()");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "UnitSoldUpload.intializeComponent()");
+                
             }
         }
 
@@ -71,8 +71,8 @@ namespace BikewaleOpr.content
                 }
                 catch (Exception err)
                 {
-                    ErrorClass objErr = new ErrorClass(err, "UnitSoldUpload.UnitSoldUpload()");
-                    objErr.SendMail();
+                    ErrorClass.LogError(err, "UnitSoldUpload.UnitSoldUpload()");
+                    
                 }
             }
         }
@@ -158,8 +158,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "UnitSoldUpload.ProcessData()");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "UnitSoldUpload.ProcessData()");
+                
 
                 spnFile.InnerHtml = "Please update file in correct format";
                 lbl.Visible = false;
@@ -197,8 +197,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "UnitSoldUpload.UploadFile()");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "UnitSoldUpload.UploadFile()");
+                
                 uploaded = false;
             } // catch Exception
 
@@ -233,8 +233,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "UnitSoldUpload.GetDataFromExcel()");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "UnitSoldUpload.GetDataFromExcel()");
+                
 
                 spnFile.InnerHtml = "Please update file in correct format";
                 lbl.Visible = false;

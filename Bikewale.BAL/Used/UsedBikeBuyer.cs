@@ -80,8 +80,8 @@ namespace Bikewale.BAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("UploadPhotosRequest({0})", Newtonsoft.Json.JsonConvert.SerializeObject(request)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("UploadPhotosRequest({0})", Newtonsoft.Json.JsonConvert.SerializeObject(request)));
+                
             }
             return isSuccess;
         }
@@ -130,8 +130,8 @@ namespace Bikewale.BAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("ShowInterestInBike({0},{1})", Newtonsoft.Json.JsonConvert.SerializeObject(buyer), profileId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("ShowInterestInBike({0},{1})", Newtonsoft.Json.JsonConvert.SerializeObject(buyer), profileId));
+                
             }
 
             return buyerInterest;
@@ -170,8 +170,8 @@ namespace Bikewale.BAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("ProcessUserCookie({0})", Newtonsoft.Json.JsonConvert.SerializeObject(buyer)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("ProcessUserCookie({0})", Newtonsoft.Json.JsonConvert.SerializeObject(buyer)));
+                
             }
             return buyer;
         }
@@ -215,8 +215,8 @@ namespace Bikewale.BAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("NotifySeller({0})", Newtonsoft.Json.JsonConvert.SerializeObject(request)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("NotifySeller({0})", Newtonsoft.Json.JsonConvert.SerializeObject(request)));
+                
             }
         }
 
@@ -249,8 +249,8 @@ namespace Bikewale.BAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("RegisterBuyer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(buyer)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("RegisterBuyer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(buyer)));
+                
             }
         }
 
@@ -362,8 +362,8 @@ namespace Bikewale.BAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("SubmitPurchaseInquiry({0},{1})", Newtonsoft.Json.JsonConvert.SerializeObject(buyer), profileId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("SubmitPurchaseInquiry({0},{1})", Newtonsoft.Json.JsonConvert.SerializeObject(buyer), profileId));
+                
             }
             return result;
         }
@@ -390,8 +390,8 @@ namespace Bikewale.BAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("NotifyPurchaseInquiryIndividualSeller({0},{1},{2},{3},{4},{5})", bike, pageUrl, profileId, formattedPrice, Newtonsoft.Json.JsonConvert.SerializeObject(seller), Newtonsoft.Json.JsonConvert.SerializeObject(buyer)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("NotifyPurchaseInquiryIndividualSeller({0},{1},{2},{3},{4},{5})", bike, pageUrl, profileId, formattedPrice, Newtonsoft.Json.JsonConvert.SerializeObject(seller), Newtonsoft.Json.JsonConvert.SerializeObject(buyer)));
+                
             }
         }
 
@@ -425,12 +425,12 @@ namespace Bikewale.BAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("NotifyPurchaseInquiryBuyer({0},{1},{2},{3},{4},{5})", bike, pageUrl, profileId,
+                ErrorClass.LogError(ex, String.Format("NotifyPurchaseInquiryBuyer({0},{1},{2},{3},{4},{5})", bike, pageUrl, profileId,
                     Newtonsoft.Json.JsonConvert.SerializeObject(buyer),
                     Newtonsoft.Json.JsonConvert.SerializeObject(seller),
                     Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDetails)
                     ));
-                objErr.SendMail();
+                
             }
         }
     }

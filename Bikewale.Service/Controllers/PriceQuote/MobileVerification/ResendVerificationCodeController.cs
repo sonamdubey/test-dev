@@ -78,8 +78,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.MobileVerification.ResendVerificationCodeController.Post");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.MobileVerification.ResendVerificationCodeController.Post");
+               
                 return InternalServerError();
             }
         }

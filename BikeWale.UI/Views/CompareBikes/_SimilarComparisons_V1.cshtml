@@ -1,0 +1,71 @@
+﻿@model Bikewale.Models.PopularComparisonsVM
+@if (Model != null && Model.IsDataAvailable)
+{
+   
+<div class="comparison-carousel jcarousel-wrapper inner-content-carousel" data-overlay="right">
+    <div class="jcarousel">
+        <ul>
+            @foreach (var bikedetails in Model.CompareBikes)
+            {
+                string bike1 = string.Format("{0}", bikedetails.Model1);
+                string bike2 = string.Format("{0}", bikedetails.Model2);
+
+                <li>
+                    <a href="@string.Format("/{0}",Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMasking1, bikedetails.MakeMasking2, bikedetails.ModelMasking2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2),bikedetails.ModelId1,bikedetails.ModelId2, Model.CompareSource))" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)" class="card-target carousel-card">
+                        <h4 class="carousel-card__label"> @string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2) </h4>
+                        <div class="grid-6">
+                            <div class="compare-img">
+                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath1, bikedetails.HostUrl1, Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._60)" alt="@bike1" title="@bike1" src="">
+                            </div>
+                            <div class="padding-left10 padding-right5">
+                                <p class="font14 text-light-grey text-truncate">@(bikedetails.Price1 > 0 ? string.Format("Ex-showroom, {0}", bikedetails.City1) : "Avg. Ex-showroom price")</p>
+                                <span class="text-default font16">&#x20B9;</span>&nbsp;<span class="font16 text-default font-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price1 > 0 ? bikedetails.Price1 : bikedetails.AvgPrice1))</span>
+                            </div>
+                            <span class="compare-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="26px" viewBox="0 0 26 26" version="1.1">
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="review-copy-6" transform="translate(-157.000000, -2337.000000)">
+                                            <g id="Group-4" transform="translate(157.000000, 2309.000000)">
+                                                <g id="Group-22" transform="translate(0.000000, 28.000000)">
+                                                    <g id="Rectangle-7-Copy">
+                                                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1" />
+                                                        <rect stroke="#D5D5D5" stroke-width="1" x="0.5" y="0.5" width="25" height="25" rx="12.5" />
+                                                    </g>
+                                                    <text id="VS" font-family="Lato-Regular, Lato" font-size="11" font-weight="normal" fill="#D5D5D5">
+                                                        <tspan x="6" y="17">VS</tspan>
+                                                    </text>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </span>
+                        </div>
+
+                        <div class="grid-6 padding-left10">
+                            <div class="compare-img">
+                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath2, bikedetails.HostUrl2, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._60)" alt="@bike2" title="@bike2" src="" />
+                            </div>
+                            <div class="padding-left10 padding-right5">
+                                <p class="font14 text-light-grey text-truncate">@(bikedetails.Price2 > 0 ? string.Format("Ex-showroom, {0}", bikedetails.City2) : "Avg. Ex-showroom price")</p>
+                                <span class="text-default font16">&#x20B9;</span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price2 > 0 ? bikedetails.Price2 : bikedetails.AvgPrice2))</span>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="margin-top20 margin-left20 margin-right20">
+                            <span class="btn btn-white">Compare now</span>
+                        </div>
+                    </a>
+                </li>
+
+            }
+        </ul>
+    </div>
+    <span class="jcarousel-control-left">
+        <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+    </span>
+    <span class="jcarousel-control-right">
+        <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+    </span>
+</div>
+}

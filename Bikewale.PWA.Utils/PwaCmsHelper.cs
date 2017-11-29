@@ -1,17 +1,12 @@
-﻿using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS;
+﻿using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Videos;
-using Bikewale.Models;
 using Bikewale.Utility;
 using log4net;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 
 namespace Bikewale.PWA.Utils
@@ -21,7 +16,7 @@ namespace Bikewale.PWA.Utils
         static ILog _logger = LogManager.GetLogger("PwaCmsHelper");
         static readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
         /// <summary>
-        /// Created by Prasad Gawde 
+        /// Created by Prasad Gawde
         /// </summary>
         /// <param name="articleSummary"></param>
         /// <returns></returns>
@@ -136,7 +131,7 @@ namespace Bikewale.PWA.Utils
         /// <param name="videos"></param>
         /// <param name="catId"></param>
         /// <returns></returns>
-        public static PwaVideosBySubcategory SetPwaSubCategoryVideos(IEnumerable<BikeVideoEntity> videos, int catId,bool addShortDesc=false)
+        public static PwaVideosBySubcategory SetPwaSubCategoryVideos(IEnumerable<BikeVideoEntity> videos, int catId, bool addShortDesc = false)
         {
             PwaVideosBySubcategory vidInfo = new PwaVideosBySubcategory();
             if (videos != null)

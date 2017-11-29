@@ -1,4 +1,5 @@
 ﻿using BikewaleOpr.Entity.BikeData;
+using System;
 using System.Collections.Generic;
 
 namespace BikewaleOpr.Interface.BikeData
@@ -12,10 +13,13 @@ namespace BikewaleOpr.Interface.BikeData
     public interface IBikeSeries
     {
         IEnumerable<BikeSeriesEntity> GetSeries();
-        BikeSeriesEntity AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl);
+        Tuple<bool, string, BikeSeriesEntity> AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl);
         IEnumerable<BikeSeriesEntityBase> GetSeriesByMake(int makeId);
-        bool EditSeries(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl);
+        Tuple<bool, string> EditSeries(uint makeId, uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl);
         bool DeleteSeries(uint bikeSeriesId, uint deletedBy);
         bool DeleteMappingOfModelSeries(uint modelId);
+        SynopsisData Getsynopsis(int seriesId);
+        bool UpdateSynopsis(int seriesId, int updatedBy, SynopsisData objSynopsis);
+        bool IsSeriesMaskingNameExists(uint makeId, string seriesMaskingName);
     }
 }

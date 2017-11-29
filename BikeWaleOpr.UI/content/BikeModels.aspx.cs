@@ -79,6 +79,7 @@ namespace BikeWaleOpr.Content
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
+                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>();
                 _series = container.Resolve<IBikeSeries>();
             }
@@ -119,7 +120,7 @@ namespace BikeWaleOpr.Content
                 {
                     Trace.Warn(ex.Message + ex.Source);
                     BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    
                 }
 
                 SortDirection = "";
@@ -147,78 +148,98 @@ namespace BikeWaleOpr.Content
         {
             Page.Validate();
             if (!Page.IsValid) return;
-            uint _modelId = 0;
-            int seriesId = 0;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel_23102017"))
+                string modelMaskingName = txtMaskingName.Text.Trim();
+                uint makeId = Convert.ToUInt32(cmbMakes.SelectedValue);
+                if (!_series.IsSeriesMaskingNameExists(makeId, modelMaskingName))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txtModel.Text.Trim().Replace("'", "''")));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbType.String, 50, txtMaskingName.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, cmbMakes.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int32, ddlSegment.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32,
-                        int.TryParse(ddlSeries.SelectedValue, out seriesId) && seriesId > 0 ? seriesId : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbType.Boolean, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ParameterDirection.Output));
-
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                    _modelId = Convert.ToUInt32(cmd.Parameters["par_modelid"].Value);
-
-                    if (Convert.ToBoolean(cmd.Parameters["par_ismodelexist"].Value))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel_23102017"))
                     {
-                        lblStatus.Text = "Model Masking Name already exists. Can not insert duplicate name.";
+                        uint _modelId = 0;
+                        int seriesId = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txtModel.Text.Trim().Replace("'", "''")));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbType.String, 50, modelMaskingName));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, cmbMakes.SelectedValue));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int32, ddlSegment.SelectedValue));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32,
+                            int.TryParse(ddlSeries.SelectedValue, out seriesId) && seriesId > 0 ? seriesId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbType.Boolean, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ParameterDirection.Output));
+
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                        _modelId = Convert.ToUInt32(cmd.Parameters["par_modelid"].Value);
+
+                        if (Convert.ToBoolean(cmd.Parameters["par_ismodelexist"].Value))
+                        {
+                            lblStatus.Text = "Model Masking Name already exists. Can not insert duplicate name.";
+                        }
+                        else if (_modelId > 0)
+                        {
+                            // Push Data to Carwale DB
+                            PushToDataSyncConsumer(_modelId);
+
+                            //CLear popularBikes key                       
+                            ClearPopularBikesCache();
+                        }
+
+                        if (_mc != null)
+                        {
+                            ClearMaskingMappingCache();
+                        }
+						if (seriesId > 0)
+						{
+							BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId((uint)seriesId);
+							BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(seriesId), makeId);
+						}
                     }
-                    else if (_modelId > 0)
-                    {
-                        // Push Data to Carwale DB
-                        NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("v_modelId", _modelId.ToString());
-                        nvc.Add("v_MakeId", cmbMakes.SelectedValue);
-                        nvc.Add("v_ModelName", txtModel.Text.Trim().Replace("'", "''"));
-                        nvc.Add("v_ModelMaskingName", txtMaskingName.Text.Trim());
-                        nvc.Add("v_HostUrl", null);
-                        nvc.Add("v_OriginalImagePath", null);
-                        nvc.Add("v_New", "1");
-                        nvc.Add("v_Used", "1");
-                        nvc.Add("v_Futuristic", "0");
-                        SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
-
-                        //CLear popularBikes key                       
-                        UInt32 makeId;
-                        UInt32.TryParse(cmbMakes.SelectedValue, out makeId);
-                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
-                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
-                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
-                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
-                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey(makeId);
-                    }
-
-                    if (_mc != null)
-                    {
-                        if (_mc.Get("BW_ModelMapping") != null)
-                            _mc.Remove("BW_ModelMapping");
-
-                        if (_mc.Get("BW_NewModelMaskingNames") != null)
-                            _mc.Remove("BW_NewModelMaskingNames");
-
-                        if (_mc.Get("BW_OldModelMaskingNames") != null)
-                            _mc.Remove("BW_OldModelMaskingNames");
-                    }
-                    if (seriesId > 0)
-                        BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId((uint)seriesId);
+                }
+                else
+                {
+                    lblStatus.Text = "Given Model Masking Name already exists as Series Masking Name. Please change series masking name first then try again.";
                 }
 
             }
             catch (SqlException ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             BindGrid();
+        }
+
+        private static void ClearMaskingMappingCache()
+        {
+            BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
+        }
+
+        private void ClearPopularBikesCache()
+        {
+            UInt32 makeId;
+            UInt32.TryParse(cmbMakes.SelectedValue, out makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey(makeId);
+        }
+
+        private void PushToDataSyncConsumer(uint _modelId)
+        {
+            NameValueCollection nvc = new NameValueCollection();
+            nvc.Add("v_modelId", _modelId.ToString());
+            nvc.Add("v_MakeId", cmbMakes.SelectedValue);
+            nvc.Add("v_ModelName", txtModel.Text.Trim().Replace("'", "''"));
+            nvc.Add("v_ModelMaskingName", txtMaskingName.Text.Trim());
+            nvc.Add("v_HostUrl", null);
+            nvc.Add("v_OriginalImagePath", null);
+            nvc.Add("v_New", "1");
+            nvc.Add("v_Used", "1");
+            nvc.Add("v_Futuristic", "0");
+            SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
         }
 
         void cmbMakes_SelectedIndexChanged(object Sender, EventArgs e)
@@ -272,7 +293,7 @@ namespace BikeWaleOpr.Content
             {
                 Trace.Warn(err.Message + err.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
         }
 
@@ -300,8 +321,8 @@ namespace BikeWaleOpr.Content
             Page.Validate();
             if (!Page.IsValid) return;
             try
-            {
-                string sql = string.Empty;
+            {	
+				string sql = string.Empty;
                 TextBox txt = (TextBox)e.Item.FindControl("txtModelName");
                 CheckBox chkUsed1 = (CheckBox)e.Item.FindControl("chkUsed");
                 CheckBox chkNew1 = (CheckBox)e.Item.FindControl("chkNew");
@@ -378,7 +399,7 @@ namespace BikeWaleOpr.Content
                     catch (Exception ex)
                     {
                         BikeWaleOpr.Common.ErrorClass errObj = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                        errObj.SendMail();
+                        
                     }
                 }
 
@@ -392,20 +413,22 @@ namespace BikeWaleOpr.Content
                 MemCachedUtil.Remove(string.Format("BW_GenericBikeInfo_MO_{0}_V1", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
                 //Refresh memcache object for popularBikes change
                 MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
+				BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(ddlUpdateSeries.SelectedValue), Convert.ToUInt32(cmbMakes.SelectedValue));
 
-                //Refresh memcache object for upcoming bikes
-                BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikes();
+
+				//Refresh memcache object for upcoming bikes
+				BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikes();
 
             }
             catch (SqlException ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             catch (Exception ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
 
             dtgrdMembers.EditItemIndex = -1;
@@ -486,14 +509,14 @@ namespace BikeWaleOpr.Content
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             catch (Exception err)
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             } // catch Exception
         }   // End of make upcoming bike method
 
@@ -550,7 +573,7 @@ namespace BikeWaleOpr.Content
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
                 isSaved = false;
             } // catch Exception
 
@@ -613,13 +636,13 @@ namespace BikeWaleOpr.Content
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
 
             return dt;
@@ -649,7 +672,7 @@ namespace BikeWaleOpr.Content
             {
                 Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             BindGrid();
             Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Segment Updated Successfully.');", true);
@@ -679,8 +702,10 @@ namespace BikeWaleOpr.Content
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
-            }
-            catch (Exception ex)
+				BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(ddlUpdateSeries.SelectedValue), Convert.ToUInt32(cmbMakes.SelectedValue));
+
+			}
+			catch (Exception ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, "deleteModelMostPopularBikes");
             }
@@ -711,13 +736,13 @@ namespace BikeWaleOpr.Content
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message + err.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
         }   //End of UpdateModelSegments
 
@@ -752,7 +777,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.Content.BikeModel: FillSeries");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.Content.BikeModel: FillSeries");
             }
         }
 
@@ -772,13 +797,15 @@ namespace BikeWaleOpr.Content
             try
             {
                 string ModelIdsList = hdnModelIdsListSeries.Value;
+				uint seriesId = Convert.ToUInt32(ddlUpdateSeries.SelectedValue);
+				uint makeId = Convert.ToUInt32(cmbMakes.SelectedValue);
 
-                if (ModelIdsList.Length > 0)
+				if (ModelIdsList.Length > 0)
                     ModelIdsList = ModelIdsList.Substring(0, ModelIdsList.Length - 1);
 
                 UpdateModelSeries(ddlUpdateSeries.SelectedValue, ModelIdsList);
 
-                BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(ddlUpdateSeries.SelectedValue));
+                BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId(seriesId);
                 string[] ModelIdArray = ModelIdsList.Split(',');
                 foreach (var item in ModelIdArray)
                 {
@@ -787,7 +814,9 @@ namespace BikeWaleOpr.Content
                         BikewaleOpr.Cache.BwMemCache.ClearVersionDetails(Convert.ToUInt32(item));
                     }
                 }
-                BindGrid();
+				BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(seriesId, makeId);
+
+				BindGrid();
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Series Updated Successfully.');", true);
             }
             catch (Exception ex)

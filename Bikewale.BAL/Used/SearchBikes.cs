@@ -70,8 +70,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.GetUsedBikesList");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.GetUsedBikesList");
+                
             }
 
             return objResult;
@@ -116,8 +116,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.Used.GetPrevNextUrl");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.GetPrevNextUrl");
+                
             }
             return objPager;
         }
@@ -156,8 +156,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.Used.GetApiUrl");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.GetApiUrl");
+                
             }
             return apiUrlstr;
         }

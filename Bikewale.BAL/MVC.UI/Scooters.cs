@@ -30,7 +30,7 @@ namespace Bikewale.BAL.MVC.UI
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScooterBrands.GetScooterBrands()");
+                ErrorClass.LogError(ex, "ScooterBrands.GetScooterBrands()");
             }
             return objBrand;
         }
@@ -45,7 +45,7 @@ namespace Bikewale.BAL.MVC.UI
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, string.Format("ScooterBrands.GetOtherScooterBrands(): MakeId {0}", MakeId));
+                ErrorClass.LogError(ex, string.Format("ScooterBrands.GetOtherScooterBrands(): MakeId {0}", MakeId));
             }
             return scooterBrand;
         }
@@ -73,7 +73,7 @@ namespace Bikewale.BAL.MVC.UI
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersHelper.CreateLandingMetaTags()");
+                ErrorClass.LogError(ex, "ScootersHelper.CreateLandingMetaTags()");
             }
             return metas;
         }
@@ -94,7 +94,7 @@ namespace Bikewale.BAL.MVC.UI
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersHelper.CreateMakeWiseMetaTags()");
+                ErrorClass.LogError(ex, "ScootersHelper.CreateMakeWiseMetaTags()");
             }
             return metas;
         }

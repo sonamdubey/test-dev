@@ -9,6 +9,8 @@ namespace Bikewale.Interfaces.UserReviews
     /// Description : Added SaveUserReviewMileage, GetReviewQuestionValuesByModel, GetRecentReviews, SaveUserReviews
     /// Modified By : Sushil Kumar on 11th Oct 2017
     /// Description : To cache popular bikes with expert reviews count and by cityid
+    /// Modified By : Snehal Dange on 21st Nov 2017
+    /// Description : Added GetBikesWithReviewsByMake() to get popular bikes with most recent and most helpful reviews
     /// </summary>
     public interface IUserReviewsRepository
     {
@@ -52,6 +54,6 @@ namespace Bikewale.Interfaces.UserReviews
         IEnumerable<PopularBikesWithExpertReviews> GetPopularBikesWithExpertReviews(ushort topCount);
         IEnumerable<PopularBikesWithExpertReviews> GetPopularBikesWithExpertReviewsByCity(ushort topCount, uint cityId);
         IEnumerable<PopularBikesWithUserReviews> GetPopularBikesWithUserReviewsByMake(uint makeId);
-
+        IEnumerable<BikesWithReviewByMake> GetBikesWithReviewsByMake(uint makeId);
     }   // class
 }   // namespace

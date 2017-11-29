@@ -83,6 +83,8 @@ namespace Bikewale.Controllers
         /// Summary added _userReviewsSearch, _userReviewsCache
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added _adSlot in ModelPage object creation.
+        /// Modified by :   Ashish Kamble on 22 Nov 2017
+        /// Description :   Added Model Page view path.
         /// </summary>
         /// <param name="makeMasking"></param>
         /// <param name="modelMasking"></param>
@@ -107,7 +109,7 @@ namespace Bikewale.Controllers
                 {
                     return RedirectPermanent(obj.RedirectUrl);
                 }
-                else return View(objData);
+                else return View("~/views/model/Index.cshtml", objData);// Do not remove View path from here.
 
             }
             else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
@@ -124,6 +126,8 @@ namespace Bikewale.Controllers
         /// Summary added _userReviewsSearch, _userReviewsCache
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added _adSlot in ModelPage object creation.
+        /// Modified by :   Ashish Kamble on 22 Nov 2017
+        /// Description :   Added Model Page view path.
         /// </summary>
         /// <param name="makeMasking"></param>
         /// <param name="modelMasking"></param>
@@ -148,7 +152,7 @@ namespace Bikewale.Controllers
                 {
                     return RedirectPermanent(obj.RedirectUrl);
                 }
-                else return View(objData);
+                else return View("~/views/model/Index_mobile.cshtml",objData); // Do not remove View path from here.
 
             }
             else if (obj.Status.Equals(StatusCodes.RedirectPermanent))

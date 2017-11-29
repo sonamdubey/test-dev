@@ -76,8 +76,8 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "ServiceCenterCard.BindDealers()");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ServiceCenterCard.BindDealers()");
+                
             }
         }
         /// <summary>
@@ -110,8 +110,8 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, " GetCityMaskingName - model");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, " GetCityMaskingName - model");
+                
             }
 
         }

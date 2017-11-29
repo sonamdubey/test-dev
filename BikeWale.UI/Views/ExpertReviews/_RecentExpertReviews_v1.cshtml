@@ -1,0 +1,46 @@
+﻿@model Bikewale.Models.RecentExpertReviewsVM
+@using Bikewale.Utility
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Any())
+{
+<ul class="article-list">
+@foreach (var review in Model.ArticlesList)
+{
+    <li class="post-content article-content">
+        <div class="article-item-content">
+
+            <div class="article-image-wrapper">
+                <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" title="@review.Title">
+                    <img class="lazy" alt="@review.Title" title="@review.Title" data-original="@Image.GetPathToShowImages(review.OriginalImgUrl, review.HostUrl, ImageSize._310x174, QualityFactor._70)" src="">
+                </a>
+            </div>
+            <div class="article-desc-wrapper">
+                <h3 class="font14 margin-bottom10">
+                    <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" title="@review.Title" rel="bookmark" class="article-desc__title">@review.Title</a>
+                </h3>
+                <div class="font12 text-light-grey margin-bottom20">
+                    <div class="article-date">
+                        <span class="bwsprite calender-grey-icon inline-block"></span>
+                        <span class="inline-block">
+                            @FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "dd MMMM yyyy")
+                        </span>
+                    </div>
+                    <div class="article-author">
+                        <span class="bwsprite author-grey-icon inline-block"></span>
+                        <span class="inline-block">
+                            @review.AuthorName
+                        </span>
+                    </div>
+                </div>
+                <div class="font14">
+                    <span class="text-slate-grey">
+                        @FormatDescription.TruncateDescription(review.Description, 350)
+                    </span>
+                    <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" title="@review.Title">Read more</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </li>
+}
+</ul>
+}

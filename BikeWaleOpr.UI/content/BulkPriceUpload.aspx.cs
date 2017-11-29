@@ -1,19 +1,17 @@
+using BikeWaleOpr.Common;
 using System;
-using System.Text;
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Collections;
 using System.IO;
-using BikeWaleOpr.Common;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 using System.Xml;
 
 namespace BikeWaleOpr.Content
 {
-	public class BulkPriceUpload : Page
+    public class BulkPriceUpload : Page
 	{
 		Hashtable htC, htV;
 		protected DropDownList drpMakes;
@@ -377,14 +375,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
 		}
 		
@@ -450,8 +448,8 @@ namespace BikeWaleOpr.Content
 			catch(Exception err )
 			{
 				Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
+				ErrorClass.LogError(err,Request.ServerVariables["URL"]);
+				
 				uploaded = false;
 			} // catch Exception
 			

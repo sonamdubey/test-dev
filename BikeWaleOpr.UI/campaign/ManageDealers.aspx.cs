@@ -87,7 +87,7 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "RegisterTypes");
+                ErrorClass.LogError(ex, "RegisterTypes");
             }
         }
 
@@ -153,8 +153,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "InserOrUpdateDealerCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "InserOrUpdateDealerCampaign");
+                
             }
         }
 
@@ -214,8 +214,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UpdateContractCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "UpdateContractCampaign");
+                
             }
             return false;
         }
@@ -292,8 +292,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.LoadMaskingNumbers");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.LoadMaskingNumbers");
+                
             }
         }
 
@@ -339,8 +339,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.FetchDealeCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.FetchDealeCampaign");
+                
             }
         }
 
@@ -356,8 +356,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.SetPageVariables");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.SetPageVariables");
+                
             }
         }
 
@@ -405,8 +405,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.ParseQueryString");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.ParseQueryString");
+                
             }
             return isValid;
         }

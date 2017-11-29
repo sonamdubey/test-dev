@@ -2,10 +2,9 @@
 // source: EditCms.proto
 #region Designer generated code
 
+using Grpc.Core;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
-using Grpc.Core;
 
 namespace EditCMSWindowsService.Messages
 {

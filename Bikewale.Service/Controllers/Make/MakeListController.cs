@@ -62,8 +62,8 @@ namespace Bikewale.Service.Controllers.Make
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Make.MakeController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Make.MakeController");
+               
                 return InternalServerError();
             }
             return NotFound();

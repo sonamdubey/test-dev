@@ -13,5 +13,6 @@ namespace Bikewale.Interfaces.UsedBikes
     {
         IEnumerable<MostRecentBikes> GetUsedBikes(uint makeId, uint modelId, uint cityId, uint totalCount);
         IEnumerable<UsedBikeMakeEntity> GetUsedBikeMakesWithCount();
+        IEnumerable<MostRecentBikes> GetUsedBikesSeries(uint seriesid, uint cityId);
     }
 }

@@ -3,18 +3,11 @@
 
 using System;
 using System.Web;
-using System.Configuration;
-using System.Web.Mail;
-using System.Text;
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.IO;
 using System.Web.Security;
-using System.Security.Cryptography;
 
-namespace BikeWaleOpr.Common 
+namespace BikeWaleOpr.Common
 {
-	public class CurrentUser
+    public class CurrentUser
 	{	  	
 		public static string Id
 		{

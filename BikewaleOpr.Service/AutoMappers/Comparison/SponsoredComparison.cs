@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using Bikewale.Comparison.DTO;
 using Bikewale.Comparison.Entities;
-using BikewaleOpr.DTO.BikeData;
-using BikewaleOpr.DTO.Make;
-using BikewaleOpr.DTO.UserReviews;
-using BikewaleOpr.Entities;
-using BikewaleOpr.Entities.UserReviews;
 using System.Collections.Generic;
 
 namespace BikewaleOpr.Service.AutoMappers

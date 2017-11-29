@@ -4,10 +4,10 @@ using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
-using BikewaleOpr.DALs.ManufactureCampaign;
+using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.Entities.ContractCampaign;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ContractCampaign;
-using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikeWaleOpr.Classified;
 using Enyim.Caching;
 using Microsoft.Practices.Unity;
@@ -27,13 +27,24 @@ namespace BikeWaleOpr.Common
     public class AjaxCommon
     {
         protected static MemcachedClient _mc = null;
-        bool _isMemcachedUsed = false;
+        protected bool _isMemcachedUsed = false;
+
+        private readonly IBikeSeries _series = null;
+
         public AjaxCommon()
         {
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
             if (_mc == null && _isMemcachedUsed)
             {
                 _mc = new MemcachedClient("memcached");
+            }
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
+                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>();
+                _series = container.Resolve<IBikeSeries>();
             }
         }
         /// <summary>
@@ -100,14 +111,14 @@ namespace BikeWaleOpr.Common
             //catch (SqlException err)
             //{
             //    HttpContext.Current.Trace.Warn("AjaxCommon.GetModels Sql Ex : ", err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, "AjaxCommon.GetModels");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "AjaxCommon.GetModels");
+            //    
             //}
             //catch (Exception err)
             //{
             //    HttpContext.Current.Trace.Warn("AjaxCommon.GetModels Ex : ", err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, "AjaxCommon.GetModels");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "AjaxCommon.GetModels");
+            //    
             //}
 
             //return jsonModels;
@@ -157,8 +168,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return isSuccess;
         }//End of UpdateMakeMaskingName
@@ -184,8 +195,8 @@ namespace BikeWaleOpr.Common
         //    }
         //    catch (Exception err)
         //    {
-        //        ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
+        //        ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+        //        
         //    }
         //    return isSuccess;
         //}//End of UpdateMakeMaskingName
@@ -200,30 +211,43 @@ namespace BikeWaleOpr.Common
         /// <returns>nothing</returns>
 
         [AjaxPro.AjaxMethod()]
-        public bool UpdateModelMaskingName(string maskingName, string updatedBy, string modelId,string oldMaskingName,string makeMasking,string makeName, string modelName)
+        public Tuple<bool, string> UpdateModelMaskingName(string maskingName, string updatedBy, string modelId, string oldMaskingName, string makeMasking, string makeName, string modelName, uint makeId)
         {
-            bool isSuccess = false;
+            Tuple<bool, string> response = new Tuple<bool, string>(false, "Something went wrong. Please try again.");
             try
             {
                 MakeModelVersion mmv = new MakeModelVersion();
-                isSuccess = mmv.UpdateModelMaskingName(maskingName, updatedBy, modelId);
-                if (isSuccess)
+                if (!_series.IsSeriesMaskingNameExists(makeId, maskingName))
                 {
-                    IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
-                    string oldUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, oldMaskingName);
-                    string newUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl,makeMasking, maskingName);
-                    foreach (var mailId in emails)
+                    bool isSuccess = mmv.UpdateModelMaskingName(maskingName, updatedBy, modelId);
+                    if (isSuccess)
                     {
-                        SendEmailOnModelChange.SendModelMaskingNameChangeMail(mailId, makeName, modelName,oldUrl,newUrl);
+                        response = new Tuple<bool, string>(true, "Masking Name Updated Successfully.");
+                        BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
+                        IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
+                        string oldUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, oldMaskingName);
+                        string newUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, maskingName);
+                        foreach (var mailId in emails)
+                        {
+                            SendEmailOnModelChange.SendModelMaskingNameChangeMail(mailId, makeName, modelName, oldUrl, newUrl);
+                        }
                     }
+                    else
+                    {
+                        response = new Tuple<bool, string>(false, "Masking Name Should be Unique.");
+                    }
+                }
+                else
+                {
+                    response = new Tuple<bool, string>(false, "Given Model Masking Name already exists as Series Masking Name. Please change series masking name first then try again.");
                 }
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
-            return isSuccess;
+            return response;
         }   // End of UpdateModelMaskingName
 
         /// <summary>
@@ -242,8 +266,8 @@ namespace BikeWaleOpr.Common
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -262,8 +286,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -341,8 +365,8 @@ namespace BikeWaleOpr.Common
         //    catch (Exception ex)
         //    {
         //        HttpContext.Current.Trace.Warn("Exception in DeleteSeries", ex.Message);
-        //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
+        //        ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+        //        
         //    }
         //}
 
@@ -368,8 +392,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }   //End of DeleteCompBikeData
 
@@ -393,8 +417,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }   //End of UpdatePriorities
 
@@ -419,8 +443,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 isSuccess = false;
             }
             return isSuccess;
@@ -444,8 +468,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 isSuccess = false;
             }
             return isSuccess;
@@ -469,8 +493,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 isSuccess = false;
             }
             return isSuccess;
@@ -494,8 +518,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 isSuccess = false;
             }
             return isSuccess;
@@ -519,8 +543,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 isSuccess = false;
             }
             return isSuccess;
@@ -543,8 +567,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 isSuccess = false;
             }
             return isSuccess;
@@ -579,8 +603,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetPriceQuoteCities");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.GetPriceQuoteCities");
+                
             }
 
             return jsonCities;
@@ -615,8 +639,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetAreas");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.GetAreas");
+                
             }
             return jsonCities;
         }
@@ -647,8 +671,8 @@ namespace BikeWaleOpr.Common
             catch (Exception ex)
             {
                 isSuccess = false;
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
+                
             }
             return isSuccess;
         }
@@ -681,8 +705,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetDealerMaskingNumbers");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.GetDealerMaskingNumbers");
+                
             }
             return null;
         }
@@ -725,8 +749,8 @@ namespace BikeWaleOpr.Common
             catch (Exception ex)
             {
                 isSuccess = false;
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
+                
             }
             return isSuccess;
         }
@@ -758,8 +782,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetDealerCampaigns");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.GetDealerCampaigns");
+                
             }
             return jsonDealerCampaigns;
         }

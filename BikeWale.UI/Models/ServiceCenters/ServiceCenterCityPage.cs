@@ -99,7 +99,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterCityPage.GetData()");
+                ErrorClass.LogError(ex, "ServiceCenterCityPage.GetData()");
             }
             return objVM;
         }
@@ -120,7 +120,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "ServiceCenterIndiaPage.BindPageMetas()");
             }
         }
 
@@ -169,7 +169,7 @@ namespace Bikewale.Models.ServiceCenters
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindUsedBikeByModel()");
+                ErrorClass.LogError(ex, "ServiceCenterIndiaPage.BindUsedBikeByModel()");
             }
             return UsedBikeModel;
         }
@@ -184,7 +184,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterDetailsPage.BindDealersWidget()");
+                ErrorClass.LogError(ex, "ServiceCenterDetailsPage.BindDealersWidget()");
             }
         }
 
@@ -208,14 +208,15 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
                 {
-                    objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
+                    objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objVM.DealersServiceCenterPopularCities.
+                                                                                    DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
                 }
 
             }
             catch (System.Exception ex)
             {
 
-                ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindServiceCenterPopularCityWidget");
+                ErrorClass.LogError(ex, "ServiceCenterDetailsPage.BindServiceCenterPopularCityWidget");
             }
 
         }
@@ -229,7 +230,7 @@ namespace Bikewale.Models.ServiceCenters
         {
             try
             {
-                if(objPageVM!=null)
+                if (objPageVM != null)
                 {
                     IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
                     string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
@@ -249,11 +250,11 @@ namespace Bikewale.Models.ServiceCenters
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPageVM.Page_H1));
                     objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
                 }
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ServiceCenterCityPage.SetBreadcrumList");
+                ErrorClass.LogError(ex, "ServiceCenterCityPage.SetBreadcrumList");
             }
 
         }

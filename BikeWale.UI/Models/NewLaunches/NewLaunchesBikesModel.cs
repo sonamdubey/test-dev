@@ -38,7 +38,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchesBikesModel.GetData()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchesBikesModel.GetData()");
             }
             return objVM;
         }

@@ -60,14 +60,14 @@ namespace Bikewale.DAL.Location
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return objCityList;
         }   // End of GetCities method
@@ -114,14 +114,14 @@ namespace Bikewale.DAL.Location
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return objCityList;
         }   // End of GetCities method
@@ -163,13 +163,13 @@ namespace Bikewale.DAL.Location
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "sqlex in CityRepository : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "sqlex in CityRepository : " + ex.Message);
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ex in CityRepository : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ex in CityRepository : " + ex.Message);
+                
             }
 
             return objCities;
@@ -210,8 +210,8 @@ namespace Bikewale.DAL.Location
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("CityRepository.GetMaskingNames ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return ht;
@@ -252,8 +252,8 @@ namespace Bikewale.DAL.Location
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("CityRepository.GetOldMaskingNamesList ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ht;
         }
@@ -327,8 +327,8 @@ namespace Bikewale.DAL.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("ServerVariable: {0} , Parameters : makeId({1}), stateId({2})", HttpContext.Current.Request.ServerVariables["URL"], makeId, stateId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("ServerVariable: {0} , Parameters : makeId({1}), stateId({2})", HttpContext.Current.Request.ServerVariables["URL"], makeId, stateId));
+                
             }
             return objStateCities;
         }
@@ -371,8 +371,8 @@ namespace Bikewale.DAL.Location
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("GetUsedBikeByCityWithCount"));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("GetUsedBikeByCityWithCount"));
+                
             }
 
             return usedBikeCities;
@@ -415,8 +415,8 @@ namespace Bikewale.DAL.Location
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("CityRepository.GetUsedBikeByMakeCityWithCount_{0}", makeId));
-                objErr.SendMail();
+                ErrorClass.LogError(err, string.Format("CityRepository.GetUsedBikeByMakeCityWithCount_{0}", makeId));
+                
             }
 
             return usedBikeCities;

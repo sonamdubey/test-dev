@@ -44,7 +44,7 @@ namespace BikewaleOpr.Controllers
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PriceMonitoringController.Index"));
+                ErrorClass.LogError(ex, string.Format("PriceMonitoringController.Index"));
 
             }
 
@@ -71,7 +71,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PriceMonitoringController.Index_makeId:{0}_stateId:{1}", makeId, stateId));
+                ErrorClass.LogError(ex, string.Format("PriceMonitoringController.Index_makeId:{0}_stateId:{1}", makeId, stateId));
             }
 
             return View("Index", priceMonitoringVM);
@@ -98,7 +98,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PriceMonitoringController.Index_makeId:{0}_modelId:{1}_stateId:{2}", makeId, modelId, stateId));
+                ErrorClass.LogError(ex, string.Format("PriceMonitoringController.Index_makeId:{0}_modelId:{1}_stateId:{2}", makeId, modelId, stateId));
             }
 
             return View("Index", priceMonitoringVM);

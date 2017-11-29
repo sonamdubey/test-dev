@@ -58,8 +58,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.GetManufacturerCampaigns");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageManufacturerCampaign.GetManufacturerCampaigns");
+                
             }
 
             return lstManufacturerCampaign;
@@ -92,8 +92,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.SaveManufacturerCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageManufacturerCampaign.SaveManufacturerCampaign");
+                
             }
 
             return success;
@@ -125,8 +125,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.SetManufacturerCampaignInActive");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageManufacturerCampaign.SetManufacturerCampaignInActive");
+                
             }
 
             return success;
@@ -169,8 +169,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.GetDealerAsManuFacturer");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageManufacturerCampaign.GetDealerAsManuFacturer");
+                
             }
 
             return manufacturers;

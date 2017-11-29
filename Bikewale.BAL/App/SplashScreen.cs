@@ -14,7 +14,7 @@ namespace Bikewale.BAL.App
     /// <seealso cref="Bikewale.Interfaces.App.ISplashScreen" />
     public class SplashScreen : ISplashScreen
     {
-        private readonly ISplashScreenCacheRepository _splashCache = null;
+        private readonly ISplashScreenCacheRepository _splashCache;
         public SplashScreen(ISplashScreenCacheRepository splashScreen)
         {
             _splashCache = splashScreen;
@@ -33,7 +33,7 @@ namespace Bikewale.BAL.App
                     {
                         result = objChachedData.First();
                     }
-                    else if(count > 1)
+                    else if (count > 1)
                     {
                         result = objChachedData.Skip(new Random().Next(0, count)).First();
                     }
@@ -41,7 +41,7 @@ namespace Bikewale.BAL.App
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BAL.App.SplashScreen.GetAppSplashScreen()");
+                ErrorClass.LogError(ex, "Bikewale.BAL.App.SplashScreen.GetAppSplashScreen()");
             }
             return result;
         }

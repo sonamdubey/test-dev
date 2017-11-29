@@ -1,0 +1,40 @@
+﻿@model Bikewale.Models.BikeSeries.OtherSeriesVM
+@using  Bikewale.Utility
+@if (Model != null && Model.OtherSeriesList != null && Model.OtherSeriesList.Any())
+{
+	<div class="model-list-carousel jcarousel-wrapper inner-content-carousel" data-overlay="right">
+		<div class="jcarousel">
+			<ul>
+				@foreach (var series in Model.OtherSeriesList)
+				{
+					<li class="model-list__card">
+						<a href="@string.Format("/{0}-bikes/{1}/", Model.BikeMake.MakeMaskingName, series.MaskingName)" title="@string.Format("{0} Series", series.SeriesName)" class="carousel-card">
+							<div class="model-series-list__img">
+								<img class="lazy" data-original="@Image.GetPathToShowImages(series.OriginalImagePath, series.HostUrl, ImageSize._144x81, QualityFactor._70)" alt="@string.Format("{0} Series", series.SeriesName)" src="" border="0" style="display: inline;">
+							</div>
+							<div class="model-list__label-block">
+								<p class="model-list__title">@string.Format("{0} Series", series.SeriesName)</p>
+								<p class="font13">@string.Format("{0} {1}", series.ModelsCount, series.ModelsCount > 1 ? "Bikes" : "Bike")</p>
+							</div>
+							<span class="right-arrow">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="14px" viewBox="0 0 8 14" version="1.1">
+									<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+										<g id="review-copy-6" transform="translate(-320.000000, -5738.000000)" stroke="#AAAAAA" stroke-width="1.0125">
+											<polyline id="Page-1" transform="translate(324.000000, 5745.000000) scale(1, -1) translate(-324.000000, -5745.000000) " points="321 5739 327 5745 321 5751"></polyline>
+										</g>
+									</g>
+								</svg>
+							</span>
+						</a>
+					</li>
+				}
+			</ul>
+			<span class="jcarousel-control-left">
+				<a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+			</span>
+			<span class="jcarousel-control-right">
+				<a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+			</span>
+		</div>
+	</div>
+}

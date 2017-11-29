@@ -102,15 +102,15 @@ namespace Bikewale.Common
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 HttpContext.Current.Trace.Warn(err.Message);
                 Exception ex = new Exception(err.Message + "Values : " + val);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch SqlException
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
                 Exception ex = new Exception(err.Message + "Values : " + val);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
 
             return customerId;
@@ -137,7 +137,7 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = Email;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 50, Email));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -149,14 +149,14 @@ namespace Bikewale.Common
             }
             catch (SqlException exSql)
             {
-                ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 //Response.Write(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return cust_id;
@@ -181,8 +181,8 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return pass;
@@ -209,8 +209,8 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return salt;
@@ -241,8 +241,8 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return hashCode;
@@ -325,13 +325,13 @@ namespace Bikewale.Common
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return customerId;
@@ -364,13 +364,13 @@ namespace Bikewale.Common
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
         }   // End of UpdatePassword method 
@@ -437,13 +437,13 @@ namespace Bikewale.Common
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return token;
@@ -485,13 +485,13 @@ namespace Bikewale.Common
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
 
@@ -524,13 +524,13 @@ namespace Bikewale.Common
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }   // End of UpdatePasswordRecoveryTokenStatus method 
         #endregion
@@ -568,8 +568,8 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return isSend;
@@ -618,13 +618,13 @@ namespace Bikewale.Common
         //    catch (SqlException err)
         //    {
         //        //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
-        //        ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
+        //        ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+        //        
         //    } // catch SqlException
         //    catch (Exception err)
         //    {
-        //        ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
+        //        ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+        //        
         //    } // catch Exception
         //    finally
         //    {
@@ -667,14 +667,14 @@ namespace Bikewale.Common
             catch (SqlException sqlEx)
             {
                 HttpContext.Current.Trace.Warn(sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -710,14 +710,14 @@ namespace Bikewale.Common
             catch (SqlException sqlEx)
             {
                 HttpContext.Current.Trace.Warn(sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return isFake;

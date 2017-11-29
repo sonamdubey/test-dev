@@ -1,11 +1,10 @@
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 
 namespace BikeWaleOpr.Controls
-{		
-	public class DateControl : UserControl 
+{
+    public class DateControl : UserControl 
 	{
 		protected DropDownList cmbDay,cmbMonth;
 		protected TextBox txtYear;

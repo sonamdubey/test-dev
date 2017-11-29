@@ -47,8 +47,8 @@ namespace Bikewale.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_{1}_{2}_{3}_{4}", Request.ServerVariables["URL"], " OtherUsedBikeByCity.BindSimilarBikes", InquiryId, CityId, TopCount));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("{0}_{1}_{2}_{3}_{4}", Request.ServerVariables["URL"], " OtherUsedBikeByCity.BindSimilarBikes", InquiryId, CityId, TopCount));
+                
             }
         }
     }

@@ -115,14 +115,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 Trace.Warn("Error", ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
             BindGrid();
         }
@@ -156,8 +156,8 @@ namespace BikeWaleOpr.Content
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
 
         }
@@ -230,8 +230,8 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
 
                 Trace.Warn("number : " + ex.Number + " : error code : " + ex.ErrorCode);
                 // Error code Unique key constraint in the database.
@@ -243,8 +243,8 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
 
             dtgrdMembers.EditItemIndex = -1;

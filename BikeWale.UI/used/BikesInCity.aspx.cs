@@ -56,8 +56,8 @@ namespace Bikewale.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikesInCity.BindCities");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikesInCity.BindCities");
+                
             }
         }
     }

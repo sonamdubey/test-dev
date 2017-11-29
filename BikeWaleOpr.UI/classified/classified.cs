@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.Used;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikewaleOpr.Interface.Used;
 using BikewaleOpr.Used;
 using MySql.CoreDAL;
@@ -8,7 +9,6 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using Bikewale.Utility;
 /// <summary>
 /// Created By Sanjay Soni ON 1/10/2014
 /// </summary>
@@ -48,14 +48,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerListingDetail  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerListingDetail ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }   //End of BindRepeater
@@ -87,14 +87,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerLiveListings  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerLiveListings ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }
@@ -126,14 +126,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerPendingListings  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerPendingListings ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }
@@ -164,14 +164,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerFakeListings  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerFakeListings ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }
@@ -203,14 +203,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerUnVerifiedListings  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerUnVerifiedListings ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }
@@ -242,14 +242,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerSoldListings  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerSoldListings ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }
@@ -281,14 +281,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerTotalListings  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerTotalListings ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }
@@ -320,14 +320,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerTotalListingPhotos  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("CustomerTotalListingPhotos ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }
@@ -389,15 +389,15 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("ApproveListing  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 isSuccess = false;
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("ApproveListing ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 isSuccess = false;
             }
             return isSuccess;
@@ -445,15 +445,15 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("DiscardListing  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 isSuccess = false;
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("DiscardListing ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 isSuccess = false;
             }
             return isSuccess;
@@ -485,14 +485,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("getCustomerApproveSelectedPhotos  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("getCustomerApproveSelectedPhotos ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
         #endregion
@@ -522,14 +522,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("DiscardSelectedPhotos  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("DiscardSelectedPhotos ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
         #endregion
@@ -559,14 +559,14 @@ namespace BikeWaleOpr.Classified
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("DiscardCustomers  sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("DiscardCustomers ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }   //End of DiscardCustomers
         #endregion

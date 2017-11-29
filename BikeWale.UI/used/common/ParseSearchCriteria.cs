@@ -37,7 +37,7 @@ namespace Bikewale.Used
             if (!String.IsNullOrEmpty(qsColl.Get("city")))
                 Init_CommandParameters();
 
-            Init_SearchCriterias();
+            //Init_SearchCriterias();
         }
 
         // Get lattitude on the basis of city distance
@@ -209,7 +209,7 @@ namespace Bikewale.Used
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
         }

@@ -43,7 +43,7 @@
         <li>
             <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwmsprite usedBikes-icon"></span>
-                <span class="navbarTitle">Used Bikes</span>
+                <span class="navbarTitle">Buy & Sell Used Bikes</span>
                 <span class="nav-drop bwmsprite fa-angle-down"></span>
             </a>
             <ul class="nestedUL">

@@ -69,8 +69,8 @@ namespace Bikewale.Service.Controllers.DealerLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.DealerLocator.DealerBikesController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.DealerLocator.DealerBikesController.Get");
+               
                 return InternalServerError();
             }
         }
@@ -109,8 +109,8 @@ namespace Bikewale.Service.Controllers.DealerLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.DealerLocator.DealerBikesController.GetV2");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.DealerLocator.DealerBikesController.GetV2");
+               
                 return InternalServerError();
             }
         }

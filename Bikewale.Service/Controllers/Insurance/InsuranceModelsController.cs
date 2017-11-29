@@ -47,8 +47,8 @@ namespace Bikewale.Service.Controllers.Insurance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.Insurance.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Insurance.Get");
+               
                 return InternalServerError();
             }
         }

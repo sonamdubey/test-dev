@@ -61,7 +61,6 @@ namespace Bikewale.Models
         /// Description : Added IAdSlot.
         /// </summary>
         public HomePageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache, IAdSlot adSlot)
-
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -95,6 +94,9 @@ namespace Bikewale.Models
         /// Summary    : Replaced logic of fetching upcoming bike list.
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added call to BindAdSlotTags.
+        /// Modified By: Snehal Dange on 24th Nov 2017
+        /// Description: Changed popularBikes.TopCount from 9 to 8
+        /// 
         /// </returns>
         public HomePageVM GetData()
         {
@@ -154,7 +156,7 @@ namespace Bikewale.Models
             BindCompareBikes(objVM, CompareSource, cityId);
 
             BestBikeByBodyStyle objBestBike = new BestBikeByBodyStyle(_cachedModels);
-            objBestBike.topCount = 9;
+            objBestBike.topCount = 8;
             objVM.BestBikes = objBestBike.GetData();
 
             string cityWidgetTitle = string.Empty, cityWidgetHref = string.Empty;
@@ -194,7 +196,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "ModelPage.BindAdSlotTags");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "ModelPage.BindAdSlotTags");
             }
         }
         private UsedBikeModelsWidgetVM BindUsedBikeByModel(uint cityId)
@@ -212,7 +214,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "HomePageModel.BindUsedBikeByModel()");
+                ErrorClass.LogError(ex, "HomePageModel.BindUsedBikeByModel()");
             }
 
             return UsedBikeModel;
@@ -302,7 +304,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "HomePageModel.BindMetas()");
+                ErrorClass.LogError(ex, "HomePageModel.BindMetas()");
             }
         }
 

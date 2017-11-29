@@ -122,12 +122,16 @@
                 background-position: -78px -533px;
             }
 
-            .footer-top, footer {
+            .footer-top{
+              border-top: 1px solid rgba(183,183,183,.2);
+              padding-top: 15px;
+              padding-bottom: 10px;
+            }
+            .footer {
                 padding-bottom: 15px;
             }
 
             .footer-popular-brands {
-                border-top: 1px solid rgba(183,183,183,.2);
                 padding-top: 15px;
                 padding-bottom: 10px;
             }
@@ -147,7 +151,7 @@
 
             footer {
                 background: #323434;
-                padding-top: 30px;
+                padding-top: 5px;
                 text-align: center;
             }
 
@@ -424,7 +428,7 @@
                     <section>
                         <h2 class="nav-accordion-header">
                             <span class="bwmsprite usedBikes-icon"></span>
-                            <span class="vertical-middle">Used Bikes</span>
+                            <span class="vertical-middle">Buy & Sell Used Bikes</span>
                             <span class="bwmsprite fa-angle-down"></span>
                         </h2>
                         <ul class="nestedUL">
@@ -497,6 +501,14 @@
     }
 
     <footer>
+        <div class="footer-popular-brands text-center padding-top10">
+            <p class="font13 text-white margin-bottom10">Popular Brands</p>
+            <ul>
+                <li><a href="@string.Format("{0}/m/honda-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Honda Bikes">Honda Bikes</a></li>
+                <li><a href="@string.Format("{0}/m/hero-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Hero Bikes">Hero Bikes</a></li>
+                <li><a href="@string.Format("{0}/m/suzuki-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Suzuki Bikes">Suzuki Bikes</a></li>
+            </ul>
+        </div>
         <div class="footer-top">
             <ul>
                 <li>
@@ -509,14 +521,6 @@
                 <li>
                     <a href="https://m.cartrade.com/" target="_top" title="CarTrade" class="bwmsprite ct-footer-icon"></a>
                 </li>
-            </ul>
-        </div>
-        <div class="footer-popular-brands text-center padding-top10">
-            <p class="font13 text-white margin-bottom10">Popular Brands</p>
-            <ul>
-                <li><a href="@string.Format("{0}/m/yamaha-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Yamaha Bikes">Yamaha Bikes</a></li>
-                <li><a href="@string.Format("{0}/m/bajaj-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Bajaj Bikes">Bajaj Bikes</a></li>
-                <li><a href="@string.Format("{0}/m/royalenfield-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Royal Enfield Bikes">Royal Enfield Bikes</a></li>
             </ul>
         </div>
         <div class="footer-middle">

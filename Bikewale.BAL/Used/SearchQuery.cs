@@ -48,8 +48,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.GetSearchResultQuery");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.GetSearchResultQuery");
+                
             }
 
             return searchQuery;
@@ -82,8 +82,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.InitSearchQuery");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.InitSearchQuery");
+                
             }
         }
 
@@ -101,8 +101,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyCityFilter");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.ApplyCityFilter");
+                
             }
         }
 
@@ -149,8 +149,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyBikeFilter");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.ApplyBikeFilter");
+                
             }
         }
 
@@ -182,8 +182,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyModelFilter");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.ApplyModelFilter");
+                
             }
         }
 
@@ -215,8 +215,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyBudgetFilter");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.ApplyBudgetFilter");
+                
             }
         }
 
@@ -232,8 +232,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyKilometersFilter");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.ApplyKilometersFilter");
+                
             }
         }
 
@@ -249,8 +249,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyAgeFilter");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.ApplyAgeFilter");
+                
             }
         }
 
@@ -277,8 +277,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyOwnersFilter");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.ApplyOwnersFilter");
+                
             }
         }
 
@@ -305,8 +305,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplySellerTypeFilter");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.ApplySellerTypeFilter");
+                
             }
         }
 
@@ -334,8 +334,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.GetSelectClause");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.GetSelectClause");
+                
             }
 
             return selectClause;
@@ -357,8 +357,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.GetFromClause");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.SearchQuery.GetFromClause");
+                
             }
 
             return fromClause;
@@ -415,8 +415,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetOrderByClause");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetOrderByClause");
+                
             }
             return orderBy;
         }

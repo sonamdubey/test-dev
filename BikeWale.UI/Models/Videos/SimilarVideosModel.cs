@@ -46,7 +46,7 @@ namespace Bikewale.Models
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("SimilarVideosModel.GetData({0})", _modelId));
+                    ErrorClass.LogError(ex, String.Format("SimilarVideosModel.GetData({0})", _modelId));
                 }
             }
             return similarVideosModel;

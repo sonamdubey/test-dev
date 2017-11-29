@@ -1,5 +1,4 @@
-﻿using Bikewale.Common;
-using Bikewale.DTO.PriceQuote;
+﻿using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
@@ -20,6 +19,7 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.Gallery;
 using Bikewale.Models.PriceInCity;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using Newtonsoft.Json;
 using System;
@@ -69,26 +69,26 @@ namespace Bikewale.Models
         public string CurrentPageUrl { get; set; }
         public bool IsMobile { get; internal set; }
         private GlobalCityAreaEntity locationCookie = null;
-		private readonly IAdSlot _adSlot = null;
+        private readonly IAdSlot _adSlot = null;
 
-		/// <summary>
-		/// Created by  :   Sumit Kate on 28 Mar 2017
-		/// Description :   Constructor to initialize the member variables
-		/// </summary>
-		/// <param name="cityMaskingCache"></param>
-		/// <param name="modelMaskingCache"></param>
-		/// <param name="objPQ"></param>
-		/// <param name="objPQCache"></param>
-		/// <param name="objDealerCache"></param>
-		/// <param name="objServiceCenter"></param>
-		/// <param name="versionCache"></param>
-		/// <param name="bikeInfo"></param>
-		/// <param name="cityCache"></param>
-		/// <param name="modelCache"></param>
-		/// <param name="pqSource"></param>
-		/// <param name="modelMaskingName"></param>
-		/// <param name="cityMaskingName"></param>
-		public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName)
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Mar 2017
+        /// Description :   Constructor to initialize the member variables
+        /// </summary>
+        /// <param name="cityMaskingCache"></param>
+        /// <param name="modelMaskingCache"></param>
+        /// <param name="objPQ"></param>
+        /// <param name="objPQCache"></param>
+        /// <param name="objDealerCache"></param>
+        /// <param name="objServiceCenter"></param>
+        /// <param name="versionCache"></param>
+        /// <param name="bikeInfo"></param>
+        /// <param name="cityCache"></param>
+        /// <param name="modelCache"></param>
+        /// <param name="pqSource"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <param name="cityMaskingName"></param>
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -110,31 +110,31 @@ namespace Bikewale.Models
             ProcessQueryString();
         }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 11 Oct 2017
-		/// Description : Added IBikeModels<Entities.BikeData.BikeModelEntity, int> instance in constructor for image gallery.
-		/// Modifed by : Ashutosh Sharma on 13 Nov 2017
-		/// Description : Added IAdSlot.
-		/// </summary>
-		/// <param name="cityMaskingCache"></param>
-		/// <param name="modelMaskingCache"></param>
-		/// <param name="objPQ"></param>
-		/// <param name="objPQCache"></param>
-		/// <param name="objDealerCache"></param>
-		/// <param name="objServiceCenter"></param>
-		/// <param name="versionCache"></param>
-		/// <param name="bikeInfo"></param>
-		/// <param name="modelCache"></param>
-		/// <param name="objDealerDetails"></param>
-		/// <param name="objDealerPQ"></param>
-		/// <param name="objCityCache"></param>
-		/// <param name="objAreaCache"></param>
-		/// <param name="objManufacturerCampaign"></param>
-		/// <param name="pqSource"></param>
-		/// <param name="modelMaskingName"></param>
-		/// <param name="cityMaskingName"></param>
-		/// <param name="modelEntity"></param>
-		public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 11 Oct 2017
+        /// Description : Added IBikeModels<Entities.BikeData.BikeModelEntity, int> instance in constructor for image gallery.
+        /// Modifed by : Ashutosh Sharma on 13 Nov 2017
+        /// Description : Added IAdSlot.
+        /// </summary>
+        /// <param name="cityMaskingCache"></param>
+        /// <param name="modelMaskingCache"></param>
+        /// <param name="objPQ"></param>
+        /// <param name="objPQCache"></param>
+        /// <param name="objDealerCache"></param>
+        /// <param name="objServiceCenter"></param>
+        /// <param name="versionCache"></param>
+        /// <param name="bikeInfo"></param>
+        /// <param name="modelCache"></param>
+        /// <param name="objDealerDetails"></param>
+        /// <param name="objDealerPQ"></param>
+        /// <param name="objCityCache"></param>
+        /// <param name="objAreaCache"></param>
+        /// <param name="objManufacturerCampaign"></param>
+        /// <param name="pqSource"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <param name="cityMaskingName"></param>
+        /// <param name="modelEntity"></param>
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -154,8 +154,8 @@ namespace Bikewale.Models
             this.cityMaskingName = cityMaskingName;
             _objManufacturerCampaign = objManufacturerCampaign;
             _objModelEntity = modelEntity;
-			_adSlot = adSlot;
-			ProcessQueryString();
+            _adSlot = adSlot;
+            ProcessQueryString();
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("ProcessQueryString({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("ProcessQueryString({0},{1})", modelMaskingName, cityMaskingName));
                 Status = StatusCodes.ContentNotFound;
             }
             finally
@@ -279,16 +279,16 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("CheckCityCookie({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("CheckCityCookie({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
-		/// <summary>
-		/// Modifed by : Ashutosh Sharma on 13 Nov 2017
-		/// Description : Added call to BindAdSlotTags.
-		/// </summary>
-		/// <returns></returns>
-		public PriceInCityPageVM GetData()
+        /// <summary>
+        /// Modifed by : Ashutosh Sharma on 13 Nov 2017
+        /// Description : Added call to BindAdSlotTags.
+        /// </summary>
+        /// <returns></returns>
+        public PriceInCityPageVM GetData()
         {
             PriceInCityPageVM objVM = null;
             try
@@ -411,42 +411,42 @@ namespace Bikewale.Models
                     {
                         CheckGallaryLoad(objVM);
                     }
-					BindAdSlotTags(objVM);
-				}
+                    BindAdSlotTags(objVM);
+                }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("PriceInCityPage.GetData({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, string.Format("PriceInCityPage.GetData({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
         }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 13 Nov 2017
-		/// Description : Bind ad slot to adtags.
-		/// </summary>
-		private void BindAdSlotTags(PriceInCityPageVM objVM)
-		{
-			try
-			{
-				if (objVM.AdTags != null)
-				{
-					objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399"); //For similar bikes widget desktop
-					objVM.AdTags.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
-				}
-			}
-			catch (Exception ex)
-			{
-				Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "PriceInCityPage.BindAdSlotTags");
-			}
-		}
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 13 Nov 2017
+        /// Description : Bind ad slot to adtags.
+        /// </summary>
+        private void BindAdSlotTags(PriceInCityPageVM objVM)
+        {
+            try
+            {
+                if (objVM.AdTags != null)
+                {
+                    objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399"); //For similar bikes widget desktop
+                    objVM.AdTags.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "PriceInCityPage.BindAdSlotTags");
+            }
+        }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 05 Oct 2017
-		/// Description : Method to check if Gallary will be loaded via AJAX call.
-		/// </summary>
-		/// <param name="objVM"></param>
-		private void CheckGallaryLoad(PriceInCityPageVM objVM)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 05 Oct 2017
+        /// Description : Method to check if Gallary will be loaded via AJAX call.
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void CheckGallaryLoad(PriceInCityPageVM objVM)
         {
             try
             {
@@ -459,7 +459,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, string.Format("PriceInCityPage.CheckGallaryLoad_{0}", objVM));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("PriceInCityPage.CheckGallaryLoad_{0}", objVM));
             }
         }
 
@@ -497,7 +497,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, string.Format("PriceInCityPage.BindModelGallery{0}", objVM));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("PriceInCityPage.BindModelGallery{0}", objVM));
             }
         }
 
@@ -522,7 +522,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                var err = new Notifications.ErrorClass(ex, String.Format("ShowInnovationBanner({0})", _modelId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("ShowInnovationBanner({0})", _modelId));
             }
         }
 
@@ -562,10 +562,10 @@ namespace Bikewale.Models
                     {
                         firstVersion = objVM.FormatedBikeVersionPrices.OrderByDescending(m => m.BikeQuotationEntity.IsVersionNew).OrderBy(v => v.BikeQuotationEntity.ExShowroomPrice).First().BikeQuotationEntity;
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
-						var newVersions = objVM.FormatedBikeVersionPrices.Where(x => x.BikeQuotationEntity.IsVersionNew);
-						if (objVM.IsNew && newVersions != null && newVersions.Any())
+                        var newVersions = objVM.FormatedBikeVersionPrices.Where(x => x.BikeQuotationEntity.IsVersionNew);
+                        if (objVM.IsNew && newVersions != null && newVersions.Any())
                         {
-							objVM.FormatedBikeVersionPrices = newVersions;
+                            objVM.FormatedBikeVersionPrices = newVersions;
                             objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         }
                         versionCount = (uint)objVM.FormatedBikeVersionPrices.Count();
@@ -625,21 +625,22 @@ namespace Bikewale.Models
                         {
                             BindPriceInNearestCities(objVM);
                             BindPriceInTopCities(objVM);
-							if (objVM.CookieCityEntity != null)
-							{
-								if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
-								{
-									GetDealerPriceQuote(objVM);
-								}
-								else
-								{
-									if (objVM.CookieCityEntity.HasAreas && areaId == 0)
-									{
-										objVM.IsAreaAvailable = true;
-									}
-								} 
-							}
-                            GetManufacturerCampaign(objVM);
+                            if (objVM.CookieCityEntity != null)
+                            {
+                                if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
+                                {
+                                    GetDealerPriceQuote(objVM);
+                                }
+                                else
+                                {
+                                    if (objVM.CookieCityEntity.HasAreas && areaId == 0)
+                                    {
+                                        objVM.IsAreaAvailable = true;
+                                    }
+                                }
+                            }
+
+
                             objVM.LeadCapture = new LeadCaptureEntity()
                             {
                                 ModelId = modelId,
@@ -663,10 +664,11 @@ namespace Bikewale.Models
                         objVM.Page_H1 = String.Format("{0} price in {1}", objVM.BikeName, objVM.CityEntity.CityName);
 
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
-
+                        #region Do not change the order
                         BuildPageMetas(objVM);
+                        GetManufacturerCampaign(objVM);
                         BindManufacturerLeadAdAMP(objVM);
-
+                        #endregion
 
                     }
                     else
@@ -687,7 +689,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetDataAMP({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("GetDataAMP({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
         }
@@ -711,7 +713,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objVM));
+                ErrorClass.LogError(ex, String.Format("BindAmpJsTags_{0}", objVM));
             }
         }
 
@@ -746,7 +748,7 @@ namespace Bikewale.Models
                                                priceInCityAMPVM.LeadCampaign.CampaignId, priceInCityAMPVM.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), priceInCityAMPVM.LeadCampaign.PopupHeading,
                                                String.Format(priceInCityAMPVM.LeadCampaign.PopupSuccessMessage, priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.PopupDescription,
                                                priceInCityAMPVM.LeadCampaign.PincodeRequired, priceInCityAMPVM.LeadCampaign.EmailRequired, priceInCityAMPVM.LeadCampaign.DealerRequired,
-                                               priceInCityAMPVM.PageMetaTags.AlternateUrl));
+                                               string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName)));
 
                         str = str.ReplaceHref("leadcapturebtn", url);
 
@@ -755,7 +757,7 @@ namespace Bikewale.Models
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, String.Format("ManufacturerCampaign.Mobile.AMP(CampaignId : {0})", priceInCityAMPVM.LeadCampaign.CampaignId));
+                    Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("ManufacturerCampaign.Mobile.AMP(CampaignId : {0})", priceInCityAMPVM.LeadCampaign.CampaignId));
                 }
 
             }
@@ -770,71 +772,71 @@ namespace Bikewale.Models
         {
             try
             {
-				if (objVM != null && objVM.FirstVersion != null )
-				{
-					ulong bikePrice = objVM.FirstVersion.OnRoadPrice;
-					double loanAmount = Math.Round(objVM.FirstVersion.OnRoadPrice * .7);
-					int downPayment = Convert.ToInt32(bikePrice - loanAmount);
+                if (objVM != null && objVM.FirstVersion != null)
+                {
+                    ulong bikePrice = objVM.FirstVersion.OnRoadPrice;
+                    double loanAmount = Math.Round(objVM.FirstVersion.OnRoadPrice * .7);
+                    int downPayment = Convert.ToInt32(bikePrice - loanAmount);
 
-					float minDnPay = (float)(10 * bikePrice) / 100;
-					float maxDnPay = (float)(40 * bikePrice) / 100;
+                    float minDnPay = (float)(10 * bikePrice) / 100;
+                    float maxDnPay = (float)(40 * bikePrice) / 100;
 
-					ushort minTenure = 12;
-					ushort maxTenure = 48;
+                    ushort minTenure = 12;
+                    ushort maxTenure = 48;
 
-					int minROI = 10;
-					int maxROI = 15;
+                    int minROI = 10;
+                    int maxROI = 15;
 
-					float rateOfInterest = Convert.ToSingle((maxROI - minROI) / 2.0 + minROI);
+                    float rateOfInterest = Convert.ToSingle((maxROI - minROI) / 2.0 + minROI);
 
-					ushort tenure = (ushort)((maxTenure - minTenure) / 2 + minTenure);
+                    ushort tenure = (ushort)((maxTenure - minTenure) / 2 + minTenure);
 
-					double interest = (loanAmount * tenure * rateOfInterest) / 1200;
+                    double interest = (loanAmount * tenure * rateOfInterest) / 1200;
 
-					int procFees = 0;
-					int monthlyEMI = 0;
-					if (tenure != 0)
-					{
-						monthlyEMI = Convert.ToInt32(Math.Round((loanAmount + interest + procFees) / tenure));
-					}
+                    int procFees = 0;
+                    int monthlyEMI = 0;
+                    if (tenure != 0)
+                    {
+                        monthlyEMI = Convert.ToInt32(Math.Round((loanAmount + interest + procFees) / tenure));
+                    }
 
-					int totalAmount = downPayment + monthlyEMI * tenure;
+                    int totalAmount = downPayment + monthlyEMI * tenure;
 
-					objVM.EMI = new EMI();
-					objVM.EMI.MinDownPayment = minDnPay;
-					objVM.EMI.MaxDownPayment = maxDnPay;
+                    objVM.EMI = new EMI();
+                    objVM.EMI.MinDownPayment = minDnPay;
+                    objVM.EMI.MaxDownPayment = maxDnPay;
 
-					objVM.EMI.MinTenure = minTenure;
-					objVM.EMI.MaxTenure = maxTenure;
+                    objVM.EMI.MinTenure = minTenure;
+                    objVM.EMI.MaxTenure = maxTenure;
 
-					objVM.EMI.MinRateOfInterest = minROI;
-					objVM.EMI.MaxRateOfInterest = maxROI;
+                    objVM.EMI.MinRateOfInterest = minROI;
+                    objVM.EMI.MaxRateOfInterest = maxROI;
 
-					objVM.EMI.RateOfInterest = rateOfInterest;
-					objVM.EMI.Tenure = tenure;
+                    objVM.EMI.RateOfInterest = rateOfInterest;
+                    objVM.EMI.Tenure = tenure;
 
 
-					objVM.EMISliderAMP = new EMISliderAMP();
-					objVM.EMISliderAMP.TotalAmount = Format.FormatPrice(Convert.ToString(totalAmount));
-					objVM.EMISliderAMP.FormatedTotalAmount = "0";
-					objVM.EMISliderAMP.DownPayment = Convert.ToString(downPayment);
-					objVM.EMISliderAMP.FormatedDownPayment = "0";
-					objVM.EMISliderAMP.LoanAmount = Convert.ToString((int)loanAmount);
-					objVM.EMISliderAMP.FormatedLoanAmount = "0";
-					objVM.EMISliderAMP.Tenure = tenure;
-					objVM.EMISliderAMP.FormatedTenure = "0";
-					objVM.EMISliderAMP.RateOfInterest = rateOfInterest;
-					objVM.EMISliderAMP.Fees = procFees;
-					objVM.EMISliderAMP.BikePrice = bikePrice;
-					objVM.EMISliderAMP.EMI = "0";
+                    objVM.EMISliderAMP = new EMISliderAMP();
+                    objVM.EMISliderAMP.TotalAmount = Format.FormatPrice(Convert.ToString(totalAmount));
+                    objVM.EMISliderAMP.FormatedTotalAmount = "0";
+                    objVM.EMISliderAMP.DownPayment = Convert.ToString(downPayment);
+                    objVM.EMISliderAMP.FormatedDownPayment = "0";
+                    objVM.EMISliderAMP.LoanAmount = Convert.ToString((int)loanAmount);
+                    objVM.EMISliderAMP.FormatedLoanAmount = "0";
+                    objVM.EMISliderAMP.Tenure = tenure;
+                    objVM.EMISliderAMP.FormatedTenure = "0";
+                    objVM.EMISliderAMP.RateOfInterest = rateOfInterest;
+                    objVM.EMISliderAMP.Fees = procFees;
+                    objVM.EMISliderAMP.BikePrice = bikePrice;
+                    objVM.EMISliderAMP.EMI = "0";
 
-					objVM.JSONEMISlider = JsonConvert.SerializeObject(objVM.EMISliderAMP);
-					objVM.EMISliderAMP.EMI = Convert.ToString(monthlyEMI);
-				}
-			}
+                    objVM.JSONEMISlider = JsonConvert.SerializeObject(objVM.EMISliderAMP);
+                    objVM.EMISliderAMP.EMI = Convert.ToString(monthlyEMI);
+                }
+            }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindEMISlider({0})", objVM));
+                ErrorClass.LogError(ex, String.Format("BindEMISlider({0})", objVM));
             }
         }
 
@@ -857,7 +859,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindPriceInTopCities({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindPriceInTopCities({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -879,7 +881,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindBikeBasicDetails({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindBikeBasicDetails({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -898,7 +900,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindBikeInfoRank({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindBikeInfoRank({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -938,7 +940,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindSimilarBikes({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindSimilarBikes({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -969,7 +971,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass ec = new ErrorClass(ex, String.Format("Bikewale.Models.PriceInCity.BindPopularBodyStyle({0},{1})", modelId, cityId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.Models.PriceInCity.BindPopularBodyStyle({0},{1})", modelId, cityId));
             }
         }
 
@@ -990,7 +992,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindServiceCenters({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindServiceCenters({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -1013,7 +1015,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindDealersWidget({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindDealersWidget({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -1030,7 +1032,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindPriceInNearestCities({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindPriceInNearestCities({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -1065,7 +1067,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.PriceInCityPAge.FormatVarientMinSpec(): versionId {0}", objVersion.VersionId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.PriceInCityPAge.FormatVarientMinSpec(): versionId {0}", objVersion.VersionId));
             }
 
             return minSpecsStr;
@@ -1098,14 +1100,14 @@ namespace Bikewale.Models
 
                 if (firstVersion != null)
                 {
-                    string newBikeDescription = string.Format("{0} {1} on-road price in {2} -   &#x20B9; {3} onwards. It is available in {4} version{5}{6}", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+                    string newBikeDescription = string.Format("{0} {1} on-road price in {2} -   &#x20B9; {3} onwards. It is available in {4} version{5}{6}", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, Bikewale.Common.CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
 
                     if (dealerCount > 0)
                         newBikeDescription = string.Format("{0} {1} is sold by {2} dealership{3} in {4}.", newBikeDescription, firstVersion.ModelName, dealerCount, multiDealer, firstVersion.City);
 
                     newBikeDescription = string.Format("{0} All the colour options and versions of {1} might not be available at all the dealerships in {2}.", newBikeDescription, firstVersion.ModelName, firstVersion.City);
 
-                    string discontinuedDescription = string.Format("The last known ex-showroom price of {0} {1} in {2} was   &#x20B9; {3} onwards. This bike has now been discontinued. It was available in {4} version{5}{6} Click on a {1} version name to know the last known ex-showroom price in {2}.", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+                    string discontinuedDescription = string.Format("The last known ex-showroom price of {0} {1} in {2} was   &#x20B9; {3} onwards. This bike has now been discontinued. It was available in {4} version{5}{6} Click on a {1} version name to know the last known ex-showroom price in {2}.", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, Bikewale.Common.CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
 
                     if (isNew)
                         pageDescription = newBikeDescription;
@@ -1116,7 +1118,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("PageDescription({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("PageDescription({0},{1})", modelMaskingName, cityMaskingName));
             }
             return pageDescription;
         }
@@ -1142,9 +1144,9 @@ namespace Bikewale.Models
                 objVM.PageMetaTags.AmpUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/amp/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
 
                 if (firstVersion != null && !isNew)
-                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
+                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, firstVersion.City, Bikewale.Common.CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
                 else if (firstVersion != null)
-                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get prices for all the versions of and check out the nearest {0} Dealer in {1}", bikeName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
+                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get prices for all the versions of and check out the nearest {0} Dealer in {1}", bikeName, firstVersion.City, Bikewale.Common.CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
                 objVM.PageMetaTags.Keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, firstVersion.City, firstVersion.ModelName);
 
                 objVM.AdTags.TargetedCity = firstVersion.City;
@@ -1158,7 +1160,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BuildPageMetas({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("BuildPageMetas({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -1185,45 +1187,53 @@ namespace Bikewale.Models
         /// </summary>
         private void SetBreadcrumList(PriceInCityPageVM objPage)
         {
-            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
-            ushort position = 1;
-            if (IsMobile)
+            try
             {
-                url += "m/";
-            }
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
-
-            if (objPage.Make != null)
-            {
-                url = string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName);
-
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
-            }
-
-            if (objPage.Make != null && objPage.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !objPage.Make.IsScooterOnly)
-            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
                 if (IsMobile)
-                    url = string.Format("/m/{0}-scooters/", objPage.Make.MaskingName);
-                else
-                    url = string.Format("/{0}-scooters/", objPage.Make.MaskingName);
+                {
+                    url += "m/";
+                }
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Scooters", objPage.Make.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+
+                if (objPage.Make != null)
+                {
+                    url = string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName);
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
+                }
+
+                if (objPage.Make != null && objPage.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !objPage.Make.IsScooterOnly)
+                {
+                    string makeUrl = "";
+                    if (IsMobile)
+                        makeUrl = string.Format("/m/{0}-scooters/", objPage.Make.MaskingName);
+                    else
+                        makeUrl = string.Format("/{0}-scooters/", objPage.Make.MaskingName);
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, makeUrl, string.Format("{0} Scooters", objPage.Make.MakeName)));
+                }
+
+                if (objPage.Make != null && objPage.BikeModel != null)
+                {
+                    url = string.Format("{0}{1}/", url, objPage.BikeModel.MaskingName);
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.BikeModel.ModelName));
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
+
+
+                objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
             }
-
-            if (objPage.Make != null && objPage.BikeModel != null)
+            catch (Exception ex)
             {
-                url = string.Format("{0}{1}/", url, objPage.BikeModel.MaskingName);
-
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.BikeModel.ModelName));
+                ErrorClass.LogError(ex, String.Format("SetBreadcrumList({0},{1})", modelMaskingName, cityMaskingName));
             }
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
-
-
-            objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
 
         }
 
@@ -1246,7 +1256,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetDealerPriceQuote({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("GetDealerPriceQuote({0},{1})", modelMaskingName, cityMaskingName));
             }
             finally
             {
@@ -1259,11 +1269,11 @@ namespace Bikewale.Models
                         {
                             primaryDealerId = objPQOutput.DealerId;
                             objVM.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(cityId, objPQOutput.VersionId, objPQOutput.DealerId, areaId);
-                            objVM.MPQString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString()));
+                            objVM.MPQString = EncodingDecodingHelper.EncodeTo64(Bikewale.Common.PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString()));
                         }
                         catch (Exception ex)
                         {
-                            ErrorClass objErr = new ErrorClass(ex, String.Format("GetDealerQuotationV2({0},{1})", modelMaskingName, cityMaskingName));
+                            ErrorClass.LogError(ex, String.Format("GetDealerQuotationV2({0},{1})", modelMaskingName, cityMaskingName));
                         }
                     }
                 }
@@ -1325,7 +1335,7 @@ namespace Bikewale.Models
 
 
                         objData.IsManufacturerLeadAdShown = true;
-                        objData.LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty, objData.IsManufacturerLeadAdShown, objData.LeadCampaign.DealerId, String.Format(objData.LeadCampaign.LeadsPropertyTextMobile, objData.LeadCampaign.Organization), objData.LeadCampaign.Area, objData.VersionId, objData.LeadCampaign.LeadSourceId, objData.LeadCampaign.PqSourceId, objData.LeadCampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.LeadCampaign.PopupHeading, String.Format(objData.LeadCampaign.PopupSuccessMessage, objData.LeadCampaign.Organization), objData.LeadCampaign.PopupDescription, objData.LeadCampaign.PincodeRequired, objData.LeadCampaign.EmailRequired, objData.LeadCampaign.DealerRequired)));
+                        objData.LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}", objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty, objData.IsManufacturerLeadAdShown, objData.LeadCampaign.DealerId, String.Format(objData.LeadCampaign.LeadsPropertyTextMobile, objData.LeadCampaign.Organization), objData.LeadCampaign.Area, objData.VersionId, objData.LeadCampaign.LeadSourceId, objData.LeadCampaign.PqSourceId, objData.LeadCampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.LeadCampaign.PopupHeading, String.Format(objData.LeadCampaign.PopupSuccessMessage, objData.LeadCampaign.Organization), objData.LeadCampaign.PopupDescription, objData.LeadCampaign.PincodeRequired, objData.LeadCampaign.EmailRequired, objData.LeadCampaign.DealerRequired, string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName))));
                     }
                     if (campaigns.EMICampaign != null)
                     {
@@ -1355,7 +1365,7 @@ namespace Bikewale.Models
                             LoanAmount = Convert.ToUInt32((objData.FirstVersion.OnRoadPrice) * 0.8)
                         };
 
-                        objData.EMICampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty, objData.IsManufacturerLeadAdShown, objData.EMICampaign.DealerId, String.Format(objData.EMICampaign.EMIPropertyTextDesktop, objData.EMICampaign.Organization), objData.EMICampaign.Area, objData.VersionId, objData.EMICampaign.LeadSourceId, objData.EMICampaign.PqSourceId, objData.EMICampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.EMICampaign.PopupHeading, String.Format(objData.EMICampaign.PopupSuccessMessage, objData.EMICampaign.Organization), objData.EMICampaign.PopupDescription, objData.EMICampaign.PincodeRequired, objData.EMICampaign.EmailRequired, objData.EMICampaign.DealerRequired)));
+                        objData.EMICampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}", objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty, objData.IsManufacturerLeadAdShown, objData.EMICampaign.DealerId, String.Format(objData.EMICampaign.EMIPropertyTextDesktop, objData.EMICampaign.Organization), objData.EMICampaign.Area, objData.VersionId, objData.EMICampaign.LeadSourceId, objData.EMICampaign.PqSourceId, objData.EMICampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.EMICampaign.PopupHeading, String.Format(objData.EMICampaign.PopupSuccessMessage, objData.EMICampaign.Organization), objData.EMICampaign.PopupDescription, objData.EMICampaign.PincodeRequired, objData.EMICampaign.EmailRequired, objData.EMICampaign.DealerRequired, objData.PageMetaTags.AlternateUrl)));
 
                         objData.IsManufacturerEMIAdShown = true;
                     }
@@ -1389,7 +1399,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", modelId, cityId, ManufacturerCampaignPageId));
+                ErrorClass.LogError(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", modelId, cityId, ManufacturerCampaignPageId));
             }
         }
     }

@@ -92,8 +92,8 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.GenericBikes.ParseQueryString");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.GenericBikes.ParseQueryString");
+                
             }
         }
 
@@ -157,8 +157,8 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("FetchBestBikesList{0} ", BodyStyleType));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("FetchBestBikesList{0} ", BodyStyleType));
+                
             }
         }
 

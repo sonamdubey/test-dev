@@ -45,7 +45,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.ManufactureCampaign.GetManufactureCampaigns dealerId: {0} allActiveCampaign: {1}", dealerId, allActiveCampaign));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.ManufactureCampaign.GetManufactureCampaigns dealerId: {0} allActiveCampaign: {1}", dealerId, allActiveCampaign));
             }
             return dtManufactureCampaigns;
         }
@@ -96,7 +96,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.searchmanufacturercampaign");
+                ErrorClass.LogError(ex, "ManufacturerCampaign.searchmanufacturercampaign");
             }
             return dtManufactureCampaigns;
         }
@@ -122,7 +122,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.statuschangeCampaigns");
+                ErrorClass.LogError(ex, "ManufacturerCampaign.statuschangeCampaigns");
             }
             return isSuccess;
         }
@@ -155,7 +155,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.ManufactureCampaign.UpdateCampaignStatus campaignid: {0} status : {1}", campaignId, status));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.ManufactureCampaign.UpdateCampaignStatus campaignid: {0} status : {1}", campaignId, status));
             }
             return isSuccess > 0;
         }
@@ -197,7 +197,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.GetDealerAsManuFacturer");
+                ErrorClass.LogError(ex, "ManageManufacturerCampaign.GetDealerAsManuFacturer");
             }
 
             return manufacturers;
@@ -239,7 +239,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.GetManufacturerCities");
+                ErrorClass.LogError(ex, "ManageDealerCampaignRule.GetManufacturerCities");
             }
             return AllMfgcities;
 
@@ -290,7 +290,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.FetchManufacturerCampaignRules");
+                ErrorClass.LogError(ex, "ManageDealerCampaignRule.FetchManufacturerCampaignRules");
             }
 
             return dtManufacturerCampaignRules;
@@ -329,7 +329,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.SaveManufacturerCampaignRules");
+                ErrorClass.LogError(ex, "ManageDealerCampaignRule.SaveManufacturerCampaignRules");
                 rowsInserted = -1;
             }
             return rowsInserted;
@@ -359,7 +359,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.DeleteManufacturerCampaignRules");
+                ErrorClass.LogError(ex, "ManageDealerCampaignRule.DeleteManufacturerCampaignRules");
             }
 
             return isDeleted;
@@ -394,7 +394,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.InsertBWDealerCampaign");
+                ErrorClass.LogError(ex, "MaufacturerCampaign.InsertBWDealerCampaign");
                 return 0;
             }
         }
@@ -453,7 +453,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.UpdateBWDealerCampaign");
+                ErrorClass.LogError(ex, "MaufacturerCampaign.UpdateBWDealerCampaign");
             }
             return isSuccess;
         }
@@ -503,7 +503,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.SaveManufacturerCampaignTemplate");
+                ErrorClass.LogError(ex, "MaufacturerCampaign.SaveManufacturerCampaignTemplate");
             }
             return isSuccess;
         }
@@ -555,7 +555,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.FetchCampaignDetails");
+                ErrorClass.LogError(ex, "MaufacturerCampaign.FetchCampaignDetails");
 
             }
             return objManufacturerCampaignDetails;
@@ -584,7 +584,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.ReleaseCampaignMaskingNumber");
+                ErrorClass.LogError(ex, "ManufacturerCampaign.ReleaseCampaignMaskingNumber");
             }
             return isSuccess;
         }

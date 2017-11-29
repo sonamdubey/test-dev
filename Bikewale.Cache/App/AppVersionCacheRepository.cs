@@ -3,10 +3,6 @@ using Bikewale.Interfaces.App;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Cache.App
 {
@@ -49,8 +45,8 @@ namespace Bikewale.Cache.App
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.CheckVersionStatus");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.CheckVersionStatus");
+                
             }
             return _appVersion;
         }

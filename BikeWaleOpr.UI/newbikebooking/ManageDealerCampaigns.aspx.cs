@@ -1,10 +1,6 @@
 ﻿using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.NewBikeBooking
@@ -54,8 +50,8 @@ namespace BikewaleOpr.NewBikeBooking
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.NewBikeBooking.DealerDetailedPriceQuote");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.NewBikeBooking.DealerDetailedPriceQuote");
+                
             }
         } 
     }

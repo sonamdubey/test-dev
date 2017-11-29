@@ -49,8 +49,8 @@ namespace Bikewale.Service.AutoMappers.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.AutoMappers.Videos.VideosMapper: ConvertV2");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Service.AutoMappers.Videos.VideosMapper: ConvertV2");
+               
             }
 
             return retData;

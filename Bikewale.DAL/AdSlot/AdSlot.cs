@@ -32,7 +32,7 @@ namespace Bikewale.DAL.AdSlot
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DAL.AdSlot.GetAdStatus");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DAL.AdSlot.GetAdStatus");
             }
             return objAdSlotList;
         }

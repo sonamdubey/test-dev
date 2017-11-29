@@ -17,9 +17,9 @@
                             <select class="chosen-select" data-placeholder="Select brand" id="makeFilter" data-filter="makewise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setMakeFilter(e);}}">
                                 <option value="0">All brands</option>
                                 @foreach (var make in Model.Makes)
-                                {
-                                    <option value="@make.Make.MakeId" data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName">@make.Make.MakeName</option>
-                                }
+{
+    <option value="@make.Make.MakeId" data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName">@make.Make.MakeName</option>
+}
                             </select>
                         </div>
                     }

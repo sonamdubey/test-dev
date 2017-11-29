@@ -1,0 +1,64 @@
+﻿@mixin comparison-carousel($width: 310px, $min-height: 210px)
+	.comparison-carousel 
+		>li
+			width: $width
+			min-height: $min-height
+			-webkit-box-shadow: none
+			-moz-box-shadow: none
+			box-shadow: none
+			
+		.card-target
+			padding-top: 15px
+			padding-bottom: 20px
+			display: block
+
+		.grid-6:first-of-type
+			position: relative
+			border-right: 1px solid #f5f5f5
+			
+		.compare-icon
+			position: absolute
+			right: -13px
+			top: 45px
+			width: 26px
+			height: 26px
+			display: block
+			z-index: 2
+			background-color: #fff
+			
+.card-target
+	&:hover
+		text-decoration: none
+		h4
+			text-decoration: underline
+
+@mixin compare-img($width: 167px, $height: 94px)
+	.compare-img
+		width: $width
+		height: $height
+		margin-bottom: 10px
+		position: relative
+
+		img
+			height: $height
+			width: auto
+			max-width: 100%
+
+.carousel-card__label
+	display: block
+	font-size: 14px
+	text-align: center
+	color: #4d5057
+	font-weight: 600
+	margin-bottom: 10px
+
+.comparison-carousel
+	&.inner-content-carousel 
+		.jcarousel 
+			li
+				width: 405px
+				@include border-radius(3px)
+	li
+		a
+			color: #4d5057
+			

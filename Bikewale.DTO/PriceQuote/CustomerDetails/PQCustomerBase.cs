@@ -1,11 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.DTO.Area;
 using Bikewale.DTO.City;
-using Bikewale.DTO.Area;
+using Newtonsoft.Json;
 
 namespace Bikewale.DTO.PriceQuote.CustomerDetails
 {

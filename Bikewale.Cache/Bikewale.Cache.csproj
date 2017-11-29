@@ -179,6 +179,7 @@
   <ItemGroup>
     <Folder Include="Content\" />
     <Folder Include="GenericBikes\" />
+    <Folder Include="NewBikeSearch\" />
     <Folder Include="News\" />
   </ItemGroup>
   <ItemGroup>

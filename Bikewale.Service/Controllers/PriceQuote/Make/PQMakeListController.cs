@@ -1,14 +1,10 @@
-﻿using Bikewale.DAL.BikeData;
-using Bikewale.DTO.PriceQuote.Make;
+﻿using Bikewale.DTO.PriceQuote.Make;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote.Make;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -57,8 +53,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.Make
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Make.PQMakeListController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Make.PQMakeListController.Get");
+               
                 return InternalServerError();
             }
         }

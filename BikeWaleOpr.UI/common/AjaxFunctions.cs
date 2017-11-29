@@ -38,8 +38,8 @@ namespace BikeWaleOpr
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.GetCities");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxFunctions.GetCities");
+                
             }
 
             return ds;
@@ -73,8 +73,8 @@ namespace BikeWaleOpr
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.GetModels");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxFunctions.GetModels");
+                
             }
 
             return ds;
@@ -107,9 +107,9 @@ namespace BikeWaleOpr
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.GetVersions");
+                ErrorClass.LogError(err, "AjaxFunctions.GetVersions");
                 HttpContext.Current.Trace.Warn("err" + err.Message);
-                objErr.SendMail();
+                
             }
 
             return ds;

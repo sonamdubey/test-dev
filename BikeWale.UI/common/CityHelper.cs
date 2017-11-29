@@ -48,7 +48,7 @@ namespace Bikewale.Common
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, String.Format("CityHelper.GetCityById(): cityId: {0}", cityId));
+                    ErrorClass.LogError(ex, String.Format("CityHelper.GetCityById(): cityId: {0}", cityId));
                 }
             }
             return selectedCity;

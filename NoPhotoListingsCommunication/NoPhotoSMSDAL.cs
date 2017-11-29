@@ -90,8 +90,8 @@ namespace Bikewale.NoPhotoListingsCommunication
             catch (Exception ex)
             {
                 Logs.WriteInfoLog("Exception in NoPhotoSMSDAL");
-                ErrorClass objErr = new ErrorClass(ex, "NoPhotoSMSDAL.SendSMSNoPhoto");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "NoPhotoSMSDAL.SendSMSNoPhoto");
+                
             }
             Logs.WriteInfoLog("Ended successfully  NoPhotoSMSDAL");
             return objNoPhotoList;

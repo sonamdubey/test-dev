@@ -39,7 +39,7 @@ namespace Bikewale.Comparison.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SponsoredComparisonCacheRepository.GetActiveSponsoredComparisons");
+                ErrorClass.LogError(ex, "SponsoredComparisonCacheRepository.GetActiveSponsoredComparisons");
             }
             return activeComparisons;
         }
@@ -59,7 +59,7 @@ namespace Bikewale.Comparison.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SponsoredComparisonCacheRepository.RefreshSpsonsoredComparisonsCache");
+                ErrorClass.LogError(ex, "SponsoredComparisonCacheRepository.RefreshSpsonsoredComparisonsCache");
             }
         }
     }

@@ -39,7 +39,7 @@ namespace Bikewale.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Controls.ColorCount.ChangeLocationPopup.Page_Load");
+                ErrorClass.LogError(err, "Bikewale.Controls.ColorCount.ChangeLocationPopup.Page_Load");
             }
         }
     }

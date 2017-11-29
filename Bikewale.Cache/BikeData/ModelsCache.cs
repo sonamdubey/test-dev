@@ -31,7 +31,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.Cache.BikeData.GetUpcomingModels");
+                ErrorClass.LogError(ex, "Bikewale.Cache.BikeData.GetUpcomingModels");
             }
 
             return objBikes;

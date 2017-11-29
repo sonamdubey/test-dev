@@ -87,7 +87,7 @@ namespace Bikewale.Models.DealerShowroom
                 BindPageMetas(objDealerVM);
                 BindLeadCapture(objDealerVM);
 
-                objDealerVM.BikeCityPopup = new PopUp.BikeCityPopup()
+                objDealerVM.BikeCityPopup = new PopUp.BikeCityPopup
                 {
                     ApiUrl = "/api/v2/DealerCity/?makeId=" + (uint)objMake.MakeId,
                     PopupShowButtonMessage = "Show showrooms",
@@ -102,7 +102,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.GetData()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.GetData()");
             }
             return objDealerVM;
         }
@@ -140,7 +140,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindMostPopularBikes()");
+                ErrorClass.LogError(ex, "DealerShowroomDealerDetail.BindMostPopularBikes()");
             }
             return objPopularBikes;
         }
@@ -161,7 +161,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindServiceCenterWidget()");
+                ErrorClass.LogError(ex, "DealerShowroomDealerDetail.BindServiceCenterWidget()");
             }
 
             return ServiceCenterVM;
@@ -190,7 +190,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindPageMetas()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.BindPageMetas()");
             }
         }
 
@@ -221,7 +221,7 @@ namespace Bikewale.Models.DealerShowroom
 
             try
             {
-                if(objPage!=null)
+                if (objPage != null)
                 {
                     IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
                     string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
@@ -243,12 +243,12 @@ namespace Bikewale.Models.DealerShowroom
 
                     objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
                 }
-               
+
             }
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.SetBreadcrumList()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.SetBreadcrumList()");
             }
 
         }
@@ -273,7 +273,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindDataDealers()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.BindDataDealers()");
             }
             return objDealerList;
         }
@@ -297,7 +297,7 @@ namespace Bikewale.Models.DealerShowroom
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindOtherDealerInCitiesWidget()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.BindOtherDealerInCitiesWidget()");
 
             }
 
@@ -355,7 +355,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindUsedBikeByModel()");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.BindUsedBikeByModel()");
             }
 
             return UsedBikeModel;
@@ -382,14 +382,15 @@ namespace Bikewale.Models.DealerShowroom
                 objDealerDetails.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
                 {
-                    objDealerDetails.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objDealerDetails.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityId)).ToList();
+                    objDealerDetails.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objDealerDetails.DealersServiceCenterPopularCities.
+                                                                                                            DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityId)).ToList();
                 }
 
             }
             catch (System.Exception ex)
             {
 
-                ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindShowroomPopularCityWidget");
+                ErrorClass.LogError(ex, "ServiceCenterDetailsPage.BindShowroomPopularCityWidget");
             }
 
         }

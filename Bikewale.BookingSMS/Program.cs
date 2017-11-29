@@ -1,7 +1,5 @@
 ﻿using Consumer;
-using RabbitMqPublishing;
 using System;
-using System.Collections.Specialized;
 using System.Configuration;
 
 namespace Bikewale.BookingSMS

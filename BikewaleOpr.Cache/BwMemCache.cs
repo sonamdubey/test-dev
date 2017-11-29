@@ -29,7 +29,7 @@ namespace BikewaleOpr.Cache
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey_{0}", makeId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey_{0}", makeId));
             }
         }
         public static bool ClearPopularBikesCacheKey(uint? topCount = null, uint? makeId = null)
@@ -44,14 +44,14 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey {0}, {1}", topCount, makeId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey {0}, {1}", topCount, makeId));
             }
             return cacheKeyClearStatus;
         }
 
         /// <summary>
         /// Created by : Ashutosh Sharma on 31 Oct 2017
-        /// Description : Clear cache for Ad slots.
+        /// Description : Method to clear cache for Ad slots.
         /// </summary>
         public static void ClearAdSlotsCache()
         {
@@ -62,7 +62,87 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Cache.BwMemCache.ClearAdSlotsCache");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.Cache.BwMemCache.ClearAdSlotsCache");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 10 Nov 2017
+        /// Description : Method to clear cache for price quote of top cities.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topCount"></param>
+        public static void ClearPriceQuoteOfTopCities(uint modelId, ushort topCount)
+        {
+            try
+            {
+                string key = String.Format("BW_TopCitiesPrice_{0}_{1}", modelId, topCount);
+                MemCachedUtil.Remove(key);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.Cache.BwMemCache.ClearPriceQuoteOfTopCities");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 10 Nov 2017
+        /// Description : Method to clear cache for price in nearest cities.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="topCount"></param>
+        public static void ClearModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount)
+        {
+            try
+            {
+                string key = string.Format("BW_PriceInNearestCities_m_{0}_c_{1}_t_{2}", modelId, cityId, topCount);
+                MemCachedUtil.Remove(key);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.Cache.BwMemCache.ClearModelPriceInNearestCities");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 10 Nov 2017
+        /// Description : Method to clear cache for most popular bikes by body style.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="topCount"></param>
+        public static void ClearMostPopularBikesByModelBodyStyle(uint modelId, uint cityId, ushort topCount)
+        {
+            try
+            {
+                string key = string.Format("BW_PopularBikesListByBodyType_MO_V1_{0}_city_{1}_topcount_{2}", modelId, cityId, topCount);
+                MemCachedUtil.Remove(key);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.Cache.BwMemCache.ClearMostPopularBikesByModelBodyStyle");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 10 Nov 2017
+        /// Description : Method to clear cache for similar bikes list.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        public static void ClearSimilarBikesList(uint versionId, ushort topCount, uint cityId)
+        {
+            try
+            {
+                string key = string.Format("BW_SimilarBikes_V1_{0}_Cnt_{1}_{2}", versionId, topCount, cityId);
+                MemCachedUtil.Remove(key);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.Cache.BwMemCache.ClearSimilarBikesList");
             }
         }
 
@@ -91,18 +171,43 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearUpcomingBikesCacheKey {0}, {1}" + (makeId.HasValue ? String.Format(", {0}", makeId.Value) : "") + (modelId.HasValue ? String.Format(", {0}", modelId.Value) : ""), pageSize, sortBy));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearUpcomingBikesCacheKey {0}, {1}" + (makeId.HasValue ? String.Format(", {0}", makeId.Value) : "") + (modelId.HasValue ? String.Format(", {0}", modelId.Value) : ""), pageSize, sortBy));
             }
             return cacheKeyClearStatus;
         }
 
-        /// <summary>
-        /// Created by  :   Sumit Kate on 13 Feb 2017
-        /// Description :   ClearNewLaunchesBikes
-        /// </summary>
-        /// <param name="cityId"></param>
-        /// <returns></returns>
-        public static bool ClearNewLaunchesBikes(string cityId)
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 22 Nov 2017
+		/// Description : Method to clear cache for new, upcoming models, synopsis and other makes from make of a bike series.
+		/// </summary>
+		/// <param name="seriesId">Series Id of which cache needs to be clear</param>
+		/// <param name="makeId">Make Id of which cache needs to be clear</param>
+		public static void ClearSeriesCache(uint seriesId, uint makeId)
+		{
+			try
+			{
+				for (int cityId = 0; cityId < 1500; cityId++)
+				{
+					MemCachedUtil.Remove(string.Format("BW_NewModelsBySeriesId_s_{0}_c_{1}", seriesId, cityId));
+				}
+				MemCachedUtil.Remove(string.Format("BW_UpcomingModelsBySeriesId_{0}", seriesId));
+				MemCachedUtil.Remove(string.Format("BW_SynopsisBySeriesId_{0}", seriesId));
+				MemCachedUtil.Remove(string.Format("BW_OtherSeriesByMakeId_{0}", makeId));
+
+			}
+			catch (Exception ex)
+			{
+				Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearSeriesCache_SeriesId_{0}_MakeId_{1}", seriesId, makeId));
+			}
+		}
+
+		/// <summary>
+		/// Created by  :   Sumit Kate on 13 Feb 2017
+		/// Description :   ClearNewLaunchesBikes
+		/// </summary>
+		/// <param name="cityId"></param>
+		/// <returns></returns>
+		public static bool ClearNewLaunchesBikes(string cityId)
         {
             bool cacheKeyClearStatus = false;
             try
@@ -112,7 +217,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearNewLaunchesBikes({0}", cityId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearNewLaunchesBikes({0}", cityId));
             }
             return cacheKeyClearStatus;
         }
@@ -126,7 +231,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearVersionPrice({0},{1})", city, model));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearVersionPrice({0},{1})", city, model));
             }
         }
 
@@ -142,7 +247,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ClearUserReviewsCache");
+                ErrorClass.LogError(ex, "ClearUserReviewsCache");
             }
         }
 
@@ -159,7 +264,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearPriceQuoteCity");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearPriceQuoteCity");
             }
         }
 
@@ -178,7 +283,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionDetails");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionDetails");
             }
         }
 
@@ -195,7 +300,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearPopularBikesByMakes");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearPopularBikesByMakes");
             }
         }
 
@@ -211,7 +316,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearUpcomingBikes");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearUpcomingBikes");
             }
         }
 
@@ -231,7 +336,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionByType");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionByType");
             }
         }
 
@@ -248,7 +353,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearPopularBikesByBodyStyle");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearPopularBikesByBodyStyle");
             }
         }
 
@@ -265,7 +370,26 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearGetModelsBySeriesId");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearGetModelsBySeriesId");
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 21 Nov 2017
+        /// Description :   Clear Masking Mapping Cache
+        /// </summary>
+        public static void ClearMaskingMappingCache()
+        {
+            try
+            {
+                MemCachedUtil.Remove("BW_ModelMapping");
+                MemCachedUtil.Remove("BW_NewModelMaskingNames");
+                MemCachedUtil.Remove("BW_OldModelMaskingNames");
+                MemCachedUtil.Remove("BW_ModelSeries_MaskingNames");
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BwMemcache.ClearMaskingMappingCache");
             }
         }
 

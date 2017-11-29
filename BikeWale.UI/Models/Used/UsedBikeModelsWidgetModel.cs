@@ -53,7 +53,7 @@ namespace Bikewale.Models
             }
             catch (System.Exception ex)
             {
-                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, "UsedBikeModelsWidgetModel.GetData()");
+                ErrorClass.LogError(ex, "UsedBikeModelsWidgetModel.GetData()");
             }
             return objData;
         }

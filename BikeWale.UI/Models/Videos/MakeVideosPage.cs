@@ -60,7 +60,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetData({0})", _makeMaskingName));
+                ErrorClass.LogError(ex, String.Format("GetData({0})", _makeMaskingName));
             }
             return objVM;
         }
@@ -81,7 +81,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindPageMetas({0})", _makeMaskingName));
+                ErrorClass.LogError(ex, String.Format("BindPageMetas({0})", _makeMaskingName));
             }
         }
 
@@ -99,7 +99,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("ProcessQueryString({0})", _makeMaskingName));
+                ErrorClass.LogError(ex, String.Format("ProcessQueryString({0})", _makeMaskingName));
                 Status = StatusCodes.ContentNotFound;
             }
             finally
@@ -160,7 +160,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakeVideosPage.SetBreadcrumList");
+                ErrorClass.LogError(ex, "MakeVideosPage.SetBreadcrumList");
             }
 
         }

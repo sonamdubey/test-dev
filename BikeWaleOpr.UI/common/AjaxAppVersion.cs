@@ -1,14 +1,13 @@
 ﻿using AjaxPro;
-using BikewaleOpr.Common;
+using Bikewale.Cache.Core;
+using Bikewale.Interfaces.Cache.Core;
 using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
-using Bikewale.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bikewale.Interfaces.Cache.Core;
 
 namespace BikewaleOpr.Common
 {
@@ -47,8 +46,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return json;
         }
@@ -99,8 +98,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return json;
         }

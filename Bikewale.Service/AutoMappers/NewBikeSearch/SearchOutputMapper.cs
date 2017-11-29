@@ -5,10 +5,6 @@ using Bikewale.DTO.NewBikeSearch;
 using Bikewale.DTO.Series;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.NewBikeSearch
 {

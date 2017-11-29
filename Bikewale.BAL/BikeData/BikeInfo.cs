@@ -56,7 +56,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeInfo.GetBikeInfo_{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeInfo.GetBikeInfo_{0}", modelId));
             }
             return objBikeInfo;
         }   // End of GetBikeInfo
@@ -83,7 +83,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeInfo.GetBikeInfo {0}, {1}", modelId, cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeInfo.GetBikeInfo {0}, {1}", modelId, cityId));
             }
             return genericBike;
         }

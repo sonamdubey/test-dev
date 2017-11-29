@@ -3,6 +3,7 @@ using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using Dapper;
@@ -56,7 +57,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetMakes_" + RequestType);
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.GetMakes_" + RequestType);
             }
             return _objBikeMakes;
         }
@@ -84,12 +85,110 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetMakesList");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.GetMakesList");
             }
 
             return objMakes;
         }
 
+
+        /// <summary>
+        /// Createed by Sajal Gupta on 20-11-2017
+        /// Descriptioption : DAL func to get make footer category data
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<MakeFooterCategory> GetMakeFooterCategoryData(uint makeId)
+        {
+            IEnumerable<MakeFooterCategory> objMakeFooterData = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+                    param.Add("par_makeId", makeId);
+
+                    objMakeFooterData = connection.Query<MakeFooterCategory>("getmakefootercategorydata", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.GetMakeFooterCategoryData");
+            }
+
+            return objMakeFooterData;
+
+        }
+
+        /// <summary>
+        /// Createed by Sajal Gupta on 20-11-2017
+        /// Descriptioption : DAL func to save make footer category data
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public void SaveMakeFooterData(uint makeId, uint categoryId, string categorydescription, string userId)
+        {
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_makeid", makeId);
+                    param.Add("par_userid", userId);
+                    param.Add("par_categorydescription", categorydescription);
+                    param.Add("par_categoryId", categoryId);
+
+                    connection.Query("savemakefootercategories", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.SaveMakeFooterData");
+            }
+        }
+
+        /// <summary>
+        /// Createed by Sajal Gupta on 20-11-2017
+        /// Descriptioption : DAL func to delete all make footer category data for amke
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public void DisableAllMakeFooterCategories(uint makeId, string userId)
+        {
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_makeid", makeId);
+                    param.Add("par_userid", userId);
+
+                    connection.Query("disableallmakefootercategoriesformake", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.DisableAllMakeFooterCategories");
+            }
+        }
 
         /// <summary>
         /// Function to add new make to the bikewale database
@@ -132,12 +231,12 @@ namespace BikewaleOpr.DALs.Bikedata
                         nvc.Add("v_Used", "1");
                         nvc.Add("v_New", "1");
                         SyncBWData.PushToQueue("BW_AddBikeMakes", DataBaseName.CW, nvc);
-                    }                   
+                    }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.AddMake");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.AddMake");
             }
         }
 
@@ -174,7 +273,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     NameValueCollection nvc = new NameValueCollection();
                     nvc.Add("v_MakeId", make.MakeId.ToString());
                     nvc.Add("v_MakeName", make.MakeName);
-                    nvc.Add("v_IsNew", Convert.ToString(make.New ? 1:0));
+                    nvc.Add("v_IsNew", Convert.ToString(make.New ? 1 : 0));
                     nvc.Add("v_IsUsed", Convert.ToString(make.Used ? 1 : 0));
                     nvc.Add("v_IsFuturistic", Convert.ToString(make.Used ? 1 : 0));
                     nvc.Add("v_MaskingName", make.MaskingName);
@@ -185,7 +284,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.UpdateMake");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.UpdateMake");
             }
         }
 
@@ -226,7 +325,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.DeleteMake");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.DeleteMake");
             }
         }
 
@@ -264,7 +363,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.Getsynopsis");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.Getsynopsis");
             }
 
             return objSynopsis;
@@ -305,7 +404,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.UpdateSynopsis");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.UpdateSynopsis");
             }
         }
 
@@ -337,13 +436,13 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetMakes_{0}", requestType));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetMakes_{0}", requestType));
             }
 
             return objMakes;
         }
 
-        
+
 
 
         /// <summary>
@@ -357,7 +456,7 @@ namespace BikewaleOpr.DALs.Bikedata
             IEnumerable<BikeModelEntityBase> objBikeModelEntityBaseList = null;
             try
             {
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     var param = new DynamicParameters();
                     param.Add("par_makeid", makeId);
@@ -373,7 +472,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetModelsByMake_{0}_{1}", requestType, makeId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetModelsByMake_{0}_{1}", requestType, makeId));
             }
             return objBikeModelEntityBaseList;
         }

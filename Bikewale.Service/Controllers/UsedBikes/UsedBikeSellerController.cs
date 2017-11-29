@@ -10,7 +10,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.Http.ModelBinding;
 namespace Bikewale.Service.Controllers.UsedBikes
 {
     public class UsedBikeSellerController : CompressionApiController
@@ -138,8 +137,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("api/used/{0}/image/validate/?isMain={1},FileUploadCount={2},contentType={3}", profileId, isMain, HttpContext.Current.Request.Files.Count, HttpContext.Current.Request.ContentType));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("api/used/{0}/image/validate/?isMain={1},FileUploadCount={2},contentType={3}", profileId, isMain, HttpContext.Current.Request.Files.Count, HttpContext.Current.Request.ContentType));
+               
                 return InternalServerError();
             }
 
@@ -194,8 +193,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("api/used/{0}/image/upload/?isMain={1},FileUploadCount={2},contentType={3}", profileId, isMain, HttpContext.Current.Request.Files.Count, HttpContext.Current.Request.ContentType));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("api/used/{0}/image/upload/?isMain={1},FileUploadCount={2},contentType={3}", profileId, isMain, HttpContext.Current.Request.Files.Count, HttpContext.Current.Request.ContentType));
+               
                 return InternalServerError();
             }
 

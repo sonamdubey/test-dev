@@ -1,18 +1,12 @@
-﻿using Bikewale.DAL.UsedBikes;
-using Bikewale.DTO.UsedBikes;
+﻿using Bikewale.DTO.UsedBikes;
 using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UsedBikes;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.Cache.UsedBikes;
 
 namespace Bikewale.Service.Controllers.UsedBikes
 {
@@ -60,8 +54,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UsedBikes.PopularUsedBikesController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UsedBikes.PopularUsedBikesController");
+               
                 return InternalServerError();
             }
             return NotFound();

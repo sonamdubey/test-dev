@@ -51,8 +51,8 @@ namespace Bikewale.Cache.DealersLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerByMakeCity");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DealerCacheRepository.GetDealerByMakeCity");
+                
             }
             return dealers;
         }
@@ -77,8 +77,8 @@ namespace Bikewale.Cache.DealersLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerDetailsAndBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DealerCacheRepository.GetDealerDetailsAndBikes");
+                
             }
             return models;
         }
@@ -97,8 +97,8 @@ namespace Bikewale.Cache.DealersLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerDetailsAndBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DealerCacheRepository.GetDealerDetailsAndBikes");
+                
             }
             return models;
         }
@@ -115,15 +115,15 @@ namespace Bikewale.Cache.DealersLocator
         public PopularDealerServiceCenter GetPopularCityDealer(uint makeId, uint topCount)
         {
             PopularDealerServiceCenter cityDealers = null;
-            string key = String.Format("BW_MakePopularCity_Dealers_{0}_Cnt_{1}_V1", makeId, topCount);
+            string key = String.Format("BW_MakePopularCity_Dealers_{0}_Cnt_{1}_V2", makeId, topCount);
             try
             {
                 cityDealers = _cache.GetFromCache<PopularDealerServiceCenter>(key, new TimeSpan(0, 30, 0), () => _objDealersRepository.GetPopularCityDealer(makeId, topCount));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetPopularCityDealer");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DealerCacheRepository.GetPopularCityDealer");
+                
             }
             return cityDealers;
         }
@@ -139,8 +139,8 @@ namespace Bikewale.Cache.DealersLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetPopularCityDealer");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DealerCacheRepository.GetPopularCityDealer");
+                
             }
             return dealersMakes;
         }
@@ -159,8 +159,8 @@ namespace Bikewale.Cache.DealersLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerByBrandList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DealerCacheRepository.GetDealerByBrandList");
+                
             }
             return dealersMakes;
 
@@ -182,8 +182,8 @@ namespace Bikewale.Cache.DealersLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("exception in CAche layer for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("exception in CAche layer for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
+                
             }
             return objDealerCountList;
         }
@@ -198,7 +198,7 @@ namespace Bikewale.Cache.DealersLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("exception in CAche layer for FetchDealerCitiesByMake {0}", makeId));
+                ErrorClass.LogError(ex, string.Format("exception in CAche layer for FetchDealerCitiesByMake {0}", makeId));
             }
             return objDealerCitytList;
 

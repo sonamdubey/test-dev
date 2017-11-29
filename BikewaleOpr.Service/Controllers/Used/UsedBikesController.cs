@@ -40,8 +40,8 @@ namespace BikewaleOpr.Service.Controllers.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("UsedBikesController.SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}, profileid {3}", inquiryId, isApproved, approvedBy, profileId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("UsedBikesController.SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}, profileid {3}", inquiryId, isApproved, approvedBy, profileId));
+                
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -69,7 +69,7 @@ namespace BikewaleOpr.Service.Controllers.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesController.SaveBikeColorDetails objModelImageEntity {0}", objModelImageEntity));
+                ErrorClass.LogError(ex, string.Format("UsedBikesController.SaveBikeColorDetails objModelImageEntity {0}", objModelImageEntity));
                 return InternalServerError();
             }
         }
@@ -96,7 +96,7 @@ namespace BikewaleOpr.Service.Controllers.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesController.DeleteUsedBikeModelImage modelid {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("UsedBikesController.DeleteUsedBikeModelImage modelid {0}", modelId));
                 return InternalServerError();
             }
         }
@@ -122,7 +122,7 @@ namespace BikewaleOpr.Service.Controllers.Used
                     }
                     catch (Exception ex)
                     {
-                        ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesController.UpdateAsSoldInquiry inquiryId {0}", inquiryId));
+                        ErrorClass.LogError(ex, string.Format("UsedBikesController.UpdateAsSoldInquiry inquiryId {0}", inquiryId));
                         return InternalServerError();
                     } 
                 }

@@ -54,8 +54,8 @@ namespace Bikewale.Common
         // i.e. New/Used/All
         public DataSet GetBikeMakes(string makeType)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GetBikeMakes");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "BWCommon.GetBikeMakes");
+            
             return null;
 
             //DataSet ds = new DataSet();
@@ -78,8 +78,8 @@ namespace Bikewale.Common
             //}
             //catch(Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,"AjaxFunctions.GetNewMakes");
+            //    
             //}
 
             //return ds;
@@ -90,8 +90,8 @@ namespace Bikewale.Common
         public DataSet GetBikeModels(string makeId)
         {
 
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GetBikeModels");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "BWCommon.GetBikeModels");
+            
             return null;
             //if( CommonOpn.CheckId(makeId) == false )
             //{
@@ -112,8 +112,8 @@ namespace Bikewale.Common
             //}
             //catch(Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,"AjaxFunctions.GetNewMakes");
+            //    
             //}
 
             //return ds;
@@ -122,8 +122,8 @@ namespace Bikewale.Common
         /* This function returns DataSet of new Bike Makes(New = 1) */
         public DataSet GetNewMakes()
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GetNewMakes");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "BWCommon.GetNewMakes");
+            
             return null;
 
             //DataSet ds = new DataSet();
@@ -145,8 +145,8 @@ namespace Bikewale.Common
             //}
             //catch(Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,"AjaxFunctions.GetNewMakes");
+            //    
             //}
 
             //return ds;
@@ -175,8 +175,8 @@ namespace Bikewale.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.GetNewModels");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxFunctions.GetNewModels");
+                
             }
 
             return ds;
@@ -186,8 +186,8 @@ namespace Bikewale.Common
         // i.e. New/Used/All
         public DataSet GetBikeVersions(string modelId, string makeType)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GetBikeVersions");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "BWCommon.GetBikeVersions");
+            
             return null;
 
             //DataSet ds = new DataSet();
@@ -212,8 +212,8 @@ namespace Bikewale.Common
             //}
             //catch(Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,"AjaxFunctions.GetNewMakes");
+            //    
             //}
 
             //return ds;
@@ -221,8 +221,8 @@ namespace Bikewale.Common
 
         public string GetBikeName(string versionId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GetBikeName");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "BWCommon.GetBikeName");
+            
             return string.Empty;
 
             //string sql = "", bikeName = "";
@@ -247,8 +247,8 @@ namespace Bikewale.Common
             //}
             //catch(Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,"AjaxFunctions.GetNewMakes");
+            //    
             //}
             //finally
             //{
@@ -273,8 +273,8 @@ namespace Bikewale.Common
             makeId = "";
             modelId = "";
 
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.Get_Make_Model_Version");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "BWCommon.Get_Make_Model_Version");
+            
             return string.Empty;
 
             //sql = " SELECT Mk.Name MakeName, Mo.Name ModelName, Vs.Name VersionName, Mk.Id MakeId, Mo.Id ModelName  "
@@ -301,8 +301,8 @@ namespace Bikewale.Common
             //}
             //catch(Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,"AjaxFunctions.GetNewMakes");
+            //    
             //}
             //finally
             //{
@@ -361,8 +361,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 ds = null;
-                ErrorClass objErr = new ErrorClass(err, "GetStaticMakes");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "GetStaticMakes");
+                
             }
             return ds;
         }
@@ -380,8 +380,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 ds = null;
-                ErrorClass objErr = new ErrorClass(err, "GetStaticBodyStyles");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "GetStaticBodyStyles");
+                
             }
             return ds;
         }
@@ -399,8 +399,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 ds = null;
-                ErrorClass objErr = new ErrorClass(err, "GetStaticUpcomingBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "GetStaticUpcomingBikes");
+                
             }
             return ds;
         }
@@ -505,8 +505,8 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -523,8 +523,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 ds = null;
-                ErrorClass objErr = new ErrorClass(err, "GetStaticRoadTests");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "GetStaticRoadTests");
+                
             }
             return ds;
         }
@@ -611,8 +611,8 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -629,8 +629,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 ds = null;
-                ErrorClass objErr = new ErrorClass(err, "GetStaticNewLaunches");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "GetStaticNewLaunches");
+                
             }
             return ds;
         }
@@ -726,8 +726,8 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -741,8 +741,8 @@ namespace Bikewale.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "IsSearchEngine");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "IsSearchEngine");
+                
             }
             return ret;
         }
@@ -762,8 +762,8 @@ namespace Bikewale.Common
         /// <returns></returns>
         public bool SaveEMIAssistaneRequest(string custName, string email, string mobile, string modelId, string selectedCityId, string leadtype)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.SaveEMIAssistaneRequest");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "BWCommon.SaveEMIAssistaneRequest");
+            
             return false;
 
             //bool isSaved = false;
@@ -804,14 +804,14 @@ namespace Bikewale.Common
             //    catch (SqlException err)
             //    {
             //        HttpContext.Current.Trace.Warn(err.Message);
-            //        ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //        objErr.SendMail();
+            //        ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        
             //    } 
             //    catch (Exception err)
             //    {
             //        HttpContext.Current.Trace.Warn(err.Message);
-            //        ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //        objErr.SendMail();
+            //        ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        
             //    }
             //    finally
             //    {

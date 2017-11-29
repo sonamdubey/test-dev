@@ -7,13 +7,14 @@
 
 <div class="row">
     <div data-bind="with: priceSheetModel" class="col m9">
-        <table id="tblPricingSheet" class="bordered highlight centered z-depth-3 margin-top10 overflow-table-body">
+        <table id="tblPricingSheet" class="bordered highlight centered z-depth-3 margin-top10 overflow-table-body" data-makeid="@Model.DealerOperationParams.MakeId" data-userid="@Model.EnteredBy">
             <thead>
                 <tr>
                     <th>
                         <input data-bind="event: {change: onAllSelectChange}" class="allRowsCheckbox" type="checkbox" id='allRowsSelect'>
                         <label for='allRowsSelect'></label>
                     </th>
+                    <th>Make</th>
                     <th>Model</th>
                     <th>Version</th>
                     @foreach (var category in Model.DealerVersionCategories)
@@ -37,6 +38,7 @@
                                 <label for='@checkBoxIdString'></label>
                             }
                         </td>
+                        <td>@dealerVersionPricing.MakeName</td>
                         <td>@dealerVersionPricing.ModelName</td>
                         <td>@dealerVersionPricing.VersionName</td>
                         @foreach (var category in dealerVersionPricing.Categories)
@@ -166,6 +168,68 @@
                     </div>
                 </div>
             </li>
+            @if (Model.DealerVersionCategories != null && Model.DealerVersionCategories.Any())
+            {
+            <li id="liBikewaleCopyPricing">
+                <div class="collapsible-header"><strong>Copy Pricing to Pan India</strong></div>
+                <div class="collapsible-body">
+                    <div data-bind="with: bikewaleCopyPricing" class="container">
+                        <div class="materialize-select row s12">
+                            <select id="ddlExShowroomCategory" class="chosen-select" data-placeholder="Ex-showroom component">
+                                <option value="0" disabled selected>Select Ex-showroom component</option>
+                                @foreach (var category in Model.DealerVersionCategories)
+                                {
+                                    <option value="@category.ItemCategoryId">@category.ItemName</option>
+                                }
+                            </select>
+                        </div>
+						<div class="materialize-select row s12">
+							<select id="ddlRtoCategory" class="chosen-select" data-placeholder="RTO component">
+								<option value="0" disabled selected>Select RTO component</option>
+								@foreach (var category in Model.DealerVersionCategories)
+								{
+									<option value="@category.ItemCategoryId">@category.ItemName</option>
+								}
+							</select>
+						</div>
+                        <div class="materialize-select row s12">
+                            <select id="ddlInsuranceCategory" class="chosen-select" data-placeholder="Insurance component">
+                                <option value="0" disabled selected>Select Insurance component</option>
+                                @foreach (var category in Model.DealerVersionCategories)
+                                {
+                                    <option value="@category.ItemCategoryId">@category.ItemName</option>
+                                }
+                            </select>
+                        </div>
+                        
+                        <div class="materialize-select row s12">
+                            <select class="chosen-select" data-bind="event: { change: onStateChangeBWPrice }">
+                                <option value="0" disabled selected>Select State</option>
+                                @foreach (var state in Model.CopyPricingCities.States)
+                                {
+                                    <option value="@state.StateId">@state.StateName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="materialize-select row s12" data-bind="visible: !allCities()">
+                            <select data-placeholder="Add Cities" class="chosen-select" id="ddlCityBwPrice" multiple data-bind="options: cities,
+                                    optionsText: 'cityName',
+                                    optionsValue: 'cityId',
+                                    selectedOptions: selectedCities">
+                            </select>
+                        </div>
+                        <input type="checkbox" id="chkAllCity" data-bind="checked: allCities"/>
+                        <label for="chkAllCity">All Cities</label>
+                        <div class="input-field row s12">
+                            <button data-entered-by="@Model.EnteredBy" data-bind="click: copyPricingToBikewalePrice" class="btn waves-effect waves-light" type="submit" name="action">
+                                Copy Pricing
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            }
         </ul>
     </div>
 </div>

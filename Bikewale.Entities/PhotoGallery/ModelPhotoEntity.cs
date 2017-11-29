@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.BikeData;
-using System;
 
 namespace Bikewale.Entities.PhotoGallery
 {

@@ -68,7 +68,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
         }
@@ -113,7 +113,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindMostPopularBikesControl.BindMostPopularBikesMakeCity");
+                ErrorClass.LogError(ex, "BindMostPopularBikesControl.BindMostPopularBikesMakeCity");
 
             }
         }

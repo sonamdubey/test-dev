@@ -1,13 +1,8 @@
-﻿using BikewaleOpr.Entities;
-using BikeWaleOpr.Common;
+﻿using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
 
 namespace BikewaleOpr.common
@@ -50,8 +45,8 @@ namespace BikewaleOpr.common
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("ex : ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "GetDealerCategories");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetDealerCategories");
+                
             }
 
             return dt;

@@ -84,7 +84,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.GetData");
+                ErrorClass.LogError(ex, "ModelWiseVideosPage.GetData");
             }
             return objVM;
         }
@@ -103,7 +103,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.BindPageMetas");
+                ErrorClass.LogError(ex, "ModelWiseVideosPage.BindPageMetas");
             }
         }
 
@@ -194,7 +194,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.SetBreadcrumList");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "ModelWiseVideosPage.SetBreadcrumList");
             }
 
         }

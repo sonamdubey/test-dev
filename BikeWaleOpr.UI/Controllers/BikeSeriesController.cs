@@ -37,7 +37,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeSeriesController: Index");
+                ErrorClass.LogError(ex, "BikeSeriesController: Index");
             }
             return View(objBikeSeriesVM);
         }

@@ -112,7 +112,7 @@ namespace Bikewale.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PopularBikesController.MostPopularBikesByBodyStyle: BodyStyleId: {0}, topCount: {1}, CityId {2}", bodyStyleId, topCount, cityId));
+                ErrorClass.LogError(ex, string.Format("PopularBikesController.MostPopularBikesByBodyStyle: BodyStyleId: {0}, topCount: {1}, CityId {2}", bodyStyleId, topCount, cityId));
 
 
             }
@@ -143,7 +143,7 @@ namespace Bikewale.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PopularBikesController.MostPopularBikesByBodyStyle_Mobile: BodyStyleId: {0}, topCount: {1}, CityId {2}", bodyStyleId, topCount, cityId));
+                ErrorClass.LogError(ex, string.Format("PopularBikesController.MostPopularBikesByBodyStyle_Mobile: BodyStyleId: {0}, topCount: {1}, CityId {2}", bodyStyleId, topCount, cityId));
             }
 
             return View("~/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);

@@ -32,7 +32,7 @@ namespace BikewaleOpr.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BikeSeriesPageMOdel: GetData");
+                ErrorClass.LogError(ex, "BikewaleOpr.BikeSeriesPageMOdel: GetData");
             }
             return objBikeSeriesVM;
         }

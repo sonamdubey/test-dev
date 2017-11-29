@@ -39,7 +39,7 @@ namespace Bikewale.Cache.HomePage
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("HomePageBannerRepository.GetHomePageBanner platformid:{0}", platformId));
+                ErrorClass.LogError(ex, string.Format("HomePageBannerRepository.GetHomePageBanner platformid:{0}", platformId));
             }
             return homePageBanner;
         }

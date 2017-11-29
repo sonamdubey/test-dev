@@ -159,8 +159,8 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterList.BindWidgets");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ServiceCenterList.BindWidgets");
+                
 
             }
         }
@@ -188,8 +188,8 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetCityNameByCityMaskingName");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetCityNameByCityMaskingName");
+                
             }
         }
 
@@ -214,8 +214,8 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeNameByMakeId");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetMakeNameByMakeId");
+                
             }
         }
 
@@ -249,8 +249,8 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindServiceCentersList : ");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindServiceCentersList : ");
+                
             }
         }
         /// <summary>
@@ -296,8 +296,8 @@ namespace Bikewale.Mobile.Service
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeIdByMakeMaskingName");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "GetMakeIdByMakeMaskingName");
+                    
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
@@ -383,8 +383,8 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, " : ProcessQueryString ");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, " : ProcessQueryString ");
+                
             }
             return isValidQueryString;
         }

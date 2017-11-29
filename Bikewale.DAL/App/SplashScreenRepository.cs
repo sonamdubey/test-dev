@@ -44,7 +44,7 @@ namespace Bikewale.DAL.App
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "SplashScreenRepository.GetAppSplashScreen()");
+                ErrorClass.LogError(err, "SplashScreenRepository.GetAppSplashScreen()");
             }
             return splashScreenImages;
         }

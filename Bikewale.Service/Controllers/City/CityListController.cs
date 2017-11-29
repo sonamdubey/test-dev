@@ -63,8 +63,8 @@ namespace Bikewale.Service.Controllers.City
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.City.CityListController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.City.CityListController");
+               
                 return InternalServerError();
             }
         }   // Get Cities 
@@ -113,8 +113,8 @@ namespace Bikewale.Service.Controllers.City
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.City.CityListController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.City.CityListController");
+               
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
             }
         }   // Get  

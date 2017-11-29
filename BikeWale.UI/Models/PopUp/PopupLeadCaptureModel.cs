@@ -82,7 +82,7 @@ namespace Bikewale.Models.PopUp
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PopupLeadCaptureModel.ParseQueryString()");
+                ErrorClass.LogError(ex, "PopupLeadCaptureModel.ParseQueryString()");
             }
         }
 
@@ -100,7 +100,7 @@ namespace Bikewale.Models.PopUp
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "PopupLeadCaptureModel.BindPageMetaTags()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "PopupLeadCaptureModel.BindPageMetaTags()");
             }
         }
 

@@ -54,7 +54,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.BikeModels.GetPendingUsedBikesWithoutModelImage");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetPendingUsedBikesWithoutModelImage");
             }
             return objBikeByMakeNotificationData;
         }
@@ -87,7 +87,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.BikeModels.GetModelsWithMissingColorImage");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetModelsWithMissingColorImage");
             }
             return objBikeModelsByMakeList;
         }

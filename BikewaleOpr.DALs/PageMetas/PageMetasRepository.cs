@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.DALs.ConfigurePageMetas
 {
@@ -35,7 +33,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasRepository.GetPagesList"));
+                ErrorClass.LogError(ex, string.Format("PageMetasRepository.GetPagesList"));
             }
             return objPageList;
         }                 
@@ -68,7 +66,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasRepository.GetPagesList"));
+                ErrorClass.LogError(ex, string.Format("PageMetasRepository.GetPagesList"));
             }
             return isSuccess;
         }
@@ -93,7 +91,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ConfigurePageMetasRepository.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
+                ErrorClass.LogError(ex, string.Format("ConfigurePageMetasRepository.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
             }
             return objPageMetasList;
         }
@@ -116,7 +114,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasRepository.GetPageMetasById"));
+                ErrorClass.LogError(ex, string.Format("PageMetasRepository.GetPageMetasById"));
             }
             return objPageMetas;
         }
@@ -139,7 +137,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasRepository.UpdatePageMetaStatus: id:{0}", id));
+                ErrorClass.LogError(ex, string.Format("PageMetasRepository.UpdatePageMetaStatus: id:{0}", id));
             }
             return result;
         }

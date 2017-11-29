@@ -8,8 +8,9 @@ namespace Bikewale.Sitemap.ServiceCenter
 {
     class ServiceCenterSiteMap
     {
-        public void GenerateSiteMap()
+        public bool GenerateSiteMap()
         {
+            bool isSuccess = false;
             string domain = ConfigurationManager.AppSettings["ServiceCenterSiteMapDomain"];
             string ServiceCenterSitemapLoc = ConfigurationManager.AppSettings["ServiceCenterSitemapLoc"];
             IEnumerable<ServiceCenterEnitity> SitemapList = null;
@@ -20,10 +21,10 @@ namespace Bikewale.Sitemap.ServiceCenter
                     // get data from database
                     ServiceCenterUrlsRepository urlObj = new ServiceCenterUrlsRepository();
                     SitemapList = urlObj.GetServiceCenterUrls();
-                    Logs.WriteInfoLog("All Service center List : " + SitemapList.Count());
                     // create directory if not exists
-                    if (ServiceCenterSitemapLoc != null)
+                    if (!String.IsNullOrEmpty(ServiceCenterSitemapLoc) && SitemapList != null && SitemapList.Any())
                     {
+                        Logs.WriteInfoLog("All Service center List : " + SitemapList.Count());
                         System.IO.Directory.CreateDirectory(ServiceCenterSitemapLoc);
 
                         //call function to create urls
@@ -36,7 +37,7 @@ namespace Bikewale.Sitemap.ServiceCenter
                         {
 
                             //create xml and write urls
-                            using (XmlWriter writer = XmlWriter.Create(string.Format("{0}Service-Center-Locator-{1}.xml ", ServiceCenterSitemapLoc, count), settings))
+                            using (XmlWriter writer = XmlWriter.Create(string.Format("{0}service-center-locator-{1}.xml ", ServiceCenterSitemapLoc, count), settings))
                             {
                                 writer.WriteStartDocument();
                                 writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
@@ -64,6 +65,7 @@ namespace Bikewale.Sitemap.ServiceCenter
 
 
                         } while (urlList.Any());
+                        isSuccess = true;
                     }
 
                 }
@@ -71,6 +73,7 @@ namespace Bikewale.Sitemap.ServiceCenter
                 {
                     Logs.WriteErrorLog("GenerateSiteMap: Exception " + ex.Message);
                 }
+            return isSuccess;
         }
         public IEnumerable<string> CreateServiceCenterUrls(IEnumerable<ServiceCenterEnitity> SitemapList)
         {

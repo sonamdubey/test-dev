@@ -1,5 +1,4 @@
-﻿using RabbitMqPublishing.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -51,10 +50,9 @@ namespace Bikewale.Utility
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponse<T>({0},{1})", apiHost, apiUrl));
-                objErr.SendMail();
+                return objTask;
             }
             return objTask;
         }
@@ -138,8 +136,7 @@ namespace Bikewale.Utility
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponseSync<T>({0},{1})", apiHost, apiUrl));
-                objErr.SendMail();
+                return objTask;
             }
             return objTask;
         }
@@ -169,15 +166,6 @@ namespace Bikewale.Utility
 
                 if (httpClient != null)
                 {
-                    //Add parameter
-                    //if (headerParameters != null && headerParameters.Any())
-                    //{
-                    //    foreach (var param in headerParameters)
-                    //    {
-                    //        httpClient.DefaultRequestHeaders.Add(param.Key, param.Value);
-                    //    }
-                    //}
-
                     if (Utility.BWConfiguration.Instance.ApiMaxWaitTime <= 0)
                     {
                         //HTTP GET
@@ -220,8 +208,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponseSync<T>({0},{1})", apiHost, apiUrl));
-                objErr.SendMail();
+                return objTask;
             }
             finally
             {
@@ -279,8 +266,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostAsync<T>({0},{1})", apiHost, apiUrl));
-                objErr.SendMail();
+                return false;
             }
             return isSuccess;
 
@@ -321,10 +307,9 @@ namespace Bikewale.Utility
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.DeleteSync");
-                objErr.SendMail();
+                return false;
             }
 
             return isSuccess;
@@ -367,10 +352,9 @@ namespace Bikewale.Utility
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostSync<T, U>({0},{1})", apiHost, apiUrl));
-                objErr.SendMail();
+                return objResponse;
             }
             return objResponse;
         }
@@ -412,8 +396,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostSync<T, U>({0},{1})", apiHost, apiUrl));
-                objErr.SendMail();
+                return objResponse;
             }
 
             return objResponse;
@@ -454,8 +437,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PutSync<T, U>({0},{1})", apiHost, apiUrl));
-                objErr.SendMail();
+                return objResponse;
             }
 
             return objResponse;

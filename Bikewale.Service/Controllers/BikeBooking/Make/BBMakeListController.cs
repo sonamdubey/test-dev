@@ -49,8 +49,8 @@ namespace Bikewale.Service.Controllers.BikeBooking.Make
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.Make.BBMakeListController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.Make.BBMakeListController.Get");
+               
                 return InternalServerError();
             }
         }

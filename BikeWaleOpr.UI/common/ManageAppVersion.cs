@@ -51,8 +51,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageAppVersion.GetAppVersions");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageAppVersion.GetAppVersions");
+                
             }
 
             return AppVersions;
@@ -94,8 +94,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageAppVersion.SaveAppVersion");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageAppVersion.SaveAppVersion");
+                
             }
 
             return isSaved;

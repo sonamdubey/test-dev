@@ -1,22 +1,10 @@
 using System;
-using System.Text;
-using System.Collections;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
-using BikeWaleOpr.Common;
-using FreeTextBoxControls;
-using Ajax;
 
 namespace BikeWaleOpr.Content
 {
-	public class ComparisonBikes : Page
+    public class ComparisonBikes : Page
 	{
 		protected string selectedFeaturedBike;
 		protected Repeater rptComparisonBikes;
@@ -60,8 +48,8 @@ namespace BikeWaleOpr.Content
             //}
             //catch(Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,Request.ServerVariables["URL"]);
+            //    
             //}
 		}
 		

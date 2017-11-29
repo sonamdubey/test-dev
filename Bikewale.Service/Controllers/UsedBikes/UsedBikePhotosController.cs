@@ -52,8 +52,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("RemoveBikePhotos({0},{1})", profileId, photoId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("RemoveBikePhotos({0},{1})", profileId, photoId));
+               
                 return InternalServerError();
             }
 
@@ -92,8 +92,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("RemoveBikePhotos({0},{1})", profileId, photoId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("RemoveBikePhotos({0},{1})", profileId, photoId));
+               
                 return InternalServerError();
             }
 

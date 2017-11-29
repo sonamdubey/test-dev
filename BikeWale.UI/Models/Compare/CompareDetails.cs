@@ -36,7 +36,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _compareTest = null;
         private readonly ISponsoredComparison _objSponsored = null;
         private readonly IArticles _objArticles = null;
-        private string modelList, modelIdList;
+        private string modelIdList;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
@@ -86,7 +86,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.GetData()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.GetData()");
             }
 
             return obj;
@@ -110,7 +110,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindExpertReviewsWidget()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.BindExpertReviewsWidget()");
             }
         }
 
@@ -177,7 +177,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.GetComparedBikeDetails()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.GetComparedBikeDetails()");
                 status = StatusCodes.ContentNotFound;
             }
         }
@@ -212,7 +212,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindSimilarBikes");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.BindSimilarBikes");
             }
         }
 
@@ -232,7 +232,7 @@ namespace Bikewale.Models
             {
                 if (obj.Compare != null && obj.Compare.BasicInfo != null)
                 {
-                    bikeList = new List<string>(); bikeMaskingList = new List<string>(); bikeModels = new List<string>(); bikeIdList = new List<string>();
+                    bikeList = new List<string>(); bikeMaskingList = new List<string>(); bikeModels = new List<string>();
                     bikeIdList = new List<string>();
 
                     foreach (var bike in obj.Compare.BasicInfo)
@@ -288,7 +288,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.GetComparisionTextAndMetas");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.GetComparisionTextAndMetas");
             }
         }
 
@@ -369,7 +369,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.CreateCompareSummary()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.CreateCompareSummary()");
             }
         }
 
@@ -386,7 +386,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.CreateCanonicalUrl()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.CreateCanonicalUrl()");
             }
             finally
             {
@@ -406,6 +406,7 @@ namespace Bikewale.Models
         private void ProcessQueryString()
         {
             bool isPermanentRedirection = false;
+            string modelList;
             try
             {
                 var request = HttpContext.Current.Request;
@@ -482,7 +483,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.CompareDetails.ProcessQueryString({0})", _originalUrl));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.CompareDetails.ProcessQueryString({0})", _originalUrl));
             }
             finally
             {
@@ -522,7 +523,7 @@ namespace Bikewale.Models
                         IList<SimilarBikeComparisonWidget> comparisonList = new List<SimilarBikeComparisonWidget>();
                         foreach (var similarBikeObj in similarComparisons.SimilarBikes)
                         {
-                            comparisonList.Add(new SimilarBikeComparisonWidget()
+                            comparisonList.Add(new SimilarBikeComparisonWidget
                             {
                                 BikeMake = similarBikeObj.BikeMake,
                                 BikeModel = similarBikeObj.BikeModel,
@@ -536,7 +537,7 @@ namespace Bikewale.Models
                         if (obj.SimilarBikeWidget != null)
                         {
                             obj.SimilarBikeWidget.SimilarBikeComparison = comparisonList;
-                            obj.SimilarBikeWidget.modelComparisionText = obj.comparisionText;
+                            obj.SimilarBikeWidget.ModelComparisionText = obj.comparisionText;
                         }
 
                     }
@@ -544,7 +545,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.SimilarBikesComparisionWidget()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.SimilarBikesComparisionWidget()");
             }
 
         }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.Entity.BikeData
+﻿namespace Bikewale.Entity.BikeData
 {
-    
+
     public class BikeModelEntityBase
     {
         public int ModelId { get; set; }

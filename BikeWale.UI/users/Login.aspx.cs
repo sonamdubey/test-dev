@@ -67,8 +67,8 @@ namespace BikWale.Users
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikWale.Users.LogIn.LoginUser()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikWale.Users.LogIn.LoginUser()");
+                
                 RedirectPath();
             }
         }
@@ -121,8 +121,8 @@ namespace BikWale.Users
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 RedirectPath();
             }
         }
@@ -192,8 +192,8 @@ namespace BikWale.Users
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "IsLocalUrl()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "IsLocalUrl()");
+                
                 return false;
             }
         }

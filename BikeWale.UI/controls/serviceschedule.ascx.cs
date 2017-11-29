@@ -40,8 +40,8 @@ namespace Bikewale.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceSchedule.Page_Load()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ServiceSchedule.Page_Load()");
+                
             }
         }
     }
