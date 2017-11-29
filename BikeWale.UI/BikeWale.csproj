@@ -3897,6 +3897,11 @@
     <Content Include="Views\BikeSeries\_OtherSeriesFromMake_Mobile.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_v1.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_v1_Mobile.cshtml" />
+    <Content Include="Views\Make\Index_Mobile_AMP.cshtml" />
+    <Content Include="Views\Make\_BrandsModelCount_Mobile_AMP.cshtml" />
+    <Content Include="Views\Make\_Index_Tabs_Mobile_AMP.cshtml" />
+    <Content Include="Views\Make\_OtherMakes.cshtml" />
+    <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

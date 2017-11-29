@@ -437,7 +437,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-				Bikewale.Notifications.ErrorClass.LogError(ex, "PriceInCityPage.BindAdSlotTags");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "PriceInCityPage.BindAdSlotTags");
             }
         }
 
@@ -1187,45 +1187,53 @@ namespace Bikewale.Models
         /// </summary>
         private void SetBreadcrumList(PriceInCityPageVM objPage)
         {
-            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
-            ushort position = 1;
-            if (IsMobile)
+            try
             {
-                url += "m/";
-            }
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
-
-            if (objPage.Make != null)
-            {
-                url = string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName);
-
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
-            }
-
-            if (objPage.Make != null && objPage.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !objPage.Make.IsScooterOnly)
-            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
                 if (IsMobile)
-                    url = string.Format("/m/{0}-scooters/", objPage.Make.MaskingName);
-                else
-                    url = string.Format("/{0}-scooters/", objPage.Make.MaskingName);
+                {
+                    url += "m/";
+                }
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Scooters", objPage.Make.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+
+                if (objPage.Make != null)
+                {
+                    url = string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName);
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
+                }
+
+                if (objPage.Make != null && objPage.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !objPage.Make.IsScooterOnly)
+                {
+                    string makeUrl = "";
+                    if (IsMobile)
+                        makeUrl = string.Format("/m/{0}-scooters/", objPage.Make.MaskingName);
+                    else
+                        makeUrl = string.Format("/{0}-scooters/", objPage.Make.MaskingName);
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, makeUrl, string.Format("{0} Scooters", objPage.Make.MakeName)));
+                }
+
+                if (objPage.Make != null && objPage.BikeModel != null)
+                {
+                    url = string.Format("{0}{1}/", url, objPage.BikeModel.MaskingName);
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.BikeModel.ModelName));
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
+
+
+                objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
             }
-
-            if (objPage.Make != null && objPage.BikeModel != null)
+            catch (Exception ex)
             {
-                url = string.Format("{0}{1}/", url, objPage.BikeModel.MaskingName);
-
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.BikeModel.ModelName));
+                ErrorClass.LogError(ex, String.Format("SetBreadcrumList({0},{1})", modelMaskingName, cityMaskingName));
             }
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
-
-
-            objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
 
         }
 
