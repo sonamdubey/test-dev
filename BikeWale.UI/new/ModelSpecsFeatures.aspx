@@ -47,6 +47,14 @@
                               <%  }
                                  %>
 
+                            <% if (!string.IsNullOrEmpty(seriesUrl))
+                                { %>
+                                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                    <span class="bwsprite fa-angle-right margin-right10"></span>
+                                    <a href="/<%= seriesUrl %>" itemprop="url"><span itemprop="title"><%= Series.SeriesName %></span></a>
+                                </li>
+                            <% } %>
+
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url"><span itemprop="title"><%= String.Format("{0} {1}", makeName, modelName) %></span></a>

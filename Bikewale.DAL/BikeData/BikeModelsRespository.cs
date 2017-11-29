@@ -1,4 +1,13 @@
-﻿using Bikewale.DAL.CoreDAL;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -12,15 +21,6 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Dapper;
 using MySql.CoreDAL;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -3118,6 +3118,43 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMileageForModel");
             }
             return mileageDetails;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 28th Nov 2017
+        /// Description : Get Series Entity by modelid
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeSeriesEntityBase GetSeriesByModelId(uint modelId)
+        {
+            BikeSeriesEntityBase objSeries = null;
+            try
+            {
+                using(DbCommand cmd = DbFactory.GetDBCommand("getseriesbymodelid"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.UInt32, modelId));
+                    using(IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if(dr != null && dr.Read())
+                        {
+                            objSeries = new BikeSeriesEntityBase
+                            {
+                                SeriesId = SqlReaderConvertor.ToUInt32(dr["id"]),
+                                SeriesName = Convert.ToString(dr["name"]),
+                                MaskingName = Convert.ToString(dr["maskingname"]),
+                                IsSeriesPageUrl = SqlReaderConvertor.ToBoolean(dr["isseriespageurl"])
+                            };
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.Bikedata.GetSeriesByModelId modelId = {0}", modelId));
+            }
+            return objSeries;
         }
 
     }   // class

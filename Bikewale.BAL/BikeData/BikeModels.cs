@@ -1,4 +1,9 @@
-﻿using Bikewale.BAL.Customer;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
 using Bikewale.BAL.UserReviews.Search;
@@ -30,11 +35,6 @@ using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -971,6 +971,29 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, String.Format("BikeModels.GetMileageDetails()_ModelId: {0}", modelId));
             }
             return mileageWidgetObj;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 28th Nov 2017
+        /// Description : Get series by model id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeSeriesEntityBase GetSeriesByModelId(uint modelId)
+        {
+            BikeSeriesEntityBase objSeries = null;
+            try
+            {
+                if(modelId > 0)
+                {
+                    objSeries = _modelCacheRepository.GetSeriesByModelId(modelId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetSeriesByModelId modelId = {0}", modelId));
+            }
+            return objSeries;
         }
 
     }   // Class

@@ -1,4 +1,8 @@
-﻿using Bikewale.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Bikewale.Common;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
@@ -22,10 +26,6 @@ using Bikewale.Models.Gallery;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Utility;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models
 {
@@ -70,6 +70,7 @@ namespace Bikewale.Models
         public bool IsMobile { get; internal set; }
         private GlobalCityAreaEntity locationCookie = null;
         private readonly IAdSlot _adSlot = null;
+        private BikeSeriesEntityBase Series;
 
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
@@ -1150,6 +1151,7 @@ namespace Bikewale.Models
                 objVM.AdTags.TargetedCity = firstVersion.City;
                 objVM.AdTags.TargetedModel = firstVersion.ModelName;
 
+                Series = _objModelEntity.GetSeriesByModelId(modelId);
                 SetBreadcrumList(objVM);
 
                 SetPageJSONLDSchema(objVM);
@@ -1186,7 +1188,8 @@ namespace Bikewale.Models
         private void SetBreadcrumList(PriceInCityPageVM objPage)
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string url, scooterUrl, seriesUrl;
+            url = scooterUrl = seriesUrl = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
@@ -1206,11 +1209,21 @@ namespace Bikewale.Models
             if (objPage.Make != null && objPage.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !objPage.Make.IsScooterOnly)
             {
                 if (IsMobile)
-                    url = string.Format("/m/{0}-scooters/", objPage.Make.MaskingName);
-                else
-                    url = string.Format("/{0}-scooters/", objPage.Make.MaskingName);
+                {
+                    scooterUrl += "m/";
+                }
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Scooters", objPage.Make.MakeName)));
+                scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.Make.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.Make.MakeName)));
+            }
+
+            if(Series != null && Series.IsSeriesPageUrl)
+            {
+
+                seriesUrl = string.Format("{0}{1}/", url, Series.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, Series.SeriesName));
             }
 
             if (objPage.Make != null && objPage.BikeModel != null)
