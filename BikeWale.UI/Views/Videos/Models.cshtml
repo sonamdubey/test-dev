@@ -3,8 +3,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/videosByModel.css' inline />";
-    //Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/videos/", Model.Make.MaskingName, Model.Model.MaskingName);
-    //Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/videos/", Model.Make.MaskingName, Model.Model.MaskingName);
     Model.IsHeaderFix = true;
 }
 
@@ -57,11 +55,11 @@
     }
 
     if (Model.BikeInfoWidgetData != null)
-    {  <section>
+    { 
      
                         @Html.Partial("~/Views/BikeModels/_BikeInfoCard.cshtml", Model.BikeInfoWidgetData)
             
-    </section>
+    
     }
 
     if (Model.SimilarBikeVideoList != null && Model.SimilarBikeVideoList.Count() > 0)
