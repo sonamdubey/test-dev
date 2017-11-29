@@ -1,11 +1,4 @@
-﻿using Bikewale.DTO.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.DTO.Version
+﻿namespace Bikewale.DTO.Version
 {
     public class VersionSpecifications
     {

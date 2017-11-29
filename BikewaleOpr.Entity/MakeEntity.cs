@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BikeWaleOpr.Entities
+﻿namespace BikeWaleOpr.Entities
 {
-    
+
     public class MakeEntity : MakeEntityBase
     {
         public bool New { get; set; }

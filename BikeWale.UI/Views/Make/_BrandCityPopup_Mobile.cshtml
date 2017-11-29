@@ -97,13 +97,11 @@
 
 
 <script type="text/javascript">
-    var vmbrandcity, BrandsKey, BrandCityKey, cityId, makeId, isDealer, isServiceCenter;
+    var vmbrandcity, BrandsKey, BrandCityKey, cityId, makeId, isDealer, isServiceCenter, prevCity, prevMake;
+
     docReady(function () {
-        bwcache.removeAll(true);
-        BrandsKey = "BrandCityPopUp_";
-        BrandCityKey = "brandcity_";
-        cityId = '@Model.CityId';
-        makeId = '@Model.MakeId';
+        bwcache.removeAll(true); BrandsKey = "BrandCityPopUp_"; BrandCityKey = "brandcity_";
+        cityId = '@Model.CityId'; makeId = '@Model.MakeId';
         isDealer = "@Convert.ToBoolean(Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))" == "True";
         isServiceCenter = "@Convert.ToBoolean(Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))" == "True";
 
@@ -238,6 +236,7 @@
                                 self.preselectCity();
                             }
                             else self.selectCity(null);
+                            prevCity = prevCity || $("#popupCitiesList").find("li[cityid=" + cityId + "]").text();
                         }
                         $('#brandcitypopupWrapper').removeClass('loader-active');
 
@@ -260,6 +259,7 @@
                                 if (cities) {
                                     bwcache.set(BrandCityKey, cities, 60);
                                     self.listCities(cities);
+                                    prevCity = prevCity || $("#popupCitiesList").find("li[cityid=" + cityId + "]").text();
                                     if (self.SelectedCityId() != null) {
                                         self.preselectCity();
                                     }
@@ -307,10 +307,13 @@
                 self.searchByBrandCityBtnClicked(true);
                 isvalid = self.isValidInfoPopup();
                 if (isvalid) {
+                    var selectedMakeCity = $("#popupMakeList").find("li[makeid=" + self.selectedBrand().makeId + "]").text() + "_" + $("#popupCitiesList").find("li[cityid=" + self.SelectedCityId() + "]").text(), prevMakeCity = prevMake + "_" + prevCity;
                     if (isDealer) {
+                        triggerGA("Dealer_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity.replace(/\s+/g, "_") + "_To_" + selectedMakeCity.replace(/\s+/g, "_"));
                         window.location.href = "/m/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
                     }
                     else if (isServiceCenter) {
+                        triggerGA("Service_Center_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity.replace(/\s+/g, "_") + "_To_" + selectedMakeCity.replace(/\s+/g, "_"));
                         window.location.href = "/m/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
                     };
                 }
@@ -319,6 +322,7 @@
             self.preselectMake = function () {
                 if (makeId > 0 && self.bookingBrands().length > 0) {
                     self.selectedBrand(self.findMakeById(parseInt(makeId)));
+                    prevMake = prevMake || $("#popupMakeList").find("li[makeid=" + makeId + "]").text();
                     self.makeChangedPopup();
                 }
             };

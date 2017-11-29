@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Bikewale.Notifications;
+using Bikewale.Utility;
+using BikewaleOpr.DTO.BikeData;
+using BikewaleOpr.common;
+using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity;
+using BikewaleOpr.Interface.BikeData;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Bikewale.Notifications;
-using BikewaleOpr.Entities.BikeData;
-using BikewaleOpr.Interface.BikeData;
-using Bikewale.Utility;
 
 namespace BikeWaleOpr.MVC.UI.Controllers.Content
 {
@@ -17,7 +20,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         private readonly IBikeMakesRepository makesRepo;
         private readonly IBikeModelsRepository modelsRepo;
 
-        public MakesController(IBikeMakesRepository _makesRepo,IBikeModelsRepository _modelsRepo)
+        public MakesController(IBikeMakesRepository _makesRepo, IBikeModelsRepository _modelsRepo)
         {
             makesRepo = _makesRepo;
             modelsRepo = _modelsRepo;
@@ -48,7 +51,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/Index");
+                ErrorClass.LogError(ex, "MakesController/Index");
             }
 
             return View(objMakes);
@@ -59,7 +62,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// </summary>
         /// <returns></returns>
         public ActionResult Add(BikeMakeEntity make)
-        {            
+        {
             try
             {
                 short isMakeExist = 0;
@@ -75,7 +78,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/Add");
+                ErrorClass.LogError(ex, "MakesController/Add");
             }
 
             return RedirectToAction("Index");
@@ -103,18 +106,19 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                         IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
                         foreach (var mail in emails)
                         {
-                            SendEmailOnModelChange.SendMakeMaskingNameChangeMail(mail,make.MakeName,models);
+                            SendEmailOnModelChange.SendMakeMaskingNameChangeMail(mail, make.MakeName, models);
                         }
                     }
                     TempData["msg"] = make.MakeName + " Make Updated Successfully";
                 }
-                else {
+                else
+                {
                     TempData["msg"] = "Please provide valid inputs";
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/Update");
+                ErrorClass.LogError(ex, "MakesController/Update");
             }
 
             return RedirectToAction("Index");
@@ -135,17 +139,96 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
 
                     TempData["msg"] = "Make Deleted Successfully";
                 }
-                else {
+                else
+                {
                     TempData["msg"] = "Please provide valid make";
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesController/Delete");
+                ErrorClass.LogError(ex, "MakesController/Delete");
             }
 
             return RedirectToAction("Index");
         }
-    
+
+        /// <summary>
+        /// Created by Sajal Gupta on 20-11-2017
+        /// Desc : Action method for page addfooterdata
+        /// Modified by: Snehal Dange on 23rd Nov 2017
+        /// Description: Added refresh cache logic
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ActionResult AddFooterData(uint makeId, string makeName)
+        {
+            try
+            {
+                if (makeId > 0)
+                {
+                    MakeFooterPageModel objMakeFooter = new MakeFooterPageModel();
+                    objMakeFooter.MakeFooterData = makesRepo.GetMakeFooterCategoryData(makeId);
+                    objMakeFooter.MakeName = makeName;
+                    objMakeFooter.MakeId = makeId;
+
+                    MemCachedUtil.Remove(string.Format("BW_FooterCategoriesandPrice_MK_{0}", makeId));
+                    return View(objMakeFooter);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "MakesController/AddFooterData");
+            }
+            return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 20-11-2017
+        /// Desc : Action method for saving addfooterdata
+        /// Modified by: Snehal Dange on 23rd Nov 2017
+        /// Description: Added refresh cache logic
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [Route("make/save/footerdata/")]
+        public ActionResult SaveFooterData([System.Web.Http.FromBody]MakeFooterDto footerData)
+        {
+            try
+            {
+                if (footerData.MakeId > 0)
+                {
+                    makesRepo.SaveMakeFooterData(footerData.MakeId, footerData.CategoryId, footerData.CategoryDescription, footerData.UserId);
+                    MemCachedUtil.Remove(string.Format("BW_FooterCategoriesandPrice_MK_{0}", footerData.MakeId));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "MakesController/SaveFooterData");
+            }
+            return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 20-11-2017
+        /// Desc : Action method for deleting footerdata
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [Route("make/delete/footerdata/")]
+        public ActionResult DisableFooterData(uint makeId, string userId)
+        {
+            try
+            {
+                makesRepo.DisableAllMakeFooterCategories(makeId, userId);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "MakesController/DisableFooterData");
+            }
+            return RedirectToAction("Index");
+        }
+
     }   // class
 }   // namespace

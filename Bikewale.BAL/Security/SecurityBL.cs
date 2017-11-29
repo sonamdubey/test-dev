@@ -66,8 +66,8 @@ namespace Bikewale.BAL.Security
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SecurityBL.GetToken");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "SecurityBL.GetToken");
+                
             }
             return objAwsToken;
         }
@@ -107,8 +107,8 @@ namespace Bikewale.BAL.Security
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SecurityBL.GenerateHash : " + uniqueId);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "SecurityBL.GenerateHash : " + uniqueId);
+                
             }
             return (new string(hashPadding) + baseHash);
         }
@@ -137,8 +137,8 @@ namespace Bikewale.BAL.Security
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "VerifyHash : " + hashValue);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "VerifyHash : " + hashValue);
+                
             }
             return isEqual;
         }

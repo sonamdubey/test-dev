@@ -1,5 +1,4 @@
-﻿using Bikewale.DTO.Version;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Bikewale.DTO.Model

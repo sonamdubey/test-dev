@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.AppDeepLinking;
+﻿using Bikewale.Entities.AppDeepLinking;
 
 namespace Bikewale.Interfaces.AppDeepLinking
 {

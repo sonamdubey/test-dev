@@ -1,7 +1,7 @@
 ﻿using Bikewale.Interfaces.Cache.Core;
 using System;
-using System.Web;
 using System.Collections.Generic;
+using System.Web;
 
 namespace Bikewale.Cache.Core
 {
@@ -13,10 +13,11 @@ namespace Bikewale.Cache.Core
 
             try
             {
+                object lockObj = new object();
                 //checking if the DataSet object exists in the Cache before attempting to use it
                 if (HttpContext.Current.Cache[key] == null)
                 {
-                    lock (this) // This lock is applied so that only one cache is created at the expiration of the cache and a new request is fired
+                    lock (lockObj) // This lock is applied so that only one cache is created at the expiration of the cache and a new request is fired
                     {
                         if (HttpContext.Current.Cache[key] == null)
                         {
@@ -51,7 +52,8 @@ namespace Bikewale.Cache.Core
         {
             try
             {
-                lock (this) // This lock is applied so that only one cache is created at the expiration of the cache and a new request is fired
+                object lockObj = new object();
+                lock (lockObj) // This lock is applied so that only one cache is created at the expiration of the cache and a new request is fired
                 {
                     //HttpContext.Current.Cache.Insert(key, callback(), null, System.Web.Caching.Cache.NoAbsoluteExpiration, cacheDuration);
                     HttpContext.Current.Cache.Remove(key);

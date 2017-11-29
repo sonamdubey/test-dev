@@ -1,10 +1,5 @@
 ﻿using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Notifications;
 
 namespace Bikewale.Cache.Core
 {
@@ -96,7 +91,7 @@ namespace Bikewale.Cache.Core
         void Enyim.Caching.ILog.Error(object message)
         {
             this.log.Error(message);
-            //ErrorClass r = new ErrorClass(new ArgumentNullException(), message.ToString());
+            //ErrorClass.LogError(new ArgumentNullException(), message.ToString());
         }
 
         void Enyim.Caching.ILog.Error(object message, Exception exception)

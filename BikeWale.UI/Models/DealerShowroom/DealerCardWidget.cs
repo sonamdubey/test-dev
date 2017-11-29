@@ -52,7 +52,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindOtherDealerWidget()");
+                ErrorClass.LogError(ex, "DealerShowroomDealerDetail.BindOtherDealerWidget()");
             }
             return objDealerList;
         }

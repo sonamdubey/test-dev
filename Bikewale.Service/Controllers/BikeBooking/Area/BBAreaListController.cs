@@ -53,8 +53,8 @@ namespace Bikewale.Service.Controllers.BikeBooking.Area
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.Area.BBAreaListController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.Area.BBAreaListController.Get");
+               
                 return InternalServerError();
             }
         }

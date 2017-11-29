@@ -6,8 +6,6 @@ using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ServiceCenter;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Models.ServiceCenter
 {
@@ -80,7 +78,7 @@ namespace BikewaleOpr.Models.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetFormData()");
+                ErrorClass.LogError(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetFormData()");
             }
             return formModel;
         }
@@ -104,7 +102,7 @@ namespace BikewaleOpr.Models.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetAllBikeMakes()");
+                ErrorClass.LogError(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetAllBikeMakes()");
             }
 
             return allMakeList;
@@ -132,7 +130,7 @@ namespace BikewaleOpr.Models.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetBikeMakes()");
+                ErrorClass.LogError(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetBikeMakes()");
             }
 
             return serviceCenterMakeList;
@@ -158,7 +156,7 @@ namespace BikewaleOpr.Models.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetAllCityList()");
+                ErrorClass.LogError(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetAllCityList()");
             }
 
             return allCityList;
@@ -184,7 +182,7 @@ namespace BikewaleOpr.Models.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetServiceCenterDetailsById()");
+                ErrorClass.LogError(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetServiceCenterDetailsById()");
             }
 
 
@@ -212,7 +210,7 @@ namespace BikewaleOpr.Models.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetStateDetailsByCityId()");
+                ErrorClass.LogError(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetStateDetailsByCityId()");
             }
 
             return objModel;

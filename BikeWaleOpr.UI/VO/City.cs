@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-
-/// <summary>
+﻿/// <summary>
 /// Author : Ashwini Todkar written on 1st Jan 2014
 /// Summary : This class has all attributes of city entity
 /// </summary>

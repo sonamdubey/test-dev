@@ -17,6 +17,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Description :   Added OnRoadPriceInCity property
     /// Modified by : Ashutosh Sharma on 03 Oct 2017
     /// Description : Added AvgPrice.
+    /// Modified by : Snehal Dange on 24th Nov 2017
+    /// Description: Added EnumBikeBodyStyles
     /// </summary>
     [Serializable]
     public class BestBikeEntityBase //: BasicBikeEntityBase
@@ -47,5 +49,6 @@ namespace Bikewale.Entities.GenericBikes
         public bool IsDiscontinued { get; set; }
         public bool IsUpcoming { get; set; }
         public uint OnRoadPriceInCity { get; set; }
+        public EnumBikeBodyStyles? CurrentPage { get; set; }
     }
 }

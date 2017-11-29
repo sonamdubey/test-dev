@@ -1,5 +1,4 @@
-﻿using BikewaleOpr.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BikewaleOpr.Entities
 {

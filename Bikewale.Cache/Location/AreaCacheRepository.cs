@@ -4,9 +4,6 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Cache.Location
 {
@@ -41,8 +38,8 @@ namespace Bikewale.Cache.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelPageDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetModelPageDetails");
+                
             }
             return areaList;
         }

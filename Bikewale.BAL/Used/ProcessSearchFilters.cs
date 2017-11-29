@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.Used.Search;
-using Bikewale.Entities.Used.Search;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
 
 namespace Bikewale.BAL.Used.Search
 {
@@ -61,8 +57,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.ProcessFilters");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.ProcessFilters");
+                
             }
 
             return objProcessedFilters;
@@ -80,8 +76,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.ProcessMakes");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.ProcessMakes");
+                
             }
         }
 
@@ -96,8 +92,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.ProcessModels");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.ProcessModels");
+                
             }
         }
 
@@ -118,8 +114,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.ProcessBudget");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.ProcessBudget");
+                
             }
         }
 
@@ -137,8 +133,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.ProcessKilometers");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.ProcessKilometers");
+                
             }
         }
 
@@ -156,8 +152,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.ProcessBikeAge");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.ProcessBikeAge");
+                
             }
         }
 
@@ -172,8 +168,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.ProcessSellers");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.ProcessSellers");
+                
             }
         }
 
@@ -188,8 +184,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.ProcessSellers");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.ProcessSellers");
+                
             }
         }
 
@@ -219,8 +215,8 @@ namespace Bikewale.BAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.ProcessPaging");
-                objError.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.Used.ProcessPaging");
+                
             }
         }
 

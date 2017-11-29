@@ -1,9 +1,9 @@
-﻿using System;
-using Bikewale.ManufacturerCampaign.Entities;
+﻿using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
-using System.Collections.Specialized;
 using Bikewale.Utility;
+using System;
+using System.Collections.Specialized;
 
 namespace Bikewale.ManufacturerCampaign.BAL
 {
@@ -44,7 +44,7 @@ namespace Bikewale.ManufacturerCampaign.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.BAL.GetManufactureCampaigns");
+                ErrorClass.LogError(ex, "Bikewale.ManufacturerCampaign.BAL.GetManufactureCampaigns");
             }
             return isSuccess;
         }

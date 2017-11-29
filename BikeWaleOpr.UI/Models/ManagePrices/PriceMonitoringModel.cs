@@ -49,7 +49,7 @@ namespace BikewaleOpr.Models.ManagePrices
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PriceMonitoringModel.getData");
+                ErrorClass.LogError(ex, "PriceMonitoringModel.getData");
             }
             return priceMonitoringVM;
         }
@@ -99,7 +99,7 @@ namespace BikewaleOpr.Models.ManagePrices
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PriceMonitoringModel.getData._makeId:{0}_stateId:{1}", makeId, stateId));
+                ErrorClass.LogError(ex, string.Format("PriceMonitoringModel.getData._makeId:{0}_stateId:{1}", makeId, stateId));
             }
             return priceMonitoringVM;
         }
@@ -151,7 +151,7 @@ namespace BikewaleOpr.Models.ManagePrices
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PriceMonitoringModel.getData._makeId:{0}_modelId:{1}_stateId:{2}", makeId, modelId, stateId));
+                ErrorClass.LogError(ex, string.Format("PriceMonitoringModel.getData._makeId:{0}_modelId:{1}_stateId:{2}", makeId, modelId, stateId));
             }
             return priceMonitoringVM;
         }

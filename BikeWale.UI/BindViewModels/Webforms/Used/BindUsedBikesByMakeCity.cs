@@ -38,7 +38,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesByMakeCity.BindUsedBikesByMakeCity"));
+                ErrorClass.LogError(ex, string.Format("BindUsedBikesByMakeCity.BindUsedBikesByMakeCity"));
             }
 
         }
@@ -55,7 +55,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesByMakeCity.GetUsedBikeByMakeCityWithCount_{0}", makeid));
+                ErrorClass.LogError(ex, string.Format("BindUsedBikesByMakeCity.GetUsedBikeByMakeCityWithCount_{0}", makeid));
             }
             return objBikeCity;
         }
@@ -75,7 +75,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindUsedBikesByMakeCity.CreateMetas");
+                ErrorClass.LogError(ex, "BindUsedBikesByMakeCity.CreateMetas");
             }
 
         }

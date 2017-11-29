@@ -51,7 +51,7 @@ namespace BikewaleOpr.Models.DealerBikePrice
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetLandingInformation");
+                ErrorClass.LogError(ex, "GetLandingInformation");
             }
 
             return dealerPricingLandingInfo;

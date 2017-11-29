@@ -55,8 +55,8 @@ namespace BikewaleOpr.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetSellerDetails" + inquiryId);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetSellerDetails" + inquiryId);
+                
             }
             return seller;
         }
@@ -105,8 +105,8 @@ namespace BikewaleOpr.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetClassifiedPendingInquiries");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetClassifiedPendingInquiries");
+                
             }
             return sellerListing;
         }
@@ -137,8 +137,8 @@ namespace BikewaleOpr.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}", inquiryId, isApproved, approvedBy));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}", inquiryId, isApproved, approvedBy));
+                
             }
             return isSuccess;
         }
@@ -184,7 +184,7 @@ namespace BikewaleOpr.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetUsedBikeSellerDetails" + inquiryId);
+                ErrorClass.LogError(ex, "GetUsedBikeSellerDetails" + inquiryId);
             }
             return sellerProfile;
         }

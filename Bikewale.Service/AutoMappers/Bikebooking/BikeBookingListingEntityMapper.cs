@@ -5,10 +5,7 @@ using Bikewale.DTO.BikeBooking.Model;
 using Bikewale.DTO.BikeBooking.Version;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.Bikebooking
 {

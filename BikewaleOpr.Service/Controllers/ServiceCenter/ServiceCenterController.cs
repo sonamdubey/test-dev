@@ -7,9 +7,6 @@ using BikewaleOpr.Interface.ServiceCenter;
 using BikewaleOpr.Service.AutoMappers.ServiceCenter;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -54,7 +51,7 @@ namespace BikewaleOpr.Service.Controllers.ServiceCenter
                 }		
                 catch (Exception ex)		
                 {		
-                    Bikewale.Notifications.ErrorClass objErr = new ErrorClass(ex, " BikewaleOpr.Service.Controllers.ServiceCenter.ServiceCenterController.Get");		
+                    Bikewale.Notifications.ErrorClass.LogError(ex, " BikewaleOpr.Service.Controllers.ServiceCenter.ServiceCenterController.Get");		
                     return InternalServerError();		
                 }		
             }		
@@ -104,7 +101,7 @@ namespace BikewaleOpr.Service.Controllers.ServiceCenter
                 }		
                 catch (Exception ex)		
                 {		
-                    ErrorClass objErr = new ErrorClass(ex, " BikewaleOpr.Service.Controllers.ServiceCenter.ServiceCenterController.GetServiceCenterDetailsByCityMake");		
+                    ErrorClass.LogError(ex, " BikewaleOpr.Service.Controllers.ServiceCenter.ServiceCenterController.GetServiceCenterDetailsByCityMake");		
                     return InternalServerError();		
                 }		
             }		
@@ -140,7 +137,7 @@ namespace BikewaleOpr.Service.Controllers.ServiceCenter
                 }		
                 catch (Exception ex)		
                 {		
-                    ErrorClass objErr = new ErrorClass(ex, " BikewaleOpr.Service.Controllers.ServiceCenter.ServiceCenterController.UpdateServiceCenterStatus");		
+                    ErrorClass.LogError(ex, " BikewaleOpr.Service.Controllers.ServiceCenter.ServiceCenterController.UpdateServiceCenterStatus");		
                     return InternalServerError();		
                 }		
             }		

@@ -42,12 +42,12 @@ namespace Bikewale.DAL.MobileVerification
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return isVerified;
@@ -82,12 +82,12 @@ namespace Bikewale.DAL.MobileVerification
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
             return noOfOTPSend;
         }
@@ -125,12 +125,12 @@ namespace Bikewale.DAL.MobileVerification
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return cvId;
@@ -168,12 +168,12 @@ namespace Bikewale.DAL.MobileVerification
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return verified;
@@ -209,7 +209,7 @@ namespace Bikewale.DAL.MobileVerification
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.MobileVerification.GetVerifiedPhoneNumbers");
+                ErrorClass.LogError(ex, "Bikewale.DAL.MobileVerification.GetVerifiedPhoneNumbers");
             }
             return numberList;
         }

@@ -1,6 +1,4 @@
-﻿
-using RabbitMqPublishing.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Web;
 namespace Bikewale.Utility.UsedCookie
@@ -94,10 +92,10 @@ namespace Bikewale.Utility.UsedCookie
                     CookieManager.Add(usedCookie);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "UsedCookie.SetUsedCookie");
+                //
             }
         }
     }

@@ -31,7 +31,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UserReviews.UserReviewWinnerWidget");
+                ErrorClass.LogError(ex, "Bikewale.Models.UserReviews.UserReviewWinnerWidget");
             }
             return objReviewsWinnersList;
         }

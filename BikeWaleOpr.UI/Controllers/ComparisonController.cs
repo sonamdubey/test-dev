@@ -41,7 +41,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Controllers.ComparisonController.ManageSponsoredCamparison");
+                ErrorClass.LogError(ex, "BikewaleOpr.Controllers.ComparisonController.ManageSponsoredCamparison");
             }
 
             return View(objData);
@@ -74,7 +74,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Controllers.ComparisonController.AddorUpdateSponsoredComparison");
+                ErrorClass.LogError(ex, "BikewaleOpr.Controllers.ComparisonController.AddorUpdateSponsoredComparison");
             }
 
             return Redirect("/comparison/sponsored/manage/");
@@ -99,7 +99,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Controllers.ComparisonController.AddSponsoredComparisonRules_CampaignId_" + comparisonId);
+                ErrorClass.LogError(ex, "BikewaleOpr.Controllers.ComparisonController.AddSponsoredComparisonRules_CampaignId_" + comparisonId);
             }
             return View(objData);
         }
@@ -128,7 +128,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Controllers.ComparisonController.SaveSponsoredComparisonRules");
+                ErrorClass.LogError(ex, "BikewaleOpr.Controllers.ComparisonController.SaveSponsoredComparisonRules");
             }
 
             return Redirect("/comparison/sponsored/manage/");

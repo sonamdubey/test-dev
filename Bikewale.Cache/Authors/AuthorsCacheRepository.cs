@@ -55,8 +55,8 @@ namespace Bikewale.Cache.Authors
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetMakeMaskingResponse({0})", maskingName));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("GetMakeMaskingResponse({0})", maskingName));
+                
             }
             return response;
         } 

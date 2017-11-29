@@ -4,6 +4,7 @@
     /// Created By : Ashish G. Kamble on 20 Nov 2017
     /// Summary : Class to hold series and model masking name properties
     /// </summary>
+    [Serializable]
     public class SeriesMaskingResponse
     {
         /// <summary>

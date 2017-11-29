@@ -1,8 +1,4 @@
 ﻿using BikewaleOpr.Interface.Banner;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Models.Banner
 {

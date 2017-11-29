@@ -84,7 +84,7 @@ namespace Bikewale.Videos
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Videos.BindControl");
+                ErrorClass.LogError(ex, "Bikewale.Videos.BindControl");
             }
         }
         /// <summary>
@@ -207,8 +207,8 @@ namespace Bikewale.Videos
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.RawUrl + "ParseQueryString()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.RawUrl + "ParseQueryString()");
+                
             }
             finally
             {
@@ -286,8 +286,8 @@ namespace Bikewale.Videos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.RawUrl + "BindVideos()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.RawUrl + "BindVideos()");
+                
             }
         }
     }

@@ -45,8 +45,8 @@ namespace Bikewale.Cache.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetNewsDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CMSCacheRepository.GetNewsDetails");
+
             }
             return _objArticleDetails;
         }
@@ -75,8 +75,8 @@ namespace Bikewale.Cache.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetMostRecentArticlesByIdList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CMSCacheRepository.GetMostRecentArticlesByIdList");
+
             }
             return _objArticlesList;
         }
@@ -91,12 +91,12 @@ namespace Bikewale.Cache.CMS
             try
             {
                 if (_objArticles != null)
-                    _objArticlesList = _objArticles.GetMostRecentArticlesByIdList(contentTypeIds, totalRecords,bodyStyleId, makeId, modelId);
+                    _objArticlesList = _objArticles.GetMostRecentArticlesByIdList(contentTypeIds, totalRecords, bodyStyleId, makeId, modelId);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetMostRecentArticlesByIdList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CMSCacheRepository.GetMostRecentArticlesByIdList");
+
             }
             return _objArticlesList;
         }
@@ -111,19 +111,19 @@ namespace Bikewale.Cache.CMS
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords, uint makeId, string modelIds)
+        public IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords, uint makeId, string modelIdList)
         {
             IEnumerable<ArticleSummary> _objArticlesList = null;
 
             try
             {
                 if (_objArticles != null)
-                    _objArticlesList = _objArticles.GetMostRecentArticlesByIdList(categoryIdList, totalRecords, makeId, modelIds);
+                    _objArticlesList = _objArticles.GetMostRecentArticlesByIdList(categoryIdList, totalRecords, makeId, modelIdList);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetMostRecentArticlesByIdList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CMSCacheRepository.GetMostRecentArticlesByIdList");
+
             }
             return _objArticlesList;
         }
@@ -154,8 +154,8 @@ namespace Bikewale.Cache.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetArticlesByCategoryList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CMSCacheRepository.GetArticlesByCategoryList");
+
             }
             return _objArticlesList;
         }
@@ -182,7 +182,6 @@ namespace Bikewale.Cache.CMS
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("CMSCacheRepository.GetArticlesByCategoryList ModelIds = {0}", modelId));
-                objErr.SendMail();
             }
             return _objArticlesList;
         }
@@ -207,8 +206,8 @@ namespace Bikewale.Cache.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.CMS.CMSCacheRepository.GetArticlesByCategoryList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Cache.CMS.CMSCacheRepository.GetArticlesByCategoryList");
+
             }
             return _objArticlesList;
         }
@@ -236,8 +235,8 @@ namespace Bikewale.Cache.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetArticlePhotos");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CMSCacheRepository.GetArticlePhotos");
+
             }
 
             return objImages;
@@ -268,8 +267,8 @@ namespace Bikewale.Cache.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetArticlesDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CMSCacheRepository.GetArticlesDetails");
+
             }
             return _objArticleDetails;
         }
@@ -305,13 +304,13 @@ namespace Bikewale.Cache.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "");
+
             }
 
             return objFeaturedArticles;
         }
 
-      
+
     }
 }

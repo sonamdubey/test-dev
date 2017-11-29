@@ -53,8 +53,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
         /// <summary>
@@ -84,8 +84,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }
         /// <summary>
@@ -155,8 +155,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("UsedBikeControl.BindUsedBikes({0},{1})", ModelId, CityId.HasValue ? CityId.Value : 0));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("UsedBikeControl.BindUsedBikes({0},{1})", ModelId, CityId.HasValue ? CityId.Value : 0));
+                
             }
 
             return FetchedRecordsCount;
@@ -192,8 +192,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, ":- FetchUsedBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(err, ":- FetchUsedBikes");
+                
             }
 
             return objMostRecentBikes;

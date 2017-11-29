@@ -39,7 +39,7 @@ namespace Bikewale.Filters
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "IsMobileDevice");
+                ErrorClass.LogError(ex, "IsMobileDevice");
             }
 
             return isMobileSiteDetected;

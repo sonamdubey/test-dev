@@ -139,8 +139,8 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, System.Web.HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, System.Web.HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return lstCity;
@@ -165,8 +165,8 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerByMakeCity");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetDealerByMakeCity");
+                
                 return null;
             }
         }
@@ -185,8 +185,8 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "FetchDealerCitiesByMake");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "FetchDealerCitiesByMake");
+                
                 return null;
             }
         }
@@ -205,8 +205,8 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerDetailsAndBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetDealerDetailsAndBikes");
+                
                 return null;
             }
         }
@@ -223,8 +223,8 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerDetailsAndBikes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetDealerDetailsAndBikes");
+                
                 return null;
             }
         }
@@ -243,8 +243,8 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
+                
                 return null;
             }
         }
@@ -265,8 +265,8 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("UpdateManufaturerLead({0}, {1}, {2}, {3})", pqId, custEmail, mobile, response));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("UpdateManufaturerLead({0}, {1}, {2}, {3})", pqId, custEmail, mobile, response));
+                
                 return false;
             }
         }
@@ -289,8 +289,8 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("exception in BAL layer for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("exception in BAL layer for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
+                
             }
             return objDealerCountList;
         }
@@ -306,8 +306,8 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerByBrandList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetDealerByBrandList");
+                
                 return null;
             }
         }

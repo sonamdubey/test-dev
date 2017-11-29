@@ -26,6 +26,10 @@
         NewsArticles = 17,
         ExpertReviews = 18,
         Videos = 19,
-        Features = 20
+        Features = 20,
+        SeriesPage = 21,
+        SeriesNews = 22,
+        SeriesExpertReview = 23,
+        SeriesVideos = 24
     }
 }

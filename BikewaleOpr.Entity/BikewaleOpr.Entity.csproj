@@ -189,6 +189,8 @@
     <Compile Include="Images\ImageToken.cs" />
     <Compile Include="MakeEntity.cs" />
     <Compile Include="MakeEntityBase.cs" />
+    <Compile Include="MakeFooterCategory.cs" />
+    <Compile Include="MakeFooterPageModel.cs" />
     <Compile Include="ManageBookingAmountData.cs" />
     <Compile Include="ManufacturerCampaignEntity.cs" />
     <Compile Include="ManufacturerCampaign\ConfigureCampaignSave.cs" />

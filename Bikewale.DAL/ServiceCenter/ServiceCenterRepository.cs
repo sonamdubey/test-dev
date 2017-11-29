@@ -145,8 +145,8 @@ namespace Bikewale.DAL.ServiceCenter
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetServiceCenterList, makeId = {0} ", makeId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("GetServiceCenterList, makeId = {0} ", makeId));
+                
             }
             return objStateCityList;
         }
@@ -191,8 +191,8 @@ namespace Bikewale.DAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetServiceCenterCities");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetServiceCenterCities");
+                
             }
             return objCityList;
         }
@@ -254,8 +254,8 @@ namespace Bikewale.DAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersRepository.GetServiceCentersByCity for paramerters cityId : {0}, makeId : {1}", cityId, makeId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCentersRepository.GetServiceCentersByCity for paramerters cityId : {0}, makeId : {1}", cityId, makeId));
+                
             }
             return serviceCenters;
         }
@@ -322,8 +322,8 @@ namespace Bikewale.DAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersRepository.GetServiceScheduleByMake for paramerters makeId : {0}", makeId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCentersRepository.GetServiceScheduleByMake for paramerters makeId : {0}", makeId));
+                
             }
             return modelSchedules;
         }
@@ -376,8 +376,8 @@ namespace Bikewale.DAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCenterRepository.GetServiceCenterById for paramerters serviceCenterId : {0}", serviceCenterId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCenterRepository.GetServiceCenterById for paramerters serviceCenterId : {0}", serviceCenterId));
+                
             }
             return objServiceCenterCompleteData;
         }
@@ -431,8 +431,8 @@ namespace Bikewale.DAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCenterRepository.GetServiceCenterSMSData for parameters serviceCenterId : {0}, mobileNumber : {1}", serviceCenterId, mobileNumber));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCenterRepository.GetServiceCenterSMSData for parameters serviceCenterId : {0}, mobileNumber : {1}", serviceCenterId, mobileNumber));
+                
             }
             return objSMSData;
         }
@@ -475,8 +475,8 @@ namespace Bikewale.DAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Error in ServiceCenterRepository.GetAllServiceCentersByBrand");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Error in ServiceCenterRepository.GetAllServiceCentersByBrand");
+                
             }
             return listServiceCenter;
 
@@ -528,8 +528,8 @@ namespace Bikewale.DAL.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCenterRepository.GetServiceCentersNearbyCitiesByBrand for paramerters cityId : {0},makeId: {1},topCount: {2}", cityId, makeId, topCount));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCenterRepository.GetServiceCentersNearbyCitiesByBrand for paramerters cityId : {0},makeId: {1},topCount: {2}", cityId, makeId, topCount));
+                
             }
             return listServiceCenter;
         }

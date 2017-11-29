@@ -1,16 +1,10 @@
-﻿using AutoMapper;
-using Bikewale.DAL.Location;
-using Bikewale.DTO.State;
+﻿using Bikewale.DTO.State;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.State;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -58,8 +52,8 @@ namespace Bikewale.Service.Controllers.State
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.State.StateListController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.State.StateListController");
+               
                 return InternalServerError();
             }
             return NotFound();

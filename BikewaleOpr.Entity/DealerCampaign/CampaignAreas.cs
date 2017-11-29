@@ -1,9 +1,6 @@
-﻿using System;
+﻿using BikewaleOpr.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BikewaleOpr.Entities;
 
 namespace BikewaleOpr.Entity.DealerCampaign
 {

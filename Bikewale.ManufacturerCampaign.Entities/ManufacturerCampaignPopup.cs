@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Bikewaleopr.ManufacturerCampaign.Entities
 {
-   public class ManufacturerCampaignPopup
+    public class ManufacturerCampaignPopup
     {
         public uint CampaignId { get; set; }
         public string PopupHeading { get; set; }

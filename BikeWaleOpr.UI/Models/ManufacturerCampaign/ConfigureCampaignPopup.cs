@@ -2,11 +2,7 @@
 using Bikewale.ManufacturerCampaign.Entities.Models;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
-using Bikewaleopr.ManufacturerCampaign.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Models.ManufacturerCampaign
 {
@@ -36,7 +32,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Models.ManufacturerCampaign.GetData campaignId: {0}",campaignId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.Models.ManufacturerCampaign.GetData campaignId: {0}",campaignId));
             }
             return obj;
         }

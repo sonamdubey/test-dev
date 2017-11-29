@@ -12,7 +12,9 @@
                     </a>
                 </div>
                 <div class="review-heading-wrapper">
-                    <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title" class="font14 target-link">@review.Title.Truncate(44)</a>
+                    <h3>
+                        <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title" class="font14 target-link">@review.Title.Truncate(44)</a>
+                    </h3>
                     <div class="grid-7 alpha padding-right5">
                         <span class="bwmsprite calender-grey-sm-icon"></span>
                         <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "dd MMM yyyy")</span>

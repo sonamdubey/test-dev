@@ -101,8 +101,8 @@ namespace Bikewale.New.DealerLocator
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindMakesDropdown");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindMakesDropdown");
+                
             }
         }
 
@@ -133,8 +133,8 @@ namespace Bikewale.New.DealerLocator
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindCitiesDropdown");
+                
             }
         }
 
@@ -163,8 +163,8 @@ namespace Bikewale.New.DealerLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetLocationCookie");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetLocationCookie");
+                
             }
         }
         #endregion

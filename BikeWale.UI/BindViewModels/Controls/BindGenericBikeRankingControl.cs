@@ -81,7 +81,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindGenericBikeInfo.GetGenericBikeInfo");
+                ErrorClass.LogError(ex, "BindGenericBikeInfo.GetGenericBikeInfo");
             }
             return bikeRankObj;
         }

@@ -55,8 +55,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Model.PQModelListController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Model.PQModelListController.Get");
+               
                 return InternalServerError();
             }
         }

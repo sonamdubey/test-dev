@@ -94,8 +94,8 @@ namespace Bikewale.New
                     }
                     catch (Exception ex)
                     {
-                        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                        objErr.SendMail();
+                        ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                        
                         Response.Redirect("pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
@@ -267,8 +267,8 @@ namespace Bikewale.New
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             } // catch Exception
         }
         #endregion
@@ -313,8 +313,8 @@ namespace Bikewale.New
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
         #endregion

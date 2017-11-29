@@ -14,7 +14,8 @@
                     <th>Futuristic</th>
                     <th>New</th>
                     <th>Used</th>
-                    <th>Synopsis</th>
+                    <th>Footer Added</th>
+                    <th>Synopsis</th>                    
                     <th>Edit</th>
                     <th>Delete</th>
                     <th>Created On</th>
@@ -30,6 +31,7 @@
                         <td><i class="material-icons @((m.Futuristic) ? "icon-green" : "icon-red")">@((m.Futuristic) ? "done" : "close")</i></td>
                         <td><i class="material-icons @((m.New) ? "icon-green" : "icon-red")">@((m.New) ? "done" : "close")</i></td>
                         <td><i class="material-icons @((m.Used) ? "icon-green" : "icon-red")">@((m.Used) ? "done" : "close")</i></td>
+                        <td><a href="/makes/addfooterdata/?makeName=@m.MakeName&makeId=@m.MakeId" class="tooltipped" data-tooltip='@(m.MakeFooterAdded ? "Edit footer properties" : "Add footer properties")'> <i class="material-icons @((m.MakeFooterAdded) ? "icon-green" : "icon-red")">@((m.MakeFooterAdded) ? "done" : "close")</i> </a></td>
                         <td><a href="#!" data-target="modal-make-synopsis" data-bind="event : {click : function(d,e) { setmakedata(e); synopsis().getSynopsis() }}"><i class="material-icons icon-green">add_circle</i></a></td>
                         <td><a href="#!" data-target="modal-make-update" data-bind="event : {click : function(d,e) { setmakedata(e)}}"><i class="material-icons icon-blue">mode_edit</i></a></td>
                         <td><a href="/Makes/Delete/?makeId=@m.MakeId" onclick="return confirm('Are you sure?')"><i class="material-icons icon-red">delete</i></a></td>

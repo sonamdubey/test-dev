@@ -87,7 +87,7 @@ namespace Bikewale.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("PhotoGallaryMin.GetImageList() => ModelId:{0}", modelId));
+                ErrorClass.LogError(err, string.Format("PhotoGallaryMin.GetImageList() => ModelId:{0}", modelId));
             }
         }//End of AllImageList
     }// End of class  

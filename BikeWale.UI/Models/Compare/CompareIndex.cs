@@ -58,7 +58,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareIndex.BindMetas()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareIndex.BindMetas()");
             }
 
         }
@@ -78,7 +78,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareIndex.BindCompareTest()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareIndex.BindCompareTest()");
             }
 
         }
@@ -99,7 +99,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareIndex.BindCompareBike()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareIndex.BindCompareBike()");
             }
         }
     }

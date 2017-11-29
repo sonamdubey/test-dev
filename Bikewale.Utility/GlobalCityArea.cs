@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.Location;
-using RabbitMqPublishing.Common;
 using System;
 using System.Linq;
 using System.Web;
@@ -36,10 +35,9 @@ namespace Bikewale.Utility
                     }
                 }
             }
-
-            catch (Exception ex)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("{0} - GetGlobalCityArea() - location : {1}", HttpContext.Current.Request.ServerVariables["URL"], location));
+                throw;
             }
 
 

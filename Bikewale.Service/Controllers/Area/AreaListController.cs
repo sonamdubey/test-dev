@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.Location;
-using Bikewale.DAL.Location;
-using Bikewale.DTO.Area;
-using AutoMapper;
-using System.Web.Http.Description;
+﻿using Bikewale.DTO.Area;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.BikeData;
-using Bikewale.Service.AutoMappers.Area;
+using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Area;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Area
 {
@@ -62,8 +55,8 @@ namespace Bikewale.Service.Controllers.Area
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Area.AreaListController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Area.AreaListController");
+               
                 return InternalServerError();
             }
         }   // Get Areas

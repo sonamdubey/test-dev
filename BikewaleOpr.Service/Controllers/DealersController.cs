@@ -76,7 +76,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealerMakesByCity: CityId:{0}", cityId));
+                    ErrorClass.LogError(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealerMakesByCity: CityId:{0}", cityId));
                     return InternalServerError();
                 }
 
@@ -125,7 +125,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealersByMake: MakeId:{0}, CityId:{1}", makeId, cityId));
+                    ErrorClass.LogError(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealersByMake: MakeId:{0}, CityId:{1}", makeId, cityId));
                     return InternalServerError();
                 }
 
@@ -158,7 +158,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 }
                 if (dealerDtos != null)
                     return Ok(dealerDtos);
@@ -196,8 +196,8 @@ namespace BikewaleOpr.Service
                 catch (Exception ex)
                 {
                     HttpContext.Current.Trace.Warn("DeleteDealerOffer ex : " + ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    
                 }
                 if (isdeleteSucess)
                     return Ok(isdeleteSucess);
@@ -247,8 +247,8 @@ namespace BikewaleOpr.Service
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
 
                 return InternalServerError();
             }
@@ -278,8 +278,8 @@ namespace BikewaleOpr.Service
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             if (iseditSuccess)
                 return Ok(iseditSuccess);
@@ -309,8 +309,8 @@ namespace BikewaleOpr.Service
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             if (isDeleteSuccess)
                 return Ok("Content deleted successfully.");
@@ -339,8 +339,8 @@ namespace BikewaleOpr.Service
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             if (iseditSuccess)
                 return Ok("Content updated.");
@@ -375,8 +375,8 @@ namespace BikewaleOpr.Service
             catch (Exception ex)
             {
                 //HttpContext.Current.Trace.Warn("UpdateBookingAmount ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             if (isSuccess)
                 return Ok(isSuccess);
@@ -408,8 +408,8 @@ namespace BikewaleOpr.Service
             catch (Exception ex)
             {
                 //HttpContext.Current.Trace.Warn("DeleteBookingAmount ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             if (isDeleteSuccess)
                 return Ok("Content deleted successfully.");
@@ -445,8 +445,8 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "SaveDealerBenefit");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "SaveDealerBenefit");
+                    
                     return InternalServerError();
                 }
                 if (isSuccess)
@@ -480,8 +480,8 @@ namespace BikewaleOpr.Service
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DeleteDealerBenefits");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DeleteDealerBenefits");
+                
             }
             if (isDeleteSuccess)
                 return Ok("Content deleted successfully.");
@@ -510,8 +510,8 @@ namespace BikewaleOpr.Service
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DeleteDealerEMI");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DeleteDealerEMI");
+                
             }
             if (isDeleteSuccess)
                 return Ok("Content deleted successfully.");
@@ -540,9 +540,9 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    ErrorClass.LogError(ex, string.Format(
                         "GetDealerPrices cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId));
-                    objErr.SendMail();
+                    
                 }
                 if (dealerPricesDtos != null)
                     return Ok(dealerPricesDtos);
@@ -595,7 +595,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "SaveDealerPrice");
+                    ErrorClass.LogError(ex, "SaveDealerPrice");
                 }
                 if (apiResponse.IsPriceSaved || apiResponse.IsAvailabilitySaved)
                     return Ok(apiResponse);
@@ -627,7 +627,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "SaveDealerPrices");
+                    ErrorClass.LogError(ex, "SaveDealerPrices");
                 }
                 if (isSaved)
                     return Ok(isSaved);
@@ -664,7 +664,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "DeleteDealerPricesAndAvailability");
+                    ErrorClass.LogError(ex, "DeleteDealerPricesAndAvailability");
                 }
                 if (apiResponse.IsPriceDeleted || apiResponse.IsAvailabilityDeleted)
                     return Ok(apiResponse);
@@ -693,7 +693,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "SaveVersionAvailability");
+                    ErrorClass.LogError(ex, "SaveVersionAvailability");
                 }
                 if (isSaved)
                     return Ok(isSaved);
@@ -721,7 +721,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "DeleteVersionAvailability");
+                    ErrorClass.LogError(ex, "DeleteVersionAvailability");
                 }
                 if (isDeleted)
                     return Ok(isDeleted);

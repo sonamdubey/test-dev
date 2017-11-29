@@ -1,11 +1,12 @@
-﻿
+﻿using System;
 namespace Bikewale.Entities.BikeSeries
 {
+    [Serializable]
     public class BikeSeriesCompareBikes
     {
         public string ModelName { get; set; }
-		public string ModelMaskingName { get; set; }
-		public string HostUrl { get; set; }
+        public string ModelMaskingName { get; set; }
+        public string HostUrl { get; set; }
         public string OriginalImagePath { get; set; }
         public uint Price { get; set; }
         public double Displacement { get; set; }

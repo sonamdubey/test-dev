@@ -309,8 +309,8 @@ namespace Bikewale.BAL.BikeBooking
             {
                 objDealerDetail.DealerId = 0;
                 objDealerDetail.IsDealerAvailable = false;
-                ErrorClass objErr = new ErrorClass(ex, "ProcessPQ ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ProcessPQ ex : " + ex.Message);
+                
             }
             finally
             {
@@ -374,7 +374,7 @@ namespace Bikewale.BAL.BikeBooking
                 {
                     objDealerDetail.DealerId = 0;
                     objDealerDetail.IsDealerAvailable = false;
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("ProcessPQV2 => ModelId {0} VersionId {1}", PQParams.ModelId, PQParams.VersionId));
+                    ErrorClass.LogError(ex, string.Format("ProcessPQV2 => ModelId {0} VersionId {1}", PQParams.ModelId, PQParams.VersionId));
                 }
                 finally
                 {
@@ -416,8 +416,8 @@ namespace Bikewale.BAL.BikeBooking
             catch (Exception ex)
             {
                 dealerId = 0;
-                ErrorClass objErr = new ErrorClass(ex, "FetchBookingPageDetails ex : " + ex.Message);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "FetchBookingPageDetails ex : " + ex.Message);
+                
             }
             return pageDetail;
         }

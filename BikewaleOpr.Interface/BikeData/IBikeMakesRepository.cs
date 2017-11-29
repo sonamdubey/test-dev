@@ -1,5 +1,6 @@
 ﻿
 using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity;
 using BikewaleOpr.Entity.BikeData;
 using System.Collections.Generic;
 namespace BikewaleOpr.Interface.BikeData
@@ -9,6 +10,8 @@ namespace BikewaleOpr.Interface.BikeData
     /// Description : Interface for bike makes repository
     /// Modified by : Sajal Gupta on 10-03-2017
     /// Description : Added Getsynopsis, UpdateSynopsis
+    /// Modified by : Sajal Gupta on 20-11-2017
+    /// Description : Added GetMakeFooterCategoryData, SaveMakeFooterData, DisableAllMakeFooterCategories
     /// </summary>
     public interface IBikeMakesRepository
     {
@@ -21,5 +24,8 @@ namespace BikewaleOpr.Interface.BikeData
         SynopsisData Getsynopsis(int makeId);
         void UpdateSynopsis(int makeId, int updatedBy, SynopsisData objSynopsis);
         IEnumerable<BikeModelEntityBase> GetModelsByMake(EnumBikeType requestType, uint makeId);
+        IEnumerable<MakeFooterCategory> GetMakeFooterCategoryData(uint makeId);
+        void SaveMakeFooterData(uint makeId, uint categoryId, string categorydescription, string userId);
+        void DisableAllMakeFooterCategories(uint makeId, string userId);
     }
 }

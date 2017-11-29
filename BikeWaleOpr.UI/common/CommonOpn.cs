@@ -714,8 +714,8 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SendMail in CommonOpn");
+                
             }
 
         }
@@ -769,8 +769,8 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SendMail in CommonOpn");
+                
             }
 
         }
@@ -822,8 +822,8 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SendMail in CommonOpn");
+                
             }
 
         }
@@ -882,8 +882,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SendMail in CommonOpn");
+                
             }
         }
 
@@ -958,8 +958,8 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "SendMail in CommonOpn");
+                
             }
 
         }
@@ -1364,8 +1364,8 @@ namespace BikeWaleOpr.Common
         public static void SqlError(SqlException err)
         {
             HttpContext.Current.Trace.Warn("sql: " + err.Message + err.Source);
-            ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            objErr.SendMail();
+            ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            
         }
 
         /*  Summary     : Sending Exception to Trace and Mail
@@ -1374,8 +1374,8 @@ namespace BikeWaleOpr.Common
         public static void ExceptionError(Exception err)
         {
             HttpContext.Current.Trace.Warn(err.Message + err.Source);
-            ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            objErr.SendMail();
+            ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            
         }
 
         // This function will calculate insurance charges
@@ -1415,8 +1415,8 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, "CommonOpn.GetInsurancePremium");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "CommonOpn.GetInsurancePremium");
+                
             } // catch Exception
 
             if (price > 0 && cc > 0)
@@ -1501,8 +1501,8 @@ namespace BikeWaleOpr.Common
                 catch (Exception err)
                 {
                     HttpContext.Current.Trace.Warn(err.Message);
-                    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                    
                 } // catch Exception	
             }
             else if (fuelType.ToLower() == "electric")  // Insurance Calculations for electric bikes
@@ -1582,8 +1582,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "CommonOpn.GetRegistrationCharges");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "CommonOpn.GetRegistrationCharges");
+                
             } // catch Exception
             double tmpTax = 0;
             switch (stateId)

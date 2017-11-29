@@ -44,8 +44,8 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideosByCategory");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetVideosByCategory");
+                
             }
             return videosList;
         }
@@ -73,8 +73,8 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideosByCategory");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetVideosByCategory");
+                
             }
             return videosList;
         }
@@ -100,7 +100,7 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetSimilarVideos");
+                ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetSimilarVideos");
             }
             return videosList;
         }
@@ -114,7 +114,7 @@ namespace Bikewale.Cache.Videos
 			}
 			catch (Exception ex)
 			{
-				ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetSimilarVideos");
+				Bikewale.Notifications.ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetSimilarVideos");
 			}
 			return videosList;
 		}
@@ -139,8 +139,8 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideoDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetVideoDetails");
+                
             }
             return video;
         }
@@ -167,8 +167,8 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideosByCategory");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeVideosCacheRepository.GetVideosByCategory");
+                
             }
             return videosList;
         }
@@ -191,7 +191,7 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.Cache.Videos.GetModelVideos MakeId:{0}",makeId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.Cache.Videos.GetModelVideos MakeId:{0}",makeId));
             }
             return modelVideos;
         }

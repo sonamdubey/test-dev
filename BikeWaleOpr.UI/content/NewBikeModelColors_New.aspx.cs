@@ -6,8 +6,6 @@ using BikeWaleOpr.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -101,8 +99,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
                 spnError.InnerHtml = "<b>Error occured while deleting.</b>";
             }
             if (isSaved)
@@ -180,8 +178,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
                 spnError.InnerHtml = "<b>Error occured while saving the version colors.</b>";
             }
 
@@ -216,8 +214,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
                 spnError.InnerHtml = "<b>Error occured while saving the model color</b>";
             }
             txtColor.Text = String.Empty;
@@ -270,8 +268,8 @@ namespace BikewaleOpr.content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 

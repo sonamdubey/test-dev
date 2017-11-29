@@ -41,7 +41,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeAllRules: -> campaignId : {0}", comparisonid));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeAllRules: -> campaignId : {0}", comparisonid));
             }
             return isSaved;
         }
@@ -72,7 +72,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeSponsoredModelRules: -> campaignId : {0},SponsoredModelId : {1} ", comparisonid, SponsoredModelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeSponsoredModelRules: -> campaignId : {0},SponsoredModelId : {1} ", comparisonid, SponsoredModelId));
             }
             return isSaved;
         }
@@ -103,7 +103,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeSponsoredModelRules: -> comparisonid : {0},sponsoredVersionId : {1} ", comparisonid, sponsoredVersionId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeSponsoredModelRules: -> comparisonid : {0},sponsoredVersionId : {1} ", comparisonid, sponsoredVersionId));
             }
             return isSaved;
         }
@@ -134,7 +134,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeTargetVersionRules: -> comparisonid : {0},targetversionId : {1} ", comparisonid, targetversionId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeTargetVersionRules: -> comparisonid : {0},targetversionId : {1} ", comparisonid, targetversionId));
             }
             return isSaved;
         }
@@ -163,7 +163,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SponsoredCampaignRepository.GetActiveSponsoredComparisons()");
+                ErrorClass.LogError(ex, "SponsoredCampaignRepository.GetActiveSponsoredComparisons()");
             }
 
             return sponsoredVersions;
@@ -192,7 +192,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparison()");
+                ErrorClass.LogError(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparison()");
             }
             return objCampaign;
         }
@@ -222,7 +222,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparison() {0}:", statuses));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparison() {0}:", statuses));
             }
 
             return comparisonCampaigns;
@@ -258,7 +258,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisonSponsoredBike, comparisonid: {0}", comparisonid));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisonSponsoredBike, comparisonid: {0}", comparisonid));
             }
             return sponsoredVersion;
         }
@@ -296,7 +296,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisonVersionMapping, comparisonid: {0}, targetModelId: {1}, sponsoredModelId: {2} ", comparisonid, targetModelId, sponsoredModelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisonVersionMapping, comparisonid: {0}, targetModelId: {1}, sponsoredModelId: {2} ", comparisonid, targetModelId, sponsoredModelId));
             }
             return objResult;
         }
@@ -335,7 +335,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.SaveSponsoredComparison");
+                ErrorClass.LogError(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.SaveSponsoredComparison");
             }
 
             return comparisonId;
@@ -368,7 +368,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.SaveSponsoredComparisonBikeRules");
+                ErrorClass.LogError(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.SaveSponsoredComparisonBikeRules");
             }
             return isSaved;
         }
@@ -400,7 +400,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.ChangeSponsoredComparisonStatus, comparisonid: {0}, Status: {1}", comparisonid, status));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.ChangeSponsoredComparisonStatus, comparisonid: {0}, Status: {1}", comparisonid, status));
             }
             return isSaved;
         }

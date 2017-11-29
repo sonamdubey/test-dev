@@ -3,7 +3,6 @@ using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.IO;
 using System.Web.UI;
 using System.Xml;
@@ -135,8 +134,8 @@ namespace BikeWaleOpr.Content
                 Trace.Warn(err.Message);
                 Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
 
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             } // catch Exception
         }
     }//Class

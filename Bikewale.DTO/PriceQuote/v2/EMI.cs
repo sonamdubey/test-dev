@@ -2,7 +2,7 @@
 using System;
 
 namespace Bikewale.DTO.PriceQuote.v2
-{   
+{
     /// <summary>
     /// Created By : Sumit Kate
     /// Created on : 3rd June 2016

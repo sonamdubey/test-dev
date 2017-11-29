@@ -44,7 +44,7 @@ namespace BikewaleOpr.Service.Controllers.BikeColorImages
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ColorImagesBikesController.SaveBikeColorDetails");
+                ErrorClass.LogError(ex, "ColorImagesBikesController.SaveBikeColorDetails");
                 return InternalServerError();
             }
         }
@@ -73,7 +73,7 @@ namespace BikewaleOpr.Service.Controllers.BikeColorImages
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ColorImagesBikesController.DeleteBikeColorDetails");
+                ErrorClass.LogError(ex, "ColorImagesBikesController.DeleteBikeColorDetails");
                 return InternalServerError();
             }
         }

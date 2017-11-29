@@ -8,7 +8,6 @@ using Microsoft.Practices.Unity;
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Web.UI;
@@ -107,8 +106,8 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 Trace.Warn("objMS.FillStates  ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -139,8 +138,8 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -290,8 +289,8 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
 
             return priceData;

@@ -192,7 +192,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.News.NewsIndexPage.GetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.News.NewsIndexPage.GetData");
             }
             return objData;
         }
@@ -265,7 +265,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.News.NewsIndexPage.GetPwaData");
+                ErrorClass.LogError(ex, "Bikewale.Models.News.NewsIndexPage.GetPwaData");
             }
             return objData;
         }
@@ -598,7 +598,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Bikewale.Models.News.NewsIndexPage.GetWidgetData");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Models.News.NewsIndexPage.GetWidgetData");
             }
         }
 
@@ -629,7 +629,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Bikewale.Models.News.NewsIndexPage.BindLinkPager");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Models.News.NewsIndexPage.BindLinkPager");
             }
         }
         /// <summary>
@@ -716,7 +716,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "Exception : Bikewale.Models.News.NewsIndexPage.SetBreadcrumList");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Exception : Bikewale.Models.News.NewsIndexPage.SetBreadcrumList");
             }
 
         }

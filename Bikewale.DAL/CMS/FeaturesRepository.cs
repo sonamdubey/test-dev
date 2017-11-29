@@ -1,15 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.CMS;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data.SqlClient;
-using System.Data;
-using System.Web;
-using System.Threading.Tasks;
-using Bikewale.Entities.CMS;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Notifications;
-using Bikewale.CoreDAL;
 
 namespace Bikewale.DAL.CMS
 {
@@ -80,13 +70,13 @@ namespace Bikewale.DAL.CMS
             //}
             //catch (SqlException err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //catch (Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //finally
             //{

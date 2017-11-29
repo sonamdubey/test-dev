@@ -166,8 +166,8 @@ namespace Bikewale.Used
             catch (Exception ex)
             {
                 objTrace.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, objTrace.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, objTrace.Request.ServerVariables["URL"]);
+                
             }
         }
 

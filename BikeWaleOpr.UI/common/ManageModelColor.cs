@@ -77,8 +77,7 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.FetchModelColors");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageModelColor.FetchModelColors");
             }
 
             return modelColors;
@@ -122,8 +121,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.FetchVersionColors");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageModelColor.FetchVersionColors");
+               
             }
 
             return versionColors;
@@ -176,8 +175,7 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.FetchBikeVersion");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageModelColor.FetchBikeVersion");
             }
 
             return bikeVersions;
@@ -230,8 +228,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.SaveModelColor");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageModelColor.SaveModelColor");
+               
             }
 
             return isSaved;
@@ -280,8 +278,7 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.SaveVersionColor");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageModelColor.SaveVersionColor");
             }
 
             return isSaved;
@@ -332,8 +329,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.UpdateColorCode");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageModelColor.UpdateColorCode");
+               
             }
 
             return isUpdated;
@@ -385,8 +382,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.AddColorCode");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageModelColor.AddColorCode");
+               
             }
 
             return isSaved;
@@ -433,8 +430,7 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.DeleteModelColor");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageModelColor.DeleteModelColor");
             }
 
             return isDeleted;
@@ -506,8 +502,8 @@ namespace BikewaleOpr.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.FetchModelImagesByColors");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageModelColor.FetchModelImagesByColors");
+               
             }
 
             return modelColors;

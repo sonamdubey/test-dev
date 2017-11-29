@@ -18,22 +18,22 @@
             {
                 <span class="navtab" data-href="#popularComparisonAndOtherBrands" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)">Top Comparisons</span>
             }
+           @if (Model.IsDealerServiceDataAvailable || Model.DealersServiceCenterPopularCities != null)
+           {
+                <span class="navtab" data-href="#dealerAndServiceContent" data-lab="@string.Format("{0}_Showrooms", Model.MakeName)">Dealers</span>
+            }
             @if (Model.IsNewsAvailable)
             {
                 <span class="navtab" data-href="#modelNewsContent" data-lab="@string.Format("{0}_News", Model.MakeName)">News</span>
             }
-            @if (Model.IsExpertReviewsAvailable)
+            @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
             {
                 <span class="navtab" data-href="#makeReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.MakeName)" >Reviews</span>
             }
             @if (Model.IsVideosAvailable)
             {
                 <span class="navtab" data-href="#makeVideosContent" data-lab="@string.Format("{0}_Videos", Model.MakeName)" >Videos</span>
-            }
-            @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
-            {
-                <span class="navtab" data-href="#dealerAndServiceContent" data-lab="@string.Format("{0}_Showrooms", Model.MakeName)" >Dealers</span>
-            }
+            }            
             @if (Model.IsUsedModelsBikeAvailable)
             {
                 <span class="navtab" data-href="#makeUsedBikeContent" data-lab="@string.Format("{0}_UsedBikes", Model.MakeName)" >Used Bikes</span>

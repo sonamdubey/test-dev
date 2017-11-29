@@ -70,8 +70,8 @@ namespace Bikewale.Mobile.TrackDay
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"] + "LoadTackDayArticlesList");
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"] + "LoadTackDayArticlesList");
+                
             }
 
         }

@@ -81,8 +81,8 @@ namespace Bikewale.Mobile.TrackDay
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Url : {0}-GetTrackDayDetails , BasicId : {1}", Request.ServerVariables["URL"], _basicId));
-                objErr.SendMail();
+                ErrorClass.LogError(err, string.Format("Url : {0}-GetTrackDayDetails , BasicId : {1}", Request.ServerVariables["URL"], _basicId));
+                
             }
             finally
             {

@@ -54,8 +54,8 @@ namespace Bikewale.Service.Controllers
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("ProcessRequest{0}", Newtonsoft.Json.JsonConvert.SerializeObject(objImage)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("ProcessRequest{0}", Newtonsoft.Json.JsonConvert.SerializeObject(objImage)));
+               
                 return InternalServerError();
             }
         }

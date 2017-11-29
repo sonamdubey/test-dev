@@ -105,14 +105,14 @@ namespace Bikewale.Used
             //catch (SqlException err)
             //{
             //    Trace.Warn(err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //catch(Exception err)
             //{
             //    Trace.Warn(err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
 		}
 

@@ -1,7 +1,5 @@
 ﻿using Bikewale.DTO.Campaign;
-using Bikewale.DTO.DealerLocator;
 using Bikewale.DTO.Model.v3;
-using Bikewale.DTO.PriceQuote.v2;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 

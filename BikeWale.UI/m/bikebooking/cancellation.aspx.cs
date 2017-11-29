@@ -49,8 +49,8 @@ namespace Bikewale.Mobile.bikebooking
             }
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "Cancellation.feedbackBtn_Click");
-                objErr.SendMail();
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Cancellation.feedbackBtn_Click");
+                
             }
         }        
     }

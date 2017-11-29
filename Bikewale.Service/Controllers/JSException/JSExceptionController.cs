@@ -1,8 +1,8 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.Entities.JSErrorLog;
+using Bikewale.Notifications;
 using System;
 using System.Web;
 using System.Web.Http;
-using Bikewale.Entities.JSErrorLog;
 
 namespace Bikewale.Service.Controllers.JSException
 {
@@ -33,8 +33,8 @@ namespace Bikewale.Service.Controllers.JSException
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.JSException.JSExceptionController.Post");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.JSException.JSExceptionController.Post");
+               
                 return InternalServerError();
             }
             return Ok();

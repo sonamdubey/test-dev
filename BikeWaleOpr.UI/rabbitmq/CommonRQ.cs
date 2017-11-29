@@ -72,15 +72,15 @@ namespace BikeWaleOpr.RabbitMQ
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("UploadImageProcessStart" + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 url = "sql exception" + ex.Message;
             } // catch Exception
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("UploadImageProcessStart" + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 url = "exception" + ex.Message;
             } // catch Exception
             return url;
@@ -112,8 +112,8 @@ namespace BikeWaleOpr.RabbitMQ
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
             return ds;
         }   //End of FetchProcessedImagesList
@@ -136,8 +136,8 @@ namespace BikeWaleOpr.RabbitMQ
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
             return ds;
         }

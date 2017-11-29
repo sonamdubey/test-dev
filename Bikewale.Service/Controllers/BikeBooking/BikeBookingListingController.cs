@@ -67,8 +67,8 @@ namespace Bikewale.Service.Controllers.BikeBooking
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "BikeBookingListingController.Get");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "BikeBookingListingController.Get");
+                   
                     return InternalServerError();
                 }
             }

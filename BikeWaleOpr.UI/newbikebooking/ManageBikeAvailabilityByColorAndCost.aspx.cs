@@ -117,8 +117,8 @@ namespace BikewaleOpr.NewBikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
                // spnError.InnerHtml = "<b>Error occured while saving the version colors.</b>";
             }
 

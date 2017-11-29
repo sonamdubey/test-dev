@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.ManufacturerCampaign.Entities.SearchCampaign
+﻿namespace Bikewale.ManufacturerCampaign.Entities.SearchCampaign
 {
-   public class ManufacturerCampaignDetailsList
+    public class ManufacturerCampaignDetailsList
     {
         public uint Id { get; set; }
         public string  Description { get; set; }

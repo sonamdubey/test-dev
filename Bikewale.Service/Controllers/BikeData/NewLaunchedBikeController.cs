@@ -73,8 +73,8 @@ namespace Bikewale.Service.Controllers.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.BikeDiscover.GetRecentlyLaunchedBikeList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.BikeDiscover.GetRecentlyLaunchedBikeList");
+               
                 return InternalServerError();
             }
         }
@@ -112,7 +112,7 @@ namespace Bikewale.Service.Controllers.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass error = new ErrorClass(ex, String.Format("NewLaunchedBikeController.Get({0})", filter));
+                ErrorClass.LogError(ex, String.Format("NewLaunchedBikeController.Get({0})", filter));
                 return InternalServerError();
             }
         }

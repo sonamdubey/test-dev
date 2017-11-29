@@ -3,7 +3,6 @@ using Bikewale.Entities;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
@@ -59,7 +58,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewOtherDetailsPage.ParseQueryString()");
+                ErrorClass.LogError(ex, "UserReviewOtherDetailsPage.ParseQueryString()");
             }
         }
 
@@ -74,7 +73,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.BindPageMetas()");
+                ErrorClass.LogError(ex, "WriteReviewPageModel.BindPageMetas()");
             }
         }
 
@@ -93,7 +92,7 @@ namespace Bikewale.Models.UserReviews
                 if (objReviewSummary != null)
                 {
                     objPage.Make = objReviewSummary.Make;
-                    objPage.Model = objReviewSummary.Model;                    
+                    objPage.Model = objReviewSummary.Model;
                     objPage.PreviousPageUrl = string.Format("/write-a-review/?q={1}", objPage.Model.ModelId, _encodedString);
                     objPage.ReturnUrl = objReviewSummary.ReturnUrl;
                 }
@@ -123,14 +122,14 @@ namespace Bikewale.Models.UserReviews
                             PriceRangeId = (ushort)_priceRangeId
                         };
 
-                        objPage.QuestionsList = _userReviews.GetUserReviewQuestions(filter, objUserReviewData);                        
+                        objPage.QuestionsList = _userReviews.GetUserReviewQuestions(filter, objUserReviewData);
                     }
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewOtherDetailsPage.GetData()");
+                ErrorClass.LogError(ex, "UserReviewOtherDetailsPage.GetData()");
             }
             return objPage;
         }

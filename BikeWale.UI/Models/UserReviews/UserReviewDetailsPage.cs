@@ -98,7 +98,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewDetailsPage.GetData() - ReviewId :{0}", _reviewId));
+                ErrorClass.LogError(ex, string.Format("UserReviewDetailsPage.GetData() - ReviewId :{0}", _reviewId));
             }
             return objPage;
         }
@@ -128,7 +128,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewDetailsPage.BindQuestions() - ReviewId :{0}", _reviewId));
+                ErrorClass.LogError(ex, string.Format("UserReviewDetailsPage.BindQuestions() - ReviewId :{0}", _reviewId));
             }
         }
 
@@ -142,7 +142,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewDetailsPage.UpdateViewCount() - ReviewId :{0}", _reviewId));
+                ErrorClass.LogError(ex, string.Format("UserReviewDetailsPage.UpdateViewCount() - ReviewId :{0}", _reviewId));
             }
         }
         /// <summary>
@@ -170,7 +170,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewDetailsPage.BindPageMetas() - ReviewId :{0}", _reviewId));
+                ErrorClass.LogError(ex, string.Format("UserReviewDetailsPage.BindPageMetas() - ReviewId :{0}", _reviewId));
             }
         }
 
@@ -202,7 +202,8 @@ namespace Bikewale.Models.UserReviews
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objPage.UserReviewDetailsObj.Make.MakeName)));
             }
 
-            if (objPage.GenericBikeWidgetData != null && objPage.GenericBikeWidgetData.BikeInfo != null && objPage.GenericBikeWidgetData.BikeInfo.BodyStyleId.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(objPage.UserReviewDetailsObj.Make.IsScooterOnly))
+            if (objPage.GenericBikeWidgetData != null && objPage.GenericBikeWidgetData.BikeInfo != null &&
+                objPage.GenericBikeWidgetData.BikeInfo.BodyStyleId.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(objPage.UserReviewDetailsObj.Make.IsScooterOnly))
             {
                 if (IsMobile)
                 {
@@ -307,7 +308,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewDetailsPage.BindUserReviewSWidget() - ReviewId :{0}", _reviewId));
+                ErrorClass.LogError(ex, string.Format("UserReviewDetailsPage.BindUserReviewSWidget() - ReviewId :{0}", _reviewId));
             }
         }
     }

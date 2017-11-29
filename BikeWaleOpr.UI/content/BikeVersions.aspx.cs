@@ -82,8 +82,8 @@ namespace BikeWaleOpr.Content
                 catch (SqlException ex)
                 {
                     Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                    
                 }
 
                 SortDirection = "";
@@ -179,13 +179,13 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             } // catch SqlException
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             } // catch Exception
             return currentId;
         }
@@ -224,8 +224,8 @@ namespace BikeWaleOpr.Content
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
 
         }
@@ -335,8 +335,8 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
             dtgrdMembers.EditItemIndex = -1;
 
@@ -398,8 +398,8 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
             BindGrid();
         }
@@ -438,7 +438,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
             }
         }
 

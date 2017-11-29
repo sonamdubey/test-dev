@@ -34,7 +34,7 @@ namespace Bikewale.Cache.MobileVerification
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.MobileVerification.GetVerifiedNumbers");
+                ErrorClass.LogError(ex, "Bikewale.Cache.MobileVerification.GetVerifiedNumbers");
             }
             return numberList;
         }

@@ -55,8 +55,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetSellerDetails" + inquiryId);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetSellerDetails" + inquiryId);
+                
             }
             return seller;
         }
@@ -96,8 +96,8 @@ namespace Bikewale.DAL.Used
             catch (Exception err)
             {
                 isNew = false;
-                ErrorClass objErr = new ErrorClass(err, String.Format("SubmitInquiry({0}{1})", inquiryId, customerId));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("SubmitInquiry({0}{1})", inquiryId, customerId));
+                
             }
 
             return inqId;
@@ -146,8 +146,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("GetInquiryDetails({0})", inquiryId));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("GetInquiryDetails({0})", inquiryId));
+                
             }
 
             return objInquiry;
@@ -178,8 +178,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("RemoveBikePhotos({0},{1})", inquiryId, photoId));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("RemoveBikePhotos({0},{1})", inquiryId, photoId));
+                
             }
             return isRemoved;
         }
@@ -204,8 +204,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("UsedBikeSellerRepository.RepostSellBikeAd(inquiryId: {0},customerId: {1})", inquiryId, customerId));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("UsedBikeSellerRepository.RepostSellBikeAd(inquiryId: {0},customerId: {1})", inquiryId, customerId));
+                
             }
             return isPosted;
         }
@@ -265,8 +265,8 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("GetCustomerListingDetails({0})", customerId));
-                objErr.SendMail();
+                ErrorClass.LogError(err, String.Format("GetCustomerListingDetails({0})", customerId));
+                
             }
 
             return objDetailsList;

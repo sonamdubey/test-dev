@@ -1,16 +1,11 @@
-﻿using Bikewale.Entity.CMS.Articles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Bikewale.Entity.CMS.Articles
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
     /// </summary>
-    
+
     public class ArticlePageDetails : ArticleSummary
     {
         public List<Page> PageList { get; set; }

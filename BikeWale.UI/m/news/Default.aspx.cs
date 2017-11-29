@@ -105,7 +105,7 @@ namespace Bikewale.Mobile.News
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.News.Default.BindWidgets");
+                ErrorClass.LogError(ex, "Bikewale.Mobile.News.Default.BindWidgets");
             }
         }
 
@@ -134,7 +134,7 @@ namespace Bikewale.Mobile.News
             }
             catch (Exception ex)
             {
-               ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.News.Default.GetNewsList");
+               ErrorClass.LogError(ex, "Bikewale.Mobile.News.Default.GetNewsList");
             }
             finally
             {
@@ -186,7 +186,7 @@ namespace Bikewale.Mobile.News
             }
             catch (Exception ex)
             {
-               ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.News.Default.GetContentCategory");
+               ErrorClass.LogError(ex, "Bikewale.Mobile.News.Default.GetContentCategory");
             }
             return _category;
         }

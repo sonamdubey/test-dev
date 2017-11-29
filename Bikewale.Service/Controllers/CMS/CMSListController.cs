@@ -65,8 +65,8 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -104,8 +104,8 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -127,8 +127,8 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController.GetV2");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController.GetV2");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -171,8 +171,8 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -227,8 +227,8 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -280,8 +280,8 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception at Bikewale.Service.CMS.CMSController.ClearEditCMSCacheKeys for parameter catId : {0}", catId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception at Bikewale.Service.CMS.CMSController.ClearEditCMSCacheKeys for parameter catId : {0}", catId));
+               
                 return InternalServerError();
             }
         }
