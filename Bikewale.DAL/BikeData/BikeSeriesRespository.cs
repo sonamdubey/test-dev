@@ -374,7 +374,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.BikeSeriesRepository.GetMaskingNames seriesId {0}", seriesId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeSeriesRepository.GetMaskingNames seriesId {0}", seriesId));
             }
 
             return modelIds;

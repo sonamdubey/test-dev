@@ -1,4 +1,5 @@
-﻿namespace Bikewale.Entities.BikeData
+﻿using System;
+namespace Bikewale.Entities.BikeData
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 20 Nov 2017

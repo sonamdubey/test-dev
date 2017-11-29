@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Bikewale.Entities.CMS.Articles;
+﻿using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Cache.CMS
 {
@@ -181,7 +181,7 @@ namespace Bikewale.Cache.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("CMSCacheRepository.GetArticlesByCategoryList ModelIds = {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("CMSCacheRepository.GetArticlesByCategoryList ModelIds = {0}", modelId));
             }
             return _objArticlesList;
         }
