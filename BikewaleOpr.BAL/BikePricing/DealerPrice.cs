@@ -287,6 +287,7 @@ namespace BikewaleOpr.BAL.BikePricing
             bool isSaved = false;
 
             string versionIdsString = null;
+            string distinctVersionIdsString = null;
             string itemIdsString = null;
             string itemValuesString = null;
             string dealerIdsString = null;
@@ -295,19 +296,19 @@ namespace BikewaleOpr.BAL.BikePricing
             try
             {
 
-                if (itemIds != null && itemValues != null && itemValues.Any() && itemIds.Any())
+                if (itemIds != null && itemValues != null && itemValues.Any() && itemIds.Any() && versionIds != null && versionIds.Any())
                 {
                     itemIdsString = string.Join<uint>(",", itemIds);
                     itemValuesString = string.Join<uint>(",", itemValues);
                     versionIdsString = string.Join<uint>(",", versionIds);
                     dealerIdsString = string.Join<uint>(",", dealerIds);
                     cityIdsString = string.Join<uint>(",", cityIds);
-
+                    distinctVersionIdsString = string.Join<uint>(",", versionIds.Distinct());
                     foreach (var dealerId in dealerIds)
                     {
                         foreach (var cityId in cityIds)
                         {
-                            isSaved = _dealerPriceRepository.DeleteVersionPrices(dealerId, cityId, versionIdsString);
+                            isSaved = _dealerPriceRepository.DeleteVersionPrices(dealerId, cityId, distinctVersionIdsString);
                         }
                     }
 
