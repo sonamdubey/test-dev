@@ -305,7 +305,7 @@
     @if (Model.BestBikes != null)
     {<section>
 
-        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.AddMonths(-1).ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
+        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.AddMonths(0).ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
         <div class="container section-bottom-margin">
             <div class="grid-12">
                 <div class="bw-tabs-panel content-box-shadow brand-budget-mileage-style-wrapper padding-bottom15">

@@ -256,7 +256,7 @@ namespace Bikewale.Models
         {
             try
             {
-                string formattedDate = Bikewale.Utility.FormatDate.GetFormatDate(DateTime.Now.AddMonths(-1).ToString(), "Y");
+                string formattedDate = Bikewale.Utility.FormatDate.GetFormatDate(DateTime.Now.AddMonths(0).ToString(), "Y");
                 obj.PageMetaTags.Description = string.Format("BikeWale brings the list of best {0} in  India for {1}. Explore the top 10 {0} to buy the best bike of your  choice.", obj.PageMaskingName, formattedDate);
                 obj.PageMetaTags.Title = string.Format("Best {0} in India - {1} | Top 10 {0} - BikeWale", obj.PageName, formattedDate);
                 obj.PageMetaTags.CanonicalUrl = string.Format("{0}/best-{1}-in-india/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.PageMaskingName);

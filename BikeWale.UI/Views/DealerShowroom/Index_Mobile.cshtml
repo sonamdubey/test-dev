@@ -46,6 +46,13 @@
             </div>
         </div>
     }
+    
+@if (Model.BestBikes != null)
+{
+    <div class="container section-container">
+        @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
+    </div>
+}
 
     @if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
     {
