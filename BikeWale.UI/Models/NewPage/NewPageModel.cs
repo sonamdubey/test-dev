@@ -124,7 +124,7 @@ namespace Bikewale.Models
             BindCompareBikes(objVM, CompareSource, cityId);
 
             BestBikeByBodyStyle objBestBike = new BestBikeByBodyStyle(_cachedModels);
-            objBestBike.topCount = 9;
+            objBestBike.topCount = 8;
             objVM.BestBikes = objBestBike.GetData();
 
             objVM.News = new RecentNews(3, _articles).GetData();
