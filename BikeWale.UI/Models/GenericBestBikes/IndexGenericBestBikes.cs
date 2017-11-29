@@ -252,6 +252,11 @@ namespace Bikewale.Models
             }
         }
 
+        /// <summary>
+        /// Modified By: Snehal Dange on 29th Nov 2017
+        /// Description: Changed logic for current month on bestbike page
+        /// </summary>
+        /// <param name="obj"></param>
         private void SetPageMetas(IndexBestBikesVM obj)
         {
             try
