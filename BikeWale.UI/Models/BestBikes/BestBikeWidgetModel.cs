@@ -36,13 +36,13 @@ namespace Bikewale.Models
             try
             {
                 objData = new BestBikeWidgetVM();
-                DateTime prevMonth = DateTime.Now.AddMonths(0);
+                DateTime currMonth = DateTime.Now;
                 objData.objBestScootersList = FetchBestBikesList(EnumBikeBodyStyles.Scooter);
                 objData.objBestBikesList = FetchBestBikesList(EnumBikeBodyStyles.AllBikes);
                 objData.objBestSportsBikeList = FetchBestBikesList(EnumBikeBodyStyles.Sports);
                 objData.objBestCruiserBikesList = FetchBestBikesList(EnumBikeBodyStyles.Cruiser);
                 objData.objBestMileageBikesList = FetchBestBikesList(EnumBikeBodyStyles.Mileage);
-                objData.Title = string.Format("Best bikes of {0}", string.Format("{0} {1}", prevMonth.ToString("MMMM", CultureInfo.InvariantCulture), prevMonth.Year));
+                objData.Title = string.Format("Best bikes of {0}", string.Format("{0} {1}", currMonth.ToString("MMMM", CultureInfo.InvariantCulture), currMonth.Year));
             }
             catch (Exception ex)
             {
