@@ -21,6 +21,8 @@ namespace Bikewale.Cache.BikeData
 		/// <summary>
 		/// Created by : Ashutosh Sharma on 17 Nov 2017
 		/// Description : Cache method to get new models of a series with city price.
+		/// Modified by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Changed cache key from 'BW_NewModelsBySeriesId_s_{0}_c_{1}' to 'BW_NewModelsBySeriesId_seriesId_{0}_cityId_{1}'
 		/// </summary>
 		/// <param name="seriesId"></param>
 		/// <param name="cityId"></param>
@@ -30,7 +32,7 @@ namespace Bikewale.Cache.BikeData
 			IEnumerable<NewBikeEntityBase> objModels = null;
 			try
 			{
-				string key = string.Format("BW_NewModelsBySeriesId_s_{0}_c_{1}", seriesId, cityId);
+				string key = string.Format("BW_NewModelsBySeriesId_seriesId_{0}_cityId_{1}", seriesId, cityId);
 				objModels = _cache.GetFromCache(key, new TimeSpan(6, 0, 0), () => _bikeSeriesRepository.GetNewModels(seriesId, cityId));
 			}
 			catch (Exception ex)
