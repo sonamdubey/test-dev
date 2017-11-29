@@ -133,7 +133,7 @@
     margin-bottom: 5px;
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 768px) {
     .Emi-popup {
         border-radius: 2px;
         -webkit-border-radius: 2px;
@@ -214,7 +214,7 @@
     }
 }
 
-@media only screen and (max-device-height : 530px) and (orientation : landscape) { 
+@media only screen and (max-device-height : 360px) and (max-device-width : 530px){ 
    #emiPopup {
        height: 100%;
        overflow: scroll;
