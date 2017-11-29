@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -10,6 +6,7 @@ namespace Bikewale.Entities.BikeData
     /// Created By : Ashish G. Kamble on 20 Nov 2017
     /// Summary : Class to hold series and model masking name properties
     /// </summary>
+    [Serializable]
     public class SeriesMaskingResponse
     {
         /// <summary>
