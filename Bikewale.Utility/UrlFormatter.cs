@@ -375,7 +375,7 @@ namespace Bikewale.Utility
             }
             return url;
         }
-
+        
         /// <summary>
         /// Created by  : Vivek Singh Tomar on 27th Nove 2017
         /// Description : Overload for FormarExpertReviewUrl with parameter seriesMaskingName
@@ -446,6 +446,32 @@ namespace Bikewale.Utility
             return url;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 29 Nov 2017
+        /// Description : Overload method to format news url (added seriesMaskingName)
+        /// </summary>
+        /// <returns></returns>
+        public static string FormatNewsUrl(string makeMaskingName, string seriesMaskingName, string modelMaskingName)
+        {
+            string url = string.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = "/news/";
+            }
+            else if (String.IsNullOrEmpty(seriesMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/news/", makeMaskingName);
+            }
+            else if (String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/{1}/news/", makeMaskingName, seriesMaskingName);
+            }
+            else
+            {
+                url = String.Format("/{0}-bikes/{1}/news/", makeMaskingName, modelMaskingName);
+            }
+            return url;
+        }
         /// <summary>
         /// Created by  :   Snehal Dange on 18th August,2017
         /// Description :   Format News Url
