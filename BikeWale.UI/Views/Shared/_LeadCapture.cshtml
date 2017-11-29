@@ -560,8 +560,7 @@
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $("#leadCapturePopup").show();
-                        $('body').addClass('lock-browser-scroll');
-                        $(".blackOut-window").show();
+                        popup.lock();
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
                         self.hideLoader();
@@ -621,8 +620,7 @@
                     else {
                         if (self.IsLeadPopup()) {
                             $("#leadCapturePopup").show();
-                            $('body').addClass('lock-browser-scroll');
-                            $(".blackOut-window").show();
+                            popup.lock();
                         }
                     }
                     setPQUserCookie();
