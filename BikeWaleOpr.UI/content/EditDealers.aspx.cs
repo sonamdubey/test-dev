@@ -27,9 +27,10 @@ namespace BikeWaleOpr.Content
         protected void Page_Load(object sender, EventArgs e)
         {
             CommonOpn op = new CommonOpn();
+            Ajax.Utility.RegisterTypeForAjax(typeof(AjaxFunctions));
+
             if (!IsPostBack)
             {
-                Ajax.Utility.RegisterTypeForAjax(typeof(AjaxFunctions));
                 FillMakes();
                 FillStates();
             }
