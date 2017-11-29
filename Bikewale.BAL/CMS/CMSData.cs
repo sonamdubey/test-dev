@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DAL.CMS;
 using Bikewale.Entities.CMS;
 using Bikewale.Interfaces.CMS;
-using Bikewale.DAL.CMS;
-using Bikewale.Notifications;
+using Microsoft.Practices.Unity;
+using System.Collections.Generic;
 
 namespace Bikewale.BAL.CMS
 {

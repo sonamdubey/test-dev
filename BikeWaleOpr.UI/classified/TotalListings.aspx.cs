@@ -1,10 +1,7 @@
-﻿using BikeWaleOpr.Classified;
-using BikeWaleOpr.Common;
+﻿using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 /// <summary>
@@ -123,8 +120,8 @@ namespace BikeWaleOpr.Classified
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("BindRepeater ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         } // End of ProcessQS
 

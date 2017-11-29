@@ -81,7 +81,7 @@ namespace Bikewale.Mobile.New.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.Photos : ProcessQueryStringVariables");
+                ErrorClass.LogError(ex, "Bikewale.Mobile.New.Photos : ProcessQueryStringVariables");
             }
         }
 
@@ -137,7 +137,7 @@ namespace Bikewale.Mobile.New.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.Photos : BindPhotosPage");
+                ErrorClass.LogError(ex, "Bikewale.Mobile.New.Photos : BindPhotosPage");
             }
             finally
             {

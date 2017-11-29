@@ -71,7 +71,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.ParseQueryString()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "WriteReviewPageModel.ParseQueryString()");
             }
         }
 
@@ -118,7 +118,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.GetData()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "WriteReviewPageModel.GetData()");
             }
             return objPage;
         }
@@ -135,7 +135,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.BindPageMetas()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "WriteReviewPageModel.BindPageMetas()");
             }
         }
 
@@ -173,7 +173,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.GetUserRatings()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "WriteReviewPageModel.GetUserRatings()");
             }
         }
 

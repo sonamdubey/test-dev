@@ -228,7 +228,7 @@ namespace Bikewale.DAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.Compare.BikeCompareRepository.DoCompare : {0}", versions));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Compare.BikeCompareRepository.DoCompare : {0}", versions));
             }
 
             return compare;
@@ -279,7 +279,7 @@ namespace Bikewale.DAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.Compare.DoCompare : {0} - {1}", versions, cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Compare.DoCompare : {0} - {1}", versions, cityId));
             }
             return compare;
         }
@@ -627,7 +627,7 @@ namespace Bikewale.DAL.Compare
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return topBikeList;
@@ -730,7 +730,7 @@ namespace Bikewale.DAL.Compare
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.Compare.GetPopularCompareList");
+                ErrorClass.LogError(ex, "Bikewale.DAL.Compare.GetPopularCompareList");
             }
 
             return topBikes;
@@ -803,7 +803,7 @@ namespace Bikewale.DAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityid));
+                ErrorClass.LogError(ex, string.Format("BikeCompareRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityid));
             }
 
             return similarBikeList;
@@ -871,8 +871,8 @@ namespace Bikewale.DAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikeSponsored_{0}_Cnt_{1}_SP_{2}_City_{3}", versionList, topCount, sponsoredVersionId, cityid));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikeSponsored_{0}_Cnt_{1}_SP_{2}_City_{3}", versionList, topCount, sponsoredVersionId, cityid));
+                
             }
 
             return similarBikeList;
@@ -932,7 +932,7 @@ namespace Bikewale.DAL.Compare
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository.ScooterCompareList topCount:{0}", topCount));
+                ErrorClass.LogError(ex, string.Format("BikeCompareRepository.ScooterCompareList topCount:{0}", topCount));
             }
 
             return topBikeList;
@@ -1032,7 +1032,7 @@ namespace Bikewale.DAL.Compare
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.Compare.GetScooterCompareList- CityId : {0}", cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Compare.GetScooterCompareList- CityId : {0}", cityId));
             }
 
             return topBikes;
@@ -1124,7 +1124,7 @@ namespace Bikewale.DAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarBikesForComparisions_{0}_Cnt_{1}", modelList, topCount));
+                ErrorClass.LogError(ex, string.Format("BikeCompareRepository_GetSimilarBikesForComparisions_{0}_Cnt_{1}", modelList, topCount));
             }
 
             return similarBikeComparison;

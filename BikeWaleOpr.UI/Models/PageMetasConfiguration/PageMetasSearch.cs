@@ -2,7 +2,6 @@
 using Bikewale.Notifications.MailTemplates;
 using BikewaleOpr.BAL;
 using BikewaleOpr.Entity.ConfigurePageMetas;
-using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Models.ConfigurePageMetas;
 using System;
@@ -38,7 +37,7 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasSearch.GetData_pageMetaStatus : {0}", pageMetaStatus));
+                ErrorClass.LogError(ex, string.Format("PageMetasSearch.GetData_pageMetaStatus : {0}", pageMetaStatus));
             }
             return objPageMetaVM;
         }
@@ -73,7 +72,7 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PageMetasSearch.SaveMetas");
+                ErrorClass.LogError(ex, "PageMetasSearch.SaveMetas");
             }            
         }
     }

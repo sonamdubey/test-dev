@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Interfaces.Feedback;
-using Bikewale.CoreDAL;
-using System.Web;
-using Bikewale.Notifications;
-using System.Data.SqlClient;
-using System.Data;
+﻿using Bikewale.Interfaces.Feedback;
 
 namespace Bikewale.DAL.Feedback
 {
@@ -50,15 +40,15 @@ namespace Bikewale.DAL.Feedback
             //catch (SqlException ex)
             //{
             //    HttpContext.Current.Trace.Warn("SaveCustomerFeedback sql ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //    isSaved = false;
             //}
             //catch (Exception ex)
             //{
             //    HttpContext.Current.Trace.Warn("SaveCustomerFeedback ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //    isSaved = false;
             //}
             //finally

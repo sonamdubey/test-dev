@@ -120,13 +120,13 @@ namespace Bikewale.New
             catch (SqlException err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
 
             } // catch Exception
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
 
             } // catch Exception
 
@@ -201,7 +201,7 @@ namespace Bikewale.New
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
 
             } // catch Exception
 
@@ -412,7 +412,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ComparisonChoose.CreateCompareUrl()");
+                ErrorClass.LogError(ex, "ComparisonChoose.CreateCompareUrl()");
             }
             return url;
         }

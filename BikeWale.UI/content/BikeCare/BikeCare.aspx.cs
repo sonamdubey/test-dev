@@ -70,8 +70,8 @@ namespace Bikewale.Content
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCare.BikeCareTips");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "BikeCare.BikeCareTips");
+                    
                 }
             }
         }
@@ -100,8 +100,8 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCare.BindPageWidgets");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeCare.BindPageWidgets");
+                
             }
         }
 

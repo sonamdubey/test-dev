@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Campaign;
 using Bikewale.DTO.CMS.Articles;
@@ -26,9 +29,6 @@ using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Bikewale.Service.AutoMappers.Model
 {
@@ -202,7 +202,7 @@ namespace Bikewale.Service.AutoMappers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertToBikeSpecs");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertToBikeSpecs");
                 return default(BikeSpecs);
             }
         }
@@ -457,7 +457,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
             Mapper.CreateMap<ReviewEntity, Review>();
             Mapper.CreateMap<ArticleSummary, CMSArticleSummary>()
-               .ForMember(dest => dest.FormattedDisplayDate, opt => opt.MapFrom(src => src.DisplayDate.ToString("dd MMMM yyyy")))
+               .ForMember(dest => dest.FormattedDisplayDate, opt => opt.MapFrom(src => Bikewale.Utility.FormatDate.GetFormatDate(src.DisplayDate.ToString("dd MMMM yyyy"), "dd MMMM yyyy")))
                .ForMember(dest => dest.ShareUrl, opt => opt.MapFrom(src => cmsShareurl.ReturnShareUrl(src.CategoryId, src.BasicId, src.ArticleUrl)));
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             Mapper.CreateMap<BikeModelContent, BikeModelContentDTO>();
@@ -749,7 +749,7 @@ namespace Bikewale.Service.AutoMappers.Model
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Model.ModelController.ConvertV5({0})", objModelPage.ModelDetails.ModelId));
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Model.ModelController.ConvertV5({0})", objModelPage.ModelDetails.ModelId));
             }
             return objDTOModelPage;
         }

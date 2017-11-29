@@ -3,7 +3,6 @@ using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.UserReviews;
 using BikeWaleOpr.Common;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace BikewaleOpr.Models.UserReviews
@@ -63,7 +62,7 @@ namespace BikewaleOpr.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "BikewaleOpr.Models.UserReviews.ManageUserReviewsPageModel");
+                ErrorClass.LogError(ex, "BikewaleOpr.Models.UserReviews.ManageUserReviewsPageModel");
             }
             return objPageModel;
         }

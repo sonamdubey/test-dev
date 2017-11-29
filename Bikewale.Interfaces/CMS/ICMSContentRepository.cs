@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.CMS;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.CMS;
 
 namespace Bikewale.Interfaces.CMS
 {

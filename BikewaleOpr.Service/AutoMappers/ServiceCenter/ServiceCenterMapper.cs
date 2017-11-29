@@ -3,14 +3,11 @@ using BikewaleOpr.DTO.City;
 using BikewaleOpr.DTO.ServiceCenter;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ServiceCenter;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Service.AutoMappers.ServiceCenter
 {
-   /// <summary>		
+    /// <summary>		
     /// Created BY : Snehal Dange on 29 July 2017		
     /// Summary :  Class for auto mapping Service center data		
     /// </summary>		

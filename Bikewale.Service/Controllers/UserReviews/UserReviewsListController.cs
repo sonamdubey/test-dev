@@ -61,7 +61,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
                 return InternalServerError();
             }
 
@@ -99,7 +99,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
                 return InternalServerError();
             }
 
@@ -130,7 +130,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
                 return InternalServerError();
             }
 
@@ -169,7 +169,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
                 return InternalServerError();
             }
 
@@ -233,7 +233,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : Bikewale.Service.UserReviews.GetModelUserReviews({0})", modelId));
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.Service.UserReviews.GetModelUserReviews({0})", modelId));
                 return InternalServerError();
             }
 
@@ -264,7 +264,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
                 return InternalServerError();
             }
 
@@ -301,7 +301,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
                 return InternalServerError();
             }
 

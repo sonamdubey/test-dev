@@ -64,8 +64,8 @@ namespace Bikewale.Service.Controllers.City
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.City.DealerCityController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Service.Controllers.City.DealerCityController.Get");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -129,8 +129,8 @@ namespace Bikewale.Service.Controllers.City
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.City.DealerCityController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Service.Controllers.City.DealerCityController.Get");
+               
                 return InternalServerError();
             }
         }

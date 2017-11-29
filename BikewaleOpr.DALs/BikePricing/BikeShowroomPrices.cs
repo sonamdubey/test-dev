@@ -1,17 +1,15 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.Notifications;
+using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entities.BikePricing;
+using BikewaleOpr.Entity.BikePricing;
 using BikewaleOpr.Interface.Dealers;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Data.Common;
-using BikewaleOpr.Entities.BikeData;
-using BikewaleOpr.Entity.BikePricing;
-using Bikewale.Utility;
-using Dapper;
-using Bikewale.DAL.CoreDAL;
 
 namespace BikewaleOpr.DALs.BikePricing
 {
@@ -71,8 +69,8 @@ namespace BikewaleOpr.DALs.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetBikePrices");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetBikePrices");
+                
             }
             return objPrices;
         }
@@ -108,8 +106,8 @@ namespace BikewaleOpr.DALs.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetBikePrices");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetBikePrices");
+                
             }
 
             return isUpdated;
@@ -138,7 +136,7 @@ namespace BikewaleOpr.DALs.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetModelsByMake_makeId:{0}",makeId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetModelsByMake_makeId:{0}",makeId));
             }
 
             return modelList;
@@ -175,7 +173,7 @@ namespace BikewaleOpr.DALs.BikePricing
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetPriceMonitoringDetails makeid:{0} modelid:{1}", makeId, modelId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetPriceMonitoringDetails makeid:{0} modelid:{1}", makeId, modelId));
             }
 
             return priceMonitoring;

@@ -124,7 +124,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : GetAllCities");
+                Bikewale.Notifications.ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : GetAllCities");
 
             }
         }
@@ -162,7 +162,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : GetAllMakeModels");
+                Bikewale.Notifications.ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : GetAllMakeModels");
             }
         }
 
@@ -214,7 +214,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : BindSearchPageData");
+                Bikewale.Notifications.ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : BindSearchPageData");
 
             }
             return true;
@@ -266,7 +266,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : CreateMetas");
+                Bikewale.Notifications.ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : CreateMetas");
 
             }
         }
@@ -341,7 +341,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
         }
@@ -389,7 +389,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, page.Request.ServerVariables["URL"] + "ParseQueryString");
+                Bikewale.Notifications.ErrorClass.LogError(ex, page.Request.ServerVariables["URL"] + "ParseQueryString");
 
             }
             finally

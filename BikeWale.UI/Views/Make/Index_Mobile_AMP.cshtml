@@ -264,7 +264,7 @@
         </section>
     }
 
-    if (Model.OtherMakes != null && Model.OtherMakes.Any())
+    if (Model.OtherMakes != null && Model.OtherMakes.Makes !=null)
     {
         <section>
             <div class="container bg-white box-shadow padding-top15 padding-bottom10 card-bottom-margin">
@@ -277,7 +277,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/Make/_BrandsModelCount_Mobile_AMP.cshtml", Model.OtherMakes)
+                @Html.Partial("~/Views/Make/_BrandsModelCount_Mobile_AMP.cshtml", Model.OtherMakes.Makes)
             </div>
         </section>
     }

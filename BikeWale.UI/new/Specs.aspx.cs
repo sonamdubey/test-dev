@@ -176,14 +176,14 @@ namespace Bikewale.New
             //catch (SqlException ex)
             //{
             //    Trace.Warn("GetBikeSpecs SqlEX: " + ex.Message);
-            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+            //    
             //}
             //catch (Exception ex)
             //{
             //    Trace.Warn("GetBikeSpecs EX: " + ex.Message);
-            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+            //    
             //}
             //finally
             //{

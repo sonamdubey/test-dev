@@ -42,7 +42,7 @@ namespace BikewaleOpr.Service.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ShowroomPricesController.SaveBikePrices:_{0}_{1}_{2}_{3}_{4}", bwPrice.VersionAndPriceList, bwPrice.CitiesList, bwPrice.MakeId, bwPrice.ModelIds, bwPrice.UserId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("ShowroomPricesController.SaveBikePrices:_{0}_{1}_{2}_{3}_{4}", bwPrice.VersionAndPriceList, bwPrice.CitiesList, bwPrice.MakeId, bwPrice.ModelIds, bwPrice.UserId));
                 return InternalServerError();
             }
         }

@@ -58,7 +58,7 @@ namespace Bikewale.BAL.BikeData.NewLaunched
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedMakeList");
+                ErrorClass.LogError(ex, "NewBikeLaunchesBL.NewLaunchedMakeList");
             }
             return makeList;
         }
@@ -96,7 +96,7 @@ namespace Bikewale.BAL.BikeData.NewLaunched
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+                ErrorClass.LogError(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
             }
             return years;
         }
@@ -135,7 +135,7 @@ namespace Bikewale.BAL.BikeData.NewLaunched
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("NewBikeLaunchesBL.GetBikes({0})", Newtonsoft.Json.JsonConvert.SerializeObject(filters)));
+                ErrorClass.LogError(ex, String.Format("NewBikeLaunchesBL.GetBikes({0})", Newtonsoft.Json.JsonConvert.SerializeObject(filters)));
             }
 
             return result;
@@ -160,7 +160,7 @@ namespace Bikewale.BAL.BikeData.NewLaunched
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("NewBikeLaunchesBL.NewLaunchedMakeList({0})", skipMakeId));
+                ErrorClass.LogError(ex, String.Format("NewBikeLaunchesBL.NewLaunchedMakeList({0})", skipMakeId));
             }
             return makes;
         }

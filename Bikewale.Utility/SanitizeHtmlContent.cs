@@ -162,7 +162,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                //ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.SanitizeHtmlContent.GetFormattedContent");
+                //ErrorClass.LogError(ex, "Exception : Bikewale.Utility.SanitizeHtmlContent.GetFormattedContent");
                 //objErr.SendMail();
                 return objHtmlContent;
             }

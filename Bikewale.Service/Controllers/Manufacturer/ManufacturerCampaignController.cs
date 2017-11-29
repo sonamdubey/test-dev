@@ -59,7 +59,7 @@ namespace Bikewale.Service.Controllers.Manufacturer
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Service.Controllers.Manufacturer.Get()");
+                ErrorClass.LogError(err, "Bikewale.Service.Controllers.Manufacturer.Get()");
                 return InternalServerError();
             }
         }

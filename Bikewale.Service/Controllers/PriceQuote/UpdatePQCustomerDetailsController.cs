@@ -272,8 +272,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post");
+               
                 return InternalServerError();
             }
         }
@@ -322,8 +322,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.MobileVerification.UpdatePQCustomerDetailsController.SaveCustomerSMS");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.MobileVerification.UpdatePQCustomerDetailsController.SaveCustomerSMS");
+               
             }
         }
     }

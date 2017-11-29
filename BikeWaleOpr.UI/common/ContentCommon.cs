@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Text;
 using System.Web;
 using System.Xml;
-using System.Text;
 
 namespace BikeWaleOpr.Common
 {
@@ -59,8 +58,8 @@ namespace BikeWaleOpr.Common
                 catch (Exception err)
                 {
                     HttpContext.Current.Trace.Warn(err.Message);
-                    ErrorClass objErr = new ErrorClass(err, "ContentCommon.MapCities");
-                    objErr.SendMail();
+                    ErrorClass.LogError(err, "ContentCommon.MapCities");
+                    
                 }
             }
 
@@ -103,8 +102,8 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, "ContentCommon.UpdateCities");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ContentCommon.UpdateCities");
+                
             }
 
             return added;
@@ -197,8 +196,8 @@ namespace BikeWaleOpr.Common
                 catch (Exception err)
                 {
                     HttpContext.Current.Trace.Warn(err.Message);
-                    ErrorClass objErr = new ErrorClass(err, "ContentCommon.MapBike");
-                    objErr.SendMail();
+                    ErrorClass.LogError(err, "ContentCommon.MapBike");
+                    
                 }
             }
 
@@ -244,8 +243,8 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, "ContentCommon.UpdateBike");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "ContentCommon.UpdateBike");
+                
             }
 
             return added;

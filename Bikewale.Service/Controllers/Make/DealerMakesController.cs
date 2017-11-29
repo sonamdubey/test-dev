@@ -57,8 +57,8 @@ namespace Bikewale.Service.Controllers.Make
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Service.Controllers.Make.DealerMakesController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Bikewale.Service.Controllers.Make.DealerMakesController.Get");
+               
                 return InternalServerError();
             }
         }

@@ -49,7 +49,7 @@ namespace Bikewale.Mobile.Controls
             catch (Exception err)
             {
 
-                ErrorClass objErr = new ErrorClass(err, "UserReviewSimilarBike.UserReviewsSimilarBikes");
+                ErrorClass.LogError(err, "UserReviewSimilarBike.UserReviewsSimilarBikes");
             }
         }
 

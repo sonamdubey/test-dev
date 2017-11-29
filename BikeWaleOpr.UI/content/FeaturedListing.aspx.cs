@@ -205,8 +205,8 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             } // catch Exception
 
             ListItem item = new ListItem("--Select--", "0");
@@ -243,14 +243,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             return lastSavedId;
         }
@@ -370,14 +370,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.ConsumeError();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.ConsumeError();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }   // End of UpdateBikePhotoContent method
 
@@ -412,8 +412,8 @@ namespace BikeWaleOpr.Content
         //    catch(Exception err)
         //    {
         //        Trace.Warn(err.Message + err.Source);
-        //        ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-        //        objErr.ConsumeError();
+        //        ErrorClass.LogError(err,Request.ServerVariables["URL"]);
+        //        
         //    }
         //    finally
         //    {
@@ -447,8 +447,8 @@ namespace BikeWaleOpr.Content
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.ConsumeError();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
 
             return count;
@@ -491,8 +491,8 @@ namespace BikeWaleOpr.Content
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }   // End of BindGrid method
 
@@ -617,8 +617,8 @@ namespace BikeWaleOpr.Content
                 catch (Exception err)
                 {
                     Trace.Warn(err.Message + err.Source);
-                    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                    objErr.ConsumeError();
+                    ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                    
                 }
             }
         }
@@ -671,14 +671,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.ConsumeError();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.ConsumeError();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
 

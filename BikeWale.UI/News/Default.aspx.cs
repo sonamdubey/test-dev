@@ -75,7 +75,7 @@ namespace Bikewale.News
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.News.NewsListing.GetNewsList");
+                ErrorClass.LogError(ex, "Bikewale.News.NewsListing.GetNewsList");
             }
             finally
             {
@@ -151,7 +151,7 @@ namespace Bikewale.News
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.News.NewsListing.BindPageWidgets");
+                ErrorClass.LogError(ex, "Bikewale.News.NewsListing.BindPageWidgets");
             }
         }
     }//End of Class

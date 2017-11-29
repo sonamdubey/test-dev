@@ -92,8 +92,8 @@ namespace Bikewale.Mobile.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -142,8 +142,8 @@ namespace Bikewale.Mobile.PriceQuote
                 catch (Exception ex)
                 {
                     string selectedParams = string.Format("modelId : {0}, CityId : {1}", modelId, cityId);
-                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " " + selectedParams);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, Request.ServerVariables["URL"] + " " + selectedParams);
+                    
                 }
                 finally
                 {
@@ -182,8 +182,8 @@ namespace Bikewale.Mobile.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -202,8 +202,8 @@ namespace Bikewale.Mobile.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -234,8 +234,8 @@ namespace Bikewale.Mobile.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
 
             return isSuccess;
@@ -267,8 +267,8 @@ namespace Bikewale.Mobile.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }   // End of BindMakesDropdownList method
 
@@ -301,8 +301,8 @@ namespace Bikewale.Mobile.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
 
             return isSuccess;

@@ -191,7 +191,7 @@ namespace Bikewale.New
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "new.default.LoadMakes");
+                ErrorClass.LogError(err, "new.default.LoadMakes");
             }
         }
 
@@ -228,7 +228,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.new.CreateCompareSummary()");
+                ErrorClass.LogError(ex, "Bikewale.new.CreateCompareSummary()");
             }
         }
 
@@ -425,11 +425,11 @@ namespace Bikewale.New
             }
             catch (SqlException err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
             }
             return reviewString;
         }
@@ -484,7 +484,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "comparebikes.CreateCompareUrl()");
+                ErrorClass.LogError(ex, "comparebikes.CreateCompareUrl()");
             }
             return url;
         }

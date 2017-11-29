@@ -102,8 +102,8 @@ namespace Bikewale.Ajax
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "AjaxSellBike.FetchProcessedImagesList");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "AjaxSellBike.FetchProcessedImagesList");
+                
             }
             return json;
         }

@@ -58,7 +58,7 @@ namespace BikewaleOpr.DALs.Banner
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails bannerId:{0}", bannerId));
+                ErrorClass.LogError(ex, string.Format("BannerRepository.GetBannerDetails bannerId:{0}", bannerId));
             }
 
             return objBannerVM;
@@ -86,7 +86,7 @@ namespace BikewaleOpr.DALs.Banner
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBanners"));
+                ErrorClass.LogError(ex, string.Format("BannerRepository.GetBanners"));
             }
             return objBannerList;
         }
@@ -109,7 +109,7 @@ namespace BikewaleOpr.DALs.Banner
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.StopBanner"));
+                ErrorClass.LogError(ex, string.Format("BannerRepository.StopBanner"));
             }
             return status;
         }
@@ -139,7 +139,7 @@ namespace BikewaleOpr.DALs.Banner
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails campaignid: {0}", campaignid));
+                ErrorClass.LogError(ex, string.Format("BannerRepository.GetBannerDetails campaignid: {0}", campaignid));
             }
             return campaignid;
 
@@ -184,7 +184,7 @@ namespace BikewaleOpr.DALs.Banner
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails campaignId: {0}", campaignId));
+                ErrorClass.LogError(ex, string.Format("BannerRepository.GetBannerDetails campaignId: {0}", campaignId));
             }
             return success > 0;
         }

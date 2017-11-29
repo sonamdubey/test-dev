@@ -49,8 +49,8 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersInNearbyCities.GetServiceCentersNearbyCities()");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ServiceCentersInNearbyCities.GetServiceCentersNearbyCities()");
+                
             }
         }
     }

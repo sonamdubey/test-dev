@@ -239,14 +239,14 @@ namespace Bikewale.Common
             catch (SqlException err)
             {
                 HttpContext.Current.Trace.Warn("BikewaleSecurity.GetCustomerIdFromKey : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "BikewaleSecurity.GetCustomerIdFromKey");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "BikewaleSecurity.GetCustomerIdFromKey");
+                
             } // catch SqlException
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("BikewaleSecurity.GetCustomerIdFromKey : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "BikewaleSecurity.GetCustomerIdFromKey");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "BikewaleSecurity.GetCustomerIdFromKey");
+                
             } // catch Exception
 
             return customerId;
@@ -277,8 +277,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("BikewaleSecurity.GetCustomerKeyFromId : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "BikewaleSecurity.GetCustomerKeyFromId");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "BikewaleSecurity.GetCustomerKeyFromId");
+                
             } // catch Exception
 
             return key;

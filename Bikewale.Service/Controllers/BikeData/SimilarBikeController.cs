@@ -50,8 +50,8 @@ namespace Bikewale.Service.Controllers.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.BikeDiscover.GetFeaturedBikeList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.BikeDiscover.GetFeaturedBikeList");
+               
                 return InternalServerError();
             }
         }

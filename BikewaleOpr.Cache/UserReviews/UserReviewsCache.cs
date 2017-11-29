@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Interfaces.Cache.Core;
+﻿using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using BikewaleOpr.Entity.UserReviews;
 using BikewaleOpr.Interface.UserReviews;
+using System;
+using System.Collections.Generic;
 
 namespace BikewaleOpr.Cache.UserReviews
 {
@@ -44,7 +41,7 @@ namespace BikewaleOpr.Cache.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Cache.UserReviews.UserReviewsCache");
+                ErrorClass.LogError(ex, "BikewaleOpr.Cache.UserReviews.UserReviewsCache");
             }
 
             return objReasons;

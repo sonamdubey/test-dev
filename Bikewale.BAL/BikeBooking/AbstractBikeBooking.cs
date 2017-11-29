@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Entities.BikeBooking;
 using Carwale.Entity.PaymentGateway;
 
 namespace Bikewale.BAL.BikeBooking

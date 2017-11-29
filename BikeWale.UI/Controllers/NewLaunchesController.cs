@@ -18,7 +18,7 @@ namespace Bikewale.Controllers
         private readonly IUpcoming _upcoming = null;
 
         private const string URL_404 = "/pagenotfound.aspx";
-        private ICMSCacheContent _objArticles;
+        private readonly ICMSCacheContent _objArticles;
 
         public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming, ICMSCacheContent objArticles)
         {
@@ -44,7 +44,8 @@ namespace Bikewale.Controllers
                 CityId = GlobalCityArea.GetGlobalCityArea().CityId,
                 PageSize = 15
             };
-            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding, pageNumber, _objArticles);
+            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters,
+                                          Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding, pageNumber, _objArticles);
             model.BaseUrl = "/new-bike-launches/";
             model.PageSize = 15;
             model.MakeTopCount = 10;
@@ -68,7 +69,8 @@ namespace Bikewale.Controllers
                 CityId = GlobalCityArea.GetGlobalCityArea().CityId,
                 PageSize = 10
             };
-            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding, pageNumber, _objArticles);
+            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters,
+                                          Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding, pageNumber, _objArticles);
             model.BaseUrl = "/m/new-bike-launches/";
             model.PageSize = 10;
             model.MakeTopCount = 6;

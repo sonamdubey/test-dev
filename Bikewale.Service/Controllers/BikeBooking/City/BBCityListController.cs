@@ -48,8 +48,8 @@ namespace Bikewale.Service.Controllers.BikeBooking.City
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.City.BBCityListController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.City.BBCityListController.Get");
+               
                 return InternalServerError();
             }
         }

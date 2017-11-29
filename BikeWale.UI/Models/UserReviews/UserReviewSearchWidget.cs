@@ -26,7 +26,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewSearchWidget.GetData()");
+                ErrorClass.LogError(ex, "UserReviewSearchWidget.GetData()");
             }
              
             return objList;

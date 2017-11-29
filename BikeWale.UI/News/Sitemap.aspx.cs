@@ -114,7 +114,7 @@ namespace Bikewale.News
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GenerateNewsSiteMap");
+                ErrorClass.LogError(ex, "GenerateNewsSiteMap");
             }
         }
 
@@ -146,7 +146,7 @@ namespace Bikewale.News
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetKeywords({0})", basicId));
+                ErrorClass.LogError(ex, String.Format("GetKeywords({0})", basicId));
             }
             return keywords;
         }

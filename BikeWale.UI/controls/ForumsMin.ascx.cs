@@ -51,14 +51,14 @@ namespace Bikewale.Controls
             //}
             //catch (SqlException exSql)
             //{
-            //    ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //catch (Exception ex)
             //{
             //    //Response.Write(ex.Message);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //finally
             //{

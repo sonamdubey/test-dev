@@ -79,15 +79,15 @@ namespace Bikewale.Used
             {
                 retVal = false;
                 HttpContext.Current.Trace.Warn("UpdateViewCountSqlErr : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, objTrace.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, objTrace.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 retVal = false;
                 HttpContext.Current.Trace.Warn("UpdateViewCountErr : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, objTrace.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, objTrace.Request.ServerVariables["URL"]);
+                
             }
 
             return retVal;
@@ -115,14 +115,14 @@ namespace Bikewale.Used
             catch (SqlException err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return ds;
@@ -150,14 +150,14 @@ namespace Bikewale.Used
             catch (SqlException err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return ds;
@@ -185,14 +185,14 @@ namespace Bikewale.Used
             catch (SqlException err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }//End of GetUsedBikeMakesWithCount

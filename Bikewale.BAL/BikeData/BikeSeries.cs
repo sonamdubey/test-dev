@@ -33,7 +33,7 @@ namespace Bikewale.BAL.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetNewModels_SeriesId_{0}_CityId_{1}", seriesId, cityId));
+				Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BAL.BikeData.BikeSeries.GetNewModels_SeriesId_{0}_CityId_{1}", seriesId, cityId));
 			}
 			return objModels;
 		}
@@ -53,7 +53,7 @@ namespace Bikewale.BAL.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetUpcomingModels_SeriesId_{0}", seriesId));
+				Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BAL.BikeData.BikeSeries.GetUpcomingModels_SeriesId_{0}", seriesId));
 			}
 			return objModels;
 		}
@@ -89,7 +89,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetModelsListBySeries ModelId = {0} and SeriesId = {1}", modelId, seriesId));
+                ErrorClass.LogError(ex, string.Format("BAL.BikeData.BikeSeries.GetModelsListBySeries ModelId = {0} and SeriesId = {1}", modelId, seriesId));
             }
             return objModels;
         }
@@ -109,7 +109,7 @@ namespace Bikewale.BAL.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetSynopsis_SeriesId_{0}", seriesId));
+				Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BAL.BikeData.BikeSeries.GetSynopsis_SeriesId_{0}", seriesId));
 			}
 			return synopsis;
 		}
@@ -134,7 +134,7 @@ namespace Bikewale.BAL.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetOtherSeriesFromMake_makeId_{0}_SeriesId_{1}", makeId, seriesId));
+				Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BAL.BikeData.BikeSeries.GetOtherSeriesFromMake_makeId_{0}_SeriesId_{1}", makeId, seriesId));
 			}
 			return bikeSeriesEntityList;
 		}
@@ -148,7 +148,7 @@ namespace Bikewale.BAL.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetBikesToCompare_seriesId = {0}", seriesId));
+				Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BAL.BikeData.BikeSeries.GetBikesToCompare_seriesId = {0}", seriesId));
 			}
 			return bikeSeriesCompareBikes;
 		}

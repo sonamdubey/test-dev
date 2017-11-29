@@ -113,7 +113,7 @@ namespace Bikewale.Videos
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Videos.BindMakewidget");
+                ErrorClass.LogError(ex, "Bikewale.Videos.BindMakewidget");
             }
 
         }

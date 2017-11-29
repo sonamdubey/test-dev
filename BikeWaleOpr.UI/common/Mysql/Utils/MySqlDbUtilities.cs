@@ -1,10 +1,8 @@
 ﻿using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
 using System.Web;
 
 namespace BikeWaleOPR.Utilities
@@ -28,8 +26,8 @@ namespace BikeWaleOPR.Utilities
             {
 
                 HttpContext.Current.Trace.Warn("GetCommandValue: " + err.Message + err.Source + ":GetCommandValue");
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return string.Join(",", parameters);
         }
@@ -55,8 +53,8 @@ namespace BikeWaleOPR.Utilities
             {
 
                 HttpContext.Current.Trace.Warn("GetInClauseValue: " + err.Message + err.Source + ":GetInClauseValue");
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
 
             }
 

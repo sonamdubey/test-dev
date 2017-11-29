@@ -81,7 +81,7 @@ namespace Bikewale.Models
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewRatingPage.ProcessQuery() - ModelId :{0}", _modelId));
+                ErrorClass.LogError(ex, string.Format("UserReviewRatingPage.ProcessQuery() - ModelId :{0}", _modelId));
             }
 
 
@@ -115,7 +115,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewRatingPage.GetData() - ModelId :{0}", _modelId));
+                ErrorClass.LogError(ex, string.Format("UserReviewRatingPage.GetData() - ModelId :{0}", _modelId));
             }
 
             return objUserVM;
@@ -140,7 +140,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewRatingPage.BindMetas() - ModelId :{0}", _modelId));
+                ErrorClass.LogError(ex, string.Format("UserReviewRatingPage.BindMetas() - ModelId :{0}", _modelId));
             }
         }
 
@@ -159,7 +159,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewRatingPage.GetBikeData() - ModelId :{0}", _modelId));
+                ErrorClass.LogError(ex, string.Format("UserReviewRatingPage.GetBikeData() - ModelId :{0}", _modelId));
             }
         }
         /// <summary>
@@ -240,7 +240,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewRatingPage.GetUserRatings() - ModelId :{0}", _modelId));
+                ErrorClass.LogError(ex, string.Format("UserReviewRatingPage.GetUserRatings() - ModelId :{0}", _modelId));
             }
         }
 

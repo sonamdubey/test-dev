@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.Entities
 {
-   public class MfgNewRulesEntity
+    public class MfgNewRulesEntity
    /// <summary>
    /// Created By: Aditi Srivastava on 29 Aug 2016
    /// Description: For inserting new rules

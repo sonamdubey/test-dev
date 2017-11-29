@@ -15,6 +15,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :   Added new function GetOldMaskingNames
     /// Modified by :   Sangram Nandkhile on 10 Mar 2017
     /// Description :   Added new function GetScooterMakes
+    /// Modified BY : Snehal Dange on 22nd Nov 2017
+    /// Description :  Added GetMakeFooterCategoriesandPrice
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
@@ -29,5 +31,6 @@ namespace Bikewale.Interfaces.BikeData
         Hashtable GetOldMaskingNames();
         BikeDescriptionEntity GetScooterMakeDescription(uint makeId);
         IEnumerable<BikeMakeEntityBase> GetScooterMakes();
+        MakeSubFooterEntity GetMakeFooterCategoriesandPrice(uint makeId);
     }
 }

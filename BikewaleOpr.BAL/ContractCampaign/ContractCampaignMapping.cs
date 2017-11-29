@@ -32,8 +32,8 @@ namespace BikewaleOpr.BAL.ContractCampaign
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.CampaignContract.GetAllMaskingNumbers");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.CampaignContract.GetAllMaskingNumbers");
+                
             }
             return _maskingNumbers;
         }
@@ -61,8 +61,8 @@ namespace BikewaleOpr.BAL.ContractCampaign
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.CampaignContract.IsCCMapped");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.CampaignContract.IsCCMapped");
+                
             }
             return _isCCMapped;
         }
@@ -91,8 +91,8 @@ namespace BikewaleOpr.BAL.ContractCampaign
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.CampaignContract.RelaseMaskingNumbers");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.CampaignContract.RelaseMaskingNumbers");
+                
             }
             return _areNumbersReleased;
         }
@@ -118,8 +118,8 @@ namespace BikewaleOpr.BAL.ContractCampaign
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.CampaignContract.AddCampaignContractData");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.BAL.CampaignContract.AddCampaignContractData");
+                
             }
             return isCampaignContractAdded;
         }

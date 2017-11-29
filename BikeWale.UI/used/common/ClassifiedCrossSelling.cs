@@ -54,8 +54,8 @@ namespace Bikewale.Used
             catch (Exception err)
             {
                 objTrace.Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, objTrace.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, objTrace.Request.ServerVariables["URL"]);
+                
             }
         }
     }

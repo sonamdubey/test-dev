@@ -53,7 +53,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndexPage.GetData()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndexPage.GetData()");
             }
             return objDealerVM;
         }
@@ -89,7 +89,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindPageMetas()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindPageMetas()");
             }
         }
         /// <summary>
@@ -108,7 +108,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindNewLaunchesBikes()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindNewLaunchesBikes()");
             }
             return NewLaunchedbikes;
 
@@ -137,7 +137,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindUpCompingBikesWidget()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindUpCompingBikesWidget()");
             }
             return objUpcomingBikes;
         }

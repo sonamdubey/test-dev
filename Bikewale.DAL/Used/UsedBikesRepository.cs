@@ -59,8 +59,8 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in getPopularBikes parametres totalCount : {0}, cityId : {1}", totalCount, cityId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in getPopularBikes parametres totalCount : {0}, cityId : {1}", totalCount, cityId));
+                
             }
             return objUsedBikesList;
         }   // End of GetPopularUsedBikes method
@@ -111,8 +111,8 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyMake Parametres makeId : {0}, totalCount : {1}", makeid, totalCount));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyMake Parametres makeId : {0}, totalCount : {1}", makeid, totalCount));
+                
             }
             return objUsedBikesList;
         }//end of GetUsedBikesbyMake
@@ -165,8 +165,8 @@ namespace Bikewale.DAL.UsedBikes
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyModel Parametres modelId : {0}, totalCount : {1}", modelId, totalCount));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyModel Parametres modelId : {0}, totalCount : {1}", modelId, totalCount));
+                
             }
             return objUsedBikesList;
         }//end of GetUsedBikesbyModel
@@ -228,8 +228,8 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyModelCity Parametres modelId : {0}, totalCount : {1}, cityId {2}", modelId, totalCount, cityId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyModelCity Parametres modelId : {0}, totalCount : {1}, cityId {2}", modelId, totalCount, cityId));
+                
             }
             return objUsedBikesList;
         }//end of GetUsedBikesbyModelCity
@@ -290,7 +290,7 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikesSeries parametres  modelId : {0}, cityId : {1}", seriesid, cityId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikesSeries parametres  modelId : {0}, cityId : {1}", seriesid, cityId));
 
             }
             return objUsedBikesList;
@@ -351,8 +351,8 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyMakeCity Parametres makeId : {0}, totalCount : {1}, cityId {2}", makeId, totalCount, cityId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyMakeCity Parametres makeId : {0}, totalCount : {1}, cityId {2}", makeId, totalCount, cityId));
+                
             }
             return objUsedBikesList;
         }// end of GetUsedBikesbyMakeCity
@@ -392,8 +392,8 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception in UsedRepository.GetUsedBikeMakesWithCount");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception in UsedRepository.GetUsedBikeMakesWithCount");
+                
             }
             return usedMakeList;
 

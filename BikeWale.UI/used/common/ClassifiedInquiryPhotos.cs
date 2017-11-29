@@ -96,8 +96,8 @@ namespace Bikewale.Used
             catch (Exception ex)
             {
                 objTrace.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, objTrace.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, objTrace.Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -130,8 +130,8 @@ namespace Bikewale.Used
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return isDone;
@@ -161,8 +161,8 @@ namespace Bikewale.Used
             catch (Exception err)
             {
                 objTrace.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, objTrace.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, objTrace.Request.ServerVariables["URL"]);
+                
             } // catch Exception
 
             return isDone;

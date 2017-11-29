@@ -111,8 +111,8 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikesWidgets");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindBikesWidgets");
+                
             }
         }
         /// <summary>
@@ -144,8 +144,8 @@ namespace Bikewale.Mobile.Service
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "LocateServiceCenter.BindMakes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "LocateServiceCenter.BindMakes");
+                
             }
         }
     }

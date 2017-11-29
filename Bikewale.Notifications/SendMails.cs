@@ -109,7 +109,7 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Notifications.SendMails ConfigureCommonMailSettings()");
+                ErrorClass.LogError(err, "Notifications.SendMails ConfigureCommonMailSettings()");
             }
         }   // End of ConfigureCommonMailSettings method
 
@@ -185,7 +185,7 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Notifications.SendMails ConfigureMailSettings({0})", email));
+                ErrorClass.LogError(err, string.Format("Notifications.SendMails ConfigureMailSettings({0})", email));
             }
         }   // End of ConfigureMailSettings method
 

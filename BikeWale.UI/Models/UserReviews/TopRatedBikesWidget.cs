@@ -32,7 +32,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("TopRatedBikesWidget.GetData: topCount: {0}, CityId {1}", TopCount, CityId));
+                ErrorClass.LogError(ex, string.Format("TopRatedBikesWidget.GetData: topCount: {0}, CityId {1}", TopCount, CityId));
             }
             return objTopRatedBikesWidget;
         }

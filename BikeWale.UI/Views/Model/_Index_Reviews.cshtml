@@ -13,9 +13,9 @@
     </span>
     <div class="review-box font14 inline-block">
         <span>
-            @if (@Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
+            @if (Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
             {
-                <a href="@Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="review-count-target left-divider">
+                <a href="@Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" title="@string.Format("{0} {1} review{2}", MakeDetails.MakeName, ModelDetails.ModelName, (Model.ModelPageEntity.ModelDetails.ReviewCount > 1 ? "s" : ""))" class="review-count-target left-divider">
                     <span>@Model.ModelPageEntity.ModelDetails.ReviewCount</span> Reviews
                 </a>
             }

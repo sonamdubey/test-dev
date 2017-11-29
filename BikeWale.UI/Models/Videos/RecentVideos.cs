@@ -108,7 +108,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.RecentVideos.GetData: PageNo {0},PageSize {1}, MakeId {2}, ModelId {3}", _pageNo, _pageSize, _makeId, _modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.Videos.RecentVideos.GetData: PageNo {0},PageSize {1}, MakeId {2}, ModelId {3}", _pageNo, _pageSize, _makeId, _modelId));
             }
             return recentVideos;
         }

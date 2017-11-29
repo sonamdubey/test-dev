@@ -1,13 +1,8 @@
-﻿using Bikewale.Entities.CMS.Photos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.CMS.Photos
-{    
+{
     public class CMSImage
     {
         [DataMember]

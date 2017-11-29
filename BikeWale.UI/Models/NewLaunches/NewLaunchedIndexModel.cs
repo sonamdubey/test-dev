@@ -7,7 +7,6 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -28,7 +27,8 @@ namespace Bikewale.Models
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
         public ushort MakeTopCount { get; set; }
-        public NewLaunchedIndexModel(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming, InputFilter filter, PQSourceEnum pqSource, ushort? pageNumber, ICMSCacheContent objArticles)
+        public NewLaunchedIndexModel(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming,
+                                     InputFilter filter, PQSourceEnum pqSource, ushort? pageNumber, ICMSCacheContent objArticles)
         {
             _newLaunches = newLaunches;
             _objMakeCache = objMakeCache;
@@ -52,7 +52,6 @@ namespace Bikewale.Models
                 objVM = new NewLaunchedIndexVM();
                 objVM.Page_H1 = string.Format("NEW BIKE LAUNCHES - {0}", DateTime.Today.Year);
 
-                objVM.Brands = (new BrandWidgetModel(MakeTopCount, _newLaunches)).GetData(EnumBikeType.NewLaunched);
                 objVM.NewLaunched = (new NewLaunchesBikesModel(_newLaunches, _filter, _pqSource)).GetData();
 
                 _totalPagesCount = (uint)(objVM.NewLaunched.Bikes.TotalCount / PageSize);
@@ -66,11 +65,11 @@ namespace Bikewale.Models
                     CreatePager(objVM.NewLaunched, objVM.PageMetaTags);
                 }
                 CreateMeta(objVM.PageMetaTags);
-                BindCMSContent(objVM);
+                BindCmsContent(objVM);
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.GetData()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.GetData()");
             }
             return objVM;
         }
@@ -91,7 +90,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.BindUpcoming()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.BindUpcoming()");
             }
         }
 
@@ -122,7 +121,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.CreatePager()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.CreatePager()");
             }
         }
 
@@ -151,7 +150,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "NewLaunchedIndexModel.CreateMeta()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.CreateMeta()");
             }
         }
 
@@ -160,23 +159,23 @@ namespace Bikewale.Models
         /// Description: New launched page news widget
         /// </summary>
         /// <param name="objUpcoming"></param>
-        private void BindCMSContent(NewLaunchedIndexVM objNewLaunches)
+        private void BindCmsContent(NewLaunchedIndexVM objNewLaunches)
         {
             try
             {
-                if (objNewLaunches != null && objNewLaunches.NewLaunched!=null && objNewLaunches.NewLaunched.Bikes!=null)
+                if (objNewLaunches != null && objNewLaunches.NewLaunched != null && objNewLaunches.NewLaunched.Bikes != null)
                 {
                     string modelId = string.Empty;
                     foreach (var obj in objNewLaunches.NewLaunched.Bikes.Bikes)
                     {
-                        modelId = string.IsNullOrEmpty(modelId) ? Convert.ToString(obj.Model.ModelId) : string.Format("{0},{1}", modelId, obj.Model.ModelId); 
+                        modelId = string.IsNullOrEmpty(modelId) ? Convert.ToString(obj.Model.ModelId) : string.Format("{0},{1}", modelId, obj.Model.ModelId);
                     }
                     objNewLaunches.News = new RecentNews(5, 0, modelId, _objArticles).GetData();
                 }
             }
             catch (Exception ex)
             {
-               Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "NewLaunchedIndexModel.BindCMSContent()");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.BindCmsContent()");
             }
 
         }

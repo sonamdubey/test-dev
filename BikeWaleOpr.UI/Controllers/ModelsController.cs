@@ -47,7 +47,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelsController/UsedModelImageUpload");
+                ErrorClass.LogError(ex, "ModelsController/UsedModelImageUpload");
                 return null;
             }
         }

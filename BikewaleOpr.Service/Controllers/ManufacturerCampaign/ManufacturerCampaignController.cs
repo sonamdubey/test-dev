@@ -58,8 +58,8 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaignController.GetCampaigns");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManufacturerCampaignController.GetCampaigns");
+                
                 return InternalServerError();
             }
         }
@@ -88,7 +88,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignController.GetCampaignsV2 dealerId:{0}", dealerId));
+                ErrorClass.LogError(ex, string.Format("ManufacturerCampaignController.GetCampaignsV2 dealerId:{0}", dealerId));
 
                 return InternalServerError();
             }
@@ -109,8 +109,8 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaignController.UpdateCampaignStatus");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManufacturerCampaignController.UpdateCampaignStatus");
+                
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -126,7 +126,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignController.UpdateCampaignStatusV2 campaignid: {0} status : {1}", campaignId, status));
+                ErrorClass.LogError(ex, string.Format("ManufacturerCampaignController.UpdateCampaignStatusV2 campaignid: {0} status : {1}", campaignId, status));
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -162,8 +162,8 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetDealerMaskingNumbers");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.GetDealerMaskingNumbers");
+                
             }
             return null;
 
@@ -187,8 +187,8 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             catch (Exception ex)
             {
                 isSuccess = false;
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
+                
             }
             return Ok(isSuccess);
         }
@@ -223,7 +223,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignController.GetBikeModels. MakeId : {0}", makeId));
+                ErrorClass.LogError(ex, string.Format("ManufacturerCampaignController.GetBikeModels. MakeId : {0}", makeId));
                 return InternalServerError();
             }
         }
@@ -259,7 +259,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignController.GetCitiesByState. StateId:{0}", stateId));
+                ErrorClass.LogError(ex, string.Format("ManufacturerCampaignController.GetCitiesByState. StateId:{0}", stateId));
                 return InternalServerError();
             }
         }
@@ -275,7 +275,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaignController.DeleteRule");
+                ErrorClass.LogError(ex, "ManufacturerCampaignController.DeleteRule");
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -305,7 +305,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("ManufacturerCampaignController.ResetTotalLeadDeliveredCount({0},{1})", campaignId, userId));
+                ErrorClass.LogError(ex, String.Format("ManufacturerCampaignController.ResetTotalLeadDeliveredCount({0},{1})", campaignId, userId));
                 return InternalServerError();
             }
             return Ok(isSuccess);

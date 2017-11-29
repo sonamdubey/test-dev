@@ -40,6 +40,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
         /// Modified :Snehal Dange on 6th Nov 2017
         /// Description: Added logic for refreshing cache key "BW_BikesByMileage";
+        /// Modified :Snehal Dange on 21st Nov 2017
+        /// Description: Added logic for refreshing cache key "BW_PopularBikesWithRecentAndHelpfulReviews_Make_";
         /// </summary>
         /// <param name="reviewId">User review id for which updation will happen</param>
         /// <param name="reviewStatus">Pass 2 for Approved or 3 for Discarded</param>
@@ -85,6 +87,10 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove("BW_RecentReviews");
                         MemCachedUtil.Remove("BW_UserReviewIdMapping");
                         MemCachedUtil.Remove("BW_BikesByMileage");
+                        if(inputs.MakeId > 0)
+                        {
+                            MemCachedUtil.Remove(string.Format("BW_PopularBikesWithRecentAndHelpfulReviews_Make_{0}", inputs.MakeId));
+                        }
                     }
 
                 }
@@ -95,7 +101,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateUserReviewsStatus");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateUserReviewsStatus");
 
                 return InternalServerError();
             }
@@ -131,7 +137,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
                 return InternalServerError();
             }
             return NotFound();
@@ -178,7 +184,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
                 return InternalServerError();
             }
             return Ok(updateStatus);
@@ -208,7 +214,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
                 return InternalServerError();
             }
             return Ok(updateStatus);

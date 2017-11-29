@@ -240,4 +240,41 @@ docReady(function () {
             console.log(e);
         }
     });
+
+    //collapsible content
+
+    $('.read-more-button').on('click', function () {
+        var readMoreButton = $(this);
+        var collapsibleContent = readMoreButton.closest('.foldable-content');
+        var isDataToggle = collapsibleContent.attr('data-toggle');
+        var dataTruncate = collapsibleContent.find('.truncatable-content');
+        var dataLessText;
+        var readLessText;
+        switch (isDataToggle) {
+            case 'no':
+                dataTruncate.attr('data-readtextflag', '0');
+                readMoreButton.hide();
+                break;
+            case 'yes':
+                dataLessText = readMoreButton.attr('data-text');
+                readLessText = !dataLessText || dataLessText.length === 0 ? 'Collapse' : dataLessText;
+                dataTruncate.attr('data-readtextflag', '0');
+                readMoreButton.attr('data-text', readMoreButton.text()).text(readLessText);
+                collapsibleContent.attr('data-toggle', 'hide');
+                break;
+            case 'hide':
+                dataTruncate.attr('data-readtextflag', '1');
+                dataLessText = readMoreButton.attr('data-text');
+                readMoreButton.attr('data-text', readMoreButton.text()).text(dataLessText);
+                collapsibleContent.attr('data-toggle', 'yes');
+                break;
+        }
+    });
+
+    // subfooter divider
+
+    $('.make-subfooter .read-more-button').on('click', function () {
+        var subfooter = $(this).closest('.make-subfooter');
+        subfooter.find('.content__left-col').css('height', 'auto').css('height', subfooter.height());
+    });
 });

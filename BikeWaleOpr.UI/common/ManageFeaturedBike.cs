@@ -1,10 +1,7 @@
-﻿using BikeWaleOPR.Utilities;
-using MySql.CoreDAL;
+﻿using MySql.CoreDAL;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Web;
 
 /// <summary>
@@ -35,8 +32,8 @@ namespace BikeWaleOpr.Common
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
         }   //End of SetFeaturedBikePriorities
     }   //End of Class

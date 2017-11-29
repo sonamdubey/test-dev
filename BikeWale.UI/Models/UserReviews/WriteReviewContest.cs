@@ -2,7 +2,6 @@
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
-using Bikewale.Models.Make;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
@@ -15,19 +14,20 @@ namespace Bikewale.Models.UserReviews
     /// Modified by: Vivek Singh Tomar on 12th Aug 2017
     /// Summary: Added IUserReviewsCache to fetch list of winners of user reviews contest
     /// </summary>
-    public class WriteReviewContest 
+    public class WriteReviewContest
     {
         private bool _isMobile = false;
         private readonly IBikeMakesCacheRepository _makeRepository = null;
         private readonly IUserReviewsCache _userReviewCache = null;
-        private readonly uint? _makeId =0;
-        private readonly uint? _modelId = 0;
-        private readonly string _makeName = null;
-        private readonly string _modelName = null;
-        private readonly string _makeMasking = null;
-        private readonly string _modelMasking = null;
+        private readonly uint? _makeId;
+        private readonly uint? _modelId;
+        private readonly string _makeName;
+        private readonly string _modelName;
+        private readonly string _makeMasking;
+        private readonly string _modelMasking;
 
-        public WriteReviewContest(bool IsMobile, IBikeMakesCacheRepository makeRepository, IUserReviewsCache userReviewCache , uint? makeId ,uint? modelId, string makeName, string modelName, string makeMaskingName, string modelMaskingName)
+        public WriteReviewContest(bool IsMobile, IBikeMakesCacheRepository makeRepository, IUserReviewsCache userReviewCache, uint? makeId,
+            uint? modelId, string makeName, string modelName, string makeMaskingName, string modelMaskingName)
         {
             _makeRepository = makeRepository;
             _isMobile = IsMobile;
@@ -57,7 +57,6 @@ namespace Bikewale.Models.UserReviews
             viewModel.UserReviewPopup = new Make.UserReviewPopupVM();
 
             try
-
             {
                 viewModel.MakeId = _makeId;
                 viewModel.ModelId = _modelId;
@@ -87,7 +86,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass errCls = new ErrorClass(ex, "GetData");
+                ErrorClass.LogError(ex, "GetData");
             }
 
             return viewModel;

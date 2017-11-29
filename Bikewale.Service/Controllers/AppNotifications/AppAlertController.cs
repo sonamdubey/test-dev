@@ -72,8 +72,8 @@ namespace Bikewale.Service.Controllers.AppNotifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.Service.Controllers.AppAlertController.AppNotifications.Post : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], input.Imei, input.GcmId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("{0} - Bikewale.Service.Controllers.AppAlertController.AppNotifications.Post : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], input.Imei, input.GcmId));
+               
                 return InternalServerError();
             }
 

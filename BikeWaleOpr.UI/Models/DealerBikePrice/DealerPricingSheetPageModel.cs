@@ -104,7 +104,7 @@ namespace BikewaleOpr.Models.DealerBikePrice
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetPriceSheetAndLandingInfo");
+                ErrorClass.LogError(ex, "GetPriceSheetAndLandingInfo");
             }
 
             return dealerPricingSheetInfo;
@@ -142,7 +142,7 @@ namespace BikewaleOpr.Models.DealerBikePrice
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetPriceSheetInformation");
+                ErrorClass.LogError(ex, "GetPriceSheetInformation");
             }
 
             return dealerPricingSheetInfo;
@@ -181,7 +181,7 @@ namespace BikewaleOpr.Models.DealerBikePrice
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetPriceSheetInformation");
+                ErrorClass.LogError(ex, "GetPriceSheetInformation");
             }
 
             return dealerPricingSheetInfo;

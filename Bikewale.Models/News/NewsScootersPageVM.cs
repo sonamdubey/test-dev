@@ -1,13 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
-using Bikewale.Entities.PWA.Articles;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace Bikewale.Models.News
 {
@@ -15,7 +9,7 @@ namespace Bikewale.Models.News
     /// Created by : Snehal Dange on 17th August ,2017
     /// Summary    : View model for scooters news listing page
     /// </summary>
-  public class NewsScootersPageVM : ModelBase
+    public class NewsScootersPageVM : ModelBase
     {
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }

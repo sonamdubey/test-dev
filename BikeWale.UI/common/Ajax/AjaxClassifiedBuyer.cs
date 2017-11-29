@@ -59,8 +59,8 @@ namespace Bikewale.Ajax
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : AJAX_ShownInterestInThisBike");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : AJAX_ShownInterestInThisBike");
+                
             }
 
             return sb.ToString();
@@ -86,9 +86,9 @@ namespace Bikewale.Ajax
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : AJAX_IsBuyerMobileVerified" +
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : AJAX_IsBuyerMobileVerified" +
                                                     custName + ":" + eMail + ":" + mobile);
-                objErr.SendMail();
+                
             }
             return isVerified;
         }
@@ -111,10 +111,10 @@ namespace Bikewale.Ajax
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : AJAX_ProcessUsedBikePurchaseInquiry" +
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : AJAX_ProcessUsedBikePurchaseInquiry" +
                                                     profileId + ":" + buyerName + ":" + buyerEmail + ":" + buyerMobile + ":" +
                                                         _isDetailsViewed + ":" + bikeModel + ":" + makeYear + ":" + pageUrl);
-                objErr.SendMail();
+                
             }
 
             return retData;
@@ -141,9 +141,9 @@ namespace Bikewale.Ajax
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : AJAX_CheckVerificationCode" +
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : AJAX_CheckVerificationCode" +
                                                     mobile + ":" + cwiCode);
-                objErr.SendMail();
+                
             }
 
             return isVerified;
@@ -234,8 +234,8 @@ namespace Bikewale.Ajax
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : AJAX_UploadPhotosRequest");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : AJAX_UploadPhotosRequest");
+                
             }
             return isDone;
         }   // End of UploadPhotoRequest method

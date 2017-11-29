@@ -5,14 +5,10 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DAL.Videos
 {
@@ -61,7 +57,7 @@ namespace Bikewale.DAL.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.DAL.Videos.GetModelVideos MakeId:{0}", makeId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.DAL.Videos.GetModelVideos MakeId:{0}", makeId));
             }
             return modelVideoList;
         }

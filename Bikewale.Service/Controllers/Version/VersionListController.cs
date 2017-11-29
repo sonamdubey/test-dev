@@ -57,8 +57,8 @@ namespace Bikewale.Service.Controllers.Version
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionListController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Version.VersionListController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -95,8 +95,8 @@ namespace Bikewale.Service.Controllers.Version
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionListController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Version.VersionListController");
+               
                 return InternalServerError();
             }
             return NotFound();

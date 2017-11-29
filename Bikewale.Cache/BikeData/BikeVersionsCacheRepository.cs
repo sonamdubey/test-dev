@@ -52,8 +52,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetSimilarBikesList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetSimilarBikesList");
+                
             }
             return versions;
         }
@@ -85,8 +85,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetVersionsByType");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetVersionsByType");
+                
             }
             return versions;
         }
@@ -109,8 +109,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetById");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetById");
+                
             }
             return versionDetails;
         }
@@ -133,8 +133,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetVersionMinSpecs");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetVersionMinSpecs");
+                
             }
             return versions;
         }
@@ -154,8 +154,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BikeMakesCacheRepository.GetColorsbyVersionId: {0}", versionId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("BikeMakesCacheRepository.GetColorsbyVersionId: {0}", versionId));
+                
             }
             return versionColors;
         }

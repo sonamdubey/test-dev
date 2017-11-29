@@ -65,8 +65,8 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }   // End of FillMakes method
 
@@ -137,14 +137,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 Trace.Warn("ManageUserReviews.GetReviews sql ex : ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "ManageUserReviews.GetReviews");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageUserReviews.GetReviews");
+                
             }
             catch (Exception ex)
             {
                 Trace.Warn("ManageUserReviews.GetReviews ex : ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "ManageUserReviews.GetReviews");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ManageUserReviews.GetReviews");
+                
             }
         }   // End of GetReviews method
 

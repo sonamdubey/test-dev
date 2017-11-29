@@ -249,7 +249,7 @@ namespace Bikewale.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.ExpertReviewsController.Scooters");
+                ErrorClass.LogError(ex, "Bikewale.Controllers.ExpertReviewsController.Scooters");
                 return Redirect("/pagenotfound.aspx");
             }
         }
@@ -286,7 +286,7 @@ namespace Bikewale.Controllers
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.ExpertReviewsController.Scooters_Mobile");
+                ErrorClass.LogError(ex, "Bikewale.Controllers.ExpertReviewsController.Scooters_Mobile");
                 return Redirect("/m/pagenotfound.aspx");
             }
         }

@@ -76,8 +76,8 @@ namespace Bikewale.Service.Controllers.App
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.App.AppVersionCheckerController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.App.AppVersionCheckerController");
+               
                 return InternalServerError();
             }
         }

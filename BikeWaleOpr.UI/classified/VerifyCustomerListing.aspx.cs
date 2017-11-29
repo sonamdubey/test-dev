@@ -103,8 +103,8 @@ namespace BikeWaleOpr.Classified
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindRepeater");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindRepeater");
+                
             }
         }   //End of BindRepeater
 
@@ -122,8 +122,8 @@ namespace BikeWaleOpr.Classified
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQS");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQS");
+                
             }
         }
     }   //End of Class

@@ -189,8 +189,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BookingListingRepository.FetchBookingList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BookingListingRepository.FetchBookingList");
+                
             }
             return lstSearchResult;
         }
@@ -239,8 +239,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BookingListingRepository.FetchOffer");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BookingListingRepository.FetchOffer");
+                
             }
 
             return lstOffer;
@@ -284,8 +284,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetPrevNextUrl");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetPrevNextUrl");
+                
             }
             return objPager;
         }
@@ -322,8 +322,8 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeBooking.BookingListingRepository.GetApiUrl");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeBooking.BookingListingRepository.GetApiUrl");
+                
             }
             return apiUrlstr;
         }

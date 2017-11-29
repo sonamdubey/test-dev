@@ -70,7 +70,7 @@ namespace Bikewale.Used
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "MakesInCity.ProcessQueryString");
+                ErrorClass.LogError(ex, "MakesInCity.ProcessQueryString");
             }
         }
         /// <summary>
@@ -95,7 +95,7 @@ namespace Bikewale.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakesInCity.BindCities");
+                ErrorClass.LogError(ex, "MakesInCity.BindCities");
 
             }
         }

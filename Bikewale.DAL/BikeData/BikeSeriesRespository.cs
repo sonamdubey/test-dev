@@ -10,6 +10,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
+using System.Collections;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -19,13 +20,13 @@ namespace Bikewale.DAL.BikeData
     /// </summary>
     public class BikeSeriesRepository : IBikeSeriesRepository
     {
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : DAL method to get new models of a series with city price.
-		/// </summary>
-		/// <param name="seriesId"></param>
-		/// <param name="cityId"></param>
-		/// <returns>If cityId is 0 then models with Mumbai price, otherwise with city price.</returns>
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : DAL method to get new models of a series with city price.
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <param name="cityId"></param>
+        /// <returns>If cityId is 0 then models with Mumbai price, otherwise with city price.</returns>
         public IEnumerable<NewBikeEntityBase> GetNewModels(uint seriesId, uint cityId)
         {
             List<NewBikeEntityBase> objNewBikeList = null;
@@ -93,18 +94,18 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetNewModels_SeriesId_{0}_{1}", seriesId, cityId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetNewModels_SeriesId_{0}_{1}", seriesId, cityId));
             }
             return objNewBikeList;
         }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : DAL method to get upcoming models of a series.
-		/// </summary>
-		/// <param name="seriesId"></param>
-		/// <returns></returns>
-		public IEnumerable<UpcomingBikeEntityBase> GetUpcomingModels(uint seriesId)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : DAL method to get upcoming models of a series.
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
+        public IEnumerable<UpcomingBikeEntityBase> GetUpcomingModels(uint seriesId)
         {
             List<UpcomingBikeEntityBase> objUpcomingBikeList = null;
             try
@@ -157,7 +158,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetUpcomingModels_SeriesId = {0}", seriesId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetUpcomingModels_SeriesId = {0}", seriesId));
             }
             return objUpcomingBikeList;
         }
@@ -185,8 +186,8 @@ namespace Bikewale.DAL.BikeData
                                 objModelsList.Add(new BikeSeriesCompareBikes()
                                 {
                                     ModelName = Convert.ToString(dr["ModelName"]),
-									ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
-									HostUrl = Convert.ToString(dr["HostURL"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                    HostUrl = Convert.ToString(dr["HostURL"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     Displacement = SqlReaderConvertor.ParseToDouble(dr["Displacement"]),
                                     FuelCapacity = SqlReaderConvertor.ParseToDouble(dr["FuelEfficiencyOverall"]),
@@ -207,17 +208,17 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetBikesToCompare SeriesId = {0}", seriesId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetBikesToCompare SeriesId = {0}", seriesId));
             }
             return objModelsList;
         }
-        
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : DAL method to get synopsis of a series.
-		/// </summary>
-		/// <param name="seriesId"></param>
-		/// <returns></returns>
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : DAL method to get synopsis of a series.
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
         public BikeDescriptionEntity GetSynopsis(uint seriesId)
         {
             BikeDescriptionEntity synopsis = null;
@@ -245,18 +246,18 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetSynopsis_SeriesId_{0}", seriesId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetSynopsis_SeriesId_{0}", seriesId));
             }
             return synopsis;
         }
 
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 17 Nov 2017
-		/// Description : DAL method to get all series of a make.
-		/// </summary>
-		/// <param name="makeId"></param>
-		/// <returns></returns>
-		public IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : DAL method to get all series of a make.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId)
         {
             IList<BikeSeriesEntity> bikeSeriesEntityList = null;
             try
@@ -291,7 +292,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetOtherSeriesFromMake_makeId_{0}", makeId));
+                ErrorClass.LogError(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetModelsListBySeriesId SeriesId = {0}", makeId));
             }
             return bikeSeriesEntityList;
         }
@@ -332,7 +333,7 @@ namespace Bikewale.DAL.BikeData
                                 if (!ht.ContainsKey(dr["MaskingName"]))
                                 {
                                     ht.Add(dr["MaskingName"], objMaskingNames);
-                                }                                
+                                }
                             }
                             dr.Close();
                         }
@@ -341,7 +342,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeData.BikeSeriesRepository.GetMaskingNames");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.BikeSeriesRepository.GetMaskingNames");
             }
             return ht;
         }

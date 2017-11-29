@@ -111,8 +111,8 @@ namespace Bikewale.Controls
                 catch (Exception err)
                 {
                     Trace.Warn(err.Message);
-                    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                    
                 }
             }
 

@@ -39,7 +39,7 @@ namespace Bikewale.Cache.App
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SplashScreenCacheRepository.GetAppSplashScreen");
+                ErrorClass.LogError(ex, "SplashScreenCacheRepository.GetAppSplashScreen");
             }
             return objCacheScreens;
         }

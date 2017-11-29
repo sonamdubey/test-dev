@@ -59,8 +59,8 @@ namespace Bikewale.Ajax
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveReview");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "AjaxUserReviews.ApproveReview");
+                
                 return false;
             }
             //finally
@@ -74,8 +74,8 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool ApproveUpdatedReview(string reviewId, string customerId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.ApproveUpdatedReview");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.ApproveUpdatedReview");
+            
             return false;
             //bool ret = false;
             //try
@@ -88,8 +88,8 @@ namespace Bikewale.Ajax
             //}
             //catch (Exception ex)
             //{
-            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveUpdatedReview");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, "AjaxUserReviews.ApproveUpdatedReview");
+            //    
             //}
             //return ret;
         }
@@ -106,8 +106,8 @@ namespace Bikewale.Ajax
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveUpdatedReview");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "AjaxUserReviews.ApproveUpdatedReview");
+                
             }
             return ret;
         }
@@ -117,8 +117,8 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool DeleteReview(string reviewId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            
             return false;
             //string sql;
             //bool ret = false;
@@ -134,8 +134,8 @@ namespace Bikewale.Ajax
             //}
             //catch (Exception ex)
             //{
-            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveReview");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, "AjaxUserReviews.ApproveReview");
+            //    
             //}
             //finally
             //{
@@ -156,8 +156,8 @@ namespace Bikewale.Ajax
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveUpdatedReview");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "AjaxUserReviews.ApproveUpdatedReview");
+                
             }
             return ret;
         }
@@ -165,8 +165,8 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool DeleteAbusedReview(string reviewId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            
             return false;
 
             //string sql = "";
@@ -183,8 +183,8 @@ namespace Bikewale.Ajax
             //}
             //catch (Exception ex)
             //{
-            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveUpdatedReview");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, "AjaxUserReviews.ApproveUpdatedReview");
+            //    
             //}
             //return ret;
         }
@@ -192,8 +192,8 @@ namespace Bikewale.Ajax
         private void UpdateReplicaAsVerified(string reviewId)
         {
 
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            
             //string sql;
             //Database db = new Database();
 
@@ -205,8 +205,8 @@ namespace Bikewale.Ajax
             //}
             //catch (Exception ex)
             //{
-            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.UpdateReplicaAsVerified");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, "AjaxUserReviews.UpdateReplicaAsVerified");
+            //    
             //}
             //finally
             //{
@@ -216,8 +216,8 @@ namespace Bikewale.Ajax
 
         private void UpdateAbuseAsVerified(string reviewId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            
 
             //string sql;
             //Database db = new Database();
@@ -230,8 +230,8 @@ namespace Bikewale.Ajax
             //}
             //catch (Exception ex)
             //{
-            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.UpdateAbuseAsVerified");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, "AjaxUserReviews.UpdateAbuseAsVerified");
+            //    
             //}
             //finally
             //{
@@ -241,8 +241,8 @@ namespace Bikewale.Ajax
 
         private void UpdateChangesToCustomerReviews(string reviewId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            
 
             //string sql = "";
             //Database db = new Database();
@@ -277,8 +277,8 @@ namespace Bikewale.Ajax
             //}
             //catch (Exception ex)
             //{
-            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.UpdateChangesToCustomerReviews");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, "AjaxUserReviews.UpdateChangesToCustomerReviews");
+            //    
             //}
             //finally
             //{
@@ -288,8 +288,8 @@ namespace Bikewale.Ajax
 
         private void AddReplyInForums(string reviewIds, string customerIds)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            
 
             //string threadId = "";
             //threadId = GetThreadIdForReview(reviewIds);
@@ -301,8 +301,8 @@ namespace Bikewale.Ajax
 
         private string GetThreadIdForReview(string reviewId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            
             return string.Empty;
 
             //string returnVal = "-1";
@@ -321,8 +321,8 @@ namespace Bikewale.Ajax
             //}
             //catch (Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, "AjaxUserReviews.GetThreadIdForReview");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "AjaxUserReviews.GetThreadIdForReview");
+            //    
             //    returnVal = "-1";
             //}
             //finally
@@ -339,8 +339,8 @@ namespace Bikewale.Ajax
 
         private void UpdateReviewRateCount(string reviewId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.UpdateReviewRateCount");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.UpdateReviewRateCount");
+            
 
             //SqlConnection con;
             //SqlCommand cmd;
@@ -364,8 +364,8 @@ namespace Bikewale.Ajax
             //catch (Exception err)
             //{
             //    HttpContext.Current.Trace.Warn("Ajaxfunctions : UpdateReviewRateCount : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, "Ajaxfunctions.UpdateReviewRateCount");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "Ajaxfunctions.UpdateReviewRateCount");
+            //    
             //} // catch Exception
             //finally
             //{
@@ -428,8 +428,8 @@ namespace Bikewale.Ajax
                 catch (Exception err)
                 {
                     HttpContext.Current.Trace.Warn("Ajaxfunctions : UpdateReviewHelpful : " + err.Message);
-                    ErrorClass objErr = new ErrorClass(err, "Ajaxfunctions.UpdateReviewHelpful");
-                    objErr.SendMail();
+                    ErrorClass.LogError(err, "Ajaxfunctions.UpdateReviewHelpful");
+                    
                     returnVal = false;
                 } // catch Exception
                 finally
@@ -485,8 +485,8 @@ namespace Bikewale.Ajax
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Ajaxfunctions : UpdateReviewAbuse : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Ajaxfunctions.UpdateReviewAbuse");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Ajaxfunctions.UpdateReviewAbuse");
+                
                 returnVal = false;
             } // catch Exception
 
@@ -496,8 +496,8 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public string GetModels(string makeId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetModels");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.GetModels");
+            
             return string.Empty;
             //DataSet ds = new DataSet();
 
@@ -517,8 +517,8 @@ namespace Bikewale.Ajax
             //}
             //catch (Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, "AjaxUserReviews.GetModels");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "AjaxUserReviews.GetModels");
+            //    
             //}
 
             //string jsonString = ds.Tables.Count > 0 ? JSON.GetJSONString(ds.Tables[0]) : "";

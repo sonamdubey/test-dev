@@ -72,7 +72,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("BikeInfoWidget.GetData({0},{1},{2},{3})", _modelId, _cityId, _tabCount, _pageId));
+                ErrorClass.LogError(ex, String.Format("BikeInfoWidget.GetData({0},{1},{2},{3})", _modelId, _cityId, _tabCount, _pageId));
             }
             return objVM;
         }
@@ -174,7 +174,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "VideoDetailsHelper.BindInfoWidgetDatas");
+                ErrorClass.LogError(ex, "VideoDetailsHelper.BindInfoWidgetDatas");
             }
             return tabs;
         }

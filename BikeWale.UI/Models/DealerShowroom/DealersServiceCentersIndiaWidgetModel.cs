@@ -39,7 +39,7 @@ namespace Bikewale.Models
             catch (System.Exception ex)
             {
 
-                ErrorClass er = new ErrorClass(ex, "DealersServiceCentersIndiaWidgetVM.GetData()");
+                ErrorClass.LogError(ex, "DealersServiceCentersIndiaWidgetVM.GetData()");
             }
             return objData;
         }

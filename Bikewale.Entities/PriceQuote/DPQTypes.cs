@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.Entities.PriceQuote
+﻿namespace Bikewale.Entities.PriceQuote
 {
     /// <summary>
     /// Modified By : Lucky Rathore on 17 March 2016.

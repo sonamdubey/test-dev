@@ -56,7 +56,7 @@ namespace BikeWaleOpr.manufacturecampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SearchManufacturerCampaign.BindManufacturerList");
+                ErrorClass.LogError(ex, "SearchManufacturerCampaign.BindManufacturerList");
             }
         }   // end of GetManufacturerList
 

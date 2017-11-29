@@ -1,5 +1,6 @@
 ﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.UserReviews;
@@ -80,7 +81,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
             return objBikeList;
         }
@@ -135,7 +136,7 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
             return objBikeList;
         }
@@ -203,7 +204,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return objReviewList;
@@ -271,7 +272,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
 
@@ -343,7 +344,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
             return objReviewList;
@@ -415,7 +416,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
             return objReviewList;
@@ -463,7 +464,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
             return objRate;
@@ -537,7 +538,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
 
@@ -617,7 +618,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format(" UserReviewsRepository.GetReviewDetails() --> ReviewId: {0}", reviewId));
+                ErrorClass.LogError(ex, string.Format(" UserReviewsRepository.GetReviewDetails() --> ReviewId: {0}", reviewId));
 
             }
 
@@ -655,7 +656,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
 
@@ -685,7 +686,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
 
@@ -719,7 +720,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
             return success;
@@ -861,7 +862,7 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return objData;
@@ -926,7 +927,7 @@ namespace Bikewale.DAL.UserReviews
             {
 
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsRepository.SaveUserReviewRatings() reviewId-{0} makeId-{1} modelId-{2}", reviewId, inputSaveEntity.MakeId, inputSaveEntity.ModelId));
+                ErrorClass.LogError(ex, string.Format("UserReviewsRepository.SaveUserReviewRatings() reviewId-{0} makeId-{1} modelId-{2}", reviewId, inputSaveEntity.MakeId, inputSaveEntity.ModelId));
             }
 
             return reviewIdNew;
@@ -975,7 +976,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return IsSaved;
@@ -1063,7 +1064,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
 
@@ -1098,7 +1099,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
 
@@ -1173,7 +1174,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetUserReviews");
+                ErrorClass.LogError(ex, "GetUserReviews");
 
             }
 
@@ -1229,7 +1230,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
 
@@ -1284,7 +1285,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass errObj = new ErrorClass(ex, String.Format("Bikewale.DAL.Used.Search.GetReviewQuestionValuesByModel({0})", modelId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.DAL.Used.Search.GetReviewQuestionValuesByModel({0})", modelId));
 
             }
 
@@ -1383,7 +1384,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
 
             return objBikeRatingReviewInfo;
@@ -1410,7 +1411,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass errObj = new ErrorClass(ex, string.Format("Bikewale.DAL.Used.Search.GetUserReviewSummaryWithRating {0}", reviewId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Used.Search.GetUserReviewSummaryWithRating {0}", reviewId));
             }
 
             return objUserReviewSummary;
@@ -1448,7 +1449,7 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.DAL.Used.Search.GetUserReviewSummaryWithRating");
+                ErrorClass.LogError(ex, "Bikewale.DAL.Used.Search.GetUserReviewSummaryWithRating");
             }
             return htResult;
         }
@@ -1528,7 +1529,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass errObj = new ErrorClass(ex, string.Format("UserReviewsRepository.GetReviewsIdListByModel  modelId {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("UserReviewsRepository.GetReviewsIdListByModel  modelId {0}", modelId));
             }
 
             return objIdList;
@@ -1653,7 +1654,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UserReviewsRepository.GetUserReviewSummaryList");
+                ErrorClass.LogError(ex, "UserReviewsRepository.GetUserReviewSummaryList");
             }
 
             return objSummaryList;
@@ -1679,7 +1680,7 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetRatingsList");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.UserReviews.GetRatingsList");
             }
 
             return objReviewsList;
@@ -1707,7 +1708,7 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.UserReviews.UserReviewsRepository.GetUserReviewsWinners");
+                ErrorClass.LogError(ex, "Bikewale.DAL.UserReviews.UserReviewsRepository.GetUserReviewsWinners");
             }
             return objReviewsWinnersList;
         }
@@ -1742,7 +1743,7 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format(" ModelVersionDescription.GetTopRatedBikes_topcount_{0}", topCount));
+                ErrorClass.LogError(err, string.Format(" ModelVersionDescription.GetTopRatedBikes_topcount_{0}", topCount));
             }
             return objTopRatedBikes;
         }
@@ -1777,7 +1778,7 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format(" ModelVersionDescription.GetTopRatedBikes_topcount_{0}_cityid_{1}", topCount, cityId));
+                ErrorClass.LogError(err, string.Format(" ModelVersionDescription.GetTopRatedBikes_topcount_{0}_cityid_{1}", topCount, cityId));
             }
             return objTopRatedBikes;
         }
@@ -1907,7 +1908,7 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.FetchPopularBikesWithExpertReviews_topcount_{0}_cityid_{1}_spName_{2}", topCount, cityId, spName));
+                ErrorClass.LogError(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.FetchPopularBikesWithExpertReviews_topcount_{0}_cityid_{1}_spName_{2}", topCount, cityId, spName));
             }
             return objBikesWithExpertReviews;
         }
@@ -1968,7 +1969,128 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.GetPopularBikesWithUserReviewsBy_Make_{0}", makeId));
+                ErrorClass.LogError(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.GetPopularBikesWithUserReviewsBy_Make_{0}", makeId));
+            }
+            return objBikesWithUserReviews;
+        }
+
+
+        /// <summary>
+        /// Created By:Snehal Dange on 17th Nov 2017
+        /// Description: Get most helpful and recent reviews of popular models by make
+        /// </summary>
+        /// <param name="makeId"></param>
+        public IEnumerable<BikesWithReviewByMake> GetBikesWithReviewsByMake(uint makeId)
+        {
+            IList<BikesWithReviewByMake> objBikesWithUserReviews = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    objBikesWithUserReviews = new List<BikesWithReviewByMake>();
+                    IList<PopularBikesWithUserReviews> objPopularModels = null;
+
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getreviewsofpopularbikesbymake"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            if (objBikesWithUserReviews != null)
+                            {
+                                if (dr != null)
+                                {
+                                    objPopularModels = new List<PopularBikesWithUserReviews>();
+                                    while (dr.Read())
+                                    {
+                                        objPopularModels.Add(new PopularBikesWithUserReviews()
+                                        {
+                                            Make = new BikeMakeEntityBase
+                                            {
+                                                MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                                MakeName = Convert.ToString(dr["make"]),
+                                                MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                            },
+                                            Model = new BikeModelEntityBase
+                                            {
+                                                ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                                ModelName = Convert.ToString(dr["model"]),
+                                                MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                            },
+                                            ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
+                                            RatingsCount = SqlReaderConvertor.ToUInt32(dr["ratingscount"]),
+                                            OverallRating = SqlReaderConvertor.ToFloat(dr["reviewrate"]),
+                                            OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                            HostUrl = Convert.ToString(dr["hosturl"])
+                                        });
+                                    }
+
+                                    BikesWithReviewByMake objModelReview = null;
+                                    if (objPopularModels.Any())
+                                    {
+                                        foreach (var obj in objPopularModels)
+                                        {
+                                            objModelReview = new BikesWithReviewByMake();
+                                            if (objModelReview != null)
+                                            {
+                                                objModelReview.BikeModel = obj;
+                                                objBikesWithUserReviews.Add(objModelReview);
+                                            }
+
+                                        }
+                                    }
+                                    uint modelid = 0;
+                                    Entities.UserReviews.V2.UserReviewSummary objRecentReviews = null;
+                                    if (dr.NextResult())
+                                    {
+                                        while (dr.Read())
+                                        {
+                                            modelid = SqlReaderConvertor.ToUInt32(dr["ModelId"]);
+                                            objRecentReviews = new Entities.UserReviews.V2.UserReviewSummary()
+                                            {
+                                                ReviewId = SqlReaderConvertor.ToUInt32(dr["Id"]),
+                                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["OverallRatingId"]),
+                                                Description = Convert.ToString(dr["StrippedReview"]),
+                                                Title = Convert.ToString(dr["Title"])
+                                            };
+
+                                            objBikesWithUserReviews.Where(m => m.BikeModel.Model.ModelId == modelid).FirstOrDefault().MostRecent = objRecentReviews;
+
+
+                                        }
+                                    }
+
+                                    Entities.UserReviews.V2.UserReviewSummary objHelpfulReviews = null;
+                                    if (dr.NextResult())
+                                    {
+                                        while (dr.Read())
+                                        {
+                                            modelid = SqlReaderConvertor.ToUInt32(dr["ModelId"]);
+                                            objHelpfulReviews = new Entities.UserReviews.V2.UserReviewSummary()
+                                            {
+                                                ReviewId = SqlReaderConvertor.ToUInt32(dr["Id"]),
+                                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["OverallRatingId"]),
+                                                Description = Convert.ToString(dr["StrippedReview"]),
+                                                Title = Convert.ToString(dr["Title"])
+                                            };
+
+                                            objBikesWithUserReviews.Where(m => m.BikeModel.Model.ModelId == modelid).FirstOrDefault().MostHelpful = objHelpfulReviews;
+
+                                        }
+                                    }
+                                    dr.Close();
+                                }
+                            }
+
+
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.GetBikesWithReviewsByMake_Make_{0}", makeId));
             }
             return objBikesWithUserReviews;
         }

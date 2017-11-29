@@ -84,8 +84,8 @@ namespace Bikewale.Mobile.Pricequote
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             finally
             {
@@ -138,8 +138,8 @@ namespace Bikewale.Mobile.Pricequote
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
 
         }
@@ -255,8 +255,8 @@ namespace Bikewale.Mobile.Pricequote
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
         #endregion
@@ -363,8 +363,8 @@ namespace Bikewale.Mobile.Pricequote
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("{0} {1}", Request.ServerVariables["URL"], "CheckCityCookie"));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("{0} {1}", Request.ServerVariables["URL"], "CheckCityCookie"));
+                
             }
         }
         #endregion

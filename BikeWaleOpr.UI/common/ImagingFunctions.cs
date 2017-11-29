@@ -1,20 +1,14 @@
 // Mails Class
 //
 using System;
-using System.Web;
-using System.Configuration;
-using System.Web.Mail;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Data.OleDb;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Web;
 
-namespace BikeWaleOpr.Common 
+namespace BikeWaleOpr.Common
 {
-	public class ImagingFunctions
+    public class ImagingFunctions
 	{	
 		public static void GenerateThumbnail ( string savedLocation, string targetLocation, int desiredWidth, int desiredHeight )
 		{

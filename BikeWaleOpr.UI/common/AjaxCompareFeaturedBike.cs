@@ -1,21 +1,8 @@
 using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.IO;
-using Ajax;
-using AjaxPro;
-
-using BikeWaleOpr.Common;
 
 namespace BikeWaleOpr
 {
-	public class AjaxCompareFeaturedBike
+    public class AjaxCompareFeaturedBike
 	{
 		
 		[AjaxPro.AjaxMethod()]
@@ -89,16 +76,16 @@ namespace BikeWaleOpr
             //catch (SqlException exerr)
             //{
 
-            //    ErrorClass objErr = new ErrorClass(exerr, "AjaxFunctions.UpdateLaunchDet");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(exerr, "AjaxFunctions.UpdateLaunchDet");
+            //    
             //    HttpContext.Current.Trace.Warn("error: " + exerr);
             //    //str = exerr.Message;
             //    status = false;
             //}
             //catch (Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, "AjaxCompareFeaturedBike.CopyComparedBikes");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "AjaxCompareFeaturedBike.CopyComparedBikes");
+            //    
             //    HttpContext.Current.Trace.Warn("ex err: " + err);
             //    status = false;
             //    //str = err.Message;
@@ -163,15 +150,15 @@ namespace BikeWaleOpr
             //catch (SqlException exerr)
             //{
 
-            //    ErrorClass objErr = new ErrorClass(exerr, "AjaxFunctions.UpdateLaunchDet");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(exerr, "AjaxFunctions.UpdateLaunchDet");
+            //    
             //    //str = exerr.Message;
             //    isInserted = false;
             //}
             //catch(Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err,"AjaxCompareFeaturedBike.SaveCompareFeaturedBike");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,"AjaxCompareFeaturedBike.SaveCompareFeaturedBike");
+            //    
             //    isInserted = false;
             //    //str = err.Message;
             //} 
@@ -202,8 +189,8 @@ namespace BikeWaleOpr
             //catch(Exception err)
             //{
             //    retVal = false;
-            //    ErrorClass objErr = new ErrorClass(err,"AjaxCompareFeaturedBike.DeleteCompareFeaturedBike");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,"AjaxCompareFeaturedBike.DeleteCompareFeaturedBike");
+            //    
             //} 
 			
             //return retVal;
@@ -227,8 +214,8 @@ namespace BikeWaleOpr
             //catch(Exception err)
             //{
             //    retVal = false;
-            //    ErrorClass objErr = new ErrorClass(err,"AjaxCompareFeaturedBike.DeleteFeaturedBike");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,"AjaxCompareFeaturedBike.DeleteFeaturedBike");
+            //    
             //} 
 			
 			//return retVal;
