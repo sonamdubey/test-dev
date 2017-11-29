@@ -333,7 +333,7 @@ namespace Bikewale.Models.BikeModels
                         }
 
                     }
-                    if (_objData.ModelPageEntity.ModelColors.Any())
+                    if (_objData.ModelPageEntity.ModelColors != null && _objData.ModelPageEntity.ModelColors.Any())
                     {
                         product.Color = _objData.ModelPageEntity.ModelColors.Select(x => x.ColorName);
                     }
