@@ -3113,6 +3113,7 @@
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
     <Content Include="src\dealer\landing.js" />
+    <Content Include="src\emi-calculator.js" />
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos\photos.js" />
@@ -3853,6 +3854,7 @@
     <Content Include="Views\Shared\_ServiceWorkerScript.cshtml" />
     <Content Include="Views\Shared\_CssChunksScript.cshtml" />
     <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Shared\_EmiCalculator.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

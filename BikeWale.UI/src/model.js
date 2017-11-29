@@ -543,7 +543,6 @@ docReady(function () {
         }
     });
 
-
     $('#insuranceLink').on('click', function (e) {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Insurance_Clicked_Model", "lab": myBikeName + "_" + icityArea });
     });

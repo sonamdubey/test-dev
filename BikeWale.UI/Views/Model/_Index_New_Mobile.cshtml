@@ -30,7 +30,7 @@
                     <div class="elevated-shadow-top">
                         @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs_Mobile.cshtml", Model)
                         <div class="clear"></div>
-                        <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <div class="padding-10-20 border-solid-bottom" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                             @if (Model.BikePrice > 0)
                             {
                                 <p class="font12 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price " : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price " : "Ex-showroom price ")) in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</p>
@@ -70,6 +70,10 @@
                                 }
                             </div>
                         </div>
+                        <div class="padding-10-20">
+                            <span id="mobileEmiCalculator"></span>
+                            <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link" id="emiCalculatorLink">know more</a>
+</div>
                         @if (Model.IsDealerDetailsExists || Model.DetailedDealer != null)
                         {
                             @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
@@ -84,6 +88,7 @@
                         }
                     </div>
                 </div>
+                @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model)
                 @if (Model.IsManufacturerLeadAdShown)
                 {
                     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
