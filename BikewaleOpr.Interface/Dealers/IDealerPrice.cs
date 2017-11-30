@@ -15,5 +15,8 @@ namespace BikewaleOpr.Interface.Dealers
              IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy);
         UpdatePricingRulesResponseEntity SaveVersionPriceQuotes(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds,
              IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, IEnumerable<uint> bikeModelIds, IEnumerable<string> bikeModelNames, uint enteredBy, uint makeId);
+
+        bool CopyDealerPriceToOtherDealer(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds,
+             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy);
     }
 }

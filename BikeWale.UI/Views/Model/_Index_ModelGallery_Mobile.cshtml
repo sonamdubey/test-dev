@@ -80,7 +80,7 @@
     @if (Model.IsVideosAvailable)
     {
         <li>
-            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Videos" : "Video")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga" data-cat="Model_Page" data-act="Video_Tab_Clicked" data-lab="@Model.BikeName">
+            <a title="@Model.BikeName @(Model.ModelPageEntity.ModelDetails.VideosCount > 1 ? "Videos" : "Video")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga" data-cat="Model_Page" data-act="Video_Tab_Clicked" data-lab="@Model.BikeName">
                 <span class="bwmsprite videos-sm"></span>
                 <span class="inline-block">
                     <span class="font12">@Model.ModelPageEntity.ModelDetails.VideosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelPageEntity.ModelDetails.VideosCount > 1 ? "videos" : "video")</span>

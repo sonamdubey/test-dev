@@ -3,8 +3,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/videosByModel.css' inline />";
-    //Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/videos/", Model.Make.MaskingName, Model.Model.MaskingName);
-    //Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/videos/", Model.Make.MaskingName, Model.Model.MaskingName);
     Model.IsHeaderFix = true;
 }
 
@@ -18,7 +16,7 @@
         <section id="section-videos-list">
             <div class="miscWrapper container">
                 <div class="grid-12">
-                    <h1 class="content-box-shadow padding-15-20">@Model.Make.MakeName @Model.Model.ModelName bike videos</h1>
+                    <h1 class="content-box-shadow padding-15-20">@Model.Make.MakeName @Model.Model.ModelName @(Model.bikeType.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooter" : "bike") videos</h1>
                     <div class="content-box-shadow">
                         <ul id="listVideos1">
                             @foreach (var video in Model.VideosList)
@@ -57,11 +55,11 @@
     }
 
     if (Model.BikeInfoWidgetData != null)
-    {  <section>
+    { 
      
                         @Html.Partial("~/Views/BikeModels/_BikeInfoCard.cshtml", Model.BikeInfoWidgetData)
             
-    </section>
+    
     }
 
     if (Model.SimilarBikeVideoList != null && Model.SimilarBikeVideoList.Count() > 0)
