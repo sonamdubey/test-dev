@@ -70,6 +70,18 @@
                                 }
                             </div>
                         </div>
+                        <div class="padding-left20 padding-right20 padding-bottom15">
+                            <span class="text-light-grey">
+                                EMI starting at
+                                <span>&#x20b9;</span> 1,835/month
+                            </span>
+                            <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link" id="emiCalculatorLink">
+                                <span id="mobileEmiCalculator"></span>
+                                know more
+                            </a>
+                            @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
+                            <span class="clear"></span>
+                        </div>
                         @if (Model.IsDealerDetailsExists || Model.DetailedDealer != null)
                         {
                             @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
@@ -83,7 +95,7 @@
                             </div>
                         }
                     </div>
-                </div>
+                </div>                
                 @if (Model.IsManufacturerLeadAdShown)
                 {
                     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)

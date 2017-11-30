@@ -1,0 +1,221 @@
+﻿.emi-popup {
+    height: auto;
+    width: 100%;
+    background-color: #fff;
+    z-index: 210;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.emi-popup-close-btn {
+    cursor: pointer;
+    top: 17px;
+    right: 20px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+}
+.emi-popup-close-btn:before,
+.emi-popup-close-btn:after {
+    position: absolute;
+    left: 7px;
+    content: ' ';
+    height: 17px;
+    width: 2px;
+    background-color: #484848;
+}
+.emi-popup-close-btn:before {
+    transform: rotate(45deg);
+}
+.emi-popup-close-btn:after {
+    transform: rotate(-45deg);
+}
+.emi-popup__title {
+    padding: 15px 40px 15px 20px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.emi-popup__label {
+    text-align: left;
+    width: 66.66666667%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+}
+.emi-popup__label-value {
+    width: 33.33333333%;
+    float: right;
+    position: relative;
+    text-align: right;
+}
+.total-emi-amount {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.emi-slider__container {
+    width: 100%;
+    padding-bottom: 20px;
+    padding-top: 5px;
+    border-top: 1px solid #e2e2e2;
+}
+.emi-slider-box {
+    padding: 10px 20px 20px;
+}
+.emi-slider-box-left-section {
+    width: 100%;
+    float: left;
+    font-size: 14px;
+}
+.ui-slider {
+    position: relative;
+    text-align: left;
+}
+.ui-widget-content {
+    background: #e6e6e6;
+    height: 3px;
+    margin: 20px 0 3px;
+    width: 100%;
+}
+.ui-slider .ui-slider-range {
+    border: none;
+    display: block;
+    font-size: 0.7em;
+    position: absolute;
+    z-index: 1;
+    border-radius: 0;
+    height: 3px;
+}
+.ui-widget-header {
+    background: #ef3030;
+    height: 4px;
+}
+.ui-slider .ui-slider-handle {
+    background-color: transparent;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    display: block;
+    margin-left: -15px;
+    position: absolute;
+    outline: none;
+    top: -13px;
+    z-index: 2;
+    background-position: 3px 3px;
+}
+.ui-slider .ui-slider-handle::after {
+    content: '';
+    display: block;
+    height: 17px;
+    width: 17px;
+    margin: 6px;
+    background-color: #ef3030;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+}
+
+.emi-calculator__amount-container {
+    padding: 10px 10px 15px;
+    border-top: 1px solid #e2e2e2;
+}
+.emi-quote__btn-block {
+    padding: 20px;
+    border-top: 1px solid #e2e2e2;
+}
+.emi-quote-btn {
+        font-weight: bold;
+        width: 100%;
+}
+.indicative-emi-amount {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+@media only screen and (min-width: 768px) {
+    .emi-popup {
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        width: 370px;
+        height: 526px;
+        position: fixed;
+        right: 5%;
+        left: 5%;
+        top: 6%;
+        margin: 0 auto;
+    }
+    .emi-popup-close-btn {
+        right: 20px;
+        width: 17px;
+        height: 17px;
+    }
+    .emi-popup-close-btn:before,
+    .emi-popup-close-btn:after {
+        height: 18px;
+    }
+    .emi-popup__title {
+        padding: 20px 40px 20px 25px;
+    }
+    .emi-calculator__amount-container {
+        padding-top: 31px;
+        padding-bottom: 31px;
+    }
+    .emi-popup__premium-dealer .emi-calculator__amount-container {
+        padding: 15px;
+    }
+    .indicative-emi-amount {
+        font-size: 20px;
+    }
+    .emi-slider__container {
+        padding-top: 20px;
+        padding-bottom: 27px;
+    }
+    .emi-popup__premium-dealer .emi-slider__container {
+        padding-top: 0;
+        padding-bottom: 10px;
+    }
+    .emi-quote__btn-block {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .ui-widget-content {
+        margin-top: 35px;
+    }
+}
+
+@media screen and ( max-height: 530px ){
+    .emi-popup__title {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .emi-calculator__amount-container .grid-5 {
+        padding-right: 0;
+    }
+    .emi-popup-close-btn {
+        top: 13px;
+    }
+    .emi-quote__btn-block {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .emi-slider-box {
+        padding-bottom: 10px;
+
+    }
+    .emi-slider__container {
+        padding-bottom: 13px;
+        padding-top: 0;
+    }
+    .emi-calculator__amount-container {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+}
+
+@media only screen and (max-device-height : 360px) and (max-device-width : 530px){ 
+   #emiPopup {
+       height: 100%;
+       overflow: scroll;
+   }
+}
