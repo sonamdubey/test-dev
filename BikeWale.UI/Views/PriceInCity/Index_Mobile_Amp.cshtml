@@ -118,7 +118,7 @@
                                     <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                                 }
                                 @{string returnUrl = string.Format("/m/{0}-bikes/{1}/price-in-{2}/", Model.Make.MaskingName, Model.BikeModel.MaskingName, Model.CityEntity.CityMaskingName); }
-                                <a href="@String.Format(@"{0}/m{1}?q={2}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("retUrl={0}", returnUrl)))">
+                                <a href="@String.Format(@"{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName))">
                                     <amp-img src="@Model.ModelImage" layout="responsive" width="86" height="48" alt="@Model.BikeName"></amp-img>
                                 </a>
                             </div>

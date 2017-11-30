@@ -74,7 +74,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objModelsList;
@@ -245,7 +245,7 @@ namespace Bikewale.DAL.BikeData
                             tempColor.ColorName = colorList.ColorName;
                             tempColor.ModelId = colorList.ModelId;
                             tempColor.ColorImageId = colorList.ColorImageId;
-                            HexCodeList.Add(colorList.HexCode);
+                            HexCodeList.Add(colorList.HexCode.Trim());
                         }
 
                         tempColor.HexCodes = HexCodeList;
@@ -318,7 +318,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
 
@@ -542,7 +542,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetModelDescription ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objModel;
         }   // End of GetModelDescription
@@ -585,13 +585,13 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetUpcomingBikeDetails sql ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetUpcomingBikeDetails ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objModel;
         }   // End of GetUpcomingBikeDetails
@@ -662,7 +662,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetUpcomingBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objModelList;
@@ -739,7 +739,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return newLaunchedBikes;
         }
@@ -811,7 +811,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return newLaunchedBikes;
         }
@@ -871,7 +871,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objList;
@@ -932,7 +932,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objList;
         }
@@ -1151,12 +1151,12 @@ namespace Bikewale.DAL.BikeData
             catch (SqlException ex)
             {
                 ErrorClass.LogError(ex, "Sql Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
-                
+
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
-                
+
             }
 
             return objFeatured;
@@ -1213,7 +1213,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
-                
+
             }
             return objList;
         }   //End of GetAllModels Method
@@ -1337,7 +1337,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsRepository.GetMostPopularBikesbymakecity");
-                
+
             }
             return objList;
         }
@@ -1454,7 +1454,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("BikeVersionsRepository<T, U>.GetModelSpecifications()=> modelId: {0}", modelId));
-                
+
             }
             return objMinspecs;
         }
@@ -1949,7 +1949,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("ManageModelColor.GetModelColorPhotos ==> ModelId {0}", modelId));
-                
+
             }
 
             return modelColors;
