@@ -9,15 +9,13 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
 using Bikewale.Models.Videos;
 using Bikewale.PWA.Utils;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using System.Linq;
-using Bikewale.Controls;
 using Bikewale.Utility;
-using Bikewale.Entities.Videos;
 using log4net;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Desktop.Videos
 {
@@ -251,7 +249,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
         }
 
-   /// <summary>
+        /// <summary>
         /// Created by Sajal Gupta on 01-04-2017
         /// Description : Controller for videos make wise page desktop 
         /// </summary>
@@ -278,7 +276,7 @@ namespace Bikewale.Controllers.Desktop.Videos
                 }
                 else
                 {
-                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objModel.objModelResponse.MaskingName));
+                    return RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objModel.objModelResponse.MaskingName));
                 }
             }
             else
@@ -313,7 +311,7 @@ namespace Bikewale.Controllers.Desktop.Videos
                 }
                 else
                 {
-                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objModel.objModelResponse.MaskingName));
+                    return RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objModel.objModelResponse.MaskingName));
                 }
             }
             else
@@ -359,7 +357,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         public ActionResult Makes_Mobile(string makeMaskingName)
         {
             MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos);
-            
+
             if (objModel.Status == Entities.StatusCodes.ContentFound)
             {
                 objModel.IsMobile = true;
@@ -418,7 +416,7 @@ namespace Bikewale.Controllers.Desktop.Videos
 
 
             return View(objVideosList);
-            
+
 
         }
         /// <summary>
@@ -448,7 +446,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
 
             return View(objVideosList);
-           
+
 
         }
 
@@ -470,7 +468,7 @@ namespace Bikewale.Controllers.Desktop.Videos
 
             if (objVM.ExpertReviewsWidgetData != null)
             {
-                topVideos.ExpertReviews = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.ExpertReviewsWidgetData.VideoList.Videos, 55,true);
+                topVideos.ExpertReviews = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.ExpertReviewsWidgetData.VideoList.Videos, 55, true);
             }
             //set other Videos            
             if (objVM.FirstLookWidgetData != null)
@@ -526,7 +524,8 @@ namespace Bikewale.Controllers.Desktop.Videos
             if (taggedModel != 0) //add related videos only if the model is tagged
             {
                 relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Video, string.Format("api/pwa/similarvideos/{0}/modelid/{1}", videoId, taggedModel)));
-            }else
+            }
+            else
                 relatedInfoList.Add(null);
             //    relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Video, string.Empty));
 
