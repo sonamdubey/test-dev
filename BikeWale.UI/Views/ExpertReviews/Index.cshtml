@@ -107,17 +107,47 @@
                 </div>
             </div>
             <div class="grid-4 omega">
-                @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
-                {
-                    <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                        <h2>@Model.MostPopularBikes.WidgetHeading</h2>
-                        @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
+                <div class="bw-tabs-panel content-box-shadow section-bottom-margin">
+                    <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+                        <ul>
+                            <li class="active" data-tabs="ctrlMostPopularBikes">
+                                <h2 class="bw-tabs__item bw-tabs-item--sm">Popular bikes</h2>
+                            </li>
+                            <li data-tabs="ctrlUpcomingBikes">
+                                <h2 class="bw-tabs__item bw-tabs-item--sm">Upcoming bikes</h2>
+                            </li>
+                        </ul>
+                    </div>
 
-                        <div class="view-all-btn-container padding-top10 padding-bottom10">
+                    <div id="ctrlMostPopularBikes" class="bw-tabs-data sidebar-list--overflow">
+                        @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
+                        <div class="view-all-btn-container padding-10-20-20">
                             <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularBikes.CtaText<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
-                }
+
+                    <div id="ctrlUpcomingBikes" class="bw-tabs-data sidebar-list--overflow hide">
+                        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
+                        <div class="view-all-btn-container padding-10-20-20">
+                            <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="grid-4 omega">
+                @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+{
+                <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                    <h2>@Model.MostPopularBikes.WidgetHeading</h2>
+                    @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
+
+                    <div class="view-all-btn-container padding-top10 padding-bottom10">
+                        <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularBikes.CtaText<span class="bwsprite teal-right"></span></a>
+                    </div>
+                </div>
+}
                 @if (Model.Model != null && Model.Model.ModelId > 0)
                 {
 
