@@ -99,8 +99,8 @@ namespace Bikewale.Controllers
                 return Redirect("/m/pagenotfound.aspx");
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
-            {                
-                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+            {
+                return RedirectPermanent(obj.redirectUrl);
             }
             else
             {
@@ -127,7 +127,7 @@ namespace Bikewale.Controllers
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
-                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+                return RedirectPermanent(obj.redirectUrl);
             }
             else
             {
@@ -155,7 +155,7 @@ namespace Bikewale.Controllers
                     else
                     {
                         objData = obj.GetData(9);
-                        return View("~/Views/News/Index_Mobile.cshtml", objData);                       
+                        return View("~/Views/News/Index_Mobile.cshtml", objData);
                     }
                 }
             }
@@ -235,7 +235,7 @@ namespace Bikewale.Controllers
                 {
                     if (_enablePWA)
                     {
-                        return View(objData);                        
+                        return View(objData);
                     }
                     else
                     {
