@@ -60,9 +60,10 @@
 									{
 										<div class="font12 margin-top5 position-rel">
 											<span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
-											<span class="bwsprite emi-info tooltip-icon-target">
+                                            <span class="bwsprite emi-info tooltip-icon-target margin-right20">
 												<span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">EMI is calculated based on @Model.EMIDetails.RateOfInterest% for a tenure of @Model.EMIDetails.Tenure months</span></span>
 											</span>
+                                            <a href="javascript:void(0)" rel="nofollow" id="emiCalculatorLink">Calculate EMI</a>
 										</div>
 									}
 									<div class="clear"></div>
@@ -109,6 +110,7 @@
 									<div class="clear"></div>
 								}
 							</div>
+                            @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model)
 							@if (Model.IsPrimaryDealer || Model.IsManufacturerLeadAdShown)
 							{
 								@Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Right.cshtml", Model)
