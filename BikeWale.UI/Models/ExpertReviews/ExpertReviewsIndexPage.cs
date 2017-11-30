@@ -137,6 +137,10 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData);
                     GetWidgetData(objData, widgetTopCount);
+                    if (objData.Model != null)
+                    {
+                        objData.Series = _models.GetSeriesByModelId(ModelId);
+                    }
                     SetBreadcrumList(objData);
                 }
                 else
@@ -268,8 +272,10 @@ namespace Bikewale.Models
         /// </summary>
         private void SetPageMetas(ExpertReviewsIndexPageVM objData)
         {
-            objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
-            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+            objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+            
+
             if (ModelId > 0)
             {
                 objData.PageMetaTags.Title = string.Format("{0} {1} Expert Reviews India - Bike Comparison & Road Tests - BikeWale", objMake.MakeName, objModel.ModelName);
@@ -279,7 +285,7 @@ namespace Bikewale.Models
                 objData.AdTags.TargetedModel = objModel.ModelName;
                 objData.AdTags.TargetedMakes = objMake.MakeName;
             }
-            else if(objData.Series != null && objData.Series.SeriesId > 0)
+            else if(objData.Series != null && objData.Series.IsSeriesPageUrl && objData.Series.SeriesId > 0)
             {
                 objData.PageMetaTags.Title = string.Format("Expert Reviews about {0} {1} bikes in India | {1} bikes Comparison & Road Tests - BikeWale", objMake.MakeName, objSeries.SeriesName);
                 objData.PageMetaTags.Description = string.Format("Read the latest expert reviews on all {0} {1} bikes on BikeWale. Read about {0} {1} comparison tests and road tests exclusively on BikeWale", objMake.MakeName, objSeries.SeriesName);
@@ -473,7 +479,7 @@ namespace Bikewale.Models
             try
             {
                 IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-                string bikeUrl, scooterUrl;
+                string bikeUrl, scooterUrl, seriesUrl;
                 bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
                 ushort position = 1;
                 if (IsMobile)
@@ -491,13 +497,7 @@ namespace Bikewale.Models
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objData.Make.MakeName)));
                 }
 
-                if (objData.Series != null)
-                {
-                    bikeUrl = string.Format("{0}{1}/", bikeUrl, objData.Series.MaskingName);
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, objData.Series.SeriesName));
-                }
-
-                if (objData.Model != null && objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(objData.Make.IsScooterOnly))
+                if ((objData.Model != null || (objData.Series != null && objData.Series.IsSeriesPageUrl)) && objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(objData.Make.IsScooterOnly))
                 {
                     if (IsMobile)
                     {
@@ -506,6 +506,12 @@ namespace Bikewale.Models
                     scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objData.Make.MaskingName);
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objData.Make.MakeName)));
+                }
+
+                if (objData.Series != null && objData.Series.IsSeriesPageUrl)
+                {
+                    seriesUrl = string.Format("{0}{1}/", bikeUrl, objData.Series.MaskingName);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, objData.Series.SeriesName));
                 }
 
                 if (objData.Model != null)

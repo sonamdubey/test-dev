@@ -1,4 +1,8 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
@@ -7,10 +11,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -1478,6 +1478,28 @@ namespace Bikewale.Cache.BikeData
 
             }
             return mileageInfo;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 28th Nov 2017
+        /// Description : Cache layer for getting series entity for given model id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeSeriesEntityBase GetSeriesByModelId(uint modelId)
+        {
+            BikeSeriesEntityBase objSeries = null;
+            string key = string.Empty;
+            try
+            {
+                key = string.Format("BW_SeriesForModel_{0}", modelId);
+                objSeries = _cache.GetFromCache<BikeSeriesEntityBase>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetSeriesByModelId(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetSeriesByModelId modelId = {0}", modelId));
+            }
+            return objSeries;
         }
     }
 }

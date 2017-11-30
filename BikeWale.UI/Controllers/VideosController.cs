@@ -1,4 +1,8 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PWA.Articles;
@@ -12,10 +16,6 @@ using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using log4net;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Desktop.Videos
 {
@@ -35,13 +35,15 @@ namespace Bikewale.Controllers.Desktop.Videos
         private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
         private readonly IBikeSeries _series = null;
+        private readonly IBikeModels<BikeModelEntity, int> _models;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache;
 
 
         static ILog _logger = LogManager.GetLogger("Pwa-Logger-VideoController");
 
         public VideosController(ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCache, IVideosCacheRepository videos, IVideos video, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache,
             IPWACMSCacheRepository renderedArticles,
-             IBikeModelsCacheRepository<int> modelCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+             IBikeModelsCacheRepository<int> modelCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IBikeModels<BikeModelEntity, int> models, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
             _videos = videos;
             _video = video;
@@ -52,7 +54,9 @@ namespace Bikewale.Controllers.Desktop.Videos
             _renderedArticles = renderedArticles;
             _modelCache = modelCache;
             _seriesCache = seriesCache;
+            _models = models;
             _series = series;
+            _objBikeVersionsCache = objBikeVersionsCache;
         }
 
         /// <summary>
@@ -266,7 +270,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("videos/make/{makeMaskingName}/model/{modelMaskingName}")]
         public ActionResult Models(string makeMaskingName, string modelMaskingName)
         {
-            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series);
+            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objBikeVersionsCache);
             if (objModel != null)
             {
                 if (objModel.makeStatus == Entities.StatusCodes.ContentFound)
@@ -321,7 +325,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("m/videos/make/{makeMaskingName}/model/{modelMaskingName}")]
         public ActionResult Models_Mobile(string makeMaskingName, string modelMaskingName)
         {
-            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series);
+            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objBikeVersionsCache);
             if (objModel != null)
             {
                 if (objModel.makeStatus == Entities.StatusCodes.ContentFound)
