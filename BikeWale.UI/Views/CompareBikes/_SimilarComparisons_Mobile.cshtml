@@ -10,7 +10,7 @@
                     string bike2 = string.Format("{0} {1}", bikedetails.Make2, bikedetails.Model2);
                     <div class="swiper-slide">
                         <div class="swiper-card rounded-corner2">
-                            <a href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMasking1, bikedetails.MakeMasking2, bikedetails.ModelMasking2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2),bikedetails.ModelId1,bikedetails.ModelId2, Model.CompareSource)" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)" class="block">
+                            <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails))" data-url="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMasking1, bikedetails.MakeMasking2, bikedetails.ModelMasking2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2),bikedetails.ModelId1,bikedetails.ModelId2, Model.CompareSource)" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)" class="block redirect-url">
                                 <span class="text-light-grey position-abt pos-top0 pos-right0 font10">@(bikedetails.IsSponsored ? "Sponsored" : "")</span>
                                 <h3 class="font12 text-black text-center margin-bottom10">@string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2)</h3>
                                 <div class="grid-6">
