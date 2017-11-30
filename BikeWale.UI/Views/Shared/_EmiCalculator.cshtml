@@ -1,4 +1,6 @@
-﻿<div id="emiPopup" data-bind="visible: true" style="display: none;" class="emi-popup__premium-dealer emi-popup hide">
+﻿@model Bikewale.Models.EMICalculatorVM
+<div id="emiPopup" data-bikeversionprice="@Model.BikePrice" data-bind="visible: true" style="display: none;" class="@((Model.ESEMICampaign != null || Model.IsPremiumDealer) ? "emi-popup__premium-dealer" : "") emi-popup hide">
+    <input type="hidden" id="emiWidgetInitialValues" value="@Model.EMIJsonBase64" />
     <div class="emi-popup-close-btn"></div>
     <p class="emi-popup__title">EMI Calculator</p>
     <div class="finance-emi-container">
@@ -100,10 +102,28 @@
         </div>
 
         <div class="clear"></div>
-        <div class="emi-quote__btn-block">
-            <a id="btnEmiQuote" href="javascript:void(0)" rel="nofollow" class="btn btn-white emi-quote-btn leadcapturebtn">Get EMI quote</a>
-        </div>
-
-        @*<a id="btnEmiQuote" class="btn btn-orange text-bold emi-quote-btn leadcapturebtn" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" data-leadsourceid="18" data-item-registerpq="false" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="@(String.Format("EMI_Calculator_{0}_{1}", PrimaryDealerDetails.objCity.CityName, PrimaryDealerDetails.objArea.AreaName))">Get EMI quote from dealer</a>*@
-    </div>
+        
+            @if (Model.ESEMICampaign != null)
+            {
+                <div class="emi-quote__btn-block">
+                    @if (Model.ESEMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                    {
+                    <a id="btnEmiQuote" class="btn btn-white emi-quote-btn bw-ga" rel="nofollow" href="/finance/capitalfirst/?campaingid=@Model.ESEMICampaign.CampaignId&amp;dealerid=@Model.ESEMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.ESEMICampaign.LeadSourceId&amp;versionid=@Model.ESEMICampaign.VersionId&amp;url=@Model.ESEMICampaign.CurrentPageUrl&amp;platformid=@Model.ESEMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.ESEMICampaign.LoanAmount">@(Model.IsMobile ? Model.ESEMICampaign.EMIButtonTextMobile : Model.ESEMICampaign.EMIButtonTextDesktop)</a>
+                    }
+                    else
+                    {
+                    <a id="btnEmiQuote" href="javascript:void(0)" class="btn btn-white emi-quote-btn leadcapturebtn bw-ga" rel="nofollow" data-mfgcampid="@Model.ESEMICampaign.CampaignId" data-item-id="@Model.ESEMICampaign.DealerId" data-item-area="@Model.ESEMICampaign.Area" data-leadsourceid="@Model.ESEMICampaign.LeadSourceId" data-pqsourceid="@Model.ESEMICampaign.PqSourceId" data-item-message="@String.Format(Model.ESEMICampaign.PopupSuccessMessage, Model.ESEMICampaign.Organization)" data-item-heading="@Model.ESEMICampaign.PopupHeading" data-item-description="@Model.ESEMICampaign.PopupDescription" data-ispincodrequired="@Model.ESEMICampaign.PincodeRequired" data-dealersrequired="@Model.ESEMICampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.ESEMICampaign.Organization))" id="btnManufacturer" data-isemailrequired="@Model.ESEMICampaign.EmailRequired">@(Model.IsMobile ? Model.ESEMICampaign.EMIButtonTextMobile : Model.ESEMICampaign.EMIButtonTextDesktop)</a>
+                    }
+                </div>
+            }
+            else
+            {
+                if (Model.IsPremiumDealer)
+                {
+                    <div class="emi-quote__btn-block">
+                        <a id="btnEmiQuote" class="btn btn-white emi-quote-btn leadcapturebtn" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="18" data-item-registerpq="false" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerDetails.objArea.AreaName" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="@(String.Format("EMI_Calculator_{0}_{1}", Model.DealerDetails.objCity.CityName, Model.DealerDetails.objArea.AreaName))">Get EMI quote</a>
+                    </div>
+                }
+            }
+                    </div>
 </div>

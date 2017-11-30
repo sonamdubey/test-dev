@@ -21,6 +21,8 @@ namespace Bikewale.Models.BikeModels
     /// Description : Removed IsGstPrice property
     /// Modified by : Vivek Singh Tomar on 12th Oct 2017
     /// Summary : Removed service center property
+    /// Modified by :   Sumit Kate on 30 Nov 2017
+    /// Description :   Added EMICalculator
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -134,7 +136,7 @@ namespace Bikewale.Models.BikeModels
 
         public bool IsMileageByUsersAvailable { get; set; }
 
-
+        public EMICalculatorVM EMICalculator { get; set; }
     }
 
 }

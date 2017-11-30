@@ -65,7 +65,8 @@
 											</span>
                                             <a href="javascript:void(0)" rel="nofollow" id="emiCalculatorLink">Calculate EMI</a>
 										</div>
-									}
+                                    @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
+                                    }
 									<div class="clear"></div>
 
 
@@ -91,8 +92,9 @@
 											<span class="bwsprite emi-info tooltip-icon-target">
 												<span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">EMI is calculated based on @Model.EMIDetails.RateOfInterest% for a tenure of @Model.EMIDetails.Tenure months</span></span>
 											</span>
-										</div>
-									}
+										</div>      
+                                    @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
+                                    }
 									<div class="clear"></div>
 								}
 								else
@@ -109,8 +111,7 @@
 
 									<div class="clear"></div>
 								}
-							</div>
-                            @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model)
+							</div>                            
 							@if (Model.IsPrimaryDealer || Model.IsManufacturerLeadAdShown)
 							{
 								@Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Right.cshtml", Model)
@@ -199,7 +200,7 @@
 		@Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)
 	</div>
 </section>
-@if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown))
+@if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
 {
 
 	@Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)

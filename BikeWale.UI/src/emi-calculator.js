@@ -31,6 +31,13 @@ $('body').on('click', "#emiCalculatorLink", function (e) {
     emiCalculator.open(emiPopup);
 });
 
+$('body').on('keypress', function (e) {
+    if (e.keyCode === 27 && $("#emiPopup") && $("#emiPopup").is(":visible")) {
+        emiCalculator.close(emiPopup);
+        window.history.back();
+    }
+});
+
 $('#emiPopup .emi-popup-close-btn, .blackOut-window').mouseup(function () {
     emiCalculator.close(emiPopup);
     window.history.back();
@@ -55,10 +62,6 @@ $(window).on('popstate', function (event) {
         emiCalculator.close($('#leadCapturePopup'));
     }
 });
-
-
-/* emi calculator */
-bikeVersionPrice = "69278";
 
 ko.bindingHandlers.slider = {
     init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
@@ -92,18 +95,25 @@ ko.bindingHandlers.slider = {
     }
 };
 
-var BikeEMI = function () {
+var BikeEMI = function (bikeVersionPrice,emiObj) {
     var self = this;
+    self.minDownPayment = emiObj.minDownPayment === undefined ? (10 * bikeVersionPrice / 100) : emiObj.minDownPayment;
+    self.maxDownPayment = emiObj.maxDownPayment === undefined ? (40 * bikeVersionPrice / 100) : emiObj.maxDownPayment;
+    self.minTen = emiObj.minTenure === undefined ? 12 : emiObj.minTenure;
+    self.maxTen = emiObj.maxTenure === undefined ? 48 : emiObj.maxTenure;
+    self.minRateOfInterest = emiObj.minRateOfInterest === undefined ? 10 : emiObj.minRateOfInterest;
+    self.maxRateOfInterest = emiObj.maxRateOfInterest === undefined ? 15 : emiObj.maxRateOfInterest;
+    self.processingFee = emiObj.processingFee === undefined ? 0 : emiObj.processingFee;
     self.breakPoints = ko.observable(5);
     self.bikePrice = ko.observable(bikeVersionPrice);
-    self.minDnPay = ko.observable(10 * bikeVersionPrice / 100);
-    self.maxDnPay = ko.observable(40 * bikeVersionPrice / 100);
-    self.minTenure = ko.observable(12);
-    self.maxTenure = ko.observable(48);
-    self.minROI = ko.observable(10);
-    self.maxROI = ko.observable(15);
+    self.minDnPay = ko.observable(self.minDownPayment);
+    self.maxDnPay = ko.observable(self.maxDownPayment);
+    self.minTenure = ko.observable(self.minTen);
+    self.maxTenure = ko.observable(self.maxTen);
+    self.minROI = ko.observable(self.minRateOfInterest);
+    self.maxROI = ko.observable(self.maxRateOfInterest);
 
-    self.processingFees = ko.observable(0);
+    self.processingFees = ko.observable(self.processingFee);
     self.exshowroomprice = ko.observable(bikeVersionPrice);
     self.loan = ko.observable();
 
@@ -195,8 +205,13 @@ $.valueFormatter = function (num) {
 var EMIviewModel;
 
 try {
-    EMIviewModel = new BikeEMI;
-    ko.applyBindings(EMIviewModel, $("#emiPopup")[0]);
+    var emiPopupWidget = $("#emiPopup");
+    if (emiPopupWidget && emiPopupWidget.length > 0) {
+        bikeVersionPrice = emiPopupWidget.data("bikeversionprice");
+        var emiObj = $("#emiWidgetInitialValues").val() ? JSON.parse(atob($("#emiWidgetInitialValues").val())) : {};
+        EMIviewModel = new BikeEMI(bikeVersionPrice, emiObj);
+        ko.applyBindings(EMIviewModel, emiPopupWidget[0]);
+    }
 } catch (e) {
     console.log(e.message);
 }
