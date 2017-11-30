@@ -92,7 +92,7 @@ namespace Bikewale.Controllers
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
-                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+                return RedirectPermanent(obj.redirectUrl);
             }
             else
             {

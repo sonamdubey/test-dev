@@ -16,6 +16,9 @@ using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using log4net;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Desktop.Videos
 {
@@ -300,7 +303,7 @@ namespace Bikewale.Controllers.Desktop.Videos
                     }
                     else
                     {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objModel.objMaskingResponse.NewMaskingName));
+                    return RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objModel.objModelResponse.MaskingName));
                     }
 
                 }
@@ -357,7 +360,7 @@ namespace Bikewale.Controllers.Desktop.Videos
                     }
                     else
                     {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objModel.objMaskingResponse.NewMaskingName));
+                    return RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objModel.objModelResponse.MaskingName));
                     }
 
                 }
