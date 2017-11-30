@@ -158,7 +158,7 @@ namespace Bikewale.Cache.BikeData
 
             try
             {
-                System.Collections.Hashtable objMaskingtable = _cache.GetFromCache<System.Collections.Hashtable>("BW_ModelSeries_MaskingNames", new TimeSpan(1, 0, 0, 0), () => _bikeSeriesRepository.GetMaskingNames());
+                System.Collections.Hashtable objMaskingtable = _cache.GetFromCache<System.Collections.Hashtable>("BW_ModelSeries_MaskingNames_v1", new TimeSpan(1, 0, 0, 0), () => _bikeSeriesRepository.GetMaskingNames());
 
                 if (objMaskingtable != null && objMaskingtable.Contains(maskingName))
                 {

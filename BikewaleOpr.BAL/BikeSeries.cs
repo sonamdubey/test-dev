@@ -127,6 +127,8 @@ namespace BikewaleOpr.BAL
         /// <summary>
         /// Created by : Ashutosh Sharma on 12-Sep-2017
         /// Description : BAL Method to edit bike series
+        /// Modified by : Ashutosh Sharma on 30 Nov 2017
+        /// Description : Added logic to model page cache clear.
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="updatedBy"></param>
@@ -175,6 +177,16 @@ namespace BikewaleOpr.BAL
                             BwMemCache.ClearModelsBySeriesId(seriesId);
                             BwMemCache.ClearMaskingMappingCache();
                             BwMemCache.ClearSeriesCache(seriesId, makeId);
+                            string modelIds = _seriesRepo.GetModelIdsBySeries(seriesId);
+                            if (!string.IsNullOrEmpty(modelIds))
+                            {
+                                string[] arrModelIds = modelIds.Split(',');
+                                foreach (var modelId in arrModelIds)
+                                {
+                                    BwMemCache.ClearVersionDetails(Convert.ToUInt32(modelId));
+                                }
+                            }
+                            
                         }
                     }
                 }
@@ -189,6 +201,8 @@ namespace BikewaleOpr.BAL
         /// <summary>
         /// Created by : Ashutosh Sharma on 12-Sep-2017
         /// Description : BAL Method to delete bike series
+        /// Modified by : Ashutosh Sharma on 30 Nov 2017
+        /// Description : Added logic to model page cache clear.
         /// </summary>
         /// <param name="bikeSeriesId"></param>
         /// <returns></returns>
@@ -205,6 +219,15 @@ namespace BikewaleOpr.BAL
                         BwMemCache.ClearModelsBySeriesId(bikeSeriesId);
                         BwMemCache.ClearMaskingMappingCache();
                         BwMemCache.ClearSeriesCache(bikeSeriesId, 0);
+                        string modelIds = _seriesRepo.GetModelIdsBySeries(bikeSeriesId);
+                        if (!string.IsNullOrEmpty(modelIds))
+                        {
+                            string[] arrModelIds = modelIds.Split(',');
+                            foreach (var modelId in arrModelIds)
+                            {
+                                BwMemCache.ClearVersionDetails(Convert.ToUInt32(modelId));
+                            }
+                        }
                     }
                 }
             }
