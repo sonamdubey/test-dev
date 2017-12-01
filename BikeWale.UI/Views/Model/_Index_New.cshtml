@@ -63,7 +63,7 @@
                                             <span class="bwsprite emi-info tooltip-icon-target margin-right20">
 												<span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">EMI is calculated based on @Model.EMIDetails.RateOfInterest% for a tenure of @Model.EMIDetails.Tenure months</span></span>
 											</span>
-                                            <a href="javascript:void(0)" rel="nofollow" id="emiCalculatorLink" class="bw-ga" data-cat="Model_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@Model.ModelPageEntity.ModelDetails.ModelName">Calculate EMI</a>
+                                            <a href="javascript:void(0)" rel="nofollow" id="emiCalculatorLink" class="bw-ga" data-cat="Model_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@Model.BikeName.Replace(" ", "_")">Calculate EMI</a>
 										</div>
                                     @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
                                     }
