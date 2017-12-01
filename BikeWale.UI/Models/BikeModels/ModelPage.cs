@@ -1,4 +1,9 @@
-﻿using Bikewale.BindViewModels.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.common;
 using Bikewale.DTO.PriceQuote;
@@ -34,11 +39,6 @@ using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -679,13 +679,13 @@ namespace Bikewale.Models.BikeModels
                             if (_objData.BikePrice > 0)
                             {
                                 _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
-                                BindEMICalculator(_objData.BikePrice);
+                                BindEMICalculator();
 
                             }
                             else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
                             {
                                 _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
-                                BindEMICalculator(_objData.SelectedVersion.AverageExShowroom);
+                                BindEMICalculator();
                             }
                         }
                     }
@@ -932,10 +932,10 @@ namespace Bikewale.Models.BikeModels
         }
 
         /// <summary>
-        /// Created by  :   Sumit Kate on 30 Nov 2017
+        /// Created by      :   Sumit Kate on 30 Nov 2017
         /// Descriptiion    :   Bind EMI calculator widget on model page
         /// </summary>
-        private void BindEMICalculator(uint bikePrice)
+        private void BindEMICalculator()
         {
             try
             {
@@ -945,6 +945,8 @@ namespace Bikewale.Models.BikeModels
                 _objData.EMICalculator.PQId = _objData.PQId;
                 _objData.EMICalculator.IsPremiumDealer = _objData.IsPremiumDealer;
                 _objData.EMICalculator.DealerDetails = _objData.DealerDetails;
+                _objData.EMICalculator.PremiumDealerLeadSourceId = LeadSource;
+                _objData.EMICalculator.BikeName = _objData.BikeName;
             }
             catch (Exception ex)
             {
