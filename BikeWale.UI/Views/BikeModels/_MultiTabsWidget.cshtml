@@ -1,0 +1,49 @@
+﻿@model Bikewale.Models.BikeModels.MultiTabsWidgetVM
+
+<div class="bw-tabs-panel content-box-shadow section-bottom-margin">
+    <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+        <ul>
+            <li class="active" data-tabs="@Model.TabId1">
+                <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.TabHeading1</h2>
+            </li>
+            <li data-tabs="@Model.TabId2">
+                <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.TabHeading2</h2>
+            </li>
+        </ul>
+    </div>
+    <div id="@Model.TabId1" class="bw-tabs-data sidebar-list--overflow">
+        @switch ((uint)Model.Pages)
+        {
+            case 1:
+                @Html.Partial(@Model.ViewPath1, Model.MostPopularBikes)
+                break;
+            case 2:
+                @Html.Partial(@Model.ViewPath1, Model.UpcomingBikes)
+                break;
+        }
+        @if (Model.ShowViewAllLink1)
+        {
+            <div class="view-all-btn-container padding-10-20-20">
+                <a href="@Model.ViewAllHref1" title="@Model.ViewAllTitle1" class="btn view-all-target-btn">@Model.ViewAllText1<span class="bwsprite teal-right"></span></a>
+            </div>
+        }
+    </div>
+    <div id="@Model.TabId2" class="bw-tabs-data sidebar-list--overflow hide">
+        @switch ((uint)Model.Pages)
+        {
+            case 1:
+                @Html.Partial(@Model.ViewPath2, Model.MostPopularScooters)
+                break;
+            case 2:
+                @Html.Partial(@Model.ViewPath1, Model.UpcomingScooters)
+                break;
+        }
+        @if (Model.ShowViewAllLink2)
+        {
+            <div class="view-all-btn-container padding-10-20-20">
+                <a href="@Model.ViewAllHref2" title="@Model.ViewAllTitle2" class="btn view-all-target-btn">@Model.ViewAllText2<span class="bwsprite teal-right"></span></a>
+            </div>
+        }
+    </div>
+</div>
+            
