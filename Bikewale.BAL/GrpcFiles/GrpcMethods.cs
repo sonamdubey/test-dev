@@ -85,7 +85,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
@@ -149,7 +149,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
@@ -225,7 +225,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
@@ -449,7 +449,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
 
                     sw.Stop();
@@ -517,7 +517,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
 
                     sw.Stop();

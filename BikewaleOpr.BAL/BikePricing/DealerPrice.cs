@@ -103,14 +103,14 @@ namespace BikewaleOpr.BAL.BikePricing
                     var compare = new VersionPriceEntityComparer();
                     for (int i = 0; i < dealerVersionPrices.Count(); i++)
                     {
-                        if (dealerVersionPrices[i].Categories.Count() != partialNullCategories.Count())
+                        if (dealerVersionPrices[i].Categories.Count() != partialNullCategories.Count)
                         {
                             dealerVersionPrices[i].Categories = dealerVersionPrices[i].Categories.Union(partialNullCategories, compare).OrderBy(category => category.ItemCategoryId);
                         }
                     }
 
                 }
-                else if (dealerPriceBase != null && dealerPriceBase.DealerVersions != null || dealerPriceBase.VersionPrices.Count() == 0)
+                else if (dealerPriceBase != null && (dealerPriceBase.DealerVersions != null || !dealerPriceBase.VersionPrices.Any()))
                 {
                     dealerVersionPrices = Convert(dealerPriceBase.DealerVersions);
                     foreach (DealerVersionPriceEntity dealerVersionEntity in dealerVersionPrices)
