@@ -1,13 +1,15 @@
-﻿using Bikewale.Entities.Location;
+﻿using System;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Newtonsoft.Json;
-using System;
 
 namespace Bikewale.Entities.BikeBooking
 {
     /// <summary>
     /// Modified By :Sangram Nandkhile on 29 Dec 2016
     /// Description : Added DisplayTextLarge, DisplayTextSmall
+    /// Modified by :   Vivek Singh Tomar on 01st Nov 2017
+    /// Description :   Added LeadSourceEnum to capture dealer lead source id
     /// </summary>
     public class NewBikeDealers
     {
@@ -64,6 +66,9 @@ namespace Bikewale.Entities.BikeBooking
 
         [JsonProperty("isDSA")]
         public bool IsDSA { get; set; }
+
+        [JsonProperty("premiumDealerLeadSourceId")]
+        public LeadSourceEnum PremiumDealerLeadSourceId { get; set; }
 
     }   //End of Class
 }   //End of namespace

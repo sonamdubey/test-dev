@@ -108,7 +108,7 @@
                 <div class="emi-quote__btn-block">
                     @if (Model.ESEMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                     {
-                    <a id="btnEmiQuote" class="btn btn-white emi-quote-btn bw-ga" rel="nofollow" href="/finance/capitalfirst/?campaingid=@Model.ESEMICampaign.CampaignId&amp;dealerid=@Model.ESEMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.ESEMICampaign.LeadSourceId&amp;versionid=@Model.ESEMICampaign.VersionId&amp;url=@Model.ESEMICampaign.CurrentPageUrl&amp;platformid=@Model.ESEMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.ESEMICampaign.LoanAmount">@(Model.IsMobile ? Model.ESEMICampaign.EMIButtonTextMobile : Model.ESEMICampaign.EMIButtonTextDesktop)</a>
+                    <a id="btnEmiQuote" class="btn btn-white emi-quote-btn bw-ga" rel="nofollow" href="@(Model.IsMobile?"/m":"")/finance/capitalfirst/?campaingid=@Model.ESEMICampaign.CampaignId&amp;dealerid=@Model.ESEMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.ESEMICampaign.LeadSourceId&amp;versionid=@Model.ESEMICampaign.VersionId&amp;url=@Model.ESEMICampaign.CurrentPageUrl&amp;platformid=@Model.ESEMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.ESEMICampaign.LoanAmount">@(Model.IsMobile ? Model.ESEMICampaign.EMIButtonTextMobile : Model.ESEMICampaign.EMIButtonTextDesktop)</a>
                     }
                     else
                     {
@@ -121,9 +121,9 @@
                 if (Model.IsPremiumDealer)
                 {
                     <div class="emi-quote__btn-block">
-                        <a id="btnEmiQuote" class="btn btn-white emi-quote-btn leadcapturebtn" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="18" data-item-registerpq="false" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerDetails.objArea.AreaName" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="@(String.Format("EMI_Calculator_{0}_{1}", Model.DealerDetails.objCity.CityName, Model.DealerDetails.objArea.AreaName))">Get EMI quote</a>
+                        <a id="btnEmiQuote" class="btn btn-white emi-quote-btn leadcapturebtn" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@(Convert.ToInt32(Model.DealerDetails.PremiumDealerLeadSourceId))" data-item-registerpq="false" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerDetails.objArea.AreaName" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="@(String.Format("EMI_Calculator_{0}_{1}", Model.DealerDetails.objCity.CityName, Model.DealerDetails.objArea.AreaName))">Get EMI quote</a>
                     </div>
                 }
             }
-                    </div>
+    </div>
 </div>

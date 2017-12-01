@@ -1,6 +1,7 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 @using Bikewale.Common;
 @using Bikewale.BikeBooking;
+@using Bikewale.Utility;
 <section>
     @{
         string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
@@ -70,18 +71,21 @@
                                 }
                             </div>
                         </div>
-                        <div class="padding-left20 padding-right20 padding-bottom15">
-                            <span class="text-light-grey">
-                                EMI starting at
-                                <span>&#x20b9;</span> 1,835/month
-                            </span>
-                            <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link" id="emiCalculatorLink">
-                                <span id="mobileEmiCalculator"></span>
-                                know more
-                            </a>
-                            @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
-                            <span class="clear"></span>
-                        </div>
+                        @if (Model.BikePrice > 0 && Model.EMIDetails != null && Model.EMICalculator != null)
+                        {
+                            <div class="padding-left20 padding-right20 padding-bottom15">
+                                <span class="text-light-grey">
+                                    EMI starting at
+                                    @Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month
+                                </span>
+                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link" id="emiCalculatorLink">
+                                    <span id="mobileEmiCalculator"></span>
+                                    Calculate EMI
+                                </a>
+                                @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
+                                <span class="clear"></span>
+                            </div>
+                        }
                         @if (Model.IsDealerDetailsExists || Model.DetailedDealer != null)
                         {
                             @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
