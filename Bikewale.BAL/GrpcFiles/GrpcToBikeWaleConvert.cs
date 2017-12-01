@@ -75,8 +75,10 @@ namespace Bikewale.BAL.GrpcFiles
             {
                 List<ArticleSummary> retData = new List<ArticleSummary>();
                 ArticleSummary curArticleSummary;
+
                 foreach (var curGrpcArticleSummary in data.LstGrpcArticleSummary)
                 {
+                    DateTime displayDate = ParseDateObject(curGrpcArticleSummary.DisplayDate);
                     curArticleSummary = new ArticleSummary()
                     {
                         ArticleUrl = curGrpcArticleSummary.ArticleBase.ArticleUrl,
@@ -84,8 +86,8 @@ namespace Bikewale.BAL.GrpcFiles
                         BasicId = curGrpcArticleSummary.ArticleBase.BasicId,
                         CategoryId = (ushort)curGrpcArticleSummary.CategoryId,
                         Description = curGrpcArticleSummary.Description.Replace("&#x20B9;", "₹"),
-                        DisplayDate = ParseDateObject(curGrpcArticleSummary.DisplayDate),
-                        FormattedDisplayDate = ParseDateObject(curGrpcArticleSummary.DisplayDate).ToString("dd MMMM yyyy"),
+                        DisplayDate = displayDate,
+                        FormattedDisplayDate = displayDate.ToString("dd MMMM yyyy"),
                         ShareUrl = Bikewale.Utility.CMSShareUrl.ReturnShareUrl((ushort)curGrpcArticleSummary.CategoryId, curGrpcArticleSummary.ArticleBase.BasicId, curGrpcArticleSummary.ArticleBase.ArticleUrl),
                         FacebookCommentCount = curGrpcArticleSummary.FacebookCommentCount,
                         HostUrl = curGrpcArticleSummary.HostUrl,
