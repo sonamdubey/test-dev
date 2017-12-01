@@ -440,7 +440,7 @@ namespace Bikewale.Models
 
                 objData.PageMetaTags.Keywords = string.Format("News about {0} {1}, {0} {1} News", objMake.MakeName, objData.Series.SeriesName);
                 objData.PageH1 = string.Format("{0} {1} News", objMake.MakeName, objData.Series.SeriesName);
-                objData.PageH2 = string.Format("Latest {0} Bikes News and Views", objMake.MakeName);
+                objData.PageH2 = string.Format("Latest {0} {1} Bikes News and Views", objMake.MakeName, objData.Series.SeriesName);
                 objData.AdTags.TargetedSeries = objData.Series.SeriesName;
             }
             else if (ModelId > 0)
