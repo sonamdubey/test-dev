@@ -15,6 +15,7 @@ namespace Bikewale.Models
         public bool IsMobile { get; set; }
         public ManufactureCampaignEMIEntity ESEMICampaign { get; set; }
         public string BikeName { get; set; }
+        public string BikeModelName { get; set; }
         public uint PQId { get; set; }
         public bool IsPremiumDealer { get; set; }
         public NewBikeDealers DealerDetails { get; set; }
