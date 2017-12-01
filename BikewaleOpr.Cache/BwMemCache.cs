@@ -197,8 +197,10 @@ namespace BikewaleOpr.Cache
 				MemCachedUtil.Remove(string.Format("BW_SynopsisBySeriesId_{0}", seriesId));
 				MemCachedUtil.Remove(string.Format("BW_OtherSeriesByMakeId_{0}", makeId));
 				MemCachedUtil.Remove(string.Format("BW_BikeSeriesComparision_{0}", seriesId));
+                MemCachedUtil.Remove(string.Format("BW_GetModelIdsBySeries_{0}", seriesId));
 
-			}
+
+            }
 			catch (Exception ex)
 			{
 				Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearSeriesCache_SeriesId_{0}_MakeId_{1}", seriesId, makeId));

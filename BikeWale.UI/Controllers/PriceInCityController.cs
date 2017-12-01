@@ -1,5 +1,7 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System.Web.Mvc;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
@@ -9,10 +11,6 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models;
 using Bikewale.Models.PriceInCity;
-using Bikewale.Utility;
-using System.Web.Mvc;
-using System.Linq;
-using Bikewale.Interfaces.AdSlot;
 
 namespace Bikewale.Controllers
 {
@@ -185,7 +183,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile_Amp(string modelName, string cityName)
         {
             PriceInCityPageAMPVM objVM = null;
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo,  _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo,  _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
 				model.IsMobile = true;

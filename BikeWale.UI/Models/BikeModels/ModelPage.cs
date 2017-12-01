@@ -679,11 +679,13 @@ namespace Bikewale.Models.BikeModels
                             if (_objData.BikePrice > 0 && _objData.IsOnRoadPriceAvailable)
                             {
                                 _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
-                            }
+                                BindEMICalculator(_objData.BikePrice);
 
+                            }
 
                             //else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
                             //{
+                            //    BindEMICalculator(_objData.SelectedVersion.AverageExShowroom);
                             //    _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
                             //}
                         }
@@ -930,6 +932,27 @@ namespace Bikewale.Models.BikeModels
             return _objEMI;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 30 Nov 2017
+        /// Descriptiion    :   Bind EMI calculator widget on model page
+        /// </summary>
+        private void BindEMICalculator(uint bikePrice)
+        {
+            try
+            {
+                _objData.EMICalculator = new EMICalculatorVM { EMI = _objData.EMIDetails, BikePrice = _objData.BikePrice, EMIJsonBase64 = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(_objData.EMIDetails)) };
+                _objData.EMICalculator.ESEMICampaign = _objData.EMICampaign;
+                _objData.EMICalculator.IsMobile = IsMobile;
+                _objData.EMICalculator.PQId = _objData.PQId;
+                _objData.EMICalculator.IsPremiumDealer = _objData.IsPremiumDealer;
+                _objData.EMICalculator.DealerDetails = _objData.DealerDetails;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BindEMICalculator");
+            }
+        }
+
         private void BindBestBikeWidget(EnumBikeBodyStyles BodyStyleType, uint? cityId = null)
         {
             try
@@ -1144,6 +1167,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.VersionId = (uint)_pqOnRoad.DPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().objVersion.VersionId;
                             }
+                            _objData.IsOnRoadPriceAvailable = true;
                         }//Bikewale Pricing
                         else if (_pqOnRoad.BPQOutput != null && _pqOnRoad.BPQOutput.Varients != null)
                         {
@@ -1166,6 +1190,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.VersionId = (uint)_pqOnRoad.BPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().VersionId;
                             }
+                            _objData.IsOnRoadPriceAvailable = true;
                         }//Version Pricing
                         else
                         {
@@ -1472,6 +1497,8 @@ namespace Bikewale.Models.BikeModels
         /// Description :   Fetches Manufacturer Campaigns
         /// Modified by  :  Sushil Kumar on 11th Aug 2017
         /// Description :   Store dealerid for manufacturer campaigns for impressions tracking
+        /// Modified by :   Sumit Kate on 30 Nov 2017
+        /// Description :   Enable EMI ES Campaign on Model Page
         /// </summary>
         private void GetManufacturerCampaign()
         {
@@ -1540,8 +1567,40 @@ namespace Bikewale.Models.BikeModels
                                 _objData.LeadCampaign.LoanAmount = (uint)Convert.ToUInt32((versions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OnRoadPrice) * 0.8);
                             }
                         }
-
                         _objManufacturerCampaign.SaveManufacturerIdInPricequotes(_objData.PQId, campaigns.LeadCampaign.DealerId);
+                    }
+
+                    if (campaigns.EMICampaign != null)
+                    {
+                        _objData.EMICampaign = new ManufactureCampaignEMIEntity()
+                        {
+                            Area = GlobalCityArea.GetGlobalCityArea().Area,
+                            CampaignId = campaigns.EMICampaign.CampaignId,
+                            DealerId = campaigns.EMICampaign.DealerId,
+                            Organization = campaigns.EMICampaign.Organization,
+                            DealerRequired = campaigns.EMICampaign.DealerRequired,
+                            EmailRequired = campaigns.EMICampaign.EmailRequired,
+                            EMIButtonTextDesktop = campaigns.EMICampaign.EMIButtonTextDesktop,
+                            EMIButtonTextMobile = campaigns.EMICampaign.EMIButtonTextMobile,
+                            LeadSourceId = (int)LeadSource,
+                            PqSourceId = (int)PQSource,
+                            EMIPropertyTextDesktop = campaigns.EMICampaign.EMIPropertyTextDesktop,
+                            EMIPropertyTextMobile = campaigns.EMICampaign.EMIPropertyTextMobile,
+                            MakeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
+                            MaskingNumber = campaigns.EMICampaign.MaskingNumber,
+                            PincodeRequired = campaigns.EMICampaign.PincodeRequired,
+                            PopupDescription = campaigns.EMICampaign.PopupDescription,
+                            PopupHeading = campaigns.EMICampaign.PopupHeading,
+                            PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage,
+                            VersionId = _objData.VersionId,
+                            CurrentPageUrl = CurrentPageUrl,
+                            PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
+                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8)
+                        };
+
+                        _objData.IsManufacturerEMIAdShown = true;
+                        if (campaigns.LeadCampaign == null)
+                            _objManufacturerCampaign.SaveManufacturerIdInPricequotes(_objData.PQId, campaigns.EMICampaign.DealerId);
                     }
                 }
             }

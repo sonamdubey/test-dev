@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Campaign;
 using Bikewale.DTO.CMS.Articles;
@@ -29,6 +26,9 @@ using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Service.AutoMappers.Model
 {
@@ -599,16 +599,16 @@ namespace Bikewale.Service.AutoMappers.Model
                         switch (spec.DisplayText)
                         {
                             case "Capacity":
-                                objDTOModelPage.Capacity = spec.DisplayValue;
+                                objDTOModelPage.Capacity = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                             case "Mileage":
-                                objDTOModelPage.Mileage = spec.DisplayValue;
+                                objDTOModelPage.Mileage = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                             case "Max power":
-                                objDTOModelPage.MaxPower = spec.DisplayValue;
+                                objDTOModelPage.MaxPower = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                             case "Weight":
-                                objDTOModelPage.Weight = spec.DisplayValue;
+                                objDTOModelPage.Weight = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                         }
                     }

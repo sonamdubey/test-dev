@@ -1,4 +1,13 @@
-﻿using Bikewale.DAL.CoreDAL;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -12,15 +21,6 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Dapper;
 using MySql.CoreDAL;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -74,7 +74,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objModelsList;
@@ -245,7 +245,7 @@ namespace Bikewale.DAL.BikeData
                             tempColor.ColorName = colorList.ColorName;
                             tempColor.ModelId = colorList.ModelId;
                             tempColor.ColorImageId = colorList.ColorImageId;
-                            HexCodeList.Add(colorList.HexCode);
+                            HexCodeList.Add(colorList.HexCode.Trim());
                         }
 
                         tempColor.HexCodes = HexCodeList;
@@ -318,7 +318,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
 
@@ -542,7 +542,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetModelDescription ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objModel;
         }   // End of GetModelDescription
@@ -585,13 +585,13 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetUpcomingBikeDetails sql ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetUpcomingBikeDetails ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objModel;
         }   // End of GetUpcomingBikeDetails
@@ -662,7 +662,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetUpcomingBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objModelList;
@@ -739,7 +739,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return newLaunchedBikes;
         }
@@ -811,7 +811,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return newLaunchedBikes;
         }
@@ -871,7 +871,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objList;
@@ -932,7 +932,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objList;
         }
@@ -1151,12 +1151,12 @@ namespace Bikewale.DAL.BikeData
             catch (SqlException ex)
             {
                 ErrorClass.LogError(ex, "Sql Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
-                
+
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
-                
+
             }
 
             return objFeatured;
@@ -1213,7 +1213,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
-                
+
             }
             return objList;
         }   //End of GetAllModels Method
@@ -1337,7 +1337,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsRepository.GetMostPopularBikesbymakecity");
-                
+
             }
             return objList;
         }
@@ -1454,7 +1454,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("BikeVersionsRepository<T, U>.GetModelSpecifications()=> modelId: {0}", modelId));
-                
+
             }
             return objMinspecs;
         }
@@ -1949,7 +1949,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("ManageModelColor.GetModelColorPhotos ==> ModelId {0}", modelId));
-                
+
             }
 
             return modelColors;
@@ -3119,6 +3119,43 @@ namespace Bikewale.DAL.BikeData
                 Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.GetMileageForModel");
             }
             return mileageDetails;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 28th Nov 2017
+        /// Description : Get Series Entity by modelid
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeSeriesEntityBase GetSeriesByModelId(uint modelId)
+        {
+            BikeSeriesEntityBase objSeries = null;
+            try
+            {
+                using(DbCommand cmd = DbFactory.GetDBCommand("getseriesbymodelid"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.UInt32, modelId));
+                    using(IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if(dr != null && dr.Read())
+                        {
+                            objSeries = new BikeSeriesEntityBase
+                            {
+                                SeriesId = SqlReaderConvertor.ToUInt32(dr["id"]),
+                                SeriesName = Convert.ToString(dr["name"]),
+                                MaskingName = Convert.ToString(dr["maskingname"]),
+                                IsSeriesPageUrl = SqlReaderConvertor.ToBoolean(dr["isseriespageurl"])
+                            };
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Bikedata.GetSeriesByModelId modelId = {0}", modelId));
+            }
+            return objSeries;
         }
 
     }   // class

@@ -1,6 +1,7 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Videos;
-using System.Collections.Generic;
 
 namespace Bikewale.Models.Videos
 {
@@ -13,5 +14,6 @@ namespace Bikewale.Models.Videos
         public IEnumerable<SimilarBikeWithVideo> SimilarBikeVideoList { get; set; }
         public uint CityId { get; set; }
         public BikeSeriesEntityBase objSeries { get; set; }
+        public EnumBikeBodyStyles bikeType {get; set;}
     }
 }
