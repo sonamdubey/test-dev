@@ -64,7 +64,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsPrimaryDealer { get { return (this.DetailedDealer != null && this.DetailedDealer.PrimaryDealer != null); } }
         public bool IsDealerDetailsExists { get { return (this.IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.DealerDetails != null); } }
         public bool IsPremiumDealer { get { return (IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.IsPremiumDealer); } }
-        public NewBikeDealers DealerDetails { get { return this.DetailedDealer.PrimaryDealer.DealerDetails; } }
+        public NewBikeDealers DealerDetails { get { return IsPrimaryDealer ? this.DetailedDealer.PrimaryDealer.DealerDetails : null; } }
         public string MPQString { get; set; }
         public string DealerArea { get { return (IsDealerDetailsExists && DealerDetails.objArea != null ? DealerDetails.objArea.AreaName : LocationCookie.Area); } }
         public string BestBikeHeading { get; set; }
