@@ -24,7 +24,6 @@ docReady(function() {
             bikeDetails.push(data);
         }
     });
-    // version dropdown
     selectDropdownBox = $('.select-box-no-input');
 
     selectDropdownBox.each(function () {
@@ -34,7 +33,6 @@ docReady(function() {
         searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
     });
 
-    // convert 'yes' and 'no' to their respective icons
     var dataRows = $('.table-content td'),
         tickIcon = '<span class="bwsprite tick-grey"></span>',
         crossIcon = '<span class="bwsprite cross-grey"></span>';
@@ -161,7 +159,7 @@ docReady(function() {
                 equivalentDataFound = true;
             }
 
-            compareBox.setFeaturesStatus(btn, 'Show all features', 1); // (btn, message, flag)
+            compareBox.setFeaturesStatus(btn, 'Show all features', 1); 
         }
         else {
             compareBox.setFeaturesStatus(btn, 'Hide common features', 0);
@@ -201,7 +199,6 @@ docReady(function() {
             var dataRows = $('.table-content tr'),
                 dataRowLength = dataRows.length;
             
-            // increment index by 1, since table's 1st td contains heading
             listItemIndex = listItemIndex + 1;
 
             for (var i = 0; i < dataRowLength; i++) {
@@ -278,7 +275,7 @@ docReady(function() {
 
         setSponsoredIndex: function () {
             
-            var listItemIndex = $('#bike-comparison-grid .compare-bike-list .sponsored-list-item').index() + 1; // increment by 1, since index starts with 0 and nth-child with 1
+            var listItemIndex = $('#bike-comparison-grid .compare-bike-list .sponsored-list-item').index() + 1;
 
             $(sponsoredColumn).attr('data-sponsored-column', listItemIndex);
         },

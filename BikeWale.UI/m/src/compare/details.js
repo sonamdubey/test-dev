@@ -19,7 +19,6 @@ function setButtonText() {
 
 
 
-/* toggle features common */
 
 var bodyElement = document.getElementsByTagName("body")[0],
     toggleFeaturesBtn = document.getElementById("toggle-features-btn"),
@@ -99,12 +98,10 @@ var compareColumns = {
     }
 };
 
-/* close sponsored bike */
 var closeSponsoredBikeBtn = document.getElementById("close-sponsored-bike");
 if (closeSponsoredBikeBtn) {
     closeSponsoredBikeBtn.addEventListener("click", function () {
         document.getElementById("sponsored-column-active").removeAttribute("id");
-        // reset common features found
         equivalentDataFound = false;
         setButtonText();
     });
@@ -446,7 +443,6 @@ var effect = 'slide',
     duration = 500;
 
 
-/* popup state */
 var appendState = function (state) {
     window.history.pushState(state, '', '');
 };
@@ -454,7 +450,6 @@ var appendState = function (state) {
 
 docReady(function () {
 
-    //declare variables
     floatingCard = $('#comparison-floating-card');
     floatingCardHeight = floatingCard.height() - 44;
     comparisonFooter = $('#comparison-footer');
@@ -557,7 +552,6 @@ docReady(function () {
 
     }());
 
-    /* close selected model */
     $('.comparison-main-card').on('click', '.close-selected-bike', function () {
 
         if (!$(this).parent().hasClass("sponsored-bike-details-block")) {
@@ -576,14 +570,13 @@ docReady(function () {
 
 
 
-    /* floating tabs */
     $('.overall-specs-tabs-wrapper').on('click', 'li', function () {
         var elementIndex = $(this).index(),
             tabId = $(this).attr('data-tabs'),
             panel = $(this).closest('.bw-tabs-panel'),
             floatingTabs = panel.find('.overall-specs-tabs-wrapper');
 
-        if (elementIndex < 4) { //for last two bw-data-tabs
+        if (elementIndex < 4) { 
             $('html, body').animate({ scrollTop: Math.round($('#' + tabId).offset().top - (floatingCardHeight + 48)) }, 500);
         }
         else {
@@ -601,7 +594,7 @@ docReady(function () {
         var overallSpecsOffset = overallSpecsTabs.offset().top - floatingCardHeight,
             bwTab = overallSpecsTabs.offset().top - floatingCardHeight
         footerOffsetForCard = Math.round($('.bw-tabs-panel').height() - overallSpecsOffset);
-         if ($window.scrollTop() < windowScrollTop) { // current scroll position < previous position
+         if ($window.scrollTop() < windowScrollTop) { 
             floatingButton.addClass('fixed-floater');
 
             if ($window.scrollTop() > footerOffsetForCard) {
@@ -644,7 +637,6 @@ docReady(function () {
                 var currentActiveTab = floatingTabs.find('li[data-tabs="' + $(this).attr('data-id') + '"]');
                 floatingTabs.find(currentActiveTab).addClass('active');
 
-                //var tabElementThird = modelSpecsTabsContentWrapper.find('li:eq(3)');
 
             }
         });
@@ -792,21 +784,7 @@ docReady(function () {
         dropdownInteraction.activate($(this));
     });
 
-    ///* accordion tab */
-    //$('.model-accordion-tab').on('click', function () {
-    //    var tab = $(this),
-    //        allTabs = $('.model-accordion-tab');
-
-    //    if (!tab.hasClass('active')) {
-    //        allTabs.removeClass('active');
-    //        tab.addClass('active');
-    //        $('html, body').animate({ scrollTop: tab.offset().top - floatingCardHeight - 44 }, 500); // 44px accordion tab height
-    //    }
-    //    else {
-    //        tab.removeClass('active');
-    //    }
-    //});
-
+    
 
     $(document).on('click', function (event) {
         if ($('.dropdown-list-wrapper').is(':visible')) {

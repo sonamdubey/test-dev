@@ -320,9 +320,6 @@
     display: block;
 }
 
-/*.bw-tabs-data.active {
-    display: block;
-}*/
 .bw-tabs_title {
     padding: 10px 20px;
 	font-size: 18px;
@@ -334,9 +331,6 @@
 }
 
 /* table */
-/*.model-accordion-tab + .table-content {
-    display: table;
-}*/
 
 .table-content td {
     padding-left: 15px;
@@ -509,17 +503,6 @@
     font-weight: 600;
 }
 
-/*.model-accordion-tab .fa-angle-down {
-    position: absolute;
-    right: 20px;
-    top: 44%;
-}*/
-
-/*.model-accordion-tab.active {
-    -webkit-box-shadow: 0 2px 3px #e2e2e2;
-    -moz-box-shadow: 0 2px 3px #e2e2e2;
-    box-shadow: 0 2px 3px #e2e2e2;
-}*/
 
 .model-accordion-tab.brakes-accordion-tab {
     padding-top: 7px;
