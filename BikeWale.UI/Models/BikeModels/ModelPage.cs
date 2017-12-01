@@ -1017,6 +1017,8 @@ namespace Bikewale.Models.BikeModels
         /// Description :- Removed GST from Title and Description 
         /// Modified by : Ashutosh Sharma on 13 Oct 2017
         /// Description : Meta Description replaced with ModelSummary for SynopsisSummaryMergeMakeIds in BWConfiguration.
+        /// Modified by : Ashutosh Sharma on 30 Nov 2017
+        /// Description : Meta Description replaced with ModelSummary for all makes for new bikes.
         /// </summary>
         private void CreateMetas()
         {
@@ -1040,25 +1042,11 @@ namespace Bikewale.Models.BikeModels
                     }
                     else if (!_objData.ModelPageEntity.ModelDetails.New)
                     {
-                        if (!string.IsNullOrEmpty(BWConfiguration.Instance.SynopsisSummaryMergeMakeIds) && BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
-                        {
-                            _objData.PageMetaTags.Description = _objData.ModelSummary;
-                        }
-                        else
-                        {
-                            _objData.PageMetaTags.Description = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, _objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ? _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.UsedListingsCnt);
-                        }
+                        _objData.PageMetaTags.Description = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, _objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ? _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.UsedListingsCnt);
                     }
                     else
                     {
-                        if (!string.IsNullOrEmpty(BWConfiguration.Instance.SynopsisSummaryMergeMakeIds) && BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
-                        {
-                            _objData.PageMetaTags.Description = _objData.ModelSummary;
-                        }
-                        else
-                        {
-                            _objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ? _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
-                        }
+                        _objData.PageMetaTags.Description = _objData.ModelSummary;
                     }
 
                     _objData.PageMetaTags.Title = string.Format("{0} Price, Images, Colours, Mileage & Reviews | BikeWale", _objData.BikeName);
@@ -1071,9 +1059,7 @@ namespace Bikewale.Models.BikeModels
                     _objData.PageMetaTags.Keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", _objData.BikeName);
                     _objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                     _objData.Page_H1 = _objData.BikeName;
-
-
-
+                    
                     CheckCustomPageMetas();
                 }
             }
