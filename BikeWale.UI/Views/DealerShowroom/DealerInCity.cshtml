@@ -176,7 +176,8 @@
     @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
 
-@if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
+@if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails!=null
+    && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.FirstOrDefault() != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.FirstOrDefault().DealerCount > 0)
 {
     <section>
         <div class="container section-bottom-margin">
