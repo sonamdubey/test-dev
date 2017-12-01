@@ -11,8 +11,8 @@
         keywords = String.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", dealerName, cityName);
         description = String.Format("{2} is an authorized {0} showroom in {1}. Get address, contact details direction, EMI quotes etc. of {2} {0} showroom.", makeName, cityName, dealerName);
         title = String.Format("{0} | {0} showroom in {1} - BikeWale", dealerName, cityName);
-        canonical = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerId, dealerMaskingName);
-        alternate = String.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerId, dealerMaskingName);
+        canonical = String.Format("https://www.bikewale.com/dealer-showrooms/{0}/{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerMaskingName, dealerId);
+        alternate = String.Format("https://www.bikewale.com/m/dealer-showrooms/{0}/{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerMaskingName, dealerId);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
         isAd970x90Shown = true;
@@ -39,13 +39,13 @@
                                 <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Showroom Locator</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showrooms/"><span itemprop="title">Showroom Locator</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Showroom</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showrooms/<%=makeMaskingName %>/"><span itemprop="title"><%=makeName%> Showroom</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-<%=cityMaskingName %>/"><span itemprop="title"><%=makeName%> Showroom in <%=cityName%></span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showrooms/<%=makeMaskingName %>/<%=cityMaskingName %>/"><span itemprop="title"><%=makeName%> Showroom in <%=cityName%></span></a>
                             </li>
                             <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=dealerName %></li>
                         </ul>

@@ -146,7 +146,7 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName)
         {
-            return String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
+            return String.Format("/dealer-showrooms/{0}/{1}/", makeMaskingName, cityMaskingName);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName, string hash)
         {
-            return String.Format("/{0}-dealer-showrooms-in-{1}/#{2}", makeMaskingName, cityMaskingName, hash);
+            return String.Format("/dealer-showrooms/{0}/{1}/#{2}", makeMaskingName, cityMaskingName, hash);
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace Bikewale.Utility
         public static string GetDealerUrl(string makeMaskingName, string cityMaskingName, string dealerName, int dealerId)
         {
             string dealerUrl = string.Empty;
-            dealerUrl = string.Format("/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerId, RemoveSpecialCharUrl(dealerName));
+            dealerUrl = string.Format("/dealer-showrooms/{0}/{1}/{2}-{3}/", makeMaskingName, cityMaskingName, RemoveSpecialCharUrl(dealerName), dealerId);
             return dealerUrl;
         }
 
@@ -330,7 +330,7 @@ namespace Bikewale.Utility
         /// </summary>
         public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
         {
-            return string.Format("/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
+            return string.Format("/bike-service-centers/{0}/{1}/", makeMaskingName, cityMaskingName);
         }
         /// <summary>
         ///  Created By : Aditi Srivastava
@@ -339,7 +339,7 @@ namespace Bikewale.Utility
         /// </summary>
         public static string GetServiceCenterUrl(string makeMaskingName)
         {
-            return string.Format("/{0}-service-center-in-india/", makeMaskingName);
+            return string.Format("/bike-service-centers/{0}/", makeMaskingName);
         }
         /// <summary>
         ///  Created By : Subodh Jain 
@@ -348,7 +348,7 @@ namespace Bikewale.Utility
         /// </summary>
         public static string GetDealerShowroomUrl(string makeMaskingName)
         {
-            return string.Format("/{0}-dealer-showrooms-in-india/", makeMaskingName);
+            return string.Format("/dealer-showrooms/{0}/", makeMaskingName);
         }
 
         /// <summary>
