@@ -216,7 +216,8 @@
         </section>
     }
 
-    if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters !=null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0)
+    if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0 
+        && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails!=null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any())
     {
        <section>
             <div class="container section-bottom-margin">

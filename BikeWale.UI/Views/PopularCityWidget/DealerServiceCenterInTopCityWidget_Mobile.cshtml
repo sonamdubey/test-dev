@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 
 
-@if (Model != null && Model.DealerServiceCenters != null)
+@if (Model != null && Model.DealerServiceCenters != null && Model.DealerServiceCenters.DealerDetails != null && Model.DealerServiceCenters.DealerDetails.Any())
 {
 
     <div class="swiper-wrapper">
