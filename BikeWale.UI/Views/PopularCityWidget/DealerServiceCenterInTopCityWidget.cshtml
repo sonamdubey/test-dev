@@ -15,7 +15,7 @@
                     if ((Model.IsServiceCenterPage && details.ServiceCenterCount > 0) || (!Model.IsServiceCenterPage && details.DealerCount > 0))
                     {
                         <li>
-                            <a href="@string.Format("/{0}-{1}-{2}/", Model.MakeMaskingName, Model.CityCardLink, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName, Model.CityCardTitle, details.CityName)" class="card-target-link">
+                            <a href="@string.Format("/{0}/{1}/{2}/", Model.CityCardLink, Model.MakeMaskingName, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName, Model.CityCardTitle, details.CityName)" class="card-target-link">
                                 <div class="city-image-preview">
                                     <span class="city-sprite @string.Format("{0}-icon", details.CityMaskingName)"></span>
                                 </div>

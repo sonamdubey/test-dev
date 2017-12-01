@@ -61,7 +61,7 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.ServiceCenterBrandsList = new ServiceCentersByBrand(_objCache, _makeId).GetData();
                 objVM.UsedBikesByMakeList = BindUsedBikeByModel(_usedBikesTopCount);
                 objVM.BikeCareWidgetVM = new RecentBikeCare(_articles).GetData(_bikeCareRecordsCount, 0, 0);
-               
+
                 BindPageMetas(objVM);
             }
             catch (Exception ex)
@@ -118,7 +118,7 @@ namespace Bikewale.Models.ServiceCenters
 
                                 if (city != null)
                                 {
-                                    redirectUrl = String.Format("/{0}-service-center-in-{1}/", makeMaskingName, city.CityMaskingName);
+                                    redirectUrl = String.Format("/bike-service-centers/{0}/{1}/", makeMaskingName, city.CityMaskingName);
                                     status = StatusCodes.RedirectTemporary;
                                 }
                             }
@@ -181,7 +181,7 @@ namespace Bikewale.Models.ServiceCenters
 
             try
             {
-                if(objPageVM!=null)
+                if (objPageVM != null)
                 {
                     IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
                     string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
@@ -192,7 +192,7 @@ namespace Bikewale.Models.ServiceCenters
                     }
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-                    if(objPageVM.Make!=null)
+                    if (objPageVM.Make != null)
                     {
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPageVM.Make.MaskingName), string.Format("{0} Bikes", objPageVM.Make.MakeName)));
                     }
@@ -202,7 +202,7 @@ namespace Bikewale.Models.ServiceCenters
 
                     objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
                 }
-               
+
             }
             catch (Exception ex)
             {

@@ -203,7 +203,7 @@ namespace Bikewale.Models.ServiceCenters
                 objData.MakeMaskingName = _makeMaskingName;
                 objData.MakeName = objVM.Make.MakeName;
                 objData.CityCardTitle = "service centers in";
-                objData.CityCardLink = "service-center-in";
+                objData.CityCardLink = "bike-service-centers";
                 objData.IsServiceCenterPage = true;
                 objVM.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
