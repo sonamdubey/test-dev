@@ -833,11 +833,11 @@ ko.bindingHandlers.formattedVotes = {
     }
 };
 
-$(document).on("click", ".read-more-target", function (e) {
-    if (!vmUserReviews.IsInitialized()) {
-        vmUserReviews.init(e);
-    }
-});
+//$(document).on("click", ".read-more-target", function (e) {
+//    if (!vmUserReviews.IsInitialized()) {
+//        vmUserReviews.init(e);
+//    }
+//});
 
 var modelUserReviews = function () {
     var self = this;
