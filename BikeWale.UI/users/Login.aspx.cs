@@ -29,24 +29,8 @@ namespace BikWale.Users
 
         private void Page_Load(object sender, EventArgs e)
         {
-
             Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
             dd.DetectDevice();
-
-            if (!IsPostBack)
-            {
-                if (Request["logout"] != null && Request.QueryString["logout"] == "logout")
-                {
-                    CurrentUser.EndSession();
-                    HttpCookie rememberMe = Request.Cookies.Get("RememberMe");
-                    if (rememberMe != null)
-                    {
-                        rememberMe.Expires = DateTime.Now.AddDays(-1);
-                        Response.Cookies.Add(rememberMe);
-                    }
-                    RedirectPath();
-                }
-            }
         }
 
         private void LoginUser(object sender, EventArgs e)
@@ -68,7 +52,7 @@ namespace BikWale.Users
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikWale.Users.LogIn.LoginUser()");
-                
+
                 RedirectPath();
             }
         }
@@ -122,7 +106,7 @@ namespace BikWale.Users
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 RedirectPath();
             }
         }
@@ -193,7 +177,7 @@ namespace BikWale.Users
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "IsLocalUrl()");
-                
+
                 return false;
             }
         }
