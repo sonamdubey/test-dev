@@ -523,12 +523,25 @@ docReady(function() {
         dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Comparison_Page", "act": "Sponsored_Comparison_Know_more_shown", "lab": sponsoredBike });
     }
 
+    var panel = $('#overallSpecsTabContainer'),
+        floatingTabs = panel.find('.overall-specs-tabs-wrapper');
+    /* floating tabs */
+    $('.overall-specs-tabs-wrapper').on('click', 'li', function () {
+        var elementIndex = $(this).index(),
+            tabId = $(this).attr('data-tabs');
+        if (elementIndex < 4) {
+            $('html, body').animate({ scrollTop: Math.round($('.bw-tabs-data[data-id=' + tabId+']').offset().top - (floatingCardHeight + 48)) }, 500);
+        }
+        else {
+            $('html, body').animate({ scrollTop: Math.round($('.bw-tabs-data[data-id=' + tabId + ']').offset().top - 40) }, 500);
+        }
+    });
     var windowHeight = $window.height();
 
     $window.on('scroll', function () {
         var overallSpecsOffset = overallSpecsTabs.offset().top - floatingCardHeight,
-            footerOffsetForButton = comparisonFooter.offset().top - windowHeight,
-            footerOffsetForCard = comparisonFooter.offset().top - floatingCardHeight - 88;
+            bwTab = overallSpecsTabs.offset().top - floatingCardHeight,
+                    footerOffsetForCard = Math.round($('.bw-tabs-panel').height() - overallSpecsOffset);
 
         windowScrollTop = $window.scrollTop();
 
@@ -542,26 +555,38 @@ docReady(function() {
         else if (windowScrollTop < overallSpecsOffset) {
             floatingCard.removeClass('fixed-card');
         }
+        if (windowScrollTop > overallSpecsOffset) {
+            floatingCard.addClass('fixed-card');
+            floatingCard.find('.overall-specs-tabs-wrapper').removeClass('fixed-overall-tab');
+            if (windowScrollTop > (footerOffsetForCard + overallSpecsOffset)) {
+                floatingCard.removeClass('fixed-card');
+                floatingCard.find('.overall-specs-tabs-wrapper').addClass('fixed-overall-tab');
+            }
+        }
+        else if (windowScrollTop < overallSpecsOffset) {
+            floatingCard.removeClass('fixed-card');
+        }
+        $('#overallSpecsTabContainer .bw-tabs-data').each(function () {
+            var top, bottom;
+            if ($(this).index() != 0) {
+                top = $(this).offset().top - (floatingCardHeight + 50);
+            }
+            else {modelSimilarContent
+                top = $(this).offset().top - 44;
+            }
+            bottom = top + $(this).outerHeight();
+            if (windowScrollTop >= top && windowScrollTop <= bottom) {
+                floatingTabs.find('li').removeClass('active');
+                $('#overallSpecsTabContainer .bw-tabs-data').removeClass('active');
+
+                $(this).addClass('active');
+
+                var currentActiveTab = floatingTabs.find('li[data-tabs="' + $(this).attr('data-id') + '"]');
+                floatingTabs.find(currentActiveTab).addClass('active');
+            }
+        });
 
     });
-
-    /* floating tabs */
-    $('.overall-specs-tabs-wrapper').on('click', 'li', function () {
-        var elementIndex = $(this).index(),
-            tabId = $(this).attr('data-tabs'),
-            panel = $(this).closest('.bw-tabs-panel'),
-            floatingTabs = panel.find('.overall-specs-tabs-wrapper');
-
-        floatingTabs.find('li.active').removeClass('active');
-        for(var i = 0; i < floatingTabs.length; i++) {
-            $(floatingTabs[i]).find('li:eq(' + elementIndex + ')').addClass('active');
-        };
-
-        panel.find('.bw-tabs-data').removeClass('active').hide();
-        $('#' + tabId).addClass('active').show();
-        $('html, body').animate({ scrollTop: overallSpecsTabs.offset().top - floatingCardHeight }, 500); // 44px accordion tab height
-    });
-    
     $(".floating-add-compare-btn").on('click', function () {
         var ele = $(this), isSelectionDone = ele.attr("data-selection-done");
         var bikeNo = ele.closest("li.list-item").attr("data-add-value"), liBike = $(".add-compare-btn").closest("li[data-add-value=" + bikeNo + "]");
