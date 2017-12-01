@@ -522,7 +522,6 @@ docReady(function() {
 
     var panel = $('#overallSpecsTabContainer'),
         floatingTabs = panel.find('.overall-specs-tabs-wrapper');
-    /* floating tabs */
     $('.overall-specs-tabs-wrapper').on('click', 'li', function () {
         var elementIndex = $(this).index(),
             tabId = $(this).attr('data-tabs');
