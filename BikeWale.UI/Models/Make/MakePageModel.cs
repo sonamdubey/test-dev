@@ -169,7 +169,7 @@ namespace Bikewale.Models
                     PopupShowButtonMessage = "Show showrooms",
                     PopupSubHeading = "See Showrooms in your city!",
                     FetchDataPopupMessage = "Fetching showrooms for ",
-                    RedirectUrl = string.Format("/{0}-dealer-showrooms-in-", _makeMaskingName),
+                    RedirectUrl = string.Format("/dealer-showrooms/{0}/", _makeMaskingName),
                     IsCityWrapperPresent = 1
                 };
 

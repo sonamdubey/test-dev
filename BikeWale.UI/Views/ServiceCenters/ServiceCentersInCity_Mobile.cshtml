@@ -9,7 +9,7 @@
     Model.AdTags.AdId = "1444028976556";
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
-    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/bike-service-centers/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
 }
 
 @if (Model != null && Model.Make != null)
@@ -233,7 +233,7 @@
                         </div>
                     </div>
                     <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest @Model.Make.MakeName showrooms in @Model.City.CityName for service enquiries, service and repair costs and more!</p>
-                    <a href="@string.Format("/m/{0}-dealer-showrooms-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("{0} Dealer Showrooms in {1}", Model.Make.MakeName, Model.City.CityName)" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                    <a href="@string.Format("/m/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("{0} Dealer Showrooms in {1}", Model.Make.MakeName, Model.City.CityName)" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
                 </div>
             </section>
             

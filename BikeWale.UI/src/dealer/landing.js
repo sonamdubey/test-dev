@@ -24,7 +24,7 @@ docReady(function () {
             if (!isNaN(ddlcityId) && ddlcityId != "0") {
                 ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
                 bwcache.remove("userchangedlocation", true);
-                window.location.href = "/" + ddlmakemasking + "-dealer-showrooms-in-" + ddlcityMasking + "/";
+                window.location.href = "/dealer-showrooms/" + ddlmakemasking + "/" + ddlcityMasking + "/";
             }
             else {
                 toggleErrorMsg(ddlCities, true, "Choose a city");

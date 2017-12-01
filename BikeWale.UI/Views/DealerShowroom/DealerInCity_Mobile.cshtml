@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealer/listing.css' inline />";
     Model.Page_JS_Path = "/m/src/dealer/listing.js";
-    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
 }
 <section>
     <div class="container margin-bottom10">
@@ -30,7 +30,7 @@
             @foreach (var Details in Model.DealersList.Dealers)
             {
                 <li>
-                    <a href=@(Details.IsFeatured ? string.Format("/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Details.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)) : "javascript:void(0)") rel="nofollow" title="@Details.Name">
+                    <a href=@(Details.IsFeatured ? string.Format("/m/dealer-showrooms/{0}/{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name), Details.DealerId) : "javascript:void(0)") rel="nofollow" title="@Details.Name">
                         @if (Details.IsFeatured)
                         {
                             <div class="featured-tag">
@@ -181,7 +181,7 @@
                     </div>
                 </div>
                 <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest @Model.Make.MakeName service centers in @Model.CityDetails.CityName for service enquiries, service and repair costs and more!</p>
-                <a href="@string.Format("/m/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Center in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                <a href="@string.Format("/m/bike-service-centers/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Center in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
             </div>
         </section>
        
