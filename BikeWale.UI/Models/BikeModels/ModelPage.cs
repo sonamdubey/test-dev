@@ -676,14 +676,16 @@ namespace Bikewale.Models.BikeModels
                                 BikeName = _objData.BikeName,
                                 IsManufacturerCampaign = _objData.IsManufacturerLeadAdShown || _objData.IsManufacturerEMIAdShown || _objData.IsManufacturerTopLeadAdShown
                             };
-                            if (_objData.BikePrice > 0)
+                            if (_objData.BikePrice > 0 && _objData.IsOnRoadPriceAvailable)
                             {
                                 _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
                             }
-                            else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
-                            {
-                                _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
-                            }
+
+
+                            //else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
+                            //{
+                            //    _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
+                            //}
                         }
                     }
 
