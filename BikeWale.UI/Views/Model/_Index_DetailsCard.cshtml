@@ -158,7 +158,7 @@
                         <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>
                     </div>
                 </div>
-                <div id="userReviewContentDesktop" class="review-list-wrapper">
+                <div class="review-list-wrapper">
                     @Html.Partial("~/Views/UserReview/_UserReviewList.cshtml", Model.UserReviews)
                     <div class="more-article-target view-all-btn-container">
                         <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">Read all user reviews<span class="bwsprite teal-right"></span></a>

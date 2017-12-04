@@ -4,7 +4,7 @@
 
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/model-atf.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/model-btf.css";
-    Model.Page_JS_Paths = new string[]{"/src/model.js", "/src/review-popup.js"};
+    Model.Page_JS_Path = "/src/model.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_Model_";
     Model.AdTags.AdId = "1442913773076";
     Model.AdTags.Ad_Model_BTF_970x90 = true;
@@ -26,7 +26,6 @@
     {
         @Html.Partial("~/Views/Model/_Index_Upcoming.cshtml", Model)
     }
-	@Html.Partial("~/Views/Shared/_ReviewPopup.cshtml", Model)
 
     <script type="text/javascript">
         ga_pg_id = '2';

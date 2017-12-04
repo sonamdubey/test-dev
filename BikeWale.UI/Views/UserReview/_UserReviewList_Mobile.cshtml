@@ -43,11 +43,11 @@
 					<div class="main-content">
 						<div class="font14 text-slate-grey margin-bottom10">
 							<p>@review.SanitizedDescription</p>
-                            <a title="" href="javascript:void(0)" rel="nofollow" class="review-popup__link">Read more</a>
-							@*<a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" data-cat="Model_Page" data-act="UserReview_ReadMoreClicked" data-lab="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-id="@i" data-reviewId="@review.ReviewId" data-bind="click: function (data, event) { return readMore(event);}">Read more</a>*@
+
+							<a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" data-cat="Model_Page" data-act="UserReview_ReadMoreClicked" data-lab="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-id="@i" data-reviewId="@review.ReviewId" data-bind="click: function (data, event) { return readMore(event);}">Read more</a>
 						</div>
 					</div>
-					@*<div class="more-content">
+					<div class="more-content">
 						<div class="padding-right20 padding-left20 font14 text-slate-grey margin-bottom10">
 							<!-- ko if: currentReviewList && currentReviewList()[@i] -->
 							<div class="more-description inline" data-bind="html: currentReviewList()[@i].description"></div>
@@ -89,7 +89,7 @@
 						</div>
                     
 
-                        </div>*@
+                        </div>
                     </div>
                     <div class="clear"></div>
                     @{i++;}
