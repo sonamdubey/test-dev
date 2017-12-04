@@ -1,15 +1,24 @@
-﻿using Bikewale.BindViewModels.Webforms.Used;
+﻿using System;
+using System.Web;
+using System.Web.UI.WebControls;
+using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
+using Bikewale.BindViewModels.Webforms.Used;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Used;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.Used;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.Used;
 using Bikewale.Mobile.Controls;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
-using System;
-using System.Web;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Used
 {
@@ -34,6 +43,8 @@ namespace Bikewale.Mobile.Used
         public SimilarUsedBikes ctrlSimilarUsedBikes;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected UsedBikeModel ctrlusedBikeModel;
+        protected string seriesUrl;
+        protected BikeSeriesEntityBase Series;
 
         protected override void OnInit(EventArgs e)
         {
@@ -79,6 +90,7 @@ namespace Bikewale.Mobile.Used
 
                     }
                 }
+                BindSeriesBreadCrum();
             }
             else
             {
@@ -190,6 +202,38 @@ namespace Bikewale.Mobile.Used
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Mobile.Used.BikeDetails.BindProfileDetails");
                 
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 04th Dec 2017
+        /// Description : Bind series url for if available
+        /// </summary>
+        private void BindSeriesBreadCrum()
+        {
+            try
+            {
+                if (inquiryDetails.Model.ModelId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                                    .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                                    .RegisterType<ICacheManager, MemcacheManager>()
+                                    .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                    .RegisterType<IPager, Pager>();
+                        var models = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                        Series = models.GetSeriesByModelId(Convert.ToUInt32(inquiryDetails.Model.ModelId));
+                        if (Series != null && Series.IsSeriesPageUrl)
+                        {
+                            seriesUrl = string.Format("{0}-bikes/{1}/", inquiryDetails.Make.MaskingName, Series.MaskingName);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.New.ModelSpecsFeatures.BindSeriesBreadCrum model id = {0}", inquiryDetails.Model.ModelId));
             }
         }
     }
