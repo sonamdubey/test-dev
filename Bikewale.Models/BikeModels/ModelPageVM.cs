@@ -74,6 +74,7 @@ namespace Bikewale.Models.BikeModels
         public string PageUrl { get; set; }
         public int PQSourcePage { get { return (int)PQSourceEnum.Desktop_ModelPage; } }
         public int PQLeadSource { get { return 32; } }
+        public IEnumerable<BikeQuotationEntity> BikeVersionPrices { set; get; }
         public string VersionPriceListSummary { get; set; }
 
         #region Model Page Widgets with Flags

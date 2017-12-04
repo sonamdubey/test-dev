@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using Bikewale.BindViewModels.Controls;
+﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.common;
 using Bikewale.DTO.PriceQuote;
@@ -39,6 +34,11 @@ using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -90,6 +90,7 @@ namespace Bikewale.Models.BikeModels
         public PQSourceEnum PQSource { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
         public bool IsMobile { get; set; }
+        public bool IsDealerPriceAvailble { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         public string CurrentPageUrl { get; set; }
 
@@ -676,18 +677,36 @@ namespace Bikewale.Models.BikeModels
                                 BikeName = _objData.BikeName,
                                 IsManufacturerCampaign = _objData.IsManufacturerLeadAdShown || _objData.IsManufacturerEMIAdShown || _objData.IsManufacturerTopLeadAdShown
                             };
-                            if (_objData.BikePrice > 0 && _objData.IsOnRoadPriceAvailable)
+
+
+                            // When dealer Price isn't avalablle, call function to get on-road pricing
+                            uint onRoadPrice = _objData.BikePrice;
+                            if (!IsDealerPriceAvailble)
                             {
-                                _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
+                                bool hasAreaAvailable = false;
+                                uint _emiCityId = this._cityId == 0 ? 1 : this._cityId;
+                                _objData.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(this._modelId, _emiCityId, out hasAreaAvailable);
+                                if (_objData.BikeVersionPrices != null)
+                                {
+                                    var selectedversion = _objData.BikeVersionPrices.SingleOrDefault(x => x.VersionId == _objData.VersionId);
+                                    if (selectedversion != null)
+                                    {
+                                        onRoadPrice = (uint)selectedversion.OnRoadPrice;
+                                    }
+                                }
+                            }
+
+                            if (onRoadPrice > 0)
+                            {
+                                _objData.EMIDetails = setDefaultEMIDetails(onRoadPrice);
                                 BindEMICalculator();
 
                             }
-
-                            //else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
-                            //{
-                            //    BindEMICalculator();
-                            //    _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
-                            //}
+                            else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
+                            {
+                                BindEMICalculator();
+                                _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
+                            }
                         }
                     }
 
@@ -907,27 +926,30 @@ namespace Bikewale.Models.BikeModels
         private EMI setDefaultEMIDetails(uint bikePrice)
         {
             EMI _objEMI = null;
-            try
+            if (bikePrice > 0)
             {
-                _objEMI = new EMI();
-                _objEMI.MaxDownPayment = Convert.ToSingle(40 * bikePrice / 100);
-                _objEMI.MinDownPayment = Convert.ToSingle(10 * bikePrice / 100);
-                _objEMI.MaxTenure = 48;
-                _objEMI.MinTenure = 12;
-                _objEMI.MaxRateOfInterest = 15;
-                _objEMI.MinRateOfInterest = 10;
-                _objEMI.ProcessingFee = 0; //2000
+                try
+                {
+                    _objEMI = new EMI();
+                    _objEMI.MaxDownPayment = Convert.ToSingle(40 * bikePrice / 100);
+                    _objEMI.MinDownPayment = Convert.ToSingle(10 * bikePrice / 100);
+                    _objEMI.MaxTenure = 48;
+                    _objEMI.MinTenure = 12;
+                    _objEMI.MaxRateOfInterest = 15;
+                    _objEMI.MinRateOfInterest = 10;
+                    _objEMI.ProcessingFee = 0; //2000
 
-                _objEMI.Tenure = Convert.ToUInt16((_objEMI.MaxTenure - _objEMI.MinTenure) / 2 + _objEMI.MinTenure);
-                _objEMI.RateOfInterest = (_objEMI.MaxRateOfInterest - _objEMI.MinRateOfInterest) / 2 + _objEMI.MinRateOfInterest;
-                _objEMI.MinLoanToValue = Convert.ToUInt32(Math.Round(bikePrice * 0.7, MidpointRounding.AwayFromZero));
-                _objEMI.MaxLoanToValue = bikePrice;
-                _objEMI.EMIAmount = Convert.ToUInt32((_objEMI.MinLoanToValue * _objEMI.Tenure * _objEMI.RateOfInterest) / (12 * 100));
-                _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue + _objEMI.EMIAmount + _objEMI.ProcessingFee) / _objEMI.Tenure, MidpointRounding.AwayFromZero));
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "setDefaultEMIDetails");
+                    _objEMI.Tenure = Convert.ToUInt16((_objEMI.MaxTenure - _objEMI.MinTenure) / 2 + _objEMI.MinTenure);
+                    _objEMI.RateOfInterest = (_objEMI.MaxRateOfInterest - _objEMI.MinRateOfInterest) / 2 + _objEMI.MinRateOfInterest;
+                    _objEMI.MinLoanToValue = Convert.ToUInt32(Math.Round(bikePrice * 0.7, MidpointRounding.AwayFromZero));
+                    _objEMI.MaxLoanToValue = bikePrice;
+                    _objEMI.EMIAmount = Convert.ToUInt32((_objEMI.MinLoanToValue * _objEMI.Tenure * _objEMI.RateOfInterest) / (12 * 100));
+                    _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue + _objEMI.EMIAmount + _objEMI.ProcessingFee) / _objEMI.Tenure, MidpointRounding.AwayFromZero));
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass.LogError(ex, "setDefaultEMIDetails");
+                }
             }
             return _objEMI;
         }
@@ -1062,7 +1084,7 @@ namespace Bikewale.Models.BikeModels
                     _objData.PageMetaTags.Keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", _objData.BikeName);
                     _objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                     _objData.Page_H1 = _objData.BikeName;
-                    
+
                     CheckCustomPageMetas();
                 }
             }
@@ -1155,7 +1177,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.VersionId = (uint)_pqOnRoad.DPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().objVersion.VersionId;
                             }
-                            _objData.IsOnRoadPriceAvailable = true;
+                            IsDealerPriceAvailble = true;
                         }//Bikewale Pricing
                         else if (_pqOnRoad.BPQOutput != null && _pqOnRoad.BPQOutput.Varients != null)
                         {
@@ -1178,7 +1200,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.VersionId = (uint)_pqOnRoad.BPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().VersionId;
                             }
-                            _objData.IsOnRoadPriceAvailable = true;
+
                         }//Version Pricing
                         else
                         {
