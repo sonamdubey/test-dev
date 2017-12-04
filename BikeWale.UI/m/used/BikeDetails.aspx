@@ -397,6 +397,16 @@
                             <span class="breadcrumb-link__label" itemprop="name"><%= inquiryDetails.Make.MakeName %></span>
                         </a>
                     </li>
+
+                    <% if (!string.IsNullOrEmpty(seriesUrl))
+                        { %>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a class="breadcrumb-link" href="/m/<%= seriesUrl %>" title="<%= Series.SeriesName%>">
+                                <span class="breadcrumb-link__label" itemprop="name"><%=Series.SeriesName %></span>
+                            </a>
+                        </li>
+                    <% } %>
+
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
 
                         <a class="breadcrumb-link" href="<%= string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityMaskingName) %>" itemprop="url">
