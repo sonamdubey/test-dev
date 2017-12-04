@@ -1,4 +1,5 @@
-﻿
+﻿<link rel='stylesheet' type='text/css' href='/sass/partials/review-popup.css' />
+
 <div id="reviewPopup" class="review-popup hide">
     <span class="review-popup-close-btn"></span>
     <div class="review-popup__title-block">
@@ -19,21 +20,6 @@
         </div>
     </div>
     <div class="review-popup-container">
-        <div class="about-reviewer-content margin-bottom15">
-            <p class="font13 text-grey text-bold">About the reviewer</p>
-            <ul class="about-reviewer-list item-count-2">
-                <li>
-                    <span class="bwsprite bwmsprite questionId-1"></span>
-                    <p class="item-question">Used it for</p>
-                    <p class="item-answer">Everything</p>
-                </li>
-                <li>
-                    <span class="bwsprite bwmsprite questionId-2"></span>
-                    <p class="item-question">Owned for</p>
-                    <p class="item-answer">Never owned</p>
-                </li>
-            </ul>
-        </div>
         <div class="review-popup-list content-box-shadow">
             <div class="margin-bottom10">
                 <span class="rating-badge bg-rate-4" data-rate-bg="4">
@@ -47,6 +33,26 @@
 
             <span class="font12 text-light-grey">2 years ago by Abhijit</span>
         </div>
+
+		<div class="about-reviewer-content about-reviewer--position">
+			<ul class="about-reviewer-list item-count-3">
+				<li>
+					<span class="question-1-icon"></span>
+					<p class="item-question">Used it for</p>
+					<p class="item-answer">Everything</p>
+				</li>
+				<li>
+					<span class="question-2-icon"></span>
+					<p class="item-question">Owned for</p>
+					<p class="item-answer">Never owned</p>
+				</li>
+				<li>
+					<span class="question-3-icon"></span>
+					<p class="item-question">Ridden for</p>
+					<p class="item-answer">5000-10000 kms</p>
+				</li>
+			</ul>
+		</div>
 
         <div class="content-inner-block-20">
             <h2 class="font14 margin-bottom10">Full review of Bajaj Platina</h2>
@@ -104,14 +110,14 @@
                 <span class="review__question">Was this review helpful?</span>
 
                 <button type="button" class="feedback-button">
-                    <span class="bwmsprite like-sm"></span>
+					<span class="like-sm-icon"></span>
                     Yes
                     (<span class="btn-count review-btn">225</span>)
                 </button>
 
 
                 <button type="button" class="feedback-button">
-                    <span class="bwmsprite dislike-sm"></span>
+					<span class="dislike-sm-icon"></span>
                     No
                     (<span class="btn-count">13</span>)
                 </button>

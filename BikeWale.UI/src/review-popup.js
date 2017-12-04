@@ -1,54 +1,61 @@
 ﻿// review popup
-ReviewPopup = $('#reviewPopup');
-var effect = 'slide', directionDown = { direction: 'down' }, duration = 500, directionRight = { direction: 'right'};
-var isDesktop = $('#d-review-popup__link')
+var reviewPopupCotent = $('#reviewPopup');
+var desktopUserReview = $('#userReviewContentDesktop').length;
+
 docReady(function () {
-    reviewPopup = {
-        containerRightPosition: '463px',
+	reviewPopup = {
+		settings: {
+			effect: 'slide',
+			direction: {
+				direction: 'down'
+			},
+			duration: 500
+		},
         open: function (element) {
-            if (isDesktop.length) {
-                element.animate({ 'right': 0 });
-                popup.lock();
+        	if (desktopUserReview) {
+        		element.animate({ 'right': 0 });
+        		popup.lock();
             }
             else {
-                element.show(effect, directionDown, duration, function () { });
-                $('body').css('overflow', 'hidden');
-                $(".blackOut-window").show();
-            }
+        		element.show(reviewPopup.settings.effect, reviewPopup.settings.direction, reviewPopup.settings.duration, function () { });
+        		$('body').css('overflow', 'hidden');
+        		$(".blackOut-window").show();
+        	}
             window.history.pushState('addreviewPopup', '', '');
         },
 
         close: function (element) {
-
-            if (isDesktop.length) {
-                element.animate({ 'right': '-' + reviewPopup.containerRightPosition });
-                popup.unlock();             
+        	if (desktopUserReview) {
+        		element.animate({ 'right': '-' + ($('#reviewPopup').width() + $('.review-popup-close-btn').outerWidth()) });
+        		popup.unlock();
             }
             else {
-                element.hide(effect, directionDown, duration, function () { });
-                $('body').css('overflow', 'auto');
-                $(".blackOut-window").hide();
-            }
+        		element.hide(reviewPopup.settings.effect, reviewPopup.settings.direction, reviewPopup.settings.duration, function () { });
+        		$('body').css('overflow', 'auto');
+        		$(".blackOut-window").hide();
+        	}
         }
     };
 
-    $(".review-popup__link").click(function () {
-        reviewPopup.open(ReviewPopup);
+    $(".review-popup__link").on('click', function () {
+        reviewPopup.open(reviewPopupCotent);
     });
 
-    $('.review-popup .review-popup-close-btn, .blackOut-window').mouseup(function () {
-        reviewPopup.close(ReviewPopup);
+    $('.review-popup .review-popup-close-btn, .blackOut-window').on('click', function () {
+        reviewPopup.close(reviewPopupCotent);
         window.history.back();
     });
+
     $(window).on('popstate', function (event) {
-        if (ReviewPopup.is(':visible')) {
-            reviewPopup.close(ReviewPopup);
+        if (reviewPopupCotent.is(':visible')) {
+            reviewPopup.close(reviewPopupCotent);
         }
     });
+
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
-            if (ReviewPopup.is(':visible')) {
-                reviewPopup.close(ReviewPopup);
+            if (reviewPopupCotent.is(':visible')) {
+                reviewPopup.close(reviewPopupCotent);
                 window.history.back();
             }
         }

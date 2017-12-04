@@ -1,5 +1,5 @@
 ﻿@import ../partials/rating
-@import ../partials/horizontal-rating-graph
+
 .review-popup
 	height: 80%
 	width: 100%
@@ -17,16 +17,10 @@
 
 .review-popup__title-block
 	padding: 10px 20px
-	-moz-box-shadow: 2px 2px 2px #dcdcdc
-	-webkit-box-shadow: 2px 2px 2px #dcdcdc
-	-o-box-shadow: 2px 2px 2px #dcdcdc
-	-ms-box-shadow: 2px 2px 2px #dcdcdc
-	box-shadow: 2px 2px 2px #dcdcdc
-	-moz-border-radius: 2px
-	-webkit-border-radius: 2px
-	-o-border-radius: 2px
-	-ms-border-radius: 2px
-	border-radius: 2px
+	position: relative
+	z-index: 1
+	@include vendor-prefix("box-shadow", 2px 2px 2px #dcdcdc)
+	@include vendor-prefix("border-radius", 2px)
 
 @mixin left-grid-image ($width: 82, $height: 46 )
 	.left-grid-image
@@ -38,9 +32,9 @@
 		img
 			height: $height * 1px
 
-@mixin right-grid-details ($width: 70%)
+@mixin right-grid-details ($width: 70)
 	.right-grid-details
-		width: 70%
+		width: $width * 1%
 
 @mixin review-overall-rating__list($font-size: 12px)
 	.review-overall-rating
@@ -49,6 +43,7 @@
 			padding-left: 0
 			position: relative
 			left: -5px
+
 	.review-overall-rating__list
 		display: inline-block
 		vertical-align: middle
@@ -65,10 +60,6 @@
 @include left-grid-image()
 @include right-grid-details()
 @include review-overall-rating__list()
-
-.review-overall-rating
-	position: relative
-	left: -5px
 
 //review popup list
 
@@ -116,33 +107,40 @@
   border-radius: 2px
   cursor: pointer
   font-family: 'Open Sans', sans-serif, Arial
+
   &.active
     border-color: #41B4C4
     background: #41B4C4
     color: white
     pointer-events: none
 
-.like-sm, .dislike-sm, .views-sm
-  width: 16px
-  height: 14px
-  vertical-align: middle
+.like-sm-icon,
+.dislike-sm-icon,
+	width: 16px
+	height: 14px
+	display: inline-block
+	vertical-align: middle
 
-.like-sm
-  background-position: -109px -252px
+.like-sm-icon
+	@include like-grey-13x12
+	position: relative
+	top: -2px
 
-.dislike-sm
-  background-position: -109px -265px
+.dislike-sm-icon
+	@include dislike-grey-13x12
 
 .feedback-button
-  .like-sm, .dislike-sm
-    opacity: 0.6
-  &.active
-    .like-sm
-      opacity: 1
-      background-position: -94px -624px
-    .dislike-sm
-      opacity: 1
-      background-position: -110px -624px
+	.like-sm-icon,
+	.dislike-sm-icon
+		opacity: 0.6
+
+	&.active
+		.like-sm-icon
+			opacity: 1			
+
+		.dislike-sm-icon
+			opacity: 1
+
 
 /*rating badge
 @for $i from 1 through 5
@@ -166,16 +164,18 @@
   top: 1px
   margin-right: 4px
 
+@import ../partials/horizontal-rating-graph
 
-/* horizontal graph
+/* about reviewer */
 
+.review-popup-container
+	.about-reviewer-content
+		padding: 0 10px
+		background: #fafafa
 
-
-
-
-.about-reviewer-content
-	padding: 15px 20px 0
-	background: #fafafa
+.about-reviewer--position
+	position: relative
+	top: 3px
 
 .about-reviewer-list li
     text-align: center
@@ -189,33 +189,52 @@
 
 .item-count-3 li
     width: 33.33333%
-.item-count-2 li
-    width: 50%
-.item-count-1 li
-    width: 100%
-.questionId-2, .questionId-3
-    width: 16px
-    height: 16px
-.questionId-2
-    background-position: -94px -643px
-.questionId-3
-    background-position: -112px -643px
-.questionId-1
-    width: 24px
-    height: 16px
-    background-position: -131px -643px
 
 .item-count-2 li
     width: 50%
+
+.item-count-1 li
+    width: 100%
+
+.question-2-icon,
+.question-3-icon
+	width: 16px
+	height: 16px
+	display: inline-block
+
+.question-2-icon
+    @include calendar-grey-15x16
+
+.question-3-icon
+    @include meter-grey-12x16
+
+.question-1-icon
+	width: 24px
+	height: 16px
+	display: inline-block
+	@include bike-grey-24x16
+
+.item-question
+	font-size: 10px
+	color: #a2a2a2
+	margin-bottom: 5px
+
+.item-answer
+	font-size: 14px
+	color: #787878
+
 
 @media only screen and (max-width: 320px)
   .review-popup__title-block .right-grid-details
-    width: 69%
+    width: 62%
+
   .review-overall-rating .review-overall-rating__list
     padding-right: 5px
     padding-left: 4px
+
   .review__question
     font-size: 11px
+
   .feedback-button
     margin-left: 2px
     margin-right: 2px
@@ -223,28 +242,31 @@
 
 .review-popup-close-btn
 	cursor: pointer
-	top: 23px
-	right: 20px
-	width: 16px
-	height: 16px
+	top: 8px
+	right: 8px
+	width: 48px
+	height: 48px
+	display: block
 	position: absolute
+	z-index: 2
 
 	&:before,
 	&:after
 		position: absolute
-		left: 7px
+		left: 24px
+		top: 14px
 		content: ' '
 		height: 17px
 		width: 2px
 		background-color: #484848
 
 	&:before
-		transform: rotate(45deg)
+		@include vendor-prefix("transform", rotate(45deg))
 
 	&:after
-		transform: rotate(-45deg)
+		@include vendor-prefix("transform", rotate(-45deg))
 
-@media only screen and (min-width: 500px)
+@media only screen and (min-width: 800px)
 	.review-popup
 		display: block
 		height: 100%
@@ -253,16 +275,20 @@
 		z-index: 210
 
 		.review-popup-close-btn
-			left: -47px
-			padding: 24px
+			left: -48px
 			top: 0
 			background: #e6e6e6
 			
 			&:before,
 			&:after
-				top: 13px
-				left: 22px
-				height: 23px
+				top: 12px
+				height: 22px
+
+	.review-popup-container
+		.about-reviewer-content
+			padding-right: 20px
+			padding-left: 20px
+
 
 
 
