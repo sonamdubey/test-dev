@@ -58,10 +58,22 @@
         self.close();        
     }
 
-    $(document).ready(function () {                
-        if ('<%= isRemovedListing%>' == '1')
-        {
-            post_status();
+    function postFailureMessage() {
+        var objParent = document.getElementById("div_" + inquiryId);
+        document.getElementById("div_RemoveInquiry").style.visibility = 'hidden';
+        objParent.innerHTML = "<b>Your bike listing S" + inquiryId + " has not been removed.</b>";
+        self.close();
+    }
+
+    $(document).ready(function () {
+
+        switch ('<%= isRemovedListing%>') {
+            case '200':
+                post_status();
+            case '401':
+                postFailureMessage();
+            default:
+                return;
         }
     });
  </script>     
