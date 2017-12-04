@@ -3905,6 +3905,7 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_AMP.cshtml" />
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_Amp.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -45,7 +45,7 @@
                 }
                 @if (Model.Make != null && Model.Model != null && Model.IsNew)
                     {
-                    <a class="compare-with-target text-truncate" href="@string.Format("{0}/m/{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget))" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
+                    <a class="compare-with-target text-truncate" href="@string.Format("{0}/m/{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.RemoveQueryString(UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget)))" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
                         <span class="bwmsprite compare-sm"></span>@string.Format("Compare with {0}", Model.Model.ModelName)<span class="bwmsprite right-arrow"></span>
                     </a>
                 }
