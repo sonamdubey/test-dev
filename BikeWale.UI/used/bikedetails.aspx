@@ -66,6 +66,15 @@
                                     <span itemprop="title"><%= inquiryDetails.Make.MakeName %></span>
                                 </a>
                             </li>
+
+                            <% if (!string.IsNullOrEmpty(seriesUrl))
+                                { %>
+                                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                    <span class="bwsprite fa-angle-right margin-right10"></span>
+                                    <a href="/<%= seriesUrl %>" itemprop="url"><span itemprop="title"><%= Series.SeriesName %></span></a>
+                                </li>
+                            <% } %>
+
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="<%= string.Format("/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityMaskingName) %>" itemprop="url">

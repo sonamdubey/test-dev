@@ -364,7 +364,7 @@ namespace Bikewale.Mobile
                         Series = models.GetSeriesByModelId(modelId);
                         if (Series != null && Series.IsSeriesPageUrl)
                         {
-                            seriesUrl = string.Format("{0}-bikes/{1}", makeMaskingName, Series.MaskingName);
+                            seriesUrl = string.Format("{0}-bikes/{1}/", makeMaskingName, Series.MaskingName);
                         }
                     }
                 }
