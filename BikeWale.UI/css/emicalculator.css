@@ -2,7 +2,7 @@
     height: auto;
     width: 100%;
     background-color: #fff;
-    z-index: 210;
+    z-index: 10;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -26,9 +26,15 @@
 }
 .emi-popup-close-btn:before {
     transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
 }
 .emi-popup-close-btn:after {
     transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
 }
 .emi-popup__title {
     padding: 15px 40px 15px 20px;
@@ -140,6 +146,7 @@
         width: 370px;
         height: 526px;
         position: fixed;
+        z-index: 210;
         right: 5%;
         left: 5%;
         top: 6%;

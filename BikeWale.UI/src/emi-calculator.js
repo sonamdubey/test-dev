@@ -1,24 +1,29 @@
-﻿var emiCaluculatorContainer, effect = 'slide', directionLeft = { direction: 'down' }, duration = 500;
+﻿var emiCaluculatorContainer;
 var isMobile = $("#mobileEmiCalculator");
 var emiPopup = $('#emiPopup');
 emiCalculator = {
+    setting: {
+        effect: 'slide',
+        directionleft: {'direction':'down'},
+        duration: 500
+
+    },
     open: function (element) {
         if (isMobile.length) {
-            element.show(effect, directionLeft, duration, function () {
+            element.show(emiCalculator.setting.effect, emiCalculator.setting.directionleft, emiCalculator.setting.duration, function () {
             });
             lockPopup();
         }
         else {
             element.fadeIn(100);
             popup.lock();
-            //e.preventDefault();
         }
         window.history.pushState('addEMIPopup', '', '');
     },
 
     close: function (element) {
         if (isMobile.length) {
-            element.hide(effect, directionLeft, duration, function () { });
+            element.hide(emiCalculator.setting.effect, emiCalculator.setting.directionleft, emiCalculator.setting.duration, function () { });
             unlockPopup();
         }
         else {
@@ -60,6 +65,14 @@ $(window).on('popstate', function (event) {
     }
     if ($('#leadCapturePopup').is(':visible')) {
         emiCalculator.close($('#leadCapturePopup'));
+    }
+});
+$(document).keyup(function (e) {
+    if (e.keyCode == 27) {
+        if (emiPopup.is(':visible')) {
+            emiCalculator.close(emiPopup);
+            window.history.back();
+        }
     }
 });
 
@@ -218,4 +231,5 @@ try {
 
 $("#btnEmiQuote").on('click', function () {
     emiPopup.fadeOut(100);
+    $('blackOut-window').hide();
 });
