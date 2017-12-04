@@ -158,6 +158,16 @@ namespace Bikewale.Utility
         {
             return String.Format("/dealer-showrooms/{0}/{1}/#{2}", makeMaskingName, cityMaskingName, hash);
         }
+        /// <summary>
+        /// Created By : Snehal Dange on 1st dec 2017
+        /// Descritpion: Added to get url when city is null
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
+        public static string DealerLocatorUrl(string makeMaskingName)
+        {
+            return String.Format("/dealer-showrooms/{0}/", makeMaskingName);
+        }
 
         /// <summary>
         /// Created By Vivek gupta

@@ -250,7 +250,7 @@ namespace Bikewale.Models
                 objData.MakeMaskingName = objMakePage.MakeMaskingName;
                 objData.MakeName = objMakePage.MakeName;
                 objData.CityCardTitle = "showrooms in";
-                objData.CityCardLink = "dealer-showrooms-in";
+                objData.CityCardLink = "dealer-showrooms";
                 objData.IsServiceCenterPage = false;
                 objMakePage.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
