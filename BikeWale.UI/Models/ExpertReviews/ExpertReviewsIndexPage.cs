@@ -55,11 +55,6 @@ namespace Bikewale.Models
         private bool showCheckOnRoadCTA = false;
         private PQSourceEnum pqSource = 0;
         private EnumBikeType bikeType = EnumBikeType.All;
-        private EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
-        private MostPopularBikeWidgetVM MostPopularBikes = null;
-        private MostPopularBikeWidgetVM MostPopularScooters = null;
-        private UpcomingBikesWidgetVM UpcomingBikes = null;
-        private UpcomingBikesWidgetVM UpcomingScooters = null;
         #endregion
 
         #region Public properties
@@ -272,6 +267,11 @@ namespace Bikewale.Models
         /// </summary>
         private void GetWidgetData(ExpertReviewsIndexPageVM objData, int topCount)
         {
+            MostPopularBikeWidgetVM MostPopularBikes = null;
+            MostPopularBikeWidgetVM MostPopularScooters = null;
+            UpcomingBikesWidgetVM UpcomingBikes = null;
+            UpcomingBikesWidgetVM UpcomingScooters = null;
+            EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
             try
             {
                 currentCityArea = GlobalCityArea.GetGlobalCityArea();
