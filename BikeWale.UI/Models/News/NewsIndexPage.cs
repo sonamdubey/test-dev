@@ -1,4 +1,8 @@
-﻿using Bikewale.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
@@ -19,10 +23,6 @@ using Bikewale.Models.Scooters;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models
 {
@@ -432,7 +432,7 @@ namespace Bikewale.Models
 
             EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
 
-            if (objData.Series != null && objData.Series.SeriesId > 0 && objMake != null)
+            if (objData.Series != null && objData.Series.IsSeriesPageUrl && objData.Series.SeriesId > 0 && objMake != null)
             {
                 objData.PageMetaTags.Title = string.Format("Latest news about all {0} {1} {2} | {0} {1} news - BikeWale", objMake.MakeName, objData.Series.SeriesName, bodyStyle.Equals(EnumBikeBodyStyles.Scooter) ? "scooters" : "bikes");
 
@@ -440,7 +440,7 @@ namespace Bikewale.Models
 
                 objData.PageMetaTags.Keywords = string.Format("News about {0} {1}, {0} {1} News", objMake.MakeName, objData.Series.SeriesName);
                 objData.PageH1 = string.Format("{0} {1} News", objMake.MakeName, objData.Series.SeriesName);
-                objData.PageH2 = string.Format("Latest {0} Bikes News and Views", objMake.MakeName);
+                objData.PageH2 = string.Format("Latest {0} {1} Bikes News and Views", objMake.MakeName, objData.Series.SeriesName);
                 objData.AdTags.TargetedSeries = objData.Series.SeriesName;
             }
             else if (ModelId > 0)
@@ -493,6 +493,12 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Description = string.Format("Page {0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Description);
                 objData.PageMetaTags.Title = string.Format("Page {0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
             }
+
+            if (objData.Model != null)
+            {
+                objData.Series = _models.GetSeriesByModelId(ModelId);
+            }
+
             SetBreadcrumList(objData, bodyStyle);
         }
 
@@ -669,7 +675,7 @@ namespace Bikewale.Models
             try
             {
                 IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-                string bikeUrl, scooterUrl;
+                string bikeUrl, scooterUrl, seriesUrl;
                 bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
                 ushort position = 1;
                 if (IsMobile)
@@ -696,6 +702,13 @@ namespace Bikewale.Models
                     scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objData.Make.MaskingName);
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objData.Make.MakeName)));
+                }
+
+
+                if (objData.Series != null && objData.Series.IsSeriesPageUrl)
+                {
+                    seriesUrl = string.Format("{0}{1}/", bikeUrl, objData.Series.MaskingName);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, objData.Series.SeriesName));
                 }
 
                 if (objData.Model != null)

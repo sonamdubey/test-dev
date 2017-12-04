@@ -82,7 +82,16 @@
     -ms-transition: all 0.4s ease 0s;
     transition: all 0.4s ease 0s;
 }
-
+.fixed-overall-tab {
+    position: fixed;
+    top: 0;
+    left:0;
+    -moz-box-shadow: 2px 2px 2px #dcdcdc;
+    -webkit-box-shadow: 2px 2px 2px #dcdcdc;
+    -o-box-shadow: 2px 2px 2px #dcdcdc;
+    -ms-box-shadow: 2px 2px 2px #dcdcdc;
+    box-shadow: 2px 2px 2px #dcdcdc;
+}
 #comparison-floating-card .bike-details-block {
     min-height: 95px;
 }
@@ -308,17 +317,20 @@
 
 /* tabs */
 .bw-tabs-data {
-    display: none;
-}
-
-.bw-tabs-data.active {
     display: block;
 }
 
-/* table */
-.model-accordion-tab + .table-content {
-    display: none;
+.bw-tabs_title {
+    padding: 10px 20px;
+	font-size: 18px;
+	text-transform: capitalize;
+	border-top: 1px solid #e2e2e2;
+    border-bottom: 1px solid #e2e2e2;
+    background: #f9f9f9;
+    font-weight: 700
 }
+
+/* table */
 
 .table-content td {
     padding-left: 15px;
@@ -477,6 +489,9 @@
     position: relative;
     border-top: 1px solid #e2e2e2;
     cursor: pointer;
+    -webkit-box-shadow: 0 2px 3px #e2e2e2;
+    -moz-box-shadow: 0 2px 3px #e2e2e2;
+    box-shadow: 0 2px 3px #e2e2e2;
 }
 
 .bw-model-tabs-data .model-accordion-tab:first-of-type {
@@ -488,30 +503,19 @@
     font-weight: 600;
 }
 
-.model-accordion-tab .fa-angle-down {
-    position: absolute;
-    right: 20px;
-    top: 44%;
-}
-
-.model-accordion-tab.active {
-    -webkit-box-shadow: 0 2px 3px #e2e2e2;
-    -moz-box-shadow: 0 2px 3px #e2e2e2;
-    box-shadow: 0 2px 3px #e2e2e2;
-}
 
 .model-accordion-tab.brakes-accordion-tab {
     padding-top: 7px;
     padding-bottom: 8px;
 }
 
-.model-accordion-tab.active + .table-content,
-.model-accordion-tab.active:nth-child(1) + .table-content {
+.model-accordion-tab + .table-content,
+.model-accordion-tab:nth-child(1) + .table-content {
     display: table;
     border-bottom: 1px solid #e2e2e2;
 }
 
-.model-accordion-tab.active + .table-content + .model-accordion-tab {
+.model-accordion-tab + .table-content + .model-accordion-tab {
     border-top: 0;
 }
 

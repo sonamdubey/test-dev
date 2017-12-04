@@ -1685,7 +1685,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (sw != null && _logGrpcErrors)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
@@ -1758,7 +1758,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (sw != null && _logGrpcErrors)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
@@ -1829,7 +1829,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (sw != null && _logGrpcErrors)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)

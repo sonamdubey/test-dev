@@ -497,6 +497,16 @@
                     </li>
                     <%  }
                     %>
+
+                    <% if (!string.IsNullOrEmpty(seriesUrl))
+                        { %>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a class="breadcrumb-link" href="/m/<%= seriesUrl %>" title="<%= Series.SeriesName%>">
+                                <span class="breadcrumb-link__label" itemprop="name"><%=Series.SeriesName %></span>
+                            </a>
+                        </li>
+                    <% } %>
+
                     <li>
                         <a class="breadcrumb-link" href="/m/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" title="<%= String.Format("{0} {1}", makeName, modelName) %>">
                             <span class="breadcrumb-link__label" itemprop="name"><%= String.Format("{0} {1}", makeName, modelName) %> </span>

@@ -1,4 +1,8 @@
-﻿using Bikewale.BAL.BikeData;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -16,10 +20,6 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.New
 {
@@ -48,6 +48,8 @@ namespace Bikewale.New
         protected PopularBodyStyleVM popularBodyStyle;
         protected EnumBikeBodyStyles bodyStyle;
         protected string bodyStyleText;
+        protected BikeSeriesEntityBase Series;
+        protected string seriesUrl;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -84,6 +86,7 @@ namespace Bikewale.New
                 }
                 BindWidget();
                 BindSimilarBikes();
+                BindSeriesBreadCrum();
             }
         }
 
@@ -360,6 +363,38 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Bikewale.New.ModelSpecsFeatures.BindPopularBodyStyle({0})", modelId));
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 29th Nov 2017
+        /// Description : Bind series url for if available
+        /// </summary>
+        private void BindSeriesBreadCrum()
+        {
+            try
+            {
+                if(modelId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                                    .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                                    .RegisterType<ICacheManager, MemcacheManager>()
+                                    .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                    .RegisterType<IPager, Pager>();
+                        var models = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                        Series = models.GetSeriesByModelId(modelId);
+                        if(Series != null && Series.IsSeriesPageUrl)
+                        {
+                            seriesUrl = string.Format("{0}-bikes/{1}", makeMaskingName, Series.MaskingName);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.New.ModelSpecsFeatures.BindSeriesBreadCrum model id = {0}", modelId));
             }
         }
 

@@ -21,6 +21,8 @@ namespace Bikewale.Models.BikeModels
     /// Description : Removed IsGstPrice property
     /// Modified by : Vivek Singh Tomar on 12th Oct 2017
     /// Summary : Removed service center property
+    /// Modified by :   Sumit Kate on 30 Nov 2017
+    /// Description :   Added EMICalculator
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -62,7 +64,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsPrimaryDealer { get { return (this.DetailedDealer != null && this.DetailedDealer.PrimaryDealer != null); } }
         public bool IsDealerDetailsExists { get { return (this.IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.DealerDetails != null); } }
         public bool IsPremiumDealer { get { return (IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.IsPremiumDealer); } }
-        public NewBikeDealers DealerDetails { get { return this.DetailedDealer.PrimaryDealer.DealerDetails; } }
+        public NewBikeDealers DealerDetails { get { return IsPrimaryDealer ? this.DetailedDealer.PrimaryDealer.DealerDetails : null; } }
         public string MPQString { get; set; }
         public string DealerArea { get { return (IsDealerDetailsExists && DealerDetails.objArea != null ? DealerDetails.objArea.AreaName : LocationCookie.Area); } }
         public string BestBikeHeading { get; set; }
@@ -134,7 +136,7 @@ namespace Bikewale.Models.BikeModels
 
         public bool IsMileageByUsersAvailable { get; set; }
 
-
+        public EMICalculatorVM EMICalculator { get; set; }
     }
 
 }
