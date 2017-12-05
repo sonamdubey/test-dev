@@ -118,7 +118,7 @@ namespace Bikewale.Models.ServiceCenters
 
                                 if (city != null)
                                 {
-                                    redirectUrl = String.Format("/bike-service-centers/{0}/{1}/", makeMaskingName, city.CityMaskingName);
+                                    redirectUrl = String.Format("/service-centers/{0}/{1}/", makeMaskingName, city.CityMaskingName);
                                     status = StatusCodes.RedirectTemporary;
                                 }
                             }

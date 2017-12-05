@@ -295,7 +295,7 @@
                     window.location.href =  "/dealer-showrooms/" + self.makeMasking() + "/" + self.cityMasking() + "/";
             }
             else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>) {
-            window.location.href = + "/bike-service-centers/" +self.makeMasking() + "/" + self.cityMasking() + "/" ;
+            window.location.href = + "/service-centers/" +self.makeMasking() + "/" + self.cityMasking() + "/" ;
         };
     }
     }

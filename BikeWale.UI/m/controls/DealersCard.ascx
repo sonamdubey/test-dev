@@ -60,7 +60,7 @@
                         <a href="/m/dealer-showrooms/<%=makeMaskingName%>/<%=details.CityMaskingName%>/" title="<%=makeName%> showroom in <%=details.CityName%>" class="block"><%=details.DealerCount %><%=(details.DealerCount > 1 )? " showrooms" : " showroom" %></a>
                         <%} %>
                         <%if (details.ServiceCenterCount>0){%>
-                        <a href="/m/bike-service-centers/<%=makeMaskingName%>/<%=details.CityMaskingName%>/" title="<%=makeName%> service center in <%=details.CityName%>" class="block"><%=details.ServiceCenterCount %> service center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a>
+                        <a href="/m/service-centers/<%=makeMaskingName%>/<%=details.CityMaskingName%>/" title="<%=makeName%> service center in <%=details.CityName%>" class="block"><%=details.ServiceCenterCount %> service center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a>
                         <%} %>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         <a href="/m/dealer-showrooms/<%=makeMaskingName%>/" title="<%=makeName%> showroom in India" class="block"><%=cityDealers.TotalDealerCount %><%=(cityDealers.TotalDealerCount > 1 )? " showrooms" : " showroom" %></a>
                         <%} %>
                         <%if (cityDealers.TotalServiceCenterCount > 0) {%>
-                        <a href="/m/bike-service-centers/<%=makeMaskingName%>/" title="<%=makeName%> service center in India" class="block"><%=cityDealers.TotalServiceCenterCount %> service center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a>
+                        <a href="/m/service-centers/<%=makeMaskingName%>/" title="<%=makeName%> service center in India" class="block"><%=cityDealers.TotalServiceCenterCount %> service center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a>
                         <%} %>
                     </div>
                 </div>
