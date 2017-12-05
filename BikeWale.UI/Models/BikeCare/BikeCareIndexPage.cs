@@ -220,6 +220,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Get data to populate widget view model
+        /// Modified by Sajal Gupta on 5-12-2017
+        /// Desc : Addded multi tabs widget
         /// </summary>
         private void GetWidgetData(BikeCareIndexPageVM objData, int topCount)
         {

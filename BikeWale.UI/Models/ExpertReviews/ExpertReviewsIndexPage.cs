@@ -264,6 +264,8 @@ namespace Bikewale.Models
         /// Summary    : Get view model for page widgets
         /// Modified by Sajal Gupta on 24-08-2017
         /// description : Added Popular Scooter Brands widget
+        /// Modified by Sajal Gupta on 05-12-2017
+        /// description : AddedMultiTab widget
         /// </summary>
         private void GetWidgetData(ExpertReviewsIndexPageVM objData, int topCount)
         {

@@ -1,6 +1,10 @@
 ﻿
 namespace Bikewale.Models.BikeModels
 {
+    /// <summary>
+    /// Created by sajal Gupta on 05*-12-2017
+    /// Multi Tabbs widget vm
+    /// </summary>
     public class MultiTabsWidgetVM
     {
         public string TabHeading1 { get; set; }

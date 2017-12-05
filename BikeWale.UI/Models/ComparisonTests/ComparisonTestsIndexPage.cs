@@ -141,6 +141,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 8 May 2017
         /// Summary    : Get view model for page widgets
+        /// Modified by sajal Gupta on 5-12-2017
+        /// Desc : Added multitab widget
         /// </summary>
         private void GetWidgetData(ComparisonTestsIndexPageVM objData, int topCount)
         {

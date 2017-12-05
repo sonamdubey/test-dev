@@ -189,6 +189,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Subodh Jain 31 March 2017
         /// Summary    : Bind Widgets
+        /// Modified by sajal Gupta on 05-12-2017
+        /// Desc : Adderd multui tab widget
         /// </summary>
         private void BindWidget(IndexFeatureVM objIndex, int topCount)
         {
