@@ -22,6 +22,7 @@ namespace Bikewale.Models.BikeModels
         public bool ShowViewAllLink1 { get; set; }
         public bool ShowViewAllLink2 { get; set; }
         public MultiTabWidgetPagesEnum Pages { get; set; }
+        public string PageName { get; set; }
     }
 
     public enum MultiTabWidgetPagesEnum

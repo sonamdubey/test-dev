@@ -13,7 +13,7 @@ namespace Bikewale.Models
     /// Modified by : Aditi Srivastava on 30 Mar 2017
     /// Summary     : Added view models and properties for widgets
     /// Modified by sajal Gupta on 01-12-2017
-    /// Summary : Added PopularBikesAndPopularScootersWidget
+    /// Summary : Added PopularBikesAndPopularScootersWidget and UpcomingBikesAndUpcomingScootersWidget
     /// </summary>
     public class ExpertReviewsIndexPageVM : ModelBase
     {

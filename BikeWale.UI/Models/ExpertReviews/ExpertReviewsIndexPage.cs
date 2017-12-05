@@ -369,6 +369,7 @@ namespace Bikewale.Models
                         objData.UpcomingBikesAndUpcomingScootersWidget.ShowViewAllLink1 = true;
                         objData.UpcomingBikesAndUpcomingScootersWidget.ShowViewAllLink2 = false;
                         objData.UpcomingBikesAndUpcomingScootersWidget.Pages = MultiTabWidgetPagesEnum.UpcomingBikesAndUpcomingScooters;
+                        objData.UpcomingBikesAndUpcomingScootersWidget.PageName = "ExpertReviews";
 
                         objData.PopularBikesAndPopularScootersWidget = new MultiTabsWidgetVM();
 
@@ -389,6 +390,7 @@ namespace Bikewale.Models
                         objData.PopularBikesAndPopularScootersWidget.ShowViewAllLink1 = true;
                         objData.PopularBikesAndPopularScootersWidget.ShowViewAllLink2 = true;
                         objData.PopularBikesAndPopularScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndPopularScooters;
+                        objData.PopularBikesAndPopularScootersWidget.PageName = "ExpertReviews";
                     }
                 }
 
