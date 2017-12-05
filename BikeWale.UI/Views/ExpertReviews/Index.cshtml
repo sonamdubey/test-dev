@@ -81,9 +81,9 @@
                                                     <p class="list-slug__heading">Bike review contest</p>
                                                     <p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;2,000</p>
                                                     @{
-                                                        string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ExpertReviews));
+                                        string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ExpertReviews));
                                                     }
-                                                    <a href="@string.Format("/bike-review-contest/?q={0}",q)"  title="Bike Review Contest" class="btn view-all-target-btn list-slug__target">Participate now<span class="bwsprite teal-right"></span></a>
+                                                    <a href="@string.Format("/bike-review-contest/?q={0}",q)" title="Bike Review Contest" class="btn view-all-target-btn list-slug__target">Participate now<span class="bwsprite teal-right"></span></a>
                                                 </div>
                                             </div>
                                         </li>
@@ -103,9 +103,10 @@
                                 <div class="clear"></div>
                             </div>
                         </div>
-                                    }
+                    }
                 </div>
             </div>
+
             <div class="grid-4 omega">
                 @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
                 {
@@ -146,15 +147,13 @@
                 }
                 else
                 {
-                    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+                    if (Model.PopularBikesAndPopularScootersWidget != null)
                     {
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                            <h2>@Model.UpcomingBikes.WidgetHeading</h2>
-                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
-                            <div class="view-all-btn-container padding-top10 padding-bottom10">
-                                <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
-                            </div>
-                        </div>
+                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndPopularScootersWidget)
+                    }
+                    if (Model.UpcomingBikesAndUpcomingScootersWidget != null)
+                    {
+                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.UpcomingBikesAndUpcomingScootersWidget)
                     }
                 }
                 <div class="margin-bottom20">
