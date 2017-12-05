@@ -147,13 +147,29 @@
                 }
                 else
                 {
-                    if (Model.PopularBikesAndPopularScootersWidget != null)
+                    if (Model.Make != null && Model.Make.MakeId > 0)
                     {
-                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndPopularScootersWidget)
+                        if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+                        {
+                            <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                                <h2>@Model.UpcomingBikes.WidgetHeading</h2>
+                                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
+                                <div class="view-all-btn-container padding-top10 padding-bottom10">
+                                    <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                                </div>
+                            </div>
+                        }
                     }
-                    if (Model.UpcomingBikesAndUpcomingScootersWidget != null)
+                    else
                     {
-                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.UpcomingBikesAndUpcomingScootersWidget)
+                        if (Model.PopularBikesAndPopularScootersWidget != null)
+                        {
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndPopularScootersWidget)
+                        }
+                        if (Model.UpcomingBikesAndUpcomingScootersWidget != null)
+                        {
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.UpcomingBikesAndUpcomingScootersWidget)
+                        }
                     }
                 }
                 <div class="margin-bottom20">
