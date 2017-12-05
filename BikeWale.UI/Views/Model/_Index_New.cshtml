@@ -59,7 +59,7 @@
 									if (Model.EMIDetails != null)
 									{
 										<div class="font12 margin-top5 position-rel">
-											<span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default text-bold">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
+											<span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default text-bold  margin-right20">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
                                             <a href="javascript:void(0)" rel="nofollow" id="emiCalculatorLink" class="bw-ga" data-cat="Model_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@Model.BikeName.Replace(" ", "_")">Calculate EMI</a>
 										</div>
                                     @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
@@ -85,7 +85,7 @@
                                     if (Model.EMIDetails != null)
                                     {
                                         <div class="font12 margin-top5 position-rel">
-                                            <span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default text-bold">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
+                                            <span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default text-bold  margin-right20">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
                                             <a href="javascript:void(0)" rel="nofollow" id="emiCalculatorLink" class="bw-ga" data-cat="Model_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@Model.BikeName.Replace(" ", "_")">Calculate EMI</a>
                                         </div>
                                     @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)

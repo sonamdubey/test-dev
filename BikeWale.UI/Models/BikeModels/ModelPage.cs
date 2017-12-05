@@ -962,7 +962,7 @@ namespace Bikewale.Models.BikeModels
                 _objData.EMICalculator.PQId = _objData.PQId;
                 _objData.EMICalculator.IsPremiumDealer = _objData.IsPremiumDealer;
                 _objData.EMICalculator.DealerDetails = _objData.DealerDetails;
-                _objData.EMICalculator.PremiumDealerLeadSourceId = LeadSource;
+                _objData.EMICalculator.PremiumDealerLeadSourceId = IsMobile ? LeadSourceEnum.EMI_Calculator_ModelPage_Mobile : LeadSourceEnum.EMI_Calculator_ModelPage_Desktop;
                 _objData.EMICalculator.BikeName = _objData.BikeName;
             }
             catch (Exception ex)
