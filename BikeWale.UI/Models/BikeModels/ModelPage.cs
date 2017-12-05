@@ -996,8 +996,8 @@ namespace Bikewale.Models.BikeModels
 
                     objEMI.Tenure = Convert.ToUInt16((objEMI.MaxTenure - objEMI.MinTenure) / 2 + objEMI.MinTenure);
                     objEMI.RateOfInterest = (objEMI.MaxRateOfInterest - objEMI.MinRateOfInterest) / 2 + objEMI.MinRateOfInterest;
-                    objEMI.MinLoanToValue = Convert.ToUInt32(price - objEMI.MaxDownPayment);
-                    objEMI.MaxLoanToValue = Convert.ToUInt32(price - objEMI.MinDownPayment);
+                    objEMI.MinLoanToValue = Convert.ToUInt32(price * .7);
+                    objEMI.MaxLoanToValue = price;
                     objEMI.EMIAmount = Convert.ToUInt32((objEMI.MinLoanToValue * objEMI.Tenure * objEMI.RateOfInterest) / (12 * 100));
                     objEMI.EMIAmount = Convert.ToUInt32(Math.Round((objEMI.MinLoanToValue + objEMI.EMIAmount + objEMI.ProcessingFee) / objEMI.Tenure, MidpointRounding.AwayFromZero));
                 }
