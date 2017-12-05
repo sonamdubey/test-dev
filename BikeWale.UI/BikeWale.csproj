@@ -3903,6 +3903,7 @@
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
+    <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_AMP.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
