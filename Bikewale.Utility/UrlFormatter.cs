@@ -337,19 +337,23 @@ namespace Bikewale.Utility
         ///  Created By : Sangram Nandkhile
         ///  Created On  : 11-11-2016
         ///  Description : To get url for serviceCenter.
+        ///  Modified By: Snehal Dange on 5th dec 2017
+        ///  Description : Changed service center url
         /// </summary>
         public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
         {
-            return string.Format("/bike-service-centers/{0}/{1}/", makeMaskingName, cityMaskingName);
+            return string.Format("/service-centers/{0}/{1}/", makeMaskingName, cityMaskingName);
         }
         /// <summary>
         ///  Created By : Aditi Srivastava
         ///  Created On  : 15 Dec 2016
         ///  Description : To get url for serviceCenter.
+        ///    Modified By: Snehal Dange on 5th dec 2017
+        ///  Description : Changed service center url
         /// </summary>
         public static string GetServiceCenterUrl(string makeMaskingName)
         {
-            return string.Format("/bike-service-centers/{0}/", makeMaskingName);
+            return string.Format("/service-centers/{0}/", makeMaskingName);
         }
         /// <summary>
         ///  Created By : Subodh Jain 

@@ -18,7 +18,7 @@
                         }
                         @if (details.ServiceCenterCount > 0)
                         {
-                            <a href="@string.Format("/bike-service-centers/{0}/{1}/", Model.MakeMaskingName, details.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.MakeName, details.CityName)" class="block">
+                            <a href="@string.Format("/service-centers/{0}/{1}/", Model.MakeMaskingName, details.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.MakeName, details.CityName)" class="block">
                                 @details.ServiceCenterCount service center
                             </a>
                         }
@@ -37,7 +37,7 @@
                                 }
                                 @if (Model.TotalServiceCenterCount > 0)
                                 {
-                                    <a href= "@string.Format("/bike-service-centers/{0}/",Model.MakeMaskingName)"  title="@Model.MakeName service center in India" class="block">@Model.TotalDealerCount service centers</a>
+                                    <a href= "@string.Format("/service-centers/{0}/",Model.MakeMaskingName)"  title="@Model.MakeName service center in India" class="block">@Model.TotalDealerCount service centers</a>
                                 }
                             </div>
                         </li>

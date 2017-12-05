@@ -88,7 +88,7 @@ namespace Bikewale.DAL.ServiceCenter
                                         Longitude = Convert.ToString(dr["longitude"]),
                                         ServiceCenterCountCity = SqlReaderConvertor.ToUInt16(dr["servicecnt"]),
                                         stateId = SqlReaderConvertor.ToUInt16(dr["stateid"]),
-                                        Link = string.Format("{0}/bike-service-centers/{1}/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, makeMaskingname, Convert.ToString(dr["citymaskingname"]))
+                                        Link = string.Format("{0}/service-centers/{1}/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, makeMaskingname, Convert.ToString(dr["citymaskingname"]))
                                     });
                                 }
                             }
