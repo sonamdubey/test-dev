@@ -232,7 +232,10 @@ namespace Bikewale.Models.BikeSeries
                 if (objSeriesPage.SeriesBase != null)
                 {
                     objSeriesPage.SeriesDescription = _bikeSeries.GetSynopsis(objSeriesPage.SeriesBase.SeriesId);
-                    objSeriesPage.SeriesBase.SeriesName = objSeriesPage.SeriesDescription.Name;
+                    if (objSeriesPage.SeriesDescription != null)
+                    {
+                        objSeriesPage.SeriesBase.SeriesName = objSeriesPage.SeriesDescription.Name;
+                    }
                 }
 
             }
