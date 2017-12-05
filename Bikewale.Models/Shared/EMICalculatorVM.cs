@@ -21,5 +21,7 @@ namespace Bikewale.Models
         public bool IsPremiumDealer { get; set; }
         public NewBikeDealers DealerDetails { get; set; }
         public LeadSourceEnum PremiumDealerLeadSourceId { get; set; }
+        public bool IsPrimaryDealer { get; set; }
+        public bool IsManufacturerLeadAdShown { get; set; }
     }
 }
