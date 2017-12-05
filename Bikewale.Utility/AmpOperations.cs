@@ -111,6 +111,8 @@ namespace Bikewale.Utility
 
         /// <summary>
         /// Function to replace the html tags with amp tags
+        /// Modified by : Ashutosh Sharma on 04 Dec 2017
+        /// Description : Added logic to decode response.
         /// </summary>
         /// <param name="response"></param>
         /// <param name="htmlTag"></param>
@@ -121,6 +123,7 @@ namespace Bikewale.Utility
         {
             try
             {
+                response = System.Net.WebUtility.HtmlDecode(response);
                 var doc = GetHtmlDocument(response);
                 var tagList = doc.DocumentNode.Descendants(htmlTag);
 
@@ -136,7 +139,7 @@ namespace Bikewale.Utility
 
                 foreach (var tag in tagList)
                 {
-                    var original =System.Net.WebUtility.HtmlDecode(tag.OuterHtml);
+                    var original = System.Net.WebUtility.HtmlDecode(tag.OuterHtml);
                     var replacement = tag.Clone();
                     if (tag.Name.Equals("iframe"))
                     {
