@@ -233,5 +233,8 @@ try {
 
 $("#btnEmiQuote").on('click', function () {
     emiPopup.fadeOut(100);
-    $('blackOut-window').hide();
+    if (isMobile) {
+        unlockPopup();
+    }
+    
 });
