@@ -681,10 +681,10 @@ namespace Bikewale.Models.BikeModels
 
                             // When dealer Price isn't avalablle, call function to get on-road pricing
                             uint onRoadPrice = _objData.BikePrice;
-                            if (!IsDealerPriceAvailble)
+                            if (!IsDealerPriceAvailble || onRoadPrice == 0)
                             {
                                 bool hasAreaAvailable = false;
-                                uint _emiCityId = this._cityId == 0 ? 1 : this._cityId;
+                                uint _emiCityId = ( this._cityId == 0 || onRoadPrice == 0 ) ? 1 : this._cityId;
                                 _objData.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(this._modelId, _emiCityId, out hasAreaAvailable);
                                 if (_objData.BikeVersionPrices != null)
                                 {
@@ -700,13 +700,6 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.EMIDetails = setDefaultEMIDetails(onRoadPrice);
                                 BindEMICalculator(onRoadPrice);
-
-                            }
-                            else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
-                            {
-                                _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
-                                BindEMICalculator(_objData.SelectedVersion.AverageExShowroom);
-
                             }
                         }
                     }
