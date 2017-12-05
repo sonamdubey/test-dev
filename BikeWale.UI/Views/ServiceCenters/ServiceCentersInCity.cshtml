@@ -217,7 +217,7 @@
     }
 
     if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0
-        && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.FirstOrDefault() != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.FirstOrDefault().ServiceCenterCount>0)
+        && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.FirstOrDefault() != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any(m => m.ServiceCenterCount > 0) )
     {
        <section>
             <div class="container section-bottom-margin">
