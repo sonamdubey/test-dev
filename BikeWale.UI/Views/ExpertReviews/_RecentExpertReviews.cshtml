@@ -1,8 +1,9 @@
 ﻿@model Bikewale.Models.RecentExpertReviewsVM
 @using Bikewale.Utility
+<link rel='stylesheet' type='text/css' href='/sass/modules/review-article.css'/>
 @if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
 {
-    foreach (var review in Model.ArticlesList)
+    @*foreach (var review in Model.ArticlesList)
     {
         <article class="margin-bottom20">
             <div class="grid-4">
@@ -35,5 +36,33 @@
             </div>
             <div class="clear"></div>
         </article>
+    }*@
+    // foreach (var review in Model.ArticlesList)
+    //{   
+    for (var i = 0; i < 1; i++)
+    { 
+            <article>
+                <div class="expert-review__card" data-category=@((i % 2 == 0) ? "0" : "1")>
+                    <header>
+                        <h3>
+                            <a href="/expert-reviews/5-labours-of-honda-navi-review-23979.html" class="review-article__card-title" title="5 labours of Honda Navi: Review">5 labours of Honda Navi: Review</a>
+                        </h3>
+                    </header>
+
+                    <div class="expert-review__card--tag">
+                        @((i % 2 == 0) ? "Long Term Review" : "short term")
+
+                    </div>
+                    <div class="article-stats-grid">
+                        <span class="article-stats__date-grid">04 July 2016</span>
+                        <span class="article-stats__name-grid">Vikrant Singh</span>
+                    </div>
+                    <p class="article-description">
+                        Yamaha has launched the new FZ Series in India. Featuring a host of mechanical Yamaha has launched the new FZ Series in India. Featuring a host of mechanical Yamaha has launched the new FZ Series in India. Featuring a host of mechanical Yamaha has launched the new FZ S…
+                    </p>
+
+                    <a href="/expert-reviews/5-labours-of-honda-navi-review-23979.html" title="5 labours of Honda Navi: Review" class="font14" rel="nofollow">...Read more</a>
+                </div>
+            </article>
     }
 }
