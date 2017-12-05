@@ -39,8 +39,10 @@ $('body').on('keypress', function (e) {
 });
 
 $('#emiPopup .emi-popup-close-btn, .blackOut-window').mouseup(function () {
-    emiCalculator.close(emiPopup);
-    window.history.back();
+    if (emiPopup.is(':visible')) {
+        emiCalculator.close(emiPopup);
+        window.history.back();
+    }
 });
 $('#leadCapturePopup .leadCapture-close-btn').mouseup(function () {
 
