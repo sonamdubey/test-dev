@@ -3086,6 +3086,8 @@
     <Content Include="sass\model-series\series.sass" />
     <Content Include="sass\partials\d\_upcoming-model-card.sass" />
     <Content Include="sass\partials\d\_comparison-card.sass" />
+    <Content Include="sass\partials\review-popup.sass" />
+    <Content Include="sass\partials\_horizontal-rating-graph.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3132,6 +3134,7 @@
     <Content Include="src\photos\modelgallery.js" />
     <Content Include="src\popup\makemodelpopup.js" />
     <Content Include="src\priceincity.js" />
+    <Content Include="src\review-popup.js" />
     <Content Include="src\review\landing.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\landing.js" />
@@ -3902,6 +3905,7 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_AMP.cshtml" />
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
+    <Content Include="Views\Shared\_ReviewPopup.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
