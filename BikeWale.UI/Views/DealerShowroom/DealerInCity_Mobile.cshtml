@@ -136,7 +136,7 @@
 }
 
 @if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails != null
-    && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.FirstOrDefault() != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any(m => m.DealerCount > 0))
+   && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any(m => m.DealerCount > 0))
 {
     <section>
         <div class="container box-shadow padding-top15 card-bottom-margin">
@@ -182,7 +182,7 @@
                     </div>
                 </div>
                 <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest @Model.Make.MakeName service centers in @Model.CityDetails.CityName for service enquiries, service and repair costs and more!</p>
-                <a href="@string.Format("/m/bike-service-centers/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Center in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                <a href="@string.Format("/m/service-centers/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Center in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
             </div>
         </section>
        

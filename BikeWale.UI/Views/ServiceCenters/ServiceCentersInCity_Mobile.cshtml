@@ -9,7 +9,7 @@
     Model.AdTags.AdId = "1444028976556";
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
-    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/bike-service-centers/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/service-centers/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
 }
 
 @if (Model != null && Model.Make != null)
@@ -188,7 +188,7 @@
     }
 
     if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0
-         && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.FirstOrDefault() != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any(m => m.ServiceCenterCount > 0))
+         && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any(m => m.ServiceCenterCount > 0))
     {
         <section>
             <div class="container card-bottom-margin">
