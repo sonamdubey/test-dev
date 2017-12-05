@@ -698,7 +698,15 @@ namespace Bikewale.Models.BikeModels
 
                             if (onRoadPrice > 0)
                             {
-                                _objData.EMIDetails = setDefaultEMIDetails(onRoadPrice);
+                                if(_objData.DetailedDealer != null && _objData.DetailedDealer.PrimaryDealer != null)
+                                {
+                                    SetDealerEMIDetails(onRoadPrice);
+                                }
+                                else
+                                {
+                                    _objData.EMIDetails = SetDefaultEMIDetails(onRoadPrice);
+                                }
+
                                 BindEMICalculator(onRoadPrice);
                             }
                         }
@@ -917,7 +925,7 @@ namespace Bikewale.Models.BikeModels
         /// Created BY : Sushil Kumar on 14th March 2015
         /// Summary : To set EMI details for the dealer if no EMI Details available for the dealer
         /// </summary>
-        private EMI setDefaultEMIDetails(uint bikePrice)
+        private EMI SetDefaultEMIDetails(uint bikePrice)
         {
             EMI _objEMI = null;
             if (bikePrice > 0)
@@ -949,6 +957,65 @@ namespace Bikewale.Models.BikeModels
         }
 
         /// <summary>
+        /// Created by : Vivek Singh Tomar on 5th Dec 2017
+        /// Summary : Set EMI details when dealer EMI details present
+        /// </summary>
+        /// <param name="price"></param>
+        private void SetDealerEMIDetails(uint price)
+        {
+            try
+            {
+                //EMI details
+                #region Set EMI Details
+                var objEMI = _objData.DetailedDealer.PrimaryDealer.EMIDetails;
+                if (objEMI != null)
+                {
+                    //Setting the dealer down payment amount as objEMI contains the percentage value
+
+                    objEMI.MinDownPayment = Convert.ToSingle(objEMI.MinDownPayment * price / 100);
+                    objEMI.MaxDownPayment = Convert.ToSingle(objEMI.MaxDownPayment * price / 100);
+
+                    var _objEMI = SetDefaultEMIDetails(price);
+                    if (objEMI.MinDownPayment < 1 || objEMI.MaxDownPayment < 1)
+                    {
+                        objEMI.MinDownPayment = _objEMI.MinDownPayment;
+                        objEMI.MaxDownPayment = _objEMI.MaxDownPayment;
+                    }
+
+                    if (objEMI.MinTenure < 1 || objEMI.MaxTenure < 1)
+                    {
+                        objEMI.MinTenure = _objEMI.MinTenure;
+                        objEMI.MaxTenure = _objEMI.MaxTenure;
+                    }
+
+                    if (objEMI.MinRateOfInterest < 1 || objEMI.MaxRateOfInterest < 1)
+                    {
+                        objEMI.MinRateOfInterest = _objEMI.MinRateOfInterest;
+                        objEMI.MaxRateOfInterest = _objEMI.MaxRateOfInterest;
+                    }
+
+                    objEMI.Tenure = Convert.ToUInt16((objEMI.MaxTenure - objEMI.MinTenure) / 2 + objEMI.MinTenure);
+                    objEMI.RateOfInterest = (objEMI.MaxRateOfInterest - objEMI.MinRateOfInterest) / 2 + objEMI.MinRateOfInterest;
+                    objEMI.MinLoanToValue = Convert.ToUInt32(price - objEMI.MaxDownPayment);
+                    objEMI.MaxLoanToValue = Convert.ToUInt32(price - objEMI.MinDownPayment);
+                    objEMI.EMIAmount = Convert.ToUInt32((objEMI.MinLoanToValue * objEMI.Tenure * objEMI.RateOfInterest) / (12 * 100));
+                    objEMI.EMIAmount = Convert.ToUInt32(Math.Round((objEMI.MinLoanToValue + objEMI.EMIAmount + objEMI.ProcessingFee) / objEMI.Tenure, MidpointRounding.AwayFromZero));
+                }
+                else
+                {
+                    objEMI = SetDefaultEMIDetails(price);
+                }
+
+                _objData.EMIDetails = objEMI;
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "SetDealerEMIDetails");
+            }
+        }
+
+        /// <summary>
         /// Created by      :   Sumit Kate on 30 Nov 2017
         /// Descriptiion    :   Bind EMI calculator widget on model page
         /// </summary>
@@ -964,6 +1031,8 @@ namespace Bikewale.Models.BikeModels
                 _objData.EMICalculator.DealerDetails = _objData.DealerDetails;
                 _objData.EMICalculator.PremiumDealerLeadSourceId = IsMobile ? LeadSourceEnum.EMI_Calculator_ModelPage_Mobile : LeadSourceEnum.EMI_Calculator_ModelPage_Desktop;
                 _objData.EMICalculator.BikeName = _objData.BikeName;
+                _objData.EMICalculator.IsPrimaryDealer = _objData.IsPrimaryDealer;
+                _objData.EMICalculator.IsManufacturerLeadAdShown = _objData.IsManufacturerLeadAdShown;
             }
             catch (Exception ex)
             {

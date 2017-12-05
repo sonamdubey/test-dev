@@ -56,10 +56,6 @@ $('#leadCapturePopup .leadCapture-close-btn').mouseup(function () {
             history.go(-2)
         }
     }
-    else {
-        history.go(-1)
-    }
-
 });
 $(window).on('popstate', function (event) {
     if (emiPopup.is(':visible')) {
