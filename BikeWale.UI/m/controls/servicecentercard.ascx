@@ -20,7 +20,7 @@
                { %>
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,cityMaskingName, serviceCenter.Name,serviceCenter.ServiceCenterId) %>" title="<%= serviceCenter.Name%>" class="block">
+                    <div class="block">
                         <div class="target-link margin-bottom5 text-truncate font14"><%= serviceCenter.Name%></div>
                         <% if (!string.IsNullOrEmpty(serviceCenter.Address))
                            { %>
@@ -29,7 +29,7 @@
                             <span class="vertical-top dealership-address details-column"><%= Bikewale.Utility.FormatDescription.TruncateDescription(serviceCenter.Address, 95) %></span>
                         </p>
                         <% } %>
-                    </a>
+                    </div>
                     <% if (!string.IsNullOrEmpty(serviceCenter.Phone))
                     { %>
                     <a href="tel:<%=serviceCenter.Phone %>" class="text-default text-bold text-truncate block">
