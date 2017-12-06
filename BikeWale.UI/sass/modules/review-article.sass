@@ -1,78 +1,55 @@
-﻿$var1: #ffffff
-$var2: #e2e2e2
-$var3: #787878
-
+﻿@import '../mixins/mixins'
+@import './card-category'
 @import '../base/variables'
-@import '../mixins/mixins'
+@import './_carousel-card'
+@import '../mixins/icons'
 
-.expert-article-list 
+.expert-review-list 
 	display: table
 	border-collapse: separate
-	border-spacing: 5px
+	border-spacing: 15px 5px
 	margin-bottom: 10px
 	margin-top: 20px
 
-	article 
-		display: table-cell
+@include carousel-card()
 
 .expert-review__card 
 	padding: 15px 20px 10px
-	margin-left: 10px
-	margin-right: 10px
-	@include vendor-prefix("border-radius", 2px)
-	background-color: map-get($color-map, white)
-	@include vendor-prefix("box-shadow", 0 2px 4px 0 rgba(213, 213, 213, 0.5))
-	border: solid 1px map-get($color-map, border-dark)
 	display: table-cell
-	position: relative
 
-.expert-review__card--tag
-	height: auto
-	min-width: 122px
-	@include vendor-prefix("border-radius", 3px 3px 3px 0)
-	padding: 4px 10px 4px 25px
-	position: absolute
-	font-size: 10px
-	color: #fff
-	top: -13px
-	left: -1px
+@include card-category__tag()
+@include card-category__tag-color()
 
-	&:after
-		position: absolute
+.card-category__tag
+	&:before
 		content: ''
-		border-top: 9px solid
-		left: 0
-		bottom: -8px
-		border-right: 10px solid transparent
+		display: block
+		position: absolute
+		left: 8px
+		top: 6px
+		width: 12px
+		height: 12px
 
-@mixin expert-review__card--tag($color1: #68c7d2, $color2: #f2aa58)
-	.expert-review__card[data-category= "0"]
-		.expert-review__card--tag
-			background-color: $color1
-		
-			&:after
-				border-top-color: $color1
+.carousel-card[data-review-category='0']
+	.card-category__tag
+		&:before
+			background: url('/images/star-white.svg') no-repeat top center
 
-	.expert-review__card[data-category= "1"]
-		.expert-review__card--tag
-			background-color: $color2
-		
-			&:after
-				border-top-color: $color2
-
-@include expert-review__card--tag()
+.carousel-card[data-review-category='1']
+	.card-category__tag
+		&:before
+			background: url('/images/flag.svg') no-repeat top center
 
 .review-article__card-title
+	color: #2a2a2a
 	font-size: 15px
 	font-weight: 600
-	color: #2a2a2a
-	//color: map-get($color-map, black)
 	display: block
 	margin-bottom: 8px
 		
 .article-description 
 	color: map-get($color-map, slate-grey)
-	margin-bottom: 10px
+	margin-bottom: 5px
 	margin-top: 10px
 	font-size: 14px
 
@@ -84,88 +61,67 @@ $var3: #787878
 	.article-stats__date-grid
 		display: inline-block
 		vertical-align: top
-		min-width: 80px
+		min-width: 75px
 		padding-right: 10px
 
 	.article-stats__name-grid
 		display: inline-block
 		vertical-align: top
-		min-width: 110px
-		padding-right: 10px
+		width: 220px
+		white-space: nowrap
+		overflow-hidden
+		text-overflow: ellipsis
 
-.expert-article__carousel.inner-content-carousel
+.model-carousel-container.inner-content-carousel
 	.jcarousel
-		padding-top: 15px
-		width: auto
-		left: 0
-		position: relative
+		.expert-review__card
+			&:hover
+				text-decoration: none
 
-		&:before
-			content: ''
-			display: block
-			height: 100%
-			width: 20px
-			position: absolute
-			top: 0
-			left: 0
-			background: linear-gradient(to left, rgba(255, 255, 255, 0), #ffffff)
-			background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0), #ffffff)
-			background: -o-linear-gradient(left, rgba(255, 255, 255, 0), #ffffff)
-			background: -moz-linear-gradient(left, rgba(255, 255, 255, 0), #ffffff)
-			z-index: 2
-		&:after
-			content: ''
-			display: block
-			height: 100%
-			width: 20px
-			position: absolute
-			top: 0
-			right: 0
-			background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff)
-			background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), #ffffff)
-			background: -o-linear-gradient(right, rgba(255, 255, 255, 0), #ffffff)
-			background: -moz-linear-gradient(right, rgba(255, 255, 255, 0), #ffffff)
-			z-index: 2
-		li
-			@include vendor-prefix("box-shadow", none)
-			margin-right: 20px
-			width: 350px
-			border: none
-			
-			&:first-child
-				margin-left: 20px
+				h3
+					text-decoration: underline
+	.expert-review__card
+		display: block
 
-			&:last-child
-				padding-right: 20px
+.review-card__read-more
+	font-size: 13px
 
-			.expert-review__card
-				&:last-child
-					margin-right: 40px
-
-
-	.jcarousel-control-left,
-	.jcarousel-control-right
-		z-index: 3
-
-
+@include jcarousel-carousel-card()
 
 @media only screen and (max-width: 900px)
-	.expert-article-list
+	.expert-review-list
 		display: block
 		margin-bottom: 20px
+		border-spacing: 0
 
-		article,
 		.expert-review__card
+			width: auto	
 
-			display: block
-			max-width: 340px
-			margin: 0 auto
-	
+	.expert-review__card
+		padding-left: 10px
+		padding-right: 10px
+		margin-left: 10px
+
+		.article-stats-grid
+			font-size: 10px
+
+		.article-stats__name-grid
+			width: 110px
+		
+		.article-stats__date-grid
+			min-width: 50px	
+
 	.review-article__card-title
 		font-size: 13px
+		margin-bottom: 0
 		
 	.article-description
-		font-size: 11px		
+		font-size: 11px
+		
+
+
+
+
 		
 
 	

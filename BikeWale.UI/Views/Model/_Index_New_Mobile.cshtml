@@ -152,11 +152,15 @@
 						
 
 					}
-                    @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+                    <div id="expertReviewsContent" data-id="expertReviewsContent" class="bw-model-tabs-data padding-top15 padding-bottom20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+                        <h2 class="padding-left20 padding-right20">@Model.BikeName Expert Reviews</h2>
+                            @Html.Partial("~/Views/ExpertReviews/_ExpertReview_Mobile.cshtml", Model.ExpertReviews)
+                    </div>
+                        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
                     {
-                        @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
+                            @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
                     }
-                </div>
+                    </div>
             }
             @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
         </div>

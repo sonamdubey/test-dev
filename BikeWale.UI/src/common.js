@@ -755,23 +755,48 @@ docReady(function () {
     if (typeof (slideCountTwo) != 'undefined') {
         _target = 2;
     }
+    
     var jcarousel = $('.jcarousel').jcarousel({
         vertical: false
     });
-    $('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
-        $(this).removeClass('inactive');
-    }).on('jcarouselcontrol:inactive', function () {
-        $(this).addClass('inactive');
-    }).jcarouselControl({
-        target: '-=' + _target
-    });
+
+    $('.jcarousel').each(function () {
+        var dataSwipe = $(this).attr('data-swipe');
+        var carouselWrapper = $(this).closest('.jcarousel-wrapper');
+        carouselWrapper.find('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        }).on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        }).jcarouselControl(
+            {
+                target: (dataSwipe ? '+=' + dataSwipe : '+=' + _target)
+
+            });
+
+        carouselWrapper.find('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        }).on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        }).jcarouselControl(
+    {
+        target: (dataSwipe ? '-=' + dataSwipe : '-=' + _target)
+    }
+    );
+
+    })
+
+    /*
     $('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
         $(this).removeClass('inactive');
     }).on('jcarouselcontrol:inactive', function () {
         $(this).addClass('inactive');
-    }).jcarouselControl({
-        target: '+=' + _target
-    });
+    }).jcarouselControl(
+        {
+            target: (($(this).closest('.jcarousel-wrapper').find('.jcarousel').attr('data-swipe')) ? '+=' + ($(this).closest('.jcarousel-wrapper').find('.jcarousel').attr('data-swipe')) : '+=' + _target)
+        }
+        );
+        */
+    
     $('.jcarousel-pagination').on('jcarouselpagination:active', 'a', function () {
         $(this).addClass('active');
     }).on('jcarouselpagination:inactive', 'a', function () {

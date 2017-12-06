@@ -185,6 +185,18 @@
 					</div>
 
 				}
+                <div class="grid-12">
+                    <div id="modelExpertReviewsContent" data-id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
+                        @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+                        {
+					<!-- expert review starts-->
+                            <h2 class="h2-heading  padding-right20 padding-left20 padding-bottom20">@Model.BikeName Expert Reviews</h2>
+                            @Html.Partial("~/Views/ExpertReviews/_ExpertReview.cshtml", Model.ExpertReviews)
+
+                    <!-- expert review ends-->
+                        }
+                    </div>
+                </div>
 				@if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
 				{
 					<div class="grid-12">
@@ -193,10 +205,12 @@
 				}
 				<div class="clear"></div>
 			</div>
+
 		}
 		@Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)
 	</div>
 </section>
+
 @if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown))
 {
 

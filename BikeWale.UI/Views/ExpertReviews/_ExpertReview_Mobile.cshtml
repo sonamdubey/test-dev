@@ -1,0 +1,55 @@
+﻿<link rel='stylesheet' type='text/css' href='/sass/modules/review-article.css' />
+<div class="expert-review-list padding-left20 padding-right20">
+    @for (var i = 0; i < 1; i++)
+    {
+        <a class="expert-review__card carousel-card" data-review-category=@((i % 2== 0) ? "0" : "1" )>
+            <h3 class="review-article__card-title">
+                5 labours of Honda Navi: Review
+            </h3>
+
+            <div class="card-category__tag">
+                @((i % 2 == 0) ? "Long Term Review" : "short term")
+
+            </div>
+            <div class="article-stats-grid">
+                <span class="article-stats__date-grid">04 July 2016</span>
+                <span class="article-stats__name-grid">Vikrant Singh</span>
+            </div>
+            <p class="article-description">
+                Yamaha has launched the new FZ Series in India. Featuring a host of mechanical Yamaha has launched the new FZ Series in India. Featuring a host of mechanical Yamaha has launched the new FZ Series in India. Featuring a host of mechanical Yamaha has launched the new FZ S…
+            </p>
+
+            <span class="review-card__read-more">...Read more</span>
+        </a>
+    }
+
+</div>
+<div class="swiper-container model-carousel-container">
+    <div class="swiper-wrapper">
+        @for (var i = 0; i < 5; i++)
+        {
+            <div class="swiper-slide">
+                <a href="" title="" class="expert-review__card carousel-card swiper-card" data-review-category=@((i % 2 == 0) ? "0":"1" )>
+                    <h3 class="review-article__card-title">
+                        5 labours of Honda Navi: Review
+                    </h3>
+
+                    <div class="card-category__tag">
+                        @((i % 2 == 0) ? "Long Term Review" : "short term")
+
+                    </div>
+                    <div class="article-stats-grid">
+                        <span class="article-stats__date-grid">04 July 2016</span>
+                        <span class="article-stats__name-grid">Vikrant Singh</span>
+                    </div>
+                    <p class="article-description">
+                        Yamaha has launched the new FZ Series in India. Featuring a host of mechanical Yamaha has launched the new FZ Series in India. Featuring a host of mechanical Yamaha has launched the new FZ Series in India. Featuring a host of mechanical Yamaha has launched the new FZ S…
+                    </p>
+
+                    <span class="review-card__read-more">...Read more</span>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>
