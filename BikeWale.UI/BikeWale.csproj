@@ -3906,6 +3906,7 @@
     <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_AMP.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_Amp.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile_Amp.cshtml" />
+    <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile_AMP.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
