@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using Bikewale.BindViewModels.Controls;
+﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.common;
 using Bikewale.DTO.PriceQuote;
@@ -39,6 +34,11 @@ using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -684,7 +684,7 @@ namespace Bikewale.Models.BikeModels
                             if (!IsDealerPriceAvailble || onRoadPrice == 0)
                             {
                                 bool hasAreaAvailable = false;
-                                uint _emiCityId = ( this._cityId == 0 || onRoadPrice == 0 ) ? 1 : this._cityId;
+                                uint _emiCityId = (this._cityId == 0 || onRoadPrice == 0) ? 1 : this._cityId;
                                 _objData.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(this._modelId, _emiCityId, out hasAreaAvailable);
                                 if (_objData.BikeVersionPrices != null)
                                 {
@@ -698,7 +698,7 @@ namespace Bikewale.Models.BikeModels
 
                             if (onRoadPrice > 0)
                             {
-                                if(_objData.DetailedDealer != null && _objData.DetailedDealer.PrimaryDealer != null)
+                                if (_objData.DetailedDealer != null && _objData.DetailedDealer.PrimaryDealer != null)
                                 {
                                     SetDealerEMIDetails(onRoadPrice);
                                 }
@@ -1032,7 +1032,7 @@ namespace Bikewale.Models.BikeModels
                 _objData.EMICalculator.PremiumDealerLeadSourceId = IsMobile ? LeadSourceEnum.EMI_Calculator_ModelPage_Mobile : LeadSourceEnum.EMI_Calculator_ModelPage_Desktop;
                 _objData.EMICalculator.BikeName = _objData.BikeName;
                 _objData.EMICalculator.IsPrimaryDealer = _objData.IsPrimaryDealer;
-                _objData.EMICalculator.IsManufacturerLeadAdShown = _objData.IsManufacturerLeadAdShown;
+                _objData.EMICalculator.IsManufacturerLeadAdShown = _objData.EMICalculator.ESEMICampaign != null;
             }
             catch (Exception ex)
             {
