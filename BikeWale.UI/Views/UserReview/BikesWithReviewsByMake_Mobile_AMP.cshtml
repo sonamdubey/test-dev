@@ -3,43 +3,47 @@
 
 @if (Model != null && Model.BikesReviewsList != null)
 {
-    <div>
-        <ul class="popular-review-list">
-            @for (var i = 0; i <= 2; i++)
+
+    <ul class="popular-review-list">
+        @foreach (var obj in Model.BikesReviewsList)
+        {
+            if (obj != null && obj.BikeModel != null && obj.MostHelpful != null && obj.MostRecent != null && obj.BikeModel.Make != null && obj.BikeModel.Model != null)
             {
+                var bikeName = string.Format("{0} {1}", obj.BikeModel.Make.MakeName, obj.BikeModel.Model.ModelName);
                 <li class="list-item">
                     <div class="margin-bottom10">
                         <h3 class="inline-block">
-                            <a href="/m/bajaj-bikes/platina/" title="Bajaj Platina" class="text-black">Bajaj Platina</a>
+                            <a href="@string.Format("/m{0}", UrlFormatter.BikePageUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName))" title="@bikeName" class="text-black">@bikeName</a>
                         </h3>
-                        <span class="rate-count-container rate-star--small rate-count-4">
-                            <span class="star-icon"></span>
-                            <span class="rate-star-count">4</span>
-                        </span>
-
-                        <a href="/m/bajaj-bikes/platina/reviews/" title="Bajaj Platina reviews" class="inline-block margin-left5">(38 reviews)</a>
+                        @if (Math.Round(obj.BikeModel.OverallRating, 1) > 0)
+                        {
+                            <span class="rate-count-container rate-star--small rate-count-@Math.Round(obj.BikeModel.OverallRating)">
+                                <span class="star-icon"></span>
+                                <span class="rate-star-count">@Math.Round(obj.BikeModel.OverallRating, 1)</span>
+                            </span>
+                        }
+                        <a href="@string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName))" title="@string.Format("{0} {1}", bikeName, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))" class="inline-block margin-left5">@string.Format("({0} {1})", obj.BikeModel.ReviewCount, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))</a>
                     </div>
                     <ul class="review-type-list">
                         <li class="review-type-list__item">
                             <p class="review-item__label">Most Popular Review</p>
                             <p class="review-item__preview">
-                                Style easy to ride, nice features and looks different in the crowd (of 100cc bikes).
-                                Engine...
+                              @FormatDescription.TruncateDescription(obj.MostHelpful.Description, 100)
                             </p>
-                            <a href="/m/bajaj-bikes/platina/reviews/671/" title="One of the best mileage bike with reasonable riding comfort" class="font14">Read more</a>
+                            <a href="@string.Format("/m{0}{1}/", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName),obj.MostHelpful.ReviewId)" title="@obj.MostHelpful.Title" class="font14">Read more</a>
                         </li>
                         <li class="review-type-list__item">
                             <p class="review-item__label">Most Recent Review</p>
-                            <p class="review-item__preview">I have my own bike bajaj platina. Bike performance in mileage is too good and much from...</p>
-                            <a href="/m/bajaj-bikes/platina/reviews/13056/" title="Mileage ka baap" class="font14">Read more</a>
+                            <p class="review-item__preview">@FormatDescription.TruncateDescription(obj.MostRecent.Description, 100)</p>
+                            <a href="@string.Format("/m{0}{1}/", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName),obj.MostRecent.ReviewId)" title="@obj.MostRecent.Title" class="font14">Read more</a>
                         </li>
                     </ul>
                 </li>
             }
 
-        </ul>
-        <div class="view-all-btn-container">
-            <a title="" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
-        </div>
-    </div>
+        }
+
+    </ul>
+
+
 }

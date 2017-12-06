@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.MakePageVM
+@using Bikewale.Utility
 @if (Model != null)
 {
     {
@@ -222,20 +223,25 @@
                             <div class="view-all-btn-container">
                                 <a title="@Model.MakeName Expert Reviews" href="@string.Format("{0}/m/{1}-bikes/expert-reviews/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.MakeMaskingName)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
                             </div>
+
                         }
                         @if (Model.IsUserReviewsAvailable && Model.PopularBikesUserReviews != null)
                         {
-                            <div>
+                            if (Model.IsExpertReviewsAvailable && Model.ExpertReviews != null)
+                            {
+                                <div class="padding-top20 margin-bottom20 border-solid-bottom"></div>
+                            }
+                            <div id="makeUserReviewsContent">
                                 <h3 class="model-section-subtitle">User Reviews</h3>
                                 @Html.Partial("~/Views/UserReview/BikesWithReviewsByMake_Mobile_AMP.cshtml", Model.PopularBikesUserReviews)
+                                <div class="view-all-btn-container">
+                                    <a title="" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
+                                </div>
                             </div>
-
                         }
-                        
                     </div>
-                    
                 }
-              
+
 
                 @if (Model.IsVideosAvailable)
                 {
