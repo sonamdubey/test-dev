@@ -502,6 +502,7 @@
     <Compile Include="Controllers\BikeCareController.cs" />
     <Compile Include="Controllers\BestBikesController.cs" />
     <Compile Include="Controllers\CompareBikesController.cs" />
+    <Compile Include="Controllers\ElectricBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\FinanceController.cs" />
@@ -947,6 +948,7 @@
     <Compile Include="Models\ComparisonTest\ComparisonTestWidget.cs" />
     <Compile Include="Models\ComparisonTests\ComparisonTestsIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\ElectricBike\ElectricBikesPage.cs" />
     <Compile Include="Models\ExpertReviews\ScooterExpertReviewsPage.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
@@ -3903,6 +3905,8 @@
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
+    <Content Include="Views\ElectricBikes\Index.cshtml" />
+    <Content Include="Views\ElectricBikes\Index_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
