@@ -86,9 +86,17 @@ namespace Bikewale.Sitemap.ServiceCenter
             IList<string> urlList = new List<string>();
             try
             {
+                urlList.Add("service-centers/");
                 foreach (var value in SitemapList)
                 {
-                    urlList.Add(string.Format("service-centers/{0}/{1}/", value.MakeMaskingName, value.CityMaskingName));
+                    if (string.IsNullOrEmpty(value.CityMaskingName))
+                    {
+                        urlList.Add(string.Format("service-centers/{0}/", value.MakeMaskingName));
+                    }
+                    else
+                    {
+                        urlList.Add(string.Format("service-centers/{0}/{1}/", value.MakeMaskingName, value.CityMaskingName));
+                    }
                 }
                 Logs.WriteInfoLog("All Service center Urls List Completed");
             }
