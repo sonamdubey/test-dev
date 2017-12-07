@@ -15,7 +15,7 @@ namespace Bikewale.Interfaces.Used
     public interface ISellBikes
     {
         SellBikeInquiryResultEntity SaveSellBikeAd(SellBikeAd ad);
-        bool UpdateOtherInformation(SellBikeAdOtherInformation adInformation, int inquiryAd, ulong customerId);
+        SellBikeInquiryResultEntity UpdateOtherInformation(SellBikeAdOtherInformation adInformation, int inquiryAd, ulong customerId);
         SellBikeAd GetById(int inquiryId, ulong customerId);
         bool VerifyMobile(SellerEntity seller);
         void SendNotification(SellBikeAd ad);
