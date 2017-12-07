@@ -238,10 +238,20 @@ namespace Bikewale.Models
             }
             else if (MakeId > 0)
             {
-                objData.PageMetaTags.Title = string.Format("{0} Bikes Expert Reviews India - Bike Comparison & Road Tests - BikeWale", objMake.MakeName);
+                if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(MakeId.ToString()))
+                {
+                    objData.PageMetaTags.Title = string.Format("Expert Reviews on {0} Bikes | First Ride & Comparison Tests- BikeWale", objMake.MakeName);
+                    objData.PageH1 = string.Format("Expert Reviews on {0} Bikes", objMake.MakeName);
+                }
+                else
+                {
+                    objData.PageMetaTags.Title = string.Format("{0} Bikes Expert Reviews India - Bike Comparison & Road Tests - BikeWale", objMake.MakeName);
+                    objData.PageH1 = string.Format("{0} Bikes Expert Reviews", objMake.MakeName);
+                }
+
                 objData.PageMetaTags.Description = string.Format("Latest expert reviews on upcoming and new {0} bikes in India. Read {0} bike comparison tests and road tests exclusively on BikeWale", objMake.MakeName);
                 objData.PageMetaTags.Keywords = string.Format("{0} bike expert reviews, {0} bike road tests, {0} bike comparison tests, {0} bike reviews, {0} road tests, {0} expert reviews, {0} bike comparison, {0} comparison tests.", objMake.MakeName);
-                objData.PageH1 = string.Format("{0} Bikes Expert Reviews", objMake.MakeName);
+
                 objData.AdTags.TargetedMakes = objMake.MakeName;
             }
             else

@@ -111,7 +111,8 @@ namespace Bikewale.Utility
             _UserReviewsReadInSessionCount = string.Empty,
             _PopularCitiesId = String.Empty,
             _SynopsisSummaryMergeMakeIds = string.Empty,
-            _PopularityOrderForMake = string.Empty;
+            _PopularityOrderForMake = string.Empty,
+            _MetasMakeId = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -251,7 +252,8 @@ namespace Bikewale.Utility
             _SynopsisSummaryMergeMakeIds = ConfigurationManager.AppSettings["SynopsisSummaryMergeMakeIds"];
             _PopularityOrderForMake = ConfigurationManager.AppSettings["PopularityOrderForMake"];
             _useV8Engine = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? true : Convert.ToBoolean(ConfigurationManager.AppSettings["UseV8Engine"]);
-            _pwaRenderedHtmlCacheLimitMins= string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
+            _pwaRenderedHtmlCacheLimitMins = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
+            _MetasMakeId = ConfigurationManager.AppSettings["MetasMakeId"];
         }
 
         // Static method to provide access to instance
@@ -423,5 +425,6 @@ namespace Bikewale.Utility
         public bool UseV8Engine { get { return _useV8Engine; } }
         public int PwaRenderedHtmlCacheLimitMins { get { return _pwaRenderedHtmlCacheLimitMins; } }
         public string PopularityOrderForMake { get { return _PopularityOrderForMake; } }
+        public string MetasMakeId { get { return _MetasMakeId; } }
     }   // class
 }   // namespace

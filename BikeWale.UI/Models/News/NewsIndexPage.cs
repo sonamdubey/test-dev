@@ -412,9 +412,19 @@ namespace Bikewale.Models
             }
             else if (MakeId > 0)
             {
-                objData.PageMetaTags.Title = string.Format("Latest News about {0} Bikes | {0} Bikes News - BikeWale", objMake.MakeName);
+                if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(MakeId.ToString()))
+                {
+                    objData.PageMetaTags.Title = string.Format("News Updates on {0} Bikes | News About {0} Models- BikeWale", objMake.MakeName);
+                    objData.PageH1 = string.Format("Latest News about {0} Bikes", objMake.MakeName);
+                }
+                else
+                {
+                    objData.PageMetaTags.Title = string.Format("Latest News about {0} Bikes | {0} Bikes News - BikeWale", objMake.MakeName);
+                    objData.PageH1 = string.Format("{0} Bikes News", objMake.MakeName);
+                }
+
                 objData.PageMetaTags.Description = String.Format("Read the latest news about popular and upcoming {0} bikes exclusively on BikeWale. Know more about {0} bikes.", objMake.MakeName);
-                objData.PageH1 = string.Format("{0} Bikes News", objMake.MakeName);
+
                 objData.PageH2 = string.Format("Latest {0} Bikes News and Views", objMake.MakeName);
                 objData.AdTags.TargetedMakes = objMake.MakeName;
             }
