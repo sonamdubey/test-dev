@@ -128,6 +128,8 @@ namespace Bikewale.BAL.UsedBikes
         /// <summary>
         /// Created by : Sajal Gupta on 5-12-2016
         /// Desc : stop Reassigning customerId if already registered.
+        /// Modified by :   Sumit Kate on 07 Dec 2017
+        /// Description :   Reassign the customerId to sellerEntity.CustomerId, It will prevent an attacker to create an ads in behalf of any user remotely
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
@@ -142,21 +144,15 @@ namespace Bikewale.BAL.UsedBikes
                 {
                     //If exists update the mobile number and name
                     _objCustomerRepo.UpdateCustomerMobileNumber(user.CustomerMobile, user.CustomerEmail, user.CustomerName);
-                    //set customer id for further use
-                    if (user.CustomerId < 1)
-                    {
-                        user.CustomerId = objCust.CustomerId;
-                    }
+                    user.CustomerId = objCust.CustomerId;
                 }
                 else
                 {
                     //Register the new customer and send login details
                     objCust = new CustomerEntity() { CustomerName = user.CustomerName, CustomerEmail = user.CustomerEmail, CustomerMobile = user.CustomerMobile };
-                    if (user.CustomerId < 1)
-                    {
-                        user.CustomerId = _objCustomer.Add(objCust);
+                    user.CustomerId = _objCustomer.Add(objCust);
+                    if (user.CustomerId > 0)
                         SendEmailSMSToDealerCustomer.CustomerRegistrationEmail(objCust.CustomerEmail, objCust.CustomerName, objCust.Password);
-                    }
                 }
             }
             catch (Exception ex)
