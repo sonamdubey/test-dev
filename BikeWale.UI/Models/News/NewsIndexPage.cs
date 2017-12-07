@@ -414,7 +414,7 @@ namespace Bikewale.Models
 
                     objData.PageMetaTags.Description = String.Format("Read the latest news about {0} {1} bikes exclusively on BikeWale. Know more about {1}.", objMake.MakeName, objModel.ModelName);
 
-                    
+
                     objData.AdTags.TargetedMakes = objMake.MakeName;
                     objData.AdTags.TargetedModel = objModel.ModelName;
                 }
@@ -432,11 +432,12 @@ namespace Bikewale.Models
                 {
                     objData.PageMetaTags.Title = string.Format("Latest News about {0} Bikes | {0} Bikes News - BikeWale", objMake.MakeName);
                     objData.PageH1 = string.Format("{0} Bikes News", objMake.MakeName);
+                    objData.PageH2 = string.Format("Latest {0} Bikes News and Views", objMake.MakeName);
                 }
 
                 objData.PageMetaTags.Description = String.Format("Read the latest news about popular and upcoming {0} bikes exclusively on BikeWale. Know more about {0} bikes.", objMake.MakeName);
 
-                objData.PageH2 = string.Format("Latest {0} Bikes News and Views", objMake.MakeName);
+
                 objData.AdTags.TargetedMakes = objMake.MakeName;
             }
             else
