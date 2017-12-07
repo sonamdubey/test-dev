@@ -128,6 +128,7 @@
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
+    <Compile Include="ElectricBike\ElectricBikesPageVM.cs" />
     <Compile Include="ExpertReviews\ScooterExpertReviewsPageVM.cs" />
     <Compile Include="Features\DetailFeatureVM.cs" />
     <Compile Include="Features\IndexFeatureVM.cs" />
