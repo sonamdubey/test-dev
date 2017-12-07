@@ -2,9 +2,9 @@
 <div class="expert-review-list  padding-right5 padding-left5">
         @for (var i = 0; i < 2; i++)
         {
-            <a class="expert-review__card carousel-card" data-review-category=@((i % 2 == 0) ? "0" : "1")>
+            <a href="" title="" class="expert-review__card carousel-card" data-review-category=@((i % 2 == 0) ? "0" : "1")>
                 <div class="card-category__tag">
-                    @((i % 2 == 0) ? "Long Term Review" : "short term")
+                    @((i % 2 == 0) ? "Long Term Review" : "First Ride Review")
 
                 </div>
                 <h3 class="review-article__card-title">
@@ -25,15 +25,15 @@
     </div>
 
 
-    <div class="model-carousel-container jcarousel-wrapper inner-content-carousel padding-bottom20">
-        <div class="jcarousel" data-swipe="1">
+    <div class="model-carousel-container jcarousel-wrapper inner-content-carousel padding-bottom20 padding-top25">
+        <div class="jcarousel" data-swipe="2">
             <ul>
-                @for (var i = 0; i < 5; i++)
+                @for (var i = 0; i < 10; i++)
                 {
                     <li>
                         <a href="" title="" class="expert-review__card carousel-card" data-review-category=@((i % 2 == 0) ? "0" : "1")>
                             <div class="card-category__tag">
-                                @((i % 2 == 0) ? "Long Term Review" : "short term")
+                                @((i % 2 == 0) ? "Long Term Review" : "First Ride review")
                             </div>
                             <h3 class="review-article__card-title">
                                 5 labours of Honda Navi: Review
