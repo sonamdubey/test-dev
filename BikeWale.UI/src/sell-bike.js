@@ -1020,12 +1020,19 @@ var moreDetails = function () {
 
     self.registrationNumber = ko.observable('');
     self.updateAd = function () {
-
+        var pdetails = vmSellBike.personalDetails();
         var moreDetailsData = {
             "registrationNo": vmSellBike.moreDetails().registrationNumber(),
             "insuranceType": vmSellBike.moreDetails().insuranceType(),
-            "adDescription": vmSellBike.moreDetails().adDescription() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
-        }
+            "adDescription": vmSellBike.moreDetails().adDescription() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : '',
+            "seller": {
+                "sellerType": vmSellBike.personalDetails().sellerTypeVal(),
+                "customerId": userId > 0 ? userId : 0,
+                "customerName": pdetails.sellerName(),
+                "customerEmail": pdetails.sellerEmail(),
+                "customerMobile": pdetails.sellerMobile()
+            }
+        };
         $.ajax({
             type: "Post",
             url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
@@ -1033,17 +1040,27 @@ var moreDetails = function () {
             dataType: 'json',
             data: ko.toJSON(moreDetailsData),
             success: function (response) {
-
-
+                if (response && response.Status && response.Status.Code) {
+                    switch (response.Status.Code) {
+                        case 1:
+                            vmSellBike.formStep(4);
+                            scrollToForm.activate();
+                            break;
+                        default:
+                            vmSellBike.formStep(2);
+                            scrollToForm.activate();
+                    }
+                }
+                else {
+                    vmSellBike.formStep(2);
+                    scrollToForm.activate();
+                }
             }
            ,
             complete: function (xhr, ajaxOptions, thrownError) {
 
             }
         });
-
-        vmSellBike.formStep(4);
-        scrollToForm.activate();
         triggerGA('Sell_Page', 'Step3_Update_My_Ad_Clicked', vmSellBike.bikeDetails().makeName + '_' + vmSellBike.bikeDetails().modelName + '_' + vmSellBike.bikeDetails().registeredCity() + '_' + vmSellBike.inquiryId());
     };
 
