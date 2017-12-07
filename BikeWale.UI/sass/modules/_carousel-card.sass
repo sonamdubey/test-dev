@@ -69,24 +69,24 @@
 				top: 31%
 
 			.jcarousel-control-next
-				@include jcarousel-control-next()
+				@include arrow-right
 				width: 42px
 				height: 93px				
 				&.inactive
 					display: none
 
 				&:hover
-					@include jcarousel-control-next()
+					@include arrow-right
 
 			.jcarousel-control-prev
-				@include jcarousel-control-prev()
+				@include arrow-left
 				width: 42px
 				height: 93px
 				&.inactive
 					display: none
 
 				&:hover
-					@include jcarousel-control-next()
+					@include arrow-left
 
 	.carousel-card
 		&:hover

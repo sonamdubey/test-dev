@@ -135,12 +135,12 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 }
 @if (Model.IsReviewsAvailable)
 {
-    <div id="expertReviewsContent" data-id="expertReviewsContent" class="bw-model-tabs-data padding-top15 padding-bottom20 padding-left20 padding-right20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+    <div id="expertReviewsContainer" class="padding-top15 padding-bottom20 padding-left20 padding-right20 content-box-shadow card-bottom-margin content-details-wrapper font14">
         <h2>@Model.BikeName Expert Reviews</h2>
         @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
         {
             @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
-            <div class="padding-left20 view-all-btn-container">
+            <div class="view-all-btn-container">
                 <a title="@String.Format("{0} Expert Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="Read_all_user_reviews_link_cliked" data-var="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
             </div>
         }

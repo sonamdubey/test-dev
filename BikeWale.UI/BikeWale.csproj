@@ -3089,6 +3089,7 @@
     <Content Include="sass\modules\review-article.sass" />
     <Content Include="sass\modules\_carousel-card.sass" />
     <Content Include="sass\modules\_card-category.sass" />
+    <Content Include="sass\modules\_review-category.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />

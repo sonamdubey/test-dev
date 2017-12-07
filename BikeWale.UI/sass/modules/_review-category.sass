@@ -1,0 +1,19 @@
+﻿.card-category__tag
+	&:before
+		content: ''
+		display: block
+		position: absolute
+		left: 8px
+		top: 6px
+		width: 12px
+		height: 12px
+
+.carousel-card[data-review-category='0']
+	.card-category__tag
+		&:before
+			@include star-white
+
+.carousel-card[data-review-category='1']
+	.card-category__tag
+		&:before
+			@include flag-white	

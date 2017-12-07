@@ -3,6 +3,7 @@
 @import '../base/variables'
 @import './_carousel-card'
 @import '../mixins/icons'
+@import './review-category'
 
 .expert-review-list 
 	display: table
@@ -20,25 +21,7 @@
 @include card-category__tag()
 @include card-category__tag-color()
 
-.card-category__tag
-	&:before
-		content: ''
-		display: block
-		position: absolute
-		left: 8px
-		top: 6px
-		width: 12px
-		height: 12px
-
-.carousel-card[data-review-category='0']
-	.card-category__tag
-		&:before
-			background: url('/images/star-white.svg') no-repeat top center
-
-.carousel-card[data-review-category='1']
-	.card-category__tag
-		&:before
-			background: url('/images/flag.svg') no-repeat top center
+		
 
 .review-article__card-title
 	color: #2a2a2a
@@ -117,12 +100,3 @@
 		
 	.article-description
 		font-size: 11px
-		
-
-
-
-
-		
-
-	
-
