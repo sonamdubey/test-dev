@@ -1,4 +1,5 @@
 ﻿var swiper, dropdown, emiPopupDiv, offersPopupDiv;
+var processingFees = 0;
 function registerPQAndReload(eledealerId,eleversionId)
 {
     try {
@@ -77,6 +78,9 @@ var emiPopupClose = function (emiPopupDiv) {
 
 
 docReady(function () {
+    if (document.getElementById('dealerProcessingFees')) {
+        processingFees = parseInt($('#dealerProcessingFees').val());
+    }
     // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
@@ -454,7 +458,7 @@ docReady(function () {
         self.minROI = ko.observable(10);
         self.maxROI = ko.observable(15);
             
-        self.processingFees = ko.observable(0);
+        self.processingFees = ko.observable(processingFees);
         self.exshowroomprice = ko.observable(bikeVersionPrice);
         self.loan = ko.observable();
 
