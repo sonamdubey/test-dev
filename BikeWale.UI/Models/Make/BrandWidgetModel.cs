@@ -72,7 +72,7 @@ namespace Bikewale.Models
                     _brands = _makeCacheRepo.GetMakesByType(page);
                     foreach (var make in _brands)
                     {
-                        make.Href = String.Format("/bike-service-centers/{0}/", make.MaskingName);
+                        make.Href = String.Format("/service-centers/{0}/", make.MaskingName);
                         make.Title = String.Format("{0} service centers in India", make.MakeName);
                     }
                     break;

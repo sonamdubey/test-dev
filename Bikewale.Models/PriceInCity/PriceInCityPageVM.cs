@@ -57,7 +57,7 @@ namespace Bikewale.Models
 
         public String ServiceCenterWidget_H2 { get { return (HasServiceCenters ? String.Format("{0} Service centers in {1}", Make.MakeName, CityEntity.CityName) : ""); } }
         public String ServiceCenterWidget_ViewAll_Title { get { return String.Format("{0} Service Centers in {1}", Make.MakeName, CityEntity.CityName); } }
-        public String ServiceCenterWidget_ViewAll_Href { get { return String.Format("/bike-service-centers/{0}/{1}/", Make.MaskingName, CityEntity.CityMaskingName); } }
+        public String ServiceCenterWidget_ViewAll_Href { get { return String.Format("/service-centers/{0}/{1}/", Make.MaskingName, CityEntity.CityMaskingName); } }
 
         public String NearestPriceCitiesWidget_H2 { get { return (HasNearestPriceCities ? String.Format("{0} price in cities near {1}", BikeModel.ModelName, CityEntity.CityName) : ""); } }
 

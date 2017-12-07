@@ -60,7 +60,7 @@ else
                             }
                             @if (details.ServiceCenterCount > 0)
                             {
-                                <a href="/m/bike-service-centers/@ViewBag.MakeMaskingName/@details.CityMaskingName/" title="@ViewBag.MakeName service center in @details.CityName" class="block">@details.ServiceCenterCount service center@(details.ServiceCenterCount > 1 ? "s" : "")</a>
+                                <a href="/m/service-centers/@ViewBag.MakeMaskingName/@details.CityMaskingName/" title="@ViewBag.MakeName service center in @details.CityName" class="block">@details.ServiceCenterCount service center@(details.ServiceCenterCount > 1 ? "s" : "")</a>
                             }
                         </div>
                     </div>
@@ -78,7 +78,7 @@ else
                             }
                             @if (Model.dealerServiceCenter.TotalServiceCenterCount > 0)
                             {
-                                <a href="/m/bike-service-centers/@ViewBag.MakeMaskingName" title="@ViewBag.MakeName service center in India" class="block">@Model.dealerServiceCenter.TotalServiceCenterCount service center@(Model.dealerServiceCenter.TotalServiceCenterCount > 1 ? "s" : "")</a>
+                                <a href="/m/service-centers/@ViewBag.MakeMaskingName" title="@ViewBag.MakeName service center in India" class="block">@Model.dealerServiceCenter.TotalServiceCenterCount service center@(Model.dealerServiceCenter.TotalServiceCenterCount > 1 ? "s" : "")</a>
                             } 
                         </div>
                     </div>

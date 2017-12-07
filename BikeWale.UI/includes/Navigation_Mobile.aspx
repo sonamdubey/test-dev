@@ -20,7 +20,7 @@
                 <li><a href="/m/comparebikes/">Compare Bikes</a></li>
                 <li><a href="/m/pricequote/">Check On-Road Price</a></li>
                 <li><a href="/m/dealer-showrooms/">Locate Dealer</a></li>
-                <li><a href="/m/bike-service-centers/">Locate Service Center</a></li>
+                <li><a href="/m/service-centers/">Locate Service Center</a></li>
                 <li><a href="/m/upcoming-bikes/">Upcoming Bikes</a></li>
                 <li><a href="/m/new-bike-launches/">New Launches</a></li>
                 <li><a href="/m/bikebooking/">Book Your Bike</a></li>
