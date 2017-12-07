@@ -95,7 +95,7 @@ namespace Bikewale.Models.UserReviews
                 {
                     if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objData.Make.MakeId.ToString()))
                     {
-                        objData.PageMetaTags.Title = string.Format("News Updates on {0} Bikes | News About {0} Models- BikeWale", objData.Make.MakeName);
+                        objData.PageMetaTags.Title = string.Format("Reviews of {0} Bikes | User Reviews on {0} Models- BikeWale", objData.Make.MakeName);
                         objData.Page_H1 = string.Format("Reviews of {0} Bikes", objData.Make.MakeName);
                     }
                     else
