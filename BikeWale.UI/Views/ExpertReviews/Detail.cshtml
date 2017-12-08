@@ -16,7 +16,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section>
-    <div class="container margin-bottom20">
+    <div id="overallContainer" class="container margin-bottom20">
         <div class="grid-12">
             <div id="content" class="grid-8 alpha">
                 <div class="bg-white">
@@ -159,6 +159,34 @@
                         </div>
                     }
                 }
+                <div id="sidebarBikeSection"class="content-box-shadow sidebar-bike-section margin-bottom20">
+                    <h2 class="sidebar-list__title">You may also like</h2>
+                    <div class="sidebar-bike-container">
+                        <ul class="sidebar-bike-list">
+                            @for (var k = 0; k < 9; k++ )
+                            {
+                                <li>
+                                    <a href="" title="" class="bike-target-link">
+                                        <div class="bike-target-image inline-block">
+                                            <img src="https://imgd.aeplcdn.com//110x61//bw/models/bajaj-platina-platina-100-spoke-wheel-12.jpg?20151209174354&q=70" alt="" />
+                                        </div>
+                                        <div class="bike-target-content inline-block padding-left10">
+                                            <h3>Bajaj Platina</h3>
+                                                <p class="font11 text-light-grey">Ex-showroom, Chennai</p>
+                                                <span class='font16'> &#x20B9;</span><span class="font16 text-bold">&nbsp; 46,766</span>
+                                        </div>
+                                    </a>
+                                    <a href="" title="" class="compare-with-link">
+                                        Compare with Jupiter
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="view-all-btn-container padding-top10 padding-bottom10 padding-right20 padding-left20">
+                        <a href="" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                    </div>
+                </div>
             </div>
             <div class="clear"></div>
         </div>

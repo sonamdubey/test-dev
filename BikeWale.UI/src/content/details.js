@@ -57,6 +57,32 @@ docReady(function () {
     if ($bikegallerypopup.hasClass("show") && e.keyCode == 37) {
         $(".photos-prev-stage").click();
     }
+    var windowScrollTop,
+    sidebarBikeSection = $('#sidebarBikeSection'),
+    sidebarHeight = sidebarBikeSection.offset().top,
+    overallContainer = $('#overallContainer');
+    $(window).scroll(function () {
+        windowScrollTop = $(this).scrollTop();
+            if (windowScrollTop > sidebarHeight - 65) { // 65 is top position when sidebar bike section is fixed
+                sidebarBikeSection.addClass('fixed-sidebar');
+            }
+            else {
+                sidebarBikeSection.removeClass('fixed-sidebar');
+            }
+            if ((overallContainer.outerHeight() + overallContainer.offset().top) < (windowScrollTop + sidebarBikeSection.outerHeight() + 65)) {
+
+                if (((overallContainer.outerHeight() + overallContainer.offset().top)) > windowScrollTop) {
+                    var ab = (windowScrollTop - (overallContainer.outerHeight() + overallContainer.offset().top - sidebarBikeSection.outerHeight() - 65));
+                    sidebarBikeSection.css('top', (-ab + 65))
+                }
+
+
+
+            }
+            else {
+                sidebarBikeSection.css('top', '65px');
+               }
+    });
 });
 
 

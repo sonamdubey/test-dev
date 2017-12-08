@@ -3086,6 +3086,7 @@
     <Content Include="sass\model-series\series.sass" />
     <Content Include="sass\partials\d\_upcoming-model-card.sass" />
     <Content Include="sass\partials\d\_comparison-card.sass" />
+    <Content Include="sass\modules\sidebar-bike-section.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
