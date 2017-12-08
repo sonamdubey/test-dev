@@ -36,5 +36,9 @@ namespace Bikewale.Entities.CMS.Articles
         public string OriginalImgUrl { get; set; }
         [DataMember]
         public bool IsFeatured { get; set; }
+        [DataMember]
+        public string FormattedDisplayDate { get; set; }
+        [DataMember]
+        public string ShareUrl { get; set; }
     }
 }

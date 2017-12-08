@@ -24,7 +24,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
-using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -447,8 +446,6 @@ namespace Bikewale.Service.AutoMappers.Model
 
         internal static BikeModelContentDTO Convert(BikeModelContent objContent)
         {
-            CMSShareUrl cmsShareurl = new CMSShareUrl();
-
             Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -456,9 +453,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
             Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
             Mapper.CreateMap<ReviewEntity, Review>();
-            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>()
-               .ForMember(dest => dest.FormattedDisplayDate, opt => opt.MapFrom(src => Bikewale.Utility.FormatDate.GetFormatDate(src.DisplayDate.ToString("dd MMMM yyyy"), "dd MMMM yyyy")))
-               .ForMember(dest => dest.ShareUrl, opt => opt.MapFrom(src => cmsShareurl.ReturnShareUrl(src.CategoryId, src.BasicId, src.ArticleUrl)));
+            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             Mapper.CreateMap<BikeModelContent, BikeModelContentDTO>();
             return Mapper.Map<BikeModelContent, BikeModelContentDTO>(objContent);
@@ -472,12 +467,10 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static Bikewale.DTO.Model.v2.BikeModelContentDTO ConvertV2(Bikewale.Entities.BikeData.v2.BikeModelContent objContent)
         {
-            CMSShareUrl cmsShareurl = new CMSShareUrl();
+
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>()
-                .ForMember(dest => dest.FormattedDisplayDate, opt => opt.MapFrom(src => src.DisplayDate.ToString("dd MMMM yyyy")))
-                .ForMember(dest => dest.ShareUrl, opt => opt.MapFrom(src => cmsShareurl.ReturnShareUrl(src.CategoryId, src.BasicId, src.ArticleUrl)));
+            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
             Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>();
