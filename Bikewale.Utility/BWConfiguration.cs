@@ -20,6 +20,8 @@ namespace Bikewale.Utility
     /// Description :   Added InnovationBannerModels
     /// Modified by : Ashutosh Sharma on 13 Oct 2017
     /// Description : Added SynopsisSummaryMergedMakeIds
+    /// Modified by : Ashutosh Sharma on 30 Nov 2017
+    /// Description : Removed SynopsisSummaryMergedMakeIds
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -110,7 +112,6 @@ namespace Bikewale.Utility
             _InnovationBannerModels = String.Empty,
             _UserReviewsReadInSessionCount = string.Empty,
             _PopularCitiesId = String.Empty,
-            _SynopsisSummaryMergeMakeIds = string.Empty,
             _PopularityOrderForMake = string.Empty,
             _MetasMakeId = string.Empty;
 
@@ -249,7 +250,6 @@ namespace Bikewale.Utility
             _EditCMSModuleName = Convert.ToString(ConfigurationManager.AppSettings["EditCMSModuleName"]);
             _minEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MinEnginePoolSize"]) ? 3 : Convert.ToInt32(ConfigurationManager.AppSettings["MinEnginePoolSize"]);
             _maxEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MaxEnginePoolSize"]) ? 15 : Convert.ToInt32(ConfigurationManager.AppSettings["MaxEnginePoolSize"]);
-            _SynopsisSummaryMergeMakeIds = ConfigurationManager.AppSettings["SynopsisSummaryMergeMakeIds"];
             _PopularityOrderForMake = ConfigurationManager.AppSettings["PopularityOrderForMake"];
             _useV8Engine = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? true : Convert.ToBoolean(ConfigurationManager.AppSettings["UseV8Engine"]);
             _pwaRenderedHtmlCacheLimitMins = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
@@ -421,7 +421,6 @@ namespace Bikewale.Utility
         public string EditCMSModuleName { get { return _EditCMSModuleName; } }
         public int MaxEnginePoolSize { get { return _maxEnginePoolSize; } }
         public int MinEnginePoolSize { get { return _minEnginePoolSize; } }
-        public string SynopsisSummaryMergeMakeIds { get { return _SynopsisSummaryMergeMakeIds; } }
         public bool UseV8Engine { get { return _useV8Engine; } }
         public int PwaRenderedHtmlCacheLimitMins { get { return _pwaRenderedHtmlCacheLimitMins; } }
         public string PopularityOrderForMake { get { return _PopularityOrderForMake; } }

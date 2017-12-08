@@ -148,6 +148,7 @@
     <Compile Include="BWConfiguration.cs" />
     <Compile Include="BWCookies.cs" />
     <Compile Include="BWHttpClient.cs" />
+    <Compile Include="CMSShareUrl.cs" />
     <Compile Include="CollectionHelper.cs" />
     <Compile Include="CommonValidators.cs" />
     <Compile Include="CommonApiOpn.cs" />

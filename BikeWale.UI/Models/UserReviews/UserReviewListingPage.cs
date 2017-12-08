@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Web;
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -11,10 +14,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 namespace Bikewale.Models.UserReviews
 {
     /// <summary>
@@ -32,11 +32,13 @@ namespace Bikewale.Models.UserReviews
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache;
         private readonly ICMSCacheContent _objArticles = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
+        private readonly IBikeModels<BikeModelEntity, int> _models;
         private uint _modelId = 0;
         private uint _pageSize, _totalResults;
         public uint ExpertReviewsWidgetCount { get; set; }
         public uint SimilarBikeReviewWidgetCount { get; set; }
         public bool IsMobile { get; internal set; }
+        private BikeSeriesEntityBase Series;
 
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
@@ -48,13 +50,14 @@ namespace Bikewale.Models.UserReviews
         /// <param name="userReviewCache"></param>
         /// <param name="objUserReviewSearch"></param>
         /// <param name="objArticles"></param>
-        public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch, ICMSCacheContent objArticles, IUserReviewsSearch userReviewsSearch)
+        public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch, ICMSCacheContent objArticles, IUserReviewsSearch userReviewsSearch, IBikeModels<BikeModelEntity, int> models)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objUserReviewCache = userReviewCache;
             _objUserReviewSearch = objUserReviewSearch;
             _objArticles = objArticles;
             _userReviewsSearch = userReviewsSearch;
+            _models = models;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -253,6 +256,8 @@ namespace Bikewale.Models.UserReviews
                         objPage.PageMetaTags.NextPageUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/page/{2}/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName, curPageNo + 1);
                     }
 
+                    Series = _models.GetSeriesByModelId(_modelId);
+
                     SetBreadcrumList(objPage);
                     SetPageJSONLDSchema(objPage);
                 }
@@ -287,6 +292,7 @@ namespace Bikewale.Models.UserReviews
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
             string bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             string scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string seriesUrl = string.Empty;
             ushort position = 1;
             if (IsMobile)
             {
@@ -312,6 +318,13 @@ namespace Bikewale.Models.UserReviews
                 scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.RatingsInfo.Make.MaskingName);
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.RatingsInfo.Make.MakeName)));
+            }
+
+            if (Series != null && Series.IsSeriesPageUrl)
+            {
+                seriesUrl = string.Format("{0}{1}/", bikeUrl, Series.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, Series.SeriesName));
             }
 
             if (objPage.RatingsInfo != null && objPage.RatingsInfo.Model != null)

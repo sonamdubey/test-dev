@@ -2237,6 +2237,7 @@
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
     <Content Include="css\electric-bikes\landing.css" />
+    <Content Include="css\emicalculator.css" />
     <Content Include="css\threesixty-slider.css" />
     <Content Include="css\PopUp\PopUpCityArea.css" />
     <Content Include="css\finance\capital-first.css" />
@@ -3131,6 +3132,7 @@
     <Content Include="src\dealer\landing.js" />
     <Content Include="src\electricbikes\electricbikeindex.js" />
     <Content Include="src\model-series\series.js" />
+    <Content Include="src\emi-calculator.js" />
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\new\search_new.js" />
@@ -3883,6 +3885,7 @@
     <Content Include="Views\Shared\_CssChunksScript.cshtml" />
     <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />
     <Content Include="Views\BikeSeries\_PopularNewBikes_Mobile.cshtml" />
+    <Content Include="Views\Shared\_EmiCalculator.cshtml" />
     <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
@@ -3909,6 +3912,7 @@
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_Amp.cshtml" />
 
     <Content Include="Views\ElectricBikes\Index.cshtml" />
     <Content Include="Views\ElectricBikes\Index_Mobile.cshtml" />

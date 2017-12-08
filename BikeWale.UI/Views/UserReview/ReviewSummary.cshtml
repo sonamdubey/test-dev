@@ -115,7 +115,7 @@
                                 <h1 class="font18 margin-bottom10">Your review for @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
                                 <p class="font14 text-light-grey margin-bottom10">Check, how others will see your review!</p>
                             </div>
-                            <div class="padding-right20 @((Model.RatingQuestions != null && Model.RatingQuestions.Count() > 0)?"grid-9 alpha border-light-right":"grid-12")">
+                            <div class="padding-right20 @((Model.RatingQuestions != null && Model.RatingQuestions.Any())?"grid-9 alpha border-light-right":"grid-12")">
 
                                 <div id="bike-rating-box">
                                     <div class="circle-placeholder">

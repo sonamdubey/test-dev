@@ -1,10 +1,10 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeSeries;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -21,6 +21,8 @@ namespace Bikewale.Cache.BikeData
 		/// <summary>
 		/// Created by : Ashutosh Sharma on 17 Nov 2017
 		/// Description : Cache method to get new models of a series with city price.
+		/// Modified by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Changed cache key from 'BW_NewModelsBySeriesId_s_{0}_c_{1}' to 'BW_NewModelsBySeriesId_seriesId_{0}_cityId_{1}'
 		/// </summary>
 		/// <param name="seriesId"></param>
 		/// <param name="cityId"></param>
@@ -30,7 +32,7 @@ namespace Bikewale.Cache.BikeData
 			IEnumerable<NewBikeEntityBase> objModels = null;
 			try
 			{
-				string key = string.Format("BW_NewModelsBySeriesId_s_{0}_c_{1}", seriesId, cityId);
+				string key = string.Format("BW_NewModelsBySeriesId_seriesId_{0}_cityId_{1}", seriesId, cityId);
 				objModels = _cache.GetFromCache(key, new TimeSpan(6, 0, 0), () => _bikeSeriesRepository.GetNewModels(seriesId, cityId));
 			}
 			catch (Exception ex)
@@ -156,7 +158,7 @@ namespace Bikewale.Cache.BikeData
 
             try
             {
-                System.Collections.Hashtable objMaskingtable = _cache.GetFromCache<System.Collections.Hashtable>("BW_ModelSeries_MaskingNames", new TimeSpan(1, 0, 0, 0), () => _bikeSeriesRepository.GetMaskingNames());
+                System.Collections.Hashtable objMaskingtable = _cache.GetFromCache<System.Collections.Hashtable>("BW_ModelSeries_MaskingNames_v1", new TimeSpan(1, 0, 0, 0), () => _bikeSeriesRepository.GetMaskingNames());
 
                 if (objMaskingtable != null && objMaskingtable.Contains(maskingName))
                 {
@@ -168,6 +170,27 @@ namespace Bikewale.Cache.BikeData
                 Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Cache.BikeData.BikeSeriesCacheRepository.ProcessMaskingName");
             }
             return objResponse;
+        }
+
+        /// <summary>
+        /// created by : vivek singh tomar on 24th nov 2017
+        /// summary : get modelids as comma separated string by series id
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
+        public string GetModelIdsBySeries(uint seriesId)
+        {
+            string modelIds = string.Empty;
+            try
+            {
+                string key = string.Format("BW_GetModelIdsBySeries_{0}", seriesId);
+                modelIds = _cache.GetFromCache(key, new TimeSpan(1, 0, 0, 0), () => _bikeSeriesRepository.GetModelIdsBySeries(seriesId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.BikeData.BikeSeriesCacheRepository.GetMaskingNames seriesId {0}", seriesId));
+            }
+            return modelIds;
         }
     }
 }

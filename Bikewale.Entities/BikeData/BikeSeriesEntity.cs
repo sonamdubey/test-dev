@@ -1,5 +1,9 @@
-﻿namespace Bikewale.Entities.BikeData
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace Bikewale.Entities.BikeData
 {
+    [Serializable, DataContract]
     public class BikeSeriesEntity : BikeSeriesEntityBase
     {
 
