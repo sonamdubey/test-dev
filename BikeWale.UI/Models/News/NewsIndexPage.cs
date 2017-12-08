@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
@@ -24,6 +20,10 @@ using Bikewale.Models.Scooters;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -429,7 +429,7 @@ namespace Bikewale.Models
         private void SetPageMetas(NewsIndexPageVM objData)
         {
             objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatNewsUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
-            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatNewsUrl(make, series,model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatNewsUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
 
             EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
 
@@ -453,10 +453,22 @@ namespace Bikewale.Models
 
                 if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                 {
-                    objData.PageMetaTags.Title = string.Format("Latest News about {0} {1} | {0} {1} News - BikeWale", objMake.MakeName, objModel.ModelName);
+                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(MakeId.ToString()))
+                    {
+                        objData.PageMetaTags.Title = string.Format("News Updates on {0} {1} | News About {0} {1}- BikeWale", objMake.MakeName, objModel.ModelName);
+                        objData.PageH1 = string.Format("Latest News about {0} {1}", objMake.MakeName, objModel.ModelName);
+                    }
+                    else
+                    {
+                        objData.PageMetaTags.Title = string.Format("Latest News about {0} {1} | {0} {1} News - BikeWale", objMake.MakeName, objModel.ModelName);
+                        objData.PageH1 = string.Format("{0} {1} Scooters News", objMake.MakeName, objModel.ModelName);
+                        objData.PageH2 = string.Format("Latest {0} {1} Scooters News and Views", objMake.MakeName, objModel.ModelName);
+                    }
+
+
                     objData.PageMetaTags.Description = String.Format("Read the latest news about {0} {1} scooters exclusively on BikeWale. Know more about {1}.", objMake.MakeName, objModel.ModelName);
-                    objData.PageH1 = string.Format("{0} {1} Scooters News", objMake.MakeName, objModel.ModelName);
-                    objData.PageH2 = string.Format("Latest {0} {1} Scooters News and Views", objMake.MakeName, objModel.ModelName);
+
+
                     objData.AdTags.TargetedMakes = objMake.MakeName;
                     objData.AdTags.TargetedModel = objModel.ModelName;
                 }
