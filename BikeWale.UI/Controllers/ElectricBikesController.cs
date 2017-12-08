@@ -1,5 +1,4 @@
-﻿using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
@@ -63,6 +62,7 @@ namespace Bikewale.Controllers
             ElectricBikesPage objElectricBike = new ElectricBikesPage(_modelCacheRepository, _objMakeCache, _articles, _videos, _bikeMakes);
 
             objElectricBike.TopCountBrand = 6;
+            objElectricBike.IsMobile = true;
             objElectricBike.EditorialTopCount = 3;
             objData = objElectricBike.GetData();
             objData.PageCatId = 0;

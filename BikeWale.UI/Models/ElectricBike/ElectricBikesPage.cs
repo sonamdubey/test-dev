@@ -1,10 +1,12 @@
 ﻿
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 namespace Bikewale.Models
@@ -19,7 +21,7 @@ namespace Bikewale.Models
         private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
 
         public ushort TopCountBrand { get; set; }
-
+        public bool IsMobile { get; set; }
         public ElectricBikesPage(IBikeModelsCacheRepository<int> modelCacheRepository, IBikeMakesCacheRepository objMakeCache, ICMSCacheContent articles, IVideos videos, IBikeMakesCacheRepository bikeMakes)
         {
             _objMakeCache = objMakeCache;
@@ -53,6 +55,7 @@ namespace Bikewale.Models
                 BindEditorialWidget();
                 objData.Brands = new BrandWidgetModel(TopCountBrand, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
                 BindPageMetas();
+
             }
             catch (System.Exception ex)
             {
@@ -62,6 +65,33 @@ namespace Bikewale.Models
 
             return objData;
         }
+        private void SetBreadcrumList(ref ElectricBikesPageVM objData)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    url += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Electric Bike and Scooters"));
+
+
+                objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass.LogError(ex, "Bikewale.Models.ElectricBikesPage.BindPageMetas()");
+            }
+
+        }
+
         private void BindPageMetas()
         {
             try
@@ -70,6 +100,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/electric-bikes/", BWConfiguration.Instance.BwHostUrl);
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/electric-bikes/", BWConfiguration.Instance.BwHostUrl);
                 objData.PageMetaTags.Title = "Electric Bikes & Scooters, Electric Scooty- Prices, Images, and Reviews- BikeWale";
+                SetBreadcrumList(ref objData);
             }
             catch (System.Exception ex)
             {

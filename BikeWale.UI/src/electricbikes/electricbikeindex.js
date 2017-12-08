@@ -1,4 +1,14 @@
 ﻿$(document).ready(function () {
+
+    $(".nav-tab").click(function () {
+
+        try {
+            triggerGA('Electric_Bikes', 'Floating_Navigation_Clicked', $(this).data("lab"));
+        }
+        catch (e) {
+            console.log(e);
+        }
+    });
     // floating tabs
     var makeOverallTabs = $('#makeOverallTabs'),
         overallMakeDetailsFooter = $('#overallMakeDetailsFooter'),

@@ -1,5 +1,15 @@
 ﻿$(document).ready(function () {
 
+    $(".nav-tab").click(function () {
+
+        try {
+            triggerGA('Electric_Bikes', 'Floating_Navigation_Clicked', $(this).data("lab"));
+        }
+        catch (e) {
+            console.log(e);
+        }
+    });
+
     var $window = $(window),
         overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
         makeOverallTabsWrapper = $('#makeOverallTabsWrapper'),
@@ -91,7 +101,7 @@
         var target = $(this).attr('data-tabs');
         $('html, body').animate({ scrollTop: $(target).offset().top - overallSpecsTabsContainer.height() }, 1000);
         centerItVariableWidth($(this), '.overall-specs-tabs-container');
-        triggerGA('Make_Scooters', 'Floating_NavigationClicked', $(this).data("lab"));
+        triggerGA('Electric_Bikes', 'Floating_NavigationClicked', $(this).data("lab"));
         return false;
     });
 
