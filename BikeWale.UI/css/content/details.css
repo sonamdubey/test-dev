@@ -120,7 +120,7 @@
 }
 
 .sidebar-bike-list .bike-target-content {
-    width: 68%;
+    width: 67%;
 }
 
 .sidebar-bike-list .bike-target-link {
@@ -157,6 +157,10 @@
     font-size: 12px;
     margin-bottom: 10px;
     display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 172px;
 }
 .sidebar-bike-container .bike-target-link{
     padding-bottom: 5px;
@@ -186,12 +190,9 @@
 }
 .fixed-sidebar {
     position: fixed;
-   
-    /*right:13.7%;*/
     top: 65px;
     width: 314px;
 }
- /*left: 62.90%;*/
 
 .back-to-top {
     width: 48px;
