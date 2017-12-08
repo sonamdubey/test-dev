@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
@@ -19,6 +15,10 @@ using Bikewale.Models.BestBikes;
 using Bikewale.Models.BikeModels;
 using Bikewale.Models.Scooters;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -116,7 +116,7 @@ namespace Bikewale.Models
                 objData.EndIndex = _endIndex;
 
                 // Added by Vivek Singh Tomar to get list of model ids for given series
-                if(objData.Series != null)
+                if (objData.Series != null)
                 {
                     ModelIds = _series.GetModelIdsBySeries(objData.Series.SeriesId);
                 }
@@ -199,7 +199,7 @@ namespace Bikewale.Models
             }
             if (objResponse != null)
             {
-                if(objResponse.StatusCode == 200)
+                if (objResponse.StatusCode == 200)
                 {
                     if (!objResponse.IsSeriesPageCreated)
                     {
@@ -232,7 +232,7 @@ namespace Bikewale.Models
                 }
             }
 
-		}
+        }
 
         /// <summary>
         /// Created by  :  Aditi Srivasava on 30 Mar 2017
@@ -275,13 +275,13 @@ namespace Bikewale.Models
         {
             objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
             objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
-            
+
 
             if (ModelId > 0)
             {
                 if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(MakeId.ToString()))
                 {
-                    objData.PageMetaTags.Title = string.Format("Expert Reviews on {0} Activa |First Ride & Comparison Test- BikeWale", objMake.MakeName, objModel.ModelName);
+                    objData.PageMetaTags.Title = string.Format("Expert Reviews on {0} {1} | First Ride & Comparison Test- BikeWale", objMake.MakeName, objModel.ModelName);
                     objData.PageH1 = string.Format(" Expert Reviews on {0} {1}", objMake.MakeName, objModel.ModelName);
                 }
                 else
@@ -297,7 +297,7 @@ namespace Bikewale.Models
                 objData.AdTags.TargetedModel = objModel.ModelName;
                 objData.AdTags.TargetedMakes = objMake.MakeName;
             }
-            else if(objData.Series != null && objData.Series.IsSeriesPageUrl && objData.Series.SeriesId > 0)
+            else if (objData.Series != null && objData.Series.IsSeriesPageUrl && objData.Series.SeriesId > 0)
             {
                 objData.PageMetaTags.Title = string.Format("Expert Reviews about {0} {1} bikes in India | {1} bikes Comparison & Road Tests - BikeWale", objMake.MakeName, objSeries.SeriesName);
                 objData.PageMetaTags.Description = string.Format("Read the latest expert reviews on all {0} {1} bikes on BikeWale. Read about {0} {1} comparison tests and road tests exclusively on BikeWale", objMake.MakeName, objSeries.SeriesName);

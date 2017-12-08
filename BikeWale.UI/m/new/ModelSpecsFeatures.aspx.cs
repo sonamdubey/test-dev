@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.BAL.BikeData;
+﻿using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -19,6 +15,10 @@ using Bikewale.Mobile.Controls;
 using Bikewale.Models;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Mobile
 {
@@ -116,6 +116,7 @@ namespace Bikewale.Mobile
                             {
                                 makeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
+                                _makeId = (uint)modelPg.ModelDetails.MakeBase.MakeId;
                             }
                             IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
