@@ -13,6 +13,7 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 namespace Bikewale.Models.UserReviews
 {
@@ -211,9 +212,20 @@ namespace Bikewale.Models.UserReviews
             {
                 if (objPage != null && objPage.PageMetaTags != null && objPage.ReviewsInfo != null)
                 {
+                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objPage.ReviewsInfo.Make.MakeId.ToString()))
+                    {
+                        objPage.PageMetaTags.Title = string.Format("Reviews of {0} {1}| User Reviews on {0} {1}- BikeWale", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
+
+                    }
+                    else
+                    {
+                        objPage.PageMetaTags.Title = string.Format("{0} {1} Reviews | Reviews from Users & Experts", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
+
+                    }
+
                     objPage.AdTags.TargetedMakes = objPage.ReviewsInfo.Make.MakeName;
                     objPage.AdTags.TargetedModel = objPage.ReviewsInfo.Model.ModelName;
-                    objPage.PageMetaTags.Title = string.Format("{0} {1} Reviews | Reviews from Users & Experts", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
+
                     objPage.PageMetaTags.Description = string.Format("Read {0} {1} reviews from genuine buyers and know the pros and cons of {1}. Also, find reviews on {1} from BikeWale experts.", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
 
                     uint _totalPagesCount = (uint)(_totalResults / _pageSize);

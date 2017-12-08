@@ -95,6 +95,15 @@ namespace Bikewale.Models.Videos
             {
                 if (objPageVM != null && objPageVM.PageMetaTags != null && objPageVM.Make != null && objPageVM.Model != null)
                 {
+
+                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objPageVM.Make.MakeId.ToString()))
+                    {
+                        objPageVM.PageMetaTags.Title = String.Format("Videos of {0} {1}", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+                    }
+                    else
+                    {
+                        objPageVM.PageMetaTags.Title = String.Format("{0} {1} Videos - BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+                    }
                     objPageVM.PageMetaTags.Title = String.Format("{0} {1} Videos - BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
                     objPageVM.PageMetaTags.Keywords = string.Format("{0},{1},{0} {1},{0} {1} videos", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
                     objPageVM.PageMetaTags.Description = string.Format("Check latest {0} {1} videos, watch BikeWale expert's take on {0} {1} - features, performance, price, fuel economy, handling and more.", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
@@ -182,7 +191,7 @@ namespace Bikewale.Models.Videos
                     bikeUrl += string.Format("{0}-bikes/", objVM.Make.MaskingName);
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} Bikes", objVM.Make.MakeName)));
                 }
-                if(objVM.Model!=null)
+                if (objVM.Model != null)
                 {
                     bikeUrl += objVM.Model.MaskingName;
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} {1}", objVM.Make.MakeName, objVM.Model.ModelName)));

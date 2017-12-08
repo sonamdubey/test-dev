@@ -31,8 +31,8 @@ namespace Bikewale.New
     /// </summary>
     public class ModelSpecsFeatures : PageBase
     {
-        protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
-        protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, makeMaskingName, modelMaskingName, clientIP = CommonOpn.GetClientIP();
+        protected uint cityId, areaId, modelId, versionId, dealerId, price = 0, _makeId;
+        protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, makeMaskingName, modelMaskingName, clientIP = CommonOpn.GetClientIP(), pgTitle;
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<AreaEntityBase> objAreaList = null;
         protected bool isDiscontinued, IsExShowroomPrice = true;
@@ -118,6 +118,7 @@ namespace Bikewale.New
                             {
                                 makeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
+                                _makeId = (uint)modelPg.ModelDetails.MakeBase.MakeId;
                             }
                             IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
@@ -166,12 +167,13 @@ namespace Bikewale.New
                             }
                         }
                     }
+                    pgTitle = Bikewale.Utility.BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_makeId.ToString()) ? string.Format("Specifications of {0} | Features of {1}- BikeWale", bikeName, modelName) : string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
-                
+
             }
             return modelPg;
         }
@@ -199,7 +201,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
-                
+
             }
             return specsFeature;
         }
@@ -255,7 +257,7 @@ namespace Bikewale.New
 
                 Trace.Warn("GetLocationCookie Ex: ", ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQueryString");
-                
+
             }
             finally
             {

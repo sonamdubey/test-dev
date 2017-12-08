@@ -252,12 +252,23 @@ namespace Bikewale.Models.Photos
             {
                 if (_objData.Make != null && _objData.Model != null)
                 {
-                    _objData.PageMetaTags.Title = String.Format("{0} Images | {1} Photos - BikeWale", _objData.BikeName, _objData.Model.ModelName);
+
+                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_objData.Make.MakeId.ToString()))
+                    {
+                        _objData.PageMetaTags.Title = String.Format(" Images of {0} {1} | Photos of {1}- BikeWale", _objData.BikeName, _objData.Model.ModelName);
+                        _objData.Page_H1 = string.Format("Images of {0}", _objData.BikeName);
+                    }
+                    else
+                    {
+                        _objData.PageMetaTags.Title = String.Format("{0} Images | {1} Photos - BikeWale", _objData.BikeName, _objData.Model.ModelName);
+                        _objData.Page_H1 = string.Format("{0} Images", _objData.BikeName);
+                    }
+
                     _objData.PageMetaTags.Keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", _objData.Model.ModelName, _objData.Make.MakeName);
                     _objData.PageMetaTags.Description = string.Format("View images of {0} in different colours and angles. Check out {2} photos of {1} on BikeWale", _objData.Model.ModelName, _objData.BikeName, _objData.TotalPhotos);
                     _objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/images/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _objData.Make.MaskingName, _objData.Model.MaskingName);
                     _objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/images/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _objData.Make.MaskingName, _objData.Model.MaskingName);
-                    _objData.Page_H1 = string.Format("{0} Images", _objData.BikeName);
+
 
                     SetBreadcrumList();
                     SetPageJSONLDSchema(_objData.PageMetaTags);
