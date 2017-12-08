@@ -134,5 +134,14 @@ docReady(function () {
         } else {
 
         }
-    });
+	});
+	$(".navtab").click(function (event) {
+		
+		try {
+			triggerGA('Series_Page', 'Floating_Navigation_Clicked', $(this).data("lab"));
+		}
+		catch (e) {
+			console.log(e);
+		}
+	});
 });

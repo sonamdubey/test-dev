@@ -149,7 +149,7 @@
                 $('#seriesTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
 
                 $(this).addClass('active');
-                overallSpecsTabsContainer.find('a[data-href="' + $(this).attr('data-id') + '"]').addClass('active');
+				overallSpecsTabsContainer.find('.navtab[data-href="' + $(this).attr('data-id') + '"]').addClass('active');
             }
         });
 
