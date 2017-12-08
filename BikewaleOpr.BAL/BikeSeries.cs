@@ -37,15 +37,17 @@ namespace BikewaleOpr.BAL
             return objBikeSeriesList;
         }
 
-        /// <summary>
-        /// Created by : Vivek Singh Tomar on 12th Sep 2017
-        /// Summary : Add new bike series
-        /// </summary>
-        /// <param name="bikeSeries"></param>
-        /// <param name="UpdatedBy"></param>
-        /// <param name="seriesId"></param>
-        /// <param name="isSeriesExist"></param>
-        public Tuple<bool, string, BikeSeriesEntity> AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
+		/// <summary>
+		/// Created by : Vivek Singh Tomar on 12th Sep 2017
+		/// Summary : Add new bike series
+		/// Modified by : Ashutosh Sharma on 27 Nov 2017
+		/// Description : Added call to ClearSeriesCache.
+		/// </summary>
+		/// <param name="bikeSeries"></param>
+		/// <param name="UpdatedBy"></param>
+		/// <param name="seriesId"></param>
+		/// <param name="isSeriesExist"></param>
+		public Tuple<bool, string, BikeSeriesEntity> AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
         {
             Tuple<bool, string, BikeSeriesEntity> respObj = null;
             try
@@ -77,6 +79,7 @@ namespace BikewaleOpr.BAL
                         if (objBikeSeries.SeriesId > 0)
                         {
                             BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
+							BwMemCache.ClearSeriesCache(objBikeSeries.SeriesId, makeId);
                             respObj = new Tuple<bool, string, BikeSeriesEntity>(true, "Bike series has been updated successfully.", objBikeSeries);
                         }
                         else
@@ -124,6 +127,8 @@ namespace BikewaleOpr.BAL
         /// <summary>
         /// Created by : Ashutosh Sharma on 12-Sep-2017
         /// Description : BAL Method to edit bike series
+        /// Modified by : Ashutosh Sharma on 30 Nov 2017
+        /// Description : Added logic to model page cache clear.
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="updatedBy"></param>
@@ -172,6 +177,16 @@ namespace BikewaleOpr.BAL
                             BwMemCache.ClearModelsBySeriesId(seriesId);
                             BwMemCache.ClearMaskingMappingCache();
                             BwMemCache.ClearSeriesCache(seriesId, makeId);
+                            string modelIds = _seriesRepo.GetModelIdsBySeries(seriesId);
+                            if (!string.IsNullOrEmpty(modelIds))
+                            {
+                                string[] arrModelIds = modelIds.Split(',');
+                                foreach (var modelId in arrModelIds)
+                                {
+                                    BwMemCache.ClearVersionDetails(Convert.ToUInt32(modelId));
+                                }
+                            }
+                            
                         }
                     }
                 }
@@ -186,6 +201,8 @@ namespace BikewaleOpr.BAL
         /// <summary>
         /// Created by : Ashutosh Sharma on 12-Sep-2017
         /// Description : BAL Method to delete bike series
+        /// Modified by : Ashutosh Sharma on 30 Nov 2017
+        /// Description : Added logic to model page cache clear.
         /// </summary>
         /// <param name="bikeSeriesId"></param>
         /// <returns></returns>
@@ -202,6 +219,15 @@ namespace BikewaleOpr.BAL
                         BwMemCache.ClearModelsBySeriesId(bikeSeriesId);
                         BwMemCache.ClearMaskingMappingCache();
                         BwMemCache.ClearSeriesCache(bikeSeriesId, 0);
+                        string modelIds = _seriesRepo.GetModelIdsBySeries(bikeSeriesId);
+                        if (!string.IsNullOrEmpty(modelIds))
+                        {
+                            string[] arrModelIds = modelIds.Split(',');
+                            foreach (var modelId in arrModelIds)
+                            {
+                                BwMemCache.ClearVersionDetails(Convert.ToUInt32(modelId));
+                            }
+                        }
                     }
                 }
             }

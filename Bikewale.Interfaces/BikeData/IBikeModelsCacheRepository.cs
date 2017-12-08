@@ -1,8 +1,8 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
-using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
 {
@@ -76,8 +76,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
         BikeMileageEntity GetMileageDetails();
-
-
-
+        BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
     }
 }

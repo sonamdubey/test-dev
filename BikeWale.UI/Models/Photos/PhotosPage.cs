@@ -1,4 +1,9 @@
-﻿using Bikewale.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Web;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
@@ -9,11 +14,6 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.Gallery;
 using Bikewale.Utility;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models.Photos
 {
@@ -69,6 +69,8 @@ namespace Bikewale.Models.Photos
         /// <summary>
         /// Created by  : Sushil Kumar on 30th Sep 2017
         /// Description :  To bind photo gallery page
+        /// Modified by : Vivek Singh Tomar on 28th Nov 2017
+        /// Description : Get series entity to create bread crumb list
         /// </summary>
         /// <param name="gridSize"></param>
         /// <param name="noOfGrid"></param>
@@ -87,7 +89,7 @@ namespace Bikewale.Models.Photos
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 _cityId = currentCityArea.CityId;
                 ProcessQueryStringVariables(qstr);
-
+                _objData.Series = _objModelEntity.GetSeriesByModelId(_modelId);
                 BindPhotos();
                 BindPageWidgets();
                 SetPageMetas();
@@ -333,8 +335,8 @@ namespace Bikewale.Models.Photos
         private void SetBreadcrumList()
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string bikeUrl, scooterUrl;
-            bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string bikeUrl, scooterUrl, seriesUrl;
+            bikeUrl = scooterUrl = seriesUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
@@ -360,6 +362,18 @@ namespace Bikewale.Models.Photos
                 scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, _objData.Make.MaskingName);
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", _objData.Make.MakeName)));
+            }
+
+            if(_objData.Series != null && _objData.Series.IsSeriesPageUrl)
+            {
+                if (IsMobile)
+                {
+                    seriesUrl += "m/";
+                }
+
+                seriesUrl = string.Format("{0}{1}-bikes/{2}/", seriesUrl, _objData.Make.MaskingName, _objData.Series.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, _objData.Series.SeriesName));
             }
 
             if (_objData.Model != null)

@@ -971,5 +971,28 @@ namespace Bikewale.BAL.BikeData
             return mileageWidgetObj;
         }
 
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 28th Nov 2017
+        /// Description : Get series by model id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeSeriesEntityBase GetSeriesByModelId(uint modelId)
+        {
+            BikeSeriesEntityBase objSeries = null;
+            try
+            {
+                if (modelId > 0)
+                {
+                    objSeries = _modelCacheRepository.GetSeriesByModelId(modelId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetSeriesByModelId modelId = {0}", modelId));
+            }
+            return objSeries;
+        }
+
     }   // Class
 }   // namespace

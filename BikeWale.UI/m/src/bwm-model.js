@@ -483,7 +483,7 @@ docReady(function () {
             $('.model-preview-more-content').hide();
             self.text(self.text() === 'Read more' ? 'Collapse' : 'Read more');
             self.removeClass('open');
-            $('html, body').animate({ scrollTop: $('.model-preview-main-content').offset().top - 44 }, 500)
+			$('html, body').animate({ scrollTop: $('#aboutContent').offset().top - 44 }, 500)
         }
     });
 
@@ -1013,4 +1013,6 @@ function updateView(reviewId) {
         console.log(e);
     }
 }
+
+
 

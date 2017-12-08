@@ -1,4 +1,6 @@
-﻿using Bikewale.BindViewModels.Webforms.Used;
+﻿using System;
+using System.Web;
+using Bikewale.BindViewModels.Webforms.Used;
 using Bikewale.Controls;
 using Bikewale.DAL.Used;
 using Bikewale.Entities.Customer;
@@ -7,8 +9,6 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
-using System;
-using System.Web;
 
 namespace Bikewale.Used
 {

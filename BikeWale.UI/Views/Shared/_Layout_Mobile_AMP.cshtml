@@ -492,6 +492,35 @@
 
     @RenderBody()
 
+    @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
+    {
+        <section>
+            <div class="breadcrumb">
+                <span class="breadcrumb-title">You are here:</span>
+                <ul>
+                    @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
+                    {
+                        if (!string.IsNullOrEmpty(item.Item.Url))
+                        {
+                            <li>
+                                <a class="breadcrumb-link" href="@item.Item.Url" title="@item.Item.Name">
+                                    <span class="breadcrumb-link__label" itemprop="name">@item.Item.Name</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <span class="breadcrumb-link__label">@item.Item.Name</span>
+                            </li>
+                        }
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
+    }
 
     @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
     {

@@ -573,6 +573,13 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
                 objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
                 objDTOModelPage.IsUpcoming = objModelPage.ModelDetails.Futuristic;
+                objDTOModelPage.IsSpecsAvailable = (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null && objModelPage.objOverview.OverviewList.Any());
+
+
+                objDTOModelPage.Review = new DTO.Model.v5.Review();
+                objDTOModelPage.Review.UserReviewCount = (uint)objModelPage.ModelDetails.ReviewCount;
+                objDTOModelPage.Review.ExpertReviewCount = objModelPage.ModelDetails.ExpertReviewsCount;
+
                 if (!objDTOModelPage.IsUpcoming)
                 {
                     objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
@@ -585,23 +592,29 @@ namespace Bikewale.Service.AutoMappers.Model
                         switch (spec.DisplayText)
                         {
                             case "Capacity":
-                                objDTOModelPage.Capacity = spec.DisplayValue;
+                                objDTOModelPage.Capacity = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                             case "Mileage":
-                                objDTOModelPage.Mileage = spec.DisplayValue;
+                                objDTOModelPage.Mileage = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                             case "Max power":
-                                objDTOModelPage.MaxPower = spec.DisplayValue;
+                                objDTOModelPage.MaxPower = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                             case "Weight":
-                                objDTOModelPage.Weight = spec.DisplayValue;
+                                objDTOModelPage.Weight = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                         }
                     }
                 }
 
-                if (objModelPage.AllPhotos != null)
+                if (objModelPage.AllPhotos != null && objModelPage.AllPhotos.Any())
                 {
+
+                    objDTOModelPage.Gallery = new DTO.Model.v5.Gallery();
+                    objDTOModelPage.Gallery.ImageCount = (uint)objModelPage.AllPhotos.Count();
+                    objDTOModelPage.Gallery.ColorCount = objModelPage.colorPhotos != null && objModelPage.colorPhotos.Any() ? (uint)objModelPage.colorPhotos.Count() : 0;
+                    objDTOModelPage.Gallery.VideoCount = objModelPage.ModelDetails != null ? (uint)objModelPage.ModelDetails.VideosCount : 0;
+
                     var photos = new List<CMSModelImageBase>();
 
                     var addPhoto = new CMSModelImageBase()
