@@ -161,6 +161,32 @@ namespace Bikewale.Cache.CMS
         }
 
         /// <summary>
+        /// Created by : Vivek Singh Tomar on 27th Nov 2017
+        /// Summary : Overload for GetArticlesByCategoryList for fetching articles when list of modelids is given
+        /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, string modelId)
+        {
+            CMSContent _objArticlesList = null;
+
+            try
+            {
+                if (_objArticles != null)
+                    _objArticlesList = _objArticles.GetArticlesByCategoryList(categoryIdList, startIndex, endIndex, makeId, modelId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("CMSCacheRepository.GetArticlesByCategoryList ModelIds = {0}", modelId));
+            }
+            return _objArticlesList;
+        }
+
+        /// <summary>
         /// Created by: Vivek Singh Tomar on 16th Aug 2017
         /// Summary: Get articles for given category and body style
         /// </summary>

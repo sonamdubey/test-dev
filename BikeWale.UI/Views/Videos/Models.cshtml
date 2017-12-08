@@ -3,51 +3,63 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/videosByModel.css' inline />";
-    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/videos/", Model.Make.MaskingName, Model.Model.MaskingName);
-    Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/videos/", Model.Make.MaskingName, Model.Model.MaskingName);
     Model.IsHeaderFix = true;
 }
 
 @if (Model != null && Model.Make != null && Model.Model != null)
 {
 
+
     if (Model.VideosList != null)
     {
 
         <section id="section-videos-list">
             <div class="miscWrapper container">
-                <ul id="listVideos1">
-                    @foreach (var video in Model.VideosList)
-                    {
-                        <li>
-                            <div class="video-image-wrapper rounded-corner2">
-                                <a href="@string.Format("/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))">
-                                    <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", video.VideoId)"
-                                         alt="@video.VideoTitle" title="@video.VideoTitle" src="" border="0" />
-                                </a>
-                            </div>
-                            <div class="video-desc-wrapper">
-                                <a href="@string.Format("/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="font14 text-bold text-default" title="@video.VideoTitle">@video.VideoTitle</a>
-                                <p class="font12 text-light-grey margin-top10 margin-bottom10">@Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMMM yyyy")</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Views))</span>
-                                </div>
-                                <div class="grid-6 omega padding-left20 font14">
-                                    <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Likes))</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </li>
-                    }
-                </ul>
+                <div class="grid-12">
+                    <h1 class="content-box-shadow padding-15-20">@Model.Make.MakeName @Model.Model.ModelName @(Model.bikeType.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooter" : "bike") videos</h1>
+                    <div class="content-box-shadow section-bottom-margin">
+                        <ul id="listVideos1">
+                            @foreach (var video in Model.VideosList)
+                            {
+                                <li>
+                                    <div class="video-image-wrapper rounded-corner2">
+                                        <a href="@string.Format("/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))">
+                                            <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", video.VideoId)"
+                                                 alt="@video.VideoTitle" title="@video.VideoTitle" src="" border="0" />
+                                        </a>
+                                    </div>
+                                    <div class="video-desc-wrapper">
+                                        <a href="@string.Format("/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="font14 text-bold text-default" title="@video.VideoTitle">@video.VideoTitle</a>
+                                        <p class="font12 text-light-grey margin-top10 margin-bottom10">@Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMMM yyyy")</p>
+                                        <div class="grid-6 alpha omega border-light-right font14">
+                                            <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Views))</span>
+                                        </div>
+                                        <div class="grid-6 omega padding-left20 font14">
+                                            <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
                 <div class="clear"></div>
             </div>
+
+
+
         </section>
     }
 
     if (Model.BikeInfoWidgetData != null)
-    {
-        @Html.Partial("~/Views/BikeModels/_BikeInfoCard.cshtml", Model.BikeInfoWidgetData)
+    { 
+     
+                        @Html.Partial("~/Views/BikeModels/_BikeInfoCard.cshtml", Model.BikeInfoWidgetData)
+            
+    
     }
 
     if (Model.SimilarBikeVideoList != null && Model.SimilarBikeVideoList.Count() > 0)
@@ -110,4 +122,47 @@
         </section>
     }
     { Html.RenderAction("PopularBodyStyleDesktop", "PopularBikes", new { modelId = Model.Model.ModelId, topCount = 9, cityId = Model.CityId }); }
+}
+else if (Model != null && Model.Make != null && Model.objSeries != null)
+{
+
+    if (Model.VideosList != null)
+    {
+
+        <section id="section-videos-list">
+            <div class="miscWrapper container">
+                <h1 class="content-box-shadow padding-15-20">@Model.Make.MakeName @Model.objSeries.SeriesName bike videos</h1>
+               
+                    <div class="content-box-shadow">
+                        <ul id="listVideos1">
+                            @foreach (var video in Model.VideosList)
+                            {
+                                <li>
+                                    <div class="video-image-wrapper rounded-corner2">
+                                        <a href="@string.Format("/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))">
+                                            <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", video.VideoId)"
+                                                 alt="@video.VideoTitle" title="@video.VideoTitle" src="" border="0" />
+                                        </a>
+                                    </div>
+                                    <div class="video-desc-wrapper">
+                                        <a href="@string.Format("/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="font14 text-bold text-default" title="@video.VideoTitle">@video.VideoTitle</a>
+                                        <p class="font12 text-light-grey margin-top10 margin-bottom10">@Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMMM yyyy")</p>
+                                        <div class="grid-6 alpha omega border-light-right font14">
+                                            <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Views))</span>
+                                        </div>
+                                        <div class="grid-6 omega padding-left20 font14">
+                                            <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+              
+                
+            </div>
+        </section>
+    }
 }

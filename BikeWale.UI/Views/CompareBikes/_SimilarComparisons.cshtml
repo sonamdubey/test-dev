@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.PopularComparisonsVM
 @using Bikewale.Utility;
+
 @if (Model != null && Model.IsDataAvailable)
 {
     <div class="jcarousel-wrapper inner-content-carousel comparison-type-carousel padding-bottom20">
@@ -8,7 +9,7 @@
                 @foreach (var bike in Model.CompareBikes)
                 {
                     <li>
-                        <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl( bike.MakeMasking1, bike.ModelMasking1, bike.MakeMasking2, bike.ModelMasking2, bike.VersionId1, bike.VersionId2, bike.ModelId1, bike.ModelId2, Model.CompareSource)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2)" class="card-target position-rel">
+                        <a href="@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike)" data-url="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl( bike.MakeMasking1, bike.ModelMasking1, bike.MakeMasking2, bike.ModelMasking2, bike.VersionId1, bike.VersionId2, bike.ModelId1, bike.ModelId2, Model.CompareSource)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2)" class="card-target position-rel redirect-url">
                             <span class="text-light-grey position-abt pos-top5 pos-right5 font11">@(bike.IsSponsored ? "Sponsored" : "")</span>
                             <div class="grid-6">
                                 <div class="model-img-content">
@@ -19,11 +20,11 @@
                                     @(bike.Price1 > 0 ? string.Format("Ex-showroom, {0}", bike.City1) : "Avg. Ex-showroom price")
                                     @if (bike.Price1 == 0)
                                     {
-									<span class="bwsprite info-icon tooltip-icon-target tooltip-top">
-										<span class="bw-tooltip info-tooltip">
-											<span class="bw-tooltip-text">Price is not available in @bike.City1</span>
-										</span>
-									</span>
+                                    <span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+                                        <span class="bw-tooltip info-tooltip">
+                                            <span class="bw-tooltip-text">Price is not available in @bike.City1</span>
+                                        </span>
+                                    </span>
                                     }
 
                                 </p>
@@ -38,11 +39,11 @@
                                     @(bike.Price2 > 0 ? string.Format("Ex-showroom, {0}", bike.City2) : "Avg. Ex-showroom price")
                                     @if (bike.Price2 == 0)
                                     {
-									<span class="bwsprite info-icon tooltip-icon-target tooltip-top tooltip--right">
-										<span class="bw-tooltip info-tooltip">
-											<span class="bw-tooltip-text">Price is not available in @bike.City2</span>
-										</span>
-									</span>
+                                        <span class="bwsprite info-icon tooltip-icon-target tooltip-top tooltip--right">
+                                            <span class="bw-tooltip info-tooltip">
+                                                <span class="bw-tooltip-text">Price is not available in @bike.City2</span>
+                                            </span>
+                                        </span>
                                     }
 
                                 </p>

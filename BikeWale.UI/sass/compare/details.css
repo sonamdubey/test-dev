@@ -732,6 +732,9 @@ select {
   font-size: 14px;
   padding: 7px; }
 
+.model-accordion-tab {
+  background: #fff; }
+
 .compare-bike-carousel .card-desc-block {
   margin-bottom: 15px;
   padding-bottom: 0; }
@@ -779,3 +782,24 @@ select {
   .compare-card__image-preview img {
     width: 100px;
     height: auto; }
+
+.bw-tabs_title {
+  padding: 18px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: capitalize;
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  background: #f9f9f9; }
+
+.fixed-overall-tab {
+  background: #fff;
+  display: block;
+  width: 976px;
+  position: fixed;
+  top: 0;
+  -moz-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+  -webkit-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+  -o-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+  -ms-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+  box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; }
