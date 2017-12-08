@@ -376,8 +376,10 @@
                                     </div>
                                     <% }
                                         if (similarBikes.Make != null && similarBikes.Model != null && similarBikes.IsNew)
-                                        { %>
-                                    <a class="compare-with-target text-truncate" href="<%= string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.CreateCompareUrl(similarBikes.Make.MaskingName, similarBikes.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(similarBikes.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)similarBikes.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget)) %>" title="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, similarBikes.Model.ModelName) %>">
+                                        {
+                                            string fullUrl = string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.CreateCompareUrl(similarBikes.Make.MaskingName, similarBikes.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(similarBikes.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)similarBikes.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget));
+                                             %>
+                                    <a class="compare-with-target text-truncate redirect-url" href="<%= Bikewale.Utility.UrlFormatter.RemoveQueryString(fullUrl) %>" data-url="<%= fullUrl  %>" title="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, similarBikes.Model.ModelName) %>">
                                         <span class="bwmsprite compare-sm"></span>Compare with <%= similarBikes.Model.ModelName %><span class="bwmsprite right-arrow"></span>
                                     </a>
                                     <% } %>
@@ -505,6 +507,16 @@
                     </li>
                     <%  }
                     %>
+
+                    <% if (!string.IsNullOrEmpty(seriesUrl))
+                        { %>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a class="breadcrumb-link" href="/m/<%= seriesUrl %>" title="<%= Series.SeriesName%>">
+                                <span class="breadcrumb-link__label" itemprop="name"><%=Series.SeriesName %></span>
+                            </a>
+                        </li>
+                    <% } %>
+
                     <li>
                         <a class="breadcrumb-link" href="/m/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" title="<%= String.Format("{0} {1}", makeName, modelName) %>">
                             <span class="breadcrumb-link__label" itemprop="name"><%= String.Format("{0} {1}", makeName, modelName) %> </span>

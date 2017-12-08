@@ -9,7 +9,7 @@
                 string bike1 = string.Format("{0} {1}", bike.Make1, bike.Model1);
                 string bike2 = string.Format("{0} {1}", bike.Make2, bike.Model2);
                 <div class="swiper-card">
-                    <a href="@string.Format("{0}/m/{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMasking1, bike.ModelMasking1, bike.MakeMasking2, bike.ModelMasking2, Convert.ToString(bike.VersionId1), Convert.ToString(bike.VersionId2),bike.ModelId1,bike.ModelId2, Model.CompareSource))" title="@bike1 vs @bike2" class="block">
+                    <a href="@string.Format("{0}/m/{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl,Bikewale.Utility.UrlFormatter.RemoveQueryString(Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMasking1, bike.ModelMasking1, bike.MakeMasking2, bike.ModelMasking2, Convert.ToString(bike.VersionId1), Convert.ToString(bike.VersionId2),bike.ModelId1,bike.ModelId2, Model.CompareSource)))" title="@bike1 vs @bike2" class="block">
                         <span class="text-light-grey position-abt pos-top0 pos-right0 font10"></span>
                         <h3 class="font12 text-black text-center margin-bottom10">@string.Format("{0} vs {1}", bike.Model1, bike.Model2)</h3>
                         <div class="grid-6">

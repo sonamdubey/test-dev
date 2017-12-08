@@ -48,6 +48,14 @@
                               <%  }
                                  %>
 
+                            <% if (!string.IsNullOrEmpty(seriesUrl))
+                                { %>
+                                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                    <span class="bwsprite fa-angle-right margin-right10"></span>
+                                    <a href="/<%= seriesUrl %>" itemprop="url"><span itemprop="title"><%= Series.SeriesName %></span></a>
+                                </li>
+                            <% } %>
+
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url"><span itemprop="title"><%= String.Format("{0} {1}", makeName, modelName) %></span></a>
@@ -420,8 +428,10 @@
                                     </div>
                                     <% } %>
                                     <% if (similarBikes.Make != null && similarBikes.Model != null && similarBikes.IsNew)
-                                        { %>
-                                    <a title="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, similarBikes.Model.ModelName) %>" href="/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(similarBikes.Make.MaskingName, similarBikes.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(similarBikes.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)similarBikes.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget) %>" class="compare-with-target text-truncate">
+                                        {
+                                           string fullUrl = string.Format("/{0}",Bikewale.Utility.UrlFormatter.CreateCompareUrl(similarBikes.Make.MaskingName, similarBikes.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(similarBikes.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)similarBikes.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget));
+                                            %>
+                                    <a title="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, similarBikes.Model.ModelName) %>" href="<%=Bikewale.Utility.UrlFormatter.RemoveQueryString(fullUrl) %>" data-url="<%=fullUrl  %>" class="compare-with-target text-truncate redirect-url">
                                         <span class="bwsprite compare-sm"></span>Compare with <%= similarBikes.Model.ModelName %><span class="bwsprite next-grey-icon"></span>
                                     </a>
                                     <% } %>

@@ -1,7 +1,7 @@
-﻿using Bikewale.Entities.Location;
+﻿using System;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Newtonsoft.Json;
-using System;
 
 namespace Bikewale.Entities.BikeBooking
 {

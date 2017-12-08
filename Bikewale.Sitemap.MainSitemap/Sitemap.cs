@@ -19,7 +19,7 @@ namespace Bikewale.Sitemap.MainSitemap
         private readonly string domain = ConfigurationManager.AppSettings["SiteMapDomain"];
         private readonly int MaxUrlCount = Convert.ToInt32(ConfigurationManager.AppSettings["MaxUrlCount"]);
         private readonly string FileName = ConfigurationManager.AppSettings["FileName"];
-
+        private readonly string sitemapSP = ConfigurationManager.AppSettings["sitemapSP"];
         private const string _extension = ".xml";
 
         private const string MakeUrl = "/{0}-bikes/";
@@ -52,7 +52,7 @@ namespace Bikewale.Sitemap.MainSitemap
             bool isSuccess = false;
             try
             {
-                SiteMapRepository repo = new SiteMapRepository();
+                SiteMapRepository repo = new SiteMapRepository(sitemapSP);
 
                 var data = repo.GetData();
 
@@ -165,7 +165,12 @@ namespace Bikewale.Sitemap.MainSitemap
                 urls.Add("/pricequote/");
                 urls.Add("/features/");
                 urls.Add("/bike-care/");
-
+                urls.Add("/new/bike-search/bikes-under-50000/");
+                urls.Add("/new/bike-search/bikes-between-50000-and-100000/");
+                urls.Add("/new/bike-search/bikes-between-100000-and-250000/");
+                urls.Add("/new/bike-search/bikes-above-250000/");
+                urls.Add("/new/bike-search/bikes-between-50000-and-70000/");
+                urls.Add("/new/bike-search/bikes-above-70000/");
                 if (collection == null)
                 {
                     collection = new Dictionary<UrlType, IDictionary<int, ICollection<KeyValuePair<int, string>>>>();
@@ -279,6 +284,18 @@ namespace Bikewale.Sitemap.MainSitemap
                                 break;
                             case UrlType.Features:
                                 PopulateFeaturesUrls(urls);
+                                break;
+                            case UrlType.SeriesPage:
+                                PopulateUrlList(ModelUrl, urls, item);
+                                break;
+                            case UrlType.SeriesNews:
+                                PopulateUrlList(ModelNewsUrl, urls, item);
+                                break;
+                            case UrlType.SeriesExpertReview:
+                                PopulateUrlList(ModelExpertReviewsUrl, urls, item);
+                                break;
+                            case UrlType.SeriesVideos:
+                                PopulateUrlList(ModelVideosUrl, urls, item);
                                 break;
                             default:
                                 break;

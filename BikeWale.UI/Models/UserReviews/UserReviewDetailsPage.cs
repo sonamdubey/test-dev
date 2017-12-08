@@ -1,4 +1,8 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
@@ -11,10 +15,6 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 namespace Bikewale.Models.UserReviews
 {
@@ -30,16 +30,18 @@ namespace Bikewale.Models.UserReviews
         private readonly ICMSCacheContent _objArticles = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeModelsCache = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
+        private readonly IBikeModels<BikeModelEntity, int> _models;
 
         private readonly uint _reviewId;
         private uint _modelId;
+        private BikeSeriesEntityBase Series;
 
         public uint TabsCount { get; set; }
         public uint ExpertReviewsWidgetCount { get; set; }
         public uint SimilarBikeReviewWidgetCount { get; set; }
         public bool IsMobile { get; internal set; }
 
-        public UserReviewDetailsPage(uint reviewId, IUserReviewsCache userReviewsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, ICMSCacheContent objArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, string makeMaskingName, string modelMaskingName, IUserReviewsSearch userReviewsSearch)
+        public UserReviewDetailsPage(uint reviewId, IUserReviewsCache userReviewsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, ICMSCacheContent objArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, string makeMaskingName, string modelMaskingName, IUserReviewsSearch userReviewsSearch, IBikeModels<BikeModelEntity, int> models)
         {
             _reviewId = reviewId;
             _userReviewsCache = userReviewsCache;
@@ -48,6 +50,7 @@ namespace Bikewale.Models.UserReviews
             _objArticles = objArticles;
             _bikeModelsCache = bikeModelsCache;
             _userReviewsSearch = userReviewsSearch;
+            _models = models;
         }
 
         public UserReviewDetailsVM GetData()
@@ -174,6 +177,7 @@ namespace Bikewale.Models.UserReviews
                     objPage.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
 
 
+                    Series = _models.GetSeriesByModelId(_modelId);
                     SetBreadcrumList(objPage);
                     SetPageJSONLDSchema(objPage);
 
@@ -194,8 +198,8 @@ namespace Bikewale.Models.UserReviews
         private void SetBreadcrumList(UserReviewDetailsVM objPage)
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string bikeUrl, scooterUrl;
-            bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string bikeUrl, scooterUrl, seriesUrl;
+            bikeUrl = scooterUrl = seriesUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
@@ -223,6 +227,13 @@ namespace Bikewale.Models.UserReviews
                 scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.UserReviewDetailsObj.Make.MaskingName);
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.UserReviewDetailsObj.Make.MakeName)));
+            }
+
+            if(Series != null && Series.IsSeriesPageUrl)
+            {
+                seriesUrl = string.Format("{0}{1}/", bikeUrl, Series.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, Series.SeriesName));
             }
 
             if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null && objPage.UserReviewDetailsObj.Make != null)

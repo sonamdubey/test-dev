@@ -15,8 +15,8 @@
 <ul class="bw-horizontal-cards font14">
     <% foreach (var serviceCenter in ServiceCenteList)
     { %>
-    <li class="card">
-        <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,cityMaskingName, serviceCenter.Name,serviceCenter.ServiceCenterId) %>" title="<%=serviceCenter.Name %>" class="card-target">
+    <li class="card" title="<%=serviceCenter.Name %>">
+        <div class="card-target">
             <h3 class="text-black text-bold text-truncate margin-bottom5"><%=serviceCenter.Name %></h3>
             <% if (!string.IsNullOrEmpty(serviceCenter.Address)){ %>
             <p class="text-light-grey margin-bottom5">
@@ -30,7 +30,7 @@
                 <span class="text-bold vertical-top details-column text-truncate"><%=serviceCenter.Phone %></span>
             </p>
             <% } %>
-        </a>
+        </div>
     </li>
     <% } %>
 </ul>
