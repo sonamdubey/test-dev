@@ -17,30 +17,7 @@ docReady(function () {
         $('.sponsored-card').hide();
     };
 
-    //Gallery open and close
-    $("#imageTopCard").click(function () {
-        try {
-            if (photoCount > 0 || videoCount > 0) {
-                popupGallery.bindGallery(0);
-            }
-            triggerGA($(this).data("cat"), $(this).data("act"), $(this).data("lab"));
-        } catch (e) {
-            console.warn(e);
-        }
-    });
-
-
-    $("#gallery-close-btn").click(function () {
-        try {
-            popupGallery.close();
-            vmModelGallery.isGalleryActive(false);
-            vmModelGallery.resetGallery();
-            unlockPopup();
-        } catch (e) {
-            console.warn(e);
-        }
-    });
-
+    
     // version dropdown
     $('.chosen-select').chosen();
 

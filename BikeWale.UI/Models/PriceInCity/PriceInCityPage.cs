@@ -286,8 +286,10 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Modifed by : Ashutosh Sharma on 13 Nov 2017
+        /// Modified by : Ashutosh Sharma on 13 Nov 2017
         /// Description : Added call to BindAdSlotTags.
+        /// Modified by : Ashutosh Sharma on 08 Dec 2017
+        /// Description : Removed Images load with Ajax for honda and hero.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageVM GetData()
@@ -409,10 +411,7 @@ namespace Bikewale.Models
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
 
-                    if (firstVersion != null)
-                    {
-                        CheckGallaryLoad(objVM);
-                    }
+                    
                     BindAdSlotTags(objVM);
                 }
             }
@@ -442,67 +441,6 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass.LogError(ex, "PriceInCityPage.BindAdSlotTags");
             }
         }
-
-        /// <summary>
-        /// Created by : Ashutosh Sharma on 05 Oct 2017
-        /// Description : Method to check if Gallary will be loaded via AJAX call.
-        /// </summary>
-        /// <param name="objVM"></param>
-        private void CheckGallaryLoad(PriceInCityPageVM objVM)
-        {
-            try
-            {
-                int[] MakeIdList = new int[2] { 6, 7 }; //For Hero and Honda
-                if (MakeIdList.Contains<int>(Convert.ToInt32(firstVersion.MakeId)))
-                {
-                    objVM.IsGalleryLoaded = true;
-                    BindModelGallery(objVM);
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("PriceInCityPage.CheckGallaryLoad_{0}", objVM));
-            }
-        }
-
-        /// <summary>
-        /// Created by : Ashutosh Sharma on 05 Oct 2017
-        /// Description : Method to Bind Gallary.
-        /// </summary>
-        /// <param name="objVM"></param>
-        private void BindModelGallery(PriceInCityPageVM objVM)
-        {
-            try
-            {
-                if (objVM.BikeModel != null)
-                {
-                    objVM.PhotoGallery = _objModelEntity.GetPhotoGalleryData(objVM.BikeModel.ModelId);
-
-                    if (objVM.PhotoGallery != null && objVM.PhotoGallery.ImageList != null)
-                    {
-                        var modelgallery = new ModelGalleryWidget(objVM.Make, objVM.BikeModel, objVM.PhotoGallery.ImageList, objVM.PhotoGallery.VideosList, objVM.BikeInfo);
-                        modelgallery.IsGalleryDataAvailable = true;
-                        modelgallery.IsJSONRequired = true;
-                        objVM.ModelGallery = modelgallery.GetData();
-                        if (objVM.ModelGallery != null)
-                        {
-                            objVM.ModelGallery.BikeName = objVM.BikeName;
-                            if (objVM.BikeInfo != null)
-                            {
-                                objVM.ModelGallery.IsDiscontinued = objVM.BikeInfo.IsDiscontinued;
-                                objVM.ModelGallery.IsUpcoming = objVM.BikeInfo.IsUpcoming;
-                            }
-                        }
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("PriceInCityPage.BindModelGallery{0}", objVM));
-            }
-        }
-
 
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Sep 2017
