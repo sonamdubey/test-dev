@@ -47,15 +47,22 @@
 
                                         @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bikedetails.Specs.Displacement), Convert.ToString(bikedetails.Specs.FuelEfficiencyOverall), Convert.ToString(bikedetails.Specs.MaxPower), Convert.ToString(bikedetails.Specs.KerbWeight)))
                                     </div>}
-
-                                <p class="key-size-14 margin-bottom5">Ex Showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                                @if (!string.IsNullOrEmpty(bikedetails.CityName))
+                                {
+                                    <p class="key-size-14 margin-bottom5">Ex Showroom, @bikedetails.CityName</p>
+                                }
+                                else
+                                {
+                                    <p class="key-size-14 margin-bottom5">Ex Showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                                }
+                              
                                 @Html.Raw("<span class='value-size-18'>&#x20B9;</span>")
                                 &nbsp;<span class="value-size-18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.VersionPrice))</span>
                                 <span class="value-size-14"> onwards</span>
                             </div>
                         </a>
                         <div class="margin-left20 margin-bottom10">
-                            <a href="javascript:void(0)" data-pagecatid="@Model.PageCatId" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.objModel.ModelId" class=" btn btn-sm btn-grey font14 getquotation" rel="nofollow">Check on-road price</a>
+                            <a href="javascript:void(0)" data-pagecatid="@Model.PageCatId" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_ElectricBike)" data-modelid="@bikedetails.objModel.ModelId" class=" btn btn-sm btn-grey font14 getquotation" rel="nofollow">Check on-road price</a>
                         </div>
                     </li>
                     }
@@ -77,13 +84,6 @@
                             <h2 class="margin-bottom20">News about Electric Bikes</h2>
                             @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
 
-                            <div class="more-article-target view-all-btn-container">
-                                <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Scooters News"))"
-                                   class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
-                            </div>
-
-
-
                         </div>
 
                     }
@@ -92,9 +92,6 @@
                         <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
                             <h2 class="padding-left10 padding-right10">Expert reviews on Electric Bikes</h2>
                             @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
-                            <div class="padding-left10 more-article-target view-all-btn-container">
-                                <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
-                            </div>
                         </div>
                     }
                     @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())

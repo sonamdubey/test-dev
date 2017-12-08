@@ -862,16 +862,6 @@ namespace Bikewale.BAL.BikeData
         }
 
         /// <summary>
-        /// Created By :-Subodh Jain 06-12-2017
-        /// Summary :- GetElectric Bikes
-        /// </summary>
-        /// <param name="makeId"></param>
-        /// <returns></returns>
-        public IEnumerable<MostPopularBikesBase> GetElectricBikes()
-        {
-            return _modelCacheRepository.GetElectricBikes();
-        }
-        /// <summary>
         /// Implemented by  :   Sumit Kate on 24 Mar 2017
         /// Description     :   Returns GetMostPopularBikes based on following params
         /// </summary>

@@ -1420,6 +1420,27 @@ namespace Bikewale.Cache.BikeData
             return popularBikesList;
         }
 
+        /// <summary>
+        /// Created By :- Subodh Jain 07-12-2017
+        /// Summary :- Method to GetElectricBikes 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetElectricBikes(uint cityId)
+        {
+            IEnumerable<MostPopularBikesBase> popularBikesList = null;
+            string key = string.Format("BW_ElectricBikes_CityId_{0}", cityId);
+            try
+            {
+                popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetElectricBikes(cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetElectricBikes"));
+
+            }
+            return popularBikesList;
+        }
+
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> popularBikesList = null;
