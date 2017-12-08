@@ -1,8 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
@@ -15,6 +11,10 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 namespace Bikewale.Models.UserReviews
 {
@@ -162,7 +162,7 @@ namespace Bikewale.Models.UserReviews
 
                     if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objPage.UserReviewDetailsObj.Make.MakeId.ToString()))
                     {
-                        objPage.PageMetaTags.Title = string.Format("Reviews of {0} {1}| User Reviews on {0} {1}- BikeWale", objPage.UserReviewDetailsObj.Title, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
+                        objPage.PageMetaTags.Title = string.Format("Reviews of {0} {1} | User Reviews on {0} {1}- BikeWale", objPage.UserReviewDetailsObj.Title, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
                         objPage.Page_H1 = string.Format("Reviews of {0} {1}| User Reviews on {0} {1}- BikeWale", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
                     }
                     else
@@ -229,7 +229,7 @@ namespace Bikewale.Models.UserReviews
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.UserReviewDetailsObj.Make.MakeName)));
             }
 
-            if(Series != null && Series.IsSeriesPageUrl)
+            if (Series != null && Series.IsSeriesPageUrl)
             {
                 seriesUrl = string.Format("{0}{1}/", bikeUrl, Series.MaskingName);
 

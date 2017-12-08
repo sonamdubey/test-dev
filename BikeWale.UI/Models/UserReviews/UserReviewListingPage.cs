@@ -1,7 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Web;
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -14,7 +11,10 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 namespace Bikewale.Models.UserReviews
 {
     /// <summary>
@@ -217,7 +217,7 @@ namespace Bikewale.Models.UserReviews
                 {
                     if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objPage.ReviewsInfo.Make.MakeId.ToString()))
                     {
-                        objPage.PageMetaTags.Title = string.Format("Reviews of {0} {1}| User Reviews on {0} {1}- BikeWale", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
+                        objPage.PageMetaTags.Title = string.Format("Reviews of {0} {1} | User Reviews on {0} {1}- BikeWale", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
 
                     }
                     else

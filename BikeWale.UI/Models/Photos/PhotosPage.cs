@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Web;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
@@ -14,6 +9,11 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.Gallery;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models.Photos
 {
@@ -257,7 +257,7 @@ namespace Bikewale.Models.Photos
 
                     if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_objData.Make.MakeId.ToString()))
                     {
-                        _objData.PageMetaTags.Title = String.Format(" Images of {0} {1} | Photos of {1}- BikeWale", _objData.BikeName, _objData.Model.ModelName);
+                        _objData.PageMetaTags.Title = String.Format(" Images of {0}| Photos of {0}- BikeWale", _objData.BikeName);
                         _objData.Page_H1 = string.Format("Images of {0}", _objData.BikeName);
                     }
                     else
@@ -375,7 +375,7 @@ namespace Bikewale.Models.Photos
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", _objData.Make.MakeName)));
             }
 
-            if(_objData.Series != null && _objData.Series.IsSeriesPageUrl)
+            if (_objData.Series != null && _objData.Series.IsSeriesPageUrl)
             {
                 if (IsMobile)
                 {
