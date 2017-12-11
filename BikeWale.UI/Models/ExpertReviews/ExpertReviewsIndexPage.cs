@@ -381,7 +381,7 @@ namespace Bikewale.Models
                     objPopularBikes.TopCount = 9;
                     objPopularBikes.CityId = CityId;
                     MostPopularBikes = objPopularBikes.GetData();
-                    objData.MostPopularMakeBikes = new MostPopularBikeWidgetVM() { Bikes = MostPopularMakeBikes.Bikes.Take(4), WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName), WidgetLinkTitle = "View all Bikes" };
+                    objData.MostPopularMakeBikes = new MostPopularBikeWidgetVM() { Bikes = MostPopularMakeBikes.Bikes.Take(6), WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName), WidgetLinkTitle = "View all Bikes" };
                 }
                 else
                     MostPopularBikes = objPopularBikes.GetData();
@@ -423,7 +423,7 @@ namespace Bikewale.Models
                     PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_objMakeCache);
                     objPopularScooterBrands.TopCount = 6;
                     PopularScooterMakes = objPopularScooterBrands.GetData();
-                    objData.PopularScooterMakesWidget = PopularScooterMakes.Take(4);
+                    objData.PopularScooterMakesWidget = PopularScooterMakes.Take(6);
                     bikeType = EnumBikeType.Scooters;
                 }
                 else
@@ -434,10 +434,10 @@ namespace Bikewale.Models
                     BodyStyleBikes.TopCount = topCount > 6 ? topCount : 6;
                     BodyStyleVM = BodyStyleBikes.GetData();
 
-                    objData.PopularBodyStyle = new PopularBodyStyleVM() { PopularBikes = BodyStyleVM.PopularBikes.Take(topCount), BodyStyleText = BodyStyleVM.BodyStyleText, BodyStyleLinkTitle = BodyStyleVM.BodyStyleLinkTitle, BodyStyle = BodyStyleVM.BodyStyle };
+                    objData.PopularBodyStyle = BodyStyleVM;
 
                     if (objData.PopularBodyStyle != null)
-                    {
+                    {                       
                         objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
                         objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                         objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
