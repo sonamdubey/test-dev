@@ -389,8 +389,8 @@ namespace BikewaleOpr.Cache
             try
             {
                 MemCachedUtil.Remove("BW_ModelMapping");
-                MemCachedUtil.Remove("BW_NewModelMaskingNames");
-                MemCachedUtil.Remove("BW_OldModelMaskingNames");
+                MemCachedUtil.Remove("BW_NewModelMaskingNames_v1");
+                MemCachedUtil.Remove("BW_OldModelMaskingNames_v1");
                 MemCachedUtil.Remove("BW_ModelSeries_MaskingNames_v1");
             }
             catch (Exception ex)

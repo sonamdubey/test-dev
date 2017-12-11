@@ -1,4 +1,6 @@
-﻿using Bikewale.Cache.Core;
+﻿using System;
+using System.Web;
+using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Common;
 using Bikewale.DAL.Videos;
@@ -9,8 +11,6 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
-using System;
-using System.Web;
 namespace Bikewale.Mobile.Videos
 {
     public class Video : System.Web.UI.Page
@@ -96,7 +96,15 @@ namespace Bikewale.Mobile.Videos
                 ctrlSimilarVideos.SectionTitle = "Related videos";
                 if (ctrlGenericBikeInfo != null)
                 {
-                    var objresponse = new ModelHelper().GetModelDataByMasking((videoModel.MaskingName));
+                    // Will replace this variable when required changes will be made in GrpcMethods.GetVideoByBasicId((int)videoId) 
+                    // to get modelId or makeMaskingName
+
+                    string tempMakeMaskingName = string.Empty;
+                    if (string.IsNullOrEmpty(videoModel.MakeName))
+                    {
+                        tempMakeMaskingName = videoModel.MakeName.ToLower().Replace(" ", "-");
+                    }
+                    var objresponse = new ModelHelper().GetModelDataByMasking(tempMakeMaskingName, (videoModel.MaskingName));
                     if (objresponse != null)
                     {
                         ctrlGenericBikeInfo.ModelId = objresponse.ModelId;

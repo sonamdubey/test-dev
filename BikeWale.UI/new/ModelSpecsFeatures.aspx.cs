@@ -222,8 +222,8 @@ namespace Bikewale.New
                 {
                     UInt32.TryParse(Request.QueryString["vid"], out versionId);
                     modelMaskingName = Request.QueryString["model"];
-
-                    if (!string.IsNullOrEmpty(modelMaskingName)) // && versionId > 0
+                    makeMaskingName = Request.QueryString["make"];
+                    if (!string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName)) // && versionId > 0
                     {
                         using (IUnityContainer container = new UnityContainer())
                         {
@@ -232,7 +232,7 @@ namespace Bikewale.New
                                      .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                     ;
                             var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                            objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                            objResponse = objCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                             if (objResponse != null && objResponse.StatusCode == 200)
                             {
                                 modelId = objResponse.ModelId;

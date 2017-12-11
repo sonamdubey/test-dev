@@ -61,14 +61,17 @@ namespace Bikewale.Mobile
         {
             ProcessQueryString();
             modelDetail = FetchModelPageDetails(modelId);
-            IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
-            if (versionId > 0)
+            if(modelDetail != null && modelDetail.ModelDetails != null)
             {
-                specs = FetchVariantDetails(versionId);
+                IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
+                if (versionId > 0)
+                {
+                    specs = FetchVariantDetails(versionId);
+                }
+                BindWidget();
+                BindSimilarBikes();
+                BindSeriesBreadCrum();
             }
-            BindWidget();
-            BindSimilarBikes();
-            BindSeriesBreadCrum();
         }
         /// Created  By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
@@ -218,8 +221,8 @@ namespace Bikewale.Mobile
                 {
                     UInt32.TryParse(Request.QueryString["vid"], out versionId);
                     modelMaskingName = Request.QueryString["model"];
-
-                    if (!string.IsNullOrEmpty(modelMaskingName))
+                    makeMaskingName = Request.QueryString["make"];
+                    if (!string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName))
                     {
                         using (IUnityContainer container = new UnityContainer())
                         {
@@ -228,7 +231,7 @@ namespace Bikewale.Mobile
                                      .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                     ;
                             var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                            objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                            objResponse = objCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                             if (objResponse != null && objResponse.StatusCode == 200)
                             {
                                 modelId = objResponse.ModelId;
