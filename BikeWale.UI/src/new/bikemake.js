@@ -33,7 +33,7 @@ docReady(function () {
             makeOverallTabs.addClass('fixed-tab');
         }
 
-        else if (windowScrollTop < makeTabsContentWrapperOffsetTop) {
+        else if (windowScrollTop < makeTabsContentWrapperOffsetTop + 44) {
             makeOverallTabs.removeClass('fixed-tab');
         }
 

@@ -955,7 +955,7 @@ docReady(function () {
     });
 
     if (parseInt(expertReviewCount) > 0) {
-        triggerGA("User_Reviews", "Toggle_Appeared_on_PageLoad", makeName + "_" + modelName);
+        triggerNonInteractiveGA("User_Reviews", "Toggle_Appeared_on_PageLoad", makeName + "_" + modelName);
     }
 
     $(document).on("click", ".article-list", function (e) {

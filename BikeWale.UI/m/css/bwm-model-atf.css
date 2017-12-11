@@ -864,3 +864,9 @@ a.btn:hover {
 	color: #787878;
 }
 /* horizontal bikes swiper end */
+
+.emi-calculator__link {
+    float: right;
+    display: inline-block;
+}
+
