@@ -581,7 +581,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                if (obj.Status == Entities.StatusCodes.RedirectPermanent)
+                if(obj.Status == Entities.StatusCodes.RedirectPermanent)
                 {
                     return RedirectPermanent(obj.RedirectUrl);
                 }

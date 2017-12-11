@@ -245,9 +245,9 @@
                                 <div class="content-inner-block-20">
                                     <div class="grid-9 inline-block margin-right-4 alpha">
                                         <span class="bwsprite dealer-grey"></span>
-                                        <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.MakeName showrooms</h2>
+                                        <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.MakeName showroom@(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "" : "s")</h2>
                                         <div class="grid-11 alpha">
-                                            <p class="font14 text-slate-grey">There are @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount cities in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
+                                            <p class="font14 text-slate-grey">There @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "is" : "are") @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "city" : "cities") in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
                                         </div>
                                     </div>
 
@@ -366,12 +366,12 @@
                         <div id="discontinuedLess">
                             Discontinued @Model.MakeName models: - <span id="spnContent"></span>
                         </div>
-                        <div id="discontinuedMore" class="hide">
+                        <div id="discontinuedMore">
                             Discontinued @Model.MakeName models: -
                             @foreach (var bike in Model.DiscontinuedBikes)
                             {
                                 <a title="@bike.BikeName" href="@bike.Href">@bike.BikeName</a>
-                            }                                                                                                                                       }
+                            }
                         </div>
                     </div>
                 </div>

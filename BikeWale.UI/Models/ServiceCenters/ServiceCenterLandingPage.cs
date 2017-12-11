@@ -53,7 +53,7 @@ namespace Bikewale.Models.ServiceCenters
             try
             {
                 objVM = new ServiceCenterLandingPageVM();
-                objVM.MakesList = _bikeMakes.GetMakesByType(EnumBikeType.Dealer);
+                objVM.MakesList = _bikeMakes.GetMakesByType(EnumBikeType.ServiceCenter);
                 objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.ServiceCenter);
                 objVM.BikeCareWidgetVM = new RecentBikeCare(_articles).GetData(BikeCareRecordsCount, 0, 0);
 
