@@ -1,4 +1,5 @@
-﻿
+﻿using Bikewale.Entities.BikeData;
+using System.Collections.Generic;
 namespace Bikewale.Models.BikeModels
 {
     /// <summary>
@@ -14,9 +15,13 @@ namespace Bikewale.Models.BikeModels
         public string TabId1 { get; set; }
         public string TabId2 { get; set; }
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
+        public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
         public MostPopularBikeWidgetVM MostPopularScooters { get; set; }
+        public MostPopularBikeWidgetVM MostPopularMakeScooters { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingScooters { get; set; }
+        public PopularBodyStyleVM PopularBodyStyle { get; set; }
+        public IEnumerable<BikeMakeEntityBase> PopularScooterMakes { get; set; }
         public string ViewAllHref1 { get; set; }
         public string ViewAllHref2 { get; set; }
         public string ViewAllTitle1 { get; set; }
@@ -32,6 +37,10 @@ namespace Bikewale.Models.BikeModels
     public enum MultiTabWidgetPagesEnum
     {
         PopularBikesAndPopularScooters = 1,
-        UpcomingBikesAndUpcomingScooters = 2
+        UpcomingBikesAndUpcomingScooters = 2,
+        PopularBikesAndUpcomingBikes = 3,
+        PopularMakeBikesAndBodyStyleWidget = 4,
+        PopularMakeScootersAndOtherBrands = 5,
+        PopularScootersAndUpcomingScooters = 6
     }
 }

@@ -3,7 +3,7 @@ var getOnRoadPriceBtn, onroadPriceConfirmBtn;
 var getOffersClick = false, selectDropdownBox;
 var $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
 var abusereviewId, userreviewsListStr, vmUserReviews;
-
+var isMileageSectionVisible;
 // colour carousel
 var colourCarousel, carouselColorList;
 
@@ -132,6 +132,12 @@ docReady(function () {
     // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
+    }
+    isMileageSectionVisible = $('#modelMileageContent');
+
+    if (isMileageSectionVisible.length>0)
+    {
+        triggerNonInteractiveGA("Model_Page", "Mileage_Card_Shown", myBikeName);
     }
 
     function callFallBackWriteReview() {
@@ -542,7 +548,6 @@ docReady(function () {
             $("div.leadCapture-close-btn").click();
         }
     });
-
 
     $('#insuranceLink').on('click', function (e) {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Insurance_Clicked_Model", "lab": myBikeName + "_" + icityArea });

@@ -128,6 +128,7 @@
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
+    <Compile Include="ElectricBike\ElectricBikesPageVM.cs" />
     <Compile Include="ExpertReviews\ScooterExpertReviewsPageVM.cs" />
     <Compile Include="Features\DetailFeatureVM.cs" />
     <Compile Include="Features\IndexFeatureVM.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Shared\BikeInfo.cs" />
     <Compile Include="Shared\Brands.cs" />
     <Compile Include="Shared\EditCMSPhotoGalleryVM.cs" />
+    <Compile Include="Shared\EMICalculatorVM.cs" />
     <Compile Include="Shared\Pager.cs" />
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />

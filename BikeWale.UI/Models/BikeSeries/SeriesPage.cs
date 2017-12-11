@@ -149,7 +149,7 @@ namespace Bikewale.Models.BikeSeries
         {
             try
             {
-				if (objSeriesPage.SeriesModels != null && objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.UpcomingBikes != null)
+				if (objSeriesPage.SeriesModels != null && objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.UpcomingBikes != null && objSeriesPage.BikeMake != null)
 				{
 					StringBuilder modelIdList = new StringBuilder("");
 					foreach (var bike in objSeriesPage.SeriesModels.NewBikes)
@@ -232,7 +232,10 @@ namespace Bikewale.Models.BikeSeries
                 if (objSeriesPage.SeriesBase != null)
                 {
                     objSeriesPage.SeriesDescription = _bikeSeries.GetSynopsis(objSeriesPage.SeriesBase.SeriesId);
-                    objSeriesPage.SeriesBase.SeriesName = objSeriesPage.SeriesDescription.Name;
+                    if (objSeriesPage.SeriesDescription != null)
+                    {
+                        objSeriesPage.SeriesBase.SeriesName = objSeriesPage.SeriesDescription.Name;
+                    }
                 }
 
             }

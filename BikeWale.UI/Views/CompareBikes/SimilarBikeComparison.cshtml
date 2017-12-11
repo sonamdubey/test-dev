@@ -13,8 +13,12 @@
                         <li>
                             @{
                                 var bikeName = string.Format("{0} {1}", similarObj.BikeMake.MakeName, similarObj.BikeModel.ModelName);
-                                var compareUrl1 = string.Format("/comparebikes/{0}-{1}-vs-{2}-{3}/?source={4}", similarObj.CompareBike1.Make.MaskingName, similarObj.CompareBike1.Model.MaskingName, similarObj.BikeMake.MakeMaskingName, similarObj.BikeModel.MaskingName, (uint)CompareSources.Desktop_SimilarComparisonWidget);
-                                var compareUrl2 = string.Format("/comparebikes/{0}-{1}-vs-{2}-{3}/?source={4}", similarObj.CompareBike2.Make.MaskingName, similarObj.CompareBike2.Model.MaskingName, similarObj.BikeMake.MakeMaskingName, similarObj.BikeModel.MaskingName, (uint)CompareSources.Desktop_SimilarComparisonWidget);
+                                
+                                var dataHref1 = string.Format("/comparebikes/{0}-{1}-vs-{2}-{3}/", similarObj.CompareBike1.Make.MaskingName, similarObj.CompareBike1.Model.MaskingName, similarObj.BikeMake.MakeMaskingName, similarObj.BikeModel.MaskingName);
+                                var dataHref2 = string.Format("/comparebikes/{0}-{1}-vs-{2}-{3}/", similarObj.CompareBike2.Make.MaskingName, similarObj.CompareBike2.Model.MaskingName, similarObj.BikeMake.MakeMaskingName, similarObj.BikeModel.MaskingName);
+
+                                var compareUrl1 = string.Format("{0}?source={1}", dataHref1, (uint)CompareSources.Desktop_SimilarComparisonWidget);
+                                var compareUrl2 = string.Format("{0}?source={1}", dataHref2, (uint)CompareSources.Desktop_SimilarComparisonWidget);
 
                             }
                             <a href="@string.Format("/{0}-bikes/{1}/",similarObj.BikeMake.MakeMaskingName,similarObj.BikeModel.MaskingName)" title="@bikeName" class="jcarousel-card bw-ga" data-cat="Compare_Bikes" data-act="Clicked_on_SimilarModel" data-lab="@string.Format("{0}_Card_{1}", similarObj.BikeModel.ModelName,Model.ModelComparisionText)">
@@ -27,13 +31,13 @@
                             </a>
                             <div class="padding-left20 padding-right20 margin-bottom20 bw-ga" data-cat="Compare_Bikes" data-act="Clicked_on_CompareCard" data-lab="@string.Format("{0}_{1}", similarObj.BikeModel.ModelName,Model.ModelComparisionText)">
                                 <p class="font12 text-slate-grey margin-bottom15 text-truncate">@string.Format("Compare {0} bike with:", similarObj.BikeModel.ModelName)</p>
-                                <a href="@compareUrl1" title="@string.Format("{0} vs {1}", similarObj.CompareBike1.Model.ModelName, similarObj.BikeModel.ModelName )" class="compare-with-card margin-right5">
+                                <a href="@dataHref1" data-url="@compareUrl1" title="@string.Format("{0} vs {1}", similarObj.CompareBike1.Model.ModelName, similarObj.BikeModel.ModelName )" class="compare-with-card margin-right5 redirect-url">
                                     <div class="compare-card__image-preview">
                                         <img class="lazy" data-original="@Image.GetPathToShowImages(similarObj.CompareBike1.OriginalImagePath,similarObj.CompareBike1.HostUrl,ImageSize._110x61 , "75")" src="" alt="" border="0" style="display: inline;">
                                     </div>
                                     <p class="compare-card__title">@similarObj.CompareBike1.Model.ModelName</p>
                                 </a>
-                                <a href="@compareUrl2" title="@string.Format("{0} vs {1}", similarObj.CompareBike2.Model.ModelName, similarObj.BikeModel.ModelName )" class="compare-with-card margin-left5">
+                                <a href="@dataHref2" data-url="@compareUrl2" title="@string.Format("{0} vs {1}", similarObj.CompareBike2.Model.ModelName, similarObj.BikeModel.ModelName )" class="compare-with-card margin-left5 redirect-url">
                                     <div class="compare-card__image-preview">
                                         <img class="lazy" data-original="@Image.GetPathToShowImages(similarObj.CompareBike2.OriginalImagePath,similarObj.CompareBike2.HostUrl,ImageSize._110x61 , "75")" alt="@similarObj.CompareBike2.Model.ModelName" src="" border="0" style="display: inline;">
                                     </div>

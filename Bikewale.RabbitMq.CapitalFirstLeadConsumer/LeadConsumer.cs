@@ -153,7 +153,10 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
                     catch (Exception ex)
                     {
                         _model.BasicReject(arg.DeliveryTag, false);
-                        Logs.WriteInfoLog(String.Format("Error occured while processing message: CT Lead : {0}, Message: {1}", nvc["ctLeadId"], ex.Message));
+                        if (nvc != null)
+                        {
+                            Logs.WriteInfoLog(String.Format("Error occured while processing message: CT Lead : {0}, Message: {1}", nvc["ctLeadId"], ex.Message));
+                        }
                     }
                 }
             }
