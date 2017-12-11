@@ -3230,6 +3230,7 @@
     <Content Include="staticHtml\standard.html" />
     <Content Include="Templates\BikesSwiperList_Mobile.html" />
     <Content Include="Templates\ExpertReviewsList_Mobile.html" />
+    <Content Include="Templates\UserReviewDetails_Popup.html" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="Thankyou.aspx" />
     <Content Include="trackday2016\css\track-day.css" />
