@@ -59,5 +59,7 @@ namespace Bikewale.Entities.BikeData
         public IEnumerable<CustomPageMetas> Metas { get; set; }
         [DataMember]
         public byte ReviewRateStar { get; set; }
+
+        public uint ExpertReviewsCount { get; set; }
     }
 }

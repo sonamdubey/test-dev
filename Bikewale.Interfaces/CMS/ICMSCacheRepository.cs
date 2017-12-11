@@ -1,6 +1,6 @@
-﻿using Bikewale.Entities.CMS.Articles;
+﻿using System.Collections.Generic;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
-using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.CMS
 {
@@ -21,6 +21,6 @@ namespace Bikewale.Interfaces.CMS
         CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId);
         CMSContent GetTrackDayArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId);
         CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId);
-
+        CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, string modelId);
     }
 }

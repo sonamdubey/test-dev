@@ -103,14 +103,14 @@ namespace BikewaleOpr.BAL.BikePricing
                     var compare = new VersionPriceEntityComparer();
                     for (int i = 0; i < dealerVersionPrices.Count(); i++)
                     {
-                        if (dealerVersionPrices[i].Categories.Count() != partialNullCategories.Count())
+                        if (dealerVersionPrices[i].Categories.Count() != partialNullCategories.Count)
                         {
                             dealerVersionPrices[i].Categories = dealerVersionPrices[i].Categories.Union(partialNullCategories, compare).OrderBy(category => category.ItemCategoryId);
                         }
                     }
 
                 }
-                else if (dealerPriceBase != null && dealerPriceBase.DealerVersions != null || dealerPriceBase.VersionPrices.Count() == 0)
+                else if (dealerPriceBase != null && (dealerPriceBase.DealerVersions != null || !dealerPriceBase.VersionPrices.Any()))
                 {
                     dealerVersionPrices = Convert(dealerPriceBase.DealerVersions);
                     foreach (DealerVersionPriceEntity dealerVersionEntity in dealerVersionPrices)
@@ -269,6 +269,59 @@ namespace BikewaleOpr.BAL.BikePricing
                     dealerIds, cityIds, versionIdsString, itemIdsString, itemValuesString, enteredBy));
             }
             return response;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Nov 2017
+        /// Description :   Copy Dealer Pricing to other dealers
+        /// </summary>
+        /// <param name="dealerIds"></param>
+        /// <param name="cityIds"></param>
+        /// <param name="versionIds"></param>
+        /// <param name="itemIds"></param>
+        /// <param name="itemValues"></param>
+        /// <param name="enteredBy"></param>
+        /// <returns></returns>
+        public bool CopyDealerPriceToOtherDealer(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds, IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy)
+        {
+            bool isSaved = false;
+
+            string versionIdsString = null;
+            string distinctVersionIdsString = null;
+            string itemIdsString = null;
+            string itemValuesString = null;
+            string dealerIdsString = null;
+            string cityIdsString = null;
+
+            try
+            {
+
+                if (itemIds != null && itemValues != null && itemValues.Any() && itemIds.Any() && versionIds != null && versionIds.Any())
+                {
+                    itemIdsString = string.Join<uint>(",", itemIds);
+                    itemValuesString = string.Join<uint>(",", itemValues);
+                    versionIdsString = string.Join<uint>(",", versionIds);
+                    dealerIdsString = string.Join<uint>(",", dealerIds);
+                    cityIdsString = string.Join<uint>(",", cityIds);
+                    distinctVersionIdsString = string.Join<uint>(",", versionIds.Distinct());
+                    foreach (var dealerId in dealerIds)
+                    {
+                        foreach (var cityId in cityIds)
+                        {
+                            isSaved = _dealerPriceRepository.DeleteVersionPrices(dealerId, cityId, distinctVersionIdsString);
+                        }
+                    }
+
+                    isSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format(
+                    "SaveVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2} itemIdsString={3} itemValuesString={4} enteredBy={5}",
+                    dealerIds, cityIds, versionIdsString, itemIdsString, itemValuesString, enteredBy));
+            }
+            return isSaved;
         }
     }
 }

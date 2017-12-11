@@ -18,18 +18,26 @@ namespace BikeWaleOpr.Content
         protected Repeater MyRepeater;
         protected HtmlInputHidden hdn_drpCity;
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 30 Nov 2017
+        /// Description : Added call to RegisterTypeForAjax for AjaxFunctions.cs
+        /// </summary>
         protected override void OnInit(EventArgs e)
         {
+            Ajax.Utility.RegisterTypeForAjax(typeof(AjaxFunctions));
             this.Load += new EventHandler(Page_Load);
             btnFind.Click += new EventHandler(btnFind_Click);
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 29 Nov 2017
+        /// Description : Removed RegisterTypeForAjax for AjaxFunctions.cs, moved to OnInit.
+        /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
             CommonOpn op = new CommonOpn();
             if (!IsPostBack)
             {
-                Ajax.Utility.RegisterTypeForAjax(typeof(AjaxFunctions));
                 FillMakes();
                 FillStates();
             }

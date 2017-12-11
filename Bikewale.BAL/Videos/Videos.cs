@@ -114,10 +114,18 @@ namespace Bikewale.BAL.Videos
         {
             return GetSimilarVideosViaGrpc(videoBasicId, totalCount);
         }
-
-		public IEnumerable<BikeVideoEntity> GetSimilarVideos(ushort totalCount, string modelIdList, uint videoBasicId = 0)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Method to get videos of multiple model ids.
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Removed id from call of GetSimilarVideosViaGrpc.
+        /// </summary>
+        /// <param name="totalCount"></param>
+        /// <param name="modelIdList"></param>
+        /// <returns></returns>
+		public IEnumerable<BikeVideoEntity> GetSimilarVideos(ushort totalCount, string modelIdList)
 		{
-			return GetSimilarVideosViaGrpc(totalCount, modelIdList, videoBasicId);
+			return GetSimilarVideosViaGrpc(totalCount, modelIdList);
 		}
 
 		/// <summary>
@@ -146,14 +154,23 @@ namespace Bikewale.BAL.Videos
             return videoDTOList;
         }
 
-		private IEnumerable<BikeVideoEntity> GetSimilarVideosViaGrpc(ushort totalCount, string modelIdList, uint videoId = 0)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Method to get videos of multiple model ids.
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Removed id from call of GetSimilarVideos.
+        /// </summary>
+        /// <param name="totalCount"></param>
+        /// <param name="modelIdList"></param>
+        /// <returns></returns>
+		private IEnumerable<BikeVideoEntity> GetSimilarVideosViaGrpc(ushort totalCount, string modelIdList)
 		{
 			IEnumerable<BikeVideoEntity> videoDTOList = null;
 			try
 			{
 				GrpcVideosList _objVideoList;
 
-				_objVideoList = GrpcMethods.GetSimilarVideos(totalCount, modelIdList, videoId);
+				_objVideoList = GrpcMethods.GetSimilarVideos(totalCount, modelIdList);
 
 				if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
 				{

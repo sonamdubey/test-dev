@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -5,8 +7,6 @@ using EditCMSWindowsService.Messages;
 using Grpc.Core;
 using GRPCLoadBalancer;
 using log4net;
-using System;
-using System.Diagnostics;
 
 namespace Grpc.CMS
 {
@@ -85,7 +85,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
@@ -149,7 +149,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
@@ -162,6 +162,8 @@ namespace Grpc.CMS
         /// <summary>
         /// Created By  : Sushil Kumar on 22nd Sep 2017
         /// Description : Addded new overload method to fetch data according to categorylist with multiple model ids 
+        /// Modified By : Vivek Singh Tomar on 27th Nov 2017
+        /// Description : Added model ids as parameter in the grpc call
         /// </summary>
         /// <param name="catIdList"></param>
         /// <param name="startIdx"></param>
@@ -193,7 +195,7 @@ namespace Grpc.CMS
                                 CategoryIdList = catIdList,
                                 EndIndex = endIdx,
                                 MakeId = makeid,
-                                //ModelIds = modelIds,
+                                ModelIds = modelIds,
                                 StartIndex = startIdx
                             },
                           null, GetForwardTime(m_ChanelWaitTime));
@@ -223,7 +225,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
@@ -447,7 +449,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
 
                     sw.Stop();
@@ -515,7 +517,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
 
                     sw.Stop();
@@ -1390,8 +1392,16 @@ namespace Grpc.CMS
                 }
             }
         }
-
-		public static GrpcVideosList GetSimilarVideos(uint totalCount, string modelIdList, uint id = 0)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Grpc method to get videos of multiple model ids.
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Removed id from call of GetSimilarVideos.
+        /// </summary>
+        /// <param name="totalCount"></param>
+        /// <param name="modelIdList"></param>
+        /// <returns></returns>
+		public static GrpcVideosList GetSimilarVideos(uint totalCount, string modelIdList)
 		{
 			Stopwatch sw = null;
 
@@ -1416,7 +1426,6 @@ namespace Grpc.CMS
 								(new GrpcVideosByIdURI()
 								{
 									ApplicationId = 2,
-									Id = (int)id,
 									SimilarModels = modelIdList,
 									StartIndex = 1,
 									EndIndex = totalCount
@@ -1683,7 +1692,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (sw != null && _logGrpcErrors)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
@@ -1756,7 +1765,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (sw != null && _logGrpcErrors)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
@@ -1827,7 +1836,7 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (sw != null && _logGrpcErrors)
                 {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)

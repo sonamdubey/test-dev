@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace Bikewale.Entities.BikeData
 {
     /// <summary>
@@ -33,5 +32,10 @@ namespace Bikewale.Entities.BikeData
         /// Value can be 200 or 301. Based on this value redirection of the url can be done
         /// </summary>
         public ushort StatusCode { get; set; }
+
+        /// <summary>
+        /// Value would be name of series or model depending on the masking name redirection
+        /// </summary>
+        public string Name { get; set; }
     }
 }

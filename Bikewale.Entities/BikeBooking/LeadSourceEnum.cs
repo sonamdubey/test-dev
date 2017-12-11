@@ -11,6 +11,8 @@ namespace Bikewale.Entities.BikeBooking
         Model_Mobile = 4,
         Model_Desktop = 3,
         PriceInCity_Desktop = 5,
-        PriceInCity_Mobile = 6
+        PriceInCity_Mobile = 6,
+        EMI_Calculator_ModelPage_Desktop = 34,
+        EMI_Calculator_ModelPage_Mobile = 35
     }
 }
