@@ -73,31 +73,36 @@ docReady(function () {
 
   
     var modelUserReviewDetailPopup = function () {
-        var self = this;
-        self.IsInitialized = ko.observable(false);
-        self.summaryObj = ko.observable();
-        self.reviewId = ko.observable();
+        try {
+            var self = this;
+            self.IsInitialized = ko.observable(false);
+            self.summaryObj = ko.observable();
+            self.reviewId = ko.observable();
 
-        self.init = function () {
-            if (!self.IsInitialized()) {
-                self.IsInitialized(true);
-                ko.applyBindings(self, $("#reviewPopup")[0]);
-              
-            }
-        };
+            self.init = function () {
+                if (!self.IsInitialized()) {
+                    self.IsInitialized(true);
+                    ko.applyBindings(self, $("#reviewPopup")[0]);
 
-
-        self.bindReviewSummaryData = function () {
-            $.ajax({
-                type: "GET",
-                url: "/api/v2/user-reviews/summary/" + reviewId+ "/",
-                success: function (response) {
-                    self.summaryObj(JSON.parse(response));
-                    self.reviewId(reviewId);
-                    applyLikeDislikes();
                 }
-            });
-        };
+            };
+
+
+            self.bindReviewSummaryData = function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/v2/user-reviews/summary/" + reviewId + "/",
+                    success: function (response) {
+                        self.summaryObj(JSON.parse(response));
+                        self.reviewId(reviewId);
+                        applyLikeDislikes();
+                    }
+                   
+                });
+            };
+        } catch (e) {
+            console.warn(e);
+        }
 
     }
 

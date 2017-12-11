@@ -307,7 +307,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.GetUserReviewSummaryWithRating");
                 return InternalServerError();
             }
             return NotFound();

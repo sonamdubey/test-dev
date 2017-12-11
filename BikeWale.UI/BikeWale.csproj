@@ -3907,7 +3907,6 @@
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
-    <Content Include="Views\Shared\_ReviewPopup.cshtml" />
     <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_AMP.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_Amp.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile_Amp.cshtml" />
