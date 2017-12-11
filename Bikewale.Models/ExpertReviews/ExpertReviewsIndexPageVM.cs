@@ -15,7 +15,7 @@ namespace Bikewale.Models
     /// Modified by : Vivek Singh Tomar on 27th Nov 2017
     /// Summary : Added BikeSeriesEntityBase
     /// Modified by sajal Gupta on 01-12-2017
-    /// Summary : Added PopularBikesAndPopularScootersWidget and UpcomingBikesAndUpcomingScootersWidget
+    /// Summary : Added PopularBikesAndPopularScootersWidget and UpcomingBikesAndUpcomingScootersWidget and MostPopularMakeBikes
     /// </summary>
     public class ExpertReviewsIndexPageVM : ModelBase
     {
@@ -33,8 +33,13 @@ namespace Bikewale.Models
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
         public EnumBikeBodyStyles BodyStyle { get; set; }
+        public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
         public MultiTabsWidgetVM PopularBikesAndPopularScootersWidget { get; set; }
         public MultiTabsWidgetVM UpcomingBikesAndUpcomingScootersWidget { get; set; }
+        public MultiTabsWidgetVM PopularBikesAndUpcomingBikesWidget { get; set; }
+        public MultiTabsWidgetVM PopularMakeBikesAndBodyStyleBikesWidget { get; set; }
+        public MultiTabsWidgetVM PopularMakeScootersAndOtherBrandsWidget { get; set; }
+        public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
     }
 
 
