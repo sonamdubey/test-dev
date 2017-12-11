@@ -2,9 +2,9 @@
 // source: EditCms.proto
 #region Designer generated code
 
-using Grpc.Core;
 using System;
 using System.Threading;
+using Grpc.Core;
 
 namespace EditCMSWindowsService.Messages
 {
@@ -373,6 +373,13 @@ namespace EditCMSWindowsService.Messages
             __Marshaller_GrpcArticleContentURI,
             __Marshaller_GrpcArticleSummaryList);
 
+        static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetArticleVideos = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcVideosList>(
+            MethodType.Unary,
+            __ServiceName,
+            "GetArticleVideos",
+            __Marshaller_GrpcInt,
+            __Marshaller_GrpcVideosList);
+
         /// <summary>Service descriptor</summary>
         public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
         {
@@ -603,6 +610,11 @@ namespace EditCMSWindowsService.Messages
             }
 
             public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GoogleSiteMapDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
+            {
+                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+            }
+
+            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetArticleVideos(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
             {
                 throw new RpcException(new Status(StatusCode.Unimplemented, ""));
             }
@@ -1352,6 +1364,22 @@ namespace EditCMSWindowsService.Messages
             {
                 return CallInvoker.AsyncUnaryCall(__Method_GoogleSiteMapDetails, null, options, request);
             }
+            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetArticleVideos(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                return GetArticleVideos(request, new CallOptions(headers, deadline, cancellationToken));
+            }
+            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetArticleVideos(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+            {
+                return CallInvoker.BlockingUnaryCall(__Method_GetArticleVideos, null, options, request);
+            }
+            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetArticleVideosAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                return GetArticleVideosAsync(request, new CallOptions(headers, deadline, cancellationToken));
+            }
+            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetArticleVideosAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+            {
+                return CallInvoker.AsyncUnaryCall(__Method_GetArticleVideos, null, options, request);
+            }
             /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
             protected override EditCMSGrpcServiceClient NewInstance(ClientBaseConfiguration configuration)
             {
@@ -1408,7 +1436,8 @@ namespace EditCMSWindowsService.Messages
                 .AddMethod(__Method_GetOtherModelPhotosList, serviceImpl.GetOtherModelPhotosList)
                 .AddMethod(__Method_GetSimilarModelPhotosList, serviceImpl.GetSimilarModelPhotosList)
                 .AddMethod(__Method_UpdateVideo, serviceImpl.UpdateVideo)
-                .AddMethod(__Method_GoogleSiteMapDetails, serviceImpl.GoogleSiteMapDetails).Build();
+                .AddMethod(__Method_GoogleSiteMapDetails, serviceImpl.GoogleSiteMapDetails)
+                .AddMethod(__Method_GetArticleVideos, serviceImpl.GetArticleVideos).Build();
         }
 
     }
