@@ -460,7 +460,7 @@ namespace Bikewale.Models
                             objData.PopularMakeScootersAndOtherBrandsWidget.ShowViewAllLink1 = true;
                             objData.PopularMakeScootersAndOtherBrandsWidget.ShowViewAllLink2 = true;
                             objData.PopularMakeScootersAndOtherBrandsWidget.Pages = MultiTabWidgetPagesEnum.PopularMakeScootersAndOtherBrands;
-                            objData.PopularMakeScootersAndOtherBrandsWidget.PageName = "News";
+                            objData.PopularMakeScootersAndOtherBrandsWidget.PageName = "ExpertReviews";
 
                             objData.PopularScootersAndUpcomingScootersWidget = new MultiTabsWidgetVM();
 
@@ -485,7 +485,7 @@ namespace Bikewale.Models
                             objData.PopularScootersAndUpcomingScootersWidget.ShowViewAllLink1 = true;
                             objData.PopularScootersAndUpcomingScootersWidget.ShowViewAllLink2 = false;
                             objData.PopularScootersAndUpcomingScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularScootersAndUpcomingScooters;
-                            objData.PopularScootersAndUpcomingScootersWidget.PageName = "News";
+                            objData.PopularScootersAndUpcomingScootersWidget.PageName = "ExpertReviews";
                         }
                         else if (bodyStyle.Equals(EnumBikeBodyStyles.Sports) || bodyStyle.Equals(EnumBikeBodyStyles.Cruiser))
                         {
@@ -512,7 +512,7 @@ namespace Bikewale.Models
                             objData.PopularMakeBikesAndBodyStyleBikesWidget.ShowViewAllLink1 = true;
                             objData.PopularMakeBikesAndBodyStyleBikesWidget.ShowViewAllLink2 = true;
                             objData.PopularMakeBikesAndBodyStyleBikesWidget.Pages = MultiTabWidgetPagesEnum.PopularMakeBikesAndBodyStyleWidget;
-                            objData.PopularMakeBikesAndBodyStyleBikesWidget.PageName = "News";
+                            objData.PopularMakeBikesAndBodyStyleBikesWidget.PageName = "ExpertReviews";
 
                             objData.PopularBikesAndUpcomingBikesWidget = new MultiTabsWidgetVM();
 
@@ -541,7 +541,7 @@ namespace Bikewale.Models
                             objData.PopularBikesAndUpcomingBikesWidget.ShowViewAllLink1 = true;
                             objData.PopularBikesAndUpcomingBikesWidget.ShowViewAllLink2 = true;
                             objData.PopularBikesAndUpcomingBikesWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndUpcomingBikes;
-                            objData.PopularBikesAndUpcomingBikesWidget.PageName = "News";
+                            objData.PopularBikesAndUpcomingBikesWidget.PageName = "ExpertReviews";
                         }
                         else
                         {
@@ -572,7 +572,7 @@ namespace Bikewale.Models
                             objData.PopularBikesAndUpcomingBikesWidget.ShowViewAllLink1 = true;
                             objData.PopularBikesAndUpcomingBikesWidget.ShowViewAllLink2 = true;
                             objData.PopularBikesAndUpcomingBikesWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndUpcomingBikes;
-                            objData.PopularBikesAndUpcomingBikesWidget.PageName = "News";
+                            objData.PopularBikesAndUpcomingBikesWidget.PageName = "ExpertReviews";
                         }
                     }
                 }
@@ -654,7 +654,7 @@ namespace Bikewale.Models
                     objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                     objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
                     objData.PopularBodyStyle.CityId = CityId;
-                    objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
+                    objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                     bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
                 }
             }

@@ -123,23 +123,29 @@
                     }
                     else
                     {
-                        <div class="bw-tabs-panel content-box-shadow section-bottom-margin">
-                            <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
-                                <ul id="widgetTab">
-                                    <li class="active">
-                                        <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.Make.MakeName Bikes</h2>
-                                    </li>
-                                </ul>
+                        if (Model.MostPopularMakeBikes != null)
+                        {
+                            <div class="bw-tabs-panel content-box-shadow section-bottom-margin">
+                                <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+                                    <ul id="widgetTab">
+                                        <li class="active">
+                                            <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.Make.MakeName Bikes</h2>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="sidebar-list--overflow">
+                                    @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularMakeBikes)
+                                </div>
+                                <div class="view-all-btn-container padding-10-20-20 read-more">
+                                    <a href="@Model.MostPopularMakeBikes.WidgetHref" title="@Model.MostPopularMakeBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularMakeBikes.WidgetLinkTitle<span class="bwsprite teal-right"></span></a>
+                                </div>
                             </div>
-                            <div class="bw-tabs-data sidebar-list--overflow">
-                                @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularMakeBikes)
-                            </div>
-                        </div>
-
+                        }
                         @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
                     }
 
                 }
+
                 else
                 {
                     if (Model.Make != null && Model.Make.MakeId > 0)
