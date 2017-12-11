@@ -546,7 +546,7 @@ namespace Bikewale.Models
                             BodyStyleBikes.TopCount = topCount > 6 ? topCount : 6;
                             BodyStyleVM = BodyStyleBikes.GetData();
 
-                            objData.PopularBodyStyle = new PopularBodyStyleVM() { PopularBikes = BodyStyleVM.PopularBikes.Take(topCount), BodyStyleText = BodyStyleVM.BodyStyleText, BodyStyleLinkTitle = BodyStyleVM.BodyStyleLinkTitle, BodyStyle = BodyStyleVM.BodyStyle };
+                            objData.PopularBodyStyle = BodyStyleVM;
 
                             if (objData.PopularBodyStyle != null)
                             {
