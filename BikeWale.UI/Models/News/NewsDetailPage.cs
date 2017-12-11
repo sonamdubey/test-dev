@@ -475,7 +475,7 @@ namespace Bikewale.Models
                         if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !isPWA)
                         {
                             PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
-                            objPopularScooterBrands.TopCount = 4;
+                            objPopularScooterBrands.TopCount = 6;
                             objData.PopularScooterMakesWidget = objPopularScooterBrands.GetData();
                             bikeType = EnumBikeType.Scooters;
                         }
@@ -498,7 +498,7 @@ namespace Bikewale.Models
                         objPopularBikes.TopCount = 9;
                         objPopularBikes.CityId = CityId;
                         MostPopularBikes = objPopularBikes.GetData();
-                        objData.MostPopularMakeBikes = new MostPopularBikeWidgetVM() { Bikes = MostPopularMakeBikes.Bikes.Take(4), WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName), WidgetLinkTitle = "View all Bikes" };
+                        objData.MostPopularMakeBikes = new MostPopularBikeWidgetVM() { Bikes = MostPopularMakeBikes.Bikes.Take(6), WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName), WidgetLinkTitle = "View all Bikes" };
 
 
                         MostPopularBikesWidget objPopularScooters = new MostPopularBikesWidget(_bikeModels, EnumBikeType.Scooters, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
@@ -535,7 +535,7 @@ namespace Bikewale.Models
                             PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
                             objPopularScooterBrands.TopCount = 6;
                             PopularScooterMakes = objPopularScooterBrands.GetData();
-                            objData.PopularScooterMakesWidget = PopularScooterMakes.Take(4);
+                            objData.PopularScooterMakesWidget = PopularScooterMakes.Take(6);
                             bikeType = EnumBikeType.Scooters;
                         }
                         else
