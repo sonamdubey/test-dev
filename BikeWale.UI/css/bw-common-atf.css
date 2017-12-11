@@ -155,6 +155,55 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .card-desc-block {
     padding: 5px 20px 15px;
 }
+.jcarousel-wrapper #allbikes {
+    border: none;
+}
+.jcarousel-wrapper #allbikes a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    background-size: cover;
+    background: url(/images/banner3.png) no-repeat center;
+    position: relative;
+}
+.jcarousel-wrapper #allbikes a:before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.btn-transparent-block {
+    display: block;
+    padding-top: 50%;
+    padding-bottom: 50%;
+    text-align: center;
+    position: relative;
+}
+.btn-transparent {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    padding: 10px 3px;
+    display: block;
+    text-transform: capitalize;
+    max-width: 200px;
+    margin: 0 auto;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border: solid 1px #fff;
+}
+.btn-transparent:hover {
+    background: white;
+    color: #2a2a2a;
+}
+
 /*.bike-preview img { width: 100%; }*/
 
 /* breadcrumb classes */
