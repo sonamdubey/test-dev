@@ -169,7 +169,7 @@ namespace Bikewale.Models
                     PopupShowButtonMessage = "Show showrooms",
                     PopupSubHeading = "See Showrooms in your city!",
                     FetchDataPopupMessage = "Fetching showrooms for ",
-                    RedirectUrl = string.Format("/{0}-dealer-showrooms-in-", _makeMaskingName),
+                    RedirectUrl = string.Format("/dealer-showrooms/{0}/", _makeMaskingName),
                     IsCityWrapperPresent = 1
                 };
 
@@ -250,7 +250,7 @@ namespace Bikewale.Models
                 objData.MakeMaskingName = objMakePage.MakeMaskingName;
                 objData.MakeName = objMakePage.MakeName;
                 objData.CityCardTitle = "showrooms in";
-                objData.CityCardLink = "dealer-showrooms-in";
+                objData.CityCardLink = "dealer-showrooms";
                 objData.IsServiceCenterPage = false;
                 objMakePage.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())

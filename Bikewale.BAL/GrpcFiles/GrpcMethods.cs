@@ -1392,8 +1392,16 @@ namespace Grpc.CMS
                 }
             }
         }
-
-		public static GrpcVideosList GetSimilarVideos(uint totalCount, string modelIdList, uint id = 0)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Grpc method to get videos of multiple model ids.
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Removed id from call of GetSimilarVideos.
+        /// </summary>
+        /// <param name="totalCount"></param>
+        /// <param name="modelIdList"></param>
+        /// <returns></returns>
+		public static GrpcVideosList GetSimilarVideos(uint totalCount, string modelIdList)
 		{
 			Stopwatch sw = null;
 
@@ -1418,7 +1426,6 @@ namespace Grpc.CMS
 								(new GrpcVideosByIdURI()
 								{
 									ApplicationId = 2,
-									Id = (int)id,
 									SimilarModels = modelIdList,
 									StartIndex = 1,
 									EndIndex = totalCount

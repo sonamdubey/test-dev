@@ -55,6 +55,7 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
+    
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId);
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
         BikeMileageEntity GetMileageDetails(uint modelId);

@@ -310,11 +310,11 @@
                     var selectedMakeCity = $("#popupMakeList").find("li[makeid=" + self.selectedBrand().makeId + "]").text() + "_" + $("#popupCitiesList").find("li[cityid=" + self.SelectedCityId() + "]").text(), prevMakeCity = prevMake + "_" + prevCity;
                     if (isDealer) {
                         triggerGA("Dealer_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity.replace(/\s+/g, "_") + "_To_" + selectedMakeCity.replace(/\s+/g, "_"));
-                        window.location.href = "/m/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
+                        window.location.href = "/m/dealer-showrooms/" + self.makeMasking() + "/" + self.cityMasking() + "/";
                     }
                     else if (isServiceCenter) {
                         triggerGA("Service_Center_List_Page", "Clicked_on_Change_Icon", "Changed_" + prevMakeCity.replace(/\s+/g, "_") + "_To_" + selectedMakeCity.replace(/\s+/g, "_"));
-                        window.location.href = "/m/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
+                        window.location.href = "/m/service-centers/" + self.makeMasking() + "/" + self.cityMasking() + "/";
                     };
                 }
             };

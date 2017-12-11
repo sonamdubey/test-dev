@@ -10,8 +10,8 @@
         title = "New Bike Showroom in India | Find Authorized Bike Dealers - BikeWale";
         keywords = "new bike dealers, new bike showrooms, bike dealers, bike showrooms, showrooms, dealerships";
         description = "Locate new bike showrooms and authorized bike dealers in India. Find new bike dealer information for more than 200 cities in India. ";
-        canonical = "https://www.bikewale.com/dealer-showroom-locator/";
-        alternate = "https://www.bikewale.com/m/dealer-showroom-locator/";
+        canonical = "https://www.bikewale.com/dealer-showrooms/";
+        alternate = "https://www.bikewale.com/m/dealer-showrooms/";
         isHeaderFix = false;
         isAd970x90Shown = false;
         isTransparentHeader = true;
@@ -88,7 +88,7 @@
                                 <asp:Repeater ID="rptPopularBrands" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealer-showrooms-in-india/">
+                                            <a href="/dealer-showrooms/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>/">
                                                 <span class="brand-type">
                                                     <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
                                                 </span>
@@ -102,7 +102,7 @@
                                 <asp:Repeater ID="rptOtherBrands" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealer-showrooms-in-india/">
+                                            <a href="/dealer-showrooms/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>/">
                                                 <span class="brand-type">
                                                     <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
                                                 </span>
@@ -207,7 +207,7 @@
                         if (!isNaN(ddlcityId) && ddlcityId != "0") {
                             ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
                             bwcache.remove("userchangedlocation", true);
-                            window.location.href = "/" + ddlmakemasking + "-dealer-showrooms-in-" + ddlcityMasking+ "/";
+                            window.location.href = "/dealer-showrooms/" + ddlmakemasking + "/" + ddlcityMasking + "/";
                         }
                         else {
                             toggleErrorMsg($ddlCities, true, "Choose a city");

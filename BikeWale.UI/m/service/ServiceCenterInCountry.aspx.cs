@@ -118,7 +118,7 @@ namespace Bikewale.Mobile.Service
                             var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                             if (_city != null)
                             {
-                                string _redirectUrl = String.Format("/m/{0}-service-center-in-{1}/", makeMaskingName, _city.CityMaskingName);
+                                string _redirectUrl = String.Format("/m/service-centers/{0}/{1}/", makeMaskingName, _city.CityMaskingName);
                                 Response.Redirect(_redirectUrl, false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                                 this.Page.Visible = false;
@@ -186,7 +186,7 @@ namespace Bikewale.Mobile.Service
                 catch (Exception ex)
                 {
                     ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                    
+
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;

@@ -156,7 +156,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
                             <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @(Model.OtherDealers != null ? Model.OtherDealers.CityName : "India")</h2>
                         </div>
                         <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="@string.Format("/m/{0}-dealer-showrooms-in-{1}/",Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.OtherDealers.CityMaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.OtherDealers.CityName" class="btn view-all-target-btn">View all</a>
+                            <a href="@string.Format("/m/dealer-showrooms/{0}/{1}/",Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.OtherDealers.CityMaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.OtherDealers.CityName" class="btn view-all-target-btn">View all</a>
                         </div>
                         <div class="clear"></div>
                     </div>

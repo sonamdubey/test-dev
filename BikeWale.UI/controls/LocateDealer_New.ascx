@@ -78,7 +78,7 @@
         if (vm.SelectedMake() && vm.SelectedCity()) {
             toggleErrorMsg($('#cmbMake'), false);
             toggleErrorMsg($('#cmbCity'), false);
-            location.href = "/" + findMakeById(vm, vm.SelectedMake()).maskingName + "-dealer-showrooms-in-" + vm.SelectedCity().split('_')[1] + "/";
+            location.href = "/dealer-showrooms/" + findMakeById(vm, vm.SelectedMake()).maskingName + "/"+ vm.SelectedCity().split('_')[1] + "/";
         }
         else {
             if ($('#cmbMake').val() == undefined || $('#cmbMake').val() == 0)

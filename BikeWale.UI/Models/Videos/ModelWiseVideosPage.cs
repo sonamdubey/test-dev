@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
@@ -11,6 +8,9 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models.Videos
 {
@@ -62,6 +62,11 @@ namespace Bikewale.Models.Videos
             ProcessQuery(_makeMaskingName, _modelMaskingName);
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Removed videoBasicId from call of GetSimilarVideos.
+        /// </summary>
+        /// <returns></returns>
         public ModelWiseVideoPageVM GetDataSeries()
         {
             ModelWiseVideoPageVM objVM = new ModelWiseVideoPageVM();
@@ -71,7 +76,7 @@ namespace Bikewale.Models.Videos
                     objVM.Make = new MakeHelper().GetMakeNameByMakeId(_makeId);
 
                 string modelIds = _series.GetModelIdsBySeries(objMaskingResponse.Id);
-                objVM.VideosList = _objVideosCache.GetSimilarVideos(_maxVideoCount, modelIds, 1);
+                objVM.VideosList = _objVideosCache.GetSimilarVideos(_maxVideoCount, modelIds);
                 objVM.objSeries = objSeries;
                 BindPageMetasSeries(objVM);
             }
@@ -145,10 +150,18 @@ namespace Bikewale.Models.Videos
             {
                 if (objPageVM != null && objPageVM.PageMetaTags != null && objPageVM.Make != null && objPageVM.Model != null)
                 {
-                    objPageVM.PageMetaTags.Title = String.Format("{0} {1} Videos - BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+
+                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objPageVM.Make.MakeId.ToString()))
+                    {
+                        objPageVM.PageMetaTags.Title = String.Format("Videos of {0} {1} | Videos From Experts on {1}- BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+                    }
+                    else
+                    {
+                        objPageVM.PageMetaTags.Title = String.Format("{0} {1} Videos - BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+                    }
                     objPageVM.PageMetaTags.Keywords = string.Format("{0},{1},{0} {1},{0} {1} videos", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
                     objPageVM.PageMetaTags.Description = string.Format("Check latest {0} {1} videos, watch BikeWale expert's take on {0} {1} - features, performance, price, fuel economy, handling and more.", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
-                    
+
                     objPageVM.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/videos/", objPageVM.Make.MaskingName, objPageVM.Model.MaskingName);
                     if (!IsMobile)
                         objPageVM.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/videos/", objPageVM.Make.MaskingName, objPageVM.Model.MaskingName);
@@ -300,7 +313,7 @@ namespace Bikewale.Models.Videos
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} Bikes", objVM.Make.MakeName)));
                 }
 
-                if(objVM.Model != null && objVM.bikeType.Equals(EnumBikeBodyStyles.Scooter))
+                if (objVM.Model != null && objVM.bikeType.Equals(EnumBikeBodyStyles.Scooter))
                 {
                     if (IsMobile)
                     {
