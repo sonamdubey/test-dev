@@ -45,7 +45,7 @@
                                 else
                                 {
                                    
-                                        <a class="redirect-url" href="@String.Format(@"/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName))" data-url="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName)?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))">
+                                        <a class="redirect-url" href="@String.Format(@"/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName))" data-url="@string.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName),Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl)))">
                                             <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                                         </a>
                                 }
