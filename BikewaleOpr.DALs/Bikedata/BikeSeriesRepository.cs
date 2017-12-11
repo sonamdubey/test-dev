@@ -346,5 +346,38 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             return isExists;
         }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 30 Nov 2017
+        /// Summary : Get model ids as commar separated string for given series id
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
+        public string GetModelIdsBySeries(uint seriesId)
+        {
+            string modelIds = string.Empty;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelidsbyseries"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.UInt32, seriesId));
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null && reader.Read())
+                        {
+                            modelIds = Convert.ToString(reader["modelids"]);
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.BikeData.BikeSeriesRepository.GetMaskingNames_seriesId {0}", seriesId));
+            }
+
+            return modelIds;
+        }
     }
 }

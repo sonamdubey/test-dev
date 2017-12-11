@@ -698,6 +698,10 @@ a.btn:hover {
     cursor: pointer;
 }
 
+
+
+
+
 @media only screen and (max-width: 320px) {
     .selected-location-label.text-truncate {
         width: 82%;

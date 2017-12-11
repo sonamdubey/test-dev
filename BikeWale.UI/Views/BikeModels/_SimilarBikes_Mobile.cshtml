@@ -57,7 +57,8 @@
                 }
                 @if (Model.Make != null && Model.Model != null && Model.IsNew)
                 {
-                    <a class="compare-with-target text-truncate bw-ga" data-act="Clicked_on_CompareCard" data-lab='@string.Format("{0} {1} vs {2}", Model.Make.MakeName, Model.Model.ModelName, bikeName)' href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
+                    string fullUrl = string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget));
+                    <a class="compare-with-target text-truncate bw-ga redirect-url" data-act="Clicked_on_CompareCard" data-lab='@string.Format("{0} {1} vs {2}", Model.Make.MakeName, Model.Model.ModelName, bikeName)' href="@Bikewale.Utility.UrlFormatter.RemoveQueryString(fullUrl)" data-url="@fullUrl" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
                         <span class="bwmsprite compare-sm"></span>Compare with @Model.Model.ModelName<span class="bwmsprite right-arrow"></span>
                     </a>
                 }

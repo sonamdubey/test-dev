@@ -1881,6 +1881,12 @@ docReady(function () {
         window.errorLog = errorLog;
     })();
    
+    // Stop default achor propgation and redirect to custom link
+    $(".redirect-url").click(function (ev) {
+        ev.preventDefault();
+        window.location.href = $(this).attr('data-url');
+    });
+
     $(document).on("click", ".bw-ga", function () {
         try {
             var obj = $(this);

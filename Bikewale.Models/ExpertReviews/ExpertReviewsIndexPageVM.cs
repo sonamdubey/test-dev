@@ -1,9 +1,9 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Pager;
 using Bikewale.Models.BikeModels;
-using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -12,6 +12,8 @@ namespace Bikewale.Models
     /// Summary : Class have properties to render the expert reviews index page (View Model)
     /// Modified by : Aditi Srivastava on 30 Mar 2017
     /// Summary     : Added view models and properties for widgets
+    /// Modified by : Vivek Singh Tomar on 27th Nov 2017
+    /// Summary : Added BikeSeriesEntityBase
     /// Modified by sajal Gupta on 01-12-2017
     /// Summary : Added PopularBikesAndPopularScootersWidget and UpcomingBikesAndUpcomingScootersWidget
     /// </summary>
@@ -20,6 +22,7 @@ namespace Bikewale.Models
         public CMSContent Articles { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
+        public BikeSeriesEntityBase Series { get; set; }
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
         public PagerEntity PagerEntity { get; set; }

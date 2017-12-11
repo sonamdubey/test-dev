@@ -65,39 +65,13 @@
                     @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures.cshtml", Model)
                 </div>
             }
-            @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
-                                  && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
-                                  && ((!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds)
-                                  && !Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString())) || Model.IsUpcomingBike))
-            {
+			@if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription) && Model.ModelPageEntity.ModelDetails != null && Model.IsUpcomingBike)
+			{
                 <div id="modelAboutContent" class="content-box-shadow content-inner-block-20 card-bottom-margin font14">
                     <div class="grid-8 alpha">
                         <h2 class="h2-heading margin-bottom15">About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
                         <div class="text-slate-grey line-height17">
-                            @if (!Model.IsUpcomingBike)
-                            {
-                                <p id="main-preview-content" class="inline">
-                                    @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
-                                    {
-                                        @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
-                                    }
-                                    else
-                                    {
-                                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                                    }
-                                </p>
-                                if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
-                                {
-                                    <p id="more-preview-content" class="hide">
-                                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                                    </p>
-                                    <a href="javascript:void(0)" id="read-more-preview" rel="nofollow">Read more</a>
-                                }
-                            }
-                            else
-                            {
-                                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                            }
+                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
                         </div>
                     </div>
                     <div class="grid-4 text-center alpha omega">
@@ -105,7 +79,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-             }
+			}
         </div>
     }
     @if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)

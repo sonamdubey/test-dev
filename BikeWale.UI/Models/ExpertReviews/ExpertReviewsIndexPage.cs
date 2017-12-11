@@ -36,14 +36,16 @@ namespace Bikewale.Models
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly IBikeSeriesCacheRepository _seriesCache;
+        private readonly IBikeSeries _series;
         #endregion
 
         #region Page level variables
         private const int pageSize = 10, pagerSlotSize = 5;
         private int curPageNo = 1;
         private uint _totalPagesCount;
-        string make = string.Empty, model = string.Empty;
-        private uint MakeId, ModelId, CityId, pageCatId = 0;
+        string make = string.Empty, model = string.Empty, series = string.Empty;
+        private uint MakeId, ModelId, CityId, SeriesId, pageCatId = 0;
         public string redirectUrl;
         public StatusCodes status;
         private MakeHelper makeHelper = null;
@@ -51,10 +53,13 @@ namespace Bikewale.Models
         private GlobalCityAreaEntity currentCityArea;
         private BikeModelEntity objModel = null;
         private BikeMakeEntityBase objMake = null;
+        private BikeSeriesEntityBase objSeries;
+        private SeriesMaskingResponse objResponse;
 
-        private bool showCheckOnRoadCTA = false;
-        private PQSourceEnum pqSource = 0;
+        private readonly bool showCheckOnRoadCTA = false;
+        private readonly PQSourceEnum pqSource = 0;
         private EnumBikeType bikeType = EnumBikeType.All;
+        private string ModelIds = string.Empty;
         #endregion
 
         #region Public properties
@@ -63,7 +68,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
+        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
         {
             _cmsCache = cmsCache;
             _pager = pager;
@@ -72,6 +77,8 @@ namespace Bikewale.Models
             _upcoming = upcoming;
             _objMakeCache = objMakeCache;
             _objBikeVersionsCache = objBikeVersionsCache;
+            _seriesCache = seriesCache;
+            _series = series;
             ProcessQueryString();
         }
         #endregion
@@ -88,9 +95,19 @@ namespace Bikewale.Models
             try
             {
                 if (objMake != null)
+                {
                     objData.Make = objMake;
+                }
+
                 if (objModel != null)
+                {
                     objData.Model = objModel;
+                }
+
+                if (objSeries != null)
+                {
+                    objData.Series = objSeries;
+                }
 
                 int _startIndex = 0, _endIndex = 0;
                 _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
@@ -98,7 +115,17 @@ namespace Bikewale.Models
                 objData.StartIndex = _startIndex;
                 objData.EndIndex = _endIndex;
 
-                objData.Articles = _cmsCache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+                // Added by Vivek Singh Tomar to get list of model ids for given series
+                if (objData.Series != null)
+                {
+                    ModelIds = _series.GetModelIdsBySeries(objData.Series.SeriesId);
+                }
+                else
+                {
+                    ModelIds = Convert.ToString(ModelId);
+                }
+
+                objData.Articles = _cmsCache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, (int)MakeId, ModelIds);
 
                 _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
 
@@ -111,6 +138,10 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData);
                     GetWidgetData(objData, widgetTopCount);
+                    if (objData.Model != null)
+                    {
+                        objData.Series = _models.GetSeriesByModelId(ModelId);
+                    }
                     SetBreadcrumList(objData);
                 }
                 else
@@ -137,7 +168,7 @@ namespace Bikewale.Models
 
             if (queryString != null)
             {
-
+                string maskingName = string.Empty;
                 if (!string.IsNullOrEmpty(queryString["pn"]))
                 {
                     string _pageNo = queryString["pn"];
@@ -147,42 +178,60 @@ namespace Bikewale.Models
                     }
                 }
                 make = queryString["make"];
-                model = queryString["model"];
+                maskingName = queryString["model"];
 
                 ProcessMakeMaskingName(request, make);
-                ProcessModelMaskingName(request, model);
+                ProcessModelSeriesMaskingName(request, maskingName);
             }
         }
+
         /// <summary>
         /// Created by  :  Aditi Srivasava on 30 Mar 2017
         /// Summary     :  Processes model masking name
+        /// Created by  :  Vivek Singh Tomar on 24th nov 2017
+        /// Summary     :  Name changed to ProcessModelSeriesMaskigName and changes made to check if given masking name is model or series
         /// </summary>
-        private void ProcessModelMaskingName(HttpRequest request, string model)
+        private void ProcessModelSeriesMaskingName(HttpRequest request, string maskingName)
         {
-            ModelMaskingResponse modelResponse = null;
-            if (!string.IsNullOrEmpty(model))
+            if (!string.IsNullOrEmpty(maskingName))
             {
-                modelResponse = new ModelMaskingResponse();
-                modelHelper = new ModelHelper();
-                modelResponse = modelHelper.GetModelDataByMasking(model);
+                objResponse = _seriesCache.ProcessMaskingName(maskingName);
             }
-            if (modelResponse != null)
+            if (objResponse != null)
             {
-                if (modelResponse.StatusCode == 200)
+                if (objResponse.StatusCode == 200)
                 {
-                    ModelId = modelResponse.ModelId;
-                    objModel = modelHelper.GetModelDataById(ModelId);
+                    if (!objResponse.IsSeriesPageCreated)
+                    {
+                        modelHelper = new ModelHelper();
+                        model = objResponse.MaskingName;
+                        ModelId = objResponse.Id;
+                        objModel = modelHelper.GetModelDataById(objResponse.Id);
+                    }
+                    else
+                    {
+                        series = objResponse.MaskingName;
+                        SeriesId = objResponse.Id;
+                        objSeries = new BikeSeriesEntityBase
+                        {
+                            SeriesId = SeriesId,
+                            SeriesName = objResponse.Name,
+                            MaskingName = series,
+                            IsSeriesPageUrl = true
+                        };
+                    }
                 }
-                else if (modelResponse.StatusCode == 301)
+                else if (objResponse.StatusCode == 301)
                 {
                     status = StatusCodes.RedirectPermanent;
-                    redirectUrl = request.RawUrl.Replace(model, modelResponse.MaskingName);
+                    redirectUrl = request.RawUrl.Replace(objResponse.MaskingName, objResponse.NewMaskingName);
                 }
                 else
                 {
                     status = StatusCodes.ContentNotFound;
                 }
             }
+
         }
 
         /// <summary>
@@ -194,7 +243,6 @@ namespace Bikewale.Models
             MakeMaskingResponse makeResponse = null;
             if (!string.IsNullOrEmpty(make))
             {
-                makeResponse = new MakeMaskingResponse();
                 makeHelper = new MakeHelper();
                 makeResponse = makeHelper.GetMakeByMaskingName(make);
             }
@@ -225,23 +273,54 @@ namespace Bikewale.Models
         /// </summary>
         private void SetPageMetas(ExpertReviewsIndexPageVM objData)
         {
-            objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
-            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+            objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+
+
             if (ModelId > 0)
             {
-                objData.PageMetaTags.Title = string.Format("{0} {1} Expert Reviews India - Bike Comparison & Road Tests - BikeWale", objMake.MakeName, objModel.ModelName);
+                if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(MakeId.ToString()))
+                {
+                    objData.PageMetaTags.Title = string.Format("Expert Reviews on {0} {1} | First Ride & Comparison Test- BikeWale", objMake.MakeName, objModel.ModelName);
+                    objData.PageH1 = string.Format(" Expert Reviews on {0} {1}", objMake.MakeName, objModel.ModelName);
+                }
+                else
+                {
+                    objData.PageMetaTags.Title = string.Format("{0} {1} Expert Reviews India - Bike Comparison & Road Tests - BikeWale", objMake.MakeName, objModel.ModelName);
+                    objData.PageH1 = string.Format("{0} {1} Expert Reviews", objMake.MakeName, objModel.ModelName);
+                }
+
+
                 objData.PageMetaTags.Description = string.Format("Latest expert reviews on {0} {1} in India. Read {0} {1} comparison tests and road tests exclusively on BikeWale", objMake.MakeName, objModel.ModelName);
                 objData.PageMetaTags.Keywords = string.Format("{0} {1} expert reviews, {0} {1} road tests, {0} {1} comparison tests, {0} {1} reviews, {0}{1} bike comparison", objMake.MakeName, objModel.ModelName);
-                objData.PageH1 = string.Format("{0} {1} Expert Reviews", objMake.MakeName, objModel.ModelName);
+
                 objData.AdTags.TargetedModel = objModel.ModelName;
                 objData.AdTags.TargetedMakes = objMake.MakeName;
             }
+            else if (objData.Series != null && objData.Series.IsSeriesPageUrl && objData.Series.SeriesId > 0)
+            {
+                objData.PageMetaTags.Title = string.Format("Expert Reviews about {0} {1} bikes in India | {1} bikes Comparison & Road Tests - BikeWale", objMake.MakeName, objSeries.SeriesName);
+                objData.PageMetaTags.Description = string.Format("Read the latest expert reviews on all {0} {1} bikes on BikeWale. Read about {0} {1} comparison tests and road tests exclusively on BikeWale", objMake.MakeName, objSeries.SeriesName);
+                objData.PageMetaTags.Keywords = string.Format("Expert Reviews about {0} {1}, {0} {1} expert reviews, {0} {1} first ride review, {0} {1} Long Term Report", objMake.MakeName, objSeries.SeriesName);
+                objData.PageH1 = string.Format("{0} {1} Expert Reviews", objMake.MakeName, objSeries.SeriesName);
+                objData.AdTags.TargetedSeries = objData.Series.SeriesName;
+            }
             else if (MakeId > 0)
             {
-                objData.PageMetaTags.Title = string.Format("{0} Bikes Expert Reviews India - Bike Comparison & Road Tests - BikeWale", objMake.MakeName);
+                if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(MakeId.ToString()))
+                {
+                    objData.PageMetaTags.Title = string.Format("Expert Reviews on {0} Bikes | First Ride & Comparison Tests- BikeWale", objMake.MakeName);
+                    objData.PageH1 = string.Format("Expert Reviews on {0} Bikes", objMake.MakeName);
+                }
+                else
+                {
+                    objData.PageMetaTags.Title = string.Format("{0} Bikes Expert Reviews India - Bike Comparison & Road Tests - BikeWale", objMake.MakeName);
+                    objData.PageH1 = string.Format("{0} Bikes Expert Reviews", objMake.MakeName);
+                }
+
                 objData.PageMetaTags.Description = string.Format("Latest expert reviews on upcoming and new {0} bikes in India. Read {0} bike comparison tests and road tests exclusively on BikeWale", objMake.MakeName);
                 objData.PageMetaTags.Keywords = string.Format("{0} bike expert reviews, {0} bike road tests, {0} bike comparison tests, {0} bike reviews, {0} road tests, {0} expert reviews, {0} bike comparison, {0} comparison tests.", objMake.MakeName);
-                objData.PageH1 = string.Format("{0} Bikes Expert Reviews", objMake.MakeName);
+
                 objData.AdTags.TargetedMakes = objMake.MakeName;
             }
             else
@@ -439,7 +518,7 @@ namespace Bikewale.Models
             try
             {
                 objData.PagerEntity = new PagerEntity();
-                objData.PagerEntity.BaseUrl = string.Format("{0}{1}", (IsMobile ? "/m" : ""), UrlFormatter.FormatExpertReviewUrl(make, model));
+                objData.PagerEntity.BaseUrl = string.Format("{0}{1}", (IsMobile ? "/m" : ""), UrlFormatter.FormatExpertReviewUrl(make, series, model));
                 objData.PagerEntity.PageNo = curPageNo;
                 objData.PagerEntity.PagerSlotSize = pagerSlotSize;
                 objData.PagerEntity.PageUrlType = "page/";
@@ -487,7 +566,7 @@ namespace Bikewale.Models
             try
             {
                 IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-                string bikeUrl, scooterUrl;
+                string bikeUrl, scooterUrl, seriesUrl;
                 bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
                 ushort position = 1;
                 if (IsMobile)
@@ -505,7 +584,7 @@ namespace Bikewale.Models
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objData.Make.MakeName)));
                 }
 
-                if (objData.Model != null && objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(objData.Make.IsScooterOnly))
+                if ((objData.Model != null || (objData.Series != null && objData.Series.IsSeriesPageUrl)) && objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(objData.Make.IsScooterOnly))
                 {
                     if (IsMobile)
                     {
@@ -514,6 +593,12 @@ namespace Bikewale.Models
                     scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objData.Make.MaskingName);
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objData.Make.MakeName)));
+                }
+
+                if (objData.Series != null && objData.Series.IsSeriesPageUrl)
+                {
+                    seriesUrl = string.Format("{0}{1}/", bikeUrl, objData.Series.MaskingName);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, objData.Series.SeriesName));
                 }
 
                 if (objData.Model != null)

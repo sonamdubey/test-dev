@@ -388,7 +388,7 @@ namespace Bikewale.Service.Controllers.Model
 
                                     }
                                 }
-                                if (pqEntity.IsExShowroomPrice)
+                                if (pqEntity != null && pqEntity.IsExShowroomPrice)
                                     objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity, null);
                                 else
                                     objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,

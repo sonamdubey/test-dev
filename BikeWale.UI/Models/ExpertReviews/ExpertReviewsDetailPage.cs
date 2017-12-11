@@ -161,8 +161,8 @@ namespace Bikewale.Models
                 objData.AmpJsTags.IsCarousel = true;
                 objData.AmpJsTags.IsSidebar = true;
                 objData.AmpJsTags.IsSocialShare = true;
-				objData.AmpJsTags.IsIframe = objData.ArticleDetails != null && objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Any( p => p.Content.Contains("<iframe"));
-			}
+                objData.AmpJsTags.IsIframe = objData.ArticleDetails != null && objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Any(p => p.Content.Contains("<iframe"));
+            }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("BindAmpJsTags_{0}", objData));
@@ -380,7 +380,7 @@ namespace Bikewale.Models
                 objPopularBikes.TopCount = topCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
-                if(objData.MostPopularBikes != null)
+                if (objData.MostPopularBikes != null)
                 {
                     objData.MostPopularBikes.CityId = CityId;
                     objData.MostPopularBikes.ReturnUrlForAmpPages = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);

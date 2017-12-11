@@ -30,8 +30,8 @@
 						<th>Model</th>
                         <th>Version</th>                        
 						<th>Ex-Showroom</th>
-						<th>Insurance</th>
-						<th>RTO</th>						
+						<th><span style="position:relative;bottom:2px;">Insurance</span><input type="checkbox" id="chkInsurance" checked /></th>
+						<th><span style="position:relative;bottom:2px;">RTO</span><input type="checkbox" id="chkRTO" checked/></th>						
                         <th>Last Updated Date</th>
 						<th>Last Updated By</th>
 					</tr>					
@@ -49,13 +49,13 @@
 						<%# DataBinder.Eval( Container.DataItem, "VersionName" ) %>
 					</td>						
 					<td>
-						<asp:TextBox ID="txtPrice" Index='<%# Container.ItemIndex %>' data-modeldid='<%# DataBinder.Eval(Container.DataItem, "BikeModelId") %>' VersionId='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' Text='<%# DataBinder.Eval( Container.DataItem, "Price" ).ToString() %>' onchange="calculatePrices(this)" Columns="10" MaxLength="9" runat="server" />							
+						<asp:TextBox ID="txtPrice" Index='<%# Container.ItemIndex %>' data-modeldid='<%# DataBinder.Eval(Container.DataItem, "BikeModelId") %>' data-seriesid ='<%# DataBinder.Eval(Container.DataItem, "BikeSeriesId") %>' VersionId='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' Text='<%# DataBinder.Eval( Container.DataItem, "Price" ).ToString() %>' onchange="calculatePrices(this)" Columns="10" MaxLength="9" runat="server" />							
 					</td>
 					<td>
-						<asp:TextBox ID="txtInsurance" Text='<%# DataBinder.Eval( Container.DataItem, "Insurance" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />						
+						<asp:TextBox class="txtInsurance" ID="txtInsurance" Text='<%# DataBinder.Eval( Container.DataItem, "Insurance" ).ToString() %>' Columns="10" MaxLength="9" runat="server"/>						
 					</td>
 					<td>
-						<asp:TextBox ID="txtRTO" Text='<%# DataBinder.Eval( Container.DataItem, "RTO" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />							
+						<asp:TextBox class="txtRTO" ID="txtRTO" Text='<%# DataBinder.Eval( Container.DataItem, "RTO" ).ToString() %>' Columns="10" MaxLength="9" runat="server"/>							
 					</td>
                     <td class="text-align-center">
 						<%# DataBinder.Eval( Container.DataItem, "LastUpdatedDate" ).ToString() %>
@@ -133,6 +133,24 @@
         }
     });
 
+	$("#chkInsurance").click(function () {
+		if ($(this).is(":checked")) {
+			$(".txtInsurance").removeAttr("disabled");
+		}
+		else {
+			$(".txtInsurance").attr("disabled", "disabled");
+		}
+	});
+
+	$("#chkRTO").click(function () {
+		if ($(this).is(":checked")) {
+			$(".txtRTO").removeAttr("disabled");
+		}
+		else {
+			$(".txtRTO").attr("disabled", "disabled");
+		}
+	});
+
     $("#ddlPriceStates").change(function () {
         var ddlPriceCities = $("#ddlPriceCities");
         var requestType = "7";
@@ -185,10 +203,14 @@
         var itemIndex = objTxtInsurance.attr("index");
         var price = objTxtInsurance.val();        
 
-        if (price != "") {
-            calculateInsurancePremium(versionId, price, $("#rptPrices_txtInsurance_" + itemIndex));
-            calculateRegistrationCharges(versionId, price, $("#rptPrices_txtRTO_" + itemIndex));
-        }
+	 if (price != "") {
+	     if (!$("#chkInsurance").is(":checked")) {
+		    calculateInsurancePremium(versionId, price, $("#rptPrices_txtInsurance_" + itemIndex));
+	     }
+	     if (!$("#chkRTO").is(":checked")) {
+		    calculateRegistrationCharges(versionId, price, $("#rptPrices_txtRTO_" + itemIndex));
+	     }
+	 }
     }
 
     function calculateInsurancePremium(versionId, price, objTxtIns) {
@@ -260,12 +282,17 @@
         }
     });
 
-    $("#btnSavePrices").click(function () {
+	$("#btnSavePrices").click(function () {
         $("#hdnSelectedCity").val(viewModel.selectedCity());
         $("#hdnSelectedCities").val(viewModel.selectedCities());
-
-        if (!validateUploadPrices())
-            return false;
+		
+		if (!validateUploadPrices())
+			return false;
+		else
+		{
+			$(".txtRTO").removeAttr("disabled");
+			$(".txtInsurance").removeAttr("disabled");
+		}
     });
 
     function validateUploadPrices() {
