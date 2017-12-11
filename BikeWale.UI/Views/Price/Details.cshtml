@@ -454,7 +454,10 @@
             </div>
             <div class="clear"></div>
         </div>
-
+        @if (Model != null && Model.DetailedDealer != null && Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.EMIDetails != null)
+        {
+            <input type="hidden" value="@Model.DetailedDealer.PrimaryDealer.EMIDetails.ProcessingFee" id="dealerProcessingFees" />
+        }
     </section>
                                             }
 

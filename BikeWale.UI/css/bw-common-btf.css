@@ -111,7 +111,7 @@ footer ul.popularMakes li a{ padding: 0px 50px;}
 }
 div#globalPopupBlackOut {z-index: 9; }
 /*logged in classes*/
-.loggedinProfileWrapper { background: #fff; width: 280px; position: fixed; top: 0; right: -280px; bottom: 0; z-index: 10; }
+.loggedinProfileWrapper { background: #fff; width: 280px; position: fixed; top: 0; right: -280px; bottom: 0; z-index: 210; }
 
 .user-profile-banner { background:#161209 url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/user-profile-banner.jpg) no-repeat center top; width:280px; height: 146px; }
 .user-profile-details { display: table; }
@@ -1094,8 +1094,8 @@ input[type="number"] {
 }
 #leadCapturePopup {
     display: none;
-    width: 450px;
-    min-height: 470px;
+    width: 370px;
+    min-height: 526px;
     background: #fff;
     margin: 0 auto;
     position: fixed;
@@ -1103,7 +1103,7 @@ input[type="number"] {
     right: 5%;
     left: 5%;
     z-index: 210;
-    padding: 15px 40px
+    padding: 25px 40px 15px;
 }
 .personal-info-form-container {
     margin: 10px auto;
@@ -1115,6 +1115,13 @@ input[type="number"] {
     width: 100%;
     float: left;
     border-radius: 0
+}
+#leadCapturePopup .btn {
+    padding-left: 49px;
+    padding-right: 49px;
+}
+#leadCapturePopup .chosen-container .chosen-drop {
+    width: 300px;
 }
 .ui-autocomplete.pincode-autocomplete {
     overflow-y: auto;

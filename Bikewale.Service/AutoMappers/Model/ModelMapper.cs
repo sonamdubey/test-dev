@@ -24,7 +24,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
-using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -447,8 +446,6 @@ namespace Bikewale.Service.AutoMappers.Model
 
         internal static BikeModelContentDTO Convert(BikeModelContent objContent)
         {
-            CMSShareUrl cmsShareurl = new CMSShareUrl();
-
             Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -456,9 +453,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
             Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
             Mapper.CreateMap<ReviewEntity, Review>();
-            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>()
-               .ForMember(dest => dest.FormattedDisplayDate, opt => opt.MapFrom(src => src.DisplayDate.ToString("dd MMMM yyyy")))
-               .ForMember(dest => dest.ShareUrl, opt => opt.MapFrom(src => cmsShareurl.ReturnShareUrl(src.CategoryId, src.BasicId, src.ArticleUrl)));
+            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             Mapper.CreateMap<BikeModelContent, BikeModelContentDTO>();
             return Mapper.Map<BikeModelContent, BikeModelContentDTO>(objContent);
@@ -472,12 +467,10 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static Bikewale.DTO.Model.v2.BikeModelContentDTO ConvertV2(Bikewale.Entities.BikeData.v2.BikeModelContent objContent)
         {
-            CMSShareUrl cmsShareurl = new CMSShareUrl();
+
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>()
-                .ForMember(dest => dest.FormattedDisplayDate, opt => opt.MapFrom(src => src.DisplayDate.ToString("dd MMMM yyyy")))
-                .ForMember(dest => dest.ShareUrl, opt => opt.MapFrom(src => cmsShareurl.ReturnShareUrl(src.CategoryId, src.BasicId, src.ArticleUrl)));
+            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
             Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>();
@@ -580,6 +573,13 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
                 objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
                 objDTOModelPage.IsUpcoming = objModelPage.ModelDetails.Futuristic;
+                objDTOModelPage.IsSpecsAvailable = (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null && objModelPage.objOverview.OverviewList.Any());
+
+
+                objDTOModelPage.Review = new DTO.Model.v5.Review();
+                objDTOModelPage.Review.UserReviewCount = (uint)objModelPage.ModelDetails.ReviewCount;
+                objDTOModelPage.Review.ExpertReviewCount = objModelPage.ModelDetails.ExpertReviewsCount;
+
                 if (!objDTOModelPage.IsUpcoming)
                 {
                     objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
@@ -592,23 +592,29 @@ namespace Bikewale.Service.AutoMappers.Model
                         switch (spec.DisplayText)
                         {
                             case "Capacity":
-                                objDTOModelPage.Capacity = spec.DisplayValue;
+                                objDTOModelPage.Capacity = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                             case "Mileage":
-                                objDTOModelPage.Mileage = spec.DisplayValue;
+                                objDTOModelPage.Mileage = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                             case "Max power":
-                                objDTOModelPage.MaxPower = spec.DisplayValue;
+                                objDTOModelPage.MaxPower = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                             case "Weight":
-                                objDTOModelPage.Weight = spec.DisplayValue;
+                                objDTOModelPage.Weight = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
                                 break;
                         }
                     }
                 }
 
-                if (objModelPage.AllPhotos != null)
+                if (objModelPage.AllPhotos != null && objModelPage.AllPhotos.Any())
                 {
+
+                    objDTOModelPage.Gallery = new DTO.Model.v5.Gallery();
+                    objDTOModelPage.Gallery.ImageCount = (uint)objModelPage.AllPhotos.Count();
+                    objDTOModelPage.Gallery.ColorCount = objModelPage.colorPhotos != null && objModelPage.colorPhotos.Any() ? (uint)objModelPage.colorPhotos.Count() : 0;
+                    objDTOModelPage.Gallery.VideoCount = objModelPage.ModelDetails != null ? (uint)objModelPage.ModelDetails.VideosCount : 0;
+
                     var photos = new List<CMSModelImageBase>();
 
                     var addPhoto = new CMSModelImageBase()
