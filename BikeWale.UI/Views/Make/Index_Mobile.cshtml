@@ -223,7 +223,7 @@
                             <div class="content-inner-block-20">
                                 <span class="bwmsprite dealer-grey"></span>
                                 <h2 class="margin-bottom10 inline-block padding-left10">@Model.MakeName showrooms</h2>
-                                <p class="font14 text-slate-grey margin-bottom15">There are @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount cities in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
+                                <p class="font14 text-slate-grey margin-bottom15">There @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "is" : "are") @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "city" : "cities") in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
                                 <a href="javascript:void(0)" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage " rel="nofollow" data-makemasking="@Model.MakeMaskingName">
                                     Select your city
                                 </a>

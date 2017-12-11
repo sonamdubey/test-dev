@@ -188,12 +188,13 @@ namespace Bikewale.Models
                     objData.IsDealerAvailable = objData.Dealers != null && objData.Dealers.Dealers != null && objData.Dealers.Dealers.Any();
                     objData.IsDealerServiceDataAvailable = cityId > 0 && objData.IsDealerAvailable;
                     objData.IsDealerServiceDataInIndiaAvailable = cityId == 0 && objData.DealersServiceCenter != null && objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails.Any();
+                    objData.IsUserReviewsAvailable = (objData.PopularBikesUserReviews != null && objData.PopularBikesUserReviews.BikesReviewsList != null && objData.PopularBikesUserReviews.BikesReviewsList.Any() && objData.PopularBikesUserReviews.BikesReviewsList.FirstOrDefault().MostRecent != null);
 
                     objData.IsMakeTabsDataAvailable = (objData.BikeDescription != null && objData.BikeDescription.FullDescription.Length > 0 || objData.IsNewsAvailable ||
-                        objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
+                        objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable || objData.IsUserReviewsAvailable);
 
                     objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
-                    objData.IsUserReviewsAvailable = (objData.PopularBikesUserReviews != null && objData.PopularBikesUserReviews.BikesReviewsList != null && objData.PopularBikesUserReviews.BikesReviewsList.Any() && objData.PopularBikesUserReviews.BikesReviewsList.FirstOrDefault().MostRecent != null);
+                    
                     objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
 
                 }
@@ -396,6 +397,7 @@ namespace Bikewale.Models
                 }
             }
         }
+
         /// Modified by :- Subodh Jain 19 june 2017
         /// Summary :- Added Target Make
         /// Modified By : Sushil Kumar on 23rd Aug 2017
