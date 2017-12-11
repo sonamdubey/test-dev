@@ -330,7 +330,7 @@
 }
 .gallery-container {
     display: block;
-    z-index: 10;
+    z-index: 210;
 }
 
 #gallery-close-btn {
