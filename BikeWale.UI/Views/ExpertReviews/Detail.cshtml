@@ -120,14 +120,24 @@
                     }
                     else
                     {
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                            <h2>@Model.Make.MakeName Bikes</h2>
-                            @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularMakeBikes)
-
-                            <div class="view-all-btn-container padding-top10 padding-bottom10">
-                                <a href="@Model.MostPopularMakeBikes.WidgetHref" title="@Model.MostPopularMakeBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                        if (Model.MostPopularMakeBikes != null)
+                        {
+                            <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
+                                <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+                                    <ul id="widgetTab">
+                                        <li>
+                                            <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.Make.MakeName Bikes</h2>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="sidebar-list--overflow">
+                                    @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularMakeBikes)
+                                </div>
+                                <div class="view-all-btn-container padding-10-20-20 read-more">
+                                    <a href="@Model.MostPopularMakeBikes.WidgetHref" title="@Model.MostPopularMakeBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularMakeBikes.WidgetLinkTitle<span class="bwsprite teal-right"></span></a>
+                                </div>
                             </div>
-                        </div>
+                        }                        
 
                         @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
                     }

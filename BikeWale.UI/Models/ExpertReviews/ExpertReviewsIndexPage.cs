@@ -434,7 +434,7 @@ namespace Bikewale.Models
                     BodyStyleBikes.TopCount = topCount > 6 ? topCount : 6;
                     BodyStyleVM = BodyStyleBikes.GetData();
 
-                    objData.PopularBodyStyle = BodyStyleVM;
+                    objData.PopularBodyStyle = BodyStyleVM; 
 
                     if (objData.PopularBodyStyle != null)
                     {                       
