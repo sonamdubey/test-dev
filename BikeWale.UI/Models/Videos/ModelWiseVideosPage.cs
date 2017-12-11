@@ -62,6 +62,11 @@ namespace Bikewale.Models.Videos
             ProcessQuery(_makeMaskingName, _modelMaskingName);
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Removed videoBasicId from call of GetSimilarVideos.
+        /// </summary>
+        /// <returns></returns>
         public ModelWiseVideoPageVM GetDataSeries()
         {
             ModelWiseVideoPageVM objVM = new ModelWiseVideoPageVM();
@@ -71,7 +76,7 @@ namespace Bikewale.Models.Videos
                     objVM.Make = new MakeHelper().GetMakeNameByMakeId(_makeId);
 
                 string modelIds = _series.GetModelIdsBySeries(objMaskingResponse.Id);
-                objVM.VideosList = _objVideosCache.GetSimilarVideos(_maxVideoCount, modelIds, 1);
+                objVM.VideosList = _objVideosCache.GetSimilarVideos(_maxVideoCount, modelIds);
                 objVM.objSeries = objSeries;
                 BindPageMetasSeries(objVM);
             }
