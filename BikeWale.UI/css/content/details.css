@@ -152,47 +152,6 @@
     padding-left: 20px;
     padding-right: 20px;
 }
-.compare-with-link {
-    margin-left: 93px;
-    font-size: 12px;
-    margin-bottom: 10px;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 172px;
-}
-.sidebar-bike-container .bike-target-link{
-    padding-bottom: 5px;
-}
-
-.sidebar-bike-container {
-    border-top: 1px solid #cccccc;
-}
-.sidebar-list__title {
-    display: block;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.sidebar-bike-list::-webkit-scrollbar {
-    width: 8px
-}
-.sidebar-bike-list::-webkit-scrollbar-track {
-    background: #fff
-}
-.sidebar-bike-list::-webkit-scrollbar-thumb {
-    background: #ddd
-}
-.sidebar-bike-list::-webkit-scrollbar-thumb:hover {
-    background: #ccc
-}
-.fixed-sidebar {
-    position: fixed;
-    top: 65px;
-    width: 314px;
-}
 
 .back-to-top {
     width: 48px;

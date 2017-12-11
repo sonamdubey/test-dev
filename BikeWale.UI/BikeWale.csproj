@@ -3210,6 +3210,7 @@
     <Content Include="src\pq\MetroCities.js" />
     <Content Include="src\pq\price_quote.js" />
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\sidebarsection.js" />
     <Content Include="src\survey\bajaj-survey.js" />
     <Content Include="src\finance\capital-first.js" />
     <Content Include="src\swiper-3.1.7.js" />
@@ -3903,6 +3904,7 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_AMP.cshtml" />
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
+    <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
