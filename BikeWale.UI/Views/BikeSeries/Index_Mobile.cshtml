@@ -47,42 +47,47 @@
 					</div>
 				</div>
 			}
-			@if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
+			@if ((Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any()) || (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Count() > 1))
 			{
-				<div id="popularComparison" class="bw-model-tabs-data container bg-white">
-					<div class="padding-top20 padding-bottom15">
-						<div class="carousel-heading-content">
-							@if (Model.SeriesBase != null)
-							{
-								<div class="swiper-heading-left-grid inline-block">
-									<h2>@Model.SeriesBase.SeriesName Bikes Comparisons</h2>
+				<div id="popularComparison" class="bw-model-tabs-data">
+					@if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
+					{
+						<div class="container bg-white">
+							<div class="padding-top20 padding-bottom15">
+								<div class="carousel-heading-content">
+									@if (Model.SeriesBase != null)
+									{
+										<div class="swiper-heading-left-grid inline-block">
+											<h2>@Model.SeriesBase.SeriesName Bikes Comparisons</h2>
+										</div>
+									}
+									<div class="swiper-heading-right-grid inline-block text-right">
+										<a href="/m/comparebikes/" title="View more comparisons" class="font16">View all</a>
+									</div>
+									<div class="clear"></div>
 								</div>
-							}
-							<div class="swiper-heading-right-grid inline-block text-right">
-								<a href="/m/comparebikes/" title="View more comparisons" class="font16">View all</a>
-							</div>
-							<div class="clear"></div>
-						</div>
-						<div class="swiper-container comparison-swiper card-container">
-							<div class="swiper-wrapper">
-								@Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.SimilarCompareScooters)
+								<div class="swiper-container comparison-swiper card-container">
+									<div class="swiper-wrapper">
+										@Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.SimilarCompareScooters)
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-			}
-			@if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Count() > 1)
-			{
-				<div class="container bg-white">
-					<div class="padding-top20">
-						<h2 class="padding-right20 padding-bottom10 padding-left20">Find The Right @Model.SeriesBase.SeriesName</h2>
-						<p class="padding-left20 font12 font-bold padding-right20">What are you looking for?</p>
-						<div class="find-right-bike margin-top15">
-							@Html.Partial("~/Views/BikeSeries/_BikeSeriesCompareBikesWithSpecs_Mobile.cshtml", Model.ObjModel)
+						}
+					@if (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Count() > 1)
+					{
+						<div class="container bg-white">
+							<div class="padding-top20">
+								<h2 class="padding-right20 padding-bottom10 padding-left20">Find The Right @Model.SeriesBase.SeriesName</h2>
+								<p class="padding-left20 font12 font-bold padding-right20">What are you looking for?</p>
+								<div class="find-right-bike margin-top15">
+									@Html.Partial("~/Views/BikeSeries/_BikeSeriesCompareBikesWithSpecs_Mobile.cshtml", Model.ObjModel)
+								</div>
+							</div>
 						</div>
-					</div>
+						}
 				</div>
-			}
+				}
 			@if ((Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
 										|| (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
 										|| (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any()))
