@@ -1,4 +1,7 @@
-﻿using Bikewale.BAL.EditCMS;
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using Bikewale.BAL.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -13,9 +16,6 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Web;
 
 namespace Bikewale.BindViewModels.Webforms.EditCMS
 {
@@ -86,7 +86,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 model = queryString["model"];
 
                 ProcessMakeMaskingName(request, make);
-                ProcessModelMaskingName(request, model);
+                ProcessModelMaskingName(request, make, model);
                 HandleRedirection();
             }
         }
@@ -109,12 +109,12 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// </summary>
         /// <param name="request"></param>
         /// <param name="model"></param>
-        private void ProcessModelMaskingName(HttpRequest request, string model)
+        private void ProcessModelMaskingName(HttpRequest request, string make, string model)
         {
             ModelMaskingResponse modelResponse = null;
             if (!String.IsNullOrEmpty(model))
             {
-                modelResponse = modelHelper.GetModelDataByMasking(model);
+                modelResponse = modelHelper.GetModelDataByMasking(make, model);
             }
             if (modelResponse != null)
             {

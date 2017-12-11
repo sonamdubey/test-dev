@@ -1,4 +1,8 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.Used.Search;
@@ -20,10 +24,6 @@ using Bikewale.Interfaces.Used.Search;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 namespace Bikewale.BindViewModels.Webforms.Used
 {
     public class SearchUsedBikes
@@ -374,9 +374,9 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 }
 
                 modelMaskingName = page.Request.QueryString["model"];
-                if (!string.IsNullOrEmpty(modelMaskingName))
+                if (!string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName))
                 {
-                    objModelResponse = objModelsCache.GetModelMaskingResponse(modelMaskingName);
+                    objModelResponse = objModelsCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                 }
 
                 if (!String.IsNullOrEmpty(page.Request.QueryString["pn"]))

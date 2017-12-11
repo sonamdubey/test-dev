@@ -194,7 +194,7 @@ namespace Bikewale.Models.Videos
             if (_makeId > 0)
             {
                 objMaskingResponse = _seriesCache.ProcessMaskingName(modelMaskingName);
-                objModelResponse = _bikeModelsCache.GetModelMaskingResponse(modelMaskingName);
+                objModelResponse = _bikeModelsCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                 if (objMaskingResponse != null)
                 {
                     if (objMaskingResponse.StatusCode == 200)
@@ -231,8 +231,6 @@ namespace Bikewale.Models.Videos
                 {
                     modelStatus = StatusCodes.ContentNotFound;
                 }
-
-
             }
         }
         /// <summary>

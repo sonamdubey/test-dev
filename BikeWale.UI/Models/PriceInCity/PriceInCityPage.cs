@@ -51,7 +51,7 @@ namespace Bikewale.Models
         private readonly IAreaCacheRepository _objAreaCache = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         private uint cityId, modelId, versionCount, colorCount, dealerCount, areaId;
-        private readonly string modelMaskingName, cityMaskingName;
+        private readonly string modelMaskingName, cityMaskingName, makeMaskingName;
         private string pageDescription, area, city;
         private BikeQuotationEntity firstVersion;
         private uint primaryDealerId;
@@ -89,7 +89,7 @@ namespace Bikewale.Models
         /// <param name="pqSource"></param>
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, string makeMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -107,6 +107,7 @@ namespace Bikewale.Models
             this.pqSource = pqSource;
             this.modelMaskingName = modelMaskingName;
             this.cityMaskingName = cityMaskingName;
+            this.makeMaskingName = makeMaskingName;
             _objManufacturerCampaign = objManufacturerCampaign;
             _objModelEntity = modelEntity;
             ProcessQueryString();
@@ -136,7 +137,7 @@ namespace Bikewale.Models
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
         /// <param name="modelEntity"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot, string makeMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -154,6 +155,7 @@ namespace Bikewale.Models
             this.pqSource = pqSource;
             this.modelMaskingName = modelMaskingName;
             this.cityMaskingName = cityMaskingName;
+            this.makeMaskingName = makeMaskingName;
             _objManufacturerCampaign = objManufacturerCampaign;
             _objModelEntity = modelEntity;
             _adSlot = adSlot;
@@ -176,13 +178,13 @@ namespace Bikewale.Models
                 if (!(String.IsNullOrEmpty(modelMaskingName) || String.IsNullOrEmpty(cityMaskingName)))
                 {
                     objCityResponse = _cityMaskingCache.GetCityMaskingResponse(cityMaskingName);
-                    objModelResponse = _modelMaskingCache.GetModelMaskingResponse(modelMaskingName);
+                    objModelResponse = _modelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                 }
 
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("ProcessQueryString({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("ProcessQueryString({0},{1},{2})", makeMaskingName, modelMaskingName, cityMaskingName));
                 Status = StatusCodes.ContentNotFound;
             }
             finally

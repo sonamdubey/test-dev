@@ -1,12 +1,12 @@
-﻿using Bikewale.Entities;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -28,7 +28,7 @@ namespace Bikewale.Cache.BikeData
             try
             {
                 // Get MaskingNames from Memcache
-                var htNewMaskingNames = _cache.GetFromCache<Hashtable>("BW_NewModelMaskingNames", new TimeSpan(1, 0, 0), () => _modelsRepository.GetMaskingNames());
+                var htNewMaskingNames = _cache.GetFromCache<Hashtable>("BW_NewModelMaskingNames_v1", new TimeSpan(1, 0, 0), () => _modelsRepository.GetMaskingNames());
 
                 if (htNewMaskingNames != null && htNewMaskingNames.Contains(maskingName))
                 {
@@ -46,7 +46,7 @@ namespace Bikewale.Cache.BikeData
                 else
                 {
                     // Get old MaskingNames from memcache
-                    var htOldMaskingNames = _cache.GetFromCache<Hashtable>("BW_OldModelMaskingNames", new TimeSpan(1, 0, 0), () => _modelsRepository.GetOldMaskingNames());
+                    var htOldMaskingNames = _cache.GetFromCache<Hashtable>("BW_OldModelMaskingNames_v1", new TimeSpan(1, 0, 0), () => _modelsRepository.GetOldMaskingNames());
 
                     // new masking name found for given masking name. Its renamed so 301 permanant redirect.
                     if (htOldMaskingNames != null && htOldMaskingNames[maskingName] != null)

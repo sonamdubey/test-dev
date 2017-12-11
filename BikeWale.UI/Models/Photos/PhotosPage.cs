@@ -63,7 +63,7 @@ namespace Bikewale.Models.Photos
             _objGenericBike = objGenericBike;
             _objVersionCache = objVersionCache;
             _objVideos = objVideos;
-            ParseQueryString(modelMaskingName);
+            ParseQueryString(makeMaskingName, modelMaskingName);
         }
 
         /// <summary>
@@ -395,14 +395,14 @@ namespace Bikewale.Models.Photos
         /// Summary:- Process the input query
         /// </summary>
         /// <param name="modelMasking"></param>
-        private void ParseQueryString(string modelMasking)
+        private void ParseQueryString(string makeMasking, string modelMasking)
         {
             ModelMaskingResponse objResponse = null;
             try
             {
-                if (!string.IsNullOrEmpty(modelMasking))
+                if (!string.IsNullOrEmpty(makeMasking) && !string.IsNullOrEmpty(modelMasking))
                 {
-                    objResponse = _objModelMaskingCache.GetModelMaskingResponse(modelMasking);
+                    objResponse = _objModelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMasking, modelMasking));
 
                     if (objResponse != null)
                     {

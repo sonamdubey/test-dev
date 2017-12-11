@@ -1,14 +1,13 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Bikewale.Common;
-using Bikewale.Controls;
 using Bikewale.Entities;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace Bikewale.Models
 {
@@ -95,7 +94,11 @@ namespace Bikewale.Models
         {
             try
             {
-                var modelInfo = new ModelHelper().GetModelDataByMasking(model.Video.MaskingName);
+                // Will replace this variable when required changes will be made in GrpcMethods.GetVideoByBasicId((int)videoId) 
+                // to get modelId or makeMaskingName
+
+                string tempMakeMaskingName = model.Video.MakeName.ToLower().Replace(" ", "-");
+                var modelInfo = new ModelHelper().GetModelDataByMasking(tempMakeMaskingName, model.Video.MaskingName);
                 model.TaggedModelId = modelInfo.ModelId;
                 model.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
             }

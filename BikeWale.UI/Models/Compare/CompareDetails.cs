@@ -1,4 +1,8 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -16,10 +20,6 @@ using Bikewale.Memcache;
 using Bikewale.Models.Compare;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models
 {
@@ -406,7 +406,7 @@ namespace Bikewale.Models
         private void ProcessQueryString()
         {
             bool isPermanentRedirection = false;
-            string modelList;
+            string modelList, makeList;
             try
             {
                 var request = HttpContext.Current.Request;
@@ -415,6 +415,7 @@ namespace Bikewale.Models
                     _originalUrl = request.ServerVariables["URL"];
 
                 modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
+                makeList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("ma");
                 string[] queryArr = _originalUrl.Split('?');
                 if (queryArr.Length > 1)
                 {
@@ -447,15 +448,17 @@ namespace Bikewale.Models
                 else if (!string.IsNullOrEmpty(modelList))
                 {
                     string[] models = modelList.Split(',');
+                    string[] makes = makeList.Split(',');
                     ModelMaskingResponse objResponse = null;
                     ModelMapping objCache = new ModelMapping();
 
                     for (ushort iTmp = 0; iTmp < models.Length; iTmp++)
                     {
                         string modelMaskingName = models[iTmp];
-                        if (!string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
+                        string makeMaskingName = makes[iTmp];
+                        if (!string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
                         {
-                            objResponse = _objModelMaskingCache.GetModelMaskingResponse(modelMaskingName);
+                            objResponse = _objModelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                         }
 
                         if (objResponse != null && objResponse.StatusCode == 200)

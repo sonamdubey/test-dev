@@ -1,11 +1,11 @@
-﻿using Bikewale.Entities.AppDeepLinking;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Bikewale.Entities.AppDeepLinking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.AppDeepLinking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace Bikewale.BAL.AppDeepLinking
 {
@@ -81,7 +81,7 @@ namespace Bikewale.BAL.AppDeepLinking
                 else if (((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/([A-Za-z0-9\-]+)\/?$")) != null) && match.Success) //for  ModelScreenId.
                 {
                     makeId = GetMakeId(match.Groups[1].Value);
-                    modelId = GetModelId(match.Groups[2].Value);
+                    modelId = GetModelId(match.Groups[1].Value, match.Groups[2].Value);
                     if (makeId > 0 && modelId > 0)
                     {
                         deepLinking = new DeepLinkingEntity();
@@ -109,13 +109,13 @@ namespace Bikewale.BAL.AppDeepLinking
         /// </summary>
         /// <param name="modelName">e.g. tvs</param>
         /// <returns>modelId e.g. 15</returns>
-        private uint GetModelId(string modelName)
+        private uint GetModelId(string makeName, string modelName)
         {
             ModelMaskingResponse objResponse = null;
             uint modelId = 0;
             try
             {
-                objResponse = _modelCache.GetModelMaskingResponse(modelName);
+                objResponse = _modelCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeName, modelName));
             }
             catch (Exception ex)
             {
@@ -131,7 +131,7 @@ namespace Bikewale.BAL.AppDeepLinking
                     }
                     else if (objResponse.StatusCode == 301)
                     {
-                        modelId = GetModelId(objResponse.MaskingName);
+                        modelId = GetModelId(makeName, objResponse.MaskingName);
                     }
                 }
             }

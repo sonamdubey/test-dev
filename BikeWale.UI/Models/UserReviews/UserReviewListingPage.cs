@@ -181,7 +181,7 @@ namespace Bikewale.Models.UserReviews
             {
                 if (!string.IsNullOrEmpty(modelMasking))
                 {
-                    objResponse = _objModelMaskingCache.GetModelMaskingResponse(modelMasking);
+                    objResponse = _objModelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMasking, modelMasking));
 
                     if (objResponse != null)
                     {

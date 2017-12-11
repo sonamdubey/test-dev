@@ -1,4 +1,9 @@
-﻿using Bikewale.BindViewModels.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.common;
 using Bikewale.DTO.PriceQuote;
@@ -34,11 +39,6 @@ using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -74,6 +74,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IBikeSeries _bikeSeries = null;
         private readonly IAdSlot _adSlot = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository;
 
         private uint _modelId, _cityId, _areaId;
 
@@ -98,7 +99,7 @@ namespace Bikewale.Models.BikeModels
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeMakesCacheRepository bikeMakesCacheRepository)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -121,7 +122,8 @@ namespace Bikewale.Models.BikeModels
             _userReviewsCache = userReviewsCache;
             _bikeSeries = bikeSeries;
             _adSlot = adSlot;
-            ParseQueryString(modelMasking);
+            _bikeMakesCacheRepository = bikeMakesCacheRepository;
+            ParseQueryString(makeMasking, modelMasking);
         }
 
         #endregion Global Variables
@@ -1363,25 +1365,25 @@ namespace Bikewale.Models.BikeModels
         /// Summary:- Process the input query
         /// </summary>
         /// <param name="modelMasking"></param>
-        private void ParseQueryString(string modelMasking)
+        private void ParseQueryString(string makeMasking, string modelMasking)
         {
-            ModelMaskingResponse objResponse = null;
+            ModelMaskingResponse objModelResponse = null;
             try
             {
-                if (!string.IsNullOrEmpty(modelMasking))
+                if (!string.IsNullOrEmpty(makeMasking) && !string.IsNullOrEmpty(modelMasking))
                 {
-                    objResponse = new Bikewale.Common.ModelHelper().GetModelDataByMasking(modelMasking);
+                    objModelResponse = new Common.ModelHelper().GetModelDataByMasking(makeMasking, modelMasking);
 
-                    if (objResponse != null)
+                    if (objModelResponse != null)
                     {
-                        if (objResponse.StatusCode == 200)
+                        if (objModelResponse.StatusCode == 200)
                         {
-                            _modelId = objResponse.ModelId;
+                            _modelId = objModelResponse.ModelId;
                             Status = StatusCodes.ContentFound;
                         }
-                        else if (objResponse.StatusCode == 301)
+                        else if (objModelResponse.StatusCode == 301)
                         {
-                            RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(modelMasking, objResponse.MaskingName);
+                            RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(modelMasking, objModelResponse.MaskingName);
                             Status = StatusCodes.RedirectPermanent;
                         }
                         else
