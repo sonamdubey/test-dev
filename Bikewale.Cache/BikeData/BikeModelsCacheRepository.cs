@@ -1,4 +1,8 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
@@ -7,10 +11,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -53,7 +53,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetModelPageDetails");
-                
+
             }
 
             return objModelPage;
@@ -98,7 +98,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
-                
+
             }
 
             return objModelPage;
@@ -846,7 +846,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetModelColor");
-                
+
             }
 
             return objModelPage;
@@ -923,7 +923,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetUpcomingBikesList");
-                
+
             }
 
             return objUpcoming;
@@ -947,7 +947,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                
+
             }
 
             return objBikes;
@@ -972,7 +972,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                
+
             }
 
             return objBikes;
@@ -999,7 +999,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                
+
             }
 
             return objBikes;
@@ -1023,7 +1023,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetModelSynopsis");
-                
+
             }
 
             return objModelPage;
@@ -1054,7 +1054,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                
+
             }
 
             return objBikes;
@@ -1071,7 +1071,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                
+
             }
 
             return objBikes;
@@ -1095,7 +1095,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
-                
+
             }
 
             return objBikes;
@@ -1399,6 +1399,47 @@ namespace Bikewale.Cache.BikeData
             }
             return popularBikesList;
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 07-12-2017
+        /// Summary :- Method to GetElectricBikes 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetElectricBikes()
+        {
+            IEnumerable<MostPopularBikesBase> popularBikesList = null;
+            string key = string.Format("BW_ElectricBikes");
+            try
+            {
+                popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetElectricBikes());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetElectricBikes"));
+
+            }
+            return popularBikesList;
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 07-12-2017
+        /// Summary :- Method to GetElectricBikes 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetElectricBikes(uint cityId)
+        {
+            IEnumerable<MostPopularBikesBase> popularBikesList = null;
+            string key = string.Format("BW_ElectricBikes_CityId_{0}", cityId);
+            try
+            {
+                popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetElectricBikes(cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetElectricBikes"));
+
+            }
+            return popularBikesList;
+        }
 
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
         {
@@ -1468,9 +1509,9 @@ namespace Bikewale.Cache.BikeData
             string key = string.Empty;
             try
             {
-                    key = "BW_BikesByMileage";
-                    mileageInfo = _cache.GetFromCache<BikeMileageEntity>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetMileageForModel());
-                
+                key = "BW_BikesByMileage";
+                mileageInfo = _cache.GetFromCache<BikeMileageEntity>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetMileageForModel());
+
             }
             catch (Exception ex)
             {
@@ -1478,6 +1519,28 @@ namespace Bikewale.Cache.BikeData
 
             }
             return mileageInfo;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 28th Nov 2017
+        /// Description : Cache layer for getting series entity for given model id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeSeriesEntityBase GetSeriesByModelId(uint modelId)
+        {
+            BikeSeriesEntityBase objSeries = null;
+            string key = string.Empty;
+            try
+            {
+                key = string.Format("BW_SeriesForModel_{0}", modelId);
+                objSeries = _cache.GetFromCache<BikeSeriesEntityBase>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetSeriesByModelId(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetSeriesByModelId modelId = {0}", modelId));
+            }
+            return objSeries;
         }
     }
 }

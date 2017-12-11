@@ -197,7 +197,7 @@ namespace BikewaleOpr.Service
                 {
                     HttpContext.Current.Trace.Warn("DeleteDealerOffer ex : " + ex.Message + ex.Source);
                     ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    
+
                 }
                 if (isdeleteSucess)
                     return Ok(isdeleteSucess);
@@ -248,7 +248,7 @@ namespace BikewaleOpr.Service
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
 
                 return InternalServerError();
             }
@@ -279,7 +279,7 @@ namespace BikewaleOpr.Service
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             if (iseditSuccess)
                 return Ok(iseditSuccess);
@@ -310,7 +310,7 @@ namespace BikewaleOpr.Service
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             if (isDeleteSuccess)
                 return Ok("Content deleted successfully.");
@@ -340,7 +340,7 @@ namespace BikewaleOpr.Service
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             if (iseditSuccess)
                 return Ok("Content updated.");
@@ -376,7 +376,7 @@ namespace BikewaleOpr.Service
             {
                 //HttpContext.Current.Trace.Warn("UpdateBookingAmount ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             if (isSuccess)
                 return Ok(isSuccess);
@@ -409,7 +409,7 @@ namespace BikewaleOpr.Service
             {
                 //HttpContext.Current.Trace.Warn("DeleteBookingAmount ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             if (isDeleteSuccess)
                 return Ok("Content deleted successfully.");
@@ -446,7 +446,7 @@ namespace BikewaleOpr.Service
                 catch (Exception ex)
                 {
                     ErrorClass.LogError(ex, "SaveDealerBenefit");
-                    
+
                     return InternalServerError();
                 }
                 if (isSuccess)
@@ -481,7 +481,7 @@ namespace BikewaleOpr.Service
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "DeleteDealerBenefits");
-                
+
             }
             if (isDeleteSuccess)
                 return Ok("Content deleted successfully.");
@@ -511,7 +511,7 @@ namespace BikewaleOpr.Service
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "DeleteDealerEMI");
-                
+
             }
             if (isDeleteSuccess)
                 return Ok("Content deleted successfully.");
@@ -542,7 +542,7 @@ namespace BikewaleOpr.Service
                 {
                     ErrorClass.LogError(ex, string.Format(
                         "GetDealerPrices cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId));
-                    
+
                 }
                 if (dealerPricesDtos != null)
                     return Ok(dealerPricesDtos);
@@ -637,6 +637,39 @@ namespace BikewaleOpr.Service
             else
                 return BadRequest();
         }
+
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 02 Aug 2017
+        /// Description :   Saves dealer pricing.
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="makeId"></param>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/dealers/copyprices/")]
+        public IHttpActionResult CopyDealerPrices(DealerPriceListDTO dealerPrices)
+        {
+            bool isSaved = false;
+            if (dealerPrices != null && dealerPrices.VersionIds != null && dealerPrices.VersionIds.Any() && dealerPrices.CityIds != null && dealerPrices.DealerIds != null && dealerPrices.CityIds.Any() && dealerPrices.DealerIds.Any())
+            {
+                try
+                {
+                    isSaved = dealerPrice.CopyDealerPriceToOtherDealer(dealerPrices.DealerIds, dealerPrices.CityIds, dealerPrices.VersionIds,
+                        dealerPrices.ItemIds, dealerPrices.ItemValues, dealerPrices.EnteredBy);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass.LogError(ex, "SaveDealerPrices");
+                }
+                if (isSaved)
+                    return Ok(isSaved);
+                else
+                    return NotFound();
+            }
+            else
+                return BadRequest();
+        }
+
         /// <summary>
         /// Created By  :   Vishnu Teja Yalakuntla on 08 Aug 2017
         /// Description :   Deletes dealer pricing and version availability.

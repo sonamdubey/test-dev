@@ -90,6 +90,7 @@ namespace Bikewale.Models.BikeModels
         public PQSourceEnum PQSource { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
         public bool IsMobile { get; set; }
+        public bool IsDealerPriceAvailble { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         public string CurrentPageUrl { get; set; }
 
@@ -676,13 +677,37 @@ namespace Bikewale.Models.BikeModels
                                 BikeName = _objData.BikeName,
                                 IsManufacturerCampaign = _objData.IsManufacturerLeadAdShown || _objData.IsManufacturerEMIAdShown || _objData.IsManufacturerTopLeadAdShown
                             };
-                            if (_objData.BikePrice > 0)
+
+
+                            // When dealer Price isn't avalablle, call function to get on-road pricing
+                            uint onRoadPrice = _objData.BikePrice;
+                            if (!IsDealerPriceAvailble || onRoadPrice == 0)
                             {
-                                _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
+                                bool hasAreaAvailable = false;
+                                uint _emiCityId = (this._cityId == 0 || onRoadPrice == 0) ? 1 : this._cityId;
+                                _objData.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(this._modelId, _emiCityId, out hasAreaAvailable);
+                                if (_objData.BikeVersionPrices != null)
+                                {
+                                    var selectedversion = _objData.BikeVersionPrices.SingleOrDefault(x => x.VersionId == _objData.VersionId);
+                                    if (selectedversion != null)
+                                    {
+                                        onRoadPrice = (uint)selectedversion.OnRoadPrice;
+                                    }
+                                }
                             }
-                            else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
+
+                            if (onRoadPrice > 0)
                             {
-                                _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
+                                if (_objData.DetailedDealer != null && _objData.DetailedDealer.PrimaryDealer != null)
+                                {
+                                    SetDealerEMIDetails(onRoadPrice);
+                                }
+                                else
+                                {
+                                    _objData.EMIDetails = SetDefaultEMIDetails(onRoadPrice);
+                                }
+
+                                BindEMICalculator(onRoadPrice);
                             }
                         }
                     }
@@ -900,32 +925,119 @@ namespace Bikewale.Models.BikeModels
         /// Created BY : Sushil Kumar on 14th March 2015
         /// Summary : To set EMI details for the dealer if no EMI Details available for the dealer
         /// </summary>
-        private EMI setDefaultEMIDetails(uint bikePrice)
+        private EMI SetDefaultEMIDetails(uint bikePrice)
         {
             EMI _objEMI = null;
+            if (bikePrice > 0)
+            {
+                try
+                {
+                    _objEMI = new EMI();
+                    _objEMI.MaxDownPayment = Convert.ToSingle(40 * bikePrice / 100);
+                    _objEMI.MinDownPayment = Convert.ToSingle(10 * bikePrice / 100);
+                    _objEMI.MaxTenure = 48;
+                    _objEMI.MinTenure = 12;
+                    _objEMI.MaxRateOfInterest = 15;
+                    _objEMI.MinRateOfInterest = 10;
+                    _objEMI.ProcessingFee = 0; //2000
+
+                    _objEMI.Tenure = Convert.ToUInt16((_objEMI.MaxTenure - _objEMI.MinTenure) / 2 + _objEMI.MinTenure);
+                    _objEMI.RateOfInterest = (_objEMI.MaxRateOfInterest - _objEMI.MinRateOfInterest) / 2 + _objEMI.MinRateOfInterest;
+                    _objEMI.MinLoanToValue = Convert.ToUInt32(Math.Round(bikePrice * 0.7, MidpointRounding.AwayFromZero));
+                    _objEMI.MaxLoanToValue = bikePrice;
+                    _objEMI.EMIAmount = Convert.ToUInt32((_objEMI.MinLoanToValue * _objEMI.Tenure * _objEMI.RateOfInterest) / (12 * 100));
+                    _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue + _objEMI.EMIAmount + _objEMI.ProcessingFee) / _objEMI.Tenure, MidpointRounding.AwayFromZero));
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass.LogError(ex, "setDefaultEMIDetails");
+                }
+            }
+            return _objEMI;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 5th Dec 2017
+        /// Summary : Set EMI details when dealer EMI details present
+        /// </summary>
+        /// <param name="price"></param>
+        private void SetDealerEMIDetails(uint price)
+        {
             try
             {
-                _objEMI = new EMI();
-                _objEMI.MaxDownPayment = Convert.ToSingle(40 * bikePrice / 100);
-                _objEMI.MinDownPayment = Convert.ToSingle(10 * bikePrice / 100);
-                _objEMI.MaxTenure = 48;
-                _objEMI.MinTenure = 12;
-                _objEMI.MaxRateOfInterest = 15;
-                _objEMI.MinRateOfInterest = 10;
-                _objEMI.ProcessingFee = 0; //2000
+                //EMI details
+                #region Set EMI Details
+                var objEMI = _objData.DetailedDealer.PrimaryDealer.EMIDetails;
+                if (objEMI != null)
+                {
+                    //Setting the dealer down payment amount as objEMI contains the percentage value
 
-                _objEMI.Tenure = Convert.ToUInt16((_objEMI.MaxTenure - _objEMI.MinTenure) / 2 + _objEMI.MinTenure);
-                _objEMI.RateOfInterest = (_objEMI.MaxRateOfInterest - _objEMI.MinRateOfInterest) / 2 + _objEMI.MinRateOfInterest;
-                _objEMI.MinLoanToValue = Convert.ToUInt32(Math.Round(bikePrice * 0.7, MidpointRounding.AwayFromZero));
-                _objEMI.MaxLoanToValue = bikePrice;
-                _objEMI.EMIAmount = Convert.ToUInt32((_objEMI.MinLoanToValue * _objEMI.Tenure * _objEMI.RateOfInterest) / (12 * 100));
-                _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue + _objEMI.EMIAmount + _objEMI.ProcessingFee) / _objEMI.Tenure, MidpointRounding.AwayFromZero));
+                    objEMI.MinDownPayment = Convert.ToSingle(objEMI.MinDownPayment * price / 100);
+                    objEMI.MaxDownPayment = Convert.ToSingle(objEMI.MaxDownPayment * price / 100);
+
+                    var _objEMI = SetDefaultEMIDetails(price);
+                    if (objEMI.MinDownPayment < 1 || objEMI.MaxDownPayment < 1)
+                    {
+                        objEMI.MinDownPayment = _objEMI.MinDownPayment;
+                        objEMI.MaxDownPayment = _objEMI.MaxDownPayment;
+                    }
+
+                    if (objEMI.MinTenure < 1 || objEMI.MaxTenure < 1)
+                    {
+                        objEMI.MinTenure = _objEMI.MinTenure;
+                        objEMI.MaxTenure = _objEMI.MaxTenure;
+                    }
+
+                    if (objEMI.MinRateOfInterest < 1 || objEMI.MaxRateOfInterest < 1)
+                    {
+                        objEMI.MinRateOfInterest = _objEMI.MinRateOfInterest;
+                        objEMI.MaxRateOfInterest = _objEMI.MaxRateOfInterest;
+                    }
+
+                    objEMI.Tenure = Convert.ToUInt16((objEMI.MaxTenure - objEMI.MinTenure) / 2 + objEMI.MinTenure);
+                    objEMI.RateOfInterest = (objEMI.MaxRateOfInterest - objEMI.MinRateOfInterest) / 2 + objEMI.MinRateOfInterest;
+                    objEMI.MinLoanToValue = Convert.ToUInt32(price * .7);
+                    objEMI.MaxLoanToValue = price;
+                    objEMI.EMIAmount = Convert.ToUInt32((objEMI.MinLoanToValue * objEMI.Tenure * objEMI.RateOfInterest) / (12 * 100));
+                    objEMI.EMIAmount = Convert.ToUInt32(Math.Round((objEMI.MinLoanToValue + objEMI.EMIAmount + objEMI.ProcessingFee) / objEMI.Tenure, MidpointRounding.AwayFromZero));
+                }
+                else
+                {
+                    objEMI = SetDefaultEMIDetails(price);
+                }
+
+                _objData.EMIDetails = objEMI;
+                #endregion
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "setDefaultEMIDetails");
+                ErrorClass.LogError(ex, "SetDealerEMIDetails");
             }
-            return _objEMI;
+        }
+
+        /// <summary>
+        /// Created by      :   Sumit Kate on 30 Nov 2017
+        /// Descriptiion    :   Bind EMI calculator widget on model page
+        /// </summary>
+        private void BindEMICalculator(uint Price)
+        {
+            try
+            {
+                _objData.EMICalculator = new EMICalculatorVM { EMI = _objData.EMIDetails, BikePrice = Price, EMIJsonBase64 = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(_objData.EMIDetails)) };
+                _objData.EMICalculator.ESEMICampaign = _objData.EMICampaign;
+                _objData.EMICalculator.IsMobile = IsMobile;
+                _objData.EMICalculator.PQId = _objData.PQId;
+                _objData.EMICalculator.IsPremiumDealer = _objData.IsPremiumDealer;
+                _objData.EMICalculator.DealerDetails = _objData.DealerDetails;
+                _objData.EMICalculator.PremiumDealerLeadSourceId = IsMobile ? LeadSourceEnum.EMI_Calculator_ModelPage_Mobile : LeadSourceEnum.EMI_Calculator_ModelPage_Desktop;
+                _objData.EMICalculator.BikeName = _objData.BikeName;
+                _objData.EMICalculator.IsPrimaryDealer = _objData.IsPrimaryDealer;
+                _objData.EMICalculator.IsManufacturerLeadAdShown = _objData.EMICalculator.ESEMICampaign != null;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BindEMICalculator");
+            }
         }
 
         private void BindBestBikeWidget(EnumBikeBodyStyles BodyStyleType, uint? cityId = null)
@@ -993,6 +1105,8 @@ namespace Bikewale.Models.BikeModels
         /// Description :- Removed GST from Title and Description 
         /// Modified by : Ashutosh Sharma on 13 Oct 2017
         /// Description : Meta Description replaced with ModelSummary for SynopsisSummaryMergeMakeIds in BWConfiguration.
+        /// Modified by : Ashutosh Sharma on 30 Nov 2017
+        /// Description : Meta Description replaced with ModelSummary for all makes for new bikes.
         /// </summary>
         private void CreateMetas()
         {
@@ -1016,25 +1130,11 @@ namespace Bikewale.Models.BikeModels
                     }
                     else if (!_objData.ModelPageEntity.ModelDetails.New)
                     {
-                        if (!string.IsNullOrEmpty(BWConfiguration.Instance.SynopsisSummaryMergeMakeIds) && BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
-                        {
-                            _objData.PageMetaTags.Description = _objData.ModelSummary;
-                        }
-                        else
-                        {
-                            _objData.PageMetaTags.Description = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, _objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ? _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.UsedListingsCnt);
-                        }
+                        _objData.PageMetaTags.Description = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, _objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ? _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.UsedListingsCnt);
                     }
                     else
                     {
-                        if (!string.IsNullOrEmpty(BWConfiguration.Instance.SynopsisSummaryMergeMakeIds) && BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
-                        {
-                            _objData.PageMetaTags.Description = _objData.ModelSummary;
-                        }
-                        else
-                        {
-                            _objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ? _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
-                        }
+                        _objData.PageMetaTags.Description = _objData.ModelSummary;
                     }
 
                     _objData.PageMetaTags.Title = string.Format("{0} Price, Images, Colours, Mileage & Reviews | BikeWale", _objData.BikeName);
@@ -1047,8 +1147,6 @@ namespace Bikewale.Models.BikeModels
                     _objData.PageMetaTags.Keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", _objData.BikeName);
                     _objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                     _objData.Page_H1 = _objData.BikeName;
-
-
 
                     CheckCustomPageMetas();
                 }
@@ -1142,6 +1240,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.VersionId = (uint)_pqOnRoad.DPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().objVersion.VersionId;
                             }
+                            IsDealerPriceAvailble = true;
                         }//Bikewale Pricing
                         else if (_pqOnRoad.BPQOutput != null && _pqOnRoad.BPQOutput.Varients != null)
                         {
@@ -1164,6 +1263,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.VersionId = (uint)_pqOnRoad.BPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().VersionId;
                             }
+
                         }//Version Pricing
                         else
                         {
@@ -1470,6 +1570,8 @@ namespace Bikewale.Models.BikeModels
         /// Description :   Fetches Manufacturer Campaigns
         /// Modified by  :  Sushil Kumar on 11th Aug 2017
         /// Description :   Store dealerid for manufacturer campaigns for impressions tracking
+        /// Modified by :   Sumit Kate on 30 Nov 2017
+        /// Description :   Enable EMI ES Campaign on Model Page
         /// </summary>
         private void GetManufacturerCampaign()
         {
@@ -1538,8 +1640,40 @@ namespace Bikewale.Models.BikeModels
                                 _objData.LeadCampaign.LoanAmount = (uint)Convert.ToUInt32((versions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OnRoadPrice) * 0.8);
                             }
                         }
-
                         _objManufacturerCampaign.SaveManufacturerIdInPricequotes(_objData.PQId, campaigns.LeadCampaign.DealerId);
+                    }
+
+                    if (campaigns.EMICampaign != null)
+                    {
+                        _objData.EMICampaign = new ManufactureCampaignEMIEntity()
+                        {
+                            Area = GlobalCityArea.GetGlobalCityArea().Area,
+                            CampaignId = campaigns.EMICampaign.CampaignId,
+                            DealerId = campaigns.EMICampaign.DealerId,
+                            Organization = campaigns.EMICampaign.Organization,
+                            DealerRequired = campaigns.EMICampaign.DealerRequired,
+                            EmailRequired = campaigns.EMICampaign.EmailRequired,
+                            EMIButtonTextDesktop = campaigns.EMICampaign.EMIButtonTextDesktop,
+                            EMIButtonTextMobile = campaigns.EMICampaign.EMIButtonTextMobile,
+                            LeadSourceId = (int)LeadSource,
+                            PqSourceId = (int)PQSource,
+                            EMIPropertyTextDesktop = campaigns.EMICampaign.EMIPropertyTextDesktop,
+                            EMIPropertyTextMobile = campaigns.EMICampaign.EMIPropertyTextMobile,
+                            MakeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
+                            MaskingNumber = campaigns.EMICampaign.MaskingNumber,
+                            PincodeRequired = campaigns.EMICampaign.PincodeRequired,
+                            PopupDescription = campaigns.EMICampaign.PopupDescription,
+                            PopupHeading = campaigns.EMICampaign.PopupHeading,
+                            PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage,
+                            VersionId = _objData.VersionId,
+                            CurrentPageUrl = CurrentPageUrl,
+                            PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
+                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8)
+                        };
+
+                        _objData.IsManufacturerEMIAdShown = true;
+                        if (campaigns.LeadCampaign == null)
+                            _objManufacturerCampaign.SaveManufacturerIdInPricequotes(_objData.PQId, campaigns.EMICampaign.DealerId);
                     }
                 }
             }

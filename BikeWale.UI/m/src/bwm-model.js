@@ -96,7 +96,10 @@ docReady(function () {
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
     }
-
+   var isMileageSectionVisible = $('#mileageContent');
+    if (isMileageSectionVisible.length > 0) {
+        triggerNonInteractiveGA("Model_Page", "Mileage_Card_Shown", myBikeName);
+    }
     function callFallBackWriteReview() {
         $('#adBlocker').show();
         $('.sponsored-card').hide();
@@ -483,7 +486,7 @@ docReady(function () {
             $('.model-preview-more-content').hide();
             self.text(self.text() === 'Read more' ? 'Collapse' : 'Read more');
             self.removeClass('open');
-            $('html, body').animate({ scrollTop: $('.model-preview-main-content').offset().top - 44 }, 500)
+			$('html, body').animate({ scrollTop: $('#aboutContent').offset().top - 44 }, 500)
         }
     });
 
@@ -1013,4 +1016,6 @@ function updateView(reviewId) {
         console.log(e);
     }
 }
+
+
 

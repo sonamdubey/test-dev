@@ -252,9 +252,15 @@ namespace Bikewale.Models
                     objIndex.UpcomingBikesAndUpcomingScootersWidget.TabId1 = "UpcomingBikes";
                     objIndex.UpcomingBikesAndUpcomingScootersWidget.TabId2 = "UpcomingScooters";
                     objIndex.UpcomingBikesAndUpcomingScootersWidget.UpcomingBikes = UpcomingBikes;
-                    objIndex.UpcomingBikesAndUpcomingScootersWidget.UpcomingBikes.UpcomingBikes = objIndex.UpcomingBikesAndUpcomingScootersWidget.UpcomingBikes.UpcomingBikes.Take(6);
+
+                    if (UpcomingBikes != null)
+                        objIndex.UpcomingBikesAndUpcomingScootersWidget.UpcomingBikes.UpcomingBikes = objIndex.UpcomingBikesAndUpcomingScootersWidget.UpcomingBikes.UpcomingBikes.Take(6);
+
                     objIndex.UpcomingBikesAndUpcomingScootersWidget.UpcomingScooters = UpcomingScooters;
-                    objIndex.UpcomingBikesAndUpcomingScootersWidget.UpcomingScooters.UpcomingBikes = objIndex.UpcomingBikesAndUpcomingScootersWidget.UpcomingScooters.UpcomingBikes.Take(6);
+
+                    if (UpcomingScooters != null)
+                        objIndex.UpcomingBikesAndUpcomingScootersWidget.UpcomingScooters.UpcomingBikes = objIndex.UpcomingBikesAndUpcomingScootersWidget.UpcomingScooters.UpcomingBikes.Take(6);
+
                     objIndex.UpcomingBikesAndUpcomingScootersWidget.ViewAllHref1 = "/upcoming-bikes/";
                     objIndex.UpcomingBikesAndUpcomingScootersWidget.ViewAllTitle1 = "View all upcoming bikes";
                     objIndex.UpcomingBikesAndUpcomingScootersWidget.ViewAllText1 = "View all upcoming bikes";
@@ -272,9 +278,15 @@ namespace Bikewale.Models
                     objIndex.PopularBikesAndPopularScootersWidget.TabId1 = "PopularBikes";
                     objIndex.PopularBikesAndPopularScootersWidget.TabId2 = "PopularScooters";
                     objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes = MostPopularBikes;
-                    objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes.Take(6);
+
+                    if (MostPopularBikes != null)
+                        objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes.Take(6);
+
                     objIndex.PopularBikesAndPopularScootersWidget.MostPopularScooters = MostPopularScooters;
-                    objIndex.PopularBikesAndPopularScootersWidget.MostPopularScooters.Bikes = objIndex.PopularBikesAndPopularScootersWidget.MostPopularScooters.Bikes.Take(6);
+
+                    if (MostPopularScooters != null)
+                        objIndex.PopularBikesAndPopularScootersWidget.MostPopularScooters.Bikes = objIndex.PopularBikesAndPopularScootersWidget.MostPopularScooters.Bikes.Take(6);
+
                     objIndex.PopularBikesAndPopularScootersWidget.ViewAllHref2 = "/best-scooters-in-india/";
                     objIndex.PopularBikesAndPopularScootersWidget.ViewAllHref1 = "/best-bikes-in-india/";
                     objIndex.PopularBikesAndPopularScootersWidget.ViewAllTitle1 = "View all bikes";
