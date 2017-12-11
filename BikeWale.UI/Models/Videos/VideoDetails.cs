@@ -97,7 +97,11 @@ namespace Bikewale.Models
                 // Will replace this variable when required changes will be made in GrpcMethods.GetVideoByBasicId((int)videoId) 
                 // to get modelId or makeMaskingName
 
-                string tempMakeMaskingName = model.Video.MakeName.ToLower().Replace(" ", "-");
+                string tempMakeMaskingName = string.Empty;
+                if (string.IsNullOrEmpty(model.Video.MakeName))
+                {
+                    tempMakeMaskingName = model.Video.MakeName.ToLower().Replace(" ", "-");
+                }
                 var modelInfo = new ModelHelper().GetModelDataByMasking(tempMakeMaskingName, model.Video.MaskingName);
                 model.TaggedModelId = modelInfo.ModelId;
                 model.CityId = GlobalCityArea.GetGlobalCityArea().CityId;

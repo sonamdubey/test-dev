@@ -99,8 +99,11 @@ namespace Bikewale.Mobile.Videos
                     // Will replace this variable when required changes will be made in GrpcMethods.GetVideoByBasicId((int)videoId) 
                     // to get modelId or makeMaskingName
 
-                    string tempMakeMaskingName = videoModel.MakeName.ToLower().Replace(" ", "-");
-
+                    string tempMakeMaskingName = string.Empty;
+                    if (string.IsNullOrEmpty(videoModel.MakeName))
+                    {
+                        tempMakeMaskingName = videoModel.MakeName.ToLower().Replace(" ", "-");
+                    }
                     var objresponse = new ModelHelper().GetModelDataByMasking(tempMakeMaskingName, (videoModel.MaskingName));
                     if (objresponse != null)
                     {
