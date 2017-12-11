@@ -10,7 +10,6 @@ var navContainer, effect = 'slide', directionLeft = { direction: 'left' }, durat
 var popupHeading, popupContent, brandcitypopupContent;
 
 
-
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt) {
         var len = this.length >>> 0;
@@ -1952,5 +1951,4 @@ docReady(function () {
             element.text('...Read more');
         }
     });
-
 });

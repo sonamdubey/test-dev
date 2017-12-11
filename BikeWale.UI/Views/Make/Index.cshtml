@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline />";
-    Model.Page_JS_Path = "/src/new/bikemake.js";
+    Model.Page_JS_Paths = new string[]{"/src/new/bikemake.js", "/src/review-popup.js"};
     Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
     Model.AdTags.AdId = "1442913773076";
     Model.AdTags.Ad_970x90 = true;
@@ -395,4 +395,11 @@
 
     <!-- Footer widget ends-->
 }
+
+
+<!-- Make review popup-->
+<div id="reviewPopup" class="review-popup hide">
+</div>
+<!-- make review popup ends-->
+
 

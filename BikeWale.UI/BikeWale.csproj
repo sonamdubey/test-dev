@@ -3092,6 +3092,8 @@
     <Content Include="sass\model-series\series.sass" />
     <Content Include="sass\partials\d\_upcoming-model-card.sass" />
     <Content Include="sass\partials\d\_comparison-card.sass" />
+    <Content Include="sass\partials\review-popup.sass" />
+    <Content Include="sass\partials\_horizontal-rating-graph.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3140,6 +3142,7 @@
     <Content Include="src\photos\modelgallery.js" />
     <Content Include="src\popup\makemodelpopup.js" />
     <Content Include="src\priceincity.js" />
+    <Content Include="src\review-popup.js" />
     <Content Include="src\review\landing.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\landing.js" />
@@ -3235,6 +3238,7 @@
     <Content Include="staticHtml\standard.html" />
     <Content Include="Templates\BikesSwiperList_Mobile.html" />
     <Content Include="Templates\ExpertReviewsList_Mobile.html" />
+    <Content Include="Templates\UserReviewDetails_Popup.html" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="Thankyou.aspx" />
     <Content Include="trackday2016\css\track-day.css" />
@@ -3912,12 +3916,16 @@
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
+
+    <Content Include="Views\Shared\_ReviewPopup.cshtml" />
+
     <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_Amp.cshtml" />
 
     <Content Include="Views\ElectricBikes\Index.cshtml" />
     <Content Include="Views\ElectricBikes\Index_Mobile.cshtml" />
     <Content Include="Views\ElectricBikes\_Index_Tabs.cshtml" />
     <Content Include="Views\ElectricBikes\_Index_Tabs_Mobile.cshtml" />
+
 
     <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_AMP.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_Amp.cshtml" />
