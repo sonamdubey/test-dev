@@ -104,7 +104,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.BindPageMetasSeries");
+                ErrorClass.LogError(ex, "ModelWiseVideosPage.BindPageMetasSeries");
             }
         }
 
