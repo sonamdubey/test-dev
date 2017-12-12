@@ -20,6 +20,8 @@
                 </div>
             </div>
         </div>
+@if (Model.ElectricBikes != null && Model.ElectricBikes.Any())
+            {
         <div class="margin-right20 margin-left20 border-solid-bottom"></div>
         <div id="bikeMakeList" class="content-box-shadow bw-model-tabs-data padding-top15 padding-bottom20 card-bottom-margin">
             
@@ -57,6 +59,7 @@
                 }
             </ul>
         </div>
+}
         </section>
 @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any() || Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any() || Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
 {  <section class="container content-box-shadow card-bottom-margin">

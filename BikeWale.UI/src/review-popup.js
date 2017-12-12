@@ -1,10 +1,11 @@
 ﻿// review popup
-var reviewPopupCotent = $('#reviewPopup');
-var desktopUserReview = $('#userReviewContentDesktop').length;
+var reviewPopupCotent, desktopUserReview;
 var reviewId = 0;
 var bwSpinner;
 
 docReady(function () {
+    reviewPopupCotent = $('#reviewPopup');
+    desktopUserReview = $('#userReviewContentDesktop').length;
     bwcache.setOptions({ 'EnableEncryption': true });
 
     bwcache.removeAll(true);
@@ -85,8 +86,10 @@ docReady(function () {
             self.init = function () {
                 if (!self.IsInitialized()) {
                     self.IsInitialized(true);
-                    ko.applyBindings(self, $("#reviewPopup")[0]);
-
+                    if ($("#reviewPopup") != null)
+                    {
+                        ko.applyBindings(self, $("#reviewPopup")[0]);
+                    }
                 }
             };
 

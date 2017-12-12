@@ -15,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
 namespace Bikewale.Models.UserReviews
 {
     /// <summary>
@@ -160,16 +159,9 @@ namespace Bikewale.Models.UserReviews
                 if (objPage != null && objPage.PageMetaTags != null && objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
                 {
 
-                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objPage.UserReviewDetailsObj.Make.MakeId.ToString()))
-                    {
-                        objPage.PageMetaTags.Title = string.Format("Reviews of {0} {1} | User Reviews on {0} {1}- BikeWale", objPage.UserReviewDetailsObj.Title, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
-                        objPage.Page_H1 = string.Format("Reviews of {0} {1}| User Reviews on {0} {1}- BikeWale", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
-                    }
-                    else
-                    {
-                        objPage.PageMetaTags.Title = string.Format("{0} | User Review on {1} {2} - BikeWale", objPage.UserReviewDetailsObj.Title, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
-                        objPage.Page_H1 = objPage.UserReviewDetailsObj.Title.Truncate(45);
-                    }
+                    objPage.PageMetaTags.Title = string.Format("{0} | User Review on {1} {2} - BikeWale", objPage.UserReviewDetailsObj.Title, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
+                    objPage.Page_H1 = objPage.UserReviewDetailsObj.Title.Truncate(45);
+
                     objPage.AdTags.TargetedMakes = objPage.UserReviewDetailsObj.Make.MakeName;
                     objPage.AdTags.TargetedModel = objPage.UserReviewDetailsObj.Model.ModelName;
                     objPage.PageMetaTags.Description = string.Format("Read review by {0} on {1} {2}. {0} says {3}. View detailed review on BikeWale.", objPage.UserReviewDetailsObj.CustomerName, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Title);

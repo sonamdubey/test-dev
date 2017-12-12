@@ -32,19 +32,18 @@
                                 <li class="review-type-list__item">
                                     <p class="review-item__label">Most Popular Review</p>
                                     <p class="review-item__preview">@FormatDescription.TruncateDescription(obj.MostHelpful.Description, 100)</p>
-                                    <span class="review-popup__link text-link" data-reviewid="@obj.MostHelpful.ReviewId">Read more</span>
+                                    <span class="review-popup__link text-link bw-ga" data-cat="Make_Page" data-act="Clicked_on_Full_Review " data-lab="@bikeName" data-reviewid="@obj.MostHelpful.ReviewId">Full review</span>
                                 </li>
                                 <li class="review-type-list__item">
                                     <p class="review-item__label">Most Recent Review</p>
                                     <p class="review-item__preview">@FormatDescription.TruncateDescription(obj.MostRecent.Description, 110)</p>
-                                    <span class="review-popup__link text-link" data-reviewid="@obj.MostRecent.ReviewId">Read more</span>
+                                    <span class="review-popup__link text-link bw-ga" data-cat="Make_Page" data-act="Clicked_on_Full_Review " data-lab="@bikeName" data-reviewid="@obj.MostRecent.ReviewId">Full review</span>
                                 </li>
                             </ul>
                             <div class="clear"></div>
                         </div>
                     </li>
                 }
-
             }
 
         </ul>
