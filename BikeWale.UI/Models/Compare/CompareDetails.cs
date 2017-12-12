@@ -405,8 +405,11 @@ namespace Bikewale.Models
         /// <returns></returns>
         private void ProcessQueryString()
         {
+            Queue<string> compareUrl = new Queue<string>();
             bool isPermanentRedirection = false;
             string modelList, makeList;
+            string newMakeMasking = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
                 var request = HttpContext.Current.Request;
@@ -449,6 +452,7 @@ namespace Bikewale.Models
                 {
                     string[] models = modelList.Split(',');
                     string[] makes = makeList.Split(',');
+
                     ModelMaskingResponse objResponse = null;
                     ModelMapping objCache = new ModelMapping();
 
@@ -456,7 +460,10 @@ namespace Bikewale.Models
                     {
                         string modelMaskingName = models[iTmp];
                         string makeMaskingName = makes[iTmp];
-                        if (!string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
+
+                        newMakeMasking = ProcessMakeMaskingName(makeMaskingName, out isMakeRedirection);
+
+                        if (!string.IsNullOrEmpty(newMakeMasking) && !string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
                         {
                             objResponse = _objModelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                         }
@@ -466,15 +473,22 @@ namespace Bikewale.Models
                             _versionsList = string.Format("{0},{1}", _versionsList, objCache.GetTopVersionId(modelMaskingName));
                             status = StatusCodes.ContentFound;
                             bikeComparisions = (ushort)(iTmp + 1);
+                            compareUrl.Enqueue(string.Format("{0}-{1}", makeMaskingName, modelMaskingName));
+
+
                         }
-                        else if (objResponse != null && objResponse.StatusCode == 301)
+                        else if (objResponse != null && (objResponse.StatusCode == 301 || isMakeRedirection))
                         {
                             status = StatusCodes.RedirectPermanent;
                             isPermanentRedirection = true;
-                            if (String.IsNullOrEmpty(redirectionUrl))
-                                redirectionUrl = request.RawUrl.Replace(models[iTmp].ToLower(), objResponse.MaskingName);
-                            else
-                                redirectionUrl = redirectionUrl.Replace(models[iTmp].ToLower(), objResponse.MaskingName);
+
+                            //if (String.IsNullOrEmpty(redirectionUrl))
+                            //    redirectionUrl = request.RawUrl.Replace(makes[iTmp].ToLower(), newMakeMasking).Replace(models[iTmp].ToLower(), objResponse.MaskingName);
+                            //else
+                            //    redirectionUrl = redirectionUrl.Replace(makes[iTmp].ToLower(), newMakeMasking).Replace(models[iTmp].ToLower(), objResponse.MaskingName);
+
+                            compareUrl.Enqueue(string.Format("{0}-{1}", newMakeMasking, objResponse.MaskingName));
+
                         }
                         else
                         {
@@ -492,6 +506,16 @@ namespace Bikewale.Models
             {
                 if (isPermanentRedirection)
                 {
+                    redirectionUrl = string.Join("-vs-", compareUrl);
+
+                    if (IsMobile)
+                    {
+                        redirectionUrl = string.Format("/m/comparebikes/{0}/", redirectionUrl);
+                    }
+                    else
+                    {
+                        redirectionUrl = string.Format("/comparebikes/{0}/", redirectionUrl);
+                    }                    
                     status = StatusCodes.RedirectPermanent;
                 }
                 else if (!string.IsNullOrEmpty(_versionsList) && bikeComparisions >= 2)
@@ -503,6 +527,42 @@ namespace Bikewale.Models
                     status = StatusCodes.RedirectTemporary;
                 }
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 11th Dec 2017
+        /// Description : Process make masking name for redirection
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="isMakeRedirection"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
+        {
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
+            {
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
+            }
+            if (makeResponse != null)
+            {
+                if (makeResponse.StatusCode == 200)
+                {
+                    return makeResponse.MaskingName;
+                }
+                else if (makeResponse.StatusCode == 301)
+                {
+                    isMakeRedirection = true;
+                    return makeResponse.MaskingName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return "";
         }
 
         /// <summary>

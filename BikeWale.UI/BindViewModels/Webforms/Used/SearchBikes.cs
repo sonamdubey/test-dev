@@ -359,6 +359,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
             ModelMaskingResponse objModelResponse = null;
             CityMaskingResponse objCityResponse = null;
             MakeMaskingResponse objMakeResponse = null;
+            string newMakeMasking = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
                 cityMaskingName = page.Request.QueryString["city"];
@@ -373,8 +375,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     objMakeResponse = objMakeCache.GetMakeMaskingResponse(makeMaskingName);
                 }
 
+                newMakeMasking = ProcessMakeMaskingName(makeMaskingName, out isMakeRedirection);
+
                 modelMaskingName = page.Request.QueryString["model"];
-                if (!string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName))
+                if (objMakeResponse != null && !string.IsNullOrEmpty(modelMaskingName))
                 {
                     objModelResponse = objModelsCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                 }
@@ -438,10 +442,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     {
                         ModelId = objModelResponse.ModelId;
                     }
-                    else if (objModelResponse.StatusCode == 301)
+                    else if (objModelResponse.StatusCode == 301 || isMakeRedirection)
                     {
                         //redirect permanent to new page                         
-                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(modelMaskingName, objModelResponse.MaskingName);
+                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(modelMaskingName, objModelResponse.MaskingName).Replace(makeMaskingName, newMakeMasking);
                         IsPermanentRedirection = true;
                     }
                     else
@@ -450,6 +454,42 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 11th Dec 2017
+        /// Description : Process make masking name for redirection
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="isMakeRedirection"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
+        {
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
+            {
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
+            }
+            if (makeResponse != null)
+            {
+                if (makeResponse.StatusCode == 200)
+                {
+                    return makeResponse.MaskingName;
+                }
+                else if (makeResponse.StatusCode == 301)
+                {
+                    isMakeRedirection = true;
+                    return makeResponse.MaskingName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return "";
         }
     }
 }
