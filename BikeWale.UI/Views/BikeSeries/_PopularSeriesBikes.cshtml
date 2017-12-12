@@ -10,7 +10,7 @@
 				{
 					var bikeName = string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName);
 					<li>
-						<a href="@UrlFormatter.BikeSeriesUrl(bike.BikeMake.MakeMaskingName, Model.SeriesBase.MaskingName)" title="@bikeName" class="jcarousel-card bw-ga" data-act="Clicked_on_SimilarModel" data-lab="@bikeName">
+						<a href="@UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@bikeName" class="jcarousel-card bw-ga" data-act="Clicked_on_SimilarModel" data-lab="@bikeName">
 							<div class="series-jcarousel-image-preview">
 								<img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl,ImageSize._272x153,Bikewale.Utility.QualityFactor._75)" alt="@bikeName" src="" border="0" />
 							</div>
