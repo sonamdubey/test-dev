@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
@@ -18,6 +14,10 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.Scooters;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -63,7 +63,7 @@ namespace Bikewale.Models
 
         #region Public properties
         public bool IsMobile { get; set; }
-       
+
         #endregion
 
         #region Constructor
@@ -115,7 +115,7 @@ namespace Bikewale.Models
                 objData.EndIndex = _endIndex;
 
                 // Added by Vivek Singh Tomar to get list of model ids for given series
-                if(objData.Series != null)
+                if (objData.Series != null)
                 {
                     ModelIds = _series.GetModelIdsBySeries(objData.Series.SeriesId);
                 }
@@ -126,10 +126,11 @@ namespace Bikewale.Models
 
                 objData.Articles = _cmsCache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, (int)MakeId, ModelIds);
 
-                _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
+
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
+                    _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
                     status = StatusCodes.ContentFound;
                     objData.StartIndex = _startIndex;
                     objData.EndIndex = _endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex;
@@ -180,7 +181,7 @@ namespace Bikewale.Models
                 maskingName = queryString["model"];
 
                 ProcessMakeMaskingName(request, make);
-                ProcessModelSeriesMaskingName(request, maskingName);
+                ProcessModelSeriesMaskingName(request, String.Format("{0}_{1}", make, maskingName));
             }
         }
 
@@ -198,7 +199,7 @@ namespace Bikewale.Models
             }
             if (objResponse != null)
             {
-                if(objResponse.StatusCode == 200)
+                if (objResponse.StatusCode == 200)
                 {
                     if (!objResponse.IsSeriesPageCreated)
                     {
@@ -231,7 +232,7 @@ namespace Bikewale.Models
                 }
             }
 
-		}
+        }
 
         /// <summary>
         /// Created by  :  Aditi Srivasava on 30 Mar 2017
@@ -274,7 +275,7 @@ namespace Bikewale.Models
         {
             objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
             objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatExpertReviewUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
-            
+
 
             if (ModelId > 0)
             {
@@ -285,7 +286,7 @@ namespace Bikewale.Models
                 objData.AdTags.TargetedModel = objModel.ModelName;
                 objData.AdTags.TargetedMakes = objMake.MakeName;
             }
-            else if(objData.Series != null && objData.Series.IsSeriesPageUrl && objData.Series.SeriesId > 0)
+            else if (objData.Series != null && objData.Series.IsSeriesPageUrl && objData.Series.SeriesId > 0)
             {
                 objData.PageMetaTags.Title = string.Format("Expert Reviews about {0} {1} bikes in India | {1} bikes Comparison & Road Tests - BikeWale", objMake.MakeName, objSeries.SeriesName);
                 objData.PageMetaTags.Description = string.Format("Read the latest expert reviews on all {0} {1} bikes on BikeWale. Read about {0} {1} comparison tests and road tests exclusively on BikeWale", objMake.MakeName, objSeries.SeriesName);

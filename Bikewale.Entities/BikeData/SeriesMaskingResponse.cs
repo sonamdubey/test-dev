@@ -4,6 +4,8 @@ namespace Bikewale.Entities.BikeData
     /// <summary>
     /// Created By : Ashish G. Kamble on 20 Nov 2017
     /// Summary : Class to hold series and model masking name properties
+    /// Modified by :   Sumit Kate on 11 Dec 2017
+    /// Description :   Added Make Masking name
     /// </summary>
     [Serializable]
     public class SeriesMaskingResponse
@@ -37,5 +39,7 @@ namespace Bikewale.Entities.BikeData
         /// Value would be name of series or model depending on the masking name redirection
         /// </summary>
         public string Name { get; set; }
+
+        public string MakeMaskingName { get; set; }
     }
 }
