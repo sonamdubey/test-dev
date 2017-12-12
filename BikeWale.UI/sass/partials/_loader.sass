@@ -1,0 +1,90 @@
+﻿#ub-ajax-loader
+	position: fixed
+	top: 0
+	left: 0
+	background: rgba(245,245,245,.95)
+	z-index: 11
+	width: 100%
+	height: 100%
+
+
+@mixin spinner-content($top: 45%, $left: 50%, $position: fixed)
+	#spinner-content
+		width: 50px
+		height: 50px
+		position: $position
+		top: $top
+		left: $left
+		right: 0
+		margin: 0 auto
+		z-index: 999
+
+.bw-spinner
+  -webkit-animation: rotator 1.4s linear infinite
+          animation: rotator 1.4s linear infinite
+
+@-webkit-keyframes rotator
+  0%
+    -webkit-transform: rotate(0deg)
+            transform: rotate(0deg)
+  100%
+    -webkit-transform: rotate(270deg)
+            transform: rotate(270deg)
+
+@keyframes rotator
+  0%
+    -webkit-transform: rotate(0deg)
+            transform: rotate(0deg)
+
+  100%
+    -webkit-transform: rotate(270deg)
+            transform: rotate(270deg)
+
+.circle-path
+  stroke-dasharray: 187
+  stroke-dashoffset: 0
+  -webkit-transform-origin: center
+          transform-origin: center
+  -webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite
+          animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite
+
+@-webkit-keyframes colors
+  0%
+    stroke: #ef3f30
+
+  100%
+    stroke: #ef3f30
+
+
+@keyframes colors
+  0%
+    stroke: #ef3f30
+  
+  100%
+    stroke: #ef3f30
+  
+@-webkit-keyframes dash
+  0%
+    stroke-dashoffset: 187
+
+  50%
+    stroke-dashoffset: 46.75
+    -webkit-transform: rotate(135deg)
+            transform: rotate(135deg)
+
+  100%
+    stroke-dashoffset: 187
+    -webkit-transform: rotate(450deg)
+            transform: rotate(450deg)
+
+@keyframes dash
+  0%
+    stroke-dashoffset: 187
+  50%
+    stroke-dashoffset: 46.75
+    -webkit-transform: rotate(135deg)
+            transform: rotate(135deg)
+  100%
+    stroke-dashoffset: 187
+    -webkit-transform: rotate(450deg)
+            transform: rotate(450deg)
