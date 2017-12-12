@@ -10,7 +10,7 @@
     <!-- ko if: ($root.summaryObj() !=null && $data.summaryObj().make!=null && $data.summaryObj().model!=null) -->
     <span class="review-popup-close-btn"></span>
     <div class="review-popup__title-block">
-        <div class="left-grid-image">
+        <div class="left-grid-image margin-right5">
             <img data-bind="attr: {'src': $data.summaryObj().hostUrl +'110x61/' + $data.summaryObj().originalImagePath + '&amp;q=65', 'title': $data.summaryObj().make.makeName + $data.summaryObj().model.modelName}" src="">
         </div>
 
@@ -21,14 +21,14 @@
                 <!-- ko if: Math.round($data.summaryObj().overAllModelRating) > 0 -->
                 <span class="review-overall-rating__list" data-bind="css:'rate-count-' + Math.round($data.summaryObj().overAllModelRating)">
                     <span class="star-icon"></span>
-                    <span class="font14 text-bold" data-bind="text: Math.round($data.summaryObj().overAllModelRating , 1)"></span>
+                    <span class="font14 text-bold" data-bind="text: $data.summaryObj().overAllModelRating.toFixed(1)"></span>
                 </span>
                 <!-- /ko -->
                 <!-- ko if: $data.summaryObj().totalRatings > 0 -->
                 <span class="review-overall-rating__list" data-bind="text: $data.summaryObj().totalRatings + ($data.summaryObj().totalRatings > 1 ? ' ratings' : ' rating')"></span>
                 <!-- /ko -->
                 <!-- ko if: $data.summaryObj().totalReviews > 0 -->
-                <span class="review-overall-rating__list" data-bind="text: $data.summaryObj().totalReviews + ($data.summaryObj().totalReviews > 1 ? ' reviews' : 'review')"></span>
+                <span class="review-overall-rating__list" data-bind="text: $data.summaryObj().totalReviews + ($data.summaryObj().totalReviews > 1 ? ' reviews' : ' review')"></span>
                 <!-- /ko -->
             </div>
         </div>

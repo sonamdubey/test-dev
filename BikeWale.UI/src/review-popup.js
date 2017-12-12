@@ -29,6 +29,7 @@ docReady(function () {
         		$(".blackOut-window").show();
         	}
         	bwSpinner.show();
+        	$('.review-popup-container').scrollTop(0);
         	window.history.pushState('addreviewPopup', '', '');
         	setTimeout(function () { bwSpinner.hide(); }, 2000)
         },

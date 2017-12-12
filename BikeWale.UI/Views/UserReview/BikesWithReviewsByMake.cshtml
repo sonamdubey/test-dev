@@ -25,7 +25,7 @@
                             <a href="@UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName)" title="@string.Format("{0} {1}", bikeName, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))" class="inline-block margin-left5">@string.Format("({0} {1})", obj.BikeModel.ReviewCount, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))</a>
                         </div>
                         <div>
-                            <a href="@UrlFormatter.BikePageUrl(obj.BikeModel.Make.MaskingName,obj.BikeModel.Model.MaskingName)" class="review-list__image-target">
+                            <a href="@UrlFormatter.BikePageUrl(obj.BikeModel.Make.MaskingName,obj.BikeModel.Model.MaskingName)" class="review-list__image-target margin-right10">
                                 <img class="lazy" data-original="@Image.GetPathToShowImages(obj.BikeModel.OriginalImagePath,obj.BikeModel.HostUrl, ImageSize._310x174,"75")" src="" title="@bikeName" alt="@string.Format("{0} Model Image",bikeName)" width="150" height="84">
                             </a>
                             <ul class="review-type-list">
