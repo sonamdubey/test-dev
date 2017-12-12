@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline />";
-    Model.Page_JS_Paths = new string[]{"/src/new/bikemake.js", "/src/review-popup.js"};
+    Model.Page_JS_Paths = new string[] { "/src/new/bikemake.js", "/src/review-popup.js" };
     Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
     Model.AdTags.AdId = "1442913773076";
     Model.AdTags.Ad_970x90 = true;
@@ -211,7 +211,7 @@
         </div>
     }
 
-    @if (Model.IsDealerServiceDataAvailable || Model.DealersServiceCenterPopularCities != null)
+    @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
     {
 
         <div id="dealerAndServiceContent" class="bw-model-tabs-data">
@@ -225,7 +225,8 @@
                                     <div class="swiper-heading-left-grid inline-block">
                                         <h2>@Model.MakeName showrooms in @Model.Location</h2>
                                     </div>
-                                    <div class="swiper-heading-right-grid inline-block text-right"><a href="/dealer-showrooms/@Model.MakeMaskingName/@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                    <div class="swiper-heading-right-grid inline-block text-right">
+                                        <a href="/dealer-showrooms/@Model.MakeMaskingName/@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -247,7 +248,10 @@
                                         <span class="bwsprite dealer-grey"></span>
                                         <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.MakeName showroom@(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "" : "s")</h2>
                                         <div class="grid-11 alpha">
-                                            <p class="font14 text-slate-grey">There @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "is" : "are") @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "city" : "cities") in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
+                                            @{
+                                                var showroomText = (Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "showroom" : "showrooms");
+                                            }
+                                            <p class="font14 text-slate-grey">There @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "is" : "are") @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName @showroomText across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "city" : "cities") in India. Select your city to find address, & contact details of @Model.MakeName @showroomText near you.</p>
                                         </div>
                                     </div>
 
@@ -329,7 +333,7 @@
                         </div>
                     }
 
-                                             
+
                     @if (Model.IsUsedModelsBikeAvailable)
                     {
                         <div id="makeUsedBikeContent" class="bw-model-tabs-data">
@@ -401,5 +405,3 @@
 <div id="reviewPopup" class="review-popup hide">
 </div>
 <!-- make review popup ends-->
-
-
