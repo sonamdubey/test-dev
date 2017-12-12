@@ -16,9 +16,6 @@ using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using log4net;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Desktop.Videos
 {
@@ -295,7 +292,7 @@ namespace Bikewale.Controllers.Desktop.Videos
 
 
                 }
-                else if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.objMaskingResponse.StatusCode == (uint)Entities.StatusCodes.RedirectPermanent)
+                else if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || (objModel.objMaskingResponse != null && objModel.objMaskingResponse.StatusCode == (uint)Entities.StatusCodes.RedirectPermanent))
                 {
                     if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent)
                     {
