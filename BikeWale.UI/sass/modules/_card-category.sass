@@ -26,7 +26,7 @@
 
 
 
-@mixin card-category__tag-color($color1: #68c7d2, $color2: #f2aa58)
+@mixin card-category__tag-color($color1: #68c7d2, $color2: #f2aa58, $color3: #57abeb)
 	.carousel-card[data-review-category= '0']
 		.card-category__tag
 			background-color: $color1
@@ -40,3 +40,10 @@
 		
 			&:after
 				border-top-color: $color2
+
+	.carousel-card[data-review-category= '2']
+		.card-category__tag
+			background-color: $color3
+		
+			&:after
+				border-top-color: $color3
