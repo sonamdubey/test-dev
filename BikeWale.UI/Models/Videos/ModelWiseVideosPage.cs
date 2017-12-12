@@ -35,6 +35,7 @@ namespace Bikewale.Models.Videos
         private ushort _maxVideoCount = 50, _pageNo = 1;
         private uint _makeId, _modelId;
         private uint _cookieCityId;
+        private ModelHelper modelHelper = null;
 
         public MakeMaskingResponse objMakeResponse;
         public ModelMaskingResponse objModelResponse;
@@ -46,6 +47,7 @@ namespace Bikewale.Models.Videos
         public bool IsMobile { get; set; }
         public SeriesMaskingResponse objMaskingResponse;
         public BikeSeriesEntityBase objSeries;
+        public string newMakeMasking = string.Empty, newModelMasking = string.Empty;
 
         public ModelWiseVideosPage(string makeMaskingName, string modelMaskingName, ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IVideosCacheRepository objVideosCache, IBikeMakesCacheRepository bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IBikeModels<BikeModelEntity, int> models, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
@@ -216,10 +218,10 @@ namespace Bikewale.Models.Videos
                 if (objMakeResponse.StatusCode == 200)
                 {
                     _makeId = objMakeResponse.MakeId;
-                    makeStatus = StatusCodes.ContentFound;
                 }
                 else if (objMakeResponse.StatusCode == 301)
                 {
+                    newMakeMasking = objMakeResponse.MaskingName;
                     makeStatus = StatusCodes.RedirectPermanent;
                 }
                 else
@@ -262,6 +264,7 @@ namespace Bikewale.Models.Videos
                     }
                     else if (objModelResponse.StatusCode == 301)
                     {
+                        newModelMasking = objModelResponse.MaskingName;
                         modelStatus = StatusCodes.RedirectPermanent;
                     }
                     else
@@ -275,6 +278,7 @@ namespace Bikewale.Models.Videos
                 }
             }
         }
+
         /// <summary>
         /// Created By :Subodh Jain on 11th Nov 2017
         /// Description : Function to create page level schema for breadcrum
