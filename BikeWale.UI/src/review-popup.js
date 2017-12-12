@@ -2,7 +2,7 @@
 var reviewPopupCotent = $('#reviewPopup');
 var desktopUserReview = $('#userReviewContentDesktop').length;
 var reviewId = 0;
-
+var bwSpinner;
 
 docReady(function () {
     bwcache.setOptions({ 'EnableEncryption': true });
@@ -16,7 +16,8 @@ docReady(function () {
 			},
 			duration: 500
 		},
-        open: function (element) {
+		open: function (element) {
+		    bwSpinner = reviewPopupCotent.find('#ub-ajax-loader');
         	if (desktopUserReview) {
         		element.animate({ 'right': 0 });
         		popup.lock();
@@ -26,7 +27,9 @@ docReady(function () {
         		$('body').css('overflow', 'hidden');
         		$(".blackOut-window").show();
         	}
-            window.history.pushState('addreviewPopup', '', '');
+        	bwSpinner.show();
+        	window.history.pushState('addreviewPopup', '', '');
+        	setTimeout(function () { bwSpinner.hide(); }, 2000)
         },
 
         close: function (element) {

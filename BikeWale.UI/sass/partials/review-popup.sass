@@ -1,5 +1,5 @@
 ﻿@import ../partials/rating
-
+@import ../partials/loader
 .review-popup
 	height: 80%
 	width: 100%
@@ -8,10 +8,13 @@
 	position: fixed
 	bottom: 0
 
+.review-popup__block
+	position: relative
+	height: 100%
+
 .review-popup-container
 	overflow: auto
 	height: 90%
-
 
 //review popup title block
 
@@ -136,10 +139,12 @@
 
 	&.active
 		.like-sm-icon
-			opacity: 1			
+			opacity: 1
+			@include like-white-13x12			
 
 		.dislike-sm-icon
 			opacity: 1
+			@include dislike-white-13x12
 
 
 /*rating badge
@@ -157,12 +162,12 @@
 		position: relative
 
 .star-white
-  width: 12px
-  height: 12px
-  background-position: -172px -447px
-  position: relative
-  top: 1px
-  margin-right: 4px
+	width: 12px
+	height: 12px
+	background-position: -172px -447px
+	position: relative
+	top: 1px
+	margin-right: 4px
 
 @import ../partials/horizontal-rating-graph
 
@@ -224,6 +229,12 @@
 	color: #787878
 
 
+.review-popup
+	#ub-ajax-loader
+		position: absolute
+
+	@include spinner-content(45%, 0, absolute)
+
 @media only screen and (max-width: 320px)
   .review-popup__title-block .right-grid-details
     width: 62%
@@ -273,6 +284,7 @@
 		width: 415px
 		right: -463px
 		z-index: 210
+		position: fixed
 
 		.review-popup-close-btn
 			left: -48px
@@ -289,6 +301,15 @@
 			padding-right: 20px
 			padding-left: 20px
 
+	.star-white
+		background-position: -218px -103px
+
+	.review-question__block
+		padding-bottom: 0
+
+.review-popup
+	#spinner-content
+		top: 44%
 
 
 
