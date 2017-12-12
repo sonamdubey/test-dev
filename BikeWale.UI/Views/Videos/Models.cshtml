@@ -159,7 +159,7 @@ else if (Model != null && Model.Make != null && Model.objSeries != null)
 			</div>
 		</section>
 	}
-	if (Model.PopularSeriesBikes != null)
+	if (Model.PopularSeriesBikes != null && Model.PopularSeriesBikes.BikesList != null && Model.PopularSeriesBikes.BikesList.Any())
 	{
 		<section>
 			<div class="container margin-bottom30 content-box-shadow">
@@ -167,7 +167,7 @@ else if (Model != null && Model.Make != null && Model.objSeries != null)
 					<div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
 						<div class="carousel-heading-content">
 							<div class="swiper-heading-left-grid inline-block">
-								<h2 class="padding-left20 padding-right20 margin-bottom15">@Model.PopularSeriesBikes.WidgetTitle</h2>
+								<h2>@Model.PopularSeriesBikes.WidgetTitle</h2>
 							</div>
 							<div class="swiper-heading-right-grid inline-block text-right">
 								<a href="@Model.PopularSeriesBikes.WidgetViewAllUrl" class="btn view-all-target-btn">View all</a>
