@@ -11,6 +11,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
+using Bikewale.Models.BikeSeries;
 
 namespace Bikewale.Models.Videos
 {
@@ -62,11 +63,21 @@ namespace Bikewale.Models.Videos
             ProcessQuery(_makeMaskingName, _modelMaskingName);
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Added call to GetGlobalCityArea and BindPopularSeriesBikes.
+        /// </summary>
+        /// <returns></returns>
         public ModelWiseVideoPageVM GetDataSeries()
         {
             ModelWiseVideoPageVM objVM = new ModelWiseVideoPageVM();
             try
             {
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                _cookieCityId = currentCityArea.CityId;
+
+                objVM.CityId = _cookieCityId;
+
                 if (_makeId > 0)
                     objVM.Make = new MakeHelper().GetMakeNameByMakeId(_makeId);
 
@@ -74,14 +85,41 @@ namespace Bikewale.Models.Videos
                 objVM.VideosList = _objVideosCache.GetSimilarVideos(_maxVideoCount, modelIds, 1);
                 objVM.objSeries = objSeries;
                 BindPageMetasSeries(objVM);
+                BindPopularSeriesBikes(objVM, currentCityArea.City);
             }
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.GetDataSeries");
+                ErrorClass.LogError(ex, "ModelWiseVideosPage.GetDataSeries");
             }
             return objVM;
         }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Method to bind popular series bikes.
+        /// </summary>
+        private void BindPopularSeriesBikes(ModelWiseVideoPageVM objVM, string CityName)
+        {
+            try
+            {
+                objVM.PopularSeriesBikes = new PopularSeriesBikesVM();
+                objVM.PopularSeriesBikes.NewBikes = _series.GetNewModels(objMaskingResponse.Id, objVM.CityId);
+                if (objVM.objSeries != null && objMakeResponse != null)
+                {
+                    objVM.PopularSeriesBikes.SeriesBase = objSeries;
+                    objVM.PopularSeriesBikes.WidgetTitle = string.Format("Popular {0} Bikes", objVM.objSeries.SeriesName);
+                    objVM.PopularSeriesBikes.WidgetViewAllUrl = UrlFormatter.BikeSeriesUrl(objMakeResponse.MaskingName, objSeries.MaskingName);
+                    objVM.PopularSeriesBikes.CityName = CityName;
+                    objVM.PopularSeriesBikes.PQSourceId = (int)(IsMobile ? Entities.PriceQuote.PQSourceEnum.Mobile_Videos_Page_PopularSeries : Entities.PriceQuote.PQSourceEnum.Desktop_Videos_Page_PopularSeries);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "ModelWiseVideosPage.BindPopularSeriesBikes");
+            }
+        }
+
         private void BindPageMetasSeries(ModelWiseVideoPageVM objPageVM)
         {
             try
