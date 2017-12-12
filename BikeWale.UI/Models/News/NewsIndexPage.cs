@@ -326,7 +326,7 @@ namespace Bikewale.Models
                 string maskingName = queryString["model"];
 
                 ProcessMakeMaskingName(request, make);
-                ProcessModelSeriesMaskingName(request, maskingName);
+                ProcessModelSeriesMaskingName(request, String.Format("{0}_{1}", make, maskingName));
             }
         }
         /// <summary>

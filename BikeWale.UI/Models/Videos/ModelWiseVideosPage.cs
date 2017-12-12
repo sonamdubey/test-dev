@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
@@ -10,8 +7,11 @@ using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Utility;
 using Bikewale.Models.BikeSeries;
+using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models.Videos
 {
@@ -105,11 +105,11 @@ namespace Bikewale.Models.Videos
             {
                 objVM.PopularSeriesBikes = new PopularSeriesBikesVM();
                 objVM.PopularSeriesBikes.BikesList = _series.GetNewModels(objMaskingResponse.Id, objVM.CityId);
-		 if (objVM.PopularSeriesBikes.BikesList != null)
-		 {
-			 objVM.PopularSeriesBikes.BikesList = objVM.PopularSeriesBikes.BikesList.Take(9);
-		 }
-		 if (objVM.objSeries != null && objMakeResponse != null)
+                if (objVM.PopularSeriesBikes.BikesList != null)
+                {
+                    objVM.PopularSeriesBikes.BikesList = objVM.PopularSeriesBikes.BikesList.Take(9);
+                }
+                if (objVM.objSeries != null && objMakeResponse != null)
                 {
                     objVM.PopularSeriesBikes.SeriesBase = objSeries;
                     objVM.PopularSeriesBikes.WidgetTitle = string.Format("Popular {0} Bikes", objVM.objSeries.SeriesName);
@@ -190,7 +190,7 @@ namespace Bikewale.Models.Videos
                     objPageVM.PageMetaTags.Title = String.Format("{0} {1} Videos - BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
                     objPageVM.PageMetaTags.Keywords = string.Format("{0},{1},{0} {1},{0} {1} videos", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
                     objPageVM.PageMetaTags.Description = string.Format("Check latest {0} {1} videos, watch BikeWale expert's take on {0} {1} - features, performance, price, fuel economy, handling and more.", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
-                    
+
                     objPageVM.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/videos/", objPageVM.Make.MaskingName, objPageVM.Model.MaskingName);
                     if (!IsMobile)
                         objPageVM.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/videos/", objPageVM.Make.MaskingName, objPageVM.Model.MaskingName);
@@ -235,7 +235,7 @@ namespace Bikewale.Models.Videos
 
             if (_makeId > 0)
             {
-                objMaskingResponse = _seriesCache.ProcessMaskingName(modelMaskingName);
+                objMaskingResponse = _seriesCache.ProcessMaskingName(String.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                 objModelResponse = _bikeModelsCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                 if (objMaskingResponse != null)
                 {
@@ -340,7 +340,7 @@ namespace Bikewale.Models.Videos
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} Bikes", objVM.Make.MakeName)));
                 }
 
-                if(objVM.Model != null && objVM.bikeType.Equals(EnumBikeBodyStyles.Scooter))
+                if (objVM.Model != null && objVM.bikeType.Equals(EnumBikeBodyStyles.Scooter))
                 {
                     if (IsMobile)
                     {
