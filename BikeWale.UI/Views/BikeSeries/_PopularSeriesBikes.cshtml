@@ -1,18 +1,18 @@
 ﻿@model Bikewale.Models.BikeSeries.PopularSeriesBikesVM
 @using Bikewale.Utility;
 
-@if (Model != null && Model.NewBikes != null && Model.NewBikes.Any())
+@if (Model != null && Model.BikesList != null && Model.BikesList.Any())
 {
 	<div class="jcarousel-wrapper inner-content-carousel">
 		<div class="jcarousel">
 			<ul>
-				@foreach (var bike in Model.NewBikes)
+				@foreach (var bike in Model.BikesList)
 				{
 					var bikeName = string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName);
 					<li>
-						<a href="@UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@bikeName" class="jcarousel-card bw-ga" data-act="Clicked_on_SimilarModel" data-lab="@bikeName">
+						<a href="@UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@bikeName" class="jcarousel-card">
 							<div class="series-jcarousel-image-preview">
-								<img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl,ImageSize._272x153,Bikewale.Utility.QualityFactor._75)" alt="@bikeName" src="" border="0" />
+								<img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl,ImageSize._272x153,Bikewale.Utility.QualityFactor._70)" title="@bikeName" alt="@bikeName" src="" border="0" />
 							</div>
 							<div class="card-desc-block">
 								<p class="bikeTitle">@bikeName</p>
@@ -41,7 +41,7 @@
 
 						</a>
 						<div class="margin-left20 margin-bottom20">
-							<a href="javascript:void(0);" data-pqsourceid="@(Model.PQSourceId)" data-makename="@bike.BikeMake.MakeName" data-modelname="@bike.BikeModel.ModelName" data-modelid="@bike.BikeModel.ModelId" class="btn btn-grey btn-sm font14 getquotation" rel="nofollow">Check on-road price</a>
+							<a href="javascript:void(0);" data-pqsourceid="@Model.PQSourceId" data-makename="@bike.BikeMake.MakeName" data-modelname="@bike.BikeModel.ModelName" data-modelid="@bike.BikeModel.ModelId" class="btn btn-grey btn-sm font14 getquotation" rel="nofollow">Check on-road price</a>
 						</div>
 					</li>
 				}

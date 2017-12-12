@@ -104,8 +104,12 @@ namespace Bikewale.Models.Videos
             try
             {
                 objVM.PopularSeriesBikes = new PopularSeriesBikesVM();
-                objVM.PopularSeriesBikes.NewBikes = _series.GetNewModels(objMaskingResponse.Id, objVM.CityId);
-                if (objVM.objSeries != null && objMakeResponse != null)
+                objVM.PopularSeriesBikes.BikesList = _series.GetNewModels(objMaskingResponse.Id, objVM.CityId);
+		 if (objVM.PopularSeriesBikes.BikesList != null)
+		 {
+			 objVM.PopularSeriesBikes.BikesList = objVM.PopularSeriesBikes.BikesList.Take(9);
+		 }
+		 if (objVM.objSeries != null && objMakeResponse != null)
                 {
                     objVM.PopularSeriesBikes.SeriesBase = objSeries;
                     objVM.PopularSeriesBikes.WidgetTitle = string.Format("Popular {0} Bikes", objVM.objSeries.SeriesName);

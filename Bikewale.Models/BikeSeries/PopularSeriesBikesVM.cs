@@ -13,7 +13,7 @@ namespace Bikewale.Models.BikeSeries
     /// </summary>
     public class PopularSeriesBikesVM
     {
-        public IEnumerable<NewBikeEntityBase> NewBikes { get; set; }
+        public IEnumerable<NewBikeEntityBase> BikesList { get; set; }
         public BikeSeriesEntityBase SeriesBase { get; set; }
         public string WidgetTitle { get; set; }
         public string WidgetViewAllUrl { get; set; }
