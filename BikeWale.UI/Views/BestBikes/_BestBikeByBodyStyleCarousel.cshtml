@@ -80,23 +80,25 @@
     }
     <!-- Code for last creative card added -->
     <li id="allbikes">
-        <a href="@url" title="@cardTitle" class="jcarousel-card">
-            <div class="btn-transparent-block">
+        <div class="jcarousel-card">
+            @*<div class="btn-transparent-block">
                 <div class="btn-transparent">
                     View Complete List
                 </div>
-            </div>
-            @*<div class="model-jcarousel-image-preview">
+            </div>*@
+            <div class="model-jcarousel-image-preview">
 
 
-                     @*<span class="card-image-block">
+                    <span class="card-image-block">
                     <img class="lazy" data-original=@imageSrc alt="@cardTitle" src="" border="0" />
                 </span>
-            </div>*@
-                     @*<div class="card-desc-block">
-                <h3 class="margin-bottom5 text-truncate">@cardTitle</h3>
-                <p class="font12 text-light-grey text-truncate">@bikeList</p>
-            </div>*@</a>
+            </div>
+            <a href="@url" title="@cardTitle" class="card-desc-block">
+                <div class="btn-sm">
+                    View Complete List
+                </div>
+            </a>
+        </div>
     </li>
     <!--  Code for last creative card end-->
 
