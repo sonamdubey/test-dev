@@ -4,6 +4,7 @@
     self.seriesMsg = ko.observable("");
     self.seriesMaskingMsg = ko.observable("");
     self.selectedMakeId = ko.observable("");
+    self.selectedMakeUpdateId = ko.observable("");
     self.seriesMaskingName = ko.observable("");
     self.seriesName.subscribe(function () {
         var series = "";
@@ -81,7 +82,7 @@
                                                         + "<td>" + bodystyle + "</td>"
                                                         + "<td>" + $("#selectMake option[value=" + response.make.makeId + "]").text() + "</td>"
                                                         + "<td><a href='#!' data-target='modal-series-synopsis' data-bind='event : {click : function(d,e) { getSeriesSynopsis(e) }}'><i class='material-icons icon-green'>add_circle</i></a></td>"
-                                                        + "<td><a href='#series-edit-update' class='tooltipped' href='javascript:void(0)' data-delay='100' data-makeid=" + response.make.makeId +" data-bodystyleid=" + response.bodystyle.bodyStyleId + " data-tooltip='Edit Series' rel='nofollow' data-bind='event: {click: function(d, e) { editSeriesClick(e) }}'><i class='material-icons icon-blue'>mode_edit</i></a></td>"
+                                                        + "<td><a href='#series-edit-update' class='tooltipped' href='javascript:void(0)' data-delay='100' data-makeid=" + response.make.makeId +" data-bodystyleid=" +response.bodystyle.bodyStyleId + " data-tooltip='Edit Series' rel='nofollow' data-bind='event: {click: function(d, e) { editSeriesClick(e) }}'><i class='material-icons icon-blue'>mode_edit</i></a></td>"
                                                         + "<td><a class='tooltipped' href='javascript:void(0)' data-delay='100' data-tooltip='Delete Series' rel='nofollow' data-target='delete-confirm-modal' data-bind='event:{click: function(d, e){ deleteEvent(e)}}'><i class='material-icons icon-red'>delete</i></a></td>"
                                                         + "<td>" + response.createdOn + "</td>"
                                                         + "<td>" + response.updatedOn + "</td>"
@@ -123,9 +124,9 @@
         self.selectedSeriesId(seriesRow.children[0].innerText); //seriesId
         self.seriesNameUpdate(self.selectedSeriesName());
         self.seriesMaskingNameUpdate(selectedSeriesMaskingName);
-        self.selectedMakeId($(event.currentTarget).data("makeid"));
+        self.selectedMakeUpdateId($(event.currentTarget).data("makeid"));
         self.selectedBodyStyleUpdateId($(event.currentTarget).data("bodystyleid"));
-        $('select').material_select();
+        $('#selectBodyStyleUpdate').material_select();
         Materialize.updateTextFields();
 
     }
@@ -155,7 +156,7 @@
             if (isValid) {
                 $.ajax({
                     type: "POST",
-                    url: "/api/series/" + self.selectedSeriesId() + "/edit/?seriesname=" + self.seriesNameUpdate() + "&seriesmaskingname=" + self.seriesMaskingNameUpdate() + "&updatedby=" + $('#userId').val() + "&isseriespageurl=" + self.isSeriesEditUrl() + "&makeId=" + self.selectedMakeId() + "&bodystyleid=" + self.selectedBodyStyleUpdateId(),
+                    url: "/api/series/" + self.selectedSeriesId() + "/edit/?seriesname=" + self.seriesNameUpdate() + "&seriesmaskingname=" + self.seriesMaskingNameUpdate() + "&updatedby=" + $('#userId').val() + "&isseriespageurl=" + self.isSeriesEditUrl() + "&makeId=" + self.selectedMakeUpdateId() + "&bodystyleid=" + self.selectedBodyStyleUpdateId(),
                     success: function (response) {
 
                         if (response != null) {
