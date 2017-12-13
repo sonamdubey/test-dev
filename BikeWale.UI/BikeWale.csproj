@@ -3092,9 +3092,13 @@
     <Content Include="sass\model-series\series.sass" />
     <Content Include="sass\partials\d\_upcoming-model-card.sass" />
     <Content Include="sass\partials\d\_comparison-card.sass" />
+
+    <Content Include="sass\modules\sidebar-bike-section.sass" />
+
     <Content Include="sass\partials\review-popup.sass" />
     <Content Include="sass\partials\_horizontal-rating-graph.sass" />
     <Content Include="sass\partials\_loader.sass" />
+
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3221,6 +3225,7 @@
     <Content Include="src\pq\MetroCities.js" />
     <Content Include="src\pq\price_quote.js" />
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\sidebarsection.js" />
     <Content Include="src\survey\bajaj-survey.js" />
     <Content Include="src\finance\capital-first.js" />
     <Content Include="src\swiper-3.1.7.js" />
@@ -3916,6 +3921,9 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_AMP.cshtml" />
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
+
+    <None Include="Views\Shared\_Sidebar-section.cshtml" />
+
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
     <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_Amp.cshtml" />
@@ -3927,6 +3935,7 @@
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_Amp.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile_Amp.cshtml" />
     <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile_AMP.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

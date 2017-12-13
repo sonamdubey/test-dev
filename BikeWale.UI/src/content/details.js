@@ -59,9 +59,6 @@ docReady(function () {
     }
 });
 
-
-
-
 (function ($) {
     
     var connector = function (itemNavigation, carouselStage) {
