@@ -12,7 +12,7 @@
                         <% foreach (var Dealer in DealerCountCityList)
                           { %>
                         <li>
-                            <a href="/<%= MakeMaskingName %>-dealer-showrooms-in-<%= Dealer.CityMaskingName %>/" title="<%= MakeName %> showrooms in <%= Dealer.CityName %>" class="jcarousel-card">
+                            <a href="/dealer-showrooms/<%= MakeMaskingName %>/<%= Dealer.CityMaskingName %>/" title="<%= MakeName %> showrooms in <%= Dealer.CityName %>" class="jcarousel-card">
                                 <div class="lazy dealer-location-img" data-original="<%= Dealer.GoogleMapImg %>" title="<%= MakeName %> showrooms in <%= Dealer.CityName %>" ></div>
                                 <div class="card-desc-block">
                                     <p class="card-heading font14 text-bold text-black padding-top5"><%= Dealer.CityName %></p>

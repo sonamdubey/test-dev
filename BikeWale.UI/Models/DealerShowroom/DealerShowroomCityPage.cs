@@ -93,7 +93,7 @@ namespace Bikewale.Models.DealerShowroom
                     PopupShowButtonMessage = "Show showrooms",
                     PopupSubHeading = "See Showrooms in your city!",
                     FetchDataPopupMessage = "Fetching showrooms for ",
-                    RedirectUrl = string.Format("/{0}-dealer-showrooms-in-", objDealerVM.Make.MaskingName),
+                    RedirectUrl = string.Format("/dealer-showrooms/{0}/", objDealerVM.Make.MaskingName),
                     IsCityWrapperPresent = 1
                 };
                 BindShowroomPopularCityWidget(objDealerVM);
@@ -236,7 +236,7 @@ namespace Bikewale.Models.DealerShowroom
                     if (objPage.Make != null)
                     {
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName), string.Format("{0} Bikes", objPage.Make.MakeName)));
-                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-dealer-showrooms-in-india/", url, objPage.Make.MaskingName), objPage.Make.MakeName + " Showrooms in India"));
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}dealer-showrooms/{1}/", url, objPage.Make.MaskingName), objPage.Make.MakeName + " Showrooms in India"));
                     }
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPage.Page_H1));
@@ -377,7 +377,7 @@ namespace Bikewale.Models.DealerShowroom
                 objData.MakeMaskingName = objDealerDetails.Make.MaskingName;
                 objData.MakeName = objDealerDetails.Make.MakeName;
                 objData.CityCardTitle = "showrooms in";
-                objData.CityCardLink = "dealer-showrooms-in";
+                objData.CityCardLink = "dealer-showrooms";
                 objData.IsServiceCenterPage = false;
                 objDealerDetails.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())

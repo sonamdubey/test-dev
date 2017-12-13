@@ -4,7 +4,7 @@ var dt = '';
 
 docReady(function () {
 
-    if ($("#discontinuedMore a").length > 4) {
+    if ($("#discontinuedMore a") && $("#discontinuedMore a").length > 4) {
         $('#discontinuedMore').hide();
     }
     else {
@@ -33,7 +33,7 @@ docReady(function () {
             makeOverallTabs.addClass('fixed-tab');
         }
 
-        else if (windowScrollTop < makeTabsContentWrapperOffsetTop) {
+        else if (windowScrollTop < makeTabsContentWrapperOffsetTop + 44) {
             makeOverallTabs.removeClass('fixed-tab');
         }
 

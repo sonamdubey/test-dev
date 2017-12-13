@@ -2048,6 +2048,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\AdSlot\Index.cshtml" />
     <Content Include="Views\Makes\AddFooterData.cshtml" />
+    <Content Include="App_Data\private-key.pem" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

@@ -200,10 +200,13 @@ namespace Bikewale.BAL.PWA.CMS
 
             if (_logPWAStats)
             {
-                sw.Stop();
-                ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
-                ThreadContext.Properties["PageName"] = "Video List";
-                _logger.Error(sw.ElapsedMilliseconds);
+                if (sw != null)
+                {
+                    sw.Stop();
+                    ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                    ThreadContext.Properties["PageName"] = "Video List";
+                    _logger.Error(sw.ElapsedMilliseconds);
+                }
             }
             return renderedHtml;
         }
@@ -240,10 +243,13 @@ namespace Bikewale.BAL.PWA.CMS
 
             if (_logPWAStats)
             {
-                sw.Stop();
-                ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
-                ThreadContext.Properties["PageName"] = "Video Subcategory List";
-                _logger.Error(sw.ElapsedMilliseconds);
+                if (sw != null)
+                {
+                    sw.Stop();
+                    ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                    ThreadContext.Properties["PageName"] = "Video Subcategory List";
+                    _logger.Error(sw.ElapsedMilliseconds); 
+                }
             }
             return renderedHtml;
         }
@@ -282,10 +288,13 @@ namespace Bikewale.BAL.PWA.CMS
 
             if (_logPWAStats)
             {
-                sw.Stop();
-                ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
-                ThreadContext.Properties["PageName"] = "GetVideoDetails";
-                _logger.Error(sw.ElapsedMilliseconds);
+                if (sw != null)
+                {
+                    sw.Stop();
+                    ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                    ThreadContext.Properties["PageName"] = "GetVideoDetails";
+                    _logger.Error(sw.ElapsedMilliseconds); 
+                }
             }
             return renderedHtml;
         }

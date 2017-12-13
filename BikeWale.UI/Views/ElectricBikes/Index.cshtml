@@ -1,0 +1,277 @@
+﻿@model Bikewale.Models.ElectricBikesPageVM
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/electric-bikes/landing.css' inline />";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_JS_Path = "/src/electricbikes/electricbikeindex.js";
+}
+<section id="makeTabsContentWrapper">
+    <div class="container section-bottom-margin">
+        <div class="grid-12">
+            <div class="content-box-shadow padding-left20 padding-top15">
+                <h1 class="padding-bottom20">Electric Bike and Scooters</h1>
+                <div class="clear"></div>
+            </div>
+            @Html.Partial("~/Views/ElectricBikes/_Index_Tabs.cshtml", Model)
+
+            <div id="makeAboutContent" class="content-box-shadow bw-model-tabs-data margin-bottom20 padding-top20 padding-right10 padding-bottom20 padding-left10 border-solid-bottom">
+                <div class="grid-12">
+                    <div class="font14 text-light-grey line-height17 collapsible-content">
+                        <p class="main-content">
+                            Electric two wheelers are the future for a market like India, which is the market with the highest number of two wheelers in the world.There is only one motorcycle manufacturer in the space, and that is Tork Motorcycles.However, their debut product, the T6X, hasn’t been launched yet. What is available in the market is a range of scooters from Hero Electric, Okinawa and Yo Bikes.
+                        </p>
+                        <p class="more-content hide">
+                            These are all practical runabouts whose performance isn’t quite on par with their fossil-fuel-powered counterparts, but they are ideal for someone with a short commute or a run to the market. It will still be a short while before the performance of products that run on batteries becomes truly electric.
+                        </p>
+                        <a href="javascript:void(0)" class="read-more-target" rel="nofollow">Read more</a>
+                        <p class="main-content">
+
+                        </p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            @if (Model.ElectricBikes != null && Model.ElectricBikes.Any())
+            { <div id="bikeMakeList" class="content-box-shadow bw-model-tabs-data">
+                <ul class="bike-listing">
+                    @foreach (var bikedetails in Model.ElectricBikes)
+                    {
+                        <li class="list-item">
+                            <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.objMake.MaskingName, bikedetails.objModel.MaskingName)" title="@bikedetails.BikeName" class="block">
+                                <div class="model-jcarousel-image-preview">
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostURL, Bikewale.Utility.ImageSize._310x174)" src="" alt="@bikedetails.BikeName" />
+                                </div>
+                                <div class="card-desc-block">
+                                    <h2 class="bikeTitle">@bikedetails.BikeName</h2>
+                                    @if (bikedetails.Specs != null)
+                                    { <div class="text-xt-light-grey font14 margin-bottom15">
+
+
+                                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bikedetails.Specs.Displacement), Convert.ToString(bikedetails.Specs.FuelEfficiencyOverall), Convert.ToString(bikedetails.Specs.MaxPower), Convert.ToString(bikedetails.Specs.KerbWeight)))
+                                    </div>}
+                                    @if (!string.IsNullOrEmpty(bikedetails.CityName))
+                                    {
+                                        <p class="key-size-14 margin-bottom5">Ex Showroom, @bikedetails.CityName</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="key-size-14 margin-bottom5">Ex Showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                                    }
+
+                                    @Html.Raw("<span class='value-size-18'>&#x20B9;</span>")
+                                    &nbsp;<span class="value-size-18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.VersionPrice))</span>
+                                    <span class="value-size-14"> onwards</span>
+                                </div>
+                            </a>
+                            <div class="margin-left20 margin-bottom10">
+                                <a href="javascript:void(0)" data-pagecatid="@Model.PageCatId" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_ElectricBike)" data-modelid="@bikedetails.objModel.ModelId" class=" btn btn-sm btn-grey font14 getquotation" rel="nofollow">Check on-road price</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>}
+
+
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+    @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any() || Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any() || Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+    {<section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow">
+                    @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+                    {
+                        <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 padding-top20 padding-bottom20 border-solid-bottom font14">
+                            <h2 class="margin-bottom20">News about Electric Bikes</h2>
+                            @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+
+                        </div>
+
+                    }
+                    @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+                    {
+                        <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                            <h2 class="padding-left10 padding-right10">Expert reviews on Electric Bikes</h2>
+                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                        </div>
+                    }
+                    @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+                    {
+                        <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                            <h2 class="padding-right10 padding-left10">Videos of Electric Bikes</h2>
+                            @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+                        </div>
+                    }
+
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    }
+
+
+    <section>
+        <!--  Discover your bike code starts here -->
+        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Not sure? Explore other bikes</h2>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="bw-tabs-panel content-box-shadow brand-budget-mileage-style-wrapper">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul class="brand-collapsible-present">
+                            <li class="active" data-tabs="discoverBrand">
+                                <h3>Brand</h3>
+                            </li>
+                            <li data-tabs="discoverBudget">
+                                <h3>Budget</h3>
+                            </li>
+                            <li data-tabs="discoverMileage">
+                                <h3>Mileage</h3>
+                            </li>
+                            <li data-tabs="discoverStyle">
+                                <h3>Style</h3>
+                            </li>
+                        </ul>
+                    </div>
+                    @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
+                    <div class="bw-tabs-data budget-container margin-bottom20 hide" id="discoverBudget">
+                        <ul class="block-button-list text-center">
+                            <li>
+                                <a href="/new/bike-search/bikes-under-50000/" class="list-item">
+                                    <span class="block-key-field">Upto</span>
+                                    <span>
+                                        <span class="bwsprite inr-budget"></span>
+                                        <span class="font20">50,000</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/new/bike-search/bikes-between-50000-and-100000/" class="list-item">
+                                    <span class="block-key-field">Between</span>
+                                    <span>
+                                        <span class="bwsprite inr-budget"></span>
+                                        <span class="font20">50,000 - </span>
+                                        <span class="bwsprite inr-budget"></span>
+                                        <span class="font20">1</span>
+                                        <span class="font16">Lakhs</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/new/bike-search/bikes-between-100000-and-250000/" class="list-item">
+                                    <span class="block-key-field">Between</span>
+                                    <span>
+                                        <span class="bwsprite inr-budget"></span>
+                                        <span class="font20">1</span>
+                                        <span class="font16">Lakhs</span>
+                                        <span>- </span>
+                                        <span class="bwsprite inr-budget"></span>
+                                        <span class="font20">2.5</span>
+                                        <span class="font16">Lakhs</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/new/bike-search/bikes-above-250000/" class="list-item">
+                                    <span class="block-key-field">Above</span>
+                                    <span>
+                                        <span class="bwsprite inr-budget"></span>
+                                        <span class="font20">2.5</span>
+                                        <span class="font16">Lakhs</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bw-tabs-data margin-bottom20 hide" id="discoverMileage">
+                        <ul class="block-button-list text-center">
+                            <li>
+                                <a href="/new/bike-search/#mileage=1" class="list-item">
+                                    <span class="block-key-field">Above</span>
+                                    <span>
+                                        <span class="font20">70 <span class="font16">Kmpl</span></span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/new/bike-search/#mileage=2" class="list-item">
+                                    <span class="block-key-field">Between</span>
+                                    <span>
+                                        <span class="font20">70</span>
+                                        <span class="font16">Kmpl</span>
+                                        <span class="font20">- 50</span>
+                                        <span class="font16">Kmpl</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/new/bike-search/#mileage=3" class="list-item">
+                                    <span class="block-key-field">Between</span>
+                                    <span>
+                                        <span class="font20">50</span>
+                                        <span class="font16">Kmpl</span>
+                                        <span class="font20">- 30</span>
+                                        <span class="font16">Kmpl</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/new/bike-search/#mileage=4" class="list-item">
+                                    <span class="block-key-field">Upto</span>
+                                    <span>
+                                        <span class="font20">30</span>
+                                        <span class="font16">Kmpl</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bw-tabs-data style-type-container margin-bottom35 hide" id="discoverStyle">
+                        <ul class="block-button-list text-center">
+                            <li>
+                                <a href="/new/bike-search/#ridestyle=5" class="list-item">
+                                    <span class="style-type">
+                                        <span class="styletypesprite style-scooters"></span>
+                                    </span>
+                                    <span>Scooters</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/new/bike-search/#ridestyle=3" class="list-item">
+                                    <span class="style-type">
+                                        <span class="styletypesprite style-street"></span>
+                                    </span>
+                                    <span>Street</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/new/bike-search/#ridestyle=1" class="list-item">
+                                    <span class="style-type">
+                                        <span class="styletypesprite style-cruiser"></span>
+                                    </span>
+                                    <span>Cruiser</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/new/bike-search/#ridestyle=2" class="list-item">
+                                    <span class="style-type">
+                                        <span class="styletypesprite style-sports"></span>
+                                    </span>
+                                    <span>Sports</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+</section>
+
+
+

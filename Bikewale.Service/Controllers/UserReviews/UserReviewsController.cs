@@ -89,7 +89,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-               
+
                 return InternalServerError();
             }
             return NotFound();
@@ -148,7 +148,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-               
+
                 return InternalServerError();
             }
             return NotFound();
@@ -177,7 +177,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-               
+
                 return InternalServerError();
             }
 
@@ -208,7 +208,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-               
+
                 return InternalServerError();
             }
             return (IHttpActionResult)Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
@@ -239,7 +239,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-               
+
                 return InternalServerError();
             }
             return (IHttpActionResult)Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
@@ -277,7 +277,42 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             return NotFound();
         }   // Get review details
+
+
         #endregion
+        /// <summary>
+        /// Created By: Snehal Dange on 8th Dec 2017
+        /// Description : Api to get review summary for review popup on make page user reviews. 
+        /// Extra parameters: overallrating , total review count , total rating count
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(ReviewDetails)), Route("api/v2/user-reviews/summary/{reviewId}/")]
+        public IHttpActionResult GetUserReviewSummaryWithRating(uint reviewId)
+        {
+            UserReviewSummary objUserReview = null;
+            UserReviewSummaryDto objDTOUserReview = null;
+            try
+            {
+                objUserReview = _userReviewsCache.GetUserReviewSummaryWithRating(reviewId);
+
+                if (objUserReview != null)
+                {
+                    // Auto map the properties
+                    objDTOUserReview = new UserReviewSummaryDto();
+                    objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
+
+                    return Ok(objDTOUserReview);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.GetUserReviewSummaryWithRating");
+                return InternalServerError();
+            }
+            return NotFound();
+        }   // Get review details with model overall details
+
 
         #region SaveUserReviewDetails
         [HttpPost, ResponseType(typeof(UserReviewSummaryDto)), Route("api/user-reviews/review/save/")]

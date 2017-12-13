@@ -80,6 +80,13 @@ namespace Bikewale.DTO.Model.v5
         [JsonProperty("campaign", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public CampaignBaseDto Campaign { get; set; }
 
+        [JsonProperty("isSpecsAvailable")]
+        public bool IsSpecsAvailable { get; set; }
+        [JsonProperty("gallery")]
+        public Gallery Gallery { get; set; }
+        [JsonProperty("review")]
+        public Review Review { get; set; }
+
 
 
 

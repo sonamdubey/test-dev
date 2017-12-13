@@ -426,8 +426,6 @@ namespace Bikewale.BAL.BikeData
 
             try
             {
-
-
                 var reviewTask = Task.Factory.StartNew(() => objReview = _userReviews.GetUserReviews(1, 2, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent).ReviewList);
                 var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), 2, 0, Convert.ToUInt32(modelId)));
                 var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.RoadTest), 2, 0, Convert.ToUInt32(modelId)));
@@ -971,6 +969,29 @@ namespace Bikewale.BAL.BikeData
                 Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("BikeModels.GetMileageDetails()_ModelId: {0}", modelId));
             }
             return mileageWidgetObj;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 28th Nov 2017
+        /// Description : Get series by model id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeSeriesEntityBase GetSeriesByModelId(uint modelId)
+        {
+            BikeSeriesEntityBase objSeries = null;
+            try
+            {
+                if (modelId > 0)
+                {
+                    objSeries = _modelCacheRepository.GetSeriesByModelId(modelId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetSeriesByModelId modelId = {0}", modelId));
+            }
+            return objSeries;
         }
 
     }   // Class

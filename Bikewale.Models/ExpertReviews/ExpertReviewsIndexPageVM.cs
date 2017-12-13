@@ -1,8 +1,9 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Pager;
-using System.Collections.Generic;
+using Bikewale.Models.BikeModels;
 
 namespace Bikewale.Models
 {
@@ -11,12 +12,17 @@ namespace Bikewale.Models
     /// Summary : Class have properties to render the expert reviews index page (View Model)
     /// Modified by : Aditi Srivastava on 30 Mar 2017
     /// Summary     : Added view models and properties for widgets
+    /// Modified by : Vivek Singh Tomar on 27th Nov 2017
+    /// Summary : Added BikeSeriesEntityBase
+    /// Modified by sajal Gupta on 01-12-2017
+    /// Summary : Added PopularBikesAndPopularScootersWidget and UpcomingBikesAndUpcomingScootersWidget and MostPopularMakeBikes
     /// </summary>
     public class ExpertReviewsIndexPageVM : ModelBase
     {
         public CMSContent Articles { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
+        public BikeSeriesEntityBase Series { get; set; }
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
         public PagerEntity PagerEntity { get; set; }
@@ -26,7 +32,14 @@ namespace Bikewale.Models
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
-        public EnumBikeBodyStyles BodyStyle  { get; set; }
+        public EnumBikeBodyStyles BodyStyle { get; set; }
+        public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
+        public MultiTabsWidgetVM PopularBikesAndPopularScootersWidget { get; set; }
+        public MultiTabsWidgetVM UpcomingBikesAndUpcomingScootersWidget { get; set; }
+        public MultiTabsWidgetVM PopularBikesAndUpcomingBikesWidget { get; set; }
+        public MultiTabsWidgetVM PopularMakeBikesAndBodyStyleBikesWidget { get; set; }
+        public MultiTabsWidgetVM PopularMakeScootersAndOtherBrandsWidget { get; set; }
+        public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
     }
 
 

@@ -74,7 +74,15 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.PageMetaTags.Title = string.Format("{0} Bike Videos - BikeWale", objVM.Make.MakeName);
+                if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objVM.Make.MakeId.ToString()))
+                {
+                    objVM.PageMetaTags.Title = string.Format("Videos of {0} Bikes | Videos of {0} Models- BikeWale", objVM.Make.MakeName);
+                }
+                else
+                {
+                    objVM.PageMetaTags.Title = string.Format("{0} Bike Videos - BikeWale", objVM.Make.MakeName);
+                }
+
                 objVM.PageMetaTags.Description = string.Format("Check latest {0} bikes videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", objVM.Make.MakeName);
                 objVM.PageMetaTags.Keywords = string.Format("{0},{0} bikes,{0} videos", objVM.Make.MakeName);
                 SetBreadcrumList(objVM);
