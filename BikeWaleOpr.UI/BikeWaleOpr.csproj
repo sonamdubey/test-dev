@@ -21,6 +21,7 @@
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,12 +49,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AjaxPro.2.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper">
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="Carwale.WebServices.OprAuthentication, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.WebServices.OprAuthentication.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ElasticSearch\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Enyim.Caching, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -92,6 +98,10 @@
     <Reference Include="MySqlDatabaseLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ElasticSearch\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -2083,6 +2093,10 @@
     <ProjectReference Include="..\Bikewale.Comparison.Interface\Bikewale.Comparison.Interface.csproj">
       <Project>{18c44359-a725-4093-9c32-75898d3dd088}</Project>
       <Name>Bikewale.Comparison.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.DAL.CoreDAL\Bikewale.DAL.CoreDAL.csproj">
+      <Project>{d5229109-3b85-48e7-9ff8-5385bdb54c87}</Project>
+      <Name>Bikewale.DAL.CoreDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>

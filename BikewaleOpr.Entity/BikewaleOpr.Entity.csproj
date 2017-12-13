@@ -180,6 +180,7 @@
     <Compile Include="Dealers\UpdatePricingRulesResponseEntity.cs" />
     <Compile Include="Dealers\VersionPriceEntity.cs" />
     <Compile Include="Dealers\DealerVersionEntity.cs" />
+    <Compile Include="ElasticSearch\BikeList.cs" />
     <Compile Include="EMI.cs" />
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="GeoLocationDestinationEntity.cs" />
