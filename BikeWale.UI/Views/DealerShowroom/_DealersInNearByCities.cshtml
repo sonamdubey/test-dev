@@ -7,7 +7,7 @@
             @foreach (var Dealer in Model.objDealerInNearCityList)
             {
             <li>
-                <a href="@string.Format("/{0}-dealer-showrooms-in-{1}/",Model.Make.MaskingName,Dealer.CityMaskingName)" title="@string.Format("{0} showrooms in {1}", Model.Make.MakeName, Dealer.CityName)" class="jcarousel-card">
+                <a href="@string.Format("/dealer-showrooms/{0}/{1}/",Model.Make.MaskingName,Dealer.CityMaskingName)" title="@string.Format("{0} showrooms in {1}", Model.Make.MakeName, Dealer.CityName)" class="jcarousel-card">
                     <div class="lazy dealer-location-img" data-original="@Dealer.GoogleMapImg" title="@string.Format("{0} showrooms in {1}", Model.Make.MakeName, Dealer.CityName)"></div>
                     <div class="card-desc-block">
                         <p class="card-heading font14 text-bold text-black padding-top5">@Dealer.CityName</p>

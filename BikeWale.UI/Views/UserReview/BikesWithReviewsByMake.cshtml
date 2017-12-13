@@ -3,7 +3,7 @@
 
 @if (Model != null && Model.BikesReviewsList != null)
 {
-    <div class="user-review-container">
+    <div id="userReviewContentDesktop" class="user-review-container">
         <ul class="popular-review-list">
             @foreach (var obj in Model.BikesReviewsList)
             {
@@ -21,30 +21,29 @@
                                     <span class="rate-star-count">@Math.Round(obj.BikeModel.OverallRating, 1)</span>
                                 </span>
                             }
-                            
-                            <a href="@UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName)" title="@string.Format("{0} {1}", bikeName, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))" class="inline-block margin-left5">@string.Format("({0} {1})", obj.BikeModel.ReviewCount, ( (obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))</a>
+
+                            <a href="@UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName)" title="@string.Format("{0} {1}", bikeName, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))" class="inline-block margin-left5">@string.Format("({0} {1})", obj.BikeModel.ReviewCount, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))</a>
                         </div>
                         <div>
-                            <a href="@UrlFormatter.BikePageUrl(obj.BikeModel.Make.MaskingName,obj.BikeModel.Model.MaskingName)" class="review-list__image-target">
+                            <a href="@UrlFormatter.BikePageUrl(obj.BikeModel.Make.MaskingName,obj.BikeModel.Model.MaskingName)" class="review-list__image-target margin-right10">
                                 <img class="lazy" data-original="@Image.GetPathToShowImages(obj.BikeModel.OriginalImagePath,obj.BikeModel.HostUrl, ImageSize._310x174,"75")" src="" title="@bikeName" alt="@string.Format("{0} Model Image",bikeName)" width="150" height="84">
                             </a>
                             <ul class="review-type-list">
                                 <li class="review-type-list__item">
                                     <p class="review-item__label">Most Popular Review</p>
                                     <p class="review-item__preview">@FormatDescription.TruncateDescription(obj.MostHelpful.Description, 100)</p>
-                                    <a href="@string.Format("{0}{1}/", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName),obj.MostHelpful.ReviewId)" title="@obj.MostHelpful.Title" class="font14">Read more</a>
+                                    <span class="review-popup__link text-link bw-ga" data-cat="Make_Page" data-act="Clicked_on_Full_Review " data-lab="@bikeName" data-reviewid="@obj.MostHelpful.ReviewId">Full review</span>
                                 </li>
                                 <li class="review-type-list__item">
                                     <p class="review-item__label">Most Recent Review</p>
                                     <p class="review-item__preview">@FormatDescription.TruncateDescription(obj.MostRecent.Description, 110)</p>
-                                    <a href="@string.Format("{0}{1}/", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName),obj.MostRecent.ReviewId)" title="@obj.MostRecent.Title" class="font14">Read more</a>
+                                    <span class="review-popup__link text-link bw-ga" data-cat="Make_Page" data-act="Clicked_on_Full_Review " data-lab="@bikeName" data-reviewid="@obj.MostRecent.ReviewId">Full review</span>
                                 </li>
                             </ul>
                             <div class="clear"></div>
                         </div>
                     </li>
                 }
-
             }
 
         </ul>

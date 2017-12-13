@@ -16,6 +16,7 @@ h2.section-heading {
     margin-bottom: 15px;
 }
 
+
 .banner-box-shadow {
     background: #fff;
     margin-top: -25px;
@@ -196,4 +197,24 @@ h2.section-heading {
     font-size: 14px;
     color: #82888b;
     padding: 15px 10px;
+}
+
+/* best bikes swiper */
+.best-bikes-swiper .swiper-card,
+.best-bikes-swiper .swiper-card-target {
+    min-height: 180px
+}
+
+.best-bikes-swiper .swiper-image-preview {
+    height: 113px;
+    padding: 0
+}
+
+.best-bikes-swiper .swiper-image-preview img {
+    height: 113px
+}
+
+.best-bikes-swiper .swiper-details-block {
+    padding-top: 10px;
+    padding-bottom: 15px
 }

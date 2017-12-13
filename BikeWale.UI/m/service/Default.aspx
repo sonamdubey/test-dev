@@ -13,7 +13,7 @@
         title = "Locate Authorised Bike Service Center | Bikes Servicing Center Nearby - BikeWale";
         keywords = "servicing, bike servicing, authorised service centers, bike service centers, servicing bikes, bike repairing, repair bikes";
         description = "Locate authorised service centers in India. Find authorised service centers of Hero, Honda, Bajaj, Royal Enfield, Harley Davidson, Yamaha, KTM, Aprilia and many more brands in more than 1000+ cities.";
-        canonical = "https://www.bikewale.com/bike-service-center/";
+        canonical = "https://www.bikewale.com/service-centers/";
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
         Ad_320x50 = false;
@@ -67,7 +67,7 @@
                         <ul class="text-center">
                            <%foreach(var bikebrand in TopMakeList) {%>
                                       <li>
-                                        <a href="/m/<%=bikebrand.MaskingName %>-service-center-in-india/" title="<%=bikebrand.MakeName %> Service Center in India">
+                                        <a href="/m/service-centers/<%=bikebrand.MaskingName %>/" title="<%=bikebrand.MakeName %> Service Center in India">
                                             <span class="brand-type">
                                                 <span class="lazy brandlogosprite brand-<%=bikebrand.MakeId %>"></span>
                                             </span>
@@ -81,7 +81,7 @@
                                  <%foreach (var bikebrand in OtherMakeList)
                                    {%>
                                       <li>
-                                        <a href="/m/<%=bikebrand.MaskingName %>-service-center-in-india/"  title="<%=bikebrand.MakeName %> Service Center in India">
+                                        <a href="/m/service-centers/<%=bikebrand.MaskingName %>/"  title="<%=bikebrand.MakeName %> Service Center in India">
                                             <span class="brand-type">
                                                 <span class="lazy brandlogosprite brand-<%=bikebrand.MakeId %>"></span>
                                             </span>
@@ -443,7 +443,7 @@
                     if (!isNaN(selCityId) && selCityId != "0") {
                         ddlcityMasking = $ddlCities.find("li.activeCity").attr("citymaskingname");
                         bwcache.remove("userchangedlocation", true);
-                        window.location.href = "/m/" + ddlmakemasking + "-service-center-in-" + ddlcityMasking + "/";
+                        window.location.href = "/m/service-centers/" + ddlmakemasking + "/" + ddlcityMasking + "/";
                     }
                     else {
                         setError($("div.locator-search-city-form"), "Please select city!");

@@ -15,7 +15,14 @@
 		<section id="section-videos-list">
 			<div class="miscWrapper container">
 				<div class="grid-12">
+                    @if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(Model.Make.MakeId.ToString()))
+                    {
+                        <h1 class="content-box-shadow padding-15-20">Videos of @Model.Make.MakeName @Model.Model.ModelName</h1>
+                    }
+                    else
+                    {
 					<h1 class="content-box-shadow padding-15-20">@Model.Make.MakeName @Model.Model.ModelName @(Model.bikeType.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooter" : "bike") videos</h1>
+                    }                   
 					<div class="content-box-shadow section-bottom-margin">
 						<ul id="listVideos1">
 							@foreach (var video in Model.VideosList)
