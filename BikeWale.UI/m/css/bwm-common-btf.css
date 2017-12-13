@@ -1504,12 +1504,14 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .swiper-wrapper #allbikes .swiper-details-block {
     position: absolute;
     top: 43%;
-    left: 16%;
+    left: 13%;
     padding: 0;
     z-index: 2;
 }
 .swiper-wrapper #allbikes .swiper-btn-block {
-    font-size: 12px;
+    font-size: 14px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     font-weight: 600;
     color: #fff;
     display: block;
