@@ -8,7 +8,6 @@
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_300x250 = true;
 }
-@Html.Partial("~/Views/Shared/_ReviewPopup.cshtml", Model)
 <section id="makeTabsContentWrapper">
     <section>
         <div id="bikeByMakesListing" class="container margin-bottom20">
@@ -191,7 +190,7 @@
         </div>
     }
 
-    @if (Model.IsDealerServiceDataAvailable || Model.DealersServiceCenterPopularCities != null)
+    @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
     {
         <div id="makeDealersContent" class="bw-model-tabs-data">
             @if (Model.IsDealerAvailable)
@@ -223,8 +222,11 @@
                         <div class="content-box-shadow padding-bottom5 card-bottom-margin">
                             <div class="content-inner-block-20">
                                 <span class="bwmsprite dealer-grey"></span>
-                                <h2 class="margin-bottom10 inline-block padding-left10">@Model.MakeName showrooms</h2>
-                                <p class="font14 text-slate-grey margin-bottom15">There are @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount cities in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
+                                <h2 class="margin-bottom10 inline-block padding-left10">@Model.MakeName showroom@(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "" : "s")</h2>
+                                @{
+                var showroomText = (Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "showroom" : "showrooms");
+                                }
+                                <p class="font14 text-slate-grey margin-bottom15">There @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "is" : "are") @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName @showroomText across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "city" : "cities") in India. Select your city to find address, & contact details of @Model.MakeName @showroomText near you.</p>
                                 <a href="javascript:void(0)" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage " rel="nofollow" data-makemasking="@Model.MakeMaskingName">
                                     Select your city
                                 </a>
@@ -360,4 +362,9 @@
         </div>
     </section>
 }
+
+<!-- Make review popup-->
+<div id="reviewPopup" class="review-popup hide">
+</div>
+<!-- make review popup ends-->
 

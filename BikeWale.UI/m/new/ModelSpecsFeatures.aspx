@@ -6,7 +6,7 @@
 <head>
     <%
         description = String.Format("Know more about {0} Specifications and Features. See details about mileage, engine displacement, power, kerb weight and other specifications.", bikeName);
-        title = String.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
+        title = pgTitle;
         canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
         keywords = string.Format("{0} specifications, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
         EnableOG = true;
@@ -25,7 +25,17 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section class="bg-white box-shadow margin-bottom10">
             <div id="modelPriceDetails" class="content-inner-block-120">
-                <h1 class="margin-bottom5"><%= bikeName %> Specifications and Features</h1>
+
+                  <% if (Bikewale.Utility.BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_makeId.ToString()))
+                     {%> 
+                
+                 <h1 class="margin-bottom5">Specifications & Feature of <%= bikeName%></h1>
+                
+                <%}else{ %>
+                 <h1 class="margin-bottom5"><%= bikeName %> Specifications and Features</h1>
+                <%} %>
+
+               
 
                 <% if (price > 0)
                     { %>
@@ -366,8 +376,10 @@
                                     </div>
                                     <% }
                                         if (similarBikes.Make != null && similarBikes.Model != null && similarBikes.IsNew)
-                                        { %>
-                                    <a class="compare-with-target text-truncate" href="<%= string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.CreateCompareUrl(similarBikes.Make.MaskingName, similarBikes.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(similarBikes.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)similarBikes.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget)) %>" title="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, similarBikes.Model.ModelName) %>">
+                                        {
+                                            string fullUrl = string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.CreateCompareUrl(similarBikes.Make.MaskingName, similarBikes.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(similarBikes.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)similarBikes.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget));
+                                             %>
+                                    <a class="compare-with-target text-truncate redirect-url" href="<%= Bikewale.Utility.UrlFormatter.RemoveQueryString(fullUrl) %>" data-url="<%= fullUrl  %>" title="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, similarBikes.Model.ModelName) %>">
                                         <span class="bwmsprite compare-sm"></span>Compare with <%= similarBikes.Model.ModelName %><span class="bwmsprite right-arrow"></span>
                                     </a>
                                     <% } %>
@@ -495,6 +507,16 @@
                     </li>
                     <%  }
                     %>
+
+                    <% if (!string.IsNullOrEmpty(seriesUrl))
+                        { %>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a class="breadcrumb-link" href="/m/<%= seriesUrl %>" title="<%= Series.SeriesName%>">
+                                <span class="breadcrumb-link__label" itemprop="name"><%=Series.SeriesName %></span>
+                            </a>
+                        </li>
+                    <% } %>
+
                     <li>
                         <a class="breadcrumb-link" href="/m/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" title="<%= String.Format("{0} {1}", makeName, modelName) %>">
                             <span class="breadcrumb-link__label" itemprop="name"><%= String.Format("{0} {1}", makeName, modelName) %> </span>

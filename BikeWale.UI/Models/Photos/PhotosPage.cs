@@ -69,6 +69,8 @@ namespace Bikewale.Models.Photos
         /// <summary>
         /// Created by  : Sushil Kumar on 30th Sep 2017
         /// Description :  To bind photo gallery page
+        /// Modified by : Vivek Singh Tomar on 28th Nov 2017
+        /// Description : Get series entity to create bread crumb list
         /// </summary>
         /// <param name="gridSize"></param>
         /// <param name="noOfGrid"></param>
@@ -87,7 +89,7 @@ namespace Bikewale.Models.Photos
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 _cityId = currentCityArea.CityId;
                 ProcessQueryStringVariables(qstr);
-
+                _objData.Series = _objModelEntity.GetSeriesByModelId(_modelId);
                 BindPhotos();
                 BindPageWidgets();
                 SetPageMetas();
@@ -252,12 +254,23 @@ namespace Bikewale.Models.Photos
             {
                 if (_objData.Make != null && _objData.Model != null)
                 {
-                    _objData.PageMetaTags.Title = String.Format("{0} Images | {1} Photos - BikeWale", _objData.BikeName, _objData.Model.ModelName);
+
+                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_objData.Make.MakeId.ToString()))
+                    {
+                        _objData.PageMetaTags.Title = String.Format(" Images of {0}| Photos of {0}- BikeWale", _objData.BikeName);
+                        _objData.Page_H1 = string.Format("Images of {0}", _objData.BikeName);
+                    }
+                    else
+                    {
+                        _objData.PageMetaTags.Title = String.Format("{0} Images | {1} Photos - BikeWale", _objData.BikeName, _objData.Model.ModelName);
+                        _objData.Page_H1 = string.Format("{0} Images", _objData.BikeName);
+                    }
+
                     _objData.PageMetaTags.Keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", _objData.Model.ModelName, _objData.Make.MakeName);
                     _objData.PageMetaTags.Description = string.Format("View images of {0} in different colours and angles. Check out {2} photos of {1} on BikeWale", _objData.Model.ModelName, _objData.BikeName, _objData.TotalPhotos);
                     _objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/images/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _objData.Make.MaskingName, _objData.Model.MaskingName);
                     _objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/images/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _objData.Make.MaskingName, _objData.Model.MaskingName);
-                    _objData.Page_H1 = string.Format("{0} Images", _objData.BikeName);
+
 
                     SetBreadcrumList();
                     SetPageJSONLDSchema(_objData.PageMetaTags);
@@ -333,8 +346,8 @@ namespace Bikewale.Models.Photos
         private void SetBreadcrumList()
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string bikeUrl, scooterUrl;
-            bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string bikeUrl, scooterUrl, seriesUrl;
+            bikeUrl = scooterUrl = seriesUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
@@ -360,6 +373,18 @@ namespace Bikewale.Models.Photos
                 scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, _objData.Make.MaskingName);
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", _objData.Make.MakeName)));
+            }
+
+            if (_objData.Series != null && _objData.Series.IsSeriesPageUrl)
+            {
+                if (IsMobile)
+                {
+                    seriesUrl += "m/";
+                }
+
+                seriesUrl = string.Format("{0}{1}-bikes/{2}/", seriesUrl, _objData.Make.MaskingName, _objData.Series.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, _objData.Series.SeriesName));
             }
 
             if (_objData.Model != null)

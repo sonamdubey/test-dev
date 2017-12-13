@@ -63,6 +63,10 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017
         /// Summary    : To get list of videos
+        /// Modified by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Added call to GetSimilarVideos for videos related to multiple model ids.
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Removed videoBasicId from call of GetSimilarVideos.
         /// </summary>
         public RecentVideosVM GetData()
         {
@@ -71,8 +75,7 @@ namespace Bikewale.Models
             {
 				if (!string.IsNullOrEmpty(_modelIdList))
 				{
-					uint videoBasicId = 1; // 1 required to get videos
-					recentVideos.VideosList = _videos.GetSimilarVideos(_pageSize, _modelIdList, videoBasicId);
+					recentVideos.VideosList = _videos.GetSimilarVideos(_pageSize, _modelIdList);
 				}
 				else if (IsScooter)
 				{

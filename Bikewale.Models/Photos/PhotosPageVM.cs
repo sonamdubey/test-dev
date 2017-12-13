@@ -1,9 +1,9 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.Videos;
 using Bikewale.Models.Gallery;
-using System.Collections.Generic;
 
 namespace Bikewale.Models.Photos
 {
@@ -34,6 +34,7 @@ namespace Bikewale.Models.Photos
         public string BikeName { get; set; }
         public bool IsPopupOpen { get; set; }
         public sbyte BodyStyle { get; set; }
+        public BikeSeriesEntityBase Series { get; set; }
 
     }
 }

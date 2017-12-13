@@ -65,6 +65,8 @@ namespace Bikewale.BAL.GrpcFiles
 
         }
 
+        /// Modified by :   Sangram Nandkhile on 01 Dec 2017
+        /// Description :   logic to bind Formatted Date and shareurl
         public static List<ArticleSummary> ConvertFromGrpcToBikeWale(GrpcArticleSummaryList data)
         {
             if (data == null)
@@ -73,8 +75,10 @@ namespace Bikewale.BAL.GrpcFiles
             {
                 List<ArticleSummary> retData = new List<ArticleSummary>();
                 ArticleSummary curArticleSummary;
+
                 foreach (var curGrpcArticleSummary in data.LstGrpcArticleSummary)
                 {
+                    DateTime displayDate = ParseDateObject(curGrpcArticleSummary.DisplayDate);
                     curArticleSummary = new ArticleSummary()
                     {
                         ArticleUrl = curGrpcArticleSummary.ArticleBase.ArticleUrl,
@@ -82,10 +86,11 @@ namespace Bikewale.BAL.GrpcFiles
                         BasicId = curGrpcArticleSummary.ArticleBase.BasicId,
                         CategoryId = (ushort)curGrpcArticleSummary.CategoryId,
                         Description = curGrpcArticleSummary.Description.Replace("&#x20B9;", "₹"),
-                        DisplayDate = ParseDateObject(curGrpcArticleSummary.DisplayDate),
+                        DisplayDate = displayDate,
+                        FormattedDisplayDate = displayDate.ToString("dd MMMM yyyy"),
+                        ShareUrl = Bikewale.Utility.CMSShareUrl.ReturnShareUrl((ushort)curGrpcArticleSummary.CategoryId, curGrpcArticleSummary.ArticleBase.BasicId, curGrpcArticleSummary.ArticleBase.ArticleUrl),
                         FacebookCommentCount = curGrpcArticleSummary.FacebookCommentCount,
                         HostUrl = curGrpcArticleSummary.HostUrl,
-                        //IsFeatured=curGrpcArticleSummary.fedate
                         IsSticky = curGrpcArticleSummary.IsSticky,
                         LargePicUrl = curGrpcArticleSummary.LargePicUrl,
                         OriginalImgUrl = curGrpcArticleSummary.OriginalImgUrl,
@@ -658,7 +663,7 @@ namespace Bikewale.BAL.GrpcFiles
                 foreach (var item in data.Articles.LstGrpcArticleSummary)
                 {
                     var curArt = ConvertFromGrpcToBikeWalePwa(item);
-                   dataNew.Articles.Add(curArt);
+                    dataNew.Articles.Add(curArt);
                 }
                 return dataNew;
             }
@@ -673,7 +678,7 @@ namespace Bikewale.BAL.GrpcFiles
         public static PwaArticleDetails ConvertFromGrpcToBikeWalePwa(GrpcArticleDetails inpDet)
         {
             var outDetails = new PwaArticleDetails();
-            if (inpDet != null && inpDet.ArticleSummary!=null && inpDet.ArticleSummary.ArticleBase.BasicId > 0)
+            if (inpDet != null && inpDet.ArticleSummary != null && inpDet.ArticleSummary.ArticleBase.BasicId > 0)
             {
                 var artBase = inpDet.ArticleSummary.ArticleBase;
                 var artSummary = inpDet.ArticleSummary;

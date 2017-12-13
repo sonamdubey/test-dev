@@ -1,6 +1,7 @@
 ﻿var selectDropdownBox, msg = "";
 var getCityArea = GetGlobalCityArea();
 var getOfferClick = false, getMoreDetailsClick = false, getEMIClick = false;
+var processingFees = 0;
 
 function registerPQAndReload(eledealerId, eleversionId) {
     try {
@@ -88,6 +89,10 @@ function LoadTerms(offerId) {
 }
 
 docReady(function () {
+
+    if (document.getElementById('dealerProcessingFees')) {
+        processingFees = parseInt($('#dealerProcessingFees').val());
+    }
     // version dropdown
     $('.chosen-select').chosen();
 
@@ -244,7 +249,7 @@ docReady(function () {
         self.minROI = ko.observable(10);
         self.maxROI = ko.observable(15);
 
-        self.processingFees = ko.observable(0);
+        self.processingFees = ko.observable(processingFees);
         self.exshowroomprice = ko.observable(bikeVersionPrice);
         self.loan = ko.observable();
 
