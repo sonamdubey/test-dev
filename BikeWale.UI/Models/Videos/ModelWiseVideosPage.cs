@@ -83,7 +83,7 @@ namespace Bikewale.Models.Videos
                 if (_makeId > 0)
                     objVM.Make = new MakeHelper().GetMakeNameByMakeId(_makeId);
 
-                string modelIds = _series.GetModelIdsBySeries(objMaskingResponse.Id);
+                string modelIds = _series.GetModelIdsBySeries(objMaskingResponse.ModelId);
                 objVM.VideosList = _objVideosCache.GetSimilarVideos(_maxVideoCount, modelIds, 1);
                 objVM.objSeries = objSeries;
                 BindPageMetasSeries(objVM);
@@ -106,7 +106,7 @@ namespace Bikewale.Models.Videos
             try
             {
                 objVM.PopularSeriesBikes = new PopularSeriesBikesVM();
-                objVM.PopularSeriesBikes.BikesList = _series.GetNewModels(objMaskingResponse.Id, objVM.CityId);
+                objVM.PopularSeriesBikes.BikesList = _series.GetNewModels(objMaskingResponse.SeriesId, objVM.CityId);
                 if (objVM.PopularSeriesBikes.BikesList != null)
                 {
                     objVM.PopularSeriesBikes.BikesList = objVM.PopularSeriesBikes.BikesList.Take(9);
@@ -247,7 +247,7 @@ namespace Bikewale.Models.Videos
                         {
 
 
-                            _modelId = objMaskingResponse.Id;
+                            _modelId = objMaskingResponse.ModelId;
 
                         }
                         else
@@ -255,7 +255,7 @@ namespace Bikewale.Models.Videos
 
                             objSeries = new BikeSeriesEntityBase
                             {
-                                SeriesId = objMaskingResponse.Id,
+                                SeriesId = objMaskingResponse.SeriesId,
                                 SeriesName = objMaskingResponse.Name,
                                 MaskingName = objMaskingResponse.MaskingName,
                                 IsSeriesPageUrl = true

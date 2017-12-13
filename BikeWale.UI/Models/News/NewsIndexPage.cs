@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
@@ -23,6 +19,10 @@ using Bikewale.Models.Scooters;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -352,15 +352,15 @@ namespace Bikewale.Models
                         {
                             modelHelper = new ModelHelper();
                             model = objResponse.MaskingName;
-                            ModelId = objResponse.Id;
-                            objModel = modelHelper.GetModelDataById(objResponse.Id);
+                            ModelId = objResponse.ModelId;
+                            objModel = modelHelper.GetModelDataById(objResponse.ModelId);
                         }
                         else
                         {
                             series = objResponse.MaskingName;
                             objSeries = new BikeSeriesEntityBase
                             {
-                                SeriesId = objResponse.Id,
+                                SeriesId = objResponse.SeriesId,
                                 SeriesName = objResponse.Name,
                                 MaskingName = series,
                                 IsSeriesPageUrl = true
@@ -428,7 +428,7 @@ namespace Bikewale.Models
         private void SetPageMetas(NewsIndexPageVM objData)
         {
             objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatNewsUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
-            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatNewsUrl(make, series,model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatNewsUrl(make, series, model), (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
 
             EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
 
