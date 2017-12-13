@@ -164,7 +164,7 @@ namespace Bikewale.Models
 
             try
             {
-                if(objPage!=null )
+                if (objPage != null)
                 {
                     IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
                     string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
@@ -175,7 +175,7 @@ namespace Bikewale.Models
                     }
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-                    if(objPage.Make!=null)
+                    if (objPage.Make != null)
                     {
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName), string.Format("{0} Bikes", objPage.Make.MakeName)));
                     }
@@ -185,7 +185,7 @@ namespace Bikewale.Models
 
                     objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -323,7 +323,7 @@ namespace Bikewale.Models
                             var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                             if (_city != null)
                             {
-                                RedirectUrl = String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
+                                RedirectUrl = String.Format("/dealer-showrooms/{0}/{1}/", makeMaskingName, _city.CityMaskingName);
                                 status = StatusCodes.RedirectTemporary;
                             }
                         }

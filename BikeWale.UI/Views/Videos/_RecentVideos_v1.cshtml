@@ -73,7 +73,7 @@
 						{
 							<li class="video-artical__card">
 								<a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="card-target carousel-card">
-									<h4 class="video-card__title">@video.VideoTitle</h4>
+									<h4 class="video-card__title">@FormatDescription.TruncateDescription(video.VideoTitle, 75)</h4>
 									<div class="video-card__img">
 										<img class="lazy" alt="@video.VideoTitle" title="@video.VideoTitle" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" src="">
 										<span class="video-card__time-block">

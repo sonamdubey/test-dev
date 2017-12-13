@@ -30,7 +30,7 @@
                                 </div>
                             </a>
                             <div class="padding-left20 padding-right20 margin-bottom20 bw-ga" data-cat="Compare_Bikes" data-act="Clicked_on_CompareCard" data-lab="@string.Format("{0}_{1}", similarObj.BikeModel.ModelName,Model.ModelComparisionText)">
-                                <p class="font12 text-slate-grey margin-bottom15">@string.Format("Compare {0} bike with:", similarObj.BikeModel.ModelName)</p>
+                                <p class="font12 text-slate-grey margin-bottom15 text-truncate">@string.Format("Compare {0} bike with:", similarObj.BikeModel.ModelName)</p>
                                 <a href="@dataHref1" data-url="@compareUrl1" title="@string.Format("{0} vs {1}", similarObj.CompareBike1.Model.ModelName, similarObj.BikeModel.ModelName )" class="compare-with-card margin-right5 redirect-url">
                                     <div class="compare-card__image-preview">
                                         <img class="lazy" data-original="@Image.GetPathToShowImages(similarObj.CompareBike1.OriginalImagePath,similarObj.CompareBike1.HostUrl,ImageSize._110x61 , "75")" src="" alt="" border="0" style="display: inline;">

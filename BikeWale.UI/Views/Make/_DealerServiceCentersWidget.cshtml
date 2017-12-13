@@ -12,13 +12,13 @@
                         </div>
                         @if (details.DealerCount > 0)
                         {
-                            <a href="@string.Format("/{0}-dealer-showrooms-in-{1}/", Model.MakeMaskingName,details.CityMaskingName)" title="@string.Format("{0} Showrooms in {1}", Model.MakeName,details.CityName)" class="block">
+                            <a href="@string.Format("/dealer-showrooms/{0}/{1}/", Model.MakeMaskingName,details.CityMaskingName)" title="@string.Format("{0} Showrooms in {1}", Model.MakeName,details.CityName)" class="block">
                                 @details.DealerCount showroom
                             </a>
                         }
                         @if (details.ServiceCenterCount > 0)
                         {
-                            <a href="@string.Format("/{0}-service-center-in-{1}/", Model.MakeMaskingName, details.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.MakeName, details.CityName)" class="block">
+                            <a href="@string.Format("/service-centers/{0}/{1}/", Model.MakeMaskingName, details.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.MakeName, details.CityName)" class="block">
                                 @details.ServiceCenterCount service center
                             </a>
                         }
@@ -33,11 +33,11 @@
                                 <p class="text-default text-bold margin-bottom5">@Model.MakeName outlets in India</p>
                                 @if (Model.TotalDealerCount > 0)
                                 {
-                                    <a href="/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showroom in India" class="block">@Model.TotalDealerCount showrooms</a>
+                                    <a href="/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName showroom in India" class="block">@Model.TotalDealerCount showrooms</a>
                                 }
                                 @if (Model.TotalServiceCenterCount > 0)
                                 {
-                                    <a href="/@Model.MakeMaskingName-service-center-in-india/" title="@Model.MakeName service center in India" class="block">@Model.TotalDealerCount service centers</a>
+                                    <a href= "@string.Format("/service-centers/{0}/",Model.MakeMaskingName)"  title="@Model.MakeName service center in India" class="block">@Model.TotalDealerCount service centers</a>
                                 }
                             </div>
                         </li>
