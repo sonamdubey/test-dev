@@ -113,6 +113,7 @@
     <Compile Include="AdSlot\AdSlot.cs" />
     <Compile Include="Banner\BannerRepository.cs" />
     <Compile Include="BikeColorImages\ColorImagesBikeRepository.cs" />
+    <Compile Include="Bikedata\BikeBodyStyleRepository.cs" />
     <Compile Include="Bikedata\BikeMakesRepository.cs" />
     <Compile Include="Bikedata\BikeModelsRepository.cs" />
     <Compile Include="Bikedata\BikeSeriesRepository.cs" />

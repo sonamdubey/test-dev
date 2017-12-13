@@ -81,8 +81,9 @@ namespace BikeWaleOpr.Content
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
-                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
-                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>();
+                .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
+                .RegisterType<IBikeBodyStyles, BikeBodyStyleRepository>();
                 _series = container.Resolve<IBikeSeries>();
             }
 

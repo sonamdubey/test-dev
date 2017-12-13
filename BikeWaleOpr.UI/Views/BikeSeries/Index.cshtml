@@ -15,6 +15,7 @@
                             <th>Name</th>
                             <th>Masking Name</th>
                             <th>Series URL</th>
+                            <th>Body Style</th>
                             <th>Make Name</th>
                             <th>Synopsis</th>
                             <th>Edit</th>
@@ -34,6 +35,14 @@
                                     <td class="teal lighten-4">@series.SeriesName</td>
                                     <td>@series.SeriesMaskingName</td>
                                     <td><i class="material-icons @((series.IsSeriesPageUrl) ? "icon-green" : "icon-red")">@((series.IsSeriesPageUrl) ? "done" : "close")</i></td>
+                                    @if (series.BodyStyle != null && series.BodyStyle.BodyStyleId != 0)
+                                    {
+                                        <td> @series.BodyStyle.BodyStyleName </td>
+                                    }
+                                    else
+                                    {
+                                        <td>N/A</td>
+                                    }
                                     <td> @series.BikeMake.MakeName </td>
                                     <td><a href="#!" data-target="modal-series-synopsis" data-bind="event : {click : function(d,e) { getSeriesSynopsis(e) }}"><i class="material-icons icon-green">add_circle</i></a></td>
                                     <td><a href = "#series-edit-update" class="tooltipped" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-makeid="@series.BikeMake.MakeId" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
@@ -81,8 +90,20 @@
                                     <label id = "txtSeriesMaskingLabel" for="txtSeriesMaskingName" data-error="" data-bind="attr:{'data-error':seriesMaskingMsg}, css:seriesMaskingMsg()!=''?'active':''">Series Masking Name</label>
                                 </div>
                                 <div class="input-field row s12">
-                                    <input type="checkbox" id="chkSeriesURL" name="isSeriesPageUrl" class="with-gap" value="false"/>
+                                    <input type="checkbox" id="chkSeriesURL" name="isSeriesPageUrl" class="with-gap" data-bind="checked: isSeriesUrl" />
                                     <label for="chkSeriesURL">Form Series URL</label>
+                                </div>
+                                <div class="input-field row m12" data-bind="visible: isSeriesUrl()">
+                                    <select id="selectBodyStyle" name="BodyStyleId" data-bind="value: selectedBodyStyleId">
+                                        <option disabled selected>Select Body Style</option>
+                                        @if (Model.BikeBodyStylesList != null)
+                                        {
+                                            foreach (var bodystyle in Model.BikeBodyStylesList)
+                                            {
+                                                <option value="@bodystyle.BodyStyleId"> @bodystyle.BodyStyleName </option>
+                                            }
+                                        }
+                                    </select>
                                 </div>
                                 <div class="input-field row m12">
                                     <button id = "btnAddSeries" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return validateSubmit();}}">
@@ -109,7 +130,7 @@
                         <label for="txtSeriesMaskingNameUpdate">Series Masking Name</label>
                     </div>
                     <div class="input-field row s12">
-                        <input type="checkbox" id="chkEditSeriesURL" name="isSeriesPageUrl" class="with-gap" data-bind="checked: isSeriesURL"/>
+                        <input type="checkbox" id="chkEditSeriesURL" name="isSeriesPageUrl" class="with-gap" data-bind="checked: isSeriesEditUrl"/>
                         <label for="chkEditSeriesURL">Form Series URL</label>
                     </div>
                 </div>

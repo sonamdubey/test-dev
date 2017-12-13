@@ -26,13 +26,13 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("api/make/{makeId}/series/add/")]
-        public IHttpActionResult Add(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
+        public IHttpActionResult Add(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl, uint? bodyStyleId)
         {
             BikeSeriesDTO objBikeSeriesDTO = null;
 
             Tuple<bool, string, BikeSeriesEntity> balResp = null;
 
-            balResp = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
+            balResp = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl, bodyStyleId);
             if (balResp != null)
             {
                 try
