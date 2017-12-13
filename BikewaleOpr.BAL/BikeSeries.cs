@@ -12,8 +12,8 @@ namespace BikewaleOpr.BAL
     {
         private readonly IBikeSeriesRepository _seriesRepo;
         private readonly IBikeModelsRepository _modelRepo;
-        private readonly IBikeBodyStyles _bodystyles;
-        public BikeSeries(IBikeSeriesRepository seriesRepo, IBikeModelsRepository modelRepo, IBikeBodyStyles bodystyles)
+        private readonly IBikeBodyStylesRepository _bodystyles;
+        public BikeSeries(IBikeSeriesRepository seriesRepo, IBikeModelsRepository modelRepo, IBikeBodyStylesRepository bodystyles)
         {
             _seriesRepo = seriesRepo;
             _modelRepo = modelRepo;
@@ -76,7 +76,7 @@ namespace BikewaleOpr.BAL
                         },
                         BodyStyle = new BikeBodyStyleEntity()
                         {
-                            BodyStyleId = Convert.ToInt32(bodyStyleId)
+                            BodyStyleId = Convert.ToUInt32(bodyStyleId)
                         }
                     };
                     if (_seriesRepo.IsSeriesMaskingNameExists(makeId, seriesMaskingName) && isSeriesPageUrl)
@@ -171,7 +171,7 @@ namespace BikewaleOpr.BAL
                         UpdatedBy = Convert.ToString(updatedBy),
                         BodyStyle = new BikeBodyStyleEntity()
                         {
-                            BodyStyleId = Convert.ToInt32(bodyStyleId)
+                            BodyStyleId = Convert.ToUInt32(bodyStyleId)
                         }
                     };
 

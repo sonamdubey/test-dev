@@ -8,7 +8,7 @@ namespace BikewaleOpr.DTO.BikeData
     public class BodyStyleBase
     {
         [JsonProperty("bodyStyleId")]
-        public int BodyStyleId { get; set; }
+        public uint BodyStyleId { get; set; }
 
         [JsonProperty("bodyStyleName")]
         public string BodyStyleName { get; set; }

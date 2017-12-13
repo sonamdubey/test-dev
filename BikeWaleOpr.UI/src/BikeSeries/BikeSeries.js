@@ -81,7 +81,7 @@
                                                         + "<td>" + bodystyle + "</td>"
                                                         + "<td>" + $("#selectMake option[value=" + response.make.makeId + "]").text() + "</td>"
                                                         + "<td><a href='#!' data-target='modal-series-synopsis' data-bind='event : {click : function(d,e) { getSeriesSynopsis(e) }}'><i class='material-icons icon-green'>add_circle</i></a></td>"
-                                                        + "<td><a href='#series-edit-update' class='tooltipped' href='javascript:void(0)' data-delay='100' data-makeid=" + response.make.makeId + " data-tooltip='Edit Series' rel='nofollow' data-bind='event: {click: function(d, e) { editSeriesClick(e) }}'><i class='material-icons icon-blue'>mode_edit</i></a></td>"
+                                                        + "<td><a href='#series-edit-update' class='tooltipped' href='javascript:void(0)' data-delay='100' data-makeid=" + response.make.makeId +" data-bodystyleid=" + response.bodystyle.bodyStyleId + " data-tooltip='Edit Series' rel='nofollow' data-bind='event: {click: function(d, e) { editSeriesClick(e) }}'><i class='material-icons icon-blue'>mode_edit</i></a></td>"
                                                         + "<td><a class='tooltipped' href='javascript:void(0)' data-delay='100' data-tooltip='Delete Series' rel='nofollow' data-target='delete-confirm-modal' data-bind='event:{click: function(d, e){ deleteEvent(e)}}'><i class='material-icons icon-red'>delete</i></a></td>"
                                                         + "<td>" + response.createdOn + "</td>"
                                                         + "<td>" + response.updatedOn + "</td>"

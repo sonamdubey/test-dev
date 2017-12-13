@@ -6,7 +6,7 @@
     /// </summary>
     public class BikeBodyStyleEntity
     {
-        public int BodyStyleId { get; set; }
+        public uint BodyStyleId { get; set; }
         public string BodyStyleName { get; set; }
     }
 }

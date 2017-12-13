@@ -75,6 +75,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Modified by : Vivek Singh Tomar on 13th Sep 2017
         /// Summary : Added initialization of BikeSeries
+        /// Modified by : Rajan Chauhan on 13th Dec 2017
+        /// Summary : Added BikeBodyStylesRespository
         /// </summary>
         public BikeModels()
         {
@@ -83,7 +85,7 @@ namespace BikeWaleOpr.Content
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
-                .RegisterType<IBikeBodyStyles, BikeBodyStyleRepository>();
+                .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>();
                 _series = container.Resolve<IBikeSeries>();
             }
 

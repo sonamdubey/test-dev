@@ -106,7 +106,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IAdSlotRepository, AdSlot>();
             container.RegisterType<IAdSlot, BAL.AdSlot.AdSlot>();
             container.RegisterType<IBwPrice, BwPrice>();
-            container.RegisterType<IBikeBodyStyles, BikeBodyStyleRepository>();
+            container.RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>();
+            container.RegisterType<IBikeBodyStyles, BikeBodyStyles>();
 
             return container;
         }

@@ -93,7 +93,8 @@ namespace BikewaleOpr
                 .RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
                 .RegisterType<IBikeSeries, BikeSeries>()
                 .RegisterType<IAdSlotRepository, AdSlot>()
-                .RegisterType<IBikeBodyStyles, BikeBodyStyleRepository>();
+                .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
+                .RegisterType<IBikeBodyStyles, BikeBodyStyles>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
