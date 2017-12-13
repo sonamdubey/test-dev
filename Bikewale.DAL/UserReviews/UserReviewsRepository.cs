@@ -989,8 +989,6 @@ namespace Bikewale.DAL.UserReviews
         /// Modified by : Ashutosh Sharma on 24-Aug-2017
         /// Description :  Changed SP from 'getUserReviewSummary_12072017' to 'getUserReviewSummary_24082017'
         ///             to get SelectedRatingText and MinHeading
-        /// Modified BY: Snehal Dange on 12th Dec 2017
-        /// Description: Added UpVotes,DownVotes , Views
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns></returns>
@@ -1019,9 +1017,6 @@ namespace Bikewale.DAL.UserReviews
                                 OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
                                 ReturnUrl = Convert.ToString(dr["ReturnUrl"]),
                                 PlatformId = SqlReaderConvertor.ToUInt16(dr["PlatformId"]),
-                                UpVotes = SqlReaderConvertor.ToUInt32(dr["UpVotes"]),
-                                DownVotes = SqlReaderConvertor.ToUInt32(dr["DownVotes"]),
-                                Views = SqlReaderConvertor.ToUInt32(dr["Views"]),
                                 Make = new BikeMakeEntityBase()
                                 {
                                     MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
