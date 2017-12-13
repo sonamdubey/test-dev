@@ -11,7 +11,7 @@ namespace BikeWale.Sitemap
     /// Created By: Aditi Srivastava on 22 Sep 2016
     /// Description: Get used bike urls for sitemap
     /// </summary>
-    public class UsedBikeUrlsRepository 
+    public class UsedBikeUrlsRepository
     {
         /// <summary>
         /// Summary: get masking names for makes, models and cities to construct all used bike urls
@@ -20,31 +20,31 @@ namespace BikeWale.Sitemap
         /// <param name="bike2"></param>
         public IEnumerable<UsedBikeEntity> GetUsedBikeUrls()
         {
-           
+
             IList<UsedBikeEntity> SitemapList = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesitemap"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                 
-                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
                             SitemapList = new List<UsedBikeEntity>();
-                            
+
                             while (dr.Read())
                             {
                                 SitemapList.Add(new UsedBikeEntity
                                 {
-                                    MakeName=dr["makemaskingname"].ToString(),
+                                    MakeName = dr["makemaskingname"].ToString(),
                                     ModelName = dr["modelmaskingname"].ToString(),
                                     CityName = dr["citymaskingname"].ToString(),
                                 });
-                             
+
                             }
-                           dr.Close();
+                            dr.Close();
                         }
                     }
                 }

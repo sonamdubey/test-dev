@@ -13,7 +13,7 @@
         <li><a menu="7" href="/m/expert-reviews/">Expert Reviews</a> </li>
         <li><a menu="8" href="/m/features/">Features</a> </li>
         <li><a menu="9" href="/m/user-reviews/">User Reviews</a></li>
-        <li><a menu="10" href="/m/dealer-showroom-locator/">Locate Dealers</a> </li>
+        <li><a menu="10" href="/m/dealer-showrooms/">Locate Dealers</a> </li>
         <li><a menu="12" href="/m/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
         <!--<li><a href="#">Sell Bikes</a></li>
         <li><a href="#">News</a></li>

@@ -54,10 +54,10 @@
                         <div class="font14 padding-left20 padding-right20 padding-bottom20">
                             <p class="text-default text-bold margin-bottom5"><%= makeName %> <%=(details.DealerCount > 1 )? " showrooms" : " showroom" %> in <%=details.CityName %></p>
                             <%if (details.DealerCount>0) {%>
-                            <a href="/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" title="<%=makeName%> Showrooms in <%=details.CityName%>" class="block"><%=details.DealerCount %><%=(details.DealerCount > 1 )? " showrooms" : " showroom" %></a>
+                            <a href="/dealer-showrooms/<%=makeMaskingName%>/<%=details.CityMaskingName%>/" title="<%=makeName%> Showrooms in <%=details.CityName%>" class="block"><%=details.DealerCount %><%=(details.DealerCount > 1 )? " showrooms" : " showroom" %></a>
                             <%} %>
                             <%if (details.ServiceCenterCount>0){%>
-                            <a href="/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/" title="<%=makeName%> Service Centers in <%=details.CityName%>" class="block"><%=details.ServiceCenterCount %> service center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a>
+                            <a href="/service-centers/<%=makeMaskingName%>/<%=details.CityMaskingName%>/" title="<%=makeName%> Service Centers in <%=details.CityName%>" class="block"><%=details.ServiceCenterCount %> service center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a>
                             <%} %>
                         </div>
                     </li>
@@ -71,11 +71,11 @@
                             <p class="text-default text-bold margin-bottom5"><%= makeName %> <%=(cityDealers.TotalDealerCount>0 )? " showrooms" : " showroom" %> in India</p>
                             <%if (cityDealers.TotalDealerCount > 0)
                             { %>
-                            <a href="/<%=makeMaskingName%>-dealer-showrooms-in-india/" title="<%=makeName%> showroom in India" class="block"><%=cityDealers.TotalDealerCount %><%=(cityDealers.TotalDealerCount>0 )? " showrooms" : " showroom" %></a>
+                            <a href="/dealer-showrooms/<%=makeMaskingName%>/" title="<%=makeName%> showroom in India" class="block"><%=cityDealers.TotalDealerCount %><%=(cityDealers.TotalDealerCount>0 )? " showrooms" : " showroom" %></a>
                             <%} %>
                             <%if (cityDealers.TotalServiceCenterCount > 0)
                             { %>
-                            <a href="/<%=makeMaskingName%>-service-center-in-india/" title="<%=makeName%> service center in India" class="block"><%=cityDealers.TotalServiceCenterCount %> service center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a>
+                            <a href="/service-centers/<%=makeMaskingName%>/" title="<%=makeName%> service center in India" class="block"><%=cityDealers.TotalServiceCenterCount %> service center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a>
                                     <%} %>
                                 </div>
                         </li>

@@ -16,7 +16,15 @@
         <div id="backBtn" class="category-back-btn">
             <span class="bwmsprite fa-arrow-back"></span>
         </div>
-        <h1 class="font18">@String.Format("{0} {1} Videos", @Model.Make.MakeName, @Model.Model.ModelName)</h1>
+        @if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(Model.Make.MakeId.ToString()))
+        {
+            <h1 class="font18">@String.Format(" Videos of {0} {1}", Model.Make.MakeName, Model.Model.ModelName)</h1>
+        }
+        else
+        {
+            <h1 class="font18">@String.Format("{0} {1} Videos", Model.Make.MakeName, Model.Model.ModelName)</h1>
+        }
+        
     </header>
 
     if (Model.VideosList != null)

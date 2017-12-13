@@ -152,7 +152,7 @@ $("#applyDealerFilter").on("click", function () {
         var ulcityMasking = makeCityViewModel.selectedCityMaskingName();
         toggleErrorMsg($("#selectCity"), false);
         $(".filterBackArrow").trigger("click");        
-        window.location.href = "/m/" + ulmakeMasking + "-dealer-showrooms-in-"+ ulcityMasking + "/";
+        window.location.href = "/m/dealer-showrooms/" + ulmakeMasking + "/"+ ulcityMasking + "/";
     }
     else {
         toggleErrorMsg($("#selectCity"), true, "Choose a city");

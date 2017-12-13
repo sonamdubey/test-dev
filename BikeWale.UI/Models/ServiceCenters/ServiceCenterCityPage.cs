@@ -90,7 +90,7 @@ namespace Bikewale.Models.ServiceCenters
                     PopupShowButtonMessage = "Show service centers",
                     PopupSubHeading = "See service centers in your city!",
                     FetchDataPopupMessage = "Fetching service centers for ",
-                    RedirectUrl = string.Format("/{0}-service-center-in-", objVM.Make.MaskingName),
+                    RedirectUrl = string.Format("/service-centers/{0}/", objVM.Make.MaskingName),
                     IsCityWrapperPresent = 0
 
                 };
@@ -203,7 +203,7 @@ namespace Bikewale.Models.ServiceCenters
                 objData.MakeMaskingName = _makeMaskingName;
                 objData.MakeName = objVM.Make.MakeName;
                 objData.CityCardTitle = "service centers in";
-                objData.CityCardLink = "service-center-in";
+                objData.CityCardLink = "service-centers";
                 objData.IsServiceCenterPage = true;
                 objVM.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
@@ -245,7 +245,7 @@ namespace Bikewale.Models.ServiceCenters
                     if (objPageVM.Make != null)
                     {
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPageVM.Make.MaskingName), string.Format("{0} Bikes", objPageVM.Make.MakeName)));
-                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-service-center-in-india/", url, objPageVM.Make.MaskingName), objPageVM.Make.MakeName + " Service Centers in India"));
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}service-centers/{1}/", url, objPageVM.Make.MaskingName), objPageVM.Make.MakeName + " Service Centers in India"));
                     }
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPageVM.Page_H1));
                     objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;

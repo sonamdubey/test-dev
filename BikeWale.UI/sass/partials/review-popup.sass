@@ -1,0 +1,317 @@
+﻿@import ../partials/rating
+@import ../partials/loader
+.review-popup
+	height: 80%
+	width: 100%
+	background: #fff
+	z-index: 10
+	position: fixed
+	bottom: 0
+
+.review-popup__block
+	position: relative
+	height: 100%
+
+.review-popup-container
+	overflow: auto
+	height: 90%
+
+//review popup title block
+
+.review-popup__title-block
+	padding: 10px 20px
+	position: relative
+	z-index: 1
+	@include vendor-prefix("box-shadow", 2px 2px 2px #dcdcdc)
+	@include vendor-prefix("border-radius", 2px)
+
+@mixin left-grid-image ($width: 82, $height: 46 )
+	.left-grid-image
+		width: $width * 1px
+		height: $height *1px
+		display: inline-block
+		vertical-align: middle
+    
+		img
+			height: $height * 1px
+
+@mixin right-grid-details ($width: 70)
+	.right-grid-details
+		width: $width * 1%
+
+@mixin review-overall-rating__list($font-size: 12px)
+	.review-overall-rating
+		> .review-overall-rating__list:first-child
+			border-left: none
+			padding-left: 0
+			position: relative
+			left: -5px
+
+	.review-overall-rating__list
+		display: inline-block
+		vertical-align: middle
+		padding-right: 5px
+		padding-left: 5px
+		border-left: 1px solid #e2e2e2
+		font-size: 12px
+		color: #787878
+
+		span
+			display: inline-block
+			vertical-align: middle
+
+@include left-grid-image()
+@include right-grid-details()
+@include review-overall-rating__list()
+
+//review popup list
+
+.review-popup-list
+  padding: 20px
+  margin-top: 3px
+
+.review-popup-list__title
+  width: 83.33333%
+  display: inline-block
+  vertical-align: middle
+  margin-right: -4px
+  color: #1a1a1a
+  font-size: 15px
+  font-weight: 600
+
+.user-review__content
+  padding: 0 20px 10px
+  font-size: 14px
+  color: #82888b
+
+.report-abuse__block
+  padding-top: 10px
+  margin: 0 20px 20px
+  font-size: 12px
+  color: #82888b
+  border-top: 1px solid #e2e2e2
+
+
+.review-question__block
+  padding: 10px 20px 15px
+
+.review__question
+  font-size: 12px
+  color: #82888b
+
+.feedback-button
+  font-size: 11px
+  min-width: 60px
+  background: white
+  margin: 0 4px
+  padding: 6px
+  color: #82888B
+  border: 1px solid #e2e2e2
+  border-radius: 2px
+  cursor: pointer
+  font-family: 'Open Sans', sans-serif, Arial
+
+  &.active
+    border-color: #41B4C4
+    background: #41B4C4
+    color: white
+    pointer-events: none
+
+.like-sm-icon,
+.dislike-sm-icon,
+	width: 16px
+	height: 14px
+	display: inline-block
+	vertical-align: middle
+
+.like-sm-icon
+	@include like-grey-13x12
+	position: relative
+	top: -2px
+
+.dislike-sm-icon
+	@include dislike-grey-13x12
+
+.feedback-button
+	.like-sm-icon,
+	.dislike-sm-icon
+		opacity: 0.6
+
+	&.active
+		.like-sm-icon
+			opacity: 1
+			@include like-white-13x12			
+
+		.dislike-sm-icon
+			opacity: 1
+			@include dislike-white-13x12
+
+
+/*rating badge
+@for $i from 1 through 5
+	@include rate-count($i)
+	@include rating-badge($i)
+	.review-overall-rating
+		@include rate-star-icon($i, normal)
+
+.review-overall-rating__list
+	.star-icon
+		width: 26px
+		height: 25px
+		vertical-align: middle
+		position: relative
+
+.star-white
+	width: 12px
+	height: 12px
+	background-position: -172px -447px
+	position: relative
+	top: 1px
+	margin-right: 4px
+
+@import ../partials/horizontal-rating-graph
+
+/* about reviewer */
+
+.review-popup-container
+	.about-reviewer-content
+		padding: 0 10px
+		background: #fafafa
+
+.about-reviewer--position
+	position: relative
+	top: 3px
+
+.about-reviewer-list li
+    text-align: center
+    display: inline-block
+    vertical-align: top
+    margin-right: -4px
+    padding: 20px 10px
+
+.user-review-list li
+    position: relative
+
+.item-count-3 li
+    width: 33.33333%
+
+.item-count-2 li
+    width: 50%
+
+.item-count-1 li
+    width: 100%
+
+.question-2-icon,
+.question-3-icon
+	width: 16px
+	height: 16px
+	display: inline-block
+
+.question-2-icon
+    @include calendar-grey-15x16
+
+.question-3-icon
+    @include meter-grey-12x16
+
+.question-1-icon
+	width: 24px
+	height: 16px
+	display: inline-block
+	@include bike-grey-24x16
+
+.item-question
+	font-size: 10px
+	color: #a2a2a2
+	margin-bottom: 5px
+
+.item-answer
+	font-size: 14px
+	color: #787878
+
+
+.review-popup
+	#ub-ajax-loader
+		position: absolute
+
+	@include spinner-content(45%, 0, absolute)
+
+@media only screen and (max-width: 320px)
+  .review-popup__title-block .right-grid-details
+    width: 62%
+
+  .review-overall-rating .review-overall-rating__list
+    padding-right: 5px
+    padding-left: 4px
+
+  .review__question
+    font-size: 11px
+
+  .feedback-button
+    margin-left: 2px
+    margin-right: 2px
+    padding: 4px
+
+.review-popup-close-btn
+	cursor: pointer
+	top: 8px
+	right: 8px
+	width: 48px
+	height: 48px
+	display: block
+	position: absolute
+	z-index: 2
+
+	&:before,
+	&:after
+		position: absolute
+		left: 24px
+		top: 14px
+		content: ' '
+		height: 17px
+		width: 2px
+		background-color: #484848
+
+	&:before
+		@include vendor-prefix("transform", rotate(45deg))
+
+	&:after
+		@include vendor-prefix("transform", rotate(-45deg))
+
+@media only screen and (min-width: 800px)
+	.review-popup
+		display: block
+		height: 100%
+		width: 415px
+		right: -463px
+		z-index: 210
+		position: fixed
+
+		.review-popup-close-btn
+			left: -48px
+			top: 0
+			background: #e6e6e6
+			
+			&:before,
+			&:after
+				top: 12px
+				height: 22px
+
+	.review-popup-container
+		.about-reviewer-content
+			padding-right: 20px
+			padding-left: 20px
+
+	.star-white
+		background-position: -218px -103px
+
+	.review-question__block
+		padding-bottom: 0
+
+.review-popup
+	#spinner-content
+		top: 44%
+
+
+
+	
+

@@ -30,12 +30,12 @@
                             <li class="review-type-list__item">
                                 <p class="review-item__label">Most Popular Review</p>
                                 <p class="review-item__preview">@FormatDescription.TruncateDescription(obj.MostHelpful.Description, 100)</p>
-                                <a href="@string.Format("/m{0}{1}/", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName),obj.MostHelpful.ReviewId)" title="@obj.MostHelpful.Title" class="font14">Read more</a>
+                                <span class="review-popup__link text-link bw-ga" data-cat="Make_Page" data-act="Clicked_on_Full_Review " data-lab="@bikeName" data-reviewid="@obj.MostHelpful.ReviewId">Full review</span>
                             </li>
                             <li class="review-type-list__item">
                                 <p class="review-item__label">Most Recent Review</p>
                                 <p class="review-item__preview">@FormatDescription.TruncateDescription(obj.MostRecent.Description, 100)</p>
-                                <a href="@string.Format("/m{0}{1}/", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName),obj.MostRecent.ReviewId)" title="@obj.MostRecent.Title" class="font14">Read more</a>
+                                <span class="review-popup__link  text-link bw-ga" data-cat="Make_Page" data-act="Clicked_on_Full_Review" data-lab="@bikeName" data-reviewid="@obj.MostRecent.ReviewId">Full review</span>
                             </li>
                         </ul>
                     </li>

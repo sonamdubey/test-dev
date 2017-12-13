@@ -533,6 +533,8 @@ namespace Bikewale.Models
         /// Description : Get data for PriceInCity AMP page
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Added IsNew check for GetManufacturerCampaign and BindManufacturerLeadAdAMP
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageAMPVM GetDataAMP()
@@ -668,8 +670,12 @@ namespace Bikewale.Models
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
                         #region Do not change the order
                         BuildPageMetas(objVM);
-                        GetManufacturerCampaign(objVM);
-                        BindManufacturerLeadAdAMP(objVM);
+                        if (objVM.IsNew)
+                        {
+                            GetManufacturerCampaign(objVM);
+                            BindManufacturerLeadAdAMP(objVM);
+                        }
+                        
                         #endregion
 
                     }
@@ -722,14 +728,16 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created by : Ashutosh Sharma on 10-Sep-2017
+        /// Created by : Ashutosh Sharma on 10 Sep 2017
         /// Description : Bind Manufacturer Lead Ad and href, remove AMP prohibitated attribute
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : LeadCapture null check added.
         /// </summary>
         /// <param name="priceInCityAMPVM"></param>
         private void BindManufacturerLeadAdAMP(PriceInCityPageAMPVM priceInCityAMPVM)
         {
             string str = string.Empty;
-            if (priceInCityAMPVM.LeadCampaign != null)
+            if (priceInCityAMPVM.LeadCampaign != null && priceInCityAMPVM.LeadCapture != null)
             {
 
                 try
