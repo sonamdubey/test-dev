@@ -23,7 +23,7 @@
     self.selectedBodyStyleName = ko.observable("");
     self.selectedBodyStyleId = ko.observable(null); //optional
     self.isBodyStyleShown = ko.observable(false);
-   
+    self.selectedBodyStyleUpdateId = ko.observable(null);
     self.seriesNameUpdate.subscribe(function () {
         var series = "";
         if (self.seriesNameUpdate() && self.seriesNameUpdate() != "") {
@@ -55,12 +55,15 @@
                 Materialize.toast("Invalid make masking name", 3000)
                 self.seriesMaskingMsg("Invalid make masking name");
             }
-            if (self.isSeriesUrl() == true) {
-                console.log(self.selectedBodyStyleId());
+            if (self.isSeriesUrl()) {
                 if (!self.selectedBodyStyleId() || self.selectedBodyStyleId()==0) {
                     isValid = false;
                     Materialize.toast("Please select Body Style", 3000)
                 }
+            }
+            else {
+                // No bodystyle if seriesUrl not selected
+                self.selectedBodyStyleId("0");
             }
             if (isValid) {
                 $.ajax({
@@ -121,6 +124,8 @@
         self.seriesNameUpdate(self.selectedSeriesName());
         self.seriesMaskingNameUpdate(selectedSeriesMaskingName);
         self.selectedMakeId($(event.currentTarget).data("makeid"));
+        self.selectedBodyStyleUpdateId($(event.currentTarget).data("bodystyleid"));
+        $('select').material_select();
         Materialize.updateTextFields();
 
     }
@@ -137,10 +142,20 @@
                 isValid = false;
                 Materialize.toast("Invalid series masking name", 3000)
             }
+            if (self.isSeriesEditUrl()) {
+                if (!self.selectedBodyStyleUpdateId() || self.selectedBodyStyleUpdateId() == 0) {
+                    isValid = false;
+                    Materialize.toast("Please select Body Style", 3000)
+                }
+            }
+            else {
+                // No bodystyle if seriesUrl not selected
+                self.selectedBodyStyleUpdateId("0");
+            }
             if (isValid) {
                 $.ajax({
                     type: "POST",
-                    url: "/api/series/" + self.selectedSeriesId() + "/edit/?seriesname=" + self.seriesNameUpdate() + "&seriesmaskingname=" + self.seriesMaskingNameUpdate() + "&updatedby=" + $('#userId').val() + "&isseriespageurl=" + self.isSeriesEditUrl() + "&makeId=" + self.selectedMakeId(),
+                    url: "/api/series/" + self.selectedSeriesId() + "/edit/?seriesname=" + self.seriesNameUpdate() + "&seriesmaskingname=" + self.seriesMaskingNameUpdate() + "&updatedby=" + $('#userId').val() + "&isseriespageurl=" + self.isSeriesEditUrl() + "&makeId=" + self.selectedMakeId() + "&bodystyleid=" + self.selectedBodyStyleUpdateId(),
                     success: function (response) {
 
                         if (response != null) {
@@ -156,9 +171,16 @@
                                 rowToEdit.children[3].children[0].classList.add("icon-red");
                                 rowToEdit.children[3].children[0].innerText = "close";
                             }
-                            
+                            if (self.selectedBodyStyleUpdateId() != 0) {
+                                rowToEdit.children[4].innerText = $("#selectBodyStyleUpdate option[value=" + self.selectedBodyStyleUpdateId() + "]").text();
+                            }
+                            else {
+                                rowToEdit.children[4].innerText = "N/A";
+                            }
+                            $(rowToEdit.children[7].children[0]).data("bodystyleid", self.selectedBodyStyleUpdateId());
                             Materialize.toast("Bike series has been updated successfully.", 3000);
                         }
+
                     },
                     error: function (response) {
                         if (response && response.responseJSON && response.responseJSON.Message)

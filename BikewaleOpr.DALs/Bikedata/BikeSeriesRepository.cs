@@ -153,7 +153,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_isseriespageurl", bikeSeries.IsSeriesPageUrl);
                     param.Add("par_updatedby", updatedBy);
                     param.Add("par_seriesid", bikeSeries.SeriesId);
-                    param.Add("par_bodystyleid", bikeSeries.BodyStyle);
+                    param.Add("par_bodystyleid", bikeSeries.BodyStyle.BodyStyleId);
 
                     connection.Open();
 
