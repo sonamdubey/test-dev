@@ -205,13 +205,13 @@ namespace Bikewale.Models
                     {
                         modelHelper = new ModelHelper();
                         model = objResponse.MaskingName;
-                        ModelId = objResponse.Id;
-                        objModel = modelHelper.GetModelDataById(objResponse.Id);
+                        ModelId = objResponse.ModelId;
+                        objModel = modelHelper.GetModelDataById(objResponse.ModelId);
                     }
                     else
                     {
                         series = objResponse.MaskingName;
-                        SeriesId = objResponse.Id;
+                        SeriesId = objResponse.SeriesId;
                         objSeries = new BikeSeriesEntityBase
                         {
                             SeriesId = SeriesId,

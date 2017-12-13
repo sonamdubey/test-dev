@@ -6,15 +6,12 @@ namespace Bikewale.Entities.BikeData
     /// Summary : Class to hold series and model masking name properties
     /// Modified by :   Sumit Kate on 11 Dec 2017
     /// Description :   Added Make Masking name
+    /// Modified by :   Sumit Kate on 12 Dec 2017
+    /// Description :   Added MakeId, series id, modelid and bodystyle id
     /// </summary>
     [Serializable]
     public class SeriesMaskingResponse
     {
-        /// <summary>
-        /// Value would be modelid or seriesid
-        /// </summary>
-        public uint Id { get; set; }
-
         /// <summary>
         /// Value would be series or model masking name. This value should be used for lookup
         /// </summary>
@@ -41,5 +38,11 @@ namespace Bikewale.Entities.BikeData
         public string Name { get; set; }
 
         public string MakeMaskingName { get; set; }
+
+        public string MakeName { get; set; }
+        public uint MakeId { get; set; }
+        public uint ModelId { get; set; }
+        public uint SeriesId { get; set; }
+        public Bikewale.Entities.GenericBikes.EnumBikeBodyStyles BodyStyle { get; set; }
     }
 }

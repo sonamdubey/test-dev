@@ -101,7 +101,7 @@ namespace Bikewale.Controllers
                     seriesPage.CompareSource = CompareSources.Desktop_SeriesPage;
                     seriesPage.IsMobile = false;
                     seriesPage.MaskingName = maskingName;
-                    obj = seriesPage.GetData(objResponse.Id);
+                    obj = seriesPage.GetData(objResponse.SeriesId);
                     objResult = View(obj);
                 }
             }
@@ -158,7 +158,7 @@ namespace Bikewale.Controllers
                     seriesPage.IsMobile = true;
                     seriesPage.MaskingName = maskingName;
                     seriesPage.CompareSource = CompareSources.Mobile_SeriesPage;
-                    obj = seriesPage.GetData(objResponse.Id);
+                    obj = seriesPage.GetData(objResponse.SeriesId);
                     objResult = View(obj);
                 }
             }
