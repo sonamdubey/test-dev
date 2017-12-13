@@ -58,6 +58,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
     /// Description : Added IShowroomPricesRepository registration to BikeShowroomPrices
     /// Modified by : Ashutosh Sharma on 10 Nov 2017
     /// Description : Added registration for IBwPrice and BwPrice.
+    /// Modified by : Rajan Chauhan on 13th Dec 2017
+    /// Description : Added registration for IBikeBodyStyle and IBikeBodyStyleRepository
     /// </summary>
     public static class UnityBootstrapper
     {

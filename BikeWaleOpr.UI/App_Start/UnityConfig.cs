@@ -49,6 +49,8 @@ namespace BikewaleOpr
     /// Summary : Added IDealers
     /// Modified by : Vivek Singh Tomar on 11th Aug 2017
     /// Summary : Added IBikeSeriesRepository
+    /// Modified by : Rajan Chauhan on 13th Dec 2017
+    /// Summary : Added IBikeBodyStylesRepository and IBikeBodyStyles
     /// </summary>
     public static class UnityConfig
     {
