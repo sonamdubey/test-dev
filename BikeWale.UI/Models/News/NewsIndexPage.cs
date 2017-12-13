@@ -327,7 +327,7 @@ namespace Bikewale.Models
                 string maskingName = queryString["model"];
 
                 ProcessMakeMaskingName(request, make);
-                ProcessModelSeriesMaskingName(request, maskingName);
+                ProcessModelSeriesMaskingName(request, String.Format("{0}_{1}", make, maskingName));
             }
         }
         /// <summary>
@@ -353,15 +353,15 @@ namespace Bikewale.Models
                         {
                             modelHelper = new ModelHelper();
                             model = objResponse.MaskingName;
-                            ModelId = objResponse.Id;
-                            objModel = modelHelper.GetModelDataById(objResponse.Id);
+                            ModelId = objResponse.ModelId;
+                            objModel = modelHelper.GetModelDataById(objResponse.ModelId);
                         }
                         else
                         {
                             series = objResponse.MaskingName;
                             objSeries = new BikeSeriesEntityBase
                             {
-                                SeriesId = objResponse.Id,
+                                SeriesId = objResponse.SeriesId,
                                 SeriesName = objResponse.Name,
                                 MaskingName = series,
                                 IsSeriesPageUrl = true

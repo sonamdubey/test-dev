@@ -13,12 +13,14 @@ using System.Linq;
 namespace Bikewale.Models
 {
     /// <summary>
-    /// Created by  :   Sumit Kate on 28 Mar 2017
-    /// Description :   Price In city page view model
+    /// Created by  : Sumit Kate on 28 Mar 2017
+    /// Description : Price In city page view model
     /// Modified by: Vivek Singh Tomar on 30th Aug 2017
     /// Summary: Added property to hold city list for given model id
     /// Modified by : Ashutosh Sharma on 05 Oct 2017
     /// Description : Added PhotoGallery, IsGalleryLoaded and ModelGallery.
+    /// Modified by : Ashutosh Sharma on 08 Dec 2017
+    /// Description : Removed PhotoGallery, IsGalleryLoaded and ModelGallery.
     /// </summary>
     public class PriceInCityPageVM : ModelBase
     {
@@ -90,9 +92,5 @@ namespace Bikewale.Models
         public IEnumerable<CityEntityBase> Cities { get; set; }
         public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Any()); } }
         public string ReturnUrl { get; set; }
-        public bool IsGalleryLoaded { get; set; }
-        public ModelGalleryVM ModelGallery { get; set; }
-        public ModelPhotoGalleryEntity PhotoGallery { get; set; }
     }
-
 }

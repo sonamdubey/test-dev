@@ -7,7 +7,7 @@ namespace BikewaleOpr.common
     /// Created by: Sangram Nandkhile on 19 Jul 2016
     /// Desc: Static object to hold reference for memcache and delete the data as and when needed
     /// </summary>
-    public static class MemCachedUtil
+    public static class MemCachedUtility
     {
         static MemcachedClient _mc = null;
         public static void Remove(string key)
@@ -22,7 +22,6 @@ namespace BikewaleOpr.common
             }
             catch
             {
-
             }
         }
     }

@@ -171,7 +171,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                     objMakeFooter.MakeName = makeName;
                     objMakeFooter.MakeId = makeId;
 
-                    MemCachedUtil.Remove(string.Format("BW_FooterCategoriesandPrice_MK_{0}", makeId));
+                    MemCachedUtility.Remove(string.Format("BW_FooterCategoriesandPrice_MK_{0}", makeId));
                     return View(objMakeFooter);
                 }
 
@@ -199,7 +199,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                 if (footerData.MakeId > 0)
                 {
                     makesRepo.SaveMakeFooterData(footerData.MakeId, footerData.CategoryId, footerData.CategoryDescription, footerData.UserId);
-                    MemCachedUtil.Remove(string.Format("BW_FooterCategoriesandPrice_MK_{0}", footerData.MakeId));
+                    MemCachedUtility.Remove(string.Format("BW_FooterCategoriesandPrice_MK_{0}", footerData.MakeId));
                 }
 
             }

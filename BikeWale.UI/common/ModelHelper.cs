@@ -1,4 +1,6 @@
-﻿using Bikewale.BAL.BikeBooking;
+﻿using System;
+using System.Collections.Generic;
+using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -12,8 +14,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
 namespace Bikewale.Common
 {
     /// <summary>
@@ -52,12 +52,13 @@ namespace Bikewale.Common
             return objModel;
         }
 
-
         /// <summary>
         /// Created by : Sangram Nandkhile on 23 Nov 2016
         /// Description: Method to get Model name by makeId.
+        /// Modified by : Vivek Singh Tomar on 8th Dec 2017
+        /// Description : Overload to incorporate duplicate models name across makes
         /// </summary>
-        public ModelMaskingResponse GetModelDataByMasking(string modelMaskingName)
+        public ModelMaskingResponse GetModelDataByMasking(string makeMaskingName, string modelMaskingName)
         {
             ModelMaskingResponse objModel = default(ModelMaskingResponse);
             try
@@ -69,7 +70,8 @@ namespace Bikewale.Common
                              .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                             ;
                     var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                    objModel = objCache.GetModelMaskingResponse(modelMaskingName);
+                    string makeModelMaskingKey = string.Format("{0}_{1}", makeMaskingName, modelMaskingName);
+                    objModel = objCache.GetModelMaskingResponse(makeModelMaskingKey);
                 }
             }
             catch (Exception ex)
@@ -78,6 +80,7 @@ namespace Bikewale.Common
             }
             return objModel;
         }
+
 
         /// <summary>
         /// Author          :   Sangram Nandkhile

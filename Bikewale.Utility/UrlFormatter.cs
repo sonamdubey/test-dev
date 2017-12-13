@@ -1,8 +1,8 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Bikewale.Entities.CMS;
+﻿using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
+using System;
+using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility
 {
@@ -423,7 +423,7 @@ namespace Bikewale.Utility
             }
             return url;
         }
-        
+
         /// <summary>
         /// Created by  : Vivek Singh Tomar on 27th Nove 2017
         /// Description : Overload for FormarExpertReviewUrl with parameter seriesMaskingName
@@ -690,6 +690,12 @@ namespace Bikewale.Utility
         {
             return "/bike-review-contest/?q=" + EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)source));
         }
+
+        public static string CreateMakeUrl(string make)
+        {
+            return string.Format("{0}-bikes/", make);
+        }
+
     }
 }
 

@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 @if (Model != null && Model.SeriesModels != null && Model.SeriesModels.NewBikes != null && Model.SeriesModels.NewBikes.Any())
 {
-	<div class="container bg-white padding-bottom10">
+	<div id="bikeModeleList"  class="bw-model-tabs-data container bg-white padding-bottom10">
 		<div class="padding-left15 padding-right15 padding-top20">
 			@if (Model.BikeMake != null && Model.SeriesBase != null)
 			{

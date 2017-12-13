@@ -1,0 +1,58 @@
+﻿@model Bikewale.Models.BikeSeries.SeriesPageVM
+@if (Model != null && Model.SeriesBase != null)
+{
+	<div id="modelLatestUpdatesTopContent" class="overall-specs__top-content margin-bottom10 bg-white position-rel">
+		<div id="overallUpdatesTab" class="overall-specs-tabs-container">
+			<ul class="overall-specs-tabs-wrapper">
+				@if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
+				{
+					<li data-tabs="#modelAboutContent" class="navtab active" data-lab="@string.Format("{0}_About", Model.SeriesBase.SeriesName)">
+						About
+					</li>
+				}
+				@if (Model.SeriesModels != null && Model.SeriesModels.NewBikes != null && Model.SeriesModels.NewBikes.Any())
+				{
+					<li data-tabs="#bikeModeleList" class="navtab" data-lab="@string.Format("{0}_BikeModels", Model.SeriesBase.SeriesName)">
+						Bike Models
+					</li>
+				}
+				@if (Model.SeriesModels != null && Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
+				{
+					<li data-tabs="#modelUpcomingBikesContent" class="navtab " data-lab="@string.Format("{0}_UpcomingBikes", Model.SeriesBase.SeriesName)">
+						Upcoming
+					</li>
+				}
+				@if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
+				{
+					<li data-tabs="#popularComparison" class="navtab" data-lab="@string.Format("{0}_TopComparisons", Model.SeriesBase.SeriesName)">
+						Top Comparisons
+					</li>
+				}
+				@if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+				{
+					<li data-tabs="#newsContent" class="navtab" data-lab="@string.Format("{0}_News", Model.SeriesBase.SeriesName)">
+						News
+					</li>
+				}
+				@if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+				{
+					<li data-tabs="#videoContent" class="navtab" data-lab="@string.Format("{0}_Videos", Model.SeriesBase.SeriesName)">
+						Videos
+					</li>
+				}
+				@if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+				{
+					<li data-tabs="#reviewContent" class="navtab" data-lab="@string.Format("{0}_Reviews", Model.SeriesBase.SeriesName)">
+						Reviews
+					</li>
+				}
+				@if (Model.objUsedBikes != null && Model.objUsedBikes.RecentUsedBikesList != null && Model.objUsedBikes.RecentUsedBikesList.Any())
+				{
+					<li data-tabs="#modelUsedBikeContent" class="navtab" data-lab="@string.Format("{0}_UsedBikes", Model.SeriesBase.SeriesName)">
+						Used Bikes
+					</li>
+				}
+			</ul>
+		</div>
+	</div>
+}

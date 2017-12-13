@@ -127,10 +127,11 @@ namespace Bikewale.Models
 
                 objData.Articles = _cmsCache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, (int)MakeId, ModelIds);
 
-                _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
+
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
+                    _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
                     status = StatusCodes.ContentFound;
                     objData.StartIndex = _startIndex;
                     objData.EndIndex = _endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex;
@@ -181,7 +182,7 @@ namespace Bikewale.Models
                 maskingName = queryString["model"];
 
                 ProcessMakeMaskingName(request, make);
-                ProcessModelSeriesMaskingName(request, maskingName);
+                ProcessModelSeriesMaskingName(request, String.Format("{0}_{1}", make, maskingName));
             }
         }
 
@@ -205,13 +206,13 @@ namespace Bikewale.Models
                     {
                         modelHelper = new ModelHelper();
                         model = objResponse.MaskingName;
-                        ModelId = objResponse.Id;
-                        objModel = modelHelper.GetModelDataById(objResponse.Id);
+                        ModelId = objResponse.ModelId;
+                        objModel = modelHelper.GetModelDataById(objResponse.ModelId);
                     }
                     else
                     {
                         series = objResponse.MaskingName;
-                        SeriesId = objResponse.Id;
+                        SeriesId = objResponse.SeriesId;
                         objSeries = new BikeSeriesEntityBase
                         {
                             SeriesId = SeriesId,

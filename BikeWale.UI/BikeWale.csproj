@@ -1554,10 +1554,6 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\photos\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\BikeDealerDetails.aspx.cs">
       <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1577,10 +1573,6 @@
     <Compile Include="new\common\CompareBikes.cs" />
     <Compile Include="new\common\ModelPhotoGallery.cs" />
     <Compile Include="new\compare\chooseBikesForComparison.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\compare\CompareBikes.aspx.cs">
-      <DependentUpon>CompareBikes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\EMILoan.aspx.cs">
@@ -3097,7 +3089,6 @@
     <Content Include="sass\partials\_horizontal-rating-graph.sass" />
     <Content Include="sass\partials\_loader.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
@@ -3163,7 +3154,6 @@
     <Content Include="News\news.aspx" />
     <Content Include="News\newsfeed.aspx" />
     <Content Include="News\Sitemap.aspx" />
-    <Content Include="new\compare\CompareBikes.aspx" />
     <Content Include="new\EMILoan.aspx" />
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\search_old.aspx" />
@@ -3278,6 +3268,7 @@
     <Content Include="Videos\video.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="Videos\VideoMakeModel.aspx" />
+    <Content Include="Views\BikeSeries\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\Make\_DealerServiceCentersWidget.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -3927,6 +3918,8 @@
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_Amp.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile_Amp.cshtml" />
     <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile_AMP.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularSeriesBikes.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularSeriesBikes_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3951,6 +3944,7 @@
     <Folder Include="Controllers\new\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
+    <Folder Include="new\photos\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Views\BikeInfo\" />
