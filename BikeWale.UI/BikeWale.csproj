@@ -2986,6 +2986,7 @@
     <Content Include="pwa\videosBundle.bundle.aec06205ff5c05abcf94.js" />
     <Content Include="pwa\VideosBundle.bundle.js" />
     <Content Include="pwa\sw-toolbox.js" />
+    <Content Include="robots.txt" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
     <Content Include="sass\modules\_collapsible-content.sass" />
