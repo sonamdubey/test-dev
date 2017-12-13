@@ -310,10 +310,10 @@
             isvalid = self.isValidInfoPopup();
             if (isvalid) {
                 if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>) {
-                    window.location.href = "/m/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
+                    window.location.href = "/m/"  + "dealer-showrooms/"+ self.makeMasking() +"/"+ self.cityMasking() + "/";
             }
             else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>) {
-                window.location.href = "/m/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
+                window.location.href = "/m/service-centers/" +self.makeMasking() + "/" + self.cityMasking() + "/" ;
         };
     }
     };

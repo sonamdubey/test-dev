@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_JS_Path = "/src/service/listing.js";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/service/listing.css' inline />";
-    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
-    Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/service-centers/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
+    Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/service-centers/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/BikeWale_New_";
     Model.AdTags.Ad_970x90 = true;
@@ -216,7 +216,8 @@
         </section>
     }
 
-    if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters !=null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0)
+    if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0
+        && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any(m => m.ServiceCenterCount > 0) )
     {
        <section>
             <div class="container section-bottom-margin">
@@ -269,7 +270,7 @@
 
                                 </div>
                                 <div class="inline-block text-right">
-                                    <a href="@string.Format("/{0}-dealer-showrooms-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("{0} Dealer Showrooms in {1}", Model.Make.MakeName, Model.City.CityName)" class="btn view-all-target-btn">View complete list<span class="bwsprite teal-right"></span></a>
+                                    <a href="@string.Format("/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("{0} Dealer Showrooms in {1}", Model.Make.MakeName, Model.City.CityName)" class="btn view-all-target-btn">View complete list<span class="bwsprite teal-right"></span></a>
                                 </div>
                             </div>
                         </div>
