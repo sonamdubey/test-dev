@@ -3093,11 +3093,15 @@
     <Content Include="sass\partials\d\_upcoming-model-card.sass" />
     <Content Include="sass\partials\d\_comparison-card.sass" />
 
+    <Content Include="sass\modules\related-card.sass" />
+
+
     <Content Include="sass\modules\sidebar-bike-section.sass" />
 
     <Content Include="sass\partials\review-popup.sass" />
     <Content Include="sass\partials\_horizontal-rating-graph.sass" />
     <Content Include="sass\partials\_loader.sass" />
+
 
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
@@ -3921,6 +3925,10 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_AMP.cshtml" />
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
+
+    <Content Include="Views\Shared\_ModelRelatedCard.cshtml" />
+    <Content Include="Views\Shared\_ModelRelatedCard_Mobile.cshtml" />
+
 
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
 
