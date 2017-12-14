@@ -13,7 +13,7 @@ namespace AmpCacheRefreshLibrary
 {
     /// <summary>
     /// Author : Sangram Nandkhile on 08 Dec 2017
-    /// Summary: Utility to refresh BikeWale amp urls
+    /// Summary: Utility to refresh BikeWale amp urls 
     /// </summary>
     public static class GoogleAmpCacheRefreshCall
     {
