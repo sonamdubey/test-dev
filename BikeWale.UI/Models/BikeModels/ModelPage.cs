@@ -763,13 +763,12 @@ namespace Bikewale.Models.BikeModels
 						EnumCMSContentSubCategoryType.First_Drive,
 						EnumCMSContentSubCategoryType.Long_Term_Report
 					};
-					_objData.ComparisionTestExpertReviews = objExpertReviews.GetData(categoryList, subCategoryList); 
+					_objData.ExpertReviews = objExpertReviews.GetData(categoryList, subCategoryList); 
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-
-				throw;
+				ErrorClass.LogError(ex, "Bikewale.Models.ModelPage.BindExpertReviews");
 			}
 		}
 
@@ -787,13 +786,12 @@ namespace Bikewale.Models.BikeModels
 					{
 						EnumCMSContentType.ComparisonTests
 					};
-					_objData.ExpertReviews = objExpertReviews.GetData(categoryList, null); 
+					_objData.ComparisionTestExpertReviews = objExpertReviews.GetData(categoryList, null); 
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-
-				throw;
+				ErrorClass.LogError(ex, "Bikewale.Models.ModelPage.BindComparisionReviews");
 			}
 		}
 

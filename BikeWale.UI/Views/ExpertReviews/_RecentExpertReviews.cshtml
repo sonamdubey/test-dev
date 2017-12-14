@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.RecentExpertReviewsVM
 @using Bikewale.Utility
-@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Any())
 {
     foreach (var review in Model.ArticlesList)
         {

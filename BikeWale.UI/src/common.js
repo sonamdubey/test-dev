@@ -816,8 +816,8 @@ docReady(function () {
 
     $('.jcarousel').jcarousel({
         animation: {
-            duration: fast,
-            easing: 'easein',
+			duration: 400,
+			easing: 'linear',
             complete: function () {
             }
         }

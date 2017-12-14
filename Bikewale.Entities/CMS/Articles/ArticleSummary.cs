@@ -12,7 +12,9 @@ namespace Bikewale.Entities.CMS.Articles
     {
         [DataMember]
         public ushort CategoryId { get; set; }
-        [DataMember]
+		[DataMember]
+		public string SubCategory { get; set; }
+		[DataMember]
         public string HostUrl { get; set; }
         [DataMember]
         public string LargePicUrl { get; set; }

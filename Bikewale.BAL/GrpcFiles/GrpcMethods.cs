@@ -1849,7 +1849,7 @@ namespace Grpc.CMS
 		/// <param name="makeId"></param>
 		/// <param name="modelId"></param>
 		/// <returns></returns>
-		public static GrpcCMSContent GetContentListBySubCategoryId(uint startIndex, uint endIndex, string categoryIdList, string subCategoryIdList, int? makeId = 0, int? modelId = 0)
+		public static GrpcCMSContent GetContentListBySubCategoryId(uint startIndex, uint endIndex, string categoryIdList, string subCategoryIdList, int makeId = 0, int modelId = 0)
 		{
 			Stopwatch sw = null;
 
@@ -1875,8 +1875,8 @@ namespace Grpc.CMS
 								(new GrpcArticleBySubCatURI()
 								{
 									ApplicationId = 2,
-									MakeId = makeId??0,
-									ModelId = modelId??0,
+									MakeId = makeId,
+									ModelId = modelId,
 									CategoryIdList = categoryIdList,
 									SubCategory = subCategoryIdList,
 									StartIndex = startIndex,

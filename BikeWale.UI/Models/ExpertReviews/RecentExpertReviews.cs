@@ -175,7 +175,7 @@ namespace Bikewale.Models
 				string _categoryType = CommonApiOpn.GetContentTypesString(categoryList);
 				string _subCategoryIdList = CommonApiOpn.GetContentTypesString(subCategoryList);
 
-				CMSContent cmsContent =  _articles.GetContentListBySubCategoryId(startIndex, endIndex, _subCategoryIdList, _categoryType, (int)_makeId, (int)_modelId);
+				CMSContent cmsContent =  _articles.GetContentListBySubCategoryId(startIndex, endIndex, _categoryType, _subCategoryIdList, (int)_makeId, (int)_modelId);
 
 				if (cmsContent != null)
 				{
