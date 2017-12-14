@@ -4,7 +4,7 @@
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
-    Model.Page_JS_Path = "/src/content/details.js";
+    Model.Page_JS_Paths = new string[]{"/src/content/details.js", "/src/sidebarsection.js"};
     Model.PageMetaTags.FBTitle = Model.ArticleDetails.Title;
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/Bikewale_Reviews_";
@@ -16,7 +16,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section>
-    <div class="container margin-bottom20">
+    <div id="overallContainer" class="container margin-bottom20">
         <div class="grid-12">
             <div id="content" class="grid-8 alpha">
                 <div class="bg-white">
@@ -168,9 +168,18 @@
                         </div>
                     }
                 }
+                @if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null && Model.SimilarBikes.Bikes.Any())
+                {
+                    <div id="sidebarBikeSection" class="content-box-shadow sidebar-bike-section margin-bottom20">
+                        <h2 class="sidebar-list__title">You may also like</h2>
+                        @Html.Partial("~/Views/Shared/_Sidebar-section.cshtml", Model.SimilarBikes)
+                    </div>
+                }
+
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>                
+
             </div>
             <div class="clear"></div>
         </div>

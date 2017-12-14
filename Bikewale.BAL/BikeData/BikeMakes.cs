@@ -134,5 +134,16 @@ namespace Bikewale.BAL.BikeData
             return makesRepository.GetMakeFooterCategoriesandPrice(makeId);
         }
 
+        /// <summary>
+        /// Created by : Snehal Dange on 13th Dec 2017
+        /// Description : Calls GetDealerBrandsInCity to get lsit of brands where showroom is present for a particular city
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeEntityBase> GetDealerBrandsInCity(uint cityId)
+        {
+            return makesRepository.GetDealerBrandsInCity(cityId);
+        }
+
     }   // Class
 }   //Namespace

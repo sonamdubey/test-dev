@@ -1,10 +1,10 @@
-﻿@model Bikewale.Models.NewsDetailPageVM
+@model Bikewale.Models.NewsDetailPageVM
 @using Bikewale.Entities.GenericBikes
 @using Bikewale.Utility
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
-    Model.Page_JS_Path = "/src/jquery.floating-social-share.min.js";
+    Model.Page_JS_Paths =new string[]{"/src/jquery.floating-social-share.min.js","/src/sidebarsection.js"};
     Model.AdTags.AdId = "1395995626568";
     Model.AdTags.AdPath = "/1017752/BikeWale_News_";
     Model.AdTags.Ad_300x250 = true;
@@ -15,7 +15,7 @@
 }
 
 
-<section>
+<section id="overallContainer">
     <div class="container margin-bottom20">
         <div class="grid-12">
             <div id="content" class="grid-8 alpha">
@@ -27,7 +27,7 @@
                             <div>
                                 <span class="bwsprite calender-grey-sm-icon"></span>
                                 <span class="article-stats-content margin-right20">@FormatDate.GetFormatDate(Convert.ToString(Model.ArticleDetails.DisplayDate), "dd MMMM yyyy, hh:mm tt")</span>
-                                
+
                                 @if (string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName))
                                 {
                                     <span class="bwsprite author-grey-sm-icon"></span>
@@ -90,8 +90,8 @@
                     }
                 </div>
             </div>
-            <div class="grid-4 omega">                                             
-                
+            <div class="grid-4 omega">
+
                 @if (Model.Model != null && Model.Model.ModelId > 0)
                 {
                     if (Model.PopularMakeScootersAndOtherBrandsWidget != null && Model.PopularScootersAndUpcomingScootersWidget != null)
@@ -142,7 +142,7 @@
                             </div>
                         </div>
                     }
-                    
+
                     if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
                     {
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
@@ -153,18 +153,26 @@
                             </div>
                         </div>
                     }
-                }   
+                }
+                @if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes!=null && Model.SimilarBikes.Bikes.Any())
+                {
+                    <div id="sidebarBikeSection" class="content-box-shadow sidebar-bike-section margin-bottom20">
+                        <h2 class="sidebar-list__title">You may also like</h2>
+                        @Html.Partial("~/Views/Shared/_Sidebar-section.cshtml", Model.SimilarBikes)
+                    </div>
+                }
+                
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
-                </div>             
                 </div>
-                <div class="clear"></div>
             </div>
+            <div class="clear"></div>
+        </div>
         <div class="clear"></div>
     </div>
 </section>
 <script>
-docReady(function () {
-                $("body").floatingSocialShare();
-});
+    docReady(function () {
+        $("body").floatingSocialShare();
+    });
 </script>
