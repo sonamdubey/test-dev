@@ -418,14 +418,15 @@ namespace Bikewale.Models.DealerShowroom
                     objData.SimilarBrandsByCity = new OtherMakesVM();
                     if (objData.SimilarBrandsByCity != null && _bikeMakesCache != null)
                     {
-                        objData.SimilarBrandsByCity.Makes = _bikeMakesCache.GetDealerBrandsInCity(cityId);
-                        if (objData.SimilarBrandsByCity.Makes != null)
+                        var similarBrandsList = _bikeMakesCache.GetDealerBrandsInCity(cityId);
+                        if (makeId > 0 && similarBrandsList != null && similarBrandsList.Count() > 0)
                         {
-                            objData.SimilarBrandsByCity.Makes = objData.SimilarBrandsByCity.Makes.Where(m => m.MakeId != makeId);
-                            if (objData.SimilarBrandsByCity.Makes.Count() > 0)
-                            {
-                                objData.SimilarBrandsByCity.Makes = objData.SimilarBrandsByCity.Makes.Take((int)topCount);
-                            }
+                            objData.SimilarBrandsByCity.Makes = Utility.BikeFilter.FilterMakesByCategory(makeId, similarBrandsList);
+                        }
+                        if (objData.SimilarBrandsByCity.Makes != null && objData.SimilarBrandsByCity.Makes.Count() > 0)
+                        {
+                            objData.SimilarBrandsByCity.Makes = objData.SimilarBrandsByCity.Makes.Take((int)topCount);
+
                         }
                         objData.SimilarBrandsByCity.CardText = "Dealer";
                         objData.SimilarBrandsByCity.PageLinkFormat = string.Format("/dealer-showrooms/{0}/{1}/", "{0}", CityDetails.CityMaskingName);
