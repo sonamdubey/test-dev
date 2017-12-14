@@ -83,7 +83,7 @@ namespace BikewaleOpr.Models.DealerBikePrice
             try
             {
                 dealerCities = _location.GetDealerCities();
-                dealerPricingSheetInfo.EnteredBy = System.Convert.ToUInt32(CurrentUser.Id, 16);
+                dealerPricingSheetInfo.EnteredBy = System.Convert.ToUInt32(CurrentUser.Id);
                 dealerPricingSheetInfo.CopyPricingDealers.Cities = dealerCities;
                 dealerPricingSheetInfo.ShowPricingCities.Cities = _location.GetAllCities();
                 dealerPricingSheetInfo.CopyPricingCities.States = _location.GetStates();
