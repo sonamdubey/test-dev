@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web;
-using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.BAL;
@@ -19,7 +18,6 @@ using BikewaleOpr.Interface.ContractCampaign;
 using BikeWaleOpr.Classified;
 using Enyim.Caching;
 using Microsoft.Practices.Unity;
-using Nest;
 
 namespace BikeWaleOpr.Common
 {
@@ -34,6 +32,10 @@ namespace BikeWaleOpr.Common
 
         private readonly IBikeSeries _series = null;
 
+        private readonly IBikeESRepository _bikeESRepository;
+
+        private readonly string _indexName;
+
         public AjaxCommon()
         {
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
@@ -46,8 +48,11 @@ namespace BikeWaleOpr.Common
             {
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
                     .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
-                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>();
+                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
+                .RegisterType<IBikeESRepository, BikeESRepository>();
                 _series = container.Resolve<IBikeSeries>();
+                _indexName = ConfigurationManager.AppSettings["MMIndexName"];
+                _bikeESRepository = container.Resolve<IBikeESRepository>();
             }
         }
         /// <summary>
@@ -240,7 +245,7 @@ namespace BikeWaleOpr.Common
 
                         // function to update model masking name in elastic search
 
-                        UpdateESIndex(makeId, modelId, maskingName);
+                        UpdateBikeESIndex(makeId, modelId, maskingName);
                     }
                     else
                     {
@@ -267,39 +272,16 @@ namespace BikeWaleOpr.Common
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <param name="maskingName"></param>
-        private void UpdateESIndex(uint makeId, string modelId, string maskingName)
+        private void UpdateBikeESIndex(uint makeId, string modelId, string maskingName)
         {
             try
             {
-                ElasticClient client = ElasticSearchInstance.GetInstance();
-                if (client != null)
+                string id = string.Format("{0}_{1}", makeId, modelId);
+                BikeList bike = _bikeESRepository.GetBikeESIndex(id, _indexName);
+                if(bike != null && bike.payload != null)
                 {
-                    string indexName = ConfigurationManager.AppSettings["MMIndexName"];
-
-                    var ElasticResponse = client.Search<BikeList>(s => s
-                                    .Index(indexName)
-                                    .Type("bikelist")
-                                    .Query(q => q
-                                        .Term(t => t.Field("id")
-                                        .Value(String.Format("{0}_{1}", makeId, modelId))
-                                        )
-                                     )
-                                  );
-
-                    if (ElasticResponse != null && ElasticResponse.Hits != null && ElasticResponse.Hits.Count == 1)
-                    {
-                        var bikeData = ElasticResponse.Hits.First().Source;
-
-                        if(bikeData.payload != null)
-                        {
-                            bikeData.payload.ModelMaskingName = maskingName;
-
-                            var resp = client.Update<BikeList, BikeList>(String.Format("{0}_{1}", makeId, modelId), d => d
-                                            .Index(indexName)
-                                            .Type("bikelist")
-                                            .Doc(bikeData));
-                        }
-                    }
+                    bike.payload.ModelMaskingName = maskingName;
+                    _bikeESRepository.UpdateBikeESIndex(id, _indexName, bike);
                 }
             }
             catch(Exception ex)
