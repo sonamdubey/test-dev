@@ -8,7 +8,7 @@
                 @foreach (var BrandCount in Model.Makes)
                 {
                     <li>
-                        <a href="@(!string.IsNullOrEmpty(Model.PageLinkFormat) ? string.Format(Model.PageLinkFormat, BrandCount.MaskingName) : Bikewale.Utility.UrlFormatter.BikeMakeUrl(BrandCount.MaskingName))" title="@(!string.IsNullOrEmpty(Model.PageTitleFormat) ? string.Format(Model.PageTitleFormat, BrandCount.MakeName) : string.Format("{0} bikes", BrandCount.MakeName))" class="jcarousel-card">
+                        <a href="@(!string.IsNullOrEmpty(Model.PageLinkFormat) ? string.Format(Model.PageLinkFormat, BrandCount.MaskingName) : Bikewale.Utility.UrlFormatter.BikeMakeUrl(BrandCount.MaskingName))" title="@(!string.IsNullOrEmpty(Model.PageTitleFormat) ? string.Format(Model.PageTitleFormat, BrandCount.MakeName) : string.Format("{0} {1}", BrandCount.MakeName ,Model.CardText))" class="jcarousel-card">
                             <div class="brand-logo-image">
                                 <span class="brand-type">
                                     <span class="brandlogosprite @string.Format("brand-{0}", BrandCount.MakeId)"></span>
@@ -16,7 +16,7 @@
                             </div>
                             <div class="card-desc-block">
                                 <p class="card-heading font14 text-bold text-black padding-top10 border-solid-top">@BrandCount.MakeName</p>
-                                <h3 class="text-unbold text-light-grey">@BrandCount.TotalCount bikes</h3>
+                                <h3 class="text-unbold text-light-grey">@string.Format("{0} {1}{2}", BrandCount.TotalCount, Model.CardText, (BrandCount.TotalCount == 1 ? "" : "s"))</h3>
                             </div>
                         </a>
                     </li>

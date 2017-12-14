@@ -56,6 +56,8 @@ namespace Bikewale.Models.DealerShowroom
         /// Summary :- To Fetch Data realted to Dealer in city Page
         /// Modified by : Aditi Srivastava on 19 MAy 2017
         /// Summary     : Added variable for GA trigger 
+        /// Modified By: Snehal Dange on 13th Dec 2017
+        /// Summary : added BindDealerBrandsInCity
         /// </summary>
         /// <returns></returns>
         public DealerShowroomCityPageVM GetData()
@@ -97,6 +99,7 @@ namespace Bikewale.Models.DealerShowroom
                     IsCityWrapperPresent = 1
                 };
                 BindShowroomPopularCityWidget(objDealerVM);
+                BindDealerBrandsInCity(objDealerVM);
 
             }
             catch (Exception ex)
@@ -391,6 +394,41 @@ namespace Bikewale.Models.DealerShowroom
             {
 
                 ErrorClass.LogError(ex, "ServiceCenterDetailsPage.BindShowroomPopularCityWidget");
+            }
+
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 13th Dec 2017
+        /// Decsription : To get list of similar brands of dealer showroom in that city 
+        /// </summary>
+        /// <param name="objDealerDetails"></param>
+        private void BindDealerBrandsInCity(DealerShowroomCityPageVM objData)
+        {
+
+            try
+            {
+                uint topCount = 9;
+                if (cityId > 0 && objData != null)
+                {
+                    objData.SimilarBrandsByCity = new OtherMakesVM();
+                    if (objData.SimilarBrandsByCity != null)
+                    {
+                        objData.SimilarBrandsByCity.Makes = _bikeMakesCache.GetDealerBrandsInCity(cityId);
+                        if (objData.SimilarBrandsByCity.Makes != null)
+                        {
+                            objData.SimilarBrandsByCity.Makes = objData.SimilarBrandsByCity.Makes.Where(m => m.MakeId != makeId).Take((int)topCount);
+                        }
+                        objData.SimilarBrandsByCity.CardText = "Dealer";
+                        objData.SimilarBrandsByCity.PageLinkFormat = "/dealer-showrooms/{0}/" + CityDetails.CityMaskingName + "/";
+                        objData.SimilarBrandsByCity.PageTitleFormat = "{0} Showrooms in " + CityDetails.CityName;
+                    }
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("ServiceCenterDetailsPage.BindDealerBrandsInCity_Make_{0}_City_{1}", makeId, cityId));
             }
 
         }
