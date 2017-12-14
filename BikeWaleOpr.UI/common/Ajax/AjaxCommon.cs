@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Web;
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
@@ -18,6 +12,12 @@ using BikewaleOpr.Interface.ContractCampaign;
 using BikeWaleOpr.Classified;
 using Enyim.Caching;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
 
 namespace BikeWaleOpr.Common
 {
@@ -49,7 +49,9 @@ namespace BikeWaleOpr.Common
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
                     .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
-                .RegisterType<IBikeESRepository, BikeESRepository>();
+                .RegisterType<IBikeESRepository, BikeESRepository>()
+                .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
+            .RegisterType<IBikeBodyStyles, BikeBodyStyles>();
                 _series = container.Resolve<IBikeSeries>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
@@ -177,7 +179,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return isSuccess;
         }//End of UpdateMakeMaskingName
@@ -234,7 +236,7 @@ namespace BikeWaleOpr.Common
                     {
                         response = new Tuple<bool, string>(true, "Masking Name Updated Successfully.");
                         BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
-                        
+
                         IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
                         string oldUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, oldMaskingName);
                         string newUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, maskingName);
@@ -260,7 +262,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return response;
         }   // End of UpdateModelMaskingName
@@ -278,13 +280,13 @@ namespace BikeWaleOpr.Common
             {
                 string id = string.Format("{0}_{1}", makeId, modelId);
                 BikeList bike = _bikeESRepository.GetBikeESIndex(id, _indexName);
-                if(bike != null && bike.payload != null)
+                if (bike != null && bike.payload != null)
                 {
                     bike.payload.ModelMaskingName = maskingName;
                     _bikeESRepository.UpdateBikeESIndex(id, _indexName, bike);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("BikeWaleOpr.Common.AjaxCommon : UpdateESIndex, makeId = {0}, modelId = {1}, maskingName = {2}", makeId, modelId, maskingName));
             }
@@ -307,7 +309,7 @@ namespace BikeWaleOpr.Common
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }
 
@@ -327,7 +329,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }
 
@@ -433,7 +435,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }   //End of DeleteCompBikeData
 
@@ -458,7 +460,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }   //End of UpdatePriorities
 
@@ -484,7 +486,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 isSuccess = false;
             }
             return isSuccess;
@@ -509,7 +511,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 isSuccess = false;
             }
             return isSuccess;
@@ -534,7 +536,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 isSuccess = false;
             }
             return isSuccess;
@@ -559,7 +561,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 isSuccess = false;
             }
             return isSuccess;
@@ -584,7 +586,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 isSuccess = false;
             }
             return isSuccess;
@@ -608,7 +610,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 isSuccess = false;
             }
             return isSuccess;
@@ -644,7 +646,7 @@ namespace BikeWaleOpr.Common
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.GetPriceQuoteCities");
-                
+
             }
 
             return jsonCities;
@@ -680,7 +682,7 @@ namespace BikeWaleOpr.Common
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.GetAreas");
-                
+
             }
             return jsonCities;
         }
@@ -712,7 +714,7 @@ namespace BikeWaleOpr.Common
             {
                 isSuccess = false;
                 ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
-                
+
             }
             return isSuccess;
         }
@@ -746,7 +748,7 @@ namespace BikeWaleOpr.Common
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.GetDealerMaskingNumbers");
-                
+
             }
             return null;
         }
@@ -790,7 +792,7 @@ namespace BikeWaleOpr.Common
             {
                 isSuccess = false;
                 ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
-                
+
             }
             return isSuccess;
         }
@@ -823,7 +825,7 @@ namespace BikeWaleOpr.Common
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.GetDealerCampaigns");
-                
+
             }
             return jsonDealerCampaigns;
         }
