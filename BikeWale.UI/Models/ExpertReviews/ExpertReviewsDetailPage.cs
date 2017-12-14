@@ -341,12 +341,13 @@ namespace Bikewale.Models
                     UpcomingBikesWidgetVM UpcomingScooters = null;
                     IEnumerable<BikeMakeEntityBase> PopularScooterMakes = null;
                     PopularBodyStyleVM BodyStyleVM = null;
+
+                    BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, BikeInfoTabType.ExpertReview);
+                    objData.BikeInfo.IsSmallSlug = true;
+                    objData.BikeInfo = objBikeInfo.GetData();
+
                     if (IsMobile)
                     {
-                        BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, BikeInfoTabType.ExpertReview);
-                        objData.BikeInfo = objBikeInfo.GetData();
-                        objData.BikeInfo.IsSmallSlug = true;
-
                         if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                         {
                             PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
