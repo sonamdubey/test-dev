@@ -46,7 +46,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikeWaleOpr.Common.AjaxCommon : UpdateESIndex, Id = {0}", id));
+                ErrorClass.LogError(ex, string.Format("BikeWaleOpr.DALs.Bikedata.BikeESRepository : GetBikeESIndex, Id = {0}, IndexName = {1}", id, indexName));
             }
 
             return bikeData;
@@ -61,12 +61,21 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <returns></returns>
         public bool UpdateBikeESIndex(string id, string indexName, BikeList bike)
         {
-            var resp = _client.Update<BikeList, BikeList>(id, d => d
-                .Index(indexName)
-                .Type("bikelist")
-                .Doc(bike));
+            IUpdateResponse<BikeList> resp = null;
 
-            return resp != null;
+            try
+            {
+                resp = _client.Update<BikeList, BikeList>(id, d => d
+                        .Index(indexName)
+                        .Type("bikelist")
+                        .Doc(bike));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeWaleOpr.DALs.Bikedata.BikeESRepository : UpdateBikeESIndex, Id = {0}, IndexName = {1}", id, indexName));
+            }
+
+            return (resp != null && resp.Result == Result.Updated);
         }
     }
 }
