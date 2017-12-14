@@ -99,7 +99,11 @@ namespace Bikewale.Models.DealerShowroom
                     IsCityWrapperPresent = 1
                 };
                 BindShowroomPopularCityWidget(objDealerVM);
-                BindDealerBrandsInCity(objDealerVM);
+                if (cityId > 0)
+                {
+                    BindDealerBrandsInCity(objDealerVM);
+                }
+
 
             }
             catch (Exception ex)
@@ -409,19 +413,23 @@ namespace Bikewale.Models.DealerShowroom
             try
             {
                 uint topCount = 9;
-                if (cityId > 0 && objData != null)
+                if (objData != null)
                 {
                     objData.SimilarBrandsByCity = new OtherMakesVM();
-                    if (objData.SimilarBrandsByCity != null)
+                    if (objData.SimilarBrandsByCity != null && _bikeMakesCache != null)
                     {
                         objData.SimilarBrandsByCity.Makes = _bikeMakesCache.GetDealerBrandsInCity(cityId);
                         if (objData.SimilarBrandsByCity.Makes != null)
                         {
-                            objData.SimilarBrandsByCity.Makes = objData.SimilarBrandsByCity.Makes.Where(m => m.MakeId != makeId).Take((int)topCount);
+                            objData.SimilarBrandsByCity.Makes = objData.SimilarBrandsByCity.Makes.Where(m => m.MakeId != makeId);
+                            if (objData.SimilarBrandsByCity.Makes.Count() > 0)
+                            {
+                                objData.SimilarBrandsByCity.Makes = objData.SimilarBrandsByCity.Makes.Take((int)topCount);
+                            }
                         }
                         objData.SimilarBrandsByCity.CardText = "Dealer";
-                        objData.SimilarBrandsByCity.PageLinkFormat = "/dealer-showrooms/{0}/" + CityDetails.CityMaskingName + "/";
-                        objData.SimilarBrandsByCity.PageTitleFormat = "{0} Showrooms in " + CityDetails.CityName;
+                        objData.SimilarBrandsByCity.PageLinkFormat = string.Format("/dealer-showrooms/{0}/{1}/", "{0}", CityDetails.CityMaskingName);
+                        objData.SimilarBrandsByCity.PageTitleFormat = string.Format("{0} Showrooms in {1}", "{0}", CityDetails.CityName);
                     }
                 }
 
