@@ -1,4 +1,10 @@
-﻿using Bikewale.Notifications;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
@@ -6,17 +12,12 @@ using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
 using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.Entities.ContractCampaign;
+using BikewaleOpr.Entity.ElasticSearch;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikeWaleOpr.Classified;
 using Enyim.Caching;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Web;
 
 namespace BikeWaleOpr.Common
 {
@@ -31,6 +32,10 @@ namespace BikeWaleOpr.Common
 
         private readonly IBikeSeries _series = null;
 
+        private readonly IBikeESRepository _bikeESRepository;
+
+        private readonly string _indexName;
+
         public AjaxCommon()
         {
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
@@ -43,8 +48,11 @@ namespace BikeWaleOpr.Common
             {
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
                     .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
-                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>();
+                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
+                .RegisterType<IBikeESRepository, BikeESRepository>();
                 _series = container.Resolve<IBikeSeries>();
+                _indexName = ConfigurationManager.AppSettings["MMIndexName"];
+                _bikeESRepository = container.Resolve<IBikeESRepository>();
             }
         }
         /// <summary>
@@ -204,6 +212,8 @@ namespace BikeWaleOpr.Common
         /// <summary>
         ///  Written By : Ashwini Todkar on 7 oct 2013
         ///  Method to update masking name in BikeModel Table and insert old masking Name to OldMaskingLog
+        ///  Modified by : Vivek Singh Tomar on 12th Dec 2017
+        ///  Description : Update masking name of model when masking name is updated
         /// </summary>
         /// <param name="maskingName">passed as model masking name for url formation to bikemodel table</param>
         /// <param name="updatedBy"> passed which user has updated last time</param>
@@ -224,6 +234,7 @@ namespace BikeWaleOpr.Common
                     {
                         response = new Tuple<bool, string>(true, "Masking Name Updated Successfully.");
                         BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
+                        
                         IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
                         string oldUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, oldMaskingName);
                         string newUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, maskingName);
@@ -231,6 +242,10 @@ namespace BikeWaleOpr.Common
                         {
                             SendEmailOnModelChange.SendModelMaskingNameChangeMail(mailId, makeName, modelName, oldUrl, newUrl);
                         }
+
+                        // function to update model masking name in elastic search
+
+                        UpdateBikeESIndex(makeId, modelId, maskingName);
                     }
                     else
                     {
@@ -249,6 +264,31 @@ namespace BikeWaleOpr.Common
             }
             return response;
         }   // End of UpdateModelMaskingName
+
+        /// <summary>
+        /// Modified by : Vivek Singh Tomar on 13th Dec 2017
+        /// Description : Update the Elastic Search Index for given make and model
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="maskingName"></param>
+        private void UpdateBikeESIndex(uint makeId, string modelId, string maskingName)
+        {
+            try
+            {
+                string id = string.Format("{0}_{1}", makeId, modelId);
+                BikeList bike = _bikeESRepository.GetBikeESIndex(id, _indexName);
+                if(bike != null && bike.payload != null)
+                {
+                    bike.payload.ModelMaskingName = maskingName;
+                    _bikeESRepository.UpdateBikeESIndex(id, _indexName, bike);
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeWaleOpr.Common.AjaxCommon : UpdateESIndex, makeId = {0}, modelId = {1}, maskingName = {2}", makeId, modelId, maskingName));
+            }
+        }
 
         /// <summary>
         /// Written By : Ashwini todkar 27 dec 2013
@@ -788,5 +828,4 @@ namespace BikeWaleOpr.Common
             return jsonDealerCampaigns;
         }
     }   // End of class
-
 }   // End of namespace
