@@ -13,7 +13,15 @@
 {
     <section>
         <div class="container bg-white box-shadow margin-bottom10">
-            <h1 class="padding-15-20 box-shadow">@Model.Make.MakeName Videos</h1>
+@if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(Model.Make.MakeId.ToString()))
+{
+    <h1 class="padding-15-20 box-shadow">Videos of @Model.Make.MakeName Bikes</h1>
+}
+else
+{
+    <h1 class="padding-15-20 box-shadow">@Model.Make.MakeName Videos</h1>
+}
+           
             <ul class="bike-listing">
                 @foreach (var bike in Model.Videos)
                 {

@@ -1,4 +1,8 @@
-﻿using Bikewale.DTO.PriceQuote;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
@@ -22,10 +26,6 @@ using Bikewale.Models.PriceInCity;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models
 {
@@ -70,6 +70,7 @@ namespace Bikewale.Models
         public bool IsMobile { get; internal set; }
         private GlobalCityAreaEntity locationCookie = null;
         private readonly IAdSlot _adSlot = null;
+        private BikeSeriesEntityBase Series;
 
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
@@ -88,7 +89,7 @@ namespace Bikewale.Models
         /// <param name="pqSource"></param>
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -107,6 +108,7 @@ namespace Bikewale.Models
             this.modelMaskingName = modelMaskingName;
             this.cityMaskingName = cityMaskingName;
             _objManufacturerCampaign = objManufacturerCampaign;
+            _objModelEntity = modelEntity;
             ProcessQueryString();
         }
 
@@ -531,6 +533,8 @@ namespace Bikewale.Models
         /// Description : Get data for PriceInCity AMP page
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Added IsNew check for GetManufacturerCampaign and BindManufacturerLeadAdAMP
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageAMPVM GetDataAMP()
@@ -666,8 +670,12 @@ namespace Bikewale.Models
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
                         #region Do not change the order
                         BuildPageMetas(objVM);
-                        GetManufacturerCampaign(objVM);
-                        BindManufacturerLeadAdAMP(objVM);
+                        if (objVM.IsNew)
+                        {
+                            GetManufacturerCampaign(objVM);
+                            BindManufacturerLeadAdAMP(objVM);
+                        }
+                        
                         #endregion
 
                     }
@@ -685,6 +693,8 @@ namespace Bikewale.Models
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
                     BindAmpJsTags(objVM);
+                    Series = _objModelEntity.GetSeriesByModelId(modelId);
+                    SetBreadcrumList(objVM);
                 }
             }
             catch (Exception ex)
@@ -718,14 +728,16 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created by : Ashutosh Sharma on 10-Sep-2017
+        /// Created by : Ashutosh Sharma on 10 Sep 2017
         /// Description : Bind Manufacturer Lead Ad and href, remove AMP prohibitated attribute
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : LeadCapture null check added.
         /// </summary>
         /// <param name="priceInCityAMPVM"></param>
         private void BindManufacturerLeadAdAMP(PriceInCityPageAMPVM priceInCityAMPVM)
         {
             string str = string.Empty;
-            if (priceInCityAMPVM.LeadCampaign != null)
+            if (priceInCityAMPVM.LeadCampaign != null && priceInCityAMPVM.LeadCapture != null)
             {
 
                 try
@@ -1152,6 +1164,7 @@ namespace Bikewale.Models
                 objVM.AdTags.TargetedCity = firstVersion.City;
                 objVM.AdTags.TargetedModel = firstVersion.ModelName;
 
+                Series = _objModelEntity.GetSeriesByModelId(modelId);
                 SetBreadcrumList(objVM);
 
                 SetPageJSONLDSchema(objVM);
@@ -1190,7 +1203,8 @@ namespace Bikewale.Models
             try
             {
                 IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string url, scooterUrl, seriesUrl;
+            url = scooterUrl = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl);
                 ushort position = 1;
                 if (IsMobile)
                 {
@@ -1209,13 +1223,22 @@ namespace Bikewale.Models
 
                 if (objPage.Make != null && objPage.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !objPage.Make.IsScooterOnly)
                 {
-                    string makeUrl = "";
                     if (IsMobile)
-                        makeUrl = string.Format("/m/{0}-scooters/", objPage.Make.MaskingName);
-                    else
-                        makeUrl = string.Format("/{0}-scooters/", objPage.Make.MaskingName);
+                    {
+                        scooterUrl += "m/";
+                    }
 
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, makeUrl, string.Format("{0} Scooters", objPage.Make.MakeName)));
+                scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.Make.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.Make.MakeName)));
+            }
+
+            if(Series != null && Series.IsSeriesPageUrl)
+            {
+
+                seriesUrl = string.Format("{0}{1}/", url, Series.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, Series.SeriesName));
                 }
 
                 if (objPage.Make != null && objPage.BikeModel != null)

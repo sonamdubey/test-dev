@@ -8,7 +8,7 @@
     Model.AdTags.Ad_Bot_320x50 = true;
     Model.AdTags.AdId = "1444028976556";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Model";
-    Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-service-center-in-india/", Model.Make.MaskingName);
+    Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/service-centers/{0}/", Model.Make.MaskingName);
 }
 
 @if (Model != null && Model.Make != null)
@@ -40,7 +40,7 @@
                                 @foreach (var stcity in st.Cities)
                                 {
                                     <li>
-                                        <a data-item-id="@stcity.Id" data-item-name="@stcity.CityName" data-lat="@stcity.Lattitude" data-long="@stcity.Longitude" data-link="@stcity.Link" data-servicecentercount="@stcity.ServiceCenterCountCity" title="@Model.Make.MakeName service center in @stcity.CityMaskingName" href="/m/@Model.Make.MaskingName-service-center-in-@stcity.CityMaskingName/">@stcity.CityName (@stcity.ServiceCenterCountCity)</a>
+                                        <a data-item-id="@stcity.Id" data-item-name="@stcity.CityName" data-lat="@stcity.Lattitude" data-long="@stcity.Longitude" data-link="@stcity.Link" data-servicecentercount="@stcity.ServiceCenterCountCity" title="@Model.Make.MakeName service center in @stcity.CityMaskingName" href="/m/service-centers/@Model.Make.MaskingName/@stcity.CityMaskingName/">@stcity.CityName (@stcity.ServiceCenterCountCity)</a>
                                     </li>
                                 }
                             </ul>

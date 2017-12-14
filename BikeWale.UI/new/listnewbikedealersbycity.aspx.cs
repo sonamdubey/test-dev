@@ -107,7 +107,7 @@ namespace Bikewale.New
                         var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (_city != null)
                         {
-                            string _redirectUrl = String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
+                            string _redirectUrl = String.Format("/dealer-showrooms/{0}/{1}/", makeMaskingName, _city.CityMaskingName);
                             Response.Redirect(_redirectUrl, false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
@@ -120,7 +120,7 @@ namespace Bikewale.New
             {
                 Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, "checkDealersForMakeCity");
-                
+
             }
             return false;
         }
@@ -148,7 +148,7 @@ namespace Bikewale.New
             {
                 Trace.Warn(err.Message + err.Source);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
 
         }//function
@@ -247,7 +247,7 @@ namespace Bikewale.New
                 {
                     Trace.Warn("ProcessQueryString Ex: ", ex.Message);
                     ErrorClass.LogError(ex, "");
-                    
+
                     isSuccess = false;
                 }
                 finally
@@ -309,7 +309,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetLocationCookie");
-                
+
             }
         }
         #endregion

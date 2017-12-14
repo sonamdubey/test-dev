@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.PWA.Articles;
+using Bikewale.Models.BikeModels;
 using System.Collections.Generic;
 using System.Web;
 
@@ -23,7 +24,14 @@ namespace Bikewale.Models
         public PwaReduxStore ReduxStore { get; set; }
         public IHtmlString ServerRouterWrapper { get; set; }
         public string WindowState { get; set; }
-
+        public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
         public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
+        public MultiTabsWidgetVM PopularBikesAndPopularScootersWidget { get; set; }
+        public MultiTabsWidgetVM UpcomingBikesAndUpcomingScootersWidget { get; set; }
+        public MultiTabsWidgetVM PopularBikesAndUpcomingBikesWidget { get; set; }
+        public MultiTabsWidgetVM PopularMakeBikesAndBodyStyleBikesWidget { get; set; }
+        public MultiTabsWidgetVM PopularMakeScootersAndOtherBrandsWidget { get; set; }
+        public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
+        public SimilarBikesWidgetVM SimilarBikes { get; set; }
     }
 }

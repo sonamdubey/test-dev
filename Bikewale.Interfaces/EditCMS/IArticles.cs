@@ -1,7 +1,7 @@
-﻿using Bikewale.Entities.CMS.Articles;
+﻿using System.Collections.Generic;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.PWA.Articles;
-using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.EditCMS
 {
@@ -16,6 +16,8 @@ namespace Bikewale.Interfaces.EditCMS
     /// Summary: Added overload for GetArticlesByCategoryList(bodyStyleId)
     /// Modified by: Ashutosh Sharma on 20-Sep-2017
     /// Description : Added GetArticlesByCategoryList with parameters 'categoryIdList, startIndex, endIndex'
+    /// Modified by : Vivek Singh Tomar on 24th Nov 2017
+    /// Summary : Added GetArticlesByCategoryList to fetch article details for given list of model ids
     /// </summary>
     public interface IArticles
     {
@@ -30,5 +32,6 @@ namespace Bikewale.Interfaces.EditCMS
         CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex);
         PwaContentBase GetArticlesByCategoryListPwa(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId);
         IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords, uint makeId, string modelIds);
+        CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, string modelIds);
     }
 }

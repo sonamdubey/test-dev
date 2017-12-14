@@ -10,7 +10,6 @@ var navContainer, effect = 'slide', directionLeft = { direction: 'left' }, durat
 var popupHeading, popupContent, brandcitypopupContent;
 
 
-
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt) {
         var len = this.length >>> 0;
@@ -1881,6 +1880,12 @@ docReady(function () {
         window.errorLog = errorLog;
     })();
    
+    // Stop default achor propgation and redirect to custom link
+    $(".redirect-url").click(function (ev) {
+        ev.preventDefault();
+        window.location.href = $(this).attr('data-url');
+    });
+
     $(document).on("click", ".bw-ga", function () {
         try {
             var obj = $(this);
@@ -1946,5 +1951,4 @@ docReady(function () {
             element.text('...Read more');
         }
     });
-
 });

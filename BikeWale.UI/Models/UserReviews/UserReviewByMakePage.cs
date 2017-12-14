@@ -93,12 +93,23 @@ namespace Bikewale.Models.UserReviews
             {
                 if (objData != null)
                 {
-                    objData.PageMetaTags.Title = string.Format("{0} Bikes Reviews | Reviews of {0} Models- BikeWale", objData.Make.MakeName);
+                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objData.Make.MakeId.ToString()))
+                    {
+                        objData.PageMetaTags.Title = string.Format("Reviews of {0} Bikes | User Reviews on {0} Models- BikeWale", objData.Make.MakeName);
+                        objData.Page_H1 = string.Format("Reviews of {0} Bikes", objData.Make.MakeName);
+                    }
+                    else
+                    {
+                        objData.Page_H1 = string.Format("Reviews on bikes from {0}", objData.Make.MakeName);
+                        objData.PageMetaTags.Title = string.Format("{0} Bikes Reviews | Reviews of {0} Models- BikeWale", objData.Make.MakeName);
+
+                    }
+
                     objData.PageMetaTags.Description = string.Format("Explore reviews of all models of {0} Bikes. Read 5000+ unbiased and verified reviews from real owners on BikeWale", objData.Make.MakeName);
                     objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/reviews/", BWConfiguration.Instance.BwHostUrl, objData.Make.MaskingName);
                     objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/reviews/", BWConfiguration.Instance.BwHostUrl, objData.Make.MaskingName);
                     objData.PageMetaTags.Keywords = string.Format("{0} reviews, {0} bike reviews, {0} expert review, {0} bike expert review, {0} Bike user review, {0} owner review, {0} bike owner review, {0} user review, {0} bike user review", objData.Make.MakeName.ToLower());
-                    objData.Page_H1 = string.Format("Reviews on bikes from {0}", objData.Make.MakeName);
+
 
                     SetBreadcrumList();
                 }

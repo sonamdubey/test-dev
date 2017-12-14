@@ -1,16 +1,18 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeSeries;
-using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
 {
-	/// <summary>
-	/// Created by : Vivek Singh Tomar on 28th Sep 2017
-	/// Summary : Cache Repo interface for bike series
-	/// Modified by : Ashutosh Sharma on 17 Nov 2017
-	/// Description : Added GetNewModels, GetUpcomingModels, GetOtherSeriesFromMake, GetSynopsis.
-	/// </summary>
-	public interface IBikeSeriesCacheRepository
+    /// <summary>
+    /// Created by : Vivek Singh Tomar on 28th Sep 2017
+    /// Summary : Cache Repo interface for bike series
+    /// Modified by : Ashutosh Sharma on 17 Nov 2017
+    /// Description : Added GetNewModels, GetUpcomingModels, GetOtherSeriesFromMake, GetSynopsis.
+    /// Modified by : vivek singh tomar on 24th nov 2017
+    /// summary : added GetModelIdsBySeries
+    /// </summary>
+    public interface IBikeSeriesCacheRepository
     {
         BikeSeriesModels GetModelsListBySeriesId(uint seriesId, uint cityId = 0);
 		IEnumerable<NewBikeEntityBase> GetNewModels(uint seriesId, uint cityId);
@@ -18,7 +20,7 @@ namespace Bikewale.Interfaces.BikeData
 		IEnumerable<UpcomingBikeEntityBase> GetUpcomingModels(uint seriesId);
 		BikeDescriptionEntity GetSynopsis(uint seriesId);
 		IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId);
-
+        string GetModelIdsBySeries(uint seriesId);
         /// <summary>
         /// Written By : Ashish G. Kamble on 20 Nov 2017
         /// Summary : Function to get the series and model masking details using maskingName
