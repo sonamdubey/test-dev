@@ -380,8 +380,8 @@ namespace Bikewale.Models
                     PopularBodyStyleVM BodyStyleVM = null;
 
                     BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, BikeInfoTabType.ExpertReview);
-                    objData.BikeInfo.IsSmallSlug = true;
                     objData.BikeInfo = objBikeInfo.GetData();
+                    objData.BikeInfo.IsSmallSlug = true;
 
                     if (IsMobile)
                     {
