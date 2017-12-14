@@ -746,5 +746,55 @@ namespace Bikewale.DAL.BikeData
             }
             return objMakesList;
         }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 14th Dec 2017
+        /// Descritpion: Method to get list of  makes in which service center is present for city
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId)
+        {
+            IList<BikeMakeEntityBase> objMakesList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecenterbrandsincity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, Convert.ToInt32(cityId)));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objMakesList = new List<BikeMakeEntityBase>();
+                            while (dr.Read())
+                            {
+                                objMakesList.Add(new BikeMakeEntityBase
+                                {
+                                    MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MakeId = SqlReaderConvertor.ToUInt16(dr["makeid"]),
+                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["servicecenterscount"]),
+                                    HostUrl = Convert.ToString(dr["hosturl"]),
+                                    LogoUrl = Convert.ToString(dr["logourl"]),
+                                    IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]),
+                                    PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
+                                    MakeCategoryId = SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"])
+
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format(" Bikewale.DAL.Dealer.GetServiceCenterBrandsInCity_City_{0}", cityId));
+            }
+            return objMakesList;
+        }
     }
 }

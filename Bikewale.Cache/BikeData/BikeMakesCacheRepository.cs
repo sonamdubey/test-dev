@@ -272,7 +272,31 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetDealerBrandsInCity CityId : {0}", cityId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetDealerBrandsInCity_CityId : {0}", cityId));
+            }
+            return objMakesList;
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 13th Dec 2017
+        /// Description:  Method to get list of  makes in which service center is present for city
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId)
+        {
+            IEnumerable<BikeMakeEntityBase> objMakesList = null;
+            try
+            {
+                if (cityId > 0)
+                {
+                    string key = string.Format("BW_ServiceCenterBrandsInCity_City_{0}", cityId);
+                    objMakesList = _cache.GetFromCache<IEnumerable<BikeMakeEntityBase>>(key, new TimeSpan(24, 0, 0), () => _objMakes.GetServiceCenterBrandsInCity(cityId));
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetServiceCenterBrandsInCity_CityId : {0}", cityId));
             }
             return objMakesList;
         }
