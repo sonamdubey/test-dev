@@ -726,7 +726,13 @@ namespace Bikewale.DAL.BikeData
                                     MaskingName = Convert.ToString(dr["makemaskingname"]),
                                     MakeName = Convert.ToString(dr["makename"]),
                                     MakeId = SqlReaderConvertor.ToUInt16(dr["makeid"]),
-                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["dealerscount"])
+                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["dealerscount"]),
+                                    HostUrl = Convert.ToString(dr["hosturl"]),
+                                    LogoUrl = Convert.ToString(dr["logourl"]),
+                                    IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]),
+                                    PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
+                                    MakeCategoryId = SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"])
+
                                 });
                             }
                             dr.Close();
