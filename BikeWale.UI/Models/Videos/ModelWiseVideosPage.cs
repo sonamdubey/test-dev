@@ -85,7 +85,7 @@ namespace Bikewale.Models.Videos
                     objVM.Make = new MakeHelper().GetMakeNameByMakeId(_makeId);
 
                 string modelIds = _series.GetModelIdsBySeries(objMaskingResponse.ModelId);
-                objVM.VideosList = _objVideosCache.GetSimilarVideos(_maxVideoCount, modelIds, 1);
+                objVM.VideosList = _objVideosCache.GetSimilarVideos(_maxVideoCount, modelIds);
                 objVM.objSeries = objSeries;
                 BindPageMetasSeries(objVM);
                 BindPopularSeriesBikes(objVM, currentCityArea.City);
