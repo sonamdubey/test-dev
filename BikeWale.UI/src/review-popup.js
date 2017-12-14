@@ -3,6 +3,69 @@ var reviewPopupCotent, desktopUserReview, reviewPopup;
 var reviewId = 0;
 var bwSpinner;
 
+// Like dislike review code
+function upVoteReview() {
+	bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "1" });
+	$('#upvoteBtn-' + reviewId).addClass('active');
+	$('#downvoteBtn-' + reviewId).attr('disabled', 'disabled');
+
+	$('#upvoteCount').text(parseInt($('#upvoteCount').text()) + 1);
+	voteUserReview(1);
+}
+
+function downVoteReview() {
+	bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "0" });
+
+	$('#downvoteBtn-' + reviewId).addClass('active');
+	$('#upvoteBtn-' + reviewId).attr('disabled', 'disabled');
+	$('#downvoteCount').text(parseInt($('#downvoteCount').text()) + 1);
+	voteUserReview(0);
+}
+
+function voteUserReview(vote) {
+	$.ajax({
+		type: "POST",
+		url: "/api/user-reviews/voteUserReview/?reviewId=" + reviewId + "&vote=" + vote,
+		success: function (response) {
+		}
+	});
+}
+
+function addCss(fileName) {
+	var link = $("<link />", {
+		rel: "stylesheet",
+		type: "text/css",
+		href: fileName
+	})
+	$('head').append(link)
+}
+
+
+
+function applyLikeDislikes() {
+
+	var locReviewId = reviewId;
+    var listVote = bwcache.get("ReviewDetailPage_reviewVote_" + locReviewId);
+    var dnVoteBtn = $('#downvoteBtn' + "-" + locReviewId), upVoteBtn = $('#upvoteBtn' + "-" + locReviewId);
+
+	if (listVote != null && listVote.vote) {
+		if (listVote.vote == "0") {
+            dnVoteBtn.addClass('active');
+            upVoteBtn.removeClass('active').attr('disabled', 'disabled');
+		}
+		else {
+            upVoteBtn.addClass('active');
+            dnVoteBtn.removeClass('active').attr('disabled', 'disabled');
+		}
+	}
+	else {
+        upVoteBtn.removeClass('active').prop('disabled', false);
+        dnVoteBtn.removeClass('active').prop('disabled', false);
+	}
+
+}
+
+
 docReady(function () {
 	reviewPopupCotent = $('#reviewPopup');
 	desktopUserReview = $('#userReviewContentDesktop').length;
@@ -85,6 +148,7 @@ docReady(function () {
 					self.IsInitialized(true);
 					if ($("#reviewPopup") != null)
 					{
+						addCss(reviewPopupCotent.attr('data-csslink'));
 						ko.applyBindings(self, $("#reviewPopup")[0]);
 					}
 				}
@@ -113,11 +177,11 @@ docReady(function () {
 
 	var reviewSummaryTemplate = bwcache.get("ReviewSummaryTemplate")
 	if (reviewSummaryTemplate) {
-		$("#reviewPopup").html(reviewSummaryTemplate);
+        reviewPopupCotent.html(reviewSummaryTemplate);
 		vmModelUserReviewDetailPopup.init();
 	}
 	else {
-		$("#reviewPopup").load("/Templates/UserReviewDetails_Popup.html", function (responseTxt, statusTxt, xhr) {
+        reviewPopupCotent.load("/Templates/UserReviewDetails_Popup.html", function (responseTxt, statusTxt, xhr) {
 			if (statusTxt == "success") {
 				bwcache.set("ReviewSummaryTemplate", responseTxt, true);
 				vmModelUserReviewDetailPopup.init();
@@ -128,57 +192,3 @@ docReady(function () {
 	
 
 });
-
-// Like dislike review code
-function upVoteReview() {
-	bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "1" });
-	$('#upvoteBtn-' + reviewId).addClass('active');
-	$('#downvoteBtn-' + reviewId).attr('disabled', 'disabled');
-  
-	$('#upvoteCount').text(parseInt($('#upvoteCount').text()) + 1);
-	voteUserReview(1);
-}
-
-function downVoteReview() {
-	bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "0" });
-  
-	$('#downvoteBtn-' + reviewId).addClass('active');
-	$('#upvoteBtn-' + reviewId).attr('disabled', 'disabled');
-	$('#downvoteCount').text(parseInt($('#downvoteCount').text()) + 1);
-	voteUserReview(0);
-}
-
-function voteUserReview(vote) {
-	$.ajax({
-		type: "POST",
-		url: "/api/user-reviews/voteUserReview/?reviewId=" + reviewId + "&vote=" + vote,
-		success: function (response) {
-		}
-	});
-}
-
-
-
-function applyLikeDislikes() {
-  
-	var locReviewId = reviewId;
-	var listVote = bwcache.get("ReviewDetailPage_reviewVote_" + locReviewId);
-
-		if (listVote != null && listVote.vote) {
-			if (listVote.vote == "0") {
-				$('#downvoteBtn' + "-" + locReviewId).addClass('active');
-				$('#upvoteBtn' + "-" + locReviewId).removeClass('active').attr('disabled', 'disabled');
-			}
-			else {
-				$('#upvoteBtn' + "-" + locReviewId).addClass('active');
-				$('#downvoteBtn' + "-" + locReviewId).removeClass('active').attr('disabled', 'disabled');
-			}
-		}
-		else {
-			$('#upvoteBtn' + "-" + locReviewId).removeClass('active');
-			$('#upvoteBtn' + "-" + locReviewId).prop('disabled', false);
-			$('#downvoteBtn' + "-" + locReviewId).removeClass('active');
-			$('#downvoteBtn' + "-" + locReviewId).prop('disabled', false);
-		}
-	
-}
