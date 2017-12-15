@@ -40,7 +40,7 @@ namespace Bikewale.Entities.GenericBikes
         public DateTime? LastUpdatedModelSold { get; set; }
         public uint NewsCount { get; set; }
         public uint UsedBikesCount { get; set; }
-        public CityEntityBase City { get; set; }
+        public CityEntityBase UsedCity { get; set; }
         public string PriceInCity { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }

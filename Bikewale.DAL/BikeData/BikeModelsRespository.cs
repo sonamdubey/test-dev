@@ -2247,10 +2247,10 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.TotalModelColors = SqlReaderConvertor.ToUInt32(dr["ColorCount"]);
                                 bestBikeObj.LastUpdatedModelSold = SqlReaderConvertor.ToDateTime(dr["UnitSoldDate"]);
                                 bestBikeObj.UsedBikesCount = SqlReaderConvertor.ToUInt32(dr["AvailableBikes"]);
-                                bestBikeObj.City = new CityEntityBase();
-                                bestBikeObj.City.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
-                                bestBikeObj.City.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
-                                bestBikeObj.City.CityName = Convert.ToString(dr["CityName"]);
+                                bestBikeObj.UsedCity = new CityEntityBase();
+                                bestBikeObj.UsedCity.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
+                                bestBikeObj.UsedCity.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                bestBikeObj.UsedCity.CityName = Convert.ToString(dr["CityName"]);
                                 bestBikeObj.PriceInCity = Convert.ToString(dr["PriceInCity"]);
                                 bestBikesList.Add(bestBikeObj);
                             }
@@ -2311,7 +2311,7 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.Make.MakeName = Convert.ToString(dr["MakeName"]);
                                 bestBikeObj.Make.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 bestBikeObj.Price = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]);
-                                bestBikeObj.City = new CityEntityBase();
+                                bestBikeObj.UsedCity = new CityEntityBase();
                                 bestBikesList.Add(bestBikeObj);
                             }
                             dr.Close();
@@ -2373,11 +2373,11 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.Make.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 bestBikeObj.Price = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]);
                                 bestBikeObj.AvgPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]);
-                                bestBikeObj.City = new CityEntityBase();
+                                bestBikeObj.UsedCity = new CityEntityBase();
                                 bestBikeObj.OnRoadPriceInCity = SqlReaderConvertor.ToUInt32(dr["OnRoadPriceInCity"]);
-                                bestBikeObj.City.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
-                                bestBikeObj.City.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
-                                bestBikeObj.City.CityName = Convert.ToString(dr["CityName"]);
+                                bestBikeObj.UsedCity.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
+                                bestBikeObj.UsedCity.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                bestBikeObj.UsedCity.CityName = Convert.ToString(dr["CityName"]);
                                 bestBikesList.Add(bestBikeObj);
                             }
                             dr.Close();
