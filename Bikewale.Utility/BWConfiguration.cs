@@ -258,7 +258,7 @@ namespace Bikewale.Utility
             _pwaRenderedHtmlCacheLimitMins = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
             _MetasMakeId = ConfigurationManager.AppSettings["MetasMakeId"];
             _EnablePwdResetLogging = String.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePwdResetLogging"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePwdResetLogging"]);
-            _pwaRenderedHtmlCacheLimitMins = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
+
         }
 
         // Static method to provide access to instance
@@ -432,5 +432,6 @@ namespace Bikewale.Utility
         public string AMPProjectUrl { get { return _AmpProjectUrl; } }
         public string MetasMakeId { get { return _MetasMakeId; } }
         public bool EnablePwdResetLogging { get { return _EnablePwdResetLogging; } }
+
     }   // class
 }   // namespace

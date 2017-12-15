@@ -1,4 +1,6 @@
-﻿using Bikewale.DTO.Videos;
+﻿using System;
+using System.Collections.Generic;
+using Bikewale.DTO.Videos;
 using Bikewale.Entities.Authors;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
@@ -10,8 +12,6 @@ using Bikewale.Utility;
 using EditCMSWindowsService.Messages;
 using Google.Protobuf.Collections;
 using log4net;
-using System;
-using System.Collections.Generic;
 
 namespace Bikewale.BAL.GrpcFiles
 {
@@ -53,6 +53,8 @@ namespace Bikewale.BAL.GrpcFiles
                     curArt.OriginalImgUrl = item.OriginalImgUrl;
                     curArt.SmallPicUrl = item.SmallPicUrl;
                     curArt.Views = item.Views;
+					curArt.SubCategory = item.SubCategory;
+					curArt.SubCategoryId = item.SubCategoryId;
                     dataNew.Articles.Add(curArt);
                 }
                 return dataNew;
@@ -509,7 +511,8 @@ namespace Bikewale.BAL.GrpcFiles
                         VideoTitle = curGrpcVideo.VideoTitle,
                         VideoTitleUrl = curGrpcVideo.VideoTitleUrl,
                         VideoUrl = curGrpcVideo.VideoUrl,
-                        Views = Convert.ToUInt32(curGrpcVideo.Views)
+                        Views = Convert.ToUInt32(curGrpcVideo.Views),
+                        ModelId = Convert.ToUInt32(curGrpcVideo.ModelId)
                     };
                 }
                 catch (Exception e)

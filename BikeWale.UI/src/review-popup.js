@@ -20,14 +20,12 @@ docReady(function () {
 		open: function (element) {
 		    bwSpinner = reviewPopupCotent.find('#ub-ajax-loader');
         	if (desktopUserReview) {
-        		element.animate({ 'right': 0 });
-        		popup.lock();
+        		element.animate({ 'right': 0 });        		
             }
             else {
         		element.show(reviewPopup.settings.effect, reviewPopup.settings.direction, reviewPopup.settings.duration, function () { });
-        		$('body').css('overflow', 'hidden');
-        		$(".blackOut-window").show();
         	}
+        	popup.lock();
         	bwSpinner.show();
         	window.history.pushState('addreviewPopup', '', '');
         	$('.review-popup-container').scrollTop(0);
@@ -37,13 +35,11 @@ docReady(function () {
         close: function (element) {
         	if (desktopUserReview) {
         		element.animate({ 'right': '-' + ($('#reviewPopup').width() + $('.review-popup-close-btn').outerWidth()) });
-        		popup.unlock();
             }
             else {
         		element.hide(reviewPopup.settings.effect, reviewPopup.settings.direction, reviewPopup.settings.duration, function () { });
-        		$('body').css('overflow', 'auto');
-        		$(".blackOut-window").hide();
         	}
+        	popup.unlock();
         }
     };
 

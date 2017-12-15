@@ -2991,6 +2991,7 @@
     <Content Include="pwa\videosBundle.bundle.aec06205ff5c05abcf94.js" />
     <Content Include="pwa\VideosBundle.bundle.js" />
     <Content Include="pwa\sw-toolbox.js" />
+    <Content Include="robots.txt" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
     <Content Include="sass\modules\_collapsible-content.sass" />
@@ -3084,9 +3085,13 @@
     <Content Include="sass\model-series\series.sass" />
     <Content Include="sass\partials\d\_upcoming-model-card.sass" />
     <Content Include="sass\partials\d\_comparison-card.sass" />
+    <Content Include="sass\modules\review-article.sass" />
+    <Content Include="sass\modules\_carousel-card.sass" />
+    <Content Include="sass\modules\_card-category.sass" />
     <Content Include="sass\partials\review-popup.sass" />
     <Content Include="sass\partials\_horizontal-rating-graph.sass" />
     <Content Include="sass\partials\_loader.sass" />
+    <Content Include="sass\modules\_review-category.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
@@ -3268,6 +3273,7 @@
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="Videos\VideoMakeModel.aspx" />
     <Content Include="Views\BikeSeries\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReview_Mobile.cshtml" />
     <Content Include="Views\Make\_DealerServiceCentersWidget.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -3907,11 +3913,9 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_AMP.cshtml" />
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
-    <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
     <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_Amp.cshtml" />
-    <Content Include="Views\BikeSeries\_PopularSeriesBikes.cshtml" />
-    <Content Include="Views\BikeSeries\_PopularSeriesBikes_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReview.cshtml" />
     <Content Include="Views\ElectricBikes\Index.cshtml" />
     <Content Include="Views\ElectricBikes\Index_Mobile.cshtml" />
     <Content Include="Views\ElectricBikes\_Index_Tabs.cshtml" />
@@ -3922,6 +3926,8 @@
     <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile_AMP.cshtml" />
     <Content Include="Views\Shared\_EditorialSeriesBikesWidget.cshtml" />
     <Content Include="Views\Shared\_EditorialUpcomingBikes_Vertical.cshtml">
+    <Content Include="Views\BikeSeries\_PopularSeriesBikes.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularSeriesBikes_Mobile.cshtml" />
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\_EditorialBestBikesSideBar.cshtml" />

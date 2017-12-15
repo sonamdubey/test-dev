@@ -184,16 +184,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                     uint modelId = 0;                    
                     if (!string.IsNullOrEmpty(vidDet.MaskingName))
                     {
-                        // Will replace this variable when required changes will be made in GrpcMethods.GetVideoByBasicId((int)videoId) 
-                        // to get modelId or makeMaskingName
-
-                        string tempMakeMaskingName = string.Empty;
-                        if (string.IsNullOrEmpty(vidDet.MakeName))
-                        {
-                            tempMakeMaskingName = vidDet.MakeName.ToLower().Replace(" ", "-");
-                        }
-                        var model = _objMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", tempMakeMaskingName, vidDet.MaskingName));
-                        modelId = model.ModelId;                        
+                        modelId = vidDet.ModelId;                        
                     }
                 
                     if(modelId>0)

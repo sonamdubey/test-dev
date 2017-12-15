@@ -9,16 +9,20 @@ namespace BikewaleOpr.Controllers
     /// <summary>
     /// Created by: Vivek Singh Tomar on 11th Sep 2017
     /// Summary: Controller for bike series page
+    /// Modified by: Rajan Chauhan on 12th Dec 2017
+    /// Description: Added bodystyle interface in constructor
     /// </summary>
     [Authorize]
     public class BikeSeriesController : Controller
     {
         private readonly IBikeMakes _makes = null;
         private readonly IBikeSeries _series = null;
-        public BikeSeriesController(IBikeMakes makes, IBikeSeries series)
+        private readonly IBikeBodyStyles _bodystyles = null;
+        public BikeSeriesController(IBikeMakes makes, IBikeSeries series, IBikeBodyStyles bodystyles)
         {
             _series = series;
             _makes = makes;
+            _bodystyles = bodystyles;
         }
 
         /// <summary>
@@ -29,7 +33,7 @@ namespace BikewaleOpr.Controllers
         [HttpGet, Route("series/")]
         public ActionResult Index()
         {
-            BikeSeriesPageModel objBikeSeriesModel = new BikeSeriesPageModel(_makes, _series);
+            BikeSeriesPageModel objBikeSeriesModel = new BikeSeriesPageModel(_makes, _series, _bodystyles);
             BikeSeriesPageVM objBikeSeriesVM = null;
             try
             {

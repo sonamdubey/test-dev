@@ -23,5 +23,7 @@ namespace BikewaleOpr.DTO.BikeData
         public bool IsSeriesPageUrl { get; set; }
         [JsonProperty("message")]
         public string Message { get; set; }
+        [JsonProperty("bodystyle")]
+        public BodyStyleBase BodyStyle { get; set; }
     }
 }

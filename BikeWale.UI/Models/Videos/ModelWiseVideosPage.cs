@@ -67,8 +67,8 @@ namespace Bikewale.Models.Videos
 
         /// <summary>
         /// Modified by : Ashutosh Sharma on 11 Dec 2017
-        /// Description : Added call to GetGlobalCityArea and BindPopularSeriesBikes.
         /// Description : Removed videoBasicId from call of GetSimilarVideos.
+        /// Description : Added call to GetGlobalCityArea and BindPopularSeriesBikes.
         /// </summary>
         /// <returns></returns>
         public ModelWiseVideoPageVM GetDataSeries()
