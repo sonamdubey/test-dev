@@ -140,7 +140,17 @@
 }
 
 .sidebar-bike-list .bike-target-link h3 {
-    margin-bottom: 3px
+    margin-bottom: 3px;
+}
+.sidebar-bike-container .sidebar-bike-list{
+    max-height: 415px;
+    overflow: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.sidebar-bike-container .view-all-btn-container {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .back-to-top {

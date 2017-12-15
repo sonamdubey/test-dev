@@ -276,7 +276,7 @@
 }
 
 .gallery-loader-placeholder {
-    z-index: 8;
+    z-index: 208;
 }
 
 /* loader */
@@ -330,7 +330,7 @@
 }
 .gallery-container {
     display: block;
-    z-index: 10;
+    z-index: 210;
 }
 
 #gallery-close-btn {
@@ -1030,8 +1030,8 @@
     }
 }
 
-.bike-gallery-popup { display: none; width:700px; height:635px; margin:0 auto; overflow-y:auto; position:fixed; top:4%; right:5%; left:5%; z-index:10; }
-.blackOut-window-model { background:#2a2a2a; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; display: none; }
+.bike-gallery-popup { display: none; width:700px; height:635px; margin:0 auto; overflow-y:auto; position:fixed; top:4%; right:5%; left:5%; z-index:210; }
+.blackOut-window-model { background:#2a2a2a; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:209; display: none; }
 .modelgallery-close-btn { z-index:9; }
 /*image-videos tabs*/
 .bike-gallery-popup .home-tabs { background:#ccc;}
