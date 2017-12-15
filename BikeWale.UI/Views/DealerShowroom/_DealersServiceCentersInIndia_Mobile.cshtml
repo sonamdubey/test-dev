@@ -10,7 +10,7 @@
             {
                 <div class="swiper-slide">
                     <div class="swiper-card">
-                        <a href="@string.Format("{0}/m/{1}-dealer-showrooms-in-{2}/", BWConfiguration.Instance.BwHostUrl, Model.MakeMaskingName, details.CityMaskingName)" title="@Model.MakeName showroom in @details.CityName" class="block">
+                        <a href="@string.Format("{0}/m/dealer-showrooms/{1}/{2}/", BWConfiguration.Instance.BwHostUrl, Model.MakeMaskingName, details.CityMaskingName)" title="@Model.MakeName showroom in @details.CityName" class="block">
                             <span class="dealer-city-image-preview">
                                 <span class="city-sprite @details.CityMaskingName-icon"></span>
                             </span>
@@ -29,7 +29,7 @@
         {
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href="@string.Format("{0}/m/{1}-dealer-showrooms-in-india/", BWConfiguration.Instance.BwHostUrl, Model.MakeMaskingName)" title="@Model.MakeName showroom in India" class="block">
+                    <a href="@string.Format("{0}/m/dealer-showrooms/{1}/", BWConfiguration.Instance.BwHostUrl, Model.MakeMaskingName)" title="@Model.MakeName showroom in India" class="block">
                         <span class="dealer-city-image-preview">
                             <span class="city-sprite india-icon"></span>
                         </span>

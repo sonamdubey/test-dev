@@ -12,15 +12,19 @@ namespace BikewaleOpr.BAL
     {
         private readonly IBikeSeriesRepository _seriesRepo;
         private readonly IBikeModelsRepository _modelRepo;
-        public BikeSeries(IBikeSeriesRepository seriesRepo, IBikeModelsRepository modelRepo)
+        private readonly IBikeBodyStylesRepository _bodystyles;
+        public BikeSeries(IBikeSeriesRepository seriesRepo, IBikeModelsRepository modelRepo, IBikeBodyStylesRepository bodystyles)
         {
             _seriesRepo = seriesRepo;
             _modelRepo = modelRepo;
+            _bodystyles = bodystyles;
         }
 
         /// <summary>
         /// Created by : Vivek Singh Tomar on 12th Sep 2017
         /// Summary : Get all bike series
+        /// Modified by : Rajan Chauhan on 12th Dec 2017
+        /// Summary : Added bike bodystyles list
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BikeSeriesEntity> GetSeries()
@@ -41,18 +45,25 @@ namespace BikewaleOpr.BAL
 		/// Created by : Vivek Singh Tomar on 12th Sep 2017
 		/// Summary : Add new bike series
 		/// Modified by : Ashutosh Sharma on 27 Nov 2017
-		/// Description : Added call to ClearSeriesCache.
+        /// Description : Added call to ClearSeriesCache.
+        /// Modified by : Rajan Chauhan on 12 Dec 2017
+        /// Description : Added bodyStyleId in AddSeries.
 		/// </summary>
 		/// <param name="bikeSeries"></param>
 		/// <param name="UpdatedBy"></param>
 		/// <param name="seriesId"></param>
 		/// <param name="isSeriesExist"></param>
-		public Tuple<bool, string, BikeSeriesEntity> AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
-        {
+		public Tuple<bool, string, BikeSeriesEntity> AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl, uint? bodyStyleId)
+        {   
+           
             Tuple<bool, string, BikeSeriesEntity> respObj = null;
+            if (!isSeriesPageUrl)
+            {
+                bodyStyleId = 0;
+            }
             try
             {
-                if (makeId > 0 && updatedBy > 0 && !string.IsNullOrEmpty(seriesName) && !string.IsNullOrEmpty(seriesMaskingName))
+                if (makeId > 0 && updatedBy > 0 && !string.IsNullOrEmpty(seriesName) && !string.IsNullOrEmpty(seriesMaskingName) && ((isSeriesPageUrl && (bodyStyleId != null && bodyStyleId != 0)) || !isSeriesPageUrl))
                 {
                     BikeSeriesEntity objBikeSeries = new BikeSeriesEntity()
                     {
@@ -62,6 +73,10 @@ namespace BikewaleOpr.BAL
                         BikeMake = new BikeMakeEntityBase()
                         {
                             MakeId = Convert.ToInt32(makeId)
+                        },
+                        BodyStyle = new BikeBodyStyleEntity()
+                        {
+                            BodyStyleId = Convert.ToUInt32(bodyStyleId)
                         }
                     };
                     if (_seriesRepo.IsSeriesMaskingNameExists(makeId, seriesMaskingName) && isSeriesPageUrl)
@@ -129,17 +144,23 @@ namespace BikewaleOpr.BAL
         /// Description : BAL Method to edit bike series
         /// Modified by : Ashutosh Sharma on 30 Nov 2017
         /// Description : Added logic to model page cache clear.
+        /// Modified by : Rajan Chauhan on 13 Dec 2017
+        /// Description : Added bodyStyleId in AddSeries.
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="updatedBy"></param>
         /// <returns></returns>
-        public Tuple<bool, string> EditSeries(uint makeId, uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
+        public Tuple<bool, string> EditSeries(uint makeId, uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl, uint? bodyStyleId)
         {
             Tuple<bool, string> respObj = null;
             string oldMaskingName = "";
+            if (!isSeriesPageUrl)
+            {
+                bodyStyleId = 0;
+            }
             try
             {
-                if (seriesId > 0 && !string.IsNullOrEmpty(seriesName) && !string.IsNullOrEmpty(seriesMaskingName) && updatedBy > 0)
+                if (seriesId > 0 && !string.IsNullOrEmpty(seriesName) && !string.IsNullOrEmpty(seriesMaskingName) && updatedBy > 0 && ((isSeriesPageUrl && (bodyStyleId != null && bodyStyleId != 0)) || !isSeriesPageUrl))
                 {
                     BikeSeriesEntity bikeSeries = new BikeSeriesEntity()
                     {
@@ -147,7 +168,11 @@ namespace BikewaleOpr.BAL
                         SeriesName = seriesName,
                         SeriesMaskingName = seriesMaskingName,
                         IsSeriesPageUrl = isSeriesPageUrl,
-                        UpdatedBy = Convert.ToString(updatedBy)
+                        UpdatedBy = Convert.ToString(updatedBy),
+                        BodyStyle = new BikeBodyStyleEntity()
+                        {
+                            BodyStyleId = Convert.ToUInt32(bodyStyleId)
+                        }
                     };
 
                     var series = _seriesRepo.GetSeriesByMake((int)makeId);

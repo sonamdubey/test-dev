@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.BAL.BikeData;
+﻿using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -19,6 +15,10 @@ using Bikewale.Mobile.Controls;
 using Bikewale.Models;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Mobile
 {
@@ -31,8 +31,8 @@ namespace Bikewale.Mobile
     /// </summary>
     public class ModelSpecsFeatures : PageBase
     {
-        protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
-        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage;
+        protected uint cityId, areaId, modelId, versionId, dealerId, price = 0, _makeId;
+        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage, pgTitle;
         protected bool isDiscontinued, IsExShowroomPrice = true;
         protected BikeSpecificationEntity specs;
         protected BikeModelPageEntity modelDetail;
@@ -119,6 +119,7 @@ namespace Bikewale.Mobile
                             {
                                 makeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
+                                _makeId = (uint)modelPg.ModelDetails.MakeBase.MakeId;
                             }
                             IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
@@ -168,12 +169,13 @@ namespace Bikewale.Mobile
                             }
                         }
                     }
+                    pgTitle = Bikewale.Utility.BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_makeId.ToString()) ? string.Format("Specifications of {0} | Features of {1}- BikeWale", bikeName, modelName) : string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
-                
+
             }
             return modelPg;
         }
@@ -201,7 +203,7 @@ namespace Bikewale.Mobile
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
-                
+
             }
             return specsFeature;
         }
@@ -263,7 +265,7 @@ namespace Bikewale.Mobile
 
                 Trace.Warn("GetLocationCookie Ex: ", ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQueryString");
-                
+
             }
             finally
             {

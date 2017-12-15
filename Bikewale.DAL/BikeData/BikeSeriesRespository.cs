@@ -307,7 +307,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getseriesmodelmaskingmapping_11122017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getseriesmodelmaskingmapping_12122017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -317,7 +317,7 @@ namespace Bikewale.DAL.BikeData
                         {
                             ht = new Hashtable();
                             string makeMaskingName = "", modelMaskingName = "", htKey = "";
-
+                            Bikewale.Entities.GenericBikes.EnumBikeBodyStyles bodyStyle = Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.AllBikes;
                             while (dr.Read())
                             {
                                 modelMaskingName = Convert.ToString(dr["MaskingName"]);
@@ -325,13 +325,15 @@ namespace Bikewale.DAL.BikeData
                                 htKey = String.Format("{0}_{1}", makeMaskingName, modelMaskingName);
                                 SeriesMaskingResponse objMaskingNames = new SeriesMaskingResponse()
                                 {
-                                    Id = SqlReaderConvertor.ParseToUInt32(dr["Id"]),
+                                    ModelId = SqlReaderConvertor.ParseToUInt32(dr["ModelId"]),
+                                    SeriesId = SqlReaderConvertor.ParseToUInt32(dr["SeriesId"]),
                                     MaskingName = modelMaskingName,
                                     NewMaskingName = Convert.ToString(dr["NewMaskingName"]),
                                     IsSeriesPageCreated = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]),
                                     StatusCode = SqlReaderConvertor.ToUInt16(dr["Status"]),
                                     Name = Convert.ToString(dr["MaskingName"]),
-                                    MakeMaskingName = makeMaskingName
+                                    MakeMaskingName = makeMaskingName,
+                                    BodyStyle = Enum.TryParse(Convert.ToString("BodyStyleId"), out bodyStyle) ? bodyStyle : bodyStyle
                                 };
 
                                 if (!ht.ContainsKey(htKey))

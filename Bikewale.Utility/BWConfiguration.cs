@@ -113,6 +113,7 @@ namespace Bikewale.Utility
             _UserReviewsReadInSessionCount = string.Empty,
             _PopularCitiesId = String.Empty,
             _PopularityOrderForMake = string.Empty,
+            _MetasMakeId = string.Empty,
             _AmpProjectUrl = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
@@ -138,6 +139,7 @@ namespace Bikewale.Utility
         private readonly int _minEnginePoolSize, _maxEnginePoolSize;
         private readonly bool _useV8Engine;
         private readonly int _pwaRenderedHtmlCacheLimitMins;
+        private readonly bool _EnablePwdResetLogging;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -254,6 +256,9 @@ namespace Bikewale.Utility
             _AmpProjectUrl = ConfigurationManager.AppSettings["AMPProjectUrl"];
             _useV8Engine = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? true : Convert.ToBoolean(ConfigurationManager.AppSettings["UseV8Engine"]);
             _pwaRenderedHtmlCacheLimitMins = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
+            _MetasMakeId = ConfigurationManager.AppSettings["MetasMakeId"];
+            _EnablePwdResetLogging = String.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePwdResetLogging"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePwdResetLogging"]);
+
         }
 
         // Static method to provide access to instance
@@ -425,6 +430,8 @@ namespace Bikewale.Utility
         public int PwaRenderedHtmlCacheLimitMins { get { return _pwaRenderedHtmlCacheLimitMins; } }
         public string PopularityOrderForMake { get { return _PopularityOrderForMake; } }
         public string AMPProjectUrl { get { return _AmpProjectUrl; } }
+        public string MetasMakeId { get { return _MetasMakeId; } }
+        public bool EnablePwdResetLogging { get { return _EnablePwdResetLogging; } }
 
     }   // class
 }   // namespace

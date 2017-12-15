@@ -502,6 +502,7 @@
     <Compile Include="Controllers\BikeCareController.cs" />
     <Compile Include="Controllers\BestBikesController.cs" />
     <Compile Include="Controllers\CompareBikesController.cs" />
+    <Compile Include="Controllers\ElectricBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\FinanceController.cs" />
@@ -947,6 +948,7 @@
     <Compile Include="Models\ComparisonTest\ComparisonTestWidget.cs" />
     <Compile Include="Models\ComparisonTests\ComparisonTestsIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\ElectricBike\ElectricBikesPage.cs" />
     <Compile Include="Models\ExpertReviews\ScooterExpertReviewsPage.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
@@ -2226,11 +2228,13 @@
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
+    <Content Include="css\electric-bikes\landing.css" />
     <Content Include="css\emicalculator.css" />
     <Content Include="css\threesixty-slider.css" />
     <Content Include="css\PopUp\PopUpCityArea.css" />
     <Content Include="css\finance\capital-first.css" />
     <Content Include="m\css\campaign\hero-campaign.css" />
+    <Content Include="m\css\electricbikes\landing.css" />
     <Content Include="m\css\finance\capital-first.css" />
     <Content Include="css\survey\bajaj-survey.css" />
     <Content Include="m\css\amp\bwm-modelprice-in-city-amp.css" />
@@ -2899,6 +2903,7 @@
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\dealer\landing.js" />
     <Content Include="m\src\dealer\listing.js" />
+    <Content Include="m\src\electricbikes\electricbikeindex.js" />
     <Content Include="m\src\model-series\series.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\new\search_new.js" />
@@ -2986,6 +2991,7 @@
     <Content Include="pwa\videosBundle.bundle.aec06205ff5c05abcf94.js" />
     <Content Include="pwa\VideosBundle.bundle.js" />
     <Content Include="pwa\sw-toolbox.js" />
+    <Content Include="robots.txt" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
     <Content Include="sass\modules\_collapsible-content.sass" />
@@ -3082,6 +3088,9 @@
     <Content Include="sass\modules\review-article.sass" />
     <Content Include="sass\modules\_carousel-card.sass" />
     <Content Include="sass\modules\_card-category.sass" />
+    <Content Include="sass\partials\review-popup.sass" />
+    <Content Include="sass\partials\_horizontal-rating-graph.sass" />
+    <Content Include="sass\partials\_loader.sass" />
     <Content Include="sass\modules\_review-category.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3120,6 +3129,7 @@
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
     <Content Include="src\dealer\landing.js" />
+    <Content Include="src\electricbikes\electricbikeindex.js" />
     <Content Include="src\model-series\series.js" />
     <Content Include="src\emi-calculator.js" />
     <Content Include="src\new-launch.js" />
@@ -3129,6 +3139,7 @@
     <Content Include="src\photos\modelgallery.js" />
     <Content Include="src\popup\makemodelpopup.js" />
     <Content Include="src\priceincity.js" />
+    <Content Include="src\review-popup.js" />
     <Content Include="src\review\landing.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\landing.js" />
@@ -3223,6 +3234,7 @@
     <Content Include="staticHtml\standard.html" />
     <Content Include="Templates\BikesSwiperList_Mobile.html" />
     <Content Include="Templates\ExpertReviewsList_Mobile.html" />
+    <Content Include="Templates\UserReviewDetails_Popup.html" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="Thankyou.aspx" />
     <Content Include="trackday2016\css\track-day.css" />
@@ -3901,8 +3913,17 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_AMP.cshtml" />
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
+    <Content Include="Views\Shared\_ReviewPopup.cshtml" />
     <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_Amp.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReview.cshtml" />
+    <Content Include="Views\ElectricBikes\Index.cshtml" />
+    <Content Include="Views\ElectricBikes\Index_Mobile.cshtml" />
+    <Content Include="Views\ElectricBikes\_Index_Tabs.cshtml" />
+    <Content Include="Views\ElectricBikes\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_AMP.cshtml" />
+    <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_Amp.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile_Amp.cshtml" />
+    <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile_AMP.cshtml" />
     <Content Include="Views\BikeSeries\_PopularSeriesBikes.cshtml" />
     <Content Include="Views\BikeSeries\_PopularSeriesBikes_Mobile.cshtml" />
     <None Include="Web.Debug.config">

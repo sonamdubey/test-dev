@@ -4,7 +4,7 @@ var dt = '';
 
 docReady(function () {
 
-    if ($("#discontinuedMore a").length > 4) {
+    if ($("#discontinuedMore a") && $("#discontinuedMore a").length > 4) {
         $('#discontinuedMore').hide();
     }
     else {

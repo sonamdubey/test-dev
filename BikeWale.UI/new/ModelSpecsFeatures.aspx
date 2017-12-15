@@ -6,7 +6,8 @@
 <head>
     <%
         isHeaderFix = false;
-        title = string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
+
+        title = pgTitle;
         description = string.Format("Know more about {0} Specifications and Features. See details about mileage, engine displacement, power, kerb weight and other specifications.", bikeName);
         keywords = string.Format("{0} specifications, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
         alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
@@ -76,7 +77,12 @@
 
         <section id="bikeModelHeading" class="container">
             <div class="grid-12">
+                <% if (Bikewale.Utility.BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_makeId.ToString())){%> 
+                <h1 class="content-box-shadow content-inner-block-1420 box-shadow">Specifications & Feature of <%= bikeName%></h1>
+                
+                <%}else{ %>
                 <h1 class="content-box-shadow content-inner-block-1420 box-shadow"><%= bikeName %> Specifications and Features</h1>
+                <%} %>
             </div>
             <div class="clear"></div>
         </section>

@@ -113,6 +113,7 @@
     <Compile Include="BikeModels\ModelMileageWidgetVM.cs" />
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
+    <Compile Include="BikeModels\MultiTabsWidgetVM.cs" />
     <Compile Include="BikeModels\OtherBestBikesVM.cs" />
     <Compile Include="BikeSeries\BikeSeriesCompareVM.cs" />
     <Compile Include="BikeSeries\BikeSeriesModelsVM.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
+    <Compile Include="ElectricBike\ElectricBikesPageVM.cs" />
     <Compile Include="ExpertReviews\ScooterExpertReviewsPageVM.cs" />
     <Compile Include="Features\DetailFeatureVM.cs" />
     <Compile Include="Features\IndexFeatureVM.cs" />

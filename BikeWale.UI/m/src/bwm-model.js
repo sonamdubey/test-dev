@@ -96,7 +96,10 @@ docReady(function () {
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
     }
-
+   var isMileageSectionVisible = $('#mileageContent');
+    if (isMileageSectionVisible.length > 0) {
+        triggerNonInteractiveGA("Model_Page", "Mileage_Card_Shown", myBikeName);
+    }
     function callFallBackWriteReview() {
         $('#adBlocker').show();
         $('.sponsored-card').hide();
