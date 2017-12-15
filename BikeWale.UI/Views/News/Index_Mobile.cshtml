@@ -6,7 +6,7 @@
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
     Model.AdTags.Ad_320x50 = true;
-    Model.AdTags.Ad_Mid_320x50=true;
+    Model.AdTags.Ad_Mid_320x50 = true;
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 <section>
@@ -21,7 +21,7 @@
                     <li>
                         <a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId),news.ArticleUrl,Convert.ToString(news.CategoryId)))" title="@news.Title">
                             <div class="article-item-content @(news.AuthorName.ToLower().Contains(" sponsored") ? "sponsored-content":"")">
-                                @Html.Raw(Regex.Match(news.AuthorName, @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "")
+                                @Html.Raw(Regex.Match(news.AuthorName, @"\b(sponsored)\b", RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "")
                                 <div class="article-wrapper">
                                     <div class="article-image-wrapper">
                                         <img class="lazy" alt='@news.Title' title="@news.Title" data-original='@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._110x61, QualityFactor._70)' width="100%" border="0" src="">
@@ -35,7 +35,7 @@
                                 </div>
 
                                 <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-                                    <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block">@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate),"dd MMMM yyyy")</span>
+                                    <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block">@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate), "dd MMMM yyyy")</span>
                                 </div>
 
                                 <div class="article-stats-wrapper font12 leftfloat text-light-grey">
@@ -57,7 +57,7 @@
                                     <p class="list-slug__heading">Bike review contest</p>
                                     <p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;2,000</p>
                                     @{
-                                        string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_News));
+                        string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_News));
                                     }
                                     <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" title="Bike Review Contest" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
                                 </div>
@@ -83,7 +83,7 @@
 </section>
 
 <div class="margin-bottom15">
-    @Html.Partial("~/Views/Shared/Ads/Mobile/Ad320x50_Middle.cshtml",Model.AdTags)
+    @Html.Partial("~/Views/Shared/Ads/Mobile/Ad320x50_Middle.cshtml", Model.AdTags)
 </div>
 
 @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
@@ -102,7 +102,7 @@
             @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.MostPopularBikes)
         </div>
     </section>
-   }
+}
 
 @if (Model.Model != null && Model.Model.ModelId > 0)
 {
@@ -123,28 +123,26 @@
             </div>
         </section>
     }
-    else if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
+    else if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Any())
     {
-    <section>
-        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
-            <div class="carousel-heading-content padding-top15">
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
+        <section>
+            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+                <div class="carousel-heading-content padding-top15">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="@string.Format("/m{0}",Model.PopularBodyStyle.WidgetHref)" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="@string.Format("/m{0}",Model.PopularBodyStyle.WidgetHref)" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
-                </div>
-                <div class="clear"></div>
+                @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile.cshtml", Model.PopularBodyStyle)
             </div>
-            @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile.cshtml", Model.PopularBodyStyle)
-        </div>
-    </section>
+        </section>
     }
 }
-else
+else if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
 {
-    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
-    {
 
     <section>
         <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
@@ -160,20 +158,51 @@ else
             @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
         </div>
     </section>
-           }
-    }
-<script type="text/javascript">    
+
+}
+else if (Model.EditorialPageType == Bikewale.Entities.CMS.EditorialPageType.SeriesPage)
+{
+    <section>
+        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+            <div class="carousel-heading-content padding-top15">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>@Model.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHeading</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="@Model.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHref" title="@Model.SeriesMobileWidget.PopularSeriesBikesVM.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile.cshtml", Model.SeriesMobileWidget.PopularSeriesBikesVM)
+        </div>
+    </section>
+    <section>
+        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+            <div class="carousel-heading-content padding-top15">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>@Model.SeriesMobileWidget.PopularBikesByBodyStyleVM.WidgetHeading</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="@Model.SeriesMobileWidget.PopularBikesByBodyStyleVM.WidgetHref" title="@Model.SeriesMobileWidget.PopularBikesByBodyStyleVM.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @Html.Partial("~/Views/BestBikes/_PopularBodyStyleBestBikesCarousel_Mobile.cshtml", Model.SeriesMobileWidget.PopularBikesByBodyStyleVM)
+        </div>
+    </section>
+}
+<script type="text/javascript">
     docReady(function () {
-        if (!bwcache.get('showeditcmsreviewslug',true)) {
+        if (!bwcache.get('showeditcmsreviewslug', true)) {
             $('#writereviewslug').show();
         }
         $('.list-slug__close').on('click', function () {
-	        bwcache.set('showeditcmsreviewslug', '1', true);
-			var slugItem = $(this).closest('.list-item__slug');
+            bwcache.set('showeditcmsreviewslug', '1', true);
+            var slugItem = $(this).closest('.list-item__slug');
 
-			slugItem.slideUp(500, function() {
-				slugItem.remove();
-			});
-		});
-	});
+            slugItem.slideUp(500, function () {
+                slugItem.remove();
+            });
+        });
+    });
 </script>
