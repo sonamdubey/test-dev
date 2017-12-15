@@ -181,7 +181,10 @@ namespace Bikewale.Utility
                 }
 
                 //set user cookie for ab testing
-                SetBikewaleABTestingUser();
+                if(request.Cookies.Get("_bwtest") == null)
+                {
+                    SetBikewaleABTestingUser();
+                }                
             }
             catch (Exception)
             {
