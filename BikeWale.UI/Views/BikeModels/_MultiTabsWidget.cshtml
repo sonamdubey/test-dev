@@ -39,7 +39,7 @@
                 @Html.Partial(@Model.ViewPath1, Model.PopularSeriesBikes)
                     break;
                 case 8:
-                @Html.Partial(@Model.ViewPath1, Model.PopularBikesByBodyStyle)
+                @Html.Partial(@Model.ViewPath1, Model.UpcomingBikesByBodyStyle)
                     break;
 
             }
@@ -75,7 +75,7 @@
                 @Html.Partial(@Model.ViewPath2, Model.PopularMakeSeriesBikes)
                     break;
                 case 8:
-                @Html.Partial(@Model.ViewPath2, Model.UpcomingBikesByBodyStyle)
+                @Html.Partial(@Model.ViewPath2, Model.PopularBikesByBodyStyle)
                     break;
             }
             @if (Model.ShowViewAllLink2)

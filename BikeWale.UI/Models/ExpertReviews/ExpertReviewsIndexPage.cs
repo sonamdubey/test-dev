@@ -97,7 +97,6 @@ namespace Bikewale.Models
             objData.BodyStyle = this.BodyStyle;
             objData.EditorialPageType = this.currentPageType;
 
-
             try
             {
                 if (objMake != null)
@@ -729,7 +728,7 @@ namespace Bikewale.Models
                     objData.SeriesMobileWidget.PopularSeriesBikesVM = new PopularBodyStyleVM();
                     objData.SeriesMobileWidget.PopularSeriesBikesVM.PopularBikes = objData.SeriesWidget.PopularSeriesBikes.Take(6);
                     objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHeading = string.Format("Popular {0} {1}", objData.Series.SeriesName, bodyStyleText);
-                    objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetLinkTitle = string.Format("View {0} bikes", objData.Series.SeriesName);
+                    objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetLinkTitle = string.Format("View {0} {1}", objData.Series.SeriesName, bodyStyleText);
                     objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHref = string.Format("/m/{0}-bikes/{1}/", objMake.MaskingName, objData.Series.MaskingName);
                 }
 
@@ -750,8 +749,8 @@ namespace Bikewale.Models
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ViewPath1 = "~/Views/Shared/_EditorialSeriesBikesWidget.cshtml";
                 objData.PopularSeriesAndMakeBikeSeriesWidget.TabId1 = "SeriesBikes";
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllHref1 = string.Format("/{0}-bikes/{1}/", objMake.MaskingName, objSeries.MaskingName);
-                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllTitle1 = string.Format("View Popular {0} bikes", objSeries.SeriesName);
-                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllText1 = string.Format("View Popular {0} bikes", objSeries.SeriesName);
+                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllTitle1 = string.Format("View Popular {0} {1}", objSeries.SeriesName, bodyStyleText);
+                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllText1 = string.Format("View Popular {0} {1}", objSeries.SeriesName, bodyStyleText);
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ShowViewAllLink1 = true;
                 objData.PopularSeriesAndMakeBikeSeriesWidget.PopularSeriesBikes = objData.SeriesWidget.PopularSeriesBikes;
 
@@ -760,14 +759,14 @@ namespace Bikewale.Models
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ViewPath2 = "~/Views/Shared/_EditorialSeriesBikesWidget.cshtml";
                 objData.PopularSeriesAndMakeBikeSeriesWidget.TabId2 = "MakeSeriesBikes";
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllHref2 = string.Format("/{0}-bikes/", objMake.MaskingName);
-                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllTitle2 = string.Format("View {0} Bikes", make);
-                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllText2 = string.Format("View {0} Bikes", make);
+                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllTitle2 = string.Format("View {0} {1}", make, bodyStyleText);
+                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllText2 = string.Format("View {0} {1}", make, bodyStyleText);
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ShowViewAllLink2 = true;
                 objData.PopularSeriesAndMakeBikeSeriesWidget.PopularMakeSeriesBikes = objData.SeriesWidget.PopularMakeSeriesBikes;
 
 
                 objData.PopularSeriesAndMakeBikeSeriesWidget.Pages = MultiTabWidgetPagesEnum.PopularSeriesAndMakeBikeSeriesWidget;
-                objData.PopularSeriesAndMakeBikeSeriesWidget.PageName = "News";
+                objData.PopularSeriesAndMakeBikeSeriesWidget.PageName = "ExpertReviews";
 
 
                 // Bottom widget

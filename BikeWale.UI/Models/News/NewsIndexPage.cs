@@ -933,22 +933,22 @@ namespace Bikewale.Models
             {
                 objData.PopularSeriesAndMakeBikeSeriesWidget = new MultiTabsWidgetVM();
 
-                objData.PopularSeriesAndMakeBikeSeriesWidget.TabHeading1 = string.Format("Popular {0} Bikes", objSeries.SeriesName);
+                objData.PopularSeriesAndMakeBikeSeriesWidget.TabHeading1 = string.Format("Popular {0} {1}", objSeries.SeriesName, bodyStyleText);
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ViewPath1 = "~/Views/Shared/_EditorialSeriesBikesWidget.cshtml";
                 objData.PopularSeriesAndMakeBikeSeriesWidget.TabId1 = "SeriesBikes";
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllHref1 = string.Format("/{0}-bikes/{1}/", objMake.MaskingName, objSeries.MaskingName);
-                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllTitle1 = string.Format("View Popular {0} bikes", objSeries.SeriesName);
-                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllText1 = string.Format("View Popular {0} bikes", objSeries.SeriesName);
+                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllTitle1 = string.Format("View Popular {0} {1}", objSeries.SeriesName, bodyStyleText);
+                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllText1 = string.Format("View Popular {0} {1}", objSeries.SeriesName, bodyStyleText);
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ShowViewAllLink1 = true;
                 objData.PopularSeriesAndMakeBikeSeriesWidget.PopularSeriesBikes = objData.SeriesWidget.PopularSeriesBikes;
 
 
-                objData.PopularSeriesAndMakeBikeSeriesWidget.TabHeading2 = string.Format("Popular {0} Bikes", make);
+                objData.PopularSeriesAndMakeBikeSeriesWidget.TabHeading2 = string.Format("Popular {0} {1}", make, bodyStyleText);
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ViewPath2 = "~/Views/Shared/_EditorialSeriesBikesWidget.cshtml";
                 objData.PopularSeriesAndMakeBikeSeriesWidget.TabId2 = "MakeSeriesBikes";
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllHref2 = string.Format("/{0}-bikes/", objMake.MaskingName);
-                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllTitle2 = string.Format("View {0} Bikes", make);
-                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllText2 = string.Format("View {0} Bikes", make);
+                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllTitle2 = string.Format("View {0} {1}", make, bodyStyleText);
+                objData.PopularSeriesAndMakeBikeSeriesWidget.ViewAllText2 = string.Format("View {0} {1}", make, bodyStyleText);
                 objData.PopularSeriesAndMakeBikeSeriesWidget.ShowViewAllLink2 = true;
                 objData.PopularSeriesAndMakeBikeSeriesWidget.PopularMakeSeriesBikes = objData.SeriesWidget.PopularMakeSeriesBikes;
 
@@ -957,12 +957,11 @@ namespace Bikewale.Models
                 objData.PopularSeriesAndMakeBikeSeriesWidget.PageName = "News";
 
 
-
                 // Bottom widget
                 objData.PopularUpcomingBodyStyleWidgetWidget = new MultiTabsWidgetVM();
 
                 objData.PopularUpcomingBodyStyleWidgetWidget.TabHeading1 = string.Format("Upcoming {0}", Bikewale.Utility.BodyStyleLinks.BodyStyleHeadingText(this.BodyStyle));
-                objData.PopularUpcomingBodyStyleWidgetWidget.ViewPath1 = "~/Views/Shared/_EditorialBestBikesSideBar.cshtml";
+                objData.PopularUpcomingBodyStyleWidgetWidget.ViewPath1 = "~/Views/Shared/_EditorialUpcomingBikes_Vertical.cshtml";
                 objData.PopularUpcomingBodyStyleWidgetWidget.TabId1 = "UpcomingBodyStyle";
                 objData.PopularUpcomingBodyStyleWidgetWidget.ViewAllHref1 = "/upcoming-bikes/";
                 objData.PopularUpcomingBodyStyleWidgetWidget.ViewAllTitle1 = "View all bikes";
@@ -971,7 +970,7 @@ namespace Bikewale.Models
                 objData.PopularUpcomingBodyStyleWidgetWidget.PopularBikesByBodyStyle = objData.SeriesWidget.PopularBikesByBodyStyle;
 
                 objData.PopularUpcomingBodyStyleWidgetWidget.TabHeading2 = string.Format("Popular {0}", Bikewale.Utility.BodyStyleLinks.BodyStyleHeadingText(this.BodyStyle));
-                objData.PopularUpcomingBodyStyleWidgetWidget.ViewPath2 = "~/Views/Shared/_EditorialUpcomingBikes_Vertical.cshtml";
+                objData.PopularUpcomingBodyStyleWidgetWidget.ViewPath2 = "~/Views/Shared/_EditorialBestBikesSideBar.cshtml";
                 objData.PopularUpcomingBodyStyleWidgetWidget.TabId2 = "PopularBodyStyle";
                 objData.PopularUpcomingBodyStyleWidgetWidget.ViewAllHref2 = "";
                 objData.PopularUpcomingBodyStyleWidgetWidget.ViewAllTitle2 = "View all upcoming bikes";
