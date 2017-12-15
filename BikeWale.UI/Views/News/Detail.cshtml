@@ -4,7 +4,7 @@
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
-    Model.Page_JS_Paths =new string[]{"/src/jquery.floating-social-share.min.js","/src/sidebarsection.js"};
+    Model.Page_JS_Paths = new string[]{"/src/jquery.floating-social-share.min.js", "/src/sidebarsection.js"};
     Model.AdTags.AdId = "1395995626568";
     Model.AdTags.AdPath = "/1017752/BikeWale_News_";
     Model.AdTags.Ad_300x250 = true;
@@ -13,7 +13,6 @@
     Model.IsHeaderFix = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <section id="overallContainer">
     <div class="container margin-bottom20">
@@ -145,13 +144,13 @@
 
                     if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
                     {
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                            <h2>@Model.UpcomingBikes.WidgetHeading</h2>
-                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
-                            <div class="view-all-btn-container padding-top10 padding-bottom10">
-                                <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
-                            </div>
+                    <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                        <h2>@Model.UpcomingBikes.WidgetHeading</h2>
+                        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
+                        <div class="view-all-btn-container padding-top10 padding-bottom10">
+                            <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
                         </div>
+                    </div>
                     }
                 }
                 @if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes!=null && Model.SimilarBikes.Bikes.Any())

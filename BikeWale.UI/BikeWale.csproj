@@ -3100,6 +3100,7 @@
     <Content Include="sass\modules\sidebar-bike-section.sass" />
 
     <Content Include="sass\partials\review-popup.sass" />
+    <Content Include="sass\modules\sidebar-bike-section.sass" />
     <Content Include="sass\partials\_horizontal-rating-graph.sass" />
     <Content Include="sass\partials\_loader.sass" />
 
@@ -3931,6 +3932,7 @@
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
+    <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_Amp.cshtml" />
     <Content Include="Views\ElectricBikes\Index.cshtml" />
     <Content Include="Views\ElectricBikes\Index_Mobile.cshtml" />
