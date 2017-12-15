@@ -781,16 +781,14 @@ namespace Bikewale.Models
 
                     ushort tenure = (ushort)((maxTenure - minTenure) / 2 + minTenure);
 
-                    double interest = (loanAmount * tenure * rateOfInterest) / 1200;
-
                     int procFees = 0;
                     int monthlyEMI = 0;
                     if (tenure != 0)
                     {
-                        monthlyEMI = Convert.ToInt32(Math.Round((loanAmount + interest + procFees) / tenure));
+                        monthlyEMI = Convert.ToInt32(Math.Round( (loanAmount * rateOfInterest / 1200) / (1 - Math.Pow((1 + (rateOfInterest / 1200)), (-1.0 * tenure)) ) ));
                     }
 
-                    int totalAmount = downPayment + monthlyEMI * tenure;
+                    int totalAmount = downPayment + monthlyEMI * tenure + procFees;
 
                     objVM.EMI = new EMI();
                     objVM.EMI.MinDownPayment = minDnPay;

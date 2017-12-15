@@ -947,8 +947,9 @@ namespace Bikewale.Models.BikeModels
                     _objEMI.RateOfInterest = (_objEMI.MaxRateOfInterest - _objEMI.MinRateOfInterest) / 2 + _objEMI.MinRateOfInterest;
                     _objEMI.MinLoanToValue = Convert.ToUInt32(Math.Round(bikePrice * 0.7, MidpointRounding.AwayFromZero));
                     _objEMI.MaxLoanToValue = bikePrice;
-                    _objEMI.EMIAmount = Convert.ToUInt32((_objEMI.MinLoanToValue * _objEMI.Tenure * _objEMI.RateOfInterest) / (12 * 100));
-                    _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue + _objEMI.EMIAmount + _objEMI.ProcessingFee) / _objEMI.Tenure, MidpointRounding.AwayFromZero));
+                    _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue * _objEMI.RateOfInterest / 1200) / (1 - Math.Pow((1 + (_objEMI.RateOfInterest / 1200)), (-1.0 * _objEMI.Tenure)))));
+                    // _objEMI.EMIAmount = Convert.ToUInt32((_objEMI.MinLoanToValue * _objEMI.Tenure * _objEMI.RateOfInterest) / (12 * 100));
+                    // _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue + _objEMI.EMIAmount + _objEMI.ProcessingFee) / _objEMI.Tenure, MidpointRounding.AwayFromZero));
                 }
                 catch (Exception ex)
                 {
@@ -1000,8 +1001,9 @@ namespace Bikewale.Models.BikeModels
                     objEMI.RateOfInterest = (objEMI.MaxRateOfInterest - objEMI.MinRateOfInterest) / 2 + objEMI.MinRateOfInterest;
                     objEMI.MinLoanToValue = Convert.ToUInt32(price * .7);
                     objEMI.MaxLoanToValue = price;
-                    objEMI.EMIAmount = Convert.ToUInt32((objEMI.MinLoanToValue * objEMI.Tenure * objEMI.RateOfInterest) / (12 * 100));
-                    objEMI.EMIAmount = Convert.ToUInt32(Math.Round((objEMI.MinLoanToValue + objEMI.EMIAmount + objEMI.ProcessingFee) / objEMI.Tenure, MidpointRounding.AwayFromZero));
+                    _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue * _objEMI.RateOfInterest / 1200) / (1 - Math.Pow((1 + (_objEMI.RateOfInterest / 1200)), (-1.0 * _objEMI.Tenure)))));
+                    // objEMI.EMIAmount = Convert.ToUInt32((objEMI.MinLoanToValue * objEMI.Tenure * objEMI.RateOfInterest) / (12 * 100));
+                    // objEMI.EMIAmount = Convert.ToUInt32(Math.Round((objEMI.MinLoanToValue + objEMI.EMIAmount + objEMI.ProcessingFee) / objEMI.Tenure, MidpointRounding.AwayFromZero));
                 }
                 else
                 {
