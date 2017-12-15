@@ -74,12 +74,14 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IBikeSeries _bikeSeries = null;
         private readonly IAdSlot _adSlot = null;
+        private readonly IBikeInfo _bikeInfo = null;
 
         private uint _modelId, _cityId, _areaId;
 
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
         private ModelPageVM _objData = null;
+
         private PQOnRoadPrice _pqOnRoad;
         private readonly StringBuilder _colorStr = new StringBuilder();
 
@@ -98,7 +100,7 @@ namespace Bikewale.Models.BikeModels
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -121,6 +123,7 @@ namespace Bikewale.Models.BikeModels
             _userReviewsCache = userReviewsCache;
             _bikeSeries = bikeSeries;
             _adSlot = adSlot;
+            _bikeInfo = bikeInfo;
             ParseQueryString(modelMasking);
         }
 
@@ -187,6 +190,7 @@ namespace Bikewale.Models.BikeModels
                     SetPageJSONLDSchema();
                     ShowInnovationBanner(_modelId);
                     BindAdSlotTags();
+
                     #endregion Do Not change the sequence
                 }
             }
@@ -709,6 +713,7 @@ namespace Bikewale.Models.BikeModels
 
                                 BindEMICalculator(onRoadPrice);
                             }
+
                         }
                     }
 
@@ -723,6 +728,14 @@ namespace Bikewale.Models.BikeModels
                             _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
                         }
                     }
+                    if (_objData.BodyStyle == EnumBikeBodyStyles.Scooter)
+                    {
+                        MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objBestBikes, _objCityCache, _objVersionCache, _bikeInfo);
+                        obj.modelId = _objData.ModelId;
+                        _objData.objMoreAboutScooter = obj.GetData();
+
+                    }
+
                     if (_objData.IsUpcomingBike)
                     {
                         _objData.objUpcomingBikes = BindUpCompingBikesWidget();

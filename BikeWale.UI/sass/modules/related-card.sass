@@ -1,8 +1,9 @@
 ﻿.model-related__card
-    width: 33%
-    padding-left: 30px
-    display: inline-block
-    font-size: 0
+	width: 33%
+	padding-left: 30px
+	display: inline-block
+	vertical-align: top
+	font-size: 0
 
 .related-card__title
     font-size: 18px
@@ -12,9 +13,10 @@
 .related-card__list 
 	li
 		font-size: 16px
-		color: #787878
 		margin-bottom: 20px
 
+.related-card__target-link
+	color: #787878
 
 @media only screen and (max-width: 768px)
 	.model-related__card
@@ -25,12 +27,17 @@
 
 	.related-card__title
 		font-size: 14px
-		padding-bottom: 18px
+		padding-bottom: 10px
 		
 	.related-card__list 
 		li
 			font-size: 12px
-			margin-bottom: 20px
+			margin-bottom: 0
+
+	.related-card__target-link
+		padding-top: 5px
+		padding-bottom: 15px
+		display: block
 
 	.model-related-swiper
 		.swiper-slide
