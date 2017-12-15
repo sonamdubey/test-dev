@@ -3920,6 +3920,12 @@
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_Amp.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile_Amp.cshtml" />
     <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile_AMP.cshtml" />
+    <Content Include="Views\Shared\_EditorialSeriesBikesWidget.cshtml" />
+    <Content Include="Views\Shared\_EditorialUpcomingBikes_Vertical.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\_EditorialBestBikesSideBar.cshtml" />
+    <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

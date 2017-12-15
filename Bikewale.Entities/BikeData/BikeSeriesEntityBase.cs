@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.GenericBikes;
+using System;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
@@ -13,6 +14,7 @@ namespace Bikewale.Entities.BikeData
         public uint SeriesId { get; set; }
         public string SeriesName { get; set; }
         public string MaskingName { get; set; }
-		public bool IsSeriesPageUrl { get; set; }
-	}
+        public bool IsSeriesPageUrl { get; set; }
+        public EnumBikeBodyStyles BodyStyle { get; set; }
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using System.Collections.Generic;
 
@@ -25,5 +24,13 @@ namespace Bikewale.Models
         public PQSourceEnum PQSourceId { get; set; }
         public uint CityId { get; set; }
         public string ReturnUrlForAmpPages { get; set; }
+    }
+
+    public class BestBikesEditorialWidgetVM
+    {
+        public string WidgetHeading { get; set; }
+        public string WidgetLinkTitle { get; set; }
+        public string WidgetHref { get; set; }
+        public IEnumerable<BestBikeEntityBase> BestBikes { get; set; }
     }
 }
