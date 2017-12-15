@@ -53,7 +53,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
-
+		</section>
 	}
 
 	if (Model.BikeInfoWidgetData != null)
@@ -76,7 +76,9 @@
 										@foreach (var BikeInfo in Model.SimilarBikeVideoList)
 										{
 											string bikeName = string.Empty;
-											if (BikeInfo.Make != null && BikeInfo.Model != null) { bikeName = string.Format("{0} {1}", BikeInfo.Make.MakeName, BikeInfo.Model.ModelName); }
+											if (BikeInfo.Make != null && BikeInfo.Model != null)
+											{ bikeName = string.Format("{0} {1}", BikeInfo.Make.MakeName, BikeInfo.Model.ModelName);
+											}
 											<li>
 												<a href="@UrlFormatter.BikePageUrl(BikeInfo.Make.MaskingName,BikeInfo.Model.MaskingName)" title="@bikeName" class="block swiper-card-target">
 													<div class="model-jcarousel-image-preview">
@@ -98,7 +100,7 @@
 															@if (BikeInfo.OnRoadPriceInCity > 0)
 															{
 																<span class="font14">&nbsp;onwards</span>
-}
+															}
 														</p>
 													</div>
 												</a>
@@ -119,6 +121,7 @@
 			</div>
 		</section>
 	}
+	else
 	{
 		Html.RenderAction("PopularBodyStyleDesktop", "PopularBikes", new { modelId = Model.Model.ModelId, topCount = 9, cityId = Model.CityId });
 	}
