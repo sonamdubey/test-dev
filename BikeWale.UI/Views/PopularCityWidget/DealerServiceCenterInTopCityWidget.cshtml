@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 
 
-@if (Model != null && Model.DealerServiceCenters != null)
+@if (Model != null && Model.DealerServiceCenters != null && Model.DealerServiceCenters.DealerDetails!=null && Model.DealerServiceCenters.DealerDetails.Any())
 {
 
     <div class="jcarousel-wrapper inner-content-carousel carousel-type-city">
@@ -15,7 +15,7 @@
                     if ((Model.IsServiceCenterPage && details.ServiceCenterCount > 0) || (!Model.IsServiceCenterPage && details.DealerCount > 0))
                     {
                         <li>
-                            <a href="@string.Format("/{0}-{1}-{2}/", Model.MakeMaskingName, Model.CityCardLink, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName, Model.CityCardTitle, details.CityName)" class="card-target-link">
+                            <a href="@string.Format("/{0}/{1}/{2}/", Model.CityCardLink, Model.MakeMaskingName, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName, Model.CityCardTitle, details.CityName)" class="card-target-link">
                                 <div class="city-image-preview">
                                     <span class="city-sprite @string.Format("{0}-icon", details.CityMaskingName)"></span>
                                 </div>
@@ -46,7 +46,7 @@
                 @if (Model.IsIndiaCardNeeded)
                 {
                     <li>
-                        <a href="/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showrooms in India" class="card-target-link">
+                        <a href="/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName showrooms in India" class="card-target-link">
                             <div class="city-image-preview">
                                 <span class="city-sprite india-icon"></span>
                             </div>

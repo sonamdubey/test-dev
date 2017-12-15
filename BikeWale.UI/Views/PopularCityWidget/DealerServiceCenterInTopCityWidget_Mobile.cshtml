@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 
 
-@if (Model != null && Model.DealerServiceCenters != null)
+@if (Model != null && Model.DealerServiceCenters != null && Model.DealerServiceCenters.DealerDetails != null && Model.DealerServiceCenters.DealerDetails.Any())
 {
 
     <div class="swiper-wrapper">
@@ -12,7 +12,7 @@
             {
                 <div class="swiper-slide">
                     <div class="swiper-card">
-                        <a href="@string.Format("/m/{0}-{1}-{2}/", Model.MakeMaskingName,Model.CityCardLink, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName,Model.CityCardTitle,  details.CityName)" class="card-target-link">
+                        <a href="@string.Format("/m/{0}/{1}/{2}/",Model.CityCardLink, Model.MakeMaskingName, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName,Model.CityCardTitle,  details.CityName)" class="card-target-link">
                             <div class="swiper-image-preview">
                                 <span class="city-sprite @string.Format("c-{0}-icon",details.CityMaskingName)"></span>
                             </div>
@@ -44,7 +44,7 @@
         {
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href="/m/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showrooms in India" class="block">
+                    <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName showrooms in India" class="block">
                         <div class="swiper-image-preview">
                             <span class="city-sprite c-india-icon"></span>
                         </div>

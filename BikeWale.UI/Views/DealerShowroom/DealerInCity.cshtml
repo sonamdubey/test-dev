@@ -3,8 +3,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_JS_Path = "/src/dealer/listing.js";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/listing.css' inline />";
-    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
-    Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
+    Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/BikeWale_New_";
     Model.AdTags.Ad_970x90 = true;
@@ -49,7 +49,7 @@
                         @foreach (var Details in Model.DealersList.Dealers)
                         {
                             <li @(Details.IsFeatured ? "class=default-pointer" : "class=dealer-card-target") data-item-type="@Details.DealerType" data-isfeatured="@(Details.IsFeatured ? 1 : 0)" data-item-id="@Details.DealerId" data-item-inquired="false" data-item-number="@Details.MaskingNumber" data-lat="@Details.objArea.Latitude" data-log="@Details.objArea.Longitude" data-address="@Details.Address" data-campid="@Details.CampaignId" data-item-url="@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)" data-dealername="@Details.Name">
-                                <a href=@(Details.IsFeatured ? string.Format("/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Details.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)) : "javascript:void(0) class=default-pointer") rel="nofollow" title="@Details.Name" class="dealer-card-target font14">
+                                <a href=@(Details.IsFeatured ? string.Format("/dealer-showrooms/{0}/{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name), Details.DealerId) : "javascript:void(0) class=default-pointer") rel="nofollow" title="@Details.Name" class="dealer-card-target font14">
                                     <div class="margin-bottom5">
                                         @if (Details.IsFeatured)
                                         {
@@ -176,7 +176,8 @@
     @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
 
-@if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
+@if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails!=null
+     && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any(m => m.DealerCount > 0))
 {
     <section>
         <div class="container section-bottom-margin">
@@ -226,7 +227,7 @@
 
                         </div>
                         <div class="inline-block text-right">
-                            <a href="@string.Format("/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Center in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View complete list<span class="bwsprite teal-right"></span></a>
+                            <a href="@string.Format("/service-centers/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Center in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View complete list<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                 </div>

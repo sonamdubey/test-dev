@@ -26,13 +26,13 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("api/make/{makeId}/series/add/")]
-        public IHttpActionResult Add(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
+        public IHttpActionResult Add(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl, uint? bodyStyleId)
         {
             BikeSeriesDTO objBikeSeriesDTO = null;
 
             Tuple<bool, string, BikeSeriesEntity> balResp = null;
 
-            balResp = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
+            balResp = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl, bodyStyleId);
             if (balResp != null)
             {
                 try
@@ -61,12 +61,12 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="seriesMaskingName"></param>
         /// <returns></returns>
         [HttpPost, Route("api/series/{seriesId}/edit/")]
-        public IHttpActionResult Edit(uint makeId, uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
+        public IHttpActionResult Edit(uint makeId, uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl, uint? bodyStyleId)
         {
             Tuple<bool, string> balResp = null;
             try
             {
-                balResp = _series.EditSeries(makeId, seriesId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
+                balResp = _series.EditSeries(makeId, seriesId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl, bodyStyleId);
                 if (balResp != null)
                 {
                     if (balResp.Item1)

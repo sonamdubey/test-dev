@@ -21,7 +21,6 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
-using Bikewale.Models.Gallery;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -172,12 +171,15 @@ namespace Bikewale.Models
             CityMaskingResponse objCityResponse = null;
             locationCookie = GlobalCityArea.GetGlobalCityArea();
             String rawUrl = HttpContext.Current.Request.RawUrl;
+            string newMakeMasking = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
 
                 if (!(String.IsNullOrEmpty(modelMaskingName) || String.IsNullOrEmpty(cityMaskingName)))
                 {
                     objCityResponse = _cityMaskingCache.GetCityMaskingResponse(cityMaskingName);
+                    newMakeMasking = ProcessMakeMaskingName(makeMaskingName, out isMakeRedirection);
                     objModelResponse = _modelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                 }
 
@@ -219,10 +221,10 @@ namespace Bikewale.Models
                     {
                         modelId = objModelResponse.ModelId;
                     }
-                    else if (objModelResponse.StatusCode == 301)
+                    else if (objModelResponse.StatusCode == 301 || isMakeRedirection)
                     {
                         //redirect permanent to new page                         
-                        rawUrl = rawUrl.Replace(modelMaskingName, objModelResponse.MaskingName);
+                        rawUrl = rawUrl.Replace(modelMaskingName, objModelResponse.MaskingName).Replace(makeMaskingName, newMakeMasking);
                         Status = StatusCodes.RedirectPermanent;
                     }
                     else
@@ -242,6 +244,42 @@ namespace Bikewale.Models
                 }
 
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 11th Dec 2017
+        /// Description : Process make masking name for redirection
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="isMakeRedirection"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
+        {
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
+            {
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
+            }
+            if (makeResponse != null)
+            {
+                if (makeResponse.StatusCode == 200)
+                {
+                    return makeResponse.MaskingName;
+                }
+                else if (makeResponse.StatusCode == 301)
+                {
+                    isMakeRedirection = true;
+                    return makeResponse.MaskingName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return "";
         }
 
         /// <summary>
@@ -473,6 +511,8 @@ namespace Bikewale.Models
         /// Description : Get data for PriceInCity AMP page
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Added IsNew check for GetManufacturerCampaign and BindManufacturerLeadAdAMP
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageAMPVM GetDataAMP()
@@ -608,8 +648,12 @@ namespace Bikewale.Models
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
                         #region Do not change the order
                         BuildPageMetas(objVM);
-                        GetManufacturerCampaign(objVM);
-                        BindManufacturerLeadAdAMP(objVM);
+                        if (objVM.IsNew)
+                        {
+                            GetManufacturerCampaign(objVM);
+                            BindManufacturerLeadAdAMP(objVM);
+                        }
+                        
                         #endregion
 
                     }
@@ -662,14 +706,16 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created by : Ashutosh Sharma on 10-Sep-2017
+        /// Created by : Ashutosh Sharma on 10 Sep 2017
         /// Description : Bind Manufacturer Lead Ad and href, remove AMP prohibitated attribute
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : LeadCapture null check added.
         /// </summary>
         /// <param name="priceInCityAMPVM"></param>
         private void BindManufacturerLeadAdAMP(PriceInCityPageAMPVM priceInCityAMPVM)
         {
             string str = string.Empty;
-            if (priceInCityAMPVM.LeadCampaign != null)
+            if (priceInCityAMPVM.LeadCampaign != null && priceInCityAMPVM.LeadCapture != null)
             {
 
                 try

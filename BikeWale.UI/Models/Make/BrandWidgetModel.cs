@@ -64,7 +64,7 @@ namespace Bikewale.Models
                     _brands = _makeCacheRepo.GetMakesByType(page);
                     foreach (var make in _brands)
                     {
-                        make.Href = String.Format("/{0}-dealer-showrooms-in-india/", make.MaskingName);
+                        make.Href = String.Format("/dealer-showrooms/{0}/", make.MaskingName);
                         make.Title = String.Format("{0} dealer showrooms in India", make.MakeName);
                     }
                     break;
@@ -72,7 +72,7 @@ namespace Bikewale.Models
                     _brands = _makeCacheRepo.GetMakesByType(page);
                     foreach (var make in _brands)
                     {
-                        make.Href = String.Format("/{0}-service-center-in-india/", make.MaskingName);
+                        make.Href = String.Format("/service-centers/{0}/", make.MaskingName);
                         make.Title = String.Format("{0} service centers in India", make.MakeName);
                     }
                     break;

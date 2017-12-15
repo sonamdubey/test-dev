@@ -48,11 +48,13 @@ else {
                             </div>
                             <div class="font14 padding-left20 padding-right20 padding-bottom20">
                                 <p class="text-default text-bold margin-bottom5">@Model.MakeName @((details.DealerCount > 1) ? "showrooms" : "showroom") in @details.CityName</p>
-                                @if (details.DealerCount>0) {
-                                <a href="/@Model.MakeMaskingName-dealer-showrooms-in-@details.CityMaskingName/" title="@Model.MakeName showroom in @details.CityName" class="block">@details.DealerCount @((details.DealerCount > 1 )? "showrooms" : "showroom")</a>
+                                @if (details.DealerCount > 0)
+                                {
+                                    <a href="/dealer-showrooms/@Model.MakeMaskingName/@details.CityMaskingName/" title="@Model.MakeName showroom in @details.CityName" class="block">@details.DealerCount @((details.DealerCount > 1) ? "showrooms" : "showroom")</a>
                                 } 
-                                @if (details.ServiceCenterCount>0){
-                                <a href="/@Model.MakeMaskingName-service-center-in-@details.CityMaskingName/" title="@Model.MakeName service center in @details.CityName" class="block">@details.ServiceCenterCount service center@((details.ServiceCenterCount > 1 )? "s" : "")</a>
+                                @if (details.ServiceCenterCount > 0)
+                                {
+                                    <a href="/service-centers/@Model.MakeMaskingName/@details.CityMaskingName/" title="@Model.MakeName service center in @details.CityName" class="block">@details.ServiceCenterCount service center@((details.ServiceCenterCount > 1) ? "s" : "")</a>
                                 } 
                             </div>
                         </li>
@@ -67,11 +69,11 @@ else {
                                 <p class="text-default text-bold margin-bottom5">@Model.MakeName @((Model.dealerServiceCenter.TotalDealerCount > 0) ? "showrooms" : "showroom" ) in India</p>
                                 @if (Model.dealerServiceCenter.TotalDealerCount > 0)
                                 {
-                                <a href="/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showroom in India" class="block">@Model.dealerServiceCenter.TotalDealerCount @((Model.dealerServiceCenter.TotalDealerCount>0 )? "showrooms" : "showroom" )</a>
+                                    <a href="/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName showroom in India" class="block">@Model.dealerServiceCenter.TotalDealerCount @((Model.dealerServiceCenter.TotalDealerCount > 0) ? "showrooms" : "showroom")</a>
                                 } 
                                 @if (Model.dealerServiceCenter.TotalServiceCenterCount > 0)
                                 {
-                                <a href="/@Model.MakeMaskingName-service-center-in-india/" title="@Model.MakeName service center in India" class="block">@Model.dealerServiceCenter.TotalServiceCenterCount service center@((Model.dealerServiceCenter.TotalServiceCenterCount > 1 )? "s" : "")</a>
+                                    <a href="/service-centers/@Model.MakeMaskingName/" title="@Model.MakeName service center in India" class="block">@Model.dealerServiceCenter.TotalServiceCenterCount service center@((Model.dealerServiceCenter.TotalServiceCenterCount > 1) ? "s" : "")</a>
                                 } 
                             </div>
                         </li>

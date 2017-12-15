@@ -1,0 +1,75 @@
+﻿@model Bikewale.Models.Make.MakeFooterCategoriesandPriceVM
+
+@if (Model != null && Model.FooterContent != null)
+{
+    var make = Model.Make != null ? Model.Make.MakeName : "";
+    int showLength = 0;
+
+    <div class="make-subfooter">
+        @if (Model.FooterContent.FooterDescription != null && Model.FooterContent.FooterDescription.Any())
+        {
+            <div class="about-make">
+                <h2 class="make-price-table__title margin-bottom10">About @make</h2>
+                <div class="foldable-content font14" data-toggle="yes">
+                    <div class="truncatable-content" [class]="make.collapsiblestate.aboutmake ? 'truncatable-content show-full': 'truncatable-content'" data-readtextflag="1">
+                        @foreach (var obj in Model.FooterContent.FooterDescription)
+                        {
+                            <span class="about-make__list-title">@obj.CategoryName</span>
+                            <p class="about-make__list-desc">
+                                @obj.CategoryDescription
+                            </p>
+                            showLength = showLength + obj.CategoryDescription.Length;
+                        }
+                    </div>
+                    @if (showLength > 500)
+                    {
+                        <span tabindex="1" role="option" class="read-more-button" on="tap: AMP.setState({ make: { collapsiblestate:{aboutmake: !make.collapsiblestate.aboutmake}} })" [text]="make.collapsiblestate.aboutmake ? 'Collapse': 'Read More'">Read More</span>
+                    }
+                </div>
+            </div>
+        }
+
+        @if (Model.FooterContent.ModelPriceList != null && Model.FooterContent.ModelPriceList.Any())
+        {
+            <div class="make-price-block">
+                <div class="foldable-content" data-toggle="yes">
+                    <div class="truncatable-content" [class]="make.collapsiblestate.pricetable ? 'truncatable-content show-full': 'truncatable-content'">
+                        <table class="make-price-table">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">
+                                        <h2 class="make-price-table__title">@string.Format("{0} Bikes Price List", make)</h2>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="make-price__thead make-price__model">
+                                        Model
+                                    </th>
+                                    <th class="make-price__thead make-price-table__price">
+                                        <span class="block">Price</span>
+                                        <span class="font10">(Ex-showroom, Mumbai)</span>
+                                    </th>
+                                </tr>
+                                @foreach (var list in Model.FooterContent.ModelPriceList)
+                                {
+                                    <tr>
+                                        <td class="make-price__model"><h3>@list.Model.ModelName</h3></td>
+                                        <td>
+                                            ₹<span>&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(list.VersionPrice))</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @if (Model.FooterContent.ModelPriceList.Count() > 6)
+                    {
+                        <span tabindex="1" role="option" class="read-more-button" on="tap: AMP.setState({ make: { collapsiblestate:{pricetable: !make.collapsiblestate.pricetable}} })" [text]="make.collapsiblestate.pricetable ? 'Collapse': 'More bikes'">More bikes</span>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}

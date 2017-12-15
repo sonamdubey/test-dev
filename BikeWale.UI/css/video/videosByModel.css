@@ -175,3 +175,40 @@
 		margin-left: 5px;
 	}
 }
+
+.series-jcarousel-image-preview {
+	width: 100%;
+	height: 168px;
+	display: table;
+	text-align: center;
+	position: relative;
+}
+.jcarousel-card {
+	display: block;
+	font-size: 14px;
+}
+.jcarousel-wrapper {
+	position: relative;
+	width: 976px;
+}
+.jcarousel-card:hover {
+	text-decoration: none;
+}
+.jcarousel {
+	position: relative;
+	overflow: hidden;
+	padding: 10px 0 20px 0;
+}
+
+.jcarousel ul {
+	width: 20000em;
+	position: relative;
+}
+
+.jcarousel li {
+	float: left;
+	width: 312px;
+	height: 330px;
+	margin-right: 20px;
+	background: #fff;
+}

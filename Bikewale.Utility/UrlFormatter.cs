@@ -1,8 +1,8 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Bikewale.Entities.CMS;
+﻿using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
+using System;
+using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility
 {
@@ -180,7 +180,7 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName)
         {
-            return String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
+            return String.Format("/dealer-showrooms/{0}/{1}/", makeMaskingName, cityMaskingName);
         }
 
         /// <summary>
@@ -190,7 +190,17 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName, string hash)
         {
-            return String.Format("/{0}-dealer-showrooms-in-{1}/#{2}", makeMaskingName, cityMaskingName, hash);
+            return String.Format("/dealer-showrooms/{0}/{1}/#{2}", makeMaskingName, cityMaskingName, hash);
+        }
+        /// <summary>
+        /// Created By : Snehal Dange on 1st dec 2017
+        /// Descritpion: Added to get url when city is null
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
+        public static string DealerLocatorUrl(string makeMaskingName)
+        {
+            return String.Format("/dealer-showrooms/{0}/", makeMaskingName);
         }
 
         /// <summary>
@@ -341,7 +351,7 @@ namespace Bikewale.Utility
         public static string GetDealerUrl(string makeMaskingName, string cityMaskingName, string dealerName, int dealerId)
         {
             string dealerUrl = string.Empty;
-            dealerUrl = string.Format("/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerId, RemoveSpecialCharUrl(dealerName));
+            dealerUrl = string.Format("/dealer-showrooms/{0}/{1}/{2}-{3}/", makeMaskingName, cityMaskingName, RemoveSpecialCharUrl(dealerName), dealerId);
             return dealerUrl;
         }
 
@@ -361,19 +371,23 @@ namespace Bikewale.Utility
         ///  Created By : Sangram Nandkhile
         ///  Created On  : 11-11-2016
         ///  Description : To get url for serviceCenter.
+        ///  Modified By: Snehal Dange on 5th dec 2017
+        ///  Description : Changed service center url
         /// </summary>
         public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
         {
-            return string.Format("/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
+            return string.Format("/service-centers/{0}/{1}/", makeMaskingName, cityMaskingName);
         }
         /// <summary>
         ///  Created By : Aditi Srivastava
         ///  Created On  : 15 Dec 2016
         ///  Description : To get url for serviceCenter.
+        ///    Modified By: Snehal Dange on 5th dec 2017
+        ///  Description : Changed service center url
         /// </summary>
         public static string GetServiceCenterUrl(string makeMaskingName)
         {
-            return string.Format("/{0}-service-center-in-india/", makeMaskingName);
+            return string.Format("/service-centers/{0}/", makeMaskingName);
         }
         /// <summary>
         ///  Created By : Subodh Jain 
@@ -382,7 +396,7 @@ namespace Bikewale.Utility
         /// </summary>
         public static string GetDealerShowroomUrl(string makeMaskingName)
         {
-            return string.Format("/{0}-dealer-showrooms-in-india/", makeMaskingName);
+            return string.Format("/dealer-showrooms/{0}/", makeMaskingName);
         }
 
         /// <summary>
@@ -409,7 +423,7 @@ namespace Bikewale.Utility
             }
             return url;
         }
-        
+
         /// <summary>
         /// Created by  : Vivek Singh Tomar on 27th Nove 2017
         /// Description : Overload for FormarExpertReviewUrl with parameter seriesMaskingName
@@ -676,6 +690,12 @@ namespace Bikewale.Utility
         {
             return "/bike-review-contest/?q=" + EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)source));
         }
+
+        public static string CreateMakeUrl(string make)
+        {
+            return string.Format("{0}-bikes/", make);
+        }
+
     }
 }
 

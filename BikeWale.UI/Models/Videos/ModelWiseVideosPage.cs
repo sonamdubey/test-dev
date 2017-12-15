@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
@@ -10,7 +7,11 @@ using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.BikeSeries;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models.Videos
 {
@@ -34,6 +35,7 @@ namespace Bikewale.Models.Videos
         private ushort _maxVideoCount = 50, _pageNo = 1;
         private uint _makeId, _modelId;
         private uint _cookieCityId;
+        private ModelHelper modelHelper = null;
 
         public MakeMaskingResponse objMakeResponse;
         public ModelMaskingResponse objModelResponse;
@@ -45,6 +47,7 @@ namespace Bikewale.Models.Videos
         public bool IsMobile { get; set; }
         public SeriesMaskingResponse objMaskingResponse;
         public BikeSeriesEntityBase objSeries;
+        public string newMakeMasking = string.Empty, newModelMasking = string.Empty;
 
         public ModelWiseVideosPage(string makeMaskingName, string modelMaskingName, ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IVideosCacheRepository objVideosCache, IBikeMakesCacheRepository bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IBikeModels<BikeModelEntity, int> models, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
@@ -62,26 +65,68 @@ namespace Bikewale.Models.Videos
             ProcessQuery(_makeMaskingName, _modelMaskingName);
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Removed videoBasicId from call of GetSimilarVideos.
+        /// Description : Added call to GetGlobalCityArea and BindPopularSeriesBikes.
+        /// </summary>
+        /// <returns></returns>
         public ModelWiseVideoPageVM GetDataSeries()
         {
             ModelWiseVideoPageVM objVM = new ModelWiseVideoPageVM();
             try
             {
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                _cookieCityId = currentCityArea.CityId;
+
+                objVM.CityId = _cookieCityId;
+
                 if (_makeId > 0)
                     objVM.Make = new MakeHelper().GetMakeNameByMakeId(_makeId);
 
-                string modelIds = _series.GetModelIdsBySeries(objMaskingResponse.Id);
-                objVM.VideosList = _objVideosCache.GetSimilarVideos(_maxVideoCount, modelIds, 1);
+                string modelIds = _series.GetModelIdsBySeries(objMaskingResponse.ModelId);
+                objVM.VideosList = _objVideosCache.GetSimilarVideos(_maxVideoCount, modelIds);
                 objVM.objSeries = objSeries;
                 BindPageMetasSeries(objVM);
+                BindPopularSeriesBikes(objVM, currentCityArea.City);
             }
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.GetDataSeries");
+                ErrorClass.LogError(ex, "ModelWiseVideosPage.GetDataSeries");
             }
             return objVM;
         }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Method to bind popular series bikes.
+        /// </summary>
+        private void BindPopularSeriesBikes(ModelWiseVideoPageVM objVM, string CityName)
+        {
+            try
+            {
+                objVM.PopularSeriesBikes = new PopularSeriesBikesVM();
+                objVM.PopularSeriesBikes.BikesList = _series.GetNewModels(objMaskingResponse.SeriesId, objVM.CityId);
+                if (objVM.PopularSeriesBikes.BikesList != null)
+                {
+                    objVM.PopularSeriesBikes.BikesList = objVM.PopularSeriesBikes.BikesList.Take(9);
+                }
+                if (objVM.objSeries != null && objMakeResponse != null)
+                {
+                    objVM.PopularSeriesBikes.SeriesBase = objSeries;
+                    objVM.PopularSeriesBikes.WidgetTitle = string.Format("Popular {0} Bikes", objVM.objSeries.SeriesName);
+                    objVM.PopularSeriesBikes.WidgetViewAllUrl = UrlFormatter.BikeSeriesUrl(objMakeResponse.MaskingName, objSeries.MaskingName);
+                    objVM.PopularSeriesBikes.CityName = CityName;
+                    objVM.PopularSeriesBikes.PQSourceId = (int)(IsMobile ? Entities.PriceQuote.PQSourceEnum.Mobile_Videos_Page_PopularSeries : Entities.PriceQuote.PQSourceEnum.Desktop_Videos_Page_PopularSeries);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "ModelWiseVideosPage.BindPopularSeriesBikes");
+            }
+        }
+
         private void BindPageMetasSeries(ModelWiseVideoPageVM objPageVM)
         {
             try
@@ -99,7 +144,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.BindPageMetasSeries");
+                ErrorClass.LogError(ex, "ModelWiseVideosPage.BindPageMetasSeries");
             }
         }
 
@@ -145,10 +190,18 @@ namespace Bikewale.Models.Videos
             {
                 if (objPageVM != null && objPageVM.PageMetaTags != null && objPageVM.Make != null && objPageVM.Model != null)
                 {
-                    objPageVM.PageMetaTags.Title = String.Format("{0} {1} Videos - BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+
+                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objPageVM.Make.MakeId.ToString()))
+                    {
+                        objPageVM.PageMetaTags.Title = String.Format("Videos of {0} {1} | Videos From Experts on {1}- BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+                    }
+                    else
+                    {
+                        objPageVM.PageMetaTags.Title = String.Format("{0} {1} Videos - BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+                    }
                     objPageVM.PageMetaTags.Keywords = string.Format("{0},{1},{0} {1},{0} {1} videos", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
                     objPageVM.PageMetaTags.Description = string.Format("Check latest {0} {1} videos, watch BikeWale expert's take on {0} {1} - features, performance, price, fuel economy, handling and more.", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
-                    
+
                     objPageVM.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/videos/", objPageVM.Make.MaskingName, objPageVM.Model.MaskingName);
                     if (!IsMobile)
                         objPageVM.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/videos/", objPageVM.Make.MaskingName, objPageVM.Model.MaskingName);
@@ -174,10 +227,10 @@ namespace Bikewale.Models.Videos
                 if (objMakeResponse.StatusCode == 200)
                 {
                     _makeId = objMakeResponse.MakeId;
-                    makeStatus = StatusCodes.ContentFound;
                 }
                 else if (objMakeResponse.StatusCode == 301)
                 {
+                    newMakeMasking = objMakeResponse.MaskingName;
                     makeStatus = StatusCodes.RedirectPermanent;
                 }
                 else
@@ -193,7 +246,7 @@ namespace Bikewale.Models.Videos
 
             if (_makeId > 0)
             {
-                objMaskingResponse = _seriesCache.ProcessMaskingName(modelMaskingName);
+                objMaskingResponse = _seriesCache.ProcessMaskingName(String.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                 objModelResponse = _bikeModelsCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                 if (objMaskingResponse != null)
                 {
@@ -203,7 +256,7 @@ namespace Bikewale.Models.Videos
                         {
 
 
-                            _modelId = objMaskingResponse.Id;
+                            _modelId = objMaskingResponse.ModelId;
 
                         }
                         else
@@ -211,7 +264,7 @@ namespace Bikewale.Models.Videos
 
                             objSeries = new BikeSeriesEntityBase
                             {
-                                SeriesId = objMaskingResponse.Id,
+                                SeriesId = objMaskingResponse.SeriesId,
                                 SeriesName = objMaskingResponse.Name,
                                 MaskingName = objMaskingResponse.MaskingName,
                                 IsSeriesPageUrl = true
@@ -220,6 +273,7 @@ namespace Bikewale.Models.Videos
                     }
                     else if (objModelResponse.StatusCode == 301)
                     {
+                        newModelMasking = objModelResponse.MaskingName;
                         modelStatus = StatusCodes.RedirectPermanent;
                     }
                     else
@@ -233,6 +287,7 @@ namespace Bikewale.Models.Videos
                 }
             }
         }
+
         /// <summary>
         /// Created By :Subodh Jain on 11th Nov 2017
         /// Description : Function to create page level schema for breadcrum
@@ -298,7 +353,7 @@ namespace Bikewale.Models.Videos
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} Bikes", objVM.Make.MakeName)));
                 }
 
-                if(objVM.Model != null && objVM.bikeType.Equals(EnumBikeBodyStyles.Scooter))
+                if (objVM.Model != null && objVM.bikeType.Equals(EnumBikeBodyStyles.Scooter))
                 {
                     if (IsMobile)
                     {
