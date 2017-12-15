@@ -19,6 +19,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :  Added GetMakeFooterCategoriesandPrice
     /// Modified by: Snehal Dange on 13th Dec 2017
     /// Descrtiption: Method to get lsit of brands where showroom is present for a particular city
+    /// Modified By: Snehal Dange on 14th Dec 2017
+    /// Descritpion: Method to get list of  makes in which service center is present for city
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
@@ -35,5 +37,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeEntityBase> GetScooterMakes();
         MakeSubFooterEntity GetMakeFooterCategoriesandPrice(uint makeId);
         IEnumerable<BikeMakeEntityBase> GetDealerBrandsInCity(uint cityId);
+        IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId);
     }
 }

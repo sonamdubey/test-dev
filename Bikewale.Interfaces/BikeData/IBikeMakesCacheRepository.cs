@@ -14,8 +14,10 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :   Added new function GetScooterMakes
     /// Modified by :   Aditi Srivastava on 15 Mar 2017
     /// Summary     :   Added new function GetScooterMakeDescription
-    /// Modified by : Snehal Dange on 13thn Dec 2017
+    /// Modified by : Snehal Dange on 13th Dec 2017
     /// Summary     : Method to get list of  makes in which dealer showroom is present for city
+    /// Modified by : Snehal Dange on 14th Dec 2017
+    /// Summary     : Method to get list of  makes in which service center is present for city
     /// </summary>
     public interface IBikeMakesCacheRepository
     {
@@ -29,5 +31,6 @@ namespace Bikewale.Interfaces.BikeData
         BikeDescriptionEntity GetScooterMakeDescription(uint makeId);
         MakeSubFooterEntity GetMakeFooterCategoriesandPrice(uint makeId);
         IEnumerable<BikeMakeEntityBase> GetDealerBrandsInCity(uint cityid);
+        IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId);
     }
 }
