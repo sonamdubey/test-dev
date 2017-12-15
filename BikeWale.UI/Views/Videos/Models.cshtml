@@ -175,9 +175,12 @@ else if (Model != null && Model.Make != null && Model.objSeries != null)
 							<div class="swiper-heading-left-grid inline-block">
 								<h2>@Model.PopularSeriesBikes.WidgetTitle</h2>
 							</div>
-							<div class="swiper-heading-right-grid inline-block text-right">
-								<a href="@Model.PopularSeriesBikes.WidgetViewAllUrl" class="btn view-all-target-btn">View all</a>
-							</div>
+							@if (Model.Make != null && Model.objSeries != null)
+							{
+								<div class="swiper-heading-right-grid inline-block text-right">
+									<a href="@Model.PopularSeriesBikes.WidgetViewAllUrl" title="@string.Format("{0} {1} Bikes", Model.Make.MakeName, Model.objSeries.SeriesName)" class="btn view-all-target-btn">View all</a>
+								</div>
+							}
 						</div>
 						@Html.Partial("~/Views/BikeSeries/_PopularSeriesBikes.cshtml", Model.PopularSeriesBikes)
 					</div>

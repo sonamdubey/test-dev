@@ -53,6 +53,8 @@ namespace Bikewale.BAL.GrpcFiles
                     curArt.OriginalImgUrl = item.OriginalImgUrl;
                     curArt.SmallPicUrl = item.SmallPicUrl;
                     curArt.Views = item.Views;
+					curArt.SubCategory = item.SubCategory;
+					curArt.SubCategoryId = item.SubCategoryId;
                     dataNew.Articles.Add(curArt);
                 }
                 return dataNew;

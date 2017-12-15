@@ -3,10 +3,13 @@
 @{ string bikeName = string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName);}
 
 <span  class="bw-ga navtab"  data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Overview" data-href="#modelSummaryContent" >Overview</span>
-
+@if (Model.IsReviewsAvailable)
+{
+	<span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;ExpertReviews" data-href="#modelExpertReviewsContent">Expert Reviews</span>
+}
 @if (Model.IsShowPriceTab)
 {
-    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Price"  data-href="#modelPricesContent">Price</span>
+	<span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Price" data-href="#modelPricesContent">Price</span>
 }
 @if (Model.IsModelColorsAvailable)
 {
@@ -36,11 +39,6 @@ else if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.
 @if (Model.IsUserReviewsAvailable)
 {
     <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;UserReviews" data-href="#modelReviewsContent">User Reviews</span>
-}
-
-@if (Model.IsReviewsAvailable)
-{
-    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;ExpertReviews" data-href="#modelExpertReviewsContent">Expert Reviews</span>
 }
 
 @if (Model.IsNewsAvailable)
