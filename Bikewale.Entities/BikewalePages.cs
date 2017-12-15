@@ -35,6 +35,8 @@
         Dealer_Locator_Detail_Page = 8,
         Booking_Page = 9,
         PriceInCity_Page = 10,
-        Compare_Bikes = 11
+        Compare_Bikes = 11,
+        News_Details = 12,
+        ExpertReviews_Details = 13
     }
 }
