@@ -5,7 +5,6 @@
 <section>
     @{
         string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
-
     }
 	<a href="@string.Format("/m/bike-review-contest/?q={0}", q)" class="contest-slug-sm slug-teal-target">
         <span class="trophy-white"></span>
@@ -173,17 +172,8 @@
 						
 
 					}
-                    <div id="expertReviewsContent" data-id="expertReviewsContent" class="bw-model-tabs-data padding-top15 padding-bottom20 content-box-shadow card-bottom-margin content-details-wrapper font14">
-                        <h2 class="padding-left20 padding-right20">@Model.BikeName Expert Reviews</h2>
-                            @Html.Partial("~/Views/ExpertReviews/_ExpertReview_Mobile.cshtml", Model.ExpertReviews)
-                        <div class="padding-left20 view-all-btn-container">
-                            <a title="@String.Format("{0} Expert Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="Read_all_user_reviews_link_cliked" data-var="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
-                        </div>
-                    </div>
-                        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
-                    {
-                            @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
-                    }
+                    
+                        
                     </div>
             }
             @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)

@@ -194,7 +194,10 @@ docReady(function () {
     }
     if ($("#getAssistance").length > 0) {
         dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": myBikeName + "_" + getBikeVersion() + '_' + getCityArea });
-    }
+	}
+	if ($('#expertReviewsContent').length > 0) {
+		dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Expert_Review_CardShown", "lab": myBikeName });
+	}
 
 
     if (bikeVersionLocation == '') {
@@ -775,6 +778,9 @@ docReady(function () {
         }
     }
 
+	$("#expertReviewsContent").on('click', function () {
+		triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
+	});
 
 }
 );

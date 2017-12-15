@@ -6,10 +6,14 @@
 			<h2 class="h2-heading padding-right20 padding-left20">@Model.BikeName Expert Reviews</h2>
 			@Html.Partial("~/Views/ExpertReviews/_ExpertReview.cshtml", Model.ExpertReviews)
 			<div class="padding-left20 view-all-btn-container">
-				<a title="@Model.ComparisionTestExpertReviews.LinkTitle" href="@Model.ComparisionTestExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="Read_all_user_reviews_link_cliked" data-var="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
+				<a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="Read_all_user_reviews_link_cliked" data-var="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
 			</div>
 		</div>
 		<div class="clear"></div>
+	}
+	@if (Model.IsNewBike && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+	{
+		@Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
 	}
     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)
     {
@@ -174,7 +178,7 @@
 				{
 					<!-- expert review starts-->
 
-					<h2 class="h2-heading  padding-right20 padding-left20 padding-bottom20">@Model.BikeName Comparisons by Expert</h2>
+					<h2 class="h2-heading  padding-right20 padding-left20 padding-bottom20">@Model.BikeName Comparisons by Experts</h2>
 
 					<div class="expert-article-list  padding-right10 padding-left10">
 						@Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ComparisionTestExpertReviews)

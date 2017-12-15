@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.RecentExpertReviewsVM
+@using Bikewale.Entities.CMS
 @using Bikewale.Utility
 @if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Any())
 {
@@ -10,7 +11,7 @@
 			}
 			@foreach (var review in Model.ArticlesList)
 			{
-				review_category = review.SubCategory == "Long Term Report" ? 0 : (review.SubCategory == "First Ride" ? 1 : 2);
+				review_category = review.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.Long_Term_Report ? 0 : (review.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.First_Drive ? 1 : 2);
 				<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId))" title="@review.Title" class="expert-review__card carousel-card" data-review-category="@review_category">
 					<div class="card-category__tag">
 						@review.SubCategory Review
@@ -40,7 +41,7 @@
 					}
 					@foreach(var review in Model.ArticlesList)
 					{
-						review_category = review.SubCategory == "Long Term Report" ? 0 : (review.SubCategory == "First Ride" ? 1 : 2);
+						review_category = review.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.Long_Term_Report ? 0 : (review.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.First_Drive ? 1 : 2);
 						<li>
 							<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId))" title="@review.Title" class="expert-review__card carousel-card" data-review-category="@review_category">
 								<div class="card-category__tag">
