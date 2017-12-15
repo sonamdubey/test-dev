@@ -333,7 +333,7 @@ namespace Bikewale.DAL.BikeData
                                     StatusCode = SqlReaderConvertor.ToUInt16(dr["Status"]),
                                     Name = Convert.ToString(dr["MaskingName"]),
                                     MakeMaskingName = makeMaskingName,
-                                    BodyStyle = Enum.TryParse(Convert.ToString("BodyStyleId"), out bodyStyle) ? bodyStyle : bodyStyle
+                                    BodyStyle = Enum.TryParse(Convert.ToString(dr["BodyStyleId"]), out bodyStyle) ? bodyStyle : bodyStyle
                                 };
 
                                 if (!ht.ContainsKey(htKey))
@@ -355,7 +355,7 @@ namespace Bikewale.DAL.BikeData
 
         /// <summary>
         /// Created by : Vivek Singh Tomar on 24 Nov 2017
-        /// Summary : Get model ids as commar separated string for given series id
+        /// Summary : Get model ids as comma separated string for given series id
         /// </summary>
         /// <param name="seriesId"></param>
         /// <returns></returns>
