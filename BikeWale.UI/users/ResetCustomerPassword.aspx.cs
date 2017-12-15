@@ -60,7 +60,7 @@ namespace Bikewale.Users
                     {
                         msgQ.AppendLine(String.Format("ValidateToken called -> ({0})", token));
                         // Check if customer token has space in it. If space is there replace it with +
-                        if (token.IndexOf(" ") > 0)
+                        if (token.IndexOf(" ") > -1)
                         {
                             msgQ.AppendLine("token.IndexOf(\" \") > 0 is true");
                             token = token.Replace(" ", "+");
@@ -153,7 +153,7 @@ namespace Bikewale.Users
 
         void butCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect(CommonOpn.AppPath + "default.aspx");
+            Response.Redirect("/");
         }
     } // class
 } // namespace
