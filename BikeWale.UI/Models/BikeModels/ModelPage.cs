@@ -10,6 +10,7 @@ using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.Pages;
@@ -39,19 +40,18 @@ using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Bikewale.Entities.CMS;
 
 namespace Bikewale.Models.BikeModels
 {
-	/// <summary>
-	/// Modified By : Sangram Nandkhile on 07 Dec 2016.
-	/// Description : Removed unncessary functions
-	/// Modified by : Ashutosh Sharma on 30 Aug 2017
-	/// Description : Removed GST related code (revert GST related changes)
-	/// Modified by :Snehal Dange on 3rd Nov 2017
-	/// Description: Added Mileage widget
-	/// </summary>
-	public class ModelPage
+    /// <summary>
+    /// Modified By : Sangram Nandkhile on 07 Dec 2016.
+    /// Description : Removed unncessary functions
+    /// Modified by : Ashutosh Sharma on 30 Aug 2017
+    /// Description : Removed GST related code (revert GST related changes)
+    /// Modified by :Snehal Dange on 3rd Nov 2017
+    /// Description: Added Mileage widget
+    /// </summary>
+    public class ModelPage
 	{
 		#region Global Variables
 
