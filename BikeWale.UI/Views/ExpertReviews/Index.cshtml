@@ -147,14 +147,18 @@
                             @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
                         }
                     }
-
                 }
                 else
                 {
                     if (Model.Make != null && Model.Make.MakeId > 0)
                     {
-                        if (Model.MostPopularBikes != null)
+                        if (Model.EditorialPageType == Bikewale.Entities.CMS.EditorialPageType.SeriesPage)
                         {
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularSeriesAndMakeBikeSeriesWidget)
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularUpcomingBodyStyleWidgetWidget)
+                        }
+                        else if (Model.MostPopularBikes != null)
+                            {
                             <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                                 <h2>@Model.MostPopularBikes.WidgetHeading</h2>
                                 @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)

@@ -3089,6 +3089,7 @@
     <Content Include="sass\modules\_carousel-card.sass" />
     <Content Include="sass\modules\_card-category.sass" />
     <Content Include="sass\partials\review-popup.sass" />
+    <Content Include="sass\modules\sidebar-bike-section.sass" />
     <Content Include="sass\partials\_horizontal-rating-graph.sass" />
     <Content Include="sass\partials\_loader.sass" />
     <Content Include="sass\modules\_review-category.sass" />
@@ -3216,6 +3217,7 @@
     <Content Include="src\pq\MetroCities.js" />
     <Content Include="src\pq\price_quote.js" />
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\sidebarsection.js" />
     <Content Include="src\survey\bajaj-survey.js" />
     <Content Include="src\finance\capital-first.js" />
     <Content Include="src\swiper-3.1.7.js" />
@@ -3914,6 +3916,10 @@
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
+    <Content Include="Views\BikeModels\_MostPopularBikes_Mobile_Amp.cshtml" />
+    <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
+    <Content Include="Views\Shared\_EditorialMostPopularBikesSideBar.cshtml" />
+    <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_Amp.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReview.cshtml" />
     <Content Include="Views\ElectricBikes\Index.cshtml" />
@@ -3924,8 +3930,12 @@
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_Amp.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile_Amp.cshtml" />
     <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile_AMP.cshtml" />
+    <Content Include="Views\Shared\_EditorialSeriesBikesWidget.cshtml" />
+    <Content Include="Views\Shared\_EditorialUpcomingBikes_Vertical.cshtml" />
     <Content Include="Views\BikeSeries\_PopularSeriesBikes.cshtml" />
     <Content Include="Views\BikeSeries\_PopularSeriesBikes_Mobile.cshtml" />
+    <Content Include="Views\Shared\_EditorialBestBikesSideBar.cshtml" />
+    <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
