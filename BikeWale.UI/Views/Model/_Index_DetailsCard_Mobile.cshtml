@@ -128,7 +128,10 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 		@if (Model.ComparisionTestExpertReviews != null && Model.ComparisionTestExpertReviews.FetchedCount > 0)
 		{
 			<div id="comparisionReviewsContainer" class="padding-top15 padding-bottom20 padding-left20 padding-right20 content-box-shadow card-bottom-margin content-details-wrapper font14">
-				<h2>@Model.BikeName Comparisons by Experts</h2>
+				@if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null)
+				{
+					<h2>@Model.ModelPageEntity.ModelDetails.ModelName Comparisons by Experts</h2>
+				}
 				@if (Model.ComparisionTestExpertReviews != null && Model.ComparisionTestExpertReviews.FetchedCount > 0)
 				{
 					@Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ComparisionTestExpertReviews)
