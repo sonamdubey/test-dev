@@ -97,11 +97,14 @@
 .brand-38,
 .brand-23,
 .brand-72,
-.brand-73 {
+.brand-73,
+.brand-74,
+.brand-75 {
     height: 50px;
 }
+
 .brandlogosprite {
-    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?07Dec20170158351092222) no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?18Dec20171513599310542') no-repeat;
     display: inline-block;
 }
 .brand-73 {
@@ -232,7 +235,14 @@
 	width: 50px;
 	background-position: -3161px 0;
 }
-  
+.brand-74 {
+	width: 110px;
+	background-position: -3281px 0;
+}
+.brand-75 {
+	width: 122px;
+	background-position: -3400px 0;
+}
 .block-button-list li {
     text-align: center;
     display: inline-block;
