@@ -7,10 +7,7 @@
 {
 	<span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;ExpertReviews" data-href="#modelExpertReviewsContent">Expert Reviews</span>
 }
-@if (Model.IsShowPriceTab)
-{
-	<span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Price" data-href="#modelPricesContent">Price</span>
-}
+
 @if (Model.IsModelColorsAvailable)
 {
     <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Colours"  data-href="#modelColorsContent">Colours</span>
@@ -34,6 +31,10 @@ else if (Model.IsPopularBodyStyleAvailable)
 else if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
 {
     <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;About" data-href="#modelSpecsFeaturesAboutContent">About</span>
+}
+@if (Model.IsShowPriceTab)
+{
+	<span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Price" data-href="#modelPricesContent">Price</span>
 }
 
 @if (Model.IsUserReviewsAvailable)

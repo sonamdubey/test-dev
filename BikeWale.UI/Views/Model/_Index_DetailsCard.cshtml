@@ -11,10 +11,7 @@
 		</div>
 		<div class="clear"></div>
 	}
-	@if (Model.IsNewBike && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
-	{
-		@Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
-	}
+	
     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)
     {
         @Html.Partial("~/Views/Model/_Index_ModelColors.cshtml", Model)
@@ -97,6 +94,10 @@
 			}
         </div>
     }
+	@if (Model.IsNewBike && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+	{
+		@Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
+	}
     @if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
     {
         <div class="content-box-shadow card-bottom-margin padding-bottom15">
