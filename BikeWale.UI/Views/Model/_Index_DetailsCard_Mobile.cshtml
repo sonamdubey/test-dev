@@ -9,10 +9,7 @@
 		</div>
 	</div>
 }
-@if (Model.IsNewBike && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
-{
-	@Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
-}
+
 @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)
 {
     @Html.Partial("~/Views/Model/_Index_ModelColors_Mobile.cshtml", Model)
@@ -81,6 +78,10 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 		</div>
 	}
 </div>
+@if (Model.IsNewBike && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+{
+	@Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
+}
 @if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
 {
     <div class="container bg-white box-shadow padding-top10 padding-bottom20 card-bottom-margin">
