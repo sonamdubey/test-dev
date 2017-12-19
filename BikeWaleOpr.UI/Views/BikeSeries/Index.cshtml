@@ -1,5 +1,4 @@
 ﻿@model BikewaleOpr.Models.BikeSeries.BikeSeriesPageVM
-
 @if (Model != null)
 {
     ViewBag.Title = Model.PageTitle;
@@ -52,6 +51,7 @@
                                     else
                                     {
                                         <td><a href="#series-edit-update" class="tooltipped" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-makeid="@series.BikeMake.MakeId" data-bodystyleid="0" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                                        <!--<td><a href="#series-edit-update" class="tooltipped" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-makeid="@series.BikeMake.MakeId" data-bodystyleid="0" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>-->
                                     }
                                     <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Delete Series" rel="nofollow" data-target="delete-confirm-modal" data-bind="event:{click: function(d, e){ deleteEvent(e)}}" ><i class="material-icons icon-red">delete</i></a></td>
                                     <td>@series.CreatedOn.ToString("dd/MM/yyyy")</td>
@@ -124,17 +124,17 @@
             </div>
         </div>
 
-        <div id = "series-edit-update" class="modal">
+        <div id="series-edit-update" class="modal">
             <div class="modal-content">
                 <h4>Update <span data-bind="text: selectedSeriesName"></span> Data</h4>
-                <div>
+                <div class="container">
                     <div class="input-field row m12">
-                        <input id = "txtSeriesNameUpdate" type="text" class="validate" name="makeName" data-bind="textInput: seriesNameUpdate ">
-                        <label for="txtSeriesNameUpdate">Series Name</label>
+                        <input id="txtSeriesNameUpdate" type="text" class="validate" name="makeName" data-bind="textInput: seriesNameUpdate, css:seriesEditMsg()!=''?'invalid':'' ">
+                        <label for="txtSeriesNameUpdate" data-error="" data-bind="attr:{'data-error':seriesEditMsg}, css:seriesEditMsg()!=''?'active':''">Series Name</label>
                     </div>
                     <div class="input-field row m12">
-                        <input id = "txtSeriesMaskingNameUpdate" type="text" class="validate" name="maskingName" data-bind="textInput: seriesMaskingNameUpdate">
-                        <label for="txtSeriesMaskingNameUpdate">Series Masking Name</label>
+                        <input id="txtSeriesMaskingNameUpdate" type="text" class="validate" name="maskingName" data-bind="textInput: seriesMaskingNameUpdate, css:seriesMaskingEditMsg()!=''?'invalid':''">
+                        <label for="txtSeriesMaskingNameUpdate" data-error="" data-bind="attr:{'data-error':seriesMaskingEditMsg}, css:seriesMaskingEditMsg()!=''?'active':''">Series Masking Name</label>
                     </div>
                     <div class="input-field row m12">
                         <input type="checkbox" id="chkEditSeriesURL" name="isSeriesPageUrl" class="with-gap" data-bind="checked: isSeriesEditUrl" />
@@ -157,7 +157,7 @@
             </div>
 
             <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { validateUpdate() }}"  style="margin-left:5px;">Update</a>
+                <a class="modal-action waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { validateUpdate() }}" style="margin-left:5px;">Update</a>
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             </div>
         </div>
