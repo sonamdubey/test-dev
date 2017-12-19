@@ -632,3 +632,7 @@ input[type=number].invalid + label.active:after {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+#series-edit-update {
+    overflow-y:visible;
+}
