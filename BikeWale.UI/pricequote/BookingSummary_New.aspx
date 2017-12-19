@@ -448,7 +448,7 @@
                 self.longitude = ko.observable(<%= longitude %>);
             };
             var ga_pg_id= '14';
-            var gaObj = { 'id': 12, 'name': 'Booking_Page' };
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Booking_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Booking_Page%>' };
         </script>
 
         <script type="text/javascript" src="<%= staticUrl  %>/src/booking.js?<%= staticFileVersion %>"></script>

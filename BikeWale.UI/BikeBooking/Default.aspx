@@ -167,7 +167,7 @@
 
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList");
             var key = "bCity_";
-            var gaObj = { 'id': 10, 'name': 'Booking_Landing' };
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Booking_Landing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Booking_Landing%>' };
             lscache.setBucket('BLPage');
             $(function () {
 
