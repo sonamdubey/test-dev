@@ -8,7 +8,7 @@
             <div class="swiper-slide">
                 <div class="swiper-card">
                     <div class="position-rel">
-                        <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName))" title="@bikeName" class="block">
+                        <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName" class="block">
                             <div class="swiper-image-preview position-rel">
                                 <img class="swiper-lazy" alt="@bikeName" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName">
                             </div>

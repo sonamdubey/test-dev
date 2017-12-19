@@ -1,10 +1,12 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 <ul class="overall-specs-tabs-wrapper">
     <li data-tabs="#overviewContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Overview">Overview</li>
-    @if (Model.IsShowPriceTab)
+    @if (Model.IsReviewsAvailable)
     {
-        <li data-tabs="#pricesContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Price">Price</li>
-    }
+        <li data-tabs="#expertReviewsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;ExpertReviews">Expert Reviews</li>
+    }  
+    
+
     @if (Model.IsModelColorsAvailable)
     {
         <li data-tabs="#coloursContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Colours">Colours</li>
@@ -30,14 +32,14 @@
     {
         <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;About">About</li>
     }
+	@if (Model.IsShowPriceTab)
+	{
+		<li data-tabs="#pricesContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Price">Price</li>
+	}
     @if (Model.IsUserReviewsAvailable)
     {
         <li data-tabs="#reviewsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;UserReviews">User Reviews</li>
-    } 
-    @if (Model.IsReviewsAvailable)
-    {
-        <li data-tabs="#expertReviewsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;ExpertReviews">Expert Reviews</li>
-    }       
+    }      
     @if (Model.IsNewsAvailable)
     {
         <li data-tabs="#newsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;News">News</li>

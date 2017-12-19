@@ -345,10 +345,17 @@ namespace BikeWaleOpr.Content
 
         private void RefreshAmpContent(uint makeId)
         {
-            var makeDetails = _makes.GetMakeDetailsById(makeId);
-            string makeUrl = string.Format("{0}/m/{1}amp", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.CreateMakeUrl(makeDetails.MaskingName));
-            string privateKeyPath = HttpContext.Current.Server.MapPath("~/App_Data/private-key.pem");
-            GoogleAmpCacheRefreshCall.UpdateAmpCache(makeUrl, privateKeyPath);
+            try
+            {
+                var makeDetails = _makes.GetMakeDetailsById(makeId);
+                string makeUrl = string.Format("{0}/m/{1}amp", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.CreateMakeUrl(makeDetails.MaskingName));
+                string privateKeyPath = HttpContext.Current.Server.MapPath("~/App_Data/private-key.pem");
+                GoogleAmpCacheRefreshCall.UpdateAmpCache(makeUrl, privateKeyPath);
+            }
+            catch (Exception ex)
+            {
+               ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            }
         }
     } // class
 } // namespace

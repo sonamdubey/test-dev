@@ -113,8 +113,8 @@ namespace Bikewale.Utility
             _UserReviewsReadInSessionCount = string.Empty,
             _PopularCitiesId = String.Empty,
             _PopularityOrderForMake = string.Empty,
-            _MetasMakeId = string.Empty,
-            _AmpProjectUrl = string.Empty;
+            _AmpProjectUrl = string.Empty,
+            _MetasMakeId = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;

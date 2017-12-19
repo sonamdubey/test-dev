@@ -36,7 +36,7 @@ namespace AmpCacheRefreshLibrary
                 }
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }
@@ -63,7 +63,7 @@ namespace AmpCacheRefreshLibrary
             }
             catch (Exception ex)
             {
-                throw;
+                return string.Empty;
             }
         }
     }

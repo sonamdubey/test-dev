@@ -96,22 +96,10 @@ namespace Bikewale.Mobile.Videos
                 ctrlSimilarVideos.SectionTitle = "Related videos";
                 if (ctrlGenericBikeInfo != null)
                 {
-                    // Will replace this variable when required changes will be made in GrpcMethods.GetVideoByBasicId((int)videoId) 
-                    // to get modelId or makeMaskingName
-
-                    string tempMakeMaskingName = string.Empty;
-                    if (string.IsNullOrEmpty(videoModel.MakeName))
-                    {
-                        tempMakeMaskingName = videoModel.MakeName.ToLower().Replace(" ", "-");
-                    }
-                    var objresponse = new ModelHelper().GetModelDataByMasking(tempMakeMaskingName, (videoModel.MaskingName));
-                    if (objresponse != null)
-                    {
-                        ctrlGenericBikeInfo.ModelId = objresponse.ModelId;
-                        ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
-                        ctrlGenericBikeInfo.PageId = BikeInfoTabType.Videos;
-                        ctrlGenericBikeInfo.TabCount = 3;
-                    }
+                    ctrlGenericBikeInfo.ModelId = videoModel.ModelId;
+                    ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+                    ctrlGenericBikeInfo.PageId = BikeInfoTabType.Videos;
+                    ctrlGenericBikeInfo.TabCount = 3;
                 }
             }
             catch (Exception ex)

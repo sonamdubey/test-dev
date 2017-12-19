@@ -35,6 +35,12 @@
                 case 6:
                 @Html.Partial(@Model.ViewPath1, Model.MostPopularScooters)
                     break;
+                case 7:
+                @Html.Partial(@Model.ViewPath1, Model.PopularSeriesBikes)
+                    break;
+                case 8:
+                @Html.Partial(@Model.ViewPath1, Model.UpcomingBikesByBodyStyle)
+                    break;
 
             }
             @if (Model.ShowViewAllLink1)
@@ -64,6 +70,12 @@
                     break;
                 case 6:
                 @Html.Partial(@Model.ViewPath2, Model.UpcomingScooters)
+                    break;
+                case 7:
+                @Html.Partial(@Model.ViewPath2, Model.PopularMakeSeriesBikes)
+                    break;
+                case 8:
+                @Html.Partial(@Model.ViewPath2, Model.PopularBikesByBodyStyle)
                     break;
             }
             @if (Model.ShowViewAllLink2)
