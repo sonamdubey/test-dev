@@ -57,7 +57,6 @@ namespace EditCMSWindowsService.Messages {
     static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcRoadTestURI> __Marshaller_GrpcRoadTestURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcRoadTestURI.Parser.ParseFrom);
     static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI> __Marshaller_GrpcRelatedPhotoURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI.Parser.ParseFrom);
     static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCMSImage> __Marshaller_GrpcCMSImage = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCMSImage.Parser.ParseFrom);
-    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcString> __Marshaller_GrpcString = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcString.Parser.ParseFrom);
 
     static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetMostRecentArticles = new Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
         MethodType.Unary,
@@ -381,20 +380,6 @@ namespace EditCMSWindowsService.Messages {
         __Marshaller_GrpcInt,
         __Marshaller_GrpcVideosList);
 
-    static readonly Method<global::EditCMSWindowsService.Messages.GrpcString, global::EditCMSWindowsService.Messages.GrpcInt> __Method_GetBasicIdFromMaskingName = new Method<global::EditCMSWindowsService.Messages.GrpcString, global::EditCMSWindowsService.Messages.GrpcInt>(
-        MethodType.Unary,
-        __ServiceName,
-        "GetBasicIdFromMaskingName",
-        __Marshaller_GrpcString,
-        __Marshaller_GrpcInt);
-
-    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummary> __Method_GetMaskingNameFromBasicId = new Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummary>(
-        MethodType.Unary,
-        __ServiceName,
-        "GetMaskingNameFromBasicId",
-        __Marshaller_GrpcArticleContentURI,
-        __Marshaller_GrpcArticleSummary);
-
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -630,16 +615,6 @@ namespace EditCMSWindowsService.Messages {
       }
 
       public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetArticleVideos(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
-      {
-        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-      }
-
-      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcInt> GetBasicIdFromMaskingName(global::EditCMSWindowsService.Messages.GrpcString request, ServerCallContext context)
-      {
-        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-      }
-
-      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummary> GetMaskingNameFromBasicId(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
       {
         throw new RpcException(new Status(StatusCode.Unimplemented, ""));
       }
@@ -1405,38 +1380,6 @@ namespace EditCMSWindowsService.Messages {
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetArticleVideos, null, options, request);
       }
-      public virtual global::EditCMSWindowsService.Messages.GrpcInt GetBasicIdFromMaskingName(global::EditCMSWindowsService.Messages.GrpcString request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-      {
-        return GetBasicIdFromMaskingName(request, new CallOptions(headers, deadline, cancellationToken));
-      }
-      public virtual global::EditCMSWindowsService.Messages.GrpcInt GetBasicIdFromMaskingName(global::EditCMSWindowsService.Messages.GrpcString request, CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_GetBasicIdFromMaskingName, null, options, request);
-      }
-      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetBasicIdFromMaskingNameAsync(global::EditCMSWindowsService.Messages.GrpcString request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-      {
-        return GetBasicIdFromMaskingNameAsync(request, new CallOptions(headers, deadline, cancellationToken));
-      }
-      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetBasicIdFromMaskingNameAsync(global::EditCMSWindowsService.Messages.GrpcString request, CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_GetBasicIdFromMaskingName, null, options, request);
-      }
-      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummary GetMaskingNameFromBasicId(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-      {
-        return GetMaskingNameFromBasicId(request, new CallOptions(headers, deadline, cancellationToken));
-      }
-      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummary GetMaskingNameFromBasicId(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_GetMaskingNameFromBasicId, null, options, request);
-      }
-      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummary> GetMaskingNameFromBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-      {
-        return GetMaskingNameFromBasicIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
-      }
-      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummary> GetMaskingNameFromBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_GetMaskingNameFromBasicId, null, options, request);
-      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override EditCMSGrpcServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
@@ -1494,9 +1437,7 @@ namespace EditCMSWindowsService.Messages {
           .AddMethod(__Method_GetSimilarModelPhotosList, serviceImpl.GetSimilarModelPhotosList)
           .AddMethod(__Method_UpdateVideo, serviceImpl.UpdateVideo)
           .AddMethod(__Method_GoogleSiteMapDetails, serviceImpl.GoogleSiteMapDetails)
-          .AddMethod(__Method_GetArticleVideos, serviceImpl.GetArticleVideos)
-          .AddMethod(__Method_GetBasicIdFromMaskingName, serviceImpl.GetBasicIdFromMaskingName)
-          .AddMethod(__Method_GetMaskingNameFromBasicId, serviceImpl.GetMaskingNameFromBasicId).Build();
+          .AddMethod(__Method_GetArticleVideos, serviceImpl.GetArticleVideos).Build();
     }
 
   }

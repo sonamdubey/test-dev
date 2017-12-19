@@ -8,10 +8,9 @@
 		<div class="expert-review-list padding-left20 padding-right20">
 			@{
 				var firstReview = Model.ArticlesList.First();
-				int first_review_category = firstReview.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.Long_Term_Report ? 0 : (firstReview.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.First_Drive ? 1 : 2);
 			}
-			<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(firstReview.BasicId), firstReview.ArticleUrl, Convert.ToString(firstReview.CategoryId)))" title="@firstReview.Title" class="expert-review__card carousel-card" data-review-category="@first_review_category">
-				<h3 class="review-article__card-title">
+			<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(firstReview.BasicId), firstReview.ArticleUrl, Convert.ToString(firstReview.CategoryId)))" title="@firstReview.Title" class="expert-review__card carousel-card" data-review-category="@firstReview.SubCategoryId">
+				<h3 class="review-article__card-title trucatable-content">
 					@firstReview.Title
 				</h3>
 				<div class="card-category__tag">
@@ -22,7 +21,7 @@
 					<span class="article-stats__name-grid">@firstReview.AuthorName</span>
 				</div>
 				<p class="article-description">
-					@FormatDescription.TruncateDescription(firstReview.Description, 700)
+					@FormatDescription.TruncateDescription(firstReview.Description, 400)
 				</p>
 				<span class="review-card__read-more">...Read more</span>
 			</a>
@@ -34,15 +33,11 @@
 	{
 		<div class="swiper-container model-carousel-container">
 			<div class="swiper-wrapper">
-				@{
-					int review_category = 0;
-				}
 				@foreach (var review in Model.ArticlesList)
 				{
-					review_category = review.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.Long_Term_Report ? 0 : (review.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.First_Drive ? 1 : 2);
 					<div class="swiper-slide">
-						<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId)))" title="@review.Title" class="expert-review__card carousel-card swiper-card" data-review-category="@review_category">
-							<h3 class="review-article__card-title">
+						<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId)))" title="@review.Title" class="expert-review__card carousel-card swiper-card" data-review-category="@review.SubCategoryId">
+							<h3 class="review-article__card-title trucatable-content">
 								@review.Title
 							</h3>
 
@@ -55,7 +50,7 @@
 								<span class="article-stats__name-grid">@review.AuthorName</span>
 							</div>
 							<p class="article-description">
-								@FormatDescription.TruncateDescription(review.Description, 180)
+								@FormatDescription.TruncateDescription(review.Description, 300)
 							</p>
 
 							<span class="review-card__read-more">...Read more</span>
