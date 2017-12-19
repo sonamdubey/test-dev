@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.BikeData;
@@ -171,7 +172,7 @@ namespace Bikewale.Models
             objVM.Videos = new RecentVideos(1, 3, _videos).GetData();
 
             objVM.ExpertReviews = new RecentExpertReviews(3, _articles).GetData();
-
+            objVM.Page = GAPages.HP;
             SetFlags(objVM);
 
             objVM.RecentUserReviewsList = new UserReviewSearchWidget(_userReviewsCache).GetData();

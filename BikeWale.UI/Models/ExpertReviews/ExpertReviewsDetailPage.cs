@@ -172,7 +172,7 @@ namespace Bikewale.Models
                         objData.SimilarBikes.Make = objData.Make;
                         objData.SimilarBikes.Model = objData.Model;
 
-                        objData.SimilarBikes.Page = GAPages.ExpertReviews_Details;
+                        objData.SimilarBikes.Page = GAPages.Editorial_Details_Page;
                     }
 
                 }

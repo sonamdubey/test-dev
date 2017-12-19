@@ -67,7 +67,7 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.UsedBikesModelWidgetData.CityDetails = objVM.City;
                 objVM.UsedBikesCityWidgetData = BindUsedBikeCityWidget(objVM);
                 BindPageMetas(objVM);
-
+                objVM.Page = Entities.Pages.GAPages.ServiceCenter_Landing_Page;
             }
             catch (Exception ex)
             {
