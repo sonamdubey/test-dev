@@ -44,7 +44,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetMakesByType");
-               
+
             }
             return makes;
         }
@@ -66,7 +66,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetDiscontinuedBikeModelsByMake");
-               
+
             }
             return bikes;
         }
@@ -88,7 +88,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetMakeDescription");
-               
+
             }
             return objMakeDesc;
         }
@@ -112,7 +112,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetMakeDetails");
-               
+
             }
             return objMakeDetails;
         }
@@ -133,7 +133,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetMakeDetails");
-               
+
             }
             return makeModels;
         }
@@ -186,7 +186,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("GetMakeMaskingResponse({0})", maskingName));
-               
+
             }
             return response;
         }
@@ -251,5 +251,55 @@ namespace Bikewale.Cache.BikeData
             }
             return footerContent;
         }
+
+
+        /// <summary>
+        /// Created By: Snehal Dange on 13th Dec 2017
+        /// Description:  Method to get list of  makes in which dealer showroom is present for city
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeEntityBase> GetDealerBrandsInCity(uint cityId)
+        {
+            IEnumerable<BikeMakeEntityBase> objMakesList = null;
+            try
+            {
+                if (cityId > 0)
+                {
+                    string key = string.Format("BW_DealerBrandsInCity_City_{0}", cityId);
+                    objMakesList = _cache.GetFromCache<IEnumerable<BikeMakeEntityBase>>(key, new TimeSpan(24, 0, 0), () => _objMakes.GetDealerBrandsInCity(cityId));
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetDealerBrandsInCity_CityId : {0}", cityId));
+            }
+            return objMakesList;
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 13th Dec 2017
+        /// Description:  Method to get list of  makes in which service center is present for city
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId)
+        {
+            IEnumerable<BikeMakeEntityBase> objMakesList = null;
+            try
+            {
+                if (cityId > 0)
+                {
+                    string key = string.Format("BW_ServiceCenterBrandsInCity_City_{0}", cityId);
+                    objMakesList = _cache.GetFromCache<IEnumerable<BikeMakeEntityBase>>(key, new TimeSpan(24, 0, 0), () => _objMakes.GetServiceCenterBrandsInCity(cityId));
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetServiceCenterBrandsInCity_CityId : {0}", cityId));
+            }
+            return objMakesList;
+        }
+
     }
 }

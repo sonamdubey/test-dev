@@ -82,7 +82,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objMakesList;
         }
@@ -151,13 +151,13 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetById sql ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetById ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return t;
@@ -196,7 +196,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetMakeDescription ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objMake;
@@ -227,13 +227,13 @@ namespace Bikewale.DAL.BikeData
                 {
                     HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                     ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    
+
                 }
                 catch (Exception ex)
                 {
                     HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                     ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    
+
                 }
             }
             return dt;
@@ -298,7 +298,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
                 ErrorClass.LogError(err, string.Format("BikeMakeEntityBase.GetMakeDetails(): makeId : {0}", makeId));
-                
+
             }
 
             return makeDetails;
@@ -344,7 +344,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return makes;
         }
@@ -387,7 +387,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return bikeLinkList;
@@ -475,7 +475,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "GetAllMakeModels");
-                
+
             }
 
             return makeModels;
@@ -518,7 +518,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.BikeMakesRepository.GetOldMaskingNames");
-                
+
             }
 
             return ht;
@@ -695,6 +695,106 @@ namespace Bikewale.DAL.BikeData
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.GetMakeFooterCategoriesandPrice: MakeId:{0}", makeId));
             }
             return footerContent;
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 13th Dec 2017
+        /// Descritpion: Method to get list of  makes in which dealer showroom is present for city
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeEntityBase> GetDealerBrandsInCity(uint cityId)
+        {
+            IList<BikeMakeEntityBase> objMakesList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerbrandsincity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, Convert.ToInt32(cityId)));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objMakesList = new List<BikeMakeEntityBase>();
+                            while (dr.Read())
+                            {
+                                objMakesList.Add(new BikeMakeEntityBase
+                                {
+                                    MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MakeId = SqlReaderConvertor.ToUInt16(dr["makeid"]),
+                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["dealerscount"]),
+                                    HostUrl = Convert.ToString(dr["hosturl"]),
+                                    LogoUrl = Convert.ToString(dr["logourl"]),
+                                    IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]),
+                                    PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
+                                    MakeCategoryId = SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"])
+
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format(" Bikewale.DAL.Dealer.GetDealerBrandsInCity_City_{0}", cityId));
+            }
+            return objMakesList;
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 14th Dec 2017
+        /// Descritpion: Method to get list of  makes in which service center is present for city
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId)
+        {
+            IList<BikeMakeEntityBase> objMakesList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecenterbrandsincity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, Convert.ToInt32(cityId)));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objMakesList = new List<BikeMakeEntityBase>();
+                            while (dr.Read())
+                            {
+                                objMakesList.Add(new BikeMakeEntityBase
+                                {
+                                    MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MakeId = SqlReaderConvertor.ToUInt16(dr["makeid"]),
+                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["servicecenterscount"]),
+                                    HostUrl = Convert.ToString(dr["hosturl"]),
+                                    LogoUrl = Convert.ToString(dr["logourl"]),
+                                    IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]),
+                                    PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
+                                    MakeCategoryId = SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"])
+
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format(" Bikewale.DAL.Dealer.GetServiceCenterBrandsInCity_City_{0}", cityId));
+            }
+            return objMakesList;
         }
     }
 }
