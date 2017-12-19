@@ -6,13 +6,10 @@
 	if (Model.FetchedCount <= 2)
 	{
 		<div class="expert-review-list  padding-right5 padding-left5">
-			@{
-				int review_category = 0;
-			}
+			
 			@foreach (var review in Model.ArticlesList)
 			{
-				review_category = review.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.Long_Term_Report ? 0 : (review.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.First_Drive ? 1 : 2);
-				<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId))" title="@review.Title" class="expert-review__card carousel-card" data-review-category="@review_category">
+				<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId))" title="@review.Title" class="expert-review__card carousel-card" data-review-category="@review.SubCategoryId">
 					<div class="card-category__tag">
 						@review.SubCategory Review
 					</div>
@@ -36,14 +33,12 @@
 		<div class="model-carousel-container jcarousel-wrapper inner-content-carousel padding-bottom20 padding-top25">
 			<div class="jcarousel" data-swipe="2">
 				<ul>
-					@{
-						int review_category = 0;
-					}
+					
 					@foreach(var review in Model.ArticlesList)
 					{
-						review_category = review.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.Long_Term_Report ? 0 : (review.SubCategoryId == (UInt32)EnumCMSContentSubCategoryType.First_Drive ? 1 : 2);
+						
 						<li>
-							<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId))" title="@review.Title" class="expert-review__card carousel-card" data-review-category="@review_category">
+							<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId))" title="@review.Title" class="expert-review__card carousel-card" data-review-category="@review.SubCategoryId">
 								<div class="card-category__tag">
 									@review.SubCategory Review
 								</div>
