@@ -131,8 +131,8 @@ docReady(function () {
     }
 
     var tabElementThird = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(3)'),
-        tabElementSixth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(6)'),
-        tabElementNinth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(9)');
+        tabElementSixth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(5)'),
+        tabElementNinth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(8)');
 
     $("#viewprimarydealer, #dealername").on("click", function () {
         var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";

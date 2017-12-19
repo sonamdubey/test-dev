@@ -94,7 +94,7 @@
 			}
         </div>
     }
-	@if (Model.IsNewBike && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+	@if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
 	{
 		@Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
 	}
