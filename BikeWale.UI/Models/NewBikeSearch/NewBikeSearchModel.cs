@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Web;
-using Bikewale.DTO.NewBikeSearch;
+﻿using Bikewale.DTO.NewBikeSearch;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.PriceQuote;
@@ -9,9 +6,11 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Notifications;
 using Bikewale.Utility;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models.NewBikeSearch
 {
@@ -64,6 +63,7 @@ namespace Bikewale.Models.NewBikeSearch
             if (viewModel.BikeSearch != null)
             {
                 viewModel.BikeSearch.PqSource = Convert.ToInt32(_pqSource);
+                viewModel.Page = Entities.Pages.GAPages.Search_Page;
                 BindEditorialWidget(viewModel);
                 BindPageMetas(viewModel.PageMetaTags);
                 CreatePager(viewModel);

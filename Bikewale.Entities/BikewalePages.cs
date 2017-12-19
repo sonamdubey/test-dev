@@ -65,6 +65,7 @@
         Videos_Details_Page = 36,
         Editorial_List_Page = 37,
         Editorial_Details_Page = 38,
-        PriceInCity_Page = 39
+        PriceInCity_Page = 39,
+        Search_Page = 40
     }
 }
