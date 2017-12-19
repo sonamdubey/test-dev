@@ -78,7 +78,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 		</div>
 	}
 </div>
-@if (Model.IsNewBike && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+@if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
 {
 	@Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
 }
