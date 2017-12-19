@@ -25,6 +25,8 @@
     self.selectedBodyStyleId = ko.observable(null); //optional
     self.isBodyStyleShown = ko.observable(false);
     self.selectedBodyStyleUpdateId = ko.observable(null);
+    self.seriesEditMsg = ko.observable("");
+    self.seriesMaskingEditMsg = ko.observable("");
     self.seriesNameUpdate.subscribe(function () {
         var series = "";
         if (self.seriesNameUpdate() && self.seriesNameUpdate() != "") {
@@ -48,18 +50,18 @@
             }
             if (self.seriesName() == "") {
                 isValid = false;
-                Materialize.toast("Invalid make name", 3000)
-                self.seriesMsg("Invalid make name");
+                Materialize.toast("Invalid series name", 3000)
+                self.seriesMsg("Invalid series name");
             }
             if (self.seriesMaskingName() == "") {
                 isValid = false;
-                Materialize.toast("Invalid make masking name", 3000)
-                self.seriesMaskingMsg("Invalid make masking name");
+                Materialize.toast("Invalid series masking name", 3000)
+                self.seriesMaskingMsg("Invalid series masking name");
             }
             if (self.isSeriesUrl()) {
                 if (!self.selectedBodyStyleId() || self.selectedBodyStyleId()==0) {
                     isValid = false;
-                    Materialize.toast("Please select Body Style", 3000)
+                    Materialize.toast("Please select Body Style", 3000);
                 }
             }
             else {
@@ -120,7 +122,6 @@
         self.isSeriesEditUrl(rowToEdit.children[3].children[0].innerText == "done" ? true : false);
         self.selectedSeriesName(seriesRow.children[1].innerText);
         selectedSeriesMaskingName = seriesRow.children[2].innerText;
-
         self.selectedSeriesId(seriesRow.children[0].innerText); //seriesId
         self.seriesNameUpdate(self.selectedSeriesName());
         self.seriesMaskingNameUpdate(selectedSeriesMaskingName);
@@ -128,20 +129,25 @@
         self.selectedBodyStyleUpdateId($(event.currentTarget).data("bodystyleid"));
         $('#selectBodyStyleUpdate').material_select();
         Materialize.updateTextFields();
+        $('.modal').css({ 'overflow-y': 'visible' });
+        setTimeout(function () { $('.modal').css({ 'overflow-y': 'visible' }); }, 300);
 
     }
 
     self.validateUpdate = function () {
         try {
             var isValid = true;
-
+            self.seriesEditMsg("");
+            self.seriesMaskingEditMsg("");
             if (self.seriesNameUpdate() == "") {
                 isValid = false;
                 Materialize.toast("Invalid series name", 3000);
+                self.seriesEditMsg("Invalid series name");
             }
             if (self.seriesMaskingNameUpdate() == "") {
                 isValid = false;
                 Materialize.toast("Invalid series masking name", 3000)
+                self.seriesMaskingEditMsg("Invalid series masking name");
             }
             if (self.isSeriesEditUrl()) {
                 if (!self.selectedBodyStyleUpdateId() || self.selectedBodyStyleUpdateId() == 0) {
@@ -160,6 +166,7 @@
                     success: function (response) {
 
                         if (response != null) {
+                            $('#series-edit-update').modal('close');
                             rowToEdit.children[1].innerText = self.seriesNameUpdate();
                             rowToEdit.children[2].innerText = self.seriesMaskingNameUpdate();
                             if (self.isSeriesEditUrl()) {
@@ -180,6 +187,8 @@
                             }
                             $(rowToEdit.children[7].children[0]).data("bodystyleid", self.selectedBodyStyleUpdateId());
                             Materialize.toast("Bike series has been updated successfully.", 3000);
+                            $("#txtSeriesNameUpdate").removeClass("valid");
+                            $("#txtSeriesMaskingNameUpdate").removeClass("valid");
                         }
 
                     },

@@ -124,17 +124,17 @@
             </div>
         </div>
 
-        <div id = "series-edit-update" class="modal">
+        <div id="series-edit-update" class="modal">
             <div class="modal-content">
                 <h4>Update <span data-bind="text: selectedSeriesName"></span> Data</h4>
-                <div>
+                <div class="container">
                     <div class="input-field row m12">
-                        <input id = "txtSeriesNameUpdate" type="text" class="validate" name="makeName" data-bind="textInput: seriesNameUpdate ">
-                        <label for="txtSeriesNameUpdate">Series Name</label>
+                        <input id="txtSeriesNameUpdate" type="text" class="validate" name="makeName" data-bind="textInput: seriesNameUpdate, css:seriesEditMsg()!=''?'invalid':'' ">
+                        <label for="txtSeriesNameUpdate" data-error="" data-bind="attr:{'data-error':seriesEditMsg}, css:seriesEditMsg()!=''?'active':''">Series Name</label>
                     </div>
                     <div class="input-field row m12">
-                        <input id = "txtSeriesMaskingNameUpdate" type="text" class="validate" name="maskingName" data-bind="textInput: seriesMaskingNameUpdate">
-                        <label for="txtSeriesMaskingNameUpdate">Series Masking Name</label>
+                        <input id="txtSeriesMaskingNameUpdate" type="text" class="validate" name="maskingName" data-bind="textInput: seriesMaskingNameUpdate, css:seriesMaskingEditMsg()!=''?'invalid':''">
+                        <label for="txtSeriesMaskingNameUpdate" data-error="" data-bind="attr:{'data-error':seriesMaskingEditMsg}, css:seriesMaskingEditMsg()!=''?'active':''">Series Masking Name</label>
                     </div>
                     <div class="input-field row m12">
                         <input type="checkbox" id="chkEditSeriesURL" name="isSeriesPageUrl" class="with-gap" data-bind="checked: isSeriesEditUrl" />
@@ -157,7 +157,7 @@
             </div>
 
             <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { validateUpdate() }}"  style="margin-left:5px;">Update</a>
+                <a class="modal-action waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { validateUpdate() }}" style="margin-left:5px;">Update</a>
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             </div>
         </div>
