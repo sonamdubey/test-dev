@@ -493,6 +493,11 @@
                 <div class="clear"></div>
             </div>
         </div>
+        <!-- get processing fees of the dealer if available -->
+        @if (Model != null && Model.DetailedDealer != null && Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.EMIDetails != null)
+        {
+            <input type="hidden" value="@Model.DetailedDealer.PrimaryDealer.EMIDetails.ProcessingFee" id="dealerProcessingFees" />
+        }
     </section>
 
 
