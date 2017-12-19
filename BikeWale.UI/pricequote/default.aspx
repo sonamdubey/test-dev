@@ -129,6 +129,7 @@
         selectedModel: ko.observable(),
         models: ko.observableArray()
     };
+    var gaObj = { 'id': 9, 'name': 'DealerPriceQuote_Landing' };
 
     //for jquery chosen 
     ko.bindingHandlers.chosen = {

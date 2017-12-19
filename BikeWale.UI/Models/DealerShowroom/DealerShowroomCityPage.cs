@@ -103,7 +103,7 @@ namespace Bikewale.Models.DealerShowroom
                 {
                     BindDealerBrandsInCity(objDealerVM);
                 }
-
+                objDealerVM.Page = Entities.Pages.GAPages.Dealer_Locator_City_Page;
 
             }
             catch (Exception ex)

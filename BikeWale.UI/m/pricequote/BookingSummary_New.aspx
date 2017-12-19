@@ -514,6 +514,7 @@
                else
                {%>
             var arr = setuserDetails();
+            var gaObj = { 'id': 12, 'name': 'Booking_Page' };
             if (arr != null && arr.length > 0) {
                 viewModel.Customer().Name(arr[0]);
                 if(arr[1]!="undefined")

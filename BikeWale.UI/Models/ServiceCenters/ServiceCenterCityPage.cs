@@ -100,6 +100,7 @@ namespace Bikewale.Models.ServiceCenters
                 {
                     GetServiceCenterBrandsInCity(objVM);
                 }
+                objVM.Page = Entities.Pages.GAPages.ServiceCenter_City_Page;
             }
             catch (Exception ex)
             {

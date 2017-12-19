@@ -162,7 +162,7 @@ namespace Bikewale.Models
                 BindOtherMakes(objData);
                 BindUserReviews(objData);
                 BindMakeFooterCategoriesandPriceWidget(objData);
-
+                objData.Page = GAPages.Make_Page;
                 objData.BikeCityPopup = new PopUp.BikeCityPopup()
                 {
                     ApiUrl = "/api/v2/DealerCity/?makeId=" + _makeId,

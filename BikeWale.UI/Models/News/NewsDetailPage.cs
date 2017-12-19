@@ -288,7 +288,7 @@ namespace Bikewale.Models
                         objData.SimilarBikes.Make = objData.Make;
                         objData.SimilarBikes.Model = objData.Model;
                         objData.SimilarBikes.VersionId = _versionId;
-                        objData.SimilarBikes.Page = GAPages.News_Details;
+                        objData.SimilarBikes.Page = GAPages.Editorial_Details_Page;
                     }
 
                 }
@@ -511,7 +511,7 @@ namespace Bikewale.Models
 
                     if (IsMobile)
                     {
-                       
+
                         if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !isPWA)
                         {
                             PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
