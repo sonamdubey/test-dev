@@ -1,4 +1,8 @@
-﻿using Bikewale.Cache.Compare;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.Compare;
 using Bikewale.Entities.BikeData;
@@ -9,10 +13,6 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using log4net;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 
 namespace Bikewale.BAL.Compare
 {
@@ -74,6 +74,8 @@ namespace Bikewale.BAL.Compare
         /// Description : Removed transpose logic from DoCompare and moved into common for both app and website
         /// Modified by : Aditi Srivastava on 18 May 2017
         /// Summary     : used nullable bool function to format specs and features
+        /// Modified by : Vivek Singh Tomar on 20th Dec 2017
+        /// Summary     : Optimization of TransposeCompareBikeData method reduced extra operations
         /// </summary>
         /// <param name="compareEntity"></param>
         /// <param name="versions"></param>
@@ -85,15 +87,23 @@ namespace Bikewale.BAL.Compare
 
                 if (compareEntity != null)
                 {
+                    //To be removed
                     compareEntity.CompareSpecifications = new CompareMainCategory();
                     compareEntity.CompareSpecifications.Text = "Specifications";
                     compareEntity.CompareSpecifications.Value = "Specifications";
                     compareEntity.CompareSpecifications.Spec = new List<CompareSubMainCategory>();
+
+                    //CompareMainCategory compareSpecifications = new CompareMainCategory();
+                    //compareSpecifications.Text = "Specifications";
+                    //compareSpecifications.Value = "Specifications";
+                    //compareSpecifications.Spec = new List<CompareSubMainCategory>();
+                    
                     #region Specifications
                     CompareSubMainCategory engineTransmission = new CompareSubMainCategory();
                     engineTransmission.Text = "Engine & Transmission";
                     engineTransmission.Value = "2";
                     engineTransmission.SpecCategory = new List<CompareSubCategory>();
+                    
                     #region Engine & Transmission
                     CompareSubCategory etDisplacement = new CompareSubCategory();
                     etDisplacement.Text = "Displacement (cc)";
@@ -256,6 +266,13 @@ namespace Bikewale.BAL.Compare
                     engineTransmission.SpecCategory.Add(etClutch);
                     #endregion
                     compareEntity.CompareSpecifications.Spec.Add(engineTransmission);
+
+
+
+                    ////////////////////////////////////////////////////////////////////////
+
+
+
 
                     CompareSubMainCategory brakesWheelsSuspension = new CompareSubMainCategory();
                     brakesWheelsSuspension.Text = "Brakes, Wheels and Suspension";
