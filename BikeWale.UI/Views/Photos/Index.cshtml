@@ -34,10 +34,10 @@
                         </li>
                     </ul>
                     @if (!Model.IsPopupOpen)
-                {
-
-                    if (Model.TotalPhotos > 1)
                     {
+
+                        if (Model.TotalPhotos > 1)
+                        {
                             <ul class="photos-grid-list model-grid-images">
                                 @for (; i < Model.GridPhotoCount && i < 9; i++)
                                 {
@@ -100,9 +100,22 @@
     {
         @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos.cshtml", Model.SimilarBikes)
     }
-
     if (Model.ModelGallery != null)
     {
         @Html.Partial("~/views/Gallery/_ModelGallery.cshtml", Model.ModelGallery)
+    }
+
+    if (Model.objMoreAboutScooter != null)
+    {
+        <section>
+            <div class="container margin-bottom20">
+                <div class="grid-12">
+                    <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
+                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard.cshtml", Model.objMoreAboutScooter)
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
     }
 }

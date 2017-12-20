@@ -190,7 +190,6 @@ namespace Bikewale.Models.BikeModels
                     SetPageJSONLDSchema();
                     ShowInnovationBanner(_modelId);
                     BindAdSlotTags();
-
                     #endregion Do Not change the sequence
                 }
             }
@@ -728,13 +727,7 @@ namespace Bikewale.Models.BikeModels
                             _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
                         }
                     }
-                    if (_objData.BodyStyle == EnumBikeBodyStyles.Scooter)
-                    {
-                        MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objBestBikes, _objCityCache, _objVersionCache, _bikeInfo);
-                        obj.modelId = _objData.ModelId;
-                        _objData.objMoreAboutScooter = obj.GetData();
 
-                    }
 
                     if (_objData.IsUpcomingBike)
                     {

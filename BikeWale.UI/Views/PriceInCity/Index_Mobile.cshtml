@@ -515,6 +515,16 @@
                             @Html.Partial("~/Views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
                         }
 
+                        if (Model.objMoreAboutScooter != null)
+                        {
+                            <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
+                                <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
+                                    <div class="swiper-wrapper">
+                                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
+                                    </div>
+                                </div>
+                            </div>
+                        }
                         <section>
                             <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
                                 <p class="text-default text-bold">Disclaimer:</p>

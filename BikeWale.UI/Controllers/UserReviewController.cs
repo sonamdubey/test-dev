@@ -1,9 +1,4 @@
-﻿using System;
-using Bikewale.Notifications;
-using System.Collections.Specialized;
-using System.Web;
-using System.Web.Mvc;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.Authors;
@@ -14,8 +9,13 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using Bikewale.Utility.StringExtention;
+using System;
+using System.Collections.Specialized;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
@@ -34,12 +34,16 @@ namespace Bikewale.Controllers
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IAuthors _authors = null;
         private readonly IBikeModels<BikeModelEntity, int> _models;
+        private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
 
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
         /// Description : Constructor to resolve dependencies    
         /// Modified by: Vivek Singh Tomar on 12th Aug 2017
         /// Summary: Added IUserReviewsCache to fetch list of winners of user reviews contest
+        /// Modified by: Snehal Dange on 20th Dec 2017
+        /// Summary : Added IBikeModelsCacheRepository<int> objModelCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache for extra Info on scooter model
         /// </summary>
         /// <param name="objArticles"></param>
         /// <param name="cityCache"></param>
@@ -53,7 +57,7 @@ namespace Bikewale.Controllers
         /// <param name="userReviewCache"></param>
         public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo,
             IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel,
-                IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository makesRepository, IUserReviewsCache userReviewCache, IAuthors authors, IBikeModels<BikeModelEntity, int> models)
+                IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository makesRepository, IUserReviewsCache userReviewCache, IAuthors authors, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache)
         {
 
             _userReviews = userReviews;
@@ -68,6 +72,8 @@ namespace Bikewale.Controllers
             _userReviewCache = userReviewCache;
             _authors = authors;
             _models = models;
+            _objModelCache = objModelCache;
+            _objVersionCache = objVersionCache;
         }
 
 
@@ -79,7 +85,7 @@ namespace Bikewale.Controllers
         [Route("{makeMasking}-bikes/{modelMasking}/reviews/")]
         public ActionResult ListReviews(string makeMasking, string modelMasking, uint? pageNo)
         {
-            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models);
+            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models, _objModelCache, _objVersionCache, _cityCache, _bikeInfo);
             if (objData.Status.Equals(StatusCodes.ContentFound))
             {
                 objData.PageNumber = pageNo;
@@ -118,7 +124,7 @@ namespace Bikewale.Controllers
         [Route("m/{makeMasking}-bikes/{modelMasking}/reviews/")]
         public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking, uint? pageNo)
         {
-            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models);
+            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models, _objModelCache, _objVersionCache, _cityCache, _bikeInfo);
             if (objData.Status.Equals(StatusCodes.ContentFound))
             {
                 objData.IsMobile = true;
@@ -582,7 +588,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                if(obj.Status == Entities.StatusCodes.RedirectPermanent)
+                if (obj.Status == Entities.StatusCodes.RedirectPermanent)
                 {
                     return RedirectPermanent(obj.RedirectUrl);
                 }
