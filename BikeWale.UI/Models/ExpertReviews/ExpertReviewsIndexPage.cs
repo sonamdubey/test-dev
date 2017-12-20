@@ -465,7 +465,7 @@ namespace Bikewale.Models
 
                         if (objData.PopularBodyStyle != null)
                         {
-                            objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0} bikes", objData.Series.SeriesName);
+                            objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
                             objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                             objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
                         }
@@ -719,7 +719,7 @@ namespace Bikewale.Models
         /// <param name="objData">The object data.</param>
         private void SetSeriesWidgetProperties(ExpertReviewsIndexPageVM objData)
         {
-            string bodyStyleText = Bikewale.Utility.BodyStyleLinks.BodyStyleHeadingText(this.BodyStyle);
+            string bodyStyleText = Bikewale.Utility.BodyStyleLinks.BodyStyleText(this.BodyStyle);
 			if (IsMobile)
 			{
 				objData.SeriesMobileWidget = new EditorialSeriesMobileWidgetVM();
