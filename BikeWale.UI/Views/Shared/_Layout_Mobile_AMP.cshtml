@@ -320,11 +320,17 @@
 
         @Html.Raw(Model.Amp_Page_CSS)
     </style>
-    @if (!string.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
+
+    @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
     {
         <script type="application/ld+json">
-            @Html.Raw(Model.PageMetaTags.SchemaJSON)
-            "articleBody" : "@ViewBag.SanitizedNewsContent",
+            @(Html.Raw(Model.PageMetaTags.SchemaJSON))
+        </script>
+    }
+    @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.PageSchemaJSON))
+    {
+        <script type="application/ld+json">
+            @(Html.Raw(Model.PageMetaTags.PageSchemaJSON))
         </script>
     }
 
