@@ -2,7 +2,7 @@
 <div class="grid-12">
 	@if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
 	{
-		<div id="modelExpertReviewsContent" data-id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
+		<div id="modelExpertReviewsContent" data-id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin bw-model-tabs-data">
 			<h2 class="h2-heading padding-right20 padding-left20">@Model.BikeName Expert Reviews</h2>
 			@Html.Partial("~/Views/ExpertReviews/_ExpertReview.cshtml", Model.ExpertReviews)
 			<div class="padding-left20 view-all-btn-container">
