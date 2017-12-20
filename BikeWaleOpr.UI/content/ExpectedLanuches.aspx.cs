@@ -128,7 +128,7 @@ namespace BikeWaleOpr.Content
 
 
                         }
-						if (lblMakeId != null && lblSeriesId != null)
+						if (lblMakeId != null && lblSeriesId != null && !string.IsNullOrEmpty(lblSeriesId.Text) && !string.IsNullOrEmpty(lblMakeId.Text))
 						{
 							BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(lblSeriesId.Text), Convert.ToUInt32(lblMakeId.Text));
 						}
