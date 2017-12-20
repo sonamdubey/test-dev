@@ -54,5 +54,23 @@ namespace Bikewale.Utility
                     return "bikes";
             }
         }
-    }
+
+		public static string BodyStyleText(EnumBikeBodyStyles bodyStyle)
+		{
+			switch (bodyStyle)
+			{
+				case EnumBikeBodyStyles.Mileage:
+					return "Mileage";
+				case EnumBikeBodyStyles.Sports:
+					return "Sports";
+				case EnumBikeBodyStyles.Cruiser:
+					return "Cruiser";
+				case EnumBikeBodyStyles.Scooter:
+					return "Scooters";
+				case EnumBikeBodyStyles.AllBikes:
+				default:
+					return "bikes";
+			}
+		}
+	}
 }
