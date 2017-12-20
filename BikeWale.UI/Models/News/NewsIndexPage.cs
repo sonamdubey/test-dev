@@ -915,7 +915,7 @@ namespace Bikewale.Models
                 {
                     objData.SeriesMobileWidget.PopularSeriesBikesVM = new PopularBodyStyleVM();
                     objData.SeriesMobileWidget.PopularSeriesBikesVM.PopularBikes = objData.SeriesWidget.PopularSeriesBikes.Take(6);
-                    objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHeading = string.Format("Popular {0} {1}", objData.Series.SeriesName, bodyStyleText);
+                    objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHeading = string.Format("Popular {0}", objData.Series.SeriesName);
                     objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetLinkTitle = string.Format("View {0} bikes", objData.Series.SeriesName);
                     objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHref = string.Format("/m/{0}-bikes/{1}/", objMake.MaskingName, objData.Series.MaskingName);
                 }
