@@ -317,7 +317,7 @@ namespace Bikewale.DAL.BikeData
                         {
                             ht = new Hashtable();
                             string makeMaskingName = "", modelMaskingName = "", htKey = "";
-                            Bikewale.Entities.GenericBikes.EnumBikeBodyStyles bodyStyle = Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.AllBikes;
+                            Bikewale.Entities.GenericBikes.EnumBikeBodyStyles bodyStyle;
                             while (dr.Read())
                             {
                                 modelMaskingName = Convert.ToString(dr["MaskingName"]);
@@ -331,10 +331,10 @@ namespace Bikewale.DAL.BikeData
                                     NewMaskingName = Convert.ToString(dr["NewMaskingName"]),
                                     IsSeriesPageCreated = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]),
                                     StatusCode = SqlReaderConvertor.ToUInt16(dr["Status"]),
-                                    Name = Convert.ToString(dr["MaskingName"]),
+                                    Name = Convert.ToString(dr["Name"]),
                                     MakeMaskingName = makeMaskingName,
-                                    BodyStyle = Enum.TryParse(Convert.ToString(dr["BodyStyleId"]), out bodyStyle) ? bodyStyle : bodyStyle
-                                };
+                                    BodyStyle = Enum.TryParse(Convert.ToString(dr["BodyStyleId"]), out bodyStyle) ? bodyStyle : Entities.GenericBikes.EnumBikeBodyStyles.AllBikes
+								};
 
                                 if (!ht.ContainsKey(htKey))
                                 {
