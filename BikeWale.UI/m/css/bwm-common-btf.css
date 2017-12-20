@@ -1477,7 +1477,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 }
 
 /*best bike last creative card*/
-.swiper-wrapper #allbikes .swiper-image-preview {
+.card__complete-list .swiper-image-preview {
     display: block;
     padding: 0;
     width: 100%;
@@ -1486,7 +1486,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     position: relative;
 }
 
-.swiper-wrapper #allbikes .swiper-image-preview:after {
+.card__complete-list .swiper-image-preview:after {
     content: '';
     display: block;
     height: 100%;
@@ -1498,17 +1498,17 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     z-index: 1;
 }
 
-.swiper-wrapper #allbikes .swiper-image-preview img{
+.card__complete-list .swiper-image-preview img{
     height: 100%;
 }
-.swiper-wrapper #allbikes .swiper-details-block {
+.card__complete-list .swiper-details-block {
     position: absolute;
     top: 43%;
     left: 13%;
     padding: 0;
     z-index: 2;
 }
-.swiper-wrapper #allbikes .swiper-btn-block {
+.card__complete-list .swiper-btn-block {
     font-size: 14px;
     padding-top: 6px;
     padding-bottom: 6px;
@@ -1524,7 +1524,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     border: solid 1px #fff;
 }
 
-.swiper-wrapper #allbikes .swiper-btn-block:hover {
+.card__complete-list .swiper-btn-block:hover {
     background: white;
     color: #2a2a2a;
     text-decoration: none;
