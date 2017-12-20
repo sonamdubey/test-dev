@@ -402,5 +402,21 @@ namespace System
 
             return new string(arr);
         }
+        /// <summary>
+        /// Strips all the Malicious strings from the text
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string removeMaliciousCode(this string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+            Regex rRemScript = new Regex(@"<script[^>]*>[\s\S]*?</script\s*>");
+            while (rRemScript.IsMatch(text))
+            {
+                text = rRemScript.Replace(text, "");
+            }
+            return text;
+        }
     }
 }

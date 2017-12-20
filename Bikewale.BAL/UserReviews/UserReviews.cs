@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Bikewale.BAL.UserReviews
 {
@@ -193,7 +194,7 @@ namespace Bikewale.BAL.UserReviews
             {
                 //checked for Customer login and cookie details
                 //if unauthorized request return false
-                isSuccess = _userReviewsRepo.SaveUserReviews(reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns, mileage);
+                isSuccess = _userReviewsRepo.SaveUserReviews(reviewId, tipsnAdvices, StringHtmlHelpers.removeMaliciousCode(comment), commentTitle, reviewsQuestionAns, mileage);
             }
 
             return isSuccess;

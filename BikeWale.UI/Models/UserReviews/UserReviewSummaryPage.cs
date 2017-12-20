@@ -44,9 +44,22 @@ namespace Bikewale.Models.UserReviews
         /// </summary>
         private void CheckQueryString()
         {
-            if (string.IsNullOrEmpty(_strEncoded))
+            if (string.IsNullOrEmpty(_strEncoded) || isInvalidQuery(_strEncoded))
                 status = StatusCodes.ContentNotFound;
+
         }
+        /// <summary>
+        /// Checks whether the passed query string is valid or not.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        private bool isInvalidQuery(string query)
+        {
+            bool isInvalid = false;
+
+            return isInvalid;
+        }
+
         /// <summary>
         /// Created by : Aditi Srivastava on 18 Apr 2017
         /// Summary    : Get data for user review summary
