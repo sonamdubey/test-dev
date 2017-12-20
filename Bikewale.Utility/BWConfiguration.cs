@@ -140,6 +140,7 @@ namespace Bikewale.Utility
         private readonly bool _useV8Engine;
         private readonly int _pwaRenderedHtmlCacheLimitMins;
         private readonly bool _EnablePwdResetLogging;
+        private readonly int _MemcachedDefaultObjDuration;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -258,7 +259,7 @@ namespace Bikewale.Utility
             _pwaRenderedHtmlCacheLimitMins = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
             _MetasMakeId = ConfigurationManager.AppSettings["MetasMakeId"];
             _EnablePwdResetLogging = String.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePwdResetLogging"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePwdResetLogging"]);
-
+            _MemcachedDefaultObjDuration = String.IsNullOrEmpty(ConfigurationManager.AppSettings["MemcachedDefaultObjDuration"]) ? 1 : Convert.ToInt32(ConfigurationManager.AppSettings["MemcachedDefaultObjDuration"]);
         }
 
         // Static method to provide access to instance
@@ -432,6 +433,7 @@ namespace Bikewale.Utility
         public string AMPProjectUrl { get { return _AmpProjectUrl; } }
         public string MetasMakeId { get { return _MetasMakeId; } }
         public bool EnablePwdResetLogging { get { return _EnablePwdResetLogging; } }
-
+        public int MemcachedDefaultObjDuration { get { return _MemcachedDefaultObjDuration; } }
+        
     }   // class
 }   // namespace
