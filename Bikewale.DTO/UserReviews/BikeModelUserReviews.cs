@@ -28,6 +28,6 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("rating")]
         public BikeRatingData RatingDetails { get; set; }
         [JsonProperty("userReviews")]
-        public IEnumerable<UserReviewSummaryDto> UserReviews { get; set; }
+        public Bikewale.DTO.UserReviews.Search.SearchResult UserReviews { get; set; }
     }
 }

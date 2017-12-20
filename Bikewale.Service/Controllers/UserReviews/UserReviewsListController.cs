@@ -181,14 +181,15 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// Description : To get user reviews by modelid
         /// </summary>
         /// <param name="modelId"></param>
+        /// <param name="filters"></param>
         /// <returns></returns>
-        [Route("api/model/{modelId}/user-reviews/")]
-        public IHttpActionResult GetModelUserReviews(uint modelId)
+        [Route("api/user-reviews/model/{modelId}/")]
+        public IHttpActionResult GetModelUserReviews(uint modelId,[FromUri]Bikewale.Entities.UserReviews.Search.InputFilters filters)
         {
             BikeModelUserReviews objUserReviews = null;
             try
             {
-                if (modelId > 0)
+                if (modelId > 0 && filters!=null)
                 {
                     BikeRatingsReviewsInfo objBikeRatingReview = _userReviewsCacheRepo.GetBikeRatingsReviewsInfo(modelId);
                     if(objBikeRatingReview!=null)
@@ -196,18 +197,12 @@ namespace Bikewale.Service.Controllers.UserReviews
                         objUserReviews = UserReviewsMapper.Convert(objBikeRatingReview);
                         if(objUserReviews !=null)
                         {
-                            Entities.UserReviews.Search.InputFilters filters = new Entities.UserReviews.Search.InputFilters()
-                            {
-                                Model = modelId.ToString(),
-                                SO = (ushort)FilterBy.MostRecent,
-                                PN = 1,
-                                PS = 8,
-                                Reviews = true
-                            };
+                            filters.Model = modelId.ToString();
                             var result = _userReviewsSearch.GetUserReviewsList(filters);
+
                             if(result!=null)
                             {
-                                objUserReviews.UserReviews = UserReviewsMapper.Convert(result.Result);
+                                objUserReviews.UserReviews = UserReviewsMapper.Convert(result);
                             }
 
                             if(objBikeRatingReview.RatingDetails !=null)
