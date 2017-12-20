@@ -1,11 +1,12 @@
-﻿using Bikewale.Entities.DealerLocator;
+﻿using System;
+using System.Web.Http;
+using System.Web.Http.Description;
+using Bikewale.DTO.DealerLocator;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.DealerLocator;
 using Bikewale.Service.Utilities;
-using System;
-using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.DealerLocator
 {
@@ -115,6 +116,42 @@ namespace Bikewale.Service.Controllers.DealerLocator
             }
         }
 
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 19th Dec 2017
+        /// Summary : Get list of bikes for given dealer with it's on-road price
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(DealerBikeModels)), Route("api/dealer/{dealerId}/models/")]
+        public IHttpActionResult GetDealerBikes(uint dealerId, int makeId)
+        {
+            try
+            {
+                if(dealerId > 0 && makeId > 0)
+                {
+                    DealerBikesEntity dealerDetails = _cache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+                    if(dealerDetails != null)
+                    {
+                        DealerBikeModels dealerBikes = DealerBikesEntityMapper.ConvertToDealerBikeModels(dealerDetails);
+                        return Ok(dealerBikes);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Service.DealerLocator.DealerBikesController, dealerId: {0} and makeId: {1}", dealerId, makeId));
+                return InternalServerError();
+            }
+        }
 
     }
 }

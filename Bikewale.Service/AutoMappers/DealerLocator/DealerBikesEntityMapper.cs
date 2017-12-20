@@ -61,5 +61,23 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
             Mapper.CreateMap<Entities.BikeData.MostPopularBikesBase, DTO.DealerLocator.v2.DealerBikeBase>().ForMember(d => d.VersionId, opt => opt.MapFrom(s => s.objVersion.VersionId));
             return Mapper.Map<System.Collections.Generic.IEnumerable<MostPopularBikesBase>, System.Collections.Generic.IEnumerable<DTO.DealerLocator.v2.DealerBikeBase>>(enumerable);
         }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 19th Dec 2017
+        /// Summary : Convert dealer details and bike list model entity to dealer bike models dto
+        /// </summary>
+        /// <param name="dealerBikes"></param>
+        /// <returns></returns>
+        internal static DealerBikeModels ConvertToDealerBikeModels(DealerBikesEntity dealerBikes)
+        {
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
+            Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
+            Mapper.CreateMap<DealerBikesEntity, DealerBikeModels>().ForMember(d => d.CityName, opt => opt.MapFrom(s => s.DealerDetails.City));
+
+            return Mapper.Map<DealerBikesEntity, DealerBikeModels>(dealerBikes);
+        }
     }
 }
