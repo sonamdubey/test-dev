@@ -69,7 +69,7 @@ namespace Bikewale.Utility
 				case EnumBikeBodyStyles.Sports:
 					return "Sports bikes";
 				case EnumBikeBodyStyles.Cruiser:
-					return "Cruiser";
+					return "Cruisers";
 				case EnumBikeBodyStyles.Scooter:
 					return "Scooters";
 				case EnumBikeBodyStyles.AllBikes:
