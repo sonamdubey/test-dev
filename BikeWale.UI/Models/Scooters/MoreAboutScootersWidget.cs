@@ -16,17 +16,19 @@ namespace Bikewale.Models
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCache = null;
         private readonly ICityCacheRepository _objCityCache;
         private readonly IBikeInfo _bikeInfo = null;
+        private readonly BikeInfoTabType _pageId;
 
 
         public uint modelId { get; set; }
 
 
-        public MoreAboutScootersWidget(IBikeModelsCacheRepository<int> objBestBikes, ICityCacheRepository objCityCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo)
+        public MoreAboutScootersWidget(IBikeModelsCacheRepository<int> objBestBikes, ICityCacheRepository objCityCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, BikeInfoTabType pageId)
         {
             _objBestBikes = objBestBikes;
             _versionCache = versionCache;
             _bikeInfo = bikeInfo;
             _objCityCache = objCityCache;
+            _pageId = pageId;
         }
 
         public MoreAboutScootersWidgetVM GetData()
@@ -39,10 +41,10 @@ namespace Bikewale.Models
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
 
                 uint cityId = location != null ? location.CityId : 0;
-                uint topCount = 4;
+                uint topCount = 5;
                 objVM.objBestBikesList = _objBestBikes.GetBestBikesByCategory(EnumBikeBodyStyles.Scooter, cityId);
                 objVM.objBestBikesList = objVM.objBestBikesList.Where(x => x.Model.ModelId != modelId).Reverse().Take((int)topCount);
-                objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _objCityCache, modelId, cityId, topCount, Entities.GenericBikes.BikeInfoTabType.PriceInCity)).GetData();
+                objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _objCityCache, modelId, cityId, topCount, _pageId)).GetData();
                 objVM.SimilarBikes = _versionCache.GetSimilarBikesByMinPriceDiff(modelId, topCount, cityId);
                 objVM.objBikeData = new Bikewale.Common.ModelHelper().GetModelDataById(modelId);
             }

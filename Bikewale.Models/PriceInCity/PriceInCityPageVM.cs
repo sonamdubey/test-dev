@@ -19,6 +19,8 @@ namespace Bikewale.Models
     /// Summary: Added property to hold city list for given model id
     /// Modified by : Ashutosh Sharma on 05 Oct 2017
     /// Description : Added PhotoGallery, IsGalleryLoaded and ModelGallery.
+    /// Modified by: Snehal Dange on 20th dec 2017
+    /// Summary : added MoreAboutScootersWidgetVM
     /// </summary>
     public class PriceInCityPageVM : ModelBase
     {
@@ -93,6 +95,7 @@ namespace Bikewale.Models
         public bool IsGalleryLoaded { get; set; }
         public ModelGalleryVM ModelGallery { get; set; }
         public ModelPhotoGalleryEntity PhotoGallery { get; set; }
+        public MoreAboutScootersWidgetVM objMoreAboutScooter { get; set; }
     }
 
 }
