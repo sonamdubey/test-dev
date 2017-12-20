@@ -76,6 +76,7 @@ namespace Bikewale.Models.UserReviews
                     otherMakes.Makes = popularBrandsList.Take(9);
                     otherMakes.PageLinkFormat = "/{0}-bikes/reviews/";
                     otherMakes.PageTitleFormat = "{0} Reviews";
+                    otherMakes.CardText = "bike";
                     objData.OtherMakes = otherMakes;
 
                 }

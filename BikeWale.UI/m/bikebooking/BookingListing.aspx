@@ -461,6 +461,7 @@
         var pqLeadId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_BookingListing%>';
         var clientIP = '<%= clientIP %>';
         ga_pg_id = '39';
+        var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.BookingListing_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.BookingListing_Page%>' };
     </script>
     <div class="back-to-top" id="back-to-top"></div>
 </body>

@@ -76,6 +76,7 @@ namespace Bikewale.Models
                 objDealerVM.UsedBikeModel = BindUsedBikeByModel();
                 objDealerVM.NewLaunchedBikes = BindNewLaunchesBikes();
                 BindPageMetas(objDealerVM);
+                objDealerVM.Page = Entities.Pages.GAPages.Dealer_Locator_Country_Page;
 
 
             }

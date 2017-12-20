@@ -4,6 +4,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
@@ -90,6 +91,7 @@ namespace Bikewale.Models
                     objDealerDetails.ServiceCenterDetails = BindServiceCenterWidget();
                     BindPageMetas(objDealerDetails);
                     BindLeadCapture(objDealerDetails);
+                    objDealerDetails.Page = GAPages.Dealer_Locator_Details_Page;
                 }
             }
             catch (System.Exception ex)

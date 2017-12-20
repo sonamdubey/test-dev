@@ -162,7 +162,7 @@ namespace Bikewale.Models
                 BindOtherMakes(objData);
                 BindUserReviews(objData);
                 BindMakeFooterCategoriesandPriceWidget(objData);
-
+                objData.Page = GAPages.Make_Page;
                 objData.BikeCityPopup = new PopUp.BikeCityPopup()
                 {
                     ApiUrl = "/api/v2/DealerCity/?makeId=" + _makeId,
@@ -194,7 +194,7 @@ namespace Bikewale.Models
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable || objData.IsUserReviewsAvailable);
 
                     objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
-                    
+
                     objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
 
                 }
@@ -273,6 +273,8 @@ namespace Bikewale.Models
         /// Description :   Bind Other Make list
         /// Modifiwed by Sajal Gupta on 15-11-2017
         /// Dewsc : Added makecategory sorting logic
+        /// Modified by: Snehal Dange on 14th Dec 2017
+        /// Desc: Added logic for cardtext and PageLinkFormat
         /// </summary>
         /// <param name="objData"></param>
         private void BindOtherMakes(MakePageVM objData)
@@ -288,6 +290,14 @@ namespace Bikewale.Models
                     var otherMakes = new OtherMakesVM();
                     otherMakes.Makes = popularBrandsList.Take(9);
                     objData.OtherMakes = otherMakes;
+
+                    if (objData.OtherMakes != null)
+                    {
+                        objData.OtherMakes.CardText = "bike";
+                        objData.OtherMakes.PageLinkFormat = "/{0}-bikes/";
+                        objData.OtherMakes.PageTitleFormat = "{0} Bikes";
+                    }
+
 
                 }
             }

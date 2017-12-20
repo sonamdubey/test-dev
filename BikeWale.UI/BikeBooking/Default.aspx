@@ -167,6 +167,7 @@
 
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList");
             var key = "bCity_";
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Booking_Landing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Booking_Landing%>' };
             lscache.setBucket('BLPage');
             $(function () {
 
@@ -261,6 +262,7 @@
         
         <script type="text/javascript">
 
+           
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
             $ddlAreas.chosen({ no_results_text: "No matches found!!" });
             $('.chosen-container').attr('style', 'width:100%;');
@@ -269,6 +271,9 @@
             $(document).ready(function(){
                 var testimonialSlider = 1;
                 $('.jcarousel').jcarousel({ wrap: 'circular' }).jcarouselAutoscroll({ interval: 7000, target: '+=1', autostart: true });
+               
+
+
             })
         </script>
         <!-- #include file="/includes/footerscript.aspx" -->

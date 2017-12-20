@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
@@ -129,6 +130,7 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     GetWidgetData(objData, widgetTopCount);
                     PopulatePhotoGallery(objData);
+                    BindSimilarBikes(objData);
                     SetBikeTested(objData);
                     InsertBikeInfoWidgetIntoContent(objData);
                     if (IsAMPPage)
@@ -144,6 +146,41 @@ namespace Bikewale.Models
                 ErrorClass.LogError(err, "Bikewale.Models.ExpertReviewsDetailPage.GetData");
             }
             return objData;
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 13-12-2017
+        /// Description :- Bind Similar Bikes Only for desktop
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindSimilarBikes(ExpertReviewsDetailPageVM objData)
+        {
+            try
+            {
+                if (objData.Model.ModelId > 0)
+                {
+                    var objSimilarBikes = new SimilarBikesWidget(_objBikeVersionsCache, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
+
+                    objSimilarBikes.TopCount = 9;
+                    objSimilarBikes.CityId = CityId;
+                    objSimilarBikes.IsNew = objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued) ? false : true;
+                    objSimilarBikes.IsUpcoming = objData.BikeInfo != null ? objData.BikeInfo.IsUpcoming : false;
+                    objSimilarBikes.IsDiscontinued = objData.BikeInfo != null ? objData.BikeInfo.IsDiscontinued : false;
+                    objData.SimilarBikes = objSimilarBikes.GetData();
+                    if (objData.SimilarBikes != null && objData.SimilarBikes.Bikes != null && objData.SimilarBikes.Bikes.Any())
+                    {
+                        objData.SimilarBikes.Make = objData.Make;
+                        objData.SimilarBikes.Model = objData.Model;
+
+                        objData.SimilarBikes.Page = GAPages.Editorial_Details_Page;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.Models.NewsDetailPage.BindSimilarBikes({0})", objData.Model.ModelId));
+            }
         }
 
         /// <summary>

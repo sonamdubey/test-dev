@@ -63,6 +63,7 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.BikeCareWidgetVM = new RecentBikeCare(_articles).GetData(_bikeCareRecordsCount, 0, 0);
 
                 BindPageMetas(objVM);
+                objVM.Page = Entities.Pages.GAPages.ServiceCenter_Country_Page;
             }
             catch (Exception ex)
             {

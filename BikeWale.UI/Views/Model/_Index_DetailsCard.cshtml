@@ -248,6 +248,15 @@
         </div>
 
     }
+    @if (Model.objMoreAboutScooter != null)
+    {
+        <div id="" class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
+            @Html.Partial("~/Views/Scooters/_ModelRelatedCard.cshtml", Model.objMoreAboutScooter)
+        </div>
+    }
+    
+
+
     <div id="overallSpecsDetailsFooter"></div>
 </div>
 <div class="clear"></div>
