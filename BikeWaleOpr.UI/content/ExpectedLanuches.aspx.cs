@@ -146,7 +146,7 @@ namespace BikeWaleOpr.Content
                                 BwMemCache.ClearUpcomingBikesCacheKey(9, so, makeId, modelId);
                             }
                         }
-                        if (lblMakeId != null && lblSeriesId != null)
+						if (lblMakeId != null && lblSeriesId != null && !string.IsNullOrEmpty(lblSeriesId.Text) && !string.IsNullOrEmpty(lblMakeId.Text))
                         {
                             BwMemCache.ClearSeriesCache(Convert.ToUInt32(lblSeriesId.Text), Convert.ToUInt32(lblMakeId.Text));
                         }
