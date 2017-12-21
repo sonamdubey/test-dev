@@ -73,12 +73,13 @@ gulp.task('minify-js', function () {
 gulp.task('minify-sass-css', function () {
 	var sassCache = fsCache(app + '.gulp-cache/' + paths.SASS);
 
-	return gulp.src(['BikeWale.UI/sass/**/*.sass', 'BikeWale.UI/m/sass/**/*.sass'], { base: 'BikeWale.UI/' })
+	return gulp.src([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], { base: app })
 		.pipe(sassCache)
 		.pipe(sass().on('error', sass.logError))
 		.pipe(cleanCss())
 		.pipe(sassCache.restore)
-		.pipe(gulp.dest('BikeWale.UI/build/min/'));
+		.pipe(gulp.dest(buildFolder))
+		.pipe(gulp.dest(minifiedAssetsFolder));
 });
 
 
