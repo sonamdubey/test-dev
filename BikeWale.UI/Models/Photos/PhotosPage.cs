@@ -474,9 +474,6 @@ namespace Bikewale.Models.Photos
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindMoreAboutScootersWidget : ModelId {0}", _modelId));
             }
-
-
-
         }
 
     }
