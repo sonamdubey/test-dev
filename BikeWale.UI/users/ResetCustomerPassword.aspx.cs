@@ -44,13 +44,17 @@ namespace Bikewale.Users
             ValidateToken();
         } // Page_Load
 
+
+        // Modified by : Ashish G. Kamble on 22 Dec 2017 
+        // Modified : Enabled Logging for password reset process
         protected void ValidateToken()
         {
             string email = string.Empty;
 
             token = Request.QueryString["tkn"];
-            Trace.Warn("token : " + token);
+            
             StringBuilder msgQ = new StringBuilder();
+
             if (!String.IsNullOrEmpty(token))
             {
                 try
@@ -85,6 +89,7 @@ namespace Bikewale.Users
                                 tblPassword.Visible = false;
                                 msgQ.AppendLine("Your link to reset the password is expired.");
                             }
+                            else msgQ.AppendLine("Valid Password Token.");
                         }
                         else
                         {
@@ -122,33 +127,66 @@ namespace Bikewale.Users
         //change the password
         //first check whether the current password is correct or not
         //if the password is not correct then show the proper message
+        // Modified by : Ashish G. Kamble on 22 Dec 2017 
+        // Modified : Enabled Logging for password reset process
         void butChange_Click(object sender, EventArgs e)
         {
-            Page.Validate();
-            if (!Page.IsValid)
-                return;
+            StringBuilder msgQ = new StringBuilder();
 
-            string userId = customerId;
+            try
+            {
+                Page.Validate();
+                
+                if (!Page.IsValid)
+                {
+                    msgQ.AppendLine("!Page.IsValid");
+                    return;
+                }
 
-            RegisterCustomer objCust = new RegisterCustomer();
+                string userId = customerId;
 
-            //get the new passwword
-            string newPasswd = txtNewPassword.Text.Trim().Replace("'", "''");
+                RegisterCustomer objCust = new RegisterCustomer();
 
-            // Generate random salt and hash from the password given by customer
-            string newSalt = objCust.GenerateRandomSalt();
-            string newHash = objCust.GenerateHashCode(newPasswd, newSalt);
+                msgQ.AppendLine("new password processing started");
 
-            Trace.Warn("cust id : " + userId);
-            Trace.Warn("new salt : " + newSalt);
-            Trace.Warn("new hash : " + newHash);
+                //get the new passwword
+                string newPasswd = txtNewPassword.Text.Trim().Replace("'", "''");
 
-            // Update salt and hash for the customer
-            objCust.UpdatePassword(newSalt, newHash, userId);
-            spnError.InnerText = "The password has been changed successfully.";
+                msgQ.AppendLine("new password processing done");
 
-            // Make password recovery token inactive
-            objCust.UpdatePasswordRecoveryTokenStatus(customerId);
+                // Generate random salt and hash from the password given by customer
+                string newSalt = objCust.GenerateRandomSalt();
+                string newHash = objCust.GenerateHashCode(newPasswd, newSalt);
+                
+                msgQ.AppendLine("userId : " + userId);
+                msgQ.AppendLine("newSalt : " + newSalt);
+                msgQ.AppendLine("newHash : " + newHash);
+
+                msgQ.AppendLine("new password update started");
+
+                // Update salt and hash for the customer
+                objCust.UpdatePassword(newSalt, newHash, userId);
+                spnError.InnerText = "The password has been changed successfully.";
+
+                msgQ.AppendLine("new password update done");
+
+                // Make password recovery token inactive
+                objCust.UpdatePasswordRecoveryTokenStatus(customerId);
+
+                msgQ.AppendLine("user token invalidated");
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "ResetCustomerPassword.butChange_Click");
+                msgQ.AppendLine("ResetCustomerPassword.butChange_Click Exception block.");
+            }
+            finally
+            {
+                if (enablePwdResetLogging)
+                {
+                    _logger.Error(msgQ.ToString());
+                }
+            }
         }
 
         void butCancel_Click(object sender, EventArgs e)
