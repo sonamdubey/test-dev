@@ -30,6 +30,7 @@ namespace Bikewale.Models.Videos
         private readonly IBikeModels<BikeModelEntity, int> _models;
         private string _makeMaskingName = string.Empty, _modelMaskingName = string.Empty;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
 
         private ushort _maxVideoCount = 50, _pageNo = 1;
         private uint _makeId, _modelId;
@@ -46,7 +47,7 @@ namespace Bikewale.Models.Videos
         public SeriesMaskingResponse objMaskingResponse;
         public BikeSeriesEntityBase objSeries;
 
-        public ModelWiseVideosPage(string makeMaskingName, string modelMaskingName, ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IVideosCacheRepository objVideosCache, IBikeMakesCacheRepository bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IBikeModels<BikeModelEntity, int> models, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
+        public ModelWiseVideosPage(string makeMaskingName, string modelMaskingName, ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IVideosCacheRepository objVideosCache, IBikeMakesCacheRepository bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IBikeModels<BikeModelEntity, int> models, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeModelsCacheRepository<int> objModelCache)
         {
             _makeMaskingName = makeMaskingName;
             _modelMaskingName = modelMaskingName;
@@ -59,6 +60,7 @@ namespace Bikewale.Models.Videos
             _series = series;
             _models = models;
             _objBikeVersionsCache = objBikeVersionsCache;
+            _objModelCache = objModelCache;
             ProcessQuery(_makeMaskingName, _modelMaskingName);
         }
 
@@ -136,6 +138,10 @@ namespace Bikewale.Models.Videos
                 GetBodyStyle(objVM);
 
                 BindPageMetas(objVM);
+                if (objVM.bikeType.Equals(EnumBikeBodyStyles.Scooter))
+                {
+                    BindMoreAboutScootersWidget(objVM);
+                }
             }
             catch (Exception ex)
             {
@@ -376,6 +382,24 @@ namespace Bikewale.Models.Videos
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("ModelWiseVideosPage.GetBodyStyle model id = {0}", _modelId));
+            }
+        }
+        /// <summary>
+        /// Created By: Snehal Dange on 21th Dec 2017
+        /// Summary : Bind more about scooter widget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMoreAboutScootersWidget(ModelWiseVideoPageVM objData)
+        {
+            try
+            {
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _cityCacheRepo, _objBikeVersionsCache, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.Videos);
+                obj.modelId = _modelId;
+                objData.ObjMoreAboutScooter = obj.GetData();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("ModelWiseVideosPage.BindMoreAboutScootersWidget : ModelId {0}", _modelId));
             }
         }
     }

@@ -701,6 +701,11 @@ namespace Bikewale.Models
                     BindAmpJsTags(objVM);
                     Series = _objModelEntity.GetSeriesByModelId(modelId);
                     SetBreadcrumList(objVM);
+                    if (objVM.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                    {
+                        BindMoreAboutScootersWidget(objVM);
+                    }
+
                 }
             }
             catch (Exception ex)
