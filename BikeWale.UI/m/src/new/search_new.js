@@ -16,6 +16,16 @@ $.duration = 500;
 $.so = '';
 $.sc = '';
 
+// For updating href on Load More anchor tag
+function updateNextUrl(url) {
+    if (url) {
+        $("#loadMoreBikes").attr('href', location.protocol + '//' + location.host + location.pathname + url.slice(url.lastIndexOf('/') + 1));
+    }
+    else {
+        $("#loadMoreBikes").attr('href', 'javascript:void(0)'); // No forward link
+    }
+}
+
 docReady(function () {
     //Other  functions
     newBikeSearch = function () {
@@ -312,6 +322,7 @@ docReady(function () {
                             self.TotalBikes(response.totalCount);
                             $('#bikecount').text(self.TotalBikes() + ' Bikes');
                             self.noBikes(false);
+                            updateNextUrl(response.pageUrl.nextUrl);
                             self.LoadMoreTarget(response.pageUrl.nextUrl);
                             if (response.pageUrl.nextUrl) {
                                 self.IsMoreBikesAvailable(true);
@@ -791,4 +802,15 @@ docReady(function () {
         var url = window.location.hash.replace('#', '');
         newBikeSearchVM.setFilters(url);
     }
+});
+
+$(document).ready(function () {
+    $('a').click(function (event) {
+        var id = $(this).attr('id');
+        if (id == 'loadMoreBikes') {
+            // For stopping redirection on load more button
+            event.preventDefault();
+        }
+    });
+    updateNextUrl($("#loadMoreBikes").data("url"));
 });
