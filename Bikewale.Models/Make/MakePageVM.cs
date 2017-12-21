@@ -62,6 +62,7 @@ namespace Bikewale.Models
         public bool IsFooterDescriptionAvailable { get; set; }
         public bool IsPriceListingAvailable { get; set; }
 
+        public bool ShowCheckOnRoadpriceBtn { get; set; }
 
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public DealerCardVM Dealers { get; set; }

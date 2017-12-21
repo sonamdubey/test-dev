@@ -88,7 +88,6 @@ namespace Bikewale.Models.BikeModels
         public System.Collections.Generic.ICollection<SimilarCompareBikeEntity> PopularComparisions { get; set; }
         public UsedBikeByModelCityVM UsedModels { get; set; }
         public UserReviewsSearchVM UserReviews { get; set; }
-        public MoreAboutScootersWidgetVM objMoreAboutScooter { get; set; }
 
         public bool AreModelPhotosAvailable { get { return (this.ModelPageEntity != null && ModelPageEntity.AllPhotos != null && this.ModelPageEntity.AllPhotos.Any()); } }
         public bool IsNewsAvailable { get { return (News != null && News.FetchedCount > 0); } }

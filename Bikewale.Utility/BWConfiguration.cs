@@ -134,6 +134,7 @@ namespace Bikewale.Utility
         private readonly string _capitalFirstConsumerQueue;
         private readonly bool _IsIPSecurityEnabled;
         private readonly uint _CapitalFirstDealerId;
+        private readonly ushort _MakePageOnRoadPriceBtnPct;
         private readonly string _CarTradeLeadUrl, _CarTradeLeadApiAction, _CarTradeLeadApiCode;
         private readonly string _EditCMSModuleName;
         private readonly int _minEnginePoolSize, _maxEnginePoolSize;
@@ -259,6 +260,7 @@ namespace Bikewale.Utility
             _MetasMakeId = ConfigurationManager.AppSettings["MetasMakeId"];
             _EnablePwdResetLogging = String.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePwdResetLogging"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePwdResetLogging"]);
             _pwaRenderedHtmlCacheLimitMins = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
+            _MakePageOnRoadPriceBtnPct = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]) ? (ushort)0 : Convert.ToUInt16(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]);
         }
 
         // Static method to provide access to instance
@@ -432,5 +434,6 @@ namespace Bikewale.Utility
         public string AMPProjectUrl { get { return _AmpProjectUrl; } }
         public string MetasMakeId { get { return _MetasMakeId; } }
         public bool EnablePwdResetLogging { get { return _EnablePwdResetLogging; } }
+        public ushort MakePageOnRoadPriceBtnPct { get { return _MakePageOnRoadPriceBtnPct;  } }
     }   // class
 }   // namespace
