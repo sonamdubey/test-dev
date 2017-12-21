@@ -1,10 +1,10 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
 
 namespace Bikewale.Cache.Compare
 {
@@ -167,7 +167,7 @@ namespace Bikewale.Cache.Compare
             string key = string.Empty;
             try
             {
-                key = string.Format("BW_Compare_Bikes_v3_{0}_City_{1}_v1", versions.Replace(',', '_'), cityId);
+                key = string.Format("BW_Compare_Bikes_v3_{0}_City_{1}_v2", versions.Replace(',', '_'), cityId);
                 compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(1, 0, 0), () => _compareRepository.DoCompare(versions, cityId));
             }
             catch (Exception ex)
