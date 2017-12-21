@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Pager;
 using Bikewale.Models.BikeModels;
+using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -33,6 +34,7 @@ namespace Bikewale.Models
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
         public EnumBikeBodyStyles BodyStyle { get; set; }
+        public EditorialPageType EditorialPageType { get; set; }
         public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
         public MultiTabsWidgetVM PopularBikesAndPopularScootersWidget { get; set; }
         public MultiTabsWidgetVM UpcomingBikesAndUpcomingScootersWidget { get; set; }
@@ -40,7 +42,12 @@ namespace Bikewale.Models
         public MultiTabsWidgetVM PopularMakeBikesAndBodyStyleBikesWidget { get; set; }
         public MultiTabsWidgetVM PopularMakeScootersAndOtherBrandsWidget { get; set; }
         public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
-    }
 
+        public MultiTabsWidgetVM PopularSeriesAndMakeBikeSeriesWidget { get; set; }
+        public MultiTabsWidgetVM PopularUpcomingBodyStyleWidgetWidget { get; set; }
+
+        public EditorialSeriesWidgetVM SeriesWidget { get; set; }
+        public EditorialSeriesMobileWidgetVM SeriesMobileWidget { get; set; }
+    }
 
 }

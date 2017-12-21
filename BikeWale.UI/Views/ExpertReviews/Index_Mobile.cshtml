@@ -53,10 +53,10 @@
                                     <p class="list-slug__heading">Bike review contest</p>
                                     <p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;2,000</p>
                                     @{
-                                        string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ExpertReviews));
+                        string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ExpertReviews));
                                     }
 
-                                     <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" title="Bike Review Contest" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
+                                    <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" title="Bike Review Contest" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
                                 </div>
                             </div>
                         </li>
@@ -64,7 +64,7 @@
                     i++;
                 }
             </ul>
-                    }
+        }
         <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
             <div class="grid-5 omega text-light-grey font13">
                 <span class="text-bold text-default">@string.Format("{0}-{1}", Model.StartIndex, Model.EndIndex)</span> of <span class="text-bold text-default">@Model.Articles.RecordCount</span> articles
@@ -136,25 +136,54 @@
         </section>
     }
 }
-else
+else if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
 {
-    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
-    {
-        <section>
-            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
-                <div class="carousel-heading-content">
-                    <div class="swiper-heading-left-grid inline-block">
-                        <h2>@Model.UpcomingBikes.WidgetHeading</h2>
-                    </div>
-                    <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@string.Format("/m{0}",Model.UpcomingBikes.WidgetHref)" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
-                    </div>
-                    <div class="clear"></div>
+    <section>
+        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>@Model.UpcomingBikes.WidgetHeading</h2>
                 </div>
-                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="@string.Format("/m{0}",Model.UpcomingBikes.WidgetHref)" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
             </div>
-        </section>
-    }
+            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
+        </div>
+    </section>
+
+}
+else if (Model.EditorialPageType == Bikewale.Entities.CMS.EditorialPageType.SeriesPage)
+{
+    <section>
+        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+            <div class="carousel-heading-content padding-top15">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>@Model.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHeading</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="@Model.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHref" title="@Model.SeriesMobileWidget.PopularSeriesBikesVM.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile.cshtml", Model.SeriesMobileWidget.PopularSeriesBikesVM)
+        </div>
+    </section>
+    <section>
+        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+            <div class="carousel-heading-content padding-top15">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>@Model.SeriesMobileWidget.PopularBikesByBodyStyleVM.WidgetHeading</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="@Model.SeriesMobileWidget.PopularBikesByBodyStyleVM.WidgetHref" title="@Model.SeriesMobileWidget.PopularBikesByBodyStyleVM.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @Html.Partial("~/Views/BestBikes/_PopularBodyStyleBestBikesCarousel_Mobile.cshtml", Model.SeriesMobileWidget.PopularBikesByBodyStyleVM)
+        </div>
+    </section>
 }
 <script type="text/javascript">
     ga_pg_id = "12";

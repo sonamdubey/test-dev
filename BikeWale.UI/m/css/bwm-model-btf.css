@@ -1300,3 +1300,30 @@ h2.text-bold { font-weight: bold; }
         width: 148px;
     }
 }
+
+.trucatable-content {
+	overflow: hidden;
+	position: relative;
+	max-height: 36px;
+}
+
+.trucatable-content:before {
+	content: '...';
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	display: block;
+	padding-left: 3px;
+	background: white;
+}
+
+.trucatable-content:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	width: 14px;
+	height: 14px;
+	margin-top: 0.2em;
+	background: white;
+}
+

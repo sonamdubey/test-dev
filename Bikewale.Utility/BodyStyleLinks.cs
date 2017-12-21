@@ -54,5 +54,28 @@ namespace Bikewale.Utility
                     return "bikes";
             }
         }
-    }
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 20 Dec 2017
+		/// Description : Method to get BodyStyle text without "bikes" at the end.
+		/// </summary>
+		/// <param name="bodyStyle"></param>
+		/// <returns></returns>
+		public static string BodyStyleText(EnumBikeBodyStyles bodyStyle)
+		{
+			switch (bodyStyle)
+			{
+				case EnumBikeBodyStyles.Mileage:
+					return "Mileage";
+				case EnumBikeBodyStyles.Sports:
+					return "Sports Bikes";
+				case EnumBikeBodyStyles.Cruiser:
+					return "Cruisers";
+				case EnumBikeBodyStyles.Scooter:
+					return "Scooters";
+				case EnumBikeBodyStyles.AllBikes:
+				default:
+					return "Bikes";
+			}
+		}
+	}
 }

@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeSeries;
 using Bikewale.Entities.Images;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -308,7 +307,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getseriesmodelmaskingmapping"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getseriesmodelmaskingmapping_12122017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -317,22 +316,29 @@ namespace Bikewale.DAL.BikeData
                         if (dr != null)
                         {
                             ht = new Hashtable();
-
+                            string makeMaskingName = "", modelMaskingName = "", htKey = "";
+                            Bikewale.Entities.GenericBikes.EnumBikeBodyStyles bodyStyle;
                             while (dr.Read())
                             {
+                                modelMaskingName = Convert.ToString(dr["MaskingName"]);
+                                makeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                htKey = String.Format("{0}_{1}", makeMaskingName, modelMaskingName);
                                 SeriesMaskingResponse objMaskingNames = new SeriesMaskingResponse()
                                 {
-                                    Id = SqlReaderConvertor.ParseToUInt32(dr["Id"]),
-                                    MaskingName = Convert.ToString(dr["MaskingName"]),
+                                    ModelId = SqlReaderConvertor.ParseToUInt32(dr["ModelId"]),
+                                    SeriesId = SqlReaderConvertor.ParseToUInt32(dr["SeriesId"]),
+                                    MaskingName = modelMaskingName,
                                     NewMaskingName = Convert.ToString(dr["NewMaskingName"]),
                                     IsSeriesPageCreated = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]),
                                     StatusCode = SqlReaderConvertor.ToUInt16(dr["Status"]),
-                                    Name = Convert.ToString(dr["Name"])
-                                };
+                                    Name = Convert.ToString(dr["Name"]),
+                                    MakeMaskingName = makeMaskingName,
+                                    BodyStyle = Enum.TryParse(Convert.ToString(dr["BodyStyleId"]), out bodyStyle) ? bodyStyle : Entities.GenericBikes.EnumBikeBodyStyles.AllBikes
+								};
 
-                                if (!ht.ContainsKey(dr["MaskingName"]))
+                                if (!ht.ContainsKey(htKey))
                                 {
-                                    ht.Add(dr["MaskingName"], objMaskingNames);
+                                    ht.Add(htKey, objMaskingNames);
                                 }
                             }
                             dr.Close();
@@ -349,7 +355,7 @@ namespace Bikewale.DAL.BikeData
 
         /// <summary>
         /// Created by : Vivek Singh Tomar on 24 Nov 2017
-        /// Summary : Get model ids as commar separated string for given series id
+        /// Summary : Get model ids as comma separated string for given series id
         /// </summary>
         /// <param name="seriesId"></param>
         /// <returns></returns>
@@ -358,11 +364,11 @@ namespace Bikewale.DAL.BikeData
             string modelIds = string.Empty;
             try
             {
-                using(DbCommand cmd = DbFactory.GetDBCommand("getmodelidsbyseries"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelidsbyseries"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.UInt32, seriesId));
-                    using(IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null && reader.Read())
                         {
@@ -372,7 +378,7 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeSeriesRepository.GetMaskingNames seriesId {0}", seriesId));
             }

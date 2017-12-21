@@ -125,9 +125,12 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_Scooter_MakePage_PopularBikes = 99,
         Mobile_Popup_LeadCapture_ForAMP = 100,
         Mobile_Photos_Page = 101,
-		Desktop_Series_Page = 102,
-		Mobile_Series_Page = 103,
-        Desktop_ElectricBike=104,
-        Mobile_ElectricBikes=105
-	}
+        Desktop_Series_Page = 102,
+        Mobile_Series_Page = 103,
+        Desktop_ElectricBike = 104,
+        Mobile_ElectricBikes = 105,
+        Desktop_Videos_Page_PopularSeries = 106,
+        Mobile_Videos_Page_PopularSeries = 107
+    }
+
 }
