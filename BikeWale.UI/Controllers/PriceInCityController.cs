@@ -87,11 +87,11 @@ namespace Bikewale.Controllers
 		/// <param name="cityName"></param>
 		/// <returns></returns>
 		[Filters.DeviceDetection()]
-        [Route("model/{modelName}/pricein/{cityName}/")]
-        public ActionResult Index(string modelName, string cityName)
+        [Route("make/{makeName}/model/{modelName}/pricein/{cityName}/")]
+        public ActionResult Index(string makeName, string modelName, string cityName)
         {
             PriceInCityPageVM objVM = null;
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Desktop_PriceInCity_Alternative, modelName, cityName, _objModelEntity, _adSlot);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Desktop_PriceInCity_Alternative, modelName, cityName, _objModelEntity, _adSlot, makeName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
                 model.BikeInfoTabCount = 4;
@@ -134,11 +134,11 @@ namespace Bikewale.Controllers
 		/// <param name="modelName"></param>
 		/// <param name="cityName"></param>
 		/// <returns></returns>
-		[Route("m/model/{modelName}/pricein/{cityName}/")]
-        public ActionResult Index_Mobile(string modelName, string cityName)
+		[Route("m/make/{makeName}/model/{modelName}/pricein/{cityName}/")]
+        public ActionResult Index_Mobile(string makeName, string modelName, string cityName)
         {
             PriceInCityPageVM objVM = null;
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, _adSlot);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, _adSlot, makeName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
                 model.BikeInfoTabCount = 3;
@@ -179,11 +179,11 @@ namespace Bikewale.Controllers
         /// Summary: Action method for price in city amp page
         /// </summary>
         /// <returns></returns>
-        [Route("m/model/{modelName}/pricein/{cityName}/amp/")]
-        public ActionResult Index_Mobile_Amp(string modelName, string cityName)
+        [Route("m/make/{makeName}/model/{modelName}/pricein/{cityName}/amp/")]
+        public ActionResult Index_Mobile_Amp(string makeName, string modelName, string cityName)
         {
             PriceInCityPageAMPVM objVM = null;
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo,  _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo,  _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, makeName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
 				model.IsMobile = true;

@@ -1,4 +1,9 @@
-﻿using ApiGatewayLibrary;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Description;
+using ApiGatewayLibrary;
 using Bikewale.BAL.GrpcFiles;
 using Bikewale.DTO.Videos;
 using Bikewale.Entities.BikeData;
@@ -7,7 +12,6 @@ using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
-using Bikewale.Models.Videos;
 using Bikewale.Notifications;
 using Bikewale.PWA.Utils;
 using Bikewale.Service.Utilities;
@@ -15,16 +19,11 @@ using Bikewale.Utility;
 using EditCMSWindowsService.Messages;
 using Grpc.CMS;
 using log4net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Description;
 namespace Bikewale.Service.Controllers.Pwa.Videos
 {
-   /// <summary>
-   /// 
-   /// </summary>
+    /// <summary>
+    /// 
+    /// </summary>
     public class PwaVideosController : CompressionApiController
     {
         static readonly ILog _logger = LogManager.GetLogger(typeof(PwaVideosController));
@@ -185,8 +184,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                     uint modelId = 0;                    
                     if (!string.IsNullOrEmpty(vidDet.MaskingName))
                     {
-                        var model = _objMaskingCache.GetModelMaskingResponse(vidDet.MaskingName);
-                        modelId = model.ModelId;                        
+                        modelId = vidDet.ModelId;                        
                     }
                 
                     if(modelId>0)

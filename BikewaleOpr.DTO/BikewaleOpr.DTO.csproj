@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="AWS\Token.cs" />
     <Compile Include="BikeData\BikeSeriesDTO.cs" />
+    <Compile Include="BikeData\BodyStyleBase.cs" />
     <Compile Include="BikeData\MakeFooterDto.cs" />
     <Compile Include="BikeData\ModelBase.cs" />
     <Compile Include="BikeData\MakeBase.cs" />

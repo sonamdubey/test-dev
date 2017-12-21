@@ -215,13 +215,13 @@ namespace BikeWaleOpr.Content
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
                     //Refresh memcache object for bikemake description change
-                    MemCachedUtil.Remove(string.Format("BW_MakeDetails_{0}", makeid));
+                    MemCachedUtility.Remove(string.Format("BW_MakeDetails_{0}", makeid));
 
                     //Refresh memcache object for popularBikes change
-                    MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", makeid));
+                    MemCachedUtility.Remove(string.Format("BW_PopularBikesByMake_{0}", makeid));
 
                     //Refresh memcache object for BikeMake change
-                    MemCachedUtil.Remove("BW_BikeMakes");
+                    MemCachedUtility.Remove("BW_BikeMakes");
 
 
                 }

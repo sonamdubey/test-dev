@@ -379,7 +379,10 @@ docReady(function () {
     }
     if ($('#getassistance').length > 0) {
         dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": bikeVersionLocation });
-    }
+	}
+	if ($('#modelExpertReviewsContent').length > 0) {
+		dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Expert_Review_CardShown", "lab": myBikeName });
+	}
 
     $window = $(window);
     overallTabsWrapper = $('#overallTabsWrapper');
@@ -702,7 +705,10 @@ docReady(function () {
         } catch (e) {
 
         }
-    }
+	}
+	$("#modelExpertReviewsContent").on('click', function () {
+		triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
+	});
 });
 
 

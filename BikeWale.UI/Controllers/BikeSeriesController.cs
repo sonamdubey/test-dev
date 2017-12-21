@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
@@ -8,7 +7,8 @@ using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.BikeSeries;
-using Bikewale.Notifications;
+using System;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
@@ -67,11 +67,13 @@ namespace Bikewale.Controllers
         public ActionResult Index(string makeMaskingName, string maskingName, uint? versionId)
         {
             ActionResult objResult = null;
-            SeriesMaskingResponse objResponse = _seriesCache.ProcessMaskingName(maskingName);
+            bool isMakePermanantRedirect = false;
+            makeMaskingName = ProcessMakeMaskingName(makeMaskingName, out isMakePermanantRedirect);
+            SeriesMaskingResponse objResponse = _seriesCache.ProcessMaskingName(String.Format("{0}_{1}", makeMaskingName, maskingName));
 
             if (objResponse != null)
             {
-                if (!objResponse.IsSeriesPageCreated)
+                if (!(objResponse.IsSeriesPageCreated || isMakePermanantRedirect))
                 {
                     if (_modelController != null)
                     {
@@ -86,7 +88,7 @@ namespace Bikewale.Controllers
                         objResult = Redirect("/pagenotfound.aspx");
                     }
                 }
-                else if (objResponse.StatusCode == 301)
+                else if (objResponse.StatusCode == 301 || isMakePermanantRedirect)
                 {
                     string url = string.Format("/{0}-bikes/{1}/", makeMaskingName, objResponse.NewMaskingName);
                     objResult = RedirectPermanent(url);
@@ -99,7 +101,7 @@ namespace Bikewale.Controllers
                     seriesPage.CompareSource = CompareSources.Desktop_SeriesPage;
                     seriesPage.IsMobile = false;
                     seriesPage.MaskingName = maskingName;
-                    obj = seriesPage.GetData(objResponse.Id);
+                    obj = seriesPage.GetData(objResponse.SeriesId);
                     objResult = View(obj);
                 }
             }
@@ -121,13 +123,14 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile(string makeMaskingName, string maskingName, uint? versionId)
         {
             ActionResult objResult = null;
-
-            SeriesMaskingResponse objResponse = _seriesCache.ProcessMaskingName(maskingName);
+            bool isMakePermanantRedirect = false;
+            makeMaskingName = ProcessMakeMaskingName(makeMaskingName, out isMakePermanantRedirect);
+            SeriesMaskingResponse objResponse = _seriesCache.ProcessMaskingName(String.Format("{0}_{1}", makeMaskingName, maskingName));
 
             if (objResponse != null)
             {
                 //If Model Page, pass control to model controller and get the view result
-                if (!objResponse.IsSeriesPageCreated)
+                if (!(objResponse.IsSeriesPageCreated || isMakePermanantRedirect))
                 {
                     if (_modelController != null)
                     {
@@ -142,7 +145,7 @@ namespace Bikewale.Controllers
                         objResult = Redirect("/m/pagenotfound.aspx");
                     }
                 }
-                else if (objResponse.StatusCode == 301)
+                else if (objResponse.StatusCode == 301 || isMakePermanantRedirect)
                 {
                     string url = string.Format("/m/{0}-bikes/{1}/", makeMaskingName, objResponse.NewMaskingName);
                     objResult = RedirectPermanent(url);
@@ -155,7 +158,7 @@ namespace Bikewale.Controllers
                     seriesPage.IsMobile = true;
                     seriesPage.MaskingName = maskingName;
                     seriesPage.CompareSource = CompareSources.Mobile_SeriesPage;
-                    obj = seriesPage.GetData(objResponse.Id);
+                    obj = seriesPage.GetData(objResponse.SeriesId);
                     objResult = View(obj);
                 }
             }
@@ -165,6 +168,41 @@ namespace Bikewale.Controllers
             }
 
             return objResult;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 12 Dec 2017
+        /// Description :   Processes Make Masking name
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="is301"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string makeMaskingName, out bool is301)
+        {
+            MakeMaskingResponse makeResponse = null;
+            is301 = false;
+            if (!string.IsNullOrEmpty(makeMaskingName))
+            {
+                MakeHelper makeHelper = new MakeHelper();
+                makeResponse = makeHelper.GetMakeByMaskingName(makeMaskingName);
+                if (makeResponse != null)
+                {
+                    if (makeResponse.StatusCode == 200)
+                    {
+                        return makeResponse.MaskingName;
+                    }
+                    else if (makeResponse.StatusCode == 301)
+                    {
+                        is301 = true;
+                        return makeResponse.MaskingName;
+                    }
+                    else
+                    {
+                        return "";
+                    }
+                }
+            }
+            return "";
         }
     }
 

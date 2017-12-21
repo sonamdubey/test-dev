@@ -1016,7 +1016,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("sp_getmodelmappingnames"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("sp_getmodelmappingnames_08122017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -1060,7 +1060,7 @@ namespace Bikewale.DAL.BikeData
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getoldmaskingnameslist";
+                    cmd.CommandText = "getoldmaskingnameslist_08122017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))

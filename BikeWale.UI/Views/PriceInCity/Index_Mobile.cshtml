@@ -9,7 +9,7 @@
     Model.AdTags.AdId = "1444028976556";
     Model.PageMetaTags.AlternateUrl = "";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' inline /> <link rel='stylesheet' type='text/css' href='/m/css/campaign/hero-campaign.css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline />";    
-    Model.Page_JS_Paths = new string[] { "/m/src/photos/modelgallery.js", "/m/src/priceincity.js" };
+    Model.Page_JS_Paths = new string[] { "/m/src/priceincity.js" };
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
 }
@@ -38,17 +38,10 @@
                                 }
                                 @{string returnUrl = string.Format("/m/{0}-bikes/{1}/price-in-{2}/", Model.Make.MaskingName, Model.BikeModel.MaskingName, Model.CityEntity.CityMaskingName); }
 
-                                @if (Model.IsGalleryLoaded && Model.ModelGallery != null)
-                                {
-                                    <img id="imageTopCard" src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" data-c="Price_in_City_Page" data-a="Image_Gallery_Clicked" data-l="@string.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName)"/>
-                                }
-                                else
-                                {
-                                   
-                                        <a class="redirect-url" href="@String.Format(@"/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName))" data-url="@string.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName),Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}{1}", BWConfiguration.Instance.BwHostUrl, returnUrl)))">
+                               <a class="redirect-url" href="@String.Format(@"/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName))" data-url="@string.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName),Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}{1}", BWConfiguration.Instance.BwHostUrl, returnUrl)))">
                                             <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
-                                        </a>
-                                }
+                                </a>
+                                
                                 
                             </div>
                             <div class="model-version-block inline-block padding-left15">
@@ -469,6 +462,11 @@
                 <div id="modelSpecsFooter"></div>
             </div>
         </div>
+        <!-- get processing fees of the dealer if available -->
+        @if (Model != null && Model.DetailedDealer != null && Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.EMIDetails != null)
+        {
+            <input type="hidden" value="@Model.DetailedDealer.PrimaryDealer.EMIDetails.ProcessingFee" id="dealerProcessingFees" />
+        }
     </section>
 
     <section>
@@ -494,27 +492,23 @@
         </div>
     </section>
 
-                        if (Model.BikeRank != null && Model.BikeRank.BikeType != null)
-                        {
-                            <section>
-                                <div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
-                                    <div class="margin-bottom10">
-                                        <span class="bwmsprite graph-rank-grey"></span>
-                                        <div class="grid-11-inline padding-left10">
-                                            <h2 class="card-h2-heading">Top 10 @Model.BikeRank.StyleName in India</h2>
-                                        </div>
-                                    </div>
-                                    <p class="font14 margin-bottom15 text-slate-grey">Are you looking for a @Model.BikeRank.BikeType.ToLower()? Check out our list of top 10 @Model.BikeRank.StyleName.ToLower() in India.</p>
-                                    <a href="@String.Format("/m{0}", UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle))" title="Best @Model.BikeRank.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
-                                </div>
-                            </section>
-                        }
+    if (Model.BikeRank != null && Model.BikeRank.BikeType != null)
+    {
+        <section>
+            <div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
+                <div class="margin-bottom10">
+                    <span class="bwmsprite graph-rank-grey"></span>
+                    <div class="grid-11-inline padding-left10">
+                        <h2 class="card-h2-heading">Top 10 @Model.BikeRank.StyleName in India</h2>
+                    </div>
+                </div>
+                <p class="font14 margin-bottom15 text-slate-grey">Are you looking for a @Model.BikeRank.BikeType.ToLower()? Check out our list of top 10 @Model.BikeRank.StyleName.ToLower() in India.</p>
+                <a href="@String.Format("/m{0}", UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle))" title="Best @Model.BikeRank.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+            </div>
+        </section>
+    }
 
-                        if (Model.IsGalleryLoaded && Model.ModelGallery != null)
-                        {
-                            @Html.Partial("~/Views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
-                        }
-
+                        
                         if (Model.objMoreAboutScooter != null)
                         {
                             <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
@@ -525,23 +519,23 @@
                                 </div>
                             </div>
                         }
-                        <section>
-                            <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
-                                <p class="text-default text-bold">Disclaimer:</p>
-                                <p>
-                                    BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank" rel="noopener">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank" rel="noopener">&nbsp;visitor agreement</a>&nbsp;and&nbsp;<a href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.
-                                </p>
-                            </div>
-                            <div class="hide" id="dvPgVar" data-cityarea="@Model.CookieCityArea" data-bikename="@Model.BikeName" data-modelid="@Model.BikeModel.ModelId"></div>
-                        </section>
+    <section>
+        <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
+            <p class="text-default text-bold">Disclaimer:</p>
+            <p>
+                BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank" rel="noopener">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank" rel="noopener">&nbsp;visitor agreement</a>&nbsp;and&nbsp;<a href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.
+            </p>
+        </div>
+        <div class="hide" id="dvPgVar" data-cityarea="@Model.CookieCityArea" data-bikename="@Model.BikeName" data-modelid="@Model.BikeModel.ModelId"></div>
+    </section>
 
-                        <div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
-                        { Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityEntity.CityId, cityName = Model.CityEntity.CityName }); }
-                        <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
-                        <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
-                        if (Model.IsNew && (Model.HasCampaignDealer || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
-                        {
-                            @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
-                        }
-                        <script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
-                        }
+    <div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
+    { Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityEntity.CityId, cityName = Model.CityEntity.CityName }); }
+    <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
+    <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
+    if (Model.IsNew && (Model.HasCampaignDealer || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
+    {
+        @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
+    }
+    <script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+}

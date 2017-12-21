@@ -120,16 +120,16 @@
     });
 
     var overallTabs = $('.overall-tabs'),
-        overallTabsOffsetTop = overallTabs.offset().top,
         overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
-        seriesTabsContentWrapper = $('#seriesTabsContentWrapper'),
-        overallWrapperHeight = seriesTabsContentWrapper.outerHeight() + overallTabsOffsetTop
+        seriesTabsContentWrapper = $('#seriesTabsContentWrapper');
     overallTabs.find('.overall-specs-tabs-wrapper > .navtab:first-child').addClass('active');
 
 
 
     $(window).scroll(function () {
-        var windowScrollTop = $(window).scrollTop();
+        var windowScrollTop = $(window).scrollTop(),
+            overallTabsOffsetTop = overallTabs.offset().top,
+            overallWrapperHeight = seriesTabsContentWrapper.outerHeight() + overallTabsOffsetTop;
 
         if (windowScrollTop > overallTabsOffsetTop) {
             overallSpecsTabsContainer.addClass('fixed-tab-nav');
@@ -149,7 +149,7 @@
                 $('#seriesTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
 
                 $(this).addClass('active');
-                overallSpecsTabsContainer.find('a[data-href="' + $(this).attr('data-id') + '"]').addClass('active');
+				overallSpecsTabsContainer.find('.navtab[data-href="' + $(this).attr('data-id') + '"]').addClass('active');
             }
         });
 

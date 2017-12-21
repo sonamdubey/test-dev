@@ -1,11 +1,11 @@
-﻿using Bikewale.Entities.AppDeepLinking;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Bikewale.Entities.AppDeepLinking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.AppDeepLinking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace Bikewale.BAL.AppDeepLinking
 {
@@ -46,11 +46,12 @@ namespace Bikewale.BAL.AppDeepLinking
             DeepLinkingEntity deepLinking = null;
             Match match = null;
             uint makeId, modelId;
+            string newMakeMaskingName = string.Empty;
             try
             {
                 if (((match = Regex.Match(url, @"\/([A-Za-z0-9\-]+)-bikes\/upcoming\/?$")) != null) && match.Success) //for Upcoming Bikes Detail
                 {
-                    makeId = GetMakeId(match.Groups[1].Value);
+                    makeId = GetMakeId(match.Groups[1].Value, out newMakeMaskingName);
                     if (makeId > 0)
                     {
                         deepLinking = new DeepLinkingEntity();
@@ -69,7 +70,7 @@ namespace Bikewale.BAL.AppDeepLinking
                 || (((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/?$")) != null) && match.Success)
                 ) //for series page and make page url MakeScreenId.
                 {
-                    makeId = GetMakeId(match.Groups[1].Value);
+                    makeId = GetMakeId(match.Groups[1].Value, out newMakeMaskingName);
                     if (makeId > 0)
                     {
                         deepLinking = new DeepLinkingEntity();
@@ -80,8 +81,8 @@ namespace Bikewale.BAL.AppDeepLinking
                 }
                 else if (((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/([A-Za-z0-9\-]+)\/?$")) != null) && match.Success) //for  ModelScreenId.
                 {
-                    makeId = GetMakeId(match.Groups[1].Value);
-                    modelId = GetModelId(match.Groups[2].Value);
+                    makeId = GetMakeId(match.Groups[1].Value, out newMakeMaskingName);
+                    modelId = GetModelId(newMakeMaskingName, match.Groups[2].Value);
                     if (makeId > 0 && modelId > 0)
                     {
                         deepLinking = new DeepLinkingEntity();
@@ -109,13 +110,13 @@ namespace Bikewale.BAL.AppDeepLinking
         /// </summary>
         /// <param name="modelName">e.g. tvs</param>
         /// <returns>modelId e.g. 15</returns>
-        private uint GetModelId(string modelName)
+        private uint GetModelId(string makeName, string modelName)
         {
             ModelMaskingResponse objResponse = null;
             uint modelId = 0;
             try
             {
-                objResponse = _modelCache.GetModelMaskingResponse(modelName);
+                objResponse = _modelCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeName, modelName));
             }
             catch (Exception ex)
             {
@@ -131,7 +132,7 @@ namespace Bikewale.BAL.AppDeepLinking
                     }
                     else if (objResponse.StatusCode == 301)
                     {
-                        modelId = GetModelId(objResponse.MaskingName);
+                        modelId = GetModelId(makeName, objResponse.MaskingName);
                     }
                 }
             }
@@ -145,9 +146,10 @@ namespace Bikewale.BAL.AppDeepLinking
         /// </summary>
         /// <param name="makeMaskingName"></param>
         /// <returns></returns>
-        private uint GetMakeId(string makeMaskingName)
+        private uint GetMakeId(string makeMaskingName, out string newMakeMaskingName)
         {
             MakeMaskingResponse objResponse = null;
+            newMakeMaskingName = string.Empty;
             uint makeId = 0;
             try
             {
@@ -164,10 +166,11 @@ namespace Bikewale.BAL.AppDeepLinking
                     if (objResponse.StatusCode == 200)
                     {
                         makeId = objResponse.MakeId;
+                        newMakeMaskingName = makeMaskingName;
                     }
                     else if (objResponse.StatusCode == 301)
                     {
-                        makeId = GetMakeId(objResponse.MaskingName);
+                        makeId = GetMakeId(objResponse.MaskingName, out newMakeMaskingName);
                     }
                 }
             }

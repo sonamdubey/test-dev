@@ -1697,27 +1697,27 @@ input[type="number"] {
 }
 
 /*best bike last creative card*/
-.jcarousel-wrapper #allbikes {
+.jcarousel-wrapper .card__complete-list {
     border: none;
     position: relative;
 }
-.jcarousel-wrapper #allbikes .card-desc-block {
+.card__complete-list .card-desc-block {
     position: absolute;
     top: 43%;
     left: 16%;
     padding: 0;
 }
-.jcarousel-wrapper #allbikes .card-desc-block:hover {
+.card__complete-list .card-desc-block:hover {
    text-decoration: none;
 }
-.jcarousel-wrapper #allbikes .model-jcarousel-image-preview {
+.card__complete-list .model-jcarousel-image-preview {
     display: block;
     width: 100%;
     height: 100%;
     min-height: 360px;
     position: relative;
 }
-.jcarousel-wrapper #allbikes .model-jcarousel-image-preview:after {
+.card__complete-list .model-jcarousel-image-preview:after {
     content: '';
     display: block;
     height: 100%;
@@ -1727,19 +1727,19 @@ input[type="number"] {
     top: 0;
     left: 0;
 }
-.jcarousel-wrapper #allbikes .card-image-block {
+.card__complete-list .card-image-block {
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
 }
 
-.jcarousel-wrapper #allbikes .model-jcarousel-image-preview img {
+.card__complete-list .model-jcarousel-image-preview img {
     height: 100%;
     width: 100%;
     max-width: 292px;
 }
-.jcarousel-wrapper #allbikes .btn-sm {
+.card__complete-list .btn-sm {
     font-size: 16px;
     font-weight: 600;
     color: #fff;
@@ -1753,7 +1753,7 @@ input[type="number"] {
     -o-border-radius: 3px;
     border: solid 1px #fff;
 }
-.jcarousel-wrapper #allbikes .btn-sm:hover {
+.card__complete-list .btn-sm:hover {
     background: white;
     color: #2a2a2a;
     text-decoration: none;

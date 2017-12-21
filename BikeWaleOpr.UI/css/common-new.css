@@ -29,7 +29,7 @@
 
 /*brand icons*/
 .brandlogosprite {
-    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?07Dec20170158351092222) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?18Dec20171513599310542) no-repeat;
 	display: inline-block
 }
 
@@ -67,7 +67,9 @@
 .brand-9,
 .brand-23,
 .brand-72,
-.brand-73 {
+.brand-73,
+.brand-74,
+.brand-75 {
     height: 50px;
 }
 
@@ -218,6 +220,15 @@
 .brand-73 {
     width: 60px;
     background-position: -3217px 0;
+}
+.brand-74 {
+	width: 110px;
+	background-position: -3281px 0;
+}
+
+.brand-75 {
+	width: 122px;
+	background-position: -3400px 0;
 }
 
     .list-type-radio label {
@@ -631,4 +642,8 @@ input[type=number].invalid + label.active:after {
 .lighten-5 td {
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+#series-edit-update {
+    overflow-y:visible;
 }

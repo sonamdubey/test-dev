@@ -4,7 +4,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new/modelprice-in-city.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline />";    
-    Model.Page_JS_Paths = new string[] { "/src/swiper-3.1.7.js", "/src/photos/modelgallery.js", "/src/priceincity.js" };
+    Model.Page_JS_Paths = new string[] { "/src/swiper-3.1.7.js", "/src/priceincity.js" };
     Model.AdTags.Ad_300x250 = true;
     Model.AdTags.Ad_970x90 = !Model.AdTags.ShowInnovationBannerDesktop;
     Model.AdTags.Ad_970x90Bottom = true;
@@ -41,16 +41,9 @@
                                         <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                                         }
 
-                                        @if (Model.IsGalleryLoaded && Model.ModelGallery != null)
-                                        {
-                                            <img id="imageTopCard" class="cur-pointer" src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" data-c="Price_in_City_Page" data-a="Image_Gallery_Clicked" data-l="@string.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName)"/>
-                                        }
-                                        else
-                                        {
                                             <a class="redirect-url" href="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName)" data-url="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName)?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))">
                                                 <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                                             </a>
-                                        }
                                         
                                     </div>
                                     @Html.Raw(Model.MinSpecsHtml)
@@ -500,6 +493,11 @@
                 <div class="clear"></div>
             </div>
         </div>
+        <!-- get processing fees of the dealer if available -->
+        @if (Model != null && Model.DetailedDealer != null && Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.EMIDetails != null)
+        {
+            <input type="hidden" value="@Model.DetailedDealer.PrimaryDealer.EMIDetails.ProcessingFee" id="dealerProcessingFees" />
+        }
     </section>
 
 
@@ -562,11 +560,6 @@
     }
     <!-- top 10 bikes end -->
 
-    if (Model.IsGalleryLoaded && Model.ModelGallery != null)
-    {
-        @Html.Partial("~/Views/Gallery/_ModelGallery.cshtml", Model.ModelGallery)
-    }
-    
     if (Model.objMoreAboutScooter != null)
     {
         <section>

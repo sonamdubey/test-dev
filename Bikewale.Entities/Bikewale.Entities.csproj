@@ -257,6 +257,8 @@
     <Compile Include="CMS\CMSPageDetailsEntity.cs" />
     <Compile Include="CMS\CMSPageEntity.cs" />
     <Compile Include="CMS\ContentFilter.cs" />
+    <Compile Include="CMS\EditorialPageType.cs" />
+    <Compile Include="CMS\EnumCMSContentSubCategoryType.cs" />
     <Compile Include="CMS\EnumCMSContentType.cs" />
     <Compile Include="CMS\Photos\ModelPhotos.cs" />
     <Compile Include="Compare\BikeColor.cs" />

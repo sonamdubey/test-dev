@@ -1,0 +1,49 @@
+﻿@mixin card-category__tag($min-width: 122px, $mwidth: 101%)
+	.card-category__tag
+		height: auto
+		min-width: $min-width
+		@include vendor-prefix('border-radius', 3px 3px 3px 0)
+		padding: 4px 10px 4px 28px
+		position: absolute
+		font-size: 10px
+		color: #fff
+		top: -15px
+		left: -1px
+		text-transform: capitalize
+
+		&:after
+			position: absolute
+			content: ''
+			border-top: 9px solid
+			left: 0
+			bottom: -8px
+			border-right: 10px solid transparent
+
+
+	@media only screen and (max-width: 900px)
+		.card-category__tag
+			width: $mwidth
+
+
+
+@mixin card-category__tag-color($color1: #68c7d2, $color2: #f2aa58, $color3: #57abeb)
+	.carousel-card[data-review-category= '40']
+		.card-category__tag
+			background-color: $color1
+		
+			&:after
+				border-top-color: $color1
+
+	.carousel-card[data-review-category= '24']
+		.card-category__tag
+			background-color: $color2
+		
+			&:after
+				border-top-color: $color2
+
+	.carousel-card[data-review-category= '23']
+		.card-category__tag
+			background-color: $color3
+		
+			&:after
+				border-top-color: $color3

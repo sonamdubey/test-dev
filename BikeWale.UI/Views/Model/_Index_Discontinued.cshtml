@@ -56,27 +56,18 @@
             </div>
             <div class="clear"></div>
 
-            @if ((Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
-                || (Model.IsModelDescriptionAvailable))
+            @if (Model.IsModelDescriptionAvailable)
             {
                 <div class="bw-model-tabs-data">
-                    @if (Model.IsModelDescriptionAvailable)
-                {   <div class="grid-12">
+                     <div class="grid-12">
                         @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
                     </div>
-                    }
-                    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
-                {
-                        <div class="grid-12">
-                            @Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
-                        </div>
-                    }
+                    
                     <div class="clear"></div>
                 </div>
             }        
 
-           
-
+          
         </div>
         @Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)
     </div>

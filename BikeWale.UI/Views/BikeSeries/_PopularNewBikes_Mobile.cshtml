@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 @if (Model != null && Model.SeriesModels != null && Model.SeriesModels.NewBikes != null && Model.SeriesModels.NewBikes.Any())
 {
-	<div class="container bg-white padding-bottom10">
+	<div id="bikeModeleList" class="bw-model-tabs-data container bg-white padding-bottom10">
 		<div class="padding-left15 padding-right15 padding-top20">
 			@if (Model.BikeMake != null && Model.SeriesBase != null)
 			{
@@ -42,10 +42,13 @@
 								</div>
 							</div>
 							<div class="model-card__desc">
-								<span class="rating-badge" data-rate-bg="@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)">
-									<span class="bwmsprite star-white"></span>
-									<span>@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)</span>
-								</span>
+								@if (Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero) > 0)
+								{
+									<span class="rating-badge" data-rate-bg="@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)">
+										<span class="bwmsprite star-white"></span>
+										<span>@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)</span>
+									</span>
+								}
 								<div class="model-card__list">
 									<div class="model-card__list-block">
 										<h3 class="model-card__label">@string.Format("{0} {1}", firstModel.BikeMake.MakeName, firstModel.BikeModel.ModelName)</h3>
@@ -57,13 +60,11 @@
 										@if (firstModel.Price.ExShowroomPrice > 0)
 										{
 											<p class="model-card__sub-title">@string.Format("Ex-showroom price in {0}", Model.City.CityId == 0 ? BWConfiguration.Instance.DefaultName : Model.City.CityName)</p>
-											<p class="font20 text-default">&#x20b9; <span class="font-bold">@Format.FormatPrice(Convert.ToString(firstModel.Price.ExShowroomPrice))</span></p>
-										}
+											<p class="font20 text-default">&#x20b9; <span class="font-bold">@Format.FormatPrice(Convert.ToString(firstModel.Price.ExShowroomPrice))</span></p>}
 										else
 										{
 											<p class="model-card__sub-title">Avg. Ex-showroom price</p>
-											<p class="font20 text-default">&#x20b9; <span class="font-bold">@Format.FormatPrice(Convert.ToString(firstModel.Price.AvgPrice))</span></p>
-										}
+											<p class="font20 text-default">&#x20b9; <span class="font-bold">@Format.FormatPrice(Convert.ToString(firstModel.Price.AvgPrice))</span></p>}
 									</div>
 								</div>
 							</div>
@@ -90,7 +91,6 @@
 											<span>@Math.Round(bike.Rating, MidpointRounding.AwayFromZero)</span>
 										</span>
 									}
-									
 									<div class="model-card__list">
 										<div class="model-card__list-block">
 											<h3 class="model-card__label">@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)</h3>
@@ -102,13 +102,11 @@
 											@if (bike.Price.ExShowroomPrice > 0)
 											{
 												<p class="model-card__sub-title">@string.Format("Ex-showroom price in {0}", Model.City.CityId == 0 ? BWConfiguration.Instance.DefaultName : Model.City.CityName)</p>
-												<p class="font20 text-default">&#x20b9; <span class="font-bold">@Format.FormatPrice(Convert.ToString(bike.Price.ExShowroomPrice))</span></p>
-											}
+												<p class="font20 text-default">&#x20b9; <span class="font-bold">@Format.FormatPrice(Convert.ToString(bike.Price.ExShowroomPrice))</span></p>}
 											else
 											{
 												<p class="model-card__sub-title">Avg. Ex-showroom price</p>
-												<p class="font20 text-default">&#x20b9; <span class="font-bold">@Format.FormatPrice(Convert.ToString(bike.Price.AvgPrice))</span></p>
-											}
+												<p class="font20 text-default">&#x20b9; <span class="font-bold">@Format.FormatPrice(Convert.ToString(bike.Price.AvgPrice))</span></p>}
 										</div>
 									</div>
 								</div>

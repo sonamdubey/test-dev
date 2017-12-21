@@ -824,7 +824,7 @@ namespace Bikewale.Models
                         }
                     }
 
-                    if (!string.IsNullOrEmpty(inputString))
+                    if (!string.IsNullOrEmpty(inputString) && totalPages > 0)
                     {
                         string output = StringHtmlHelpers.InsertHTMLBetweenHTML(objData.ArticleDetails.PageList[matchedPage].Content, inputString, requiredLength);
 
