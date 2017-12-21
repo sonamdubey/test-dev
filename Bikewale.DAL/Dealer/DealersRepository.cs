@@ -1,4 +1,9 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Web;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
@@ -7,11 +12,6 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Web;
 namespace Bikewale.DAL.Dealer
 {
     /// <summary>
@@ -699,6 +699,102 @@ namespace Bikewale.DAL.Dealer
             }
             return dealers;
         }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 21st Dec 2017
+        /// Description : Get bike models for given dealer and make
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public DealerBikeModelsEntity GetBikesByDealerAndMake(uint dealerId, uint makeId)
+        {
+            DealerBikeModelsEntity dealers = new DealerBikeModelsEntity();
+
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("modelsavailablefordealer_21122017"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            IList<MostPopularBikesBase> models = new List<MostPopularBikesBase>();
+                            MostPopularBikesBase bikes;
+                            BikeMakeEntityBase objMake;
+                            BikeModelEntityBase objModel;
+                            BikeVersionsListEntity objVersion;
+                            MinSpecsEntity specs;
+
+                            while (dr.Read())
+                            {
+
+                                bikes = new MostPopularBikesBase();
+                                bikes.BikeName = Convert.ToString(dr["Bike"]);
+                                bikes.HostURL = Convert.ToString(dr["HostURL"]);
+                                bikes.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                bikes.VersionPrice = SqlReaderConvertor.ToInt64(dr["OnRoadPrice"]);
+
+                                objMake = new BikeMakeEntityBase();
+                                objModel = new BikeModelEntityBase();
+                                objVersion = new BikeVersionsListEntity();
+                                specs = new MinSpecsEntity();
+
+                                objMake.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
+                                objMake.MakeName = Convert.ToString(dr["Make"]);
+                                objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+
+                                objModel.ModelId = !Convert.IsDBNull(dr["ModelId"]) ? Convert.ToUInt16(dr["ModelId"]) : default(int);
+                                objModel.ModelName = Convert.ToString(dr["Model"]);
+                                objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+
+                                objVersion.VersionId = !Convert.IsDBNull(dr["VersionId"]) ? Convert.ToUInt16(dr["VersionId"]) : default(int);
+                                objVersion.VersionName = Convert.ToString(dr["Version"]);
+
+                                specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaxPowerRPM"]);
+                                specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+
+                                bikes.objMake = objMake;
+                                bikes.objModel = objModel;
+                                bikes.objVersion = objVersion;
+                                bikes.Specs = specs;
+                                bikes.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
+                                bikes.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                bikes.MakeName = Convert.ToString(dr["make"]);
+
+                                models.Add(bikes);
+                            }
+
+                            if(models != null)
+                            {
+                                dealers.Models = models;
+                            }
+
+                            if (dr.NextResult() && dr.Read())
+                            {
+                                dealers.CityName = Convert.ToString(dr["cityname"]);
+                            }
+
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("DealersRepository.GetBikesByDealerAndMake. dealerId = {0}, makeId = {1}", dealerId, makeId));
+            }
+            return dealers;
+        }
+
         /// <summary>
         /// Created by  :   Sumit Kate on 22 Mar 2016
         /// Description :   FetchDealerCitiesByMake. It Includes BW Dealer Cities and AB Dealer Cities

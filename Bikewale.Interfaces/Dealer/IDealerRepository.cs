@@ -1,8 +1,8 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
-using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Dealer
 {
@@ -43,5 +43,6 @@ namespace Bikewale.Interfaces.Dealer
         bool UpdateManufaturerLead(uint pqId, string custEmail, string mobile, string response);
         IEnumerable<DealerBrandEntity> GetDealerByBrandList();
         IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId);
+        DealerBikeModelsEntity GetBikesByDealerAndMake(uint dealerId, uint makeId);
     }
 }

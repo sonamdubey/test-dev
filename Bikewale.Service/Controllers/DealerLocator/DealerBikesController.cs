@@ -124,16 +124,16 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// <param name="makeId"></param>
         /// <returns></returns>
         [ResponseType(typeof(DealerBikeModels)), Route("api/dealer/{dealerId}/models/")]
-        public IHttpActionResult GetDealerBikes(uint dealerId, int makeId)
+        public IHttpActionResult GetDealerBikes(uint dealerId, uint makeId)
         {
             try
             {
                 if(dealerId > 0 && makeId > 0)
                 {
-                    DealerBikesEntity dealerDetails = _cache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+                    DealerBikeModelsEntity dealerDetails = _cache.GetBikesByDealerAndMake(dealerId, makeId);
                     if(dealerDetails != null)
                     {
-                        DealerBikeModels dealerBikes = DealerBikesEntityMapper.ConvertToDealerBikeModels(dealerDetails);
+                        DealerBikeModels dealerBikes = DealerBikesEntityMapper.Convert(dealerDetails);
                         return Ok(dealerBikes);
                     }
                     else
