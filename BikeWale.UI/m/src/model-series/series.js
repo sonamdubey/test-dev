@@ -66,18 +66,17 @@ docReady(function () {
                 break;
         }
     });
-	var overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
+    var overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
 	modelSpecsTabsContentWrapper = $('#modelLatestUpdatesWrapper'),
-	modelSpecsFooter = $('#overallSpecsFooter'),
-	topNavBarHeight = $('.overall-specs__top-content').height();
-
+	modelSpecsFooter = $('#overallSpecsFooter');
 	function scrollHorizontal(pos) {
 		$('#overallUpdatesTab').animate({ scrollLeft: pos - 15 + 'px' }, 500);
 }
-    $(window).scroll(function () {
+	$(window).scroll(function () {
         var windowScrollTop = $(window).scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
-            modelSpecsFooterOffsetTop = modelSpecsFooter.offset().top;
+            modelSpecsFooterOffsetTop = modelSpecsFooter.offset().top,
+            topNavBarHeight = $('.overall-specs__top-content').height();
 
         if (windowScrollTop > modelSpecsTabsOffsetTop) {
             overallSpecsTabsContainer.addClass('fixed-tab-nav');

@@ -82,6 +82,26 @@ namespace Bikewale.Models
 		}
         #endregion
 
+        /// <summary>
+        /// Created By : Ashish G. Kamble on 21 Dec 2017
+        /// Summary : Function to get the recent comparison tests
+        /// </summary>
+        /// <returns></returns>
+        public RecentExpertReviewsVM GetComparisonTests()
+        {
+            RecentExpertReviewsVM recentReviews = new RecentExpertReviewsVM();
+
+            try
+            {
+                recentReviews = CallAPI(Convert.ToString((ushort)EnumCMSContentType.ComparisonTests));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviews.RecentExpertReviews.GetComparisonTests: TotalRecords {0},MakeId {1}, ModelId {2}", _totalRecords, _makeId, _modelId));
+            }
+            return recentReviews;
+        }
+
         #region Functions to get data
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017
@@ -97,22 +117,45 @@ namespace Bikewale.Models
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.RoadTest);
                 categorList.Add(EnumCMSContentType.ComparisonTests);
+
                 string _contentType = CommonApiOpn.GetContentTypesString(categorList);
-				if (!string.IsNullOrEmpty(_modelIdList))
-				{
-					recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelIdList);
-				}
-				else if (IsScooter)
-				{
-					string bodyStyleId = "5";
-					recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, bodyStyleId, _makeId, _modelId);
-				}
-				else
+
+                recentReviews = CallAPI(_contentType);                
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviews.RecentExpertReviews.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", _totalRecords, _makeId, _modelId));
+            }
+            return recentReviews;
+        }
+
+        /// <summary>
+        /// Created By : Ashish G. Kamble on 21 Dec 2017
+        /// Summary : Function to call the api and get data from GRPC service. Logic separted from GetData method
+        /// </summary>
+        /// <param name="contentType">comma separated category ids</param>
+        /// <returns></returns>
+        private RecentExpertReviewsVM CallAPI(string contentType)
+        {
+            RecentExpertReviewsVM recentReviews = new RecentExpertReviewsVM();
+
+            try
+            {                
+                if (!string.IsNullOrEmpty(_modelIdList))
                 {
-                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelId);
+                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(contentType, _totalRecords, _makeId, _modelIdList);
+                }
+                else if (IsScooter)
+                {
+                    string bodyStyleId = "5";
+                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(contentType, _totalRecords, bodyStyleId, _makeId, _modelId);
+                }
+                else
+                {
+                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(contentType, _totalRecords, _makeId, _modelId);
                 }
 
-				if (recentReviews.ArticlesList != null)
+                if (recentReviews.ArticlesList != null)
                 {
                     recentReviews.FetchedCount = recentReviews.ArticlesList.Count();
                 }
@@ -161,10 +204,11 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviews.RecentExpertReviews.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", _totalRecords, _makeId, _modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviews.RecentExpertReviews.CallAPI: TotalRecords {0},MakeId {1}, ModelId {2}", _totalRecords, _makeId, _modelId));
             }
             return recentReviews;
         }
+
 		public RecentExpertReviewsVM GetData(List<EnumCMSContentType> categoryList, List<EnumCMSContentSubCategoryType> subCategoryList)
 		{
 			RecentExpertReviewsVM recentReviews = new RecentExpertReviewsVM();

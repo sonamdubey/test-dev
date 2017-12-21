@@ -473,7 +473,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
-            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>();
+            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>().ForMember(x=>x.ReviewAge, opt => opt.MapFrom(s => !string.IsNullOrEmpty(s.ReviewAge) ? string.Format("{0} ago",s.ReviewAge):""));
             Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
             Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();
             Mapper.CreateMap<Bikewale.Entities.BikeData.v2.BikeModelContent, Bikewale.DTO.Model.v2.BikeModelContentDTO>();
