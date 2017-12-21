@@ -71,6 +71,8 @@ namespace Bikewale.Models.Photos
         /// Description :  To bind photo gallery page
         /// Modified by : Vivek Singh Tomar on 28th Nov 2017
         /// Description : Get series entity to create bread crumb list
+        /// Modified by : Snehal Dange on 20th Dec 2017
+        /// Description: Added BindMoreAboutScootersWidget
         /// </summary>
         /// <param name="gridSize"></param>
         /// <param name="noOfGrid"></param>
@@ -93,6 +95,11 @@ namespace Bikewale.Models.Photos
                 BindPhotos();
                 BindPageWidgets();
                 SetPageMetas();
+                if (_objData.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter))
+                {
+                    BindMoreAboutScootersWidget(_objData);
+
+                }
 
 
 
@@ -446,6 +453,26 @@ namespace Bikewale.Models.Photos
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.GetData : ParseQueryString({0})", _modelId));
                 Status = StatusCodes.ContentNotFound;
+            }
+        }
+
+
+        /// <summary>
+        /// Created By: Snehal Dange on 20th Dec 2017
+        /// Summary : Bind more about scooter widget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMoreAboutScootersWidget(PhotosPageVM objData)
+        {
+            try
+            {
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersionCache, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.Image);
+                obj.modelId = _modelId;
+                _objData.objMoreAboutScooter = obj.GetData();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindMoreAboutScootersWidget : ModelId {0}", _modelId));
             }
         }
 

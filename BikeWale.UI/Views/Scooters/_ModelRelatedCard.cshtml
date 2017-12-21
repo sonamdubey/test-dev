@@ -4,14 +4,15 @@
 <div class="padding-top15">
     @if (Model.BikeInfo != null && Model.BikeInfo.BikeInfo != null && Model.BikeInfo.BikeInfo.Tabs != null && Model.BikeInfo.BikeInfo.Tabs.Any())
     {
+        var bikeName = string.Format("{0} {1}",Model.objBikeData.MakeBase.MakeName, Model.objBikeData.ModelName);
         <div class="model-related__card ">
-            <h3 class="related-card__title">More About @Model.objBikeData.MakeBase.MakeName @Model.objBikeData.ModelName</h3>
+            <h3 class="related-card__title">More About @bikeName</h3>
             <ul class="related-card__list">
                 @foreach (var Tabsdetails in Model.BikeInfo.BikeInfo.Tabs)
                 {
                     <li>
                         <a class="related-card__target-link" href="@Tabsdetails.URL" title="@Model.objBikeData.MakeBase.MakeName @Model.objBikeData.ModelName @Tabsdetails.Title">
-                            <span>@Tabsdetails.TabText</span>
+                            <span>@bikeName @Tabsdetails.TabText</span>
                         </a>
                     </li>
 
@@ -28,7 +29,7 @@
             {
                     <li>
                         <a class="related-card__target-link" href="@string.Format("/{0}-bikes/{1}/",obj.MakeBase.MaskingName,obj.ModelBase.MaskingName)" title="@string.Format("{0} {1}",obj.MakeBase.MakeName,obj.ModelBase.ModelName)">
-                            <span>@obj.MakeBase.MakeName @obj.ModelBase.ModelName</span>
+                            <span>@obj.MakeBase.MakeName @obj.ModelBase.ModelName Price</span>
                         </a>
                     </li>
 
@@ -44,7 +45,7 @@
                 @foreach (var obj in Model.objBestBikesList)
             {
                     <li>
-                        <a class="related-card__target-link" href="@string.Format("/{0}-bikes/{1}/",obj.Make.MaskingName,obj.Model.MaskingName)" title="Activa">
+                        <a class="related-card__target-link" href="@string.Format("/{0}-bikes/{1}/",obj.Make.MaskingName,obj.Model.MaskingName)" title="@obj.BikeName">
                             <span>@obj.BikeName</span>
                         </a>
                     </li>
