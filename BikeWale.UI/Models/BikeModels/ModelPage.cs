@@ -727,8 +727,6 @@ namespace Bikewale.Models.BikeModels
                             _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
                         }
                     }
-
-
                     if (_objData.IsUpcomingBike)
                     {
                         _objData.objUpcomingBikes = BindUpCompingBikesWidget();

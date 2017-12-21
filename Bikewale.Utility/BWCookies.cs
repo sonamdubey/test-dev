@@ -181,10 +181,10 @@ namespace Bikewale.Utility
                 }
 
                 //set user cookie for ab testing
-                if(request.Cookies.Get("_bwtest") == null)
+                if (request.Cookies.Get("_bwtest") == null)
                 {
                     SetBikewaleABTestingUser();
-                }                
+                }
             }
             catch (Exception)
             {
@@ -282,10 +282,33 @@ namespace Bikewale.Utility
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                throw ex;
             }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 19th December 2017
+        /// Description : To get abtest user cookie and check for valid test case
+        /// </summary>
+        public static bool GetAbTestCookieFlag(ushort percentage)
+        {
+            try
+            {
+                ushort cookieValue;
+                var cookie = HttpContext.Current.Request.Cookies["_bwtest"];
+                if (cookie != null && !string.IsNullOrEmpty(Convert.ToString(cookie.Value)) && ushort.TryParse(cookie.Value, out cookieValue) && cookieValue > 0)
+                {
+                    return cookieValue <= percentage;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return false;
         }
 
         /// <summary>
