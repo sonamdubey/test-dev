@@ -34,6 +34,27 @@
 	margin-bottom: 5px
 	margin-top: 10px
 	font-size: 14px
+	overflow: hidden
+	max-height: 156px
+	line-height: 1.4
+	position: relative
+
+	&:before
+		content: '...'
+		position: absolute
+		right: 0
+		bottom: 3px
+		padding-left: 2px
+		padding-right: 2px
+		background: #fff
+
+	&:after
+		content: ''
+		position: absolute
+		width: 20px
+		height: 14px
+		background: #fff
+		right: 0
 
 .expert-review__card
 	.article-stats-grid
@@ -99,3 +120,6 @@
 		
 	.article-description
 		font-size: 11px
+		max-height: 122px
+		&:before
+			bottom: 1px

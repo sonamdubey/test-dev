@@ -9,9 +9,10 @@
 		position: relative
 
 	@media only screen and (max-width: 900px)
-		display: block
-		max-width: $max-width
-		margin: 0 auto
+		.carousel-card
+			display: block
+			max-width: $max-width
+			margin: 0 auto
 
 
 @mixin jcarousel-carousel-card($width: 350px, $width2: 205px)
@@ -111,4 +112,4 @@
 			.carousel-card
 				display: block
 				width: $width2
-				height: 259px
+				min-height: 245px
