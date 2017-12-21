@@ -436,7 +436,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetMakes_{0}", requestType));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.BikeData.GetMakes_{0}", requestType));
             }
 
             return objMakes;
@@ -472,10 +472,43 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetModelsByMake_{0}_{1}", requestType, makeId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.BikeData.GetModelsByMake_{0}_{1}", requestType, makeId));
             }
             return objBikeModelEntityBaseList;
         }
 
+
+        /// <summary>
+        /// Gets the make details by identifier.
+        /// Author: Sangram Nandkhile on 08 Dec 2017
+        /// </summary>
+        /// <param name="makeId">The make identifier.</param>
+        /// <returns></returns>
+        public BikeMakeEntity GetMakeDetailsById(uint makeId)
+        {
+            BikeMakeEntity makeDetail = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+                    param.Add("par_makeid", makeId);
+                    connection.Open();
+                    var details = connection.Query<BikeMakeEntity>("getmakedetails_14082017", param: param, commandType: CommandType.StoredProcedure);
+                    if (details != null)
+                        makeDetail = details.FirstOrDefault();
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.BikeData.GetMakeDetailsById_MakeId: =>{0}", makeId));
+            }
+
+            return makeDetail;
+        }
     }   // class
 }   // namespace

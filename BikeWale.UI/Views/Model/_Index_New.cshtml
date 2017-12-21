@@ -183,14 +183,11 @@
 					</div>
 
 				}
-				@if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
-				{
-					<div class="grid-12">
-						@Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
-					</div>
-				}
+                
+				
 				<div class="clear"></div>
 			</div>
+
 		}
 		@Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)
 	</div>

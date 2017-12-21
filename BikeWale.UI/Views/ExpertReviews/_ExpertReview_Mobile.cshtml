@@ -1,0 +1,64 @@
+﻿@model Bikewale.Models.RecentExpertReviewsVM
+@using Bikewale.Entities.CMS
+@using Bikewale.Utility
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Any())
+{
+	if (Model.FetchedCount == 1)
+	{
+		<div class="expert-review-list padding-left20 padding-right20">
+			@{
+				var firstReview = Model.ArticlesList.First();
+			}
+			<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(firstReview.BasicId), firstReview.ArticleUrl, Convert.ToString(firstReview.CategoryId)))" title="@firstReview.Title" class="expert-review__card carousel-card" data-review-category="@firstReview.SubCategoryId">
+				<h3 class="review-article__card-title trucatable-content">
+					@firstReview.Title
+				</h3>
+				<div class="card-category__tag">
+					@firstReview.SubCategory Review
+				</div>
+				<div class="article-stats-grid">
+					<span class="article-stats__date-grid">@FormatDate.GetFormatDate(Convert.ToString(firstReview.DisplayDate), "dd MMM yyyy")</span>
+					<span class="article-stats__name-grid">@firstReview.AuthorName</span>
+				</div>
+				<p class="article-description">
+					@FormatDescription.TruncateDescription(firstReview.Description, 400)
+				</p>
+				<span class="review-card__read-more">...Read more</span>
+			</a>
+			
+
+		</div>
+	}
+	else
+	{
+		<div class="swiper-container model-carousel-container">
+			<div class="swiper-wrapper">
+				@foreach (var review in Model.ArticlesList)
+				{
+					<div class="swiper-slide">
+						<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId)))" title="@review.Title" class="expert-review__card carousel-card swiper-card" data-review-category="@review.SubCategoryId">
+							<h3 class="review-article__card-title trucatable-content">
+								@review.Title
+							</h3>
+
+							<div class="card-category__tag">
+								@review.SubCategory Review
+
+							</div>
+							<div class="article-stats-grid">
+								<span class="article-stats__date-grid">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "dd MMM yyyy")</span>
+								<span class="article-stats__name-grid">@review.AuthorName</span>
+							</div>
+							<p class="article-description">
+								@FormatDescription.TruncateDescription(review.Description, 300)
+							</p>
+
+							<span class="review-card__read-more">...Read more</span>
+						</a>
+					</div>
+				}
+
+			</div>
+		</div>
+	}
+}

@@ -1554,10 +1554,6 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\photos\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\BikeDealerDetails.aspx.cs">
       <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1577,10 +1573,6 @@
     <Compile Include="new\common\CompareBikes.cs" />
     <Compile Include="new\common\ModelPhotoGallery.cs" />
     <Compile Include="new\compare\chooseBikesForComparison.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\compare\CompareBikes.aspx.cs">
-      <DependentUpon>CompareBikes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\EMILoan.aspx.cs">
@@ -3093,12 +3085,15 @@
     <Content Include="sass\model-series\series.sass" />
     <Content Include="sass\partials\d\_upcoming-model-card.sass" />
     <Content Include="sass\partials\d\_comparison-card.sass" />
+    <Content Include="sass\modules\review-article.sass" />
+    <Content Include="sass\modules\_carousel-card.sass" />
+    <Content Include="sass\modules\_card-category.sass" />
     <Content Include="sass\partials\review-popup.sass" />
     <Content Include="sass\modules\sidebar-bike-section.sass" />
     <Content Include="sass\partials\_horizontal-rating-graph.sass" />
     <Content Include="sass\partials\_loader.sass" />
+    <Content Include="sass\modules\_review-category.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
@@ -3164,7 +3159,6 @@
     <Content Include="News\news.aspx" />
     <Content Include="News\newsfeed.aspx" />
     <Content Include="News\Sitemap.aspx" />
-    <Content Include="new\compare\CompareBikes.aspx" />
     <Content Include="new\EMILoan.aspx" />
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\search_old.aspx" />
@@ -3280,6 +3274,8 @@
     <Content Include="Videos\video.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="Videos\VideoMakeModel.aspx" />
+    <Content Include="Views\BikeSeries\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReview_Mobile.cshtml" />
     <Content Include="Views\Make\_DealerServiceCentersWidget.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -3920,8 +3916,12 @@
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
+    <Content Include="Views\BikeModels\_MostPopularBikes_Mobile_Amp.cshtml" />
+    <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
+    <Content Include="Views\Shared\_EditorialMostPopularBikesSideBar.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_Amp.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReview.cshtml" />
     <Content Include="Views\ElectricBikes\Index.cshtml" />
     <Content Include="Views\ElectricBikes\Index_Mobile.cshtml" />
     <Content Include="Views\ElectricBikes\_Index_Tabs.cshtml" />
@@ -3930,6 +3930,12 @@
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_Amp.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile_Amp.cshtml" />
     <Content Include="Views\Make\MakeFooterCategoriesandPrice_Mobile_AMP.cshtml" />
+    <Content Include="Views\Shared\_EditorialSeriesBikesWidget.cshtml" />
+    <Content Include="Views\Shared\_EditorialUpcomingBikes_Vertical.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularSeriesBikes.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularSeriesBikes_Mobile.cshtml" />
+    <Content Include="Views\Shared\_EditorialBestBikesSideBar.cshtml" />
+    <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3954,6 +3960,7 @@
     <Folder Include="Controllers\new\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
+    <Folder Include="new\photos\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Views\BikeInfo\" />

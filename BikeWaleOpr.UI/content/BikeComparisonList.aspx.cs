@@ -384,12 +384,12 @@ namespace BikeWaleOpr.Content
                     //remove memcache keys for all cities
                     for (int i=0; i<1500; i++)
                     {
-                        MemCachedUtil.Remove("BW_PopularSimilarBikes_CityId_v2_" + i);
-                        MemCachedUtil.Remove("BW_PopularScootersComparison_CityId_v2_" + i);
+                        MemCachedUtility.Remove("BW_PopularSimilarBikes_CityId_v2_" + i);
+                        MemCachedUtility.Remove("BW_PopularScootersComparison_CityId_v2_" + i);
                     }
 
                     // Removed memcached key which shows data on home page and new page
-                    MemCachedUtil.Remove("BW_CompareBikes_Cnt_4");
+                    MemCachedUtility.Remove("BW_CompareBikes_Cnt_4");
                     Response.Redirect("/content/bikecomparisonlist.aspx");
                 }
                 else

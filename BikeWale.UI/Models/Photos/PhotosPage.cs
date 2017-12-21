@@ -63,7 +63,7 @@ namespace Bikewale.Models.Photos
             _objGenericBike = objGenericBike;
             _objVersionCache = objVersionCache;
             _objVideos = objVideos;
-            ParseQueryString(modelMaskingName);
+            ParseQueryString(makeMaskingName, modelMaskingName);
         }
 
         /// <summary>
@@ -406,14 +406,18 @@ namespace Bikewale.Models.Photos
         /// Summary:- Process the input query
         /// </summary>
         /// <param name="modelMasking"></param>
-        private void ParseQueryString(string modelMasking)
+        private void ParseQueryString(string makeMasking, string modelMasking)
         {
             ModelMaskingResponse objResponse = null;
+            string newMakeMasking = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
-                if (!string.IsNullOrEmpty(modelMasking))
+                newMakeMasking = ProcessMakeMaskingName(makeMasking, out isMakeRedirection);
+
+                if (!string.IsNullOrEmpty(newMakeMasking) && !string.IsNullOrEmpty(makeMasking) && !string.IsNullOrEmpty(modelMasking))
                 {
-                    objResponse = _objModelMaskingCache.GetModelMaskingResponse(modelMasking);
+                    objResponse = _objModelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMasking, modelMasking));
 
                     if (objResponse != null)
                     {
@@ -422,9 +426,9 @@ namespace Bikewale.Models.Photos
                             _modelId = objResponse.ModelId;
                             Status = StatusCodes.ContentFound;
                         }
-                        else if (objResponse.StatusCode == 301)
+                        else if (objResponse.StatusCode == 301 || isMakeRedirection)
                         {
-                            RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(modelMasking, objResponse.MaskingName);
+                            RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(makeMasking, newMakeMasking).Replace(modelMasking, objResponse.MaskingName);
                             Status = StatusCodes.RedirectPermanent;
                         }
                         else
@@ -447,6 +451,42 @@ namespace Bikewale.Models.Photos
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.GetData : ParseQueryString({0})", _modelId));
                 Status = StatusCodes.ContentNotFound;
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 11th Dec 2017
+        /// Description : Process make masking name for redirection
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="isMakeRedirection"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
+        {
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
+            {
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
+            }
+            if (makeResponse != null)
+            {
+                if (makeResponse.StatusCode == 200)
+                {
+                    return makeResponse.MaskingName;
+                }
+                else if (makeResponse.StatusCode == 301)
+                {
+                    isMakeRedirection = true;
+                    return makeResponse.MaskingName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return "";
         }
 
     }

@@ -107,6 +107,9 @@
     <Compile Include="AdSlot\IAdSlotRepository.cs" />
     <Compile Include="Banner\IBannerRepository.cs" />
     <Compile Include="BikeColorImages\IColorImagesBikeRepository.cs" />
+    <Compile Include="BikeData\IBikeBodyStyles.cs" />
+    <Compile Include="BikeData\IBikeESRepository.cs" />
+    <Compile Include="BikeData\IBikeBodyStylesRepository.cs" />
     <Compile Include="BikeData\IBikeMakesRepository.cs" />
     <Compile Include="BikeData\IBikeModels.cs" />
     <Compile Include="BikeData\IBikeModelsRepository.cs" />

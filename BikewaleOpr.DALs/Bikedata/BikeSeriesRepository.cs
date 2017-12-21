@@ -16,6 +16,8 @@ namespace BikewaleOpr.DALs.Bikedata
     /// <summary>
     /// Created by: Vivek Singh Tomar on 11th Sep 2017
     /// Summary: DAL for bike series
+    /// Modified by : Rajan Chauhan on 12th Dec 2017
+    /// Description : Replaced sp from 'getbikeseries' to 'getbikeseries_12122017'
     /// </summary>
     public class BikeSeriesRepository : IBikeSeriesRepository
     {
@@ -28,14 +30,15 @@ namespace BikewaleOpr.DALs.Bikedata
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     connection.Open();
-                    objBikeSeries = connection.Query<BikeSeriesEntity, BikeMakeEntityBase, BikeSeriesEntity>
+                    objBikeSeries = connection.Query<BikeSeriesEntity, BikeMakeEntityBase,BikeBodyStyleEntity, BikeSeriesEntity>
                                     (
-                                        "getbikeseries",
-                                        (bikeseries, bikemakebase) =>
+                                        "getbikeseries_12122017",
+                                        (bikeseries, bikemakebase,bikebodystyle) =>
                                         {
                                             bikeseries.BikeMake = bikemakebase;
+                                            bikeseries.BodyStyle = bikebodystyle;
                                             return bikeseries;
-                                        }, splitOn: "MakeId", commandType: CommandType.StoredProcedure
+                                        }, splitOn: "MakeId, BodyStyleId", commandType: CommandType.StoredProcedure
                                     );
                     if (connection.State == ConnectionState.Open)
                     {
@@ -53,6 +56,8 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <summary>
         /// Created by : Vivek Singh Tomar on 12th Sep 2017
         /// Summary : Add new bike series
+        /// Modified by : Rajan Chauhan on 12th Dec 2017
+        /// Description : Added bodystyle field and replaced sp from 'addbikeseries' to 'addbikeseries_12122017'
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="UpdatedBy"></param>
@@ -69,11 +74,12 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_makeid", bikeSeries.BikeMake.MakeId);
                     param.Add("par_isseriespageurl", bikeSeries.IsSeriesPageUrl);
                     param.Add("par_userid", updatedBy);
+                    param.Add("par_bodystyleid",bikeSeries.BodyStyle.BodyStyleId);
                     param.Add("par_updatedby", dbType: DbType.String, direction: ParameterDirection.Output);
                     param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);
                     param.Add("par_createdon", dbType: DbType.Date, direction: ParameterDirection.Output);
                     connection.Open();
-                    connection.Execute("addbikeseries", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("addbikeseries_12122017", param: param, commandType: CommandType.StoredProcedure);
                     bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
                     if (bikeSeries.SeriesId != 0)
                     {
@@ -128,6 +134,8 @@ namespace BikewaleOpr.DALs.Bikedata
         /// Description : DAL Method to edit bike series
         /// Modified by : Ashutosh Sharma on 23 Oct 2017
         /// Description : Replaced sp from 'editbikeseries' to 'editbikeseries_23102017'.
+        /// Modified by : Rajan Chauhan on 12th Dec 2017
+        /// Description : Added bodystyle field and replaced sp from 'editbikeseries_23102017' to 'editbikeseries_12122017'
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="updatedBy"></param>
@@ -145,10 +153,11 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_isseriespageurl", bikeSeries.IsSeriesPageUrl);
                     param.Add("par_updatedby", updatedBy);
                     param.Add("par_seriesid", bikeSeries.SeriesId);
+                    param.Add("par_bodystyleid", bikeSeries.BodyStyle.BodyStyleId);
 
                     connection.Open();
 
-                    rowsAffected = connection.Execute("editbikeseries_23102017", param: param, commandType: CommandType.StoredProcedure);
+                    rowsAffected = connection.Execute("editbikeseries_12122017", param: param, commandType: CommandType.StoredProcedure);
 
 
                     if (connection.State == ConnectionState.Open)

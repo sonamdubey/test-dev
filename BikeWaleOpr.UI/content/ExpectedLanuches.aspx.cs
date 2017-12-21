@@ -1,6 +1,11 @@
-﻿using Bikewale.Utility;
+﻿using AmpCacheRefreshLibrary;
+using Bikewale.Utility;
+using BikewaleOpr.Cache;
 using BikewaleOpr.common;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Interface.BikeData;
 using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Specialized;
@@ -13,7 +18,6 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-
 namespace BikeWaleOpr.Content
 {
     public class ExpectedLaunches : Page
@@ -23,6 +27,18 @@ namespace BikeWaleOpr.Content
         protected int serialNo = 0;
         protected Button btnSave;
         string selModelId = "";
+
+        private readonly IBikeMakes _makes = null;
+
+        public ExpectedLaunches()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
+                    .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>();
+                _makes = container.Resolve<IBikeMakes>();
+            }
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -53,31 +69,32 @@ namespace BikeWaleOpr.Content
             }
         } // Page_Load
 
-		/// <summary>
-		/// Modified by : Sajal Gupta on 15-12-16
-		/// Desc : Refreshed modeldetails key for new bike launch.
-		/// Modified by : Sangram Nandkhile on 5th Jan 2017
-		/// Desc : Refreshed modeldetails, launch Details, PopularBikesByMake_ keys for new bike launch.
-		/// Modified by : Sajal Gupta on 9-1-2017
-		/// Desc : Refreshed popularbikekeys for new bike launch.
-		/// Modified by : Aditi Srivastava on 12 Jan 2017
-		/// Desc        : Refreshed upcoming bikes key on new bike launch
-		/// Modified by :   Sumit Kate on 10 Feb 2017
-		/// Description :   Clear BW_NewLaunchedBikes memcache object
-		/// Modified by : Vivek Singh Tomar on 27th Sep 2017
-		/// Summary : Changed version of cache key
-		/// Modified by : Ashutosh Sharma on 29 Sep 2017 
-		/// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
-		/// Modified by : Ashutosh Sharma on 28 Nov 2017
-		/// Description : Added call to ClearSeriesCache.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		void btnSave_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Modified by : Sajal Gupta on 15-12-16
+        /// Desc : Refreshed modeldetails key for new bike launch.
+        /// Modified by : Sangram Nandkhile on 5th Jan 2017
+        /// Desc : Refreshed modeldetails, launch Details, PopularBikesByMake_ keys for new bike launch.
+        /// Modified by : Sajal Gupta on 9-1-2017
+        /// Desc : Refreshed popularbikekeys for new bike launch.
+        /// Modified by : Aditi Srivastava on 12 Jan 2017
+        /// Desc        : Refreshed upcoming bikes key on new bike launch
+        /// Modified by :   Sumit Kate on 10 Feb 2017
+        /// Description :   Clear BW_NewLaunchedBikes memcache object
+        /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+        /// Summary : Changed version of cache key
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
+        /// Modified by : Ashutosh Sharma on 28 Nov 2017
+        /// Description : Added call to ClearSeriesCache.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 string selId = string.Empty;
+                string makeIdList = string.Empty;
                 for (int i = 0; i < dtgrdLaunches.Items.Count; i++)
                 {
                     CheckBox chkLaunched = (CheckBox)dtgrdLaunches.Items[i].FindControl("chkLaunched");
@@ -86,55 +103,56 @@ namespace BikeWaleOpr.Content
                         Label lblId = (Label)dtgrdLaunches.Items[i].FindControl("lblId");
                         Label lblModelId = (Label)dtgrdLaunches.Items[i].FindControl("lblModelId");
                         Label lblMakeId = (Label)dtgrdLaunches.Items[i].FindControl("lblMakeId");
-						Label lblSeriesId = (Label)dtgrdLaunches.Items[i].FindControl("lblSeriesId");
+                        Label lblSeriesId = (Label)dtgrdLaunches.Items[i].FindControl("lblSeriesId");
 
-						if (lblId != null)
+                        if (lblId != null)
                             selId += lblId.Text + ",";
-                        UInt32 makeId, modelId;
-                        //Refresh memcache object for newbikelaunches
-                        if (lblModelId != null)
-                        {
-                            selModelId += lblModelId.Text + ",";
-                            MemCachedUtil.Remove(String.Format("BW_ModelDetails_{0}", lblModelId.Text));
-                            MemCachedUtil.Remove(String.Format("BW_ModelDetail_V1_{0}", lblModelId.Text));
-                            MemCachedUtil.Remove(String.Format("BW_GenericBikeInfo_MO_{0}_V1", lblModelId.Text));
-
-                        }
                         if (lblMakeId != null)
+                            selModelId += lblMakeId.Text + ",";
+
+                        UInt32 makeId, modelId;
+                        UInt32.TryParse(lblModelId.Text, out modelId);
+                        UInt32.TryParse(lblMakeId.Text, out makeId);
+                        //Refresh memcache object for newbikelaunches
+                        if (modelId > 0)
                         {
-                            UInt32.TryParse(lblMakeId.Text, out makeId);
-                            MemCachedUtil.Remove(String.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
+                            selModelId += modelId + ",";
+                            MemCachedUtility.Remove(String.Format("BW_ModelDetails_{0}", modelId));
+                            MemCachedUtility.Remove(String.Format("BW_ModelDetail_V1_{0}", modelId));
+                            MemCachedUtility.Remove(String.Format("BW_GenericBikeInfo_MO_{0}_V1", modelId));
+                        }
+                        if (makeId > 0)
+                        {
+                            MemCachedUtility.Remove(String.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
                             //CLear popularBikes key
 
-                            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
-                            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
-                            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
-                            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
+                            BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+                            BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+                            BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+                            BwMemCache.ClearPopularBikesCacheKey(9, null);
+
+                            RefreshAmpContent(makeId);
 
                         }
-                        if (lblMakeId != null && lblModelId != null)
+                        if (modelId > 0 && makeId > 0)
                         {
                             //Clear upcoming bikes key
-                            UInt32.TryParse(lblModelId.Text, out modelId);
-                            UInt32.TryParse(lblMakeId.Text, out makeId);
+
                             for (int so = 0; so < 5; so++)
                             {
-                                BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikesCacheKey(9, so, null, null);
-                                BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikesCacheKey(9, so, makeId, null);
-                                BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikesCacheKey(9, so, null, modelId);
-                                BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikesCacheKey(9, so, makeId, modelId);
-
+                                BwMemCache.ClearUpcomingBikesCacheKey(9, so, null, null);
+                                BwMemCache.ClearUpcomingBikesCacheKey(9, so, makeId, null);
+                                BwMemCache.ClearUpcomingBikesCacheKey(9, so, null, modelId);
+                                BwMemCache.ClearUpcomingBikesCacheKey(9, so, makeId, modelId);
                             }
-
-
                         }
-						if (lblMakeId != null && lblSeriesId != null)
-						{
-							BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(lblSeriesId.Text), Convert.ToUInt32(lblMakeId.Text));
-						}
+						if (lblMakeId != null && lblSeriesId != null && !string.IsNullOrEmpty(lblSeriesId.Text) && !string.IsNullOrEmpty(lblMakeId.Text))
+                        {
+                            BwMemCache.ClearSeriesCache(Convert.ToUInt32(lblSeriesId.Text), Convert.ToUInt32(lblMakeId.Text));
+                        }
                     }
                 }
-                if (selId != "" && selModelId != "")
+                if (selId.Length > 0 && selModelId.Length > 0)
                 {
                     selId = selId.Substring(0, selId.Length - 1);
                     selModelId = selModelId.Substring(0, selModelId.Length - 1);
@@ -142,9 +160,9 @@ namespace BikeWaleOpr.Content
                     BindGrid(false);
                 }
                 //Refresh memcache object for newbikelaunches
-                MemCachedUtil.Remove("BW_NewLaunchedBikes_SI_1_EI_10");
-                MemCachedUtil.Remove("BW_NewBikeLaunches");
-                MemCachedUtil.Remove("BW_NewLaunchedBikes");
+                MemCachedUtility.Remove("BW_NewLaunchedBikes_SI_1_EI_10");
+                MemCachedUtility.Remove("BW_NewBikeLaunches");
+                MemCachedUtility.Remove("BW_NewLaunchedBikes");
 
             }
             catch (Exception err)
@@ -179,11 +197,11 @@ namespace BikeWaleOpr.Content
         }//End of DeleteExpectedLaunchBike
 
 
-		/// <summary>
-		/// Modified by : Ashutosh Sharma on 28 Nov 2017
-		/// Description : Added cmo.BikeSeriesId in sql query.
-		/// </summary>
-		/// <param name="IsPaging"></param>
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 28 Nov 2017
+        /// Description : Added cmo.BikeSeriesId in sql query.
+        /// </summary>
+        /// <param name="IsPaging"></param>
         void BindGrid(bool IsPaging)
         {
             string sql = "";
@@ -315,14 +333,29 @@ namespace BikeWaleOpr.Content
             {
                 Trace.Warn("Sql Exception ", sqlEx.Message);
                 ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 Trace.Warn("Exception ", ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }//End UpdateBikeIsLaunched
+
+        private void RefreshAmpContent(uint makeId)
+        {
+            try
+            {
+                var makeDetails = _makes.GetMakeDetailsById(makeId);
+                string makeUrl = string.Format("{0}/m/{1}amp", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.CreateMakeUrl(makeDetails.MaskingName));
+                string privateKeyPath = HttpContext.Current.Server.MapPath("~/App_Data/private-key.pem");
+                GoogleAmpCacheRefreshCall.UpdateAmpCache(makeUrl, privateKeyPath);
+            }
+            catch (Exception ex)
+            {
+               ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            }
+        }
     } // class
 } // namespace

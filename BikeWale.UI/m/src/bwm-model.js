@@ -131,8 +131,8 @@ docReady(function () {
     }
 
     var tabElementThird = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(3)'),
-        tabElementSixth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(6)'),
-        tabElementNinth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(9)');
+        tabElementSixth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(5)'),
+        tabElementNinth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(8)');
 
     $("#viewprimarydealer, #dealername").on("click", function () {
         var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
@@ -197,7 +197,10 @@ docReady(function () {
     }
     if ($("#getAssistance").length > 0) {
         dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": myBikeName + "_" + getBikeVersion() + '_' + getCityArea });
-    }
+	}
+	if ($('#expertReviewsContent').length > 0) {
+		dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Expert_Review_CardShown", "lab": myBikeName });
+	}
 
 
     if (bikeVersionLocation == '') {
@@ -778,6 +781,9 @@ docReady(function () {
         }
     }
 
+	$("#expertReviewsContent").on('click', function () {
+		triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
+	});
 
 }
 );

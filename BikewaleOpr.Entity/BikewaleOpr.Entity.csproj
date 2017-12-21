@@ -119,6 +119,7 @@
     <Compile Include="BikeAvailabilityByColor.cs" />
     <Compile Include="BikeColorAvailability.cs" />
     <Compile Include="BikeColorImages\ColorImagesBikeEntities.cs" />
+    <Compile Include="BikeData\BikeBodyStyleEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeMakeModelData.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Dealers\UpdatePricingRulesResponseEntity.cs" />
     <Compile Include="Dealers\VersionPriceEntity.cs" />
     <Compile Include="Dealers\DealerVersionEntity.cs" />
+    <Compile Include="ElasticSearch\BikeList.cs" />
     <Compile Include="EMI.cs" />
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="GeoLocationDestinationEntity.cs" />

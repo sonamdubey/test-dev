@@ -1,0 +1,24 @@
+﻿.card-category__tag
+	&:before
+		content: ''
+		display: block
+		position: absolute
+		left: 8px
+		top: 5px
+		width: 15px
+		height: 13px
+
+.carousel-card[data-review-category='40']
+	.card-category__tag
+		&:before
+			@include star-white
+.carousel-card[data-review-category='24']
+	.card-category__tag
+		&:before
+			@include flag-white
+
+.carousel-card[data-review-category='23']
+	.card-category__tag
+		&:before
+			@include helmet-white
+			top: 4px

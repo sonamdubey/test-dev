@@ -4,6 +4,7 @@
     self.seriesMsg = ko.observable("");
     self.seriesMaskingMsg = ko.observable("");
     self.selectedMakeId = ko.observable("");
+    self.selectedMakeUpdateId = ko.observable("");
     self.seriesMaskingName = ko.observable("");
     self.seriesName.subscribe(function () {
         var series = "";
@@ -19,7 +20,13 @@
     self.selectedSeriesName = ko.observable(null);
     self.seriesNameUpdate = ko.observable(null);
     self.seriesMaskingNameUpdate = ko.observable(null);
-
+    self.isSeriesUrl = ko.observable(false);
+    self.selectedBodyStyleName = ko.observable("");
+    self.selectedBodyStyleId = ko.observable(null); //optional
+    self.isBodyStyleShown = ko.observable(false);
+    self.selectedBodyStyleUpdateId = ko.observable(null);
+    self.seriesEditMsg = ko.observable("");
+    self.seriesMaskingEditMsg = ko.observable("");
     self.seriesNameUpdate.subscribe(function () {
         var series = "";
         if (self.seriesNameUpdate() && self.seriesNameUpdate() != "") {
@@ -30,7 +37,7 @@
         Materialize.updateTextFields();
     });
     self.deleteSeriesId = ko.observable(null);
-    self.isSeriesURL = ko.observable(false);
+    self.isSeriesEditUrl = ko.observable(false);
     self.seriesSynopsis = ko.observable(null);
     self.validateSubmit = function () {
         try {
@@ -43,29 +50,41 @@
             }
             if (self.seriesName() == "") {
                 isValid = false;
-                Materialize.toast("Invalid make name", 3000)
-                self.seriesMsg("Invalid make name");
+                Materialize.toast("Invalid series name", 3000)
+                self.seriesMsg("Invalid series name");
             }
             if (self.seriesMaskingName() == "") {
                 isValid = false;
-                Materialize.toast("Invalid make masking name", 3000)
-                self.seriesMaskingMsg("Invalid make masking name");
+                Materialize.toast("Invalid series masking name", 3000)
+                self.seriesMaskingMsg("Invalid series masking name");
+            }
+            if (self.isSeriesUrl()) {
+                if (!self.selectedBodyStyleId() || self.selectedBodyStyleId()==0) {
+                    isValid = false;
+                    Materialize.toast("Please select Body Style", 3000);
+                }
+            }
+            else {
+                // No bodystyle if seriesUrl not selected
+                self.selectedBodyStyleId("0");
             }
             if (isValid) {
                 $.ajax({
                     type: "POST",
-                    url: "/api/make/" + self.selectedMakeId() + "/series/add/?seriesname=" + self.seriesName() + "&seriesmaskingname=" + self.seriesMaskingName() + "&updatedby=" + $('#userId').val() + "&isseriespageurl=" + $("#chkSeriesURL").val(),
+                    url: "/api/make/" + self.selectedMakeId() + "/series/add/?seriesname=" + self.seriesName() + "&seriesmaskingname=" + self.seriesMaskingName() + "&updatedby=" + $('#userId').val() + "&isseriespageurl=" + self.isSeriesUrl() + "&bodystyleid=" + self.selectedBodyStyleId(),
                     success: function (response) {
                         if (response.seriesId > 0) {
+                            var bodystyle = (response.bodystyle.bodyStyleId == 0 || response.bodystyle.bodyStyleId == null) ? "N/A" : $("#selectBodyStyle option[value=" + response.bodystyle.bodyStyleId + "]").text();
                             $(
                                                     "<tr data-seriesid='" + response.seriesId + "'>"
                                                         + "<td>" + response.seriesId + "</td>"
                                                         + "<td class='teal lighten-4'>" + response.seriesName + "</td>"
                                                         + "<td>" + response.seriesMaskingName + "</td>"
                                                         + "<td><i class='material-icons " + (response.isSeriesPageUrl ? 'icon-green' : 'icon-red') + "'>" + (response.isSeriesPageUrl ? 'done' : 'close') + "</i></td>"
+                                                        + "<td>" + bodystyle + "</td>"
                                                         + "<td>" + $("#selectMake option[value=" + response.make.makeId + "]").text() + "</td>"
                                                         + "<td><a href='#!' data-target='modal-series-synopsis' data-bind='event : {click : function(d,e) { getSeriesSynopsis(e) }}'><i class='material-icons icon-green'>add_circle</i></a></td>"
-                                                        + "<td><a href='#series-edit-update' class='tooltipped' href='javascript:void(0)' data-delay='100' data-makeid=" + response.make.makeId + " data-tooltip='Edit Series' rel='nofollow' data-bind='event: {click: function(d, e) { editSeriesClick(e) }}'><i class='material-icons icon-blue'>mode_edit</i></a></td>"
+                                                        + "<td><a href='#series-edit-update' class='tooltipped' href='javascript:void(0)' data-delay='100' data-makeid=" + response.make.makeId +" data-bodystyleid=" +response.bodystyle.bodyStyleId + " data-tooltip='Edit Series' rel='nofollow' data-bind='event: {click: function(d, e) { editSeriesClick(e) }}'><i class='material-icons icon-blue'>mode_edit</i></a></td>"
                                                         + "<td><a class='tooltipped' href='javascript:void(0)' data-delay='100' data-tooltip='Delete Series' rel='nofollow' data-target='delete-confirm-modal' data-bind='event:{click: function(d, e){ deleteEvent(e)}}'><i class='material-icons icon-red'>delete</i></a></td>"
                                                         + "<td>" + response.createdOn + "</td>"
                                                         + "<td>" + response.updatedOn + "</td>"
@@ -84,8 +103,8 @@
                         } else {
                             Materialize.toast(response.message,3000);
                         }
-                    }, error: function (respose) {
-                        Materialize.toast(respose.responseJSON.Message, 3000);
+                    }, error: function (response) {
+                        Materialize.toast(response.responseJSON.Message, 3000);
                     }
                 });
             }
@@ -100,40 +119,57 @@
 
     self.editSeriesClick = function (event) {        
         var seriesRow = rowToEdit = event.currentTarget.parentElement.parentElement;        
-        self.isSeriesURL(rowToEdit.children[3].children[0].innerText == "done" ? true : false);
+        self.isSeriesEditUrl(rowToEdit.children[3].children[0].innerText == "done" ? true : false);
         self.selectedSeriesName(seriesRow.children[1].innerText);
         selectedSeriesMaskingName = seriesRow.children[2].innerText;
-
         self.selectedSeriesId(seriesRow.children[0].innerText); //seriesId
         self.seriesNameUpdate(self.selectedSeriesName());
         self.seriesMaskingNameUpdate(selectedSeriesMaskingName);
-        self.selectedMakeId($(event.currentTarget).data("makeid"));
+        self.selectedMakeUpdateId($(event.currentTarget).data("makeid"));
+        self.selectedBodyStyleUpdateId($(event.currentTarget).data("bodystyleid"));
+        $('#selectBodyStyleUpdate').material_select();
         Materialize.updateTextFields();
+        $('.modal').css({ 'overflow-y': 'visible' });
+        setTimeout(function () { $('.modal').css({ 'overflow-y': 'visible' }); }, 300);
 
     }
 
     self.validateUpdate = function () {
         try {
             var isValid = true;
-
+            self.seriesEditMsg("");
+            self.seriesMaskingEditMsg("");
             if (self.seriesNameUpdate() == "") {
                 isValid = false;
                 Materialize.toast("Invalid series name", 3000);
+                self.seriesEditMsg("Invalid series name");
             }
             if (self.seriesMaskingNameUpdate() == "") {
                 isValid = false;
                 Materialize.toast("Invalid series masking name", 3000)
+                self.seriesMaskingEditMsg("Invalid series masking name");
+            }
+            if (self.isSeriesEditUrl()) {
+                if (!self.selectedBodyStyleUpdateId() || self.selectedBodyStyleUpdateId() == 0) {
+                    isValid = false;
+                    Materialize.toast("Please select Body Style", 3000)
+                }
+            }
+            else {
+                // No bodystyle if seriesUrl not selected
+                self.selectedBodyStyleUpdateId("0");
             }
             if (isValid) {
                 $.ajax({
                     type: "POST",
-                    url: "/api/series/" + self.selectedSeriesId() + "/edit/?seriesname=" + self.seriesNameUpdate() + "&seriesmaskingname=" + self.seriesMaskingNameUpdate() + "&updatedby=" + $('#userId').val() + "&isseriespageurl=" + self.isSeriesURL() + "&makeId=" + self.selectedMakeId(),
+                    url: "/api/series/" + self.selectedSeriesId() + "/edit/?seriesname=" + self.seriesNameUpdate() + "&seriesmaskingname=" + self.seriesMaskingNameUpdate() + "&updatedby=" + $('#userId').val() + "&isseriespageurl=" + self.isSeriesEditUrl() + "&makeId=" + self.selectedMakeUpdateId() + "&bodystyleid=" + self.selectedBodyStyleUpdateId(),
                     success: function (response) {
 
                         if (response != null) {
+                            $('#series-edit-update').modal('close');
                             rowToEdit.children[1].innerText = self.seriesNameUpdate();
                             rowToEdit.children[2].innerText = self.seriesMaskingNameUpdate();
-                            if (self.isSeriesURL()) {
+                            if (self.isSeriesEditUrl()) {
                                 rowToEdit.children[3].children[0].classList.remove("icon-red");
                                 rowToEdit.children[3].children[0].classList.add("icon-green");
                                 rowToEdit.children[3].children[0].innerText = "done";
@@ -143,9 +179,18 @@
                                 rowToEdit.children[3].children[0].classList.add("icon-red");
                                 rowToEdit.children[3].children[0].innerText = "close";
                             }
-                            
+                            if (self.selectedBodyStyleUpdateId() != 0) {
+                                rowToEdit.children[4].innerText = $("#selectBodyStyleUpdate option[value=" + self.selectedBodyStyleUpdateId() + "]").text();
+                            }
+                            else {
+                                rowToEdit.children[4].innerText = "N/A";
+                            }
+                            $(rowToEdit.children[7].children[0]).data("bodystyleid", self.selectedBodyStyleUpdateId());
                             Materialize.toast("Bike series has been updated successfully.", 3000);
+                            $("#txtSeriesNameUpdate").removeClass("valid");
+                            $("#txtSeriesMaskingNameUpdate").removeClass("valid");
                         }
+
                     },
                     error: function (response) {
                         if (response && response.responseJSON && response.responseJSON.Message)

@@ -3,6 +3,7 @@
 var dropdown;
 var overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecsFooter, topNavBarHeight;
 var bikeVersionPrice, versionCount, bikeVersions;
+var processingFees = 0;
 
 function formatPrice(price) {
     if (price != null) {
@@ -17,6 +18,11 @@ function formatPrice(price) {
     return price;
 }
 docReady(function () {
+
+    if (document.getElementById('dealerProcessingFees')) {
+        processingFees = parseInt($('#dealerProcessingFees').val());
+    }
+
     // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
@@ -61,30 +67,8 @@ docReady(function () {
 				$(floatingButton).show();
 		}
 
-        //Gallery open and close
-		$("#imageTopCard").click(function () {
-		    try {
-		        if (photoCount > 0 || videoCount > 0) {
-		            galleryRoot.find('.gallery-loader-placeholder').show();
-		            popupGallery.bindGallery(0);
-		            galleryRoot.find('.gallery-loader-placeholder').hide();
-		        }
-		        
-		        triggerGA($(this).data("cat"), $(this).data("act"), $(this).data("lab"));
-		    } catch (e) {
-		        console.warn(e);
-		    }
-		});
-
-
-		$("#gallery-close-btn").click(function () {
-		    try {
-		        popupGallery.close();
-		    } catch (e) {
-		        console.warn(e);
-		    }
-		});
-
+        
+		
         // dropdown
         dropdown = {
             setDropdown: function () {
@@ -377,7 +361,7 @@ docReady(function () {
             self.minROI = ko.observable(10);
             self.maxROI = ko.observable(15);
             
-            self.processingFees = ko.observable(0);
+            self.processingFees = ko.observable(processingFees);
             self.exshowroomprice = ko.observable(bikeVersionPrice);
             self.loan = ko.observable();
 
@@ -390,7 +374,7 @@ docReady(function () {
                     return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
                 },
                 write: function (value) {
-                    self.loan((($.LoanAmount(self.exshowroomprice(), 100))) - value);
+                    self.loan(($.LoanAmount(self.exshowroomprice(), 100)) - value);
                 },
                 owner: this
             });
@@ -404,18 +388,16 @@ docReady(function () {
             });
             self.totalPayable = ko.pureComputed({
                 read: function () {
-                    return (self.downPayment() + (self.monthlyEMI() * self.tenure()));
+                    return (self.downPayment() + (self.monthlyEMI() * self.tenure()) + self.processingFees());
                 },
                 owner: this
             });
         };
 
         $.calculateEMI = function (loanAmount, tenure, rateOfInterest, proFees) {
-            var interest, totalRepay, finalEmi;
+            var finalEmi;
             try {
-                interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
-                totalRepay = loanAmount + interest + proFees;
-                finalEmi = Math.round((totalRepay / tenure));
+                finalEmi = Math.round((loanAmount * rateOfInterest / 1200) / (1 - Math.pow((1 + rateOfInterest / 1200), (-1.0 * tenure))));
             }
             catch (e) {
             }
@@ -512,4 +494,3 @@ docReady(function () {
     });
 
 });
-

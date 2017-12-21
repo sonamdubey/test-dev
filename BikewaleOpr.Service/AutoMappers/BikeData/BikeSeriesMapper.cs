@@ -23,6 +23,7 @@ namespace BikewaleOpr.Service.AutoMappers.BikeData
                 .ForMember(s => s.CreatedOn, c => c.MapFrom(m => m.CreatedOn.ToString("dd/MM/yyyy")))
                 .ForMember(s => s.UpdatedOn, c => c.MapFrom(m => m.UpdatedOn.ToString("dd/MM/yyyy")));
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<BikeBodyStyleEntity, BodyStyleBase>();
             return Mapper.Map<BikeSeriesEntity, BikeSeriesDTO>(objSeries);
         }
     }

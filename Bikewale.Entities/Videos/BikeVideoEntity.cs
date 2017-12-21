@@ -45,6 +45,7 @@ namespace Bikewale.Entities.Videos
         public string ImagePath { get; set; }
         [DataMember]
         public string DisplayDate { get; set; }
+        public uint ModelId { get; set; }
     }
 
     public class VideosListWrapper

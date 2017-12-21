@@ -311,6 +311,18 @@ namespace Bikewale.Cache.CMS
             return objFeaturedArticles;
         }
 
-
-    }
+		public CMSContent GetContentListBySubCategoryId(uint startIndex, uint endIndex, string categoryIdList, string subCategoryIdList, int makeId = 0, int modelId = 0)
+		{
+			 
+			try
+			{
+				return _objArticles.GetContentListBySubCategoryId(startIndex, endIndex, categoryIdList, subCategoryIdList, makeId, modelId);
+			}
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, "CMSCacheRepository.GetContentListBySubCategoryId");
+			}
+			return null;
+		}
+	}
 }
