@@ -34,7 +34,7 @@
             </div>
             <div class="dvMargin">
                 <strong>Launch Date:</strong> &nbsp;&nbsp;
-                <Vspl:Calendar DateId="calFrom" id="calFrom" runat="server" FutureTolerance="2" />
+                <Vspl:Calendar DateId="calFrom" id="calFrom" runat="server" FutureTolerance="5" />
                     <select id="ddlHour" runat="server" >
                         <option value="0">00</option>
                         <option value="1">01</option>
