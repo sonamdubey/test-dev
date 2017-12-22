@@ -280,6 +280,6 @@ docReady(function () {
 
     $("ul#listitems li.front").click(function () {
         var cookieValue = getCookie("_bwtest");
-        triggerGA("MakePage","Clicked_on_ModelCard",)
+        triggerGA("MakePage","Clicked_on_ModelCard",1)
     });
 });
