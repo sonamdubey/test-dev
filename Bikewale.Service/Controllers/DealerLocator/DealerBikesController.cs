@@ -123,7 +123,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// <param name="dealerId"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        [ResponseType(typeof(DealerBikeModels)), Route("api/dealer/{dealerId}/models/")]
+        [ResponseType(typeof(DealerBikeModels)), Route("api/dealer/{dealerId}/make/{makeId}/models/")]
         public IHttpActionResult GetDealerBikes(uint dealerId, int makeId)
         {
             try
