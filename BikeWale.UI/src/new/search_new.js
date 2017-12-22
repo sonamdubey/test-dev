@@ -919,12 +919,7 @@ docReady(function () {
 
 // Added By    : Rajan Chauhan on 21st Dec 2017
 // Description : For adding href on Load More button for crawler and stopping redirect
-$(document).ready(function () {
-	$('a').click(function (event) {
-		var id = $(this).attr('id');
-		if (id == 'loadMoreBikes') {
-			// For stopping redirection on load more button
-			event.preventDefault();
-		}
-	});
+$('#loadMoreBikes').click(function (event) {
+    // For stopping redirection on load more button
+    event.preventDefault();
 });
