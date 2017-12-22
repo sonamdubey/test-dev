@@ -745,15 +745,15 @@ namespace Bikewale.DAL.Dealer
                                 objVersion = new BikeVersionsListEntity();
                                 specs = new MinSpecsEntity();
 
-                                objMake.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? SqlReaderConvertor.ToUInt16(dr["MakeId"]) : default(int);
+                                objMake.MakeId = SqlReaderConvertor.ToUInt16(dr["MakeId"]);
                                 objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
 
-                                objModel.ModelId = !Convert.IsDBNull(dr["ModelId"]) ? SqlReaderConvertor.ToUInt16(dr["ModelId"]) : default(int);
+                                objModel.ModelId = SqlReaderConvertor.ToUInt16(dr["ModelId"]);
                                 objModel.ModelName = Convert.ToString(dr["Model"]);
                                 objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
 
-                                objVersion.VersionId = !Convert.IsDBNull(dr["VersionId"]) ? SqlReaderConvertor.ToUInt16(dr["VersionId"]) : default(int);
+                                objVersion.VersionId = SqlReaderConvertor.ToUInt16(dr["VersionId"]);
                                 objVersion.VersionName = Convert.ToString(dr["Version"]);
 
                                 specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
@@ -766,17 +766,14 @@ namespace Bikewale.DAL.Dealer
                                 bikes.objModel = objModel;
                                 bikes.objVersion = objVersion;
                                 bikes.Specs = specs;
-                                bikes.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? SqlReaderConvertor.ToUInt16(dr["MakeId"]) : default(int);
+                                bikes.MakeId = SqlReaderConvertor.ToUInt16(dr["MakeId"]);
                                 bikes.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 bikes.MakeName = Convert.ToString(dr["make"]);
 
                                 models.Add(bikes);
                             }
 
-                            if(models != null)
-                            {
-                                dealers.Models = models;
-                            }
+                            dealers.Models = models;
 
                             if (dr.NextResult() && dr.Read())
                             {

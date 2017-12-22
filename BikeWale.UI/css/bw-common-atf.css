@@ -207,7 +207,8 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .bw-tabs-flex li.active { border-bottom: 3px solid #ef3f30; cursor:default; }
 .bw-tabs-flex li.active h3 { color: #4d5057; }
 .bw-tabs-panel[data-slide="1"] .bw-tabs__item { text-align: left; font-weight: 600; color: #4d5057;}
-.bw-tabs-panel[data-slide="1"] .sidebar-bike-list {max-height: 320px; height: auto; } 
+.bw-tabs-panel[data-slide="1"] .sidebar-bike-list {max-height: 320px; height: auto; }
+.bw-tabs-panel[data-slide="1"] .bw-tabs-flex li.active { border: none; cursor: pointer;}
 
 /* sprite classes */
 .bwsprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?05July20171499235738247) no-repeat; display: inline-block; }

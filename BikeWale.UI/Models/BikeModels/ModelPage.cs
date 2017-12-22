@@ -781,12 +781,7 @@ namespace Bikewale.Models.BikeModels
 				if (objMake != null)
 				{
 					RecentExpertReviews objExpertReviews = new RecentExpertReviews(3, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", _objData.BikeName));
-
-					List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>
-					{
-						EnumCMSContentType.ComparisonTests
-					};
-					_objData.ComparisionTestExpertReviews = objExpertReviews.GetData(categoryList, null); 
+					_objData.ComparisionTestExpertReviews = objExpertReviews.GetComparisonTests(); 
 				}
 			}
 			catch (Exception ex)

@@ -9,9 +9,10 @@
 		position: relative
 
 	@media only screen and (max-width: 900px)
-		display: block
-		max-width: $max-width
-		margin: 0 auto
+		.carousel-card
+			display: block
+			max-width: $max-width
+			margin: 0 auto
 
 
 @mixin jcarousel-carousel-card($width: 350px, $width2: 205px)
@@ -31,10 +32,10 @@
 					position: absolute
 					top: 0
 					left: 0
-					background: linear-gradient(to left, rgba(255, 255, 255, 0), #ffffff)
-					background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0), #ffffff)
-					background: -o-linear-gradient(left, rgba(255, 255, 255, 0), #ffffff)
-					background: -moz-linear-gradient(left, rgba(255, 255, 255, 0), #ffffff)
+					background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0), #fff)
+					background: -o-linear-gradient(left, rgba(255, 255, 255, 0), #fff)
+					background: -moz-linear-gradient(right, rgba(255, 255, 255, 0), #fff)
+					background: linear-gradient(to left, rgba(255, 255, 255, 0), #fff)
 					z-index: 2
 				&:after
 					content: ''
@@ -44,10 +45,10 @@
 					position: absolute
 					top: 0
 					right: 0
-					background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff)
-					background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), #ffffff)
-					background: -o-linear-gradient(right, rgba(255, 255, 255, 0), #ffffff)
-					background: -moz-linear-gradient(right, rgba(255, 255, 255, 0), #ffffff)
+					background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), #fff)
+					background: -o-linear-gradient(right, rgba(255, 255, 255, 0), #fff)
+					background: -moz-linear-gradient(left, rgba(255, 255, 255, 0), #fff)
+					background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff)
 					z-index: 2
 
 				li
@@ -89,7 +90,7 @@
 					@include arrow-left
 
 	.carousel-card
-		min-height: 277px
+		min-height: 289px
 		&:hover
 			text-decoration: none
 			h3
@@ -111,4 +112,4 @@
 			.carousel-card
 				display: block
 				width: $width2
-				height: 259px
+				min-height: 245px
