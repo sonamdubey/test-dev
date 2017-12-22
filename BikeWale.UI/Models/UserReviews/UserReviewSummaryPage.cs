@@ -46,7 +46,9 @@ namespace Bikewale.Models.UserReviews
         {
             if (string.IsNullOrEmpty(_strEncoded))
                 status = StatusCodes.ContentNotFound;
+
         }
+
         /// <summary>
         /// Created by : Aditi Srivastava on 18 Apr 2017
         /// Summary    : Get data for user review summary
