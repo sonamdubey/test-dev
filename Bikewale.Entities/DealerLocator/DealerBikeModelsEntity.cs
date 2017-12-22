@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Entities.DealerLocator
 {
+    [Serializable, DataContract]
     public class DealerBikeModelsEntity
     {
         [DataMember]
