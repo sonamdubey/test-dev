@@ -78,6 +78,20 @@
         <div class="clear"></div>
     </div>
 </section>
+
+@if (Model.ObjMoreAboutScooter != null)
+{
+    <section>
+        <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
+            <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
+                <div class="swiper-wrapper">
+                    @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.ObjMoreAboutScooter)
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
 <div class="margin-bottom15">
     @Html.Partial("~/Views/Shared/Ads/Mobile/Ad320x50_Middle.cshtml", Model.AdTags)
 </div>

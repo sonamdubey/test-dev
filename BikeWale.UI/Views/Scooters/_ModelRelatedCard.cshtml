@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.MoreAboutScootersWidgetVM
 
 <link rel="stylesheet" type="text/css" href="/sass/modules/related-card.css">
-<div class="padding-top15">
+<div class="related-list__section">
     @if (Model.BikeInfo != null && Model.BikeInfo.BikeInfo != null && Model.BikeInfo.BikeInfo.Tabs != null && Model.BikeInfo.BikeInfo.Tabs.Any())
     {
         var bikeName = string.Format("{0} {1}",Model.objBikeData.MakeBase.MakeName, Model.objBikeData.ModelName);
@@ -54,6 +54,4 @@
             </ul>
         </div>
     }
-    
-
 </div>

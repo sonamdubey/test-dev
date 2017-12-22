@@ -24,7 +24,7 @@
                     </div>
                     @if (Model.Articles != null && Model.Articles.Articles != null && Model.Articles.Articles.Count() > 0)
                     {
-                        <div class="section-inner-padding">
+                        <div class="section-inner-padding content-box-shadow card-bottom-margin">
                             <ul class="article-list">
                                 @{ushort i = 0;}
                                 @foreach (var article in Model.Articles.Articles)
@@ -104,10 +104,23 @@
                                 }
                                 <div class="clear"></div>
                             </div>
+
+
                         </div>
                     }
+                    
+
                 </div>
+                @if (Model.ObjMoreAboutScooter != null)
+                {
+
+                    <div id="moreAboutScooter" class="content-box-shadow padding-top20">
+                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard.cshtml", Model.ObjMoreAboutScooter)
+                    </div>
+                }
             </div>
+          
+          
             <div class="grid-4 omega">
                 @if (Model.Model != null && Model.Model.ModelId > 0)
                 {

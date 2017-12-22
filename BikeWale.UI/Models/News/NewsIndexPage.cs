@@ -12,6 +12,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Models.BestBikes;
@@ -52,6 +53,8 @@ namespace Bikewale.Models
         private readonly IBikeSeries _series;
         private EditorialPageType currentPageType = EditorialPageType.Default;
         public EnumBikeBodyStyles BodyStyle = EnumBikeBodyStyles.AllBikes;
+        private readonly ICityCacheRepository _objCityCache = null;
+        private readonly IBikeInfo _objGenericBike = null;
         #endregion
 
         #region Page level variables
@@ -116,7 +119,9 @@ namespace Bikewale.Models
         /// Modified by : Ashutosh Sharma on 27 Nov 2017
         /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
         /// </summary>
-        public NewsIndexPage(ICMSCacheContent cacheContent, IPager pager, IBikeMakesCacheRepository objMakeCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+        public NewsIndexPage(ICMSCacheContent cacheContent, IPager pager, IBikeMakesCacheRepository objMakeCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles,
+            IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache,
+            IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike)
         {
             _articles = articles;
             _cacheContent = cacheContent;
@@ -129,6 +134,8 @@ namespace Bikewale.Models
             _objBikeVersionsCache = objBikeVersionsCache;
             _seriesCache = seriesCache;
             _series = series;
+            _objCityCache = objCityCache;
+            _objGenericBike = objGenericBike;
             ProcessQueryString();
         }
         #endregion
@@ -185,6 +192,7 @@ namespace Bikewale.Models
                     CreatePrevNextUrl(objData, recordCount);
                     GetWidgetData(objData, widgetTopCount);
                     SetPageMetas(objData);
+
                 }
                 else
                 {
@@ -546,6 +554,10 @@ namespace Bikewale.Models
             }
 
             SetBreadcrumList(objData, bodyStyle);
+            if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+            {
+                BindMoreAboutScootersWidget(objData);
+            }
         }
 
         /// <summary>
@@ -553,6 +565,8 @@ namespace Bikewale.Models
         /// Summary    : Get view model for page widgets
         /// Modified by Sajal Gupta on 04-12-2017
         /// description : Added Popular Scooter Brands widget
+        /// Modified by: SnehaL Dange on 21st dec 2017
+        /// Desc: Added BindMoreAboutScootersWidget
         /// </summary>
         private void GetWidgetData(NewsIndexPageVM objData, int topCount)
         {
@@ -641,6 +655,7 @@ namespace Bikewale.Models
                         PopularScooterMakes = objPopularScooterBrands.GetData();
                         objData.PopularScooterMakesWidget = PopularScooterMakes.Take(6);
                         bikeType = EnumBikeType.Scooters;
+
                     }
                     else
                     {
@@ -1180,6 +1195,24 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass.LogError(ex, "Exception : Bikewale.Models.News.NewsIndexPage.SetBreadcrumList");
             }
 
+        }
+        /// <summary>
+        /// Created By: Snehal Dange on 21th Dec 2017
+        /// Summary : Bind more about scooter widget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMoreAboutScootersWidget(NewsIndexPageVM objData)
+        {
+            try
+            {
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objBikeVersionsCache, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.News);
+                obj.modelId = ModelId;
+                objData.ObjMoreAboutScooter = obj.GetData();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.News.NewsIndexPage..BindMoreAboutScootersWidget : ModelId {0}", ModelId));
+            }
         }
 
         #endregion
