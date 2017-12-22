@@ -68,16 +68,16 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
         /// </summary>
         /// <param name="dealerBikes"></param>
         /// <returns></returns>
-        internal static DealerBikeModels ConvertToDealerBikeModels(DealerBikesEntity dealerBikes)
+        internal static DealerBikeModels Convert(DealerBikeModelsEntity dealerBikes)
         {
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
             Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
             Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
-            Mapper.CreateMap<DealerBikesEntity, DealerBikeModels>().ForMember(d => d.CityName, opt => opt.MapFrom(s => s.DealerDetails.City));
+            Mapper.CreateMap<DealerBikeModelsEntity, DealerBikeModels>();
 
-            return Mapper.Map<DealerBikesEntity, DealerBikeModels>(dealerBikes);
+            return Mapper.Map<DealerBikeModelsEntity, DealerBikeModels>(dealerBikes);
         }
     }
 }

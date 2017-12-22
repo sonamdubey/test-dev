@@ -1,11 +1,11 @@
-﻿using Bikewale.Entities.Dealer;
+﻿using System;
+using System.Collections.Generic;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
 
 namespace Bikewale.Cache.DealersLocator
 {
@@ -99,6 +99,28 @@ namespace Bikewale.Cache.DealersLocator
             {
                 ErrorClass.LogError(ex, "DealerCacheRepository.GetDealerDetailsAndBikes");
                 
+            }
+            return models;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 21st dec 2017 
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public DealerBikeModelsEntity GetBikesByDealerAndMake(uint dealerId, uint makeId)
+        {
+            DealerBikeModelsEntity models = null;
+            string key = String.Format("BW_BikeModelsByDealer_{0}_{1}", dealerId, makeId);
+            try
+            {
+                models = _cache.GetFromCache<DealerBikeModelsEntity>(key, new TimeSpan(0, 30, 0), () => _objDealersRepository.GetBikesByDealerAndMake(dealerId, makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("DealerCacheRepository.GetBikesByDealerAndMake. dealerId = {0}, makeId = {1}", dealerId, makeId));
+
             }
             return models;
         }
