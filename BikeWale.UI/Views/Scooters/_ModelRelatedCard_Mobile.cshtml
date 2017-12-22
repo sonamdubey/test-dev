@@ -14,7 +14,7 @@
                     @foreach (var Tabsdetails in Model.BikeInfo.BikeInfo.Tabs)
                     {
                         <li>
-                            <a class="related-card__target-link" title="@Model.objBikeData.MakeBase.MakeName @Model.objBikeData.ModelName @Tabsdetails.Title" href="@string.Format("{0}/m/{1}",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl,Tabsdetails.URL)">@bikeName @Tabsdetails.TabText</a>
+                            <a class="related-card__target-link" title="@Model.objBikeData.MakeBase.MakeName @Model.objBikeData.ModelName @Tabsdetails.Title" href="@string.Format("{0}/m{1}",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl,Tabsdetails.URL)">@bikeName @Tabsdetails.TabText</a>
                         </li>
                     }
                 </ul>
