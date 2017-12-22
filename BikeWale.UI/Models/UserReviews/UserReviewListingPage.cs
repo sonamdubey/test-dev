@@ -8,6 +8,7 @@ using Bikewale.Entities.Schema;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
@@ -33,6 +34,12 @@ namespace Bikewale.Models.UserReviews
         private readonly ICMSCacheContent _objArticles = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IBikeModels<BikeModelEntity, int> _models;
+
+        private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly ICityCacheRepository _objCityCache = null;
+        private readonly IBikeInfo _objGenericBike = null;
+
         private uint _modelId = 0;
         private uint _pageSize, _totalResults;
         public uint ExpertReviewsWidgetCount { get; set; }
@@ -43,6 +50,8 @@ namespace Bikewale.Models.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
         /// Description : Constructor to resolve dependencies
+        /// Modified by : Snehal Dange on 20th Dec 2017 
+        /// Descritpion: added IBikeModelsCacheRepository<int> objModelCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICityCacheRepository objCityCache, IBikeInfo objGenericBike
         /// </summary>
         /// <param name="makeMasking"></param>
         /// <param name="modelMasking"></param>
@@ -50,7 +59,9 @@ namespace Bikewale.Models.UserReviews
         /// <param name="userReviewCache"></param>
         /// <param name="objUserReviewSearch"></param>
         /// <param name="objArticles"></param>
-        public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch, ICMSCacheContent objArticles, IUserReviewsSearch userReviewsSearch, IBikeModels<BikeModelEntity, int> models)
+        public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch,
+            ICMSCacheContent objArticles, IUserReviewsSearch userReviewsSearch, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache,
+            ICityCacheRepository objCityCache, IBikeInfo objGenericBike)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objUserReviewCache = userReviewCache;
@@ -58,6 +69,10 @@ namespace Bikewale.Models.UserReviews
             _objArticles = objArticles;
             _userReviewsSearch = userReviewsSearch;
             _models = models;
+            _objModelCache = objModelCache;
+            _objVersionCache = objVersionCache;
+            _objCityCache = objCityCache;
+            _objGenericBike = objGenericBike;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -166,7 +181,9 @@ namespace Bikewale.Models.UserReviews
 
                     objData.SimilarBikesWidget.SimilarBikes = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, currentCityArea.CityId, SimilarBikeReviewWidgetCount);
                     objData.SimilarBikesWidget.GlobalCityName = currentCityArea.City;
+
                 }
+
             }
             catch (Exception ex)
             {
@@ -260,6 +277,12 @@ namespace Bikewale.Models.UserReviews
 
                     SetBreadcrumList(objPage);
                     SetPageJSONLDSchema(objPage);
+
+                    if (objPage.RatingReviewData != null && objPage.RatingReviewData.RatingDetails != null && objPage.RatingReviewData.RatingDetails.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                    {
+                        BindMoreAboutScootersWidget(objPage);
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -340,6 +363,26 @@ namespace Bikewale.Models.UserReviews
             objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
 
         }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 20th Dec 2017
+        /// Summary : Bind more about scooter widget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMoreAboutScootersWidget(UserReviewListingVM objPage)
+        {
+            try
+            {
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersionCache, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.UserReview);
+                obj.modelId = _modelId;
+                objPage.objMoreAboutScooter = obj.GetData();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("UserReviewListingPage.BindMoreAboutScootersWidget : ModelId {0}", _modelId));
+            }
+        }
+
 
     }
 }

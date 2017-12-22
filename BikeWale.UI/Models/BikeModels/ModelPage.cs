@@ -190,7 +190,6 @@ namespace Bikewale.Models.BikeModels
                     SetPageJSONLDSchema();
                     ShowInnovationBanner(_modelId);
                     BindAdSlotTags();
-
                     #endregion Do Not change the sequence
                 }
             }
@@ -728,7 +727,6 @@ namespace Bikewale.Models.BikeModels
                             _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
                         }
                     }
-
                     if (_objData.IsUpcomingBike)
                     {
                         _objData.objUpcomingBikes = BindUpCompingBikesWidget();
