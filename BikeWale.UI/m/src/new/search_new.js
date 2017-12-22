@@ -16,16 +16,6 @@ $.duration = 500;
 $.so = '';
 $.sc = '';
 
-// For updating href on Load More anchor tag
-function updateNextUrl(url) {
-    if (url) {
-        $("#loadMoreBikes").attr('href', location.protocol + '//' + location.host + location.pathname + url.slice(url.lastIndexOf('/') + 1));
-    }
-    else {
-        $("#loadMoreBikes").attr('href', 'javascript:void(0)'); // No forward link
-    }
-}
-
 docReady(function () {
     //Other  functions
     newBikeSearch = function () {
@@ -322,7 +312,6 @@ docReady(function () {
                             self.TotalBikes(response.totalCount);
                             $('#bikecount').text(self.TotalBikes() + ' Bikes');
                             self.noBikes(false);
-                            updateNextUrl(response.pageUrl.nextUrl);
                             self.LoadMoreTarget(response.pageUrl.nextUrl);
                             if (response.pageUrl.nextUrl) {
                                 self.IsMoreBikesAvailable(true);
@@ -804,6 +793,8 @@ docReady(function () {
     }
 });
 
+// Added By    : Rajan Chauhan on 21st Dec 2017
+// Description : For adding href on Load More button for crawler and stopping redirect
 $(document).ready(function () {
     $('a').click(function (event) {
         var id = $(this).attr('id');
@@ -812,5 +803,4 @@ $(document).ready(function () {
             event.preventDefault();
         }
     });
-    updateNextUrl($("#loadMoreBikes").data("url"));
 });
