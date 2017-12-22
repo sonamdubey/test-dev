@@ -14,7 +14,7 @@
                     @foreach (var Tabsdetails in Model.BikeInfo.BikeInfo.Tabs)
                     {
                         <li>
-                            <a class="related-card__target-link" href="@string.Format("{0}/m/{1}",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl,Tabsdetails.URL)">@bikeName @Tabsdetails.TabText</a>
+                            <a class="related-card__target-link" title="@Model.objBikeData.MakeBase.MakeName @Model.objBikeData.ModelName @Tabsdetails.Title" href="@string.Format("{0}/m/{1}",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl,Tabsdetails.URL)">@bikeName @Tabsdetails.TabText</a>
                         </li>
                     }
                 </ul>
@@ -31,7 +31,7 @@
                     @foreach (var obj in Model.SimilarBikes)
                     {
                         <li>
-                            <a class="related-card__target-link" href="@string.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.MakeBase.MaskingName, obj.ModelBase.MaskingName)">
+                            <a class="related-card__target-link" href="@string.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.MakeBase.MaskingName, obj.ModelBase.MaskingName)" title="@string.Format("{0} {1} Price",obj.MakeBase.MakeName,obj.ModelBase.ModelName)">
                                 @obj.MakeBase.MakeName @obj.ModelBase.ModelName Price
                             </a>
                         </li>
@@ -49,7 +49,7 @@
                     @foreach (var obj in Model.objBestBikesList)
                     {
                         <li>
-                            <a class="related-card__target-link" href="@string.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.Make.MaskingName, obj.Model.MaskingName)">
+                            <a class="related-card__target-link" href="@string.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.Make.MaskingName, obj.Model.MaskingName)" title="@obj.BikeName">
                                 @obj.BikeName
                             </a>
                         </li>

@@ -226,7 +226,7 @@
         </script>
     }
 </head>
-<body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" @string.Format("{0}", Model.ExcludeContestSlug ? "data-contestslug='true'" : "") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
+<body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" @string.Format("{0}", Model.ExcludeContestSlug ? "data-contestslug='true'" : "") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page" data-pricemoney="@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney">
     <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
         <!-- Fixed Header code starts here -->
         <div class="leftfloat">
@@ -307,7 +307,7 @@
                     <ul>
                         @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
                         {
-                            if (item.Item!=null && !string.IsNullOrEmpty(item.Item.Url))
+                            if (item.Item != null && !string.IsNullOrEmpty(item.Item.Url))
                             {
                                 <li>
                                     <a class="breadcrumb-link" href="@item.Item.Url" title="@item.Item.Name">
@@ -541,8 +541,8 @@
             <div class="clear"></div>
         </div>
     </footer><!-- Ends here -->
-
     @Html.Partial("~/Views/Shared/_LoginControl.cshtml")
+   
     <script defer type="text/javascript" src="@String.Format("{0}/src/bwcache.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
     <script>
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);

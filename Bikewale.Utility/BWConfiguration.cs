@@ -22,6 +22,8 @@ namespace Bikewale.Utility
     /// Description : Added SynopsisSummaryMergedMakeIds
     /// Modified by : Ashutosh Sharma on 30 Nov 2017
     /// Description : Removed SynopsisSummaryMergedMakeIds
+    /// Modified by : Snehal Dange on 22nd dec 2017
+    /// Desc:         Added ContestPriceMoney
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -114,7 +116,8 @@ namespace Bikewale.Utility
             _PopularCitiesId = String.Empty,
             _PopularityOrderForMake = string.Empty,
             _AmpProjectUrl = string.Empty,
-            _MetasMakeId = string.Empty;
+            _MetasMakeId = string.Empty,
+            _ContestPriceMoney = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -261,6 +264,7 @@ namespace Bikewale.Utility
             _EnablePwdResetLogging = String.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePwdResetLogging"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePwdResetLogging"]);
 
             _MakePageOnRoadPriceBtnPct = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]) ? (ushort)0 : Convert.ToUInt16(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]);
+            _ContestPriceMoney = Convert.ToString(ConfigurationManager.AppSettings["ContestPriceMoney"]);
         }
 
         // Static method to provide access to instance
@@ -434,6 +438,7 @@ namespace Bikewale.Utility
         public string AMPProjectUrl { get { return _AmpProjectUrl; } }
         public string MetasMakeId { get { return _MetasMakeId; } }
         public bool EnablePwdResetLogging { get { return _EnablePwdResetLogging; } }
-        public ushort MakePageOnRoadPriceBtnPct { get { return _MakePageOnRoadPriceBtnPct;  } }
+        public ushort MakePageOnRoadPriceBtnPct { get { return _MakePageOnRoadPriceBtnPct; } }
+        public string ContestPriceMoney { get { return _ContestPriceMoney; } }
     }   // class
 }   // namespace
