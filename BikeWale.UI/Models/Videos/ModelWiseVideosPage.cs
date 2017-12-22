@@ -137,7 +137,7 @@ namespace Bikewale.Models.Videos
                 {
                     objPageVM.PageMetaTags.Title = String.Format("Videos of all {0} {1} bikes | See the latest {0} {1} videos - BikeWale", objPageVM.Make.MakeName, objPageVM.objSeries.SeriesName);
                     objPageVM.PageMetaTags.Keywords = string.Format("{0} {1} Videos, {1} Videos", objPageVM.Make.MakeName, objPageVM.objSeries.SeriesName);
-                    objPageVM.PageMetaTags.Description = string.Format("Check latest {0} {1} 3G videos, watch BikeWale expert's take on all {0} {1} bikes", objPageVM.Make.MakeName, objPageVM.objSeries.SeriesName);
+                    objPageVM.PageMetaTags.Description = string.Format("Check latest {0} {1} videos, watch BikeWale expert's take on all {0} {1} bikes", objPageVM.Make.MakeName, objPageVM.objSeries.SeriesName);
                     objPageVM.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/videos/", objPageVM.Make.MaskingName, objPageVM.objSeries.MaskingName);
                     if (!IsMobile)
                         objPageVM.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/videos/", objPageVM.Make.MaskingName, objPageVM.objSeries.MaskingName);

@@ -151,7 +151,7 @@ namespace Bikewale.Models
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
                 }
-                objData.ShowCheckOnRoadpriceBtn = BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageOnRoadPriceBtnPct);
+                objData.ShowCheckOnRoadpriceBtn = !BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageOnRoadPriceBtnPct);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindUpcomingBikes(objData);
                 BindCompareBikes(objData, CompareSource, cityId);
