@@ -279,7 +279,8 @@ docReady(function () {
     });
 
     $("ul#listitems li.front").click(function () {
-        var cookieValue = getCookie("_bwtest");
-        triggerGA("MakePage","Clicked_on_ModelCard",)
+        var cookieValue = getCookie("_bwtest"), bikeName = $(this).attr("data-bike");
+        bikeName = bikeName.replace(/\s+/, '_');
+        triggerGA("MakePage", "Clicked_on_ModelCard", cookieValue + "_" + bikeName);
     });
 });
