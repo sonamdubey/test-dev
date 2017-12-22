@@ -18,11 +18,11 @@ namespace Bikewale.Controllers
     using Interfaces.PWA.CMS;
     using Models.News;
 
-	/// <summary>
-	/// Modified by : Ashutosh Sharma on 27 Nov 2017
-	/// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
-	/// </summary>
-	public class NewsController : Controller
+    /// <summary>
+    /// Modified by : Ashutosh Sharma on 27 Nov 2017
+    /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
+    /// </summary>
+    public class NewsController : Controller
     {
         static bool _logPWAStats = BWConfiguration.Instance.EnablePWALogging;
         static bool _enablePWA = BWConfiguration.Instance.EnablePWA;
@@ -41,17 +41,17 @@ namespace Bikewale.Controllers
         private readonly ICityCacheRepository _cityCache = null;
         private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
-		private readonly IBikeSeriesCacheRepository _seriesCache;
-		private readonly IBikeSeries _series;
+        private readonly IBikeSeriesCacheRepository _seriesCache;
+        private readonly IBikeSeries _series;
 
-		#endregion
+        #endregion
 
-		#region Constructor
-		/// <summary>
-		/// Modified by : Ashutosh Sharma on 27 Nov 2017
-		/// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
-		/// </summary>
-		public NewsController(ICMSCacheContent cacheContent, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+        #region Constructor
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 27 Nov 2017
+        /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
+        /// </summary>
+        public NewsController(ICMSCacheContent cacheContent, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
         {
             _cacheContent = cacheContent;
             _pager = pager;
@@ -64,23 +64,23 @@ namespace Bikewale.Controllers
             _makes = makes;
             _objBikeVersionsCache = objBikeVersionsCache;
             _articles = articles;
-			_seriesCache = seriesCache;
-			_series = series;
-		}
-		#endregion
+            _seriesCache = seriesCache;
+            _series = series;
+        }
+        #endregion
 
-		#region Action Methods
-		/// <summary>
-		/// Created by : Aditi srivastava on 27 Mar 2017
-		/// Summmary   : Action method to render news listing page- Desktop
-		/// Modified by : Ashutosh Sharma on 27 Nov 2017
-		/// Description : Modifed NewsIndexPage object call to add _seriesCache, _series.
-		/// </summary>
-		[Route("news/index/")]
+        #region Action Methods
+        /// <summary>
+        /// Created by : Aditi srivastava on 27 Mar 2017
+        /// Summmary   : Action method to render news listing page- Desktop
+        /// Modified by : Ashutosh Sharma on 27 Nov 2017
+        /// Description : Modifed NewsIndexPage object call to add _seriesCache, _series.
+        /// </summary>
+        [Route("news/index/")]
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series);
+            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -98,16 +98,16 @@ namespace Bikewale.Controllers
                     return View(objData);
             }
         }
-		/// <summary>
-		/// Created by : Aditi srivastava on 27 Mar 2017
-		/// Summmary   : Action method to render news listing page -mobile
-		/// Modified by : Ashutosh Sharma on 27 Nov 2017
-		/// Description : Modifed NewsIndexPage object call to add _seriesCache, _series.
-		/// </summary>
-		[Route("m/news/index/")]
+        /// <summary>
+        /// Created by : Aditi srivastava on 27 Mar 2017
+        /// Summmary   : Action method to render news listing page -mobile
+        /// Modified by : Ashutosh Sharma on 27 Nov 2017
+        /// Description : Modifed NewsIndexPage object call to add _seriesCache, _series.
+        /// </summary>
+        [Route("m/news/index/")]
         public ActionResult Index_Mobile()
         {
-            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series);
+            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -134,7 +134,7 @@ namespace Bikewale.Controllers
         [Route("m/news/index_pwa/")]
         public ActionResult Index_Mobile_Pwa()
         {
-            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series);
+            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {

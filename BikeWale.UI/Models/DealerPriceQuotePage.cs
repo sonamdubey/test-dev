@@ -262,16 +262,14 @@ namespace Bikewale.Models
         private void BindSimilarBikes(DealerPriceQuotePageVM objData)
         {
             var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _versionId, PQSourceEnum.Desktop_DPQ_Alternative);
-            if (objSimilarBikes != null)
+            objSimilarBikes.TopCount = 9;
+            objSimilarBikes.CityId = _cityId;
+            objData.SimilarBikesVM = objSimilarBikes.GetData();
+            if (objData.SimilarBikesVM != null)
             {
-                objSimilarBikes.TopCount = 9;
-                objSimilarBikes.CityId = _cityId;
-                objData.SimilarBikesVM = objSimilarBikes.GetData();
-                if (objData.SimilarBikesVM != null)
-                {
-                    objData.SimilarBikesVM.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
-                }
+                objData.SimilarBikesVM.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
             }
+
         }
 
         /// <summary>

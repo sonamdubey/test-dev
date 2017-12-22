@@ -18,6 +18,7 @@ namespace BikewaleOpr.Interface.BikeData
         IEnumerable<BikeMakeEntityBase> GetMakes(string requestType);
         IEnumerable<BikeMakeEntityBase> GetMakes(ushort RequestType);
         IEnumerable<BikeMakeEntity> GetMakesList();
+        BikeMakeEntity GetMakeDetailsById(uint MakeId);
         void AddMake(BikeMakeEntity make, ref short isMakeExist, ref int makeId);
         void UpdateMake(BikeMakeEntity make);
         void DeleteMake(int makeId, int updatedBy);

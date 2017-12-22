@@ -49,6 +49,8 @@ namespace BikewaleOpr
     /// Summary : Added IDealers
     /// Modified by : Vivek Singh Tomar on 11th Aug 2017
     /// Summary : Added IBikeSeriesRepository
+    /// Modified by : Rajan Chauhan on 13th Dec 2017
+    /// Summary : Added IBikeBodyStylesRepository and IBikeBodyStyles
     /// </summary>
     public static class UnityConfig
     {
@@ -92,7 +94,9 @@ namespace BikewaleOpr
                 .RegisterType<IServiceCenterRepository, ServiceCenterRepository>()
                 .RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
                 .RegisterType<IBikeSeries, BikeSeries>()
-                .RegisterType<IAdSlotRepository, AdSlot>();
+                .RegisterType<IAdSlotRepository, AdSlot>()
+                .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
+                .RegisterType<IBikeBodyStyles, BikeBodyStyles>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 

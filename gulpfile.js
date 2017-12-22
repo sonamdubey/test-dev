@@ -139,11 +139,6 @@ var pageArray = [
 
 gulp.task('replace-mvc-layout-css-reference', function () {
 	return gulp.src([
-		app + 'Views/News/Index_Mobile_Pwa.cshtml',
-		app + 'Views/News/Detail_Mobile.cshtml',
-		app + 'Views/Videos/Index_Mobile_Pwa.cshtml',
-		app + 'Views/Videos/Detail_Mobile_Pwa.cshtml',
-		app + 'CategoryVideos_Mobile_Pwa.cshtml',
 		app + 'Views/Shared/_Layout.cshtml',
 		app + 'Views/Shared/_Layout_Mobile.cshtml'], { base: app })
 		.pipe(replace(pattern.CSS_ATF, function (s, fileName) {
@@ -322,7 +317,8 @@ gulp.task('default', gulpSequence(
 			'replace-css-chunk-json',
 			'replace-js-css-reference',
 			'swResourceProcesing',
-			'replaceSWResouceHashInSW'
+			'replaceSWResouceHashInSW',
+			'replace-mvc-layout-css-reference'
 		)
 );
 //end

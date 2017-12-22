@@ -755,23 +755,36 @@ docReady(function () {
     if (typeof (slideCountTwo) != 'undefined') {
         _target = 2;
     }
+    
     var jcarousel = $('.jcarousel').jcarousel({
         vertical: false
     });
-    $('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
-        $(this).removeClass('inactive');
-    }).on('jcarouselcontrol:inactive', function () {
-        $(this).addClass('inactive');
-    }).jcarouselControl({
-        target: '-=' + _target
-    });
-    $('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
-        $(this).removeClass('inactive');
-    }).on('jcarouselcontrol:inactive', function () {
-        $(this).addClass('inactive');
-    }).jcarouselControl({
-        target: '+=' + _target
-    });
+
+    $('.jcarousel').each(function () {
+        var dataSwipe = $(this).attr('data-swipe');
+        var carouselWrapper = $(this).closest('.jcarousel-wrapper');
+        carouselWrapper.find('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        }).on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        }).jcarouselControl(
+            {
+                target: (dataSwipe ? '+=' + dataSwipe : '+=' + _target)
+
+            });
+
+        carouselWrapper.find('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        }).on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        }).jcarouselControl(
+    {
+        target: (dataSwipe ? '-=' + dataSwipe : '-=' + _target)
+    }
+    );
+
+    })
+    
     $('.jcarousel-pagination').on('jcarouselpagination:active', 'a', function () {
         $(this).addClass('active');
     }).on('jcarouselpagination:inactive', 'a', function () {
@@ -801,6 +814,14 @@ docReady(function () {
     if ($(window).width() < 996 && $(window).width() > 790)
         $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
 
+    $('.jcarousel').jcarousel({
+        animation: {
+			duration: 400,
+			easing: 'linear',
+            complete: function () {
+            }
+        }
+    });
 
 });
 
@@ -833,7 +854,7 @@ docReady(function () {
                     if (bw_ObjContest.visible && bw_ObjContest.count >= 3) {
                         if (!document.getElementsByTagName("BODY")[0].getAttribute("data-contestslug")) {
                             var hrefStr = Base64.encode("csrc=12");
-                            $('#bg-footer').before("<div id='contestSlideInSlug' class='review-contest-slidein-slug'><span id='contestSlideInCloseBtn' class='bwsprite slidein-slug__close-icon'></span><span class='slidein-slug__trophy-icon'></span><a href='/bike-review-contest/?q=" + hrefStr + "'class='slidein-slug__target bw-ga' c='Other' a='Contest_Slug_Clicked_Participate_CTA' l=''><span class='slidein-slug__target-title'>Bike Review Contest</span><span class='btn slidein-slug__target-btn'>Win &#x20B9;2,000<span class='bwsprite slidein-slug__btn-arrow'></span></span></a></div>")
+                            $('#bg-footer').before("<div id='contestSlideInSlug' class='review-contest-slidein-slug'><span id='contestSlideInCloseBtn' class='bwsprite slidein-slug__close-icon'></span><span class='slidein-slug__trophy-icon'></span><a href='/bike-review-contest/?q=" + hrefStr + "'class='slidein-slug__target bw-ga' c='Other' a='Contest_Slug_Clicked_Participate_CTA' l=''><span class='slidein-slug__target-title'>Bike Review Contest</span><span class='btn slidein-slug__target-btn'>Win &#x20B9;" + $("body").data('pricemoney') + "<span class='bwsprite slidein-slug__btn-arrow'></span></span></a></div>")
                             triggerGA("Other", "Contest_Slug_Appeared", "");
                         }
                      

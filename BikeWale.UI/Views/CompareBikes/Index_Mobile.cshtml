@@ -43,9 +43,8 @@
                         <p class="label-text">Version:</p>
                         <p class="font12 margin-bottom5 text-bold text-truncate" data-bind="text: bike1().version.versionName"></p>
                         <p class="text-truncate label-text">Ex-showroom, Mumbai</p>
-                        <p>
-                            @Html.Raw("<span class=\"font16\"  data-bind=\"visible: bike1().price != '0'\" > &#x20B9;</span>")&nbsp;<span class="font16 text-bold" data-bind="text: bike1().price != '0' ? bike1().price : 'Price not available'"></span>
-                        </p>
+                        <span class="font16"  data-bind="visible: bike1().price != '0'" > &#x20B9;</span>
+                        <span class="font16 text-bold" data-bind="text: bike1().price != '0' ? bike1().price : 'Price not available'"></span>
                     </div>
                     <!-- /ko -->
                 </div>

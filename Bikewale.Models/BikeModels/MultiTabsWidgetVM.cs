@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using System.Collections.Generic;
 namespace Bikewale.Models.BikeModels
 {
@@ -22,6 +23,12 @@ namespace Bikewale.Models.BikeModels
         public UpcomingBikesWidgetVM UpcomingScooters { get; set; }
         public PopularBodyStyleVM PopularBodyStyle { get; set; }
         public IEnumerable<BikeMakeEntityBase> PopularScooterMakes { get; set; }
+
+        public IEnumerable<MostPopularBikesBase> PopularSeriesBikes { get; set; }
+        public IEnumerable<MostPopularBikesBase> PopularMakeSeriesBikes { get; set; }
+        public IEnumerable<BestBikeEntityBase> PopularBikesByBodyStyle { get; set; }
+        public IEnumerable<UpcomingBikeEntity> UpcomingBikesByBodyStyle { get; set; }
+
         public string ViewAllHref1 { get; set; }
         public string ViewAllHref2 { get; set; }
         public string ViewAllTitle1 { get; set; }
@@ -41,6 +48,8 @@ namespace Bikewale.Models.BikeModels
         PopularBikesAndUpcomingBikes = 3,
         PopularMakeBikesAndBodyStyleWidget = 4,
         PopularMakeScootersAndOtherBrands = 5,
-        PopularScootersAndUpcomingScooters = 6
+        PopularScootersAndUpcomingScooters = 6,
+        PopularSeriesAndMakeBikeSeriesWidget = 7,
+        PopularUpcomingBodyStyleWidgetWidget = 8
     }
 }

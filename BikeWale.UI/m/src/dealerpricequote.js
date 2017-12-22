@@ -486,18 +486,16 @@ docReady(function () {
         });
         self.totalPayable = ko.pureComputed({
             read: function () {
-                return (self.downPayment() + (self.monthlyEMI() * self.tenure()));
+                return (self.downPayment() + (self.monthlyEMI() * self.tenure()) + self.processingFees());
             },
             owner: this
         });
     };
 
     $.calculateEMI = function (loanAmount, tenure, rateOfInterest, proFees) {
-        var interest, totalRepay, finalEmi;
+        var finalEmi;
         try {
-            interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
-            totalRepay = loanAmount + interest + proFees;
-            finalEmi = Math.round((totalRepay / tenure));
+            finalEmi = Math.round((loanAmount * rateOfInterest / 1200) / (1 - Math.pow((1 + rateOfInterest / 1200), (-1.0 * tenure))));
         }
         catch (e) {
         }

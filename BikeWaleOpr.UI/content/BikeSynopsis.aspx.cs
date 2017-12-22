@@ -104,11 +104,11 @@ namespace BikeWaleOpr.Content
             FillExistingData(Request.QueryString["model"]);
 
             //Refresh memcache object for ModelDescription change for app
-            MemCachedUtil.Remove(string.Format("BW_ModelDesc_{0}", Request.QueryString["model"]));
+            MemCachedUtility.Remove(string.Format("BW_ModelDesc_{0}", Request.QueryString["model"]));
 
             //Refresh memcache object for ModelDescription change for desktop site
-            MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", Request.QueryString["model"]));
-            MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", Request.QueryString["model"]));
+            MemCachedUtility.Remove(string.Format("BW_ModelDetails_{0}", Request.QueryString["model"]));
+            MemCachedUtility.Remove(string.Format("BW_ModelDetail_V1_{0}", Request.QueryString["model"]));
         }
 
         void FillRatings(DropDownList drpName)

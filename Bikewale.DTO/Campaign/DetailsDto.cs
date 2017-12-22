@@ -6,7 +6,7 @@ namespace Bikewale.DTO.Campaign
     {
         [JsonProperty("dealer", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DealerCampaignBase Dealer { get; set; }
-        [JsonProperty("esCamapign", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonProperty("esCampaign", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public PreRenderCampaignBase EsCamapign { get; set; }
     }
 }

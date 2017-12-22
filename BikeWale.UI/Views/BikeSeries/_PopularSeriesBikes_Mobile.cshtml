@@ -1,0 +1,43 @@
+﻿@model Bikewale.Models.BikeSeries.PopularSeriesBikesVM
+@using Bikewale.Utility;
+@if (Model != null && Model.BikesList != null && Model.BikesList.Any())
+{
+
+	foreach (var bike in Model.BikesList)
+	{
+		var bikeName = string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName);
+
+		<div class="swiper-slide">
+			<div class="swiper-card">
+				<div class="position-rel">
+					<a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName))" title="@bikeName" >
+						<div class="swiper-image-preview">
+							<img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl,ImageSize._210x118,Bikewale.Utility.QualityFactor._70)" title="@bikeName" alt="@bikeName" />
+							<span class="swiper-lazy-preloader"></span>
+						</div>
+						
+							<div class="swiper-details-block">
+								<p class="target-link font12 text-truncate margin-bottom5">@bikeName</p>
+								<p class="text-truncate text-light-grey font11">@(bike.Price.ExShowroomPrice > 0 ? String.Format("Ex-showroom, {0}", (!String.IsNullOrEmpty(Model.CityName) ? Model.CityName : BWConfiguration.Instance.GetDefaultCityName)) : "Avg. Ex-showroom price")</p>
+								<p class="text-default font16">
+									@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ExShowroomPrice > 0 ? Convert.ToString(bike.Price.ExShowroomPrice) : Convert.ToString(bike.Price.AvgPrice))</span>
+								</p>
+							</div>
+						
+					</a>
+					@if (bike.Price.ExShowroomPrice == 0)
+					{
+						<span class="info-icon tooltip-icon-target tooltip-top tooltip--right">
+							<span class="bw-tooltip info-tooltip">
+								<span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.CityName)</span>
+							</span>
+						</span>
+					}
+				</div>
+				<div class="swiper-btn-block">
+					<a href="javascript:void(0)" data-pqsourceid="@Model.PQSourceId" data-makename="@bike.BikeMake.MakeName" data-modelname="@bike.BikeModel.ModelName" data-modelid="@bike.BikeModel.ModelId" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>
+				</div>
+			</div>
+		</div>
+	}
+}

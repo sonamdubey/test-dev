@@ -1,7 +1,4 @@
 ﻿
-using Bikewale.Utility;
-using Enyim.Caching;
-using MySql.CoreDAL;
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -9,6 +6,9 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
+using Bikewale.Utility;
+using Enyim.Caching;
+using MySql.CoreDAL;
 
 /// <summary>
 /// Getting All details of make model and versions of the bikes
@@ -331,8 +331,8 @@ namespace BikeWaleOpr.Common
                     {
                         _mc.Remove("BW_ModelMapping");
                         _mc.Remove("BW_NewBikeLaunches");
-                        _mc.Remove("BW_OldModelMaskingNames");
-                        _mc.Remove("BW_NewModelMaskingNames");
+                        _mc.Remove("BW_OldModelMaskingNames_v1");
+                        _mc.Remove("BW_NewModelMaskingNames_v1");
                         _mc.Remove("BW_TopVersionId");
                     }
 

@@ -659,16 +659,39 @@ namespace Bikewale.BAL.EditCMS
             return objImages;
         }
 
-        #endregion
+		#endregion
 
+		#region ContentListBySubCategory
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 13 Dec 2017
+		/// Description : Method to get content list by category and subcategory id.
+		/// </summary>
+		public CMSContent GetContentListBySubCategoryId(uint startIndex, uint endIndex, string categoryIdList, string subCategoryIdList, int makeId = 0, int modelId = 0)
+		{
+			try
+			{
+				var _objGrpcContent = GrpcMethods.GetContentListBySubCategoryId(startIndex, endIndex, categoryIdList, subCategoryIdList, makeId, modelId);
 
-        #region Update the View Count
-        /// <summary>
-        /// Created by  :   Sumit Kate on 25 July 2016
-        /// Description :   Updates the View count
-        /// </summary>
-        /// <param name="basicId"></param>
-        public void UpdateViewCount(uint basicId)
+				if (_objGrpcContent != null && _objGrpcContent.RecordCount > 0)
+				{
+					return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcContent);
+				}
+			}
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+			}
+			return null;
+		}
+		#endregion
+		#region Update the View Count
+		/// <summary>
+		/// Created by  :   Sumit Kate on 25 July 2016
+		/// Description :   Updates the View count
+		/// </summary>
+		/// <param name="basicId"></param>
+		public void UpdateViewCount(uint basicId)
         {
             try
             {
@@ -715,6 +738,8 @@ namespace Bikewale.BAL.EditCMS
 
             return categoryId;
         }
-        #endregion
-    }
+		#endregion
+
+		
+	}
 }

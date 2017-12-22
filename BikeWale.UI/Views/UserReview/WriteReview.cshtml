@@ -87,7 +87,7 @@
                                             </ol>
 
                                             <div class="textarea-box margin-bottom15">
-                                                <textarea data-bind="textInput: detailedReview" id="reviewDesc" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.ReviewErrorText)) ? Model.SubmitResponse.ReviewErrorText : "")" rows="4" cols="80" maxlength="7900" placeholder="@Html.Raw("Write a detailed review & stand a chance to win Amazon vouchers worth &#x20B9; 2,000.")"></textarea>
+                                                <textarea data-bind="textInput: detailedReview" id="reviewDesc" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.ReviewErrorText)) ? Model.SubmitResponse.ReviewErrorText : "")" rows="4" cols="80" maxlength="7900" placeholder="@Html.Raw("Write a detailed review & stand a chance to win Amazon vouchers worth &#x20B9;" + Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney + "." )"></textarea>
 
                                                 <div data-bind="visible: !detailedReviewFlag() && descLength() < 300" class="review-char-count position-abt font12">
                                                     <span data-bind="visible: descLength() > 0"><span data-bind="text: descLength"></span>/</span><span data-bind="text: reviewCharLimit"></span>&nbsp;min
