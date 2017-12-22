@@ -201,8 +201,8 @@ namespace Bikewale.BAL.Compare
                         var spec = compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
                         if (spec != null)
                         {
-                            etDisplacement.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(spec.Displacement.Value.ToString(), "cc"), Text = FormatMinSpecs.ShowAvailable(spec.Displacement.Value.ToString(), "cc") });
-                            etCylinders.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(spec.Cylinders.Value.ToString()), Text = FormatMinSpecs.ShowAvailable(spec.Cylinders.Value.ToString()) });
+                            etDisplacement.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(spec.Displacement.Value, "cc"), Text = FormatMinSpecs.ShowAvailable(spec.Displacement.Value, "cc") });
+                            etCylinders.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(spec.Cylinders.Value), Text = FormatMinSpecs.ShowAvailable(spec.Cylinders.Value) });
                             etMaxPower.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(spec.MaxPower.Value, "bhp", spec.MaxPowerRpm.Value, "rpm"), Text = FormatMinSpecs.ShowAvailable(spec.MaxPower.Value, "bhp", spec.MaxPowerRpm.Value, "rpm") });
                             etMaximumTorque.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(spec.MaximumTorque.Value, "Nm", spec.MaximumTorqueRpm.Value, "rpm"), Text = FormatMinSpecs.ShowAvailable(spec.MaximumTorque.Value, "Nm", spec.MaximumTorqueRpm.Value, "rpm") });
                             etBore.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(spec.Bore.Value), Text = FormatMinSpecs.ShowAvailable(spec.Bore.Value) });
