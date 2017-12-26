@@ -108,7 +108,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 //Check if it contains javascript:void(0), replace it with 
                 if (!string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
                 {
-                    template = template.Replace("href=\"javascript:void(0)\"", "onclick=\"Android.callDealer();\"");
+                    template = template.Replace("href=\"javascript:void(0)\"", "onclick=\"Android.openLeadCaptureForm();\"");
                 }
                 campaignResponse.DetailsCampaign.EsCamapign.TemplateHtml = template;
                 campaignResponse.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
