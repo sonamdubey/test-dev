@@ -1,15 +1,4 @@
-﻿using AmpCacheRefreshLibrary;
-using Bikewale.Notifications;
-using Bikewale.Utility;
-using BikewaleOpr.common;
-using BikewaleOpr.DALs.Bikedata;
-using BikewaleOpr.Entity.BikeData;
-using BikewaleOpr.Interface.BikeData;
-using BikeWaleOpr.Common;
-using Enyim.Caching;
-using Microsoft.Practices.Unity;
-using MySql.CoreDAL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -21,6 +10,18 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using AmpCacheRefreshLibrary;
+using Bikewale.Notifications;
+using Bikewale.Utility;
+using BikewaleOpr.common;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Entity.BikeData;
+using BikewaleOpr.Entity.ElasticSearch;
+using BikewaleOpr.Interface.BikeData;
+using BikeWaleOpr.Common;
+using Enyim.Caching;
+using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -36,6 +37,8 @@ namespace BikeWaleOpr.Content
         protected HiddenField hdnModelIdList, hdnModelIdsList, hdnModelIdsListSeries;
         private readonly IBikeSeries _series = null;
         private readonly IBikeMakes _makes = null;
+        private readonly IBikeESRepository _bikeESRepository;
+        private readonly string _indexName;
 
         private string SortCriteria
         {
@@ -85,8 +88,11 @@ namespace BikeWaleOpr.Content
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
-                .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>();
+                .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
+                .RegisterType<IBikeESRepository, BikeESRepository>();
                 _series = container.Resolve<IBikeSeries>();
+                _indexName = ConfigurationManager.AppSettings["MMIndexName"];
+                _bikeESRepository = container.Resolve<IBikeESRepository>();
             }
 
             using (IUnityContainer container = new UnityContainer())
@@ -359,7 +365,17 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_moupdatedby", DbType.Int64, BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.Int32, dtgrdMembers.DataKeys[e.Item.ItemIndex]));
 
-                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    var isModelUpdate = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                    if (isModelUpdate)
+                    {
+                        uint makeId, modelId;
+                        uint.TryParse(lblMakeId.Text, out makeId);
+                        uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
+                        string id = string.Format("{0}_{1}", makeId, modelId);
+                        UpdateModelESIndex(txt.Text.Trim().Replace("'", "''"), id, chkNew1.Checked, chkFuturistic1.Checked);
+                    }
+
                     NameValueCollection nvc = new NameValueCollection();
                     nvc.Add("v_ModelName", txt.Text.Trim().Replace("'", "''"));
                     nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
@@ -889,6 +905,36 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 26th Dec 2017
+        /// Description : Update model detais in ES index
+        /// </summary>
+        /// <param name="modelName"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="isNew"></param>
+        /// <param name="isUsed"></param>
+        /// <param name="isFuturistic"></param>
+        private void UpdateModelESIndex(string modelName, string id, bool isNew, bool isFuturistic)
+        {
+
+            try
+            {
+                BikeList bike = _bikeESRepository.GetBikeESIndex(id, _indexName);
+                if (bike != null && bike.payload != null)
+                {
+                    bike.name = modelName;
+                    bike.payload.IsNew = Convert.ToString(isNew);
+                    bike.payload.Futuristic = Convert.ToString(isFuturistic);
+                    _bikeESRepository.UpdateBikeESIndex(id, _indexName, bike);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.Content.BikeModels UpdateModelESIndex id = {0}", id));
             }
         }
     }
