@@ -5,6 +5,7 @@ using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using System.Collections.Generic;
+using System;
 
 namespace Bikewale.Service.AutoMappers.Version
 {
@@ -66,5 +67,20 @@ namespace Bikewale.Service.AutoMappers.Version
             return Mapper.Map<IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion>, IEnumerable<BikeColorsbyVersionsDTO>>(objVersionColors);
 
         }
-    }
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 26 Dec 2017
+		/// Description : Method to map specs and features of a version.
+		/// </summary>
+		/// <param name="transposeModelSpecEntity">Entity with specs and features of a version.</param>
+		/// <returns>DTO with specs and features of a version.</returns>
+		internal static VersionSpecs Convert(TransposeModelSpecEntity transposeModelSpecEntity)
+		{
+			Mapper.CreateMap<Entities.BikeData.Specs, DTO.Model.Specs>();
+			Mapper.CreateMap<Entities.BikeData.SpecsCategory, DTO.Model.SpecsCategory>();
+			Mapper.CreateMap<Entities.BikeData.Specifications, DTO.Model.Specifications>();
+			Mapper.CreateMap<Entities.BikeData.Features, DTO.Model.Features>();
+			Mapper.CreateMap<TransposeModelSpecEntity, VersionSpecs>();
+			return Mapper.Map<TransposeModelSpecEntity, VersionSpecs>(transposeModelSpecEntity);
+		}
+	}
 }

@@ -170,9 +170,10 @@ namespace Bikewale.DAL.BikeData
                     // Get version all specs
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 && !modelPage.ModelDetails.Futuristic)
                     {
-                        modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
                         modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
-                    }
+						modelPage.ModelVersionSpecs = modelPage.ModelVersionSpecsList.First(m => m.BikeVersionId == modelPage.ModelVersions[0].VersionId);
+
+					}
                     modelPage.ModelColors = GetModelColor(modelId);
                     modelPage.colorPhotos = GetModelColorPhotos(modelId);
                 }
