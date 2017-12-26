@@ -240,7 +240,7 @@ namespace Bikewale.Service.Controllers.CMS
         /// Created By : Sajal Gupta on 22/09/2016
         /// Description: Clear memcached buckets of Grpc editCms of respective category Ids.
         /// </summary>
-        [HttpGet, Route("api/cms/category/{catId}/refreshcache")]
+        [HttpGet, Route("api/cms/category/{catId}/refreshcache/")]
         public IHttpActionResult ClearEditCMSCacheKeys(int catId)
         {
             try
