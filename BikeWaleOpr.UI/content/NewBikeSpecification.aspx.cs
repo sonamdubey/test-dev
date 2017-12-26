@@ -488,6 +488,7 @@ namespace BikeWaleOpr.Content
                     //Refresh memcache object for bikeVersionSpecs change
                     MemCachedUtility.Remove(string.Format("BW_VersionMinSpecs_V1_{0}_New_{1}", Request.QueryString["modelid"], isNew1));
                     MemCachedUtility.Remove("BW_BikesByMileage");
+                    MemCachedUtility.Remove(string.Format("BW_SpecsFeatures_version_{0}", Convert.ToUInt32(_versionId)));
                 }
             }
             catch (SqlException err)
