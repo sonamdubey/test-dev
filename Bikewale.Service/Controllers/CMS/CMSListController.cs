@@ -240,6 +240,53 @@ namespace Bikewale.Service.Controllers.CMS
         /// Created By : Sajal Gupta on 22/09/2016
         /// Description: Clear memcached buckets of Grpc editCms of respective category Ids.
         /// </summary>
+        [HttpGet, Route("api/cms/category/{catId}/refreshcache")]
+        public IHttpActionResult ClearEditCMSCacheKeys(int catId)
+        {
+            try
+            {
+                switch (catId)
+                {
+                    case 6:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, 0, 0);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features, 0, 0);
+                        break;
+                    case 8:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, 0, 0);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews, 0, 0);
+                        break;
+                    case 2:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, 0, 0);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews, 0, 0);
+                        break;
+                    case 19:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, 0, 0);
+                        break;
+                    case 1:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, 0, 0);
+                        break;
+                    case 18:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features, 0, 0);
+                        break;
+                    case 11:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Videos, 0, 0);
+                        break;
+                    default:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.All, 0, 0);
+                        break;
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Exception at Bikewale.Service.CMS.CMSController.ClearEditCMSCacheKeys for parameter catId : {0}", catId));
+
+                return InternalServerError();
+            }
+        }
+        #endregion
+
         [HttpGet, Route("api/cms/category/{catId}/refreshcache/{makeId}/{modelId}")]
         public IHttpActionResult ClearEditCMSCacheKeys(int catId, int makeId, int modelId)
         {
@@ -280,13 +327,11 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Exception at Bikewale.Service.CMS.CMSController.ClearEditCMSCacheKeys for parameter catId : {0}", catId));
+                ErrorClass.LogError(ex, string.Format("Exception at Bikewale.Service.CMS.CMSController.ClearEditCMSCacheKeys for parameter catId : {0},{1},{2}", catId, makeId, modelId));
 
                 return InternalServerError();
             }
         }
-        #endregion
-
     }   // class
 }   // namespace
 
