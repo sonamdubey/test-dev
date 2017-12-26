@@ -390,8 +390,8 @@ namespace BikeWaleOpr.Content
                     {
                         foreach(var bike in bikes)
                         {
-                            bike.payload.Futuristic = false.ToString();
-                            bike.payload.IsNew = true.ToString();
+                            bike.payload.Futuristic = "False";
+                            bike.payload.IsNew = "True";
                         }
 
                         _bikeESRepository.UpdateBikeESIndex(ids, _indexName, bikes);
