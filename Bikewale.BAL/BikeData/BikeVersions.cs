@@ -111,10 +111,10 @@ namespace Bikewale.BAL.BikeData
 
             return versionRepository.GetSimilarBikesByModel(modelId, topCount, cityid);
         }
-        public IEnumerable<SimilarBikeEntity> GetSimilarBikesByMinPriceDiff(U modelId, uint topCount, uint cityid)
+        public IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityid)
         {
 
-            return versionRepository.GetSimilarBikesByMinPriceDiff(modelId, topCount, cityid);
+            return versionRepository.GetSimilarBudgetBikes(modelId, topCount, cityid);
         }
 
 

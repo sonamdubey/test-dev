@@ -89,7 +89,7 @@ namespace Bikewale.Cache.BikeData
                 {
                     cacheTime = new TimeSpan(23, 0, 0);
                 }
-                bikelist = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersions.GetSimilarBikesByMinPriceDiff(modelId, topCount, cityid));
+                bikelist = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersions.GetSimilarBudgetBikes(modelId, topCount, cityid));
             }
             catch (Exception ex)
             {
