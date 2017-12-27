@@ -318,6 +318,9 @@ namespace Bikewale.Service.Controllers.CMS
                     case 11:
                         GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Videos, makeId, modelId);
                         break;
+                    case 13:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Videos, makeId, modelId);
+                        break;
                     default:
                         GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.All, makeId, modelId);
                         break;

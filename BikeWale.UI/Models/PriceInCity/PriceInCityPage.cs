@@ -451,7 +451,7 @@ namespace Bikewale.Models
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
 
-                    
+
                     BindAdSlotTags(objVM);
 
                     if (objVM.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
@@ -796,7 +796,7 @@ namespace Bikewale.Models
                     int monthlyEMI = 0;
                     if (tenure != 0)
                     {
-                        monthlyEMI = Convert.ToInt32(Math.Round( (loanAmount * rateOfInterest / 1200) / (1 - Math.Pow((1 + (rateOfInterest / 1200)), (-1.0 * tenure)) ) ));
+                        monthlyEMI = Convert.ToInt32(Math.Round((loanAmount * rateOfInterest / 1200) / (1 - Math.Pow((1 + (rateOfInterest / 1200)), (-1.0 * tenure)))));
                     }
 
                     int totalAmount = downPayment + monthlyEMI * tenure + procFees;
@@ -1184,6 +1184,8 @@ namespace Bikewale.Models
         /// Description : Function to create page level schema for breadcrum
         /// Modified by Sajal Gupta on 02-11-2017
         /// Descriptition : Changed breadcrumb for scooter
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Description: Added 'new bikes' in breadcrumb
         /// </summary>
         private void SetBreadcrumList(PriceInCityPageVM objPage)
         {
@@ -1199,7 +1201,7 @@ namespace Bikewale.Models
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
 
                 if (objPage.Make != null)
                 {

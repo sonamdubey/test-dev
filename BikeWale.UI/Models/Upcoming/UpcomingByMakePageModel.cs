@@ -204,8 +204,9 @@ namespace Bikewale.Models.Upcoming
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
             url += "upcoming-bikes/";
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Upcoming bikes"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Upcoming bikes"));
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 
