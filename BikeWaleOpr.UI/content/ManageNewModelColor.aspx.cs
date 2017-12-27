@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Common;
+﻿using BikewaleOpr.Cache;
+using BikewaleOpr.Common;
 using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
 using System;
@@ -53,6 +54,10 @@ namespace BikewaleOpr.content
                         colorId = Convert.ToInt32(hdnColorID.Value);
                         isActive = chkActive.Checked;
                         isSaved = objManageModelColor.UpdateColorCode(colorId, hexCode, Convert.ToInt32(CurrentUser.Id), isActive);
+                    }
+                    if (rptHexCode.Items.Count > 0)
+                    {
+                        MemCachedUtil.Remove(string.Format("BW_ModelPhotosColorWise_{0}", modelId));
                     }
                 }
                 BindControls();
