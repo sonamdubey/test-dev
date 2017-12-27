@@ -1,29 +1,39 @@
 ﻿@model IEnumerable<BestBikeEntityBase>
 @using Bikewale.Entities.GenericBikes;
 @using Bikewale.Utility;
-<ul class="sidebar-bike-list">
-    @foreach (var bike in Model)
-    {
-    var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
-    
-    <li>
-        <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName)" title="@bikeName " class="bike-target-link">
-            <div class="bike-target-image inline-block">
-                <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._110x61, QualityFactor._70)" alt="@bikeName" />
-            </div>
-            <div class="bike-target-content inline-block padding-left10">
-                <h3>@bikeName</h3>
-                @if (bike.Price > 0)
-                { 
-                <p class="font11 text-light-grey">@String.Format("Ex-showroom, {0}", Bikewale.Common.Configuration.GetDefaultCityName)</p>
-                @Html.Raw("<span class='font16'> &#x20B9;</span>")<span class="font16 text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
-                }
-                else
-                { 
-                <span class='font14 text-light-grey'>Price not available</span>
-                } 
-            </div>
-        </a>
-    </li>
-    }
-</ul>
+@if (Model != null)
+{
+	<ul class="sidebar-bike-list">
+		@foreach (var bike in Model)
+		{
+			var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+
+			<li>
+				<a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName)" title="@bikeName " class="bike-target-link">
+					<div class="bike-target-image inline-block">
+						<img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._110x61, QualityFactor._70)" alt="@bikeName" />
+					</div>
+					<div class="bike-target-content inline-block padding-left10">
+						<h3>@bikeName</h3>
+						@if (bike.Price > 0)
+						{
+							<p class="font11 text-light-grey">@String.Format("Ex-showroom, {0}", !string.IsNullOrEmpty(bike.UsedCity.CityName) ? bike.UsedCity.CityName : Bikewale.Common.Configuration.GetDefaultCityName)</p>
+
+							@Html.Raw("<span class='font16'> &#x20B9;</span>")<span class="font16 text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
+						}
+						else if(bike.AvgPrice > 0)
+						{
+							<p class="font11 text-light-grey">Avg. Ex-showroom price</p>
+							@Html.Raw("<span class='font16'> &#x20B9;</span>")<span class="font16 text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))</span>
+						}
+						else
+						{
+							<span class='font14 text-light-grey'>Price not available</span>
+						}
+					</div>
+				</a>
+			</li>
+		}
+	</ul>
+}
+
