@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using Bikewale.DAL.CoreDAL;
+﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -21,6 +12,15 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Dapper;
 using MySql.CoreDAL;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -165,8 +165,6 @@ namespace Bikewale.DAL.BikeData
                         modelPage.ModelVersions = GetVersionMinSpecs(modelId, modelPage.ModelDetails.New);
                     }
 
-
-
                     // Get version all specs
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 && !modelPage.ModelDetails.Futuristic)
                     {
@@ -182,9 +180,7 @@ namespace Bikewale.DAL.BikeData
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
-
             return modelPage;
-
         }
 
         /// <summary>
@@ -3258,13 +3254,13 @@ namespace Bikewale.DAL.BikeData
             BikeSeriesEntityBase objSeries = null;
             try
             {
-                using(DbCommand cmd = DbFactory.GetDBCommand("getseriesbymodelid"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getseriesbymodelid"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.UInt32, modelId));
-                    using(IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if(dr != null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             objSeries = new BikeSeriesEntityBase
                             {
@@ -3277,7 +3273,7 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Bikedata.GetSeriesByModelId modelId = {0}", modelId));
             }

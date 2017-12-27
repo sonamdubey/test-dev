@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Common;
+﻿using BikewaleOpr.Cache;
+using BikewaleOpr.Common;
 using BikewaleOpr.Entities;
 using BikeWaleOpr;
 using BikeWaleOpr.Common;
@@ -81,8 +82,8 @@ namespace BikewaleOpr.content
                 string modelColorId = ((HiddenField)item.FindControl("hdnModelColorId")).Value;
                 IEnumerable<ModelColorBase> modelColors = (new ManageModelColor()).FetchModelColors(Convert.ToInt32(ModelId));
                 rptVColor.DataSource = (from color in modelColors
-                                       where color.Id == Convert.ToUInt32(modelColorId)
-                                       select color).FirstOrDefault().ColorCodes;
+                                        where color.Id == Convert.ToUInt32(modelColorId)
+                                        select color).FirstOrDefault().ColorCodes;
                 rptVColor.DataBind();
             }
         }
@@ -96,11 +97,12 @@ namespace BikewaleOpr.content
                 obj = new ManageModelColor();
 
                 isSaved = obj.DeleteModelColor(Convert.ToInt32(hdnDeleteModelId.Value), Convert.ToInt32(CurrentUser.Id));
+                MemCachedUtil.Remove(string.Format("BW_ModelPhotosColorWise_{0}", ModelId));
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
-                
+
                 spnError.InnerHtml = "<b>Error occured while deleting.</b>";
             }
             if (isSaved)
@@ -129,7 +131,7 @@ namespace BikewaleOpr.content
                 rptColor.DataSource = (from color in modelColors
                                        where color.Id == Convert.ToUInt32(modelColorId)
                                        select color).FirstOrDefault().ColorCodes;
-                rptColor.DataBind();                
+                rptColor.DataBind();
             }
         }
 
@@ -179,7 +181,7 @@ namespace BikewaleOpr.content
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
-                
+
                 spnError.InnerHtml = "<b>Error occured while saving the version colors.</b>";
             }
 
@@ -206,6 +208,7 @@ namespace BikewaleOpr.content
                 if (isSaved)
                 {
                     spnError.InnerHtml = "<b>Saved the new Model Color</b>";
+                    MemCachedUtil.Remove(string.Format("BW_ModelPhotosColorWise_{0}", ModelId));
                 }
                 else
                 {
@@ -215,7 +218,7 @@ namespace BikewaleOpr.content
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
-                
+
                 spnError.InnerHtml = "<b>Error occured while saving the model color</b>";
             }
             txtColor.Text = String.Empty;
@@ -232,7 +235,7 @@ namespace BikewaleOpr.content
                 rptColor.ItemDataBound += new RepeaterItemEventHandler(rptColor_ItemDataBound);
                 string versionId = ((HiddenField)item.FindControl("BikeVersionId")).Value;
                 rptColor.DataSource = (new ManageModelColor()).FetchVersionColors(Convert.ToInt32(versionId));
-                rptColor.DataBind();                
+                rptColor.DataBind();
             }
         }
 
@@ -269,7 +272,7 @@ namespace BikewaleOpr.content
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
-                
+
             }
         }
 
