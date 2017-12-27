@@ -13,5 +13,6 @@ namespace Bikewale.Models
         public string WidgetHeading { get; set; }
         public string WidgetHref { get; set; }
         public string WidgetLinkTitle { get; set; }
+        public bool ShowViewAllLink { get; set; }
     }
 }

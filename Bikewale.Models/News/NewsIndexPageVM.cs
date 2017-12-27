@@ -35,6 +35,7 @@ namespace Bikewale.Models
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
         public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
+        public UpcomingBikesWidgetVM UpcomingBikesByBodyStyleWidget { get; set; }
         public PwaReduxStore ReduxStore { get; set; }
         public IHtmlString ServerRouterWrapper { get; set; }
         public string WindowState { get; set; }
@@ -49,8 +50,8 @@ namespace Bikewale.Models
         public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
 
 
-        public MultiTabsWidgetVM PopularSeriesAndMakeBikeSeriesWidget { get; set; }
-        public MultiTabsWidgetVM PopularUpcomingBodyStyleWidgetWidget { get; set; }
+        public MultiTabsWidgetVM PopularSeriesAndBodyStyleWidget { get; set; }
+        public MultiTabsWidgetVM PopularUpcomingBodyStyleWidget { get; set; }
 
         public EditorialSeriesWidgetVM SeriesWidget { get; set; }
         public EditorialSeriesMobileWidgetVM SeriesMobileWidget { get; set; }
