@@ -296,17 +296,22 @@
                     </div>
                 }
 
-                @if (Model.IsVideosAvailable)
+          
+                @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
                 {
                     <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
-                        <h2 class="text-bold">@Model.MakeName Videos</h2>
-                        @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
-                        <div class="view-all-btn-container">
-                            <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
+                        <h2>@Model.MakeName Videos</h2>
+
+                        @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+
+                        <div class="margin-top10">
+                            <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn btn-inv-blue">
+                                View All Videos
+                            </a>
                         </div>
+
                     </div>
                 }
-
                 @if (Model.IsUsedModelsBikeAvailable)
                 {
                     <div id="makeUsedBikeContent" class="bw-model-tabs-data  padding-top15">
