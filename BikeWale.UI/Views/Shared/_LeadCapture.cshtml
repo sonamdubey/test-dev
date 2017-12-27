@@ -954,7 +954,7 @@
         self.triggerABTestGA = function (galabel) {
             try {
                 var abuser = getCookie("_bwtest"), pgSource = (gaObj ? gaObj.id : 0);
-                triggerGA("PQ_PopUP", "PQSuccess", abuser + "_" + pgSource + "_" + galabel || '');
+                triggerGA("Lead_PopUP", "Lead_Success", abuser + "_" + pgSource + "_" + galabel || '');
             }
             catch (e) {
                 console.log(e.message)
