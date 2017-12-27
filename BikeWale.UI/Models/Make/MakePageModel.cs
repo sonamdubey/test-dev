@@ -473,6 +473,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Description: Added 'new bikes' in breadcrumb
         /// </summary>
         private void SetBreadcrumList(ref MakePageVM objData)
         {
@@ -485,7 +487,8 @@ namespace Bikewale.Models
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
+            url = string.Format("{0}new-bikes-in-india/", url);
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "New Bikes"));
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 
 
