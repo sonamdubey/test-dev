@@ -6,6 +6,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
+using Bikewale.Service.AutoMappers.Version;
 using Bikewale.Service.Utilities;
 using System;
 using System.Configuration;
@@ -21,22 +22,28 @@ namespace Bikewale.Service.Controllers.Model
     /// </summary>
     public class ModelSpecsController : CompressionApiController//ApiController
     {
-        private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+        private  string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _cache;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModelEntity = null;
+		private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCacheRepository = null;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="modelRepository"></param>
-        public ModelSpecsController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IBikeModels<BikeModelEntity, int> bikeModelEntity)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="modelRepository"></param>
+		/// <param name="cache"></param>
+		/// <param name="bikeModelEntity"></param>
+		/// <param name="versionCacheRepository"></param>
+		public ModelSpecsController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IBikeModels<BikeModelEntity, int> bikeModelEntity, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCacheRepository)
         {
             _modelRepository = modelRepository;
             _cache = cache;
             _bikeModelEntity = bikeModelEntity;
-        }
+			_versionCacheRepository = versionCacheRepository;
+
+		}
 
         #region Model Specifications and Features
         /// <summary>
@@ -123,7 +130,6 @@ namespace Bikewale.Service.Controllers.Model
                     objPQ = getPQ.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(platformId), null, null, deviceId);
                     if (objPQ != null)
                     {
-                        specs = new BikeSpecs();
                         specs = ModelMapper.ConvertToBikeSpecs(objModelPage, objPQ);
                         return Ok(specs);
                     }
@@ -137,5 +143,37 @@ namespace Bikewale.Service.Controllers.Model
                 return InternalServerError();
             }
         }
-    }
+		/// <summary>
+		/// Created by : Ashutosh Sharma on 26 Dec 2017
+		/// Description : API to get specs and features of a version.
+		/// </summary>
+		/// <param name="versionId"></param>
+		/// <returns></returns>
+		[HttpGet, ResponseType(typeof(VersionSpecs)), Route("api/version/{versionId}/specs/")]
+		public IHttpActionResult GetBikeVersionSpecs(uint versionId)
+		{
+			try
+			{
+				if (versionId <= 0)
+				{
+					return BadRequest();
+				}
+				TransposeModelSpecEntity transposeModelSpecEntity = _versionCacheRepository.GetSpecifications(versionId);
+				if (transposeModelSpecEntity != null)
+				{
+					VersionSpecs versionSpecs = VersionListMapper.Convert(transposeModelSpecEntity);
+					if (versionSpecs != null)
+					{
+						return Ok(versionSpecs);
+					}
+				}
+				return NotFound();
+			}
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Model.ModelSpecsController.GetBikeVersionSpecs");
+				return InternalServerError();
+			}
+		}
+	}
 }
