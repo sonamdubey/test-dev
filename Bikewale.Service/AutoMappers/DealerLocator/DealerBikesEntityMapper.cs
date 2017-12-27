@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
 using Bikewale.DTO.BikeData.v2;
+using Bikewale.DTO.Dealer;
 using Bikewale.DTO.DealerLocator;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.DTO.PriceQuote.Area;
+using Bikewale.DTO.PriceQuote.DealerPriceQuote;
 using Bikewale.DTO.Version;
 using Bikewale.DTO.Widgets.v2;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.Service.AutoMappers.DealerLocator
@@ -40,8 +42,8 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
             Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
             Mapper.CreateMap<DealerBikesEntity, DealerBikes>();
 
-            Mapper.CreateMap<AreaEntityBase, PQAreaBase>();
-            Mapper.CreateMap<NewBikeDealerBase, DealerBase>();
+            Mapper.CreateMap<Bikewale.Entities.Location.AreaEntityBase, PQAreaBase>();
+            Mapper.CreateMap<Bikewale.Entities.PriceQuote.NewBikeDealerBase, DealerBase>();
             Mapper.CreateMap<DealerPackageTypes, DealerPackageType>();
             Mapper.CreateMap<DealerDetailEntity, DealerDetail>();
 
@@ -78,6 +80,13 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
             Mapper.CreateMap<DealerBikeModelsEntity, DealerBikeModels>();
 
             return Mapper.Map<DealerBikeModelsEntity, DealerBikeModels>(dealerBikes);
+        }
+
+        internal static DTO.Dealer.DealerVersionPricesDTO Convert(DealerVersionPrices versionPrice)
+        {
+            Mapper.CreateMap<DealerVersionPrices, DealerVersionPricesDTO>();
+            Mapper.CreateMap<PQ_Price, DPQ_Price>();
+            return Mapper.Map<DealerVersionPrices, DealerVersionPricesDTO>(versionPrice);
         }
     }
 }

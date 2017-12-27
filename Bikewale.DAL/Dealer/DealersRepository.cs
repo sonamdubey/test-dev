@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Web;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
@@ -12,6 +8,12 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
+using System.Web;
 namespace Bikewale.DAL.Dealer
 {
     /// <summary>
@@ -441,7 +443,7 @@ namespace Bikewale.DAL.Dealer
                                 dealerdetail.EMail = Convert.ToString(dr["EMail"]);
                                 dealerdetail.Address = Convert.ToString(dr["Address"]);
                                 dealerdetail.CampaignId = SqlReaderConvertor.ParseToUInt32(dr["CampaignId"]);
-                                dealerdetail.objArea = new AreaEntityBase();
+                                dealerdetail.objArea = new Bikewale.Entities.Location.AreaEntityBase();
                                 dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
                                 dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
                                 dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]);
@@ -508,7 +510,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails = new DealerDetailEntity();
                                 dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
                                 dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
-                                dealers.DealerDetails.objArea = new AreaEntityBase
+                                dealers.DealerDetails.objArea = new Bikewale.Entities.Location.AreaEntityBase
                                 {
                                     AreaName = Convert.ToString(dr["Area"]),
                                     Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
@@ -616,7 +618,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.MakeName = Convert.ToString(dr["makename"]);
                                 dealers.DealerDetails.MakeMaskingName = Convert.ToString(dr["makemaskingname"]);
                                 dealers.DealerDetails.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
-                                dealers.DealerDetails.objArea = new AreaEntityBase
+                                dealers.DealerDetails.objArea = new Bikewale.Entities.Location.AreaEntityBase
                                 {
                                     AreaId = SqlReaderConvertor.ParseToUInt32(dr["areaid"]),
                                     AreaName = Convert.ToString(dr["Area"]),
@@ -1048,6 +1050,57 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass.LogError(ex, string.Format("exception in Dal for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
             }
             return objDealerCountList;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 27 Dec 2017
+        /// Description :   returns dealer versions price breakup
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public DealerVersionPrices GetBikeVersionPrice(uint dealerId, uint versionId)
+        {
+            DealerVersionPrices versionPrice = null;
+
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerversionprice"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            versionPrice = new DealerVersionPrices();
+                            versionPrice.PriceList = new List<PQ_Price>();
+                            while (dr.Read())
+                            {
+                                versionPrice.PriceList.Add(new PQ_Price()
+                                {
+                                    CategoryId = SqlReaderConvertor.ToUInt32(dr["itemid"]),
+                                    CategoryName = Convert.ToString(dr["itemname"]),
+                                    DealerId = SqlReaderConvertor.ToUInt32(dr["dealerid"]),
+                                    Price = SqlReaderConvertor.ToUInt32(dr["price"])
+                                });
+                            }
+                            if (versionPrice.PriceList != null && versionPrice.PriceList.Any())
+                            {
+                                versionPrice.OnRoadPrice = Convert.ToUInt32(versionPrice.PriceList.Sum(m => m.Price));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("DealersRepository.GetBikeVersionPrice. dealerId = {0}, versionId = {1}", dealerId, versionId));
+            }
+            return versionPrice;
         }
     }//End class
 }
