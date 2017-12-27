@@ -20,7 +20,7 @@
                             </a>
                         </div>
                         <div sc="" class='border-solid-left'>
-                            <a data-title="sort" class='position-rel @(Model.SelectedSortingId == 1 ? "text-bold" : "")' '>
+                            <a data-title="sort" class='position-rel @(Model.SelectedSortingId == 1 ? "text-bold" : "")'>
                                 Popularity
                             </a>
                         </div>
@@ -66,7 +66,7 @@
                                     var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
 
-                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex">
+                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
                                         <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
