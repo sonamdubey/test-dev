@@ -63,7 +63,7 @@ namespace Bikewale.Models
         private MakeHelper makeHelper = null;
         private ModelHelper modelHelper = null;
         private GlobalCityAreaEntity currentCityArea = null;
-        public string redirectUrl;
+        public string redirectUrl, CityName;
         public StatusCodes status;
         private BikeModelEntity objModel = null;
         private BikeMakeEntityBase objMake = null;
@@ -75,21 +75,6 @@ namespace Bikewale.Models
 
         #region Public properties
         public bool IsMobile { get; set; }
-
-        public string CityName
-        {
-            get
-            {
-                if (currentCityArea == null)
-                {
-                    currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                    if (currentCityArea != null)
-                        CityId = currentCityArea.CityId;
-                }
-
-                return string.IsNullOrEmpty(currentCityArea.City) ? string.Empty : currentCityArea.City;
-            }
-        }
 
         #endregion
 
@@ -115,6 +100,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Modified by : Ashutosh Sharma on 27 Nov 2017
         /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
+        /// Modified by : Ashutosh Sharma on 27 Dec 2017
+        /// Description : Added call to ProcessCityArea.
         /// </summary>
         public NewsIndexPage(ICMSCacheContent cacheContent, IPager pager, IBikeMakesCacheRepository objMakeCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
         {
@@ -130,11 +117,33 @@ namespace Bikewale.Models
             _seriesCache = seriesCache;
             _series = series;
             ProcessQueryString();
+            ProcessCityArea();
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 27 Dec 2017
+        /// Description : Method to get global city Id and Name from cookie.
+        /// </summary>
+        private void ProcessCityArea()
+        {
+        	try
+        	{
+        		currentCityArea = GlobalCityArea.GetGlobalCityArea();
+        		if (currentCityArea != null)
+        		{
+        			CityId = currentCityArea.CityId;
+        			CityName = currentCityArea.City;
+        		}
+        	}
+        	catch (Exception ex)
+        	{
+        		ErrorClass.LogError(ex, "Bikewale.Models.News.NewsIndexPage.ProcessCityArea");
+        	}
         }
         #endregion
-
+        
         #region Functions
-
+        
         /// <summary>
         /// Created By : Aditi Srivastava on 27 Mar 2017
         /// Summary    : Get page data
@@ -151,7 +160,6 @@ namespace Bikewale.Models
             try
             {
                 string modelIds = string.Empty;
-
                 int _startIndex = 0, _endIndex = 0;
                 _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
 
@@ -208,6 +216,7 @@ namespace Bikewale.Models
 
             try
             {
+				
                 int _startIndex = 0, _endIndex = 0;
                 _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
 
@@ -575,9 +584,7 @@ namespace Bikewale.Models
                 EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
                 try
                 {
-                    currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                    if (currentCityArea != null)
-                        CityId = currentCityArea.CityId;
+                    
 
                     List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
@@ -968,6 +975,8 @@ namespace Bikewale.Models
         }
         /// <summary>
         /// Fetches the bikes by body style.
+        /// Modified by : Ashutosh Sharma on 27 Dec 2017
+        /// Description : Added cityId to fetch bikes with city price.
         /// </summary>
         /// <param name="objData">The object data.</param>
         /// <param name="bodyStyle">The body style.</param>
@@ -988,7 +997,7 @@ namespace Bikewale.Models
                 }
 
                 // Popular BodyStyles
-                IEnumerable<BestBikeEntityBase> bestBikesByBodyStyle = _models.GetBestBikesByCategory(bodyStyle);
+                IEnumerable<BestBikeEntityBase> bestBikesByBodyStyle = _models.GetBestBikesByCategory(bodyStyle, CityId);
                 if (bestBikesByBodyStyle != null && bestBikesByBodyStyle.Any())
                 {
                     objData.SeriesWidget.PopularBikesByBodyStyle = bestBikesByBodyStyle.Take(6);
@@ -1003,6 +1012,8 @@ namespace Bikewale.Models
         }
         /// <summary>
         /// Fetches the popular bikes.
+        /// Modified by : Ashutosh Sharma on 27 Dec 2017
+        /// Description : Added cityId to fetch popular bikes with city price.
         /// </summary>
         private void FetchPopularBikes(NewsIndexPageVM objData)
         {
@@ -1010,11 +1021,10 @@ namespace Bikewale.Models
             {
 
                 objData.SeriesWidget = new EditorialSeriesWidgetVM();
-                IEnumerable<MostPopularBikesBase> makePopularBikes = _models.GetMostPopularBikesByMake((int)MakeId);
+                IEnumerable<MostPopularBikesBase> makePopularBikes = _models.GetMostPopularBikesByMakeWithCityPrice((int)MakeId, CityId);
                 if (makePopularBikes != null && makePopularBikes.Any())
                 {
                     objData.SeriesWidget.PopularMakeSeriesBikes = makePopularBikes.Take(6);
-
                 }
 
                 string modelIds = _series.GetModelIdsBySeries(objData.Series.SeriesId);
@@ -1024,7 +1034,7 @@ namespace Bikewale.Models
                     var popularSeries = (from bike in makePopularBikes
                                          where modelArray.Contains(bike.objModel.ModelId.ToString())
                                          select bike
-                                         ).ToList<MostPopularBikesBase>();
+                                         ).ToList();
                     if (popularSeries != null && popularSeries.Any())
                         objData.SeriesWidget.PopularSeriesBikes = popularSeries.Take(6);
                 }

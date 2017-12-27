@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Bikewale.Entities.Dealer;
+﻿using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Cache.DealersLocator
 {
@@ -52,7 +52,7 @@ namespace Bikewale.Cache.DealersLocator
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "DealerCacheRepository.GetDealerByMakeCity");
-                
+
             }
             return dealers;
         }
@@ -78,7 +78,7 @@ namespace Bikewale.Cache.DealersLocator
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "DealerCacheRepository.GetDealerDetailsAndBikes");
-                
+
             }
             return models;
         }
@@ -98,7 +98,7 @@ namespace Bikewale.Cache.DealersLocator
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "DealerCacheRepository.GetDealerDetailsAndBikes");
-                
+
             }
             return models;
         }
@@ -115,7 +115,7 @@ namespace Bikewale.Cache.DealersLocator
             string key = String.Format("BW_BikeModelsByDealer_{0}_{1}", dealerId, makeId);
             try
             {
-                models = _cache.GetFromCache<DealerBikeModelsEntity>(key, new TimeSpan(0, 30, 0), () => _objDealersRepository.GetBikesByDealerAndMake(dealerId, makeId));
+                models = _cache.GetFromCache<DealerBikeModelsEntity>(key, new TimeSpan(1, 0, 0, 0), () => _objDealersRepository.GetBikesByDealerAndMake(dealerId, makeId));
             }
             catch (Exception ex)
             {
@@ -145,7 +145,7 @@ namespace Bikewale.Cache.DealersLocator
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "DealerCacheRepository.GetPopularCityDealer");
-                
+
             }
             return cityDealers;
         }
@@ -162,7 +162,7 @@ namespace Bikewale.Cache.DealersLocator
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "DealerCacheRepository.GetPopularCityDealer");
-                
+
             }
             return dealersMakes;
         }
@@ -182,7 +182,7 @@ namespace Bikewale.Cache.DealersLocator
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "DealerCacheRepository.GetDealerByBrandList");
-                
+
             }
             return dealersMakes;
 
@@ -205,7 +205,7 @@ namespace Bikewale.Cache.DealersLocator
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("exception in CAche layer for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
-                
+
             }
             return objDealerCountList;
         }
@@ -224,6 +224,28 @@ namespace Bikewale.Cache.DealersLocator
             }
             return objDealerCitytList;
 
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 27 Dec 2017
+        /// Description :   Returns the Bike version price components from cache
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public DealerVersionPrices GetBikeVersionPrice(uint dealerId, uint versionId)
+        {
+            DealerVersionPrices versionPrice = null;
+            string key = String.Format("BW_Dealer_{0}_Version_{1}", dealerId, versionId);
+            try
+            {
+                versionPrice = _cache.GetFromCache<DealerVersionPrices>(key, new TimeSpan(1, 0, 0, 0), () => _objDealersRepository.GetBikeVersionPrice(dealerId, versionId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("DealerCacheRepo.GetBikeVersionPrice({0},{1})", dealerId, versionId));
+            }
+            return versionPrice;
         }
     }
 }

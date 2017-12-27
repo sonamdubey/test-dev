@@ -399,5 +399,14 @@ namespace BikewaleOpr.Cache
             }
         }
 
+        /// <summary>
+        /// Clear Bike Version Price memcache
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="versionId"></param>
+        public static void ClearBikeVersionPrice(uint dealerId, uint versionId)
+        {
+            MemCachedUtil.Remove(String.Format("BW_Dealer_{0}_Version_{1}", dealerId, versionId));
+        }
     }
 }
