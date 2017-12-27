@@ -229,6 +229,8 @@ namespace Bikewale.Models.ServiceCenters
         /// <summary>
         /// Created By :Snehal Dange on 2nd Nov 2017
         /// Description: Breadcrum for service center city page
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Desc        : Added 'New Bikes' in breadcrumb
         /// </summary>
         /// <param name="objPage"></param>
         private void SetBreadcrumList(ServiceCenterCityPageVM objPageVM)
@@ -246,7 +248,7 @@ namespace Bikewale.Models.ServiceCenters
                     }
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
                     if (objPageVM.Make != null)
                     {
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPageVM.Make.MaskingName), string.Format("{0} Bikes", objPageVM.Make.MakeName)));
