@@ -360,16 +360,18 @@ namespace BikeWaleOpr.Content
 
         }   // End of FillExistingData function
 
-        /// <summary>
-        ///      Function will insert the specifications data into newbikespecifications table 
-        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
-        /// Description : Changed cache key from 'BW_VersionMinSpecs_' to 'BW_VersionMinSpecs_V1_'.
-        /// Modified by:Snehal Dange on 6th Nov 2017
-        /// Description: added logic to remove mileage cache "BW_BikesByMileage" key
-        /// </summary>
-        /// <param name="Sender"></param>
-        /// <param name="e"></param>
-        void btnSubmit_Click(object Sender, EventArgs e)
+	/// <summary>
+	///      Function will insert the specifications data into newbikespecifications table 
+	/// Modified by : Ashutosh Sharma on 29 Sep 2017 
+	/// Description : Changed cache key from 'BW_VersionMinSpecs_' to 'BW_VersionMinSpecs_V1_'.
+	/// Modified by:Snehal Dange on 6th Nov 2017
+	/// Description: added logic to remove mileage cache "BW_BikesByMileage" key
+	/// Modified by : Ashutosh Sharma on 27 Dec 2017
+	/// Description : Added call to clear cache for 'BW_SpecsFeatures_version_{versionId}'.
+	/// </summary>
+	/// <param name="Sender"></param>
+	/// <param name="e"></param>
+	void btnSubmit_Click(object Sender, EventArgs e)
         {
 
             try
@@ -488,7 +490,7 @@ namespace BikeWaleOpr.Content
                     //Refresh memcache object for bikeVersionSpecs change
                     MemCachedUtility.Remove(string.Format("BW_VersionMinSpecs_V1_{0}_New_{1}", Request.QueryString["modelid"], isNew1));
                     MemCachedUtility.Remove("BW_BikesByMileage");
-                    MemCachedUtility.Remove(string.Format("BW_SpecsFeatures_version_{0}", Convert.ToUInt32(_versionId)));
+                    MemCachedUtility.Remove(string.Format("BW_SpecsFeatures_version_{0}", _versionId.Trim()));
                 }
             }
             catch (SqlException err)
