@@ -372,8 +372,7 @@ namespace BikeWaleOpr.Content
                         uint makeId, modelId;
                         uint.TryParse(lblMakeId.Text, out makeId);
                         uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
-                        string id = string.Format("{0}_{1}", makeId, modelId);
-                        UpdateModelESIndex(txt.Text.Trim().Replace("'", "''"), id, chkNew1.Checked, chkFuturistic1.Checked);
+                        UpdateModelESIndex(txt.Text.Trim().Replace("'", "''"), makeId, modelId, chkNew1.Checked, chkFuturistic1.Checked);
                     }
 
                     NameValueCollection nvc = new NameValueCollection();
@@ -918,15 +917,17 @@ namespace BikeWaleOpr.Content
         /// <param name="isNew"></param>
         /// <param name="isUsed"></param>
         /// <param name="isFuturistic"></param>
-        private void UpdateModelESIndex(string modelName, string id, bool isNew, bool isFuturistic)
+        private void UpdateModelESIndex(string modelName, uint makeId, uint modelId, bool isNew, bool isFuturistic)
         {
 
             try
             {
+                string id = string.Format("{0}_{1}", makeId, modelId);
                 BikeList bike = _bikeESRepository.GetBikeESIndex(id, _indexName);
                 if (bike != null && bike.payload != null)
                 {
-                    bike.name = modelName;
+                    var makeDetails = _makes.GetMakeDetailsById(makeId);
+                    bike.output = bike.name = string.Format("{0} {1}", makeDetails.MakeName, modelName);
                     bike.payload.IsNew = Convert.ToString(isNew);
                     bike.payload.Futuristic = Convert.ToString(isFuturistic);
                     _bikeESRepository.UpdateBikeESIndex(id, _indexName, bike);
@@ -934,7 +935,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.Content.BikeModels UpdateModelESIndex id = {0}", id));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.Content.BikeModels UpdateModelESIndex id = {0}_{1}", makeId, modelId));
             }
         }
     }
