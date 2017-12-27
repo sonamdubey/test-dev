@@ -19,6 +19,10 @@ namespace Bikewale.Models
     /// Summary : Added PopularBikesAndPopularScootersWidget and UpcomingBikesAndUpcomingScootersWidget and PopularBikesAndUpcomingBikesWidget
     /// Modifies by : Ashutosh Sharma on 27 Nov 2017
     /// Description : Added Series.
+    /// Modified by : Rajan Chauhan on 27 Dec 2017
+    /// Description : Changed PopularSeriesAndMakeBikeSeriesWidget to PopularSeriesAndBodyStyleWidget and 
+    ///               Changed name of PopularUpcomingBodyStyleWidgetWidget to PopularUpcomingBodyStyleWidget
+    ///               Added attribute UpcomingBikesByBodyStyleWidget
     /// </summary>
     public class NewsIndexPageVM : ModelBase
     {

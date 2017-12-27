@@ -911,6 +911,8 @@ namespace Bikewale.Models
         }
         /// <summary>
         /// Sets the series widget properties.
+        /// Modified by : Rajan Chauhan on 27 Dec 2017
+        /// Description : Change of Widget on series page PopularSeriesAndBodyStyleWidget and bottom widget to UpcomingBikesByBodyStyleWidget
         /// </summary>
         /// <param name="objData">The object data.</param>
         private void SetSeriesWidgetProperties(NewsIndexPageVM objData)
