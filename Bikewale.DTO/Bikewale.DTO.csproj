@@ -222,6 +222,7 @@
     <Compile Include="DealerLocator\DealerDetail.cs" />
     <Compile Include="DealerLocator\v2\DealerBikeBase.cs" />
     <Compile Include="DealerLocator\v2\DealerBikes.cs" />
+    <Compile Include="Dealer\DealerVersionPrices.cs" />
     <Compile Include="Dealer\NewBikeDealerBase.cs" />
     <Compile Include="Dealer\NewBikeDealerList.cs" />
     <Compile Include="Dealer\v2\NewBikeDealerBase.cs" />
