@@ -626,6 +626,8 @@
                     setPQUserCookie();
                 }
             }
+
+            self.triggerABTestGA(gaLabel);
             /* <![CDATA[ */
             window.google_trackConversion({
             google_conversion_id : 998187973,
@@ -941,6 +943,16 @@
 
         self.hideLoader = function () {
             $('#ub-ajax-loader').hide();
+        };
+
+        self.triggerABTestGA = function (galabel) {
+            try {
+                var abuser = getCookie("_bwtest"), pgSource = (gaObj ? gaObj.id : 0);
+                triggerGA("PQ_PopUP", "PQSuccess", abuser + "_" + pgSource + "_" + galabel || '');
+            }
+            catch (e) {
+                console.log(e.message)
+            }
         };
 
     }

@@ -627,7 +627,6 @@ namespace Bikewale.DAL.BikeData
                                 objBike.VersionBase.VersionId = SqlReaderConvertor.ToInt32(dr["versionid"]);
                                 objBike.HostUrl = Convert.ToString(dr["hosturl"]);
                                 objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
-                                objBike.AvgExShowroomPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]);
                                 objBike.OriginalImagePath = dr["originalimagepath"].ToString();
                                 objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
                                 objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["fuelefficiencyoverall"]);
