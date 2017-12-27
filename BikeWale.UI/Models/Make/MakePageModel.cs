@@ -488,7 +488,7 @@ namespace Bikewale.Models
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
             url = string.Format("{0}new-bikes-in-india/", url);
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "New Bikes"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "New Bikes"));
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 
 

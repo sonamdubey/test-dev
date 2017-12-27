@@ -375,7 +375,7 @@ namespace Bikewale.Models.BikeModels
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
 
             if (_objData.ModelPageEntity.ModelDetails.MakeBase != null)
             {

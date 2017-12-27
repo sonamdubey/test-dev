@@ -222,6 +222,8 @@ namespace Bikewale.Models.DealerShowroom
         /// Description : Function to create page level schema for breadcrum
         /// Modified by :Snehal Dange on 2th Nov 2017
         /// Description : Added makename in breadcrum
+        /// Modified by :Snehal Dange on 27th Dec 2017
+        /// Description : Added new bikes in breadcrum
         /// </summary>
         private void SetBreadcrumList(DealerShowroomCityPageVM objPage)
         {
@@ -238,8 +240,10 @@ namespace Bikewale.Models.DealerShowroom
                         url += "m/";
                     }
 
+
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
 
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
                     if (objPage.Make != null)
                     {
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName), string.Format("{0} Bikes", objPage.Make.MakeName)));
