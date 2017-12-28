@@ -67,7 +67,6 @@ namespace Bikewale.Models
     {
 
         public IEnumerable<MostPopularBikesBase> PopularSeriesBikes { get; set; }
-        public IEnumerable<MostPopularBikesBase> PopularMakeSeriesBikes { get; set; }
 
         public IEnumerable<BestBikeEntityBase> PopularBikesByBodyStyle { get; set; }
         public IEnumerable<UpcomingBikeEntity> UpcomingBikesByBodyStyle { get; set; }
