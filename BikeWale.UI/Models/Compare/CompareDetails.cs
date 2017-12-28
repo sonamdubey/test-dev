@@ -1,8 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -20,6 +16,10 @@ using Bikewale.Memcache;
 using Bikewale.Models.Compare;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -151,6 +151,7 @@ namespace Bikewale.Models
                     if (obj.Compare != null && obj.Compare.BasicInfo != null)
                     {
                         CreateCanonicalUrlAndCheckRedirection(obj);
+                        CreateDisclaimerText(obj);
                         if (status != StatusCodes.RedirectPermanent)
                         {
                             GetComparisionTextAndMetas(obj);
@@ -181,6 +182,23 @@ namespace Bikewale.Models
                 status = StatusCodes.ContentNotFound;
             }
         }
+
+        private void CreateDisclaimerText(CompareDetailsVM obj)
+        {
+
+            try
+            {
+
+                string BikeValue = string.Join(" vs ", obj.Compare.BasicInfo.Where(x => x.VersionId != obj.sponsoredVersionId).OrderBy(x => x.ModelId).Select(x => string.Format("{0} {1}", x.Make, x.Model)));
+                obj.DisclaimerText = string.Format("BikeWale take utmost care in providing you the accurate information about prices, feature, specs, and colors for comparison of {0}. However, BikeWale can't be held liable for any direct/indirect damage or loss. For comparison of {0}, the base version has been considered. You can compare any version for the comparison of {0}.", BikeValue);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.CreateDisclaimerText()");
+
+            }
+        }
+
 
         /// <summary>
         /// Created by Sajal Gupta on  07-11-2017
@@ -515,7 +533,7 @@ namespace Bikewale.Models
                     else
                     {
                         redirectionUrl = string.Format("/comparebikes/{0}/", redirectionUrl);
-                    }                    
+                    }
                     status = StatusCodes.RedirectPermanent;
                 }
                 else if (!string.IsNullOrEmpty(_versionsList) && bikeComparisions >= 2)
