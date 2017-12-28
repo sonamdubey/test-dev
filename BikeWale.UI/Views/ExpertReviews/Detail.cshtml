@@ -174,7 +174,7 @@
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>                
-                @if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null && Model.SimilarBikes.Bikes.Any())
+                @if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null && Model.SimilarBikes.Bikes.Any() && Model.Model.ModelId != 987)
                 {
                     <div id="sidebarBikeSection" class="content-box-shadow sidebar-bike-section margin-bottom20">
                         <h2 class="sidebar-list__title">You may also like</h2>
