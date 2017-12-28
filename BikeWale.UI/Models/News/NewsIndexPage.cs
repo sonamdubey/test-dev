@@ -969,8 +969,8 @@ namespace Bikewale.Models
                     ViewPath2 = "~/Views/Shared/_EditorialBestBikesSideBar.cshtml",
                     TabId2 = "PopularBodyStyle",
                     ViewAllHref2 = this.BodyStyle == EnumBikeBodyStyles.Scooter ? "/best-scooters-in-india/" : (this.BodyStyle == EnumBikeBodyStyles.Sports ? "/best-sports-bikes-in-india/" : (this.BodyStyle == EnumBikeBodyStyles.Cruiser ? "/best-cruiser-bikes-in-india/" : "/best-bikes-in-india/")),
-                    ViewAllTitle2 = string.Format("View all {0}", this.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
-                    ViewAllText2 = string.Format("View all {0}", this.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
+                    ViewAllTitle2 = string.Format("View all popular {0}", Bikewale.Utility.BodyStyleLinks.BodyStyleText(this.BodyStyle).ToLower()),
+                    ViewAllText2 = string.Format("View all popular {0}", Bikewale.Utility.BodyStyleLinks.BodyStyleText(this.BodyStyle).ToLower()),
                     ShowViewAllLink2 = true,
                     PopularBikesByBodyStyle = objData.SeriesWidget.PopularBikesByBodyStyle,
                     Pages = MultiTabWidgetPagesEnum.PopularSeriesAndBodyStyleWidget,
@@ -984,7 +984,7 @@ namespace Bikewale.Models
                 { 
                     WidgetHeading = string.Format("Upcoming {0}", Bikewale.Utility.BodyStyleLinks.BodyStyleText(this.BodyStyle)),
                     WidgetHref = IsUpcomingViewAllLinkShown ? "/upcoming-bikes/" : "",
-                    WidgetLinkTitle = "View all upcoming bikes",
+                    WidgetLinkTitle = string.Format("View all upcoming {0}", this.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
                     UpcomingBikes = objData.SeriesWidget.UpcomingBikesByBodyStyle,
                     ShowViewAllLink = IsUpcomingViewAllLinkShown
                 };
@@ -1031,6 +1031,8 @@ namespace Bikewale.Models
         /// Fetches the popular bikes.
         /// Modified by : Ashutosh Sharma on 27 Dec 2017
         /// Description : Added cityId to fetch popular bikes with city price.
+        /// Modified by : Rajan Chauhan on 28 Dec 2017
+        /// Description : Removed the PopularMakeSeriesBikes from objData SeriesWidget
         /// </summary>
         private void FetchPopularBikes(NewsIndexPageVM objData)
         {
@@ -1039,11 +1041,6 @@ namespace Bikewale.Models
 
                 objData.SeriesWidget = new EditorialSeriesWidgetVM();
                 IEnumerable<MostPopularBikesBase> makePopularBikes = _models.GetMostPopularBikesByMakeWithCityPrice((int)MakeId, CityId);
-                if (makePopularBikes != null && makePopularBikes.Any())
-                {
-                    objData.SeriesWidget.PopularMakeSeriesBikes = makePopularBikes.Take(6);
-                }
-
                 string modelIds = _series.GetModelIdsBySeries(objData.Series.SeriesId);
                 string[] modelArray = modelIds.Split(',');
                 if (modelArray.Length > 0)
