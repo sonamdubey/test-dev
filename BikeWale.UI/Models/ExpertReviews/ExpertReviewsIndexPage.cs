@@ -817,6 +817,8 @@ namespace Bikewale.Models
         }
         /// <summary>
         /// Fetches the popular bikes.
+        /// Modified by : Rajan Chauhan on 28 Dec 2017
+        /// Description : Removed the PopularMakeSeriesBikes from objData SeriesWidget
         /// </summary>
         private void FetchPopularBikes(ExpertReviewsIndexPageVM objData)
         {
@@ -824,11 +826,6 @@ namespace Bikewale.Models
             {
                 objData.SeriesWidget = new EditorialSeriesWidgetVM();
                 IEnumerable<MostPopularBikesBase> makePopularBikes = _models.GetMostPopularBikesByMake((int)MakeId);
-                if (makePopularBikes != null && makePopularBikes.Any())
-                {
-                    objData.SeriesWidget.PopularMakeSeriesBikes = makePopularBikes.Take(6);
-                }
-
                 string modelIds = _series.GetModelIdsBySeries(objData.Series.SeriesId);
                 string[] modelArray = modelIds.Split(',');
                 if (modelArray.Length > 0)
