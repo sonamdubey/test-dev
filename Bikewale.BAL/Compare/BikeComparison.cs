@@ -156,7 +156,7 @@ namespace Bikewale.BAL.Compare
                         //Mileage
                         CompareSubCategory mileage = GetCompareSubCategory(BWConstants.Mileage);
 
-                        bool isValuesPresent = false;
+                        int isValuesPresent = 0;
                         foreach (var version in arrVersion)
                         {
                             var reviewsObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
@@ -165,15 +165,15 @@ namespace Bikewale.BAL.Compare
                                 var modelReview = reviewsObj.ModelReview;
                                 mileage.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(modelReview.Mileage)));
 
-                                if (!isValuesPresent)
+                                if (isValuesPresent <= 1 && modelReview.Mileage > 0)
                                 {
-                                    isValuesPresent = modelReview.Mileage > 0;
+                                    ++isValuesPresent;
                                 }
                             }
                             else
                                 mileage.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(_defaultMinSpecs)));
                         }
-                        if (isValuesPresent)
+                        if (isValuesPresent > 1)
                         {
                             ratings.SpecCategory = new List<CompareSubCategory> { mileage };
                         }
@@ -183,7 +183,7 @@ namespace Bikewale.BAL.Compare
                         CompareSubMainCategory performanceParameters = GetCompareSubMainCategory(BWConstants.PerformanceParameters);
                         //visual Appeal
                         CompareSubCategory visualAppeal = GetCompareSubCategory(BWConstants.VisualAppeal);
-                        isValuesPresent = false;
+                        isValuesPresent = 0;
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
@@ -192,21 +192,21 @@ namespace Bikewale.BAL.Compare
                             {
                                 visualAppeal.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue)));
 
-                                if (!isValuesPresent)
+                                if (isValuesPresent <= 1 && objQuestion.AverageRatingValue > 0)
                                 {
-                                    isValuesPresent = objQuestion.AverageRatingValue > 0;
+                                    ++isValuesPresent;
                                 }
                             }
                             else
                                 visualAppeal.CompareSpec.Add(GetCompareBikeData(_defaultMinSpecs));
                         }
-                        if (isValuesPresent)
+                        if (isValuesPresent > 1)
                         {
                             performanceParameters.SpecCategory = new List<CompareSubCategory> { visualAppeal };
                         }
                         // Reliability
                         CompareSubCategory reliability = GetCompareSubCategory(BWConstants.Reliablity);
-                        isValuesPresent = false;
+                        isValuesPresent = 0;
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
@@ -215,21 +215,21 @@ namespace Bikewale.BAL.Compare
                             {
                                 reliability.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue)));
 
-                                if (!isValuesPresent)
+                                if (isValuesPresent <= 1 && objQuestion.AverageRatingValue > 0)
                                 {
-                                    isValuesPresent = objQuestion.AverageRatingValue > 0;
+                                    ++isValuesPresent;
                                 }
                             }
                             else
                                 reliability.CompareSpec.Add(GetCompareBikeData(_defaultMinSpecs));
                         }
-                        if (isValuesPresent)
+                        if (isValuesPresent > 1)
                         {
                             performanceParameters.SpecCategory.Add(reliability);
                         }
                         // Performance
                         CompareSubCategory performance = GetCompareSubCategory(BWConstants.Performance);
-                        isValuesPresent = false;
+                        isValuesPresent = 0;
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
@@ -238,21 +238,21 @@ namespace Bikewale.BAL.Compare
                             {
                                 performance.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue)));
 
-                                if (!isValuesPresent)
+                                if (isValuesPresent <= 1 && objQuestion.AverageRatingValue > 0)
                                 {
-                                    isValuesPresent = objQuestion.AverageRatingValue > 0;
+                                    ++isValuesPresent;
                                 }
                             }
                             else
                                 performance.CompareSpec.Add(GetCompareBikeData(_defaultMinSpecs));
                         }
-                        if (isValuesPresent)
+                        if (isValuesPresent > 1)
                         {
                             performanceParameters.SpecCategory.Add(performance);
                         }
                         // Comfort
                         CompareSubCategory comfort = GetCompareSubCategory(BWConstants.Comfort);
-                        isValuesPresent = false;
+                        isValuesPresent = 0;
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
@@ -261,21 +261,21 @@ namespace Bikewale.BAL.Compare
                             {
                                 comfort.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue)));
 
-                                if (!isValuesPresent)
+                                if (isValuesPresent <= 1 && objQuestion.AverageRatingValue > 0)
                                 {
-                                    isValuesPresent = objQuestion.AverageRatingValue > 0;
+                                    ++isValuesPresent;
                                 }
                             }
                             else
                                 comfort.CompareSpec.Add(GetCompareBikeData(_defaultMinSpecs));
                         }
-                        if (isValuesPresent)
+                        if (isValuesPresent > 1)
                         {
                             performanceParameters.SpecCategory.Add(comfort);
                         }
                         // Service Experience
                         CompareSubCategory serviceExperience = GetCompareSubCategory(BWConstants.ServiceExperience);
-                        isValuesPresent = false;
+                        isValuesPresent = 0;
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
@@ -284,19 +284,19 @@ namespace Bikewale.BAL.Compare
                             {
                                 serviceExperience.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue)));
 
-                                if (!isValuesPresent)
+                                if (isValuesPresent <= 1 && objQuestion.AverageRatingValue > 0)
                                 {
-                                    isValuesPresent = objQuestion.AverageRatingValue > 0;
+                                    ++isValuesPresent;
                                 }
                             }
                             else
                                 serviceExperience.CompareSpec.Add(GetCompareBikeData(_defaultMinSpecs));
                         }
-                        if (isValuesPresent)
+                        if (isValuesPresent > 1)
                             performanceParameters.SpecCategory.Add(serviceExperience);
                         // Maintenance Cost
                         CompareSubCategory maintenanceCost = GetCompareSubCategory(BWConstants.MaintenanceCost);
-                        isValuesPresent = false;
+                        isValuesPresent = 0;
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
@@ -305,19 +305,19 @@ namespace Bikewale.BAL.Compare
                             {
                                 maintenanceCost.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue)));
 
-                                if (!isValuesPresent)
+                                if (isValuesPresent <=1 && objQuestion.AverageRatingValue > 0)
                                 {
-                                    isValuesPresent = objQuestion.AverageRatingValue > 0;
+                                    ++isValuesPresent;
                                 }
                             }
                             else
                                 maintenanceCost.CompareSpec.Add(GetCompareBikeData(_defaultMinSpecs));
                         }
-                        if (isValuesPresent)
+                        if (isValuesPresent > 1)
                             performanceParameters.SpecCategory.Add(maintenanceCost);
                         // Value for Money
                         CompareSubCategory valueForMoney = GetCompareSubCategory(BWConstants.ValueForMoney);
-                        isValuesPresent = false;
+                        isValuesPresent = 0;
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
@@ -326,19 +326,19 @@ namespace Bikewale.BAL.Compare
                             {
                                 valueForMoney.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
 
-                                if (!isValuesPresent)
+                                if (isValuesPresent <= 1 && objQuestion.AverageRatingValue > 0)
                                 {
-                                    isValuesPresent = objQuestion.AverageRatingValue > 0;
+                                    ++isValuesPresent;
                                 }
                             }
                             else
                                 valueForMoney.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
                         }
-                        if (isValuesPresent)
+                        if (isValuesPresent > 1)
                             performanceParameters.SpecCategory.Add(valueForMoney);
                         // Extra Features
                         CompareSubCategory extraFeatures = GetCompareSubCategory(BWConstants.ExtraFeatures);
-                        isValuesPresent = false;
+                        isValuesPresent = 0;
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
@@ -347,15 +347,15 @@ namespace Bikewale.BAL.Compare
                             {
                                 extraFeatures.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
 
-                                if (!isValuesPresent)
+                                if (isValuesPresent <= 1&& objQuestion.AverageRatingValue > 0)
                                 {
-                                    isValuesPresent = objQuestion.AverageRatingValue > 0;
+                                    ++isValuesPresent;
                                 }
                             }
                             else
                                 extraFeatures.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
                         }
-                        if (isValuesPresent)
+                        if (isValuesPresent > 1)
                             performanceParameters.SpecCategory.Add(extraFeatures);
                         #endregion
 
