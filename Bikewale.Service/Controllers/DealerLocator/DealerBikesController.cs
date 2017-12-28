@@ -1,11 +1,15 @@
-﻿using Bikewale.DTO.Dealer;
+﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.Dealer;
 using Bikewale.DTO.DealerLocator;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.DealerLocator;
 using Bikewale.Service.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -22,6 +26,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
     {
         private readonly IDealer _dealer = null;
         private readonly IDealerCacheRepository _cache = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
 
         /// <summary>
         /// Created By : Lucky Rathore
@@ -30,10 +35,11 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// </summary>
         /// <param name="dealer"></param>
         /// <param name="cache"></param>
-        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache)
+        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionColorCache)
         {
             _dealer = dealer;
             _cache = cache;
+            _objVersionCache = objVersionColorCache;
         }
 
         /// <summary>
@@ -150,6 +156,43 @@ namespace Bikewale.Service.Controllers.DealerLocator
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Service.DealerLocator.DealerBikesController, dealerId: {0} and makeId: {1}", dealerId, makeId));
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Gets the dealer versions by model.
+        /// </summary>
+        /// <param name="dealerId">The dealer identifier.</param>
+        /// <param name="modelId">The model identifier.</param>
+        /// <returns></returns>
+        [ResponseType(typeof(BikeVersionWithMinSpecDTO)), Route("api/dealer/{dealerId}/model/{modelId}/versions/")]
+        public IHttpActionResult GetDealerVersionsByModel(uint dealerId, uint modelId)
+        {
+            IEnumerable<BikeVersionWithMinSpecDTO> objeVersionList = null;
+            try
+            {
+                if (dealerId > 0 && modelId > 0)
+                {
+                    IEnumerable<BikeVersionWithMinSpec> versionList = _objVersionCache.GetDealerVersionsByModel(dealerId, modelId);
+                    if (versionList != null)
+                    {
+                        objeVersionList = DealerBikesEntityMapper.Convert(versionList);
+                        return Ok(objeVersionList);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Service.DealerLocator.DealerBikesController.GetDealerBikes, dealerId: {0} and makeId: {1}", dealerId, modelId));
                 return InternalServerError();
             }
         }

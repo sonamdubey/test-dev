@@ -68,13 +68,13 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objVersionsList;
         }
@@ -156,7 +156,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objMinSpecs;
         }   // End of GetVersionsMinSpecs method
@@ -229,13 +229,13 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("GetModelDetails sql ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetModelDetails ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return t;
@@ -403,7 +403,7 @@ namespace Bikewale.DAL.BikeData
                         objSpecs.FrontTyre = paramColl["par_fronttyre"].Value.ToString();
                         objSpecs.RearTyre = paramColl["par_reartyre"].Value.ToString();
                         objSpecs.TubelessTyres = paramColl["par_tubelesstyres"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_tubelesstyres"].Value) : null;
-                        objSpecs.RadialTyres = paramColl["par_radialtyres"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_radialtyres"].Value) : null; 
+                        objSpecs.RadialTyres = paramColl["par_radialtyres"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_radialtyres"].Value) : null;
                         objSpecs.AlloyWheels = paramColl["par_alloywheels"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_alloywheels"].Value) : null;
                         objSpecs.ElectricSystem = paramColl["par_electricsystem"].Value.ToString();
                         objSpecs.Battery = paramColl["par_battery"].Value.ToString();
@@ -415,9 +415,9 @@ namespace Bikewale.DAL.BikeData
                         objSpecs.Speedometer = paramColl["par_speedometer"].Value.ToString();
                         objSpecs.Tachometer = paramColl["par_tachometer"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_tachometer"].Value) : null;
                         objSpecs.TachometerType = paramColl["par_tachometertype"].Value.ToString();
-                        objSpecs.ShiftLight = paramColl["par_shiftlight"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_shiftlight"].Value) : null; 
-                        objSpecs.ElectricStart = paramColl["par_electricstart"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_electricstart"].Value) : null; 
-                        objSpecs.Tripmeter = paramColl["par_tripmeter"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_tripmeter"].Value) : null; 
+                        objSpecs.ShiftLight = paramColl["par_shiftlight"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_shiftlight"].Value) : null;
+                        objSpecs.ElectricStart = paramColl["par_electricstart"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_electricstart"].Value) : null;
+                        objSpecs.Tripmeter = paramColl["par_tripmeter"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_tripmeter"].Value) : null;
                         objSpecs.NoOfTripmeters = paramColl["par_nooftripmeters"].Value.ToString();
                         objSpecs.TripmeterType = paramColl["par_tripmetertype"].Value.ToString();
                         objSpecs.LowFuelIndicator = paramColl["par_lowfuelindicator"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_lowfuelindicator"].Value) : null;
@@ -428,9 +428,9 @@ namespace Bikewale.DAL.BikeData
                         objSpecs.PillionSeat = paramColl["par_pillionseat"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_pillionseat"].Value) : null;
                         objSpecs.PillionFootrest = paramColl["par_pillionfootrest"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_pillionfootrest"].Value) : null;
                         objSpecs.PillionBackrest = paramColl["par_pillionbackrest"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_pillionbackrest"].Value) : null;
-                        objSpecs.PillionGrabrail = paramColl["par_PillionGrabrail"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_PillionGrabrail"].Value) : null; 
-                        objSpecs.StandAlarm = paramColl["par_standalarm"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_standalarm"].Value) : null; 
-                        objSpecs.SteppedSeat = paramColl["par_SteppedSeat"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_SteppedSeat"].Value) : null; 
+                        objSpecs.PillionGrabrail = paramColl["par_PillionGrabrail"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_PillionGrabrail"].Value) : null;
+                        objSpecs.StandAlarm = paramColl["par_standalarm"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_standalarm"].Value) : null;
+                        objSpecs.SteppedSeat = paramColl["par_SteppedSeat"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_SteppedSeat"].Value) : null;
                         objSpecs.AntilockBrakingSystem = paramColl["par_antilockbrakingsystem"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_antilockbrakingsystem"].Value) : null;
                         objSpecs.Killswitch = paramColl["par_killswitch"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_killswitch"].Value) : null;
                         objSpecs.Clock = paramColl["par_clock"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_clock"].Value) : null;
@@ -443,7 +443,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objSpecs;
@@ -520,7 +520,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetSimilarBikesListByCity");
-                
+
             }
 
             return objSimilarBikes;
@@ -563,12 +563,12 @@ namespace Bikewale.DAL.BikeData
             catch (SqlException ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objColors;
@@ -626,7 +626,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("BikeVersionsRepository.GetColorsbyVersionId: {0}", versionId));
-                
+
             }
             return objVersionColors;
         }
@@ -663,6 +663,54 @@ namespace Bikewale.DAL.BikeData
                                 objVersion.VersionName = Convert.ToString(dr["versionName"]);
                                 objVersion.CCSegment = Convert.ToString(dr["ClassSegmentName"]);
                                 objVersion.TopVersionId = SqlReaderConvertor.ToUInt32(dr["topversionid"]);
+                                objBikeVersions.Add(objVersion);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeVersionsRepository.GetModelVersions: {0}");
+            }
+            return objBikeVersions;
+        }
+
+        /// <summary>
+        /// Gets the dealer versions by model.
+        /// </summary>
+        /// <param name="dealerId">The dealer identifier.</param>
+        /// <param name="modelId">The model identifier.</param>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId)
+        {
+            ICollection<BikeVersionWithMinSpec> objBikeVersions = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerversionsbymodel"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.UInt32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.UInt32, modelId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objBikeVersions = new List<BikeVersionWithMinSpec>();
+                            while (dr.Read())
+                            {
+                                BikeVersionWithMinSpec objVersion = new BikeVersionWithMinSpec();
+                                objVersion.VersionId = SqlReaderConvertor.ToUInt32(dr["bikeversionid"]);
+                                objVersion.VersionName = Convert.ToString(dr["versionname"]);
+                                objVersion.OnRoadPrice = SqlReaderConvertor.ToInt64(dr["onroadprice"]);
+                                objVersion.BrakingSystem = SqlReaderConvertor.ToBoolean(dr["alloywheels"]) ? "ABS" : string.Empty;
+                                objVersion.BrakeType = string.Format("{0} Brake", Convert.ToString(dr["braketype"]));
+                                objVersion.WheelType = SqlReaderConvertor.ToBoolean(dr["alloywheels"]) ? "Alloy Wheels" : string.Empty;
+                                objVersion.StartType = SqlReaderConvertor.ToBoolean(dr["electricstart"]) ? "Electric Start" : "Kick Start";
                                 objBikeVersions.Add(objVersion);
                             }
                             dr.Close();

@@ -28,5 +28,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId);
         IEnumerable<BikeVersionsSegment> GetModelVersionsDAL(); // Added by sajal gupta
         IEnumerable<BikeModelVersionsDetails> GetModelVersions(); // Added by sajal gupta
+        IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId);
+
     }
 }

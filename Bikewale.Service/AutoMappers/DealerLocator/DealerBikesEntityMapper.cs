@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.BikeData.v2;
 using Bikewale.DTO.Dealer;
 using Bikewale.DTO.DealerLocator;
@@ -13,6 +14,8 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.PriceQuote;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Bikewale.Service.AutoMappers.DealerLocator
 {
@@ -38,7 +41,7 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
+            Mapper.CreateMap<MinSpecsEntity, Bikewale.DTO.BikeData.v2.MinSpecs>();
             Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
             Mapper.CreateMap<DealerBikesEntity, DealerBikes>();
 
@@ -75,14 +78,20 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
+            Mapper.CreateMap<MinSpecsEntity, Bikewale.DTO.BikeData.v2.MinSpecs>();
             Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
             Mapper.CreateMap<DealerBikeModelsEntity, DealerBikeModels>();
 
             return Mapper.Map<DealerBikeModelsEntity, DealerBikeModels>(dealerBikes);
         }
 
-        internal static DTO.Dealer.DealerVersionPricesDTO Convert(DealerVersionPrices versionPrice)
+         internal static IEnumerable<BikeVersionWithMinSpecDTO> Convert(IEnumerable<BikeVersionWithMinSpec> versionList)
+        {
+            Mapper.CreateMap<BikeVersionWithMinSpec, BikeVersionWithMinSpecDTO>();
+            return Mapper.Map<IEnumerable<BikeVersionWithMinSpec>, IEnumerable<BikeVersionWithMinSpecDTO>>(versionList);
+        }
+		
+		internal static DTO.Dealer.DealerVersionPricesDTO Convert(DealerVersionPrices versionPrice)
         {
             Mapper.CreateMap<DealerVersionPrices, DealerVersionPricesDTO>();
             Mapper.CreateMap<PQ_Price, DPQ_Price>();

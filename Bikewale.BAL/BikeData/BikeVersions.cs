@@ -157,5 +157,16 @@ namespace Bikewale.BAL.BikeData
                 return null;
             }
         }
+
+        /// <summary>
+        /// Gets the dealer versions by model.
+        /// </summary>
+        /// <param name="dealerId">The dealer identifier.</param>
+        /// <param name="modelId">The model identifier.</param>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId)
+        {
+            return versionRepository.GetDealerVersionsByModel(dealerId, modelId);
+        }
     }   // Class
 }   // namespace
