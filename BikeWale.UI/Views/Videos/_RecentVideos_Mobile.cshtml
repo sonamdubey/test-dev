@@ -5,17 +5,17 @@
     @foreach(var video in Model.VideosList){
         <li class="margin-bottom20">
 			<div class="review-image-wrapper">
-				<a href="@string.Format("/m{0}",UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))" class="video-image-thumbnail">
-					<img class="lazy" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)"
-					alt="@video.VideoTitle" title="@video.VideoTitle" src="" border="0" />
-					<span class="play-icon-wrapper">
-						<span class="bwmsprite video-play-icon"></span>
-					</span>
-				</a>
+                <span data-url="@string.Format("/m{0}",UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))" class="video-image-thumbnail redirect-url">
+                    <img class="lazy" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)"
+                         alt="@video.VideoTitle" title="@video.VideoTitle" src="" border="0" />
+                    <span class="play-icon-wrapper">
+                        <span class="bwmsprite video-play-icon"></span>
+                    </span>
+                </span>
 			</div>
 			<div class="review-heading-wrapper">
-				<a href="@string.Format("/m{0}",UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))"
-				class="font14 target-link" title="@video.VideoTitle">@FormatDescription.TruncateDescription(video.VideoTitle, 44)</a>
+                <span data-url="@string.Format("/m{0}",UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))"
+                      class="font14 target-link redirect-url" title="@video.VideoTitle">@FormatDescription.TruncateDescription(video.VideoTitle, 44)</span>
 				<div class="grid-7 alpha padding-right5">
 					<span class="bwmsprite calender-grey-sm-icon"></span>
 					<span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMM yyyy")</span>
