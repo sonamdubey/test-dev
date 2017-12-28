@@ -19,6 +19,10 @@ namespace Bikewale.Models
     /// Summary : Added PopularBikesAndPopularScootersWidget and UpcomingBikesAndUpcomingScootersWidget and PopularBikesAndUpcomingBikesWidget
     /// Modifies by : Ashutosh Sharma on 27 Nov 2017
     /// Description : Added Series.
+    /// Modified by : Rajan Chauhan on 27 Dec 2017
+    /// Description : Changed PopularSeriesAndMakeBikeSeriesWidget to PopularSeriesAndBodyStyleWidget and 
+    ///               Changed name of PopularUpcomingBodyStyleWidgetWidget to PopularUpcomingBodyStyleWidget
+    ///               Added attribute UpcomingBikesByBodyStyleWidget
     /// </summary>
     public class NewsIndexPageVM : ModelBase
     {
@@ -35,6 +39,7 @@ namespace Bikewale.Models
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
         public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
+        public UpcomingBikesWidgetVM UpcomingBikesByBodyStyleWidget { get; set; }
         public PwaReduxStore ReduxStore { get; set; }
         public IHtmlString ServerRouterWrapper { get; set; }
         public string WindowState { get; set; }
@@ -49,8 +54,8 @@ namespace Bikewale.Models
         public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
 
 
-        public MultiTabsWidgetVM PopularSeriesAndMakeBikeSeriesWidget { get; set; }
-        public MultiTabsWidgetVM PopularUpcomingBodyStyleWidgetWidget { get; set; }
+        public MultiTabsWidgetVM PopularSeriesAndBodyStyleWidget { get; set; }
+        public MultiTabsWidgetVM PopularUpcomingBodyStyleWidget { get; set; }
 
         public EditorialSeriesWidgetVM SeriesWidget { get; set; }
         public EditorialSeriesMobileWidgetVM SeriesMobileWidget { get; set; }

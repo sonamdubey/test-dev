@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Bikewale.Notifications;
+using BikewaleOpr.Cache;
 using BikewaleOpr.Entity.Dealers;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.Dealers;
@@ -168,6 +169,8 @@ namespace BikewaleOpr.BAL.BikePricing
             {
                 versionIdsString = string.Join<uint>(",", versionIds);
                 isDeleted = _dealerPriceRepository.DeleteVersionPrices(dealerId, cityId, versionIdsString);
+                if (isDeleted)
+                    ClearDealerPriceCache(dealerId, versionIds);
             }
             catch (Exception ex)
             {
@@ -210,6 +213,10 @@ namespace BikewaleOpr.BAL.BikePricing
                     dealerIdsString = string.Join<uint>(",", dealerIds);
                     cityIdsString = string.Join<uint>(",", cityIds);
                     isSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+
+                    if (isSaved)
+                        ClearDealerPriceCache(dealerIds, versionIds);
+
                 }
             }
             catch (Exception ex)
@@ -257,6 +264,10 @@ namespace BikewaleOpr.BAL.BikePricing
                     modelIdNamesString = string.Join<string>(",", bikeModelIds.Zip(bikeModelNames, (modelId, modelName) => string.Format("{0}:{1}", modelId, modelName)));
 
                     response.IsPriceSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                    if (response.IsPriceSaved)
+                    {
+                        ClearDealerPriceCache(dealerIds, versionIds);
+                    }
                 }
 
                 if (dealerIds.Count() == 1)
@@ -313,6 +324,10 @@ namespace BikewaleOpr.BAL.BikePricing
                     }
 
                     isSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                    if (isSaved)
+                    {
+                        ClearDealerPriceCache(dealerIds, versionIds.Distinct());
+                    }
                 }
             }
             catch (Exception ex)
@@ -322,6 +337,38 @@ namespace BikewaleOpr.BAL.BikePricing
                     dealerIds, cityIds, versionIdsString, itemIdsString, itemValuesString, enteredBy));
             }
             return isSaved;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 27 Dec 2017
+        /// Description :   Clear memcache for changed dealer-version
+        /// </summary>
+        /// <param name="dealerIds"></param>
+        /// <param name="versionIds"></param>
+        private void ClearDealerPriceCache(IEnumerable<uint> dealerIds, IEnumerable<uint> versionIds)
+        {
+            foreach (var dealer in dealerIds)
+            {
+                foreach (var version in versionIds)
+                {
+                    BwMemCache.ClearBikeVersionPrice(dealer, version);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 27 Dec 2017
+        /// Description :   Clear memcache for changed dealer-version
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="versionIds"></param>
+        private void ClearDealerPriceCache(uint dealerId, IEnumerable<uint> versionIds)
+        {
+
+            foreach (var version in versionIds)
+            {
+                BwMemCache.ClearBikeVersionPrice(dealerId, version);
+            }
         }
     }
 }

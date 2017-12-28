@@ -1,4 +1,5 @@
 ﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.Dealer;
 using Bikewale.DTO.DealerLocator;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
@@ -10,6 +11,7 @@ using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Description;
 using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.DealerLocator
@@ -192,6 +194,43 @@ namespace Bikewale.Service.Controllers.DealerLocator
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Service.DealerLocator.DealerBikesController.GetDealerBikes, dealerId: {0} and makeId: {1}", dealerId, modelId));
+                return InternalServerError();
+            }
+        }
+        
+	/// <summary>
+        /// Created by  :   Sumit Kate on 27 Dec 2017
+        /// Description :   API returns version price components with onroad price for a version of a dealer
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(DealerVersionPricesDTO)), Route("api/price/version/{versionId}/dealer/{dealerId}/")]
+        public IHttpActionResult GetDealerVersionPrice(uint dealerId, uint versionId)
+        {
+            try
+            {
+                if (dealerId > 0 && versionId > 0)
+                {
+                    DealerVersionPrices versionPrice = _cache.GetBikeVersionPrice(dealerId, versionId);
+                    if (versionPrice != null)
+                    {
+                        DealerVersionPricesDTO versionPriceDTO = DealerBikesEntityMapper.Convert(versionPrice);
+                        return Ok(versionPriceDTO);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Service.DealerLocator.DealerBikesController, dealerId: {0} and makeId: {1}", dealerId, versionId));
                 return InternalServerError();
             }
         }

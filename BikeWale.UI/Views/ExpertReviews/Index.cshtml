@@ -154,8 +154,28 @@
                     {
                         if (Model.EditorialPageType == Bikewale.Entities.CMS.EditorialPageType.SeriesPage)
                         {
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularSeriesAndMakeBikeSeriesWidget)
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularUpcomingBodyStyleWidgetWidget)
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularSeriesAndBodyStyleWidget)
+                            if (Model.UpcomingBikesByBodyStyleWidget != null)
+                            {
+                                <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
+                                    <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+                                        <ul id="widgetTab">
+                                            <li>
+                                                <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.UpcomingBikesByBodyStyleWidget.WidgetHeading</h2>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="sidebar-list--overflow">
+                                        @Html.Partial("~/Views/Shared/_EditorialUpcomingBikes_Vertical.cshtml", Model.UpcomingBikesByBodyStyleWidget.UpcomingBikes)
+                                    </div>
+                                    @if (Model.UpcomingBikesByBodyStyleWidget.ShowViewAllLink)
+                                    {
+                                        <div class="view-all-btn-container padding-10-20-20 read-more">
+                                            <a href="@Model.UpcomingBikesByBodyStyleWidget.WidgetHref" title="@Model.UpcomingBikesByBodyStyleWidget.WidgetLinkTitle" class="btn view-all-target-btn">@Model.UpcomingBikesByBodyStyleWidget.WidgetLinkTitle<span class="bwsprite teal-right"></span></a>
+                                        </div>
+                                    }
+                                </div>
+                            }
                         }
                         else if (Model.MostPopularBikes != null)
                             {
