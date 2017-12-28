@@ -34,6 +34,8 @@ namespace Bikewale.Models.UserReviews
 
         }
 
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         public UserReviewByMakeVM GetData()
         {
             try
@@ -46,9 +48,11 @@ namespace Bikewale.Models.UserReviews
                     objData.OtherBikes = objBikes.Skip(PopularBikesCount);
 
                     objData.Make = objData.PopularBikes.First().Make;
+                    objData.Page = Entities.Pages.GAPages.UserReviews_MakeWise_Page;
                 }
                 BindOtherMakes();
                 BindPageMetas();
+
             }
             catch (Exception ex)
             {

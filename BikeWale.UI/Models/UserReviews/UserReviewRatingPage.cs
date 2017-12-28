@@ -89,6 +89,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Get data for the ratings page
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public UserReviewRatingVM GetData()
@@ -108,9 +110,10 @@ namespace Bikewale.Models
                     objUserVM.ReturnUrl = _returnUrl;
                     objUserVM.ContestSrc = _contestsrc;
                     BindMetas(objUserVM);
+                    objUserVM.Page = Entities.Pages.GAPages.Rate_Bike;
                 }
 
-                objUserVM.UtmzCookieValue =  HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : String.Empty;
+                objUserVM.UtmzCookieValue = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : String.Empty;
             }
             catch (System.Exception ex)
             {
