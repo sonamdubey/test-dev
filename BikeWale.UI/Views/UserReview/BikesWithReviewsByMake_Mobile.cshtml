@@ -24,7 +24,7 @@
                                 </span>
                             }
 
-                            <a href="@string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName))" title="@string.Format("{0} {1}", bikeName, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))" class="inline-block margin-left5">@string.Format("({0} {1})", obj.BikeModel.ReviewCount, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))</a>
+                            <span data-url="@string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName))" title="@string.Format("{0} {1}", bikeName, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))" class="inline-block margin-left5 redirect-url">@string.Format("({0} {1})", obj.BikeModel.ReviewCount, ((obj.BikeModel.ReviewCount > 1) ? "reviews" : "review"))</span>
                         </div>
                         <ul class="review-type-list">
                             <li class="review-type-list__item">
