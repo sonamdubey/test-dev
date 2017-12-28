@@ -119,6 +119,21 @@
 	{
 		Html.RenderAction("PopularBodyStyleDesktop", "PopularBikes", new { modelId = Model.Model.ModelId, topCount = 9, cityId = Model.CityId });
 	}
+
+
+    if (Model.ObjMoreAboutScooter != null)
+    {
+        <section>
+            <div class="container card-bottom-margin">
+                <div class="grid-12">
+                    <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
+                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard.cshtml", Model.ObjMoreAboutScooter)
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
 }
 else if (Model != null && Model.Make != null && Model.objSeries != null)
 {

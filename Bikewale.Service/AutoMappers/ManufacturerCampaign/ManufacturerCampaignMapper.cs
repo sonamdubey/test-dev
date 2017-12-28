@@ -104,7 +104,13 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse.DetailsCampaign = new DTO.Campaign.DetailsDto();
                 campaignResponse.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
                 campaignResponse.CampaignLeadSource = new DTO.Campaign.ESCampaignBase();
-                campaignResponse.DetailsCampaign.EsCamapign.TemplateHtml = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
+                string template = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
+                //Check if it contains javascript:void(0), replace it with 
+                if (!string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
+                {
+                    template = template.Replace("href=\"javascript:void(0)\"", "onclick=\"Android.openLeadCaptureForm();\"");
+                }
+                campaignResponse.DetailsCampaign.EsCamapign.TemplateHtml = template;
                 campaignResponse.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
                 campaignResponse.CampaignLeadSource.CaptionText = LeadCampaign.LeadsPropertyTextMobile;
                 campaignResponse.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;

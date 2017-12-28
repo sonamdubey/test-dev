@@ -17,6 +17,8 @@ namespace Bikewale.Models
     /// Summary : Added BikeSeriesEntityBase
     /// Modified by sajal Gupta on 01-12-2017
     /// Summary : Added PopularBikesAndPopularScootersWidget and UpcomingBikesAndUpcomingScootersWidget and MostPopularMakeBikes
+    /// Modified by: Snehal Dange on 21th dec 2017
+    /// Summary : added MoreAboutScootersWidgetVM
     /// Modified by : Rajan Chauhanon 27 Dec 2017
     /// Description : Changed PopularSeriesAndMakeBikeSeriesWidget to PopularSeriesAndBodyStyleWidget
     ///               Changed name of PopularUpcomingBodyStyleWidgetWidget to PopularUpcomingBodyStyleWidget
@@ -46,6 +48,7 @@ namespace Bikewale.Models
         public MultiTabsWidgetVM PopularMakeBikesAndBodyStyleBikesWidget { get; set; }
         public MultiTabsWidgetVM PopularMakeScootersAndOtherBrandsWidget { get; set; }
         public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
+        public MoreAboutScootersWidgetVM ObjMoreAboutScooter { get; set; }
 
         public MultiTabsWidgetVM PopularSeriesAndBodyStyleWidget { get; set; }
         public MultiTabsWidgetVM PopularUpcomingBodyStyleWidget { get; set; }

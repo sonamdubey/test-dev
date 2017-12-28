@@ -151,7 +151,7 @@ namespace Bikewale.Models
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
                 }
-
+                objData.ShowCheckOnRoadpriceBtn = !BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageOnRoadPriceBtnPct);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindUpcomingBikes(objData);
                 BindCompareBikes(objData, CompareSource, cityId);
@@ -162,7 +162,7 @@ namespace Bikewale.Models
                 BindOtherMakes(objData);
                 BindUserReviews(objData);
                 BindMakeFooterCategoriesandPriceWidget(objData);
-
+                objData.Page = GAPages.Make_Page;
                 objData.BikeCityPopup = new PopUp.BikeCityPopup()
                 {
                     ApiUrl = "/api/v2/DealerCity/?makeId=" + _makeId,
@@ -194,7 +194,7 @@ namespace Bikewale.Models
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable || objData.IsUserReviewsAvailable);
 
                     objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
-                    
+
                     objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
 
                 }
@@ -273,6 +273,8 @@ namespace Bikewale.Models
         /// Description :   Bind Other Make list
         /// Modifiwed by Sajal Gupta on 15-11-2017
         /// Dewsc : Added makecategory sorting logic
+        /// Modified by: Snehal Dange on 14th Dec 2017
+        /// Desc: Added logic for cardtext and PageLinkFormat
         /// </summary>
         /// <param name="objData"></param>
         private void BindOtherMakes(MakePageVM objData)
@@ -288,6 +290,14 @@ namespace Bikewale.Models
                     var otherMakes = new OtherMakesVM();
                     otherMakes.Makes = popularBrandsList.Take(9);
                     objData.OtherMakes = otherMakes;
+
+                    if (objData.OtherMakes != null)
+                    {
+                        objData.OtherMakes.CardText = "bike";
+                        objData.OtherMakes.PageLinkFormat = "/{0}-bikes/";
+                        objData.OtherMakes.PageTitleFormat = "{0} Bikes";
+                    }
+
 
                 }
             }
@@ -463,6 +473,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Description: Added 'new bikes' in breadcrumb
         /// </summary>
         private void SetBreadcrumList(ref MakePageVM objData)
         {
@@ -475,7 +487,8 @@ namespace Bikewale.Models
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
+            url = string.Format("{0}new-bikes-in-india/", url);
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "New Bikes"));
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 
 

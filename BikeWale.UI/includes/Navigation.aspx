@@ -55,7 +55,6 @@
             <a href="/reviews/">
                 <span class="reviews-icon"></span>
                 <span class="navbarTitle">Reviews</span>
-                <span class="new-flag"></span>
             </a>
         </li>
         <li>

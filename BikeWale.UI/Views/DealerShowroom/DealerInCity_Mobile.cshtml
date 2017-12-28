@@ -68,7 +68,7 @@
                     </a>
                     @if (Details.IsFeatured)
                     {
-                    <input data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn bw-ga margin-top20" data-cat="Dealer_Locator" data-act="Get_Offers_Clicked" data-lab="@Details.GetOffersGALabel" data-cityname="@Model.CityDetails.CityName" data-areaname="@Details.objArea.AreaName" data-eventcategory="Dealer_Locator" value="@Details.DisplayTextLarge" />
+                        <input data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn bw-ga margin-top20" data-cat="Dealer_Locator" data-act="Get_Offers_Clicked" data-lab="@Details.GetOffersGALabel" data-cityname="@Model.CityDetails.CityName" data-areaname="@Details.objArea.AreaName" data-eventcategory="Dealer_Locator" value="@Details.DisplayTextLarge" />
                     }
                 </li>
             }
@@ -147,7 +147,7 @@
                     <span class="bwmsprite dealer-grey"></span>
                     <h2 class="margin-bottom10 inline-block padding-left10">@Model.Make.MakeName showrooms in other cities</h2>
                     <p class="font14 text-slate-grey margin-bottom15">You are currently viewing showrooms of @Model.Make.MakeName in @Model.CityDetails.CityName. Not from @Model.CityDetails.CityName? Select your city to find @Model.Make.MakeName showrooms in your city.</p>
-                    <a href="javascript:void(0)" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage " rel="nofollow"  data-modelid="@Model.Make.MakeId" data-makemasking="@Model.Make.MaskingName">
+                    <a href="javascript:void(0)" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage " rel="nofollow" data-modelid="@Model.Make.MakeId" data-makemasking="@Model.Make.MaskingName">
                         Select your city
                     </a>
                     @Html.Partial("~/Views/PopUp/BikeCityPopup_Mobile.cshtml", Model.BikeCityPopup)
@@ -169,6 +169,27 @@
 
 }
 
+@if (Model.SimilarBrandsByCity != null && Model.SimilarBrandsByCity.Makes != null && Model.SimilarBrandsByCity.Makes.Count() > 0)
+{
+    <section>
+        <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    @if (Model.CityDetails != null)
+                    {
+                        <span class="font16 text-semibold text-black">@string.Format("Showroom of other brands in {0}", Model.CityDetails.CityName)</span>
+                    }
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="/m/dealer-showrooms/" title="Bikes Showroom Locator" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @Html.Partial("~/Views/Make/_BrandsModelCount_Mobile.cshtml", Model.SimilarBrandsByCity)
+        </div>
+    </section>
+}
+
 @if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0)
 {
 
@@ -185,7 +206,7 @@
                 <a href="@string.Format("/m/service-centers/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Center in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
             </div>
         </section>
-       
+
 
 
     }
