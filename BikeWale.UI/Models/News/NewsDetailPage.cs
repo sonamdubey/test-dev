@@ -273,7 +273,7 @@ namespace Bikewale.Models
         {
             try
             {
-                if (objData.Model.ModelId > 0)
+                if (objData.Model!=null && objData.Model.ModelId > 0)
                 {
                     var objSimilarBikes = new SimilarBikesWidget(_objBikeVersionsCache, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
 

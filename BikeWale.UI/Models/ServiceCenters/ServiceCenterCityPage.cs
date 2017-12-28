@@ -284,11 +284,11 @@ namespace Bikewale.Models.ServiceCenters
                     if (objData.SimilarBrandsByCity != null && _bikeMakesCache != null)
                     {
                         var similarBrandsList = _bikeMakesCache.GetServiceCenterBrandsInCity(_cityId);
-                        if (_makeId > 0 && similarBrandsList != null && similarBrandsList.Count() > 0)
+                        if (_makeId > 0 && similarBrandsList != null && similarBrandsList.Any())
                         {
                             objData.SimilarBrandsByCity.Makes = Utility.BikeFilter.FilterMakesByCategory(_makeId, similarBrandsList);
                         }
-                        if (objData.SimilarBrandsByCity.Makes != null && objData.SimilarBrandsByCity.Makes.Count() > 0)
+                        if (objData.SimilarBrandsByCity.Makes != null && objData.SimilarBrandsByCity.Makes.Any())
                         {
                             objData.SimilarBrandsByCity.Makes = objData.SimilarBrandsByCity.Makes.Take((int)topCount);
 
