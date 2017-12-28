@@ -284,15 +284,34 @@ namespace Bikewale.Models
                     if (bikeList.Count() == 2)
                     {
                         string reverseComparisonText = string.Join(" vs ", bikeModels.Reverse());
-                        obj.PageMetaTags.Title = string.Format("{0} | {1} - BikeWale", obj.comparisionText, reverseComparisonText);
+                        obj.PageMetaTags.Title = string.Format("Compare {0} | {1} - BikeWale", obj.comparisionText, reverseComparisonText);
                     }
                     else
                     {
-                        obj.PageMetaTags.Title = string.Format("{0} - BikeWale", obj.comparisionText);
+                        obj.PageMetaTags.Title = string.Format("Compare  {0} - BikeWale", obj.comparisionText);
                     }
+                    IList<BikeMetaInfo> BikeMetaList = new List<BikeMetaInfo>();
+                    foreach (var bikeinfo in obj.Compare.BasicInfo)
+                    {
+                        BikeMetaInfo objData = new BikeMetaInfo();
+                        objData.MakeName = bikeinfo.Make;
+                        objData.ModelId = bikeinfo.ModelId;
+                        objData.ModelName = bikeinfo.Model;
+                        objData.ModelNameMaskingName = bikeinfo.ModelMaskingName;
+                        objData.MakeNameMaskingName = bikeinfo.MakeMaskingName;
+                        objData.VersionId = bikeinfo.VersionId;
+                        objData.Price = bikeinfo.Price;
+                        objData.FuelEfficiencyOverall = obj.Compare.Specifications.Where(x => x.VersionId == objData.VersionId).Select(x => x.FuelEfficiencyOverall).FirstOrDefault().Value;
+                        BikeMetaList.Add(objData);
+                    }
+                    BikeMetaList = BikeMetaList.Where(x => x.VersionId != obj.sponsoredVersionId).OrderBy(x => x.ModelId).ToList();
+
+                    string ComparePriceText = string.Join(" and ", BikeMetaList.Select(x => string.Format("{0} {1} Ex-showroom starts at - {2}", x.MakeName, x.ModelName, x.Price)));
+                    string CompareMileageText = string.Join(" whereas ", BikeMetaList.Select(x => string.Format("{0} has a mileage of {1} kmpl", x.ModelName, x.FuelEfficiencyOverall)));
+                    string CompareModelText = string.Join(" and ", bikeList);
 
                     obj.PageMetaTags.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
-                    obj.PageMetaTags.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Features, Specifications, Colours and much more.", string.Join(" and ", bikeList));
+                    obj.PageMetaTags.Description = string.Format("{0}. {1}.Compare {2} specs, colors, reviews and ratings. Also, read comparison test of {3} from our experts.", ComparePriceText, CompareMileageText, CompareModelText, obj.comparisionText);
                     CreateCompareSummary(obj.Compare.BasicInfo, obj.Compare.CompareColors, obj);
                     obj.PageMetaTags.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _compareUrl);
                     obj.PageMetaTags.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _compareUrl);
@@ -634,4 +653,20 @@ namespace Bikewale.Models
 
         }
     }
+    public class BikeMetaInfo
+    {
+        public string MakeName { get; set; }
+        public string ModelName { get; set; }
+
+        public string MakeNameMaskingName { get; set; }
+        public string ModelNameMaskingName { get; set; }
+
+        public uint VersionId { get; set; }
+        public uint ModelId { get; set; }
+        public int Price { get; set; }
+        public UInt16 FuelEfficiencyOverall { get; set; }
+
+    }
+
 }
+
