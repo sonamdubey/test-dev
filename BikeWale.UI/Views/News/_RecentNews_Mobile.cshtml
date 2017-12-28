@@ -7,12 +7,12 @@
         {
             <li class="margin-bottom20">
                 <div class="review-image-wrapper">
-                    <a href="@string.Format("/m{0}", @UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))">
+                    <span data-url="@string.Format("/m{0}", @UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" class="redirect-url">
                         <img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._144x81, QualityFactor._70)" title="@news.Title" alt="@news.Title" />
-                    </a>
+                    </span>
                 </div>
                 <div class="review-heading-wrapper">
-                    <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" class="font14 target-link">@FormatDescription.TruncateDescription(news.Title, 44)</a>
+                    <span data-url="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" class="font14 target-link redirect-url">@FormatDescription.TruncateDescription(news.Title, 44)</span>
                     <div class="grid-7 alpha padding-right5">
                         <span class="bwmsprite calender-grey-sm-icon"></span>
                         <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate), "dd MMM yyyy")</span>
@@ -27,7 +27,7 @@
                     @FormatDescription.TruncateDescription(@news.Description, 180)
                 </p>
                 
-                    <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" rel="nofollow">Read more</a>
+                <span data-url="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" rel="nofollow" class="redirect-url">Read more</span>
           
             </li> }
     </ul>
