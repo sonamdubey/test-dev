@@ -66,7 +66,7 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-               
+
                 return InternalServerError();
             }
             return NotFound();
@@ -105,7 +105,7 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-               
+
                 return InternalServerError();
             }
             return NotFound();
@@ -121,14 +121,14 @@ namespace Bikewale.Service.Controllers.CMS
                 if (objRecentArticles != null && objRecentArticles.Any())
                 {
                     List<CMSArticleSummaryMin> objCMSRArticles;
-                    objCMSRArticles = CMSMapper.ConvertV2(objRecentArticles);                                      
+                    objCMSRArticles = CMSMapper.ConvertV2(objRecentArticles);
                     return Ok(objCMSRArticles);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController.GetV2");
-               
+
                 return InternalServerError();
             }
             return NotFound();
@@ -172,7 +172,7 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-               
+
                 return InternalServerError();
             }
             return NotFound();
@@ -228,7 +228,7 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-               
+
                 return InternalServerError();
             }
             return NotFound();
@@ -248,31 +248,31 @@ namespace Bikewale.Service.Controllers.CMS
                 switch (catId)
                 {
                     case 6:
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, 0, 0);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features, 0, 0);
                         break;
                     case 8:
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, 0, 0);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews, 0, 0);
                         break;
                     case 2:
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, 0, 0);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews, 0, 0);
                         break;
                     case 19:
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, 0, 0);
                         break;
                     case 1:
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, 0, 0);
                         break;
                     case 18:
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features, 0, 0);
                         break;
                     case 11:
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Videos);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Videos, 0, 0);
                         break;
                     default:
-                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.All);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.All, 0, 0);
                         break;
                 }
 
@@ -281,12 +281,60 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Exception at Bikewale.Service.CMS.CMSController.ClearEditCMSCacheKeys for parameter catId : {0}", catId));
-               
+
                 return InternalServerError();
             }
         }
         #endregion
 
+        [HttpGet, Route("api/cms/category/{catId}/refreshcache/{makeId}/{modelId}")]
+        public IHttpActionResult ClearEditCMSCacheKeys(int catId, int makeId, int modelId)
+        {
+            try
+            {
+                switch (catId)
+                {
+                    case 6:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, makeId, modelId);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features, makeId, modelId);
+                        break;
+                    case 8:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, makeId, modelId);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews, makeId, modelId);
+                        break;
+                    case 2:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, makeId, modelId);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews, makeId, modelId);
+                        break;
+                    case 19:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, makeId, modelId);
+                        break;
+                    case 1:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News, makeId, modelId);
+                        break;
+                    case 18:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features, makeId, modelId);
+                        break;
+                    case 11:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Videos, makeId, modelId);
+                        break;
+                    case 13:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Videos, makeId, modelId);
+                        break;
+                    default:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.All, makeId, modelId);
+                        break;
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Exception at Bikewale.Service.CMS.CMSController.ClearEditCMSCacheKeys for parameter catId : {0},{1},{2}", catId, makeId, modelId));
+
+                return InternalServerError();
+            }
+        }
     }   // class
 }   // namespace
 

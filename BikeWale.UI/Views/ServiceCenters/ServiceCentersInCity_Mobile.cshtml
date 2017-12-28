@@ -220,6 +220,27 @@
         </section>
 
     }
+    
+    if (Model.SimilarBrandsByCity != null && Model.SimilarBrandsByCity.Makes != null && Model.SimilarBrandsByCity.Makes.Count() > 0)
+    {
+        <section>
+            <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        @if (Model.City != null)
+                        {
+                            <span class="font16 text-semibold text-black">@string.Format("Service Center of other brands in {0}", Model.City.CityName)</span>
+                        }
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="/m/service-centers/" title="Bikes Service Center Locator" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                @Html.Partial("~/Views/Make/_BrandsModelCount_Mobile.cshtml", Model.SimilarBrandsByCity)
+            </div>
+        </section>
+    }
 
     if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
     {

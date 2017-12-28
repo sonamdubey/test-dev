@@ -10,6 +10,7 @@ using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.BikeModels;
@@ -40,6 +41,8 @@ namespace Bikewale.Models
         private readonly IBikeSeries _series;
         private EditorialPageType currentPageType = EditorialPageType.Default;
         public EnumBikeBodyStyles BodyStyle = EnumBikeBodyStyles.AllBikes;
+        private readonly ICityCacheRepository _objCityCache = null;
+        private readonly IBikeInfo _objGenericBike = null;
 
         #endregion
 
@@ -71,7 +74,9 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models,
+            IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache,
+            IBikeSeriesCacheRepository seriesCache, IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike)
         {
             _cmsCache = cmsCache;
             _pager = pager;
@@ -82,6 +87,8 @@ namespace Bikewale.Models
             _objBikeVersionsCache = objBikeVersionsCache;
             _seriesCache = seriesCache;
             _series = series;
+            _objCityCache = objCityCache;
+            _objGenericBike = objGenericBike;
             ProcessQueryString();
         }
         #endregion
@@ -149,6 +156,10 @@ namespace Bikewale.Models
                         objData.Series = _models.GetSeriesByModelId(ModelId);
                     }
                     SetBreadcrumList(objData);
+                    if (bikeType.Equals(EnumBikeType.Scooters))
+                    {
+                        BindMoreAboutScootersWidget(objData);
+                    }
                 }
                 else
                 {
@@ -364,6 +375,8 @@ namespace Bikewale.Models
         /// description : Added Popular Scooter Brands widget
         /// Modified by Sajal Gupta on 05-12-2017
         /// description : AddedMultiTab widget
+        /// Modified by : Snehal Dange on 21st dec 2017
+        /// Summary : added
         /// </summary>
         private void GetWidgetData(ExpertReviewsIndexPageVM objData, int topCount)
         {
@@ -452,6 +465,7 @@ namespace Bikewale.Models
                         PopularScooterMakes = objPopularScooterBrands.GetData();
                         objData.PopularScooterMakesWidget = PopularScooterMakes.Take(6);
                         bikeType = EnumBikeType.Scooters;
+
                     }
                     else
                     {
@@ -973,9 +987,28 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, "Exception : Bikewale.Models.News.NewsIndexPage.SetBreadcrumList");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Exception : Bikewale.Models.ExpertReviewsIndexPage.SetBreadcrumList");
             }
 
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 21th Dec 2017
+        /// Summary : Bind more about scooter widget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMoreAboutScootersWidget(ExpertReviewsIndexPageVM objData)
+        {
+            try
+            {
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objBikeVersionsCache, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.ExpertReview);
+                obj.modelId = ModelId;
+                objData.ObjMoreAboutScooter = obj.GetData();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviewsIndexPage.BindMoreAboutScootersWidget : ModelId {0}", ModelId));
+            }
         }
         #endregion
     }

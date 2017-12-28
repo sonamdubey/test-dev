@@ -1,4 +1,4 @@
-﻿@model Bikewale.Models.NewsDetailPageVM
+@model Bikewale.Models.NewsDetailPageVM
 @using Bikewale.Entities.GenericBikes
 @using Bikewale.Utility
 @{
@@ -14,9 +14,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<section>
-    <div id="overallContainer" class="container margin-bottom20">
+<section id="overallContainer">
+    <div class="container margin-bottom20">
         <div class="grid-12">
             <div id="content" class="grid-8 alpha">
                 <div class="bg-white">
@@ -90,8 +89,8 @@
                     }
                 </div>
             </div>
-            <div class="grid-4 omega">                                             
-                
+            <div class="grid-4 omega">
+
                 @if (Model.Model != null && Model.Model.ModelId > 0)
                 {
                     if (Model.PopularMakeScootersAndOtherBrandsWidget != null && Model.PopularScootersAndUpcomingScootersWidget != null)
@@ -142,7 +141,6 @@
                             </div>
                         </div>
                     }
-                    
 
                     if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
                     {
@@ -155,6 +153,7 @@
                     </div>
                     }
                 }
+                
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>             
@@ -165,7 +164,7 @@
     </div>
 </section>
 <script>
-docReady(function () {
-                $("body").floatingSocialShare();
-});
+    docReady(function () {
+        $("body").floatingSocialShare();
+    });
 </script>

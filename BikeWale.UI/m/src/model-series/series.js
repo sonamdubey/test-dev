@@ -24,7 +24,6 @@ docReady(function () {
                 recommendedTag.text('Recommended Bike');
             }
             else {
-
                 recommendedTag.text('Recommended Bike');
                 popTag.text('Most Popular');
             }
@@ -32,9 +31,7 @@ docReady(function () {
 			$('#rightBikeSwiper').find('.rightbike__swiper-card.featured-card').removeClass('featured-card');
 			swiperSlide.addClass('featured-card');
 			centerItVariableWidth($(this).closest('li'), '.find-specs__tabs-container');
-
         }
-
     });
 
     //collapsible content
@@ -71,9 +68,10 @@ docReady(function () {
 	modelSpecsFooter = $('#overallSpecsFooter');
 	function scrollHorizontal(pos) {
 		$('#overallUpdatesTab').animate({ scrollLeft: pos - 15 + 'px' }, 500);
-}
+	}
+
 	$(window).scroll(function () {
-        var windowScrollTop = $(window).scrollTop(),
+	    var windowScrollTop = $(window).scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
             modelSpecsFooterOffsetTop = modelSpecsFooter.offset().top,
             topNavBarHeight = $('.overall-specs__top-content').height();
@@ -134,13 +132,11 @@ docReady(function () {
                     scrollHorizontal(endPosition);
                 }
             }
-        };
-
-		
-		
+        };		
 	});
     $('.overall-specs-tabs-wrapper li').click(function () {
-        var target = $(this).attr('data-tabs');
+        var target = $(this).attr('data-tabs'),
+            topNavBarHeight = $('.overall-specs__top-content').height();
         $('html, body').animate({ scrollTop: Math.ceil($(target).offset().top) - topNavBarHeight }, 1000);
         centerItVariableWidth($(this), '.overall-specs-tabs-container');        
     });

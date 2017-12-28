@@ -560,6 +560,20 @@
     }
     <!-- top 10 bikes end -->
 
+    if (Model.objMoreAboutScooter != null)
+    {
+        <section>
+            <div class="container card-bottom-margin">
+                <div class="grid-12">
+                    <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
+                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard.cshtml", Model.objMoreAboutScooter)
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+
     <!-- disclaimer start -->
     <section>
         <div class="container section-bottom-margin">
