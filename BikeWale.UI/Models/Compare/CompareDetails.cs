@@ -1,8 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -20,6 +16,10 @@ using Bikewale.Memcache;
 using Bikewale.Models.Compare;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -310,6 +310,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList(CompareDetailsVM objPage)
         {
@@ -322,6 +324,7 @@ namespace Bikewale.Models
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
 
             url += "comparebikes/";
 
@@ -515,7 +518,7 @@ namespace Bikewale.Models
                     else
                     {
                         redirectionUrl = string.Format("/comparebikes/{0}/", redirectionUrl);
-                    }                    
+                    }
                     status = StatusCodes.RedirectPermanent;
                 }
                 else if (!string.IsNullOrEmpty(_versionsList) && bikeComparisions >= 2)

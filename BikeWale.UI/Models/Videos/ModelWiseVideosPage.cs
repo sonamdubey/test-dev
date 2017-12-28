@@ -297,6 +297,8 @@ namespace Bikewale.Models.Videos
         /// <summary>
         /// Created By :Subodh Jain on 11th Nov 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumListSeries(ModelWiseVideoPageVM objVM)
         {
@@ -312,6 +314,7 @@ namespace Bikewale.Models.Videos
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
 
                 if (objVM.Make != null)
                 {
@@ -337,6 +340,8 @@ namespace Bikewale.Models.Videos
         /// <summary>
         /// Created By :Snehal Dange on 8th Nov 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList(ModelWiseVideoPageVM objVM)
         {
@@ -352,6 +357,8 @@ namespace Bikewale.Models.Videos
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
+
 
                 if (objVM.Make != null)
                 {

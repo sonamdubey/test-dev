@@ -65,6 +65,9 @@ namespace Bikewale.Models
 
             return objData;
         }
+
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         private void SetBreadcrumList(ref ElectricBikesPageVM objData)
         {
             try
@@ -78,6 +81,8 @@ namespace Bikewale.Models
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Electric Bike and Scooters"));
 

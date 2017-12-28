@@ -493,6 +493,11 @@
                             <span class="breadcrumb-link__label" itemprop="name">Home</span>
                         </a>
                     </li>
+                     <li>
+                        <a class="breadcrumb-link" href="/m/new-bikes-in-india/" title="New Bikes">
+                            <span class="breadcrumb-link__label" itemprop="name">New Bikes</span>
+                        </a>
+                    </li>
                     <li>
                         <a class="breadcrumb-link" href="/m/<%= makeMaskingName %>-bikes/" title="<%= makeName %> Bikes">
                             <span class="breadcrumb-link__label" itemprop="name"><%= makeName %> Bikes</span>
