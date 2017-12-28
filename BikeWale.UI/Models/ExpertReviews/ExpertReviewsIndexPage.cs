@@ -727,20 +727,26 @@ namespace Bikewale.Models
 				objData.SeriesMobileWidget = new EditorialSeriesMobileWidgetVM();
 				if (objData.SeriesWidget.PopularSeriesBikes.Any())
 				{
-					objData.SeriesMobileWidget.PopularSeriesBikesVM = new PopularBodyStyleVM();
-					objData.SeriesMobileWidget.PopularSeriesBikesVM.PopularBikes = objData.SeriesWidget.PopularSeriesBikes.Take(6);
-					objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHeading = string.Format("Popular {0} {1}", objData.Series.SeriesName, this.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes");
-					objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetLinkTitle = string.Format("View {0} {1}", objData.Series.SeriesName, this.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes");
-					objData.SeriesMobileWidget.PopularSeriesBikesVM.WidgetHref = string.Format("/m/{0}-bikes/{1}/", objMake.MaskingName, objData.Series.MaskingName);
+                    objData.SeriesMobileWidget.PopularSeriesBikesVM = new PopularBodyStyleVM() {
+                        PopularBikes = objData.SeriesWidget.PopularSeriesBikes.Take(6),
+					    WidgetHeading = string.Format("Popular {0} {1}", objData.Series.SeriesName, this.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes"),
+					    WidgetLinkTitle = string.Format("View {0} {1}", objData.Series.SeriesName, this.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes"),
+                        WidgetLinkText = string.Format("View all {0} {1}", objSeries.SeriesName, this.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
+                        WidgetHref = string.Format("/m/{0}-bikes/{1}/", objMake.MaskingName, objData.Series.MaskingName)
+                    };
+					
 				}
 
 				if (objData.SeriesWidget.PopularBikesByBodyStyle.Any())
 				{
-					objData.SeriesMobileWidget.PopularBikesByBodyStyleVM = new BestBikesEditorialWidgetVM();
-					objData.SeriesMobileWidget.PopularBikesByBodyStyleVM.BestBikes = objData.SeriesWidget.PopularBikesByBodyStyle.Take(6);
-					objData.SeriesMobileWidget.PopularBikesByBodyStyleVM.WidgetHeading = string.Format("Popular {0}", bodyStyleText);
-					objData.SeriesMobileWidget.PopularBikesByBodyStyleVM.WidgetLinkTitle = string.Format("Popular {0}", bodyStyleText);
-					objData.SeriesMobileWidget.PopularBikesByBodyStyleVM.WidgetHref = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(this.BodyStyle));
+                    objData.SeriesMobileWidget.PopularBikesByBodyStyleVM = new BestBikesEditorialWidgetVM() {
+                        BestBikes = objData.SeriesWidget.PopularBikesByBodyStyle.Take(6),
+                        WidgetHeading = string.Format("Popular {0}", bodyStyleText),
+                        WidgetLinkTitle = string.Format("Popular {0}", bodyStyleText),
+                        WidgetLinkText = string.Format("View all popular {0}", this.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
+                        WidgetHref = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(this.BodyStyle))
+                    
+                    };
 				}
 			}
 			else
