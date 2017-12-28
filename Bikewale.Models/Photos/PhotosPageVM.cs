@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.Videos;
 using Bikewale.Models.Gallery;
+using System.Collections.Generic;
 
 namespace Bikewale.Models.Photos
 {
     /// <summary>
     /// Modified By:Snehal Dange on 9th Oct 2017
     /// Description : Added bodystyle
+    /// Modified By: Snehal Dange on 20th Dec 2017
+    /// Description: added MoreAboutScootersWidgetVM
     /// </summary>
     public class PhotosPageVM : ModelBase
     {
@@ -35,6 +37,7 @@ namespace Bikewale.Models.Photos
         public bool IsPopupOpen { get; set; }
         public sbyte BodyStyle { get; set; }
         public BikeSeriesEntityBase Series { get; set; }
+        public MoreAboutScootersWidgetVM objMoreAboutScooter { get; set; }
 
     }
 }

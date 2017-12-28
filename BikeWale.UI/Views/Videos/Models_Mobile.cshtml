@@ -121,6 +121,21 @@
     }
 
     { Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = Model.Model.ModelId, topCount = 9, cityId = Model.CityId }); }
+
+    if (Model.ObjMoreAboutScooter != null)
+    {
+        <section>
+            <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
+                <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
+                    <div class="swiper-wrapper">
+                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.ObjMoreAboutScooter)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    }
+
 }
 else if (Model != null && Model.Make != null && Model.objSeries != null)
 {

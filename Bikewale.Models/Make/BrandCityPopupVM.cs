@@ -7,6 +7,7 @@ namespace Bikewale.Models
     /// </author>
     public class BrandCityPopupVM
     {
+
         public EnumBikeType PageType { get; set; }
         public bool IsOperaBrowser { get; set; }
         public uint CityId { get; set; }

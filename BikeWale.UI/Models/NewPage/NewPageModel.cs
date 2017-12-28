@@ -3,6 +3,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
@@ -137,7 +138,7 @@ namespace Bikewale.Models
 
             objVM.RecentUserReviewsList = _userReviewsCache.GetRecentReviews();
             objVM.Source = "New_Bikes_Page";
-
+            objVM.Page = GAPages.New_Bikes_Page;
             return objVM;
         }
 
