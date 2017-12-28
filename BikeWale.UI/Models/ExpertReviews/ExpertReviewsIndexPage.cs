@@ -730,8 +730,7 @@ namespace Bikewale.Models
                     objData.SeriesMobileWidget.PopularSeriesBikesVM = new PopularBodyStyleVM() {
                         PopularBikes = objData.SeriesWidget.PopularSeriesBikes.Take(6),
 					    WidgetHeading = string.Format("Popular {0} {1}", objData.Series.SeriesName, this.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes"),
-					    WidgetLinkTitle = string.Format("View {0} {1}", objData.Series.SeriesName, this.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes"),
-                        WidgetLinkText = string.Format("View all {0} {1}", objSeries.SeriesName, this.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
+                        WidgetLinkTitle = string.Format("View all {0} {1}", objSeries.SeriesName, this.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
                         WidgetHref = string.Format("/m/{0}-bikes/{1}/", objMake.MaskingName, objData.Series.MaskingName)
                     };
 					
@@ -742,8 +741,7 @@ namespace Bikewale.Models
                     objData.SeriesMobileWidget.PopularBikesByBodyStyleVM = new BestBikesEditorialWidgetVM() {
                         BestBikes = objData.SeriesWidget.PopularBikesByBodyStyle.Take(6),
                         WidgetHeading = string.Format("Popular {0}", bodyStyleText),
-                        WidgetLinkTitle = string.Format("Popular {0}", bodyStyleText),
-                        WidgetLinkText = string.Format("View all popular {0}", this.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
+                        WidgetLinkTitle = string.Format("View all popular {0}", this.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
                         WidgetHref = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(this.BodyStyle))
                     
                     };

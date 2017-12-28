@@ -10,15 +10,12 @@ namespace Bikewale.Models
     /// summary     : View model for bikes by body style
     /// Modified by : Vivek Singh Tomar on 27th Oct 2017
     /// Description: Added city and return url for redirection from popups on amp pages
-    /// Modified by : Rajan Chauhan on 28 Dec 2017
-    /// Description : Added WidgetLinktext attribute to BestBikesEditorialWidgetVM and PopularBodyStyleVM
     /// </summary>
     public class PopularBodyStyleVM
     {
         public IEnumerable<MostPopularBikesBase> PopularBikes { get; set; }
         public string WidgetHeading { get; set; }
         public string WidgetLinkTitle { get; set; }
-        public string WidgetLinkText { get; set; }
         public string WidgetHref { get; set; }
         public string BodyStyleText { get; set; }
         public string BodyStyleLinkTitle { get; set; }
@@ -33,7 +30,6 @@ namespace Bikewale.Models
     {
         public string WidgetHeading { get; set; }
         public string WidgetLinkTitle { get; set; }
-        public string WidgetLinkText { get; set; }
         public string WidgetHref { get; set; }
         public IEnumerable<BestBikeEntityBase> BestBikes { get; set; }
     }
