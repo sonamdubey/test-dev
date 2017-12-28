@@ -29,6 +29,8 @@ namespace Bikewale.Models.UserReviews
             _authors = authors;
         }
 
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         public UserReviewLandingVM GetData()
         {
             try
@@ -37,6 +39,7 @@ namespace Bikewale.Models.UserReviews
                 objData.Makes = _bikeMakes.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
                 BindWidgets();
                 BindPageMetas();
+                objData.Page = Entities.Pages.GAPages.Reviews_Landing;
             }
             catch (Exception ex)
             {
