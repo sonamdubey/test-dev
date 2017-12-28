@@ -708,7 +708,7 @@ namespace Bikewale.DAL.BikeData
                                 objVersion.VersionName = Convert.ToString(dr["versionname"]);
                                 objVersion.OnRoadPrice = SqlReaderConvertor.ToInt64(dr["onroadprice"]);
                                 objVersion.BrakingSystem = SqlReaderConvertor.ToBoolean(dr["alloywheels"]) ? "ABS" : string.Empty;
-                                objVersion.BrakeType = Convert.ToString(dr["braketype"]) == "" ? "" : "";
+                                objVersion.BrakeType = string.Format("{0} Brake", Convert.ToString(dr["braketype"]));
                                 objVersion.WheelType = SqlReaderConvertor.ToBoolean(dr["alloywheels"]) ? "Alloy Wheels" : string.Empty;
                                 objVersion.StartType = SqlReaderConvertor.ToBoolean(dr["electricstart"]) ? "Electric Start" : "Kick Start";
                                 objBikeVersions.Add(objVersion);

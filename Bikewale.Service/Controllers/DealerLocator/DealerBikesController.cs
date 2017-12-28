@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.DealerLocator
 {
@@ -27,7 +26,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
     {
         private readonly IDealer _dealer = null;
         private readonly IDealerCacheRepository _cache = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionColorCache = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
 
         /// <summary>
         /// Created By : Lucky Rathore
@@ -40,7 +39,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
         {
             _dealer = dealer;
             _cache = cache;
-            _objVersionColorCache = objVersionColorCache;
+            _objVersionCache = objVersionColorCache;
         }
 
         /// <summary>
@@ -175,7 +174,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
             {
                 if (dealerId > 0 && modelId > 0)
                 {
-                    IEnumerable<BikeVersionWithMinSpec> versionList = _objVersionColorCache.GetDealerVersionsByModel(dealerId, modelId);
+                    IEnumerable<BikeVersionWithMinSpec> versionList = _objVersionCache.GetDealerVersionsByModel(dealerId, modelId);
                     if (versionList != null)
                     {
                         objeVersionList = DealerBikesEntityMapper.Convert(versionList);
@@ -197,8 +196,8 @@ namespace Bikewale.Service.Controllers.DealerLocator
                 return InternalServerError();
             }
         }
-        
-	/// <summary>
+
+        /// <summary>
         /// Created by  :   Sumit Kate on 27 Dec 2017
         /// Description :   API returns version price components with onroad price for a version of a dealer
         /// </summary>
