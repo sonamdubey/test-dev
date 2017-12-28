@@ -187,6 +187,7 @@
     <Compile Include="BikeData\BikeVersionEntity.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionMinSpecs.cs" />
+    <Compile Include="BikeData\BikeVersionMinSpec.cs" />
     <Compile Include="BikeData\BikeVersionPriceEntity.cs" />
     <Compile Include="BikeData\BikeVersionSegmentDetails.cs" />
     <Compile Include="BikeData\BikeVersionsListEntity.cs" />

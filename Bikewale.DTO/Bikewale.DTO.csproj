@@ -160,6 +160,7 @@
     <Compile Include="BikeBooking\PageUrl.cs" />
     <Compile Include="BikeData\BikeColorsbyVersion.cs" />
     <Compile Include="BikeData\BikeColorsbyVersionDTO.cs" />
+    <Compile Include="BikeData\BikeVersionWithMinSpecDTO.cs" />
     <Compile Include="BikeData\ModelSpecificationsDTO.cs" />
     <Compile Include="BikeData\VersionSegmentDTO.cs" />
     <Compile Include="BikeData\MakeModelBase.cs" />
