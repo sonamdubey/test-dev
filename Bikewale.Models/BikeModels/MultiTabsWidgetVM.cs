@@ -49,7 +49,7 @@ namespace Bikewale.Models.BikeModels
         PopularMakeBikesAndBodyStyleWidget = 4,
         PopularMakeScootersAndOtherBrands = 5,
         PopularScootersAndUpcomingScooters = 6,
-        PopularSeriesAndMakeBikeSeriesWidget = 7,
-        PopularUpcomingBodyStyleWidgetWidget = 8
+        PopularSeriesAndBodyStyleWidget = 7,
+        PopularUpcomingBodyStyleWidget = 8
     }
 }
