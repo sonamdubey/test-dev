@@ -104,7 +104,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse.DetailsCampaign = new DTO.Campaign.DetailsDto();
                 campaignResponse.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
                 campaignResponse.CampaignLeadSource = new DTO.Campaign.ESCampaignBase();
-                campaignResponse.DetailsCampaign.EsCamapign.TemplateHtml = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlDesktop, LeadCampaign);
+                campaignResponse.DetailsCampaign.EsCamapign.TemplateHtml = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
                 campaignResponse.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
                 campaignResponse.CampaignLeadSource.CaptionText = LeadCampaign.LeadsPropertyTextMobile;
                 campaignResponse.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
