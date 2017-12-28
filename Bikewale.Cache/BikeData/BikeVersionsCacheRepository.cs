@@ -53,9 +53,50 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetSimilarBikesList");
-                
+
             }
             return versions;
+        }
+
+        public IEnumerable<Entities.BikeData.SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid)
+        {
+            IEnumerable<Entities.BikeData.SimilarBikeEntity> bikelist = null;
+            string key = String.Format("BW_SimilarBikes_M1_{0}_Cnt_{1}_{2}", modelId, topCount, cityid);
+            try
+            {
+                TimeSpan cacheTime = new TimeSpan(3, 0, 0);
+                if (cityid == 0)
+                {
+                    cacheTime = new TimeSpan(23, 0, 0);
+                }
+                bikelist = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersions.GetSimilarBikesByModel(modelId, topCount, cityid));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetSimilarBikesByModel ModelId:{0}", modelId));
+
+            }
+            return bikelist;
+        }
+        public IEnumerable<Entities.BikeData.SimilarBikeEntity> GetSimilarBikesByMinPriceDiff(U modelId, uint topCount, uint cityid)
+        {
+            IEnumerable<Entities.BikeData.SimilarBikeEntity> bikelist = null;
+            string key = String.Format("BW_SimilarBikesMinDiff_M1_{0}_Cnt_{1}_{2}", modelId, topCount, cityid);
+            try
+            {
+                TimeSpan cacheTime = new TimeSpan(3, 0, 0);
+                if (cityid == 0)
+                {
+                    cacheTime = new TimeSpan(23, 0, 0);
+                }
+                bikelist = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersions.GetSimilarBudgetBikes(modelId, topCount, cityid));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetSimilarBikesByMinPriceDiff ModelId:{0}", modelId));
+
+            }
+            return bikelist;
         }
 
 
@@ -86,7 +127,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetVersionsByType");
-                
+
             }
             return versions;
         }
@@ -110,7 +151,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetById");
-                
+
             }
             return versionDetails;
         }
@@ -134,7 +175,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetVersionMinSpecs");
-                
+
             }
             return versions;
         }
@@ -155,7 +196,7 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("BikeVersionsCacheRepository.GetColorsbyVersionId: {0}", versionId));
-                
+
             }
             return versionColors;
         }

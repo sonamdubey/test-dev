@@ -67,8 +67,12 @@
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     @Html.Raw(Model.Page_ATF_CSS)
     <script type="text/javascript">
-        var ga_pg_id = '0';
+        var ga_pg_id = '0', gaObj;
 
+    @if(Model.Page !=null)
+    {
+        <text>gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};</text>
+    }
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
@@ -345,7 +349,6 @@
                 <a href="/m/reviews/">
                     <span class="reviews-icon"></span>
                     <span class="navbarTitle">Reviews</span>
-                    <span class="new-flag"></span>
                 </a>
             </li>
             <li>

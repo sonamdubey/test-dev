@@ -130,7 +130,8 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_ElectricBike = 104,
         Mobile_ElectricBikes = 105,
         Desktop_Videos_Page_PopularSeries = 106,
-        Mobile_Videos_Page_PopularSeries = 107
+        Mobile_Videos_Page_PopularSeries = 107,
+        Desktop_NewsDetailsPage = 108
     }
 
 }

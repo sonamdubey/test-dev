@@ -181,6 +181,7 @@
     <Compile Include="PriceInCity\PriceInCityPageVM.cs" />
     <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scooters\MoreAboutScootersWidgetVM.cs" />
     <Compile Include="Scooters\ScooterComparesVM.cs" />
     <Compile Include="Scooters\ScootersIndexPageVM.cs" />
     <Compile Include="Scooters\ScootersMakePageVM.cs" />

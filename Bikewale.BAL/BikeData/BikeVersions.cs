@@ -106,6 +106,18 @@ namespace Bikewale.BAL.BikeData
             return versionRepository.GetSimilarBikesList(versionId, topCount, cityid);
         }
 
+        public IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid)
+        {
+
+            return versionRepository.GetSimilarBikesByModel(modelId, topCount, cityid);
+        }
+        public IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityid)
+        {
+
+            return versionRepository.GetSimilarBudgetBikes(modelId, topCount, cityid);
+        }
+
+
         /// <summary>
         /// Created By : Sadhana Upadhyay on 4 Dec 2014
         /// Summary : get version color by version id

@@ -202,19 +202,47 @@
                     <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.Make.MakeName showrooms in popular cities</h3>
                     @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget.cshtml", Model.DealersServiceCenterPopularCities)
                 </div>
-            </div>
+                </div>
+                <div class="clear"></div>
         </div>
     </section>
 }
 
 
 
+@if (Model.SimilarBrandsByCity != null && Model.SimilarBrandsByCity.Makes != null && Model.SimilarBrandsByCity.Makes.Count() > 0)
+{
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-top20 padding-bottom20">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            @if (Model.CityDetails != null)
+                            {
+                                <span class="font16 text-semibold text-black">@string.Format("Showroom of other brands in {0}", Model.CityDetails.CityName)  </span>
+                            }
+                           
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/dealer-showrooms/" title="Bikes Showroom Locator" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    @Html.Partial("~/Views/Make/_BrandsModelCount.cshtml", Model.SimilarBrandsByCity)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+
 
 @if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0)
 {
     <section>
         <div class="container section-bottom-margin ">
-            <div class="grid-12 padding-top20">
+            <div class="grid-12">
                 <div class="content-box-shadow">
                     <div class="content-inner-block-20 ">
                         <div class="grid-10-inline margin-right-4">

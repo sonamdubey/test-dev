@@ -129,6 +129,7 @@
         selectedModel: ko.observable(),
         models: ko.observableArray()
     };
+    var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.DealerPriceQuote_Landing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.DealerPriceQuote_Landing%>' };
 
     //for jquery chosen 
     ko.bindingHandlers.chosen = {

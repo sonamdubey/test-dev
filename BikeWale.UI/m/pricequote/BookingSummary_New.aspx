@@ -514,6 +514,7 @@
                else
                {%>
             var arr = setuserDetails();
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Booking_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Booking_Page%>' };
             if (arr != null && arr.length > 0) {
                 viewModel.Customer().Name(arr[0]);
                 if(arr[1]!="undefined")

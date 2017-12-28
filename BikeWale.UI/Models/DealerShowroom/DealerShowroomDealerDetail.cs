@@ -4,6 +4,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
@@ -90,6 +91,7 @@ namespace Bikewale.Models
                     objDealerDetails.ServiceCenterDetails = BindServiceCenterWidget();
                     BindPageMetas(objDealerDetails);
                     BindLeadCapture(objDealerDetails);
+                    objDealerDetails.Page = GAPages.Dealer_Locator_Details_Page;
                 }
             }
             catch (System.Exception ex)
@@ -191,6 +193,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Desc        : Added 'New Bikes' in breadcrumb
         /// </summary>
         private void SetBreadcrumList(DealerShowroomDealerDetailsVM objPage)
         {
@@ -203,7 +207,7 @@ namespace Bikewale.Models
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}", url, "dealer-showrooms/"), "Showroom Locator"));
 
             if (objDealerDetails != null && objDealerDetails.Make != null)

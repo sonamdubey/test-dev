@@ -94,7 +94,7 @@
                 <div class="contest-banner">
                     <span class="contest-banner__icon margin-bottom20"></span>
                     <p class="font18 text-white text-bold margin-bottom10">Help fellow bikers make the right choice</p>
-                    <p class="font13 text-white margin-top5 margin-bottom30">Stand a chance to win Amazon voucher worth Rs. 2,000</p>
+                    <p class="font13 text-white margin-top5 margin-bottom30">Stand a chance to win Amazon voucher worth Rs. @Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney</p>
                     <div class="locator-search-container">
                         <div class="locator-search-make form-control-box">
                             <select id="reviewSelectMake" class="form-control make-model-chosen chosen-select">
@@ -116,7 +116,7 @@
                             <span class="bwsprite error-icon errorIcon hide"></span>
                             <div class="bw-blackbg-tooltip errorText hide"></div>
                         </div>
-                        <input type="button" id="applyFiltersBtn" data-query="@Model.UserReviewsQueryString" class="btn btn-orange btn-lg locator-search-btn margin-bottom5 bw-ga" c="Bike_Reviews" l="" a="Clicked_Contest_Model_Selection" value="Write and win &#x20b9; 2,000" />
+                        <input type="button" id="applyFiltersBtn" data-query="@Model.UserReviewsQueryString" class="btn btn-orange btn-lg locator-search-btn margin-bottom5 bw-ga" c="Bike_Reviews" l="" a="Clicked_Contest_Model_Selection" value="Write and win &#x20b9; @Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney" />
 
                         <input type="hidden" id="makeId" value="0">
                         <input type="hidden" id="modelId" value="0">

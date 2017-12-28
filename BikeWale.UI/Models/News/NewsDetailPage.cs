@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Schema;
@@ -46,6 +47,7 @@ namespace Bikewale.Models
         private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+
         #endregion
 
         #region Page level variables
@@ -58,7 +60,7 @@ namespace Bikewale.Models
         private BikeInfoTabType _pageId = BikeInfoTabType.News;
         private EnumBikeType bikeType = EnumBikeType.All;
         private readonly bool showCheckOnRoadCTA = false;
-        private uint basicId;
+        private uint basicId, _versionId;
         private PQSourceEnum pqSource = 0;
         #endregion
 
@@ -167,6 +169,7 @@ namespace Bikewale.Models
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
                     GetWidgetData(objData, widgetTopCount, false);
+                    BindSimilarBikes(objData);
                     SetPageMetas(objData);
 
                     if (objData.Model != null && ModelId != 0 && objData.Model.ModelId != ModelId)
@@ -261,8 +264,40 @@ namespace Bikewale.Models
             }
             return objData;
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 13-12-2017
+        /// Description :- Bind Similar Bikes Only for desktop
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindSimilarBikes(NewsDetailPageVM objData)
+        {
+            try
+            {
+                if (objData.Model!=null && objData.Model.ModelId > 0)
+                {
+                    var objSimilarBikes = new SimilarBikesWidget(_objBikeVersionsCache, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
 
+                    objSimilarBikes.TopCount = 9;
+                    objSimilarBikes.CityId = CityId;
+                    objSimilarBikes.IsNew = objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued) ? false : true;
+                    objSimilarBikes.IsUpcoming = objData.BikeInfo != null ? objData.BikeInfo.IsUpcoming : false;
+                    objSimilarBikes.IsDiscontinued = objData.BikeInfo != null ? objData.BikeInfo.IsDiscontinued : false;
+                    objData.SimilarBikes = objSimilarBikes.GetData();
+                    if (objData.SimilarBikes != null && objData.SimilarBikes.Bikes != null && objData.SimilarBikes.Bikes.Any())
+                    {
+                        objData.SimilarBikes.Make = objData.Make;
+                        objData.SimilarBikes.Model = objData.Model;
+                        objData.SimilarBikes.VersionId = _versionId;
+                        objData.SimilarBikes.Page = GAPages.Editorial_Details_Page;
+                    }
 
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.Models.NewsDetailPage.BindSimilarBikes({0})", objData.Model.ModelId));
+            }
+        }
         /// <summary>
         /// Created by : Aditi Srivastava on 29 Mar 2017
         /// Summary    : Set news details page metas
@@ -374,13 +409,16 @@ namespace Bikewale.Models
                 {
 
                     var taggedMakeObj = objData.ArticleDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
+
                     if (taggedMakeObj != null)
                     {
                         objData.Make = taggedMakeObj.MakeBase;
+                        _versionId = taggedMakeObj.VersionBase != null ? (uint)taggedMakeObj.VersionBase.VersionId : 0;
                     }
                     else
                     {
                         objData.Make = objData.ArticleDetails.VehiclTagsList.FirstOrDefault().MakeBase;
+                        _versionId = objData.ArticleDetails.VehiclTagsList.FirstOrDefault().VersionBase != null ? (uint)objData.ArticleDetails.VehiclTagsList.FirstOrDefault().VersionBase.VersionId : 0;
                         if (objData.Make != null)
                             objData.Make = new Common.MakeHelper().GetMakeNameByMakeId((uint)objData.Make.MakeId);
                     }
@@ -473,7 +511,7 @@ namespace Bikewale.Models
 
                     if (IsMobile)
                     {
-                       
+
                         if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !isPWA)
                         {
                             PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
