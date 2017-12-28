@@ -948,7 +948,7 @@
     margin-right: 0
 }
 
-.video-artical__card>a {
+.video-artical__card>span {
     display: block;
     padding: 15px 13px;
     color: #4d5057
@@ -1063,4 +1063,48 @@
 .btn-inv-blue:hover {
     background-color: #0288d1;
     color: #fff
+}
+.inner-content-carousel.jcarousel-wrapper .jcarousel {
+    width: 100%;
+    left: 0;
+    padding-left: 0;
+    padding-right: 0
+}
+
+.inner-content-carousel.jcarousel-wrapper .jcarousel li {
+    margin-left: 20px;
+    margin-right: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: none
+}
+
+.inner-content-carousel.jcarousel-wrapper .jcarousel-control-left,
+.inner-content-carousel.jcarousel-wrapper .jcarousel-control-right {
+    top: 43%
+}
+
+.jcarousel li:last-child {
+    margin-right: 20px
+}
+
+.jcarousel li:last-child .carousel-card {
+    margin-right: 20px
+}
+
+.jcarousel li>.carousel-card {
+    border: 1px solid #e2e2e2;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px
+}
+
+.inner-content-carousel .jcarousel-control-left .jcarousel-control-prev.inactive {
+    display: none
+}
+
+.inner-content-carousel .jcarousel-control-right .jcarousel-control-next.inactive {
+    display: none
 }

@@ -389,7 +389,7 @@ namespace Bikewale.Models
         {
             objData.News = new RecentNews(2, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
             objData.ExpertReviews = new RecentExpertReviews(2, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName)).GetData();
-            objData.Videos = new RecentVideos(1, 2, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
+            objData.Videos = new RecentVideos(1, 4, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
 
         }
 

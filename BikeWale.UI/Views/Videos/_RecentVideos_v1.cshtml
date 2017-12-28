@@ -11,7 +11,7 @@
             </div>
             <div class="article-desc-wrapper">
                 <h3 class="font14 margin-bottom10">
-                    <a href="@UrlFormatter.VideoDetailPageUrl(firstVideo.VideoTitleUrl,Convert.ToString(firstVideo.BasicId))" title="@firstVideo.VideoTitle" rel="bookmark" class="article-desc__title">@firstVideo.VideoTitle</a>
+                    <span data-url="@UrlFormatter.VideoDetailPageUrl(firstVideo.VideoTitleUrl,Convert.ToString(firstVideo.BasicId))" title="@firstVideo.VideoTitle" rel="bookmark" class="article-desc__title redirect-url">@firstVideo.VideoTitle</span>
                 </h3>
                 <div class="font14 text-light-grey margin-bottom20">
                     <span class="inline-block margin-right20">
@@ -58,7 +58,7 @@
                 <div class="font14">
                     <span class="text-slate-grey">@FormatDescription.TruncateDescription(firstVideo.Description, 500)</span>
                 </div>
-                <a href="@UrlFormatter.VideoDetailPageUrl(firstVideo.VideoTitleUrl,Convert.ToString(firstVideo.BasicId))" title="@firstVideo.VideoTitle" class="margin-top10">Read more</a>
+                <span data-url="@UrlFormatter.VideoDetailPageUrl(firstVideo.VideoTitleUrl,Convert.ToString(firstVideo.BasicId))" title="@firstVideo.VideoTitle" class="margin-top10 redirect-url">Read more</span>
             </div>
             <div class="clear"></div>
         </div>
@@ -72,15 +72,15 @@
 						@foreach (var video in Model.VideosList.Skip(1))
 						{
 							<li class="video-artical__card">
-								<a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="card-target carousel-card">
-									<h4 class="video-card__title">@FormatDescription.TruncateDescription(video.VideoTitle, 75)</h4>
-									<div class="video-card__img">
-										<img class="lazy" alt="@video.VideoTitle" title="@video.VideoTitle" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" src="">
-										<span class="video-card__time-block">
-											@Format.FormatTime(video.Duration)
-										</span>
-									</div>
-									<div class="video-card__desc">
+                                <span data-url="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="card-target carousel-card redirect-url">
+                                    <h4 class="video-card__title">@FormatDescription.TruncateDescription(video.VideoTitle, 75)</h4>
+                                    <div class="video-card__img">
+                                        <img class="lazy" alt="@video.VideoTitle" title="@video.VideoTitle" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" src="">
+                                        <span class="video-card__time-block">
+                                            @Format.FormatTime(video.Duration)
+                                        </span>
+                                    </div>
+                                    <div class="video-card__desc">
                                         <span class="video-card__desc-content">
                                             @FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMM yyyy")
                                         </span>
@@ -121,8 +121,8 @@
                                             </span>
                                             @Format.FormatNumeric(Convert.ToString(video.Likes))
                                         </span>
-									</div>
-								</a>
+                                    </div>
+                                </span>
 							</li>
 						}
 					</ul>
