@@ -802,5 +802,53 @@ namespace Bikewale.DAL.BikeData
             return objBikeVersions;
         }
 
+        /// <summary>
+        /// Gets the dealer versions by model.
+        /// </summary>
+        /// <param name="dealerId">The dealer identifier.</param>
+        /// <param name="modelId">The model identifier.</param>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId)
+        {
+            ICollection<BikeVersionWithMinSpec> objBikeVersions = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerversionsbymodel"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.UInt32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.UInt32, modelId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objBikeVersions = new List<BikeVersionWithMinSpec>();
+                            while (dr.Read())
+                            {
+                                BikeVersionWithMinSpec objVersion = new BikeVersionWithMinSpec();
+                                objVersion.VersionId = SqlReaderConvertor.ToUInt32(dr["bikeversionid"]);
+                                objVersion.VersionName = Convert.ToString(dr["versionname"]);
+                                objVersion.OnRoadPrice = SqlReaderConvertor.ToInt64(dr["onroadprice"]);
+                                objVersion.BrakingSystem = SqlReaderConvertor.ToBoolean(dr["alloywheels"]) ? "ABS" : string.Empty;
+                                objVersion.BrakeType = string.Format("{0} Brake", Convert.ToString(dr["braketype"]));
+                                objVersion.WheelType = SqlReaderConvertor.ToBoolean(dr["alloywheels"]) ? "Alloy Wheels" : string.Empty;
+                                objVersion.StartType = SqlReaderConvertor.ToBoolean(dr["electricstart"]) ? "Electric Start" : "Kick Start";
+                                objBikeVersions.Add(objVersion);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeVersionsRepository.GetModelVersions: {0}");
+            }
+            return objBikeVersions;
+        }
+
     }   // class
 }   // namespace
