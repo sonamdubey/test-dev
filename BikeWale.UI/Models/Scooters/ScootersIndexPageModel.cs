@@ -65,6 +65,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Returns the Scooters Index Page view model
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public ScootersIndexPageVM GetData()
@@ -80,6 +82,7 @@ namespace Bikewale.Models
                 BindUpcoming(objVM);
                 BindComparison(objVM);
                 BindEditorialWidget(objVM);
+                objVM.Page = Entities.Pages.GAPages.Scooters_Landing_Page;
             }
             catch (Exception ex)
             {
@@ -115,7 +118,8 @@ namespace Bikewale.Models
         /// </summary>
         private void BindComparison(ScootersIndexPageVM objVM)
         {
-            try {
+            try
+            {
                 ComparePopularBikes objCompare = new ComparePopularBikes(_compareScooters);
                 objCompare.TopCount = 9;
                 objCompare.CityId = CityId;
@@ -124,11 +128,11 @@ namespace Bikewale.Models
                 objVM.HasComparison = (objVM.ComparePopularScooters != null && objVM.ComparePopularScooters.CompareBikes != null && objVM.ComparePopularScooters.CompareBikes.Any());
                 objVM.ComparePopularScooters.CompareSource = CompareSource;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "ScootersIndexPageModel.BindComparison");
             }
-       }
+        }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -199,12 +203,12 @@ namespace Bikewale.Models
                 RecentNews objNews = new RecentNews(EditorialTopCount, _articles);
                 objNews.IsScooter = true;
                 objVM.News = objNews.GetData();
-                
+
                 RecentExpertReviews objReviews = new RecentExpertReviews(EditorialTopCount, _articles);
                 objReviews.IsScooter = true;
                 objVM.ExpertReviews = objReviews.GetData();
 
-                RecentVideos objVideos = new RecentVideos(1,(ushort)EditorialTopCount, _videos);
+                RecentVideos objVideos = new RecentVideos(1, (ushort)EditorialTopCount, _videos);
                 objVideos.IsScooter = true;
                 objVM.Videos = objVideos.GetData();
 
@@ -213,7 +217,7 @@ namespace Bikewale.Models
                 objVM.IsExpertReviewActive = false;
                 objVM.IsVideoActive = false;
 
-                if (objVM.News!=null && objVM.News.FetchedCount > 0)
+                if (objVM.News != null && objVM.News.FetchedCount > 0)
                 {
                     objVM.TabCount++;
                     objVM.IsNewsActive = true;
