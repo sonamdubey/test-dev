@@ -2830,7 +2830,6 @@
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
-    <Content Include="m\news\offline.html" />
     <Content Include="m\news\sw_installer.html" />
     <Content Include="m\news\sw.js" />
     <Content Include="m\new\photos\Default.aspx" />
@@ -2947,6 +2946,7 @@
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\sw.js" />
     <Content Include="m\trackday2016\css\track-day.css" />
     <Content Include="m\trackday2016\default.aspx" />
     <Content Include="m\trackday2016\details.aspx" />
@@ -4057,6 +4057,10 @@
     <ProjectReference Include="..\Bikewale.PWA.Entities\Bikewale.PWA.Entities.csproj">
       <Project>{891ee3d8-f296-4efc-a136-a278f0f06f61}</Project>
       <Name>Bikewale.PWA.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.PWA.UI\Bikewale.PWA.UI.csproj">
+      <Project>{3279e44e-3eae-4fe9-9721-980610c6f896}</Project>
+      <Name>Bikewale.PWA.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.PWA.Utils\Bikewale.PWA.Utils.csproj">
       <Project>{c1ec6868-50c6-41a0-a849-c0f8e4351eb2}</Project>

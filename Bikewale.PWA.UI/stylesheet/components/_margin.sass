@@ -1,0 +1,6 @@
+@mixin margin($direction: top, $value: 5)
+	@if type-of($value) == 'number' and type-of($direction) == 'string'
+		.margin-#{$direction}#{$value}
+			margin-#{$direction}: $value * 1px
+	@else
+		@error "Please enter a valid value for margin"

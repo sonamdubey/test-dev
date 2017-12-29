@@ -1,0 +1,31 @@
+@mixin fixed-header($height: 50px, $font-size: 16px)
+	.fixed-header
+		background: $dim-grey
+		color: map-get($color-map, "white")
+		font-size: $font-size
+		width: 100%
+		height: $height
+		position: fixed
+		overflow: hidden
+		z-index: 2
+		top: 0
+
+		.header-title
+			width: 80%
+			float: left
+			color: map-get($color-map, "white")
+			margin-top: 12px
+			font-size: 18px
+			font-weight: 400
+			text-overflow: ellipsis
+			white-space: nowrap
+			overflow: hidden
+
+@mixin category-back-btn($width: 45px)
+	.category-back-btn
+		width: $width
+		padding: 15px 13px 12px
+		float: left
+		cursor: pointer
+
+@include arrow-back-white()

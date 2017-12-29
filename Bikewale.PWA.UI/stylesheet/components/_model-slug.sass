@@ -1,0 +1,51 @@
+.model-slug-type-news
+    border: 1px solid #a0d9e1
+    margin-bottom: 20px
+    padding: 10px
+
+.model-more-info-section
+    .item-image-content
+        width: 100px
+        height: 56px
+        display: inline-block
+        background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') center no-repeat
+
+        img
+            height: 56px
+
+    &.model-slug-type-news
+        .bike-details-block
+            width: 64%
+            padding-left: 10px
+
+    .used-target-label
+        width: 96%
+
+// model ribbon
+.model-slug-type-news
+    .model-ribbon-tag
+        left: -11px
+
+// icons
+.next-grey-icon
+    width: 8px
+    height: 13px
+    background-position: -182px -393px
+    vertical-align: middle
+
+
+@import "placeholder/key-value-pair"
+@include key-size(12)
+@include value-size(18)
+
+@import "placeholder/inr-icons"
+@include inr-sm-icon
+@include inr-12-grey
+
+@import "placeholder/margin"
+@include margin-top(5)
+@include margin-bottom(5)
+@include margin-bottom(10)
+
+@import "placeholder/border"
+@include border(bottom)

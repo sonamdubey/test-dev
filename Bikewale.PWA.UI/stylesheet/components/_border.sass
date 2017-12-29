@@ -1,0 +1,5 @@
+@mixin border($direction: left, $color: light )
+	.border-#{$color}-#{$direction}
+		@if ($color)==light
+			$color: #e2e2e2
+		border-#{$direction}: 1px solid $color

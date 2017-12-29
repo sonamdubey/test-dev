@@ -1,0 +1,93 @@
+import {newsListAction,newBikesListAction} from '../actionTypes/actionTypes'
+
+import { CMSUserReviewSlugData , CMSUserReviewSlugPosition , isCMSUserReviewSlugClosed } from '../utils/commonUtils.js'
+import {extractPageNoFromURL} from '../components/News/NewsCommon'
+import {refreshGPTAds} from '../utils/googleAdUtils'
+import {NewsArticlesPerPage} from '../utils/constants'
+
+var numberOfApi = 2;
+var apisFetched = numberOfApi;
+function refreshGPTAdsOnNewsListPage() {
+	apisFetched -- ;
+	if(apisFetched == 0) {
+		apisFetched = numberOfApi;
+		refreshGPTAds();
+	}
+}
+
+
+var fetchNewsArticleList = function(pageNo) {
+	return function(dispatch) {
+		if(pageNo == -1) {
+			pageNo = extractPageNoFromURL(window.location.href);
+		}
+		var method = 'GET';
+		var url = '/api/pwa/cms/cat/1,19,6,8,2,18,5/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
+	
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4) {
+				refreshGPTAdsOnNewsListPage();
+				if(xhr.status == 200) {
+					
+					dispatch({type:newsListAction.FETCH_NEWSLIST_SUCCESS,payload:JSON.parse(xhr.responseText)});
+				}
+				else 
+					dispatch({type:newsListAction.FETCH_NEWSLIST_FAILURE}) 
+			}
+			
+		}
+
+		
+		xhr.open(method,url);
+		xhr.send();
+		dispatch({type:newsListAction.FETCH_NEWSLIST});
+
+	}
+
+
+}
+
+var fetchNewBikesListDataForNewsList = function(basicId) {
+	
+	return function(dispatch) {
+		var url ; 
+		if(parseInt(basicId) > 0) {
+			url = '/api/pwa/cms/bikelists/id/'+basicId+'/page/';
+		}
+		else {
+			url = '/api/pwa/cms/bikelists/id/0/page/';
+		}
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4 && xhr.status == 200) {
+				refreshGPTAdsOnNewsListPage();
+				if(xhr.status == 200)
+					dispatch({type:newBikesListAction.FETCH_NEW_BIKES_LIST_SUCCESS_FOR_NEWS_LIST,payload:JSON.parse(xhr.responseText)})
+				else
+					dispatch({type:newBikesListAction.FETCH_NEW_BIKES_LIST_FAILURE_FOR_NEWS_LIST})
+			}
+
+		}
+		xhr.open('GET',url)
+		xhr.send();
+		dispatch({type:newBikesListAction.FETCH_NEW_BIKES_LIST_FOR_NEWS_LIST});
+
+	}
+}
+
+var resetArticleListData = function() {
+	return function(dispatch) {
+		dispatch({type:newsListAction.NEWSLIST_RESET});
+		dispatch({type:newBikesListAction.NEW_BIKES_LIST_RESET_FOR_NEWS_LIST});
+	}
+}
+
+module.exports = {
+	fetchNewsArticleList : fetchNewsArticleList,
+	fetchNewBikesListDataForNewsList : fetchNewBikesListDataForNewsList,
+	resetArticleListData : resetArticleListData,
+	resetArticleListData : resetArticleListData
+}

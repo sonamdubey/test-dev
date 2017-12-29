@@ -27,7 +27,7 @@ var pattern = {
 };
 
 var Configuration = process.argv[3] || 'Debug';
-var webpackAssetsJson = require('./webpack-assets.json');
+var webpackAssetsJson = require('./BikeWale.UI/pwa/webpack-assets.json');
 if(!webpackAssetsJson) {
 	console.log('Webpack assets json not found');
 	return;
@@ -40,7 +40,7 @@ for (const key of Object.keys(webpackAssetsJson)) {
 var jsChunksJson = {};
 for(const key of Object.keys(webpackAssetsJson)) {
 	if(webpackAssetsJson[key].js) {
-		jsChunksJson['/pwa/'+key+'.bundle.js'] = webpackAssetsJson[key].js;
+		jsChunksJson['/pwa/js/'+key+'.bundle.js'] = webpackAssetsJson[key].js;
 	}
 }
 
@@ -191,7 +191,7 @@ gulp.task('replace-css-link-reference', function () {
 });
 
 // PWA specific gulp tasks
-var patternJSBundle = /\/pwa\/(\w)+.bundle.js/g;
+var patternJSBundle = /\/pwa\/js\/(\w)+.bundle.js/g;
 var replaceJsVersion = function(match, p1, offset, string) { //replace js urls with hashcode
 			if(jsChunksJson[match])
 				return jsChunksJson[match];
@@ -285,7 +285,7 @@ gulp.task("replace-filepath-in-SW" , function() {
 	var cdnUrlPattern = /var(\s)*baseUrl(\s|\n)*=(\s|\n)*(?:"|')([^,"']*)(?:"|')(\s|\n)*;/
 	return gulp.src([app + 'm/sw.js',
     				app + 'm/news/sw.js'] , { base: app })
-        .pipe(replace(/pwa\/appshell(-(\w)*)?\.(js|html)/g , function(match, p1, offset, string){ 
+        .pipe(replace(/pwa\/appshell(-(\w)*)?\.html/g , function(match, p1, offset, string){ 
         	return revManifest["pwa/appshell.html"]
         }))
         .pipe(replace(cdnUrlPattern,function(match, p1, offset, string){
