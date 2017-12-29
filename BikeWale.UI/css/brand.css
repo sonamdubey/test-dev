@@ -174,13 +174,14 @@
 #makeUpcomingBikesContent .model-preview-image-container {
     border: none;
 }
-.model-preview-image-container a {
+.model-preview-image-container .article-target-image {
     width: 100%;
     height: 164px;
     display: block;
     background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
+	cursor: pointer;
 }
-.model-preview-image-container a img {
+.model-preview-image-container img {
     width: 100%;
     height: 164px;
 }
@@ -930,35 +931,39 @@
 }
 
 .video-carousel .inner-content-carousel {
-    padding-bottom: 10px;
     padding-top: 20px
 }
 
-.video-carousel .inner-content-carousel .jcarousel .video-artical__card {
-    width: 305px;
+.carousel-type--videos.inner-content-carousel .video-article__card {
+    width: 307px;
     height: 255px;
-    margin-left: 10px
+    margin-left: 8px
 }
 
-.video-carousel .inner-content-carousel .jcarousel .video-artical__card:first-child {
-    margin-left: 20px
+.jcarousel .video-article__card:first-child {
+    margin-left: 20px;
 }
 
-.video-carousel li.video-artical__card:last-child .carousel-card {
+.jcarousel .video-article__card:last-child .carousel-card {
     margin-right: 0
 }
 
-.video-artical__card>span {
+.video-article__card .carousel-card {
     display: block;
     padding: 15px 13px;
-    color: #4d5057
+    color: #4d5057;
+	cursor: pointer;
 }
 
 .video-card__title {
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 10px;
-    height: 37.89px
+    height: 37.89px;
+}
+
+.video-card__title:hover {
+	text-decoration: underline;
 }
 
 .video-card__desc {
@@ -987,13 +992,13 @@
 
 .video-card__img {
     height: 154px;
-    width: 273px;
+    width: 100%;
     position: relative
 }
 
 .video-card__img img {
     height: auto;
-    width: 273px;
+    width: 100%;
     max-width: 100%
 }
 
@@ -1002,9 +1007,22 @@
     bottom: 10px;
     right: 10px
 }
+
 .article-desc-wrapper {
-    width: auto
+	width: auto;
 }
+
+.article-desc__title {
+	font-size: 15px;
+	color: #2a2a2a;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.article-desc__title:hover {
+	text-decoration: underline;
+}
+
 .article-content .article-image-wrapper {
     width: 292px;
     margin-right: 20px;
@@ -1064,15 +1082,15 @@
     background-color: #0288d1;
     color: #fff
 }
-.inner-content-carousel.jcarousel-wrapper .jcarousel {
+
+.carousel-type--videos.jcarousel-wrapper .jcarousel {
     width: 100%;
     left: 0;
     padding-left: 0;
     padding-right: 0
 }
 
-.inner-content-carousel.jcarousel-wrapper .jcarousel li {
-    margin-left: 20px;
+.carousel-type--videos.inner-content-carousel .jcarousel li {
     margin-right: 0;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -1080,20 +1098,7 @@
     border: none
 }
 
-.inner-content-carousel.jcarousel-wrapper .jcarousel-control-left,
-.inner-content-carousel.jcarousel-wrapper .jcarousel-control-right {
-    top: 43%
-}
-
-.jcarousel li:last-child {
-    margin-right: 20px
-}
-
-.jcarousel li:last-child .carousel-card {
-    margin-right: 20px
-}
-
-.jcarousel li>.carousel-card {
+.jcarousel .carousel-card {
     border: 1px solid #e2e2e2;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -1101,10 +1106,13 @@
     border-radius: 3px
 }
 
-.inner-content-carousel .jcarousel-control-left .jcarousel-control-prev.inactive {
-    display: none
-}
+@media only screen and (max-width: 1024px) {
+	.carousel-type--videos.jcarousel-wrapper .jcarousel {
+		width: 100% !important;
+	}
 
-.inner-content-carousel .jcarousel-control-right .jcarousel-control-next.inactive {
-    display: none
+	.carousel-type--videos.inner-content-carousel .jcarousel li {
+		width: 295px !important;
+		margin-right: 0 !important;
+	}
 }
