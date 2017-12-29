@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
@@ -7,18 +6,15 @@ using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Videos;
 using Bikewale.Models;
 using Bikewale.Utility;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Bikewale.PWA.Utils
 {
     public static class ConverterUtility
     {
-        static string _defaultCityName = BWConfiguration.Instance.GetDefaultCityName;   
+        static string _defaultCityName = BWConfiguration.Instance.GetDefaultCityName;
 
         /// <summary>
         /// Converts ArticleSummary to PwaArticleSummary
@@ -161,7 +157,7 @@ namespace Bikewale.PWA.Utils
                 bikeRatings.Rating = inpBikeInfo.Rating.ToString("0.0").TrimEnd('0', '.');
                 bikeRatings.Count = inpBikeInfo.RatingCount;
                 bikeRatings.ReviewCount = inpBikeInfo.UserReviewCount;
-                bikeRatings.ReviewUrl= string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(inpBikeInfo.Make.MaskingName, inpBikeInfo.Model.MaskingName));
+                bikeRatings.ReviewUrl = string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(inpBikeInfo.Make.MaskingName, inpBikeInfo.Model.MaskingName));
                 outBikeInfo.Rating = bikeRatings;
 
 
@@ -183,7 +179,7 @@ namespace Bikewale.PWA.Utils
                 {
                     if (inpBikeInfo.PriceInCity > 0 && cityDetails != null)
                     {
-                        outBikeInfo.PriceDescription = String.Format("Ex-showroom, {0}", cityDetails.CityName);
+                        outBikeInfo.PriceDescription = String.Format("On-road price, {0}", cityDetails.CityName);
                         outBikeInfo.Price = Format.FormatPrice(Convert.ToString(inpBikeInfo.PriceInCity));
 
                     }
@@ -315,7 +311,7 @@ namespace Bikewale.PWA.Utils
                 {
                     if (orgBikeInfo.PriceInCity > 0 && objData.CityDetails != null)
                     {
-                        outBikeInfo.PriceDescription = String.Format("Ex-showroom, {0}", objData.CityDetails.CityName);
+                        outBikeInfo.PriceDescription = String.Format("On-road price, {0}", objData.CityDetails.CityName);
                         outBikeInfo.Price = Format.FormatPrice(Convert.ToString(orgBikeInfo.PriceInCity));
 
                     }
@@ -376,13 +372,13 @@ namespace Bikewale.PWA.Utils
         /// </summary>
         /// <param name="inpList"></param>
         /// <returns></returns>
-        public static IEnumerable<PwaBikeVideoEntity> PwaConvert(IEnumerable<BikeVideoEntity> inpList, bool addShortDesc=false)
+        public static IEnumerable<PwaBikeVideoEntity> PwaConvert(IEnumerable<BikeVideoEntity> inpList, bool addShortDesc = false)
         {
             List<PwaBikeVideoEntity> outList = new List<PwaBikeVideoEntity>();
-            
+
             if (inpList != null && inpList.Count() > 0)
             {
-                PwaCovertAndAppend(outList, inpList,addShortDesc);
+                PwaCovertAndAppend(outList, inpList, addShortDesc);
             }
             return outList;
         }
@@ -391,20 +387,20 @@ namespace Bikewale.PWA.Utils
         /// </summary>
         /// <param name="outList"></param>
         /// <param name="inpList"></param>
-        public static void PwaCovertAndAppend(List<PwaBikeVideoEntity> outList, IEnumerable<BikeVideoEntity> inpList, bool addShortDesc=false)
+        public static void PwaCovertAndAppend(List<PwaBikeVideoEntity> outList, IEnumerable<BikeVideoEntity> inpList, bool addShortDesc = false)
         {
-            
+
             PwaBikeVideoEntity tempData;
-            if (outList!=null && inpList != null && inpList.Count() > 0)
+            if (outList != null && inpList != null && inpList.Count() > 0)
             {
                 foreach (var inp in inpList)
                 {
-                    tempData = PwaConvert(inp,addShortDesc);
+                    tempData = PwaConvert(inp, addShortDesc);
                     if (tempData != null)
                         outList.Add(tempData);
                 }
             }
-            
+
         }
         /// <summary>
         /// Converts BikeVideoEntity to PwaBikeVideoEntity
@@ -431,7 +427,7 @@ namespace Bikewale.PWA.Utils
                 outEntity.VideoTitleUrl = inpEntity.VideoTitleUrl;
                 outEntity.VideoUrl = inpEntity.VideoUrl;
                 outEntity.Views = Bikewale.Utility.Format.FormatPrice(Convert.ToString(inpEntity.Views));
-                 string secTitle, moreVidUrl;
+                string secTitle, moreVidUrl;
                 int catId;
                 if (Int32.TryParse(inpEntity.SubCatId, out catId))
                 {
