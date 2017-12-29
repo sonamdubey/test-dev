@@ -24,7 +24,7 @@
                     </div>
                     @if (Model.Articles != null && Model.Articles.Articles != null && Model.Articles.Articles.Count() > 0)
                     {
-                        <div class="section-inner-padding">
+                        <div class="section-inner-padding content-box-shadow card-bottom-margin">
                             <ul class="article-list">
                                 @{ushort i = 0;}
                                 @foreach (var article in Model.Articles.Articles)
@@ -82,7 +82,7 @@
                                                 </div>
                                                 <div class="list-slug__details slug-content--top-align">
                                                     <p class="list-slug__heading">Bike review contest</p>
-                                                    <p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;2,000</p>
+                                                    <p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;@BWConfiguration.Instance.ContestPriceMoney</p>
                                                     @{
                                         string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_News));
                                                     }
@@ -104,10 +104,23 @@
                                 }
                                 <div class="clear"></div>
                             </div>
+
+
                         </div>
                     }
+                    
+
                 </div>
+                @if (Model.ObjMoreAboutScooter != null)
+                {
+
+                    <div id="moreAboutScooter" class="content-box-shadow padding-top20">
+                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard.cshtml", Model.ObjMoreAboutScooter)
+                    </div>
+                }
             </div>
+          
+          
             <div class="grid-4 omega">
                 @if (Model.Model != null && Model.Model.ModelId > 0)
                 {

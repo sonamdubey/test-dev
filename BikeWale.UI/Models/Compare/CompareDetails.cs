@@ -77,7 +77,7 @@ namespace Bikewale.Models
                 }
 
                 GetComparedBikeDetails(obj);
-
+                obj.Page = GAPages.Compare_Bikes;
                 if (status != StatusCodes.RedirectPermanent)
                 {
                     BindExpertReviewsWidget(obj);

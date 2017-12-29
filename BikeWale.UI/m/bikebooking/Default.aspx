@@ -201,6 +201,7 @@
         <script type="text/javascript">
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList"), $liCities = $("#sliderCityList"), $liAreas = $("#sliderAreaList");
             var key = "bCity_";
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Booking_Landing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Booking_Landing%>' };
             lscache.setBucket('BLPage');  
             var selCityId = '<%= (cityId > 0)?cityId:0%>';
             var selAreaId = '<%= (areaId > 0)?areaId:0%>';

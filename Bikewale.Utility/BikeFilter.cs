@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,7 +27,7 @@ namespace Bikewale.Utility
             {
                 if (makeId > 0 && makes != null && makes.Any())
                 {
-                    ushort categoryId = makes.Where(x => x.MakeId == makeId).First().MakeCategoryId;
+                    ushort categoryId = makes.First(x => x.MakeId == makeId).MakeCategoryId;
                     ushort[] arr;
 
                     switch (categoryId)

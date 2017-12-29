@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Models.Compare;
@@ -38,6 +39,7 @@ namespace Bikewale.Models
             BindCompareTest(objVM);
             BindCompareBike(objVM);
             BindMetas(objVM);
+            objVM.Page = GAPages.CompareBikes_Landing;
             return objVM;
 
         }

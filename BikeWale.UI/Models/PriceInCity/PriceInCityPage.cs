@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.DTO.PriceQuote;
+﻿using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
@@ -25,6 +21,10 @@ using Bikewale.Models.PriceInCity;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -451,8 +451,14 @@ namespace Bikewale.Models
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
 
-                    
+
                     BindAdSlotTags(objVM);
+
+                    if (objVM.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                    {
+                        BindMoreAboutScootersWidget(objVM);
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -653,7 +659,7 @@ namespace Bikewale.Models
                             GetManufacturerCampaign(objVM);
                             BindManufacturerLeadAdAMP(objVM);
                         }
-                        
+
                         #endregion
 
                     }
@@ -673,6 +679,11 @@ namespace Bikewale.Models
                     BindAmpJsTags(objVM);
                     Series = _objModelEntity.GetSeriesByModelId(modelId);
                     SetBreadcrumList(objVM);
+                    if (objVM.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                    {
+                        BindMoreAboutScootersWidget(objVM);
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -785,7 +796,7 @@ namespace Bikewale.Models
                     int monthlyEMI = 0;
                     if (tenure != 0)
                     {
-                        monthlyEMI = Convert.ToInt32(Math.Round( (loanAmount * rateOfInterest / 1200) / (1 - Math.Pow((1 + (rateOfInterest / 1200)), (-1.0 * tenure)) ) ));
+                        monthlyEMI = Convert.ToInt32(Math.Round((loanAmount * rateOfInterest / 1200) / (1 - Math.Pow((1 + (rateOfInterest / 1200)), (-1.0 * tenure)))));
                     }
 
                     int totalAmount = downPayment + monthlyEMI * tenure + procFees;
@@ -1173,14 +1184,16 @@ namespace Bikewale.Models
         /// Description : Function to create page level schema for breadcrum
         /// Modified by Sajal Gupta on 02-11-2017
         /// Descriptition : Changed breadcrumb for scooter
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Description: Added 'new bikes' in breadcrumb
         /// </summary>
         private void SetBreadcrumList(PriceInCityPageVM objPage)
         {
             try
             {
                 IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url, scooterUrl, seriesUrl;
-            url = scooterUrl = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl);
+                string url, scooterUrl, seriesUrl;
+                url = scooterUrl = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl);
                 ushort position = 1;
                 if (IsMobile)
                 {
@@ -1188,7 +1201,7 @@ namespace Bikewale.Models
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
 
                 if (objPage.Make != null)
                 {
@@ -1204,17 +1217,17 @@ namespace Bikewale.Models
                         scooterUrl += "m/";
                     }
 
-                scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.Make.MaskingName);
+                    scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.Make.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.Make.MakeName)));
-            }
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.Make.MakeName)));
+                }
 
-            if(Series != null && Series.IsSeriesPageUrl)
-            {
+                if (Series != null && Series.IsSeriesPageUrl)
+                {
 
-                seriesUrl = string.Format("{0}{1}/", url, Series.MaskingName);
+                    seriesUrl = string.Format("{0}{1}/", url, Series.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, Series.SeriesName));
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, Series.SeriesName));
                 }
 
                 if (objPage.Make != null && objPage.BikeModel != null)
@@ -1400,6 +1413,28 @@ namespace Bikewale.Models
             {
                 ErrorClass.LogError(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", modelId, cityId, ManufacturerCampaignPageId));
             }
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 20th Dec 2017
+        /// Summary : Bind more about scooter widget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMoreAboutScootersWidget(PriceInCityPageVM objData)
+        {
+            try
+            {
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_modelCache, _objCityCache, _versionCache, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.PriceInCity);
+                obj.modelId = modelId;
+                objData.objMoreAboutScooter = obj.GetData();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.PriceInCityPAge.BindMoreAboutScootersWidget : ModelId {0}", modelId));
+            }
+
+
+
         }
     }
 }

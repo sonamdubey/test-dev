@@ -151,13 +151,16 @@ namespace CopyFiles
                         Directory.CreateDirectory(targetPath);
                     }
 
+                    string filePathName = Path.GetFileName(fileName);
+
                     //copy files to the respective folders, it will even overwrite files if already exists
-                    if ( (!fileExtension.Equals(".config") && !fileExtension.Equals(".xml")) || ( Path.GetFileName(fileName).Equals("Web.config") || Path.GetFileName(fileName).Equals("rewriterules.config") || Path.GetFileName(fileName).Equals("web_browsers_patch.xml") || Path.GetFileName(fileName).Equals("wurfl.xml") ))
+                    if ( (!fileExtension.Equals(".config") && !fileExtension.Equals(".xml")) || filePathName.Equals("Web.config") || filePathName.Equals("rewriterules.config") || filePathName.Equals("web_browsers_patch.xml") || filePathName.Equals("wurfl.xml"))
                     {
-                        File.Copy(fileName, targetPath + Path.GetFileName(fileName), true);
+                        File.Copy(fileName, targetPath + filePathName, true);
                     }
 
-                    if (fileExtension.Equals(".js") || fileExtension.Equals(".css") || Path.GetFileName(fileName).Equals("appshell.html") )
+
+                    if (fileExtension.Equals(".js") || fileExtension.Equals(".css") || filePathName.Equals("appshell.html") )
                     {
                         string newTargetPath = targetPath.Replace(@"\website\", @"\cdn\");
                         if (!Directory.Exists(newTargetPath))
@@ -166,18 +169,20 @@ namespace CopyFiles
                         }
 
                         //copy files to the respective folders, it will even overwrite files if already exists
-                        File.Copy(fileName, newTargetPath + Path.GetFileName(fileName), true);
+                        File.Copy(fileName, newTargetPath + filePathName, true);
                     }
 
                     if (isMinify && fileName.IsHtmlFile())
                     {
-                        string ntargetPath = targetPath + Path.GetFileName(fileName);
+                        string ntargetPath = targetPath + filePathName;
                         // Minify contents
                         string minifiedContents = MinifyHtml(ntargetPath, features);
 
                         // Write to the same file
                         File.WriteAllText(ntargetPath, minifiedContents, Encoding.UTF8);
                     }
+
+                    Console.WriteLine(filePathName);
 
                 }
             }

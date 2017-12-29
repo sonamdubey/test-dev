@@ -277,4 +277,10 @@ docReady(function () {
         var subfooter = $(this).closest('.make-subfooter');
         subfooter.find('.content__left-col').css('height', 'auto').css('height', subfooter.height());
     });
+
+    $("ul#listitems li.front").click(function () {
+        var cookieValue = getCookie("_bwtest"), bikeName = $(this).attr("data-bike");
+        bikeName = bikeName.replace(/\s+/, '_');
+        triggerGA("MakePage", "Clicked_on_ModelCard", cookieValue + "_" + bikeName);
+    });
 });
