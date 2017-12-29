@@ -29,7 +29,7 @@
                         @FormatDescription.TruncateDescription(review.Description, 180)
                     </p>
 
-                    <span title="@review.Title" href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" rel="nofollow" class="article-target-read-more redirect-url">Read more</span>
+                    <span title="@review.Title" data-url="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" rel="nofollow" class="article-target-read-more redirect-url">Read more</span>
 
                 </li> }
         </ul>
