@@ -8,7 +8,8 @@ var gulp = require('gulp'),
 	fs = require('fs'),
 	replace = require('gulp-replace'),
 	fsCache = require('gulp-fs-cache'),
-	rev = require('gulp-rev');
+	rev = require('gulp-rev'),
+	workbox = require('workbox-build');
 
 var app = 'BikeWale.UI/',
 	buildFolder = app + 'build/',
@@ -202,7 +203,7 @@ var replaceJsVersion = function(match, p1, offset, string) { //replace js urls w
 				console.log('No match found for js link '+match);
 	    }
 var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline css
-	    	var regex = /\/pwa\/css\/(.*\/)?(.*).css/;
+			var regex = /\/pwa\/css\/(.*\/)?(.*).css/;
 			var matches = regex.exec(fileName);
 			if(!matches || !matches[2]) {
 				console.log('Could not find filename from '+fileName);
@@ -260,10 +261,9 @@ function getCdnPath() {
 }
 
 
-gulp.task('swResourceProcesing', function() {
+gulp.task('appshell-procesing', function() {
 	return gulp.src([
-		app + 'pwa/appshell.html',
-		app + 'pwa/sw-toolbox.js'
+		app + 'pwa/appshell.html'
 		] , { base : app})
 		.pipe(replace(patternJSBundle,replaceJsVersion))
 	    .pipe(replace(pattern.CSS_ATF,replaceInlineCssReferenceLink))
@@ -282,22 +282,49 @@ gulp.task('swResourceProcesing', function() {
 		.pipe(gulp.dest(buildFolder))
 })
 
-gulp.task("replaceSWResouceHashInSW" , function() {
+
+
+gulp.task("replace-filepath-in-SW" , function() {
 	var revManifest = require('./'+buildFolder+'rev-manifest.json');
 	var cdnUrlPattern = /var(\s)*baseUrl(\s|\n)*=(\s|\n)*(?:"|')([^,"']*)(?:"|')(\s|\n)*;/
 	return gulp.src([app + 'm/sw.js',
     				app + 'm/news/sw.js'] , { base: app })
-        .pipe(replace(/pwa\/(sw-toolbox|appshell)(-(\w)*)?\.(js|html)/g , function(match, p1, offset, string){ 
-        	if(match.indexOf("appshell")!==-1)
-        		return revManifest["pwa/appshell.html"]
-        	else if(match.indexOf("sw-toolbox")!==-1)
-        		return revManifest['pwa/sw-toolbox.js'];
+        .pipe(replace(/pwa\/appshell(-(\w)*)?\.(js|html)/g , function(match, p1, offset, string){ 
+        	return revManifest["pwa/appshell.html"]
         }))
         .pipe(replace(cdnUrlPattern,function(match, p1, offset, string){
 			return 'var baseUrl = \''+getCdnPath()+'\';';
 		}))
+		.pipe(replace(/workboxSW\.precache\(\[.*\]\);?/g,function(match,p1,offset,string) {
+			console.log('found appshell in sw');
+			return "workboxSW.precache([]);";
+		}))
         .pipe(gulp.dest(buildFolder));
 });
+
+gulp.task('generate-service-worker' , function() { // this task has to follow 'replace-filepath-in-SW' as it takes the file created by previous task
+	var revManifest = require('./'+buildFolder+'rev-manifest.json');
+	var regexPatternForAppshell = /.*appshell.*/;
+	return workbox.injectManifest({
+		swSrc : buildFolder + 'm/sw.js',
+		swDest : buildFolder + 'm/sw.js',
+		globDirectory : buildFolder,
+		staticFileGlobs: [
+			revManifest["pwa/appshell.html"]
+		],
+		dontCacheBustUrlsMatching: regexPatternForAppshell,
+		manifestTransforms : [(manifestEntries) => {
+			return manifestEntries.map(entry => {
+				if (entry.url.match(regexPatternForAppshell)) {
+			      return getCdnPath()+revManifest["pwa/appshell.html"];
+			    } 
+			})
+		}]
+		
+
+	})
+}); 
+
 
 
 gulp.task('sass', function () {
@@ -320,8 +347,10 @@ gulp.task('default', gulpSequence(
 			'replace-css-link-reference',
 			'replace-css-chunk-json',
 			'replace-js-css-reference',
-			'swResourceProcesing',
-			'replaceSWResouceHashInSW'
+			'appshell-procesing',
+			'replace-filepath-in-SW',
+			'generate-service-worker'
+			
 		)
 );
 //end
