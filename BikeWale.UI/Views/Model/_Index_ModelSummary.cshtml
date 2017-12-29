@@ -7,7 +7,7 @@
     <div data-id="modelSummaryContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin">
         <h2 class="h2-heading padding-bottom10">@Model.BikeName Summary</h2>
         
-        <div class="grid-8 alpha">
+        <div class="grid-8 alpha model-about-container">
             <div class="margin-top10">
                 <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
                     <thead>
@@ -18,41 +18,41 @@
                     <tbody>
                         @if (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0))
                         {
-                            <tr>
-                                <td width="36%"><strong class="text-unbold">Price</strong></td>
-                                <td width="64%">
-                                    @Html.Raw("&#x20B9;")
-                                    <strong class="text-bold">@(Model.BikePrice > 0 ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.SelectedVersion.AverageExShowroom.ToString()))</strong>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td width="36%"><strong class="text-unbold">Price</strong></td>
+                            <td width="64%">
+                                @Html.Raw("&#x20B9;")
+                                <strong class="text-bold">@(Model.BikePrice > 0 ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.SelectedVersion.AverageExShowroom.ToString()))</strong>
+                            </td>
+                        </tr>
                         }
                         @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
                         {
-                            <tr>
-                                <td>Top speed</td>
-                                <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
-                            </tr>
+                        <tr>
+                            <td>Top speed</td>
+                            <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
+                        </tr>
                         }
                         @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
                         {
-                            <tr>
-                                <td>Mileage</td>
-                                <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
-                            </tr>
+                        <tr>
+                            <td>Mileage</td>
+                            <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
+                        </tr>
                         }
                         @if (Model.IsModelColorsAvailable)
                         {
-                            <tr>
-                                <td valign="top">Colours</td>
-                                <td valign="top" class="text-bold">
-                                    <ul class="model-color-list">
-                                        @foreach (var colorName in Model.ModelPageEntity.ModelColors)
+                        <tr>
+                            <td valign="top">Colours</td>
+                            <td valign="top" class="text-bold">
+                                <ul class="model-color-list">
+                                    @foreach (var colorName in Model.ModelPageEntity.ModelColors)
                                         {
-                                            <li class="leftfloat">@colorName.ColorName</li>
+                                        <li class="leftfloat">@colorName.ColorName</li>
                                         }
-                                    </ul>
-                                </td>
-                            </tr>
+                                </ul>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

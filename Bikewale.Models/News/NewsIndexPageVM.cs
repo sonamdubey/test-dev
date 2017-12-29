@@ -21,6 +21,10 @@ namespace Bikewale.Models
     /// Description : Added Series.
     /// Modified by: Snehal Dange on 21th dec 2017
     /// Summary : added MoreAboutScootersWidgetVM
+    /// Modified by : Rajan Chauhan on 27 Dec 2017
+    /// Description : Changed PopularSeriesAndMakeBikeSeriesWidget to PopularSeriesAndBodyStyleWidget and 
+    ///               Changed name of PopularUpcomingBodyStyleWidgetWidget to PopularUpcomingBodyStyleWidget
+    ///               Added attribute UpcomingBikesByBodyStyleWidget
     /// </summary>
     public class NewsIndexPageVM : ModelBase
     {
@@ -37,6 +41,7 @@ namespace Bikewale.Models
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
         public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
+        public UpcomingBikesWidgetVM UpcomingBikesByBodyStyleWidget { get; set; }
         public PwaReduxStore ReduxStore { get; set; }
         public IHtmlString ServerRouterWrapper { get; set; }
         public string WindowState { get; set; }
@@ -51,8 +56,8 @@ namespace Bikewale.Models
         public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
         public MoreAboutScootersWidgetVM ObjMoreAboutScooter { get; set; }
 
-        public MultiTabsWidgetVM PopularSeriesAndMakeBikeSeriesWidget { get; set; }
-        public MultiTabsWidgetVM PopularUpcomingBodyStyleWidgetWidget { get; set; }
+        public MultiTabsWidgetVM PopularSeriesAndBodyStyleWidget { get; set; }
+        public MultiTabsWidgetVM PopularUpcomingBodyStyleWidget { get; set; }
 
         public EditorialSeriesWidgetVM SeriesWidget { get; set; }
         public EditorialSeriesMobileWidgetVM SeriesMobileWidget { get; set; }
@@ -62,7 +67,6 @@ namespace Bikewale.Models
     {
 
         public IEnumerable<MostPopularBikesBase> PopularSeriesBikes { get; set; }
-        public IEnumerable<MostPopularBikesBase> PopularMakeSeriesBikes { get; set; }
 
         public IEnumerable<BestBikeEntityBase> PopularBikesByBodyStyle { get; set; }
         public IEnumerable<UpcomingBikeEntity> UpcomingBikesByBodyStyle { get; set; }
