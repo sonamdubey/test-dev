@@ -1,61 +1,61 @@
-﻿
-@model Bikewale.Models.MoreAboutScootersWidgetVM
+﻿@model Bikewale.Models.MoreAboutScootersWidgetVM
 
 @if (Model != null)
 {
-    if (Model.BikeInfo != null && Model.BikeInfo.BikeInfo != null && Model.BikeInfo.BikeInfo.Tabs != null && Model.BikeInfo.BikeInfo.Tabs.Any())
-    {
-        var bikeName = string.Format("{0} {1}", Model.objBikeData.MakeBase.MakeName, Model.objBikeData.ModelName);
-        <div class="swiper-slide">
-            <div class="model-related__card swiper-card">
-                <h3 class="related-card__title">More about @bikeName</h3>
-                <ul class="related-card__list">
-                    @foreach (var Tabsdetails in Model.BikeInfo.BikeInfo.Tabs)
-                    {
-                        <li>
-                            <a class="related-card__target-link" title="@Model.objBikeData.MakeBase.MakeName @Model.objBikeData.ModelName @Tabsdetails.Title" href="@string.Format("{0}/m{1}",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl,Tabsdetails.URL)">@bikeName @Tabsdetails.TabText</a>
-                        </li>
-                    }
-                </ul>
+    <amp-carousel height="285" layout="fixed-height" type="carousel">
+        @if (Model.BikeInfo != null && Model.BikeInfo.BikeInfo != null && Model.BikeInfo.BikeInfo.Tabs != null && Model.BikeInfo.BikeInfo.Tabs.Any())
+        {
+            var bikeName = string.Format("{0} {1}", Model.objBikeData.MakeBase.MakeName, Model.objBikeData.ModelName);
+            <div class="swiper-card">
+                <div class="model-related__card ">
+                    <h3 class="related-card__title">More about @bikeName</h3>
+                    <ul class="related-card__list">
+                        @foreach (var Tabsdetails in Model.BikeInfo.BikeInfo.Tabs)
+                        {
+                            <li>
+                                <a class="related-card__target-link" title="@Model.objBikeData.MakeBase.MakeName @Model.objBikeData.ModelName @Tabsdetails.Title" href="@string.Format("{0}/m{1}",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl,Tabsdetails.URL)">@bikeName @Tabsdetails.TabText</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
-        </div>
-    }
+        }
 
-    if (Model.SimilarBikes != null && Model.SimilarBikes.Any())
-    {
-        <div class="swiper-slide">
-            <div class="model-related__card swiper-card">
-                <h3 class="related-card__title">Similar Budget Scooters</h3>
-                <ul class="related-card__list">
-                    @foreach (var obj in Model.SimilarBikes)
-                    {
-                        <li>
-                            <a class="related-card__target-link" href="@string.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.MakeBase.MaskingName, obj.ModelBase.MaskingName)" title="@string.Format("{0} {1} Price",obj.MakeBase.MakeName,obj.ModelBase.ModelName)">
-                                @obj.MakeBase.MakeName @obj.ModelBase.ModelName Price
-                            </a>
-                        </li>
-                    }
-                </ul>
+        @if (Model.SimilarBikes != null && Model.SimilarBikes.Any())
+        {
+            <div class="swiper-card">
+                <div class="model-related__card">
+                    <h3 class="related-card__title">Similar Budget Scooters</h3>
+                    <ul class="related-card__list">
+                        @foreach (var obj in Model.SimilarBikes)
+                        {
+                            <li>
+                                <a class="related-card__target-link" href="@string.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.MakeBase.MaskingName, obj.ModelBase.MaskingName)" title="@string.Format("{0} {1} Price",obj.MakeBase.MakeName,obj.ModelBase.ModelName)">
+                                    @obj.MakeBase.MakeName @obj.ModelBase.ModelName Price
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
-        </div>
-    }
-    if (Model.objBestBikesList != null && Model.objBestBikesList.Any())
-    {
-        <div class="swiper-slide">
-            <div class="model-related__card swiper-card">
-                <h3 class="related-card__title">Top 5 Scooters</h3>
-                <ul class="related-card__list">
-                    @foreach (var obj in Model.objBestBikesList)
-                    {
-                        <li>
-                            <a class="related-card__target-link" href="@string.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.Make.MaskingName, obj.Model.MaskingName)" title="@obj.BikeName">
-                                @obj.BikeName
-                            </a>
-                        </li>
-                    }
-                </ul>
+        }
+        @if (Model.objBestBikesList != null && Model.objBestBikesList.Any())
+        {
+            <div class="swiper-card">
+                <div class="model-related__card">
+                    <h3 class="related-card__title">Top 5 Scooters</h3>
+                    <ul class="related-card__list">
+                        @foreach (var obj in Model.objBestBikesList)
+                        {
+                            <li>
+                                <a class="related-card__target-link" href="@string.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.Make.MaskingName, obj.Model.MaskingName)" title="@obj.BikeName">
+                                    @obj.BikeName
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
-        </div>
-    }
-
+        }
+    </amp-carousel>
 }
