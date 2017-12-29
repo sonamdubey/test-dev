@@ -83,20 +83,20 @@
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
-                    <div id="modelVideosContent" data-id="#modelVideosContent" class="bw-model-tabs-data container margin-bottom20 active">
+                    <div id="modelVideosContent" data-id="#modelVideosContent" class="bw-model-tabs-data margin-bottom20 active">
 
                         <div class="content-box-shadow padding-top20 padding-bottom25">
 
                             <div class="carousel-heading-content">
-                                <h2 class="font22">@Model.BikeName Videos</h2>
+                                <h2>@Model.BikeName Videos</h2>
                             </div>
 
                             @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
 
                             <div class="margin-top10 padding-left20">
-                                <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn btn-inv-blue">
-                                    View All Videos
-                                </a>
+								<a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
+									View all videos <span class="bwsprite teal-right"></span>
+								</a>
                             </div>
                         </div>
 
