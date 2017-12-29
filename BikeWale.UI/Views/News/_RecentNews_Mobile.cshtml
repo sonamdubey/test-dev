@@ -7,9 +7,9 @@
         {
             <li class="margin-bottom20">
                 <div class="review-image-wrapper">
-                    <span data-url="@string.Format("/m{0}", @UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" class="redirect-url">
-                        <img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._144x81, QualityFactor._70)" title="@news.Title" alt="@news.Title" />
-                    </span>
+					<span data-url="@string.Format("/m{0}", @UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" class="article-target-image redirect-url">
+						<img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._144x81, QualityFactor._70)" title="@news.Title" alt="@news.Title" />
+					</span>
                 </div>
                 <div class="review-heading-wrapper">
                     <span data-url="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" class="font14 target-link redirect-url">@FormatDescription.TruncateDescription(news.Title, 44)</span>
@@ -27,7 +27,7 @@
                     @FormatDescription.TruncateDescription(@news.Description, 180)
                 </p>
                 
-                <span data-url="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" rel="nofollow" class="redirect-url">Read more</span>
+				<span data-url="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" rel="nofollow" class="article-target-read-more redirect-url">Read more</span>
           
             </li> }
     </ul>

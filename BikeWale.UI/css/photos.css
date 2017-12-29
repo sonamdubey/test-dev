@@ -1324,3 +1324,18 @@
 .carousel-type--videos.inner-content-carousel .jcarousel li {
 	margin-right: 0;
 }
+
+.article-desc-wrapper {
+	width: auto;
+}
+
+.article-desc__title {
+	font-size: 15px;
+	color: #2a2a2a;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.article-desc__title:hover {
+	text-decoration: underline;
+}
