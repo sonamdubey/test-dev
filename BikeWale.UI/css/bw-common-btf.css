@@ -42,9 +42,18 @@
 .news-expert-video-content .img-preview { width:100%; height:174px; display:table; text-align:center;}
 .news-expert-video-content .img-preview a { display:table-cell; vertical-align:middle; background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .news-expert-video-content .img-preview a img { max-width:100%; height:auto; }
-#modelNewsContent .article-target-link, #modelReviewsContent .article-target-link, #modelVideosContent .article-target-link { margin-bottom: 8px; line-height: 1.5; }
+#modelNewsContent .article-target-link, #modelReviewsContent .article-target-link, #modelVideosContent .article-target-link { margin-bottom: 8px; line-height: 1.5; cursor: pointer; }
 #modelNewsContent .model-news-title-container.model-news-text-wrapper { display:block; width: auto; padding-left:0; }
 #modelNewsContent .grid-8 .article-target-link { line-height:1.6; }
+.article-target-read-more {
+	color: #0288d1;
+	font-size: 14px;
+	display: inline-block;
+	cursor: pointer;
+}
+.article-target-read-more:hover {
+	text-decoration: underline;
+}
 
 @-moz-document url-prefix() {
 	.viewBtn .btn-xs {padding: 8px 10px 8px;}
@@ -260,7 +269,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 /* News-Reviews-Videos New Bikes */
 .newBikes-latest-updates-container .grid-4 { padding-left:10px !important; }
 .newBikes-latest-updates-container .grid-8 { padding-right:10px !important; }
-.article-target-link { font-size: 15px; font-weight: 600; color:#2a2a2a; display:block; margin-bottom: 8px; }
+.article-target-link { font-size: 15px; font-weight: 600; color:#2a2a2a; display:block; margin-bottom: 8px; cursor: pointer; }
 .article-target-link:hover { text-decoration:underline; }
 .article-stats-left-grid, .article-stats-right-grid { display:inline-block; vertical-align:top; min-width: 110px; padding-right: 10px; }
 .article-stats-content { font-size:12px; color: #82888b; display:inline-block; vertical-align:middle; }

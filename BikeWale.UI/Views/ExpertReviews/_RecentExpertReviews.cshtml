@@ -7,7 +7,7 @@
             <article class="margin-bottom20">
                 <div class="grid-4">
                     <div class="model-preview-image-container">
-                        <span data-url="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" class="redirect-url">
+                        <span data-url="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" class="article-target-image redirect-url">
                             <img class="lazy" data-original="@Image.GetPathToShowImages(review.OriginalImgUrl, review.HostUrl, ImageSize._310x174, QualityFactor._75)" title="@review.Title" alt="@review.Title" src="" />
                         </span>
                     </div>
@@ -30,7 +30,7 @@
                         @FormatDescription.TruncateDescription(review.Description, 280)
                     </p>
 
-                    <span data-url="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" title="@review.Title" class="font14 redirect-url" rel="nofollow">Read more</span>
+                    <span data-url="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" title="@review.Title" class="article-target-read-more redirect-url" rel="nofollow">Read more</span>
 
                 </div>
                 <div class="clear"></div>

@@ -1178,24 +1178,24 @@
     padding-top: 20px
 }
 
-.video-carousel .inner-content-carousel .jcarousel .video-artical__card {
+.video-carousel .inner-content-carousel .jcarousel .video-article__card {
     width: 305px;
     height: 255px;
     margin-left: 10px
 }
 
-.video-carousel .inner-content-carousel .jcarousel .video-artical__card:first-child {
+.video-carousel .inner-content-carousel .jcarousel .video-article__card:first-child {
     margin-left: 20px
 }
 
-.video-carousel li.video-artical__card:last-child .carousel-card {
+.video-carousel li.video-article__card:last-child .carousel-card {
     margin-right: 0
 }
 
-.video-artical__card>a {
+.video-article__card .article-target-image {
     display: block;
     padding: 15px 13px;
-    color: #4d5057
+    color: #4d5057;
 }
 
 .video-card__title {
