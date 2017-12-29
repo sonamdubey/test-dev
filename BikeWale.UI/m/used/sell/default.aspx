@@ -593,6 +593,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             var cookieCityId = '<%= cookieCityId%>';
             var inquiryDetailsJSON = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
             var imgEnv = "<%= Bikewale.Utility.BWConfiguration.Instance.AWSEnvironment %>";
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Sell_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Sell_Page%>' };
         </script>
 
         <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>

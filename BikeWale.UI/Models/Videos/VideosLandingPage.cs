@@ -46,6 +46,8 @@ namespace Bikewale.Models.Videos
             _objModelCache = objModelCache;
         }
 
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         public VideosLandingPageVM GetData()
         {
             VideosLandingPageVM objVM = null;
@@ -78,6 +80,7 @@ namespace Bikewale.Models.Videos
                 }
                 objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes, _objModelCache).GetData(Entities.BikeData.EnumBikeType.Videos);
                 BindPageMetas(objVM);
+                objVM.Page = Entities.Pages.GAPages.Videos_Landing_Page;
             }
             catch (Exception ex)
             {
