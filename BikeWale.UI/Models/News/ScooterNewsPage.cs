@@ -291,6 +291,8 @@ namespace Bikewale.Models.News
         /// <summary>
         /// Created By : Snehal Dange on 17 August 2017
         /// Summary    : Get news data for scooters
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public NewsScootersPageVM GetData()
@@ -336,6 +338,7 @@ namespace Bikewale.Models.News
                     CreatePrevNextUrl(objData);
                     GetWidgetData(objData);
                     SetBreadcrumList(objData);
+                    objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
                 }
                 else
                 {
@@ -357,7 +360,7 @@ namespace Bikewale.Models.News
         {
             try
             {
-                if(objPageVM!=null)
+                if (objPageVM != null)
                 {
                     IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
                     string bikeUrl;
@@ -388,8 +391,8 @@ namespace Bikewale.Models.News
                     {
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Scooters News"));
                     }
-                        objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
-                    
+                    objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
                 }
             }
             catch (Exception ex)
