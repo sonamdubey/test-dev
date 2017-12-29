@@ -9,6 +9,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :   Bike Versions  Cache Repository
     /// Modified by :   Aditi Srivastava on 20 Oct 2016
     /// Description :   Added method to get versions colors by version id
+    /// Modified by : Ashutosh Sharma on 26 Dec 2017
+    /// Description : Added GetSpecifications.
     /// </summary>
     public interface IBikeVersionCacheRepository<T, U>
     {
@@ -20,5 +22,7 @@ namespace Bikewale.Interfaces.BikeData
         T GetById(U versionId);
         List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
         IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId);
+        TransposeModelSpecEntity GetSpecifications(U versionId);
+        IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId);
     }
 }

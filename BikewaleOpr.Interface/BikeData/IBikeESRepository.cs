@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Entity.ElasticSearch;
+﻿using System.Collections.Generic;
+using BikewaleOpr.Entity.ElasticSearch;
 
 namespace BikewaleOpr.Interface.BikeData
 {
@@ -10,5 +11,7 @@ namespace BikewaleOpr.Interface.BikeData
     {
         BikeList GetBikeESIndex(string id, string indexName);
         bool UpdateBikeESIndex(string id, string indexName, BikeList bike);
+        List<BikeList> GetBikeESIndex(IEnumerable<string> ids, string indexName);
+        bool UpdateBikeESIndex(IEnumerable<string> ids, string indexName, List<BikeList> bikes);
     }
 }
