@@ -166,6 +166,15 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .article-stats-content-no-truncate { font-size:11px; color: #82888b; width: 78%; display:inline-block; vertical-align:middle; text-align:left; white-space:nowrap; overflow:hidden; }
 .article-stats-content.video-view-count { width: 72%; }
 .video-image-thumbnail { position:relative; height: 68px; }
+.article-target-image {
+	cursor: pointer;
+}
+.article-target-read-more {
+	color: #0288d1;
+	font-size: 14px;
+	display: inline-block;
+	cursor: pointer;
+}
 
 /* footer classes */
 footer ul li { display: inline-block; }
