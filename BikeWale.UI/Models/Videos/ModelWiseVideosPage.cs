@@ -376,12 +376,7 @@ namespace Bikewale.Models.Videos
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, scooterUrl, string.Format("{0} Scooters", objVM.Make.MakeName)));
                 }
 
-                if (objVM.objSeries != null)
-                {
-                    seriesUrl = string.Format("{0}{1}/", bikeUrl, objVM.objSeries.MaskingName);
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, seriesUrl, objVM.objSeries.SeriesName));
 
-                }
 
                 if (objVM.Model != null)
                 {
