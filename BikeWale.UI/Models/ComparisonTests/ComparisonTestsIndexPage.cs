@@ -62,6 +62,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 8 May 2017
         /// Summary    : Function to get the comparison tests landing page data
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         public ComparisonTestsIndexPageVM GetData(int widgetTopCount)
         {
@@ -86,6 +88,7 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData);
                     GetWidgetData(objData, widgetTopCount);
+                    objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
                 }
                 else
                 {
