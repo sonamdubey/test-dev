@@ -213,8 +213,10 @@ namespace Bikewale.Models.Photos
                 if (_modelId > 0 && _objData.Make != null && _objData.Model != null)
                 {
                     _objData.BikeInfo = (new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, _cityId, 4, Entities.GenericBikes.BikeInfoTabType.Image)).GetData();
-
-                    _objData.Videos = new RecentVideos(1, 3, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
+                    if (IsMobile)
+                        _objData.Videos = new RecentVideos(1, 2, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
+                    else
+                        _objData.Videos = new RecentVideos(1, 4, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
 
                     if (_objData.PhotoGallery != null && _objData.PhotoGallery.ImageList != null)
                     {
