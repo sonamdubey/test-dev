@@ -66,6 +66,11 @@
         Editorial_List_Page = 37,
         Editorial_Details_Page = 38,
         PriceInCity_Page = 39,
-        Search_Page = 40
+        Search_Page = 40,
+        Used_Bike_Landing = 41,
+        Used_Bike_Listing = 42,
+        Used_Bike_Details = 43,
+        Sell_Page = 44
+
     }
 }

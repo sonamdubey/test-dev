@@ -73,6 +73,8 @@ namespace Bikewale.Models.Photos
         /// Description : Get series entity to create bread crumb list
         /// Modified by : Snehal Dange on 20th Dec 2017
         /// Description: Added BindMoreAboutScootersWidget
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <param name="gridSize"></param>
         /// <param name="noOfGrid"></param>
@@ -100,6 +102,7 @@ namespace Bikewale.Models.Photos
                     BindMoreAboutScootersWidget(_objData);
 
                 }
+                _objData.Page = Entities.Pages.GAPages.Model_Images_Page;
 
 
 

@@ -81,6 +81,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By:- Subodh Jain 23 March 2017
         /// Summary:- Fetching data about feature article
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public IndexFeatureVM GetData(int widgetTopCount)
@@ -94,6 +96,7 @@ namespace Bikewale.Models
             BindPageMetas(objIndex);
             BindWidget(objIndex, widgetTopCount);
             CreatePrevNextUrl(objIndex);
+            objIndex.Page = Entities.Pages.GAPages.Editorial_List_Page;
             return objIndex;
         }
 

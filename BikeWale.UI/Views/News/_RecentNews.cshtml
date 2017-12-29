@@ -9,7 +9,7 @@
                 <article>
                     <div class="grid-4 alpha">
                         <div class="model-preview-image-container">
-                            <span data-url="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))" class="redirect-url">
+                            <span data-url="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))" class="article-target-image redirect-url">
                                 <img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._310x174, QualityFactor._75)" title="@news.Title" alt="@news.Title" src="">
                             </span>
                         </div>
@@ -31,7 +31,7 @@
                         <p class="line-height17 margin-top10 font14">
                             @FormatDescription.TruncateDescription(news.Description, 280)
                         </p>
-                        <span data-url="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId),news.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))" title="@news.Title" class="font14 redirect-url" rel="nofollow">Read more</span>
+						<span data-url="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId),news.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))" title="@news.Title" class="article-target-read-more redirect-url" rel="nofollow">Read more</span>
                     </div>
                     <div class="clear"></div>
                 </article>

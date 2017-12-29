@@ -150,6 +150,8 @@ namespace Bikewale.Models.Videos
             }
         }
 
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         public ModelWiseVideoPageVM GetData()
         {
             ModelWiseVideoPageVM objVM = null;
@@ -178,6 +180,7 @@ namespace Bikewale.Models.Videos
                 GetBodyStyle(objVM);
 
                 BindPageMetas(objVM);
+                objVM.Page = Entities.Pages.GAPages.Videos_ModelWise_Page;
                 if (objVM.bikeType.Equals(EnumBikeBodyStyles.Scooter))
                 {
                     BindMoreAboutScootersWidget(objVM);

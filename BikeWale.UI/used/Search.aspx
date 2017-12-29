@@ -445,6 +445,8 @@
              var pageQS = "<%= currentQueryString %>" ;
              var selectedCityId = <%= cityId %>;selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
              var usedPageIdentifier="<%=PageIdentifier%>";
+             var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Listing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Listing%>' };
+
         </script>
         <script type="text/javascript" src="<%= staticUrl %>/src/used-search.js?<%= staticFileVersion%>"></script>
         <!-- #include file="/includes/fontBW.aspx" -->

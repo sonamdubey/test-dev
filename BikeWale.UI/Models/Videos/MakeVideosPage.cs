@@ -55,6 +55,7 @@ namespace Bikewale.Models
                     objVM.Make = videos.FirstOrDefault().objMake;
                     objVM.Make.MaskingName = _makeMaskingName;
                     BindPageMetas(objVM);
+                    objVM.Page = Entities.Pages.GAPages.Videos_MakeWise_Page;
                 }
 
             }

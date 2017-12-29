@@ -203,8 +203,8 @@
     vertical-align: top;
     margin-right: 10px;
 }
-.news-image-wrapper a,
-.review-image-wrapper a {
+.news-image-wrapper .article-target-image,
+.review-image-wrapper .article-target-image {
     width: 100%;
     display: block;
 }
@@ -854,6 +854,32 @@
      vertical-align: top;
 }
 /*video widget*/
+
+.swiper-card__label {
+	display: block;
+	font-size: 13px;
+	text-align: center;
+	color: #4d5057;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+.model-card__sub-title {
+	font-size: 11px;
+	color: #82888b;
+	padding-bottom: 5px;
+}
+
+.overalltab__section-list li {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-top: 1px solid #e2e2e2;
+}
+
+.overalltab__section-list li:first-child {
+	border: none;
+	padding-top: 0;
+}
 
 .video-card-container .swiper-card__label {
     text-align: left
