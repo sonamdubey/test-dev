@@ -118,6 +118,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdOperation\AdOperation.cs" />
     <Compile Include="AdSlot\AdSlot.cs" />
     <Compile Include="Banner\BannerRepository.cs" />
     <Compile Include="BikeColorImages\ColorImagesBikeRepository.cs" />

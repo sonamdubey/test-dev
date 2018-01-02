@@ -109,6 +109,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdOperations\AdOperationEnum.cs" />
+    <Compile Include="AdOperations\PromotedBike.cs" />
     <Compile Include="AdSlotEntity.cs" />
     <Compile Include="AppEnum.cs" />
     <Compile Include="AppVersionEntity.cs" />

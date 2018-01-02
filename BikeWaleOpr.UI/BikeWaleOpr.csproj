@@ -415,6 +415,7 @@
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\AdOperationController.cs" />
     <Compile Include="Controllers\AdSlotController.cs" />
     <Compile Include="Controllers\BikeSeriesController.cs" />
     <Compile Include="Controllers\DealerBikePriceController.cs" />
@@ -467,6 +468,7 @@
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\AdOperation\AdOperation.cs" />
     <Compile Include="Models\AdSlot\AdSlotsPage.cs" />
     <Compile Include="Models\BikeSeries\BikeSeriesPageModel.cs" />
     <Compile Include="Models\DealerBikePrice\DealerPricingIndexPageModel.cs" />
@@ -606,6 +608,7 @@
     <Folder Include="Entities\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
+    <Folder Include="Views\AdOperation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="aspnet_client\FreeTextBox\FTB-FreeTextBox.js" />
