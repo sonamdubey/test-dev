@@ -99,18 +99,23 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                     VersionId = versionId,
                     PlatformId = 3,
                     BikeName = string.Format("{0} {1}", makeName, modelName),
+                    IsAmp = true
                 };
+
+                if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                {
+                    LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}", LeadCampaign.CampaignId, LeadCampaign.DealerId, pqId, LeadCampaign.LeadSourceId, versionId, platformId, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl);
+                }
+                else
+                {
+                    LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid={2}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", modelId, cityId, string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, versionId, LeadCampaign.LeadSourceId, LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, LeadCampaign.PopupHeading, String.Format(LeadCampaign.PopupSuccessMessage, LeadCampaign.Organization), LeadCampaign.PopupDescription, manufacturerCampaign.LeadCampaign.PincodeRequired, manufacturerCampaign.LeadCampaign.EmailRequired, manufacturerCampaign.LeadCampaign.DealerRequired)), platformId);
+                }
+
                 campaignResponse = new DTO.Campaign.CampaignBaseDto();
                 campaignResponse.DetailsCampaign = new DTO.Campaign.DetailsDto();
                 campaignResponse.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
                 campaignResponse.CampaignLeadSource = new DTO.Campaign.ESCampaignBase();
-                string template = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
-                //Check if it contains javascript:void(0), replace it with 
-                if (!string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
-                {
-                    template = template.Replace("href=\"javascript:void(0)\"", "onclick=\"Android.openLeadCaptureForm();\"");
-                }
-                campaignResponse.DetailsCampaign.EsCamapign.TemplateHtml = template;
+                campaignResponse.DetailsCampaign.EsCamapign.TemplateHtml = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
                 campaignResponse.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
                 campaignResponse.CampaignLeadSource.CaptionText = LeadCampaign.LeadsPropertyTextMobile;
                 campaignResponse.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;

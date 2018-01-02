@@ -726,7 +726,6 @@ namespace Bikewale.Service.AutoMappers.Model
                         VersionId = objModelPage.ModelVersionSpecs.BikeVersionId,
                         PlatformId = platformId,
                         IsAmp = true,
-
                         BikeName = string.Format("{0} {1}", objModelPage.ModelDetails.MakeBase.MakeName, objModelPage.ModelDetails.ModelName),
                         LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionSpecs.BikeVersionId).Price) * 0.8)
                     };
@@ -745,7 +744,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.Campaign.DetailsCampaign = new DetailsDto();
                     objDTOModelPage.Campaign.DetailsCampaign.EsCamapign = new PreRenderCampaignBase();
                     objDTOModelPage.Campaign.CampaignLeadSource = new ESCampaignBase();
-                    objDTOModelPage.Campaign.DetailsCampaign.EsCamapign.TemplateHtml = MvcHelper.GetRenderedContent(String.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
+                    objDTOModelPage.Campaign.DetailsCampaign.EsCamapign.TemplateHtml = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
                     objDTOModelPage.Campaign.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
                     objDTOModelPage.Campaign.CampaignLeadSource.CaptionText = String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization);
                     objDTOModelPage.Campaign.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
