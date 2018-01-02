@@ -106,7 +106,7 @@
                     <!-- ko ifnot : !dealerMessage() -->
                     <p class="font16 margin-bottom40" id="ko_thankyoumessage" data-bind="html: dealerMessage()"></p>
                     <!-- /ko -->
-                    <input type="button" id="notifyOkayBtn" class="btn btn-orange" onclick="Android.finish()" value="Okay" />
+                    <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
                 </div>
                 <!-- thank you message ends here -->
                 @if (Model.CityId <= 0)
@@ -1089,7 +1089,7 @@
                 @if (Model.IsApp) {
                 <text>
                 $(".inapp-leadCapture-close-btn").on("click", function() {
-                    Android.callDialog();
+                    Android.finish();
                 });
                 </text>
             }
