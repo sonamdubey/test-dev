@@ -6,32 +6,46 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/generic/listing.css' inline />";
     int i = 10;
     string prevMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
+	Model.IsHeaderFix = true;
 }
-<header>
-    <div class="generic-banner @Model.bannerImagePos" style="background-image: url(@Model.bannerImage)">
-        <div class="container">
-            <div class="banner-box text-center">
-                <h1 class="font30 text-uppercase margin-bottom5 text-white">Best @Model.PageName in India</h1>
-                <h2 class="font20 text-unbold text-white">Explore the list of top 10 @Model.PageName.ToLower() in India</h2>
-            </div>
-        </div>
-    </div>
-</header>
+
+<section class="container padding-top10">
+	<div class="grid-12">
+		<div class="breadcrumb margin-bottom15">
+			<ul>
+				<li>
+					<a class="breadcrumb-link" href="/" title="Home">
+						<span class="breadcrumb-link__label">Home</span>
+					</a>
+				</li>
+				<li class="current">
+					<span class="breadcrumb-link__label">Best @Model.PageName in India</span>
+				</li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</section>
+
 @if (!string.IsNullOrEmpty(Model.Content))
 {
     <section>
         <div class="container section-bottom-margin">
             <div class="grid-12">
-                <div class="content-box-shadow content-inner-block-20 margin-minus50 description-content font14 text-light-grey">
-                    @if (Model.Content.Length > 410)
-                    {
-                        <p class="desc-main-content">@Model.Content.Substring(0, 410)</p><p class="desc-more-content">@Model.Content.Substring(410)</p><a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
-                    }
-                    else
-                    {
-                        <p class="desc-main-content">@Model.Content</p>
-                    }
-                </div>
+				<div class="content-box-shadow">
+					<h1 class="content-box-shadow padding-15-20">Best @Model.PageName in India</h1>
+					<div class="padding-15-20 description-content font14 text-light-grey">
+						@if (Model.Content.Length > 410)
+						{
+							<p class="desc-main-content">@Model.Content.Substring(0, 410)</p><p class="desc-more-content">@Model.Content.Substring(410)</p><a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
+						}
+						else
+						{
+							<p class="desc-main-content">@Model.Content</p>
+						}
+					</div>
+				</div>
             </div>
             <div class="clear"></div>
         </div>
@@ -502,16 +516,6 @@
 <script type="text/javascript">
     var descWrapper;
     docReady(function () {
-        if ($(window).scrollTop() > 40) {
-            $('#header').removeClass("header-landing").addClass("header-fixed");
-        }
-        $(window).on("scroll", function () {
-            if ($(window).scrollTop() > 40)
-                $('#header').removeClass("header-landing").addClass("header-fixed");
-            else
-                $('#header').removeClass("header-fixed").addClass("header-landing");
-        });
-
         $('.read-more-desc-target').on('click', function () {
             descWrapper = $(this).closest('.description-content');
 

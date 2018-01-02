@@ -1,12 +1,17 @@
-﻿#dealer-locator-box .welcome-box {
-    margin-top: 85px;
+﻿.collapsible-content .main-content {
+  display: inline;
 }
 
-.dealerlocator-banner {
-    background: #393a3e url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/dealer-locator-banner.jpg?v1=29Sep2016) no-repeat center top;
-    background-size: cover;
-    height: 268px;
-    padding-top: 1px
+.collapsible-content .more-content {
+  display: none;
+}
+
+.collapsible-content.active .more-content {
+  display: inline;
+}
+
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none;
 }
 
 /* section-container */

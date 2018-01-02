@@ -3,9 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/service/landing.css' inline />";
-    Model.IsHeaderFix = false;
-    Model.IsTransparentHeader = true;
-    Model.IsPageTypeLanding = true;
+    Model.IsHeaderFix = true;
     Model.Page_JS_Path = "/src/service/landing.js";
     Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/service-centers/";
     Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/service-centers/";
@@ -13,15 +11,40 @@
 
 @if (Model != null)
 {
+	<section class="container padding-top10">
+		<div class="grid-12">
+			<div class="breadcrumb margin-bottom15">
+				<ul>
+					<li>
+						<a class="breadcrumb-link" href="/" title="Home">
+							<span class="breadcrumb-link__label">Home</span>
+						</a>
+					</li>
+					<li class="current">
+						<span class="breadcrumb-link__label">Bike Service Center Locator</span>
+					</li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</section>
 
-    <header class="service-center-banner">
-        <div id="service-center-box" class="container">
-            <div class="welcome-box">
-                <h1 class="font30 text-uppercase margin-bottom30">Bike Service Center Locator</h1>
-                <h2 class="font20 text-unbold text-white margin-bottom50">Find bike service center across 1000+ cities in India</h2>
-            </div>
-        </div>
-    </header>
+	<section>
+		<div class="container section-bottom-margin">
+			<div class="grid-12">
+				<div class="content-box-shadow">
+					<h1 class="content-box-shadow padding-15-20">Bike Service Center Locator</h1>
+					<div class="padding-15-20 collapsible-content font14 text-light-grey">
+						<p class="main-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam varius placerat mollis. Nullam tortor orci, fermentum vitae dui quis, ornare pharetra neque. Pellentesque tempus ipsum et urna ullamcorper commodo.</p>
+						<p class="more-content">Nunc vel nisl vehicula, vulputate massa vel, tincidunt sem. Curabitur a neque est. Ut hendrerit, mauris non volutpat accumsan, diam nulla ultrices massa, et feugiat justo mauris et augue. Pellentesque in massa a nisl pretium scelerisque. Praesent iaculis elit nec tellus luctus dapibus.</p>
+						<a href="javascript:void(0)" class="read-more-target" rel="nofollow">... Read more</a>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</section>
 
 
     if (Model.MakesList != null && Model.MakesList.Count() > 0)
@@ -29,7 +52,7 @@
         <section>
             <div class="container">
                 <div class="grid-12">
-                    <div class="search-box content-box-shadow negative-50 text-center padding-top5 padding-bottom20">
+                    <div class="search-box content-box-shadow text-center padding-top5 padding-bottom20">
                         <h2 class="section-heading">Search service centers</h2>
                         <div class="locator-search-container">
                             <div class="locator-search-brand form-control-box">

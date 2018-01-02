@@ -176,6 +176,12 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
     top: 0;
     right: 8px;
 }
+.breadcrumb-link:hover {
+	text-decoration: none;
+}
+.breadcrumb-link:hover .breadcrumb-link__label  {
+	text-decoration: underline;
+}
 
 /* nav classes */
 .header-fixed, .header-landing { position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 203; }
