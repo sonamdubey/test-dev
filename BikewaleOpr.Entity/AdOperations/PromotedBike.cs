@@ -9,6 +9,7 @@ namespace BikewaleOpr.Entity.AdOperations
     /// </summary>
     public class PromotedBike
     {
+        public uint PromotedBikeId { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
         public DateTime StartTime { get; set; }
@@ -16,7 +17,8 @@ namespace BikewaleOpr.Entity.AdOperations
         public AdOperationEnum AdOperationType { get; set; }
         public bool IsActive { get; set; }
         public string LastUpdatedBy { get; set; }
+        public uint LastUpdatedById { get; set; }
         public DateTime LastUpdatedOn { get; set; }
-
+        public ContractStatusEnum ContractStatus { get; set; }
     }
 }
