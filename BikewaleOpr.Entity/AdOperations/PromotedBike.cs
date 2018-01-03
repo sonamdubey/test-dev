@@ -9,6 +9,7 @@ namespace BikewaleOpr.Entity.AdOperations
     /// </summary>
     public class PromotedBike
     {
+        public uint Id { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
         public DateTime StartTime { get; set; }

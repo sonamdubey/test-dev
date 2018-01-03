@@ -470,24 +470,24 @@
     </Compile>
     <Compile Include="Models\AdOperation\AdOperation.cs" />
     <Compile Include="Models\AdSlot\AdSlotsPage.cs" />
+    <Compile Include="Models\Banner\Banner.cs" />
+    <Compile Include="Models\Banner\BannersListPage.cs" />
     <Compile Include="Models\BikeSeries\BikeSeriesPageModel.cs" />
     <Compile Include="Models\DealerBikePrice\DealerPricingIndexPageModel.cs" />
     <Compile Include="Models\DealerBikePrice\DealerPricingSheetPageModel.cs" />
-    <Compile Include="Models\Banner\Banner.cs" />
-    <Compile Include="Models\Banner\BannersListPage.cs" />
     <Compile Include="Models\DealerBookingAmount\DealerBookingAmountModel.cs" />
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
     <Compile Include="Models\DealerEMI\DealerEMIModel.cs" />
-    <Compile Include="Models\ManagePrices\PriceMonitoringModel.cs" />
     <Compile Include="Models\DealerFacilities\DealerFacilitiesModel.cs" />
+    <Compile Include="Models\ManagePrices\PriceMonitoringModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPopup.cs" />
     <Compile Include="Models\ManufacturerCampaign\ManufacturerCampaignRules.cs" />
     <Compile Include="Models\ManufacturerCampaign\SearchCampaign.cs" />
-    <Compile Include="Models\ServiceCenter\ServiceCenterPageModel.cs" />
     <Compile Include="Models\PageMetasConfiguration\ConfigurePageMetas.cs" />
     <Compile Include="Models\PageMetasConfiguration\PageMetasSearch.cs" />
+    <Compile Include="Models\ServiceCenter\ServiceCenterPageModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsRatingsPage.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
@@ -608,7 +608,6 @@
     <Folder Include="Entities\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
-    <Folder Include="Views\AdOperation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="aspnet_client\FreeTextBox\FTB-FreeTextBox.js" />
@@ -2054,6 +2053,7 @@
     <Content Include="Views\AdSlot\Index.cshtml" />
     <Content Include="Views\Makes\AddFooterData.cshtml" />
     <Content Include="App_Data\private-key.pem" />
+    <Content Include="Views\AdOperation\Index.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

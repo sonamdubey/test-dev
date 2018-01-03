@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using BikewaleOpr.Interface.AdOperation;
+using BikewaleOpr.Models;
+using BikeWaleOpr.Common;
+using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
 {
@@ -9,10 +12,28 @@ namespace BikewaleOpr.Controllers
     [Authorize]
     public class AdOperationController : Controller
     {
+        public readonly IAdOperation _obj = null;
+        public AdOperationController(IAdOperation obj)
+        {
+            _obj = obj;
+        }
         // GET: AdOperation
         public ActionResult Index()
         {
-            return View();
+
+            AdOperation obj = new AdOperation(_obj);
+            if (obj != null)
+            {
+                AdOperationVM objVM = new AdOperationVM();
+                objVM = obj.GetData();
+                return View(objVM);
+            }
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+
+
         }
     }
 }
