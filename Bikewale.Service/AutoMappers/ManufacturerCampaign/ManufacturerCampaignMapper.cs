@@ -8,6 +8,7 @@ using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Web;
 
 namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
 {
@@ -136,7 +137,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse.CampaignType = CampaignType.ES;
 
                 
-                campaignResponse.CampaignLeadSource.LinkUrl = LeadCampaign.PageUrl;
+                campaignResponse.CampaignLeadSource.LinkUrl = HttpUtility.HtmlDecode(LeadCampaign.PageUrl);
             }
 
             return campaignResponse;

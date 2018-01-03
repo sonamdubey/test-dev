@@ -28,6 +28,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Bikewale.Service.AutoMappers.Model
 {
@@ -759,7 +760,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.Campaign.CampaignLeadSource.CaptionText = String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization);
                     objDTOModelPage.Campaign.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
                     objDTOModelPage.Campaign.CampaignType = CampaignType.ES;
-                    objDTOModelPage.Campaign.CampaignLeadSource.LinkUrl = LeadCampaign.PageUrl;
+                    objDTOModelPage.Campaign.CampaignLeadSource.LinkUrl = HttpUtility.HtmlDecode(LeadCampaign.PageUrl);
                 }
             }
             catch (System.Exception ex)
