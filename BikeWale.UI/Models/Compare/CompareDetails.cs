@@ -298,9 +298,9 @@ namespace Bikewale.Models
                         obj.PageMetaTags.Title = string.Format("Compare  {0}", obj.comparisionText);
                     }
 
-                    string ComparePriceText = string.Join(" and ", obj.Compare.BasicInfo.Select(x => string.Format("{0} {1} Ex-showroom starts at - {2}", x.Make, x.Model, Format.FormatPrice(x.Price.ToString()))));
-                    string CompareMileageText = string.Join(" whereas ", obj.Compare.BasicInfo.Where(x=>x.Mileage > 0).Select(x => string.Format("{0} has a mileage of {1} kmpl", x.Model, x.Mileage)));
-                    string CompareModelText = string.Join(" and ", bikeList);
+                    string ComparePriceText = string.Join(" and ", obj.Compare.BasicInfo.Take(2).Select(x => string.Format("{0} {1} Ex-showroom starts at - {2}", x.Make, x.Model, Format.FormatPrice(x.Price.ToString()))));
+                    string CompareMileageText = string.Join(" whereas ", obj.Compare.BasicInfo.Take(2).Where(x=>x.Mileage > 0).Select(x => string.Format("{0} has a mileage of {1} kmpl", x.Model, x.Mileage)));
+                    string CompareModelText = string.Join(" and ", bikeList.Take(2));
 
                     obj.PageMetaTags.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
                     obj.PageMetaTags.Description = string.Format("{0}. {1}.Compare {2} specs, colors, reviews and ratings. Also, read comparison test of {3} from our experts.", ComparePriceText, CompareMileageText, CompareModelText, obj.comparisionText);
