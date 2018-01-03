@@ -183,14 +183,21 @@ namespace Bikewale.Models
             }
         }
 
-        private void CreateDisclaimerText(CompareDetailsVM obj)
+        private static void CreateDisclaimerText(CompareDetailsVM obj)
         {
 
             try
             {
 
-                string BikeValue = string.Join(" vs ", obj.Compare.BasicInfo.Where(x => x.VersionId != obj.sponsoredVersionId).OrderBy(x => x.ModelId).Select(x => string.Format("{0} {1}", x.Make, x.Model)));
-                obj.DisclaimerText = string.Format("BikeWale take utmost care in providing you the accurate information about prices, feature, specs, and colors for comparison of {0}. However, BikeWale can't be held liable for any direct/indirect damage or loss. For comparison of {0}, the base version has been considered. You can compare any version for the comparison of {0}.", BikeValue);
+                string BikeValue = string.Join(" vs ", obj.Compare.BasicInfo
+                    .Where(x => x.VersionId != obj.sponsoredVersionId)
+                    .OrderBy(x => x.ModelId)
+                    .Select(x => string.Format("{0} {1}", x.Make, x.Model)));
+
+                obj.DisclaimerText = string.Format(@"BikeWale take utmost care in providing you the accurate information about prices, 
+                                    feature, specs, and colors for comparison of {0}. However, BikeWale can't be held liable for 
+                                    any direct/indirect damage or loss. For comparison of {0}, the base version has been considered. 
+                                    You can compare any version for the comparison of {0}.", BikeValue);
             }
             catch (Exception ex)
             {
