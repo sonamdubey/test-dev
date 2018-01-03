@@ -303,7 +303,7 @@ namespace Bikewale.Models
                     string CompareModelText = string.Join(" and ", bikeList.Take(2));
 
                     obj.PageMetaTags.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
-                    obj.PageMetaTags.Description = string.Format("{0}. {1}.Compare {2} specs, colors, reviews and ratings. Also, read comparison test of {3} from our experts.", ComparePriceText, CompareMileageText, CompareModelText, obj.comparisionText);
+                    obj.PageMetaTags.Description = string.Format("{0}. {1}.Compare {2} specs, colors, reviews and ratings. Also, read comparison test of {3} from our experts.", ComparePriceText, CompareMileageText, CompareModelText, string.Join(" vs ", bikeList.Take(2)));
 
 
                     CreateCompareSummary(obj.Compare.BasicInfo, obj.Compare.CompareColors, obj);
