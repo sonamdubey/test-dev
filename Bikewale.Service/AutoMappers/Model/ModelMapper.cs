@@ -562,6 +562,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static DTO.Model.v5.ModelPage ConvertV5(BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ushort platformId = 0)
         {
+            bool isApp = platformId == 3? true: false;
             DTO.Model.v5.ModelPage objDTOModelPage = null;
             try
             {
@@ -730,7 +731,7 @@ namespace Bikewale.Service.AutoMappers.Model
                         BikeName = string.Format("{0} {1}", objModelPage.ModelDetails.MakeBase.MakeName, objModelPage.ModelDetails.ModelName),
                         LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionSpecs.BikeVersionId).Price) * 0.8)
                     };
-                    if (platformId == 3)
+                    if (isApp)
                     {
                         LeadCampaign.IsAmp = false;
                     }
@@ -750,7 +751,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.Campaign.CampaignLeadSource = new ESCampaignBase();
                     string template = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
                     //Check if it contains javascript:void(0), replace it with 
-                    if (!string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
+                    if (isApp && !string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
                     {
                         template = template.Replace("href=\"javascript:void(0)\"", "onclick=\"Android.openLeadCaptureForm();\"");
                     }
