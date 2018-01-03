@@ -257,7 +257,7 @@ namespace Bikewale.DAL.Compare
             IList<BikeSpecification> specs = null;
             IList<BikeFeature> features = null;
             IList<BikeColor> color = null;
-            IList<Bikewale.Entities.Compare.BikeModelColor> hexCodes = null;
+            IList<Entities.Compare.BikeModelColor> hexCodes = null;
             IList<BikeReview> userReviews = null;
             IList<QuestionRatingsValueEntity> userReviewQuestionList = null;
             IList<BikeVersionCompareEntity> versionsList = null;
@@ -354,7 +354,8 @@ namespace Bikewale.DAL.Compare
                                 StartingPrice = SqlReaderConvertor.ToUInt32(reader["minPrice"]),
                                 CityMaskingName = Convert.ToString(reader["citymaskingname"])
                             },
-                            Versions = versionsList.Where(x => x.ModelId == modelId).ToList()
+                            Mileage = SqlReaderConvertor.ToUInt16(reader["FuelEfficiencyOverall"]),
+                            Versions = versionsList.Where(x => x.ModelId == modelId).ToList()                           
                         });
 
 
