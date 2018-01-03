@@ -29,7 +29,6 @@
     
 
     <script type="text/javascript">
-        ga_pg_id = '2';
         var dealerId = '@Model.DealerId';
         var pqId = '@Model.PQId';
         var versionId = '@Model.VersionId';
@@ -39,11 +38,30 @@
         var isBikeWalePq = "@Model.IsBPQAvailable";
         var areaId = "@Model.AreaId";
         var isDealerPriceAvailable = "@Model.IsDPQAvailable";
-        var campaignId = "@Model.CampaignId";        
+        var campaignId = "@Model.CampaignId";
         var myBikeName = "@Model.BikeName";
         var clientIP = "@Model.ClientIP";
         var pageUrl = window.location.href;
         var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
-
     </script>
+    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && @Model.ModelPageEntity.ModelDetails.MakeBase != null)
+    {
+    <script type="text/javascript">
+        var pageData = {
+            label: "@Model.BikeName",
+            payload: {
+                makeId: "@Model.ModelPageEntity.ModelDetails.MakeBase.MakeId",
+                modelId: "@Model.ModelPageEntity.ModelDetails.ModelId",
+                makeMaskingName: "@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName",
+                modelMaskingName: "@Model.ModelPageEntity.ModelDetails.MaskingName",
+                futuristic: "@Model.ModelPageEntity.ModelDetails.Futuristic",
+                isNew: "@Model.ModelPageEntity.ModelDetails.New",
+                userRatingsCount: "@Model.ModelPageEntity.ModelDetails.RatingCount",
+                expertReviewsCount: "@Model.ModelPageEntity.ModelDetails.ExpertReviewsCount"
+            },
+            value: "@Model.BikeName"
+        };
+    </script>
+    }
+    
     <script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

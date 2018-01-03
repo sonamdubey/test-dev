@@ -788,8 +788,8 @@ function MakeModelRedirection(items) {
             model.id = items.payload.modelId;
             model.futuristic = items.payload.futuristic;
         }
-
-        recentSearches.saveRecentSearches(items);
+        // Removed Since recentSearches only save recently viewed pages
+        // recentSearches.saveRecentSearches(items);
 
         if (model != null && model != undefined) {
             window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
@@ -1007,6 +1007,9 @@ docReady(function () {
         focus: function () {
             if ($('#newBikeList').val().trim() == '') {
                 recentSearches.showRecentSearches();
+                // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
+                let label = "Recently_Viewed_Bikes_".concat((recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present"));
+                triggerGA('HP', 'Search_Bar_Clicked', label);
             }
         },
         focusout: function () {
@@ -1348,6 +1351,9 @@ docReady(function () {
         focus: function () {
             if ($('#globalSearch').val().trim() == '') {
                 recentSearches.showRecentSearches();
+                // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
+                let label = "Recently_Viewed_Bikes_".concat((recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present"));
+                triggerGA(gaObj.name, 'Search_Bar_Clicked', label);
             }
         },
         focusout: function () {
@@ -1471,7 +1477,7 @@ docReady(function () {
 });
 
 docReady(function () {
-
+    bwcache.setOptions({ Storage:'recentsearches', 'EnableEncryption': true });
     $('#city-area-popup .white-back-arrow').on('click', function () {
         cityArea.close();
         window.history.back();
@@ -1722,7 +1728,7 @@ docReady(function () {
                 objSearches.searches.unshift(opt.payload);
 
                 objSearches["lastModified"] = new Date().getTime();
-                if (objSearches.searches.length > 5)
+                if (objSearches.searches.length > 3)
                     objSearches.searches.pop();
                 objSearches["noOfSearches"] = objSearches.searches.length;
                 bwcache.set(this.searchKey, objSearches);
@@ -1794,6 +1800,7 @@ docReady(function () {
                 if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
                 objSearches.searches.unshift(obj);
                 bwcache.set(recentSearches.searchKey, objSearches);
+                triggerGA(gaObj.name, ' Recently_View_Search_Bar_Clicked', this.textContent);
                 window.location.href = $(this).find('a').first().attr('data-href');
             }
 
