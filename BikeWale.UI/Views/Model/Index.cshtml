@@ -43,10 +43,8 @@
         var clientIP = "@Model.ClientIP";
         var pageUrl = window.location.href;
         var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
-    </script>
-    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && @Model.ModelPageEntity.ModelDetails.MakeBase != null)
-    {
-    <script type="text/javascript">
+        if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && @Model.ModelPageEntity.ModelDetails.MakeBase != null)
+        {
         var pageData = {
             label: "@Model.BikeName",
             payload: {
@@ -61,7 +59,8 @@
             },
             value: "@Model.BikeName"
         };
+        }
     </script>
-    }
+    
     
     <script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
