@@ -406,7 +406,6 @@ docReady(function () {
 
 docReady(function () {
 
-    bwcache.setOptions({ 'EnableEncryption': true });
 
     var userEventSource = true;
 
@@ -784,6 +783,9 @@ docReady(function () {
 	$("#expertReviewsContent").on('click', function () {
 		triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
 	});
+    // For saving page in recently viewed models/make
+	if (typeof pageData != "undefined")
+	    recentSearches.saveRecentSearches(pageData);
 
 }
 );
