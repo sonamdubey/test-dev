@@ -293,7 +293,7 @@ namespace Bikewale.Models
             if (objData.MostPopularBikes != null && objData.MostPopularBikes.Bikes != null)
             {
                 PwaBikeNews popularBikes = new PwaBikeNews();
-                popularBikes.Heading = "Popular bikes";
+                popularBikes.Heading = "Popular Bikes";
                 popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
                 popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
                 popularBikes.CompleteListUrlLabel = "View all";
@@ -690,8 +690,19 @@ namespace Bikewale.Models
                         objData.UpcomingBikes.WidgetHeading = "Upcoming bikes";
                         objData.UpcomingBikes.WidgetHref = "/upcoming-bikes/";
                         objData.UpcomingBikes.WidgetLinkTitle = "Upcoming Bikes in India";
-
-                        if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                        BikeSeriesEntityBase bikeSeriesEntityBase = _models.GetSeriesByModelId(ModelId);
+                        if (bikeSeriesEntityBase != null && bikeSeriesEntityBase.IsSeriesPageUrl)
+                        {
+                            FetchPopularBikes(objData, bikeSeriesEntityBase.SeriesId);
+                            objData.MostPopularBikes = new MostPopularBikeWidgetVM()
+                            {
+                                Bikes = objData.SeriesWidget.PopularSeriesBikes,
+                                WidgetHeading = string.Format("Popular {0} Bikes", bikeSeriesEntityBase.SeriesName),
+                                WidgetHref = UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
+                                WidgetLinkTitle = "View all"
+                            };
+                        }
+                        else if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                         {
                             objData.MostPopularBikes = MostPopularMakeScooters;
                             objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} scooters", objMake.MakeName);
@@ -708,7 +719,7 @@ namespace Bikewale.Models
                         else
                         {
                             objData.MostPopularBikes = MostPopularBikes;
-                            objData.MostPopularBikes.WidgetHeading = "Popular bikes";
+                            objData.MostPopularBikes.WidgetHeading = "Popular Bikes";
                             objData.MostPopularBikes.WidgetHref = "/best-bikes-in-india/";
                             objData.MostPopularBikes.WidgetLinkTitle = "Best Bikes in India";
                         }
@@ -746,8 +757,8 @@ namespace Bikewale.Models
 
                             objData.PopularBikesAndPopularScootersWidget = new MultiTabsWidgetVM();
 
-                            objData.PopularBikesAndPopularScootersWidget.TabHeading1 = "Popular bikes";
-                            objData.PopularBikesAndPopularScootersWidget.TabHeading2 = "Popular scooters";
+                            objData.PopularBikesAndPopularScootersWidget.TabHeading1 = "Popular Bikes";
+                            objData.PopularBikesAndPopularScootersWidget.TabHeading2 = "Popular Scooters";
                             objData.PopularBikesAndPopularScootersWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
                             objData.PopularBikesAndPopularScootersWidget.ViewPath2 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
                             objData.PopularBikesAndPopularScootersWidget.TabId1 = "PopularBikes";
@@ -865,8 +876,8 @@ namespace Bikewale.Models
                             {
                                 objData.PopularBikesAndUpcomingBikesWidget = new MultiTabsWidgetVM();
 
-                                objData.PopularBikesAndUpcomingBikesWidget.TabHeading1 = "Popular bikes";
-                                objData.PopularBikesAndUpcomingBikesWidget.TabHeading2 = "Upcoming bikes";
+                                objData.PopularBikesAndUpcomingBikesWidget.TabHeading1 = "Popular Bikes";
+                                objData.PopularBikesAndUpcomingBikesWidget.TabHeading2 = "Upcoming Bikes";
                                 objData.PopularBikesAndUpcomingBikesWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
                                 objData.PopularBikesAndUpcomingBikesWidget.ViewPath2 = "~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml";
                                 objData.PopularBikesAndUpcomingBikesWidget.TabId1 = "PopularBikes";
@@ -908,8 +919,8 @@ namespace Bikewale.Models
             {
                 objData.PopularBikesAndUpcomingBikesWidget = new MultiTabsWidgetVM();
 
-                objData.PopularBikesAndUpcomingBikesWidget.TabHeading1 = "Popular bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.TabHeading2 = "Upcoming bikes";
+                objData.PopularBikesAndUpcomingBikesWidget.TabHeading1 = "Popular Bikes";
+                objData.PopularBikesAndUpcomingBikesWidget.TabHeading2 = "Upcoming Bikes";
                 objData.PopularBikesAndUpcomingBikesWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
                 objData.PopularBikesAndUpcomingBikesWidget.ViewPath2 = "~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml";
                 objData.PopularBikesAndUpcomingBikesWidget.TabId1 = "PopularBikes";
