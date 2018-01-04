@@ -369,4 +369,22 @@
     <div id="reviewPopup" class="review-popup hide" data-csslink="@String.Format("{0}/sass/partials/review-popup.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></div>
     <!-- make review popup ends-->
 }
+<script type="text/javascript">
+    var suggestionText = "@Model.MakeName" + " Bikes";
+    var pageData = {
+        label: suggestionText,
+        payload : {
+            makeId: "@Model.MakeId",
+            modelId : "0",
+            makeMaskingName : "@Model.MakeMaskingName",
+            modelMaskingName : "",
+            futuristic : "False",
+            isNew: "@(Model.Bikes!= null && Model.Bikes.Count() > 0)",
+            userRatingsCount: "0",
+            expertReviewsCount: "0"
+        },
+        value: suggestionText
+    };
+
+</script>
 

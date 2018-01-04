@@ -8,6 +8,7 @@ using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Web;
 
 namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
 {
@@ -99,7 +100,26 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                     VersionId = versionId,
                     PlatformId = 3,
                     BikeName = string.Format("{0} {1}", makeName, modelName),
+                    IsAmp = true
                 };
+
+                if (platformId == 3)
+                {
+                    LeadCampaign.IsAmp = false;
+                }
+
+                if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                {
+                    LeadCampaign.LoanAmount = (uint)(System.Convert.ToUInt32(price) * 0.8);
+
+                    LeadCampaign.PageUrl = string.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}", LeadCampaign.CampaignId, LeadCampaign.DealerId, pqId, LeadCampaign.LeadSourceId, versionId, 3, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl);
+                }
+                else
+                {
+
+                    string strDES = string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", modelId, cityId, string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, versionId, LeadCampaign.LeadSourceId, LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, LeadCampaign.PopupHeading, String.Format(LeadCampaign.PopupSuccessMessage, LeadCampaign.Organization), LeadCampaign.PopupDescription, LeadCampaign.PincodeRequired, LeadCampaign.EmailRequired, LeadCampaign.DealerRequired);
+                    LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid=3", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(strDES));
+                }
                 campaignResponse = new DTO.Campaign.CampaignBaseDto();
                 campaignResponse.DetailsCampaign = new DTO.Campaign.DetailsDto();
                 campaignResponse.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
@@ -116,19 +136,8 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
                 campaignResponse.CampaignType = CampaignType.ES;
 
-                if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
-                {
-                    LeadCampaign.LoanAmount = (uint)(System.Convert.ToUInt32(price) * 0.8);
-
-                    LeadCampaign.PageUrl = string.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}", LeadCampaign.CampaignId, LeadCampaign.DealerId, pqId, LeadCampaign.LeadSourceId, versionId, 3, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl);
-                }
-                else
-                {
-
-                    string strDES = string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", modelId, cityId, string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, versionId, LeadCampaign.LeadSourceId, LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, LeadCampaign.PopupHeading, String.Format(LeadCampaign.PopupSuccessMessage, LeadCampaign.Organization), LeadCampaign.PopupDescription, LeadCampaign.PincodeRequired, LeadCampaign.EmailRequired, LeadCampaign.DealerRequired);
-                    LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid=3", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(strDES));
-                }
-                campaignResponse.CampaignLeadSource.LinkUrl = LeadCampaign.PageUrl;
+                
+                campaignResponse.CampaignLeadSource.LinkUrl = HttpUtility.HtmlDecode(LeadCampaign.PageUrl);
             }
 
             return campaignResponse;
