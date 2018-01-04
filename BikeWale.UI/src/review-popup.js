@@ -69,7 +69,6 @@ function applyLikeDislikes() {
 docReady(function () {
 	reviewPopupCotent = $('#reviewPopup');
 	desktopUserReview = $('#userReviewContentDesktop').length;
-	bwcache.setOptions({ 'EnableEncryption': true });
 
 	bwcache.removeAll(true);
 	reviewPopup = {

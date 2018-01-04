@@ -826,7 +826,7 @@ docReady(function () {
 });
 
 docReady(function () {
-    bwcache.setOptions({ 'EnableEncryption': true });
+
     bw_ObjContest = bwcache.get("showContestSlug", true);
 
     if (!bw_ObjContest) {

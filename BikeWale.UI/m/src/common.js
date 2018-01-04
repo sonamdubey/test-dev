@@ -1477,7 +1477,6 @@ docReady(function () {
 });
 
 docReady(function () {
-    bwcache.setOptions({ Storage:'recentsearches', 'EnableEncryption': true });
     $('#city-area-popup .white-back-arrow').on('click', function () {
         cityArea.close();
         window.history.back();
