@@ -202,9 +202,27 @@ $(document).ready(function () {
 
     validateInput = function () {
         var isValid = true;
-        if (!$("#ddlModels :selected").val()) {
+        var rdoModel = $("[name=rdoModel]:checked").val();
+        switch (rdoModel) {
+            case "1":
+                modelIds = $("#ddlModels :selected").val();
+                if (!$("#ddlModels :selected").val()) {
+                    isValid = false;
+                    Materialize.toast("Please select one or more models", 6000);
+                }
+                break;
+            case "2":
+                modelIds = $("#txtModels").val().trim();
+                var pat = /^[\d\s,]*$/;
+                if (!pat.test(modelIds)) {
+                    validate.inputField.showError($("#txtModels"));
+                    isValid = false;
+                }
+                break;
+        }
+        if (modelIds == null || modelIds.length == 0) {
             isValid = false;
-            Materialize.toast("Please select one or more models", 6000);
+            Materialize.toast("Please enter one or more models", 6000);
         }
         var rdoLoc = $("[name=location]:checked").val();
         switch (rdoLoc) {

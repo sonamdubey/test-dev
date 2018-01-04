@@ -96,6 +96,8 @@ namespace Bikewale.Models
         /// </summary>         
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
+        /// Modified by : Rajan Chauhan on 3 Jan 2017
+        /// Description : Bind MakeId to objData
         /// </returns>
         public MakePageVM GetData()
         {
@@ -143,6 +145,7 @@ namespace Bikewale.Models
                 {
                     objData.MakeMaskingName = makeBase.MaskingName;
                     objData.MakeName = makeBase.MakeName;
+                    objData.MakeId = makeBase.MakeId;
                 }
 
                 if (!string.IsNullOrEmpty(BWConfiguration.Instance.PopularityOrderForMake) && BWConfiguration.Instance.PopularityOrderForMake.Split(',').Contains(_makeId.ToString()))

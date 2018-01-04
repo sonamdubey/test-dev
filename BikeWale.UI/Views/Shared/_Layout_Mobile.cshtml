@@ -416,7 +416,16 @@
                     <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                 </li>
             </ul>
-            <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+            <div id="global-search-section" class="bg-white hide">
+                <div id="history-search">
+                    <div class="search-title font12 text-light-grey">Recently Viewed</div>
+                    <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content"></ul>
+                </div>
+                <div id="trending-search">
+                    <div class="search-title font12 text-light-grey">Trending Searches</div>
+                    <ul id="trending-bikes" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content"></ul>
+                </div>
+            </div>
         </div>
     </div> <!-- global-search-popup code ends here -->
 
