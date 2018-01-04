@@ -788,8 +788,6 @@ function MakeModelRedirection(items) {
             model.id = items.payload.modelId;
             model.futuristic = items.payload.futuristic;
         }
-        // Removed Since recentSearches only save recently viewed pages
-        // recentSearches.saveRecentSearches(items);
 
         if (model != null && model != undefined) {
             window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
