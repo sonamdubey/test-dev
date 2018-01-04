@@ -1,9 +1,10 @@
 ﻿
+using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entity;
-using BikewaleOpr.Entity.AdOperations;
 using BikewaleOpr.Interface;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -50,11 +51,11 @@ namespace BikewaleOpr.DALs.AdOperation
                                 _objBike.Model.ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]);
                                 _objBike.Make.MakeName = Convert.ToString(dr["makename"]);
                                 _objBike.Model.ModelName = Convert.ToString(dr["modelname"]);
-                                _objBike.AdOperationType = (AdOperationEnum)Convert.ToByte(dr["adoperationid"]);
+                                _objBike.AdOperationType = Convert.ToByte(dr["adoperationid"]);
                                 _objBike.StartTime = SqlReaderConvertor.ToDateTime(dr["startdatetime"]);
                                 _objBike.EndTime = SqlReaderConvertor.ToDateTime(dr["enddatetime"]);
                                 _objBike.LastUpdatedBy = Convert.ToString(dr["username"]);
-                                _objBike.LastUpdatedById = SqlReaderConvertor.ToUInt32(dr["opruserid"]);
+                                _objBike.UserId = SqlReaderConvertor.ToUInt32(dr["opruserid"]);
                                 _objBike.ContractStatus = (ContractStatusEnum)Enum.Parse(typeof(ContractStatusEnum), Convert.ToString(dr["id"]));
                                 _objPromotedBikeList.Add(_objBike);
                             }
@@ -80,31 +81,21 @@ namespace BikewaleOpr.DALs.AdOperation
             bool status = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertadpromotedbike"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_adoperationid", DbType.UInt16, objPromotedBike.AdOperationType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt16, objPromotedBike.Make.MakeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.UInt32, objPromotedBike.Model.ModelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startdatetime", DbType.DateTime, objPromotedBike.StartTime));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_enddatetime", DbType.DateTime, objPromotedBike.EndTime));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_opruserid", DbType.UInt16, objPromotedBike.LastUpdatedById));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.UInt16, objPromotedBike.ContractStatus));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_success", DbType.Byte, ParameterDirection.InputOutput));
+                    connection.Open();
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            if (dr.Read())
-                            {
-
-                                status = Convert.ToBoolean(cmd.Parameters["par_success"].Value);
-                            }
-                            dr.Close();
-                        }
-                    }
+                    var param = new DynamicParameters();
+                    param.Add("par_adoperationid", objPromotedBike.AdOperationType);
+                    param.Add("par_makeid", objPromotedBike.Make.MakeId);
+                    param.Add("par_modelid", objPromotedBike.Model.ModelId);
+                    param.Add("par_startdatetime", objPromotedBike.StartTime);
+                    param.Add("par_enddatetime", objPromotedBike.EndTime);
+                    param.Add("par_opruserid", objPromotedBike.UserId);
+                    status = connection.Execute("insertadpromotedbike", param: param, commandType: CommandType.StoredProcedure) > 0;
                 }
+
+
             }
             catch (Exception ex)
             {

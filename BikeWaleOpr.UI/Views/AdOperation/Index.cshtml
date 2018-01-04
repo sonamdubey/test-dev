@@ -12,6 +12,7 @@
                 <th>End Date</th>
                 <th>AdOperation Type</th>
                 <th>UpdatedBy</th>
+                <th>Status</th>
                 <th>Last Updated</th>
                 <th>Delete</th>
 
@@ -30,6 +31,7 @@
                 <td>@bike.EndTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
                 <td>@bike.AdOperationType</td>
                 <td>@bike.LastUpdatedBy</td>
+                <td>@bike.ContractStatus</td>
                 <td>@bike.LastUpdatedOn</td>
                 <td><a href="" onclick="return confirm('Are you sure?')"><i class="material-icons icon-red">delete</i></a></td>
             </tr>
@@ -62,16 +64,16 @@
                             }
                         </div>
                         <div class="input-field row">
-                            <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select All', enable : listModels().length>0" multiple></select>
+                            <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', enable : listModels().length>0"></select>
                         </div>
 
                         <div class="row">
                             <div class="input-field row s12">
-                                <input type="checkbox" class="filled-in" id="chkShowPromotion" name="AdShowPromotion" />
+                                <input type="radio" class="filled-in" id="chkShowPromotion" name="AdMonetization" value="1" />
                                 <label for="chkShowPromotion">Promotion</label>
-                            </div>
-                            <div class="input-field row s12">
-                                <input type="checkbox" class="filled-in" id="chkMonetization" name="AdMonetization" />
+                               
+                            
+                                <input type="radio" class="filled-in" id="chkMonetization" name="AdMonetization" value="2" />
                                 <label for="chkMonetization">Monetization</label>
                             </div>
                         </div>
@@ -122,5 +124,6 @@
 </div>
 <script>var msg = '@Convert.ToString(TempData["msg"])';
     var bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs';
+    var userId=@Model.UserId;
     </script>
-<script src="~/src/AdOperations/AdOperation.js"></script>
+<script defer src="~/src/AdOperations/AdOperation.js"></script>

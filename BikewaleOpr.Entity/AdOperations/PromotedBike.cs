@@ -1,6 +1,5 @@
 ﻿
 using BikewaleOpr.Entities.BikeData;
-using BikewaleOpr.Entity.AdOperations;
 using Newtonsoft.Json;
 using System;
 namespace BikewaleOpr.Entity
@@ -11,7 +10,7 @@ namespace BikewaleOpr.Entity
     /// </summary>
     public class PromotedBike
     {
-        public uint Id { get; set; }
+
         [JsonProperty("promotedBikeId")]
         public uint PromotedBikeId { get; set; }
         [JsonProperty("make")]
@@ -23,16 +22,16 @@ namespace BikewaleOpr.Entity
         [JsonProperty("endTime")]
         public DateTime EndTime { get; set; }
         [JsonProperty("adOperationType")]
-        public AdOperationEnum AdOperationType { get; set; }
+        public ushort AdOperationType { get; set; }
         [JsonProperty("isActive")]
         public bool IsActive { get; set; }
         [JsonProperty("lastUpdateBy")]
         public string LastUpdatedBy { get; set; }
-        [JsonProperty("lastUpdatedById")]
-        public uint LastUpdatedById { get; set; }
         [JsonProperty("lastUpdateOn")]
         public DateTime LastUpdatedOn { get; set; }
         [JsonProperty("contractStatus")]
         public ContractStatusEnum ContractStatus { get; set; }
+        [JsonProperty("userId")]
+        public uint UserId { get; set; }
     }
 }

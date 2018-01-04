@@ -37,26 +37,27 @@ var adOperationsViewModel = function () {
         var basicDetails = {
             "make":
                 {
-                    "MakeId":$('#').val()
+                    "MakeId": $('#ddlMakes').val()
                 },
             "model": {
-                "ModelId":$('#').val()
+                "ModelId": $('#ddlModels').val()
             },
             "startTime": $('#startDateEle').val() + ' ' + $('#startTimeEle').val(),
             "endTime": $('#endDateEle').val() + ' ' + $('#endTimeEle').val(),
-            "adOperationType": $(''),
+            "adOperationType": $('#chkShowPromotion').is(':checked') ? 1 : 2,
+            "userId": userId
             
         
         }
         $.ajax({
             type: "POST",
-            url: "/api/adoperation/save/",
+            url: "/api/adoperations/id/save/",
             contentType: "application/json",
             data: ko.toJSON(basicDetails),
             success: function (response) {
                
                 
-                //Materialize.toast('Banner basic details saved', 4000);
+                Materialize.toast('AdOperation saved', 4000);
                
             }
         });

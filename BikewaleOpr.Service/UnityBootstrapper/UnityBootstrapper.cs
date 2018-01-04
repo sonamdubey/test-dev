@@ -13,6 +13,7 @@ using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DALs;
+using BikewaleOpr.DALs.AdOperation;
 using BikewaleOpr.DALs.AdSlot;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.BikeColorImages;
@@ -110,6 +111,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IBwPrice, BwPrice>();
             container.RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>();
             container.RegisterType<IBikeBodyStyles, BikeBodyStyles>();
+            container.RegisterType<IAdOperation, AdOperation>();
+
 
             return container;
         }
