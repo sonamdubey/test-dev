@@ -31,44 +31,46 @@
     <div id="scroll-to-top"></div>
 
     <script type="text/javascript">
-        ga_pg_id = '2';
-        var dealerId = '@Model.DealerId';
-        var pqId = '@Model.PQId';
-        var versionId = '@Model.VersionId';
-        var cityId = '@Model.CityId';
-        var bikeVersionLocation = '';
-        var bikeVersion = '';
-        var isBikeWalePq = "@Model.IsBPQAvailable";
-        var areaId = "@Model.AreaId";
-        var isDealerPriceAvailable = "@Model.IsDPQAvailable";
-        var campaignId = "@Model.CampaignId";        
-        var myBikeName = "@Model.BikeName";
-        var clientIP = "@Model.ClientIP";
-        var pageUrl = window.location.href;
-        var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
-        var versionsCount = @(Model.ModelPageEntity!=null && Model.ModelPageEntity.ModelVersions!=null ? Model.ModelPageEntity.ModelVersions.Count() : 0);
-        var photosCount = @(Model.AreModelPhotosAvailable ? Model.ModelPageEntity.AllPhotos.Count() - 10 : 0);
-        var leadSourceId,  versionName = "@Model.VersionName", getCityArea;
-    </script>
-    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && @Model.ModelPageEntity.ModelDetails.MakeBase != null)
+    ga_pg_id = '2';
+    var dealerId = '@Model.DealerId';
+    var pqId = '@Model.PQId';
+    var versionId = '@Model.VersionId';
+    var cityId = '@Model.CityId';
+    var bikeVersionLocation = '';
+    var bikeVersion = '';
+    var isBikeWalePq = "@Model.IsBPQAvailable";
+    var areaId = "@Model.AreaId";
+    var isDealerPriceAvailable = "@Model.IsDPQAvailable";
+    var campaignId = "@Model.CampaignId";
+    var myBikeName = "@Model.BikeName";
+    var clientIP = "@Model.ClientIP";
+    var pageUrl = window.location.href;
+    var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
+    var versionsCount = @(Model.ModelPageEntity!=null && Model.ModelPageEntity.ModelVersions!=null ? Model.ModelPageEntity.ModelVersions.Count() : 0);
+    var photosCount = @(Model.AreModelPhotosAvailable ? Model.ModelPageEntity.AllPhotos.Count() - 10 : 0);
+    var leadSourceId,  versionName = "@Model.VersionName", getCityArea;
+
+    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
     {
-    <script type="text/javascript">
-        var pageData = {
-            label: "@Model.BikeName",
-            payload: {
-                makeId: "@Model.ModelPageEntity.ModelDetails.MakeBase.MakeId",
-                modelId: "@Model.ModelPageEntity.ModelDetails.ModelId",
-                makeMaskingName: "@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName",
-                modelMaskingName: "@Model.ModelPageEntity.ModelDetails.MaskingName",
-                futuristic: "@Model.ModelPageEntity.ModelDetails.Futuristic",
-                isNew: "@Model.ModelPageEntity.ModelDetails.New",
-                userRatingsCount: "@Model.ModelPageEntity.ModelDetails.RatingCount",
-                expertReviewsCount: "@Model.ModelPageEntity.ModelDetails.ExpertReviewsCount"
-            },
-            value: "@Model.BikeName"
-        };
-    </script>
+    <text>
+    var pageData = {
+        label: "@Model.BikeName",
+        payload: {
+            makeId: "@Model.ModelPageEntity.ModelDetails.MakeBase.MakeId",
+            modelId: "@Model.ModelPageEntity.ModelDetails.ModelId",
+            makeMaskingName: "@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName",
+            modelMaskingName: "@Model.ModelPageEntity.ModelDetails.MaskingName",
+            futuristic: "@Model.ModelPageEntity.ModelDetails.Futuristic",
+            isNew: "@Model.ModelPageEntity.ModelDetails.New",
+            userRatingsCount: "@Model.ModelPageEntity.ModelDetails.RatingCount",
+            expertReviewsCount: "@Model.ModelPageEntity.ModelDetails.ExpertReviewsCount",
+        },
+        value: "@Model.BikeName"
+    };
+    </text>
     }
+    </script>
+    
 
 
     
