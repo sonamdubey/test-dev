@@ -11,7 +11,6 @@ namespace BikewaleOpr.Entity
     /// </summary>
     public class PromotedBike
     {
-        public uint Id { get; set; }
         [JsonProperty("promotedBikeId")]
         public uint PromotedBikeId { get; set; }
         [JsonProperty("make")]

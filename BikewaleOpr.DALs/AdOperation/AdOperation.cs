@@ -112,5 +112,48 @@ namespace BikewaleOpr.DALs.AdOperation
             }
             return status;
         }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 4th Jan 2018
+        /// Description: Method to delete promoted bike( change status of promoted bike to 'inactive')
+        /// </summary>
+        /// <param name="objPromotedBike"></param>
+        /// <returns></returns>
+        public bool UpdatePromotedBike(PromotedBike objPromotedBike)
+        {
+            bool status = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("updateadpromotedbike"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_adpromotedbikeid", DbType.UInt16, objPromotedBike.PromotedBikeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_opruserid", DbType.UInt16, objPromotedBike.LastUpdatedById));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_success", DbType.Byte, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_adoperationid", DbType.UInt16, objPromotedBike.AdOperationType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.UInt16, objPromotedBike.ContractStatus));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startdatetime", DbType.DateTime, objPromotedBike.StartTime));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_enddatetime", DbType.DateTime, objPromotedBike.EndTime));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            if (dr.Read())
+                            {
+                                status = Convert.ToBoolean(cmd.Parameters["par_success"].Value);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.AdOperation.DeletePromotedBike():Id:{0}"
+                    , objPromotedBike.PromotedBikeId));
+            }
+            return status;
+        }
     }
 }
