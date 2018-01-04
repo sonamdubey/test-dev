@@ -8,6 +8,7 @@ var bw_ObjContest;
 
 var topCount = 5;
 var trendingBikes, objSearches;
+var pageName = typeof (gaObj) === 'undefined' ? 'Others' : gaObj.name;
 
 /* landing page header */
 var transparentHeader = document.querySelectorAll('.header-transparent')[0];
@@ -1056,7 +1057,7 @@ docReady(function () {
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
                 let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
-                triggerGA(gaObj.name, 'Search_Bar_Clicked', label);
+                triggerGA(pageName, 'Search_Bar_Clicked', label);
             }
         },
         focusout: function () {
@@ -1200,7 +1201,8 @@ docReady(function () {
                     html = "";
                     for (var index in trendingBikes) {
                         item = trendingBikes[index];
-                        html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="bw-ga" data-cat="' + gaObj.name + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName + '"><span class="trending-searches"></span><a href="javascript:void(0)" data-href="/' + item.objMake.maskingName + '-bikes/' + item.objModel.maskingName + '" optionname="' + item.BikeName.toLowerCase().replace(' ', '') + '">' + item.BikeName + '</a>';
+                        html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName + '"><span class="trending-searches"></span><a href="javascript:void(0)" data-href="/'
+                            + item.objMake.maskingName + '-bikes/' + item.objModel.maskingName + '" optionname="' + item.BikeName.toLowerCase().replace(' ', '') + '">' + item.BikeName + '</a>';
                         if (item.objModel.modelId > 0) {
                             html += '<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.objModel.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a><div class="clear"></div>';
                         }
@@ -1272,7 +1274,7 @@ docReady(function () {
                 if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
                 objSearches.searches.unshift(obj);
                 bwcache.set(recentSearches.searchKey, objSearches);
-                triggerGA(gaObj.name, ' Recently_View_Search_Bar_Clicked', this.textContent);
+                triggerGA(pageName, ' Recently_View_Search_Bar_Clicked', this.textContent);
                 window.location.href = $(this).find('a').first().attr('data-href');
             }
 
@@ -1285,7 +1287,9 @@ docReady(function () {
 
     recentSearches.options.trendingSearchesEle.on('click', 'li', function () {
         try {
-            window.location.href = $(this).find('a').first().attr('data-href');
+            if (!$(event.target).hasClass('getquotation')) {
+                window.location.href = $(this).find('a').first().attr('data-href');
+            }
             recentSearches.hideRecentSearches();
         } catch (e) {
             console.log(e.message);

@@ -1690,3 +1690,10 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 	border-top-color: #fff;
 	bottom: -18px;
 }
+
+.search-title {
+    padding: 10px 15px 6px;
+    font-size: 11px;
+    color: #babfc3;
+    text-align: left;
+}
