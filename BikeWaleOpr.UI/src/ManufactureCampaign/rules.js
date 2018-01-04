@@ -205,6 +205,7 @@ $(document).ready(function () {
         var rdoModel = $("[name=rdoModel]:checked").val();
         switch (rdoModel) {
             case "1":
+                modelIds = $("#ddlModels :selected").val();
                 if (!$("#ddlModels :selected").val()) {
                     isValid = false;
                     Materialize.toast("Please select one or more models", 6000);
@@ -219,7 +220,7 @@ $(document).ready(function () {
                 }
                 break;
         }
-        if ($("#ddlModels :selected").val().length == 0 && modelIds.length == 0) {
+        if (modelIds == null || modelIds.length == 0) {
             isValid = false;
             Materialize.toast("Please enter one or more models", 6000);
         }
