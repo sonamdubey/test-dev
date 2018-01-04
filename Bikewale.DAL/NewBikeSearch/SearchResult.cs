@@ -119,7 +119,7 @@ namespace Bikewale.DAL.NewBikeSearch
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetSearchResult");
-                
+
             }
             return objSearch;
         }
@@ -152,7 +152,7 @@ namespace Bikewale.DAL.NewBikeSearch
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetPrevNextUrl");
-                
+
             }
             return objPager;
         }
@@ -192,9 +192,62 @@ namespace Bikewale.DAL.NewBikeSearch
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetApiUrl");
-                
+
             }
             return apiUrlstr;
+        }
+
+
+        public BudgetFilterRanges GetBudgetRanges()
+        {
+            BudgetFilterRanges ranges = null;
+            try
+            {
+                ranges = new BudgetFilterRanges();
+                ranges.Budget = new System.Collections.Generic.Dictionary<string, uint>();
+                ranges.Budget.Add("30000", 0);
+                ranges.Budget.Add("40000", 0);
+                ranges.Budget.Add("50000", 0);
+                ranges.Budget.Add("60000", 0);
+                ranges.Budget.Add("70000", 0);
+                ranges.Budget.Add("80000", 0);
+                ranges.Budget.Add("90000", 0);
+                ranges.Budget.Add("100000", 0);
+                ranges.Budget.Add("150000", 0);
+                ranges.Budget.Add("200000", 0);
+                ranges.Budget.Add("250000", 0);
+                ranges.Budget.Add("300000", 0);
+                ranges.Budget.Add("350000", 0);
+                ranges.Budget.Add("500000", 0);
+                ranges.Budget.Add("750000", 0);
+                ranges.Budget.Add("1250000", 0);
+                ranges.Budget.Add("1500000", 0);
+                ranges.Budget.Add("3000000", 0);
+                ranges.Budget.Add("6000000", 0);
+                ranges.Budget.Add("6000000+", 0);
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnewbikesearchbudget"))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                ranges.Budget[dr["Range"].ToString()] = SqlReaderConvertor.ToUInt32(dr["Bikes"]);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetBudgetRanges");
+            }
+            return ranges;
         }
     }
 }
