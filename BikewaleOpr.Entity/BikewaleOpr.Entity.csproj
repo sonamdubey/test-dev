@@ -161,6 +161,7 @@
     <Compile Include="ContractCampaign\DealerEntityBase.cs" />
     <Compile Include="ContractCampaign\ManufactureDealerCampaign.cs" />
     <Compile Include="ContractCampaign\MaskingNumber.cs" />
+    <Compile Include="ContractStatusEnum.cs" />
     <Compile Include="DealerAreaDetails.cs" />
     <Compile Include="DealerBenefitEntity.cs" />
     <Compile Include="CityEntityBase.cs" />

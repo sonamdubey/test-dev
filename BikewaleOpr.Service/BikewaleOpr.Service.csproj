@@ -145,6 +145,7 @@
     <Compile Include="AutoMappers\Location\CityMapper.cs" />
     <Compile Include="AutoMappers\ServiceCenter\ServiceCenterMapper.cs" />
     <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
+    <Compile Include="Controllers\AdOperation\AdOperationController.cs" />
     <Compile Include="Controllers\AdSlotController.cs" />
     <Compile Include="Controllers\Banner\BannerController.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />

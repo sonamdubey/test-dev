@@ -1,4 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using Bikewale.Notifications;
+using BikewaleOpr.Entity.AdOperations;
+using BikewaleOpr.Interface;
+using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Models;
+using BikewaleOpr.Models.AdOperation;
+using System;
+using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
 {
@@ -9,10 +16,32 @@ namespace BikewaleOpr.Controllers
     [Authorize]
     public class AdOperationController : Controller
     {
-        // GET: AdOperation
+        private readonly IAdOperation _adOperations;
+        private readonly IBikeMakesRepository _objBikeMake = null;
+
+        public AdOperationController(IAdOperation adOperations, IBikeMakesRepository objBikeMake)
+        {
+            _adOperations = adOperations;
+            _objBikeMake = objBikeMake;
+
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 2nd Jan 2018
+        /// Description: Action created to show all promoted bike list
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
-            return View();
+            AdOperationVM viewModel = new AdOperationVM();
+            AdOperation pageModel = null;
+            pageModel = new AdOperation(_adOperations, _objBikeMake);
+            viewModel = pageModel.GetData();
+            return View(viewModel);
         }
+
+   
+  
+
     }
 }
