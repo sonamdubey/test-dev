@@ -1008,7 +1008,7 @@ docReady(function () {
             if ($('#newBikeList').val().trim() == '') {
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
-                let label = "Recently_Viewed_Bikes_".concat((recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present"));
+                let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
                 triggerGA('HP', 'Search_Bar_Clicked', label);
             }
         },
@@ -1352,7 +1352,7 @@ docReady(function () {
             if ($('#globalSearch').val().trim() == '') {
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
-                let label = "Recently_Viewed_Bikes_".concat((recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present"));
+                let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
                 triggerGA(gaObj.name, 'Search_Bar_Clicked', label);
             }
         },
