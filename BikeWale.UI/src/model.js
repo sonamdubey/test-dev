@@ -347,7 +347,7 @@ docReady(function () {
 });
 
 docReady(function () {
-    bwcache.setOptions({ 'EnableEncryption': true });
+
     applyLazyLoad();
 
     // version dropdown

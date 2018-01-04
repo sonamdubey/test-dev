@@ -216,7 +216,6 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
 };
 
 docReady(function () {
-    bwcache.setOptions({ 'EnableEncryption': true });
 
     bwcache.removeAll(true);
 
