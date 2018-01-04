@@ -1,41 +1,70 @@
-﻿<div class="row" style="margin-top:5px;">
+﻿@model  BikewaleOpr.Models.AdOperationVM
+
+<div class="row" style="margin-top:5px;">
     <div class="col m10">
-        @using (Html.BeginForm())
-        {
-            <table id="tblMakeData" class="bordered highlight z-depth-3 centered">
-                <tr></tr>
 
-                <tr></tr>
+        <table id="tblMakeData" class="bordered highlight z-depth-3 centered">
+            <tr>
+                <th>Id</th>
+                <th>Make Name</th>
+                <th>Model Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>AdOperation Type</th>
+                <th>UpdatedBy</th>
+                <th>Last Updated</th>
+                <th>Delete</th>
 
-            </table>
-        }
+            </tr>
+
+
+
+
+            @foreach (var bike in Model.PromotedBikeList)
+                {
+            <tr>
+                <td>@bike.PromotedBikeId</td>
+                <td>@bike.Make.MakeName</td>
+                <td>@bike.Model.ModelName</td>
+                <td>@bike.StartTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
+                <td>@bike.EndTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
+                <td>@bike.AdOperationType</td>
+                <td>@bike.LastUpdatedBy</td>
+                <td>@bike.LastUpdatedOn</td>
+                <td><a href="" onclick="return confirm('Are you sure?')"><i class="material-icons icon-red">delete</i></a></td>
+            </tr>
+                }
+
+
+        </table>
+
     </div>
-    <div id="addMakeContainer" class="col s2 m2" data-bind="with : addMake">
+    <div id="addMakeContainer" class="col s2 m2" >
         <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class="collapsible-header center-align"><strong>Add Make</strong></div>
+                <div class="collapsible-header center-align"><strong>Select Ad Operation</strong></div>
                 <div class="collapsible-body">
                     <div class="container">
                         <div class="input-field row s12">
-                            @*@if (Model.Makes != null && Model.Makes.Count() > 0)
-                            {*@
-                                <select id="ddlmakes" name="makeIdList" data-bind="event:{change: selectMake}">
+                            @if (Model.Makes != null && Model.Makes.Count() > 0)
+                            {
+                                <select id="ddlMakes" name="makeIdList" data-bind="event:{change: selectMake}">
                                     <option>Select Make</option>
-                                    @*@foreach (var make in Model.Makes)
-                                    {*@
-                                        <option @*value="@make.MakeId"*@>MakeName</option>>
-                                    @*}*@
+                                    @foreach (var make in Model.Makes)
+                                    {
+                                        <option value="@make.MakeId">@make.MakeName</option>
+                                    }
                                 </select>
-                            @*}*@
-                            @*else
+                            }
+                            else
                             {
                                 <span>Problem in retrieving makes</span>
-                            }*@
+                            }
                         </div>
                         <div class="input-field row">
                             <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select All', enable : listModels().length>0" multiple></select>
                         </div>
-                    
+
                         <div class="row">
                             <div class="input-field row s12">
                                 <input type="checkbox" class="filled-in" id="chkShowPromotion" name="AdShowPromotion" />
@@ -55,20 +84,20 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="row">
-                                <div class="col s12">
-                                    <div class="input-field">
-                                        <input type="time" id="startTimeEle" value="" />
-                                        
-                                    </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <input type="time" id="startTimeEle" value="" />
+
                                 </div>
                             </div>
+                        </div>
                         <div class="row">
                             <div class="col s12">
                                 <div class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
                                     <input type="date" id="endDateEle" class="datepicker margin-left5" value="" />
-                                    <label for="endDateEle" >End Date</label>
+                                    <label for="endDateEle">End Date</label>
                                 </div>
                             </div>
                         </div>
@@ -76,12 +105,12 @@
                             <div class="col s12">
                                 <div class="input-field">
                                     <input type="time" id="endTimeEle" value="" />
-                                   
+
                                 </div>
                             </div>
                         </div>
                         <div class="input-field row s12">
-                            <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return validateMakeSubmit();}}">
+                            <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return saveAdOperation();}}">
                                 Add Operation
                             </button>
                         </div>
@@ -91,37 +120,7 @@
         </ul>
     </div>
 </div>
-<script>
-    var $dateInput = $('.datepicker').pickadate({
-        selectMonths: true,
-        closeOnSelect: true,
-        onClose: function () { if (dateValue != $("#reviewDateEle").val()) $("#reviewDate").val($("#reviewDateEle").val()); },
-        onOpen: function () { dateValue = $("#reviewDateEle").val() },
-        onSet: function (ele) { if (ele.select) { this.close(); } }
-    });
-    var manufacturerRulesViewModel = function () {
-        self.selectMake = function () {
-            self.selectedMake($('#ddlMakes option:selected').val());
-            if (self.selectedMake() != undefined && self.selectedMake() > 0) {
-                $.ajax({
-                    type: "GET",
-                    url: bwHostUrl + "/api/campaigns/manufacturer/models/makeId/" + self.selectedMake() + "/",
-                    datatype: "json",
-                    success: function (response) {
-                        var models = ko.toJS(response);
-                        if (models) {
-                            self.listModels(models);
-                        }
-                    },
-                    complete: function (xhr) {
-                        ddlModels.material_select();
-                    }
-                });
-            }
-            else {
-                self.listModels([]);
-                ddlModels.material_select();
-            }
-        };
-    };
-</script>
+<script>var msg = '@Convert.ToString(TempData["msg"])';
+    var bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs';
+    </script>
+<script src="~/src/AdOperations/AdOperation.js"></script>

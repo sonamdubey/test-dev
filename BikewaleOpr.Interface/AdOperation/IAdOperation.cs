@@ -1,7 +1,7 @@
-﻿using BikewaleOpr.Entity.AdOperations;
+﻿using BikewaleOpr.Entity;
 using System.Collections.Generic;
 
-namespace BikewaleOpr.Interface.AdOperation
+namespace BikewaleOpr.Interface
 {
     /// <summary>
     /// Created by : Snehal Dange on 2nd Jan 2018
@@ -10,8 +10,10 @@ namespace BikewaleOpr.Interface.AdOperation
     public interface IAdOperation
     {
         IEnumerable<PromotedBike> GetPromotedBikes();
-        PromotedBike SavePromotedBike();
-        PromotedBike UpdatePromotedBikes();
+
+        //PromotedBike UpdatePromotedBikes();
+        bool SavePromotedBike(PromotedBike objPromotedBike);
+
 
 
     }
