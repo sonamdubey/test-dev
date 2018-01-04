@@ -49,8 +49,10 @@
     var versionsCount = @(Model.ModelPageEntity!=null && Model.ModelPageEntity.ModelVersions!=null ? Model.ModelPageEntity.ModelVersions.Count() : 0);
     var photosCount = @(Model.AreModelPhotosAvailable ? Model.ModelPageEntity.AllPhotos.Count() - 10 : 0);
     var leadSourceId,  versionName = "@Model.VersionName", getCityArea;
-    if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && @Model.ModelPageEntity.ModelDetails.MakeBase != null)
+
+    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
     {
+    <text>
     var pageData = {
         label: "@Model.BikeName",
         payload: {
@@ -61,12 +63,14 @@
             futuristic: "@Model.ModelPageEntity.ModelDetails.Futuristic",
             isNew: "@Model.ModelPageEntity.ModelDetails.New",
             userRatingsCount: "@Model.ModelPageEntity.ModelDetails.RatingCount",
-            expertReviewsCount: "@Model.ModelPageEntity.ModelDetails.ExpertReviewsCount"
+            expertReviewsCount: "@Model.ModelPageEntity.ModelDetails.ExpertReviewsCount",
         },
         value: "@Model.BikeName"
     };
+    </text>
     }
     </script>
+    
 
 
     

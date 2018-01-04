@@ -283,6 +283,6 @@ docReady(function () {
         triggerGA("MakePage", "Clicked_on_ModelCard", cookieValue + "_" + bikeName);
     });
     // For saving page in recently viewed models/make
-    if (typeof pageData != "undefined")
+    if (typeof pageData != "undefined" && pageData != null)
         recentSearches.saveRecentSearches(pageData);
 });

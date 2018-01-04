@@ -320,7 +320,7 @@ docReady(function () {
         }
     });
     // For saving page in recent viewed items
-    if (typeof pageData != "undefined")
+    if (typeof pageData != "undefined" && pageData != null)
         recentSearches.saveRecentSearches(pageData);
 
 });
