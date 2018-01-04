@@ -112,6 +112,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>();
             container.RegisterType<IBikeBodyStyles, BikeBodyStyles>();
             container.RegisterType<IAdOperation, AdOperation>();
+
             return container;
         }
     }

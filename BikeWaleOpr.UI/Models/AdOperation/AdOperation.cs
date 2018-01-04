@@ -25,6 +25,7 @@ namespace BikewaleOpr.Models.AdOperation
             AdOperationVM viewModel = new AdOperationVM();
             GetPromotedBikes(viewModel);
             GetMakes(viewModel);
+            viewModel.UserId = Convert.ToUInt32(CurrentUser.Id);
             return viewModel;
 
         }
