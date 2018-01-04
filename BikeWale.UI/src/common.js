@@ -303,8 +303,6 @@ function MakeModelRedirection(items) {
             model.id = items.payload.modelId;
             model.futuristic = items.payload.futuristic;
         }
-        // Removed Since recentSearches only save recently viewed pages
-        // recentSearches.saveRecentSearches(items); 
 
         if (model != null && model != undefined) {
             window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/";
@@ -826,7 +824,7 @@ docReady(function () {
 });
 
 docReady(function () {
-    bwcache.setOptions({ 'EnableEncryption': true });
+
     bw_ObjContest = bwcache.get("showContestSlug", true);
 
     if (!bw_ObjContest) {

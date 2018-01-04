@@ -1,7 +1,6 @@
 ﻿ga_pg_id = '3';
 
 docReady(function () {
-    // Encryption of bwcache already done in review-popup
     $("img.lazy").lazyload();
 
     $('.jcarousel-wrapper.upComingBikes .jcarousel').on('jcarousel:targetin', 'li', function () {

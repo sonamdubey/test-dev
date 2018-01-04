@@ -48,7 +48,7 @@ var bikePopup = {
     }
 };
 
-docReady(function () { bwcache.setOptions({ StorageScope: "compare", EnableEncryption: true }); });
+docReady(function () {
 
 var bikeSelection = function () {
     var self = this;
