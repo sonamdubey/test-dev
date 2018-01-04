@@ -21,14 +21,24 @@
                 <input type="text" placeholder="Search your bike here, e.g. Maestro Edge " id="newBikeList" autocomplete="off" class="rounded-corner2">
                 <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search" rel="nofollow"><span class="bwmsprite search-bold-icon"></span></a>
                 <span id="loaderMakeModel" class="fa-spinner position-abt pos-right45 pos-top15" style="display: none"></span>
+                <div id="new-global-search-section" class="bg-white hide">
+                    <div id="history-search">
+                        <div class="search-title font12 text-light-grey">Recently Viewed</div>
+                        <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content"></ul>
+                    </div>
+                    <div id="trending-search">
+                        <div class="search-title font12 text-light-grey">Trending Searches</div>
+                        <ul id="new-trending-bikes" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content"></ul>
+                    </div>
+                </div>
             </div>
+
             <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
                 <li class="ui-menu-item" tabindex="-1">
                     <span class="text-bold">Oops! No suggestions found</span><br />
                     <span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
                 </li>
             </ul>
-            <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
             @if (Model.Banner != null)
             {
                 @Html.Raw(Model.Banner.Html);
