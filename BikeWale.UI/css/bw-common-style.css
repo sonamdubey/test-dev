@@ -2064,3 +2064,21 @@ input[type="number"] {
 .tooltip-top.tooltip--right .bw-tooltip-text:after {
 	left: 182px;
 }
+
+#global-search-section {
+    border: 1px solid #ccc;
+    text-decoration: none !important;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+
+#global-search-section a {
+    text-decoration: none !important;
+}
+
+.search-title {
+    padding: 10px 15px 6px;
+    font-size: 11px;
+    color: #babfc3;
+}

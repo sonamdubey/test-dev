@@ -403,3 +403,14 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
     color: #babfc3;
     text-align: left;
 }
+
+#global-search-section {
+    border: 1px solid #ccc;
+    text-decoration: none !important;
+    position: absolute;
+    width: 100%;
+}
+
+#global-search-section a {
+    text-decoration: none !important;
+}
