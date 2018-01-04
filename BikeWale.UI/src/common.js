@@ -8,7 +8,7 @@ var bw_ObjContest;
 
 var topCount = 5;
 var trendingBikes, objSearches;
-var pageName = typeof (gaObj) == 'undefined' ? 'Others' : gaObj.name;
+var pageName = typeof (gaObj) === 'undefined' ? 'Others' : gaObj.name;
 
 /* landing page header */
 var transparentHeader = document.querySelectorAll('.header-transparent')[0];
@@ -1201,7 +1201,8 @@ docReady(function () {
                     html = "";
                     for (var index in trendingBikes) {
                         item = trendingBikes[index];
-                        html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName + '"><span class="trending-searches"></span><a href="javascript:void(0)" data-href="/' + item.objMake.maskingName + '-bikes/' + item.objModel.maskingName + '" optionname="' + item.BikeName.toLowerCase().replace(' ', '') + '">' + item.BikeName + '</a>';
+                        html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName + '"><span class="trending-searches"></span><a href="javascript:void(0)" data-href="/'
+                            + item.objMake.maskingName + '-bikes/' + item.objModel.maskingName + '" optionname="' + item.BikeName.toLowerCase().replace(' ', '') + '">' + item.BikeName + '</a>';
                         if (item.objModel.modelId > 0) {
                             html += '<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.objModel.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a><div class="clear"></div>';
                         }
