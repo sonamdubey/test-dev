@@ -124,15 +124,50 @@
             <div class="grid-4 omega">
                 @if (Model.Model != null && Model.Model.ModelId > 0)
                 {
-                     if (Model.PopularMakeScootersAndOtherBrandsWidget != null && Model.PopularScootersAndUpcomingScootersWidget != null)
+                    if (Model.PopularMakeScootersAndOtherBrandsWidget != null && Model.PopularScootersAndUpcomingScootersWidget != null)
                     {
                         @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularMakeScootersAndOtherBrandsWidget)
                         @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularScootersAndUpcomingScootersWidget)
                     }
+                    else if (Model.SeriesBikesAndOtherBrands != null && Model.PopularScootersAndUpcomingScootersWidget != null)
+                    {
+                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.SeriesBikesAndOtherBrands)
+                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularScootersAndUpcomingScootersWidget)
+                    }
+                    else if (Model.SeriesBikesAndModelBodyStyleBikes != null && Model.PopularBikesAndUpcomingBikesWidget != null)
+                    {
+                         @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.SeriesBikesAndModelBodyStyleBikes)
+                         @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
+                    }
                     else if (Model.PopularMakeBikesAndBodyStyleBikesWidget != null && Model.PopularBikesAndUpcomingBikesWidget != null)
                     {
-                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularMakeBikesAndBodyStyleBikesWidget)
-                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
+                                    @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularMakeBikesAndBodyStyleBikesWidget)
+                                    @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
+                    }
+                    else if (Model.SeriesWidget != null && Model.SeriesWidget.PopularSeriesBikes != null && (Model.MostPopularBikes != null || Model.PopularBikesAndUpcomingBikesWidget != null))
+                    {
+                        if (Model.MostPopularBikes != null)
+                        {
+                            <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
+                                <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+                                    <ul id="widgetTab">
+                                        <li>
+                                            <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.MostPopularBikes.WidgetHeading</h2>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="sidebar-list--overflow">
+                                    @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
+                                </div>
+                                <div class="view-all-btn-container padding-10-20-20 read-more">
+                                    <a href="@Model.MostPopularMakeBikes.WidgetHref" title="@Model.MostPopularMakeBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularMakeBikes.WidgetLinkTitle<span class="bwsprite teal-right"></span></a>
+                                </div>
+                            </div>
+                        }
+                        if (Model.PopularBikesAndUpcomingBikesWidget != null)
+                        {
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
+                        }
                     }
                     else
                     {
@@ -156,9 +191,7 @@
                         }
                         @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
                     }
-
                 }
-
                 else
                 {
                     if (Model.Make != null && Model.Make.MakeId > 0)
