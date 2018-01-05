@@ -187,7 +187,7 @@ namespace Bikewale.BAL.BikeSearch
                         }
                         if (CollectionHelper.TryValueAtIndex(budgets, minIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                         {
-                            urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
+                            urls.Add(FormatSearchAboveBudgetUrls(outKey, outValue));
                             urls.Add(FormatSearchBetweenBudgetUrls(outKey, minBudget, CollectionHelper.ValueAtIndex(budgets, minIndex) - outValue));
                         }
                     }
