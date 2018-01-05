@@ -455,71 +455,88 @@
                                 </li>
                             </script>
                         </div>
-                    }
+                    }                    
                 </div>
             </div>
             <div class="clear"></div>
         </div>
     </section>
-    <section>
+    if (Model.BikeSearch != null && Model.BikeSearch.BudgetLinks != null && Model.BikeSearch.BudgetLinks.Any())
+    {
+        <section>
+        <div class="container margin-bottom20">
+            <div class="grid-12">
+                <div class="alpha omega padding-left10 padding-top20 content-box-shadow">
+                    <h2 class="h2-heading font18 padding-left10 padding-right10 margin-bottom20">Explore bikes in other price ranges</h2>
+                    @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchBudget.cshtml", Model.BikeSearch.BudgetLinks)
+                    <div class="clear"></div>
+                </div>
+            </div>   
+            <div class="clear"></div>         
+        </div>
+    </section>
+}
+    
         <!--  News Bikes   updates code starts here -->
-        @if (Model.TabCount > 0)
+        if (Model.TabCount > 0)
         {
-            <div class="container">
-                <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest bike and scooter updates</h2>
-                    <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
-                        <div class="@string.Format("text-center {0}", Model.TabCount > 2 ? string.Empty : Model.TabCount > 1 ? "margin-top30 margin-bottom30" : "margin-top10")">
-                            <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
-                                <ul>
-                                    @if (Model.News.FetchedCount > 0)
+            <section>
+                <div class="container">
+                    <div class="grid-12">
+                        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest bike and scooter updates</h2>
+                        <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
+                            <div class="@string.Format("text-center {0}", Model.TabCount > 2 ? string.Empty : Model.TabCount > 1 ? "margin-top30 margin-bottom30" : "margin-top10")">
+                                <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
+                                    <ul>
+                                        @if (Model.News.FetchedCount > 0)
                                     {
                                         <li class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")" data-tabs="ctrlNews">
                                             <h3>News</h3>
                                         </li>
                                     }
-                                    @if (Model.ExpertReviews.FetchedCount > 0)
+                                        @if (Model.ExpertReviews.FetchedCount > 0)
                                     {
                                         <li class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")" data-tabs="ctrlExpertReviews">
                                             <h3>Expert Reviews</h3>
                                         </li>
                                     }
-                                    @if (Model.Videos.FetchedCount > 0)
+                                        @if (Model.Videos.FetchedCount > 0)
                                     {
                                         <li class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")" data-tabs="ctrlVideos">
                                             <h3>Videos</h3>
                                         </li>
                                     }
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="@string.Format("bw-tabs-data padding-left10 padding-right10 {0}", Model.IsNewsActive ? "" : "hide")" id="ctrlNews">
-                            @if (Model.News.FetchedCount > 0)
+                            <div class="@string.Format("bw-tabs-data padding-left10 padding-right10 {0}", Model.IsNewsActive ? "" : "hide")" id="ctrlNews">
+                                @if (Model.News.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
 
                             }
-                        </div>
-                        <div class="@string.Format("bw-tabs-data padding-left10 padding-right10 {0}", Model.IsExpertReviewActive ? "" : "hide")" id="ctrlExpertReviews">
-                            @if (Model.ExpertReviews.FetchedCount > 0)
+                            </div>
+                            <div class="@string.Format("bw-tabs-data padding-left10 padding-right10 {0}", Model.IsExpertReviewActive ? "" : "hide")" id="ctrlExpertReviews">
+                                @if (Model.ExpertReviews.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
 
                             }
-                        </div>
-                        <div class="@string.Format("bw-tabs-data padding-left10 padding-right10 {0}", Model.IsVideoActive ? "" : "hide")" id="ctrlVideos">
-                            @if (Model.Videos.FetchedCount > 0)
+                            </div>
+                            <div class="@string.Format("bw-tabs-data padding-left10 padding-right10 {0}", Model.IsVideoActive ? "" : "hide")" id="ctrlVideos">
+                                @if (Model.Videos.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
-                                
+
                             }
+                            </div>
                         </div>
                     </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
-            </div>
+            </section>
         }
-    </section>
+
     @Html.Hidden("min-max-budget", Model.MinMaxBudget);
 }
 

@@ -3921,6 +3921,8 @@
     <Content Include="Views\Scooters\_ModelRelatedCard.cshtml" />
     <Content Include="Views\Scooters\_ModelRelatedCard_Mobile.cshtml" />
     <Content Include="Views\Scooters\_ModelRelatedCard_Mobile_Amp.cshtml" />
+    <Content Include="Views\NewBikeSearch\_NewBikeSearchBudget.cshtml" />
+    <Content Include="Views\NewBikeSearch\_NewBikeSearchBudget_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
