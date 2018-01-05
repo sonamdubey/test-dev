@@ -39,7 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -204,23 +203,25 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild">
+  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Installing npm dependencies" Importance="high" />
     <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />
   </Target>
-  <Target Name="ExecuteWebpackBundlingForClient" DependsOnTargets="CheckNPMInstall" AfterTargets="BeforeBuild">
+  <Target Name="ExecuteWebpackBundlingForClient" DependsOnTargets="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running webpack bundling task $(Configuration)" Importance="high" />
     <Exec Command="npm run $(Configuration)" WorkingDirectory="$(ProjectDir)" />
   </Target>
   <!-- Do not change order of ExecuteWebpackBundlingForClient and ExecuteWebpackBundlingForServer. Build folder is cleaned in first task -->
-  <Target Name="ExecuteWebpackBundlingForServer" DependsOnTargets="ExecuteWebpackBundlingForClient" AfterTargets="BeforeBuild">
+  <Target Name="ExecuteWebpackBundlingForServer" DependsOnTargets="ExecuteWebpackBundlingForClient" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running webpack bundling task for server bundle" Importance="high" />
     <Exec Command="npm run Server" WorkingDirectory="$(ProjectDir)" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>rmdir /s /q "$(ProjectDir)..\BikeWale.UI\pwa\js"
-rmdir /s /q "$(ProjectDir)..\BikeWale.UI\pwa\server"
-rmdir /s /q "$(ProjectDir)..\BikeWale.UI\pwa\css"
-xcopy /Y /E "$(ProjectDir)build\*" "$(ProjectDir)..\Bikewale.UI\pwa\"</PostBuildEvent>
+    <PostBuildEvent>
+	rmdir /s /q "$(ProjectDir)..\BikeWale.UI\pwa\js"
+	rmdir /s /q "$(ProjectDir)..\BikeWale.UI\pwa\server"
+	rmdir /s /q "$(ProjectDir)..\BikeWale.UI\pwa\css"
+	xcopy /Y /E "$(ProjectDir)build\*" "$(ProjectDir)..\Bikewale.UI\pwa\"
+</PostBuildEvent>
   </PropertyGroup>
 </Project>
