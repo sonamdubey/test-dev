@@ -1,0 +1,43 @@
+@mixin input-field($fontSize: 13, $fieldType: '')
+	.form-control__input
+		width: 100%
+		font-size: $fontSize * 1px
+		padding: 12px 20px
+		line-height: 1.4
+		color: color('dark-gray')
+		position: relative
+
+		@if $fieldType == 'search'
+			@include search-icon
+			padding-right: 50px
+			background-color: color('white')
+			background-position: 94%
+			background-size: 20px
+		@else
+			background-color: color('white')
+
+		border: 1px solid color('light-gray')
+		box-shadow: 0 2px 4px 0 rgba(215, 215, 215, .5)
+		border-radius: 2px
+
+		&:focus
+			color: color('default')
+
+	input::-webkit-input-placeholder,
+	input:-moz-placeholder
+		font-size: $fontSize * 1px
+		color: color('dark-gray')
+
+	input:-moz-placeholder
+		opacity: 1
+
+	@if $fieldType == 'search'
+		.form-control__error
+			&.ui-autocomplete
+				display: none
+				width: 100%
+				margin: 0
+				position: absolute
+				left: 0
+				top: 100%
+

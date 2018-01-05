@@ -5,6 +5,7 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.Photos;
 using System.Web.Mvc;
+using Bikewale.Models;
 
 namespace Bikewale.Controllers
 {
@@ -43,7 +44,7 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("photos/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
-        public ActionResult Index(string makeMasking, string modelMasking, string q)
+		public ActionResult Model(string makeMasking, string modelMasking, string q)
         {
             PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersionCache, _objVideos);
 
@@ -72,7 +73,7 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("m/photos/{makeMasking}-bikes/{modelMasking}/")]
-        public ActionResult Index_Mobile(string makeMasking, string modelMasking, string q)
+        public ActionResult Model_Mobile(string makeMasking, string modelMasking, string q)
         {
             PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersionCache, _objVideos);
 
@@ -92,5 +93,19 @@ namespace Bikewale.Controllers
                 return Redirect("/pagenotfound.aspx");
             }
         }
+
+		[Route("photos/")]
+		public ActionResult Index()
+		{
+			ModelBase objModel = new ModelBase();
+			return View(objModel);
+		}
+
+		[Route("m/photos/")]
+		public ActionResult Index_Mobile()
+		{
+			ModelBase objModel = new ModelBase();
+			return View(objModel);
+		}
     }
 }

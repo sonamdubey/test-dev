@@ -1,0 +1,81 @@
+@mixin scooter-style-icon($width: 75, $height: 42)
+	.scooter-style-icon
+		@if unitless($width) && unitless($height)
+			width: $width * 1px
+			height: $height * 1px
+			display: inline-block
+			vertical-align: middle
+			@include scooter-style-line
+		@else
+			@warn "Please provide unitless value for body style icon"
+			@return false
+
+	.body-type__item
+		&:hover,
+		&.active
+			.scooter-style-icon
+				@include scooter-style-filled
+
+
+@mixin street-style-icon($width: 75, $height: 42)
+	.street-style-icon
+		@if unitless($width) && unitless($height)
+			width: $width * 1px
+			height: $height * 1px
+			display: inline-block
+			vertical-align: middle
+			@include street-style-line
+		@else
+			@warn "Please provide unitless value for body style icon"
+			@return false
+
+	.body-type__item
+		&:hover,
+		&.active
+			.street-style-icon
+				@include street-style-filled
+
+
+@mixin cruiser-style-icon($width: 75, $height: 42)
+	.cruiser-style-icon
+		@if unitless($width) && unitless($height)
+			width: $width * 1px
+			height: $height * 1px
+			display: inline-block
+			vertical-align: middle
+			@include cruiser-style-line
+		@else
+			@warn "Please provide unitless value for body style icon"
+			@return false
+
+	.body-type__item
+		&:hover,
+		&.active
+			.cruiser-style-icon
+				@include cruiser-style-filled
+
+
+@mixin sports-style-icon($width: 75, $height: 42)
+	.sports-style-icon
+		@if unitless($width) && unitless($height)
+			width: $width * 1px
+			height: $height * 1px
+			display: inline-block
+			vertical-align: middle
+			@include sports-style-line
+		@else
+			@warn "Please provide unitless value for body style icon"
+			@return false
+
+	.body-type__item
+		&:hover,
+		&.active
+			.sports-style-icon
+				@include sports-style-filled
+
+
+@mixin all-body-type-icons($width: 75, $height: 42)
+	@include scooter-style-icon($width, $height)
+	@include street-style-icon($width, $height)
+	@include cruiser-style-icon($width, $height)
+	@include sports-style-icon($width, $height)
