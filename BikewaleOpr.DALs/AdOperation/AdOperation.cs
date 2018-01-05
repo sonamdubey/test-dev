@@ -18,11 +18,7 @@ namespace BikewaleOpr.DALs.AdOperation
     /// </summary>
     public class AdOperation : IAdOperation
     {
-        /// <summary>
-        /// Created by : Snehal Dange on 2nd Jan 2018
-        /// Description: Method created to get all latest launched bikes list
-        /// </summary>
-        /// <returns></returns>
+
         public IEnumerable<PromotedBike> GetPromotedBikes()
         {
             IList<PromotedBike> _objPromotedBikeList = null;

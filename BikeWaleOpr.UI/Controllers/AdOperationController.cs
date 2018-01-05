@@ -1,10 +1,7 @@
-﻿using Bikewale.Notifications;
-using BikewaleOpr.Entity.AdOperations;
-using BikewaleOpr.Interface;
+﻿using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Models;
 using BikewaleOpr.Models.AdOperation;
-using System;
 using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
@@ -39,9 +36,6 @@ namespace BikewaleOpr.Controllers
             viewModel = pageModel.GetData();
             return View(viewModel);
         }
-
-   
-  
 
     }
 }

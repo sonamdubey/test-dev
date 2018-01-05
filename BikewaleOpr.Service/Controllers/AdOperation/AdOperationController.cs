@@ -43,8 +43,15 @@ namespace BikewaleOpr.Service.Controllers
         {
             try
             {
-                bool status = _adOperations.UpdatePromotedBike(objPromotedBike);
-                return Ok(status);
+                if (objPromotedBike.PromotedBikeId > 0)
+                {
+                    bool status = _adOperations.UpdatePromotedBike(objPromotedBike);
+                    return Ok(status);
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {

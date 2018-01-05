@@ -6,7 +6,7 @@ var adOperationsViewModel = function () {
 
     var self = this;
 
-   
+
     self.selectedMake = ko.observable();
     self.listModels = ko.observableArray([]);
 
@@ -46,8 +46,8 @@ var adOperationsViewModel = function () {
             "endTime": $('#endDateEle').val() + ' ' + $('#endTimeEle').val(),
             "adOperationType": $('#chkShowPromotion').is(':checked') ? 1 : 2,
             "userId": userId
-            
-        
+
+
         }
         $.ajax({
             type: "POST",
@@ -55,37 +55,41 @@ var adOperationsViewModel = function () {
             contentType: "application/json",
             data: ko.toJSON(basicDetails),
             success: function (response) {
-               
-                
+
+
                 Materialize.toast('AdOperation saved', 4000);
-               
+
             }
         });
     };
     self.updateAdOperation = function (e) {
-        var currentRow = $(e.target).closest("tr").first();
-        var basicDetails = {
-            "promotedBikeId": $(currentRow).data("promotedbikeid"),
-            "AdOperationType": $(currentRow).find("td").data("adoperationtype"),
-            "LastUpdatedById": userId,
-            "ContractStatus": $(currentRow).find("td").data("contractstatus")
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "/api/adoperations/update/",
-            contentType: "application/json",
-            data: ko.toJSON(basicDetails),
-            success: function (response) {
-
-
-                Materialize.toast('Selected bike deleted', 4000);
-
+        if (confirm('Are you sure?')) {
+            var currentRow = $(e.target).closest("tr").first();
+            var basicDetails = {
+                "promotedBikeId": $(currentRow).data("promotedbikeid"),
+                "adOperationType": $(currentRow).find("td[data-value='adoperationtype']").text().trim(),
+                "lastUpdateBy": userId,
+                "contractStatus": 3   //Status code for deleted
             }
-        });
 
+            $.ajax({
+                type: "POST",
+                url: "/api/adoperation/update/",
+                data: ko.toJSON(basicDetails),
+                contentType: "application/json",
+
+                success: function (response) {
+
+                    window.location.reload();
+                    Materialize.toast('Deleted Successfully', 4000);
+
+                }
+            });
+
+        };
     };
-}
+
+};
 
 
 $(document).ready(function () {
