@@ -12,6 +12,8 @@ namespace BikewaleOpr.BAL
         /// <summary>
         /// created by : Sajal Gupta on 21-3-2017
         /// Description : BAL layer for getting homepage data
+        /// Modified by : Sanskar Gupta on 04 Jan 2018
+        /// Description : Added function to get new launches which are eligible to be promoted by the backend guy.
         /// </summary>
         /// <returns></returns>
         private readonly IBikeModelsRepository _IBikeModelRepo;
@@ -54,7 +56,7 @@ namespace BikewaleOpr.BAL
                         }
                     }
 
-                    // Get models for which used model image has not been updated                    
+                    // Get models for which used model image has not been updated                  
                     objHomePageData.UsedModelsData = _IBikeModel.GetPendingUsedBikesWithoutModelImage();
 
                     if (objHomePageData.UsedModelsData != null)
@@ -67,6 +69,9 @@ namespace BikewaleOpr.BAL
                     //Get models with their respective make id whose any color variation image is yet to be uploaded.
 
                     objHomePageData.BikeModelByMakeList = _IBikeModel.GetModelsWithMissingColorImage();
+
+                    //Get new launches which are eligible to be promoted by the backend guy.
+                    objHomePageData.PromotionBikes = _IBikeModelRepo.GetPromotionBikes();
                 }
             }
             catch (Exception ex)
