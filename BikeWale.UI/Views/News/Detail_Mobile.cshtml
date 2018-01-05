@@ -16,7 +16,7 @@
         var AppJsUrl = "/pwa/app.bundle.js";
         var NewsJsUrl = "/pwa/newsBundle.bundle.js";
         var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-        if (Model != null && Model.ArticleDetails != null) { Model.AdTags.TargetedTags = String.Join(",", Model.ArticleDetails.TagsList); };
+       
     }
 
     @if (Model != null && Model.PageMetaTags != null)
