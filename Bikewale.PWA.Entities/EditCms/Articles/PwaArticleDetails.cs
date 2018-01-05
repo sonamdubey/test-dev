@@ -5,6 +5,8 @@ namespace Bikewale.Entities.PWA.Articles
 {
     /// <summary>
     /// Created By: Prasad Gawde
+    /// Modified By : Ashish G. Kamble on 5 Jan 2018
+    /// Modified : Added Tags property
     /// </summary>
     [Serializable, DataContract]
     public class PwaArticleDetails : PwaArticleSummary
@@ -17,5 +19,7 @@ namespace Bikewale.Entities.PWA.Articles
         public PwaArticleBase PrevArticle { get; set; }
         [DataMember]
         public string AuthorMaskingName { get; set; }
+        [DataMember]
+        public string Tags { get; set; }        
     }
 }
