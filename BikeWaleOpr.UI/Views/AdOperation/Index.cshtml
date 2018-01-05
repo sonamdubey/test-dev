@@ -1,6 +1,6 @@
 ﻿@model  BikewaleOpr.Models.AdOperationVM
 
-<div class="row" style="margin-top:5px;">
+<div class="row" style="margin-top:5px;" id="adOperationContainer">
     <div class="col m10">
 
         <table id="tblMakeData" class="bordered highlight z-depth-3 centered">
@@ -24,16 +24,17 @@
             @foreach (var bike in Model.PromotedBikeList)
             {
                 <tr>
-                    <td>@bike.PromotedBikeId</td>
+                <tr data-promotedbikeid="@bike.PromotedBikeId">
+                  
                     <td>@bike.Make.MakeName</td>
                     <td>@bike.Model.ModelName</td>
                     <td>@bike.StartTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
                     <td>@bike.EndTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
-                    <td>@bike.AdOperationType</td>
+                    <td data-value="adoperationtype">@bike.AdOperationType</td>
                     <td>@bike.UserId</td>
-                    <td>@bike.ContractStatus</td>
+                    <td data-value="contractstatus">@bike.ContractStatus</td>
                     <td>@bike.LastUpdatedOn.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
-                    <td><a href="" onclick="return confirm('Are you sure?')"><i class="material-icons icon-red">delete</i></a></td>
+                    <td><span data-bind="event : { click : function(d,e) { updateAdOperation(e);}}"><i class="material-icons icon-red">delete</i></span></td>
                 </tr>
             }
 

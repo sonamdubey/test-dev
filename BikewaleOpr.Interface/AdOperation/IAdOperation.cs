@@ -11,8 +11,11 @@ namespace BikewaleOpr.Interface
     {
         IEnumerable<PromotedBike> GetPromotedBikes();
 
-        //PromotedBike UpdatePromotedBikes();
+        //PromotedBike AddPromotedBikes();
         bool SavePromotedBike(PromotedBike objPromotedBike);
+
+        //PromotedBike UpdatePromotedBikes() status;
+        bool UpdatePromotedBike(PromotedBike objPromotedBike);
 
 
 

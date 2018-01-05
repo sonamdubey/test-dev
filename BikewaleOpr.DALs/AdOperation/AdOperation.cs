@@ -18,11 +18,7 @@ namespace BikewaleOpr.DALs.AdOperation
     /// </summary>
     public class AdOperation : IAdOperation
     {
-        /// <summary>
-        /// Created by : Snehal Dange on 2nd Jan 2018
-        /// Description: Method created to get all latest launched bikes list
-        /// </summary>
-        /// <returns></returns>
+
         public IEnumerable<PromotedBike> GetPromotedBikes()
         {
             IList<PromotedBike> _objPromotedBikeList = null;
@@ -101,6 +97,41 @@ namespace BikewaleOpr.DALs.AdOperation
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikewaleOpr.DALs.AdOperation.SavePromotedBike()");
+            }
+            return status;
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 4th Jan 2018
+        /// Description: Method to delete promoted bike( change status of promoted bike to 'inactive')
+        /// </summary>
+        /// <param name="objPromotedBike"></param>
+        /// <returns></returns>
+        public bool UpdatePromotedBike(PromotedBike objPromotedBike)
+        {
+            bool status = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+                    param.Add("par_adpromotedbikeid", objPromotedBike.PromotedBikeId);
+                    param.Add("par_startdatetime", objPromotedBike.StartTime);
+                    param.Add("par_enddatetime", objPromotedBike.EndTime);
+                    param.Add("par_opruserid", objPromotedBike.UserId);
+                    param.Add("par_status", objPromotedBike.ContractStatus);
+                    param.Add("par_adoperationid", objPromotedBike.AdOperationType);
+
+
+                    status = connection.Execute("updateadpromotedbike", param: param, commandType: CommandType.StoredProcedure) > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.AdOperation.UpdatePromotedBike():Id:{0}"
+                    , objPromotedBike.PromotedBikeId));
             }
             return status;
         }
