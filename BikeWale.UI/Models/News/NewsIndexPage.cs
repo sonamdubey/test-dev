@@ -1,4 +1,8 @@
-﻿using Bikewale.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
@@ -21,10 +25,6 @@ using Bikewale.Models.Scooters;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models
 {
@@ -793,7 +793,7 @@ namespace Bikewale.Models
                                 if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                                 {
                                     BindSeriesBikesAndOtherBrands(objData, bikeSeriesEntityBase, PopularScooterMakes);
-                                    BindPopularScootersAndUpcomingScootersWidget(objData, MostPopularBikes, UpcomingScooters);
+                                    BindPopularScootersAndUpcomingScootersWidget(objData, MostPopularScooters, UpcomingScooters);
                                 }
                                 else if (bodyStyle.Equals(EnumBikeBodyStyles.Cruiser) || bodyStyle.Equals(EnumBikeBodyStyles.Sports))
                                 {
@@ -961,7 +961,7 @@ namespace Bikewale.Models
                 objData.PopularScootersAndUpcomingScootersWidget.TabHeading1 = "Popular Scooters";
                 objData.PopularScootersAndUpcomingScootersWidget.TabHeading2 = "Upcoming Scooters";
                 objData.PopularScootersAndUpcomingScootersWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
-                objData.PopularScootersAndUpcomingScootersWidget.ViewPath2 = "~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml"; ;
+                objData.PopularScootersAndUpcomingScootersWidget.ViewPath2 = "~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml";
                 objData.PopularScootersAndUpcomingScootersWidget.TabId1 = "PopularScooters";
                 objData.PopularScootersAndUpcomingScootersWidget.TabId2 = "UpcomingScooters";
                 objData.PopularScootersAndUpcomingScootersWidget.MostPopularScooters = mostPopularBikes;

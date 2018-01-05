@@ -1,5 +1,6 @@
 ﻿
 
+using System.Linq;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
@@ -7,7 +8,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using System.Linq;
 namespace Bikewale.Models
 {
     public class MoreAboutScootersWidget
