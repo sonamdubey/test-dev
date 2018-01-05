@@ -23,9 +23,9 @@
 
             @foreach (var bike in Model.PromotedBikeList)
             {
-                <tr>
+
                 <tr data-promotedbikeid="@bike.PromotedBikeId">
-                  
+                    <td>@bike.PromotedBikeId</td>
                     <td>@bike.Make.MakeName</td>
                     <td>@bike.Model.ModelName</td>
                     <td>@bike.StartTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>

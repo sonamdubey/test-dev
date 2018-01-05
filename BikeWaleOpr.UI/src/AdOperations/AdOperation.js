@@ -144,7 +144,7 @@ var adOperationsViewModel = function () {
         };
     };
 
-};
+
 };
 
         
