@@ -1,8 +1,8 @@
-﻿@{
+﻿@model BikewaleOpr.Entity.HomePageData
+@{
     ViewBag.Title = "Home Page";
     ViewBag.PageTitle = "Bikewale Operations - Home";
 }
-@model BikewaleOpr.Entity.HomePageData
 @if (Model != null)
 {
     <div class="row">
@@ -124,6 +124,44 @@
                     <div class="card-action">
                         <a href="/content/bikeunitssold.aspx">Click here to Update data</a>
                     </div>
+                </div>
+            </div>
+        }
+
+        @if (Model.PromotionBikes != null)
+        {
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content">
+                        <h5><span class="card-title">Wanna Promote a bike?</span></h5>
+                        <p>
+                            <b>Select a bike to be promoted, using the link below.</b>
+                        </p>
+                        <p><a class="modal-trigger" href="#modal-eligibleForPromotion">View all eligible models</a></p>
+                    </div>
+                    <div class="card-action">
+                        <a target="_blank" rel="noopener" href="/content/modeleligibleforpromotion.aspx">Models by launch date</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="modal-eligibleForPromotion" class="modal">
+                <div class="modal-content">
+                    <h4>Bikes Eligible for Promotion.</h4>
+                    @foreach (var bikeModel in Model.PromotionBikes)
+                    {                       
+                            <div class="col s12 m6">
+                                <div class="card">
+                                    <div class="card-image waves-effect waves-block waves-light margin-left20 activator">
+                                        <span class="margin-top10 brandlogosprite brand-@bikeModel.BikeMake.MakeId activator"></span>
+                                    </div>
+                                    <div class="card-content activator">
+                                        <span class="card-title grey-text text-darken-4 activator"><a target="_blank" rel="noopener" href="/content/modeleligibleforpromotion.aspx?makeid=@bikeModel.BikeMake.MakeId&modelid=@bikeModel.BikeModel.ModelId">@bikeModel.BikeModel.ModelName</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    }
                 </div>
             </div>
         }
