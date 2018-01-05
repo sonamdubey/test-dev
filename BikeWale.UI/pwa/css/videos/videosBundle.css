@@ -1634,7 +1634,7 @@ select.form-control {
   text-align: right; }
 
 .brandlogosprite {
-  background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?07Dec20170158351092222);
+  background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?22Sep20171506080390741);
   background-repeat: no-repeat;
   display: inline-block; }
 
@@ -1667,8 +1667,7 @@ select.form-control {
 .brand-71,
 .brand-21,
 .brand-38,
-.brand-23,
-.brand-73 {
+.brand-23 {
   height: 30px; }
 
 .brand-2 {
@@ -1791,10 +1790,6 @@ select.form-control {
   width: 70px;
   background-position: -1839px 0; }
 
-.brand-73 {
-    width: 30px;
-    background-position: -1958px 0;
-}
 .brand-type-container li {
   display: inline-block;
   vertical-align: top;
