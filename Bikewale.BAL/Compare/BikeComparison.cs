@@ -84,31 +84,33 @@ namespace Bikewale.BAL.Compare
         {
             try
             {
-                string[] arrVersion = versions.Split(',');
+                int[] arrVersion = versions.Split(',').Select(int.Parse).ToArray();
 
                 if (compareEntity != null)
                 {
                     CompareMainCategory compareSpecifications = GetCompareMainCategory(BWConstants.Specifications);
 
+                    var specificationsSpec = new List<CompareSubMainCategory>();
+
                     #region Specifications
                     CompareSubMainCategory engineTransmission = GetEngineAndTransmission(compareEntity, arrVersion);
-                    compareSpecifications.Spec.Add(engineTransmission);
+                    specificationsSpec.Add(engineTransmission);
 
                     CompareSubMainCategory brakesWheelsSuspension = GetBrakeWheelSuspension(compareEntity, arrVersion);
-                    compareSpecifications.Spec.Add(brakesWheelsSuspension);
+                    specificationsSpec.Add(brakesWheelsSuspension);
 
                     CompareSubMainCategory dimensionChasis = GetDimensionsAndChasis(compareEntity, arrVersion);
-                    compareSpecifications.Spec.Add(dimensionChasis);
+                    specificationsSpec.Add(dimensionChasis);
 
                     CompareSubMainCategory fuelEfficiencyPerformance = GetFuelEfficiencyPerformance(compareEntity, arrVersion);
-                    compareSpecifications.Spec.Add(fuelEfficiencyPerformance);
+                    specificationsSpec.Add(fuelEfficiencyPerformance);
 
+                    compareSpecifications.Spec = specificationsSpec;
                     compareEntity.CompareSpecifications = compareSpecifications;
 
                     #endregion
 
                     CompareMainCategory compareFeatures = GetCompareMainCategory(BWConstants.Features);
-
                     #region Features
                     CompareSubMainCategory features = GetFeatures(compareEntity, arrVersion);
                     compareFeatures.Spec.Add(features);
@@ -141,7 +143,7 @@ namespace Bikewale.BAL.Compare
         /// <param name="compareEntity"></param>
         /// <param name="arrVersion"></param>
         /// <returns></returns>
-        private CompareSubMainCategory GetEngineAndTransmission(BikeCompareEntity compareEntity, string[] arrVersion)
+        private CompareSubMainCategory GetEngineAndTransmission(BikeCompareEntity compareEntity, int[] arrVersion)
         {
             CompareSubMainCategory engineTransmission = GetCompareSubMainCategory(BWConstants.EngineAndTransmission, "2");
 
@@ -179,7 +181,7 @@ namespace Bikewale.BAL.Compare
 
             foreach (var version in arrVersion)
             {
-                var spec = compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var spec = compareEntity.Specifications.FirstOrDefault(m => m.VersionId == version);
                 if (spec != null)
                 {
                     etDisplacement.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(spec.Displacement.Value, "cc")));
@@ -231,7 +233,7 @@ namespace Bikewale.BAL.Compare
         /// <param name="compareEntity"></param>
         /// <param name="arrVersion"></param>
         /// <returns></returns>
-        private CompareSubMainCategory GetBrakeWheelSuspension(BikeCompareEntity compareEntity, string[] arrVersion)
+        private CompareSubMainCategory GetBrakeWheelSuspension(BikeCompareEntity compareEntity, int[] arrVersion)
         {
             CompareSubMainCategory brakesWheelsSuspension = GetCompareSubMainCategory(BWConstants.BrakesWheelsSuspension, "3");
 
@@ -266,7 +268,7 @@ namespace Bikewale.BAL.Compare
 
             foreach (var version in arrVersion)
             {
-                var spec = compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var spec = compareEntity.Specifications.FirstOrDefault(m => m.VersionId == version);
                 if (spec != null)
                 {
                     bwsBreakType.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(spec.BrakeType)));
@@ -314,7 +316,7 @@ namespace Bikewale.BAL.Compare
         /// <param name="compareEntity"></param>
         /// <param name="arrVersion"></param>
         /// <returns></returns>
-        private CompareSubMainCategory GetDimensionsAndChasis(BikeCompareEntity compareEntity, string[] arrVersion)
+        private CompareSubMainCategory GetDimensionsAndChasis(BikeCompareEntity compareEntity, int[] arrVersion)
         {
             CompareSubMainCategory dimensionChasis = GetCompareSubMainCategory(BWConstants.DimensionsAndChasis, "4");
 
@@ -334,7 +336,7 @@ namespace Bikewale.BAL.Compare
 
             foreach (var version in arrVersion)
             {
-                var spec = compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var spec = compareEntity.Specifications.FirstOrDefault(m => m.VersionId == version);
                 if (spec != null)
                 {
                     KerbWeight.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(spec.KerbWeight.Value)));
@@ -366,7 +368,7 @@ namespace Bikewale.BAL.Compare
         /// <param name="compareEntity"></param>
         /// <param name="arrVersion"></param>
         /// <returns></returns>
-        private CompareSubMainCategory GetFuelEfficiencyPerformance(BikeCompareEntity compareEntity, string[] arrVersion)
+        private CompareSubMainCategory GetFuelEfficiencyPerformance(BikeCompareEntity compareEntity, int[] arrVersion)
         {
             CompareSubMainCategory fuelEfficiencyPerformance = GetCompareSubMainCategory(BWConstants.FuelEfficiencyPerformance, "5");
 
@@ -392,7 +394,7 @@ namespace Bikewale.BAL.Compare
 
             foreach (var version in arrVersion)
             {
-                var spec = compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var spec = compareEntity.Specifications.FirstOrDefault(m => m.VersionId == version);
                 if (spec != null)
                 {
                     FuelTankCapacity.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(spec.FuelTankCapacity.Value)));
@@ -431,7 +433,7 @@ namespace Bikewale.BAL.Compare
         /// <param name="compareEntity"></param>
         /// <param name="arrVersion"></param>
         /// <returns></returns>
-        private CompareSubMainCategory GetFeatures(BikeCompareEntity compareEntity, string[] arrVersion)
+        private CompareSubMainCategory GetFeatures(BikeCompareEntity compareEntity, int[] arrVersion)
         {
             CompareSubMainCategory features = GetCompareSubMainCategory(BWConstants.Features);
 
@@ -502,7 +504,7 @@ namespace Bikewale.BAL.Compare
 
             foreach (var version in arrVersion)
             {
-                var feature = compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var feature = compareEntity.Features.FirstOrDefault(m => m.VersionId == version);
                 if (feature != null)
                 {
                     Speedometer.CompareSpec.Add(GetCompareBikeData(FormatMinSpecs.ShowAvailable(feature.Speedometer)));
@@ -565,7 +567,7 @@ namespace Bikewale.BAL.Compare
         /// <param name="compareEntity"></param>
         /// <param name="arrVersion"></param>
         /// <returns></returns>
-        private CompareBikeColorCategory GetCompareColors(BikeCompareEntity compareEntity, string[] arrVersion)
+        private CompareBikeColorCategory GetCompareColors(BikeCompareEntity compareEntity, int[] arrVersion)
         {
             CompareBikeColorCategory compareColors = GetCompareBikeColorCategory(BWConstants.Colours);
             compareEntity.Color = compareEntity.Color.GroupBy(p => p.ColorId).Select(grp => grp.First()).ToList<BikeColor>();
@@ -574,7 +576,7 @@ namespace Bikewale.BAL.Compare
                 var objBikeColor = new List<BikeColor>();
                 foreach (var color in compareEntity.Color)
                 {
-                    if (color.VersionId == Convert.ToUInt32(version))
+                    if (color.VersionId == version)
                     {
                         objBikeColor.Add(color);
                     }
@@ -591,7 +593,7 @@ namespace Bikewale.BAL.Compare
         /// <param name="compareEntity"></param>
         /// <param name="arrVersion"></param>
         /// <returns></returns>
-        private CompareReviewsData GetReviewData(BikeCompareEntity compareEntity,string[] arrVersion)
+        private CompareReviewsData GetReviewData(BikeCompareEntity compareEntity,int[] arrVersion)
         {
             CompareReviewsData userReviewData = new CompareReviewsData();
             CompareMainCategory compareReviews = GetCompareMainCategory(BWConstants.Reviews);
@@ -604,8 +606,8 @@ namespace Bikewale.BAL.Compare
             foreach (var version in arrVersion)
             {
                 UserReviewComparisonObject objReview = new UserReviewComparisonObject();
-                var reviewObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
-                var basicInfoObj = compareEntity.BasicInfo != null ? compareEntity.BasicInfo.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)) : null;
+                var reviewObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
+                var basicInfoObj = compareEntity.BasicInfo != null ? compareEntity.BasicInfo.FirstOrDefault(m => m.VersionId == version) : null;
                 if (reviewObj != null && reviewObj.ModelReview != null)
                 {
                     var modelReview = reviewObj.ModelReview;
@@ -630,7 +632,7 @@ namespace Bikewale.BAL.Compare
             int isValuesPresent = 0;
             foreach (var version in arrVersion)
             {
-                var reviewsObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var reviewsObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
                 if (reviewsObj != null && reviewsObj.ModelReview != null)
                 {
                     var modelReview = reviewsObj.ModelReview;
@@ -655,7 +657,7 @@ namespace Bikewale.BAL.Compare
             isValuesPresent = 0;
             foreach (var version in arrVersion)
             {
-                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
                 var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 4) : null;
                 if (firstRow != null && objQuestion != null)
                 {
@@ -678,7 +680,7 @@ namespace Bikewale.BAL.Compare
             isValuesPresent = 0;
             foreach (var version in arrVersion)
             {
-                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
                 var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 5) : null;
                 if (firstRow != null && objQuestion != null)
                 {
@@ -701,7 +703,7 @@ namespace Bikewale.BAL.Compare
             isValuesPresent = 0;
             foreach (var version in arrVersion)
             {
-                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
                 var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 6) : null;
                 if (firstRow != null && objQuestion != null)
                 {
@@ -724,7 +726,7 @@ namespace Bikewale.BAL.Compare
             isValuesPresent = 0;
             foreach (var version in arrVersion)
             {
-                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
                 var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 7) : null;
                 if (firstRow != null && objQuestion != null)
                 {
@@ -747,7 +749,7 @@ namespace Bikewale.BAL.Compare
             isValuesPresent = 0;
             foreach (var version in arrVersion)
             {
-                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
                 var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 8) : null;
                 if (firstRow != null && objQuestion != null)
                 {
@@ -768,7 +770,7 @@ namespace Bikewale.BAL.Compare
             isValuesPresent = 0;
             foreach (var version in arrVersion)
             {
-                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
                 var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 9) : null;
                 if (firstRow != null && objQuestion != null)
                 {
@@ -789,7 +791,7 @@ namespace Bikewale.BAL.Compare
             isValuesPresent = 0;
             foreach (var version in arrVersion)
             {
-                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
                 var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 10) : null;
                 if (firstRow != null && objQuestion != null)
                 {
@@ -810,7 +812,7 @@ namespace Bikewale.BAL.Compare
             isValuesPresent = 0;
             foreach (var version in arrVersion)
             {
-                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
                 var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 11) : null;
                 if (firstRow != null && objQuestion != null)
                 {
@@ -837,8 +839,8 @@ namespace Bikewale.BAL.Compare
             foreach (var version in arrVersion)
             {
                 ReviewObject objReview = new ReviewObject();
-                var reviewObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
-                var basicInfoObj = compareEntity.BasicInfo != null ? compareEntity.BasicInfo.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)) : null;
+                var reviewObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == version);
+                var basicInfoObj = compareEntity.BasicInfo != null ? compareEntity.BasicInfo.FirstOrDefault(m => m.VersionId == version) : null;
                 if (reviewObj != null && basicInfoObj != null && reviewObj.ModelReview != null && reviewObj.ModelReview.UserReviews != null)
                 {
                     var modelReview = reviewObj.ModelReview;
@@ -863,7 +865,7 @@ namespace Bikewale.BAL.Compare
         /// <returns></returns>
         private CompareMainCategory GetCompareMainCategory(string text)
         {
-            return new CompareMainCategory { Text = text, Value = text, Spec = new List<CompareSubMainCategory>() };
+            return new CompareMainCategory { Text = text, Value = text, Spec = new List<CompareSubMainCategory>()};
         }
 
         /// <summary>
