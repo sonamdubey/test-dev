@@ -1,6 +1,7 @@
 ﻿using Bikewale.DTO.NewBikeSearch;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,37 +79,37 @@ namespace Bikewale.BAL.BikeSearch
                         var budgets = _budgetFilterRanges.Budget;
                         if (!String.IsNullOrEmpty(minBudget) && budgets.ContainsKey(minBudget))
                         {
-                            minIndex = IndexOf(budgets, minBudget);
+                            minIndex = CollectionHelper.IndexOf(budgets, minBudget);
                         }
                         if (!String.IsNullOrEmpty(maxBudget) && budgets.ContainsKey(maxBudget))
                         {
-                            maxIndex = IndexOf(budgets, maxBudget);
+                            maxIndex = CollectionHelper.IndexOf(budgets, maxBudget);
                         }
 
                         if (minIndex > -1 && maxIndex > -1)
                         {
                             urls = new List<Tuple<string, string, string, uint>>();
-                            urls.Add(FormatSearchUnderBudgetUrls(minBudget, ValueAtIndex(budgets, minIndex)));
-                            urls.Add(FormatSearchUnderBudgetUrls(maxBudget, ValueAtIndex(budgets, maxIndex)));
+                            urls.Add(FormatSearchUnderBudgetUrls(minBudget, CollectionHelper.ValueAtIndex(budgets, minIndex)));
+                            urls.Add(FormatSearchUnderBudgetUrls(maxBudget, CollectionHelper.ValueAtIndex(budgets, maxIndex)));
                             uint outValue = 0;
                             string outKey = "";
-                            if (TryValueAtIndex(budgets, minIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                            if (CollectionHelper.TryValueAtIndex(budgets, minIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                             {
-                                urls.Add(FormatSearchUnderBudgetUrls(outKey, ValueAtIndex(budgets, minIndex - 1)));
-                                urls.Add(FormatSearchBetweenBudgetUrls(outKey, minBudget, (ValueAtIndex(budgets, minIndex) - ValueAtIndex(budgets, minIndex - 1))));
+                                urls.Add(FormatSearchUnderBudgetUrls(outKey, CollectionHelper.ValueAtIndex(budgets, minIndex - 1)));
+                                urls.Add(FormatSearchBetweenBudgetUrls(outKey, minBudget, (CollectionHelper.ValueAtIndex(budgets, minIndex) - CollectionHelper.ValueAtIndex(budgets, minIndex - 1))));
                                 var prevIndex = minIndex - 1;
                                 var prevKey = outKey;
                                 var prevValue = outValue;
-                                if (TryValueAtIndex(budgets, prevIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                                if (CollectionHelper.TryValueAtIndex(budgets, prevIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                                 {
                                     urls.Add(FormatSearchBetweenBudgetUrls(outKey, prevKey, (prevValue - outValue)));
                                 }
 
                             }
 
-                            if (TryValueAtIndex(budgets, maxIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                            if (CollectionHelper.TryValueAtIndex(budgets, maxIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                             {
-                                urls.Add(FormatSearchBetweenBudgetUrls(maxBudget, outKey, (outValue - ValueAtIndex(budgets, maxIndex))));
+                                urls.Add(FormatSearchBetweenBudgetUrls(maxBudget, outKey, (outValue - CollectionHelper.ValueAtIndex(budgets, maxIndex))));
                             }
                         }
 
@@ -156,37 +157,37 @@ namespace Bikewale.BAL.BikeSearch
                 {
                     if (!String.IsNullOrEmpty(minBudget) && budgets.ContainsKey(minBudget))
                     {
-                        minIndex = IndexOf(budgets, minBudget);
+                        minIndex = CollectionHelper.IndexOf(budgets, minBudget);
                     }
 
                     if (minIndex > -1)
                     {
                         urls = new List<Tuple<string, string, string, uint>>();
-                        if (TryValueAtIndex(budgets, minIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                        if (CollectionHelper.TryValueAtIndex(budgets, minIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                         {
                             uint totalBikes = _budgetFilterRanges.BikesCount;
                             urls.Add(FormatSearchAboveBudgetUrls(outKey, totalBikes - outValue));
-                            urls.Add(FormatSearchBetweenBudgetUrls(minBudget, outKey, outValue - ValueAtIndex(budgets, minIndex)));
+                            urls.Add(FormatSearchBetweenBudgetUrls(minBudget, outKey, outValue - CollectionHelper.ValueAtIndex(budgets, minIndex)));
                             var nextIndex = minIndex + 1;
                             var nextKey = outKey;
                             var nextValue = outValue;
-                            if (TryValueAtIndex(budgets, nextIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                            if (CollectionHelper.TryValueAtIndex(budgets, nextIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                             {
                                 urls.Add(FormatSearchAboveBudgetUrls(outKey, totalBikes - outValue));
                                 urls.Add(FormatSearchBetweenBudgetUrls(nextKey, outKey, outValue - nextValue));
                             }
                         }
-                        if (TryValueAtIndex(budgets, minIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                        if (CollectionHelper.TryValueAtIndex(budgets, minIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                         {
                             urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
-                            urls.Add(FormatSearchBetweenBudgetUrls(outKey, minBudget, ValueAtIndex(budgets, minIndex) - outValue));
+                            urls.Add(FormatSearchBetweenBudgetUrls(outKey, minBudget, CollectionHelper.ValueAtIndex(budgets, minIndex) - outValue));
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.BikeSearchResult.SearchBudgetLinksAbove");
             }
             return urls;
         }
@@ -210,37 +211,44 @@ namespace Bikewale.BAL.BikeSearch
             int maxIndex = -1;
             var budgets = _budgetFilterRanges.Budget;
             ICollection<Tuple<string, string, string, uint>> urls = null;
-            if (_budgetFilterRanges != null && _budgetFilterRanges.Budget != null && _budgetFilterRanges.Budget.Any())
+            try
             {
-                if (!String.IsNullOrEmpty(maxBudget) && budgets.ContainsKey(maxBudget))
+                if (_budgetFilterRanges != null && _budgetFilterRanges.Budget != null && _budgetFilterRanges.Budget.Any())
                 {
-                    maxIndex = IndexOf(budgets, maxBudget);
-                }
-                if (maxIndex > -1)
-                {
-                    urls = new List<Tuple<string, string, string, uint>>();
-                    if (TryValueAtIndex(budgets, maxIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                    if (!String.IsNullOrEmpty(maxBudget) && budgets.ContainsKey(maxBudget))
                     {
-                        urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
-                        urls.Add(FormatSearchBetweenBudgetUrls(outKey, maxBudget, ValueAtIndex(budgets, maxIndex) - outValue));
-                        var prevIndex = maxIndex - 1;
-                        var prevKey = outKey;
-                        var prevValue = outValue;
-                        if (TryValueAtIndex(budgets, prevIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                        maxIndex = CollectionHelper.IndexOf(budgets, maxBudget);
+                    }
+                    if (maxIndex > -1)
+                    {
+                        urls = new List<Tuple<string, string, string, uint>>();
+                        if (CollectionHelper.TryValueAtIndex(budgets, maxIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                         {
-                            urls.Add(FormatSearchBetweenBudgetUrls(outKey, prevKey, prevValue - outValue));
+                            urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
+                            urls.Add(FormatSearchBetweenBudgetUrls(outKey, maxBudget, CollectionHelper.ValueAtIndex(budgets, maxIndex) - outValue));
+                            var prevIndex = maxIndex - 1;
+                            var prevKey = outKey;
+                            var prevValue = outValue;
+                            if (CollectionHelper.TryValueAtIndex(budgets, prevIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                            {
+                                urls.Add(FormatSearchBetweenBudgetUrls(outKey, prevKey, prevValue - outValue));
+                            }
+                        }
+                        if (CollectionHelper.TryValueAtIndex(budgets, maxIndex - 2, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                        {
+                            urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
+                        }
+                        if (CollectionHelper.TryValueAtIndex(budgets, maxIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
+                        {
+                            urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
+                            urls.Add(FormatSearchBetweenBudgetUrls(maxBudget, outKey, outValue - CollectionHelper.ValueAtIndex(budgets, maxIndex)));
                         }
                     }
-                    if (TryValueAtIndex(budgets, maxIndex - 2, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
-                    {
-                        urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
-                    }
-                    if (TryValueAtIndex(budgets, maxIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
-                    {
-                        urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
-                        urls.Add(FormatSearchBetweenBudgetUrls(maxBudget, outKey, outValue - ValueAtIndex(budgets, maxIndex)));
-                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.BikeSearchResult.SearchBudgetLinksUnder");
             }
             return urls;
         }
@@ -282,108 +290,6 @@ namespace Bikewale.BAL.BikeSearch
         private Tuple<string, string, string, uint> FormatSearchAboveBudgetUrls(string minBudget, uint count)
         {
             return new Tuple<string, string, string, uint>(String.Format("Bikes above <span>&#x20B9;</span> {0}", Utility.Format.FormatPrice(minBudget)), String.Format("Bikes above &#x20B9; {0}", Utility.Format.FormatPrice(minBudget)), string.Format("/new/bike-search/bikes-above-{0}/", minBudget), count);
-        }
-
-        /// <summary>
-        /// Created by  :   Sumit Kate on 05 Jan 2018
-        /// Description :   Returns index of key in given dictionary of type <string,uint>
-        /// </summary>
-        /// <param name="dictionary"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        private int IndexOf<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> dictionary, TKey key)
-        {
-            int index = 0;
-            try
-            {
-                int size = dictionary.Count();
-                foreach (var item in dictionary)
-                {
-                    if (item.Key.Equals(key))
-                    {
-                        break;
-                    }
-                    index++;
-                }
-
-            }
-            catch (Exception)
-            {
-
-            }
-            return index;
-        }
-
-        /// <summary>
-        /// Craeted by  :   Sumit Kate on 05 Jan 2018
-        /// Description :   Returns Value present at index in given dictionary of type <string,uint>
-        /// </summary>
-        /// <param name="dictionary"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        private TValue ValueAtIndex<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> dictionary, int index)
-        {
-            int currentIndex = 0;
-            TValue value = default(TValue);
-            int size = dictionary.Count();
-            if (index < size)
-            {
-                foreach (var item in dictionary)
-                {
-                    if (index == currentIndex)
-                    {
-                        value = item.Value;
-                        break;
-                    }
-                    currentIndex++;
-                }
-            }
-            return value;
-        }
-
-        /// <summary>
-        /// Craeted by  :   Sumit Kate on 05 Jan 2018
-        /// Description :   Try to get key and value in given dictionary of type <string,uint>
-        /// </summary>
-        /// <param name="dictionary"></param>
-        /// <param name="index"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private bool TryValueAtIndex<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> dictionary, int index, out TKey key, out TValue value)
-        {
-            int currentIndex = 0;
-            bool isFound = false;
-            key = default(TKey);
-            value = default(TValue);
-            try
-            {
-                int size = dictionary.Count();
-
-                if (index < size)
-                {
-                    foreach (var item in dictionary)
-                    {
-                        if (index == currentIndex)
-                        {
-                            value = item.Value;
-                            key = item.Key;
-                            isFound = true;
-                            break;
-                        }
-                        currentIndex++;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                if (!isFound)
-                {
-                    key = default(TKey);
-                    value = default(TValue);
-                }
-            }
-            return isFound;
         }
         #endregion
     }
