@@ -507,50 +507,6 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             return isExists;
         }
-
-
-        /// <summary>
-        /// Created by  : Sanskar Gupta on 04 Jan 2018
-        /// Description : This function will fetch a list of all the Newly Launched bikes eligible for getting promoted. It will use the SP "getbikesforpromotion" to get the entries from the database.
-        /// </summary>
-        public IEnumerable<BikeMakeModelData> GetPromotionBikes() {
-            ICollection<BikeMakeModelData> newLaunchesToBePromoted = null;
-
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikesforpromotion"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            while (dr.Read())
-                            {
-                                if(newLaunchesToBePromoted == null)
-                                    newLaunchesToBePromoted = new Collection<BikeMakeModelData>();
-
-                                BikeMakeModelData obj = new BikeMakeModelData();
-                                obj.BikeMake = new BikeMakeEntityBase();
-                                obj.BikeModel = new BikeModelEntityBase();
-                                obj.BikeMake.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
-                                obj.BikeModel.ModelId = Convert.ToInt32(dr["id"]);
-                                obj.BikeModel.ModelName = Convert.ToString(dr["Name"]);
-                                newLaunchesToBePromoted.Add(obj);
-                            }
-                            dr.Close();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.GetPromotionBikes"));
-            }
-            return newLaunchesToBePromoted;
-        }
-
     }
 }
 
