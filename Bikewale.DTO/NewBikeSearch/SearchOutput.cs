@@ -21,6 +21,6 @@ namespace Bikewale.DTO.NewBikeSearch
         public int PqSource { get; set; }
 
         [JsonIgnore]
-        public IEnumerable<Tuple<String, String, uint>> BudgetLinks { get; set; }
+        public IEnumerable<Tuple<String, String, String, uint>> BudgetLinks { get; set; }
     }
 }

@@ -197,7 +197,11 @@ namespace Bikewale.DAL.NewBikeSearch
             return apiUrlstr;
         }
 
-
+        /// <summary>
+        /// Created by  :   Sumit Kate on 05 Jan 2018
+        /// Description :   returns Budgets ranges with bike count
+        /// </summary>
+        /// <returns></returns>
         public BudgetFilterRanges GetBudgetRanges()
         {
             BudgetFilterRanges ranges = null;
@@ -242,6 +246,26 @@ namespace Bikewale.DAL.NewBikeSearch
                         }
                     }
                 }
+
+                int validRanges = ranges.Budget.Count - 2;
+                uint currentCount = 0;
+                int index = 0;
+                var budgets = new System.Collections.Generic.Dictionary<string, uint>();
+                foreach (var item in ranges.Budget)
+                {
+                    if (index < validRanges)
+                    {
+                        currentCount += item.Value;
+                        budgets.Add(item.Key, currentCount);
+                    }
+                    else
+                    {
+                        budgets.Add(item.Key, item.Value);
+                    }
+                    index++;
+                }
+                ranges.Budget = budgets;
+                ranges.BikesCount = budgets["6000000"] + budgets["6000000+"];
             }
             catch (Exception ex)
             {

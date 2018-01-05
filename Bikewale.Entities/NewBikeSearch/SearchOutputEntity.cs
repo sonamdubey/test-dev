@@ -14,6 +14,6 @@ namespace Bikewale.Entities.NewBikeSearch
 
         public PQSourceEnum PqSource { get; set; }
 
-        public IEnumerable<Tuple<String, String, uint>> BudgetLinks { get; set; }
+        public IEnumerable<Tuple<String, String, String, uint>> BudgetLinks { get; set; }
     }
 }

@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Tuple<String, String, String, uint>>
+<ul class="padding-right10 padding-left10">
+    @foreach (var item in Model)
+    {
+        <li class="margin-bottom20 font14">
+            <a href="@string.Format("/m{0}", item.Item3)" title="@Html.Raw(item.Item2)">@Html.Raw(item.Item1)</a>
+            <p class="margin-top5 text-black">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(item.Item4)) @(item.Item4 == 1 ? " bike" : " bikes") available</p>
+        </li>
+    }
+</ul>
