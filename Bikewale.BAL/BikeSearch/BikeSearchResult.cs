@@ -41,8 +41,16 @@ namespace Bikewale.BAL.BikeSearch
             {
                 SearchOutputEntity objSearchEntity = _searchResult.GetSearchResult(filterInputs, input);
 
-                objSearchEntity.BudgetLinks = SearchBudgetLinksBetween(filterInputs.MinBudget, filterInputs.MaxBudget);
+                var links = SearchBudgetLinksBetween(filterInputs.MinBudget, filterInputs.MaxBudget);
 
+                if (links != null && links.Any())
+                {
+                    objSearchEntity.BudgetLinks = new List<Entities.NewBikeSearch.SearchBudgetLink>();
+                    foreach (var item in links)
+                    {
+                        objSearchEntity.BudgetLinks.Add(new Entities.NewBikeSearch.SearchBudgetLink() { Link = item });
+                    }
+                }
                 searchResult = SearchOutputMapper.Convert(objSearchEntity);
 
             }
