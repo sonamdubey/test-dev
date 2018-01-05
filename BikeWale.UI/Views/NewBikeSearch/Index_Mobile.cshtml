@@ -421,21 +421,7 @@
         <!--Filters ends here-->
         <div class="clear"></div>
     </div>
-    if (Model.BikeSearch != null && Model.BikeSearch.BudgetLinks != null && Model.BikeSearch.BudgetLinks.Any())
-    {
-    <section>
-        <!--  News, reviews and videos code starts here -->
-        <div class="container margin-bottom10 margin-top20">
-            <div class="grid-12 alpha omega">
-                <div class="content-box-shadow padding-top15 padding-right10 padding-bottom5 padding-left10 content-details-wrapper">
-                    <h2 class="font18 padding-left10 padding-right10">Explore bikes in other price ranges</h2>                    
-                    @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchBudget_Mobile.cshtml", Model.BikeSearch.BudgetLinks)
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-}
+    
     if (Model.TabCount > 0)
     {
         <section>
@@ -491,5 +477,22 @@
             <div class="back-to-top" id="back-to-top"></div>
         </section>
     }
+
+    if (Model.BikeSearch != null && Model.BikeSearch.BudgetLinks != null && Model.BikeSearch.BudgetLinks.Any())
+    {
+        <section>
+            <!--  News, reviews and videos code starts here -->
+            <div class="container margin-bottom10 margin-top20">
+                <div class="grid-12 alpha omega">
+                    <div class="content-box-shadow padding-top15 padding-right10 padding-bottom5 padding-left10 content-details-wrapper">
+                        <h2 class="font18 padding-left10 padding-right10">Explore bikes in other price ranges</h2>
+                        @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchBudget_Mobile.cshtml", Model.BikeSearch.BudgetLinks)
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+
     @Html.Hidden("min-max-budget", Model.MinMaxBudget);
 }

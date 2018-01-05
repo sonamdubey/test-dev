@@ -461,22 +461,6 @@
             <div class="clear"></div>
         </div>
     </section>
-    if (Model.BikeSearch != null && Model.BikeSearch.BudgetLinks != null && Model.BikeSearch.BudgetLinks.Any())
-    {
-        <section>
-        <div class="container margin-bottom20">
-            <div class="grid-12">
-                <div class="alpha omega padding-left10 padding-top20 content-box-shadow">
-                    <h2 class="h2-heading font18 padding-left10 padding-right10 margin-bottom20">Explore bikes in other price ranges</h2>
-                    @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchBudget.cshtml", Model.BikeSearch.BudgetLinks)
-                    <div class="clear"></div>
-                </div>
-            </div>   
-            <div class="clear"></div>         
-        </div>
-    </section>
-}
-    
         <!--  News Bikes   updates code starts here -->
         if (Model.TabCount > 0)
         {
@@ -530,6 +514,21 @@
 
                             }
                             </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </section>
+        }
+        if (Model.BikeSearch != null && Model.BikeSearch.BudgetLinks != null && Model.BikeSearch.BudgetLinks.Any())
+        {
+            <section>
+                <div class="container margin-bottom20">
+                    <div class="grid-12">
+                        <div class="alpha omega padding-left10 padding-top20 content-box-shadow">
+                            <h2 class="h2-heading font18 padding-left10 padding-right10 margin-bottom20">Explore bikes in other price ranges</h2>
+                            @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchBudget.cshtml", Model.BikeSearch.BudgetLinks)
+                            <div class="clear"></div>
                         </div>
                     </div>
                     <div class="clear"></div>
