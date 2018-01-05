@@ -213,12 +213,20 @@ footer ul li a:hover { text-decoration: underline; }
 .ui-helper-hidden-accessible { position: absolute; left: -9999px; }
 .ui-autocomplete { z-index: 211; margin: -1px 0 0 -3px; padding:0; width:auto; display:inline-block; background: #fff; border-radius: 0 0 2px 2px; border:1px solid #e2e2e2; border-top: 0; overflow:visible;}
 .ui-autocomplete.source:hover { background: #ddd; }
-.ui-menu .ui-menu-item, .recent-searches-dropdown li { padding: 10px; background:#fff; font-size:14px; cursor:pointer; display: block; }
-.ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus, .recent-searches-dropdown li:hover, .recent-searches-dropdown li.focus-state { background:#eee; }
-.ui-menu .ui-menu-item a, .recent-searches-dropdown a { color: #333; }
-.ui-menu .ui-menu-item a.target-popup-link, .recent-searches-dropdown .target-popup-link { display:none; float:right; color:#0288d1; font-size:13px; }
-.ui-menu .ui-menu-item:hover a.target-popup-link,.ui-menu .ui-menu-item.ui-state-focus a.target-popup-link, .recent-searches-dropdown li:hover .target-popup-link { display:block; }
-.ui-menu .ui-menu-item span.upcoming-link, .recent-searches-dropdown span.upcoming-link { float:right; color:#4d5057; font-size:13px; }
+.ui-menu .ui-menu-item,
+.bw-ui-menu li { padding: 10px; background:#fff; font-size:13px; cursor:pointer; display: block; }
+.bw-ui-menu li { padding-top: 5px; padding-bottom: 5px; }
+.ui-menu .ui-menu-item:hover,
+.ui-menu .ui-menu-item.ui-state-focus { background:#eee; }
+.ui-menu .ui-menu-item a,
+.bw-ui-menu a { color: #333; text-decoration: none !important; }
+.ui-menu .ui-menu-item a.target-popup-link,
+.bw-ui-menu .target-popup-link { display:none; float:right; color:#0288d1; font-size:13px; }
+.ui-menu .ui-menu-item:hover a.target-popup-link,
+.ui-menu .ui-menu-item.ui-state-focus a.target-popup-link,
+.bw-ui-menu li:hover .target-popup-link { display:block; }
+.ui-menu .ui-menu-item span.upcoming-link,
+.bw-ui-menu span.upcoming-link { float:right; color:#4d5057; font-size:13px; }
 /* Carousel */
 .jcarousel-wrapper { position: relative; width: 976px; }
 .jcarousel { position: relative; overflow: hidden; padding: 10px 0 20px 0; }
@@ -2065,20 +2073,38 @@ input[type="number"] {
 	left: 182px;
 }
 
-#global-search-section {
-    border: 1px solid #ccc;
-    text-decoration: none !important;
-    position: absolute;
-    width: 100%;
-    z-index: 2;
-}
-
-#global-search-section a {
-    text-decoration: none !important;
-}
-
+/* Show recent searches and trending bikes */
 .search-title {
-    padding: 10px 15px 6px;
-    font-size: 11px;
-    color: #babfc3;
+	padding: 10px 10px 6px;
+	font-size: 11px;
+	color: #babfc3;
+}
+
+#new-global-search-section,
+#global-search-section {
+	position: absolute;
+	width: 100%;
+	text-align: left;
+	border-top: none;
+	z-index: 1;
+	border: 1px solid #ccc;
+	overflow: hidden;
+	padding-bottom: 10px;
+}
+
+#new-global-search-section {
+	width: 470px;
+}
+
+#new-global-recent-searches {
+	margin-bottom: 5px;
+}
+
+.trending-searches {
+	width: 16px;
+	height: 12px;
+	margin-right: 10px;
+	display: inline-block;
+	vertical-align: middle;
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/trending.svg) no-repeat;
 }
