@@ -119,7 +119,7 @@ namespace Bikewale.BAL.GrpcFiles
             DateTime outValue;
 
             if
-                (DateTime.TryParse(Convert.ToString(strDateValue), out outValue))
+                (DateTime.TryParse(strDateValue, out outValue))
                 return outValue;
             else
             {
@@ -436,11 +436,12 @@ namespace Bikewale.BAL.GrpcFiles
                 List<VideoBase> lstVideos = new List<VideoBase>();
                 foreach (var curGrpcVideo in data.LstGrpcVideos)
                 {
+                    string displayDate = ParseDateObject(curGrpcVideo.DisplayDate).ToString("dd MMMM yyyy");
                     curVid = new VideoBase()
                     {
                         BasicId = Convert.ToUInt32(curGrpcVideo.BasicId),
                         Description = curGrpcVideo.Description,
-                        DisplayDate = curGrpcVideo.DisplayDate,
+                        DisplayDate = displayDate,
                         Duration = Convert.ToUInt32(curGrpcVideo.Duration),
                         ImagePath = curGrpcVideo.ImagePath,
                         ImgHost = curGrpcVideo.ImgHost,
