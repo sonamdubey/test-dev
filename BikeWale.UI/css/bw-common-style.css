@@ -130,7 +130,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 #errNewBikeSearch.ui-autocomplete { width:470px;position:absolute;top:40px;left:3px; color:#4d5057;text-align: left; }
 .error-tooltip-siblings { display:none; }
 
-#global-recent-searches, #new-trending-bikes, #new-global-recent-searches{width:100%;position:absolute;top:29px;left:0;color:#4d5057;text-align: left;border: 1px solid #e2e2e2;background: #fff;z-index: 202;border-top:0;display:none;}
+#new-trending-bikes, #new-global-recent-searches{width:100%;position:absolute;top:29px;left:0;color:#4d5057;text-align: left;border: 1px solid #e2e2e2;background: #fff;z-index: 202;border-top:0;}
 #new-trending-bikes, #new-global-recent-searches{ width:470px;top: 37px; }
 
 /* city popup classes */
@@ -2086,7 +2086,7 @@ input[type="number"] {
 	width: 100%;
 	text-align: left;
 	border-top: none;
-	z-index: 1;
+	z-index: 202;
 	border: 1px solid #ccc;
 	overflow: hidden;
 	padding-bottom: 10px;

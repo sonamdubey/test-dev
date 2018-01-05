@@ -957,7 +957,7 @@ docReady(function () {
             if ($('#newBikeList').val().trim() == '') {
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
-                let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded? "Present" : "Not_Present");
+                var label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
                 triggerGA('HP', 'Search_Bar_Clicked', label );
             }
 
@@ -1056,7 +1056,7 @@ docReady(function () {
             if ($('#globalSearch').val().trim() == '') {
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
-                let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
+                var label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
                 triggerGA(pageName, 'Search_Bar_Clicked', label);
             }
         },
@@ -1164,10 +1164,11 @@ docReady(function () {
             }
         },
         showRecentSearches: function () {
+            var html = "";
             if (!this.options.recentSearchesLoaded) {
                 objSearches = bwcache.get(this.searchKey);
                 if (objSearches && objSearches.searches) {
-                    var html = "", bikename, url;
+                    var bikename, url;
                     var i = 0;
                     for (var item in objSearches.searches) {
                         item = objSearches.searches[item];
