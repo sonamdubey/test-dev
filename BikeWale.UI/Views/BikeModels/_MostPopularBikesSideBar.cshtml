@@ -7,11 +7,12 @@
     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
     
     <li>
-        <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName)" title="@bikeName " class="bike-target-link">
+        <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName)" title="@bikeName " class="bike-target-link" data-newlaunch="1">
             <div class="bike-target-image inline-block">
                 <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._110x61, QualityFactor._70)" alt="@bikeName" />
             </div>
             <div class="bike-target-content inline-block padding-left10">
+				<span class="model-category__tag category--newlaunch">Newly Launched</span>
                 <h3>@bikeName</h3>
                 @if (bike.VersionPrice > 0)
                 { 

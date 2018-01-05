@@ -430,37 +430,6 @@ a.action-btn:hover{text-decoration:none;}
 		position: relative;
 }
 
-li[data-newlaunch="1"] {
-	background: #fff7f7;
-}
-
-li[data-newlaunch="1"] .btn-white,
-li[data-newlaunch="1"] .btn-grey {
-	background: transparent;
-}
-
-li[data-newlaunch="1"] .btn-white:hover,
-li[data-newlaunch="1"] .btn-grey:hover {
-	background: #f04031;
-}
-
-li[data-newlaunch="1"] .btn-white:focus,
-li[data-newlaunch="1"] .btn-grey:focus {
-	background: #df3828;
-}
-
-.model-tag {
-	position: absolute;
-	top: 10px;
-	left: 15px;
-	font-size: 10px;
-	font-weight: 600;
-	letter-spacing: .9px;
-	color: #f23d25;
-	text-transform: uppercase;
-	z-index: 1;
-}
-
 .jcarousel-card:hover {
     text-decoration: none;
 }
@@ -1799,3 +1768,47 @@ input[type="number"] {
     color: #2a2a2a;
     text-decoration: none;
 }
+
+
+/* new launch category tag start */
+[data-newlaunch="1"] {
+	background: #fff7f7;
+}
+
+[data-newlaunch="1"] .btn-white,
+[data-newlaunch="1"] .btn-grey {
+	background: transparent;
+}
+
+[data-newlaunch="1"] .btn-white:hover,
+[data-newlaunch="1"] .btn-grey:hover {
+	background: #f04031;
+}
+
+[data-newlaunch="1"] .btn-white:focus,
+[data-newlaunch="1"] .btn-grey:focus {
+	background: #df3828;
+}
+
+.model-category__tag {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	padding: 7px 10px;
+	font-size: 10px;
+	font-weight: 600;
+	letter-spacing: .9px;
+	text-transform: uppercase;
+	z-index: 2;
+	background-color: #fff;
+	border-radius: 2px;
+}
+
+.category--newlaunch {
+	color: #f23d25;
+	padding-left: 30px;
+	background: rgba(255, 255, 255, .7) url('https://imgd.aeplcdn.com/0x0/bw/static/icons/f45944/trending-fire.svg') no-repeat 10px;
+	background-size: 12px;
+}
+/* new launch category tag end */
+

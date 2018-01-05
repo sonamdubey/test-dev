@@ -11,7 +11,7 @@
                     var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
                     <li data-newlaunch="1">
                         <a href="@UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName)" title="@bikeName" class="jcarousel-card">
-													<span class="model-tag">Newly Launched</span>
+							<span class="model-category__tag category--newlaunch">Newly Launched</span>
                             <div class="model-jcarousel-image-preview">
                                 <span class="card-image-block">
                                     <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,ImageSize._310x174,QualityFactor._75)" alt="@bikeName" src="" border="0" />
