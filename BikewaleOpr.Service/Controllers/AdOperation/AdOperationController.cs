@@ -14,7 +14,7 @@ namespace BikewaleOpr.Service.Controllers
             _adOperations = adOperations;
         }
 
-        [HttpPost, Route("api/adoperation/save/")]
+        [HttpPost, Route("api/adoperations/save/")]
         public IHttpActionResult Save(PromotedBike objPromotedBike)
         {
 

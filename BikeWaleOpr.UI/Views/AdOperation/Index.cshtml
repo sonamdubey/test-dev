@@ -34,7 +34,7 @@
                     <td>@bike.UserId</td>
                     <td data-value="contractstatus">@bike.ContractStatus</td>
                     <td>@bike.LastUpdatedOn.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
-                    <td><span data-bind="event : { click : function(d,e) { updateAdOperation(e);}}"><i class="material-icons icon-red">delete</i></span></td>
+                    <td><span class="cursor-pointer" data-bind="event : { click : function(d,e) { updateAdOperation(e);}}" title="Delete"><i class="material-icons icon-red">delete</i></span></td>
                 </tr>
             }
 
