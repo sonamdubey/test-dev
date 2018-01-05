@@ -8,9 +8,9 @@ var apiStatus = {
 	'Error' : 4
 }
 
-var AD_PATH_REVIEWS_TOP_320_50 = '/1017752/Bikewale_Reviews_Top_320x50';
-var AD_PATH_REVIEWS_BOTTOM_320_50 = '/1017752/Bikewale_Reviews_Bottom_320x50';
-var AD_PATH_REVIEWS_MIDDLE_320_50 = '/1017752/Bikewale_Reviews_Middle_320x50';
+var AD_PATH_REVIEWS_TOP_320_50 = '/1017752/BikeWale_News_Top_320x50';
+var AD_PATH_REVIEWS_BOTTOM_320_50 = '/1017752/BikeWale_News_Bottom_320x50';
+var AD_PATH_REVIEWS_MIDDLE_320_50 = '/1017752/BikeWale_News_Middle_320x50';
 
 var AD_DIV_REVIEWS_TOP_320_50 = 'div-gpt-ad-1395986297721-0';
 var AD_DIV_REVIEWS_BOTTOM_320_50 = 'div-gpt-ad-1395986297721-1';

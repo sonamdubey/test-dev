@@ -123,6 +123,8 @@ class ArticleDetail extends React.Component {
                     if(isBrowserWithoutScrollSupport()) {
                         window.scrollTo(0,0);
                     }
+                    removeAdSlot(AD_PATH_REVIEWS_TOP_320_50); 
+                    removeAdSlot(AD_PATH_REVIEWS_BOTTOM_320_50);
                     
             } 
             
@@ -263,14 +265,10 @@ class ArticleDetail extends React.Component {
             return null;
         }
         var articleInitialData;
-        var loadingState = (<div>
-                                <AdUnit320x50 adSlot={AD_PATH_REVIEWS_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> 
-                                <SpinnerRelative/>
-                                <div className="margin-bottom15">
-                                    <AdUnit320x50 adSlot={AD_PATH_REVIEWS_BOTTOM_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50}/>        
-                                </div>
-                                
-                            </div>);
+        
+        var loadingState = (<div><SpinnerRelative/></div>);
+
+
         if(!componentData.InitialDataDict) {
             articleInitialData = null;
         }
@@ -284,7 +282,6 @@ class ArticleDetail extends React.Component {
             
             if(componentData.Status == Status.Reset || componentData.Status == Status.IsFetching || componentData.Status == Status.Error) {
                 return loadingState;
-                // return (<SpinnerRelative/>)
             }
 
             //no initial data -> hard refresh
@@ -292,18 +289,25 @@ class ArticleDetail extends React.Component {
             if(!articleInitialData) {
                 // articleDetail does not have data
                 return loadingState; 
-                // return (<SpinnerRelative/>)
             }
                 
             
         } 
 
         var articleDetail = componentData.ArticleDetail;
+        var adSlotTop = null;
+        var adSlotBottom = null;
+        
+        if(articleDetail) {
+            adSlotTop = <AdUnit320x50 tags={articleDetail.Tags} adSlot={AD_PATH_REVIEWS_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
+            adSlotBottom = <AdUnit320x50 tags={articleDetail.Tags} adSlot={AD_PATH_REVIEWS_BOTTOM_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50}/> ;
+        }
+
         var documentTitle = (articleInitialData.Title == "") ?"BikeWale News" : (articleInitialData.Title + " - BikeWale News");
-     
+       
         return (
             <div>
-                <AdUnit320x50 adSlot={AD_PATH_REVIEWS_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> 
+                {adSlotTop}
                 <div className="container bg-white box-shadow section-bottom-margin article-details-container">
                     <ArticleDetailTitle title={articleInitialData.Title} authorName={articleInitialData.AuthorName} authorMaskingName={articleInitialData.AuthorMaskingName} displayDate={articleInitialData.DisplayDateTime} />
                     
@@ -313,7 +317,7 @@ class ArticleDetail extends React.Component {
                 </div>
                 {this.renderNewBikesList()}
                 <div className="margin-bottom15">
-                    <AdUnit320x50 adSlot={AD_PATH_REVIEWS_BOTTOM_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50}/>        
+                    {adSlotBottom}      
                 </div>
                 {this.renderBreadcrumb(articleInitialData.Title)}
                 {this.renderFooter()}

@@ -5,7 +5,7 @@ class AdUnit320x50 extends React.Component {
 	componentDidMount() {
 		if(!this.props)
 			return;
-		addAdSlot(this.props.adSlot,[320,50],this.props.adContainerId);
+		addAdSlot(this.props.adSlot,[320,50],this.props.adContainerId,this.props.tags);
 	}
 	
 	render() {

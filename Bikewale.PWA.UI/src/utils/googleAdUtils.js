@@ -1,8 +1,13 @@
-function addAdToGTcmd(adUnitPath , adDimension , adDivId) {
+function addAdToGTcmd(adUnitPath , adDimension , adDivId , tags) {
   googletag.cmd.push(function () {
               var slot = googletag.defineSlot(adUnitPath, adDimension, adDivId);
               if(!slot) return;
               slot.addService(googletag.pubads());
+              if(tags)
+                googletag.pubads().setTargeting("Tags", tags);
+              else
+                googletag.pubads().clearTargeting("Tags");
+              
               googletag.pubads().enableSingleRequest();
               googletag.pubads().collapseEmptyDivs();
               googletag.pubads().disableInitialLoad();
@@ -11,7 +16,7 @@ function addAdToGTcmd(adUnitPath , adDimension , adDivId) {
           });
 }
 
-function addAdSlot(adUnitPath , adDimension , adDivId) {
+function addAdSlot(adUnitPath , adDimension , adDivId , tags) {
   try {
     if(!googletag && !googletag.cmd)
       return;
@@ -31,7 +36,7 @@ function addAdSlot(adUnitPath , adDimension , adDivId) {
       }
     }  
     if(!adExists) {
-        addAdToGTcmd(adUnitPath , adDimension , adDivId);
+        addAdToGTcmd(adUnitPath , adDimension , adDivId , tags);
     }    
     
   }
