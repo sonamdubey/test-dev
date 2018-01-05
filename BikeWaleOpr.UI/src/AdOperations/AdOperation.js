@@ -6,7 +6,7 @@ var adOperationsViewModel = function () {
 
     var self = this;
 
-   
+
     self.selectedMake = ko.observable();
     self.listModels = ko.observableArray([]);
 
@@ -33,7 +33,45 @@ var adOperationsViewModel = function () {
             ddlModels.material_select();
         }
     };
-    self.saveAdOperation = function () {
+
+    self.validation = function () {
+        var isValidate=false;
+        if ($('#ddlMakes').val() != "Select Make" || $('#ddlModels').val() != null)
+            isValidate = true;
+        else
+        {
+            if ($('#ddlMakes').val() == "Select Make") {
+                Materialize.toast('Please select Make', 5000);
+                isValidate &= false;
+            }
+            if (isValidate && $('#ddlModels').val() == "") {
+                Materialize.toast('Please select Model', 5000);
+                isValidate &= false;
+            }
+
+        }
+
+        isValidate &= validateRadioButtons("AdMonetization");
+        if (isValidate && $('#startDateEle').val() == "")
+        {
+            Materialize.toast('Please Enter Start Date', 5000);
+            isValidate &= false;
+        }
+        if (isValidate && $('#endDateEle').val() == "") {
+            Materialize.toast('Please Enter End Date', 5000);
+            isValidate &= false;
+        }
+        if (isValidate) {
+            saveAdOperation();
+        }
+      
+
+    };
+
+
+  function saveAdOperation(){
+
+
         var basicDetails = {
             "make":
                 {
@@ -46,23 +84,40 @@ var adOperationsViewModel = function () {
             "endTime": $('#endDateEle').val() + ' ' + $('#endTimeEle').val(),
             "adOperationType": $('#chkShowPromotion').is(':checked') ? 1 : 2,
             "userId": userId
-            
-        
-        }
+
+
+        };
         $.ajax({
             type: "POST",
             url: "/api/adoperations/id/save/",
             contentType: "application/json",
             data: ko.toJSON(basicDetails),
             success: function (response) {
-               
-                
-                Materialize.toast('AdOperation saved', 4000);
-               
+
+                if (response) {
+                    window.location.reload();
+                    Materialize.toast('AdOperation saved', 4000);
+                }
+                else {
+                    Materialize.toast('Something went wrong', 4000);
+                }
+
             }
         });
     };
-}
+    function validateRadioButtons(groupName) {
+        var isValid = true;
+        if ($('input[name=' + groupName + ']:checked').length <= 0) {
+            validate.setError($('input[name=' + groupName + ']').closest('ul'), 'Please select required field');
+            Materialize.toast('Please select Promotion Type', 4000);
+            isValid = false;
+        } else {
+            validate.hideError($('input[name=' + groupName + ']').closest('ul'));
+            isValid = true;
+        }
+        return isValid;
+    }
+};
 
 
 $(document).ready(function () {
@@ -77,4 +132,36 @@ $(document).ready(function () {
         onOpen: function () { dateValue = $("#reviewDateEle").val() },
         onSet: function (ele) { if (ele.select) { this.close(); } }
     });
+    validate = {
+        setError: function (element, message) {
+            var elementLength = element.val().length,
+                errorTag = element.siblings('.error-text');
+
+            errorTag.text(message).show();
+            if (!elementLength) {
+                element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+            }
+            else {
+                element.closest('.input-box').addClass('not-empty invalid');
+            }
+        },
+        hideError: function (element) {
+            element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+            element.siblings('.error-text').text('');
+        },
+        onFocus: function (inputField) {
+            if (inputField.closest('.input-box').hasClass('invalid')) {
+                validate.hideError(inputField);
+            }
+        },
+        onBlur: function (inputField) {
+            var inputLength = inputField.val().length;
+            if (!inputLength) {
+                inputField.closest('.input-box').removeClass('not-empty');
+            }
+            else {
+                inputField.closest('.input-box').addClass('not-empty');
+            }
+        }
+    };
 });

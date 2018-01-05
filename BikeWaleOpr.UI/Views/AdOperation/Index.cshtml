@@ -22,26 +22,26 @@
 
 
             @foreach (var bike in Model.PromotedBikeList)
-                {
-            <tr>
-                <td>@bike.PromotedBikeId</td>
-                <td>@bike.Make.MakeName</td>
-                <td>@bike.Model.ModelName</td>
-                <td>@bike.StartTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
-                <td>@bike.EndTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
-                <td>@bike.AdOperationType</td>
-                <td>@bike.LastUpdatedBy</td>
-                <td>@bike.ContractStatus</td>
-                <td>@bike.LastUpdatedOn</td>
-                <td><a href="" onclick="return confirm('Are you sure?')"><i class="material-icons icon-red">delete</i></a></td>
-            </tr>
-                }
+            {
+                <tr>
+                    <td>@bike.PromotedBikeId</td>
+                    <td>@bike.Make.MakeName</td>
+                    <td>@bike.Model.ModelName</td>
+                    <td>@bike.StartTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
+                    <td>@bike.EndTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
+                    <td>@bike.AdOperationType</td>
+                    <td>@bike.UserId</td>
+                    <td>@bike.ContractStatus</td>
+                    <td>@bike.LastUpdatedOn.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
+                    <td><a href="" onclick="return confirm('Are you sure?')"><i class="material-icons icon-red">delete</i></a></td>
+                </tr>
+            }
 
 
         </table>
 
     </div>
-    <div id="addMakeContainer" class="col s2 m2" >
+    <div id="addMakeContainer" class="col s2 m2">
         <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header center-align"><strong>Select Ad Operation</strong></div>
@@ -69,12 +69,17 @@
 
                         <div class="row">
                             <div class="input-field row s12">
-                                <input type="radio" class="filled-in" id="chkShowPromotion" name="AdMonetization" value="1" />
-                                <label for="chkShowPromotion">Promotion</label>
-                               
-                            
-                                <input type="radio" class="filled-in" id="chkMonetization" name="AdMonetization" value="2" />
-                                <label for="chkMonetization">Monetization</label>
+                                <ul>
+                                    <li>
+                                        <input type="radio" class="filled-in" id="chkShowPromotion" name="AdMonetization" value="1" />
+                                        <label for="chkShowPromotion">Promotion</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" class="filled-in" id="chkMonetization" name="AdMonetization" value="2" />
+                                        <label for="chkMonetization">Monetization</label>
+                                    </li>
+                                </ul>
+
                             </div>
                         </div>
                         <div class="row">
@@ -112,7 +117,7 @@
                             </div>
                         </div>
                         <div class="input-field row s12">
-                            <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return saveAdOperation();}}">
+                            <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return validation();}}">
                                 Add Operation
                             </button>
                         </div>
@@ -122,8 +127,9 @@
         </ul>
     </div>
 </div>
-<script>var msg = '@Convert.ToString(TempData["msg"])';
+<script>
+    var msg = '@Convert.ToString(TempData["msg"])';
     var bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs';
     var userId=@Model.UserId;
-    </script>
+</script>
 <script defer src="~/src/AdOperations/AdOperation.js"></script>

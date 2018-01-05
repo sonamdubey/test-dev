@@ -57,6 +57,7 @@ namespace BikewaleOpr.DALs.AdOperation
                                 _objBike.LastUpdatedBy = Convert.ToString(dr["username"]);
                                 _objBike.UserId = SqlReaderConvertor.ToUInt32(dr["opruserid"]);
                                 _objBike.ContractStatus = (ContractStatusEnum)Enum.Parse(typeof(ContractStatusEnum), Convert.ToString(dr["id"]));
+                                _objBike.LastUpdatedOn = SqlReaderConvertor.ToDateTime(dr["lastupdatedon"]);
                                 _objPromotedBikeList.Add(_objBike);
                             }
                         }
