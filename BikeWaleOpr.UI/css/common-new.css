@@ -647,3 +647,6 @@ input[type=number].invalid + label.active:after {
 #series-edit-update {
     overflow-y:visible;
 }
+.cursor-pointer {
+cursor:pointer;
+}

@@ -1,0 +1,136 @@
+﻿@model  BikewaleOpr.Models.AdOperationVM
+
+<div class="row" style="margin-top:5px;" id="adOperationContainer">
+    <div class="col m10">
+
+        <table id="tblMakeData" class="bordered highlight z-depth-3 centered">
+            <tr>
+                <th>Id</th>
+                <th>Make Name</th>
+                <th>Model Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>AdOperation Type</th>
+                <th>UpdatedBy</th>
+                <th>Status</th>
+                <th>Last Updated</th>
+                <th>Delete</th>
+
+            </tr>
+
+
+
+
+            @foreach (var bike in Model.PromotedBikeList)
+            {
+
+                <tr data-promotedbikeid="@bike.PromotedBikeId">
+                    <td>@bike.PromotedBikeId</td>
+                    <td>@bike.Make.MakeName</td>
+                    <td>@bike.Model.ModelName</td>
+                    <td>@bike.StartTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
+                    <td>@bike.EndTime.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
+                    <td data-value="adoperationtype">@bike.AdOperationType</td>
+                    <td>@bike.UserId</td>
+                    <td data-value="contractstatus">@bike.ContractStatus</td>
+                    <td>@bike.LastUpdatedOn.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
+                    <td><span class="cursor-pointer" data-bind="event : { click : function(d,e) { updateAdOperation(e);}}" title="Delete"><i class="material-icons icon-red">delete</i></span></td>
+                </tr>
+            }
+
+
+        </table>
+
+    </div>
+    <div id="addMakeContainer" class="col s2 m2">
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header center-align"><strong>Select Ad Operation</strong></div>
+                <div class="collapsible-body">
+                    <div class="container">
+                        <div class="input-field row s12">
+                            @if (Model.Makes != null && Model.Makes.Count() > 0)
+                            {
+                                <select id="ddlMakes" name="makeIdList" data-bind="event:{change: selectMake}">
+                                    <option>Select Make</option>
+                                    @foreach (var make in Model.Makes)
+                                    {
+                                        <option value="@make.MakeId">@make.MakeName</option>
+                                    }
+                                </select>
+                            }
+                            else
+                            {
+                                <span>Problem in retrieving makes</span>
+                            }
+                        </div>
+                        <div class="input-field row">
+                            <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', enable : listModels().length>0"></select>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field row s12">
+                                <ul>
+                                    <li>
+                                        <input type="radio" class="filled-in" id="chkShowPromotion" name="AdMonetization" value="1" />
+                                        <label for="chkShowPromotion">Promotion</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" class="filled-in" id="chkMonetization" name="AdMonetization" value="2" />
+                                        <label for="chkMonetization">Monetization</label>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <i class="material-icons prefix margin-top15">date_range</i>
+                                    <input type="date" id="startDateEle" class="datepicker margin-left5" value="" />
+                                    <label for="startDateEle">Start Date</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <input type="time" id="startTimeEle" value="" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <i class="material-icons prefix margin-top15">date_range</i>
+                                    <input type="date" id="endDateEle" class="datepicker margin-left5" value="" />
+                                    <label for="endDateEle">End Date</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <input type="time" id="endTimeEle" value="" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-field row s12">
+                            <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return validation();}}">
+                                Add Operation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    var msg = '@Convert.ToString(TempData["msg"])';
+    var bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs';
+    var userId=@Model.UserId;
+</script>
+<script defer src="~/src/AdOperations/AdOperation.js"></script>
