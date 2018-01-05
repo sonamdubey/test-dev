@@ -52,12 +52,12 @@
         </ul>
         <div id="new-global-search-section" class="bg-white hide">
             <div id="history-search">
-                <div class="search-title font12 text-light-grey">Recently Viewed</div>
-                <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content"></ul>
+                <div class="search-title">Recently Viewed</div>
+                <ul id="new-global-recent-searches" class="recent-searches-dropdown bw-ui-menu"></ul>
             </div>
             <div id="trending-search">
-                <div class="search-title font12 text-light-grey">Trending Searches</div>
-                <ul id="new-trending-bikes" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content"></ul>
+                <div class="search-title">Trending Searches</div>
+                <ul id="new-trending-bikes" class="recent-searches-dropdown bw-ui-menu"></ul>
             </div>
         </div>
     </div>

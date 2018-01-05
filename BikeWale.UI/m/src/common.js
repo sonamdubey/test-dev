@@ -1028,7 +1028,11 @@ docReady(function () {
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
                 let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
                 triggerGA('HP', 'Search_Bar_Clicked', label);
-            }
+			}
+
+			$('html, body').animate({
+				scrollTop: $('#newBikeList').offset().top - 20 // 20px offset value
+			})
         },
         focusout: function () {
             if ($('li.ui-state-focus a:visible').text() != "") {
@@ -1038,7 +1042,11 @@ docReady(function () {
             else {
                 $('#errNewBikeSearch').hide();
                 recentSearches.hideRecentSearches();
-            }
+			}
+						
+			if ($('#new-global-search-section').is(':visible')) {
+				recentSearches.hideRecentSearches();
+			}
         },
         afterfetch: function (result, searchtext) {
             if (result != undefined && result.length > 0 && searchtext.trim()) {
