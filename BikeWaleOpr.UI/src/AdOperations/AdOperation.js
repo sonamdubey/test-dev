@@ -51,7 +51,7 @@ var adOperationsViewModel = function () {
         }
         $.ajax({
             type: "POST",
-            url: "/api/adoperations/id/save/",
+            url: "/api/adoperations/save/",
             contentType: "application/json",
             data: ko.toJSON(basicDetails),
             success: function (response) {
@@ -62,13 +62,36 @@ var adOperationsViewModel = function () {
             }
         });
     };
+    self.updateAdOperation = function (e) {
+        var currentRow = $(e.target).closest("tr").first();
+        var basicDetails = {
+            "promotedBikeId": $(currentRow).data("promotedbikeid"),
+            "AdOperationType": $(currentRow).find("td").data("adoperationtype"),
+            "LastUpdatedById": userId,
+            "ContractStatus": $(currentRow).find("td").data("contractstatus")
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/api/adoperations/update/",
+            contentType: "application/json",
+            data: ko.toJSON(basicDetails),
+            success: function (response) {
+
+
+                Materialize.toast('Selected bike deleted', 4000);
+
+            }
+        });
+
+    };
 }
 
 
 $(document).ready(function () {
 
     mfgVM = new adOperationsViewModel;
-    ko.applyBindings(mfgVM, $('#addMakeContainer')[0]);
+    ko.applyBindings(mfgVM, $('#adOperationContainer')[0]);
 
     var $dateInput = $('.datepicker').pickadate({
         selectMonths: true,

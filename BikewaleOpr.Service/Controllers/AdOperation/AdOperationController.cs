@@ -9,14 +9,13 @@ namespace BikewaleOpr.Service.Controllers
     public class AdOperationController : ApiController
     {
         private readonly IAdOperation _adOperations;
-
         public AdOperationController(IAdOperation adOperations)
         {
             _adOperations = adOperations;
         }
 
-        [HttpPost, Route("api/adoperations/id/save/")]
-        public IHttpActionResult Save([FromBody]PromotedBike objPromotedBike)
+        [HttpPost, Route("api/adoperation/save/")]
+        public IHttpActionResult Save(PromotedBike objPromotedBike)
         {
 
             try
@@ -42,7 +41,6 @@ namespace BikewaleOpr.Service.Controllers
         [HttpPost, Route("api/adoperation/update/")]
         public IHttpActionResult Update(PromotedBike objPromotedBike)
         {
-
             try
             {
                 bool status = _adOperations.UpdatePromotedBike(objPromotedBike);

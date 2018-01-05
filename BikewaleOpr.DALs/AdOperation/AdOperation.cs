@@ -115,33 +115,25 @@ namespace BikewaleOpr.DALs.AdOperation
             bool status = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("updateadpromotedbike"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_adpromotedbikeid", DbType.UInt16, objPromotedBike.PromotedBikeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_opruserid", DbType.UInt16, objPromotedBike.LastUpdatedById));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_success", DbType.Byte, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_adoperationid", DbType.UInt16, objPromotedBike.AdOperationType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.UInt16, objPromotedBike.ContractStatus));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startdatetime", DbType.DateTime, objPromotedBike.StartTime));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_enddatetime", DbType.DateTime, objPromotedBike.EndTime));
+                    connection.Open();
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            if (dr.Read())
-                            {
-                                status = Convert.ToBoolean(cmd.Parameters["par_success"].Value);
-                            }
-                            dr.Close();
-                        }
-                    }
+                    var param = new DynamicParameters();
+                    param.Add("par_adpromotedbikeid", objPromotedBike.PromotedBikeId);
+                    param.Add("par_startdatetime", objPromotedBike.StartTime);
+                    param.Add("par_enddatetime", objPromotedBike.EndTime);
+                    param.Add("par_opruserid", objPromotedBike.UserId);
+                    param.Add("par_status", objPromotedBike.ContractStatus);
+                    param.Add("par_adoperationid", objPromotedBike.AdOperationType);
+
+
+                    status = connection.Execute("updateadpromotedbike", param: param, commandType: CommandType.StoredProcedure) > 0;
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.AdOperation.DeletePromotedBike():Id:{0}"
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.AdOperation.UpdatePromotedBike():Id:{0}"
                     , objPromotedBike.PromotedBikeId));
             }
             return status;
