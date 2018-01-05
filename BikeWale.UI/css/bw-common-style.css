@@ -2082,3 +2082,11 @@ input[type="number"] {
     font-size: 11px;
     color: #babfc3;
 }
+
+.trending-searches {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    display: inline-block;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/trending.svg) no-repeat;
+}

@@ -1697,3 +1697,12 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     color: #babfc3;
     text-align: left;
 }
+
+.trending-searches {
+    width: 16px;
+    height: 16px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/trending.svg) no-repeat;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
