@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
@@ -66,9 +67,9 @@ namespace Bikewale.Models.BikeSeries
                     objSeriesPage.City.CityName = location.City;
 
                 }
-				
-				BindSeriesBase(objSeriesPage, seriesId);
-                
+
+                BindSeriesBase(objSeriesPage, seriesId);
+
                 BindSeriesSynopsis(objSeriesPage);
 
                 objSeriesPage.objUsedBikes = GetUsedBikesForSeries(seriesId, objSeriesPage.City.CityId);
@@ -96,6 +97,7 @@ namespace Bikewale.Models.BikeSeries
                 SetBreadcrumList(objSeriesPage);
                 SetPageJSONLDSchema(objSeriesPage);
                 BindCompareScooters(objSeriesPage, CompareSource);
+                objSeriesPage.Page = GAPages.Series_Page;
             }
             catch (Exception ex)
             {
@@ -104,32 +106,32 @@ namespace Bikewale.Models.BikeSeries
             return objSeriesPage;
         }
 
-		private void BindSeriesBase(SeriesPageVM objSeriesPage, uint seriesId)
-		{
-			try
-			{
-				objSeriesPage.SeriesBase = new BikeSeriesEntityBase();
-				objSeriesPage.SeriesBase.SeriesId = seriesId;
-				objSeriesPage.SeriesBase.MaskingName = MaskingName;
-			}
-			catch (Exception ex)
-			{
-				Bikewale.Notifications.ErrorClass.LogError(ex, "ModelPage.BindSeriesBase()");
-			}
-		}
+        private void BindSeriesBase(SeriesPageVM objSeriesPage, uint seriesId)
+        {
+            try
+            {
+                objSeriesPage.SeriesBase = new BikeSeriesEntityBase();
+                objSeriesPage.SeriesBase.SeriesId = seriesId;
+                objSeriesPage.SeriesBase.MaskingName = MaskingName;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "ModelPage.BindSeriesBase()");
+            }
+        }
 
-		private UsedBikeByModelCityVM GetUsedBikesForSeries(uint seriesid, uint cityId)
+        private UsedBikeByModelCityVM GetUsedBikesForSeries(uint seriesid, uint cityId)
         {
             UsedBikeByModelCityVM usedBikeModel = new UsedBikeByModelCityVM();
             try
             {
                 UserBikeSeriesModelsWidget objUsedBike = new UserBikeSeriesModelsWidget(_usedBikesCache, seriesid, cityId);
                 usedBikeModel = objUsedBike.GetData();
-				if (usedBikeModel != null)
-				{
-					usedBikeModel.City = new CityHelper().GetCityById(cityId);
-				}
-			}
+                if (usedBikeModel != null)
+                {
+                    usedBikeModel.City = new CityHelper().GetCityById(cityId);
+                }
+            }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, "SeriesPage.BindUsedBikeByModel()");
@@ -149,46 +151,46 @@ namespace Bikewale.Models.BikeSeries
         {
             try
             {
-				if (objSeriesPage.SeriesModels != null && objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.UpcomingBikes != null && objSeriesPage.BikeMake != null)
-				{
-					StringBuilder modelIdList = new StringBuilder("");
-					foreach (var bike in objSeriesPage.SeriesModels.NewBikes)
-					{
-						modelIdList.Append(bike.BikeModel.ModelId);
-						modelIdList.Append(",");
-					}
-					foreach (var bike in objSeriesPage.SeriesModels.UpcomingBikes)
-					{
-						modelIdList.Append(bike.BikeModel.ModelId);
-						modelIdList.Append(",");
-					}
-					if (modelIdList.Length > 0)
-					{
-						modelIdList.Remove(modelIdList.Length - 1, 1);
-					}
+                if (objSeriesPage.SeriesModels != null && objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.UpcomingBikes != null && objSeriesPage.BikeMake != null)
+                {
+                    StringBuilder modelIdList = new StringBuilder("");
+                    foreach (var bike in objSeriesPage.SeriesModels.NewBikes)
+                    {
+                        modelIdList.Append(bike.BikeModel.ModelId);
+                        modelIdList.Append(",");
+                    }
+                    foreach (var bike in objSeriesPage.SeriesModels.UpcomingBikes)
+                    {
+                        modelIdList.Append(bike.BikeModel.ModelId);
+                        modelIdList.Append(",");
+                    }
+                    if (modelIdList.Length > 0)
+                    {
+                        modelIdList.Remove(modelIdList.Length - 1, 1);
+                    }
 
-					ushort topCount = 3;
-					RecentNews recentNews = new RecentNews(topCount, (uint)objSeriesPage.BikeMake.MakeId, Convert.ToString(modelIdList), _articles)
-					{
-						IsScooter = IsScooter
-					};
-					objSeriesPage.News = recentNews.GetData();
-					objSeriesPage.News.Title = string.Format("{0} {1} News", objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName);
+                    ushort topCount = 3;
+                    RecentNews recentNews = new RecentNews(topCount, (uint)objSeriesPage.BikeMake.MakeId, Convert.ToString(modelIdList), _articles)
+                    {
+                        IsScooter = IsScooter
+                    };
+                    objSeriesPage.News = recentNews.GetData();
+                    objSeriesPage.News.Title = string.Format("{0} {1} News", objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName);
 
-					RecentExpertReviews recentExpertReviews = new RecentExpertReviews(topCount, (uint)objSeriesPage.BikeMake.MakeId, Convert.ToString(modelIdList), _articles)
-					{
-						IsScooter = IsScooter
-					};
-					objSeriesPage.ExpertReviews = recentExpertReviews.GetData();
+                    RecentExpertReviews recentExpertReviews = new RecentExpertReviews(topCount, (uint)objSeriesPage.BikeMake.MakeId, Convert.ToString(modelIdList), _articles)
+                    {
+                        IsScooter = IsScooter
+                    };
+                    objSeriesPage.ExpertReviews = recentExpertReviews.GetData();
 
-					ushort pageNo = 1;
-					ushort pageSize = (ushort)(IsMobile ? 2 : 4);
-					RecentVideos recentVideos = new RecentVideos(pageNo, pageSize, Convert.ToString(modelIdList), _videos)
-					{
-						IsScooter = IsScooter
-					};
-					objSeriesPage.Videos = recentVideos.GetData();
-				}
+                    ushort pageNo = 1;
+                    ushort pageSize = (ushort)(IsMobile ? 2 : 4);
+                    RecentVideos recentVideos = new RecentVideos(pageNo, pageSize, Convert.ToString(modelIdList), _videos)
+                    {
+                        IsScooter = IsScooter
+                    };
+                    objSeriesPage.Videos = recentVideos.GetData();
+                }
             }
             catch (Exception ex)
             {
@@ -207,12 +209,12 @@ namespace Bikewale.Models.BikeSeries
             {
                 if (objSeriesPage.BikeMake != null && objSeriesPage.SeriesBase != null)
                 {
-					objSeriesPage.OtherSeries = new OtherSeriesVM
-					{
-						OtherSeriesList = _bikeSeries.GetOtherSeriesFromMake(objSeriesPage.BikeMake.MakeId, objSeriesPage.SeriesBase.SeriesId),
-						BikeMake = objSeriesPage.BikeMake
-					};
-				}
+                    objSeriesPage.OtherSeries = new OtherSeriesVM
+                    {
+                        OtherSeriesList = _bikeSeries.GetOtherSeriesFromMake(objSeriesPage.BikeMake.MakeId, objSeriesPage.SeriesBase.SeriesId),
+                        BikeMake = objSeriesPage.BikeMake
+                    };
+                }
             }
             catch (Exception ex)
             {
@@ -369,42 +371,42 @@ namespace Bikewale.Models.BikeSeries
 
             try
             {
-				if (objSeriesPage.SeriesBase != null && objSeriesPage.SeriesBase.SeriesId > 0)
-				{
+                if (objSeriesPage.SeriesBase != null && objSeriesPage.SeriesBase.SeriesId > 0)
+                {
 
-					objSeriesPage.ObjModel = new BikeSeriesCompareVM();
-					objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs = _seriesCache.GetBikesToCompare(objSeriesPage.SeriesBase.SeriesId);
+                    objSeriesPage.ObjModel = new BikeSeriesCompareVM();
+                    objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs = _seriesCache.GetBikesToCompare(objSeriesPage.SeriesBase.SeriesId);
 
-					for (int i = 0; i < objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Count(); i++)
-					{
-						objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.ElementAt(i).Price = objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice > 0 ? objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice : objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.AvgPrice;
-					}
-
-
-					IList<string> objList = new List<string>();
-					objList.Add("Price");
-					objList.Add("Displacement");
-					objList.Add("Weight");
-					objList.Add("Fuel Tank Capacity");
-					objList.Add("Mileage");
-					objList.Add("Seat Height");
-					objList.Add("Brake Type");
-					objList.Add("Gears");
-					objList.Add("Max Power");
+                    for (int i = 0; i < objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Count(); i++)
+                    {
+                        objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.ElementAt(i).Price = objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice > 0 ? objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice : objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.AvgPrice;
+                    }
 
 
-					objSeriesPage.ObjModel.ObjBikeSpecs = new BikeSpecs();
-					objSeriesPage.ObjModel.ObjBikeSpecs.Price = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Price != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Price)).Count() + 1);
-					objSeriesPage.ObjModel.ObjBikeSpecs.MaxPower = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.MaxPower != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.MaxPower)).Count() + 1);
-					objSeriesPage.ObjModel.ObjBikeSpecs.Mileage = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Mileage != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Mileage)).Count() + 1);
-					objSeriesPage.ObjModel.ObjBikeSpecs.Weight = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Weight != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Weight)).Count() + 1);
-					objSeriesPage.ObjModel.ObjBikeSpecs.FuelCapacity = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.FuelCapacity != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.FuelCapacity)).Count() + 1);
-					objSeriesPage.ObjModel.ObjBikeSpecs.Displacement = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Displacement != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Displacement)).Count() + 1);
+                    IList<string> objList = new List<string>();
+                    objList.Add("Price");
+                    objList.Add("Displacement");
+                    objList.Add("Weight");
+                    objList.Add("Fuel Tank Capacity");
+                    objList.Add("Mileage");
+                    objList.Add("Seat Height");
+                    objList.Add("Brake Type");
+                    objList.Add("Gears");
+                    objList.Add("Max Power");
 
-					objSeriesPage.ObjModel.BikeCompareSegments = objList;
-					objSeriesPage.ObjModel.BikeMake = objSeriesPage.BikeMake;
-					objSeriesPage.ObjModel.SeriesBase = objSeriesPage.SeriesBase;
-				}
+
+                    objSeriesPage.ObjModel.ObjBikeSpecs = new BikeSpecs();
+                    objSeriesPage.ObjModel.ObjBikeSpecs.Price = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Price != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Price)).Count() + 1);
+                    objSeriesPage.ObjModel.ObjBikeSpecs.MaxPower = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.MaxPower != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.MaxPower)).Count() + 1);
+                    objSeriesPage.ObjModel.ObjBikeSpecs.Mileage = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Mileage != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Mileage)).Count() + 1);
+                    objSeriesPage.ObjModel.ObjBikeSpecs.Weight = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Weight != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Weight)).Count() + 1);
+                    objSeriesPage.ObjModel.ObjBikeSpecs.FuelCapacity = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.FuelCapacity != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.FuelCapacity)).Count() + 1);
+                    objSeriesPage.ObjModel.ObjBikeSpecs.Displacement = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Displacement != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Displacement)).Count() + 1);
+
+                    objSeriesPage.ObjModel.BikeCompareSegments = objList;
+                    objSeriesPage.ObjModel.BikeMake = objSeriesPage.BikeMake;
+                    objSeriesPage.ObjModel.SeriesBase = objSeriesPage.SeriesBase;
+                }
             }
             catch (Exception ex)
             {

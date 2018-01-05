@@ -130,8 +130,8 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 #errNewBikeSearch.ui-autocomplete { width:470px;position:absolute;top:40px;left:3px; color:#4d5057;text-align: left; }
 .error-tooltip-siblings { display:none; }
 
-#global-recent-searches, #new-global-recent-searches{width:100%;position:absolute;top:29px;left:0;color:#4d5057;text-align: left;border: 1px solid #e2e2e2;background: #fff;z-index: 202;border-top:0;display:none;}
-#new-global-recent-searches{ width:470px;top: 37px; }
+#global-recent-searches, #new-trending-bikes, #new-global-recent-searches{width:100%;position:absolute;top:29px;left:0;color:#4d5057;text-align: left;border: 1px solid #e2e2e2;background: #fff;z-index: 202;border-top:0;display:none;}
+#new-trending-bikes, #new-global-recent-searches{ width:470px;top: 37px; }
 
 /* city popup classes */
 .globalcity-popup { width:450px; min-height:320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left:5%; z-index: 210; }
@@ -2063,4 +2063,30 @@ input[type="number"] {
 .tooltip-top.tooltip--right .bw-tooltip-text:before,
 .tooltip-top.tooltip--right .bw-tooltip-text:after {
 	left: 182px;
+}
+
+#global-search-section {
+    border: 1px solid #ccc;
+    text-decoration: none !important;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+
+#global-search-section a {
+    text-decoration: none !important;
+}
+
+.search-title {
+    padding: 10px 15px 6px;
+    font-size: 11px;
+    color: #babfc3;
+}
+
+.trending-searches {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    display: inline-block;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/trending.svg) no-repeat;
 }

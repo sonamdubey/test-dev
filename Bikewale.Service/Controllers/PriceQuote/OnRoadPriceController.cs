@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Bikewale.DAL.AutoBiz;
+﻿using Bikewale.DAL.AutoBiz;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.DTO.PriceQuote.BikeQuotation;
@@ -19,6 +15,10 @@ using Bikewale.Service.AutoMappers.ManufacturerCampaign;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
 using Microsoft.Practices.Unity;
+using System;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.PriceQuote
 {
@@ -184,7 +184,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GET");
-               
+
                 return InternalServerError();
             }
         }
@@ -321,7 +321,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV2");
-               
+
                 return InternalServerError();
             }
         }
@@ -465,7 +465,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV3");
-               
+
                 return InternalServerError();
             }
         }
@@ -515,7 +515,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                         bpqOutput.Varients = _objPriceQuote.GetOtherVersionsPrices(objPQ.PQId);
 
-                        if ((objPQ.DealerId != 0) || objPQ.IsDealerAvailable)
+                        if (objPQ.DealerId > 0)
                         {
 
                             objDealerQuotation = _objDPQ.GetDealerQuotationV2(cityId, objPQOutput.VersionId, objPQOutput.DealerId, objPQEntity.AreaId);
@@ -571,12 +571,12 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         {
                             bool isArea = false;
                             var bikePriceQuotationList = _objPQ.GetVersionPricesByModelId(modelId, cityId, out isArea);
-                            if(bikePriceQuotationList!= null && bikePriceQuotationList.Any())
+                            if (bikePriceQuotationList != null && bikePriceQuotationList.Any())
                             {
-                               var selversion = bikePriceQuotationList.FirstOrDefault(x => x.VersionId == objPQOutput.VersionId);
+                                var selversion = bikePriceQuotationList.FirstOrDefault(x => x.VersionId == objPQOutput.VersionId);
                                 if (selversion != null)
                                 {
-                                    versionPrice = (uint) selversion.OnRoadPrice;
+                                    versionPrice = (uint)selversion.OnRoadPrice;
                                 }
                             }
                             onRoadPrice.Versions = PQBikePriceQuoteOutputMapper.Convert(bpqOutput.Varients);

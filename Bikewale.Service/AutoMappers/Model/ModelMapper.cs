@@ -28,6 +28,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Bikewale.Service.AutoMappers.Model
 {
@@ -473,7 +474,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
-            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>().ForMember(x=>x.ReviewAge, opt => opt.MapFrom(s => !string.IsNullOrEmpty(s.ReviewAge) ? string.Format("{0} ago",s.ReviewAge):""));
+            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>().ForMember(x => x.ReviewAge, opt => opt.MapFrom(s => !string.IsNullOrEmpty(s.ReviewAge) ? string.Format("{0} ago", s.ReviewAge) : ""));
             Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
             Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();
             Mapper.CreateMap<Bikewale.Entities.BikeData.v2.BikeModelContent, Bikewale.DTO.Model.v2.BikeModelContentDTO>();
@@ -561,6 +562,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static DTO.Model.v5.ModelPage ConvertV5(BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ushort platformId = 0)
         {
+            bool isApp = platformId == 3? true: false;
             DTO.Model.v5.ModelPage objDTOModelPage = null;
             try
             {
@@ -726,11 +728,13 @@ namespace Bikewale.Service.AutoMappers.Model
                         VersionId = objModelPage.ModelVersionSpecs.BikeVersionId,
                         PlatformId = platformId,
                         IsAmp = true,
-
                         BikeName = string.Format("{0} {1}", objModelPage.ModelDetails.MakeBase.MakeName, objModelPage.ModelDetails.ModelName),
                         LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionSpecs.BikeVersionId).Price) * 0.8)
                     };
-
+                    if (isApp)
+                    {
+                        LeadCampaign.IsAmp = false;
+                    }
 
                     if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                     {
@@ -745,12 +749,19 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.Campaign.DetailsCampaign = new DetailsDto();
                     objDTOModelPage.Campaign.DetailsCampaign.EsCamapign = new PreRenderCampaignBase();
                     objDTOModelPage.Campaign.CampaignLeadSource = new ESCampaignBase();
-                    objDTOModelPage.Campaign.DetailsCampaign.EsCamapign.TemplateHtml = MvcHelper.GetRenderedContent(String.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
+                    string template = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
+                    //Check if it contains javascript:void(0), replace it with 
+                    if (isApp && !string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
+                    {
+                        template = template.Replace("href=\"javascript:void(0)\"", "onclick=\"Android.openLeadCaptureForm();\"");
+                    }
+
+                    objDTOModelPage.Campaign.DetailsCampaign.EsCamapign.TemplateHtml = template;
                     objDTOModelPage.Campaign.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
                     objDTOModelPage.Campaign.CampaignLeadSource.CaptionText = String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization);
                     objDTOModelPage.Campaign.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
                     objDTOModelPage.Campaign.CampaignType = CampaignType.ES;
-                    objDTOModelPage.Campaign.CampaignLeadSource.LinkUrl = LeadCampaign.PageUrl;
+                    objDTOModelPage.Campaign.CampaignLeadSource.LinkUrl = HttpUtility.HtmlDecode(LeadCampaign.PageUrl);
                 }
             }
             catch (System.Exception ex)
@@ -839,8 +850,6 @@ namespace Bikewale.Service.AutoMappers.Model
                 .ForMember(dest => dest.ModelColorId, opt => opt.MapFrom(src => src.Id));
             return Mapper.Map<IEnumerable<ModelColorImage>, IEnumerable<ModelColorPhoto>>(objAllPhotosEntity);
         }
-
-
 
 
     }

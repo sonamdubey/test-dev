@@ -29,9 +29,12 @@ namespace Bikewale.Models
     /// 
     /// Modified by sajal Gupta on 06-11-2017
     /// Descriptition :  Added BikeCityPopup, DealersServiceCenterPopularCities
+    /// Modified by  : Rajan Chauhan on 3 Jan 2017
+    /// Description  : Added MakeId Field
     /// </author>
     public class MakePageVM : ModelBase
     {
+        public int MakeId { get; set; }
         public string MakeName { get; set; }
         public string MakeMaskingName { get; set; }
         public string LocationMasking { get; set; }
@@ -62,6 +65,7 @@ namespace Bikewale.Models
         public bool IsFooterDescriptionAvailable { get; set; }
         public bool IsPriceListingAvailable { get; set; }
 
+        public bool ShowCheckOnRoadpriceBtn { get; set; }
 
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public DealerCardVM Dealers { get; set; }

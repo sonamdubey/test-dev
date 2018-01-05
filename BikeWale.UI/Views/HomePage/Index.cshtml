@@ -32,7 +32,16 @@
                                 <span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
                             </li>
                         </ul>
-                        <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
+                        <div id="new-global-search-section" class="bg-white padding-bottom20 hide">
+                            <div id="new-history-search">
+                                <div class="search-title font12 text-light-grey">Recently Viewed</div>
+                                <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
+                            </div>
+                            <div id="new-trending-search">
+                                <div class="search-title font12 text-light-grey">Trending Searches</div>
+                                <ul id="new-trending-bikes" class="recent-searches-dropdown"></ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -437,7 +446,7 @@
                     <span class="contest-banner__icon"></span>
                     <div class="contest-banner__left-grid inline-block">
                         <p class="contest-banner__title">Bike Review Contest</p>
-                        <p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;2,000.</p>
+                        <p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney.</p>
                     </div>
                     <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_HomePage)" class="btn btn-orange btn-180-40">Participate &amp; win<span class="bwsprite btn-white-arrow"></span></a>
                 </div>

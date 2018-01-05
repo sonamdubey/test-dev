@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Pages;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -47,6 +48,7 @@ namespace Bikewale.Models
                 objDealerVM.NewLaunchedBikes = BindNewLaunchesBikes();
                 objDealerVM.Brands = new BrandWidgetModel(TopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.Dealer);
                 BindPageMetas(objDealerVM.PageMetaTags);
+                objDealerVM.Page = GAPages.Dealer_Locator_Page;
 
 
             }

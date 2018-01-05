@@ -246,9 +246,7 @@ function reportAbuse() {
 
 
 docReady(function () {
-
-    bwcache.setOptions({ 'EnableEncryption': true });
-
+    
     bwcache.removeAll(true);
 
     applyLikeDislikes();

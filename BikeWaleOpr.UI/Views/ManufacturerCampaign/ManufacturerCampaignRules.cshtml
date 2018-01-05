@@ -62,25 +62,42 @@
                     <div class="collapsible-header"><strong>Configure Bike Models (Step 1)</strong></div>
                     <div class="collapsible-body">
                         <div class="container">
-                            <div class="input-field row">
-                              @if (Model.Makes != null && Model.Makes.Count() > 0)
-                                {
-                                    <select id="ddlMakes" name="makeIdList" data-bind="event:{change: selectMake}">
-                                        <option>Select Make</option>
-                                        @foreach (var make in Model.Makes)
+                            <div class="list-type-radio" id="configModels">
+                                <div class="input-field row s12 toggle-field-parent">
+                                    <input type="radio" id="rdoModel1" value="1" name="rdoModel" />
+                                    <label for="rdoModel1">Select Models</label>
+                                    <div class="toggle-field-content select-auto-width padding-left35 margin-top10 hide">
+                                        @if (Model.Makes != null && Model.Makes.Count() > 0)
                                         {
-                                            <option value="@make.MakeId">@make.MakeName</option>
+                                            <select id="ddlMakes" name="makeIdList" data-bind="event:{change: selectMake}">
+                                                <option>Select Make</option>
+                                                @foreach (var make in Model.Makes)
+                                                {
+                                                    <option value="@make.MakeId">@make.MakeName</option>
+                                                }
+                                            </select>
+                                            <br/>
+                                            <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select All', enable : listModels().length>0" multiple>
+                                            </select>
                                         }
-                                    </select>
-                                }
-                                else
-                                {
-                                    <span>Problem in retrieving makes</span>
-                                }
-                             </div>
-                            <div class="input-field row">
-                                <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select All', enable : listModels().length>0" multiple></select>
-                             </div>
+                                        else
+                                        {
+                                            <span>Problem in retrieving makes</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="input-field row s12 toggle-field-parent">
+                                    <input type="radio" id="rdoModel2" value="2" name="rdoModel" />
+                                    <label for="rdoModel2">Enter list of Model Ids</label>
+                                    <div class="toggle-field-content select-auto-width padding-left35 margin-top10 hide">
+
+                                            <div class="input-field input-validate">
+                                                <input id="txtModels" type="text" class="validate margin-bottom10 margin-top10" name="txtModels" length="6000" maxlength="6000">
+                                                <label for="txtModels" data-error="Model ids should be comma separated only">Model Ids (Comma separated)</label>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </li>

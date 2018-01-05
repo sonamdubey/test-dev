@@ -16,8 +16,10 @@ namespace Bikewale.Models
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCache = null;
         private readonly PQSourceEnum _pqSource;
         private readonly uint _versionId;
+        private readonly uint _modelId;
         private readonly bool _showCheckOnRoadCTA = true;
         private readonly bool _showPriceInCityCTA;
+        private readonly bool _similarBikesByModel = false;
         #endregion
 
         #region Public Property
@@ -40,6 +42,15 @@ namespace Bikewale.Models
         {
             _versionCache = versionCache;
             _versionId = versionId;
+            _pqSource = pqSource;
+        }
+
+        public SimilarBikesWidget(IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache
+          , uint modelId, bool similarBikesByModel, PQSourceEnum pqSource)
+        {
+            _versionCache = versionCache;
+            _modelId = modelId;
+            _similarBikesByModel = similarBikesByModel;
             _pqSource = pqSource;
         }
 
@@ -88,7 +99,10 @@ namespace Bikewale.Models
                 objVM = new SimilarBikesWidgetVM();
                 objVM.ShowCheckOnRoadCTA = _showCheckOnRoadCTA;
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
-                objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
+                if (!_similarBikesByModel)
+                    objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
+                else
+                    objVM.Bikes = _versionCache.GetSimilarBikesByModel(_modelId, TopCount, CityId);
                 objVM.PQSourceId = _pqSource;
                 objVM.IsNew = IsNew;
                 objVM.IsUpcoming = IsUpcoming;

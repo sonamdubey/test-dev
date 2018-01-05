@@ -73,12 +73,13 @@ gulp.task('minify-js', function () {
 gulp.task('minify-sass-css', function () {
 	var sassCache = fsCache(app + '.gulp-cache/' + paths.SASS);
 
-	return gulp.src(['BikeWale.UI/sass/**/*.sass', 'BikeWale.UI/m/sass/**/*.sass'], { base: 'BikeWale.UI/' })
+	return gulp.src([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], { base: app })
 		.pipe(sassCache)
 		.pipe(sass().on('error', sass.logError))
 		.pipe(cleanCss())
 		.pipe(sassCache.restore)
-		.pipe(gulp.dest('BikeWale.UI/build/min/'));
+		.pipe(gulp.dest(buildFolder))
+		.pipe(gulp.dest(minifiedAssetsFolder));
 });
 
 
@@ -138,11 +139,6 @@ var pageArray = [
 
 gulp.task('replace-mvc-layout-css-reference', function () {
 	return gulp.src([
-		app + 'Views/News/Index_Mobile_Pwa.cshtml',
-		app + 'Views/News/Detail_Mobile.cshtml',
-		app + 'Views/Videos/Index_Mobile_Pwa.cshtml',
-		app + 'Views/Videos/Detail_Mobile_Pwa.cshtml',
-		app + 'CategoryVideos_Mobile_Pwa.cshtml',
 		app + 'Views/Shared/_Layout.cshtml',
 		app + 'Views/Shared/_Layout_Mobile.cshtml'], { base: app })
 		.pipe(replace(pattern.CSS_ATF, function (s, fileName) {
@@ -321,7 +317,8 @@ gulp.task('default', gulpSequence(
 			'replace-css-chunk-json',
 			'replace-js-css-reference',
 			'swResourceProcesing',
-			'replaceSWResouceHashInSW'
+			'replaceSWResouceHashInSW',
+			'replace-mvc-layout-css-reference'
 		)
 );
 //end

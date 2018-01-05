@@ -991,6 +991,7 @@
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\Scooters\MoreAboutScootersWidget.cs" />
     <Compile Include="Models\Scooters\PopularScooterBrandsWidget.cs" />
     <Compile Include="Models\Scooters\ScootersMakePageModel.cs" />
     <Compile Include="Models\ServiceCenters\ShowroomsWidgetModel.Cs" />
@@ -3085,6 +3086,8 @@
     <Content Include="sass\model-series\series.sass" />
     <Content Include="sass\partials\d\_upcoming-model-card.sass" />
     <Content Include="sass\partials\d\_comparison-card.sass" />
+    <Content Include="sass\modules\related-card.sass" />
+    <Content Include="sass\modules\sidebar-bike-section.sass" />
     <Content Include="sass\modules\review-article.sass" />
     <Content Include="sass\modules\_carousel-card.sass" />
     <Content Include="sass\modules\_card-category.sass" />
@@ -3915,6 +3918,11 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_AMP.cshtml" />
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
+    <Content Include="Views\Scooters\_ModelRelatedCard.cshtml" />
+    <Content Include="Views\Scooters\_ModelRelatedCard_Mobile.cshtml" />
+    <Content Include="Views\Scooters\_ModelRelatedCard_Mobile_Amp.cshtml" />
+    <None Include="Views\Shared\_Sidebar-section.cshtml" />
+    <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
     <Content Include="Views\BikeModels\_MostPopularBikes_Mobile_Amp.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />

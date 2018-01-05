@@ -8,6 +8,9 @@ var IsPriceQuoteLinkClicked = false;
 var ga_pg_id = '0', recentSearches, navDrawer, cityArea, quotationPage, playerState = '';
 var navContainer, effect = 'slide', directionLeft = { direction: 'left' }, duration = 500;
 var popupHeading, popupContent, brandcitypopupContent;
+var trendingBikes, objSearches;
+var topCount = 5;
+var pageName = typeof (gaObj) === 'undefined' ? 'Others' : gaObj.name;
 
 
 if (!Array.prototype.indexOf) {
@@ -789,8 +792,6 @@ function MakeModelRedirection(items) {
             model.futuristic = items.payload.futuristic;
         }
 
-        recentSearches.saveRecentSearches(items);
-
         if (model != null && model != undefined) {
             window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
             return true;
@@ -838,6 +839,22 @@ var appendState = function (state) {
 };
 
 docReady(function () {
+
+    trendingBikes = JSON.parse(localStorage.getItem("bwc_trendingbikes", trendingBikes) || null);
+    if (!trendingBikes) {
+        $.ajax({
+            type: "GET",
+            url: "/api/popularbikes/?topCount=" + topCount,
+            dataType: 'json',
+            success: function (response) {
+                if (response != null) {
+                    trendingBikes = response;
+                    localStorage.setItem("bwc_trendingbikes", JSON.stringify(trendingBikes));
+                }
+            }
+        });
+    }
+
 
     (function ($) {
         $.fn.hint = bwHint;
@@ -1000,6 +1017,7 @@ docReady(function () {
 
         open: function (result) {
             objBikes.result = result;
+            $("ul.ui-menu").width($('#newBikeList').innerWidth());
             if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
                 $('.ui-autocomplete').off('menufocus hover mouseover');
             }
@@ -1007,6 +1025,9 @@ docReady(function () {
         focus: function () {
             if ($('#newBikeList').val().trim() == '') {
                 recentSearches.showRecentSearches();
+                // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
+                let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
+                triggerGA('HP', 'Search_Bar_Clicked', label);
             }
         },
         focusout: function () {
@@ -1344,10 +1365,14 @@ docReady(function () {
         },
         open: function (result) {
             objBikes.result = result;
+            $("ul.ui-menu").width($('#globalSearch').innerWidth());
         },
         focus: function () {
             if ($('#globalSearch').val().trim() == '') {
                 recentSearches.showRecentSearches();
+                // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
+                let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
+                triggerGA(pageName, 'Search_Bar_Clicked', label);
             }
         },
         focusout: function () {
@@ -1471,7 +1496,6 @@ docReady(function () {
 });
 
 docReady(function () {
-
     $('#city-area-popup .white-back-arrow').on('click', function () {
         cityArea.close();
         window.history.back();
@@ -1709,8 +1733,11 @@ docReady(function () {
         options: {
             homeSearchEle: $('#newBikeList'),
             bikeSearchEle: $('#globalSearch'),
+            globalSearchSection: $('#new-global-search-section').length ? $('#new-global-search-section') : $('#global-search-section'),
             recentSearchesEle: $("#new-global-recent-searches").length ? $("#new-global-recent-searches") : $("#global-recent-searches"),
-            recentSearchesLoaded: false
+            trendingSearchesEle: $("#new-trending-bikes").length ? $("#new-trending-bikes") : $("#trending-bikes"),
+            recentSearchesLoaded: false,
+            trendingSearchesLoaded: false
         },
         saveRecentSearches: function (opt) {
             if (opt && opt.payload && opt.payload.makeId > 0) {
@@ -1722,7 +1749,7 @@ docReady(function () {
                 objSearches.searches.unshift(opt.payload);
 
                 objSearches["lastModified"] = new Date().getTime();
-                if (objSearches.searches.length > 5)
+                if (objSearches.searches.length > 3)
                     objSearches.searches.pop();
                 objSearches["noOfSearches"] = objSearches.searches.length;
                 bwcache.set(this.searchKey, objSearches);
@@ -1730,7 +1757,7 @@ docReady(function () {
         },
         showRecentSearches: function () {
             if (!this.options.recentSearchesLoaded) {
-                var objSearches = bwcache.get(this.searchKey);
+                objSearches = bwcache.get(this.searchKey);
                 if (objSearches && objSearches.searches) {
                     var html = "", bikename, url;
                     var i = 0;
@@ -1757,12 +1784,45 @@ docReady(function () {
                     if (html != "") {
                         this.options.recentSearchesEle.append(html);
                         this.options.recentSearchesLoaded = true;
-                        this.options.recentSearchesEle.find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
                     }
-
                 }
             }
-            this.options.recentSearchesEle.slideDown(100);
+
+            if (!this.options.trendingSearchesLoaded) {
+                if (trendingBikes) {
+                    html = "";
+                    for (var index in trendingBikes) {
+                        item = trendingBikes[index];
+                        html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="ui-menu-item bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName
+                                + '"><span class="trending-searches"></span><a href="javascript:void(0)" data-href="/m/' + item.objMake.maskingName + '-bikes/' + item.objModel.maskingName + '" optionname="' + item.BikeName.toLowerCase().replace(' ', '') + '">' + item.BikeName + '</a>';
+                        if (item.objModel.modelId > 0) {
+                            html += '<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.objModel.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a><div class="clear"></div>';
+                        }
+                        html += "</li>";
+                    }
+
+                    if (html != "") {
+                        this.options.trendingSearchesEle.append(html);
+                        this.options.trendingSearchesLoaded = true;
+                    }
+                }
+            }
+
+            if (!trendingBikes) {
+                $('#trending-search').addClass('hide');
+            } else {
+                $('#trending-search').removeClass('hide');
+            }
+
+            if (!(objSearches && objSearches.searches)) {
+                $('#history-search').addClass('hide');
+            } else {
+                $('#history-search').removeClass('hide');
+            }
+
+            this.options.globalSearchSection.removeClass('hide');
+            this.options.recentSearchesEle.find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
+            this.options.trendingSearchesEle.find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
             if (this.options.recentSearchesEle.is(":visible")) {
                 var rsele = this.options.recentSearchesEle.find("li.ui-state-focus");
                 if (event.keyCode == 27) {
@@ -1773,8 +1833,7 @@ docReady(function () {
 
         },
         hideRecentSearches: function () {
-            this.options.recentSearchesEle.slideUp(100).find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
-
+            this.options.globalSearchSection.addClass('hide');
         },
         objectIndexOf: function (arr, opt) {
             var makeId = opt.makeId, modelId = opt.modelId;
@@ -1794,6 +1853,7 @@ docReady(function () {
                 if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
                 objSearches.searches.unshift(obj);
                 bwcache.set(recentSearches.searchKey, objSearches);
+                triggerGA(pageName, ' Recently_View_Search_Bar_Clicked', this.textContent);
                 window.location.href = $(this).find('a').first().attr('data-href');
             }
 
@@ -1803,6 +1863,18 @@ docReady(function () {
             console.log(e.message);
         }
 
+    });
+
+    recentSearches.options.trendingSearchesEle.on('click', 'li', function () {
+        try {
+            if (!$(event.target).hasClass('getquotation')) {
+                window.location.href = $(this).find('a').first().attr('data-href');
+            }
+            recentSearches.hideRecentSearches();
+
+        } catch (e) {
+            console.log(e.message);
+        }
     });
 
     window.validateMobileNo = function (mobileNo, self) {

@@ -1,7 +1,6 @@
 ﻿ga_pg_id = '3';
 
 docReady(function () {
-
     $("img.lazy").lazyload();
 
     $('.jcarousel-wrapper.upComingBikes .jcarousel').on('jcarousel:targetin', 'li', function () {
@@ -283,6 +282,11 @@ docReady(function () {
         }
     });
 
+    $("ul#listitems li.front").click(function () {
+        var cookieValue = getCookie("_bwtest"), bikeName = $(this).attr("data-bike");
+        bikeName = bikeName.replace(/\s+/, '_');
+        triggerGA("MakePage", "Clicked_on_ModelCard", cookieValue + "_" + bikeName);
+    });
 
     //collapsible content
 
@@ -314,5 +318,8 @@ docReady(function () {
                 break;
         }
     });
+    // For saving page in recent viewed items
+    if (typeof pageData != "undefined" && pageData != null)
+        recentSearches.saveRecentSearches(pageData);
 
 });

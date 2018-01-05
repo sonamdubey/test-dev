@@ -87,7 +87,7 @@
                                 {
                                     var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex">
+                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
                                                 <a class="modelurl" href='@modelUrl'>
@@ -122,7 +122,7 @@
                                                     { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))));
                                                     }
                                                 </div>
-                                                @if (bike.VersionPrice > 0)
+                                                @if (bike.VersionPrice > 0 && Model.ShowCheckOnRoadpriceBtn)
                                                 {
                                                     <a rel="nofollow" href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                                 }
@@ -273,8 +273,6 @@
                 </section>
             }
         </div>
-
-
     }
 
     @if (Model.IsMakeTabsDataAvailable)
@@ -409,4 +407,22 @@
     <div id="reviewPopup" class="review-popup hide" data-csslink="@String.Format("{0}/sass/partials/review-popup.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></div>
     <!-- make review popup ends-->
 }
+    <script type="text/javascript">
+        var suggestionText = "@Model.MakeName" + " Bikes";
+        var pageData = {
+            label: suggestionText,
+            payload : {
+                makeId: "@Model.MakeId",
+                modelId : "0",
+                makeMaskingName : "@Model.MakeMaskingName",
+                modelMaskingName : "",
+                futuristic : "False",
+                isNew: "@(Model.Bikes!= null && Model.Bikes.Count() > 0)",
+                userRatingsCount: "0",
+                expertReviewsCount: "0"
+            },
+            value: suggestionText
+        };
+
+    </script>
 

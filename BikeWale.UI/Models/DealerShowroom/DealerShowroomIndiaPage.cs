@@ -76,6 +76,7 @@ namespace Bikewale.Models
                 objDealerVM.UsedBikeModel = BindUsedBikeByModel();
                 objDealerVM.NewLaunchedBikes = BindNewLaunchesBikes();
                 BindPageMetas(objDealerVM);
+                objDealerVM.Page = Entities.Pages.GAPages.Dealer_Locator_Country_Page;
 
 
             }
@@ -158,6 +159,8 @@ namespace Bikewale.Models
         /// Description : Function to create page level schema for breadcrum
         /// Modified by :Snehal Dange on 2th Nov 2017
         /// Description : Added makename in breadcrum
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Desc        : Added 'New Bikes' in breadcrumb
         /// </summary>
         private void SetBreadcrumList(DealerShowroomIndiaPageVM objPage)
         {
@@ -175,6 +178,7 @@ namespace Bikewale.Models
                     }
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
                     if (objPage.Make != null)
                     {
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName), string.Format("{0} Bikes", objPage.Make.MakeName)));

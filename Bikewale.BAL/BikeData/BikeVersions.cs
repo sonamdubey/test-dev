@@ -106,6 +106,18 @@ namespace Bikewale.BAL.BikeData
             return versionRepository.GetSimilarBikesList(versionId, topCount, cityid);
         }
 
+        public IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid)
+        {
+
+            return versionRepository.GetSimilarBikesByModel(modelId, topCount, cityid);
+        }
+        public IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityid)
+        {
+
+            return versionRepository.GetSimilarBudgetBikes(modelId, topCount, cityid);
+        }
+
+
         /// <summary>
         /// Created By : Sadhana Upadhyay on 4 Dec 2014
         /// Summary : get version color by version id
@@ -156,6 +168,17 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.Bikeversions.GetModelVersions");
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Gets the dealer versions by model.
+        /// </summary>
+        /// <param name="dealerId">The dealer identifier.</param>
+        /// <param name="modelId">The model identifier.</param>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId)
+        {
+            return versionRepository.GetDealerVersionsByModel(dealerId, modelId);
         }
     }   // Class
 }   // namespace

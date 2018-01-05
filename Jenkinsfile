@@ -13,7 +13,10 @@ node ('master'){
 	}
 	else if(details[0]=='BikeWaleProductionTestingPipeline'){
 		externalMethod = load("${BikewaleCI}" + "\\ProductionTesting\\ProductionTesting.groovy")
-	}	
+	}
+	else if(details[0]=='BikewaleSonarQubeAnalysis'){
+		externalMethod = load("D:\\JenkinsUtilities\\bikewale\\SonarQube\\SonarQube.groovy")	
+	}
      //Call the method we defined in externalMethod.
 }
 if(details[0] == 'BikeWaleProductionPipeline'){
@@ -27,4 +30,7 @@ else if(details[0]=='BikeWaleFeatureTestingPipeline'){
 }
 else if(details[0]=='BikeWaleProductionTestingPipeline'){
 	externalMethod.ProductionTesting()
-}	
+}
+else if(details[0]=='BikewaleSonarQubeAnalysis'){
+	externalMethod.RunAnalysis() 	
+}

@@ -21,6 +21,8 @@ namespace Bikewale.Models
     /// Description : Added PhotoGallery, IsGalleryLoaded and ModelGallery.
     /// Modified by : Ashutosh Sharma on 08 Dec 2017
     /// Description : Removed PhotoGallery, IsGalleryLoaded and ModelGallery.
+    /// Modified by: Snehal Dange on 20th dec 2017
+    /// Summary : added MoreAboutScootersWidgetVM
     /// </summary>
     public class PriceInCityPageVM : ModelBase
     {
@@ -92,5 +94,9 @@ namespace Bikewale.Models
         public IEnumerable<CityEntityBase> Cities { get; set; }
         public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Any()); } }
         public string ReturnUrl { get; set; }
+        public bool IsGalleryLoaded { get; set; }
+        public ModelGalleryVM ModelGallery { get; set; }
+        public ModelPhotoGalleryEntity PhotoGallery { get; set; }
+        public MoreAboutScootersWidgetVM objMoreAboutScooter { get; set; }
     }
 }

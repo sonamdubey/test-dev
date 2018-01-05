@@ -83,38 +83,44 @@
     <![endif]-->
     @Html.Raw(Model.Page_ATF_CSS)
     <script type="text/javascript">
-        var ga_pg_id = '0';
+    var ga_pg_id = '0', gaObj;
 
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-        new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-5CSHD6');
+    @if(Model.Page !=null)
+        {
+            <text>
+        gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};
+    </text>
+        }
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+    new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5CSHD6');
 
-        setTimeout(function () {
-            var a = document.createElement("script");
-            var b = document.getElementsByTagName("script")[0];
-            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-        }, 1);
+    setTimeout(function () {
+        var a = document.createElement("script");
+        var b = document.getElementsByTagName("script")[0];
+        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+    }, 1);
 
-        var googletag = googletag || {};
-        googletag.cmd = googletag.cmd || [];
-        (function () {
-            var gads = document.createElement('script');
-            gads.async = true;
-            gads.type = 'text/javascript';
-            var useSSL = 'https:' == document.location.protocol;
-            gads.src = (useSSL ? 'https:' : 'http:') +
-            '//www.googletagservices.com/tag/js/gpt.js?v=1.0';
-            var node = document.getElementsByTagName('script')[0];
-            node.parentNode.insertBefore(gads, node);
-        })();
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function () {
+        var gads = document.createElement('script');
+        gads.async = true;
+        gads.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        gads.src = (useSSL ? 'https:' : 'http:') +
+        '//www.googletagservices.com/tag/js/gpt.js?v=1.0';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
 
-        @functions{
+    @functions{
 			string GetAdSlot(int slotId,string adPath,string adId){
 				switch (slotId)
 				{
@@ -176,36 +182,36 @@
 			}
         }
 
-        googletag.cmd.push(function () {
+    googletag.cmd.push(function () {
 
-            @if(Model.AdTags.Ad_300x250){ @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_970x90){ @Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_970x90BTF){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_970x90Bottom){ @Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_976x400First){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_976x400Second) { @Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_Model_ATF_300x250){ @Html.Raw(GetAdSlot(9, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_Model_ATF_970x90){ @Html.Raw(GetAdSlot(10, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_Model_BTF_300x250){ @Html.Raw(GetAdSlot(11, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_Model_BTF_970x90){ @Html.Raw(GetAdSlot(12, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_976x204) { @Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_976x400_Middle){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_292x399){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_292x359){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_300x250){ @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_970x90){ @Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_970x90BTF){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_970x90Bottom){ @Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_976x400First){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_976x400Second) { @Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_Model_ATF_300x250){ @Html.Raw(GetAdSlot(9, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_Model_ATF_970x90){ @Html.Raw(GetAdSlot(10, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_Model_BTF_300x250){ @Html.Raw(GetAdSlot(11, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_Model_BTF_970x90){ @Html.Raw(GetAdSlot(12, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_976x204) { @Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_976x400_Middle){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_292x399){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_292x359){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
 
-            googletag.pubads().enableSingleRequest();
-            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
-            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
-            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
-            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
-			@if (!string.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
+        googletag.pubads().enableSingleRequest();
+        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
+        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
+        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
+        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
+        @if (!string.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
 
-			googletag.pubads().collapseEmptyDivs();
-            googletag.pubads().enableSingleRequest();
-            googletag.enableServices();
-        });
+        googletag.pubads().collapseEmptyDivs();
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+    });
     </script>
     @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
     {
@@ -220,7 +226,7 @@
         </script>
     }
 </head>
-<body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" @string.Format("{0}", Model.ExcludeContestSlug ? "data-contestslug='true'" : "") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
+<body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" @string.Format("{0}", Model.ExcludeContestSlug ? "data-contestslug='true'" : "") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page" data-pricemoney="@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney">
     <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
         <!-- Fixed Header code starts here -->
         <div class="leftfloat">
@@ -237,7 +243,16 @@
                         <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                     </li>
                 </ul>
-                <ul id="global-recent-searches" class="recent-searches-dropdown"></ul>
+                <div id="global-search-section" class="bg-white padding-bottom20 hide">
+                    <div id="history-search">
+                        <div class="search-title font12 text-light-grey">Recently Viewed</div>
+                        <ul id="global-recent-searches" class="recent-searches-dropdown"></ul>
+                    </div>
+                    <div id="trending-search">
+                        <div class="search-title font12 text-light-grey">Trending Searches</div>
+                        <ul id="trending-bikes" class="recent-searches-dropdown"></ul>
+                    </div>
+                </div>
             </div>
             <div class="global-location">
                 <div class="gl-default-stage">
@@ -301,7 +316,7 @@
                     <ul>
                         @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
                         {
-                            if (item.Item!=null && !string.IsNullOrEmpty(item.Item.Url))
+                            if (item.Item != null && !string.IsNullOrEmpty(item.Item.Url))
                             {
                                 <li>
                                     <a class="breadcrumb-link" href="@item.Item.Url" title="@item.Item.Name">
@@ -392,7 +407,6 @@
                 <a href="/reviews/">
                     <span class="reviews-icon"></span>
                     <span class="navbarTitle">Reviews</span>
-                    <span class="new-flag"></span>
                 </a>
             </li>
             <li>
@@ -536,8 +550,8 @@
             <div class="clear"></div>
         </div>
     </footer><!-- Ends here -->
-
     @Html.Partial("~/Views/Shared/_LoginControl.cshtml")
+   
     <script defer type="text/javascript" src="@String.Format("{0}/src/bwcache.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
     <script>
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
