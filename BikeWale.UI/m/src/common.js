@@ -1041,11 +1041,12 @@ docReady(function () {
             }
             else {
                 $('#errNewBikeSearch').hide();
-                recentSearches.hideRecentSearches();
-			}
-						
-			if ($('#new-global-search-section').is(':visible')) {
-				recentSearches.hideRecentSearches();
+                var container = $('#new-global-search-section');
+                if (container.is(':visible')) {
+                    if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
+                        recentSearches.hideRecentSearches();
+                    }
+                }
 			}
         },
         afterfetch: function (result, searchtext) {
@@ -1111,7 +1112,7 @@ docReady(function () {
         var id = $('#newBikeList');
         if (id.length > 0) {
             var searchVal = id.val().trim();
-            var placeHolder = id.attr('placeholder');
+            var placeHolder = id.attr('placeholder').trim();
             triggerGA('HP', 'Search_Not_Keyword_Present_in_Autosuggest', searchVal);
             if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
                 $('#errNewBikeSearch').hide();
@@ -1390,7 +1391,12 @@ docReady(function () {
             }
             else {
                 $('#errGlobalSearch').hide();
-                recentSearches.hideRecentSearches();
+                var container = $('#global-search-section');
+                if (container.is(':visible')) {
+                    if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
+                        recentSearches.hideRecentSearches();
+                    }
+                }
             }
         },
         afterfetch: function (result, searchtext) {

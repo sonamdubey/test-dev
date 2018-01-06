@@ -964,13 +964,12 @@ docReady(function () {
         },
         focusout: function () {
             if ($('#newBikeList').find('li.ui-state-focus a:visible').text() != "") {
-                $('#errNewBikeSearch').hide()
                 focusedMakeModel = new Object();
                 focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
             }
             else {
                 $('#errNewBikeSearch').hide();
-                var container = $('#new-global-recent-searches,#new-trending-bikes');
+                var container = $('#new-global-search-section');
                 if (container.is(':visible')) {
                     if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
                         recentSearches.hideRecentSearches();
@@ -1067,7 +1066,7 @@ docReady(function () {
             }
             else {
                 $('#errGlobalSearch').hide();
-                var container = $('#global-recent-searches, #trending-bikes');
+                var container = $('#global-search-section');
                 if (container.is(':visible')) {
                     if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
                         recentSearches.hideRecentSearches();
