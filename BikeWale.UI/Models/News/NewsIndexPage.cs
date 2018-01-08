@@ -686,6 +686,7 @@ namespace Bikewale.Models
                     }
 
                     if (IsMobile || (MakeId > 0 && ModelId == 0))
+
                     {
                         objData.UpcomingBikes.WidgetHeading = "Upcoming bikes";
                         objData.UpcomingBikes.WidgetHref = "/upcoming-bikes/";
@@ -699,7 +700,7 @@ namespace Bikewale.Models
                                 Bikes = objData.SeriesWidget.PopularSeriesBikes,
                                 WidgetHeading = string.Format("Popular {0} Bikes", bikeSeriesEntityBase.SeriesName),
                                 WidgetHref = UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
-                                WidgetLinkTitle = "View all"
+                                WidgetLinkTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName)
                             };
                         }
                         else if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
