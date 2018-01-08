@@ -97,31 +97,34 @@ namespace Bikewale.BAL.BikeSearch
                         if (minIndex > -1 && maxIndex > -1)
                         {
                             urls = new List<Tuple<string, string, string, uint>>();
-                            urls.Add(FormatSearchUnderBudgetUrls(minBudget, CollectionHelper.ValueAtIndex(budgets, minIndex)));
-                            urls.Add(FormatSearchUnderBudgetUrls(maxBudget, CollectionHelper.ValueAtIndex(budgets, maxIndex)));
+
+                            SortedDictionary<uint, Tuple<string, string, string, uint>> sortedBudgets = new SortedDictionary<uint, Tuple<string, string, string, uint>>();
+
+                            sortedBudgets.Add(1, FormatSearchUnderBudgetUrls(minBudget, CollectionHelper.ValueAtIndex(budgets, minIndex)));
+                            sortedBudgets.Add(2, FormatSearchUnderBudgetUrls(maxBudget, CollectionHelper.ValueAtIndex(budgets, maxIndex)));
+
                             uint outValue = 0;
                             string outKey = "";
                             if (CollectionHelper.TryValueAtIndex(budgets, minIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                             {
-                                urls.Add(FormatSearchUnderBudgetUrls(outKey, CollectionHelper.ValueAtIndex(budgets, minIndex - 1)));
-                                urls.Add(FormatSearchBetweenBudgetUrls(outKey, minBudget, (CollectionHelper.ValueAtIndex(budgets, minIndex) - CollectionHelper.ValueAtIndex(budgets, minIndex - 1))));
+                                sortedBudgets.Add(0, FormatSearchUnderBudgetUrls(outKey, CollectionHelper.ValueAtIndex(budgets, minIndex - 1)));
+                                sortedBudgets.Add(4, FormatSearchBetweenBudgetUrls(outKey, minBudget, (CollectionHelper.ValueAtIndex(budgets, minIndex) - CollectionHelper.ValueAtIndex(budgets, minIndex - 1))));
                                 var prevIndex = minIndex - 1;
                                 var prevKey = outKey;
                                 var prevValue = outValue;
                                 if (CollectionHelper.TryValueAtIndex(budgets, prevIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                                 {
-                                    urls.Add(FormatSearchBetweenBudgetUrls(outKey, prevKey, (prevValue - outValue)));
+                                    sortedBudgets.Add(3, FormatSearchBetweenBudgetUrls(outKey, prevKey, (prevValue - outValue)));
                                 }
 
                             }
 
                             if (CollectionHelper.TryValueAtIndex(budgets, maxIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                             {
-                                urls.Add(FormatSearchBetweenBudgetUrls(maxBudget, outKey, (outValue - CollectionHelper.ValueAtIndex(budgets, maxIndex))));
+                                sortedBudgets.Add(5, FormatSearchBetweenBudgetUrls(maxBudget, outKey, (outValue - CollectionHelper.ValueAtIndex(budgets, maxIndex))));
                             }
+                            budgetUrls = sortedBudgets.Values.ToList();
                         }
-
-                        budgetUrls = urls;
                     }
                     else if (maxBudget != zero && !String.IsNullOrEmpty(maxBudget))
                     {
@@ -158,7 +161,7 @@ namespace Bikewale.BAL.BikeSearch
 
             int minIndex = -1;
             var budgets = _budgetFilterRanges.Budget;
-            ICollection<Tuple<string, string, string, uint>> urls = null;
+            IEnumerable<Tuple<string, string, string, uint>> urls = null;
             try
             {
                 if (_budgetFilterRanges != null && _budgetFilterRanges.Budget != null && _budgetFilterRanges.Budget.Any())
@@ -170,26 +173,27 @@ namespace Bikewale.BAL.BikeSearch
 
                     if (minIndex > -1)
                     {
-                        urls = new List<Tuple<string, string, string, uint>>();
+                        SortedDictionary<uint, Tuple<string, string, string, uint>> sortedBudgets = new SortedDictionary<uint, Tuple<string, string, string, uint>>();
                         if (CollectionHelper.TryValueAtIndex(budgets, minIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                         {
                             uint totalBikes = _budgetFilterRanges.BikesCount;
-                            urls.Add(FormatSearchAboveBudgetUrls(outKey, totalBikes - outValue));
-                            urls.Add(FormatSearchBetweenBudgetUrls(minBudget, outKey, outValue - CollectionHelper.ValueAtIndex(budgets, minIndex)));
+                            sortedBudgets.Add(1, FormatSearchAboveBudgetUrls(outKey, totalBikes - outValue));
+                            sortedBudgets.Add(4, FormatSearchBetweenBudgetUrls(minBudget, outKey, outValue - CollectionHelper.ValueAtIndex(budgets, minIndex)));
                             var nextIndex = minIndex + 1;
                             var nextKey = outKey;
                             var nextValue = outValue;
                             if (CollectionHelper.TryValueAtIndex(budgets, nextIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                             {
-                                urls.Add(FormatSearchAboveBudgetUrls(outKey, totalBikes - outValue));
-                                urls.Add(FormatSearchBetweenBudgetUrls(nextKey, outKey, outValue - nextValue));
+                                sortedBudgets.Add(2, FormatSearchAboveBudgetUrls(outKey, totalBikes - outValue));
+                                sortedBudgets.Add(5, FormatSearchBetweenBudgetUrls(nextKey, outKey, outValue - nextValue));
                             }
                         }
                         if (CollectionHelper.TryValueAtIndex(budgets, minIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                         {
-                            urls.Add(FormatSearchAboveBudgetUrls(outKey, outValue));
-                            urls.Add(FormatSearchBetweenBudgetUrls(outKey, minBudget, CollectionHelper.ValueAtIndex(budgets, minIndex) - outValue));
+                            sortedBudgets.Add(0, FormatSearchAboveBudgetUrls(outKey, outValue));
+                            sortedBudgets.Add(3, FormatSearchBetweenBudgetUrls(outKey, minBudget, CollectionHelper.ValueAtIndex(budgets, minIndex) - outValue));
                         }
+                        urls = sortedBudgets.Values.ToList();
                     }
                 }
             }
@@ -218,7 +222,7 @@ namespace Bikewale.BAL.BikeSearch
             string outKey = "";
             int maxIndex = -1;
             var budgets = _budgetFilterRanges.Budget;
-            ICollection<Tuple<string, string, string, uint>> urls = null;
+            IEnumerable<Tuple<string, string, string, uint>> urls = null;
             try
             {
                 if (_budgetFilterRanges != null && _budgetFilterRanges.Budget != null && _budgetFilterRanges.Budget.Any())
@@ -229,28 +233,29 @@ namespace Bikewale.BAL.BikeSearch
                     }
                     if (maxIndex > -1)
                     {
-                        urls = new List<Tuple<string, string, string, uint>>();
+                        SortedDictionary<uint, Tuple<string, string, string, uint>> sortedBudgets = new SortedDictionary<uint, Tuple<string, string, string, uint>>();
                         if (CollectionHelper.TryValueAtIndex(budgets, maxIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                         {
-                            urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
-                            urls.Add(FormatSearchBetweenBudgetUrls(outKey, maxBudget, CollectionHelper.ValueAtIndex(budgets, maxIndex) - outValue));
+                            sortedBudgets.Add(1, FormatSearchUnderBudgetUrls(outKey, outValue));
+                            sortedBudgets.Add(4, FormatSearchBetweenBudgetUrls(outKey, maxBudget, CollectionHelper.ValueAtIndex(budgets, maxIndex) - outValue));
                             var prevIndex = maxIndex - 1;
                             var prevKey = outKey;
                             var prevValue = outValue;
                             if (CollectionHelper.TryValueAtIndex(budgets, prevIndex - 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                             {
-                                urls.Add(FormatSearchBetweenBudgetUrls(outKey, prevKey, prevValue - outValue));
+                                sortedBudgets.Add(3, FormatSearchBetweenBudgetUrls(outKey, prevKey, prevValue - outValue));
                             }
                         }
                         if (CollectionHelper.TryValueAtIndex(budgets, maxIndex - 2, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                         {
-                            urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
+                            sortedBudgets.Add(0, FormatSearchUnderBudgetUrls(outKey, outValue));
                         }
                         if (CollectionHelper.TryValueAtIndex(budgets, maxIndex + 1, out outKey, out outValue) && outValue > 0 && !String.IsNullOrEmpty(outKey) && !_60LPlus.Equals(outKey))
                         {
-                            urls.Add(FormatSearchUnderBudgetUrls(outKey, outValue));
-                            urls.Add(FormatSearchBetweenBudgetUrls(maxBudget, outKey, outValue - CollectionHelper.ValueAtIndex(budgets, maxIndex)));
+                            sortedBudgets.Add(2, FormatSearchUnderBudgetUrls(outKey, outValue));
+                            sortedBudgets.Add(5, FormatSearchBetweenBudgetUrls(maxBudget, outKey, outValue - CollectionHelper.ValueAtIndex(budgets, maxIndex)));
                         }
+                        urls = sortedBudgets.Values.ToList();
                     }
                 }
             }
