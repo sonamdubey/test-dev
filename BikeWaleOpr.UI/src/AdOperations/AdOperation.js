@@ -65,6 +65,14 @@ var adOperationsViewModel = function () {
             Materialize.toast('Please Enter End Date', 5000);
             isValidate &= false;
         }
+        if (isValidate)
+        {
+        }
+        if (isValidate && new Date($('#startDateEle').val()) > new Date($('#endDateEle').val()))
+        {
+            Materialize.toast('Please Enter Valid Date start date is greater than end date', 5000);
+            isValidate &= false;
+        }
         if (isValidate) {
             saveAdOperation();
         }
@@ -181,9 +189,22 @@ $(document).ready(function () {
     var $dateInput = $('.datepicker').pickadate({
         selectMonths: true,
         closeOnSelect: true,
-        onClose: function () { if (dateValue != $("#reviewDateEle").val()) $("#reviewDate").val($("#reviewDateEle").val()); },
-        onOpen: function () { dateValue = $("#reviewDateEle").val() },
-        onSet: function (ele) { if (ele.select) { this.close(); } }
+
+        onSet: function (ele) { if (ele.select) { this.close(); } },
+        minDate: '0',
+        onSelect: function(dateText, inst) {
+
+        var today = new Date();
+        today = Date.parse(today.getMonth()+1+'/'+today.getDate()+'/'+today.getFullYear());
+
+        var selDate = Date.parse(dateText);
+
+        if(selDate < today) {
+
+            $('#Date').val('');
+            $(inst).datepicker('show');
+        }
+    }
     });
     validate = {
         setError: function (element, message) {
