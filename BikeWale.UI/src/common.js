@@ -955,6 +955,7 @@ docReady(function () {
         },
         focus: function () {
             if ($('#newBikeList').val().trim() == '') {
+                $('#errNewBikeSearch').hide();
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
                 var label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
@@ -1053,6 +1054,7 @@ docReady(function () {
         },
         focus: function () {
             if ($('#globalSearch').val().trim() == '') {
+                $('#errGlobalSearch').hide();
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
                 var label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
@@ -1376,10 +1378,11 @@ docReady(function () {
         var searchVal = id.val();
         var placeHolder = id.attr('placeholder');
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
-        if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
+        if (btnFindBikeNewNav() === false || searchVal === placeHolder || (searchVal).trim() === "") {
+            $('#errNewBikeSearch').show();
             return false;
         } else {
-            return false;
+            return true;
         }
 
     });

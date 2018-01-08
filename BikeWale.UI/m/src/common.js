@@ -1024,6 +1024,7 @@ docReady(function () {
         },
         focus: function () {
             if ($('#newBikeList').val().trim() == '') {
+                $('#errNewBikeSearch').hide();
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
                 var label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
@@ -1114,11 +1115,11 @@ docReady(function () {
             var searchVal = id.val().trim();
             var placeHolder = id.attr('placeholder').trim();
             triggerGA('HP', 'Search_Not_Keyword_Present_in_Autosuggest', searchVal);
-            if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
-                $('#errNewBikeSearch').hide();
+            if (btnFindBikeNewNav() === false || searchVal === placeHolder || searchVal === "") {
+                $('#errNewBikeSearch').show();
                 return false;
             } else {
-                $('#errNewBikeSearch').show();
+                return true;
             }
         }
     });
@@ -1378,6 +1379,7 @@ docReady(function () {
         },
         focus: function () {
             if ($('#globalSearch').val().trim() == '') {
+                $('#errGlobalSearch').hide();
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
                 var label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
