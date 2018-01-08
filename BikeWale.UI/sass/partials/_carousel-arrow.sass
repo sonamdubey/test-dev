@@ -43,7 +43,7 @@
 		border-radius: 2px
 
 	.jcarousel-arrow-prev
-		transform: rotate(-180deg)
+		@include vendor-prefix('transform', rotate(-180deg))
 
 	// inactive state
 	.control--inactive
