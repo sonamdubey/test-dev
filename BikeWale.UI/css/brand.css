@@ -11,7 +11,7 @@
 .inner-content-card li {
     width: 294px;
     min-height: 390px;
-    margin-right: 20px;
+    margin-right: 15px;
     margin-bottom: 5px;
 }
 .inner-content-card li.front {
@@ -110,7 +110,7 @@
     height: 45px;
 }
 .overall-floating-tabs {
-    width: 976px;
+    width: 644px;
     background: #fff;
     border-bottom: 1px solid #e2e2e2;
 }
@@ -423,6 +423,13 @@
 .comparison-type-carousel .jcarousel-control-right {
     top: 38%;
 }
+.comparison-type-carousel.jcarousel-wrapper {
+	width: 644px;
+}
+.comparison-type-carousel.inner-content-carousel .jcarousel {
+	width: 627px;
+}
+
 .btn-size-1 {
     font-size: 14px;
     padding: 5px 45px;
@@ -819,7 +826,7 @@
     height: 84px;
 }
 .review-type-list {
-    width: 82%;
+    width: 72%;
     float: left;
     font-size: 0;
 }

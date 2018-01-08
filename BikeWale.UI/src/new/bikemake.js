@@ -210,7 +210,7 @@ docReady(function () {
             $(this).addClass('inactive');
         })
         .jcarouselControl({
-            target: '-=2'
+            target: '-=1'
         });
 
     $('.comparison-type-carousel .jcarousel-control-next')
@@ -221,7 +221,7 @@ docReady(function () {
             $(this).addClass('inactive');
         })
         .jcarouselControl({
-            target: '+=2'
+            target: '+=1'
         });
 
 
