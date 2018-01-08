@@ -97,6 +97,9 @@
     <Reference Include="Dapper">
       <HintPath>..\Libs\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="ElasticClientManager">
+      <HintPath>..\Libs\ElasticSearch\ElasticClientManager.dll</HintPath>
+    </Reference>
     <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticSearch\Elasticsearch.Net.dll</HintPath>

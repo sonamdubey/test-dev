@@ -21,7 +21,7 @@
 					<span class="article-stats__name-grid">@firstReview.AuthorName</span>
 				</div>
 				<p class="article-description">
-					@FormatDescription.TruncateDescription(firstReview.Description, 400)
+					@FormatDescription.SanitizeHtml(WebUtility.HtmlDecode(firstReview.Description))
 				</p>
 				<span class="review-card__read-more">...Read more</span>
 			</a>
@@ -50,7 +50,7 @@
 								<span class="article-stats__name-grid">@review.AuthorName</span>
 							</div>
 							<p class="article-description">
-								@FormatDescription.TruncateDescription(review.Description, 300)
+								@FormatDescription.SanitizeHtml(WebUtility.HtmlDecode(review.Description))
 							</p>
 
 							<span class="review-card__read-more">...Read more</span>

@@ -165,14 +165,12 @@ namespace Bikewale.DAL.BikeData
                         modelPage.ModelVersions = GetVersionMinSpecs(modelId, modelPage.ModelDetails.New);
                     }
 
-
-
                     // Get version all specs
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 && !modelPage.ModelDetails.Futuristic)
                     {
-                        modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
                         modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
-                    }
+                        modelPage.ModelVersionSpecs = modelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == modelPage.ModelVersions[0].VersionId);
+					}
                     modelPage.ModelColors = GetModelColor(modelId);
                     modelPage.colorPhotos = GetModelColorPhotos(modelId);
                 }
@@ -181,9 +179,7 @@ namespace Bikewale.DAL.BikeData
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
-
             return modelPage;
-
         }
 
         /// <summary>

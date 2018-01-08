@@ -23,4 +23,5 @@ namespace Bikewale.Entities.BikeData
         public IEnumerable<string> HexCodes { get; set; }
         public UInt32 ColorImageId { get; set; }
     }
+
 }

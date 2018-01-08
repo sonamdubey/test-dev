@@ -106,7 +106,7 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string RemoveAmpProhibitedTags(string input)
         {
-            return Regex.Replace(input, @"(style=""[^\""]*"")|(<form((.|\n)*?)<\/form>)|(<colgroup(.*?)<\/colgroup>)|(<embed(.*?)(\/embed>|\/>))|(align=""(.*)""|align='(.*)')|(frameborder=""[0-9]*"")|(border=""[0-9]*"")", "");
+            return Regex.Replace(input, @"(style=""[^\""]*"")|<link(.)*>|(<form((.|\n)*?)<\/form>)|(<colgroup(.*?)<\/colgroup>)|(<embed(.*?)(\/embed>|\/>))|(align=""(.*)""|align='(.*)')|(frameborder=""[0-9]*"")|(border=""[0-9]*"")", "");
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace Bikewale.Utility
                     var htmlDoc = new HtmlDocument();
                     htmlDoc.LoadHtml(html);
                     var aNodes = htmlDoc.DocumentNode.SelectNodes("//a").Where(c => c.Attributes.Contains("class") && c.Attributes["class"].Value.Contains(className) && c.Attributes.Contains("href"));
-                    if(aNodes != null)
+                    if (aNodes != null)
                     {
                         foreach (var item in aNodes)
                         {
@@ -307,7 +307,7 @@ namespace Bikewale.Utility
             };
 
             try
-            {                
+            {
                 doc.LoadHtml(htmlContent);
             }
             catch (Exception err)

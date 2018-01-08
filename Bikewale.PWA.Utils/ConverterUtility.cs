@@ -46,6 +46,8 @@ namespace Bikewale.PWA.Utils
         }
         /// <summary>
         ///  Converts ArticleDetails to PwaArticleDetails
+        /// Modified By : Ashish G. Kamble on 5 Jan 2018
+        /// Modified : Assigend Tags property value in PwaArticleDetails response object
         /// </summary>
         /// <param name="inpDet"></param>
         /// <returns></returns>
@@ -70,6 +72,7 @@ namespace Bikewale.PWA.Utils
                 outDetails.LargePicUrl = inpDet.LargePicUrl;
                 outDetails.SmallPicUrl = inpDet.SmallPicUrl;
                 outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpDet.BasicId);
+                outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(",", inpDet.TagsList) : string.Empty;
                 outDetails.ShareUrl = PwaCmsHelper.ReturnShareUrl(inpDet);
             }
             return outDetails;

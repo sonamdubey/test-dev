@@ -3932,6 +3932,7 @@
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
     <Content Include="Views\Scooters\_ModelRelatedCard.cshtml" />
     <Content Include="Views\Scooters\_ModelRelatedCard_Mobile.cshtml" />
+    <Content Include="Views\Scooters\_ModelRelatedCard_Mobile_Amp.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

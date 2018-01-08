@@ -1,16 +1,16 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
+using System.Web;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.DAL.Compare
 {
@@ -264,7 +264,7 @@ namespace Bikewale.DAL.Compare
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_10112017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_20122017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, versions));

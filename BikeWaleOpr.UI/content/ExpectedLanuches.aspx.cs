@@ -1,22 +1,25 @@
-﻿using AmpCacheRefreshLibrary;
-using Bikewale.Utility;
-using BikewaleOpr.Cache;
-using BikewaleOpr.common;
-using BikewaleOpr.DALs.Bikedata;
-using BikewaleOpr.Interface.BikeData;
-using BikeWaleOpr.Common;
-using Microsoft.Practices.Unity;
-using MySql.CoreDAL;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using AmpCacheRefreshLibrary;
+using Bikewale.Utility;
+using BikewaleOpr.Cache;
+using BikewaleOpr.common;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Entity.ElasticSearch;
+using BikewaleOpr.Interface.BikeData;
+using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -29,14 +32,19 @@ namespace BikeWaleOpr.Content
         string selModelId = "";
 
         private readonly IBikeMakes _makes = null;
+        private readonly string _indexName;
+        private readonly IBikeESRepository _bikeESRepository;
 
         public ExpectedLaunches()
         {
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
-                    .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>();
+                    .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>()
+                    .RegisterType<IBikeESRepository, BikeESRepository>();
                 _makes = container.Resolve<IBikeMakes>();
+                _indexName = ConfigurationManager.AppSettings["MMIndexName"];
+                _bikeESRepository = container.Resolve<IBikeESRepository>();
             }
         }
 
@@ -95,6 +103,7 @@ namespace BikeWaleOpr.Content
             {
                 string selId = string.Empty;
                 string makeIdList = string.Empty;
+                List<string> idList = new List<string>();
                 for (int i = 0; i < dtgrdLaunches.Items.Count; i++)
                 {
                     CheckBox chkLaunched = (CheckBox)dtgrdLaunches.Items[i].FindControl("chkLaunched");
@@ -145,6 +154,8 @@ namespace BikeWaleOpr.Content
                                 BwMemCache.ClearUpcomingBikesCacheKey(9, so, null, modelId);
                                 BwMemCache.ClearUpcomingBikesCacheKey(9, so, makeId, modelId);
                             }
+
+                            idList.Add(string.Format("{0}_{1}", makeId, modelId));
                         }
 						if (lblMakeId != null && lblSeriesId != null && !string.IsNullOrEmpty(lblSeriesId.Text) && !string.IsNullOrEmpty(lblMakeId.Text))
                         {
@@ -164,6 +175,10 @@ namespace BikeWaleOpr.Content
                 MemCachedUtility.Remove("BW_NewBikeLaunches");
                 MemCachedUtility.Remove("BW_NewLaunchedBikes");
 
+                if (idList != null && idList.Any())
+                {
+                    UpdateBikeESIndex(idList);
+                }
             }
             catch (Exception err)
             {
@@ -355,6 +370,37 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            }
+        }
+
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 26th Dec 2017
+        /// Description : Update bike details in ES index
+        /// </summary>
+        /// <param name="ids"></param>
+        private void UpdateBikeESIndex(IEnumerable<string> ids)
+        {
+            try
+            {
+                if (ids != null)
+                {
+                    List<BikeList> bikes = _bikeESRepository.GetBikeESIndex(ids, _indexName);
+                    if(bikes != null)
+                    {
+                        foreach(var bike in bikes)
+                        {
+                            bike.payload.Futuristic = "False";
+                            bike.payload.IsNew = "True";
+                        }
+
+                        _bikeESRepository.UpdateBikeESIndex(ids, _indexName, bikes);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeWaleOpr.Content.ExpectedLaunches.UpdateBikeESIndex");
             }
         }
     } // class

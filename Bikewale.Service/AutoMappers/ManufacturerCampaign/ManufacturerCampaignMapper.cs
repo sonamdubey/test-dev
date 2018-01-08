@@ -104,7 +104,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse.DetailsCampaign = new DTO.Campaign.DetailsDto();
                 campaignResponse.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
                 campaignResponse.CampaignLeadSource = new DTO.Campaign.ESCampaignBase();
-                string template = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlDesktop, LeadCampaign);
+                string template = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
                 //Check if it contains javascript:void(0), replace it with 
                 if (!string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
                 {
