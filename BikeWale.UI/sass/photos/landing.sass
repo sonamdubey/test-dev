@@ -126,6 +126,10 @@ body
 	cursor: pointer
 	white-space: nowrap
 
+	&:hover
+		.body-type__label
+			color: color('default')
+
 	&.active
 		.body-type__label
 			color: color('default-grey')
@@ -167,7 +171,9 @@ body
 
 @include image-grid-4
 @include image-grid-3
+@include image-grid-3--list
 @include image-grid-1
+@include image-grid-1--list
 
 // view more button
 .explore-model__more-btn
