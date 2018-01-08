@@ -25,8 +25,14 @@ var adOperationsViewModel = function () {
                 },
                 complete: function (xhr) {
                     var modelId = $('#adOperationContainer').attr("data-modelId");
-                    if (modelId>0)
-                        $("#ddlModels").val(modelId);
+
+                    if (modelId > 0)
+                        ddlModels.val(modelId);
+                    else {
+                        ddlModels.prepend("<option value='0'>Select Model</option>");
+                        ddlModels.val(0);
+                    }
+
 
                     ddlModels.material_select();
                 }
@@ -40,7 +46,7 @@ var adOperationsViewModel = function () {
 
     self.validation = function () {
         var isValidate=false;
-        if ($('#ddlMakes').val() != "Select Make" || $('#ddlModels').val() != null)
+        if ($('#ddlMakes').val() != "Select Make" && $('#ddlModels').val() >0)
             isValidate = true;
         else
         {
@@ -48,13 +54,13 @@ var adOperationsViewModel = function () {
                 Materialize.toast('Please select Make', 5000);
                 isValidate &= false;
             }
-            if (isValidate && $('#ddlModels').val() == "") {
+            if ( $('#ddlModels').val() == 0) {
                 Materialize.toast('Please select Model', 5000);
                 isValidate &= false;
             }
 
         }
-
+        if (isValidate)
         isValidate &= validateRadioButtons("AdMonetization");
         if (isValidate && $('#startDateEle').val() == "")
         {
@@ -88,8 +94,8 @@ var adOperationsViewModel = function () {
             "model": {
                 "ModelId": $('#ddlModels').val()
             },
-            "startTime": $('#startDateEle').val() + ' ' + $('#startTimeEle').val(),
-            "endTime": $('#endDateEle').val() + ' ' + $('#endTimeEle').val(),
+            "startTime": $('#startDateEle').val() + ' ' +( $('#startTimeEle').val()!=""?$('#startTimeEle').val():"00:00"),
+            "endTime": $('#endDateEle').val() + ' ' + ($('#endTimeEle').val() != "" ? $('#endTimeEle').val() : "23:59"),
             "adOperationType": $('#chkShowPromotion').is(':checked') ? 1 : 2,
             "userId": userId
         };
@@ -129,7 +135,7 @@ var adOperationsViewModel = function () {
             var basicDetails = {
                 "promotedBikeId": $(currentRow).data("promotedbikeid"),
                 "adOperationType": $(currentRow).find("td[data-value='adoperationtype']").text().trim(),
-                "lastUpdateBy": userId,
+                "userId": userId,
                 "contractStatus": 3   //Status code for deleted
             }
 
