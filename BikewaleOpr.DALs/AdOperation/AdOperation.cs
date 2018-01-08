@@ -118,8 +118,8 @@ namespace BikewaleOpr.DALs.AdOperation
 
                     var param = new DynamicParameters();
                     param.Add("par_adpromotedbikeid", objPromotedBike.PromotedBikeId);
-                    param.Add("par_startdatetime", objPromotedBike.StartTime);
-                    param.Add("par_enddatetime", objPromotedBike.EndTime);
+                    param.Add("par_startdatetime", objPromotedBike.StartTime??null);
+                    param.Add("par_enddatetime", objPromotedBike.EndTime??null);
                     param.Add("par_opruserid", objPromotedBike.UserId);
                     param.Add("par_status", objPromotedBike.ContractStatus);
                     param.Add("par_adoperationid", objPromotedBike.AdOperationType);

@@ -138,7 +138,9 @@ var adOperationsViewModel = function () {
                 "promotedBikeId": $(currentRow).data("promotedbikeid"),
                 "adOperationType": $(currentRow).find("td[data-value='adoperationtype']").text().trim(),
                 "userId": userId,
-                "contractStatus": 3   //Status code for deleted
+                "contractStatus": 3 ,  //Status code for deleted
+                "startTime":null,
+            "endTime": null
             }
 
             $.ajax({

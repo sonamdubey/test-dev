@@ -17,9 +17,9 @@ namespace BikewaleOpr.Entity
         [JsonProperty("model")]
         public BikeModelEntityBase Model { get; set; }
         [JsonProperty("startTime")]
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
         [JsonProperty("endTime")]
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
         [JsonProperty("adOperationType")]
         public ushort AdOperationType { get; set; }
         [JsonProperty("isActive")]
