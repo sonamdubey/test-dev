@@ -4,7 +4,7 @@
 
 	.model-image__card
 		width: 100%
-		height: #{$cardHeight}
+		max-height: #{$cardHeight}
 		display: block
 		background-color: #{$backgroundColor}
 		border: 1px solid #e6e6e6
@@ -17,7 +17,7 @@
 
 	.card-image__details
 		font-size: 0
-		padding: 8px 10px 18px
+		padding: 8px 20px 18px
 
 	.card-details__left-col
 		width: 70%
@@ -37,6 +37,7 @@
 		font-size: 12px
 		font-weight: $font-normal
 		color: color('default-grey')
+		margin-bottom: 3px
 		display: block
 
 	.card-details__model
@@ -48,9 +49,10 @@
 
 	.card-details__image-count
 		@include image-icon
-		background-position: left
-		font-size: 16px
-		padding-left: 25px
+		background-position: 0 3px
+		background-size: 16px
+		font-size: 14px
+		padding-left: 22px
 		color: color('default')
 
 	@include image-grid-list($backgroundColor)

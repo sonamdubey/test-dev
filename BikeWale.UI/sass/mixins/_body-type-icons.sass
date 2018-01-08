@@ -10,12 +10,6 @@
 			@warn "Please provide unitless value for body style icon"
 			@return false
 
-	.body-type__item
-		&:hover,
-		&.active
-			.scooter-style-icon
-				@include scooter-style-filled
-
 
 @mixin street-style-icon($width: 75, $height: 42)
 	.street-style-icon
@@ -28,12 +22,6 @@
 		@else
 			@warn "Please provide unitless value for body style icon"
 			@return false
-
-	.body-type__item
-		&:hover,
-		&.active
-			.street-style-icon
-				@include street-style-filled
 
 
 @mixin cruiser-style-icon($width: 75, $height: 42)
@@ -48,12 +36,6 @@
 			@warn "Please provide unitless value for body style icon"
 			@return false
 
-	.body-type__item
-		&:hover,
-		&.active
-			.cruiser-style-icon
-				@include cruiser-style-filled
-
 
 @mixin sports-style-icon($width: 75, $height: 42)
 	.sports-style-icon
@@ -67,9 +49,55 @@
 			@warn "Please provide unitless value for body style icon"
 			@return false
 
+
+// state: active
+@mixin scooter-style-icon--active
 	.body-type__item
-		&:hover,
 		&.active
+			.scooter-style-icon
+				@include scooter-style-filled
+
+@mixin street-style-icon--active
+	.body-type__item
+		&.active
+			.street-style-icon
+				@include street-style-filled
+
+@mixin cruiser-style-icon--active
+	.body-type__item
+		&.active
+			.cruiser-style-icon
+				@include cruiser-style-filled
+
+@mixin sports-style-icon--active
+	.body-type__item
+		&.active
+			.sports-style-icon
+				@include sports-style-filled
+
+
+// state: hover
+@mixin scooter-style-icon--hover
+	.body-type__item
+		&:hover
+			.scooter-style-icon
+				@include scooter-style-filled
+
+@mixin street-style-icon--hover
+	.body-type__item
+		&:hover
+			.street-style-icon
+				@include street-style-filled
+
+@mixin cruiser-style-icon--hover
+	.body-type__item
+		&:hover
+			.cruiser-style-icon
+				@include cruiser-style-filled
+
+@mixin sports-style-icon--hover
+	.body-type__item
+		&:hover
 			.sports-style-icon
 				@include sports-style-filled
 
@@ -79,3 +107,16 @@
 	@include street-style-icon($width, $height)
 	@include cruiser-style-icon($width, $height)
 	@include sports-style-icon($width, $height)
+
+@mixin all-body-type-icons--state-active
+	@include scooter-style-icon--active
+	@include street-style-icon--active
+	@include cruiser-style-icon--active
+	@include sports-style-icon--active
+
+@mixin all-body-type-icons--state-hover
+	@include scooter-style-icon--hover
+	@include street-style-icon--hover
+	@include cruiser-style-icon--hover
+	@include sports-style-icon--hover
+

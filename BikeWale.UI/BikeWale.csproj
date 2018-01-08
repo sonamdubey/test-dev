@@ -3939,6 +3939,8 @@
     <Content Include="Views\Scooters\_ModelRelatedCard_Mobile_Amp.cshtml" />
     <Content Include="Views\Photos\Index_Mobile.cshtml" />
     <Content Include="Views\Photos\Index.cshtml" />
+    <Content Include="Views\Photos\Make.cshtml" />
+    <Content Include="Views\Photos\Make_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

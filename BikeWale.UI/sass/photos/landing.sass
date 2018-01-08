@@ -1,5 +1,4 @@
-﻿$isMobile: true
-// Core variables and mixins
+﻿// Core variables and mixins
 @import ../base/variables
 @import ../components/typography
 @import ../components/mixins
@@ -28,6 +27,9 @@ body
 @include model-image-carousel(277, 354)
 @include image-card(354, '#fff9f9')
 @include image-grid-7
+@include image-grid-3
+@include image-grid-1
+@import ../partials/carousel-arrow
 
 // explore bikes
 .explore-bikes__title
@@ -42,7 +44,7 @@ body
 	padding-bottom: 20px
 
 .explore-bikes__content
-	margin-top: -40px
+	margin-top: -42px
 
 // explore bikes search field
 .explore-bikes__search
@@ -59,15 +61,15 @@ body
 	color: color('light-grey')
 	padding-right: 20px
 	padding-left: 20px
-	margin-bottom: 5px
+	margin-bottom: 10px
 	text-transform: capitalize
 
 .filter-by__label
-	font-size: 14px
+	font-size: 12px
 	font-weight: $font-semibold
 
 .filter-by__category-name
-	font-size: 12px
+	font-size: 10px
 	font-style: italic
 
 .filter-category__list-content
@@ -90,25 +92,26 @@ body
 	@include scrollbar-hide
 	overflow-y: scroll
 
-
 @include all-body-type-icons(30, 17)
+@include all-body-type-icons--state-active
 
 .filter-list__item
 	position: relative
 	display: inline-block
 
 	&:first-child
-		.body-type__item
+		&.body-type__item
 			padding-left: 20px
 
 	&:last-child
-		.body-type__item
+		&.body-type__item
 			padding-right: 20px
 
 	&:before
 		content: ''
 		position: absolute
-		top: 25%
+		top: 15%
+		left: 0
 		height: 16px
 		border-left: 1px solid #dcdcdc
 		display: block
@@ -118,7 +121,8 @@ body
 			content: none
 
 .body-type__item
-	padding: 5px 8px
+	padding-right: 8px
+	padding-left: 8px
 	cursor: pointer
 	white-space: nowrap
 
@@ -127,9 +131,15 @@ body
 			color: color('default-grey')
 			font-weight: $font-semibold
 
+	&.disable
+		opacity: .6
+		cursor: pointer
+		pointer-events: none
+
 
 .body-type__label
 	font-size: 14px
+	line-height: 14px
 	color: color('light-grey')
 	margin-left: 5px
 	display: inline-block
@@ -143,6 +153,7 @@ body
 
 	.model-image__card
 		height: auto
+		max-height: 800px
 		background-color: color('white')
 
 	.image-grid-list__item
@@ -164,6 +175,17 @@ body
 	padding-right: 20px
 	padding-left: 20px
 
+	.btn
+		width: 100%
+
+.btn-inv-blue
+	width: auto
+	color: #0288d1 // TODO: add in color map array
+	padding: 7px 10px
+	overflow: hidden
+	text-overflow: ellipsis
+	background-color: color('white')
+	border: 1px solid #0288d1
 
 // users also looked at
 .related-bikes__title
@@ -194,12 +216,12 @@ body
 
 @import ../modules/related-make-card
 
-@media (min-width: 768px)
+@media (min-width: 769px)
 	.truncatable-content
 		font-size: 14px
 
 		&[data-readtextflag='1']
-			max-height: 38px
+			max-height: 76px
 
 		&:before,
 		&:after
@@ -255,6 +277,15 @@ body
 		width: 410px
 
 	// filter by
+	.filter__content
+		margin-top: 20px
+
+	.filter-by__label
+		font-size: 14px
+
+	.filter-by__category-name
+		font-size: 12px
+
 	.filter-category__label
 		display: inline-block
 		vertical-align: middle
@@ -270,17 +301,18 @@ body
 
 	.filter-list__item
 		&:first-child
-			.body-type__item
+			&.body-type__item
 				padding-left: 15px
 
 	.body-type__item
 		padding-right: 15px
 		padding-left: 15px
 
+	@include all-body-type-icons--state-hover
 
 	// bike image list
 	.explore-model-image__list
-		margin-top: 15px
+		margin-top: 20px
 		padding-left: 0
 		font-size: 0
 
@@ -299,7 +331,11 @@ body
 
 		.btn
 			max-width: 182px
-    
+
+	.btn-inv-blue
+		&:hover
+			background-color: #0288d1
+			color: #fff    
 
 	// recently makes carousel
 	.carousel__related-makes
@@ -316,13 +352,3 @@ body
 			&:last-child
 				width: 185px // additionally increase card by 20px, since jcarousel does not allow any space at the end
 				padding-right: 20px // decrease inner content width by 20px
-
-	.jcarousel-wrapper
-		.jcarousel-control-left
-			left: 0
-			z-index: 2
-
-		.jcarousel-control-right
-			right: 0
-			z-index: 2
-
