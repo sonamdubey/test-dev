@@ -26,8 +26,10 @@ var adOperationsViewModel = function () {
                 complete: function (xhr) {
                     var modelId = $('#adOperationContainer').attr("data-modelId");
 
-                    if (modelId > 0)
+                    if (modelId > 0) {
                         ddlModels.val(modelId);
+                        $('#adOperationContainer').attr("data-modelId",0) ;
+                    }
                     else {
                         ddlModels.prepend("<option value='0'>Select Model</option>");
                         ddlModels.val(0);
