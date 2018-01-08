@@ -146,7 +146,7 @@ var adOperationsViewModel = function () {
          var ele = $('#adOperationContainer');
          var makeId = ele.attr("data-makeId");
          var modelId = ele.attr("data-modelId");
-         if (makeId != "" && modelId!="")
+         if (makeId != "0" && modelId!="0")
          {
           
              $('#addMakeContainer .collapsible-header').click();
