@@ -25,7 +25,9 @@ var adOperationsViewModel = function () {
                 },
                 complete: function (xhr) {
                     var modelId = $('#adOperationContainer').attr("data-modelId");
-                    $("#ddlModels").val(modelId);
+                    if (modelId>0)
+                        $("#ddlModels").val(modelId);
+
                     ddlModels.material_select();
                 }
             });
