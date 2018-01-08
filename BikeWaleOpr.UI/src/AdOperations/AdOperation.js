@@ -65,9 +65,7 @@ var adOperationsViewModel = function () {
             Materialize.toast('Please Enter End Date', 5000);
             isValidate &= false;
         }
-        if (isValidate)
-        {
-        }
+       
         if (isValidate && new Date($('#startDateEle').val()) > new Date($('#endDateEle').val()))
         {
             Materialize.toast('Please Enter Valid Date start date is greater than end date', 5000);
