@@ -24,6 +24,8 @@ var adOperationsViewModel = function () {
                     }
                 },
                 complete: function (xhr) {
+                    var modelId = $('#adOperationContainer').attr("data-modelId");
+                    $("#ddlModels").val(modelId);
                     ddlModels.material_select();
                 }
             });
@@ -70,8 +72,6 @@ var adOperationsViewModel = function () {
 
 
   function saveAdOperation(){
-
-
         var basicDetails = {
             "make":
                 {
@@ -84,8 +84,6 @@ var adOperationsViewModel = function () {
             "endTime": $('#endDateEle').val() + ' ' + $('#endTimeEle').val(),
             "adOperationType": $('#chkShowPromotion').is(':checked') ? 1 : 2,
             "userId": userId
-
-
         };
         $.ajax({
             type: "POST",
@@ -144,7 +142,28 @@ var adOperationsViewModel = function () {
         };
     };
 
+     self.init = function () {
+         var ele = $('#adOperationContainer');
+         var makeId = ele.attr("data-makeId");
+         var modelId = ele.attr("data-modelId");
+         if (makeId != "" && modelId!="")
+         {
+          
+             $('#addMakeContainer .collapsible-header').click();
+             if (makeId > 0)
+             {
+                 $("#ddlMakes").val(makeId);
+                 $(ddlMakes).material_select();
+             }
+             if (modelId > 0) {
+                 
+                 self.selectMake();
+               
+                
+             }
+         }
 
+     };
 };
 
         
@@ -155,6 +174,7 @@ $(document).ready(function () {
 
     mfgVM = new adOperationsViewModel;
     ko.applyBindings(mfgVM, $('#adOperationContainer')[0]);
+    mfgVM.init();
 
     var $dateInput = $('.datepicker').pickadate({
         selectMonths: true,

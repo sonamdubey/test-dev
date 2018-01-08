@@ -12,5 +12,7 @@ namespace BikewaleOpr.Models
         public IEnumerable<PromotedBike> PromotedBikeList { get; set; }
         public IEnumerable<BikeMakeEntityBase> Makes { get; set; }
         public uint UserId { get; set; }
+        public uint MakeId { get; set; }
+        public uint ModelId { get; set; }
     }
 }

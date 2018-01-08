@@ -1,6 +1,6 @@
 ﻿@model  BikewaleOpr.Models.AdOperationVM
 
-<div class="row" style="margin-top:5px;" id="adOperationContainer">
+<div class="row" style="margin-top:5px;" id="adOperationContainer" data-modelId="@Model.ModelId" data-makeId="@Model.MakeId" >
     <div class="col m10">
 
         <table id="tblMakeData" class="bordered highlight z-depth-3 centered">
@@ -44,7 +44,7 @@
     </div>
     <div id="addMakeContainer" class="col s2 m2">
         <ul class="collapsible" data-collapsible="accordion">
-            <li>
+            <li class="make-value">
                 <div class="collapsible-header center-align"><strong>Select Ad Operation</strong></div>
                 <div class="collapsible-body">
                     <div class="container">

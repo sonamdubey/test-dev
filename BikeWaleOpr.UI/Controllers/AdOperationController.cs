@@ -28,12 +28,15 @@ namespace BikewaleOpr.Controllers
         /// Description: Action created to show all promoted bike list
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(uint? makeId, uint? modelId)
         {
             AdOperationVM viewModel = new AdOperationVM();
+            
             AdOperation pageModel = null;
             pageModel = new AdOperation(_adOperations, _objBikeMake);
             viewModel = pageModel.GetData();
+            viewModel.MakeId = makeId ?? 0;
+            viewModel.ModelId = modelId ?? 0;
             return View(viewModel);
         }
 
