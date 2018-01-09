@@ -77,6 +77,8 @@ docReady(function() {
     });
     var getUrl = function ()
     {
+        if(data!=null)
+        bikeDetails.push(data);
         var queryStringSponser = "";
         if (/sponsoredbike/g.test(window.location.search))
         {
@@ -441,9 +443,7 @@ docReady(function() {
                             data.index = 0;
                             if (selectBox[0].getAttribute('data-value'))
                                 bikeDetails[Number(selectBox[0].getAttribute('data-value'))] = data;
-                            else {
-                                bikeDetails.push(data);
-                            }
+                           
                             selectBox.first().find('.error-text').hide();
                             selectBox.first().find('#btnCompare').show();
                         }
