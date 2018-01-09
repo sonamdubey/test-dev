@@ -403,7 +403,8 @@ namespace System
             return new string(arr);
         }
         /// <summary>
-        /// Strips all the Malicious strings from the text
+        /// Created by : Sanskar Gupta on 19 Dec 2017
+        /// Summary : Strips all the Malicious strings from the text
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
