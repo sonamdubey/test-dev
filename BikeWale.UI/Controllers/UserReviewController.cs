@@ -362,6 +362,8 @@ namespace Bikewale.Controllers
         /// Descrfiption : Added mileage field.
         /// Modified By :   Vishnu Teja Yalakuntla on 09 Sep 2017
         /// Description :   Decoded encodedId
+        /// Modified By : Sanskar on 09/01/2018
+        /// Description : Update "objReviewData.fromParamterRatingPage" field
         /// </summary>
         /// <param name="reviewDescription"></param>
         /// <param name="reviewTitle"></param>
@@ -390,6 +392,8 @@ namespace Bikewale.Controllers
                 objReviewData.ReviewId = decodedReviewId;
                 objReviewData.CustomerId = decodedCustomerId;
 
+                objReviewData.fromParamterRatingPage = fromParametersRatingScreen;
+                
                 objResponse = _userReviews.SaveUserReviews(objReviewData);
 
                 if (objResponse.IsSuccess)

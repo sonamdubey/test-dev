@@ -194,7 +194,7 @@ namespace Bikewale.BAL.UserReviews
             {
                 //checked for Customer login and cookie details
                 //if unauthorized request return false
-                isSuccess = _userReviewsRepo.SaveUserReviews(reviewId, tipsnAdvices, StringHtmlHelpers.removeMaliciousCode(comment), commentTitle, reviewsQuestionAns, mileage);
+                isSuccess = _userReviewsRepo.SaveUserReviews(reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns, mileage);
             }
 
             return isSuccess;
@@ -336,6 +336,8 @@ namespace Bikewale.BAL.UserReviews
         /// Descriptiopn : Added milaeage field.
         /// Modified By :   Vishnu Teja Yalakuntla on 07 Sep 2017
         /// Description :   Removed EncodedId
+        /// Modified By : Sanskar Gupta on 09-01-2018
+        /// Description : Bug fix (scenario where a user could have entered less than 300 characters or inject JS via the description field.)
         /// </summary>
         /// <param name="encodedId"></param>
         /// <param name="tipsnAdvices"></param>
@@ -358,11 +360,29 @@ namespace Bikewale.BAL.UserReviews
                 {
 
                     objResponse = new WriteReviewPageSubmitResponse();
+                    if (objReviewData.fromParamterRatingPage == false) { 
+                        //The request is through Write Review Page
+                        string jsRemovedReview = StringHtmlHelpers.removeMaliciousCode(objReviewData.ReviewDescription);
+                        string trimmedReview = null;
+                        if(jsRemovedReview != null)
+                            trimmedReview = (StringHtmlHelpers.StripHtml(jsRemovedReview)).Trim();
 
-                    objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
+                        if (string.IsNullOrEmpty(trimmedReview) || trimmedReview.Length < 300)
+                        {
+                            //Invalid Review_Description
+                            objResponse.IsSuccess = false;
+                            objResponse.ReviewErrorText = "Your review should contain at least 300 characters.";
+                            return objResponse;
+                        }
+                        objReviewData.ReviewDescription = jsRemovedReview;
+                    }
+                    
+                   objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
 
-                    if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
+                   if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
                         UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
+                    
+
 
                 }
             }
