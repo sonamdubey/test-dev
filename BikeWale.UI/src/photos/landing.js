@@ -43,6 +43,7 @@
 	// body type filter
 	$('#filterBodyType').on('click', '.body-type__item', function() {
 		if(!$(this).hasClass('active')) {
+			$(this).siblings('.body-type__item').removeClass('active');
 			$(this).addClass('active');
 		}
 		else {
