@@ -24,7 +24,8 @@
     z-index:9;
 }
 #page-footer.footer-relative {
-    display: block;
+		display: block;
+		position: relative;
 }
 
 /*brand icons*/
