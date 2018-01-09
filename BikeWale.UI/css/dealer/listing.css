@@ -14,12 +14,11 @@
     display: inline;
 }
 
-#listing-left-column.grid-4 {
-    padding-right: 20px;
-    padding-left: 20px;
-    width: 32.333333%;
+#listing-left-column {
+    padding-right: 10px;
+    padding-left: 10px;
     box-shadow: 0 0 8px #ddd;
-    z-index: 1
+    z-index: 1;
 }
 
 #listing-right-column.grid-8 {
@@ -37,11 +36,20 @@
 }
 
 .dealer-card-target {
-    display: block;
+	width: 48%;
+	margin-left: 10px;
+	margin-bottom: 10px;
+    display: inline-block;
+	vertical-align: top;
     padding-top: 18px;
+	border: 1px solid #e2e2e2;
+	padding: 15px 20px 30px;
 }
 
 .dealer-card-target .dealer-name {
+	font-size: 16px;
+	margin-bottom: 9px;
+	color: #1a1a1a;
     display: block;
     text-align: left;
     overflow: hidden;

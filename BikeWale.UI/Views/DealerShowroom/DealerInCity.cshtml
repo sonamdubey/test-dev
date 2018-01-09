@@ -30,7 +30,7 @@
 </section>
 <section>
     <div class="container margin-bottom20">
-        <div class="grid-12">
+        <div class="grid-8">
             <div class="content-box-shadow">
                 <div class="padding-18-20">
                     <h2 class="font18 text-black text-bold bg-white dealer-heading inline-block margin-right10">@String.Format("{0} {1} showroom{2} in {3}", Model.TotalDealers, Model.Make.MakeName, Model.TotalDealers > 1 ? "s" : "", Model.CityDetails.CityName)</h2>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                <div id="listing-left-column" class="grid-4">
+                <div id="listing-left-column">
                     <ul id="dealersList">
                         @foreach (var Details in Model.DealersList.Dealers)
                         {
@@ -61,16 +61,15 @@
                                         {
                                             if (Details.objArea.AreaName != string.Empty)
                                             {
-                                                <h3 class="dealer-name text-black text-bold">@string.Format("{0}, {1}", Details.Name, Details.objArea.AreaName)</h3>
+                                                <h3 class="dealer-name">@string.Format("{0}, {1}", Details.Name, Details.objArea.AreaName)</h3>
                                             }
                                             else
                                             {
-                                                <h3 class="dealer-name text-black text-bold">@Details.Name</h3>
+                                                <h3 class="dealer-name">@Details.Name</h3>
                                             }
                                         }
                                     </div>
                                     <p class="@string.Format("{0}", string.IsNullOrEmpty(Details.Address) ? "hide" : "text-light-grey margin-bottom5")">
-                                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                         @if (string.IsNullOrEmpty(Details.objArea.PinCode))
                                         {
                                             <span class="vertical-top dealership-card-details">@string.Format("{0}, {1}", Details.Address, Model.CityDetails.CityName)</span>
@@ -96,13 +95,13 @@
 
                     </ul>
                 </div>
-                <div id="listing-right-column" class="grid-8 alpha omega">
+                @*<div id="listing-right-column" class="grid-8 alpha omega">
                     <div class="dealer-map-wrapper">
                         <div id="dealerMapWrapper" data-currentcityname="@Model.CityDetails.CityName" style="width: 661px; height: 530px; background: #fff url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
                             <div id="dealersMap" style="width: 661px; height: 530px;"></div>
                         </div>
                     </div>
-                </div>
+                </div>*@
                 <div class="clear"></div>
             </div>
         </div>
