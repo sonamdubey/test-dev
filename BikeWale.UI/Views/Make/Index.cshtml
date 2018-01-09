@@ -168,7 +168,7 @@
 							<!-- news control starts here -->
 							@if (Model.IsNewsAvailable)
 							{
-								<div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom font14">
+								<div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom font14 article--text-wrap">
 									<h2 class="margin-bottom20">@Model.News.Title</h2>
 									@Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
 									<div class="more-article-target view-all-btn-container">
@@ -180,7 +180,7 @@
 							<!-- news control ends here -->
 							@if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
 							{
-								<div id="makeReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14">
+								<div id="makeReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14 article--text-wrap">
 									<h2>@Model.MakeName Reviews</h2>
 
 									@if (Model.IsExpertReviewsAvailable && Model.ExpertReviews != null)
@@ -239,64 +239,79 @@
 		<div class="grid-4">
 			@if (Model.IsUpComingBikesAvailable)
 			{
-			<div class="content-box-shadow padding-15-20-10 section-bottom-margin">
-				<h2>Upcoming @Model.MakeName Bikes</h2>
-				<ul class="sidebar-bike-list">
-					<li>
-						<a href="" title="Suzuki Gixxer Fi" class="bike-target-link">
-							<div class="bike-target-image inline-block">
-								<img src="https://imgd.aeplcdn.com///110x61//bw/upcoming/suzuki-gixxerfi-700.jpg?20161002175431&amp;q=70" alt="Suzuki Gixxer Fi" border="0">
-							</div>
-							<div class="bike-target-content inline-block padding-left10">
-								<h3>Suzuki Gixxer Fi</h3>
-								<p class="font11 text-light-grey">Expected price</p>
-								<span class="font16">&#x20b9;</span>
-								<span class="font16 text-bold">&nbsp;92,000 <span class="font14">onwards</span></span>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="" title="" class="bike-target-link">
-							<div class="bike-target-image inline-block">
-								<img src="https://imgd.aeplcdn.com///110x61//bw/upcoming/suzuki-gixxerfi-700.jpg?20161002175431&amp;q=70" alt="" border="0">
-							</div>
-							<div class="bike-target-content inline-block padding-left10">
-								<h3>Bajaj Pulsar 200NS FI</h3>
-								<p class="font11 text-light-grey">Expected price</p>
-								<span class="font16">&#x20b9;</span>
-								<span class="font16 text-bold">&nbsp;92,000 <span class="font14">onwards</span></span>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="" title="" class="bike-target-link">
-							<div class="bike-target-image inline-block">
-								<img src="https://imgd.aeplcdn.com///110x61//bw/upcoming/suzuki-gixxerfi-700.jpg?20161002175431&amp;q=70" alt="" border="0">
-							</div>
-							<div class="bike-target-content inline-block padding-left10">
-								<h3>Kawasaki Versys X-300</h3>
-								<p class="font11 text-light-grey">Expected price</p>
-								<span class="font16">&#x20b9;</span>
-								<span class="font16 text-bold">&nbsp;92,000 <span class="font14">onwards</span></span>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="" title="" class="bike-target-link">
-							<div class="bike-target-image inline-block">
-								<img src="https://imgd.aeplcdn.com///110x61//bw/upcoming/suzuki-gixxerfi-700.jpg?20161002175431&amp;q=70" alt="" border="0">
-							</div>
-							<div class="bike-target-content inline-block padding-left10">
-								<h3>Benelli Leoncino</h3>
-								<p class="font11 text-light-grey">Expected price</p>
-								<span class="font16">&#x20b9;</span>
-								<span class="font16 text-bold">&nbsp;92,000 <span class="font14">onwards</span></span>
-							</div>
-						</a>
-					</li>
-				</ul>
+			<div class="content-box-shadow section-bottom-margin">
+				<h2 class="sidebar-list-heading">Upcoming @Model.MakeName Bikes</h2>
+				<div class="sidebar-list--overflow">
+					<ul class="sidebar-bike-list">
+						<li>
+							<a href="" title="Suzuki Gixxer Fi" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<img src="https://imgd.aeplcdn.com///110x61//bw/upcoming/suzuki-gixxerfi-700.jpg?20161002175431&amp;q=70" alt="Suzuki Gixxer Fi" border="0">
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Suzuki Gixxer Fi</h3>
+									<p class="font11 text-light-grey">Expected price</p>
+									<span class="font16">&#x20b9;</span>
+									<span class="font16 text-bold">&nbsp;92,000 <span class="font14">onwards</span></span>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<img src="https://imgd.aeplcdn.com///110x61//bw/upcoming/suzuki-gixxerfi-700.jpg?20161002175431&amp;q=70" alt="" border="0">
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Bajaj Pulsar 200NS FI</h3>
+									<p class="font11 text-light-grey">Expected price</p>
+									<span class="font16">&#x20b9;</span>
+									<span class="font16 text-bold">&nbsp;92,000 <span class="font14">onwards</span></span>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<img src="https://imgd.aeplcdn.com///110x61//bw/upcoming/suzuki-gixxerfi-700.jpg?20161002175431&amp;q=70" alt="" border="0">
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Kawasaki Versys X-300</h3>
+									<p class="font11 text-light-grey">Expected price</p>
+									<span class="font16">&#x20b9;</span>
+									<span class="font16 text-bold">&nbsp;92,000 <span class="font14">onwards</span></span>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<img src="https://imgd.aeplcdn.com///110x61//bw/upcoming/suzuki-gixxerfi-700.jpg?20161002175431&amp;q=70" alt="" border="0">
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Benelli Leoncino</h3>
+									<p class="font11 text-light-grey">Expected price</p>
+									<span class="font16">&#x20b9;</span>
+									<span class="font16 text-bold">&nbsp;92,000 <span class="font14">onwards</span></span>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<img src="https://imgd.aeplcdn.com///110x61//bw/upcoming/suzuki-gixxerfi-700.jpg?20161002175431&amp;q=70" alt="" border="0">
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Kawasaki Versys X-300</h3>
+									<p class="font11 text-light-grey">Expected price</p>
+									<span class="font16">&#x20b9;</span>
+									<span class="font16 text-bold">&nbsp;92,000 <span class="font14">onwards</span></span>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
 
-				<div class="view-all-btn-container padding-top10 padding-bottom10">
+				<div class="view-all-btn-container padding-10-20-20">
 					<a href="/@Model.MakeMaskingName-bikes/upcoming/" title="Upcoming @Model.MakeName Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
 				</div>
 			</div>
@@ -304,55 +319,101 @@
 			
 			@if (Model.OtherMakes != null)
 			{
-			<div class="content-box-shadow padding-15-20-10 section-bottom-margin">
-				<p class="font16 text-semibold text-black">Other popular brands</p>
-				<ul class="sidebar-bike-list list-type-brand">
-					<li>
-						<a href="" title="Honda bikes" class="bike-target-link">
-							<div class="bike-target-image inline-block">
-								<span class="brandlogosprite brand-7"></span>
-							</div>
-							<div class="bike-target-content inline-block padding-left10">
-								<h3>Honda</h3>
-								<p class="font12 text-slate-grey">7 bikes</p>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="" title="Hero bikes" class="bike-target-link">
-							<div class="bike-target-image inline-block">
-								<span class="brandlogosprite brand-6"></span>
-							</div>
-							<div class="bike-target-content inline-block padding-left10">
-								<h3>Hero</h3>
-								<p class="font12 text-slate-grey">7 bikes</p>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="" title="TVS bikes" class="bike-target-link">
-							<div class="bike-target-image inline-block">
-								<span class="brandlogosprite brand-15"></span>
-							</div>
-							<div class="bike-target-content inline-block padding-left10">
-								<h3>TVS</h3>
-								<p class="font12 text-slate-grey">7 bikes</p>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="" title="Yamaha bikes" class="bike-target-link">
-							<div class="bike-target-image inline-block">
-								<span class="brandlogosprite brand-13"></span>
-							</div>
-							<div class="bike-target-content inline-block padding-left10">
-								<h3>Yamaha</h3>
-								<p class="font12 text-slate-grey">7 bikes</p>
-							</div>
-						</a>
-					</li>
-				</ul>
-				<div class="view-all-btn-container padding-top10 padding-bottom10">
+			<div class="content-box-shadow section-bottom-margin">
+				<p class="sidebar-list-heading">Other popular brands</p>
+				<div class="sidebar-list--overflow">
+					<ul class="sidebar-bike-list list-type-brand">
+						<li>
+							<a href="" title="Honda bikes" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<span class="brandlogosprite brand-7"></span>
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Honda</h3>
+									<p class="font12 text-slate-grey">7 bikes</p>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="Hero bikes" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<span class="brandlogosprite brand-6"></span>
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Hero</h3>
+									<p class="font12 text-slate-grey">7 bikes</p>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="TVS bikes" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<span class="brandlogosprite brand-15"></span>
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>TVS</h3>
+									<p class="font12 text-slate-grey">7 bikes</p>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="Yamaha bikes" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<span class="brandlogosprite brand-13"></span>
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Yamaha</h3>
+									<p class="font12 text-slate-grey">7 bikes</p>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="Honda bikes" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<span class="brandlogosprite brand-7"></span>
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Honda</h3>
+									<p class="font12 text-slate-grey">7 bikes</p>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="Hero bikes" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<span class="brandlogosprite brand-6"></span>
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Hero</h3>
+									<p class="font12 text-slate-grey">7 bikes</p>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="TVS bikes" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<span class="brandlogosprite brand-15"></span>
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>TVS</h3>
+									<p class="font12 text-slate-grey">7 bikes</p>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="" title="Yamaha bikes" class="bike-target-link">
+								<div class="bike-target-image inline-block">
+									<span class="brandlogosprite brand-13"></span>
+								</div>
+								<div class="bike-target-content inline-block padding-left10">
+									<h3>Yamaha</h3>
+									<p class="font12 text-slate-grey">7 bikes</p>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="view-all-btn-container padding-10-20-20">
 					<a href="/new-bikes-in-india/" title="New Bikes in India" class="btn view-all-target-btn">View all<span class="bwsprite teal-right"></span></a>
 				</div>
 			</div>

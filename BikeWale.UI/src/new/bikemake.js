@@ -225,6 +225,31 @@ docReady(function () {
         });
 
 
+    $('.carousel-type--videos').jcarousel();
+
+	$('.carousel-type--videos .jcarousel-control-prev')
+        .on('jcarouselcontrol:active', function () {
+        	$(this).removeClass('inactive');
+        })
+        .on('jcarouselcontrol:inactive', function () {
+        	$(this).addClass('inactive');
+        })
+        .jcarouselControl({
+        	target: '-=2'
+        });
+
+	$('.carousel-type--videos .jcarousel-control-next')
+        .on('jcarouselcontrol:active', function () {
+        	$(this).removeClass('inactive');
+        })
+        .on('jcarouselcontrol:inactive', function () {
+        	$(this).addClass('inactive');
+        })
+        .jcarouselControl({
+        	target: '+=2'
+        });
+
+
     
     $(".navtab").click(function () {
 

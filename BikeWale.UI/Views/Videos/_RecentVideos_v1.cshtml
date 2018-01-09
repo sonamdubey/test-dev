@@ -124,9 +124,280 @@
                                     </div>
                                 </div>
 							</li>
+							<li class="video-article__card">
+                                <div data-url="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="card-target carousel-card redirect-url">
+                                    <h4 class="video-card__title">@FormatDescription.TruncateDescription(video.VideoTitle, 75)</h4>
+                                    <div class="video-card__img">
+                                        <img class="lazy" alt="@video.VideoTitle" title="@video.VideoTitle" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" src="">
+                                        <span class="video-card__time-block">
+                                            @Format.FormatTime(video.Duration)
+                                        </span>
+                                    </div>
+                                    <div class="video-card__desc">
+                                        <span class="video-card__desc-content">
+                                            @FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMM yyyy")
+                                        </span>
+                                        <span class="video-card__desc-content">
+                                            @Format.FormatNumbers(video.Views) Views
+                                        </span>
+                                        <span class="video-card__desc-content">
+                                            <span class="thumbsup-icon margin-right5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">
+                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <g id="review-copy-6" transform="translate(-290.000000, -4233.000000)" stroke="#82888B">
+                                                            <g id="Group-24" transform="translate(16.000000, 3959.000000)">
+                                                                <g id="Group-20">
+                                                                    <g id="Group-23" transform="translate(0.000000, 32.000000)">
+                                                                        <g id="Group-21">
+                                                                            <g id="Group-33" transform="translate(4.000000, 242.000000)">
+                                                                                <g id="Group-32" transform="translate(271.000000, 0.000000)">
+                                                                                    <g id="Group-31" transform="translate(0.000000, 1.000000)">
+                                                                                        <g id="Page-1">
+                                                                                            <path d="M2.48373667,11.1808992 C2.48373667,11.1808992 3.527745,12.5305158 5.44156167,12.3880575 C6.99343667,12.3881658 10.402795,12.3637908 10.402795,12.3637908 C10.60722,12.3336742 10.8030867,12.2302158 10.9477117,12.0530908 C11.1981783,11.7465075 11.2040283,11.2929158 10.96082,10.9804825 C10.8247533,10.8057408 10.6398283,10.6991408 10.4439617,10.6604658 L9.13323667,10.6595992" id="Stroke-1" stroke-linejoin="round" />
+                                                                                            <path d="M11.1990667,8.97784333 C11.3656833,9.00882667 11.5249333,9.06732667 11.6533083,9.196785 C11.9899,9.535435 11.959675,10.2320183 11.5408583,10.5167183 C11.3516,10.6972017 10.582325,10.622235 10.4439833,10.6604767" id="Stroke-3" stroke-linejoin="round" />
+                                                                                            <path d="M11.1606625,7.20007167 C11.1606625,7.20007167 11.8672125,7.19606333 12.0274375,7.32974667 C12.4877458,7.71422167 12.5576208,8.34786333 12.2188625,8.68434667 C12.0656792,8.83644667 11.8157542,8.97359667 11.6159875,8.98757167 L9.17144583,8.98952167" id="Stroke-5" stroke-linejoin="round" />
+                                                                                            <path d="M9.17755583,7.18822 L11.8533892,7.20002833 C12.1614892,7.16785333 12.4136892,6.96657 12.5825808,6.79876167 C12.9213392,6.46238667 12.8042308,5.83752 12.4677475,5.49887 C12.2995058,5.32943667 12.0785058,5.244395 11.8572892,5.24352833 L7.27381417,5.22825333 C7.27381417,5.22825333 7.94233917,3.060395 7.77073917,2.51872833" id="Stroke-7" stroke-linejoin="round" />
+                                                                                            <path d="M7.7982125,2.71752 C7.7982125,2.71752 8.08962917,-0.806563333 5.70337083,0.252828333 C6.28587917,2.51872833 4.76227917,5.17517 4.76227917,5.17517" id="Stroke-9" stroke-linejoin="round" />
+                                                                                            <path d="M2.50637833,5.7642325 L4.90097833,5.0498825" id="Stroke-11" />
+                                                                                            <path d="M2.0464925,12.9921025 L0.486059167,12.9867942 C0.246750833,12.9860358 0.0533758333,12.7913608 0.0541341667,12.5520525 L0.0802425,4.7933275 C0.0810008333,4.55401917 0.275675833,4.36064417 0.514984167,4.36151083 L2.07552583,4.36671083 C2.31483417,4.3675775 2.50810083,4.5622525 2.5073425,4.80156083 L2.4813425,12.5602858 C2.48047583,12.7995942 2.28580083,12.9928608 2.0464925,12.9921025 Z" id="Stroke-13" />
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            @Format.FormatNumeric(Convert.ToString(video.Likes))
+                                        </span>
+                                    </div>
+                                </div>
+							</li>
+							<li class="video-article__card">
+                                <div data-url="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="card-target carousel-card redirect-url">
+                                    <h4 class="video-card__title">@FormatDescription.TruncateDescription(video.VideoTitle, 75)</h4>
+                                    <div class="video-card__img">
+                                        <img class="lazy" alt="@video.VideoTitle" title="@video.VideoTitle" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" src="">
+                                        <span class="video-card__time-block">
+                                            @Format.FormatTime(video.Duration)
+                                        </span>
+                                    </div>
+                                    <div class="video-card__desc">
+                                        <span class="video-card__desc-content">
+                                            @FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMM yyyy")
+                                        </span>
+                                        <span class="video-card__desc-content">
+                                            @Format.FormatNumbers(video.Views) Views
+                                        </span>
+                                        <span class="video-card__desc-content">
+                                            <span class="thumbsup-icon margin-right5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">
+                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <g id="review-copy-6" transform="translate(-290.000000, -4233.000000)" stroke="#82888B">
+                                                            <g id="Group-24" transform="translate(16.000000, 3959.000000)">
+                                                                <g id="Group-20">
+                                                                    <g id="Group-23" transform="translate(0.000000, 32.000000)">
+                                                                        <g id="Group-21">
+                                                                            <g id="Group-33" transform="translate(4.000000, 242.000000)">
+                                                                                <g id="Group-32" transform="translate(271.000000, 0.000000)">
+                                                                                    <g id="Group-31" transform="translate(0.000000, 1.000000)">
+                                                                                        <g id="Page-1">
+                                                                                            <path d="M2.48373667,11.1808992 C2.48373667,11.1808992 3.527745,12.5305158 5.44156167,12.3880575 C6.99343667,12.3881658 10.402795,12.3637908 10.402795,12.3637908 C10.60722,12.3336742 10.8030867,12.2302158 10.9477117,12.0530908 C11.1981783,11.7465075 11.2040283,11.2929158 10.96082,10.9804825 C10.8247533,10.8057408 10.6398283,10.6991408 10.4439617,10.6604658 L9.13323667,10.6595992" id="Stroke-1" stroke-linejoin="round" />
+                                                                                            <path d="M11.1990667,8.97784333 C11.3656833,9.00882667 11.5249333,9.06732667 11.6533083,9.196785 C11.9899,9.535435 11.959675,10.2320183 11.5408583,10.5167183 C11.3516,10.6972017 10.582325,10.622235 10.4439833,10.6604767" id="Stroke-3" stroke-linejoin="round" />
+                                                                                            <path d="M11.1606625,7.20007167 C11.1606625,7.20007167 11.8672125,7.19606333 12.0274375,7.32974667 C12.4877458,7.71422167 12.5576208,8.34786333 12.2188625,8.68434667 C12.0656792,8.83644667 11.8157542,8.97359667 11.6159875,8.98757167 L9.17144583,8.98952167" id="Stroke-5" stroke-linejoin="round" />
+                                                                                            <path d="M9.17755583,7.18822 L11.8533892,7.20002833 C12.1614892,7.16785333 12.4136892,6.96657 12.5825808,6.79876167 C12.9213392,6.46238667 12.8042308,5.83752 12.4677475,5.49887 C12.2995058,5.32943667 12.0785058,5.244395 11.8572892,5.24352833 L7.27381417,5.22825333 C7.27381417,5.22825333 7.94233917,3.060395 7.77073917,2.51872833" id="Stroke-7" stroke-linejoin="round" />
+                                                                                            <path d="M7.7982125,2.71752 C7.7982125,2.71752 8.08962917,-0.806563333 5.70337083,0.252828333 C6.28587917,2.51872833 4.76227917,5.17517 4.76227917,5.17517" id="Stroke-9" stroke-linejoin="round" />
+                                                                                            <path d="M2.50637833,5.7642325 L4.90097833,5.0498825" id="Stroke-11" />
+                                                                                            <path d="M2.0464925,12.9921025 L0.486059167,12.9867942 C0.246750833,12.9860358 0.0533758333,12.7913608 0.0541341667,12.5520525 L0.0802425,4.7933275 C0.0810008333,4.55401917 0.275675833,4.36064417 0.514984167,4.36151083 L2.07552583,4.36671083 C2.31483417,4.3675775 2.50810083,4.5622525 2.5073425,4.80156083 L2.4813425,12.5602858 C2.48047583,12.7995942 2.28580083,12.9928608 2.0464925,12.9921025 Z" id="Stroke-13" />
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            @Format.FormatNumeric(Convert.ToString(video.Likes))
+                                        </span>
+                                    </div>
+                                </div>
+							</li>
+							<li class="video-article__card">
+                                <div data-url="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="card-target carousel-card redirect-url">
+                                    <h4 class="video-card__title">@FormatDescription.TruncateDescription(video.VideoTitle, 75)</h4>
+                                    <div class="video-card__img">
+                                        <img class="lazy" alt="@video.VideoTitle" title="@video.VideoTitle" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" src="">
+                                        <span class="video-card__time-block">
+                                            @Format.FormatTime(video.Duration)
+                                        </span>
+                                    </div>
+                                    <div class="video-card__desc">
+                                        <span class="video-card__desc-content">
+                                            @FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMM yyyy")
+                                        </span>
+                                        <span class="video-card__desc-content">
+                                            @Format.FormatNumbers(video.Views) Views
+                                        </span>
+                                        <span class="video-card__desc-content">
+                                            <span class="thumbsup-icon margin-right5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">
+                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <g id="review-copy-6" transform="translate(-290.000000, -4233.000000)" stroke="#82888B">
+                                                            <g id="Group-24" transform="translate(16.000000, 3959.000000)">
+                                                                <g id="Group-20">
+                                                                    <g id="Group-23" transform="translate(0.000000, 32.000000)">
+                                                                        <g id="Group-21">
+                                                                            <g id="Group-33" transform="translate(4.000000, 242.000000)">
+                                                                                <g id="Group-32" transform="translate(271.000000, 0.000000)">
+                                                                                    <g id="Group-31" transform="translate(0.000000, 1.000000)">
+                                                                                        <g id="Page-1">
+                                                                                            <path d="M2.48373667,11.1808992 C2.48373667,11.1808992 3.527745,12.5305158 5.44156167,12.3880575 C6.99343667,12.3881658 10.402795,12.3637908 10.402795,12.3637908 C10.60722,12.3336742 10.8030867,12.2302158 10.9477117,12.0530908 C11.1981783,11.7465075 11.2040283,11.2929158 10.96082,10.9804825 C10.8247533,10.8057408 10.6398283,10.6991408 10.4439617,10.6604658 L9.13323667,10.6595992" id="Stroke-1" stroke-linejoin="round" />
+                                                                                            <path d="M11.1990667,8.97784333 C11.3656833,9.00882667 11.5249333,9.06732667 11.6533083,9.196785 C11.9899,9.535435 11.959675,10.2320183 11.5408583,10.5167183 C11.3516,10.6972017 10.582325,10.622235 10.4439833,10.6604767" id="Stroke-3" stroke-linejoin="round" />
+                                                                                            <path d="M11.1606625,7.20007167 C11.1606625,7.20007167 11.8672125,7.19606333 12.0274375,7.32974667 C12.4877458,7.71422167 12.5576208,8.34786333 12.2188625,8.68434667 C12.0656792,8.83644667 11.8157542,8.97359667 11.6159875,8.98757167 L9.17144583,8.98952167" id="Stroke-5" stroke-linejoin="round" />
+                                                                                            <path d="M9.17755583,7.18822 L11.8533892,7.20002833 C12.1614892,7.16785333 12.4136892,6.96657 12.5825808,6.79876167 C12.9213392,6.46238667 12.8042308,5.83752 12.4677475,5.49887 C12.2995058,5.32943667 12.0785058,5.244395 11.8572892,5.24352833 L7.27381417,5.22825333 C7.27381417,5.22825333 7.94233917,3.060395 7.77073917,2.51872833" id="Stroke-7" stroke-linejoin="round" />
+                                                                                            <path d="M7.7982125,2.71752 C7.7982125,2.71752 8.08962917,-0.806563333 5.70337083,0.252828333 C6.28587917,2.51872833 4.76227917,5.17517 4.76227917,5.17517" id="Stroke-9" stroke-linejoin="round" />
+                                                                                            <path d="M2.50637833,5.7642325 L4.90097833,5.0498825" id="Stroke-11" />
+                                                                                            <path d="M2.0464925,12.9921025 L0.486059167,12.9867942 C0.246750833,12.9860358 0.0533758333,12.7913608 0.0541341667,12.5520525 L0.0802425,4.7933275 C0.0810008333,4.55401917 0.275675833,4.36064417 0.514984167,4.36151083 L2.07552583,4.36671083 C2.31483417,4.3675775 2.50810083,4.5622525 2.5073425,4.80156083 L2.4813425,12.5602858 C2.48047583,12.7995942 2.28580083,12.9928608 2.0464925,12.9921025 Z" id="Stroke-13" />
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            @Format.FormatNumeric(Convert.ToString(video.Likes))
+                                        </span>
+                                    </div>
+                                </div>
+							</li>
+							<li class="video-article__card">
+                                <div data-url="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="card-target carousel-card redirect-url">
+                                    <h4 class="video-card__title">@FormatDescription.TruncateDescription(video.VideoTitle, 75)</h4>
+                                    <div class="video-card__img">
+                                        <img class="lazy" alt="@video.VideoTitle" title="@video.VideoTitle" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" src="">
+                                        <span class="video-card__time-block">
+                                            @Format.FormatTime(video.Duration)
+                                        </span>
+                                    </div>
+                                    <div class="video-card__desc">
+                                        <span class="video-card__desc-content">
+                                            @FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMM yyyy")
+                                        </span>
+                                        <span class="video-card__desc-content">
+                                            @Format.FormatNumbers(video.Views) Views
+                                        </span>
+                                        <span class="video-card__desc-content">
+                                            <span class="thumbsup-icon margin-right5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">
+                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <g id="review-copy-6" transform="translate(-290.000000, -4233.000000)" stroke="#82888B">
+                                                            <g id="Group-24" transform="translate(16.000000, 3959.000000)">
+                                                                <g id="Group-20">
+                                                                    <g id="Group-23" transform="translate(0.000000, 32.000000)">
+                                                                        <g id="Group-21">
+                                                                            <g id="Group-33" transform="translate(4.000000, 242.000000)">
+                                                                                <g id="Group-32" transform="translate(271.000000, 0.000000)">
+                                                                                    <g id="Group-31" transform="translate(0.000000, 1.000000)">
+                                                                                        <g id="Page-1">
+                                                                                            <path d="M2.48373667,11.1808992 C2.48373667,11.1808992 3.527745,12.5305158 5.44156167,12.3880575 C6.99343667,12.3881658 10.402795,12.3637908 10.402795,12.3637908 C10.60722,12.3336742 10.8030867,12.2302158 10.9477117,12.0530908 C11.1981783,11.7465075 11.2040283,11.2929158 10.96082,10.9804825 C10.8247533,10.8057408 10.6398283,10.6991408 10.4439617,10.6604658 L9.13323667,10.6595992" id="Stroke-1" stroke-linejoin="round" />
+                                                                                            <path d="M11.1990667,8.97784333 C11.3656833,9.00882667 11.5249333,9.06732667 11.6533083,9.196785 C11.9899,9.535435 11.959675,10.2320183 11.5408583,10.5167183 C11.3516,10.6972017 10.582325,10.622235 10.4439833,10.6604767" id="Stroke-3" stroke-linejoin="round" />
+                                                                                            <path d="M11.1606625,7.20007167 C11.1606625,7.20007167 11.8672125,7.19606333 12.0274375,7.32974667 C12.4877458,7.71422167 12.5576208,8.34786333 12.2188625,8.68434667 C12.0656792,8.83644667 11.8157542,8.97359667 11.6159875,8.98757167 L9.17144583,8.98952167" id="Stroke-5" stroke-linejoin="round" />
+                                                                                            <path d="M9.17755583,7.18822 L11.8533892,7.20002833 C12.1614892,7.16785333 12.4136892,6.96657 12.5825808,6.79876167 C12.9213392,6.46238667 12.8042308,5.83752 12.4677475,5.49887 C12.2995058,5.32943667 12.0785058,5.244395 11.8572892,5.24352833 L7.27381417,5.22825333 C7.27381417,5.22825333 7.94233917,3.060395 7.77073917,2.51872833" id="Stroke-7" stroke-linejoin="round" />
+                                                                                            <path d="M7.7982125,2.71752 C7.7982125,2.71752 8.08962917,-0.806563333 5.70337083,0.252828333 C6.28587917,2.51872833 4.76227917,5.17517 4.76227917,5.17517" id="Stroke-9" stroke-linejoin="round" />
+                                                                                            <path d="M2.50637833,5.7642325 L4.90097833,5.0498825" id="Stroke-11" />
+                                                                                            <path d="M2.0464925,12.9921025 L0.486059167,12.9867942 C0.246750833,12.9860358 0.0533758333,12.7913608 0.0541341667,12.5520525 L0.0802425,4.7933275 C0.0810008333,4.55401917 0.275675833,4.36064417 0.514984167,4.36151083 L2.07552583,4.36671083 C2.31483417,4.3675775 2.50810083,4.5622525 2.5073425,4.80156083 L2.4813425,12.5602858 C2.48047583,12.7995942 2.28580083,12.9928608 2.0464925,12.9921025 Z" id="Stroke-13" />
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            @Format.FormatNumeric(Convert.ToString(video.Likes))
+                                        </span>
+                                    </div>
+                                </div>
+							</li>
+							<li class="video-article__card">
+                                <div data-url="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="card-target carousel-card redirect-url">
+                                    <h4 class="video-card__title">@FormatDescription.TruncateDescription(video.VideoTitle, 75)</h4>
+                                    <div class="video-card__img">
+                                        <img class="lazy" alt="@video.VideoTitle" title="@video.VideoTitle" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" src="">
+                                        <span class="video-card__time-block">
+                                            @Format.FormatTime(video.Duration)
+                                        </span>
+                                    </div>
+                                    <div class="video-card__desc">
+                                        <span class="video-card__desc-content">
+                                            @FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMM yyyy")
+                                        </span>
+                                        <span class="video-card__desc-content">
+                                            @Format.FormatNumbers(video.Views) Views
+                                        </span>
+                                        <span class="video-card__desc-content">
+                                            <span class="thumbsup-icon margin-right5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">
+                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <g id="review-copy-6" transform="translate(-290.000000, -4233.000000)" stroke="#82888B">
+                                                            <g id="Group-24" transform="translate(16.000000, 3959.000000)">
+                                                                <g id="Group-20">
+                                                                    <g id="Group-23" transform="translate(0.000000, 32.000000)">
+                                                                        <g id="Group-21">
+                                                                            <g id="Group-33" transform="translate(4.000000, 242.000000)">
+                                                                                <g id="Group-32" transform="translate(271.000000, 0.000000)">
+                                                                                    <g id="Group-31" transform="translate(0.000000, 1.000000)">
+                                                                                        <g id="Page-1">
+                                                                                            <path d="M2.48373667,11.1808992 C2.48373667,11.1808992 3.527745,12.5305158 5.44156167,12.3880575 C6.99343667,12.3881658 10.402795,12.3637908 10.402795,12.3637908 C10.60722,12.3336742 10.8030867,12.2302158 10.9477117,12.0530908 C11.1981783,11.7465075 11.2040283,11.2929158 10.96082,10.9804825 C10.8247533,10.8057408 10.6398283,10.6991408 10.4439617,10.6604658 L9.13323667,10.6595992" id="Stroke-1" stroke-linejoin="round" />
+                                                                                            <path d="M11.1990667,8.97784333 C11.3656833,9.00882667 11.5249333,9.06732667 11.6533083,9.196785 C11.9899,9.535435 11.959675,10.2320183 11.5408583,10.5167183 C11.3516,10.6972017 10.582325,10.622235 10.4439833,10.6604767" id="Stroke-3" stroke-linejoin="round" />
+                                                                                            <path d="M11.1606625,7.20007167 C11.1606625,7.20007167 11.8672125,7.19606333 12.0274375,7.32974667 C12.4877458,7.71422167 12.5576208,8.34786333 12.2188625,8.68434667 C12.0656792,8.83644667 11.8157542,8.97359667 11.6159875,8.98757167 L9.17144583,8.98952167" id="Stroke-5" stroke-linejoin="round" />
+                                                                                            <path d="M9.17755583,7.18822 L11.8533892,7.20002833 C12.1614892,7.16785333 12.4136892,6.96657 12.5825808,6.79876167 C12.9213392,6.46238667 12.8042308,5.83752 12.4677475,5.49887 C12.2995058,5.32943667 12.0785058,5.244395 11.8572892,5.24352833 L7.27381417,5.22825333 C7.27381417,5.22825333 7.94233917,3.060395 7.77073917,2.51872833" id="Stroke-7" stroke-linejoin="round" />
+                                                                                            <path d="M7.7982125,2.71752 C7.7982125,2.71752 8.08962917,-0.806563333 5.70337083,0.252828333 C6.28587917,2.51872833 4.76227917,5.17517 4.76227917,5.17517" id="Stroke-9" stroke-linejoin="round" />
+                                                                                            <path d="M2.50637833,5.7642325 L4.90097833,5.0498825" id="Stroke-11" />
+                                                                                            <path d="M2.0464925,12.9921025 L0.486059167,12.9867942 C0.246750833,12.9860358 0.0533758333,12.7913608 0.0541341667,12.5520525 L0.0802425,4.7933275 C0.0810008333,4.55401917 0.275675833,4.36064417 0.514984167,4.36151083 L2.07552583,4.36671083 C2.31483417,4.3675775 2.50810083,4.5622525 2.5073425,4.80156083 L2.4813425,12.5602858 C2.48047583,12.7995942 2.28580083,12.9928608 2.0464925,12.9921025 Z" id="Stroke-13" />
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            @Format.FormatNumeric(Convert.ToString(video.Likes))
+                                        </span>
+                                    </div>
+                                </div>
+							</li>
 						}
 					</ul>
 				</div>
+				<span class="jcarousel-control-left">
+					<a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+				</span>
+				<span class="jcarousel-control-right">
+					<a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+				</span>
 			</div>
 		</div>
 	}
