@@ -8,7 +8,9 @@ var gulp = require('gulp'),
 	fs = require('fs'),
 	replace = require('gulp-replace'),
 	fsCache = require('gulp-fs-cache'),
+	htmlmin = require('gulp-htmlmin'),
 	rev = require('gulp-rev');
+
 
 var app = 'BikeWale.UI/',
 	buildFolder = app + 'build/',
@@ -258,8 +260,7 @@ function getCdnPath() {
 
 gulp.task('swResourceProcesing', function() {
 	return gulp.src([
-		app + 'pwa/appshell.html',
-		app + 'pwa/sw-toolbox.js'
+		app + 'pwa/appshell.html'
 		] , { base : app})
 		.pipe(replace(patternJSBundle,replaceJsVersion))
 	    .pipe(replace(pattern.CSS_ATF,replaceInlineCssReferenceLink))
@@ -269,6 +270,7 @@ gulp.task('swResourceProcesing', function() {
 		.pipe(replace(/@@/g,function(match, p1, offset, string){
 			return '@';
 		}))
+		.pipe(htmlmin({collapseWhitespace: true, minifyJS : true}))
 		.pipe(rev())
 		.pipe(gulp.dest(buildFolder))
 		.pipe(rev.manifest({
@@ -283,11 +285,9 @@ gulp.task("replaceSWResouceHashInSW" , function() {
 	var cdnUrlPattern = /var(\s)*baseUrl(\s|\n)*=(\s|\n)*(?:"|')([^,"']*)(?:"|')(\s|\n)*;/
 	return gulp.src([app + 'm/sw.js',
     				app + 'm/news/sw.js'] , { base: app })
-        .pipe(replace(/pwa\/(sw-toolbox|appshell)(-(\w)*)?\.(js|html)/g , function(match, p1, offset, string){ 
-        	if(match.indexOf("appshell")!==-1)
-        		return revManifest["pwa/appshell.html"]
-        	else if(match.indexOf("sw-toolbox")!==-1)
-        		return revManifest['pwa/sw-toolbox.js'];
+        .pipe(replace(/pwa\/appshell(-(\w)*)?\.html/g , function(match, p1, offset, string){ 
+        	return revManifest["pwa/appshell.html"]
+        	
         }))
         .pipe(replace(cdnUrlPattern,function(match, p1, offset, string){
 			return 'var baseUrl = \''+getCdnPath()+'\';';

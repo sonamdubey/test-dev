@@ -770,20 +770,25 @@
 .overall-specs-tabs-wrapper {
   display: table;
   background: #fff; }
-  .overall-specs-tabs-wrapper a {
+  .overall-specs-tabs-wrapper a,
+  .overall-specs-tabs-wrapper span {
     padding: 10px 14px;
     display: table-cell;
     text-align: center;
     font-size: 14px;
     color: #82888b;
-    white-space: nowrap; }
-    .overall-specs-tabs-wrapper a.active {
+    white-space: nowrap;
+    cursor: pointer; }
+    .overall-specs-tabs-wrapper a.active,
+    .overall-specs-tabs-wrapper span.active {
       border-bottom: 3px solid #ef3f30;
       font-weight: 600;
       color: #4d5057; }
-    .overall-specs-tabs-wrapper a:first-child {
+    .overall-specs-tabs-wrapper a:first-child,
+    .overall-specs-tabs-wrapper span:first-child {
       padding-left: 20px; }
-    .overall-specs-tabs-wrapper a:hover {
+    .overall-specs-tabs-wrapper a:hover,
+    .overall-specs-tabs-wrapper span:hover {
       text-decoration: none;
       color: #4d5057; }
 
