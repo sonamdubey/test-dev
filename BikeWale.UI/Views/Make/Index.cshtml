@@ -317,6 +317,140 @@
 			</div>
 			}
 			
+			<div class="content-box-shadow section-bottom-margin"></div>
+			
+			@if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
+			{
+			<div class="content-box-shadow section-bottom-margin">
+				@if (Model.IsDealerAvailable)
+				{
+					<h2 class="sidebar-list-heading">@Model.MakeName showrooms in @Model.Location</h2>
+					<ul class="sidebar-dealer-list">
+						<li class="dealer-card-target">
+							<a href="javascript:void(0)" class="dealer-details__target" rel="nofollow" title="Pilot Honda-std">
+								<h3 class="dealer-details__name">Pilot Honda-std, Chembur</h3>
+
+								<p class="dealer-details__address">
+									<span>No. 5, Sunder Baug, Deonar Road, WT Patil Marg, 400071, Mumbai</span>
+								</p>
+							</a>
+							<div class="dealer-details__footer">
+								<p class="dealer-details__number">
+									<span>8433900136</span>
+								</p>
+								<a href="" class="dealer-details__direction" target="_blank" rel="noopener">Get Directions</a>
+							</div>
+						</li>
+						<li class="dealer-card-target">
+							<a href="javascript:void(0)" class="dealer-details__target" rel="nofollow" title="Pilot Honda-std">
+								<h3 class="dealer-details__name">Pilot Honda-std, Chembur</h3>
+
+								<p class="dealer-details__address">
+									<span>No. 5, Sunder Baug, Deonar Road, WT Patil Marg, 400071, Mumbai</span>
+								</p>
+							</a>
+							<div class="dealer-details__footer">
+								<p class="dealer-details__number">
+									<span>8433900136</span>
+								</p>
+								<a href="" class="dealer-details__direction" target="_blank" rel="noopener">Get Directions</a>
+							</div>
+						</li>
+						<li class="dealer-card-target">
+							<a href="javascript:void(0)" class="dealer-details__target" rel="nofollow" title="Pilot Honda-std">
+								<h3 class="dealer-details__name">Pilot Honda-std, Chembur</h3>
+
+								<p class="dealer-details__address">
+									<span>No. 5, Sunder Baug, Deonar Road, WT Patil Marg, 400071, Mumbai</span>
+								</p>
+							</a>
+							<div class="dealer-details__footer">
+								<p class="dealer-details__number">
+									<span>8433900136</span>
+								</p>
+								<a href="" class="dealer-details__direction" target="_blank" rel="noopener">Get Directions</a>
+							</div>
+						</li>
+					</ul>
+					
+					<div class="view-all-btn-container padding-10-20-20">
+						<a href="/dealer-showrooms/@Model.MakeMaskingName/@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all<span class="bwsprite teal-right"></span></a>
+					</div>
+				}
+			</div>
+			}
+			else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
+			{
+				<div class="content-box-shadow section-bottom-margin">
+					<h2 class="sidebar-list-heading">@Model.MakeName showrooms</h2>
+					<div class="sidebar-list--overflow">
+						<ul class="sidebar-bike-list sidebar__city-list">
+							<li>
+								<a href="" title="" class="bike-target-link">
+									<div class="bike-target-image inline-block">
+										<span class="bwm-city-sprite c-kolkata-icon"></span>
+									</div>
+									<div class="bike-target-content inline-block padding-left10">
+										<p class="dealer-showroom__city">Kolkata</p>
+										<h3>21 Bajaj showrooms</h3>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="" title="" class="bike-target-link">
+									<div class="bike-target-image inline-block">
+										<span class="bwm-city-sprite c-chennai-icon"></span>
+									</div>
+									<div class="bike-target-content inline-block padding-left10">
+										<p class="dealer-showroom__city">Chennai</p>
+										<h3>21 Bajaj showrooms</h3>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="" title="" class="bike-target-link">
+									<div class="bike-target-image inline-block">
+										<span class="bwm-city-sprite c-hyderabad-icon"></span>
+									</div>
+									<div class="bike-target-content inline-block padding-left10">
+										<p class="dealer-showroom__city">Hyderabad</p>
+										<h3>21 Bajaj showrooms</h3>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="" title="" class="bike-target-link">
+									<div class="bike-target-image inline-block">
+										<span class="bwm-city-sprite c-bangalore-icon"></span>
+									</div>
+									<div class="bike-target-content inline-block padding-left10">
+										<p class="dealer-showroom__city">Bangalore</p>
+										<h3>21 Bajaj showrooms</h3>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="" title="" class="bike-target-link">
+									<div class="bike-target-image inline-block">
+										<span class="bwm-city-sprite c-pune-icon"></span>
+									</div>
+									<div class="bike-target-content inline-block padding-left10">
+										<p class="dealer-showroom__city">Pune</p>
+										<h3>21 Bajaj showrooms</h3>
+									</div>
+								</a>
+							</li>
+						</ul>
+
+						<div class="view-all-btn-container padding-10-20-20">
+							<a href="" title="" class="btn view-all-target-btn">View all<span class="bwsprite teal-right"></span></a>
+						</div>
+					</div>
+				</div>	
+			}
+
+			<div class="content-box-shadow section-bottom-margin"></div>
+			
 			@if (Model.OtherMakes != null)
 			{
 			<div class="content-box-shadow section-bottom-margin">
@@ -418,77 +552,30 @@
 				</div>
 			</div>
 			}
+			
+			<div class="content-box-shadow section-bottom-margin"></div>
 
-			<div class="content-box-shadow padding-15-20-10 section-bottom-margin">
-
+			<div class="content-box-shadow section-bottom-margin">
+				<h2 class="sidebar-list-heading">Research More</h2>
+				<ul class="research-more__list">
+					<li>
+						<a href="#">TVS Apache Bikes</a>
+					</li>
+					<li>
+						<a href="#">Used @Model.MakeName Bikes</a>
+					</li>
+					<li>
+						<a href="#">@Model.MakeName Service Centers</a>
+					</li>
+					<li>
+						<a href="#">Top 10 Bikes</a>
+					</li>
+				</ul>
 			</div>
 
 		</div>
         <div class="clear"></div>
     </section>
-
-    @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
-    {
-
-        <div id="dealerAndServiceContent" class="bw-model-tabs-data">
-            @if (Model.IsDealerAvailable)
-            {
-                <section>
-                    <div class="container font14">
-                        <div class="grid-12 section-bottom-margin">
-                            <div id="makeDealersContent" class="content-box-shadow padding-top20">
-                                <div class="carousel-heading-content">
-                                    <div class="swiper-heading-left-grid inline-block">
-                                        <h2>@Model.MakeName showrooms in @Model.Location</h2>
-                                    </div>
-                                    <div class="swiper-heading-right-grid inline-block text-right">
-                                        <a href="/dealer-showrooms/@Model.MakeMaskingName/@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </section>
-            }
-            else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
-            {
-                <section>
-                    <div class="container font14">
-                        <div class="grid-12 section-bottom-margin">
-                            <div class="content-box-shadow padding-bottom20">
-                                <div class="content-inner-block-20">
-                                    <div class="grid-9 inline-block margin-right-4 alpha">
-                                        <span class="bwsprite dealer-grey"></span>
-                                        <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.MakeName showroom@(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "" : "s")</h2>
-                                        <div class="grid-11 alpha">
-                                            @{
-                                                var showroomText = (Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "showroom" : "showrooms");
-                                            }
-                                            <p class="font14 text-slate-grey">There @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "is" : "are") @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName @showroomText across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "city" : "cities") in India. Select your city to find address, & contact details of @Model.MakeName @showroomText near you.</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="grid-3 omega inline-block padding-top20">
-                                        <a href="javascript:void(0)" id="changeCity" data-makemasking="@Model.MakeMaskingName" class="btn changepriceincitypage btn-orange btn-200-32 " rel="nofollow">Select your city</a>
-                                        @Html.Partial("~/Views/PopUp/BikeCityPopup.cshtml", @Model.BikeCityPopup)
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
-                                <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.MakeName showrooms</h3>
-                                @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget.cshtml", Model.DealersServiceCenterPopularCities)
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </section>
-            }
-        </div>
-    }
-
     
 </section>
 

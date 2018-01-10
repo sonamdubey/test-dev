@@ -1188,6 +1188,10 @@
 	padding: 10px 20px 20px;
 }
 
+.padding-15-20-20 {
+	padding: 15px 20px 20px;
+}
+
 .sidebar-list-heading {
 	font-size: 14px;
 	font-weight: 600;
@@ -1250,4 +1254,156 @@
 	padding-top: 7px;
 	text-align: center;
 	border: 1px solid #f5f5f5;
+}
+
+/* research more list */
+.research-more__list {
+	padding: 10px 20px;
+}
+
+.research-more__list li {
+	margin-top: 10px;
+}
+
+.research-more__list li:first-child {
+	margin-top: 0;
+}
+
+/* dealer */
+.sidebar-dealer-list {
+	margin: 20px 20px 0;
+}
+
+.dealer-card-target {
+	margin-bottom: 12px;
+	border: 1px solid #e2e2e2;
+	padding: 15px 20px;
+}
+
+.dealer-card-target:last-child {
+	margin-bottom: 5px;
+}
+
+.dealer-details__target {
+	display: block;
+}
+
+.dealer-details__target[href="javascript:void(0)"] {
+	cursor: default;
+}
+
+.dealer-details__name {
+	font-size: 16px;
+	margin-bottom: 9px;
+	color: #4d5057;
+    display: block;
+    text-align: left;
+    overflow: hidden;
+}
+
+.dealer-card-target a:hover {
+    text-decoration: none
+}
+
+.dealer-details__address { 
+    height: 54px;
+	margin-bottom: 10px;
+	color: #82888b;
+	overflow: hidden;
+}
+
+.dealer-details__number {
+	font-size: 12px;
+	display: inline-block;
+	vertical-align: middle;
+	color: #1ba273;
+	padding-left: 22px;
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/1ba273/phone.svg') no-repeat left 2px;
+	background-size: 12px;
+	margin-right: 25px;
+}
+
+.dealer-details__direction {
+	font-size: 12px;
+	display: inline-block;
+	vertical-align: middle;
+	color: #0288d1;
+	padding-left: 25px;
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/direction.svg') no-repeat left 2px;
+	background-size: 12px;
+}
+
+/* sidebar city list */
+.dealer-showroom__city {
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 2px;
+}
+
+.sidebar-bike-list .bike-target-link {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.sidebar__city-list h3 {
+	font-size: 12px;
+	color: #82888b;
+}
+
+.sidebar__city-list.sidebar-bike-list .bike-target-image {
+	width: 43%;
+	text-align: center;
+}
+
+.sidebar__city-list.sidebar-bike-list .bike-target-content {
+	width: 55%;
+}
+
+
+/* city */
+.bwm-city-sprite {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;
+    display: inline-block;
+}
+.c-mumbai-icon,
+.c-pune-icon,
+.c-bangalore-icon,
+.c-newdelhi-icon,
+.c-chennai-icon,
+.c-hyderabad-icon,
+.c-kolkata-icon,
+.c-lucknow-icon {
+    height: 48px;
+}
+.c-mumbai-icon {
+    width: 78px;
+    background-position: 0 0;
+}
+.c-pune-icon {
+    width: 112px;
+    background-position: -84px 0;
+}
+.c-bangalore-icon {
+    width: 82px;
+    background-position: -202px 0;
+}
+.c-newdelhi-icon {
+    width: 38px;
+    background-position: -290px 0;
+}
+.c-chennai-icon {
+    width: 33px;
+    background-position: -334px 0;
+}
+.c-hyderabad-icon {
+    width: 34px;
+    background-position: -373px 0;
+}
+.c-kolkata-icon {
+    width: 110px;
+    background-position: -413px 0;
+}
+.c-lucknow-icon {
+    width: 106px;
+    background-position: -529px 0;
 }

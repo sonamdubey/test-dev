@@ -9,10 +9,7 @@
 		display: inline
 
 #listing-left-column
-	&.grid-4
-		width: 32.333333%
-		@include box-shadow(0, 0, 8px, 0, #ddd)
-		z-index: 1
+	padding: 0 10px 10px
 
 #listing-right-column.grid-8
 	width: 67.66667%
@@ -27,29 +24,14 @@
 
 #center-list
 	a
-		padding-right: 20px
-		padding-left: 20px
-		display: block
-
 		&:hover
 			text-decoration: none
-
-	.dealer-card-content
-		padding-top: 15px
-		font-size: 14px
-		border-top: 1px solid #e2e2e2
 
 	.service-center-lead-content
 		min-height: 55px
 
 	li
-		padding-bottom: 10px
 		cursor: pointer
-
-		&:first-child
-			.dealer-card-content
-				border-top: 0
-				margin-top: 0
 
 		&.input-active
 			.get-details-btn,
@@ -66,14 +48,55 @@
 
 			.service-center-lead-response
 				display: block
-			
+
+	.dealer-card-target
+		width: 47.4%
+		margin-left: 12px
+		margin-bottom: 12px
+		display: inline-block
+		vertical-align: top
+		border: 1px solid #e2e2e2
+		padding: 15px 20px
+
+
+.dealer-details__name
+	height: 44px
+	font-size: 16px
+	margin-bottom: 9px
+	color: #4d5057
+	display: block
+	text-align: left
+	overflow: hidden
+
+.dealer-details__address
+	height: 54px
+	margin-bottom: 10px
+	color: #82888b
+	overflow: hidden
+
+.dealer-details__number
+	@include call-green
+	background-position: left 2px
+	background-size: 12px
+	font-size: 12px
+	display: inline-block
+	vertical-align: middle
+	color: #1ba273
+	padding-left: 22px
+	margin-right: 25px
+
+.dealer-details__direction
+	@include get-direction
+	background-position: left 2px
+	background-size: 12px
+	font-size: 12px
+	display: inline-block
+	vertical-align: middle
+	color: #0288d1
+	padding-left: 25px
 
 .details-column
 	width: 92%
-
-.service-btn
-	padding: 9px 0
-	width: 180px
 
 .lead-mobile-content
 	display: none
@@ -100,7 +123,6 @@
 			padding-left: 35px
 
 .submit-service-center-lead-btn
-	margin-left: 10px
 	display: inline-block
 	vertical-align: top
 	padding: 9px 0
@@ -266,7 +288,7 @@
   width: 28px
   height: 32px
   background-position: -197px -705px
-  vertical-align: top
+  vertical-align: middle
 
 .dealer-grey
   width: 25px
@@ -435,3 +457,225 @@
 .brand-72
   width: 50px
   background-position: -3161px 0
+
+/* dealer details form */
+.dealer-details__form-content
+	margin-top: 15px
+	padding-top: 10px
+	height: 68px
+	border-top: 2px solid #e2e2e2
+
+.dealer-details-form__target
+	@include send-to-phone
+	background-position: right
+	color: #0288d1
+	font-size: 14px
+	padding: 4px 30px 4px 0
+	margin-top: 14px
+	cursor: pointer
+
+.dealer-details__form
+	display: none
+
+.form-field__content
+	position: relative
+	overflow: hidden
+
+	.form-field__input
+		font-size: 14px
+		background: #f5f5f5
+		padding: 8px 15px
+
+	.form-field__submit-btn
+		position: absolute
+		top: 0
+		left: 0
+		transform: translate(-200px, 0)
+		transition: transform .3s linear
+
+	.dealer-form__submit-btn
+		width: 76px
+		padding: 8px 5px
+		font-size: 14px
+
+.btn-blue
+	color: #fff
+	background: #0288d1
+	border-color: #0288d1
+
+.field__error-message
+	min-height: 18px
+	padding-top: 4px
+	font-size: 10px
+	color: #fd8d81
+
+/* input mobile */
+.field-input__mobile.form-field__input
+	padding-left: 40px
+
+.input-mobile__prefix
+	display: none
+	font-size: 14px
+	color: #82888b
+	position: absolute
+	top: 9px
+	left: 10px
+
+.dealer-form__response
+	@include like-icon
+	background-position: left
+	font-size: 14px
+	font-weight: 600
+	color: #82888b
+	margin-top: 18px
+	padding-left: 30px
+
+/* active state */
+.btn--active .dealer-form__submit-btn
+	transform: translate(177px, 0)
+
+.field--invalid .form-field__input
+	border-color: #fd8d81
+
+.btn--active .input-mobile__prefix
+	display: block
+
+/* tips */
+.container
+	#bw-tips-list
+		li
+			margin-bottom: 0
+			padding-bottom: 20px
+
+			&:first-child
+				border-right: 0
+
+
+/* overflow sidebar list
+
+.sidebar-list--overflow .sidebar-bike-list
+  padding-right: 18px
+  padding-left: 18px
+  height: 320px
+  overflow-y: scroll
+
+.sidebar-bike-list
+	&::-webkit-scrollbar
+		width: 8px
+
+	&::-webkit-scrollbar-track
+		background: #fff
+
+	&::-webkit-scrollbar-thumb
+		background: #ddd
+		
+		&:hover
+			background: #ccc
+
+/* sidebar list */
+.padding-15-20-10
+	padding: 15px 20px 10px
+
+.padding-10-20-20
+	padding: 10px 20px 20px
+
+.sidebar-list-heading
+	font-size: 14px
+	font-weight: 600
+	padding: 10px
+	color: #4d5057
+	border-bottom: 1px solid #ccc
+
+.sidebar-bike-list
+	.bike-target-image
+		line-height: 0
+
+		img
+			width: 80px
+			height: 45px
+			border: 1px solid #f5f5f5
+
+	.bike-target-content
+		width: 65%
+
+	.bike-target-link
+		display: block
+		color: #4d5057
+		padding-top: 10px
+		padding-bottom: 10px
+		border-top: 1px solid #f5f5f5
+
+	li
+		&:first-child
+			.bike-target-link
+				border-top: 0
+
+	.bike-target-link
+		&:hover
+			text-decoration: none
+
+	h3
+		margin-bottom: 3px
+
+
+.sidebar-bike-container
+	.sidebar-bike-list
+		max-height: 415px
+		overflow: auto
+		padding-right: 20px
+		padding-left: 20px
+
+	.view-all-btn-container
+		padding-left: 20px
+		padding-right: 20px
+
+
+/* sidebar city list */
+
+.sidebar__other-city-list
+	padding: 10px 20px
+	
+	li
+		margin-top: 10px
+		
+		&:first-child
+			margin-top: 0
+
+	a
+		display: block
+		
+		&:hover
+			text-decoration: none
+
+.city__showroom-count
+	font-size: 13px
+	font-weight: 400
+	color: #0288d1
+	display: inline-block
+	padding-left: 3px
+
+
+.jcarousel-grid-8
+	.jcarousel-wrapper
+		width: 644px
+
+	.inner-content-carousel
+		.jcarousel
+			width: 610px
+			left: 17px !important
+
+			li
+				margin-right: 20px
+
+.other-city__title
+	width: 90%
+
+/* research more list */
+.research-more__list
+	padding: 10px 20px
+	
+	li
+		margin-top: 10px
+		
+		&:first-child
+			margin-top: 0

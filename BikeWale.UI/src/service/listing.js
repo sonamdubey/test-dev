@@ -1,6 +1,4 @@
-var markerArr = [], dealerArr = [], map, infowindow, readMoreTarget, validate, mapDimension, captureLeadMobile;
-var blackMarkerImage = 'https://imgd.aeplcdn.com/0x0/bw/static/design15/map-marker-black.png';
-var redMarkerImage = 'https://imgd.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
+var readMoreTarget, validate, captureLeadMobile;
 // send service center details
 var attemptCount = 1,
     successMessage = 'Service Center details successfully<br />sent on your phone.<br />Not Received? <span class="service-center-resend-btn">Resend</span>',
@@ -8,141 +6,7 @@ var attemptCount = 1,
     failureMessage = "Sorry!, Something went wrong. Please try again.",
     tenAttemptsMessage = 'Sorry! You have reached the daily limit of sending details.<br />Please try again after a day.';
 
-var mapDimension = function () {
-    var windowHeight = window.innerHeight;
-
-    $('.dealer-map-wrapper').css({
-        'height': $('#listing-left-column').height()
-    });
-
-    $('#dealerMapWrapper, #dealersMap').css({
-        'width': $('#listing-right-column').width() + 1,
-        'height': windowHeight + 1
-    });
-};
-
-function initializeMap(dealerArr) {
-    if (dealerArr.length == 0) {
-        return false; // don't render google map if 0 dealers
-    }
-
-    var i, marker, dealer, markerPosition, content, zIndex;
-    var currentCityName = document.getElementById("dealerMapWrapper").getAttribute("data-currentcityname");
-
-    var mapProp = {
-        scrollwheel: false,
-        streetViewControl: false,
-        mapTypeControl: false,
-        zoomControl: true,
-        zoomControlOptions: {
-            position: google.maps.ControlPosition.LEFT_TOP
-        },
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-
-    map = new google.maps.Map(document.getElementById("dealersMap"), mapProp);
-    infowindow = new google.maps.InfoWindow();
-    for (i = 0; i < dealerArr.length; i++) {
-
-        dealer = dealerArr[i];
-        markerPosition = new google.maps.LatLng(dealer.latitude, dealer.longitude);
-        if (!dealer.isFeatured) {
-            markerIcon = blackMarkerImage;
-            zIndex = 100;
-        }
-        else {
-            markerIcon = redMarkerImage;
-            zIndex = 101;
-        }
-        marker = new google.maps.Marker({
-            dealerId: dealer.id,
-            dealerName: dealer.name,
-            dealerNumber: dealer.maskingNumber,
-            position: markerPosition,
-            icon: markerIcon,
-            zIndex: zIndex
-        });
-
-        markerArr.push(marker);
-        marker.setMap(map);
-        if (dealer.isFeatured) {
-            if (dealer.maskingNumber == '')
-                content = '<div class="dealer-info-tooltip"><a href="' + $.trim(dealer.url) + '" title ="' + dealer.name + '" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></a></div>';
-            else
-                content = '<div class="dealer-info-tooltip"><a href="' + $.trim(dealer.url) + '" title ="' + dealer.name + '"  class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
-        } else {
-            if (dealer.maskingNumber == '')
-                content = '<div class="dealer-info-tooltip"><span class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></span></div>';
-            else
-                content = '<div class="dealer-info-tooltip"><span class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></span></div>';
-        }
-        google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
-            return function () {
-                infowindow.setContent(content);
-                infowindow.open(map, marker);
-            };
-        })(marker, content, infowindow));
-
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': currentCityName + ", India" }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                map.fitBounds(results[0].geometry.viewport);
-            }
-        });
-    }    
-}
-
-function mapDealersArray() {
-    $("ul#center-list li").each(function () {
-        _self = $(this);
-        _dealer = new Object();
-        _dealer.id = _self.attr("data-item-id");
-        _dealer.isFeatured = (_self.attr("data-item-type") == "3" || _self.attr("data-item-type") == "2");
-        _dealer.latitude = _self.attr("data-lat");
-        _dealer.longitude = _self.attr("data-log");
-        _dealer.address = _self.attr("data-address");
-        _dealer.name = _self.find(".dealer-name").text();
-        _dealer.maskingNumber = _self.attr("data-item-number");
-        _dealer.url = _self.attr("data-item-url");
-        dealerArr.push(_dealer);
-    });
-}
-
-function validatePhone(inputElement) {
-    var leadMobileNo = inputElement.val(),
-        isValid = true,
-        reMobile = /[7-9][0-9]{9}$/;
-
-    if (leadMobileNo == "") {
-        validate.setError(inputElement, "Enter your mobile number!");
-        isValid = false;
-    }
-    else if (leadMobileNo[0] < 7) {
-        validate.setError(inputElement, "Enter a valid mobile number!");
-        isValid = false;
-    }
-    else if (!reMobile.test(leadMobileNo) && isValid) {
-        validate.setError(inputElement, "10 digit mobile number only!");
-        isValid = false;
-    }
-    else
-        validate.hideError(inputElement)
-    return isValid;
-}
-
-function initializeDealerMap() {
-    mapDealersArray();
-    initializeMap(dealerArr);
-}
-
 docReady(function () {
-    var windowHeight = window.innerHeight,
-        mapWrapper = $('#listing-right-column'),
-        mapColumn = $('#dealerMapWrapper'),
-        listingFooter = $('#listing-footer');
-
     captureLeadMobile = {
         inputBox: {
             set: function (listElement) {
@@ -179,82 +43,51 @@ docReady(function () {
 
     // read more-collapse
     readMoreTarget = $('#read-more-target'),
-        serviceMoreContent = $('#service-more-content');
+    serviceMoreContent = $('#service-more-content');
 
-    /* form validation */
-    validate = {
-        setError: function (element, message) {
-            var elementLength = element.val().length;
-            errorTag = element.siblings('span.error-text');
+    function validatePhone(inputElement) {
+    	var leadMobileNo = inputElement.val(),
+			isValid = true,
+			reMobile = /[7-9][0-9]{9}$/;
 
-            errorTag.show().text(message);
-            if (!elementLength) {
-                element.closest('.input-box').removeClass('not-empty').addClass('invalid');
-            }
-            else {
-                element.closest('.input-box').addClass('not-empty invalid');
-            }
-        },
-
-        hideError: function (element) {
-            element.closest('.input-box').removeClass('invalid').addClass('not-empty');
-            element.siblings('span.error-text').text('');
-        },
-
-        onFocus: function (inputField) {
-            if (inputField.closest('.input-box').hasClass('invalid')) {
-                validate.hideError(inputField);
-            }
-        },
-
-        onBlur: function (inputField) {
-            var inputLength = inputField.val().length;
-            if (!inputLength) {
-                inputField.closest('.input-box').removeClass('not-empty');
-            }
-            else {
-                inputField.closest('.input-box').addClass('not-empty');
-            }
-        }
+    	if (leadMobileNo == "") {
+    		validateForm.setError(inputElement, "Enter your mobile number.");
+    		isValid = false;
+    	}
+    	else if (leadMobileNo[0] < 7) {
+    		validateForm.setError(inputElement, "Enter a valid mobile number.");
+    		isValid = false;
+    	}
+    	else if (!reMobile.test(leadMobileNo) && isValid) {
+    		validateForm.setError(inputElement, "10 digit mobile number only.");
+    		isValid = false;
+    	}
+    	else
+    		validateForm.hideError(inputElement)
+    	return isValid;
     }
 
-    $('#listing-left-column').css({
-        'min-height': windowHeight
-    });
+    /* form validation */
+    var validateForm = {
+    	setError: function (element, message) {
+    		var elementLength = element.val().length;
+    		errorTag = element.siblings('.field__error-message');
 
-    mapDimension();
+    		errorTag.show().text(message);
+    		element.closest('.form-field__content').addClass('field--invalid');
+    	},
 
-    $(window).on('scroll', function () {
-        if (typeof (mapColumn[0]) != 'undefined') { // sticky feature if dealers are present
-            var windowTop = $(window).scrollTop(),
-                mapWrapperOffset = mapWrapper.offset(),
-                listingFooterOffset = listingFooter.offset();
+    	hideError: function (element) {
+    		element.closest('.form-field__content').removeClass('field--invalid');
+    		element.siblings('.field__error-message').text('');
+    	},
 
-            if (windowTop > mapWrapperOffset.top) {
-                mapColumn.css({
-                    'position': 'fixed',
-                    'top': 0,
-                    'left': mapWrapperOffset.left
-                });
-
-                if (windowTop > listingFooterOffset.top - windowHeight - 20) {
-                    mapColumn.css({
-                        'position': 'absolute',
-                        'top': 'auto',
-                        'left': 0,
-                        'bottom': 0
-                    });
-                }
-            }
-            else {
-                mapColumn.css({
-                    'position': 'relative',
-                    'top': 0,
-                    'left': 0
-                });
-            }
-        }
-    });
+    	onFocus: function (inputField) {
+    		if (inputField.closest('.form-field__content').hasClass('field--invalid')) {
+    			validateForm.hideError(inputField);
+    		}
+    	}
+    }
 
     readMoreTarget.on('click', function () {
         if (!serviceMoreContent.hasClass('active')) {
@@ -267,16 +100,72 @@ docReady(function () {
         }
     });
 
+	// service center carousel
+    $('.carousel-type-city').jcarousel();
+
+    $('.carousel-type-city .jcarousel-control-prev')
+		.on('jcarouselcontrol:active', function () {
+			$(this).removeClass('inactive');
+		})
+		.on('jcarouselcontrol:inactive', function () {
+			$(this).addClass('inactive');
+		})
+		.jcarouselControl({
+			target: '-=2'
+		});
+
+    $('.carousel-type-city .jcarousel-control-next')
+		.on('jcarouselcontrol:active', function () {
+			$(this).removeClass('inactive');
+		})
+		.on('jcarouselcontrol:inactive', function () {
+			$(this).addClass('inactive');
+		})
+		.jcarouselControl({
+			target: '+=2'
+		});
+
+    $('.brand-type-carousel').jcarousel();
+
+    $('.brand-type-carousel .jcarousel-control-prev')
+		.on('jcarouselcontrol:active', function () {
+			$(this).removeClass('inactive');
+		})
+		.on('jcarouselcontrol:inactive', function () {
+			$(this).addClass('inactive');
+		})
+		.jcarouselControl({
+			target: '-=2'
+		});
+
+    $('.brand-type-carousel .jcarousel-control-next')
+		.on('jcarouselcontrol:active', function () {
+			$(this).removeClass('inactive');
+		})
+		.on('jcarouselcontrol:inactive', function () {
+			$(this).addClass('inactive');
+		})
+		.jcarouselControl({
+			target: '+=2'
+		});
+
 
     $('#center-list').on('click', '.get-details-btn', function () {
         var getDetailsBtn = $(this),
             listItem = getDetailsBtn.closest('li'),
             centerList = $('#center-list');
 
+        var inputbox = $(this).closest('.dealer-details__form-content').find('.form-field__input');
+
         if (attemptCount != 10) {
-            centerList.find('.input-active').removeClass('input-active');
-            captureLeadMobile.inputBox.set(listItem);
-        }
+        	centerList.find('.input-active').removeClass('input-active');
+        	if (inputbox.val().length) {
+        		captureLeadMobile.inputBox.set(listItem);
+        	}
+			else{
+        		listItem.removeClass('response-active').addClass('input-active');
+			}
+		}
         else {
             captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', tenAttemptsMessage);
         }
@@ -284,15 +173,14 @@ docReady(function () {
     });
 
     $('.service-center-lead-mobile').on('focus', function () {
-        var inputField = $(this);
+    	var fieldContainer = $(this).closest('.form-field__content');
 
-        validate.onFocus(inputField);
-    });
+    	if (!fieldContainer.hasClass('btn--active')) {
+    		fieldContainer.addClass('btn--active');
+    		$(this).attr('placeholder', 'Your mobile number');
+    	}
 
-    $('.service-center-lead-mobile').on('blur', function () {
-        var inputField = $(this);
-
-        validate.onBlur(inputField);
+    	validateForm.onFocus($(this));
     });
 
     $('.submit-service-center-lead-btn').on('click', function () {
@@ -352,27 +240,4 @@ docReady(function () {
 
         attemptCount++;
     });
-
-    // dealer card mouseover show tooltip
-    $(document).on('mouseover', '#center-list li', function () {
-        var currentLI = $(this),
-            currentDealerId = currentLI.attr('data-item-id');
-        var latitude = currentLI.attr('data-lat');
-        var longitude = currentLI.attr('data-log');
-        if (latitude != 0 || longitude != 0) {
-            for (var i = 0; i < markerArr.length; i++) {
-                if (markerArr[i].dealerId == currentDealerId) {
-                    infowindow.setContent(markerArr[i].dealerName);
-                    infowindow.open(map, markerArr[i]);
-                    break;
-                }
-            }
-        }
-    });    
-
-    $(window).resize(function () {
-        mapDimension();
-    });
-
-    initializeDealerMap();
 });
