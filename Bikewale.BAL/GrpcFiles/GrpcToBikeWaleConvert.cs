@@ -169,6 +169,64 @@ namespace Bikewale.BAL.GrpcFiles
             }
         }
 
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 10th Jan 2018
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static List<ModelImages> ConvertFromGrpcToBikeWale(GrpcModelsImageList data)
+        {
+            if(data == null)
+            {
+                return null;
+            }
+            try
+            {
+                List<ModelImages> retData = new List<ModelImages>();
+                foreach (var model in data.LstGrpcModelImaegs)
+                {
+                    List<ModelImage> modelImage = new List<ModelImage>();
+                    foreach (var curGrpcModelImage in model.LstGrpcModelImage)
+                    {
+                        var curModelImage = new ModelImage()
+                        {
+                            AltImageName = curGrpcModelImage.AltImageName,
+                            Caption = curGrpcModelImage.Caption,
+                            HostUrl = curGrpcModelImage.HostUrl,
+                            ImageCategory = curGrpcModelImage.ImageCategory,
+                            ImageDescription = curGrpcModelImage.ImageDescription,
+                            ImageId = curGrpcModelImage.ImageId,
+                            ImageName = curGrpcModelImage.ImageName,
+                            ImagePathLarge = curGrpcModelImage.ImagePathLarge,
+                            ImagePathThumbnail = curGrpcModelImage.ImagePathThumbnail,
+                            ImageTitle = curGrpcModelImage.ImageTitle,
+                            MainImgCategoryId = (short)curGrpcModelImage.MainImgCategoryId,
+                            MakeBase = ConvertFromGrpcToBikeWale(curGrpcModelImage.MakeBase),
+                            ModelBase = ConvertFromGrpcToBikeWale(curGrpcModelImage.ModelBase),
+                            OriginalImgPath = curGrpcModelImage.OriginalImgPath
+                        };
+                        modelImage.Add(curModelImage);
+                    }
+
+                    retData.Add(new ModelImages
+                    {
+                        ModelId = model.ModelId,
+                        RecordCount = model.RecordCount,
+                        ModelImage = modelImage
+                    });
+
+                }
+
+                return retData;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+
         public static BikeMakeEntityBase ConvertFromGrpcToBikeWale(GrpcCarMakeEntityBase grpcMake)
         {
             if (grpcMake != null)
