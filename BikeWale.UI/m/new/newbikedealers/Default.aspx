@@ -9,7 +9,7 @@
         title = "New Bike Showroom in India | Find Authorized Bike Dealers - BikeWale";
         keywords = "new bike dealers, new bike showrooms, bike dealers, bike showrooms, showrooms, dealerships";
         description = "Locate new bike showrooms and authorized bike dealers in India. Find new bike dealer information for more than 200 cities in India. ";
-        canonical = "https://www.bikewale.com/dealer-showroom-locator/";
+        canonical = "https://www.bikewale.com/dealer-showrooms/";
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
         Ad_320x50 = false;
@@ -65,7 +65,7 @@
                             <asp:Repeater ID="rptPopularBrands" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <a href="/m/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealer-showrooms-in-india/">
+                                        <a href="/m/dealer-showrooms/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>/">
                                             <span class="brand-type">
                                                 <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
                                             </span>
@@ -79,7 +79,7 @@
                             <asp:Repeater ID="rptOtherBrands" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <a href="/m/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealer-showrooms-in-india/">
+                                        <a href="/m/dealer-showrooms/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>/">
                                             <span class="brand-type">
                                                 <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
                                             </span>
@@ -302,7 +302,7 @@
                     if (!isNaN(selCityId) && selCityId != "0") {
                         ddlcityMasking = $ddlCities.find("li.activeCity").attr("cityMaskingName");
                         bwcache.remove("userchangedlocation", true);
-                        window.location.href = "/m/" + ddlmakemasking + "-dealer-showrooms-in-" + ddlcityMasking + "/";
+                        window.location.href = "/m/dealer-showrooms/" + ddlmakemasking + "/" + ddlcityMasking + "/";
                     }
                     else {
                         setError($("div.locator-search-city-form"), "Please select city !");

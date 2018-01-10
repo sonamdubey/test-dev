@@ -1,0 +1,44 @@
+﻿@model Bikewale.Models.SimilarBikesWidgetVM
+@using Bikewale.Utility;
+<div class="sidebar-bike-container">
+    <ul class="sidebar-bike-list">
+        @foreach (var bike in Model.Bikes)
+        {
+            string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;
+
+            var bikeName = String.Format("{0} {1}", make, modelName);
+            <li>
+                <a href="@UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName)" title="@bikeName" class="bike-target-link">
+                    <div class="bike-target-image inline-block">
+                        <img src="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" alt="@bikeName" />
+                    </div>
+                    <div class="bike-target-content inline-block padding-left10">
+                        <h3>@bikeName</h3>
+                        @if (bike.VersionPrice == 0 && bike.AvgExShowroomPrice == 0)
+                        {
+                            <p class="font11 text-light-grey">Ex-showroom, Mumbai</p>
+                        }
+                        else
+                        {
+                            if (bike.VersionPrice > 0)
+                            {
+                                <p class="font11 text-light-grey">@string.Format("Ex-showroom, {0}", bike.CityName) </p>
+                            }
+
+
+                        }
+                        <span class='font16'> &#x20B9;</span><span class="font16 text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(bike.VersionPrice > 0 ? bike.VersionPrice.ToString() : bike.AvgExShowroomPrice.ToString())</span>
+                    </div>
+                </a>
+                @if (Model.Make != null && Model.Model != null && Model.IsNew && false)
+                {
+                    string fullUrl = string.Format("/{0}", @Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId), Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_ExpertReviews_YouMayAlsoLikeWidget));
+                    <a title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)" href="@Bikewale.Utility.UrlFormatter.RemoveQueryString(fullUrl)" data-act="Clicked_on_CompareCard" data-lab='@string.Format("{0} {1} vs {2}", Model.Make.MakeName, Model.Model.ModelName, bikeName)' class="compare-with-link bw-ga">
+                        Compare with @Model.Model.ModelName
+                    </a>
+                }
+            </li>
+        }
+    </ul>
+</div>
+<link rel="stylesheet" type="text/css" href="/sass/modules/sidebar-bike-section.css">

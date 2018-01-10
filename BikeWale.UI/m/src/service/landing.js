@@ -129,7 +129,7 @@ docReady(function () {
             if (!isNaN(selCityId) && selCityId != "0") {
                 ddlcityMasking = ddlCities.find("li.activeCity").attr("citymaskingname");
                 bwcache.remove("userchangedlocation", true);
-                window.location.href = "/m/" + ddlmakemasking + "-service-center-in-" + ddlcityMasking + "/";
+                window.location.href = "/m/service-centers/" + ddlmakemasking + "/" + ddlcityMasking + "/";
             }
             else {
                 setError($("div.locator-search-city-form"), "Please select city!");

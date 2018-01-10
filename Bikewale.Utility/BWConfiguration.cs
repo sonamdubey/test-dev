@@ -22,6 +22,8 @@ namespace Bikewale.Utility
     /// Description : Added SynopsisSummaryMergedMakeIds
     /// Modified by : Ashutosh Sharma on 30 Nov 2017
     /// Description : Removed SynopsisSummaryMergedMakeIds
+    /// Modified by : Snehal Dange on 22nd dec 2017
+    /// Desc:         Added ContestPriceMoney
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -108,11 +110,14 @@ namespace Bikewale.Utility
             _CoverFoxLink = string.Empty,
             _UserReviewIndexName = string.Empty,
             _OtherBikesInMakeId = string.Empty,
-        _CapitalFirstPincodeIndex = string.Empty,
+            _CapitalFirstPincodeIndex = string.Empty,
             _InnovationBannerModels = String.Empty,
             _UserReviewsReadInSessionCount = string.Empty,
             _PopularCitiesId = String.Empty,
-            _PopularityOrderForMake = string.Empty;
+            _PopularityOrderForMake = string.Empty,
+            _AmpProjectUrl = string.Empty,
+            _MetasMakeId = string.Empty,
+            _ContestPriceMoney = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -132,11 +137,14 @@ namespace Bikewale.Utility
         private readonly string _capitalFirstConsumerQueue;
         private readonly bool _IsIPSecurityEnabled;
         private readonly uint _CapitalFirstDealerId;
+        private readonly ushort _MakePageOnRoadPriceBtnPct;
         private readonly string _CarTradeLeadUrl, _CarTradeLeadApiAction, _CarTradeLeadApiCode;
         private readonly string _EditCMSModuleName;
         private readonly int _minEnginePoolSize, _maxEnginePoolSize;
         private readonly bool _useV8Engine;
         private readonly int _pwaRenderedHtmlCacheLimitMins;
+        private readonly bool _EnablePwdResetLogging;
+        private readonly int _MemcachedDefaultObjDuration;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -250,8 +258,14 @@ namespace Bikewale.Utility
             _minEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MinEnginePoolSize"]) ? 3 : Convert.ToInt32(ConfigurationManager.AppSettings["MinEnginePoolSize"]);
             _maxEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MaxEnginePoolSize"]) ? 15 : Convert.ToInt32(ConfigurationManager.AppSettings["MaxEnginePoolSize"]);
             _PopularityOrderForMake = ConfigurationManager.AppSettings["PopularityOrderForMake"];
+            _AmpProjectUrl = ConfigurationManager.AppSettings["AMPProjectUrl"];
             _useV8Engine = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? true : Convert.ToBoolean(ConfigurationManager.AppSettings["UseV8Engine"]);
-            _pwaRenderedHtmlCacheLimitMins= string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
+            _pwaRenderedHtmlCacheLimitMins = string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
+            _MetasMakeId = ConfigurationManager.AppSettings["MetasMakeId"];
+            _EnablePwdResetLogging = String.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePwdResetLogging"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePwdResetLogging"]);
+            _MemcachedDefaultObjDuration = String.IsNullOrEmpty(ConfigurationManager.AppSettings["MemcachedDefaultObjDuration"]) ? 1 : Convert.ToInt32(ConfigurationManager.AppSettings["MemcachedDefaultObjDuration"]);
+            _MakePageOnRoadPriceBtnPct = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]) ? (ushort)0 : Convert.ToUInt16(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]);
+            _ContestPriceMoney = Convert.ToString(ConfigurationManager.AppSettings["ContestPriceMoney"]);
         }
 
         // Static method to provide access to instance
@@ -422,5 +436,11 @@ namespace Bikewale.Utility
         public bool UseV8Engine { get { return _useV8Engine; } }
         public int PwaRenderedHtmlCacheLimitMins { get { return _pwaRenderedHtmlCacheLimitMins; } }
         public string PopularityOrderForMake { get { return _PopularityOrderForMake; } }
+        public string AMPProjectUrl { get { return _AmpProjectUrl; } }
+        public string MetasMakeId { get { return _MetasMakeId; } }
+        public bool EnablePwdResetLogging { get { return _EnablePwdResetLogging; } }
+        public int MemcachedDefaultObjDuration { get { return _MemcachedDefaultObjDuration; } }
+        public ushort MakePageOnRoadPriceBtnPct { get { return _MakePageOnRoadPriceBtnPct; } }
+        public string ContestPriceMoney { get { return _ContestPriceMoney; } }
     }   // class
 }   // namespace

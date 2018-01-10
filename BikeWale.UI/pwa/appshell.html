@@ -44,13 +44,7 @@
                     node.parentNode.insertBefore(gads, node);
                 })();
 
-                googletag.cmd.push(function () {
-                    googletag.pubads().addEventListener('slotRenderEnded', function (event) {
-                        if (window.endTimer && typeof window.endTimer === "function") {
-                            window.endTimer("ad");
-                        }
-                    })
-                })
+               
             }
             
     

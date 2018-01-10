@@ -8,6 +8,10 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.DTO.UserReviews
 {
+    /// <summary>
+    /// Modified by: Snehal Dange on 8th Dec 2017
+    /// Description: Added  model overall parameters:TotalRatings , TotalReviews ,OverAllModelRating
+    /// </summary>
     public class UserReviewSummaryDto
     {
         [JsonProperty("overallRating"), DataMember]
@@ -88,5 +92,13 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("thanksText"), DataMember]
         public string ThanksText { get { return "Write a detailed review and help fellow riders make a decision. Share your experience with the world."; } }
 
+        [JsonProperty("totalRatings"), DataMember]
+        public uint TotalRatings { get; set; }
+
+        [JsonProperty("totalReviews"), DataMember]
+        public uint TotalReviews { get; set; }
+
+        [JsonProperty("overAllModelRating"), DataMember]
+        public float OverAllModelRating { get; set; }
     }
 }

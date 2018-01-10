@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealer/details.css' inline />";
     Model.Page_JS_Path = "/m/src/dealer/details.js";
-    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Model.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Model.DealerDetails.DealerDetails.Name));
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/dealer-showrooms/{0}/{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Model.DealerDetails.DealerDetails.Name), Model.DealerDetails.DealerDetails.DealerId);
 }
 @if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null)
 {
@@ -177,7 +177,7 @@
                     <div class="swiper-heading-left-grid inline-block">
                         <h2>More @Model.Make.MakeName showrooms</h2>
                     </div><div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="/m/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/" title="@Model.Make.MakeName Showrooms in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
+                              <a href="/m/dealer-showrooms/@Model.Make.MaskingName/@Model.CityDetails.CityMaskingName/" title="@Model.Make.MakeName Showrooms in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -207,7 +207,7 @@
             <div class="carousel-heading-content">
                 <div class="swiper-heading-left-grid inline-block"><h2>@string.Format("{0} Service Centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2></div>
                 <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="/m/@Model.Make.MaskingName-service-center-in-@Model.CityDetails.CityMaskingName/" title="@string.Format("{0} Service Centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View all</a>
+                    <a href="/m/service-centers/@Model.Make.MaskingName/@Model.CityDetails.CityMaskingName/" title="@string.Format("{0} Service Centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View all</a>
                 </div>
                 <div class="clear"></div>
             </div>

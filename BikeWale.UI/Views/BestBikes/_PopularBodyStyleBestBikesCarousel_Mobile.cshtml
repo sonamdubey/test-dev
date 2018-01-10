@@ -1,0 +1,53 @@
+﻿@model Bikewale.Models.BestBikesEditorialWidgetVM
+@using Bikewale.Utility;
+<div class="swiper-container card-container swiper-small other-popular-bikes-swiper">
+    <div class="swiper-wrapper">
+        @foreach (var bike in Model.BestBikes)
+        {
+            string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+            string cityName = bike.UsedCity != null && bike.UsedCity.CityName.Length > 0 ? bike.UsedCity.CityName : string.Empty;
+            <div class="swiper-slide">
+                <div class="swiper-card">
+                    <div class="position-rel">
+                        <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName" class="block">
+                            <div class="swiper-image-preview position-rel">
+                                <img class="swiper-lazy" alt="@bikeName" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._174x98, QualityFactor._70)" title="@bikeName">
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                                @if (bike.Price == 0 && bike.AvgPrice == 0)
+                                {
+                                    <p class="text-default">
+                                        <span class="font14 text-light-grey">Price not available</span>
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="text-truncate text-light-grey font11">@(bike.Price > 0 ? string.Format("Ex-showroom, {0}", (!string.IsNullOrEmpty(cityName) ? cityName : BWConfiguration.Instance.GetDefaultCityName)) : "Avg. Ex-showroom price")</p>
+                                    <p class="text-default font16">
+                                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.Price > 0 ? bike.Price : bike.AvgPrice))</span>
+                                    </p>
+                                }
+                            </div>
+                        </a>
+                        @if (bike.Price == 0)
+                        {
+                            <span class="info-icon tooltip-icon-target tooltip-top tooltip--right">
+                                <span class="bw-tooltip info-tooltip">
+                                    <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", cityName)</span>
+                                </span>
+                            </span>
+                        }
+
+                    </div>
+                    @*@if (Model.ShowCheckOnRoadCTA)
+                    {
+                        <div class="swiper-btn-block">
+                            <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>
+                        </div>
+                    }*@
+                </div>
+            </div>
+        }
+    </div>
+</div>

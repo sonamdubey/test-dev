@@ -83,6 +83,8 @@ namespace Bikewale.Sitemap.DealerLocator
         }
         /// <summary>
         /// Creates the dealer locator urls.
+        /// Modified By: Snehal Dange on 1st Dec 2017
+        /// Description: Changed "dealer-showroom-locator" to "dealer-showrooms"
         /// </summary>
         /// <param name="sitemapList">The sitemap list.</param>
         /// <returns></returns>
@@ -91,10 +93,10 @@ namespace Bikewale.Sitemap.DealerLocator
             List<string> urlList = new List<string>();
             try
             {
-                urlList.Add("dealer-showroom-locator/");
+                urlList.Add("dealer-showrooms/");
                 foreach (var value in sitemapList)
                 {
-                    urlList.Add(string.Format("{0}-dealer-showrooms-in-{1}/", value.MakeMaskingName, value.CityMaskingName));
+                    urlList.Add(string.Format("dealer-showrooms/{0}/{1}/", value.MakeMaskingName, value.CityMaskingName));
                 }
                 List<string> urlIndiaList = CreateDealerLocatorUrlsForIndia(sitemapList);
                 urlList.AddRange(urlIndiaList);
@@ -110,6 +112,8 @@ namespace Bikewale.Sitemap.DealerLocator
         }
         /// <summary>
         /// Creates the dealer locator urls for india.
+        /// Modified By: Snehal Dange on 1st Dec 2017
+        /// Description: Changed "dealer-showroom-in-india" to "dealer-showrooms/{0}/"
         /// </summary>
         /// <param name="sitemapList">The sitemap list.</param>
         /// <returns></returns>
@@ -121,7 +125,7 @@ namespace Bikewale.Sitemap.DealerLocator
                 var allMakes = sitemapList.Select(x => x.MakeMaskingName).Distinct();
                 foreach (var make in allMakes)
                 {
-                    urlList.Add(string.Format("{0}-dealer-showrooms-in-{1}/", make, "india"));
+                    urlList.Add(string.Format("dealer-showrooms/{0}/", make));
                 }
                 Logs.WriteInfoLog("All Dealer locator Urls India List Completed");
             }

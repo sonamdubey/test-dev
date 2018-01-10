@@ -1,4 +1,8 @@
-﻿using Bikewale.DAL.AutoBiz;
+﻿using System;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Description;
+using Bikewale.DAL.AutoBiz;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.DTO.PriceQuote.BikeQuotation;
@@ -15,10 +19,6 @@ using Bikewale.Service.AutoMappers.ManufacturerCampaign;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
 using Microsoft.Practices.Unity;
-using System;
-using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.PriceQuote
 {
@@ -613,7 +613,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 return InternalServerError();
             }
         }
-
 
         /// <summary>
         /// Created By : Sumit Kate

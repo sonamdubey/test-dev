@@ -285,6 +285,7 @@
                             if (self.DealerId() > 0 && _responseData.qStr.length) {
                                 _responseData.qStr = self.createMPQ(_responseData.priceQuote.quoteId);
                             }
+                            self.triggerABTestGA();
                             if(!self.IsReload() && _responseData.qStr!='')
                             {
                                 window.location.href = "/m/pricequote/dealer/" + "?MPQ=" + _responseData.qStr;
@@ -308,6 +309,7 @@
                                 }
 
                             }
+                            self.triggerABTestGA();
                             window.location.reload(true);
                         }
                     }
@@ -408,6 +410,19 @@
             return ko.utils.arrayFirst(items, function (child) {
                 return (child[attr] == item);
             });
+        };
+
+        self.triggerABTestGA = function () {
+            try {
+                var abuser = getCookie("_bwtest"),
+                    bikeandcity = self.MakeName + "_" + self.ModelName + "_" + (self.SelectedCity() ? self.SelectedCity().name : ""),
+                    pgSource = (gaObj ? gaObj.id : 0);
+                bikeandcity = bikeandcity.replace("/\s+/gi", "_");
+                triggerGA("PQ_PopUP", "PQSuccess", abuser + "_" + pgSource + "_" + bikeandcity);
+            }
+            catch (e) {
+                console.log(e.message)
+            }
         };
     };
 

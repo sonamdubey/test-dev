@@ -3,7 +3,7 @@ var getOnRoadPriceBtn, onroadPriceConfirmBtn;
 var getOffersClick = false, selectDropdownBox;
 var $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
 var abusereviewId, userreviewsListStr, vmUserReviews;
-
+var isMileageSectionVisible;
 // colour carousel
 var colourCarousel, carouselColorList;
 
@@ -132,6 +132,12 @@ docReady(function () {
     // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
+    }
+    isMileageSectionVisible = $('#modelMileageContent');
+
+    if (isMileageSectionVisible.length>0)
+    {
+        triggerNonInteractiveGA("Model_Page", "Mileage_Card_Shown", myBikeName);
     }
 
     function callFallBackWriteReview() {
@@ -373,7 +379,10 @@ docReady(function () {
     }
     if ($('#getassistance').length > 0) {
         dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": bikeVersionLocation });
-    }
+	}
+	if ($('#modelExpertReviewsContent').length > 0) {
+		dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Expert_Review_CardShown", "lab": myBikeName });
+	}
 
     $window = $(window);
     overallTabsWrapper = $('#overallTabsWrapper');
@@ -696,7 +705,10 @@ docReady(function () {
         } catch (e) {
 
         }
-    }
+	}
+	$("#modelExpertReviewsContent").on('click', function () {
+		triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
+	});
 });
 
 

@@ -1,0 +1,115 @@
+﻿@mixin carousel-card($width: auto, $max-width: 340px)
+	.carousel-card
+		@include vendor-prefix('box-shadow', 0 2px 4px 0 rgba(213, 213, 213, 0.5))
+		border: solid 1px map-get($color-map, border-dark)
+		background-color: map-get($color-map, white)
+		margin-left: 20px
+		@include vendor-prefix('border-radius', 2px)
+		display: block
+		position: relative
+
+	@media only screen and (max-width: 900px)
+		.carousel-card
+			display: block
+			max-width: $max-width
+			margin: 0 auto
+
+
+@mixin jcarousel-carousel-card($width: 350px, $width2: 205px)
+	.model-carousel-container
+		&.inner-content-carousel
+			.jcarousel
+				padding: 15px 0 0
+				width: 970px
+				left: 0
+				position: relative
+
+				&:before
+					content: ''
+					display: block
+					height: 100%
+					width: 20px
+					position: absolute
+					top: 0
+					left: 0
+					background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0), #fff)
+					background: -o-linear-gradient(left, rgba(255, 255, 255, 0), #fff)
+					background: -moz-linear-gradient(right, rgba(255, 255, 255, 0), #fff)
+					background: linear-gradient(to left, rgba(255, 255, 255, 0), #fff)
+					z-index: 2
+				&:after
+					content: ''
+					display: block
+					height: 100%
+					width: 20px
+					position: absolute
+					top: 0
+					right: 0
+					background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), #fff)
+					background: -o-linear-gradient(right, rgba(255, 255, 255, 0), #fff)
+					background: -moz-linear-gradient(left, rgba(255, 255, 255, 0), #fff)
+					background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff)
+					z-index: 2
+
+				li
+					@include vendor-prefix('box-shadow', none)
+					width: $width + 20px
+					border: none
+					margin-left: 0
+					margin-right: 0
+
+					.carousel-card
+						width: $width
+
+					&:last-child
+						width: $width + 30px
+
+			.jcarousel-control-left,
+			.jcarousel-control-right
+				z-index: 3
+				top: 37%
+
+			.jcarousel-control-next
+				@include arrow-right
+				width: 42px
+				height: 93px				
+				&.inactive
+					display: none
+
+				&:hover
+					@include arrow-right
+
+			.jcarousel-control-prev
+				@include arrow-left
+				width: 42px
+				height: 93px
+				&.inactive
+					display: none
+
+				&:hover
+					@include arrow-left
+
+	.carousel-card
+		min-height: 289px
+		&:hover
+			text-decoration: none
+			h3
+				text-decoration: underline
+
+	@media only screen and (max-width: 900px)
+		.model-carousel-container
+			&.swiper-container
+				padding-top: 15px
+				margin-bottom: 15px
+				padding-bottom: 10px
+		
+				.swiper-slide
+					width: 215px
+
+					&:last-child
+						margin-right: 20px
+			
+			.carousel-card
+				display: block
+				width: $width2
+				min-height: 245px

@@ -98,7 +98,7 @@
 }
 
 .sidebar-bike-list .bike-target-content {
-    width: 68%;
+    width: 65%;
 }
 
 .sidebar-bike-list .bike-target-link {
@@ -119,6 +119,59 @@
 
 .sidebar-bike-list .bike-target-link h3 {
     margin-bottom: 3px
+}
+
+/* overflow sidebar list */
+.sidebar-list--overflow .sidebar-bike-list {
+	padding-right: 20px;
+	padding-left: 20px;
+	max-height: 320px;
+	overflow-y: scroll;
+}
+
+.sidebar-bike-list::-webkit-scrollbar {
+	width: 8px;
+}
+
+.sidebar-bike-list::-webkit-scrollbar-track {
+	background: #fff;
+}
+
+.sidebar-bike-list::-webkit-scrollbar-thumb {
+	background: #ddd;
+}
+
+.sidebar-bike-list::-webkit-scrollbar-thumb:hover {
+	background: #ccc;
+}
+
+/* bw tabs */
+.tabs-flex--reset-margin ul {
+	margin-bottom: 0;
+}
+
+.bw-tabs__item {
+	color: #82888b;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.bw-tabs__item:hover {
+	color: #4d5057;
+}
+
+.active.bw-tabs__item,
+.active .bw-tabs__item {
+	font-weight: 600;
+	color: #4d5057;
+}
+
+.bw-tabs__item.bw-tabs-item--sm {
+	font-size: 14px;
+}
+
+.padding-10-20-20 {
+	padding: 10px 20px 20px;
 }
 
 /* pagination */
@@ -275,7 +328,7 @@
 
 /* brands */
 .brandlogosprite {
-  background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?22Nov20171511351092222);
+  background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?18Dec20171513599310542);
   background-repeat: no-repeat;
   display: inline-block; }
 
@@ -309,7 +362,10 @@
 .brand-21,
 .brand-38,
 .brand-23,
-.brand-72 {
+.brand-72,
+.brand-73,
+.brand-74,
+.brand-75  {
   height: 30px; }
 
 .brand-2 {
@@ -436,4 +492,18 @@
 .brand-72 {
 	width: 31px;
 	background-position: -1919px 0;
+}
+.brand-73 {
+    width: 30px;
+    background-position: -1958px 0;
+}
+
+.brand-74 {
+	width: 66px;
+	background-position: -2000px 0;
+}
+
+.brand-75 {
+	width: 70px;
+	background-position: -2076px 0;
 }

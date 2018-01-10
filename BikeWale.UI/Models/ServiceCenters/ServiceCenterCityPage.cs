@@ -90,12 +90,17 @@ namespace Bikewale.Models.ServiceCenters
                     PopupShowButtonMessage = "Show service centers",
                     PopupSubHeading = "See service centers in your city!",
                     FetchDataPopupMessage = "Fetching service centers for ",
-                    RedirectUrl = string.Format("/{0}-service-center-in-", objVM.Make.MaskingName),
+                    RedirectUrl = string.Format("/service-centers/{0}/", objVM.Make.MaskingName),
                     IsCityWrapperPresent = 0
 
                 };
 
                 BindPageMetas(objVM);
+                if (_cityId > 0)
+                {
+                    GetServiceCenterBrandsInCity(objVM);
+                }
+                objVM.Page = Entities.Pages.GAPages.ServiceCenter_City_Page;
             }
             catch (Exception ex)
             {
@@ -203,7 +208,7 @@ namespace Bikewale.Models.ServiceCenters
                 objData.MakeMaskingName = _makeMaskingName;
                 objData.MakeName = objVM.Make.MakeName;
                 objData.CityCardTitle = "service centers in";
-                objData.CityCardLink = "service-center-in";
+                objData.CityCardLink = "service-centers";
                 objData.IsServiceCenterPage = true;
                 objVM.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
@@ -224,6 +229,8 @@ namespace Bikewale.Models.ServiceCenters
         /// <summary>
         /// Created By :Snehal Dange on 2nd Nov 2017
         /// Description: Breadcrum for service center city page
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Desc        : Added 'New Bikes' in breadcrumb
         /// </summary>
         /// <param name="objPage"></param>
         private void SetBreadcrumList(ServiceCenterCityPageVM objPageVM)
@@ -241,11 +248,11 @@ namespace Bikewale.Models.ServiceCenters
                     }
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
                     if (objPageVM.Make != null)
                     {
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPageVM.Make.MaskingName), string.Format("{0} Bikes", objPageVM.Make.MakeName)));
-                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-service-center-in-india/", url, objPageVM.Make.MaskingName), objPageVM.Make.MakeName + " Service Centers in India"));
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}service-centers/{1}/", url, objPageVM.Make.MaskingName), objPageVM.Make.MakeName + " Service Centers in India"));
                     }
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPageVM.Page_H1));
                     objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
@@ -260,5 +267,44 @@ namespace Bikewale.Models.ServiceCenters
         }
 
 
+        /// <summary>
+        /// Created By: Snehal Dange on 13th Dec 2017
+        /// Decsription : To get list of similar brands of service center in that city 
+        /// </summary>
+        /// <param name="objDealerDetails"></param>
+        private void GetServiceCenterBrandsInCity(ServiceCenterCityPageVM objData)
+        {
+
+            try
+            {
+                uint topCount = 9;
+                if (objData != null)
+                {
+                    objData.SimilarBrandsByCity = new OtherMakesVM();
+                    if (objData.SimilarBrandsByCity != null && _bikeMakesCache != null)
+                    {
+                        var similarBrandsList = _bikeMakesCache.GetServiceCenterBrandsInCity(_cityId);
+                        if (_makeId > 0 && similarBrandsList != null && similarBrandsList.Any())
+                        {
+                            objData.SimilarBrandsByCity.Makes = Utility.BikeFilter.FilterMakesByCategory(_makeId, similarBrandsList);
+                        }
+                        if (objData.SimilarBrandsByCity.Makes != null && objData.SimilarBrandsByCity.Makes.Any())
+                        {
+                            objData.SimilarBrandsByCity.Makes = objData.SimilarBrandsByCity.Makes.Take((int)topCount);
+
+                        }
+                        objData.SimilarBrandsByCity.CardText = "Service Center";
+                        objData.SimilarBrandsByCity.PageLinkFormat = string.Format("/service-centers/{0}/{1}/", "{0}", objData.City.CityMaskingName);
+                        objData.SimilarBrandsByCity.PageTitleFormat = string.Format("{0} Service Centers in {1}", "{0}", objData.City.CityName);
+                    }
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("ServiceCenterDetailsPage.GetServiceCenterBrandsInCity_Make_{0}_City_{1}", _makeId, _cityId));
+            }
+
+        }
     }
 }

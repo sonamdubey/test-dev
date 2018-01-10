@@ -17,69 +17,69 @@
                 {
                     <h1 class="section-header padding-15-20">Features</h1>
                     <div class="section-inner-padding">
-						<ul class="article-list">
-                        @foreach (var article in Model.ArticlesList)
+                        <ul class="article-list">
+                            @foreach (var article in Model.ArticlesList)
                             {
                                 <li id='post-@article.BasicId' class="@string.Format("{0}",System.Text.RegularExpressions.Regex.Match(article.AuthorName, @"\b(sponsored)\b",System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success ? "sponsored-content" : "post-content") article-content">
-								<div class="article-item-content">
-									@Html.Raw(string.Format("{0}", System.Text.RegularExpressions.Regex.Match(article.AuthorName, @"\b(sponsored)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : ""))
-									<div class="article-image-wrapper">
-                                    @if (i < 3)
-                                    {
-                                        @Html.Raw(string.Format("<a href='{0}'><img src='{1}' alt='{2}' title='{2}' width='100%' border='0' /></a>", UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString()), Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._210x118, QualityFactor._70), article.Title))
-                                    }
-                                    else
-                                    {
-                                        @Html.Raw(string.Format("<a href='{0}'><img data-original='{1}' src='' alt='{2}' title='{2}' width='100%' border='0' class='lazy' /></a>", UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString()), Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._210x118, QualityFactor._70), article.Title))
-                                    }
-									</div>
-									<div class="article-desc-wrapper">
-										<h2 class="font14 margin-bottom10">
-											<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString())" title="@article.Title" rel="bookmark" class="text-black text-bold">
-												@article.Title
-											</a>
-										</h2>
-										<div class="font12 text-light-grey margin-bottom25">
-											<div class="article-date">
-												<span class="bwsprite calender-grey-icon inline-block"></span>
-												<span class="inline-block">
-													@FormatDate.GetFormatDate(article.DisplayDate.ToString(), "dd MMMM yyyy")
-												</span>
-											</div>
-											<div class="article-author">
-												<span class="bwsprite author-grey-icon inline-block"></span>
-												<span class="inline-block">
-													@article.AuthorName
-												</span>
-											</div>
-										</div>
-										<div class="font14 line-height">@Html.Raw(article.Description)<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString())">Read full story</a></div>
-									</div>
-									<div class="clear"></div>
-								</div>
-                            </li>
-                            if (Model.PagerEntity.PageNo == 1 && Model.EndIndex == 10 && i == 4)
-                            {
-                                <li class="list-item__slug hide" id="writereviewslug">
-									<span class="bwsprite list-slug__close"></span>
-									<div class="list-slug__wrapper">
-										<div class="slug-content--top-align">
-											<img class="list-slug__image lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/review-contest-slug-120.png" alt="Bike Review Contest" src="" />
-										</div>
-										<div class="list-slug__details slug-content--top-align">
-											<p class="list-slug__heading">Bike review contest</p>
-											<p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;2,000</p>
-                                            @{
-                                                string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_Features));
+                                    <div class="article-item-content">
+                                        @Html.Raw(string.Format("{0}", System.Text.RegularExpressions.Regex.Match(article.AuthorName, @"\b(sponsored)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : ""))
+                                        <div class="article-image-wrapper">
+                                            @if (i < 3)
+                                            {
+                                                @Html.Raw(string.Format("<a href='{0}'><img src='{1}' alt='{2}' title='{2}' width='100%' border='0' /></a>", UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString()), Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._210x118, QualityFactor._70), article.Title))
                                             }
-                                            <a href="@string.Format("/bike-review-contest/?q={0}",q)" title="Bike Review Contest" class="btn view-all-target-btn list-slug__target">Participate now<span class="bwsprite teal-right"></span></a>
-										</div>
-									</div>
-								</li>
+                                            else
+                                            {
+                                                @Html.Raw(string.Format("<a href='{0}'><img data-original='{1}' src='' alt='{2}' title='{2}' width='100%' border='0' class='lazy' /></a>", UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString()), Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._210x118, QualityFactor._70), article.Title))
+                                            }
+                                        </div>
+                                        <div class="article-desc-wrapper">
+                                            <h2 class="font14 margin-bottom10">
+                                                <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString())" title="@article.Title" rel="bookmark" class="text-black text-bold">
+                                                    @article.Title
+                                                </a>
+                                            </h2>
+                                            <div class="font12 text-light-grey margin-bottom25">
+                                                <div class="article-date">
+                                                    <span class="bwsprite calender-grey-icon inline-block"></span>
+                                                    <span class="inline-block">
+                                                        @FormatDate.GetFormatDate(article.DisplayDate.ToString(), "dd MMMM yyyy")
+                                                    </span>
+                                                </div>
+                                                <div class="article-author">
+                                                    <span class="bwsprite author-grey-icon inline-block"></span>
+                                                    <span class="inline-block">
+                                                        @article.AuthorName
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="font14 line-height">@Html.Raw(article.Description)<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString())">Read full story</a></div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                                if (Model.PagerEntity.PageNo == 1 && Model.EndIndex == 10 && i == 4)
+                                {
+                                    <li class="list-item__slug hide" id="writereviewslug">
+                                        <span class="bwsprite list-slug__close"></span>
+                                        <div class="list-slug__wrapper">
+                                            <div class="slug-content--top-align">
+                                                <img class="list-slug__image lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/review-contest-slug-120.png" alt="Bike Review Contest" src="" />
+                                            </div>
+                                            <div class="list-slug__details slug-content--top-align">
+                                                <p class="list-slug__heading">Bike review contest</p>
+                                                <p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;@BWConfiguration.Instance.ContestPriceMoney .</p>
+                                                @{
+                                    string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_Features));
+                                                }
+                                                <a href="@string.Format("/bike-review-contest/?q={0}",q)" title="Bike Review Contest" class="btn view-all-target-btn list-slug__target">Participate now<span class="bwsprite teal-right"></span></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                                i++;
                             }
-                            i++;
-                        }
-						</ul>
+                        </ul>
                         <div id="footer-pagination" class="font14 pagination-padding">
                             <div class="grid-5 alpha omega text-light-grey">
                                 <p>Showing <span class="text-default text-bold">@string.Format("{0}-{1}", Model.StartIndex, Model.EndIndex)</span> of <span class="text-default text-bold">@Model.TotalArticles</span> articles</p>
@@ -99,29 +99,14 @@
         </div>
         <div class="grid-4 omega">
 
-            @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+            @if (Model.PopularBikesAndPopularScootersWidget != null)
             {
-                <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                    <h2>@Model.MostPopularBikes.WidgetHeading</h2>
-                    @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
-
-                    <div class="view-all-btn-container padding-top10 padding-bottom10">
-                        <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
-                    </div>
-                </div>
+            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndPopularScootersWidget)
             }
-
-            @if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+            @if (Model.UpcomingBikesAndUpcomingScootersWidget != null)
             {
-                <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                    <h2>@Model.UpcomingBikes.WidgetHeading</h2>
-                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
-                    <div class="view-all-btn-container padding-top10 padding-bottom10">
-                        <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
-                    </div>
-                </div>
+            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.UpcomingBikesAndUpcomingScootersWidget)
             }
-
 
             <div class="margin-bottom20">
                 @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
@@ -146,5 +131,5 @@
                 slugItem.remove();
             });
         });
-	});
+    });
 </script>

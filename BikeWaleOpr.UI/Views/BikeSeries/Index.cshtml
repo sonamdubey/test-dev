@@ -15,6 +15,7 @@
                             <th>Name</th>
                             <th>Masking Name</th>
                             <th>Series URL</th>
+                            <th>Body Style</th>
                             <th>Make Name</th>
                             <th>Synopsis</th>
                             <th>Edit</th>
@@ -34,9 +35,24 @@
                                     <td class="teal lighten-4">@series.SeriesName</td>
                                     <td>@series.SeriesMaskingName</td>
                                     <td><i class="material-icons @((series.IsSeriesPageUrl) ? "icon-green" : "icon-red")">@((series.IsSeriesPageUrl) ? "done" : "close")</i></td>
+                                    @if (series.BodyStyle != null && series.BodyStyle.BodyStyleId != 0)
+                                    {
+                                        <td> @series.BodyStyle.BodyStyleName </td>
+                                    }
+                                    else
+                                    {
+                                        <td>N/A</td>
+                                    }
                                     <td> @series.BikeMake.MakeName </td>
                                     <td><a href="#!" data-target="modal-series-synopsis" data-bind="event : {click : function(d,e) { getSeriesSynopsis(e) }}"><i class="material-icons icon-green">add_circle</i></a></td>
-                                    <td><a href = "#series-edit-update" class="tooltipped" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-makeid="@series.BikeMake.MakeId" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                                    @if (series.BodyStyle != null && series.BodyStyle.BodyStyleId != 0)
+                                    {
+                                        <td><a href="#series-edit-update" class="tooltipped" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-makeid="@series.BikeMake.MakeId" data-bodystyleid="@series.BodyStyle.BodyStyleId" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a href="#series-edit-update" class="tooltipped" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-makeid="@series.BikeMake.MakeId" data-bodystyleid="0" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                                    }
                                     <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Delete Series" rel="nofollow" data-target="delete-confirm-modal" data-bind="event:{click: function(d, e){ deleteEvent(e)}}" ><i class="material-icons icon-red">delete</i></a></td>
                                     <td>@series.CreatedOn.ToString("dd/MM/yyyy")</td>
                                     <td>@series.UpdatedOn.ToString("dd/MM/yyyy")</td>
@@ -81,8 +97,20 @@
                                     <label id = "txtSeriesMaskingLabel" for="txtSeriesMaskingName" data-error="" data-bind="attr:{'data-error':seriesMaskingMsg}, css:seriesMaskingMsg()!=''?'active':''">Series Masking Name</label>
                                 </div>
                                 <div class="input-field row s12">
-                                    <input type="checkbox" id="chkSeriesURL" name="isSeriesPageUrl" class="with-gap" value="false"/>
+                                    <input type="checkbox" id="chkSeriesURL" name="isSeriesPageUrl" class="with-gap" data-bind="checked: isSeriesUrl" />
                                     <label for="chkSeriesURL">Form Series URL</label>
+                                </div>
+                                <div class="input-field row m12" data-bind="visible: isSeriesUrl()">
+                                    <select id="selectBodyStyle" name="BodyStyleId" data-bind="value: selectedBodyStyleId">
+                                        <option disabled selected value="0">Select Body Style</option>
+                                        @if (Model.BikeBodyStylesList != null)
+                                        {
+                                            foreach (var bodystyle in Model.BikeBodyStylesList)
+                                            {
+                                                <option value="@bodystyle.BodyStyleId"> @bodystyle.BodyStyleName </option>
+                                            }
+                                        }
+                                    </select>
                                 </div>
                                 <div class="input-field row m12">
                                     <button id = "btnAddSeries" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return validateSubmit();}}">
@@ -96,27 +124,40 @@
             </div>
         </div>
 
-        <div id = "series-edit-update" class="modal">
+        <div id="series-edit-update" class="modal">
             <div class="modal-content">
-                <h4>Update<span data-bind="text: selectedSeriesName"></span> Data</h4>
-                <div>
+                <h4>Update <span data-bind="text: selectedSeriesName"></span> Data</h4>
+                <div class="container">
                     <div class="input-field row m12">
-                        <input id = "txtSeriesNameUpdate" type="text" class="validate" name="makeName" data-bind="textInput: seriesNameUpdate ">
-                        <label for="txtSeriesNameUpdate">Series Name</label>
+                        <input id="txtSeriesNameUpdate" type="text" class="validate" name="makeName" data-bind="textInput: seriesNameUpdate, css:seriesEditMsg()!=''?'invalid':'' ">
+                        <label for="txtSeriesNameUpdate" data-error="" data-bind="attr:{'data-error':seriesEditMsg}, css:seriesEditMsg()!=''?'active':''">Series Name</label>
                     </div>
                     <div class="input-field row m12">
-                        <input id = "txtSeriesMaskingNameUpdate" type="text" class="validate" name="maskingName" data-bind="textInput: seriesMaskingNameUpdate">
-                        <label for="txtSeriesMaskingNameUpdate">Series Masking Name</label>
+                        <input id="txtSeriesMaskingNameUpdate" type="text" class="validate" name="maskingName" data-bind="textInput: seriesMaskingNameUpdate, css:seriesMaskingEditMsg()!=''?'invalid':''">
+                        <label for="txtSeriesMaskingNameUpdate" data-error="" data-bind="attr:{'data-error':seriesMaskingEditMsg}, css:seriesMaskingEditMsg()!=''?'active':''">Series Masking Name</label>
                     </div>
-                    <div class="input-field row s12">
-                        <input type="checkbox" id="chkEditSeriesURL" name="isSeriesPageUrl" class="with-gap" data-bind="checked: isSeriesURL"/>
+                    <div class="input-field row m12">
+                        <input type="checkbox" id="chkEditSeriesURL" name="isSeriesPageUrl" class="with-gap" data-bind="checked: isSeriesEditUrl" />
                         <label for="chkEditSeriesURL">Form Series URL</label>
                     </div>
+                    <div class="input-field row m8" data-bind="visible: isSeriesEditUrl()">
+                        <select id="selectBodyStyleUpdate" name="BodyStyleId" data-bind="value: selectedBodyStyleUpdateId">
+                            <option disabled data-bind="attr:{value:0,'selected': '0' == selectedBodyStyleUpdateId()?'true':'false' }">Select Body Style</option>
+                            @if (Model.BikeBodyStylesList != null)
+                            {
+                                foreach (var bodystyle in Model.BikeBodyStylesList)
+                                {
+                                    <option data-bind="attr:{value:@bodystyle.BodyStyleId, 'selected': @bodystyle.BodyStyleId == selectedBodyStyleUpdateId()?'true':'false' }"> @bodystyle.BodyStyleName </option>
+                                }
+                            }
+                        </select>
+                    </div>
+
                 </div>
             </div>
 
             <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { validateUpdate() }}"  style="margin-left:5px;">Update</a>
+                <a class="modal-action waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { validateUpdate() }}" style="margin-left:5px;">Update</a>
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             </div>
         </div>

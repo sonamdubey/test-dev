@@ -5,6 +5,7 @@ using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.Pages;
@@ -74,12 +75,15 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IBikeSeries _bikeSeries = null;
         private readonly IAdSlot _adSlot = null;
+        private readonly IBikeInfo _bikeInfo = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository;
 
         private uint _modelId, _cityId, _areaId;
 
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
         private ModelPageVM _objData = null;
+
         private PQOnRoadPrice _pqOnRoad;
         private readonly StringBuilder _colorStr = new StringBuilder();
 
@@ -98,7 +102,7 @@ namespace Bikewale.Models.BikeModels
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -121,7 +125,9 @@ namespace Bikewale.Models.BikeModels
             _userReviewsCache = userReviewsCache;
             _bikeSeries = bikeSeries;
             _adSlot = adSlot;
-            ParseQueryString(modelMasking);
+            _bikeInfo = bikeInfo;
+            _bikeMakesCacheRepository = bikeMakesCacheRepository;
+            ParseQueryString(makeMasking, modelMasking);
         }
 
         #endregion Global Variables
@@ -354,6 +360,8 @@ namespace Bikewale.Models.BikeModels
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Description: Added 'new bikes' in breadcrumb
         /// </summary>
         private void SetBreadcrumList()
         {
@@ -367,7 +375,7 @@ namespace Bikewale.Models.BikeModels
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
-
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
 
             if (_objData.ModelPageEntity.ModelDetails.MakeBase != null)
             {
@@ -622,7 +630,10 @@ namespace Bikewale.Models.BikeModels
                     var objMake = _objData.ModelPageEntity.ModelDetails.MakeBase;
 
                     _objData.News = new RecentNews(3, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, "News", _objArticles).GetData();
-                    _objData.ExpertReviews = new RecentExpertReviews(3, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", _objData.BikeName)).GetData();
+
+                    BindExpertReviews();
+                    BindComparisionReviews();
+
                     _objData.Videos = new RecentVideos(1, 3, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objData.ModelId, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
                     _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile ? UserReviewPageSourceEnum.Mobile_ModelPage : UserReviewPageSourceEnum.Desktop_ModelPage)));
 
@@ -709,6 +720,7 @@ namespace Bikewale.Models.BikeModels
 
                                 BindEMICalculator(onRoadPrice);
                             }
+
                         }
                     }
 
@@ -734,6 +746,53 @@ namespace Bikewale.Models.BikeModels
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.ModelPage.BindControls");
+            }
+        }
+
+        private void BindExpertReviews()
+        {
+            try
+            {
+                var objMake = _objData.ModelPageEntity.ModelDetails.MakeBase;
+
+                if (objMake != null)
+                {
+                    RecentExpertReviews objExpertReviews = new RecentExpertReviews(5, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", _objData.BikeName));
+
+                    List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>
+					{
+						EnumCMSContentType.RoadTest
+					};
+                    List<EnumCMSContentSubCategoryType> subCategoryList = new List<EnumCMSContentSubCategoryType>
+					{
+						EnumCMSContentSubCategoryType.Road_Test,
+						EnumCMSContentSubCategoryType.First_Drive,
+						EnumCMSContentSubCategoryType.Long_Term_Report
+					};
+                    _objData.ExpertReviews = objExpertReviews.GetData(categoryList, subCategoryList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.ModelPage.BindExpertReviews");
+            }
+        }
+
+        private void BindComparisionReviews()
+        {
+            try
+            {
+                var objMake = _objData.ModelPageEntity.ModelDetails.MakeBase;
+
+                if (objMake != null)
+                {
+                    RecentExpertReviews objExpertReviews = new RecentExpertReviews(3, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", _objData.BikeName));
+                    _objData.ComparisionTestExpertReviews = objExpertReviews.GetComparisonTests();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.ModelPage.BindComparisionReviews");
             }
         }
 
@@ -945,8 +1004,7 @@ namespace Bikewale.Models.BikeModels
                     _objEMI.RateOfInterest = (_objEMI.MaxRateOfInterest - _objEMI.MinRateOfInterest) / 2 + _objEMI.MinRateOfInterest;
                     _objEMI.MinLoanToValue = Convert.ToUInt32(Math.Round(bikePrice * 0.7, MidpointRounding.AwayFromZero));
                     _objEMI.MaxLoanToValue = bikePrice;
-                    _objEMI.EMIAmount = Convert.ToUInt32((_objEMI.MinLoanToValue * _objEMI.Tenure * _objEMI.RateOfInterest) / (12 * 100));
-                    _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue + _objEMI.EMIAmount + _objEMI.ProcessingFee) / _objEMI.Tenure, MidpointRounding.AwayFromZero));
+                    _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue * _objEMI.RateOfInterest / 1200) / (1 - Math.Pow((1 + (_objEMI.RateOfInterest / 1200)), (-1.0 * _objEMI.Tenure)))));
                 }
                 catch (Exception ex)
                 {
@@ -998,8 +1056,7 @@ namespace Bikewale.Models.BikeModels
                     objEMI.RateOfInterest = (objEMI.MaxRateOfInterest - objEMI.MinRateOfInterest) / 2 + objEMI.MinRateOfInterest;
                     objEMI.MinLoanToValue = Convert.ToUInt32(price * .7);
                     objEMI.MaxLoanToValue = price;
-                    objEMI.EMIAmount = Convert.ToUInt32((objEMI.MinLoanToValue * objEMI.Tenure * objEMI.RateOfInterest) / (12 * 100));
-                    objEMI.EMIAmount = Convert.ToUInt32(Math.Round((objEMI.MinLoanToValue + objEMI.EMIAmount + objEMI.ProcessingFee) / objEMI.Tenure, MidpointRounding.AwayFromZero));
+                    objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue * _objEMI.RateOfInterest / 1200) / (1 - Math.Pow((1 + (_objEMI.RateOfInterest / 1200)), (-1.0 * _objEMI.Tenure)))));
                 }
                 else
                 {
@@ -1363,25 +1420,29 @@ namespace Bikewale.Models.BikeModels
         /// Summary:- Process the input query
         /// </summary>
         /// <param name="modelMasking"></param>
-        private void ParseQueryString(string modelMasking)
+        private void ParseQueryString(string makeMasking, string modelMasking)
         {
-            ModelMaskingResponse objResponse = null;
+            ModelMaskingResponse objModelResponse = null;
+            string newMakeMasking = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
-                if (!string.IsNullOrEmpty(modelMasking))
+                newMakeMasking = ProcessMakeMaskingName(makeMasking, out isMakeRedirection);
+                if (!string.IsNullOrEmpty(newMakeMasking) && !string.IsNullOrEmpty(makeMasking) && !string.IsNullOrEmpty(modelMasking))
                 {
-                    objResponse = new Bikewale.Common.ModelHelper().GetModelDataByMasking(modelMasking);
 
-                    if (objResponse != null)
+                    objModelResponse = new Common.ModelHelper().GetModelDataByMasking(makeMasking, modelMasking);
+
+                    if (objModelResponse != null)
                     {
-                        if (objResponse.StatusCode == 200)
+                        if (objModelResponse.StatusCode == 200)
                         {
-                            _modelId = objResponse.ModelId;
+                            _modelId = objModelResponse.ModelId;
                             Status = StatusCodes.ContentFound;
                         }
-                        else if (objResponse.StatusCode == 301)
+                        else if (objModelResponse.StatusCode == 301 || isMakeRedirection)
                         {
-                            RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(modelMasking, objResponse.MaskingName);
+                            RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(modelMasking, objModelResponse.MaskingName).Replace(makeMasking, newMakeMasking);
                             Status = StatusCodes.RedirectPermanent;
                         }
                         else
@@ -1405,6 +1466,42 @@ namespace Bikewale.Models.BikeModels
                 Status = StatusCodes.RedirectPermanent;
                 RedirectUrl = "/new-bikes-in-india/";
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 11th Dec 2017
+        /// Description : Process make masking name for redirection
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="isMakeRedirection"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
+        {
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
+            {
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
+            }
+            if (makeResponse != null)
+            {
+                if (makeResponse.StatusCode == 200)
+                {
+                    return makeResponse.MaskingName;
+                }
+                else if (makeResponse.StatusCode == 301)
+                {
+                    isMakeRedirection = true;
+                    return makeResponse.MaskingName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return "";
         }
 
         /// <summary>

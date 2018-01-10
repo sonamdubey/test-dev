@@ -42,7 +42,7 @@ docReady(function () {
             if (!isNaN(ddlcityId) && ddlcityId != "0") {
                 ddlcityMasking = ddlCities.find("li.activeCity").attr("cityMaskingName");
                 bwcache.remove("userchangedlocation", true);
-                window.location.href = "/m/" + ddlmakemasking + "-dealer-showrooms-in-" + ddlcityMasking + "/";
+                window.location.href = "/m/dealer-showrooms/" + ddlmakemasking +"/"+ ddlcityMasking + "/";
             }
             else {
                 setError($("div.locator-search-city-form"), "Please select city !");

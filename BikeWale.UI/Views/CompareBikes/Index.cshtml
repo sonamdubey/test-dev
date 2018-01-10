@@ -66,7 +66,7 @@
         <p class="font14 text-light-grey margin-bottom5">Version</p>
         <p class="font14 text-bold margin-bottom10" data-bind="text: versionName"></p>
         <p class="font14 text-light-grey margin-bottom5">Ex-showroom price, @Bikewale.Utility.BWConfiguration.Instance.GetDefaultCityName</p>
-        @Html.Raw("<span class='font18>&#x20B9;</span>")
+        <span class="font16 padding-right5"  data-bind="visible: price != 0" > &#x20B9;</span>
         <span class="font18 text-bold" data-bind="text: price"></span>
     </div>
 </script>
@@ -157,4 +157,6 @@
         </div>
     </section>
 }
+
+
 @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}

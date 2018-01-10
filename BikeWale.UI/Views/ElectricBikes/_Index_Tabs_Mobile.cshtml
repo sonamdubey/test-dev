@@ -1,0 +1,29 @@
+﻿
+@model Bikewale.Models.ElectricBikesPageVM
+<div id="makeOverallTabsWrapper">
+    <div id="overallSpecsTab" class="overall-specs-tabs-container">
+        <ul class="overall-specs-tabs-wrapper">
+ 
+            <li data-tabs="#makeAboutContent" class="active" data-lab="About">About</li>
+            
+           @if (Model.ElectricBikes != null && Model.ElectricBikes.Any())
+           {
+            <li data-tabs="#bikeMakeList" data-lab="Electric Bikes">Electric Bikes</li>
+           }
+           
+           @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+           {
+            <li data-tabs="#modelNewsContent" data-lab="News">News</li>
+           }
+         @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+         {
+            <li data-tabs="#makeReviewsContent" data-lab="Reviews">Reviews</li>
+         }
+            @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+            {
+                <li data-tabs="#makeVideosContent" data-lab="Videos">Videos</li>
+            }
+        
+        </ul>
+    </div>
+</div>

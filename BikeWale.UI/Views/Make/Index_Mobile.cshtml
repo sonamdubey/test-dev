@@ -2,13 +2,12 @@
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline />";
-    Model.Page_JS_Path = "/m/src/bwm-brand.js";
+    Model.Page_JS_Paths = new string[] {"/m/src/bwm-brand.js", "/src/review-popup.js"};;
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Make";
     Model.AdTags.AdId = "1444028878952";
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_300x250 = true;
 }
-
 <section id="makeTabsContentWrapper">
     <section>
         <div id="bikeByMakesListing" class="container margin-bottom20">
@@ -21,7 +20,7 @@
                             </a>
                         </div>
                         <div sc="" class='border-solid-left'>
-                            <a data-title="sort" class='position-rel @(Model.SelectedSortingId == 1 ? "text-bold" : "")' '>
+                            <a data-title="sort" class='position-rel @(Model.SelectedSortingId == 1 ? "text-bold" : "")'>
                                 Popularity
                             </a>
                         </div>
@@ -67,7 +66,7 @@
                                     var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
 
-                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex">
+                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
                                         <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
@@ -116,7 +115,7 @@
                                                         <span class="text-bold font18">Price unavailable</span>
                                                     }
                                                 </div>
-                                                @if (bike.VersionPrice > 0)
+                                                @if (bike.VersionPrice > 0 && Model.ShowCheckOnRoadpriceBtn)
                                                 {
                                                     <a href="javascript:void(0)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage)" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
                                                 }
@@ -191,7 +190,7 @@
         </div>
     }
 
-    @if (Model.IsDealerServiceDataAvailable || Model.DealersServiceCenterPopularCities != null)
+    @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
     {
         <div id="makeDealersContent" class="bw-model-tabs-data">
             @if (Model.IsDealerAvailable)
@@ -204,7 +203,7 @@
                                     <h2>@Model.MakeName showrooms in @Model.Location</h2>
                                 </div>
                                 <div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="/m/@Model.MakeMaskingName-dealer-showrooms-in-@Model.LocationMasking/" title="@Model.MakeName Showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                    <a href="/m/dealer-showrooms/@Model.MakeMaskingName/@Model.LocationMasking/" title="@Model.MakeName Showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -223,8 +222,11 @@
                         <div class="content-box-shadow padding-bottom5 card-bottom-margin">
                             <div class="content-inner-block-20">
                                 <span class="bwmsprite dealer-grey"></span>
-                                <h2 class="margin-bottom10 inline-block padding-left10">@Model.MakeName showrooms</h2>
-                                <p class="font14 text-slate-grey margin-bottom15">There are @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount cities in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
+                                <h2 class="margin-bottom10 inline-block padding-left10">@Model.MakeName showroom@(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "" : "s")</h2>
+                                @{
+                var showroomText = (Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "showroom" : "showrooms");
+                                }
+                                <p class="font14 text-slate-grey margin-bottom15">There @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "is" : "are") @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName @showroomText across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "city" : "cities") in India. Select your city to find address, & contact details of @Model.MakeName @showroomText near you.</p>
                                 <a href="javascript:void(0)" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage " rel="nofollow" data-makemasking="@Model.MakeMaskingName">
                                     Select your city
                                 </a>
@@ -294,17 +296,22 @@
                     </div>
                 }
 
-                @if (Model.IsVideosAvailable)
+          
+                @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
                 {
                     <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                         <h2 class="text-bold">@Model.MakeName Videos</h2>
-                        @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
-                        <div class="view-all-btn-container">
-                            <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
+
+                        @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+
+                        <div class="margin-top10">
+							<a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
+								View all videos <span class="bwmsprite teal-right"></span>
+							</a>
                         </div>
+
                     </div>
                 }
-
                 @if (Model.IsUsedModelsBikeAvailable)
                 {
                     <div id="makeUsedBikeContent" class="bw-model-tabs-data  padding-top15">
@@ -360,3 +367,11 @@
         </div>
     </section>
 }
+
+@if (Model.IsUserReviewsAvailable && Model.PopularBikesUserReviews != null)
+{
+    <!-- Make review popup-->
+    <div id="reviewPopup" class="review-popup hide" data-csslink="@String.Format("{0}/sass/partials/review-popup.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></div>
+    <!-- make review popup ends-->
+}
+

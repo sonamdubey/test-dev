@@ -10,31 +10,31 @@
     {
 
         case (EnumBikeBodyStyles.Scooter):
-            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/scooter-style-thumb.jpg?05042017&q=75";
+            imageSrc = "https://imgd.aeplcdn.com/0x0/bw/best-bikes/m/scooter-style-carousel.png";
             url = "/best-scooters-in-india/";
             cardTitle = "Top 10 scooters in India";
             break;
 
         case EnumBikeBodyStyles.Mileage:
-            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/mileage-bikes-thumb.jpg?05042017&q=75";
+            imageSrc = "https://imgd.aeplcdn.com/0x0/bw/best-bikes/m/mileage-bikes-carousel.png";
             url = "/best-mileage-bikes-in-india/";
             cardTitle = "Top 10 mileage bikes in India";
             break;
 
         case EnumBikeBodyStyles.Cruiser:
-            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/cruiser-style-thumb.jpg?05042017&q=75";
+            imageSrc = "https://imgd.aeplcdn.com/0x0/bw/best-bikes/m/cruiser-style-carousel.png";
             url = "/best-cruiser-bikes-in-india/";
             cardTitle = "Top 10 cruiser bikes in India";
             break;
 
         case EnumBikeBodyStyles.Sports:
-            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/sports-style-thumb.jpg?05042017&q=75";
+            imageSrc = "https://imgd.aeplcdn.com/0x0/bw/best-bikes/m/sports-style-carousel.png";
             url = "/best-sports-bikes-in-india/";
             cardTitle = "Top 10 sports bikes in India";
             break;
             
         default:
-            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/best-bikes-thumb.jpg?05042017&q=75";
+            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/mileage-bikes-carousel.png";
             url = "/best-bikes-in-india/";
             cardTitle = "Top 10 bikes in India";
             break;
@@ -81,15 +81,16 @@
 
     <!-- Code for last creative card added -->
     <div class="swiper-slide">
-        <div class="swiper-card">
-            <a href="@string.Format("/m{0}",url)"  title="@cardTitle" class="block swiper-card-target">
+        <div class="swiper-card card__complete-list" id="allbikes">
+            <a href="@string.Format("/m{0}",url)" title="@cardTitle" class="block swiper-card-target">
                 <div class="swiper-image-preview">
                     <img class="swiper-lazy" data-src=@imageSrc alt="@cardTitle" src="" />
                     <span class="swiper-lazy-preloader"></span>
                 </div>
                 <div class="swiper-details-block">
-                    <h3 class="margin-bottom5 text-truncate">@cardTitle</h3>
-                    <p class="font12 text-light-grey text-truncate">@bikeList</p>
+                    <div class="swiper-btn-block">
+                        View Complete List
+                    </div>
                 </div>
             </a>
         </div>

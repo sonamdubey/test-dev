@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -7,6 +5,8 @@ using EditCMSWindowsService.Messages;
 using Grpc.Core;
 using GRPCLoadBalancer;
 using log4net;
+using System;
+using System.Diagnostics;
 
 namespace Grpc.CMS
 {
@@ -1141,7 +1141,7 @@ namespace Grpc.CMS
                                     ApplicationId = 2,
                                     SubCategoryId = catId,
                                     StartIndex = startId,
-                                    EndIndex = endId                                    
+                                    EndIndex = endId
                                 },
 
                                  null, GetForwardTime(m_ChanelWaitTime));
@@ -1392,73 +1392,80 @@ namespace Grpc.CMS
                 }
             }
         }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Grpc method to get videos of multiple model ids.
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Removed id from call of GetSimilarVideos.
+        /// </summary>
+        /// <param name="totalCount"></param>
+        /// <param name="modelIdList"></param>
+        /// <returns></returns>
+        public static GrpcVideosList GetSimilarVideos(uint totalCount, string modelIdList)
+        {
+            Stopwatch sw = null;
 
-		public static GrpcVideosList GetSimilarVideos(uint totalCount, string modelIdList, uint id = 0)
-		{
-			Stopwatch sw = null;
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-			try
-			{
-				if (_logGrpcErrors)
-				{
-					sw = Stopwatch.StartNew();
-				}
-				Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
 
-				int i = m_retryCount;
-				while (i-- >= 0)
-				{
-					if (ch != null)
-					{
-						var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-						try
-						{
+                            return client.GetSimilarVideos
+                                (new GrpcVideosByIdURI()
+                                {
+                                    ApplicationId = 2,
+                                    SimilarModels = modelIdList,
+                                    StartIndex = 1,
+                                    EndIndex = totalCount
+                                },
 
-							return client.GetSimilarVideos
-								(new GrpcVideosByIdURI()
-								{
-									ApplicationId = 2,
-									Id = (int)id,
-									SimilarModels = modelIdList,
-									StartIndex = 1,
-									EndIndex = totalCount
-								},
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
+                    }
+                    else
+                        break;
+                }
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors && sw != null)
+                {
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetSimilarVideos took " + sw.ElapsedMilliseconds);
+                }
+            }
+        }
 
-								 null, GetForwardTime(m_ChanelWaitTime));
-						}
-						catch (RpcException e)
-						{
-							log.Error(e);
-							if (i > 0)
-							{
-								log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-								ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-							}
-							else
-								break;
-						}
-						catch (Exception e)
-						{
-							log.Error(e);
-						}
-					}
-					else
-						break;
-				}
-				return null;
-			}
-			finally
-			{
-				if (_logGrpcErrors && sw != null)
-				{
-					sw.Stop();
-					if (sw.ElapsedMilliseconds > _msLimit)
-						log.Error("Error105 GetSimilarVideos took " + sw.ElapsedMilliseconds);
-				}
-			}
-		}
-
-		public static GrpcVideo GetVideoByBasicId(int id)
+        public static GrpcVideo GetVideoByBasicId(int id)
         {
             Stopwatch sw = null;
 
@@ -1585,7 +1592,7 @@ namespace Grpc.CMS
 
 
 
-        public static GrpcBool ClearMemCachedKEys(EditCMSCategoryEnum cat)
+        public static GrpcBool ClearMemCachedKEys(EditCMSCategoryEnum cat, int makeId, int modelId)
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
@@ -1599,7 +1606,7 @@ namespace Grpc.CMS
                     {
 
                         return client.ClearMemcachedKeys
-                            (new EditCMSCategory() { Category = cat },
+                            (new EditCMSCategory() { Category = cat, MakeId = makeId, ModelId = modelId },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
                     catch (RpcException e)
@@ -1834,6 +1841,85 @@ namespace Grpc.CMS
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
                         log.Error("Error105 GetContentByAuthor took " + sw.ElapsedMilliseconds);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 13 Dec 2017
+        /// Description : Grpc method to get content list by category and subcategory id.
+        /// </summary>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="categoryIdList"></param>
+        /// <param name="subCategoryIdList">Comma separated Ids, it can be empty string.</param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public static GrpcCMSContent GetContentListBySubCategoryId(uint startIndex, uint endIndex, string categoryIdList, string subCategoryIdList, int makeId = 0, int modelId = 0)
+        {
+            Stopwatch sw = null;
+
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
+
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+
+                            return client.GetContentListBySubCategoryId
+                                (new GrpcArticleBySubCatURI()
+                                {
+                                    ApplicationId = 2,
+                                    MakeId = makeId,
+                                    ModelId = modelId,
+                                    CategoryIdList = categoryIdList,
+                                    SubCategory = subCategoryIdList,
+                                    StartIndex = startIndex,
+                                    EndIndex = endIndex
+                                },
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
+                    }
+                    else
+                        break;
+                }
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetContentListBySubCategoryId took " + sw.ElapsedMilliseconds);
                 }
             }
         }

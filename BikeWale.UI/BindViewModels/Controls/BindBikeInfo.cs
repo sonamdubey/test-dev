@@ -167,12 +167,13 @@ namespace Bikewale.BindViewModels.Controls
                               Tab = BikeInfoTabType.Specs
                           });
                     }
-                   
+
                     if (_genericBikeInfo.DealersCount > 0)
                     {
                         _genericBikeInfo.Tabs.Add(new BikeInfoTab()
                         {
-                            URL = Bikewale.Utility.UrlFormatter.DealerLocatorUrl(_genericBikeInfo.Make.MaskingName, cityDetails != null ? cityDetails.CityMaskingName : "india"),
+
+                            URL = (cityDetails != null) ? Bikewale.Utility.UrlFormatter.DealerLocatorUrl(_genericBikeInfo.Make.MaskingName, cityDetails.CityMaskingName) : Bikewale.Utility.UrlFormatter.DealerLocatorUrl(_genericBikeInfo.Make.MaskingName),
                             Title = string.Format("Dealers in {0}", cityDetails != null ? cityDetails.CityName : "India"),
                             TabText = "Dealers",
                             IconText = "dealers",

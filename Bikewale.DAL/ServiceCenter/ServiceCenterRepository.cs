@@ -88,7 +88,7 @@ namespace Bikewale.DAL.ServiceCenter
                                         Longitude = Convert.ToString(dr["longitude"]),
                                         ServiceCenterCountCity = SqlReaderConvertor.ToUInt16(dr["servicecnt"]),
                                         stateId = SqlReaderConvertor.ToUInt16(dr["stateid"]),
-                                        Link = string.Format("{0}/{1}-service-center-in-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, makeMaskingname, Convert.ToString(dr["citymaskingname"]))
+                                        Link = string.Format("{0}/service-centers/{1}/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, makeMaskingname, Convert.ToString(dr["citymaskingname"]))
                                     });
                                 }
                             }
@@ -146,7 +146,7 @@ namespace Bikewale.DAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("GetServiceCenterList, makeId = {0} ", makeId));
-                
+
             }
             return objStateCityList;
         }
@@ -192,7 +192,7 @@ namespace Bikewale.DAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetServiceCenterCities");
-                
+
             }
             return objCityList;
         }
@@ -255,7 +255,7 @@ namespace Bikewale.DAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Error in ServiceCentersRepository.GetServiceCentersByCity for paramerters cityId : {0}, makeId : {1}", cityId, makeId));
-                
+
             }
             return serviceCenters;
         }
@@ -323,7 +323,7 @@ namespace Bikewale.DAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Error in ServiceCentersRepository.GetServiceScheduleByMake for paramerters makeId : {0}", makeId));
-                
+
             }
             return modelSchedules;
         }
@@ -377,7 +377,7 @@ namespace Bikewale.DAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Error in ServiceCenterRepository.GetServiceCenterById for paramerters serviceCenterId : {0}", serviceCenterId));
-                
+
             }
             return objServiceCenterCompleteData;
         }
@@ -432,7 +432,7 @@ namespace Bikewale.DAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Error in ServiceCenterRepository.GetServiceCenterSMSData for parameters serviceCenterId : {0}, mobileNumber : {1}", serviceCenterId, mobileNumber));
-                
+
             }
             return objSMSData;
         }
@@ -476,7 +476,7 @@ namespace Bikewale.DAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Error in ServiceCenterRepository.GetAllServiceCentersByBrand");
-                
+
             }
             return listServiceCenter;
 
@@ -529,10 +529,10 @@ namespace Bikewale.DAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Error in ServiceCenterRepository.GetServiceCentersNearbyCitiesByBrand for paramerters cityId : {0},makeId: {1},topCount: {2}", cityId, makeId, topCount));
-                
+
             }
             return listServiceCenter;
         }
-        
+
     }
 }

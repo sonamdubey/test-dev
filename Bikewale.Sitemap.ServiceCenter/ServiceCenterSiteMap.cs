@@ -75,14 +75,21 @@ namespace Bikewale.Sitemap.ServiceCenter
                 }
             return isSuccess;
         }
+        /// <summary>
+        /// Modified by: Snehal Dange on 1st dec 2017
+        /// Description: Changed "{make}-service-center-in-{city}" to "/service-centers/{make}/{city}/"
+        /// </summary>
+        /// <param name="SitemapList"></param>
+        /// <returns></returns>
         public IEnumerable<string> CreateServiceCenterUrls(IEnumerable<ServiceCenterEnitity> SitemapList)
         {
             IList<string> urlList = new List<string>();
             try
             {
+                urlList.Add("service-centers/");
                 foreach (var value in SitemapList)
                 {
-                    urlList.Add(string.Format("{0}-service-center-in-{1}/", value.MakeMaskingName, value.CityMaskingName));
+                    urlList.Add(string.Format("service-centers/{0}/{1}", value.MakeMaskingName, string.IsNullOrEmpty(value.CityMaskingName) ? "" : value.CityMaskingName + "/"));
                 }
                 Logs.WriteInfoLog("All Service center Urls List Completed");
             }

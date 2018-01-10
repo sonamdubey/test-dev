@@ -36,7 +36,7 @@
                                 {
 
                                     <li>
-                                        <a data-item-id="@stcity.CityId" data-item-name="@stcity.CityName" data-lat="@stcity.Lattitude" data-long="@stcity.Longitude" data-link="@stcity.Link" data-dealercount="@stcity.DealersCount" title="@string.Format("{0} dealer showrooms in {1}",Model.Make.MakeName,stcity.CityName)" href="/m/@Model.Make.MaskingName-dealer-showrooms-in-@stcity.CityMaskingName/">@string.Format("{0} ({1})", stcity.CityName, stcity.DealersCount)</a>
+                                        <a data-item-id="@stcity.CityId" data-item-name="@stcity.CityName" data-lat="@stcity.Lattitude" data-long="@stcity.Longitude" data-link="@stcity.Link" data-dealercount="@stcity.DealersCount" title="@string.Format("{0} dealer showrooms in {1}",Model.Make.MakeName,stcity.CityName)" href="/m/dealer-showrooms/@Model.Make.MaskingName/@stcity.CityMaskingName/">@string.Format("{0} ({1})", stcity.CityName, stcity.DealersCount)</a>
                                     </li>
                                 }
                             </ul>

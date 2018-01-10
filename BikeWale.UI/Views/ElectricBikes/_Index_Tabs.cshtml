@@ -1,0 +1,26 @@
+﻿@model Bikewale.Models.ElectricBikesPageVM
+<div id="makeOverallTabsWrapper">
+    <div id="makeOverallTabs" class="overall-floating-tabs">
+        <div class="overall-specs-tabs-wrapper">
+           
+            <a href="#makeAboutContent" rel="nofollow" class="active nav-tab" data-lab="About">About</a>
+            
+            @if (Model.ElectricBikes != null && Model.ElectricBikes.Any())
+            {
+                <a href="#bikeMakeList" rel="nofollow" class="nav-tab" data-lab="Electric Bikes">Electric Bikes</a>
+            }
+            @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+            {
+                <a href="#modelNewsContent" rel="nofollow" class="nav-tab" data-lab="News">News</a>
+            }
+          @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+          {
+            <a href="#makeReviewsContent" rel="nofollow" class="nav-tab" data-lab="Reviews">Reviews</a>
+          }
+          @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+          {
+            <a href="#makeVideosContent" rel="nofollow" class="nav-tab" data-lab="Videos">Videos</a>
+          }
+        </div>
+    </div>
+</div>

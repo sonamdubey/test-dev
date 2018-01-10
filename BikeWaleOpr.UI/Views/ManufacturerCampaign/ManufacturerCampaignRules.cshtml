@@ -65,7 +65,7 @@
                             <div class="input-field row">
                               @if (Model.Makes != null && Model.Makes.Count() > 0)
                                 {
-                                    <select id="ddlMakes" name="makeIdList" data-bind="event:{change: selectMake}">
+                                    <select id="ddlmakes" name="makeIdList" data-bind="event:{change: selectMake}">
                                         <option>Select Make</option>
                                         @foreach (var make in Model.Makes)
                                         {

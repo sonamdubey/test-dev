@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.DTO.PriceQuote;
+﻿using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
@@ -21,11 +17,14 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
-using Bikewale.Models.Gallery;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -51,7 +50,7 @@ namespace Bikewale.Models
         private readonly IAreaCacheRepository _objAreaCache = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         private uint cityId, modelId, versionCount, colorCount, dealerCount, areaId;
-        private readonly string modelMaskingName, cityMaskingName;
+        private readonly string modelMaskingName, cityMaskingName, makeMaskingName;
         private string pageDescription, area, city;
         private BikeQuotationEntity firstVersion;
         private uint primaryDealerId;
@@ -89,7 +88,7 @@ namespace Bikewale.Models
         /// <param name="pqSource"></param>
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, string makeMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -107,6 +106,7 @@ namespace Bikewale.Models
             this.pqSource = pqSource;
             this.modelMaskingName = modelMaskingName;
             this.cityMaskingName = cityMaskingName;
+            this.makeMaskingName = makeMaskingName;
             _objManufacturerCampaign = objManufacturerCampaign;
             _objModelEntity = modelEntity;
             ProcessQueryString();
@@ -136,7 +136,7 @@ namespace Bikewale.Models
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
         /// <param name="modelEntity"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot, string makeMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -154,6 +154,7 @@ namespace Bikewale.Models
             this.pqSource = pqSource;
             this.modelMaskingName = modelMaskingName;
             this.cityMaskingName = cityMaskingName;
+            this.makeMaskingName = makeMaskingName;
             _objManufacturerCampaign = objManufacturerCampaign;
             _objModelEntity = modelEntity;
             _adSlot = adSlot;
@@ -170,19 +171,22 @@ namespace Bikewale.Models
             CityMaskingResponse objCityResponse = null;
             locationCookie = GlobalCityArea.GetGlobalCityArea();
             String rawUrl = HttpContext.Current.Request.RawUrl;
+            string newMakeMasking = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
 
                 if (!(String.IsNullOrEmpty(modelMaskingName) || String.IsNullOrEmpty(cityMaskingName)))
                 {
                     objCityResponse = _cityMaskingCache.GetCityMaskingResponse(cityMaskingName);
-                    objModelResponse = _modelMaskingCache.GetModelMaskingResponse(modelMaskingName);
+                    newMakeMasking = ProcessMakeMaskingName(makeMaskingName, out isMakeRedirection);
+                    objModelResponse = _modelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                 }
 
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("ProcessQueryString({0},{1})", modelMaskingName, cityMaskingName));
+                ErrorClass.LogError(ex, String.Format("ProcessQueryString({0},{1},{2})", makeMaskingName, modelMaskingName, cityMaskingName));
                 Status = StatusCodes.ContentNotFound;
             }
             finally
@@ -217,10 +221,10 @@ namespace Bikewale.Models
                     {
                         modelId = objModelResponse.ModelId;
                     }
-                    else if (objModelResponse.StatusCode == 301)
+                    else if (objModelResponse.StatusCode == 301 || isMakeRedirection)
                     {
                         //redirect permanent to new page                         
-                        rawUrl = rawUrl.Replace(modelMaskingName, objModelResponse.MaskingName);
+                        rawUrl = rawUrl.Replace(modelMaskingName, objModelResponse.MaskingName).Replace(makeMaskingName, newMakeMasking);
                         Status = StatusCodes.RedirectPermanent;
                     }
                     else
@@ -240,6 +244,42 @@ namespace Bikewale.Models
                 }
 
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 11th Dec 2017
+        /// Description : Process make masking name for redirection
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="isMakeRedirection"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
+        {
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
+            {
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
+            }
+            if (makeResponse != null)
+            {
+                if (makeResponse.StatusCode == 200)
+                {
+                    return makeResponse.MaskingName;
+                }
+                else if (makeResponse.StatusCode == 301)
+                {
+                    isMakeRedirection = true;
+                    return makeResponse.MaskingName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return "";
         }
 
         /// <summary>
@@ -286,8 +326,10 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Modifed by : Ashutosh Sharma on 13 Nov 2017
+        /// Modified by : Ashutosh Sharma on 13 Nov 2017
         /// Description : Added call to BindAdSlotTags.
+        /// Modified by : Ashutosh Sharma on 08 Dec 2017
+        /// Description : Removed Images load with Ajax for honda and hero.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageVM GetData()
@@ -409,11 +451,14 @@ namespace Bikewale.Models
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
 
-                    if (firstVersion != null)
-                    {
-                        CheckGallaryLoad(objVM);
-                    }
+
                     BindAdSlotTags(objVM);
+
+                    if (objVM.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                    {
+                        BindMoreAboutScootersWidget(objVM);
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -444,67 +489,6 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created by : Ashutosh Sharma on 05 Oct 2017
-        /// Description : Method to check if Gallary will be loaded via AJAX call.
-        /// </summary>
-        /// <param name="objVM"></param>
-        private void CheckGallaryLoad(PriceInCityPageVM objVM)
-        {
-            try
-            {
-                int[] MakeIdList = new int[2] { 6, 7 }; //For Hero and Honda
-                if (MakeIdList.Contains<int>(Convert.ToInt32(firstVersion.MakeId)))
-                {
-                    objVM.IsGalleryLoaded = true;
-                    BindModelGallery(objVM);
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("PriceInCityPage.CheckGallaryLoad_{0}", objVM));
-            }
-        }
-
-        /// <summary>
-        /// Created by : Ashutosh Sharma on 05 Oct 2017
-        /// Description : Method to Bind Gallary.
-        /// </summary>
-        /// <param name="objVM"></param>
-        private void BindModelGallery(PriceInCityPageVM objVM)
-        {
-            try
-            {
-                if (objVM.BikeModel != null)
-                {
-                    objVM.PhotoGallery = _objModelEntity.GetPhotoGalleryData(objVM.BikeModel.ModelId);
-
-                    if (objVM.PhotoGallery != null && objVM.PhotoGallery.ImageList != null)
-                    {
-                        var modelgallery = new ModelGalleryWidget(objVM.Make, objVM.BikeModel, objVM.PhotoGallery.ImageList, objVM.PhotoGallery.VideosList, objVM.BikeInfo);
-                        modelgallery.IsGalleryDataAvailable = true;
-                        modelgallery.IsJSONRequired = true;
-                        objVM.ModelGallery = modelgallery.GetData();
-                        if (objVM.ModelGallery != null)
-                        {
-                            objVM.ModelGallery.BikeName = objVM.BikeName;
-                            if (objVM.BikeInfo != null)
-                            {
-                                objVM.ModelGallery.IsDiscontinued = objVM.BikeInfo.IsDiscontinued;
-                                objVM.ModelGallery.IsUpcoming = objVM.BikeInfo.IsUpcoming;
-                            }
-                        }
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("PriceInCityPage.BindModelGallery{0}", objVM));
-            }
-        }
-
-
-        /// <summary>
         /// Created by  :   Sumit Kate on 28 Sep 2017
         /// Description :   To Show Innovation Banner
         /// </summary>
@@ -533,6 +517,8 @@ namespace Bikewale.Models
         /// Description : Get data for PriceInCity AMP page
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : Added IsNew check for GetManufacturerCampaign and BindManufacturerLeadAdAMP
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageAMPVM GetDataAMP()
@@ -668,8 +654,12 @@ namespace Bikewale.Models
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
                         #region Do not change the order
                         BuildPageMetas(objVM);
-                        GetManufacturerCampaign(objVM);
-                        BindManufacturerLeadAdAMP(objVM);
+                        if (objVM.IsNew)
+                        {
+                            GetManufacturerCampaign(objVM);
+                            BindManufacturerLeadAdAMP(objVM);
+                        }
+
                         #endregion
 
                     }
@@ -689,6 +679,11 @@ namespace Bikewale.Models
                     BindAmpJsTags(objVM);
                     Series = _objModelEntity.GetSeriesByModelId(modelId);
                     SetBreadcrumList(objVM);
+                    if (objVM.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                    {
+                        BindMoreAboutScootersWidget(objVM);
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -722,14 +717,16 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created by : Ashutosh Sharma on 10-Sep-2017
+        /// Created by : Ashutosh Sharma on 10 Sep 2017
         /// Description : Bind Manufacturer Lead Ad and href, remove AMP prohibitated attribute
+        /// Modified by : Ashutosh Sharma on 11 Dec 2017
+        /// Description : LeadCapture null check added.
         /// </summary>
         /// <param name="priceInCityAMPVM"></param>
         private void BindManufacturerLeadAdAMP(PriceInCityPageAMPVM priceInCityAMPVM)
         {
             string str = string.Empty;
-            if (priceInCityAMPVM.LeadCampaign != null)
+            if (priceInCityAMPVM.LeadCampaign != null && priceInCityAMPVM.LeadCapture != null)
             {
 
                 try
@@ -795,16 +792,14 @@ namespace Bikewale.Models
 
                     ushort tenure = (ushort)((maxTenure - minTenure) / 2 + minTenure);
 
-                    double interest = (loanAmount * tenure * rateOfInterest) / 1200;
-
                     int procFees = 0;
                     int monthlyEMI = 0;
                     if (tenure != 0)
                     {
-                        monthlyEMI = Convert.ToInt32(Math.Round((loanAmount + interest + procFees) / tenure));
+                        monthlyEMI = Convert.ToInt32(Math.Round((loanAmount * rateOfInterest / 1200) / (1 - Math.Pow((1 + (rateOfInterest / 1200)), (-1.0 * tenure)))));
                     }
 
-                    int totalAmount = downPayment + monthlyEMI * tenure;
+                    int totalAmount = downPayment + monthlyEMI * tenure + procFees;
 
                     objVM.EMI = new EMI();
                     objVM.EMI.MinDownPayment = minDnPay;
@@ -1189,14 +1184,16 @@ namespace Bikewale.Models
         /// Description : Function to create page level schema for breadcrum
         /// Modified by Sajal Gupta on 02-11-2017
         /// Descriptition : Changed breadcrumb for scooter
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Description: Added 'new bikes' in breadcrumb
         /// </summary>
         private void SetBreadcrumList(PriceInCityPageVM objPage)
         {
             try
             {
                 IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url, scooterUrl, seriesUrl;
-            url = scooterUrl = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl);
+                string url, scooterUrl, seriesUrl;
+                url = scooterUrl = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl);
                 ushort position = 1;
                 if (IsMobile)
                 {
@@ -1204,7 +1201,7 @@ namespace Bikewale.Models
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
 
                 if (objPage.Make != null)
                 {
@@ -1220,17 +1217,17 @@ namespace Bikewale.Models
                         scooterUrl += "m/";
                     }
 
-                scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.Make.MaskingName);
+                    scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.Make.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.Make.MakeName)));
-            }
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.Make.MakeName)));
+                }
 
-            if(Series != null && Series.IsSeriesPageUrl)
-            {
+                if (Series != null && Series.IsSeriesPageUrl)
+                {
 
-                seriesUrl = string.Format("{0}{1}/", url, Series.MaskingName);
+                    seriesUrl = string.Format("{0}{1}/", url, Series.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, Series.SeriesName));
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, seriesUrl, Series.SeriesName));
                 }
 
                 if (objPage.Make != null && objPage.BikeModel != null)
@@ -1416,6 +1413,28 @@ namespace Bikewale.Models
             {
                 ErrorClass.LogError(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", modelId, cityId, ManufacturerCampaignPageId));
             }
+        }
+
+        /// <summary>
+        /// Created By: Snehal Dange on 20th Dec 2017
+        /// Summary : Bind more about scooter widget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMoreAboutScootersWidget(PriceInCityPageVM objData)
+        {
+            try
+            {
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_modelCache, _objCityCache, _versionCache, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.PriceInCity);
+                obj.modelId = modelId;
+                objData.objMoreAboutScooter = obj.GetData();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.PriceInCityPAge.BindMoreAboutScootersWidget : ModelId {0}", modelId));
+            }
+
+
+
         }
     }
 }

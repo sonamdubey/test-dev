@@ -139,7 +139,7 @@
                     <div class="border-solid-bottom padding-bottom15 margin-bottom15">
                         <div class="trophy-icon-wrapper">
                             <span class="trophy-white-26"></span>
-                        </div><p class="contest-slug__label">Write a review and stand a chance to win Amazon vouchers worth &#x20B9;2000</p>
+                        </div><p class="contest-slug__label">Write a review and stand a chance to win Amazon vouchers worth &#x20B9;@BWConfiguration.Instance.ContestPriceMoney</p>
                     </div>
                     <p class="font14 text-black inline-block line-height25">Rate this bike now</p>
                     <div class="answer-star-list inline-block text-right">
@@ -238,6 +238,16 @@
             </div>
         </div>
        
+        @if (Model.objMoreAboutScooter != null)
+        {
+        <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
+            <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
+                <div class="swiper-wrapper">
+                    @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
+                </div>
+            </div>
+        </div>
+        }
     </div>
 </section>
 

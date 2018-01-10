@@ -19,8 +19,8 @@
                 <li><a href="/m/new-bikes-in-india/">Find New Bikes</a></li>
                 <li><a href="/m/comparebikes/">Compare Bikes</a></li>
                 <li><a href="/m/pricequote/">Check On-Road Price</a></li>
-                <li><a href="/m/dealer-showroom-locator/">Locate Dealer</a></li>
-                <li><a href="/m/bike-service-center/">Locate Service Center</a></li>
+                <li><a href="/m/dealer-showrooms/">Locate Dealer</a></li>
+                <li><a href="/m/service-centers/">Locate Service Center</a></li>
                 <li><a href="/m/upcoming-bikes/">Upcoming Bikes</a></li>
                 <li><a href="/m/new-bike-launches/">New Launches</a></li>
                 <li><a href="/m/bikebooking/">Book Your Bike</a></li>
@@ -56,7 +56,6 @@
             <a href="/m/reviews/">
                 <span class="reviews-icon"></span>
                 <span class="navbarTitle">Reviews</span>
-                <span class="new-flag"></span>
             </a>
         </li>
         <li>

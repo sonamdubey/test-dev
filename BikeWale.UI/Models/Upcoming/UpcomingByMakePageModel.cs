@@ -76,6 +76,8 @@ namespace Bikewale.Models.Upcoming
         /// <summary>
         /// Created by : Sangram Nandkhile on 07-Apr-2017 
         /// Description : Gets the data.
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         public UpcomingPageVM GetData()
         {
@@ -101,6 +103,7 @@ namespace Bikewale.Models.Upcoming
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);
                 objUpcoming.OtherMakes = new OtherMakesVM();
                 objUpcoming.OtherMakes.Makes = _upcoming.OtherMakes(MakeId, 9);
+                objUpcoming.Page = Entities.Pages.GAPages.Upcoming_MakeWise_Page;
 
                 if (objUpcoming.Make != null)
                 {
@@ -204,8 +207,9 @@ namespace Bikewale.Models.Upcoming
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
             url += "upcoming-bikes/";
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Upcoming bikes"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Upcoming bikes"));
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 

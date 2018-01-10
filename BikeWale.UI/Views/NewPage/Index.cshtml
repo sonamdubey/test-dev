@@ -266,7 +266,7 @@
 {
     <section>
 
-        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.AddMonths(-1).ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
+        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
         <div class="container section-bottom-margin">
             <div class="grid-12">
                 <div class="bw-tabs-panel content-box-shadow brand-budget-mileage-style-wrapper padding-bottom15">
@@ -402,7 +402,7 @@
                 <span class="contest-banner__icon"></span>
                 <div class="contest-banner__left-grid inline-block">
                     <p class="contest-banner__title">Bike Review Contest</p>
-                    <p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;2,000.</p>
+                    <p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney.</p>
                 </div>
                 <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_NewBikePage)" class="btn btn-orange btn-180-40">Participate &amp; win<span class="bwsprite btn-white-arrow"></span></a>
             </div>

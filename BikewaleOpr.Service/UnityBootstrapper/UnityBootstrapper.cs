@@ -13,6 +13,7 @@ using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DALs;
+using BikewaleOpr.DALs.AdOperation;
 using BikewaleOpr.DALs.AdSlot;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.BikeColorImages;
@@ -58,6 +59,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
     /// Description : Added IShowroomPricesRepository registration to BikeShowroomPrices
     /// Modified by : Ashutosh Sharma on 10 Nov 2017
     /// Description : Added registration for IBwPrice and BwPrice.
+    /// Modified by : Rajan Chauhan on 13th Dec 2017
+    /// Description : Added registration for IBikeBodyStyle and IBikeBodyStyleRepository
     /// </summary>
     public static class UnityBootstrapper
     {
@@ -106,6 +109,9 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IAdSlotRepository, AdSlot>();
             container.RegisterType<IAdSlot, BAL.AdSlot.AdSlot>();
             container.RegisterType<IBwPrice, BwPrice>();
+            container.RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>();
+            container.RegisterType<IBikeBodyStyles, BikeBodyStyles>();
+            container.RegisterType<IAdOperation, AdOperation>();
 
             return container;
         }

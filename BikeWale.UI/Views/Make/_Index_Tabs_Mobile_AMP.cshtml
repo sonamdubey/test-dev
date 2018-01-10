@@ -44,7 +44,7 @@
                     </li>
                     {IsActive = false;}
                 }
-                @if (Model.IsExpertReviewsAvailable)
+                @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
                 {
                     <li class="bw-makepage-tabs-ga @(IsActive ? "active":"")">
                         <a href="@string.Format("{0}#makeReviewsContent", mobileUrl)">Reviews</a>

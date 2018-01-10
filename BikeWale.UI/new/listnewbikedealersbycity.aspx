@@ -41,7 +41,7 @@
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">New Bike Dealers</span></a>
+                <a itemprop="url" href="/dealer-showrooms/"><span itemprop="title">New Bike Dealers</span></a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong><%=objMMV.Make%> Bikes Dealers/Showrooms</strong></li>
@@ -61,7 +61,7 @@
 						            <asp:DataList ID="dlCity" runat="server" RepeatColumns="3" RepeatDirection="Horizontal" Width="100%" 
 							            CellSpacing="10" CellPadding="0" DataSource='<%# BindCities(int.Parse(DataBinder.Eval(Container.DataItem, "StateId").ToString())) %>'>
 							            <itemtemplate>
-								            <a href="/<%=objMMV.MakeMappingName%>-dealer-showrooms-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString().ToLower() %>/"><%# DataBinder.Eval(Container.DataItem, "City")%> (<%# DataBinder.Eval(Container.DataItem, "TotalBranches")%>)<br></a>
+								            <a href="/dealer-showrooms/<%=objMMV.MakeMappingName%>/<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString().ToLower() %>/"><%# DataBinder.Eval(Container.DataItem, "City")%> (<%# DataBinder.Eval(Container.DataItem, "TotalBranches")%>)<br></a>
 							            </itemtemplate>
 						                </asp:DataList>
 					            </div>

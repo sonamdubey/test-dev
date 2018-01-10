@@ -289,7 +289,7 @@
 {
     <section>
         <div class="container card-bottom-margin">
-            <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.AddMonths(-1).ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
+            <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
             <div class="bw-tabs-panel content-box-shadow padding-bottom10">
                 <div class="bw-tabs bw-tabs-flex margin-bottom10">
                     <ul>
@@ -408,7 +408,7 @@
             </p>
 
             <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_HomePage))" title="Participate &amp; win" class="contest-banner__right-grid inline-block">
-                <p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;2,000.</p>
+                <p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;@BWConfiguration.Instance.ContestPriceMoney.</p>
                 <p class="contest-banner__target-link">Participate &amp; win <span class="yellow-arrow-7x10"></span></p>
             </a>
         </div>

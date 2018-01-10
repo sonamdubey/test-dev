@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
 {
@@ -113,6 +113,8 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint cityId);
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
+        IEnumerable<MostPopularBikesBase> GetElectricBikes();
+        IEnumerable<MostPopularBikesBase> GetElectricBikes(uint cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);

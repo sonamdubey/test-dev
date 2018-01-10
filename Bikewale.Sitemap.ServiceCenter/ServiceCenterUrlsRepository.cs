@@ -10,17 +10,22 @@ namespace Bikewale.Sitemap.ServiceCenter
     class ServiceCenterUrlsRepository
     {
 
+        /// <summary>
+        /// Modified BY : Snehal Dange on 6th Dec 2017 
+        /// Description: Changed SP to "getservicecentersitemap_06122017" . Removed "India" when city is not selected. 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<ServiceCenterEnitity> GetServiceCenterUrls()
         {
 
             IList<ServiceCenterEnitity> SitemapList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersitemap"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersitemap_06122017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -42,7 +47,6 @@ namespace Bikewale.Sitemap.ServiceCenter
                                     SitemapList.Add(new ServiceCenterEnitity
                                     {
                                         MakeMaskingName = dr["MaskingName"].ToString(),
-                                        CityMaskingName = dr["citymaskingname"].ToString()
                                     });
                                 }
                             }

@@ -614,7 +614,7 @@
 
 /* brands */
 .brandlogosprite {
-    background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?22Nov20171511351092222);
+    background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?18Dec20171513599310542);
     background-repeat: no-repeat;
     display: inline-block;
 }
@@ -649,7 +649,10 @@
 .brand-21,
 .brand-38,
 .brand-23,
-.brand-72 {
+.brand-72,
+.brand-73,
+.brand-74,
+.brand-75 {
     height: 30px;
 }
 
@@ -806,6 +809,21 @@
 .brand-72 {
 	width: 31px;
 	background-position: -1919px 0;
+}
+
+.brand-73 {
+    width: 30px;
+    background-position: -1958px 0;
+}
+
+.brand-74 {
+	width: 66px;
+	background-position: -2000px 0;
+}
+
+.brand-75 {
+	width: 70px;
+	background-position: -2076px 0;
 }
 
 .bg-read-more-articles { background-color:#eee }

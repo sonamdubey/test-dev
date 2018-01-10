@@ -10,31 +10,31 @@
     {
 
         case (EnumBikeBodyStyles.Scooter):
-            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/scooter-style-thumb.jpg?05042017&q=75";
+            imageSrc = "https://imgd.aeplcdn.com/0x0/bw/best-bikes/scooter-style-carousel.png?15Dec20171113235738247";
             url = "/best-scooters-in-india/";
             cardTitle = "Top 10 scooters in India";
             break;
 
         case EnumBikeBodyStyles.Mileage:
-            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/mileage-bikes-thumb.jpg?05042017&q=75";
+            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/mileage-bikes-carousel.png?15Dec20171113235738247";
             url = "/best-mileage-bikes-in-india/";
             cardTitle = "Top 10 mileage bikes in India";
             break;
 
         case EnumBikeBodyStyles.Cruiser:
-            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/cruiser-style-thumb.jpg?05042017&q=75";
+            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/cruiser-style-carousel.png?15Dec20171113235738247";
             url = "/best-cruiser-bikes-in-india/";
             cardTitle = "Top 10 cruiser bikes in India";
             break;
 
         case EnumBikeBodyStyles.Sports:
-            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/sports-style-thumb.jpg?05042017&q=75";
+            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/sports-style-carousel.png?15Dec20171113235738247";
             url = "/best-sports-bikes-in-india/";
             cardTitle = "Top 10 sports bikes in India";
             break;
-            
-        default :
-               imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/best-bikes-thumb.jpg?05042017&q=75";
+
+        default:
+            imageSrc = "https://imgd.aeplcdn.com/310x174/bw/best-bikes/mileage-bikes-carousel.png?15Dec20171113235738247";
                url = "/best-bikes-in-india/";
                cardTitle = "Top 10 bikes in India";
                break;
@@ -79,18 +79,19 @@
         </li>
     }
     <!-- Code for last creative card added -->
-    <li id="allbikes">
-        <a href="@url" title="@cardTitle" class="jcarousel-card">
+    <li id="allbikes" class="card__complete-list">
+        <div class="jcarousel-card">
             <div class="model-jcarousel-image-preview">
-                <span class="card-image-block">
+                    <span class="card-image-block">
                     <img class="lazy" data-original=@imageSrc alt="@cardTitle" src="" border="0" />
                 </span>
             </div>
-            <div class="card-desc-block">
-                <h3 class="margin-bottom5 text-truncate">@cardTitle</h3>
-                <p class="font12 text-light-grey text-truncate">@bikeList</p>
-            </div>
-        </a>
+            <a href="@url" title="@cardTitle" class="card-desc-block">
+                <div class="btn-sm">
+                    View Complete List
+                </div>
+            </a>
+        </div>
     </li>
     <!--  Code for last creative card end-->
 

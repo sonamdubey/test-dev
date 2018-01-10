@@ -55,7 +55,7 @@
                                  <% if (objMake != null && modelId > 0)
                                     { %>
                                        <li itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span>
-                                  <a href="/used/<%= objMake.MaskingName %>-bikes-in-<%= objCity!=null ? objCity.CityMaskingName : "india" %>/" itemprop="url"><span><%= string.Format("{0} Bikes",objMake.MakeName) %></span></a>
+                                  <a href="/used/<%= objMake.MaskingName %>-bikes-in-<%= objCity!=null ? objCity.CityMaskingName : "india" %>/" itemprop="url"><span><%= string.Format("Used {0} Bikes",objMake.MakeName) %></span></a>
                                 </li> 
                                 <% }
                                    } %>
@@ -445,6 +445,8 @@
              var pageQS = "<%= currentQueryString %>" ;
              var selectedCityId = <%= cityId %>;selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
              var usedPageIdentifier="<%=PageIdentifier%>";
+             var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Listing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Listing%>' };
+
         </script>
         <script type="text/javascript" src="<%= staticUrl %>/src/used-search.js?<%= staticFileVersion%>"></script>
         <!-- #include file="/includes/fontBW.aspx" -->

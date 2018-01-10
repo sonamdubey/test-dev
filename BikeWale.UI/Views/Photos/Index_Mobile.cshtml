@@ -61,7 +61,7 @@
 
     if (Model.BikeInfo != null)
     { <section>
-        <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
+        <div class="container bg-white box-shadow section-bottom-margin">
             @Html.Partial("~/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
         </div>
     </section>
@@ -70,12 +70,19 @@
     if (Model.ModelVideos != null && Model.Videos != null)
     {
         <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
+         
             <h2 class="margin-bottom15">@Model.BikeName Videos</h2>
-            @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
-            <div class="view-all-btn-container">
-                <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}", Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
+
+            @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+
+            <div class="margin-top10">
+				<a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
+					View all videos <span class="bwmsprite teal-right"></span>
+				</a>
             </div>
         </div>
+
+
     }
 
     if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
@@ -87,4 +94,16 @@
     {
         @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
     }
+
+    if (Model.objMoreAboutScooter != null)
+    {
+    <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
+        <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
+            <div class="swiper-wrapper">
+              @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
+            </div>
+        </div>
+    </div>
+    }
+
 }

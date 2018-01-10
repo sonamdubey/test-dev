@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.BAL.BikeData;
+﻿using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -19,6 +15,10 @@ using Bikewale.Mobile.Controls;
 using Bikewale.Models;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Mobile
 {
@@ -31,8 +31,8 @@ namespace Bikewale.Mobile
     /// </summary>
     public class ModelSpecsFeatures : PageBase
     {
-        protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
-        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage;
+        protected uint cityId, areaId, modelId, versionId, dealerId, price = 0, _makeId;
+        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage, pgTitle;
         protected bool isDiscontinued, IsExShowroomPrice = true;
         protected BikeSpecificationEntity specs;
         protected BikeModelPageEntity modelDetail;
@@ -61,14 +61,17 @@ namespace Bikewale.Mobile
         {
             ProcessQueryString();
             modelDetail = FetchModelPageDetails(modelId);
-            IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
-            if (versionId > 0)
+            if(modelDetail != null && modelDetail.ModelDetails != null)
             {
-                specs = FetchVariantDetails(versionId);
+                IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
+                if (versionId > 0)
+                {
+                    specs = FetchVariantDetails(versionId);
+                }
+                BindWidget();
+                BindSimilarBikes();
+                BindSeriesBreadCrum();
             }
-            BindWidget();
-            BindSimilarBikes();
-            BindSeriesBreadCrum();
         }
         /// Created  By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
@@ -116,6 +119,7 @@ namespace Bikewale.Mobile
                             {
                                 makeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
+                                _makeId = (uint)modelPg.ModelDetails.MakeBase.MakeId;
                             }
                             IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
@@ -165,12 +169,13 @@ namespace Bikewale.Mobile
                             }
                         }
                     }
+                    pgTitle = Bikewale.Utility.BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_makeId.ToString()) ? string.Format("Specifications of {0} | Features of {1}- BikeWale", bikeName, modelName) : string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
-                
+
             }
             return modelPg;
         }
@@ -198,7 +203,7 @@ namespace Bikewale.Mobile
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
-                
+
             }
             return specsFeature;
         }
@@ -207,19 +212,26 @@ namespace Bikewale.Mobile
         /// Created By : Lucky Rathore on 03 June 2016
         /// Description : Private Method to proceess mpq queryString and set the values 
         /// for queried parameters versionId, ModelMaskingName and set value of modelId from Model Masking Name. 
+        /// Modified by : vivek singh tomar on 11th Dec 2017
+        /// Description : Incorporated make masking with model masking
         /// </summary>
         private void ProcessQueryString()
         {
             bool isRedirect = false;
             ModelMaskingResponse objResponse = null;
+            string newMakeMasking = string.Empty, redirectUrl = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
                 if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys())
                 {
                     UInt32.TryParse(Request.QueryString["vid"], out versionId);
                     modelMaskingName = Request.QueryString["model"];
+                    makeMaskingName = Request.QueryString["make"];
 
-                    if (!string.IsNullOrEmpty(modelMaskingName))
+                    newMakeMasking = ProcessMakeMaskingName(makeMaskingName, out isMakeRedirection);
+
+                    if (!string.IsNullOrEmpty(newMakeMasking) && !string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName))
                     {
                         using (IUnityContainer container = new UnityContainer())
                         {
@@ -228,12 +240,13 @@ namespace Bikewale.Mobile
                                      .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                     ;
                             var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                            objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+
+                            objResponse = objCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                             if (objResponse != null && objResponse.StatusCode == 200)
                             {
                                 modelId = objResponse.ModelId;
                             }
-                            else if (objResponse != null && objResponse.StatusCode == 301)
+                            else if (objResponse != null && (objResponse.StatusCode == 301 || isMakeRedirection))
                             {
                                 isRedirect = true;
                             }
@@ -252,13 +265,52 @@ namespace Bikewale.Mobile
 
                 Trace.Warn("GetLocationCookie Ex: ", ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQueryString");
-                
+
             }
             finally
             {
-                if (isRedirect)
-                    CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
+                if(objResponse != null && (isRedirect || isMakeRedirection))
+                {
+                    redirectUrl = Request.RawUrl.Replace(makeMaskingName, newMakeMasking).Replace(modelMaskingName, objResponse.MaskingName);
+                    CommonOpn.RedirectPermanent(redirectUrl);
+                }
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 11th Dec 2017
+        /// Description : Check if make masking is redirection
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="isMakeRedirection"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
+        {
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
+            {
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
+            }
+            if (makeResponse != null)
+            {
+                if (makeResponse.StatusCode == 200)
+                {
+                    return makeResponse.MaskingName;
+                }
+                else if (makeResponse.StatusCode == 301)
+                {
+                    isMakeRedirection = true;
+                    return makeResponse.MaskingName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return "";
         }
 
         /// <summary>

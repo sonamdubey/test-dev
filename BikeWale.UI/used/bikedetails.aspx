@@ -63,14 +63,14 @@
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="<%= string.Format("/used/{0}-bikes-in-{1}/", inquiryDetails.Make.MaskingName, inquiryDetails.City.CityMaskingName) %>" itemprop="url">
-                                    <span itemprop="title"><%= inquiryDetails.Make.MakeName %></span>
+                                    <span itemprop="title">Used <%= inquiryDetails.Make.MakeName %> Bikes</span>
                                 </a>
                             </li>
 
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="<%= string.Format("/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityMaskingName) %>" itemprop="url">
-                                    <span itemprop="title"><%= inquiryDetails.Model.ModelName %></span>
+                                    <span itemprop="title">Used <%= inquiryDetails.Model.ModelName %></span>
                                 </a>
                             </li>
                             <% } %>
@@ -497,7 +497,12 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl%>/src/used-details.js?<%= staticFileVersion%>"></script>
+        <script type="text/javascript" src="<%= staticUrl%>/src/used-details.js?<%= staticFileVersion%>">
+        </script>
+        <script type="text/javascript" >
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>' };
+            </script>
+
         <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>

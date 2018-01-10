@@ -29,5 +29,7 @@ namespace Bikewale.Interfaces.Dealer
         IEnumerable<DealerBrandEntity> GetDealerByBrandList();
         IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId);
         IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId);
+        DealerBikeModelsEntity GetBikesByDealerAndMake(uint dealerId, uint makeId);
+        DealerVersionPrices GetBikeVersionPrice(uint dealerId, uint versionId);
     }
 }

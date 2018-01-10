@@ -82,7 +82,7 @@ namespace BikeWaleOpr.content
             GetMakeSynopsis();
 
             //Refresh memcache object for bikemake description change
-            MemCachedUtil.Remove(string.Format("BW_MakeDescription_{0}", makeId));
+            MemCachedUtility.Remove(string.Format("BW_MakeDescription_{0}", makeId));
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace BikeWaleOpr.content
             GetMakeSynopsis();
 
             //Refresh memcache object for bikemake description change
-            MemCachedUtil.Remove(string.Format("BW_MakeDescription_{0}", makeId));
+            MemCachedUtility.Remove(string.Format("BW_MakeDescription_{0}", makeId));
         }
         
     }//End of class MakeSynopsis

@@ -97,8 +97,19 @@
     <Reference Include="Dapper">
       <HintPath>..\Libs\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="ElasticClientManager">
+      <HintPath>..\Libs\ElasticSearch\ElasticClientManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ElasticSearch\Elasticsearch.Net.dll</HintPath>
+    </Reference>
     <Reference Include="MySqlDatabaseLibrary">
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ElasticSearch\Nest.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -110,9 +121,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdOperation\AdOperation.cs" />
     <Compile Include="AdSlot\AdSlot.cs" />
     <Compile Include="Banner\BannerRepository.cs" />
     <Compile Include="BikeColorImages\ColorImagesBikeRepository.cs" />
+    <Compile Include="Bikedata\BikeBodyStyleRepository.cs" />
+    <Compile Include="Bikedata\BikeESRepository.cs" />
     <Compile Include="Bikedata\BikeMakesRepository.cs" />
     <Compile Include="Bikedata\BikeModelsRepository.cs" />
     <Compile Include="Bikedata\BikeSeriesRepository.cs" />

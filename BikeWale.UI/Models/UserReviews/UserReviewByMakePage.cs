@@ -34,6 +34,8 @@ namespace Bikewale.Models.UserReviews
 
         }
 
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         public UserReviewByMakeVM GetData()
         {
             try
@@ -46,9 +48,11 @@ namespace Bikewale.Models.UserReviews
                     objData.OtherBikes = objBikes.Skip(PopularBikesCount);
 
                     objData.Make = objData.PopularBikes.First().Make;
+                    objData.Page = Entities.Pages.GAPages.UserReviews_MakeWise_Page;
                 }
                 BindOtherMakes();
                 BindPageMetas();
+
             }
             catch (Exception ex)
             {
@@ -76,6 +80,7 @@ namespace Bikewale.Models.UserReviews
                     otherMakes.Makes = popularBrandsList.Take(9);
                     otherMakes.PageLinkFormat = "/{0}-bikes/reviews/";
                     otherMakes.PageTitleFormat = "{0} Reviews";
+                    otherMakes.CardText = "bike";
                     objData.OtherMakes = otherMakes;
 
                 }
@@ -93,12 +98,23 @@ namespace Bikewale.Models.UserReviews
             {
                 if (objData != null)
                 {
-                    objData.PageMetaTags.Title = string.Format("{0} Bikes Reviews | Reviews of {0} Models- BikeWale", objData.Make.MakeName);
+                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objData.Make.MakeId.ToString()))
+                    {
+                        objData.PageMetaTags.Title = string.Format("Reviews of {0} Bikes | User Reviews on {0} Models- BikeWale", objData.Make.MakeName);
+                        objData.Page_H1 = string.Format("Reviews of {0} Bikes", objData.Make.MakeName);
+                    }
+                    else
+                    {
+                        objData.Page_H1 = string.Format("Reviews on bikes from {0}", objData.Make.MakeName);
+                        objData.PageMetaTags.Title = string.Format("{0} Bikes Reviews | Reviews of {0} Models- BikeWale", objData.Make.MakeName);
+
+                    }
+
                     objData.PageMetaTags.Description = string.Format("Explore reviews of all models of {0} Bikes. Read 5000+ unbiased and verified reviews from real owners on BikeWale", objData.Make.MakeName);
                     objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/reviews/", BWConfiguration.Instance.BwHostUrl, objData.Make.MaskingName);
                     objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/reviews/", BWConfiguration.Instance.BwHostUrl, objData.Make.MaskingName);
                     objData.PageMetaTags.Keywords = string.Format("{0} reviews, {0} bike reviews, {0} expert review, {0} bike expert review, {0} Bike user review, {0} owner review, {0} bike owner review, {0} user review, {0} bike user review", objData.Make.MakeName.ToLower());
-                    objData.Page_H1 = string.Format("Reviews on bikes from {0}", objData.Make.MakeName);
+
 
                     SetBreadcrumList();
                 }
@@ -112,6 +128,8 @@ namespace Bikewale.Models.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList()
         {
@@ -124,6 +142,8 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
+
             string makepageUrl = String.Format("{0}{1}-bikes/", url, objData.Make.MaskingName);
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url + "reviews/", "Reviews"));

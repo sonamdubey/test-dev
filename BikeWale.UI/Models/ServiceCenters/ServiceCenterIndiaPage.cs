@@ -61,8 +61,9 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.ServiceCenterBrandsList = new ServiceCentersByBrand(_objCache, _makeId).GetData();
                 objVM.UsedBikesByMakeList = BindUsedBikeByModel(_usedBikesTopCount);
                 objVM.BikeCareWidgetVM = new RecentBikeCare(_articles).GetData(_bikeCareRecordsCount, 0, 0);
-               
+
                 BindPageMetas(objVM);
+                objVM.Page = Entities.Pages.GAPages.ServiceCenter_Country_Page;
             }
             catch (Exception ex)
             {
@@ -118,7 +119,7 @@ namespace Bikewale.Models.ServiceCenters
 
                                 if (city != null)
                                 {
-                                    redirectUrl = String.Format("/{0}-service-center-in-{1}/", makeMaskingName, city.CityMaskingName);
+                                    redirectUrl = String.Format("/service-centers/{0}/{1}/", makeMaskingName, city.CityMaskingName);
                                     status = StatusCodes.RedirectTemporary;
                                 }
                             }
@@ -174,6 +175,8 @@ namespace Bikewale.Models.ServiceCenters
         /// <summary>
         /// Created By :Snehal Dange on 2th Nov 2017
         /// Description: Breadcrum list for service center page.
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Desc        : Added 'New Bikes' in breadcrumb
         /// </summary>
         /// <param name="objPage"></param>
         private void SetBreadcrumList(ServiceCenterIndiaPageVM objPageVM)
@@ -181,7 +184,7 @@ namespace Bikewale.Models.ServiceCenters
 
             try
             {
-                if(objPageVM!=null)
+                if (objPageVM != null)
                 {
                     IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
                     string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
@@ -192,7 +195,8 @@ namespace Bikewale.Models.ServiceCenters
                     }
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-                    if(objPageVM.Make!=null)
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
+                    if (objPageVM.Make != null)
                     {
                         BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPageVM.Make.MaskingName), string.Format("{0} Bikes", objPageVM.Make.MakeName)));
                     }
@@ -202,7 +206,7 @@ namespace Bikewale.Models.ServiceCenters
 
                     objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
                 }
-               
+
             }
             catch (Exception ex)
             {

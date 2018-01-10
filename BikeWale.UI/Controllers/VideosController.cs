@@ -1,8 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PWA.Articles;
@@ -16,6 +12,7 @@ using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using log4net;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -265,6 +262,8 @@ namespace Bikewale.Controllers.Desktop.Videos
         /// <summary>
         /// Created by Sajal Gupta on 01-04-2017
         /// Description : Controller for videos make wise page desktop 
+        /// Modified by : Vivek Singh Tomar on 12th Dec 2017
+        /// Description : Consider model status while redirecting
         /// </summary>
         /// <param name="makeMaskingName"></param>
         /// <param name="modelMaskingName"></param>
@@ -273,54 +272,50 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("videos/make/{makeMaskingName}/model/{modelMaskingName}")]
         public ActionResult Models(string makeMaskingName, string modelMaskingName)
         {
-            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objBikeVersionsCache);
-            if (objModel != null)
+            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objBikeVersionsCache, _modelCache);
+
+            if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
             {
-                if (objModel.makeStatus == Entities.StatusCodes.ContentFound)
+                objModel.redirectUrl = Request.RawUrl;
+                if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent)
                 {
-
-                    if (!objModel.objMaskingResponse.IsSeriesPageCreated)
-                    {
-                        objModel.SimilarBikeWidgetTopCount = 9;
-                        ModelWiseVideoPageVM objVM = objModel.GetData();
-                        return View(objVM);
-                    }
-                    else
-                    {
-
-                        ModelWiseVideoPageVM objVM = objModel.GetDataSeries();
-                        return View(objVM);
-
-                    }
-
-
+                    objModel.redirectUrl = objModel.redirectUrl.Replace(makeMaskingName, objModel.newMakeMasking);
                 }
-                else if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.objMaskingResponse.StatusCode == (uint)Entities.StatusCodes.RedirectPermanent)
+
+                if (objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
                 {
-                    if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objModel.objMakeResponse.MaskingName));
-                    }
-                    else
-                    {
-                    return RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objModel.objModelResponse.MaskingName));
-                    }
+                    objModel.redirectUrl = objModel.redirectUrl.Replace(modelMaskingName, objModel.newModelMasking);
+                }
 
-                }
-                else
-                {
-                    return Redirect("/pagenotfound.aspx");
-                }
+                return RedirectPermanent(objModel.redirectUrl);
+            }
+            else if (objModel.makeStatus == Entities.StatusCodes.ContentNotFound || objModel.modelStatus == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                if (!objModel.objMaskingResponse.IsSeriesPageCreated)
+                {
+                    objModel.SimilarBikeWidgetTopCount = 9;
+                    ModelWiseVideoPageVM objVM = objModel.GetData();
+                    return View(objVM);
+                }
+                else
+                {
+
+                    ModelWiseVideoPageVM objVM = objModel.GetDataSeries();
+                    return View(objVM);
+
+                }
             }
         }
 
         /// <summary>
         /// Created by Sajal Gupta on 01-04-2017
         /// Description : Controller for videos make wise page mobile 
+        /// Modified by : Vivek Singh Tomar on 12th Dec 2017
+        /// Description : Consider model status while redirecting
         /// </summary>
         /// <param name="makeMaskingName"></param>
         /// <param name="modelMaskingName"></param>
@@ -328,52 +323,44 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("m/videos/make/{makeMaskingName}/model/{modelMaskingName}")]
         public ActionResult Models_Mobile(string makeMaskingName, string modelMaskingName)
         {
-            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objBikeVersionsCache);
-            if (objModel != null)
+            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objBikeVersionsCache, _modelCache);
+
+            objModel.IsMobile = true;
+            if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
             {
-                if (objModel.makeStatus == Entities.StatusCodes.ContentFound)
+                objModel.redirectUrl = Request.RawUrl;
+                if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent)
                 {
-
-                    if (!objModel.objMaskingResponse.IsSeriesPageCreated)
-                    {
-
-                        objModel.SimilarBikeWidgetTopCount = 9;
-                        objModel.IsMobile = true;
-                        ModelWiseVideoPageVM objVM = objModel.GetData();
-                        return View(objVM);
-                    }
-                    else
-                    {
-                        objModel.IsMobile = true;
-                        ModelWiseVideoPageVM objVM = objModel.GetDataSeries();
-                        return View(objVM);
-
-                    }
-
-
+                    objModel.redirectUrl = objModel.redirectUrl.Replace(makeMaskingName, objModel.newMakeMasking);
                 }
-                else if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.objMaskingResponse.StatusCode == (uint)Entities.StatusCodes.RedirectPermanent)
+
+                if (objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
                 {
-                    if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objModel.objMakeResponse.MaskingName));
-                    }
-                    else
-                    {
-                    return RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objModel.objModelResponse.MaskingName));
-                    }
+                    objModel.redirectUrl = objModel.redirectUrl.Replace(modelMaskingName, objModel.newModelMasking);
+                }
 
-                }
-                else
-                {
-                    return Redirect("/pagenotfound.aspx");
-                }
+                return RedirectPermanent(objModel.redirectUrl);
+            }
+            else if (objModel.makeStatus == Entities.StatusCodes.ContentNotFound || objModel.modelStatus == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-            }
+                if (!objModel.objMaskingResponse.IsSeriesPageCreated)
+                {
+                    objModel.SimilarBikeWidgetTopCount = 9;
+                    ModelWiseVideoPageVM objVM = objModel.GetData();
+                    return View(objVM);
+                }
+                else
+                {
 
+                    ModelWiseVideoPageVM objVM = objModel.GetDataSeries();
+                    return View(objVM);
+
+                }
+            }
         }
 
         /// <summary>

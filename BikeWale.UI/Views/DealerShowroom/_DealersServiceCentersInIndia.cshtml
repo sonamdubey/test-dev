@@ -9,7 +9,7 @@
                 if (details.DealerCount > 0)
                 {
                     <li>
-                        <a href="/@Model.MakeMaskingName-dealer-showrooms-in-@details.CityMaskingName/" title="@Model.MakeName showroom in @details.CityName" class="block">
+                        <a href="/dealer-showrooms/@Model.MakeMaskingName/@details.CityMaskingName/" title="@Model.MakeName showroom in @details.CityName" class="block">
                             <div class="dealer-jcarousel-image-preview">
                                 <span class="city-sprite @details.CityMaskingName-icon"></span>
                             </div>
@@ -27,18 +27,19 @@
             @if (Model.DealerServiceCenters.TotalDealerCount > 0 || Model.DealerServiceCenters.TotalServiceCenterCount > 0)
             {
                 <li>
-                    <a href="/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showroom in India" class="block">
+                    <a href="/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName showroom in India" class="block">
                         <div class="dealer-jcarousel-image-preview">
                             <span class="city-sprite india-icon"></span>
                         </div>
                         <div class="font14 padding-left20 padding-right20 padding-bottom20">
-                            <p class="text-default text-bold margin-bottom5">@Model.MakeName @((Model.DealerServiceCenters.TotalDealerCount > 0) ? "showrooms" : "showroom" ) in India</p>
+                            <p class="text-default text-bold margin-bottom5">@Model.MakeName @((Model.DealerServiceCenters.TotalDealerCount > 0) ? "showrooms" : "showroom") in India</p>
                             @if (Model.DealerServiceCenters.TotalDealerCount > 0)
                             {
-                                <span>@Model.DealerServiceCenters.TotalDealerCount @((Model.DealerServiceCenters.TotalDealerCount > 0) ? "showrooms" : "showroom" )</span>
+                                <span>@Model.DealerServiceCenters.TotalDealerCount @((Model.DealerServiceCenters.TotalDealerCount > 0) ? "showrooms" : "showroom")</span>
                             }
                         </div>
                     </a>
+
                 </li>
             }
         </ul>

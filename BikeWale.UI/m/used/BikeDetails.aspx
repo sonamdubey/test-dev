@@ -394,14 +394,14 @@
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
 
                         <a class="breadcrumb-link" href="<%= string.Format("/m/used/{0}-bikes-in-{1}/", inquiryDetails.Make.MaskingName, inquiryDetails.City.CityMaskingName) %>" itemprop="url">
-                            <span class="breadcrumb-link__label" itemprop="name"><%= inquiryDetails.Make.MakeName %></span>
+                            <span class="breadcrumb-link__label" itemprop="name">Used <%= inquiryDetails.Make.MakeName %> Bikes</span>
                         </a>
                     </li>
 
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
 
                         <a class="breadcrumb-link" href="<%= string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityMaskingName) %>" itemprop="url">
-                            <span class="breadcrumb-link__label" itemprop="name"><%= inquiryDetails.Model.ModelName %></span>
+                            <span class="breadcrumb-link__label" itemprop="name">Used <%= inquiryDetails.Model.ModelName %></span>
                         </a>
                     </li>
                     <% } %>
@@ -418,6 +418,9 @@
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl  %>/m/src/used-details.js?<%= staticFileVersion%>"></script>
+                <script type="text/javascript" >
+                    var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>' };
+            </script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>

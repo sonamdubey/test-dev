@@ -53,7 +53,7 @@ namespace Bikewale.DAL.Location
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objStateList;
         }   // End of GetStates method
@@ -91,7 +91,7 @@ namespace Bikewale.DAL.Location
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return ht;
         }
@@ -140,7 +140,7 @@ namespace Bikewale.DAL.Location
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" :GetDealerStates, makeId = {0} ", makeId));
-                
+
             }
             return objStateList;
         }
@@ -187,7 +187,7 @@ namespace Bikewale.DAL.Location
                                         Longitude = Convert.ToString(dr["longitude"]),
                                         DealersCount = SqlReaderConvertor.ToUInt16(dr["dealerscnt"]),
                                         stateId = SqlReaderConvertor.ToUInt16(dr["stateid"]),
-                                        Link = string.Format("{0}/{1}-dealer-showrooms-in-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, makeMaskingname, Convert.ToString(dr["citymaskingname"]))
+                                        Link = string.Format("{0}/dealer-showrooms/{1}/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, makeMaskingname, Convert.ToString(dr["citymaskingname"]))
                                     });
                                 }
                             }
@@ -245,7 +245,7 @@ namespace Bikewale.DAL.Location
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format(" :GetDealerStates, makeId = {0} ", makeId));
-                
+
             }
             return objStateCityList;
         }

@@ -7,7 +7,7 @@
       {
         <div class="swiper-slide">
             <div class="swiper-card">
-                <a href="@string.Format("/m/{0}-dealer-showrooms-in-{1}/",Model.Make.MaskingName,Dealer.CityMaskingName)" title="@string.Format("{0} showrooms in {1}", Model.Make.MakeName, Dealer.CityName)">
+                <a href="@string.Format("/m/dealer-showrooms/{0}/{1}/",Model.Make.MaskingName,Dealer.CityMaskingName)" title="@string.Format("{0} showrooms in {1}", Model.Make.MakeName, Dealer.CityName)">
                     <div class="swiper-lazy dealer-location-img" data-background="@Dealer.GoogleMapImg" title="@string.Format("{0} showrooms in {1}", Model.Make.MakeName, Dealer.CityName)"></div>
                     <div class="swiper-details-block">
                         <p class="text-bold text-black font12 margin-bottom5 padding-top5">@Dealer.CityName</p>

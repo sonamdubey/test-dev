@@ -14,10 +14,10 @@
 .brand-type-container a { text-decoration: none; color: #565a5c; display: inline-block; }
 .brand-type-container li:hover .brand-type-title { font-weight: bold; }
 .brandlogosprite {
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?22Nov20171511351092222') no-repeat;
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?18Dec20171513599310542') no-repeat;
 	display: inline-block;
 }
-.brand-2, .brand-1, .brand-40, .brand-3, .brand-4, .brand-11, .brand-20, .brand-5, .brand-39, .brand-6, .brand-7, .brand-8, .brand-34, .brand-17, .brand-9, .brand-19, .brand-10, .brand-12, .brand-22, .brand-15, .brand-16, .brand-13, .brand-14, .brand-41, .brand-42, .brand-81, .brand-71, .brand-23, .brand-72 { height:30px; }
+.brand-2, .brand-1, .brand-40, .brand-3, .brand-4, .brand-11, .brand-20, .brand-5, .brand-39, .brand-6, .brand-7, .brand-8, .brand-34, .brand-17, .brand-9, .brand-19, .brand-10, .brand-12, .brand-22, .brand-15, .brand-16, .brand-13, .brand-14, .brand-41, .brand-42, .brand-81, .brand-71, .brand-23, .brand-72, .brand-73, .brand-74, .brand-75 { height:30px; }
 .brand-2 { width: 52px; background-position: 0 0; }.brand-7 { width: 34px; background-position: -58px 0; }
 .brand-1 { width: 53px; background-position: -97px 0; }.brand-8 { width: 60px; background-position: -156px 0; }
 .brand-12 { width: 40px; background-position: -222px 0; }.brand-40 { width: 75px; background-position: -268px 0; }
@@ -43,7 +43,19 @@
 	width: 31px;
 	background-position: -1919px 0;
 }
+.brand-73 {
+    width: 30px;
+    background-position: -1958px 0;
+}
+.brand-74 {
+	width: 66px;
+	background-position: -2000px 0;
+}
 
+.brand-75 {
+	width: 70px;
+	background-position: -2076px 0;
+}
 .style-type-container ul li, .budget-container ul li, .mileage-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:148px; height:108px; margin:0 0 4px; padding:3px; text-align:center; font-size:16px; }
 .style-type { width:100%; height:51px; display:block; margin:0 auto; padding-top:10px; }
 .style-type-title { margin-top:10px; margin-bottom:10px; display:block; }
@@ -124,7 +136,7 @@
     margin-right: 10px;
 }
 
-.review-image-wrapper a {
+.review-image-wrapper .article-target-image {
     width: 100%;
     display: block;
 }

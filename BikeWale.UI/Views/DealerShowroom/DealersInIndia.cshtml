@@ -6,8 +6,8 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/location.css' inline />";
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90Bottom = true;
-    Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-india/", Model.Make.MaskingName);
-    Model.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-india/", Model.Make.MaskingName);
+    Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/dealer-showrooms/{0}/", Model.Make.MaskingName);
+    Model.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/dealer-showrooms/{0}/", Model.Make.MaskingName);
 
 }
 
@@ -52,7 +52,7 @@
                                         {
 
                                             <li>
-                                                <a data-item-id="@stcity.CityId" data-item-name="@stcity.CityName" data-lat="@stcity.Lattitude" data-long="@stcity.Longitude" data-link="@stcity.Link" data-dealercount="@stcity.DealersCount" title="@string.Format("{0} dealer showrooms in {1}",Model.Make.MakeName,stcity.CityName)" href="/@Model.Make.MaskingName-dealer-showrooms-in-@stcity.CityMaskingName/">@string.Format("{0} ({1})", stcity.CityName, stcity.DealersCount)</a>
+                                                <a data-item-id="@stcity.CityId" data-item-name="@stcity.CityName" data-lat="@stcity.Lattitude" data-long="@stcity.Longitude" data-link="@stcity.Link" data-dealercount="@stcity.DealersCount" title="@string.Format("{0} dealer showrooms in {1}",Model.Make.MakeName,stcity.CityName)" href="/dealer-showrooms/@Model.Make.MaskingName/@stcity.CityMaskingName/">@string.Format("{0} ({1})", stcity.CityName, stcity.DealersCount)</a>
                                             </li>
                                         }
                                     </ul>

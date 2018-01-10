@@ -1,8 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
@@ -15,6 +11,10 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 namespace Bikewale.Models.UserReviews
 {
     /// <summary>
@@ -158,13 +158,16 @@ namespace Bikewale.Models.UserReviews
             {
                 if (objPage != null && objPage.PageMetaTags != null && objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
                 {
+
+                    objPage.PageMetaTags.Title = string.Format("{0} | User Review on {1} {2} - BikeWale", objPage.UserReviewDetailsObj.Title, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
+                    objPage.Page_H1 = objPage.UserReviewDetailsObj.Title.Truncate(45);
+
                     objPage.AdTags.TargetedMakes = objPage.UserReviewDetailsObj.Make.MakeName;
                     objPage.AdTags.TargetedModel = objPage.UserReviewDetailsObj.Model.ModelName;
-                    objPage.PageMetaTags.Title = string.Format("{0} | User Review on {1} {2} - BikeWale", objPage.UserReviewDetailsObj.Title, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
                     objPage.PageMetaTags.Description = string.Format("Read review by {0} on {1} {2}. {0} says {3}. View detailed review on BikeWale.", objPage.UserReviewDetailsObj.CustomerName, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Title);
                     objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
                     objPage.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
-                    objPage.Page_H1 = objPage.UserReviewDetailsObj.Title.Truncate(45);
+
 
                     Series = _models.GetSeriesByModelId(_modelId);
                     SetBreadcrumList(objPage);
@@ -183,6 +186,8 @@ namespace Bikewale.Models.UserReviews
         /// Description : Function to create page level schema for breadcrum
         /// Modified by Sajal Gupt on 10-11-2017       
         /// desccription : Changed breadcrumbs
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList(UserReviewDetailsVM objPage)
         {
@@ -197,7 +202,7 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}reviews/", bikeUrl), "Reviews"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
 
             if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null)
             {
@@ -218,7 +223,7 @@ namespace Bikewale.Models.UserReviews
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.UserReviewDetailsObj.Make.MakeName)));
             }
 
-            if(Series != null && Series.IsSeriesPageUrl)
+            if (Series != null && Series.IsSeriesPageUrl)
             {
                 seriesUrl = string.Format("{0}{1}/", bikeUrl, Series.MaskingName);
 

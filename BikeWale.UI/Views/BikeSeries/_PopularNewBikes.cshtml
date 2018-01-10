@@ -45,10 +45,14 @@
 									</div>
 								</div>
 								<div class="model-card__desc">
-									<span class="rating-badge" data-rate-bg="@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)">
-										<span class="bwsprite star-white"></span>
-										<span>@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)</span>
-									</span>
+									@if (Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero) > 0)
+									{
+										<span class="rating-badge" data-rate-bg="@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)">
+											<span class="bwsprite star-white"></span>
+											<span>@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)</span>
+										</span>
+									}
+									
 									<div class="model-card__list">
 										<div class="model-card__list-block">
 											<h3 class="model-card__label">@string.Format("{0} {1}", firstModel.BikeMake.MakeName, firstModel.BikeModel.ModelName)</h3>
@@ -88,10 +92,13 @@
 										<img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="" border="0">
 									</div>
 									<div class="model-card__desc">
-										<span class="rating-badge" data-rate-bg="@Math.Round(bike.Rating, MidpointRounding.AwayFromZero)">
-											<span class="bwsprite star-white"></span>
-											<span>@Math.Round(bike.Rating, MidpointRounding.AwayFromZero)</span>
-										</span>
+										@if (Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero) > 0)
+										{
+											<span class="rating-badge" data-rate-bg="@Math.Round(bike.Rating, MidpointRounding.AwayFromZero)">
+												<span class="bwsprite star-white"></span>
+												<span>@Math.Round(bike.Rating, MidpointRounding.AwayFromZero)</span>
+											</span>
+										}
 										<div class="model-card__list">
 											<div class="model-card__list-block">
 												<h3 class="model-card__label">@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)</h3>

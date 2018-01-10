@@ -53,7 +53,7 @@ namespace Bikewale.Models.ServiceCenters
             try
             {
                 objVM = new ServiceCenterLandingPageVM();
-                objVM.MakesList = _bikeMakes.GetMakesByType(EnumBikeType.Dealer);
+                objVM.MakesList = _bikeMakes.GetMakesByType(EnumBikeType.ServiceCenter);
                 objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.ServiceCenter);
                 objVM.BikeCareWidgetVM = new RecentBikeCare(_articles).GetData(BikeCareRecordsCount, 0, 0);
 
@@ -67,7 +67,7 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.UsedBikesModelWidgetData.CityDetails = objVM.City;
                 objVM.UsedBikesCityWidgetData = BindUsedBikeCityWidget(objVM);
                 BindPageMetas(objVM);
-
+                objVM.Page = Entities.Pages.GAPages.ServiceCenter_Landing_Page;
             }
             catch (Exception ex)
             {

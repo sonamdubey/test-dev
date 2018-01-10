@@ -18,7 +18,7 @@
 			{
 				<div @(Model.sponsoredVersionId > 0 ? "id=sponsored-column-active" : "")>
 					<div class="container box-shadow bg-white card-bottom-margin bw-tabs-panel">
-						<h1 class="box-shadow padding-15-20 margin-bottom3 text-bold">@Model.comparisionText</h1>
+						<h1 class="box-shadow padding-15-20 margin-bottom3 text-bold">@Model.Page_H1</h1>
 						<div class="comparison-main-card">
 							@foreach (var bike in Model.Compare.BasicInfo)
 							{
@@ -579,4 +579,13 @@
 			</div>
 		</section>
 	}
+</section>
+<section>
+    <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
+        <p class="text-default text-bold">Disclaimer:</p>
+        <p>
+            @Model.DisclaimerText
+        </p>
+    </div>
+    
 </section>

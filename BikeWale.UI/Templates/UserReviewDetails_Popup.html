@@ -1,0 +1,133 @@
+﻿<div class="review-popup__block">
+    <div id="ub-ajax-loader">
+        <div id="spinner-content">
+            <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+                <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+            </svg>
+        </div>
+    </div>
+    <!-- ko if: ($root.summaryObj() !=null && $data.summaryObj().make!=null && $data.summaryObj().model!=null) -->
+    <span class="review-popup-close-btn"></span>
+    <div class="review-popup__title-block">
+        <div class="left-grid-image margin-right5">
+            <img data-bind="attr: {'src': $data.summaryObj().hostUrl +'110x61/' + $data.summaryObj().originalImagePath + '&amp;q=65', 'title': $data.summaryObj().make.makeName + $data.summaryObj().model.modelName}" src="">
+        </div>
+
+        <div class="right-grid-details inline-block">
+            <h1 class="font16 font-bold" data-bind="text:$data.summaryObj().make.makeName + ' ' + $data.summaryObj().model.modelName"></h1>
+
+            <div class="review-overall-rating">
+                <!-- ko if: Math.round($data.summaryObj().overAllModelRating) > 0 -->
+                <span class="review-overall-rating__list" data-bind="css:'rate-count-' + Math.round($data.summaryObj().overAllModelRating)">
+                    <span class="star-icon"></span>
+                    <span class="font14 text-bold" data-bind="text: $data.summaryObj().overAllModelRating.toFixed(1)"></span>
+                </span>
+                <!-- /ko -->
+                <!-- ko if: $data.summaryObj().totalRatings > 0 -->
+                <span class="review-overall-rating__list" data-bind="text: $data.summaryObj().totalRatings + ($data.summaryObj().totalRatings > 1 ? ' ratings' : ' rating')"></span>
+                <!-- /ko -->
+                <!-- ko if: $data.summaryObj().totalReviews > 0 -->
+                <span class="review-overall-rating__list" data-bind="text: $data.summaryObj().totalReviews + ($data.summaryObj().totalReviews > 1 ? ' reviews' : ' review')"></span>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+    <div class="review-popup-container">
+        <div class="review-popup-list content-box-shadow">
+            <div class="margin-bottom10">
+                <span class="rating-badge" data-bind="css : 'bg-rate-' + $data.summaryObj().overallRating.value , attr : {'data-rate-bg': $data.summaryObj().overallRating.value}">
+
+                    <span class="bwsprite bwmsprite star-white"></span>
+                    <span data-bind="text: $data.summaryObj().overallRating.value"></span>
+                </span>
+                <div class="review-popup-list__title" data-bind="text: $data.summaryObj().title">
+
+                </div>
+            </div>
+            <!-- ko if: $data.summaryObj().reviewAge !=null && $data.summaryObj().customerName!=null -->
+            <span class="font12 text-light-grey" data-bind="text:$data.summaryObj().reviewAge + ' ago by ' + $data.summaryObj().customerName "></span>
+            <!-- /ko -->
+        </div>
+
+        <!-- ko if : $root.summaryObj().questions !=null && $root.summaryObj().questions.length > 0-->
+        <div class="about-reviewer-content about-reviewer--position">
+            <ul class="about-reviewer-list item-count-3">
+                <!-- ko foreach: $root.summaryObj().questions -->
+                <!-- ko if : qtype == 1 -->
+                <li>
+                    <span data-bind="css : 'question-' + qId + '-icon' "></span>
+                    <p class="item-question" data-bind="text:minHeading"></p>
+                    <p class="item-answer" data-bind="text:selectedRatingText"></p>
+                </li>
+                <!-- /ko -->
+                <!-- /ko -->
+            </ul>
+
+        </div>
+        <!-- /ko -->
+
+        <div class="content-inner-block-20">
+            <h2 class="font14 margin-bottom10" data-bind="text:'Full review of ' + $data.summaryObj().make.makeName + ' ' + $data.summaryObj().model.modelName"></h2>
+            <!-- ko if : $root.summaryObj().questions !=null && $root.summaryObj().questions.length > 0-->
+            <ul class="horizontal-rating-graph user-review-graph">
+                <!-- ko foreach: $root.summaryObj().questions -->
+                <!-- ko if : (qtype == 2 &&  selectedRatingId > 0) -->
+                <li>
+                    <span class="graph-bar-label" data-bind="text:heading"></span>
+                    <span class="graph-bar-bg">
+                        <span class="rating-bar" data-bind=" css:'bg-rate-' + selectedRatingId ,style:{'width': (selectedRatingId * 20) + '%'}"></span>
+                    </span>
+                </li>
+                <!-- /ko -->
+                <!-- /ko -->
+            </ul>
+            <!-- /ko -->
+        </div>
+
+
+        <div class="padding-bottom20">
+
+            <div class="user-review__content">
+                <p></p>
+                <!-- ko if: $root.summaryObj().description!=null && $root.summaryObj().description.length > 0 -->
+                <p class="margin-top5" data-bind="html: $root.summaryObj().description"></p>
+                <!-- /ko -->
+                <!-- ko if: $root.summaryObj().tips !=null &&  $root.summaryObj().tips.length > 0 -->
+                <p class="font14 font-bold text-black margin-top15 margin-bottom10" data-bind="text:'Tips for ' +  $root.summaryObj().make.makeName + ' ' + $root.summaryObj().model.modelName "></p>
+                <p class="margin-top5" data-bind="text:$root.summaryObj().tips">
+
+                <p class="margin-top5"></p>
+                <!-- /ko -->
+                <p></p>
+            </div>
+
+
+            <div class="review-question__block">
+
+                <span class="review__question">Was this review helpful?</span>
+
+                <button type="button" class="feedback-button" data-bind="attr:{'id':'upvoteBtn-' + $data.summaryObj().reviewId , 'data-reviewid' : $data.summaryObj().reviewId}" onclick="upVoteReview()">
+                    <span class="like-sm-icon"></span>
+                    Yes
+                    (<span id="upvoteCount" class="btn-count review-btn" data-bind="text:  $data.summaryObj().upVotes"></span>)
+                </button>
+
+
+                <button type="button" class="feedback-button" data-bind="attr:{'id':'downvoteBtn-' + $data.summaryObj().reviewId , 'data-reviewid' : $data.summaryObj().reviewId}" onclick="downVoteReview()">
+                    <span class="dislike-sm-icon"></span>
+                    No
+                    (<span id="downvoteCount" class="btn-count" data-bind="text:  $data.summaryObj().downVotes"></span>)
+                </button>
+            </div>
+
+            <!--<p class="report-abuse__block">
+                Inappropriate review?
+                <a href="javascript:void(0)" rel="nofollow">Report Abuse</a>
+            </p>-->
+        </div>
+
+    </div>
+
+    <!-- /ko -->
+
+</div>

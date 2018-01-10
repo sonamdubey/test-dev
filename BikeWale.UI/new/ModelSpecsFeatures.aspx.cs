@@ -31,8 +31,8 @@ namespace Bikewale.New
     /// </summary>
     public class ModelSpecsFeatures : PageBase
     {
-        protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
-        protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, makeMaskingName, modelMaskingName, clientIP = CommonOpn.GetClientIP();
+        protected uint cityId, areaId, modelId, versionId, dealerId, price = 0, _makeId;
+        protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, makeMaskingName, modelMaskingName, clientIP = CommonOpn.GetClientIP(), pgTitle;
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<AreaEntityBase> objAreaList = null;
         protected bool isDiscontinued, IsExShowroomPrice = true;
@@ -121,6 +121,7 @@ namespace Bikewale.New
                             {
                                 makeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
+                                _makeId = (uint)modelPg.ModelDetails.MakeBase.MakeId;
                             }
                             IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
@@ -169,12 +170,13 @@ namespace Bikewale.New
                             }
                         }
                     }
+                    pgTitle = Bikewale.Utility.BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_makeId.ToString()) ? string.Format("Specifications of {0} | Features of {1}- BikeWale", bikeName, modelName) : string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
-                
+
             }
             return modelPg;
         }
@@ -202,7 +204,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
-                
+
             }
             return specsFeature;
         }
@@ -216,14 +218,19 @@ namespace Bikewale.New
         {
             bool isRedirect = false;
             ModelMaskingResponse objResponse = null;
+            string newMakeMasking = string.Empty, redirectUrl = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
                 if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys())
                 {
                     UInt32.TryParse(Request.QueryString["vid"], out versionId);
                     modelMaskingName = Request.QueryString["model"];
+                    makeMaskingName = Request.QueryString["make"];
 
-                    if (!string.IsNullOrEmpty(modelMaskingName)) // && versionId > 0
+                    newMakeMasking = ProcessMakeMaskingName(makeMaskingName, out isMakeRedirection);
+
+                    if (!string.IsNullOrEmpty(newMakeMasking) && !string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName)) // && versionId > 0
                     {
                         using (IUnityContainer container = new UnityContainer())
                         {
@@ -232,12 +239,12 @@ namespace Bikewale.New
                                      .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                     ;
                             var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                            objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                            objResponse = objCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                             if (objResponse != null && objResponse.StatusCode == 200)
                             {
                                 modelId = objResponse.ModelId;
                             }
-                            else if (objResponse != null && objResponse.StatusCode == 301)
+                            else if (objResponse != null && (objResponse.StatusCode == 301 || isMakeRedirection))
                             {
                                 isRedirect = true;
                             }
@@ -258,16 +265,52 @@ namespace Bikewale.New
 
                 Trace.Warn("GetLocationCookie Ex: ", ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQueryString");
-                
+
             }
             finally
             {
-                if (isRedirect)
+                if (objResponse != null && (isRedirect || isMakeRedirection))
                 {
-                    //redirect permanent to new page 
-                    CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
+                    redirectUrl = Request.RawUrl.Replace(makeMaskingName, newMakeMasking).Replace(modelMaskingName, objResponse.MaskingName);
+                    CommonOpn.RedirectPermanent(redirectUrl);
                 }
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 11th Dec 2017
+        /// Description : Check if make masking is redirection
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="isMakeRedirection"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
+        {
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
+            {
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
+            }
+            if (makeResponse != null)
+            {
+                if (makeResponse.StatusCode == 200)
+                {
+                    return makeResponse.MaskingName;
+                }
+                else if (makeResponse.StatusCode == 301)
+                {
+                    isMakeRedirection = true;
+                    return makeResponse.MaskingName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return "";
         }
 
         /// Created  By :- Sajal Gupta on 13-02-2017

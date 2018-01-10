@@ -17,7 +17,7 @@
         else {
             var makevalue = ($("[id$='ddlMake']").val());
             makevalue = makevalue.split("_")[1];
-            window.location.href ="/" + makevalue + "-dealer-showrooms-in-india/";
+            window.location.href = "/dealer-showrooms/" + makevalue + "/";
 
         }
         return false;

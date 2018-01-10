@@ -1,8 +1,8 @@
 ﻿
+using System.Collections.Generic;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Entity.BikeData;
-using System.Collections.Generic;
 namespace BikewaleOpr.Interface.BikeData
 {
     /// <summary>
@@ -18,6 +18,7 @@ namespace BikewaleOpr.Interface.BikeData
         IEnumerable<BikeMakeEntityBase> GetMakes(string requestType);
         IEnumerable<BikeMakeEntityBase> GetMakes(ushort RequestType);
         IEnumerable<BikeMakeEntity> GetMakesList();
+        BikeMakeEntity GetMakeDetailsById(uint makeId);
         void AddMake(BikeMakeEntity make, ref short isMakeExist, ref int makeId);
         void UpdateMake(BikeMakeEntity make);
         void DeleteMake(int makeId, int updatedBy);

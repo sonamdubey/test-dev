@@ -24,9 +24,14 @@ namespace Bikewale.Interfaces.BikeData
         BikeSpecificationEntity GetSpecifications(U versionId);
         List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
         IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityId);
+        IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityId);
+        IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityId);
+
         List<VersionColor> GetColorByVersion(U versionId);
         IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId);
         IEnumerable<BikeVersionsSegment> GetModelVersionsDAL(); // Added by sajal gupta
         IEnumerable<BikeModelVersionsDetails> GetModelVersions(); // Added by sajal gupta
+        IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId);
+
     }
 }

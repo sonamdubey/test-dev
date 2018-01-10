@@ -54,11 +54,13 @@ else
                                 <span class="city-sprite @details.CityMaskingName-icon"></span>
                             </span>
                             <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName @(details.DealerCount > 1 ? "showrooms" : "showroom" ) in @details.CityName</p>
-                            @if (details.DealerCount>0) {
-                            <a href="/m/@ViewBag.MakeMaskingName-dealer-showrooms-in-@details.CityMaskingName/" title="@ViewBag.MakeName showroom in @details.CityName" class="block">@details.DealerCount @(details.DealerCount > 1 ? "showrooms" : "showroom" )</a>
+                            @if (details.DealerCount > 0)
+                            {
+                                <a href="/m/dealer-showrooms/@ViewBag.MakeMaskingName/@details.CityMaskingName/" title="@ViewBag.MakeName showroom in @details.CityName" class="block">@details.DealerCount @(details.DealerCount > 1 ? "showrooms" : "showroom")</a>
                             }
-                            @if (details.ServiceCenterCount>0){
-                            <a href="/m/@ViewBag.MakeMaskingName-service-center-in-@details.CityMaskingName/" title="@ViewBag.MakeName service center in @details.CityName" class="block">@details.ServiceCenterCount service center@(details.ServiceCenterCount > 1 ? "s" : "")</a>
+                            @if (details.ServiceCenterCount > 0)
+                            {
+                                <a href="/m/service-centers/@ViewBag.MakeMaskingName/@details.CityMaskingName/" title="@ViewBag.MakeName service center in @details.CityName" class="block">@details.ServiceCenterCount service center@(details.ServiceCenterCount > 1 ? "s" : "")</a>
                             }
                         </div>
                     </div>
@@ -70,11 +72,13 @@ else
                                 <span class="city-sprite india-icon"></span>
                             </span>
                             <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName @(Model.dealerServiceCenter.TotalDealerCount > 1 ? "showrooms" : "showroom") in India</p>
-                            @if (Model.dealerServiceCenter.TotalDealerCount > 0) {
-                            <a href="/m/@ViewBag.MakeMaskingName-dealer-showrooms-in-india/" title="@ViewBag.MakeName showroom in India" class="block">@Model.dealerServiceCenter.TotalDealerCount @(Model.dealerServiceCenter.TotalDealerCount > 1 ? "showrooms" : "showroom")</a>
+                            @if (Model.dealerServiceCenter.TotalDealerCount > 0)
+                            {
+                                <a href="/m/dealer-showrooms/@ViewBag.MakeMaskingName/" title="@ViewBag.MakeName showroom in India" class="block">@Model.dealerServiceCenter.TotalDealerCount @(Model.dealerServiceCenter.TotalDealerCount > 1 ? "showrooms" : "showroom")</a>
                             }
-                            @if (Model.dealerServiceCenter.TotalServiceCenterCount > 0) {
-                            <a href="/m/@ViewBag.MakeMaskingName-service-center-in-india/" title="@ViewBag.MakeName service center in India" class="block">@Model.dealerServiceCenter.TotalServiceCenterCount service center@(Model.dealerServiceCenter.TotalServiceCenterCount > 1 ? "s" : "")</a>
+                            @if (Model.dealerServiceCenter.TotalServiceCenterCount > 0)
+                            {
+                                <a href="/m/service-centers/@ViewBag.MakeMaskingName" title="@ViewBag.MakeName service center in India" class="block">@Model.dealerServiceCenter.TotalServiceCenterCount service center@(Model.dealerServiceCenter.TotalServiceCenterCount > 1 ? "s" : "")</a>
                             } 
                         </div>
                     </div>

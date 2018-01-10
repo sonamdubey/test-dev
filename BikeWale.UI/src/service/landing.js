@@ -23,7 +23,7 @@ $(function () {
             if (!isNaN(ddlcityId) && ddlcityId != "0") {
                 ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
                 bwcache.remove("userchangedlocation", true);
-                window.location.href = "/" + ddlmakemasking + "-service-center-in-" + ddlcityMasking+ "/";
+                window.location.href = "/service-centers/" + ddlmakemasking + "/" + ddlcityMasking + "/";
             }
             else {
                 toggleErrorMsg(ddlCities, true, "Choose a city");

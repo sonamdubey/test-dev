@@ -78,6 +78,8 @@ namespace Bikewale.Models
         /// Summary :- Generic Bike Model GetData;        
         /// Modified By :Sajal Gupta on 1-11-2017
         /// Description: Gneric bikes news widget
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Description: added ga pages 
         /// </summary>
         /// <param name="objUpcoming"></param>
         /// </summary>
@@ -95,7 +97,7 @@ namespace Bikewale.Models
                 obj.BestBikes = new BestBikeWidgetModel(null, _objBestBikes).GetData();
                 obj.BestBikes.CurrentPage = BodyStyleType;
                 obj.Brands = new BrandWidgetModel(makeTopCount, _bikeMakes).GetData(BodyStyleType == EnumBikeBodyStyles.Scooter ? Entities.BikeData.EnumBikeType.Scooters : Entities.BikeData.EnumBikeType.New);
-
+                obj.Page = Entities.Pages.GAPages.Best_Bikes;
                 SetPageJSONLDSchema(obj);
                 obj.News = new RecentNews(5, 0, _modelIdList, _objArticles).GetData();
             }
@@ -252,11 +254,16 @@ namespace Bikewale.Models
             }
         }
 
+        /// <summary>
+        /// Modified By: Snehal Dange on 29th Nov 2017
+        /// Description: Changed logic for current month on bestbike page
+        /// </summary>
+        /// <param name="obj"></param>
         private void SetPageMetas(IndexBestBikesVM obj)
         {
             try
             {
-                string formattedDate = Bikewale.Utility.FormatDate.GetFormatDate(DateTime.Now.AddMonths(-1).ToString(), "Y");
+                string formattedDate = Bikewale.Utility.FormatDate.GetFormatDate(DateTime.Now.ToString(), "Y");
                 obj.PageMetaTags.Description = string.Format("BikeWale brings the list of best {0} in  India for {1}. Explore the top 10 {0} to buy the best bike of your  choice.", obj.PageMaskingName, formattedDate);
                 obj.PageMetaTags.Title = string.Format("Best {0} in India - {1} | Top 10 {0} - BikeWale", obj.PageName, formattedDate);
                 obj.PageMetaTags.CanonicalUrl = string.Format("{0}/best-{1}-in-india/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.PageMaskingName);

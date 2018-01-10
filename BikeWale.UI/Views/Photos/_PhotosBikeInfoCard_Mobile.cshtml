@@ -57,7 +57,7 @@
                     {
                         count++;
                     <li>
-                        <a href="/m@(Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.BikeInfo.Make.MaskingName,Model.CityDetails!=null ? Model.CityDetails.CityMaskingName : "india"))" title="@Model.BikeName Dealers">
+                        <a href="@string.Format("/m{0}",(Model.CityDetails != null ? Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.BikeInfo.Make.MaskingName, Model.CityDetails.CityMaskingName) : Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.BikeInfo.Make.MaskingName)))" title="@Model.BikeName Dealers">
                             <span class="bwsprite dealers-sm"></span>
                             <span class="icon-label">Dealers</span>
                         </a>

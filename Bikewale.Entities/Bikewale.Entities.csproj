@@ -187,6 +187,7 @@
     <Compile Include="BikeData\BikeVersionEntity.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionMinSpecs.cs" />
+    <Compile Include="BikeData\BikeVersionMinSpec.cs" />
     <Compile Include="BikeData\BikeVersionPriceEntity.cs" />
     <Compile Include="BikeData\BikeVersionSegmentDetails.cs" />
     <Compile Include="BikeData\BikeVersionsListEntity.cs" />
@@ -257,6 +258,8 @@
     <Compile Include="CMS\CMSPageDetailsEntity.cs" />
     <Compile Include="CMS\CMSPageEntity.cs" />
     <Compile Include="CMS\ContentFilter.cs" />
+    <Compile Include="CMS\EditorialPageType.cs" />
+    <Compile Include="CMS\EnumCMSContentSubCategoryType.cs" />
     <Compile Include="CMS\EnumCMSContentType.cs" />
     <Compile Include="CMS\Photos\ModelPhotos.cs" />
     <Compile Include="Compare\BikeColor.cs" />
@@ -285,12 +288,14 @@
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Customer\CustomerEntityBase.cs" />
     <Compile Include="DealerBenefitEntity.cs" />
+    <Compile Include="DealerLocator\DealerBikeModelsEntity.cs" />
     <Compile Include="DealerLocator\DealerBikesEntity.cs" />
     <Compile Include="DealerLocator\DealerDetailEntity.cs" />
     <Compile Include="DealerLocator\DealerListIndia.cs" />
     <Compile Include="DealerLocator\DealerLocatorList.cs" />
     <Compile Include="DealerLocator\Dealers.cs" />
     <Compile Include="DealerLocator\DealersList.cs" />
+    <Compile Include="DealerLocator\DealerVersionPrices.cs" />
     <Compile Include="Dealer\MakeEnitityBase.cs" />
     <Compile Include="Dealer\NearByCityDealerCountEntity.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />

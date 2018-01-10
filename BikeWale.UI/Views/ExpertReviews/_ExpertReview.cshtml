@@ -1,0 +1,66 @@
+﻿@model Bikewale.Models.RecentExpertReviewsVM
+@using Bikewale.Entities.CMS
+@using Bikewale.Utility
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Any())
+{
+	if (Model.FetchedCount <= 2)
+	{
+		<div class="expert-review-list  padding-right5 padding-left5">
+			
+			@foreach (var review in Model.ArticlesList)
+			{
+				<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId))" title="@review.Title" class="expert-review__card carousel-card" data-review-category="@review.SubCategoryId">
+					<div class="card-category__tag">
+						@review.SubCategory Review
+					</div>
+					<h3 class="review-article__card-title">
+						@review.Title
+					</h3>
+					<div class="article-stats-grid">
+						<span class="article-stats__date-grid">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "dd MMMM yyyy")</span>
+						<span class="article-stats__name-grid">@review.AuthorName</span>
+					</div>
+					<p class="article-description">
+						@FormatDescription.SanitizeHtml(WebUtility.HtmlDecode(review.Description))
+					</p>
+					<span class="review-card__read-more">...Read more</span>
+				</a>
+			}
+		</div>
+	}
+	else
+	{
+		<div class="model-carousel-container jcarousel-wrapper inner-content-carousel padding-bottom20 padding-top25">
+			<div class="jcarousel" data-swipe="2">
+				<ul>
+					
+					@foreach(var review in Model.ArticlesList)
+					{
+						
+						<li>
+							<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId))" title="@review.Title" class="expert-review__card carousel-card" data-review-category="@review.SubCategoryId">
+								<div class="card-category__tag">
+									@review.SubCategory Review
+								</div>
+								<h3 class="review-article__card-title">
+									@review.Title
+								</h3>
+								<div class="article-stats-grid">
+									<span class="article-stats__date-grid">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "dd MMMM yyyy")</span>
+									<span class="article-stats__name-grid">@review.AuthorName</span>
+								</div>
+								<p class="article-description">
+									@FormatDescription.SanitizeHtml(WebUtility.HtmlDecode(review.Description))
+								</p>
+								<span class="review-card__read-more">...Read more</span>
+							</a>
+						</li>
+					}
+				</ul>
+			</div>
+			<span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+			<span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+		</div>
+
+	}
+}

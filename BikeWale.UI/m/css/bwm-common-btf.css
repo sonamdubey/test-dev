@@ -1,4 +1,5 @@
-﻿@charset "utf-8";
+﻿
+@charset "utf-8";
 /* css3 properties */
 .rounded-corner2, .bw-blackbg-tooltip, #globalCity-input input[type="text"], .home-tabs, .home-tabs li.active, .lang-changer-option, div.chosen-container { -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
 .rounded-corner5 { -moz-border-radius: 5px; -webkit-border-radius: 5px; -o-border-radius: 5px; -ms-border-radius: 5px; border-radius: 5px; }
@@ -166,6 +167,15 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .article-stats-content-no-truncate { font-size:11px; color: #82888b; width: 78%; display:inline-block; vertical-align:middle; text-align:left; white-space:nowrap; overflow:hidden; }
 .article-stats-content.video-view-count { width: 72%; }
 .video-image-thumbnail { position:relative; height: 68px; }
+.article-target-image {
+	cursor: pointer;
+}
+.article-target-read-more {
+	color: #0288d1;
+	font-size: 14px;
+	display: inline-block;
+	cursor: pointer;
+}
 
 /* footer classes */
 footer ul li { display: inline-block; }
@@ -1448,10 +1458,15 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 /* similar bikes carousel tooltip */
 .swiper-type-similar .tooltip-icon-target {
 	position: absolute;
-	left: 135px;
+	left: 138px;
 	top: 123px;
 }
 
+.other-popular-bikes-swiper .tooltip-icon-target {
+	position: absolute;
+	left: 135px;
+	top: 123px;
+}
 .comparison-swiper .tooltip-icon-target {
 	position: absolute;
 	top: 119px;
@@ -1474,4 +1489,58 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 
 .event-none {
     pointer-events: none;
+}
+
+/*best bike last creative card*/
+.card__complete-list .swiper-image-preview {
+    display: block;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    height: 210px;
+    position: relative;
+}
+
+.card__complete-list .swiper-image-preview:after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.card__complete-list .swiper-image-preview img{
+    height: 100%;
+}
+.card__complete-list .swiper-details-block {
+    position: absolute;
+    top: 43%;
+    left: 13%;
+    padding: 0;
+    z-index: 2;
+}
+.card__complete-list .swiper-btn-block {
+    font-size: 14px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-weight: 600;
+    color: #fff;
+    display: block;
+    text-transform: capitalize;
+    margin: 0 auto;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border: solid 1px #fff;
+}
+
+.card__complete-list .swiper-btn-block:hover {
+    background: white;
+    color: #2a2a2a;
+    text-decoration: none;
 }

@@ -1,4 +1,10 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
 using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -8,12 +14,6 @@ using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using Dapper;
 using MySql.CoreDAL;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
 
 namespace BikewaleOpr.DALs.Bikedata
 {
@@ -436,7 +436,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetMakes_{0}", requestType));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.BikeData.GetMakes_{0}", requestType));
             }
 
             return objMakes;
@@ -472,10 +472,52 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetModelsByMake_{0}_{1}", requestType, makeId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.BikeData.GetModelsByMake_{0}_{1}", requestType, makeId));
             }
             return objBikeModelEntityBaseList;
         }
 
+
+        /// <summary>
+        /// Gets the make details by identifier.
+        /// Author: Sangram Nandkhile on 08 Dec 2017
+        /// </summary>
+        /// <param name="makeId">The make identifier.</param>
+        /// <returns></returns>
+        public BikeMakeEntity GetMakeDetailsById(uint makeId)
+        {
+            BikeMakeEntity makeDetails = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmakedetails_14082017";
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null)
+                        {
+                            makeDetails = new BikeMakeEntity();
+                            while (reader.Read())
+                            {
+                                makeDetails.MakeId = SqlReaderConvertor.ToInt32(reader["id"]);
+                                makeDetails.MakeName = Convert.ToString(reader["name"]);
+                                makeDetails.MaskingName = Convert.ToString(reader["maskingname"]);
+                            }
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.BikeData.GetMakeDetailsById_MakeId: =>{0}", makeId));
+            }
+
+            return makeDetails;
+        }
     }   // class
 }   // namespace

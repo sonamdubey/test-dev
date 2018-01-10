@@ -1,0 +1,125 @@
+﻿@import '../mixins/mixins'
+@import './card-category'
+@import '../base/variables'
+@import './_carousel-card'
+@import '../mixins/icons'
+@import './review-category'
+
+.expert-review-list 
+	display: table
+	border-collapse: separate
+	border-spacing: 15px 5px
+	margin-bottom: 10px
+	margin-top: 27px
+
+@include carousel-card()
+
+.expert-review__card 
+	padding: 15px 20px 10px
+	display: table-cell
+	width: 1%
+
+@include card-category__tag()
+@include card-category__tag-color()
+	
+.review-article__card-title
+	color: #2a2a2a
+	font-size: 15px
+	font-weight: 600
+	display: block
+	margin-bottom: 8px
+		
+.article-description 
+	color: map-get($color-map, slate-grey)
+	margin-bottom: 5px
+	margin-top: 10px
+	font-size: 14px
+	overflow: hidden
+	max-height: 156px
+	line-height: 1.4
+	position: relative
+
+	&:before
+		content: '...'
+		position: absolute
+		right: 0
+		bottom: 3px
+		padding-left: 2px
+		padding-right: 2px
+		background: #fff
+
+	&:after
+		content: ''
+		position: absolute
+		width: 20px
+		height: 14px
+		background: #fff
+		right: 0
+
+.expert-review__card
+	.article-stats-grid
+		font-size: 12px
+		color: #82888b	
+			
+	.article-stats__date-grid
+		display: inline-block
+		vertical-align: top
+		min-width: 75px
+		padding-right: 10px
+
+	.article-stats__name-grid
+		display: inline-block
+		vertical-align: top
+		width: 183px
+		white-space: nowrap
+		overflow: hidden
+		text-overflow: ellipsis
+
+.model-carousel-container.inner-content-carousel
+	.jcarousel
+		.expert-review__card
+			&:hover
+				text-decoration: none
+
+				h3
+					text-decoration: underline
+	.expert-review__card
+		display: block
+
+.review-card__read-more
+	font-size: 13px
+
+@include jcarousel-carousel-card()
+
+@media only screen and (max-width: 900px)
+	.expert-review-list
+		display: block
+		margin-bottom: 20px
+		border-spacing: 0
+
+		.expert-review__card
+			width: auto	
+
+	.expert-review__card
+		padding-left: 10px
+		padding-right: 10px
+		margin-left: 10px
+
+		.article-stats-grid
+			font-size: 10px
+
+		.article-stats__name-grid
+			width: 110px
+		
+		.article-stats__date-grid
+			min-width: 50px	
+
+	.review-article__card-title
+		font-size: 13px
+		margin-bottom: 0
+		
+	.article-description
+		font-size: 11px
+		max-height: 122px
+		&:before
+			bottom: 1px

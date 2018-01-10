@@ -475,7 +475,7 @@
                         <% if (objMake != null && modelId > 0)
                             { %>
                             <li itemtype="http://data-vocabulary.org/Breadcrumb">
-                        <a class="breadcrumb-link"  href="/m/used/<%= objMake.MaskingName %>-bikes-in-<%= objCity!=null ? objCity.CityMaskingName : "india" %>/" itemprop="url" title="<%= string.Format("{0} Bikes",objMake.MakeName) %>"><span class="breadcrumb-link__label" itemprop="name"><%= string.Format("{0} Bikes",objMake.MakeName) %></span></a>
+                        <a class="breadcrumb-link"  href="/m/used/<%= objMake.MaskingName %>-bikes-in-<%= objCity!=null ? objCity.CityMaskingName : "india" %>/" itemprop="url" title="<%= string.Format("{0} Bikes",objMake.MakeName) %>"><span class="breadcrumb-link__label" itemprop="name"><%= string.Format("Used {0} Bikes",objMake.MakeName) %></span></a>
                     </li> 
                     <% }
                         } %>
@@ -505,6 +505,7 @@
             var selectedCityId = <%= cityId %>;selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
             var usedPageIdentifier="<%=PageIdentifier%>";
             var selectedCityId = "<%=cityId%>";
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Listing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Listing%>' };
         </script>
         <script type="text/javascript" src="<%= staticUrl %>/m/src/used-search.js?<%= staticFileVersion%>"></script>        
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->

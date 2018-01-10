@@ -30,5 +30,6 @@ namespace Bikewale.Models
         public BrandCityPopupVM BrandCityPopUp { get; set; }
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenterPopularCities { get; set; }
         public BikeCityPopup BikeCityPopup { get; set; }
+        public OtherMakesVM SimilarBrandsByCity { get; set; }
     }
 }

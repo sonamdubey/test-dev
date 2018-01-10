@@ -50,7 +50,7 @@
            {
                if (bikeInfo.PriceInCity > 0 && cityDetails != null)
                { %>
-        <p class="font12 text-light-grey margin-bottom5 text-truncate" title="<%=String.Format("Ex-showroom, {0}",cityDetails.CityName)%>"><%=String.Format("Ex-showroom, {0}",cityDetails.CityName)%></p>
+        <p class="font12 text-light-grey margin-bottom5 text-truncate" title="<%=String.Format("On-road price, {0}",cityDetails.CityName)%>"><%=String.Format("Ex-showroom, {0}",cityDetails.CityName)%></p>
         <span class="bwsprite inr-md"></span><span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.PriceInCity)) %></span>
         <% }
                else

@@ -14,11 +14,11 @@
             {
                 <span class="navtab" data-href="#makeUpcomingBikesContent" data-lab="@string.Format("{0}_UpcomingBikes", Model.MakeName)">Upcoming</span>
             }
-            @if (Model.IsCompareBikesAvailable || Model.OtherMakes!=null)
+            @if (Model.IsCompareBikesAvailable)
             {
                 <span class="navtab" data-href="#popularComparisonAndOtherBrands" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)">Top Comparisons</span>
             }
-           @if (Model.IsDealerServiceDataAvailable || Model.DealersServiceCenterPopularCities != null)
+           @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
            {
                 <span class="navtab" data-href="#dealerAndServiceContent" data-lab="@string.Format("{0}_Showrooms", Model.MakeName)">Dealers</span>
             }

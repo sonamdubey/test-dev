@@ -2,12 +2,14 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline />";
-    Model.Page_JS_Path = "/src/new/bikemake.js";
+    Model.Page_JS_Paths = new string[] { "/src/new/bikemake.js", "/src/review-popup.js" };
+    
     Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
     Model.AdTags.AdId = "1442913773076";
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90Bottom = true;
     Model.AdTags.Ad_300x250 = true;
+
 }
 
 <section id="makeTabsContentWrapper">
@@ -85,7 +87,7 @@
                                 {
                                     var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex">
+                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
                                                 <a class="modelurl" href='@modelUrl'>
@@ -120,7 +122,7 @@
                                                     { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))));
                                                     }
                                                 </div>
-                                                @if (bike.VersionPrice > 0)
+                                                @if (bike.VersionPrice > 0 && Model.ShowCheckOnRoadpriceBtn)
                                                 {
                                                     <a rel="nofollow" href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                                 }
@@ -211,7 +213,7 @@
         </div>
     }
 
-    @if (Model.IsDealerServiceDataAvailable || Model.DealersServiceCenterPopularCities != null)
+    @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
     {
 
         <div id="dealerAndServiceContent" class="bw-model-tabs-data">
@@ -225,7 +227,8 @@
                                     <div class="swiper-heading-left-grid inline-block">
                                         <h2>@Model.MakeName showrooms in @Model.Location</h2>
                                     </div>
-                                    <div class="swiper-heading-right-grid inline-block text-right"><a href="/@Model.MakeMaskingName-dealer-showrooms-in-@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                    <div class="swiper-heading-right-grid inline-block text-right">
+                                        <a href="/dealer-showrooms/@Model.MakeMaskingName/@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -245,9 +248,12 @@
                                 <div class="content-inner-block-20">
                                     <div class="grid-9 inline-block margin-right-4 alpha">
                                         <span class="bwsprite dealer-grey"></span>
-                                        <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.MakeName showrooms</h2>
+                                        <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.MakeName showroom@(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "" : "s")</h2>
                                         <div class="grid-11 alpha">
-                                            <p class="font14 text-slate-grey">There are @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName showrooms across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount cities in India. Select your city to find address, & contact details of @Model.MakeName showrooms near you.</p>
+                                            @{
+                                                var showroomText = (Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "showroom" : "showrooms");
+                                            }
+                                            <p class="font14 text-slate-grey">There @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "is" : "are") @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount @Model.MakeName @showroomText across @Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalCitiesCount @(Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount == 1 ? "city" : "cities") in India. Select your city to find address, & contact details of @Model.MakeName @showroomText near you.</p>
                                         </div>
                                     </div>
 
@@ -267,8 +273,6 @@
                 </section>
             }
         </div>
-
-
     }
 
     @if (Model.IsMakeTabsDataAvailable)
@@ -318,18 +322,29 @@
                             }
                         </div>
                     }
-                    @if (Model.IsVideosAvailable)
+                
+                    @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
                     {
-                        <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-                            <h2 class="padding-right10 padding-left10">@Model.MakeName Videos</h2>
-                            @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
-                            <div class="padding-left10 more-article-target view-all-btn-container">
-                                <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">View all videos<span class="bwsprite teal-right"></span></a>
+                        <section>
+                            <div id="makeVideosContent"  class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
+
+
+                                <h2 class="padding-left20 padding-right20">@string.Format("{0} Videos", Model.MakeName)</h2>
+
+
+                                @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
+
+                                <div class="margin-top10 padding-left20">
+                                    <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
+                                        View all videos <span class="bwsprite teal-right"></span>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+							<div class="border-solid-bottom margin-right10 margin-left10"></div>                            
+                               
+                        </section>
                     }
 
-                                             
                     @if (Model.IsUsedModelsBikeAvailable)
                     {
                         <div id="makeUsedBikeContent" class="bw-model-tabs-data">
@@ -366,12 +381,12 @@
                         <div id="discontinuedLess">
                             Discontinued @Model.MakeName models: - <span id="spnContent"></span>
                         </div>
-                        <div id="discontinuedMore" class="hide">
+                        <div id="discontinuedMore">
                             Discontinued @Model.MakeName models: -
                             @foreach (var bike in Model.DiscontinuedBikes)
                             {
                                 <a title="@bike.BikeName" href="@bike.Href">@bike.BikeName</a>
-                            }                                                                                                                                       }
+                            }
                         </div>
                     </div>
                 </div>
@@ -394,5 +409,13 @@
     </section>
 
     <!-- Footer widget ends-->
+}
+
+
+@if (Model.IsUserReviewsAvailable && Model.PopularBikesUserReviews != null)
+{
+    <!-- Make review popup-->
+    <div id="reviewPopup" class="review-popup hide" data-csslink="@String.Format("{0}/sass/partials/review-popup.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></div>
+    <!-- make review popup ends-->
 }
 

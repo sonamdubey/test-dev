@@ -43,7 +43,7 @@
                     {
                         if (Model.BikeInfo.PriceInCity > 0 && Model.CityDetails != null)
                         {
-                    <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}", Model.CityDetails.CityName)</p>
+                    <p class="price-label-size-12 text-truncate">@String.Format("On-road price, {0}", Model.CityDetails.CityName)</p>
                     <div>
                         @Html.Raw("<span> &#x20B9;</span>")&nbsp;
                         <span class="price-value-size-18">@Format.FormatPrice(Convert.ToString(Model.BikeInfo.PriceInCity))</span>

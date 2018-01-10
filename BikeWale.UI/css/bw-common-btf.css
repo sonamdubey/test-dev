@@ -42,9 +42,18 @@
 .news-expert-video-content .img-preview { width:100%; height:174px; display:table; text-align:center;}
 .news-expert-video-content .img-preview a { display:table-cell; vertical-align:middle; background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .news-expert-video-content .img-preview a img { max-width:100%; height:auto; }
-#modelNewsContent .article-target-link, #modelReviewsContent .article-target-link, #modelVideosContent .article-target-link { margin-bottom: 8px; line-height: 1.5; }
+#modelNewsContent .article-target-link, #modelReviewsContent .article-target-link, #modelVideosContent .article-target-link { margin-bottom: 8px; line-height: 1.5; cursor: pointer; }
 #modelNewsContent .model-news-title-container.model-news-text-wrapper { display:block; width: auto; padding-left:0; }
 #modelNewsContent .grid-8 .article-target-link { line-height:1.6; }
+.article-target-read-more {
+	color: #0288d1;
+	font-size: 14px;
+	display: inline-block;
+	cursor: pointer;
+}
+.article-target-read-more:hover {
+	text-decoration: underline;
+}
 
 @-moz-document url-prefix() {
 	.viewBtn .btn-xs {padding: 8px 10px 8px;}
@@ -260,7 +269,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 /* News-Reviews-Videos New Bikes */
 .newBikes-latest-updates-container .grid-4 { padding-left:10px !important; }
 .newBikes-latest-updates-container .grid-8 { padding-right:10px !important; }
-.article-target-link { font-size: 15px; font-weight: 600; color:#2a2a2a; display:block; margin-bottom: 8px; }
+.article-target-link { font-size: 15px; font-weight: 600; color:#2a2a2a; display:block; margin-bottom: 8px; cursor: pointer; }
 .article-target-link:hover { text-decoration:underline; }
 .article-stats-left-grid, .article-stats-right-grid { display:inline-block; vertical-align:top; min-width: 110px; padding-right: 10px; }
 .article-stats-content { font-size:12px; color: #82888b; display:inline-block; vertical-align:middle; }
@@ -1694,4 +1703,67 @@ input[type="number"] {
 
 .event-none {
     pointer-events: none;
+}
+
+/*best bike last creative card*/
+.jcarousel-wrapper .card__complete-list {
+    border: none;
+    position: relative;
+}
+.card__complete-list .card-desc-block {
+    position: absolute;
+    top: 43%;
+    left: 16%;
+    padding: 0;
+}
+.card__complete-list .card-desc-block:hover {
+   text-decoration: none;
+}
+.card__complete-list .model-jcarousel-image-preview {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    position: relative;
+}
+.card__complete-list .model-jcarousel-image-preview:after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.card__complete-list .card-image-block {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.card__complete-list .model-jcarousel-image-preview img {
+    height: 100%;
+    width: 100%;
+    max-width: 292px;
+}
+.card__complete-list .btn-sm {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    display: block;
+    text-transform: capitalize;
+    max-width: 201px;
+    margin: 0 auto;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border: solid 1px #fff;
+}
+.card__complete-list .btn-sm:hover {
+    background: white;
+    color: #2a2a2a;
+    text-decoration: none;
 }

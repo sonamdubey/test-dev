@@ -18,8 +18,17 @@
 <section>
     <div class="container card-bottom-margin">
         <div class="grid-12">
-            <div id="modelName" data-modelName="@Model.RatingsInfo.Model.ModelName" data-makeName="@Model.RatingsInfo.Make.MakeName" class="content-box-shadow">
-                <h1 class="content-box-shadow padding-15-20">@Model.BikeName User Reviews</h1>
+            <div id="modelName" data-modelname="@Model.RatingsInfo.Model.ModelName" data-makename="@Model.RatingsInfo.Make.MakeName" class="content-box-shadow">
+                @if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(Model.ReviewsInfo.Make.MakeId.ToString()))
+                {
+                    <h1 class="content-box-shadow padding-15-20">Reviews of @Model.BikeName</h1>
+                }
+                else
+                {
+                    <h1 class="content-box-shadow padding-15-20">@Model.BikeName User Reviews</h1>
+                }
+
+
 
                 <div class="padding-20-10">
                     <div class="grid-7 border-grey-right">
@@ -87,7 +96,7 @@
                     </div>
 
                     <div class="grid-5 padding-left20 model-card-details">
-                        <a href="@UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName)" title="" @Model.BikeName Reviews" class="left-grid-image vertical-top position-rel pos-top5">
+                        <a href="@UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName)" title="" @Model.BikeName reviews" class="left-grid-image vertical-top position-rel pos-top5">
                             <img src="@Image.GetPathToShowImages(Model.RatingsInfo.OriginalImagePath,Model.RatingsInfo.HostUrl,ImageSize._110x61,QualityFactor._65)" alt="@Model.BikeName Reviews">
                         </a>
                         <div class="right-grid-details vertical-top">
@@ -117,23 +126,23 @@
                     <div class="clear"></div>
                     @if (Model.ObjQuestionValue != null && Model.ObjQuestionValue.QuestionsList.Any())
                     {
-						<div class="rating-parameters-content">
-							<p class="rating-circle-list-title">Rating Parameters:</p>
-							<div class="rating-list">
-								<ul class="rating-circle-list">
-									@foreach (QuestionRatingsValueEntity ques in Model.ObjQuestionValue.QuestionsList)
-									{
-										<li>
-											<div class="rating-circle circle-rate-@Math.Floor(ques.AverageRatingValue)">
-												<p class="circle-label">@Math.Floor(ques.AverageRatingValue)</p>
-												<span class="rating-progress"></span>
-											</div>
-											<p class="list-item-label">@ques.QuestionHeading</p>
-										</li>
-									}
-								</ul>
-							</div>
-						</div>
+                        <div class="rating-parameters-content">
+                            <p class="rating-circle-list-title">Rating Parameters:</p>
+                            <div class="rating-list">
+                                <ul class="rating-circle-list">
+                                    @foreach (QuestionRatingsValueEntity ques in Model.ObjQuestionValue.QuestionsList)
+                                    {
+                                        <li>
+                                            <div class="rating-circle circle-rate-@Math.Floor(ques.AverageRatingValue)">
+                                                <p class="circle-label">@Math.Floor(ques.AverageRatingValue)</p>
+                                                <span class="rating-progress"></span>
+                                            </div>
+                                            <p class="list-item-label">@ques.QuestionHeading</p>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
@@ -146,7 +155,7 @@
                 <div class="leftfloat">
                     <span class="contest-fullwidth__trophy-circle"></span>
                     <p class="contest-fullwidth__heading">Bike Review Contest</p>
-                    <p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; 2,000</p>
+                    <p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; @BWConfiguration.Instance.ContestPriceMoney</p>
                 </div>
                 <div class="rightfloat padding-top15">
                     @{
@@ -235,6 +244,20 @@
     </section>
 }
 
+@if (Model.objMoreAboutScooter != null)
+{
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
+                    @Html.Partial("~/Views/Scooters/_ModelRelatedCard.cshtml", Model.objMoreAboutScooter)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+
 <div id="report-abuse">
     <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
 
@@ -249,5 +272,5 @@
         <a id="btnReportReviewAbuse" class="btn btn-orange" rel="nofollow">Report</a>
     </div>
 </div>
-<input type="hidden" id="pageSource" value="@((int)UserReviewPageSourceEnum.Desktop_UserReview_Listing)"/>
+<input type="hidden" id="pageSource" value="@((int)UserReviewPageSourceEnum.Desktop_UserReview_Listing)" />
 <div id="report-background"></div>

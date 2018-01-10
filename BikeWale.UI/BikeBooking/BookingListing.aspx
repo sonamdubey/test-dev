@@ -530,7 +530,7 @@
         <script type="text/javascript" src="<%= staticUrl %>/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch%>';
-           
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.BookingListing_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.BookingListing_Page%>' };
         </script>
     </form>
 </body>

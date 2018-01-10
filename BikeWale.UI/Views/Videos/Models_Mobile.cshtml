@@ -16,7 +16,15 @@
         <div id="backBtn" class="category-back-btn">
             <span class="bwmsprite fa-arrow-back"></span>
         </div>
-        <h1 class="font18">@String.Format("{0} {1} Videos", @Model.Make.MakeName, @Model.Model.ModelName)</h1>
+        @if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(Model.Make.MakeId.ToString()))
+        {
+            <h1 class="font18">@String.Format(" Videos of {0} {1}", Model.Make.MakeName, Model.Model.ModelName)</h1>
+        }
+        else
+        {
+            <h1 class="font18">@String.Format("{0} {1} Videos", Model.Make.MakeName, Model.Model.ModelName)</h1>
+        }
+        
     </header>
 
     if (Model.VideosList != null)
@@ -113,6 +121,21 @@
     }
 
     { Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = Model.Model.ModelId, topCount = 9, cityId = Model.CityId }); }
+
+    if (Model.ObjMoreAboutScooter != null)
+    {
+        <section>
+            <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
+                <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
+                    <div class="swiper-wrapper">
+                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.ObjMoreAboutScooter)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    }
+
 }
 else if (Model != null && Model.Make != null && Model.objSeries != null)
 {
@@ -151,7 +174,32 @@ else if (Model != null && Model.Make != null && Model.objSeries != null)
                 </ul>
             </div>
         </section>
-    }
+	}
+
+	if (Model.PopularSeriesBikes != null && Model.PopularSeriesBikes.BikesList != null && Model.PopularSeriesBikes.BikesList.Any())
+	{
+		<section class="container bg-white">
+			<div class="box-shadow padding-bottom10 padding-top15">
+				<div class="carousel-heading-content">
+					<div class="swiper-heading-left-grid inline-block">
+						<h2>@Model.PopularSeriesBikes.WidgetTitle</h2>
+					</div>
+					@if (Model.Make != null && Model.objSeries != null)
+					{
+						<div class="swiper-heading-right-grid inline-block text-right">
+							<a href="@string.Format("/m{0}", Model.PopularSeriesBikes.WidgetViewAllUrl)" title="@string.Format("{0} {1} Bikes", Model.Make.MakeName, Model.objSeries.SeriesName)" class="btn view-all-target-btn">View all</a>
+						</div>
+						<div class="clear"></div>
+					}
+				</div>
+				<div class="swiper-container card-container swiper-type-similar">
+					<div class="swiper-wrapper">
+						@Html.Partial("~/Views/BikeSeries/_PopularSeriesBikes_Mobile.cshtml", Model.PopularSeriesBikes)
+					</div>
+				</div>
+			</div>
+		</section>
+	}
 }
 <script type="text/javascript">
 

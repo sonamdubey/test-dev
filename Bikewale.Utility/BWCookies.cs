@@ -179,6 +179,12 @@ namespace Bikewale.Utility
                     }
                     SetCookie("_bwutmz", 180, string.Format("utmcsr={0}|utmgclid={1}|utmccn={2}|utmcmd={3}", utmcsr, utmgclid, utmccn, utmcmd)); //step 8. Set the BW source cookie with utmcsr=<value>|utmgclid=gclid|utmccn=<value>|utmcmd=<value> with a 6 month expiry
                 }
+
+                //set user cookie for ab testing
+                if (request.Cookies.Get("_bwtest") == null)
+                {
+                    SetBikewaleABTestingUser();
+                }
             }
             catch (Exception)
             {
@@ -276,10 +282,43 @@ namespace Bikewale.Utility
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                throw ex;
             }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 19th December 2017
+        /// Description : To get abtest user cookie and check for valid test case
+        /// </summary>
+        public static bool GetAbTestCookieFlag(ushort percentage)
+        {
+            try
+            {
+                ushort cookieValue;
+                var cookie = HttpContext.Current.Request.Cookies["_bwtest"];
+                if (cookie != null && !string.IsNullOrEmpty(Convert.ToString(cookie.Value)) && ushort.TryParse(cookie.Value, out cookieValue) && cookieValue > 0)
+                {
+                    return cookieValue <= percentage;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 14th December 2017
+        /// Description : Create a random number which is assign to user for ab testing
+        /// </summary>
+        public static void SetBikewaleABTestingUser()
+        {
+            Random r = new Random((int)DateTime.Now.Ticks);
+            SetCookie("_bwtest", 365, Convert.ToString(r.Next(1, 101)));
         }
     }
 }

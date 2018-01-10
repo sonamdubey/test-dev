@@ -320,13 +320,31 @@
 
         @Html.Raw(Model.Amp_Page_CSS)
     </style>
-    @if (!string.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
+
+    @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
     {
         <script type="application/ld+json">
-            @Html.Raw(Model.PageMetaTags.SchemaJSON)
-            "articleBody" : "@ViewBag.SanitizedNewsContent",
+            @(Html.Raw(Model.PageMetaTags.SchemaJSON))
         </script>
     }
+    @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.PageSchemaJSON))
+    {
+        <script type="application/ld+json">
+            @(Html.Raw(Model.PageMetaTags.PageSchemaJSON))
+        </script>
+    }
+    @if (Model.Page != null)
+    {
+        <amp-state id="gaObj">
+            <script type="application/json">
+                {
+                "id" : @((int)Model.Page),
+                "name": '@Model.Page'
+                }
+            </script>
+        </amp-state>
+    }
+    
 
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     @if (Model.AmpJsTags != null)
@@ -396,8 +414,8 @@
                             <li><a href="https://www.bikewale.com/m/new-bikes-in-india/" target="_top">Find New Bikes</a></li>
                             <li><a href="https://www.bikewale.com/m/comparebikes/" target="_top">Compare Bikes</a></li>
                             <li><a href="https://www.bikewale.com/m/pricequote/" target="_top">Check On-Road Price</a></li>
-                            <li><a href="https://www.bikewale.com/m/dealer-showroom-locator/" target="_top">Locate Dealer</a></li>
-                            <li><a href="https://www.bikewale.com/m/bike-service-center/" target="_top">Locate Service Center</a></li>
+                            <li><a href="https://www.bikewale.com/m/dealer-showrooms/" target="_top">Locate Dealer</a></li>
+                            <li><a href="https://www.bikewale.com/m/service-centers/" target="_top">Locate Service Center</a></li>
                             <li><a href="https://www.bikewale.com/m/upcoming-bikes/" target="_top">Upcoming Bikes</a></li>
                             <li><a href="https://www.bikewale.com/m/new-bike-launches/" target="_top">New Launches</a></li>
                             <li><a href="https://www.bikewale.com/m/bikebooking/" target="_top">Book Your Bike</a></li>
@@ -444,7 +462,6 @@
                     <a href="https://www.bikewale.com/m/reviews/" target="_top">
                         <span class="reviews-icon"></span>
                         <span class="vertical-middle">Reviews</span>
-                        <span class="new-flag"></span>
                     </a>
                 </h2>
             </li>

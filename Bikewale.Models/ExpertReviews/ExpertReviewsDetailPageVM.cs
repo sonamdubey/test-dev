@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Models.BikeModels;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,5 +25,13 @@ namespace Bikewale.Models
         public StringBuilder BikeTested { get; set; }
         public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
         public IEnumerable<VehicleTag> TaggedBikes { get; set; }
+        public MultiTabsWidgetVM PopularBikesAndPopularScootersWidget { get; set; }
+        public MultiTabsWidgetVM UpcomingBikesAndUpcomingScootersWidget { get; set; }
+        public MultiTabsWidgetVM PopularBikesAndUpcomingBikesWidget { get; set; }
+        public MultiTabsWidgetVM PopularMakeBikesAndBodyStyleBikesWidget { get; set; }
+        public MultiTabsWidgetVM PopularMakeScootersAndOtherBrandsWidget { get; set; }
+        public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
+        public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
+        public SimilarBikesWidgetVM SimilarBikes { get; set; }
     }
 }

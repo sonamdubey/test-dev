@@ -4,6 +4,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
@@ -90,6 +91,7 @@ namespace Bikewale.Models
                     objDealerDetails.ServiceCenterDetails = BindServiceCenterWidget();
                     BindPageMetas(objDealerDetails);
                     BindLeadCapture(objDealerDetails);
+                    objDealerDetails.Page = GAPages.Dealer_Locator_Details_Page;
                 }
             }
             catch (System.Exception ex)
@@ -160,8 +162,8 @@ namespace Bikewale.Models
             {
                 objPage.Keywords = string.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", objDealerDetails.DealerDetails.DealerDetails.Name, CityDetails.CityName);
 
-                objPage.CanonicalUrl = String.Format("{0}/{1}-dealer-showrooms-in-{2}/{3}-{4}/", BWConfiguration.Instance.BwHostUrl, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName, objDealerDetails.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(objDealerDetails.DealerDetails.DealerDetails.Name));
-                objPage.AlternateUrl = String.Format("{0}/m/{1}-dealer-showrooms-in-{2}/{3}-{4}/", BWConfiguration.Instance.BwHostUrl, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName, objDealerDetails.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(objDealerDetails.DealerDetails.DealerDetails.Name));
+                objPage.CanonicalUrl = String.Format("{0}/dealer-showrooms/{1}/{2}/{3}-{4}/", BWConfiguration.Instance.BwHostUrl, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(objDealerDetails.DealerDetails.DealerDetails.Name), objDealerDetails.DealerDetails.DealerDetails.DealerId);
+                objPage.AlternateUrl = String.Format("{0}/m/dealer-showrooms/{1}/{2}/{3}-{4}/", BWConfiguration.Instance.BwHostUrl, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(objDealerDetails.DealerDetails.DealerDetails.Name), objDealerDetails.DealerDetails.DealerDetails.DealerId);
 
                 string dealerName = objDealerDetails.DealerDetails.DealerDetails.Name;
 
@@ -191,6 +193,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 27th Dec 2017
+        /// Desc        : Added 'New Bikes' in breadcrumb
         /// </summary>
         private void SetBreadcrumList(DealerShowroomDealerDetailsVM objPage)
         {
@@ -203,16 +207,16 @@ namespace Bikewale.Models
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}", url, "dealer-showroom-locator/"), "Showroom Locator"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}", url, "dealer-showrooms/"), "Showroom Locator"));
 
             if (objDealerDetails != null && objDealerDetails.Make != null)
             {
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-dealer-showrooms-in-india/", url, objDealerDetails.Make.MaskingName), objDealerDetails.Make.MakeName + " Showrooms"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}dealer-showrooms/{1}/", url, objDealerDetails.Make.MaskingName), objDealerDetails.Make.MakeName + " Showrooms"));
 
                 if (objDealerDetails.CityDetails != null)
                 {
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-dealer-showrooms-in-{2}/", url, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName), string.Format("{0} Showroom in {1}", objDealerDetails.Make.MakeName, objDealerDetails.CityDetails.CityName)));
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}dealer-showrooms/{1}/{2}/", url, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName), string.Format("{0} Showroom in {1}", objDealerDetails.Make.MakeName, objDealerDetails.CityDetails.CityName)));
                 }
 
             }
@@ -420,7 +424,7 @@ namespace Bikewale.Models
                     if (objDealerDetails.DealerDetails != null && (objDealerDetails.DealerDetails.DealerDetails == null || !objDealerDetails.DealerDetails.DealerDetails.IsFeatured))
                     {
                         status = StatusCodes.RedirectPermanent;
-                        objDealerDetails.RedirectUrl = string.Format("{0}/{1}{2}-dealer-showrooms-in-{3}/", BWConfiguration.Instance.BwHostUrl, IsMobile ? "m/" : "", makeMaskingName, cityMaskingName);
+                        objDealerDetails.RedirectUrl = string.Format("{0}/{1}dealer-showrooms/{2}/{3}/", BWConfiguration.Instance.BwHostUrl, IsMobile ? "m/" : "", makeMaskingName, cityMaskingName);
                     }
                 }
             }

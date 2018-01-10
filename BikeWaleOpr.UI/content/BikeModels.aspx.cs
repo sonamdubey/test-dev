@@ -1,14 +1,4 @@
-﻿using Bikewale.Notifications;
-using Bikewale.Utility;
-using BikewaleOpr.common;
-using BikewaleOpr.DALs.Bikedata;
-using BikewaleOpr.Entity.BikeData;
-using BikewaleOpr.Interface.BikeData;
-using BikeWaleOpr.Common;
-using Enyim.Caching;
-using Microsoft.Practices.Unity;
-using MySql.CoreDAL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -20,6 +10,18 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using AmpCacheRefreshLibrary;
+using Bikewale.Notifications;
+using Bikewale.Utility;
+using BikewaleOpr.common;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Entity.BikeData;
+using BikewaleOpr.Entity.ElasticSearch;
+using BikewaleOpr.Interface.BikeData;
+using BikeWaleOpr.Common;
+using Enyim.Caching;
+using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -34,6 +36,9 @@ namespace BikeWaleOpr.Content
         protected Label lblStatus;
         protected HiddenField hdnModelIdList, hdnModelIdsList, hdnModelIdsListSeries;
         private readonly IBikeSeries _series = null;
+        private readonly IBikeMakes _makes = null;
+        private readonly IBikeESRepository _bikeESRepository;
+        private readonly string _indexName;
 
         private string SortCriteria
         {
@@ -73,15 +78,28 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Modified by : Vivek Singh Tomar on 13th Sep 2017
         /// Summary : Added initialization of BikeSeries
+        /// Modified by : Rajan Chauhan on 13th Dec 2017
+        /// Summary : Added BikeBodyStylesRespository
         /// </summary>
         public BikeModels()
         {
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
-                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
-                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>();
+                .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
+                .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
+                .RegisterType<IBikeESRepository, BikeESRepository>();
                 _series = container.Resolve<IBikeSeries>();
+                _indexName = ConfigurationManager.AppSettings["MMIndexName"];
+                _bikeESRepository = container.Resolve<IBikeESRepository>();
+            }
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
+                    .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>();
+                _makes = container.Resolve<IBikeMakes>();
             }
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
             if (_isMemcachedUsed && _mc == null)
@@ -120,7 +138,7 @@ namespace BikeWaleOpr.Content
                 {
                     Trace.Warn(ex.Message + ex.Source);
                     BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                    
+
                 }
 
                 SortDirection = "";
@@ -190,11 +208,11 @@ namespace BikeWaleOpr.Content
                         {
                             ClearMaskingMappingCache();
                         }
-						if (seriesId > 0)
-						{
-							BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId((uint)seriesId);
-							BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(seriesId), makeId);
-						}
+                        if (seriesId > 0)
+                        {
+                            BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId((uint)seriesId);
+                            BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(seriesId), makeId);
+                        }
                     }
                 }
                 else
@@ -206,7 +224,7 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                
+
             }
             BindGrid();
         }
@@ -293,7 +311,7 @@ namespace BikeWaleOpr.Content
             {
                 Trace.Warn(err.Message + err.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
 
@@ -321,8 +339,8 @@ namespace BikeWaleOpr.Content
             Page.Validate();
             if (!Page.IsValid) return;
             try
-            {	
-				string sql = string.Empty;
+            {
+                string sql = string.Empty;
                 TextBox txt = (TextBox)e.Item.FindControl("txtModelName");
                 CheckBox chkUsed1 = (CheckBox)e.Item.FindControl("chkUsed");
                 CheckBox chkNew1 = (CheckBox)e.Item.FindControl("chkNew");
@@ -347,7 +365,16 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_moupdatedby", DbType.Int64, BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.Int32, dtgrdMembers.DataKeys[e.Item.ItemIndex]));
 
-                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    var isModelUpdate = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                    if (isModelUpdate)
+                    {
+                        uint makeId, modelId;
+                        uint.TryParse(lblMakeId.Text, out makeId);
+                        uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
+                        UpdateModelESIndex(txt.Text.Trim().Replace("'", "''"), makeId, modelId, chkNew1.Checked, chkFuturistic1.Checked);
+                    }
+
                     NameValueCollection nvc = new NameValueCollection();
                     nvc.Add("v_ModelName", txt.Text.Trim().Replace("'", "''"));
                     nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
@@ -362,13 +389,14 @@ namespace BikeWaleOpr.Content
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
 
-
+                // Bike is discontinued
                 if (!chkNew1.Checked)
                 {
                     uint makeId, modelId;
                     uint.TryParse(lblMakeId.Text, out makeId);
                     uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
                     deleteModelMostPopularBikes(modelId, makeId);
+                    RefreshAmpContent(makeId);
                 }
 
                 //Update Upcoming Bike
@@ -399,36 +427,41 @@ namespace BikeWaleOpr.Content
                     catch (Exception ex)
                     {
                         BikeWaleOpr.Common.ErrorClass errObj = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                        
+
                     }
                 }
 
 
                 //Refresh memcache object for discontinuedbikes
-                MemCachedUtil.Remove(string.Format("BW_DiscontinuedBikes_Make_{0}", lblMakeId.Text));
+                MemCachedUtility.Remove(string.Format("BW_DiscontinuedBikes_Make_{0}", lblMakeId.Text));
 
                 //Refresh memcache object for bikeModelDetails
-                MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
-                MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
-                MemCachedUtil.Remove(string.Format("BW_GenericBikeInfo_MO_{0}_V1", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
+                MemCachedUtility.Remove(string.Format("BW_ModelDetails_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
+                MemCachedUtility.Remove(string.Format("BW_ModelDetail_V1_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
+                MemCachedUtility.Remove(string.Format("BW_GenericBikeInfo_MO_{0}_V1", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
                 //Refresh memcache object for popularBikes change
-                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
-				BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(ddlUpdateSeries.SelectedValue), Convert.ToUInt32(cmbMakes.SelectedValue));
-
-
-				//Refresh memcache object for upcoming bikes
-				BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikes();
+                MemCachedUtility.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
+                if (ddlUpdateSeries != null)
+                {
+                    uint seriesItem;
+                    if (UInt32.TryParse(ddlUpdateSeries.SelectedValue, out seriesItem))
+                    {
+                        BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(seriesItem, Convert.ToUInt32(cmbMakes.SelectedValue));
+                    }
+                }
+                //Refresh memcache object for upcoming bikes
+                BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikes();
 
             }
             catch (SqlException ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                
+
             }
 
             dtgrdMembers.EditItemIndex = -1;
@@ -509,14 +542,14 @@ namespace BikeWaleOpr.Content
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception err)
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                
+
             } // catch Exception
         }   // End of make upcoming bike method
 
@@ -573,7 +606,7 @@ namespace BikeWaleOpr.Content
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
-                
+
                 isSaved = false;
             } // catch Exception
 
@@ -636,13 +669,13 @@ namespace BikeWaleOpr.Content
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return dt;
@@ -672,7 +705,7 @@ namespace BikeWaleOpr.Content
             {
                 Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                
+
             }
             BindGrid();
             Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Segment Updated Successfully.');", true);
@@ -695,17 +728,17 @@ namespace BikeWaleOpr.Content
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
 
-                MemCachedUtil.Remove(String.Format("BW_PopularBikesByMake_{0}", makeId));
+                MemCachedUtility.Remove(String.Format("BW_PopularBikesByMake_{0}", makeId));
                 //CLear popularBikes key
 
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
-				BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(ddlUpdateSeries.SelectedValue), Convert.ToUInt32(cmbMakes.SelectedValue));
+                BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(Convert.ToUInt32(ddlUpdateSeries.SelectedValue), Convert.ToUInt32(cmbMakes.SelectedValue));
 
-			}
-			catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, "deleteModelMostPopularBikes");
             }
@@ -736,13 +769,13 @@ namespace BikeWaleOpr.Content
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message + err.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }   //End of UpdateModelSegments
 
@@ -797,10 +830,10 @@ namespace BikeWaleOpr.Content
             try
             {
                 string ModelIdsList = hdnModelIdsListSeries.Value;
-				uint seriesId = Convert.ToUInt32(ddlUpdateSeries.SelectedValue);
-				uint makeId = Convert.ToUInt32(cmbMakes.SelectedValue);
+                uint seriesId = Convert.ToUInt32(ddlUpdateSeries.SelectedValue);
+                uint makeId = Convert.ToUInt32(cmbMakes.SelectedValue);
 
-				if (ModelIdsList.Length > 0)
+                if (ModelIdsList.Length > 0)
                     ModelIdsList = ModelIdsList.Substring(0, ModelIdsList.Length - 1);
 
                 UpdateModelSeries(ddlUpdateSeries.SelectedValue, ModelIdsList);
@@ -814,9 +847,9 @@ namespace BikeWaleOpr.Content
                         BikewaleOpr.Cache.BwMemCache.ClearVersionDetails(Convert.ToUInt32(item));
                     }
                 }
-				BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(seriesId, makeId);
+                BikewaleOpr.Cache.BwMemCache.ClearSeriesCache(seriesId, makeId);
 
-				BindGrid();
+                BindGrid();
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Series Updated Successfully.');", true);
             }
             catch (Exception ex)
@@ -842,7 +875,6 @@ namespace BikeWaleOpr.Content
                 {
                     cmd.CommandText = "updatemodelseries_23102017";
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, Convert.ToInt32(seriesId)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidslist", DbType.String, 500, modelIdsList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, BikeWaleOpr.Common.CurrentUser.Id));
@@ -853,6 +885,57 @@ namespace BikeWaleOpr.Content
             catch (Exception err)
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            }
+        }
+
+        /// <summary>
+        /// Refreshes the content of the amp.
+        /// </summary>
+        /// <param name="makeId">The make identifier.</param>
+        private void RefreshAmpContent(uint makeId)
+        {
+            try
+            {
+                var makeDetails = _makes.GetMakeDetailsById(makeId);
+                string makeUrl = string.Format("{0}/m/{1}amp", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.CreateMakeUrl(makeDetails.MaskingName));
+                string privateKeyPath = HttpContext.Current.Server.MapPath("~/App_Data/private-key.pem");
+                GoogleAmpCacheRefreshCall.UpdateAmpCache(makeUrl, privateKeyPath);
+            }
+            catch (Exception ex)
+            {
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 26th Dec 2017
+        /// Description : Update model detais in ES index
+        /// </summary>
+        /// <param name="modelName"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="isNew"></param>
+        /// <param name="isUsed"></param>
+        /// <param name="isFuturistic"></param>
+        private void UpdateModelESIndex(string modelName, uint makeId, uint modelId, bool isNew, bool isFuturistic)
+        {
+
+            try
+            {
+                string id = string.Format("{0}_{1}", makeId, modelId);
+                BikeList bike = _bikeESRepository.GetBikeESIndex(id, _indexName);
+                if (bike != null && bike.payload != null)
+                {
+                    var makeDetails = _makes.GetMakeDetailsById(makeId);
+                    bike.output = bike.name = string.Format("{0} {1}", makeDetails.MakeName, modelName);
+                    bike.payload.IsNew = Convert.ToString(isNew);
+                    bike.payload.Futuristic = Convert.ToString(isFuturistic);
+                    _bikeESRepository.UpdateBikeESIndex(id, _indexName, bike);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikewaleOpr.Content.BikeModels UpdateModelESIndex id = {0}_{1}", makeId, modelId));
             }
         }
     }

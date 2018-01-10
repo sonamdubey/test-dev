@@ -5,13 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_JS_Path = "/src/service/listing.js";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/service/listing.css' inline />";
-    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
-    Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/service-centers/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
+    Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/service-centers/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/BikeWale_New_";
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90Bottom = true;
-    
+
 
 }
 
@@ -216,19 +216,20 @@
         </section>
     }
 
-    if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters !=null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0)
+    if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0
+        && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any(m => m.ServiceCenterCount > 0))
     {
-       <section>
+        <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow padding-bottom20">
                         <div class="content-inner-block-20">
-                             <div class="grid-9 inline-block margin-right-4 alpha">
-                                    <span class="bwsprite service-center-grey"></span>
-                                      <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.Make.MakeName service centers in other cities</h2>
-                                 <div class="grid-11 alpha">
-                                     <p class="font14 text-slate-grey">You are currently viewing service centers of @Model.Make.MakeName in @Model.City.CityName. Not from @Model.City.CityName? Select your city to find @Model.Make.MakeName service centers  in your city.</p>
-                                 </div>
+                            <div class="grid-9 inline-block margin-right-4 alpha">
+                                <span class="bwsprite service-center-grey"></span>
+                                <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.Make.MakeName service centers in other cities</h2>
+                                <div class="grid-11 alpha">
+                                    <p class="font14 text-slate-grey">You are currently viewing service centers of @Model.Make.MakeName in @Model.City.CityName. Not from @Model.City.CityName? Select your city to find @Model.Make.MakeName service centers  in your city.</p>
+                                </div>
                             </div>
 
                             <div class="grid-3 omega inline-block padding-top20">
@@ -245,42 +246,70 @@
                         }
                     </div>
                 </div>
+                <div class="clear"></div>
+            </div>
+           
+        </section>
+    }
+
+    if (Model.SimilarBrandsByCity != null && Model.SimilarBrandsByCity.Makes != null && Model.SimilarBrandsByCity.Makes.Count() > 0)
+    {
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                @if (Model.City != null)
+                                {
+                                    <span class="font16 text-semibold text-black">@string.Format("Service Center of other brands in {0}", Model.City.CityName)  </span>
+                                }
+
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/service-centers/" title="Bikes Service Center Locator" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        @Html.Partial("~/Views/Make/_BrandsModelCount.cshtml", Model.SimilarBrandsByCity)
+                    </div>
                 </div>
-      </section>
+                <div class="clear"></div>
+            </div>
+        </section>
     }
 
 
 
-     
-    if (Model.DealersServiceCenterPopularCities!=null && Model.DealersServiceCenterPopularCities.DealerServiceCenters!=null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
+    if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
     {
         <section>
             <div class="container section-bottom-margin ">
-                    <div class="grid-12 padding-top20">
-                        <div class="content-box-shadow">
-                            <div class="content-inner-block-20 ">
-                                <div class="grid-10-inline margin-right-4">
-                                    <span class="bwsprite dealer-grey"></span>
-                                    <div class="grid-11-inline padding-left10 inline-block">
-                                        
-                                        <h2 class="font18 margin-bottom10">@string.Format("{0} Showrooms in {1}", @Model.Make.MakeName, Model.City.CityName)</h2>
-                                    </div>
-                                        <p class="grid-11-inline font14 text-slate-grey">Get in touch with your nearest @Model.Make.MakeName showrooms in @Model.City.CityName for service enquiries, service and repair costs and more!</p>
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <div class="content-inner-block-20 ">
+                            <div class="grid-10-inline margin-right-4">
+                                <span class="bwsprite dealer-grey"></span>
+                                <div class="grid-11-inline padding-left10 inline-block">
 
+                                    <h2 class="font18 margin-bottom10">@string.Format("{0} Showrooms in {1}", @Model.Make.MakeName, Model.City.CityName)</h2>
                                 </div>
-                                <div class="inline-block text-right">
-                                    <a href="@string.Format("/{0}-dealer-showrooms-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("{0} Dealer Showrooms in {1}", Model.Make.MakeName, Model.City.CityName)" class="btn view-all-target-btn">View complete list<span class="bwsprite teal-right"></span></a>
-                                </div>
+                                <p class="grid-11-inline font14 text-slate-grey">Get in touch with your nearest @Model.Make.MakeName showrooms in @Model.City.CityName for service enquiries, service and repair costs and more!</p>
+
+                            </div>
+                            <div class="inline-block text-right">
+                                <a href="@string.Format("/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("{0} Dealer Showrooms in {1}", Model.Make.MakeName, Model.City.CityName)" class="btn view-all-target-btn">View complete list<span class="bwsprite teal-right"></span></a>
                             </div>
                         </div>
-                    
                     </div>
-                    <div class="clear"></div>
+
+                </div>
+                <div class="clear"></div>
             </div>
         </section>
 
-    }       
-   
+    }
+
 
 
     <section>

@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using Bikewale.DAL.CoreDAL;
+﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -21,6 +12,15 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Dapper;
 using MySql.CoreDAL;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -165,14 +165,12 @@ namespace Bikewale.DAL.BikeData
                         modelPage.ModelVersions = GetVersionMinSpecs(modelId, modelPage.ModelDetails.New);
                     }
 
-
-
                     // Get version all specs
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 && !modelPage.ModelDetails.Futuristic)
                     {
-                        modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
                         modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
-                    }
+                        modelPage.ModelVersionSpecs = modelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == modelPage.ModelVersions[0].VersionId);
+					}
                     modelPage.ModelColors = GetModelColor(modelId);
                     modelPage.colorPhotos = GetModelColorPhotos(modelId);
                 }
@@ -181,9 +179,7 @@ namespace Bikewale.DAL.BikeData
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
-
             return modelPage;
-
         }
 
         /// <summary>
@@ -1016,7 +1012,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("sp_getmodelmappingnames"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("sp_getmodelmappingnames_08122017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -1060,7 +1056,7 @@ namespace Bikewale.DAL.BikeData
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getoldmaskingnameslist";
+                    cmd.CommandText = "getoldmaskingnameslist_08122017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -2902,6 +2898,131 @@ namespace Bikewale.DAL.BikeData
             }
             return objList;
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 07-12-2017
+        /// Summary :- Method to GetElectricBikes 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetElectricBikes()
+        {
+            ICollection<MostPopularBikesBase> objList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getelectricbikes"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objList = new Collection<MostPopularBikesBase>();
+                            MostPopularBikesBase objData = null;
+                            while (dr.Read())
+                            {
+                                objData = new MostPopularBikesBase();
+                                objData.objMake = new BikeMakeEntityBase();
+                                objData.objModel = new BikeModelEntityBase();
+                                objData.objVersion = new BikeVersionsListEntity();
+                                objData.Specs = new MinSpecsEntity();
+                                objData.objMake.MakeName = Convert.ToString(dr["Make"]);
+                                objData.objModel.ModelName = Convert.ToString(dr["Model"]);
+                                objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.BikeName = Convert.ToString(dr["BikeName"]);
+                                objData.HostURL = Convert.ToString(dr["HostUrl"]);
+                                objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
+                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+
+                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+                                objData.objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objList.Add(objData);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass.LogError(err, string.Format("Bikewale.DAL.BikeData.GetElectricBikes"));
+            }
+            return objList;
+        }
+
+
+        /// <summary>
+        /// Created By :- Subodh Jain 07-12-2017
+        /// Summary :- Method to GetElectricBikes 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetElectricBikes(uint cityId)
+        {
+            ICollection<MostPopularBikesBase> objList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getelectricbikesbycity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objList = new Collection<MostPopularBikesBase>();
+                            MostPopularBikesBase objData = null;
+                            while (dr.Read())
+                            {
+                                objData = new MostPopularBikesBase();
+                                objData.objMake = new BikeMakeEntityBase();
+                                objData.objModel = new BikeModelEntityBase();
+                                objData.objVersion = new BikeVersionsListEntity();
+                                objData.Specs = new MinSpecsEntity();
+                                objData.objMake.MakeName = Convert.ToString(dr["Make"]);
+                                objData.objModel.ModelName = Convert.ToString(dr["Model"]);
+                                objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.BikeName = Convert.ToString(dr["BikeName"]);
+                                objData.HostURL = Convert.ToString(dr["HostUrl"]);
+                                objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
+                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+                                objData.objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objData.CityName = Convert.ToString(dr["cityname"]);
+                                objData.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
+
+                                objList.Add(objData);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass.LogError(err, string.Format("Bikewale.DAL.BikeData.GetElectricBikes"));
+            }
+            return objList;
+        }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Mar 2017
@@ -3132,13 +3253,13 @@ namespace Bikewale.DAL.BikeData
             BikeSeriesEntityBase objSeries = null;
             try
             {
-                using(DbCommand cmd = DbFactory.GetDBCommand("getseriesbymodelid"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getseriesbymodelid"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.UInt32, modelId));
-                    using(IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if(dr != null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             objSeries = new BikeSeriesEntityBase
                             {
@@ -3151,7 +3272,7 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Bikedata.GetSeriesByModelId modelId = {0}", modelId));
             }

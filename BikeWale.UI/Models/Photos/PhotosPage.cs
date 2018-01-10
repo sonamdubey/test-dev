@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Web;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
@@ -14,6 +9,11 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.Gallery;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models.Photos
 {
@@ -63,7 +63,7 @@ namespace Bikewale.Models.Photos
             _objGenericBike = objGenericBike;
             _objVersionCache = objVersionCache;
             _objVideos = objVideos;
-            ParseQueryString(modelMaskingName);
+            ParseQueryString(makeMaskingName, modelMaskingName);
         }
 
         /// <summary>
@@ -71,6 +71,10 @@ namespace Bikewale.Models.Photos
         /// Description :  To bind photo gallery page
         /// Modified by : Vivek Singh Tomar on 28th Nov 2017
         /// Description : Get series entity to create bread crumb list
+        /// Modified by : Snehal Dange on 20th Dec 2017
+        /// Description: Added BindMoreAboutScootersWidget
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <param name="gridSize"></param>
         /// <param name="noOfGrid"></param>
@@ -93,6 +97,12 @@ namespace Bikewale.Models.Photos
                 BindPhotos();
                 BindPageWidgets();
                 SetPageMetas();
+                if (_objData.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter))
+                {
+                    BindMoreAboutScootersWidget(_objData);
+
+                }
+                _objData.Page = Entities.Pages.GAPages.Model_Images_Page;
 
 
 
@@ -206,8 +216,10 @@ namespace Bikewale.Models.Photos
                 if (_modelId > 0 && _objData.Make != null && _objData.Model != null)
                 {
                     _objData.BikeInfo = (new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, _cityId, 4, Entities.GenericBikes.BikeInfoTabType.Image)).GetData();
-
-                    _objData.Videos = new RecentVideos(1, 3, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
+                    if (IsMobile)
+                        _objData.Videos = new RecentVideos(1, 2, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
+                    else
+                        _objData.Videos = new RecentVideos(1, 4, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
 
                     if (_objData.PhotoGallery != null && _objData.PhotoGallery.ImageList != null)
                     {
@@ -254,12 +266,23 @@ namespace Bikewale.Models.Photos
             {
                 if (_objData.Make != null && _objData.Model != null)
                 {
-                    _objData.PageMetaTags.Title = String.Format("{0} Images | {1} Photos - BikeWale", _objData.BikeName, _objData.Model.ModelName);
+
+                    if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_objData.Make.MakeId.ToString()))
+                    {
+                        _objData.PageMetaTags.Title = String.Format(" Images of {0}| Photos of {0}- BikeWale", _objData.BikeName);
+                        _objData.Page_H1 = string.Format("Images of {0}", _objData.BikeName);
+                    }
+                    else
+                    {
+                        _objData.PageMetaTags.Title = String.Format("{0} Images | {1} Photos - BikeWale", _objData.BikeName, _objData.Model.ModelName);
+                        _objData.Page_H1 = string.Format("{0} Images", _objData.BikeName);
+                    }
+
                     _objData.PageMetaTags.Keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", _objData.Model.ModelName, _objData.Make.MakeName);
                     _objData.PageMetaTags.Description = string.Format("View images of {0} in different colours and angles. Check out {2} photos of {1} on BikeWale", _objData.Model.ModelName, _objData.BikeName, _objData.TotalPhotos);
                     _objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/images/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _objData.Make.MaskingName, _objData.Model.MaskingName);
                     _objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/images/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _objData.Make.MaskingName, _objData.Model.MaskingName);
-                    _objData.Page_H1 = string.Format("{0} Images", _objData.BikeName);
+
 
                     SetBreadcrumList();
                     SetPageJSONLDSchema(_objData.PageMetaTags);
@@ -331,6 +354,8 @@ namespace Bikewale.Models.Photos
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList()
         {
@@ -344,6 +369,7 @@ namespace Bikewale.Models.Photos
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
 
 
             if (_objData.Make != null)
@@ -364,7 +390,7 @@ namespace Bikewale.Models.Photos
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", _objData.Make.MakeName)));
             }
 
-            if(_objData.Series != null && _objData.Series.IsSeriesPageUrl)
+            if (_objData.Series != null && _objData.Series.IsSeriesPageUrl)
             {
                 if (IsMobile)
                 {
@@ -395,14 +421,18 @@ namespace Bikewale.Models.Photos
         /// Summary:- Process the input query
         /// </summary>
         /// <param name="modelMasking"></param>
-        private void ParseQueryString(string modelMasking)
+        private void ParseQueryString(string makeMasking, string modelMasking)
         {
             ModelMaskingResponse objResponse = null;
+            string newMakeMasking = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
-                if (!string.IsNullOrEmpty(modelMasking))
+                newMakeMasking = ProcessMakeMaskingName(makeMasking, out isMakeRedirection);
+
+                if (!string.IsNullOrEmpty(newMakeMasking) && !string.IsNullOrEmpty(makeMasking) && !string.IsNullOrEmpty(modelMasking))
                 {
-                    objResponse = _objModelMaskingCache.GetModelMaskingResponse(modelMasking);
+                    objResponse = _objModelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMasking, modelMasking));
 
                     if (objResponse != null)
                     {
@@ -411,9 +441,9 @@ namespace Bikewale.Models.Photos
                             _modelId = objResponse.ModelId;
                             Status = StatusCodes.ContentFound;
                         }
-                        else if (objResponse.StatusCode == 301)
+                        else if (objResponse.StatusCode == 301 || isMakeRedirection)
                         {
-                            RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(modelMasking, objResponse.MaskingName);
+                            RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(makeMasking, newMakeMasking).Replace(modelMasking, objResponse.MaskingName);
                             Status = StatusCodes.RedirectPermanent;
                         }
                         else
@@ -436,6 +466,62 @@ namespace Bikewale.Models.Photos
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.GetData : ParseQueryString({0})", _modelId));
                 Status = StatusCodes.ContentNotFound;
             }
+        }
+
+
+        /// <summary>
+        /// Created By: Snehal Dange on 20th Dec 2017
+        /// Summary : Bind more about scooter widget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindMoreAboutScootersWidget(PhotosPageVM objData)
+        {
+            try
+            {
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersionCache, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.Image);
+                obj.modelId = _modelId;
+                _objData.objMoreAboutScooter = obj.GetData();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindMoreAboutScootersWidget : ModelId {0}", _modelId));
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 11th Dec 2017
+        /// Description : Process make masking name for redirection
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="isMakeRedirection"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
+        {
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
+            {
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
+            }
+            if (makeResponse != null)
+            {
+                if (makeResponse.StatusCode == 200)
+                {
+                    return makeResponse.MaskingName;
+                }
+                else if (makeResponse.StatusCode == 301)
+                {
+                    isMakeRedirection = true;
+                    return makeResponse.MaskingName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return "";
         }
 
     }

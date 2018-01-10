@@ -6,7 +6,7 @@
 <head>
     <%
         description = String.Format("Know more about {0} Specifications and Features. See details about mileage, engine displacement, power, kerb weight and other specifications.", bikeName);
-        title = String.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
+        title = pgTitle;
         canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
         keywords = string.Format("{0} specifications, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
         EnableOG = true;
@@ -25,7 +25,17 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section class="bg-white box-shadow margin-bottom10">
             <div id="modelPriceDetails" class="content-inner-block-120">
-                <h1 class="margin-bottom5"><%= bikeName %> Specifications and Features</h1>
+
+                  <% if (Bikewale.Utility.BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_makeId.ToString()))
+                     {%> 
+                
+                 <h1 class="margin-bottom5">Specifications & Feature of <%= bikeName%></h1>
+                
+                <%}else{ %>
+                 <h1 class="margin-bottom5"><%= bikeName %> Specifications and Features</h1>
+                <%} %>
+
+               
 
                 <% if (price > 0)
                     { %>
@@ -481,6 +491,11 @@
                     <li>
                         <a class="breadcrumb-link" href="/m/" title="Home">
                             <span class="breadcrumb-link__label" itemprop="name">Home</span>
+                        </a>
+                    </li>
+                     <li>
+                        <a class="breadcrumb-link" href="/m/new-bikes-in-india/" title="New Bikes">
+                            <span class="breadcrumb-link__label" itemprop="name">New Bikes</span>
                         </a>
                     </li>
                     <li>

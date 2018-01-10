@@ -11,6 +11,7 @@
     Model.AdTags.Ad_970x90Bottom = true;
     Model.IsHeaderFix = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Model != null && Model.ArticleDetails != null) { Model.AdTags.TargetedTags = String.Join(",", Model.ArticleDetails.TagsList); };
 }
 
 <section>
@@ -70,46 +71,18 @@
             </div>
 
             <div class="grid-4 omega">
-                @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+                @if (Model.PopularBikesAndPopularScootersWidget != null)
                 {
-                    <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                        <h2>@Model.MostPopularBikes.WidgetHeading</h2>
-                        @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
-
-                        <div class="view-all-btn-container padding-top10 padding-bottom10">
-                            <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularBikes.CtaText<span class="bwsprite teal-right"></span></a>
-                        </div>
-                    </div>
+                    @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndPopularScootersWidget)
+                }
+                @if (Model.UpcomingBikesAndUpcomingScootersWidget != null)
+                {
+                    @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.UpcomingBikesAndUpcomingScootersWidget)
                 }
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>
-                @if (Model.Model != null && Model.Model.ModelId > 0)
-                {
-                    if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
-                    {
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                            <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
-                            @Html.Partial("~/Views/BestBikes/_PopularBodyStyle_Vertical.cshtml", Model.PopularBodyStyle)
-                            <div class="view-all-btn-container padding-top10 padding-bottom10">
-                                <a href="@Model.PopularBodyStyle.WidgetHref" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
-                            </div>
-                        </div>
-                    }
-                }
-                else
-                {
-                    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
-                    {
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                            <h2>@Model.UpcomingBikes.WidgetHeading</h2>
-                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
-                            <div class="view-all-btn-container padding-top10 padding-bottom10">
-                                <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
-                            </div>
-                        </div>
-                    }
-                }
+               
             </div>
             <div class="clear"></div>
         </div>

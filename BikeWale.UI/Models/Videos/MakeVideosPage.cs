@@ -55,6 +55,7 @@ namespace Bikewale.Models
                     objVM.Make = videos.FirstOrDefault().objMake;
                     objVM.Make.MaskingName = _makeMaskingName;
                     BindPageMetas(objVM);
+                    objVM.Page = Entities.Pages.GAPages.Videos_MakeWise_Page;
                 }
 
             }
@@ -74,7 +75,15 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.PageMetaTags.Title = string.Format("{0} Bike Videos - BikeWale", objVM.Make.MakeName);
+                if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(objVM.Make.MakeId.ToString()))
+                {
+                    objVM.PageMetaTags.Title = string.Format("Videos of {0} Bikes | Videos of {0} Models- BikeWale", objVM.Make.MakeName);
+                }
+                else
+                {
+                    objVM.PageMetaTags.Title = string.Format("{0} Bike Videos - BikeWale", objVM.Make.MakeName);
+                }
+
                 objVM.PageMetaTags.Description = string.Format("Check latest {0} bikes videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", objVM.Make.MakeName);
                 objVM.PageMetaTags.Keywords = string.Format("{0},{0} bikes,{0} videos", objVM.Make.MakeName);
                 SetBreadcrumList(objVM);
@@ -131,6 +140,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :Snehal Dange on 8th Nov 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList(MakeVideosPageVM objVM)
         {
@@ -146,6 +157,7 @@ namespace Bikewale.Models
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
 
                 if (objVM.Make != null)
                 {

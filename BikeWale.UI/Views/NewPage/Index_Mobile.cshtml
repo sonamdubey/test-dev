@@ -264,7 +264,7 @@
 {
     <section>
         <div class="container card-bottom-margin">
-            <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.AddMonths(-1).ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
+            <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
             <div class="bw-tabs-panel content-box-shadow padding-bottom10">
                 <div class="bw-tabs bw-tabs-flex margin-bottom10">
                     <ul>
@@ -374,7 +374,7 @@
                 <span class="contest-banner__title-13">Bike Review</span><br>
                 <span class="contest-banner__title-18">Contest</span>
             </p>
-            <p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;2,000.</p>
+            <p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney.</p>
 
             <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_NewBikePage))" title="Participate &amp; win" class="contest-banner__right-grid inline-block">
                 <p class="contest-banner__target-link">Participate &amp; win <span class="yellow-arrow-7x10"></span></p>
@@ -404,7 +404,7 @@
                     </a>
                 </li>
                 <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
-                    <a href="/m/dealer-showroom-locator/">
+                    <a href="/m/dealer-showrooms/">
                         <span class="tools-need-logo">
                             <span class="bwm-circle-icon locatedealer-icon"></span>
                         </span>

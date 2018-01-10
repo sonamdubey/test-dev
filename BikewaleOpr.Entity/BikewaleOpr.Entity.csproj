@@ -109,6 +109,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdOperations\AdOperationEnum.cs" />
+    <Compile Include="AdOperations\PromotedBike.cs" />
     <Compile Include="AdSlotEntity.cs" />
     <Compile Include="AppEnum.cs" />
     <Compile Include="AppVersionEntity.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="BikeAvailabilityByColor.cs" />
     <Compile Include="BikeColorAvailability.cs" />
     <Compile Include="BikeColorImages\ColorImagesBikeEntities.cs" />
+    <Compile Include="BikeData\BikeBodyStyleEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeMakeModelData.cs" />
@@ -158,6 +161,7 @@
     <Compile Include="ContractCampaign\DealerEntityBase.cs" />
     <Compile Include="ContractCampaign\ManufactureDealerCampaign.cs" />
     <Compile Include="ContractCampaign\MaskingNumber.cs" />
+    <Compile Include="ContractStatusEnum.cs" />
     <Compile Include="DealerAreaDetails.cs" />
     <Compile Include="DealerBenefitEntity.cs" />
     <Compile Include="CityEntityBase.cs" />
@@ -180,6 +184,7 @@
     <Compile Include="Dealers\UpdatePricingRulesResponseEntity.cs" />
     <Compile Include="Dealers\VersionPriceEntity.cs" />
     <Compile Include="Dealers\DealerVersionEntity.cs" />
+    <Compile Include="ElasticSearch\BikeList.cs" />
     <Compile Include="EMI.cs" />
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="GeoLocationDestinationEntity.cs" />

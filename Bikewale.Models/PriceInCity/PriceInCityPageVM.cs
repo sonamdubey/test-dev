@@ -13,12 +13,16 @@ using System.Linq;
 namespace Bikewale.Models
 {
     /// <summary>
-    /// Created by  :   Sumit Kate on 28 Mar 2017
-    /// Description :   Price In city page view model
+    /// Created by  : Sumit Kate on 28 Mar 2017
+    /// Description : Price In city page view model
     /// Modified by: Vivek Singh Tomar on 30th Aug 2017
     /// Summary: Added property to hold city list for given model id
     /// Modified by : Ashutosh Sharma on 05 Oct 2017
     /// Description : Added PhotoGallery, IsGalleryLoaded and ModelGallery.
+    /// Modified by : Ashutosh Sharma on 08 Dec 2017
+    /// Description : Removed PhotoGallery, IsGalleryLoaded and ModelGallery.
+    /// Modified by: Snehal Dange on 20th dec 2017
+    /// Summary : added MoreAboutScootersWidgetVM
     /// </summary>
     public class PriceInCityPageVM : ModelBase
     {
@@ -52,12 +56,12 @@ namespace Bikewale.Models
 
         public String DealersWidget_H2 { get { return (HasDealers ? String.Format("{0} Showrooms in {1}", Make.MakeName, CityEntity.CityName) : ""); } }
         public String DealersWidget_ViewAll_Title { get { return String.Format("{0} Showrooms in {1}", Make.MakeName, CityEntity.CityName); } }
-        public String DealersWidget_ViewAll_Href { get { return String.Format("/{0}-dealer-showrooms-in-{1}/", Make.MaskingName, CityEntity.CityMaskingName); } }
+        public String DealersWidget_ViewAll_Href { get { return String.Format("/dealer-showrooms/{0}/{1}/", Make.MaskingName, CityEntity.CityMaskingName); } }
 
 
         public String ServiceCenterWidget_H2 { get { return (HasServiceCenters ? String.Format("{0} Service centers in {1}", Make.MakeName, CityEntity.CityName) : ""); } }
         public String ServiceCenterWidget_ViewAll_Title { get { return String.Format("{0} Service Centers in {1}", Make.MakeName, CityEntity.CityName); } }
-        public String ServiceCenterWidget_ViewAll_Href { get { return String.Format("/{0}-service-center-in-{1}/", Make.MaskingName, CityEntity.CityMaskingName); } }
+        public String ServiceCenterWidget_ViewAll_Href { get { return String.Format("/service-centers/{0}/{1}/", Make.MaskingName, CityEntity.CityMaskingName); } }
 
         public String NearestPriceCitiesWidget_H2 { get { return (HasNearestPriceCities ? String.Format("{0} price in cities near {1}", BikeModel.ModelName, CityEntity.CityName) : ""); } }
 
@@ -93,6 +97,6 @@ namespace Bikewale.Models
         public bool IsGalleryLoaded { get; set; }
         public ModelGalleryVM ModelGallery { get; set; }
         public ModelPhotoGalleryEntity PhotoGallery { get; set; }
+        public MoreAboutScootersWidgetVM objMoreAboutScooter { get; set; }
     }
-
 }

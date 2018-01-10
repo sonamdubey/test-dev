@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealer/landing.css' inline />";
-    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/dealer-showroom-locator/";
+    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/dealer-showrooms/";
     Model.Page_JS_Path = "/m/src/dealer/landing.js";
     Model.IsTransparentHeader = true;
 }
@@ -46,6 +46,13 @@
             </div>
         </div>
     }
+    
+@if (Model.BestBikes != null)
+{
+    <div class="container section-container">
+        @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
+    </div>
+}
 
     @if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
     {

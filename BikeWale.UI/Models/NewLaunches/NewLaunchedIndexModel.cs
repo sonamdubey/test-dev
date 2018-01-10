@@ -42,6 +42,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Returns theView model for New launch landing page
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public NewLaunchedIndexVM GetData()
@@ -66,6 +68,7 @@ namespace Bikewale.Models
                 }
                 CreateMeta(objVM.PageMetaTags);
                 BindCmsContent(objVM);
+                objVM.Page = Entities.Pages.GAPages.Newly_Launched;
             }
             catch (Exception ex)
             {

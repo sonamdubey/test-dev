@@ -77,7 +77,7 @@ namespace Bikewale.Models
                 }
 
                 GetComparedBikeDetails(obj);
-
+                obj.Page = GAPages.Compare_Bikes;
                 if (status != StatusCodes.RedirectPermanent)
                 {
                     BindExpertReviewsWidget(obj);
@@ -151,6 +151,7 @@ namespace Bikewale.Models
                     if (obj.Compare != null && obj.Compare.BasicInfo != null)
                     {
                         CreateCanonicalUrlAndCheckRedirection(obj);
+                        CreateDisclaimerText(obj);
                         if (status != StatusCodes.RedirectPermanent)
                         {
                             GetComparisionTextAndMetas(obj);
@@ -181,6 +182,30 @@ namespace Bikewale.Models
                 status = StatusCodes.ContentNotFound;
             }
         }
+
+        private static void CreateDisclaimerText(CompareDetailsVM obj)
+        {
+
+            try
+            {
+
+                string BikeValue = string.Join(" vs ", obj.Compare.BasicInfo
+                    .Where(x => x.VersionId != obj.sponsoredVersionId)
+                    .OrderBy(x => x.ModelId)
+                    .Select(x => string.Format("{0} {1}", x.Make, x.Model)));
+
+                obj.DisclaimerText = string.Format(@"BikeWale take utmost care in providing you the accurate information about prices, 
+                                    feature, specs, and colors for comparison of {0}. However, BikeWale can't be held liable for 
+                                    any direct/indirect damage or loss. For comparison of {0}, the base version has been considered. 
+                                    You can compare any version for the comparison of {0}.", BikeValue);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.CreateDisclaimerText()");
+
+            }
+        }
+
 
         /// <summary>
         /// Created by Sajal Gupta on  07-11-2017
@@ -266,19 +291,25 @@ namespace Bikewale.Models
                     if (bikeList.Count() == 2)
                     {
                         string reverseComparisonText = string.Join(" vs ", bikeModels.Reverse());
-                        obj.PageMetaTags.Title = string.Format("{0} | {1} - BikeWale", obj.comparisionText, reverseComparisonText);
+                        obj.PageMetaTags.Title = string.Format("Compare {0} | {1}", obj.comparisionText, reverseComparisonText);
                     }
                     else
                     {
-                        obj.PageMetaTags.Title = string.Format("{0} - BikeWale", obj.comparisionText);
+                        obj.PageMetaTags.Title = string.Format("Compare  {0}", obj.comparisionText);
                     }
 
+                    string ComparePriceText = string.Join(" and ", obj.Compare.BasicInfo.Take(2).Select(x => string.Format("{0} {1} Ex-showroom starts at - {2}", x.Make, x.Model, Format.FormatPrice(x.Price.ToString()))));
+                    string CompareMileageText = string.Join(" whereas ", obj.Compare.BasicInfo.Take(2).Where(x=>x.Mileage > 0).Select(x => string.Format("{0} has a mileage of {1} kmpl", x.Model, x.Mileage)));
+                    string CompareModelText = string.Join(" and ", bikeList.Take(2));
+
                     obj.PageMetaTags.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
-                    obj.PageMetaTags.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Features, Specifications, Colours and much more.", string.Join(" and ", bikeList));
+                    obj.PageMetaTags.Description = string.Format("{0}. {1}.Compare {2} specs, colors, reviews and ratings. Also, read comparison test of {3} from our experts.", ComparePriceText, CompareMileageText, CompareModelText, string.Join(" vs ", bikeList.Take(2)));
+
+
                     CreateCompareSummary(obj.Compare.BasicInfo, obj.Compare.CompareColors, obj);
                     obj.PageMetaTags.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _compareUrl);
                     obj.PageMetaTags.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _compareUrl);
-                    obj.Page_H1 = obj.comparisionText;
+                    obj.Page_H1 = string.Format("Compare {0}", obj.comparisionText);
                     obj.Page = GAPages.Compare_Bikes;
 
                     SetBreadcrumList(obj);
@@ -310,6 +341,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList(CompareDetailsVM objPage)
         {
@@ -322,6 +355,7 @@ namespace Bikewale.Models
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
 
             url += "comparebikes/";
 
@@ -405,8 +439,11 @@ namespace Bikewale.Models
         /// <returns></returns>
         private void ProcessQueryString()
         {
+            Queue<string> compareUrl = new Queue<string>();
             bool isPermanentRedirection = false;
-            string modelList;
+            string modelList, makeList;
+            string newMakeMasking = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
                 var request = HttpContext.Current.Request;
@@ -415,6 +452,7 @@ namespace Bikewale.Models
                     _originalUrl = request.ServerVariables["URL"];
 
                 modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
+                makeList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("ma");
                 string[] queryArr = _originalUrl.Split('?');
                 if (queryArr.Length > 1)
                 {
@@ -447,15 +485,21 @@ namespace Bikewale.Models
                 else if (!string.IsNullOrEmpty(modelList))
                 {
                     string[] models = modelList.Split(',');
+                    string[] makes = makeList.Split(',');
+
                     ModelMaskingResponse objResponse = null;
                     ModelMapping objCache = new ModelMapping();
 
                     for (ushort iTmp = 0; iTmp < models.Length; iTmp++)
                     {
                         string modelMaskingName = models[iTmp];
-                        if (!string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
+                        string makeMaskingName = makes[iTmp];
+
+                        newMakeMasking = ProcessMakeMaskingName(makeMaskingName, out isMakeRedirection);
+
+                        if (!string.IsNullOrEmpty(newMakeMasking) && !string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
                         {
-                            objResponse = _objModelMaskingCache.GetModelMaskingResponse(modelMaskingName);
+                            objResponse = _objModelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                         }
 
                         if (objResponse != null && objResponse.StatusCode == 200)
@@ -463,15 +507,22 @@ namespace Bikewale.Models
                             _versionsList = string.Format("{0},{1}", _versionsList, objCache.GetTopVersionId(modelMaskingName));
                             status = StatusCodes.ContentFound;
                             bikeComparisions = (ushort)(iTmp + 1);
+                            compareUrl.Enqueue(string.Format("{0}-{1}", makeMaskingName, modelMaskingName));
+
+
                         }
-                        else if (objResponse != null && objResponse.StatusCode == 301)
+                        else if (objResponse != null && (objResponse.StatusCode == 301 || isMakeRedirection))
                         {
                             status = StatusCodes.RedirectPermanent;
                             isPermanentRedirection = true;
-                            if (String.IsNullOrEmpty(redirectionUrl))
-                                redirectionUrl = request.RawUrl.Replace(models[iTmp].ToLower(), objResponse.MaskingName);
-                            else
-                                redirectionUrl = redirectionUrl.Replace(models[iTmp].ToLower(), objResponse.MaskingName);
+
+                            //if (String.IsNullOrEmpty(redirectionUrl))
+                            //    redirectionUrl = request.RawUrl.Replace(makes[iTmp].ToLower(), newMakeMasking).Replace(models[iTmp].ToLower(), objResponse.MaskingName);
+                            //else
+                            //    redirectionUrl = redirectionUrl.Replace(makes[iTmp].ToLower(), newMakeMasking).Replace(models[iTmp].ToLower(), objResponse.MaskingName);
+
+                            compareUrl.Enqueue(string.Format("{0}-{1}", newMakeMasking, objResponse.MaskingName));
+
                         }
                         else
                         {
@@ -489,6 +540,16 @@ namespace Bikewale.Models
             {
                 if (isPermanentRedirection)
                 {
+                    redirectionUrl = string.Join("-vs-", compareUrl);
+
+                    if (IsMobile)
+                    {
+                        redirectionUrl = string.Format("/m/comparebikes/{0}/", redirectionUrl);
+                    }
+                    else
+                    {
+                        redirectionUrl = string.Format("/comparebikes/{0}/", redirectionUrl);
+                    }
                     status = StatusCodes.RedirectPermanent;
                 }
                 else if (!string.IsNullOrEmpty(_versionsList) && bikeComparisions >= 2)
@@ -500,6 +561,42 @@ namespace Bikewale.Models
                     status = StatusCodes.RedirectTemporary;
                 }
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 11th Dec 2017
+        /// Description : Process make masking name for redirection
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="isMakeRedirection"></param>
+        /// <returns></returns>
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
+        {
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
+            {
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
+            }
+            if (makeResponse != null)
+            {
+                if (makeResponse.StatusCode == 200)
+                {
+                    return makeResponse.MaskingName;
+                }
+                else if (makeResponse.StatusCode == 301)
+                {
+                    isMakeRedirection = true;
+                    return makeResponse.MaskingName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return "";
         }
 
         /// <summary>
@@ -550,4 +647,6 @@ namespace Bikewale.Models
 
         }
     }
+
 }
+
