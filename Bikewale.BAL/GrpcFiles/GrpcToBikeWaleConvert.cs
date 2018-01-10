@@ -178,7 +178,7 @@ namespace Bikewale.BAL.GrpcFiles
         {
             if(data == null)
             {
-                return new List<ModelImages>();
+                return null;
             }
             try
             {
@@ -224,7 +224,7 @@ namespace Bikewale.BAL.GrpcFiles
                 log.Error(ex);
             }
 
-            return new List<ModelImages>();
+            return null;
         }
 
         public static BikeMakeEntityBase ConvertFromGrpcToBikeWale(GrpcCarMakeEntityBase grpcMake)
