@@ -11,6 +11,15 @@ namespace Bikewale.BAL.AutoComplete
 {
     public class AutoSuggest : IAutoSuggest
     {
+        private static readonly string _allMakeModel = "AllMakeModel",
+            _priceQuoteMakeModel = "PriceQuoteMakeModel",
+            _allCity = "AllCity",
+            _areaPinCodes = "AreaPinCodes",
+            _userReviews = "UserReviews",
+            _pinCodeCapitalFirst = "AreaPinCodes",
+            _nonUpcomingBikes = "NonUpcomingBikes",
+            _bikeImages = "BikeImages";
+
         #region GetAutoSuggestResult PopulateWhere
         /// <summary>
         /// Created By : Sadhana Upadhyay on 26 Aug 2015
@@ -124,6 +133,7 @@ namespace Bikewale.BAL.AutoComplete
                 case AutoSuggestEnum.PriceQuoteMakeModel:
                 case AutoSuggestEnum.UserReviews:
                 case AutoSuggestEnum.NonUpcomingBikes:
+                case AutoSuggestEnum.BikeImages:
                     indexName = Utility.BWConfiguration.Instance.MMindexName;
                     break;
                 case AutoSuggestEnum.AllCity:
@@ -142,35 +152,43 @@ namespace Bikewale.BAL.AutoComplete
             return indexName;
         }
         #endregion
-
+        /// <summary>
+        /// Modified By : Rajan Chauhan on 09 Jan 2018
+        /// Description : Added BikeImages context
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         private IEnumerable<string> GetContext(AutoSuggestEnum source)
         {
             IList<string> indexName = new List<string>();
             switch (source)
             {
                 case AutoSuggestEnum.AllMakeModel:
-                    indexName.Add("AllMakeModel");
+                    indexName.Add(_allMakeModel);
                     break;
                 case AutoSuggestEnum.PriceQuoteMakeModel:
-                    indexName.Add("PriceQuoteMakeModel");
+                    indexName.Add(_priceQuoteMakeModel);
                     break;
                 case AutoSuggestEnum.UserReviews:
-                    indexName.Add("UserReviews");
+                    indexName.Add(_userReviews);
                     break;
                 case AutoSuggestEnum.NonUpcomingBikes:
-                    indexName.Add("NonUpcomingBikes");
+                    indexName.Add(_nonUpcomingBikes);
                     break;
                 case AutoSuggestEnum.AllCity:
-                    indexName.Add("AllCity");
+                    indexName.Add(_allCity);
                     break;
                 case AutoSuggestEnum.AreaPinCodes:
-                    indexName.Add("AreaPinCodes");
+                    indexName.Add(_areaPinCodes);
                     break;
                 case AutoSuggestEnum.PinCodeCapitalFirst:
-                    indexName.Add("AreaPinCodes");
+                    indexName.Add(_pinCodeCapitalFirst);
+                    break;
+                case AutoSuggestEnum.BikeImages:
+                    indexName.Add(_bikeImages);
                     break;
                 default:
-                    indexName.Add("AllMakeModel");
+                    indexName.Add(_allMakeModel);
                     break;
             }
             return indexName;
