@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
 	cleanCss = require('gulp-clean-css'),
+	cssmin = require('gulp-cssmin'),
 	uglify = require('gulp-uglify'),
 	del = require('del'),
 	sass = require('gulp-sass'),
@@ -53,7 +54,7 @@ gulp.task('minify-css', function () {
 
 	return gulp.src([app + paths.CSS + '**', app + 'm/' + paths.CSS + '**'], { base: app })
 		.pipe(cssCache)
-		.pipe(cleanCss())
+		.pipe(cssmin())
 		.pipe(cssCache.restore)
 		.pipe(gulp.dest(minifiedAssetsFolder));
 });
@@ -76,7 +77,7 @@ gulp.task('minify-sass-css', function () {
 	return gulp.src([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], { base: app })
 		.pipe(sassCache)
 		.pipe(sass().on('error', sass.logError))
-		.pipe(cleanCss())
+		.pipe(cssmin())
 		.pipe(sassCache.restore)
 		.pipe(gulp.dest(buildFolder))
 		.pipe(gulp.dest(minifiedAssetsFolder));
@@ -299,6 +300,7 @@ gulp.task("replaceSWResouceHashInSW" , function() {
 gulp.task('sass', function () {
 	return gulp.src([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], { base: app })
 		.pipe(sass().on('error', sass.logError))
+		.pipe(cssmin())
 		.pipe(gulp.dest(app));
 });
 
