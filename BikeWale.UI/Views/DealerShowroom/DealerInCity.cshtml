@@ -91,10 +91,10 @@
                                     <div class="dealer__get-offers">
                                         <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-areaname="@Details.objArea.AreaName" data-cityname="@Model.CityDetails.CityName" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" data-eventcategory="Dealer_Locator" class="btn btn-white btn-full-width font14 leadcapturebtn bw-ga" data-cat="Dealer_Locator" data-act="Get_Offers_Clicked" data-lab="@Details.GetOffersGALabel">@Details.DisplayTextLarge</a>
                                     </div>
-                                }
+								}
 								else
 								{
-									<div class="dealer-details__form-content">
+									<div class="dealer-details__form-content lead-mobile-content">
 										<p class="dealer-details-form__target">Send Details to mobile phone</p>
 										<div class="dealer-details__form">
 											<div class="form-field__content">
@@ -103,6 +103,10 @@
 												<span class="input-mobile__prefix">+91-</span>
 												<p class="field__error-message"></p>
 											</div>
+										</div>
+										<div class="lead-response-message font12 text-light-grey">
+											<span class="service-sprite response-icon"></span>
+											<p class="response-text inline-block"></p>
 										</div>
 									</div>
 								}
@@ -174,31 +178,31 @@
 				<h2 class="sidebar-list-heading">@Model.Make.MakeName showrooms near @Model.CityDetails.CityName</h2>
 				<ul class="sidebar__other-city-list">
 					<li>
-						<a href="#" title="Honda showrooms in Navi Mumbai">Navi Mumbai <h3 class="city__showroom-count">(2 Honda showrooms)</h3></a>
+						<a href="#" title="Honda showrooms in Navi Mumbai">Navi Mumbai</a>
 					</li>
 					<li>
-						<a href="#" title="Honda showrooms in Thane">Thane <h3 class="city__showroom-count">(2 Honda showrooms)</h3></a>
+						<a href="#" title="Honda showrooms in Thane">Thane</a>
 					</li>
 					<li>
-						<a href="#" title="Honda showrooms in Alibag">Alibag <h3 class="city__showroom-count">(2 Honda showrooms)</h3></a>
+						<a href="#" title="Honda showrooms in Alibag">Alibag</a>
 					</li>
 					<li>
-						<a href="#" title="Honda showrooms in Vasai">Vasai <h3 class="city__showroom-count">(2 Honda showrooms)</h3></a>
+						<a href="#" title="Honda showrooms in Vasai">Vasai</a>
 					</li>
 					<li>
-						<a href="#" title="Honda showrooms in Ulhasnagar">Ulhasnagar <h3 class="city__showroom-count">(2 Honda showrooms)</h3></a>
+						<a href="#" title="Honda showrooms in Ulhasnagar">Ulhasnagar</a>
 					</li>
 					<li>
-						<a href="#" title="Honda showrooms in Shahapur">Shahapur <h3 class="city__showroom-count">(2 Honda showrooms)</h3></a>
+						<a href="#" title="Honda showrooms in Shahapur">Shahapur</a>
 					</li>
 					<li>
-						<a href="#" title="Honda showrooms in Boisar">Boisar <h3 class="city__showroom-count">(2 Honda showrooms)</h3></a>
+						<a href="#" title="Honda showrooms in Boisar">Boisar</a>
 					</li>
 					<li>
-						<a href="#" title="Honda showrooms in Pune">Pune <h3 class="city__showroom-count">(2 Honda showrooms)</h3></a>
+						<a href="#" title="Honda showrooms in Pune">Pune</a>
 					</li>
 					<li>
-						<a href="#" title="Honda showrooms in Nashik">Nashik <h3 class="city__showroom-count">(2 Honda showrooms)</h3></a>
+						<a href="#" title="Honda showrooms in Nashik">Nashik</a>
 					</li>
 				</ul>
 			</div>

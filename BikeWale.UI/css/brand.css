@@ -1305,8 +1305,7 @@
     text-decoration: none
 }
 
-.dealer-details__address { 
-    height: 54px;
+.dealer-details__address {
 	margin-bottom: 10px;
 	color: #82888b;
 	overflow: hidden;

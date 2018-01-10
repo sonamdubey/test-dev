@@ -1,6 +1,11 @@
 var readMoreTarget, dealerMoreContent;
 var clientip;
 
+var attemptCount = 1,
+    successMessage = 'Service Center details successfully<br />sent on your phone.<br />Not Received? <span class="service-center-resend-btn">Resend</span>',
+    threeAttemptsMessage = 'Sorry! You have reached the limit of sending details of this service center. Look for a different service center.',
+    failureMessage = "Sorry!, Something went wrong. Please try again.",
+    tenAttemptsMessage = 'Sorry! You have reached the daily limit of sending details.<br />Please try again after a day.';
 
 
 docReady(function () {
@@ -107,13 +112,13 @@ docReady(function () {
     $('.dealer-form__submit-btn').on('click', function () {
     	var inputContainer = $(this).closest('.dealer-details__form');
     	var inputbox = inputContainer.find('.form-field__input');
-    	var listElement = $(this).closest('li');
+    	var listItem = $(this).closest('li');
 
     	var isValid = validatePhone(inputbox);
 
     	if (isValid) {
-    		listElement.removeClass('input-active').addClass('response-active');
-    		$(this).closest('.dealer-details__form-content').append('<p class="dealer-form__response">Details has been sent</p>');
+    		listItem.removeClass('input-active').addClass('response-active');
+    		captureLeadMobile.checkAttempts(attemptCount, listItem);
     	}
 
     });
@@ -128,6 +133,40 @@ docReady(function () {
 
     	validateForm.onFocus($(this));
     });
+
+    var captureLeadMobile = {
+    	inputBox: {
+    		set: function (listElement) {
+    			var inputContainer = listElement.find('.lead-mobile-content');
+
+    			listElement.removeClass('response-active').addClass('input-active');
+    			inputContainer.find('input').focus();
+    		}
+    	},
+
+    	responseBox: {
+    		set: function (listElement, stateClass, message) {
+    			var responseContainer = listElement.find('.response-text');
+
+    			listElement.removeClass('input-active').addClass(stateClass);
+    			responseContainer.html(message).show();
+    		}
+    	},
+
+    	checkAttempts: function (count, listItem) {
+    		if (count < 4) {
+    			captureLeadMobile.responseBox.set(listItem, 'response-active', successMessage);
+    		}
+
+    		if (count == 4) {
+    			captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', threeAttemptsMessage);
+    		}
+
+    		if (count == 10) {
+    			captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', tenAttemptsMessage);
+    		}
+    	}
+    };
 
     function validatePhone(inputElement) {
     	var leadMobileNo = inputElement.val(),
@@ -172,5 +211,13 @@ docReady(function () {
     		}
     	}
     }
+
+	// resend details
+    $('#dealersList').on('click', '.service-center-resend-btn', function () {
+    	var resendBtn = $(this),
+            listItem = resendBtn.closest('li');
+
+    	captureLeadMobile.inputBox.set(listItem);
+    });
 
 });
