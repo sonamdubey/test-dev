@@ -359,4 +359,3 @@
 
 }
 @{Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.City.CityId, cityName = Model.City.CityName });}
-<script defer src="@string.Format("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places", BWConfiguration.Instance.GoogleMapApiKey)"></script>
