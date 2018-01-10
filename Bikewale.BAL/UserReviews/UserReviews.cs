@@ -360,7 +360,7 @@ namespace Bikewale.BAL.UserReviews
                 {
 
                     objResponse = new WriteReviewPageSubmitResponse();
-                    if (objReviewData.fromParamterRatingPage == false) { 
+                    if (!objReviewData.fromParamterRatingPage.Value) { 
                         //The request is through Write Review Page
                         string jsRemovedReview = StringHtmlHelpers.removeMaliciousCode(objReviewData.ReviewDescription);
                         string trimmedReview = null;
