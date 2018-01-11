@@ -1,0 +1,364 @@
+﻿// Core variables and mixins
+@import ../base/variables
+@import ../components/typography
+@import ../components/mixins
+
+@import ../mixins/index
+@import ../utils/index
+
+body
+	background-color: color('bg-light-grey')
+
+.section-bottom-margin
+	margin-bottom: 20px
+
+// bike image card
+.padding-15-20-20
+	padding: 15px 20px 20px
+
+@include foldable-content(35)
+
+// recently added bike images card
+.section-heading
+	font-size: 18px
+	margin-bottom: 20px
+
+// image carousel
+@include model-image-carousel(277, 354)
+@include image-card(354, '#fff9f9')
+@include image-grid-7
+@include image-grid-3
+@include image-grid-1
+@import ../partials/carousel-arrow
+
+// explore bikes
+.explore-bikes__title
+	font-size: 18px
+	margin-bottom: 40px
+	padding-right: 20px
+	padding-left: 20px
+
+.explore-bikes__container
+	background-color: color('white')
+	padding-top: 20px
+	padding-bottom: 20px
+
+.explore-bikes__content
+	margin-top: -42px
+
+// explore bikes search field
+.explore-bikes__search
+	margin-right: 20px
+	margin-left: 20px
+
+@include input-field(13, 'search')
+
+// filter by
+.filter__content
+	margin-top: 15px
+
+.filter-category__label
+	color: color('light-grey')
+	padding-right: 20px
+	padding-left: 20px
+	margin-bottom: 10px
+	text-transform: capitalize
+
+.filter-by__label
+	font-size: 12px
+	font-weight: $font-semibold
+
+.filter-by__category-name
+	font-size: 10px
+	font-style: italic
+
+.filter-category__list-content
+	position: relative
+
+	&:after
+		background: linear-gradient(to right, rgba(255,255,255,0) 0, #fff 100%)
+		content: ''
+		width: 20px
+		height: 100%
+		position: absolute
+		top: 0
+		right: 0
+		z-index: 1
+
+.filter-category__list
+	@include flexbox
+	@include flex-wrap
+	@include justify-content
+	@include scrollbar-hide
+	overflow-y: scroll
+
+@include all-body-type-icons(30, 17)
+@include all-body-type-icons--state-active
+
+.filter-list__item
+	position: relative
+	display: inline-block
+
+	&:first-child
+		&.body-type__item
+			padding-left: 20px
+
+	&:last-child
+		&.body-type__item
+			padding-right: 20px
+
+	&:before
+		content: ''
+		position: absolute
+		top: 15%
+		left: 0
+		height: 16px
+		border-left: 1px solid #dcdcdc
+		display: block
+
+	&:first-child
+		&:before
+			content: none
+
+.body-type__item
+	padding-right: 8px
+	padding-left: 8px
+	cursor: pointer
+	white-space: nowrap
+
+	&:hover
+		.body-type__label
+			color: color('default')
+
+	&.active
+		.body-type__label
+			color: color('default-grey')
+			font-weight: $font-semibold
+
+	&.disable
+		opacity: .6
+		cursor: pointer
+		pointer-events: none
+
+
+.body-type__label
+	font-size: 14px
+	line-height: 14px
+	color: color('light-grey')
+	margin-left: 5px
+	display: inline-block
+	vertical-align: middle
+
+// bike image list
+.explore-model-image__list
+	padding-right: 20px
+	padding-left: 20px
+	margin-top: 20px
+
+	.model-image__card
+		height: auto
+		max-height: 800px
+		background-color: color('white')
+
+	.image-grid-list__item
+		border-color: color('white')
+
+.explore-model-image-list__item
+	margin-top: 20px
+
+	&:first-child
+		margin-top: 0
+
+@include image-grid-4
+@include image-grid-3
+@include image-grid-3--list
+@include image-grid-1
+@include image-grid-1--list
+
+// view more button
+.explore-model__more-btn
+	margin-top: 20px
+	padding-right: 20px
+	padding-left: 20px
+
+	.btn
+		width: 100%
+
+.btn-inv-blue
+	width: auto
+	color: #0288d1 // TODO: add in color map array
+	padding: 7px 10px
+	overflow: hidden
+	text-overflow: ellipsis
+	background-color: color('white')
+	border: 1px solid #0288d1
+
+// users also looked at
+.related-bikes__title
+	font-size: 18px
+	padding: 20px 20px 15px
+
+.carousel__related-makes
+	position: relative
+	padding: 5px 20px 5px 0
+
+	&:after
+		background: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%)
+		content: ''
+		width: 20px
+		height: 100%
+		position: absolute
+		top: 0
+		right: 0
+		z-index: 1
+
+	.carousel-slide
+		width: 160px
+		height: 135px
+		padding-left: 15px
+
+		&:first-child
+			margin-left: 5px
+
+@import ../modules/related-make-card
+
+@media (min-width: 769px)
+	.truncatable-content
+		font-size: 14px
+
+		&[data-readtextflag='1']
+			max-height: 76px
+
+		&:before,
+		&:after
+			width: 200px
+
+		&:after
+			height: 20px
+
+	.read-more-button
+		font-size: 14px
+
+	// carousel heading
+	.image-carousel__title,
+	.related-bikes__title
+		font-size: 22px
+		padding-top: 15px
+		padding-bottom: 10px
+
+	// recently added carousel
+	.carousel__recently-added
+		padding-right: 0
+
+		.carousel-slide
+			width: 297px // increase card by 5px, since space between card is 20px
+			padding-left: 20px
+			margin-right: 0
+
+			&:first-child
+				margin-left: 0
+
+			&:last-child
+				width: 317px // additionally increase card by 20px, since jcarousel does not allow any space at the end
+				padding-right: 20px // decrease inner content width by 20px
+
+	.jcarousel
+		padding: 0
+
+		.image-grid__list
+			width: 100%
+
+		li.image-grid-list__item
+			height: auto
+			margin-right: 0
+
+
+	// explore bikes
+	.explore-bikes__title
+		font-size: 22px
+		margin-bottom: 20px
+
+	// explore bikes search field
+	.explore-bikes__search
+		width: 410px
+
+	// filter by
+	.filter__content
+		margin-top: 20px
+
+	.filter-by__label
+		font-size: 14px
+
+	.filter-by__category-name
+		font-size: 12px
+
+	.filter-category__label
+		display: inline-block
+		vertical-align: middle
+		padding-right: 5px
+		margin-bottom: 0
+
+	.filter-category__list-content
+		display: inline-block
+		vertical-align: middle
+
+	.filter-category__list
+		overflow: hidden
+
+	.filter-list__item
+		&:first-child
+			&.body-type__item
+				padding-left: 15px
+
+	.body-type__item
+		padding-right: 15px
+		padding-left: 15px
+
+	@include all-body-type-icons--state-hover
+
+	// bike image list
+	.explore-model-image__list
+		margin-top: 20px
+		padding-left: 0
+		font-size: 0
+
+	.explore-model-image-list__item
+		width: 299px
+		min-height: 327px
+		display: inline-block
+		vertical-align: top
+		margin-top: 0
+		margin-bottom: 20px
+		margin-left: 19px
+
+	.explore-model__more-btn
+		margin-top: 0
+		text-align: center
+
+		.btn
+			max-width: 182px
+
+	.btn-inv-blue
+		&:hover
+			background-color: #0288d1
+			color: color('white')
+
+	// recently makes carousel
+	.carousel__related-makes
+		padding-right: 0
+
+		.carousel-slide
+			width: 165px // increase card by 5px, since space between card is 20px
+			padding-left: 20px
+			margin-right: 0
+
+			&:first-child
+				margin-left: 0
+
+			&:last-child
+				width: 185px // additionally increase card by 20px, since jcarousel does not allow any space at the end
+				padding-right: 20px // decrease inner content width by 20px
+
+@media (min-width: 769px) and (max-width: 1025px)
+	.explore-model-image-list__item
+		width: 286px

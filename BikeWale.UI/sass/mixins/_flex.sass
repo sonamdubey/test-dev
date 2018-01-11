@@ -1,0 +1,104 @@
+/*
+ * https: //developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Advanced_layouts_with_flexbox
+ */
+
+/*
+ * Flexbox Containers
+ * The 'flex' value causes an element to generate a block-level flex container box.
+ */
+@mixin flexbox
+	display: -webkit-box // OLD - iOS 6-, Safari 3.1-6
+	display: -moz-box // OLD - Firefox 19- (buggy but mostly works)
+	display: -ms-flexbox // TWEENER - IE 10
+	display: -webkit-flex // NEW - Chrome
+	display: flex // NEW, Spec - Opera 12.1, Firefox 20+
+
+/*
+ * Flexbox Wrap
+ * The 'flex-grow' property sets the flex grow factor. Negative numbers are invalid.
+ * Values: nowrap | wrap | wrap-reverse
+ * Default: nowrap
+ */
+@mixin flex-wrap($value: nowrap)
+  // No Webkit/FF Box fallback.
+  -webkit-flex-wrap: $value
+  @if $value == nowrap
+    -ms-flex-wrap: none
+  @else
+    -ms-flex-wrap: $value
+
+  flex-wrap: $value
+
+/*
+ * Flexbox Grow
+ * The 'flex-grow' property sets the flex grow factor. Negative numbers are invalid.
+ * Default: 0
+ */
+@mixin flex-grow($int: 1)
+	-webkit-box-flex: $int
+	-moz-box-flex: $int
+	-webkit-flex-grow: $int
+	-ms-flex: $int
+	flex-grow: $int
+
+/*
+ * Flexbox Align Items
+ * Values: flex-start | flex-end | center | baseline | stretch Default: stretch
+ */
+@mixin align-items($value: stretch)
+	@if $value == flex-start
+		-webkit-box-align: start
+		-moz-box-align: start
+		-ms-flex-align: start
+	@else if $value == flex-end
+		-webkit-box-align: end
+		-moz-box-align: end
+		-ms-flex-align: end
+	@else
+		-webkit-box-align: $value
+		-moz-box-align: $value
+		-ms-flex-align: $value
+
+	-webkit-align-items: $value
+	align-items: $value
+
+/*
+ * Flexbox Shrink
+ * The 'flex-shrink' property sets the flex shrink factor. Negative numbers are invalid.
+ * Default: 1
+ */
+@mixin flex-shrink($int: 0)
+	-webkit-flex-shrink: $int
+	-moz-flex-shrink: $int
+	-ms-flex: $int
+	flex-shrink: $int
+
+/*
+ * Flexbox Justify Content
+ * The 'justify-content' property aligns flex items along the main axis of the current line of the flex container.
+ *
+ * Values: flex-start | flex-end | center | space-between | space-around
+ * Default: flex-start
+ */
+@mixin justify-content($value: flex-start)
+	@if $value == flex-start
+		-webkit-box-pack: start
+		-moz-box-pack: start
+		-ms-flex-pack: start
+	@else if $value == flex-end
+		-webkit-box-pack: end
+		-moz-box-pack: end
+		-ms-flex-pack: end
+	@else if $value == space-between
+		-webkit-box-pack: justify
+		-moz-box-pack: justify
+		-ms-flex-pack: justify
+	@else if $value == space-around
+		-ms-flex-pack: distribute
+	@else
+		-webkit-box-pack: $value
+		-moz-box-pack: $value
+		-ms-flex-pack: $value
+
+	-webkit-justify-content: $value
+	justify-content: $value
