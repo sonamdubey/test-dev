@@ -238,7 +238,7 @@
 }
 
 
-@if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0)
+@if (Model.IsServiceCenterPresentInCity)
 {
     <section>
         <div class="container section-bottom-margin ">

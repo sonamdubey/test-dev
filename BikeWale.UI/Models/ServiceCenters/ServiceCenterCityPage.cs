@@ -1,6 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
@@ -200,22 +201,12 @@ namespace Bikewale.Models.ServiceCenters
         /// <param name="objVM"></param>
         private void BindServiceCenterPopularCityWidget(ServiceCenterCityPageVM objVM)
         {
-            DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
+
             try
             {
-                uint topCount = 8;
-                objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(_makeId, topCount);
-                objData.MakeMaskingName = _makeMaskingName;
-                objData.MakeName = objVM.Make.MakeName;
-                objData.CityCardTitle = "service centers in";
-                objData.CityCardLink = "service-centers";
-                objData.IsServiceCenterPage = true;
-                objVM.DealersServiceCenterPopularCities = objData;
-                if (objData.DealerServiceCenters.DealerDetails.Any())
-                {
-                    objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objVM.DealersServiceCenterPopularCities.
-                                                                                    DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
-                }
+                DealersEntity obj = _objDealerCache.GetDealerByMakeCity(_cityId, _makeId);
+                objVM.IsShowroomPresentInCity = obj.TotalCount > 0;
+
 
             }
             catch (System.Exception ex)
