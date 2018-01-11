@@ -1,13 +1,13 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Bikewale.Models
 {
@@ -48,6 +48,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Mar 2017
         /// Description :   Returns the View Model for Videos Details page
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public VideoDetailsPageVM GetData()
@@ -67,7 +69,7 @@ namespace Bikewale.Models
                     model.SmallDescription = model.IsSmallDescription ? StringHtmlHelpers.TruncateHtml(_videoEntity.Description, 200, " ..") : "";
                     CreateDescriptionTag(model);
                     SetBreadcrumList(model);
-
+                    model.Page = Entities.Pages.GAPages.Videos_Details_Page;
                     if (model.IsBikeTagged)
                         GetTaggedModel(model);
                     Status = StatusCodes.ContentFound;
@@ -171,8 +173,8 @@ namespace Bikewale.Models
 
             if (!String.IsNullOrEmpty(objData.Video.SubCatName))
             {
-               bikeUrl += String.Format("bike-videos/category/{0}-{1}/", Regex.Replace(objData.Video.SubCatName.Trim(), @"[\(\)\s]+", "-").ToLower(), Regex.Replace(objData.Video.SubCatId, @"[,]+", "-"));
-               BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, objData.Video.SubCatName));
+                bikeUrl += String.Format("bike-videos/category/{0}-{1}/", Regex.Replace(objData.Video.SubCatName.Trim(), @"[\(\)\s]+", "-").ToLower(), Regex.Replace(objData.Video.SubCatId, @"[,]+", "-"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, objData.Video.SubCatName));
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Video.VideoTitle));

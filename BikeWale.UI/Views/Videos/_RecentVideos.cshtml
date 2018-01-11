@@ -5,17 +5,17 @@ foreach(var video in Model.VideosList){
 <div class="margin-bottom20">
     <div class="grid-4">
         <div class="model-preview-image-container">
-            <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))"
-                title="@video.VideoTitle">
+            <span data-url="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))"
+                  title="@video.VideoTitle" class="article-target-image redirect-url">
                 <img class="lazy" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" title="@video.VideoTitle" alt="" src="" />
                 <span class="play-icon-wrapper">
                     <span class="bwsprite video-play-icon"></span>
                 </span>
-            </a>
+            </span>
         </div>
     </div>
     <div class="grid-8">
-        <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" class="article-target-link line-height"  title="@video.VideoTitle">@video.VideoTitle</a>
+        <span data-url="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" class="article-target-link line-height redirect-url" title="@video.VideoTitle">@video.VideoTitle</span>
         <div class="article-stats-left-grid">
             <span class="bwsprite calender-grey-sm-icon"></span>
             <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMMM yyyy")</span>

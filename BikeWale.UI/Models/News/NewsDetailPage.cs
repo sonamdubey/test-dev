@@ -155,6 +155,8 @@ namespace Bikewale.Models
         /// Summary    : Get entire data for news details page
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
+        /// Modified by : snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         public NewsDetailPageVM GetData(int widgetTopCount)
         {
@@ -178,6 +180,7 @@ namespace Bikewale.Models
                     {
                         BindAmpJsTags(objData);
                     }
+                    objData.Page = GAPages.Editorial_Details_Page;
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -216,6 +219,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Prasad Gawde on 25 May 2017
         /// Summary    : Get page data for PWA
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public NewsDetailPageVM GetPwaData(int widgetTopCount)
@@ -254,6 +259,7 @@ namespace Bikewale.Models
                     objData.ServerRouterWrapper = _renderedArticles.GetNewsDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsDetailReducer,
                                 newsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl, "root", "ServerRouterWrapper");
                     objData.WindowState = storeJson;
+                    objData.Page = GAPages.Editorial_Details_Page;
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -273,7 +279,7 @@ namespace Bikewale.Models
         {
             try
             {
-                if (objData.Model!=null && objData.Model.ModelId > 0)
+                if (objData.Model != null && objData.Model.ModelId > 0)
                 {
                     var objSimilarBikes = new SimilarBikesWidget(_objBikeVersionsCache, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
 

@@ -587,6 +587,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             var userName = '<%= userName%>';
             var userEmail = '<%= userEmail%>';
             var imgEnv = "<%= Bikewale.Utility.BWConfiguration.Instance.AWSEnvironment %>";
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Sell_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Sell_Page%>' };
         </script>
         
         <!-- #include file="/includes/footerBW.aspx" -->

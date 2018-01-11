@@ -1,7 +1,5 @@
 ﻿using log4net;
 using System;
-using System.Data.OleDb;
-using System.Data.SqlClient;
 using System.Web;
 
 namespace Bikewale.Notifications

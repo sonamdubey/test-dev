@@ -150,6 +150,8 @@ namespace Bikewale.Models.Videos
             }
         }
 
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         public ModelWiseVideoPageVM GetData()
         {
             ModelWiseVideoPageVM objVM = null;
@@ -178,6 +180,7 @@ namespace Bikewale.Models.Videos
                 GetBodyStyle(objVM);
 
                 BindPageMetas(objVM);
+                objVM.Page = Entities.Pages.GAPages.Videos_ModelWise_Page;
                 if (objVM.bikeType.Equals(EnumBikeBodyStyles.Scooter))
                 {
                     BindMoreAboutScootersWidget(objVM);
@@ -297,6 +300,8 @@ namespace Bikewale.Models.Videos
         /// <summary>
         /// Created By :Subodh Jain on 11th Nov 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumListSeries(ModelWiseVideoPageVM objVM)
         {
@@ -312,6 +317,7 @@ namespace Bikewale.Models.Videos
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
 
                 if (objVM.Make != null)
                 {
@@ -337,13 +343,15 @@ namespace Bikewale.Models.Videos
         /// <summary>
         /// Created By :Snehal Dange on 8th Nov 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList(ModelWiseVideoPageVM objVM)
         {
             try
             {
                 IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-                string bikeUrl, seriesUrl, scooterUrl;
+                string bikeUrl, scooterUrl;
                 scooterUrl = bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
                 ushort position = 1;
                 if (IsMobile)
@@ -352,6 +360,8 @@ namespace Bikewale.Models.Videos
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
+
 
                 if (objVM.Make != null)
                 {
@@ -369,12 +379,7 @@ namespace Bikewale.Models.Videos
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, scooterUrl, string.Format("{0} Scooters", objVM.Make.MakeName)));
                 }
 
-                if (objVM.objSeries != null)
-                {
-                    seriesUrl = string.Format("{0}{1}/", bikeUrl, objVM.objSeries.MaskingName);
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, seriesUrl, objVM.objSeries.SeriesName));
 
-                }
 
                 if (objVM.Model != null)
                 {

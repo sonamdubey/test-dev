@@ -110,6 +110,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdOperation\AdOperationVM.cs" />
     <Compile Include="AdSlot\AdSlotVM.cs" />
     <Compile Include="BikeSeries\BikeSeriesPageVM.cs" />
     <Compile Include="Comparison\ManageSponsoredComparisonVM.cs" />

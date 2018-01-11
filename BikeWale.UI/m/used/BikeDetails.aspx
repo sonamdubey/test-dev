@@ -418,6 +418,9 @@
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl  %>/m/src/used-details.js?<%= staticFileVersion%>"></script>
+                <script type="text/javascript" >
+                    var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>' };
+            </script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>

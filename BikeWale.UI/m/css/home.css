@@ -503,7 +503,7 @@ a.chosen-single:hover {
     margin-right: 10px;
 }
 
-.review-image-wrapper a {
+.review-image-wrapper .article-target-image {
     width: 100%;
     display: block;
 }

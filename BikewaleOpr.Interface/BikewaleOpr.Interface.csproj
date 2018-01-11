@@ -103,6 +103,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdOperation\IAdOperation.cs" />
     <Compile Include="AdSlot\IAdSlot.cs" />
     <Compile Include="AdSlot\IAdSlotRepository.cs" />
     <Compile Include="Banner\IBannerRepository.cs" />

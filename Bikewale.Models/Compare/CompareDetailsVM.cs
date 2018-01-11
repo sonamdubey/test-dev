@@ -37,5 +37,6 @@ namespace Bikewale.Models
         public SimilarBikesComparisionVM SimilarBikeWidget { get; set; }
         public SimilarBikesWidgetVM SimilarBikes { get; set; }
         public string SimilarBikesCompareWidgetText { get; set; }
+        public string DisclaimerText { get; set; }
     }
 }
