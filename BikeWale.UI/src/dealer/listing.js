@@ -97,8 +97,12 @@ docReady(function () {
 		var listItem = $(this).closest('.dealer-card-target');
 		var activeListItem = $('#dealersList').find('.input-active');
 
-		activeListItem.removeClass('input-active');
-		activeListItem.find('.form-field__content.btn--active').removeClass('btn--active');
+		if (activeListItem.length) {
+			activeListItem.removeClass('input-active');
+			activeListItem.find('.form-field__content.btn--active').removeClass('btn--active');
+			activeListItem.find('.form-field__input').attr('placeholder', 'Enter your mobile number');
+		}
+
 		listItem.removeClass('response-active').addClass('input-active');
 
 		var inputbox = listItem.find('.form-field__input');

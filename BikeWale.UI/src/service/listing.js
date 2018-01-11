@@ -153,12 +153,18 @@ docReady(function () {
     $('#center-list').on('click', '.get-details-btn', function () {
         var getDetailsBtn = $(this),
             listItem = getDetailsBtn.closest('li'),
-            centerList = $('#center-list');
+			activeListItem = $('#center-list').find('.input-active');
 
         var inputbox = $(this).closest('.dealer-details__form-content').find('.form-field__input');
+        //inputbox.attr('placeholder', 'Enter your mobile number');
 
         if (attemptCount != 10) {
-        	centerList.find('.input-active').removeClass('input-active');
+        	if (activeListItem.length) {
+        		activeListItem.removeClass('input-active');
+        		activeListItem.find('.form-field__content.btn--active').removeClass('btn--active');
+        		activeListItem.find('.form-field__input').attr('placeholder', 'Enter your mobile number');
+        	}
+
         	if (inputbox.val().length) {
         		captureLeadMobile.inputBox.set(listItem);
         	}

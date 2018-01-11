@@ -523,7 +523,13 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	-webkit-transform: translate(-200px, 0);
+	-moz-transform: translate(-200px, 0);
+	-ms-transform: translate(-200px, 0);
 	transform: translate(-200px, 0);
+	-webkit-transition: transform .3s linear;
+	-moz-transition: transform .3s linear;
+	-ms-transition: transform .3s linear;
 	transition: transform .3s linear;
 }
 
@@ -579,6 +585,9 @@
 
 /* active state */
 .btn--active .dealer-form__submit-btn {
+	-webkit-transform: translate(177px, 0);
+	-moz-transform: translate(177px, 0);
+	-ms-transform: translate(177px, 0);
 	transform: translate(177px, 0);
 }
 
