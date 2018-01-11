@@ -1004,7 +1004,7 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
             try
             {
-                if(makeId >= 0 && startIndex > 0 && endIndex > 0 && (startIndex <= endIndex))
+                if(makeId >= 0 && startIndex > 0 && (startIndex <= endIndex))
                 {
                     var objData = _modelCacheRepository.GetModelIdsForImages();
                     if (objData != null)

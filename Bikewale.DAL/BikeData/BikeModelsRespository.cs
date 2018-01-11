@@ -3301,8 +3301,8 @@ namespace Bikewale.DAL.BikeData
                             while (dr.Read())
                             {
                                 modelIdsWithBodyStyle.Add(new ModelIdWithBodyStyle {
-                                    MakeId = Convert.ToUInt32(dr["MakeId"]),
-                                    ModelId = Convert.ToUInt32(dr["ModelId"]),
+                                    MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
+                                    ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]),
                                     BodyStyle = (EnumBikeBodyStyles)Enum.Parse(typeof(EnumBikeBodyStyles), Convert.ToString(dr["BodyStyleId"]))
                                 });
                             }
