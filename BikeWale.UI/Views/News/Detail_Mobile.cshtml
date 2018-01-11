@@ -16,8 +16,7 @@
         var AppJsUrl = "/pwa/app.bundle.js";
         var NewsJsUrl = "/pwa/newsBundle.bundle.js";
         var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-        
-        
+       
     }
 
     @if (Model != null && Model.PageMetaTags != null)
@@ -103,21 +102,6 @@
         })();
 
 
-        googletag.cmd.push(function () {
-
-            googletag.defineSlot('/1017752/Bikewale_Reviews_Top_320x50', [320,50], 'div-gpt-ad-1395986297721-0').addService(googletag.pubads());
-            googletag.defineSlot('/1017752/Bikewale_Reviews_Bottom_320x50', [320,50], 'div-gpt-ad-1395986297721-1').addService(googletag.pubads());
-            googletag.pubads().enableSingleRequest();
-            googletag.pubads().collapseEmptyDivs();
-            googletag.pubads().addEventListener('slotRenderEnded', function(event) {                      
-                if(window.endTimer && typeof window.endTimer === "function") {
-                    window.endTimer("ad");
-                }
-            });
-            googletag.enableServices();
-        });
-
-
     </script>
     <link rel='stylesheet' type='text/css' href='/pwa/css/app.css' atf-css />
     <link rel='stylesheet' type='text/css' href='/pwa/css/news/newsBundle.css' atf-css />
@@ -174,25 +158,6 @@
      @Html.Raw(Model.ServerRouterWrapper)
     
 
-    <script defer type="text/javascript">
-    if(googletag) {
-        googletag.cmd.push(function(){
-            googletag.display('div-gpt-ad-1395986297721-0');
-            googletag.display('div-gpt-ad-1395986297721-1');
-
-        });
-    }
-            navigator.serviceWorker.getRegistration('/m/news/').then(function(reg) {
-                if(reg && reg.active && reg.active.scriptURL == window.location.origin + '/m/news/sw.js') {
-                    reg.unregister();
-                }
-            });
-   
-    
-                
-           
-               
-    </script>
     @{Html.RenderPartial("/Views/Shared/_ServiceWorkerScript.cshtml");}
     <div class="back-to-top" id="back-to-top"></div>
 

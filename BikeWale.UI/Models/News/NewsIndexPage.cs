@@ -1,4 +1,8 @@
-﻿using Bikewale.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
@@ -21,10 +25,6 @@ using Bikewale.Models.Scooters;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models
 {
@@ -156,6 +156,8 @@ namespace Bikewale.Models
         /// Summary    : Get page data
         /// Modified by : Ashutosh Sharma on 27 Nov 2017
         /// Description : Added call to GetArticlesByCategoryList for news page of series.
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public NewsIndexPageVM GetData(int widgetTopCount)
@@ -199,6 +201,7 @@ namespace Bikewale.Models
                     CreatePrevNextUrl(objData, recordCount);
                     GetWidgetData(objData, widgetTopCount);
                     SetPageMetas(objData);
+                    objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
 
                 }
                 else
@@ -268,6 +271,7 @@ namespace Bikewale.Models
                             objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
                                 "/m/news/", "root", "ServerRouterWrapper");
                             objData.WindowState = storeJson;
+                            objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
                         }
                     }
                     catch
@@ -677,15 +681,16 @@ namespace Bikewale.Models
 
                         if (objData.PopularBodyStyle != null)
                         {
-							objData.PopularBodyStyle.BodyStyleText = BodyStyleLinks.BodyStyleText(objData.PopularBodyStyle.BodyStyle);
+                            objData.PopularBodyStyle.BodyStyleText = BodyStyleLinks.BodyStyleText(objData.PopularBodyStyle.BodyStyle);
 
-							objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
+                            objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
                             objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                             objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
                         }
                     }
 
                     if (IsMobile || (MakeId > 0 && ModelId == 0))
+
                     {
                         objData.UpcomingBikes.WidgetHeading = "Upcoming bikes";
                         objData.UpcomingBikes.WidgetHref = "/upcoming-bikes/";
@@ -699,7 +704,7 @@ namespace Bikewale.Models
                                 Bikes = objData.SeriesWidget.PopularSeriesBikes,
                                 WidgetHeading = string.Format("Popular {0} Bikes", bikeSeriesEntityBase.SeriesName),
                                 WidgetHref = UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
-                                WidgetLinkTitle = "View all"
+                                WidgetLinkTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName)
                             };
                         }
                         else if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
@@ -793,7 +798,7 @@ namespace Bikewale.Models
                                 if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                                 {
                                     BindSeriesBikesAndOtherBrands(objData, bikeSeriesEntityBase, PopularScooterMakes);
-                                    BindPopularScootersAndUpcomingScootersWidget(objData, MostPopularBikes, UpcomingScooters);
+                                    BindPopularScootersAndUpcomingScootersWidget(objData, MostPopularScooters, UpcomingScooters);
                                 }
                                 else if (bodyStyle.Equals(EnumBikeBodyStyles.Cruiser) || bodyStyle.Equals(EnumBikeBodyStyles.Sports))
                                 {
@@ -961,7 +966,7 @@ namespace Bikewale.Models
                 objData.PopularScootersAndUpcomingScootersWidget.TabHeading1 = "Popular Scooters";
                 objData.PopularScootersAndUpcomingScootersWidget.TabHeading2 = "Upcoming Scooters";
                 objData.PopularScootersAndUpcomingScootersWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
-                objData.PopularScootersAndUpcomingScootersWidget.ViewPath2 = "~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml"; ;
+                objData.PopularScootersAndUpcomingScootersWidget.ViewPath2 = "~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml";
                 objData.PopularScootersAndUpcomingScootersWidget.TabId1 = "PopularScooters";
                 objData.PopularScootersAndUpcomingScootersWidget.TabId2 = "UpcomingScooters";
                 objData.PopularScootersAndUpcomingScootersWidget.MostPopularScooters = mostPopularBikes;
@@ -1114,8 +1119,8 @@ namespace Bikewale.Models
                     PageName = "News"
                 };
 
-				// Bottom widget
-				bool IsUpcomingViewAllLinkShown = !(this.BodyStyle == EnumBikeBodyStyles.Scooter || this.BodyStyle == EnumBikeBodyStyles.Sports || this.BodyStyle == EnumBikeBodyStyles.Cruiser);
+                // Bottom widget
+                bool IsUpcomingViewAllLinkShown = !(this.BodyStyle == EnumBikeBodyStyles.Scooter || this.BodyStyle == EnumBikeBodyStyles.Sports || this.BodyStyle == EnumBikeBodyStyles.Cruiser);
 
                 objData.UpcomingBikesByBodyStyleWidget = new UpcomingBikesWidgetVM()
                 { 

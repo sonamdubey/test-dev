@@ -1024,21 +1024,31 @@ docReady(function () {
         },
         focus: function () {
             if ($('#newBikeList').val().trim() == '') {
+                $('#errNewBikeSearch').hide();
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
-                let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
+                var label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
                 triggerGA('HP', 'Search_Bar_Clicked', label);
-            }
+			}
+
+			$('html, body').animate({
+				scrollTop: $('#newBikeList').offset().top - 20 // 20px offset value
+			})
         },
         focusout: function () {
-            if ($('li.ui-state-focus a:visible').text() != "") {
+            if ($('#newBikeList').find('li.ui-state-focus a:visible').text() != "") {
                 focusedMakeModel = new Object();
                 focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
             }
             else {
                 $('#errNewBikeSearch').hide();
-                recentSearches.hideRecentSearches();
-            }
+                var container = $('#new-global-search-section');
+                if (container.is(':visible')) {
+                    if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
+                        recentSearches.hideRecentSearches();
+                    }
+                }
+			}
         },
         afterfetch: function (result, searchtext) {
             if (result != undefined && result.length > 0 && searchtext.trim()) {
@@ -1103,13 +1113,13 @@ docReady(function () {
         var id = $('#newBikeList');
         if (id.length > 0) {
             var searchVal = id.val().trim();
-            var placeHolder = id.attr('placeholder');
+            var placeHolder = id.attr('placeholder').trim();
             triggerGA('HP', 'Search_Not_Keyword_Present_in_Autosuggest', searchVal);
-            if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
-                $('#errNewBikeSearch').hide();
+            if (btnFindBikeNewNav() === false || searchVal === placeHolder || searchVal === "") {
+                $('#errNewBikeSearch').show();
                 return false;
             } else {
-                $('#errNewBikeSearch').show();
+                return true;
             }
         }
     });
@@ -1369,9 +1379,10 @@ docReady(function () {
         },
         focus: function () {
             if ($('#globalSearch').val().trim() == '') {
+                $('#errGlobalSearch').hide();
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
-                let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
+                var label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
                 triggerGA(pageName, 'Search_Bar_Clicked', label);
             }
         },
@@ -1382,7 +1393,12 @@ docReady(function () {
             }
             else {
                 $('#errGlobalSearch').hide();
-                recentSearches.hideRecentSearches();
+                var container = $('#global-search-section');
+                if (container.is(':visible')) {
+                    if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
+                        recentSearches.hideRecentSearches();
+                    }
+                }
             }
         },
         afterfetch: function (result, searchtext) {
@@ -1756,10 +1772,11 @@ docReady(function () {
             }
         },
         showRecentSearches: function () {
+            var html = "";
             if (!this.options.recentSearchesLoaded) {
                 objSearches = bwcache.get(this.searchKey);
                 if (objSearches && objSearches.searches) {
-                    var html = "", bikename, url;
+                    var bikename, url;
                     var i = 0;
                     for (var item in objSearches.searches) {
                         item = objSearches.searches[item];
@@ -1871,7 +1888,6 @@ docReady(function () {
                 window.location.href = $(this).find('a').first().attr('data-href');
             }
             recentSearches.hideRecentSearches();
-
         } catch (e) {
             console.log(e.message);
         }

@@ -73,6 +73,8 @@ namespace Bikewale.Models.Photos
         /// Description : Get series entity to create bread crumb list
         /// Modified by : Snehal Dange on 20th Dec 2017
         /// Description: Added BindMoreAboutScootersWidget
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <param name="gridSize"></param>
         /// <param name="noOfGrid"></param>
@@ -100,6 +102,7 @@ namespace Bikewale.Models.Photos
                     BindMoreAboutScootersWidget(_objData);
 
                 }
+                _objData.Page = Entities.Pages.GAPages.Model_Images_Page;
 
 
 
@@ -213,8 +216,10 @@ namespace Bikewale.Models.Photos
                 if (_modelId > 0 && _objData.Make != null && _objData.Model != null)
                 {
                     _objData.BikeInfo = (new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, _cityId, 4, Entities.GenericBikes.BikeInfoTabType.Image)).GetData();
-
-                    _objData.Videos = new RecentVideos(1, 3, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
+                    if (IsMobile)
+                        _objData.Videos = new RecentVideos(1, 2, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
+                    else
+                        _objData.Videos = new RecentVideos(1, 4, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
 
                     if (_objData.PhotoGallery != null && _objData.PhotoGallery.ImageList != null)
                     {
@@ -349,6 +354,8 @@ namespace Bikewale.Models.Photos
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList()
         {
@@ -362,6 +369,7 @@ namespace Bikewale.Models.Photos
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
 
 
             if (_objData.Make != null)

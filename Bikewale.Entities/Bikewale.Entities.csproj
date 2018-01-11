@@ -261,6 +261,7 @@
     <Compile Include="CMS\EditorialPageType.cs" />
     <Compile Include="CMS\EnumCMSContentSubCategoryType.cs" />
     <Compile Include="CMS\EnumCMSContentType.cs" />
+    <Compile Include="CMS\Photos\ModelImages.cs" />
     <Compile Include="CMS\Photos\ModelPhotos.cs" />
     <Compile Include="Compare\BikeColor.cs" />
     <Compile Include="Compare\BikeCompareEntity.cs" />
@@ -365,6 +366,7 @@
     <Compile Include="Models\BreadCrumbsList.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\PageMetaTags.cs" />
+    <Compile Include="NewBikeSearch\BudgetFilterRanges.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
     <Compile Include="NewBikeSearch\FilterInput.cs" />
     <Compile Include="NewBikeSearch\InputBaseEntity.cs" />

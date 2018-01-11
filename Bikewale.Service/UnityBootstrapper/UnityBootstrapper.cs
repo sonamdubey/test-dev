@@ -21,6 +21,7 @@ using Bikewale.BAL.UserReviews;
 using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.App;
 using Bikewale.Cache.BikeData;
+using Bikewale.Cache.BikeSearch;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
@@ -31,6 +32,7 @@ using Bikewale.Cache.ServiceCenter;
 using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.Cache.UserReviews;
+using Bikewale.Cache.Videos;
 using Bikewale.DAL.App;
 using Bikewale.DAL.BikeBooking;
 using Bikewale.DAL.BikeData;
@@ -44,6 +46,7 @@ using Bikewale.DAL.ServiceCenter;
 using Bikewale.DAL.Used;
 using Bikewale.DAL.UsedBikes;
 using Bikewale.DAL.UserReviews;
+using Bikewale.DAL.Videos;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.service;
@@ -76,12 +79,10 @@ using Bikewale.Interfaces.Used.Search;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
+using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Interface;
 using Microsoft.Practices.Unity;
 using System;
-using Bikewale.Interfaces.Videos;
-using Bikewale.Cache.Videos;
-using Bikewale.DAL.Videos;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -113,6 +114,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register IBikeMaskingCacheRepository<BikeModelEntity, int> interface
         /// Modified by :   Sumit Kate on 13 Feb 2017
         /// Description :   Register INewBikeLaunchesBL interface
+        /// Modified by :   Sumit Kate on 05 Jan 2018
+        /// Description :   Register IBikeSearchCacheRepository
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -213,9 +216,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IVideosCacheRepository, VideosCacheRepository>();
             container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
             container.RegisterType<IVideoRepository, ModelVideoRepository>();
-
+            container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
             return container;
-            
+
         }
     }
 }

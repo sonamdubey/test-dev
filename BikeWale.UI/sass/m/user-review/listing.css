@@ -1116,7 +1116,7 @@
   display: block;
   background: #fff;
   overflow-x: auto;
-  z-index: 2;
+  z-index: 3;
   -webkit-overflow-scrolling: touch;
   position: absolute;
   top: 0;

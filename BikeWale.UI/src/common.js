@@ -955,22 +955,22 @@ docReady(function () {
         },
         focus: function () {
             if ($('#newBikeList').val().trim() == '') {
+                $('#errNewBikeSearch').hide();
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
-                let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded? "Present" : "Not_Present");
+                var label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
                 triggerGA('HP', 'Search_Bar_Clicked', label );
             }
 
         },
         focusout: function () {
             if ($('#newBikeList').find('li.ui-state-focus a:visible').text() != "") {
-                $('#errNewBikeSearch').hide()
                 focusedMakeModel = new Object();
                 focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
             }
             else {
                 $('#errNewBikeSearch').hide();
-                var container = $('#new-global-recent-searches,#new-trending-bikes');
+                var container = $('#new-global-search-section');
                 if (container.is(':visible')) {
                     if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
                         recentSearches.hideRecentSearches();
@@ -1054,9 +1054,10 @@ docReady(function () {
         },
         focus: function () {
             if ($('#globalSearch').val().trim() == '') {
+                $('#errGlobalSearch').hide();
                 recentSearches.showRecentSearches();
                 // showRecentSearches captures recentSearchesLoaded if any searchdata avaliable in local Storage
-                let label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
+                var label = "Recently_Viewed_Bikes_" + (recentSearches.options.recentSearchesLoaded ? "Present" : "Not_Present");
                 triggerGA(pageName, 'Search_Bar_Clicked', label);
             }
         },
@@ -1067,7 +1068,7 @@ docReady(function () {
             }
             else {
                 $('#errGlobalSearch').hide();
-                var container = $('#global-recent-searches, #trending-bikes');
+                var container = $('#global-search-section');
                 if (container.is(':visible')) {
                     if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
                         recentSearches.hideRecentSearches();
@@ -1164,10 +1165,11 @@ docReady(function () {
             }
         },
         showRecentSearches: function () {
+            var html = "";
             if (!this.options.recentSearchesLoaded) {
                 objSearches = bwcache.get(this.searchKey);
                 if (objSearches && objSearches.searches) {
-                    var html = "", bikename, url;
+                    var bikename, url;
                     var i = 0;
                     for (var item in objSearches.searches) {
                         item = objSearches.searches[item];
@@ -1376,10 +1378,11 @@ docReady(function () {
         var searchVal = id.val();
         var placeHolder = id.attr('placeholder');
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
-        if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
+        if (btnFindBikeNewNav() === false || searchVal === placeHolder || (searchVal).trim() === "") {
+            $('#errNewBikeSearch').show();
             return false;
         } else {
-            return false;
+            return true;
         }
 
     });

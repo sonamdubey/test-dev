@@ -3096,6 +3096,18 @@
     <Content Include="sass\partials\_horizontal-rating-graph.sass" />
     <Content Include="sass\partials\_loader.sass" />
     <Content Include="sass\modules\_review-category.sass" />
+    <Content Include="sass\partials\d\_video-section-list.sass" />
+    <Content Include="sass\partials\d\_article-list.sass" />
+    <Content Include="sass\partials\d\_find-right-model.sass" />
+    <Content Include="sass\partials\d\_model-card.sass" />
+    <Content Include="sass\partials\d\_model-series-list.sass" />
+    <Content Include="sass\partials\d\_overlay.sass" />
+    <Content Include="sass\partials\_comparision-swiper.sass" />
+    <Content Include="sass\partials\_find-right-model.sass" />
+    <Content Include="sass\partials\_model-card.sass" />
+    <Content Include="sass\partials\_model-series-list.sass" />
+    <Content Include="sass\partials\_news-section.sass" />
+    <Content Include="sass\partials\_video-card-container.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
@@ -3921,6 +3933,8 @@
     <Content Include="Views\Scooters\_ModelRelatedCard.cshtml" />
     <Content Include="Views\Scooters\_ModelRelatedCard_Mobile.cshtml" />
     <Content Include="Views\Scooters\_ModelRelatedCard_Mobile_Amp.cshtml" />
+    <Content Include="Views\NewBikeSearch\_NewBikeSearchBudget.cshtml" />
+    <Content Include="Views\NewBikeSearch\_NewBikeSearchBudget_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

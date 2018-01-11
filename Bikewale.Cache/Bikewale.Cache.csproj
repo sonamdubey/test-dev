@@ -121,6 +121,7 @@
     <Compile Include="BikeData\BikeSeriesCacheRepository.cs" />
     <Compile Include="BikeData\BikeVersionsCacheRepository.cs" />
     <Compile Include="BikeData\ModelsCache.cs" />
+    <Compile Include="BikeSearch\BikeSearchCacheRepository.cs" />
     <Compile Include="CMS\CMSCacheRepository.cs" />
     <Compile Include="Compare\BikeCompareCacheRepository.cs" />
     <Compile Include="DealersLocator\DealerCacheRepository.cs" />
@@ -179,7 +180,6 @@
   <ItemGroup>
     <Folder Include="Content\" />
     <Folder Include="GenericBikes\" />
-    <Folder Include="NewBikeSearch\" />
     <Folder Include="News\" />
   </ItemGroup>
   <ItemGroup>

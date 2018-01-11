@@ -239,9 +239,7 @@ namespace Bikewale.BAL.UserReviews.Search
             try
             {
                 objPager = new PagingUrl();
-                string apiUrlStr = GetApiUrl(objFilters);
                 totalPageCount = _pager.GetTotalPages(totalRecordCount, Convert.ToInt32(objFilters.PS));
-
                 if (totalPageCount > 0)
                 {
                     string controllerurl = "/api/user-reviews/search/?";
@@ -251,13 +249,17 @@ namespace Bikewale.BAL.UserReviews.Search
                         objPager.NextPageUrl = string.Empty;
                     else
                     {
-                        objPager.NextPageUrl = controllerurl + apiUrlStr;
+                        string apiUrlStrforNext = GetApiUrl(objFilters, 1);
+                        objPager.NextPageUrl = controllerurl + apiUrlStrforNext;
                     }
 
                     if (objFilters.PN == 1 || objFilters.PN == 0)
                         objPager.PrevPageUrl = string.Empty;
                     else
-                        objPager.PrevPageUrl = controllerurl + apiUrlStr;
+                    {
+                        string apiUrlStrforPrev = GetApiUrl(objFilters, -1);
+                        objPager.PrevPageUrl = controllerurl + apiUrlStrforPrev;
+                    }
                 }
             }
             catch (Exception ex)
@@ -273,7 +275,7 @@ namespace Bikewale.BAL.UserReviews.Search
         /// </summary>
         /// <param name="objFilters"></param>
         /// <returns></returns>
-        private string GetApiUrl(InputFilters objFilters)
+        private string GetApiUrl(InputFilters objFilters, short PageValue)
         {
             string apiUrlstr = string.Empty;
             try
@@ -284,7 +286,7 @@ namespace Bikewale.BAL.UserReviews.Search
                 if (!String.IsNullOrEmpty(objFilters.Model))
                     apiUrlstr += "&model=" + objFilters.Model.Replace(" ", "+");
                 apiUrlstr += "&ps=" + objFilters.PS;
-                apiUrlstr += "&pn=" + objFilters.PN;
+                apiUrlstr += "&pn=" + (objFilters.PN + PageValue);
 
                 if (!String.IsNullOrEmpty(objFilters.CAT))
                     apiUrlstr += "&cat=" + objFilters.CAT;

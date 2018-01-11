@@ -121,65 +121,67 @@
     })();
 
     @functions{
-			string GetAdSlot(int slotId,string adPath,string adId){
-				switch (slotId)
-				{
-					case 1:
-						return String.Format("googletag.defineSlot('{0}300x250', [[300, 250]], 'div-gpt-ad-{1}-1').addService(googletag.pubads());",adPath,adId);
-					case 2:
-						return String.Format("googletag.defineSlot('{0}300x250_BTF', [[300, 250]], 'div-gpt-ad-{1}-2').addService(googletag.pubads());", adPath, adId);
-					case 3:
-						return String.Format("googletag.defineSlot('{0}970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-{1}-3').addService(googletag.pubads());", adPath, adId);
-					case 4:
-						return String.Format("googletag.defineSlot('{0}970x90_BTF', [[970, 200],[970, 150],[960, 60], [970, 66], [960, 90], [970, 60], [728, 90], [970, 90], [960, 66]], 'div-gpt-ad-{1}-4').addService(googletag.pubads());", adPath, adId);
-					case 5:
-						return String.Format("googletag.defineSlot('{0}Bottom_970x90', [[970, 60], [960, 90], [970, 66], [960, 66], [728, 90], [970, 90], [950, 90], [960, 60]], 'div-gpt-ad-{1}-5').addService(googletag.pubads());", adPath, adId);
-					case 6:
-						return String.Format("googletag.defineSlot('{0}FirstSlot_976x400',[[976, 150], [976, 100], [976, 250], [976, 300], [976, 350], [976, 400], [970, 90], [976, 200]],'div-gpt-ad-{1}-6').addService(googletag.pubads());", adPath, adId);
-					case 7:
-						return string.Format("googletag.defineSlot('{0}SecondSlot_976x400',[[976, 150], [976, 100], [976, 250], [976, 300], [976, 350], [976, 400], [970, 90], [976, 200]],'div-gpt-ad-{1}-7').addService(googletag.pubads());", adPath, adId);
-					case 8:
-						return "googletag.defineSlot('/1017752/BikeWale_HomePageNews_FirstSlot_976x204', [[976, 200], [976, 250], [976, 204]], 'div-gpt-ad-1395985604192-8').addService(googletag.pubads());";
-					case 9:
-						return string.Format("googletag.defineSlot('{0}ATF_300x250', [300, 250], 'div-gpt-ad-{1}-9').addService(googletag.pubads());", adPath, adId);
-					case 10:
-						return string.Format("googletag.defineSlot('{0}ATF_970x90', [[970, 90], [728, 90], [950, 90]], 'div-gpt-ad-{1}-10').addService(googletag.pubads());", adPath, adId);
-					case 11:
-						return string.Format("googletag.defineSlot('{0}BTF_300x250', [300, 250], 'div-gpt-ad-{1}-11').addService(googletag.pubads());", adPath, adId);
-					case 12:
-						return string.Format("googletag.defineSlot('{0}BTF_970x90', [[970, 90], [728, 90], [950, 90]], 'div-gpt-ad-{1}-12').addService(googletag.pubads());", adPath, adId);
-					case 13:
-						return "googletag.defineSlot('/1017752/Bikewale_Model_Comparo_976x400', [[976, 450], [976, 300], [976, 460], [976, 250], [976, 400]], 'div-gpt-ad-1495092203328-0').addService(googletag.pubads());";
-					case 14:
-						return "googletag.defineSlot('/1017752/SimilarBikes_Desktop_292x399', [292, 399], 'div-gpt-ad-1505919734321-14').addService(googletag.pubads()); ";
-					case 15:
-						return "googletag.defineSlot('/1017752/Bikewale_Desktop_PQ_292x359', [292, 359], 'div-gpt-ad-1506343636197-15').addService(googletag.pubads()); ";
-					case 16:
-						return "googletag.defineSlot('/1017752/Bikewale_BestBikes_Widget_Desktop_292x360',[292, 360], 'div-gpt-ad-1507278280998-16').addService(googletag.pubads()); ";
+        string GetAdSlot(int slotId,string adPath,string adId){
+            switch (slotId)
+            {
+                case 1:
+                    return String.Format("googletag.defineSlot('{0}300x250', [[300, 250]], 'div-gpt-ad-{1}-1').addService(googletag.pubads());",adPath,adId);
+                case 2:
+                    return String.Format("googletag.defineSlot('{0}300x250_BTF', [[300, 250]], 'div-gpt-ad-{1}-2').addService(googletag.pubads());", adPath, adId);
+                case 3:
+                    return String.Format("googletag.defineSlot('{0}970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-{1}-3').addService(googletag.pubads());", adPath, adId);
+                case 4:
+                    return String.Format("googletag.defineSlot('{0}970x90_BTF', [[970, 200],[970, 150],[960, 60], [970, 66], [960, 90], [970, 60], [728, 90], [970, 90], [960, 66]], 'div-gpt-ad-{1}-4').addService(googletag.pubads());", adPath, adId);
+                case 5:
+                    return String.Format("googletag.defineSlot('{0}Bottom_970x90', [[970, 60], [960, 90], [970, 66], [960, 66], [728, 90], [970, 90], [950, 90], [960, 60]], 'div-gpt-ad-{1}-5').addService(googletag.pubads());", adPath, adId);
+                case 6:
+                    return String.Format("googletag.defineSlot('{0}FirstSlot_976x400',[[976, 150], [976, 100], [976, 250], [976, 300], [976, 350], [976, 400], [970, 90], [976, 200]],'div-gpt-ad-{1}-6').addService(googletag.pubads());", adPath, adId);
+                case 7:
+                    return string.Format("googletag.defineSlot('{0}SecondSlot_976x400',[[976, 150], [976, 100], [976, 250], [976, 300], [976, 350], [976, 400], [970, 90], [976, 200]],'div-gpt-ad-{1}-7').addService(googletag.pubads());", adPath, adId);
+                case 8:
+                    return "googletag.defineSlot('/1017752/BikeWale_HomePageNews_FirstSlot_976x204', [[976, 200], [976, 250], [976, 204]], 'div-gpt-ad-1395985604192-8').addService(googletag.pubads());";
+                case 9:
+                    return string.Format("googletag.defineSlot('{0}ATF_300x250', [300, 250], 'div-gpt-ad-{1}-9').addService(googletag.pubads());", adPath, adId);
+                case 10:
+                    return string.Format("googletag.defineSlot('{0}ATF_970x90', [[970, 90], [728, 90], [950, 90]], 'div-gpt-ad-{1}-10').addService(googletag.pubads());", adPath, adId);
+                case 11:
+                    return string.Format("googletag.defineSlot('{0}BTF_300x250', [300, 250], 'div-gpt-ad-{1}-11').addService(googletag.pubads());", adPath, adId);
+                case 12:
+                    return string.Format("googletag.defineSlot('{0}BTF_970x90', [[970, 90], [728, 90], [950, 90]], 'div-gpt-ad-{1}-12').addService(googletag.pubads());", adPath, adId);
+                case 13:
+                    return "googletag.defineSlot('/1017752/Bikewale_Model_Comparo_976x400', [[976, 450], [976, 300], [976, 460], [976, 250], [976, 400]], 'div-gpt-ad-1495092203328-0').addService(googletag.pubads());";
+                case 14:
+                    return "googletag.defineSlot('/1017752/SimilarBikes_Desktop_292x399', [292, 399], 'div-gpt-ad-1505919734321-14').addService(googletag.pubads()); ";
+                case 15:
+                    return "googletag.defineSlot('/1017752/Bikewale_Desktop_PQ_292x359', [292, 359], 'div-gpt-ad-1506343636197-15').addService(googletag.pubads()); ";
+                case 16:
+                    return "googletag.defineSlot('/1017752/Bikewale_BestBikes_Widget_Desktop_292x360',[292, 360], 'div-gpt-ad-1507278280998-16').addService(googletag.pubads()); ";
 
-					default:
-						return "";
-				}
-			}
+                default:
+                    return "";
+            }
+        }
 
-			string GetGTTargeting(int targetId, string target)
-			{
-				switch (targetId)
-				{
-					case 1:
-						return String.Format("googletag.pubads().setTargeting(\"Model\", \"{0}\");", target);
-					case 2:
-						return String.Format("googletag.pubads().setTargeting(\"Make\", \"{0}\");", target);
-					case 3:
-						return String.Format("googletag.pubads().setTargeting(\"CompareBike-D\", \"{0}\");", target);
-					case 4:
-						return String.Format("googletag.pubads().setTargeting(\"City\", \"{0}\");", target);
-					case 5:
-						return string.Format("googletag.pubads().setTargeting(\"Series\", \"{0}\");", target);
-					default:
-						return "";
-				}
-			}
+        string GetGTTargeting(int targetId, string target)
+        {
+            switch (targetId)
+            {
+                case 1:
+                    return String.Format("googletag.pubads().setTargeting(\"Model\", \"{0}\");", target);
+                case 2:
+                    return String.Format("googletag.pubads().setTargeting(\"Make\", \"{0}\");", target);
+                case 3:
+                    return String.Format("googletag.pubads().setTargeting(\"CompareBike-D\", \"{0}\");", target);
+                case 4:
+                    return String.Format("googletag.pubads().setTargeting(\"City\", \"{0}\");", target);
+                case 5:
+                    return string.Format("googletag.pubads().setTargeting(\"Series\", \"{0}\");", target);
+                case 6:
+                    return string.Format("googletag.pubads().setTargeting(\"Tags\", \"{0}\");", target);
+                default:
+                    return "";
+            }
+        }
         }
 
     googletag.cmd.push(function () {
@@ -199,14 +201,13 @@
         @if(Model.AdTags.Ad_976x400_Middle){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x399){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x359){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
-
-        googletag.pubads().enableSingleRequest();
+        @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}        
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
-        @if (!string.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
+        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
+        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))}
 
         googletag.pubads().collapseEmptyDivs();
         googletag.pubads().enableSingleRequest();
@@ -243,14 +244,14 @@
                         <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                     </li>
                 </ul>
-                <div id="global-search-section" class="bg-white padding-bottom20 hide">
+                <div id="global-search-section" class="bg-white hide">
                     <div id="history-search">
-                        <div class="search-title font12 text-light-grey">Recently Viewed</div>
-                        <ul id="global-recent-searches" class="recent-searches-dropdown"></ul>
+                        <div class="search-title">Recently Viewed</div>
+                        <ul id="global-recent-searches" class="recent-searches-dropdown bw-ui-menu"></ul>
                     </div>
                     <div id="trending-search">
-                        <div class="search-title font12 text-light-grey">Trending Searches</div>
-                        <ul id="trending-bikes" class="recent-searches-dropdown"></ul>
+                        <div class="search-title">Trending Searches</div>
+                        <ul id="trending-bikes" class="recent-searches-dropdown bw-ui-menu"></ul>
                     </div>
                 </div>
             </div>

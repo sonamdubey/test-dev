@@ -271,7 +271,7 @@ span.ui-helper-hidden-accessible { display: none; }
     margin-right: 10px;
 }
 
-.review-image-wrapper a {
+.review-image-wrapper .article-target-image {
     width: 100%;
     display: block;
 }
@@ -297,3 +297,4 @@ span.ui-helper-hidden-accessible { display: none; }
     padding-top: 8px;
     padding-bottom: 8px;
 }
+.content-details-wrapper h2 { font-size: 18px; margin-bottom:13px; }

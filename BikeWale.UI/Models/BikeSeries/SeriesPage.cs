@@ -268,6 +268,8 @@ namespace Bikewale.Models.BikeSeries
         /// <summary>
         /// Created by : Ashutosh Sharma on 17 Nov 2017
         /// Description : Method to set breadcrum list.
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         /// <param name="objSeriesPage"></param>
         private void SetBreadcrumList(SeriesPageVM objSeriesPage)
@@ -285,6 +287,8 @@ namespace Bikewale.Models.BikeSeries
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
+
                 if (objSeriesPage.BikeMake != null)
                 {
                     bikeUrl = string.Format("{0}{1}-bikes/", bikeUrl, objSeriesPage.BikeMake.MakeMaskingName);

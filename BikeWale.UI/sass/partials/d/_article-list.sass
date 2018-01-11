@@ -15,7 +15,8 @@
 		height: $height * 1px
 		overflow: hidden
 		@include border-radius(3px)
-		a
+		
+		.article-target-image
 			width: $width * 1px
 			height: $height * 1px
 			display: block
@@ -30,6 +31,10 @@
 	font-size: 15px
 	color: #2a2a2a
 	font-weight: 600
+	cursor: pointer
+
+	&:hover
+		text-decoration: underline
 
 .article-date,
 .article-author
