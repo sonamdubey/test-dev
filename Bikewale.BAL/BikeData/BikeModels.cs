@@ -216,6 +216,15 @@ namespace Bikewale.BAL.BikeData
 
         }
 
+        public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData)
+        {
+            IEnumerable<MostPopularBikesBase> objList = null;
+
+            objList = modelRepository.GetAdPromotedBike(ObjData);
+
+            return objList;
+
+        }
 
         public Hashtable GetMaskingNames()
         {

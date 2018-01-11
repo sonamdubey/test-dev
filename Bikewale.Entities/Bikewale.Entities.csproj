@@ -158,6 +158,7 @@
     <Compile Include="BikeBooking\RSAOfferClaimEntity.cs" />
     <Compile Include="BikeData\BikeColorsbyVersion.cs" />
     <Compile Include="BikeData\BikeEntityBase.cs" />
+    <Compile Include="BikeData\BikeFilters.cs" />
     <Compile Include="BikeData\BikeInfoPageSource.cs" />
     <Compile Include="BikeData\BikeMakeBase.cs" />
     <Compile Include="BikeData\BikeMakeModelBase.cs" />

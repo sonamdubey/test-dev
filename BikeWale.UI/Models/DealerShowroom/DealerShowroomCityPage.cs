@@ -381,9 +381,23 @@ namespace Bikewale.Models.DealerShowroom
         //<param name = "objVM" ></ param >
         private void BindShowroomPopularCityWidget(DealerShowroomCityPageVM objDealerDetails)
         {
-
+            DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
             try
             {
+                uint topCount = 8;
+                objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(makeId, topCount);
+                objData.MakeMaskingName = objDealerDetails.Make.MaskingName;
+                objData.MakeName = objDealerDetails.Make.MakeName;
+                objData.CityCardTitle = "showrooms in";
+                objData.CityCardLink = "dealer-showrooms";
+                objData.IsServiceCenterPage = false;
+                objDealerDetails.DealersServiceCenterPopularCities = objData;
+                if (objData.DealerServiceCenters.DealerDetails.Any())
+                {
+                    objDealerDetails.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objDealerDetails.DealersServiceCenterPopularCities.
+                                                                                                            DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityId)).ToList();
+                }
+
                 ServiceCenterData obj = _objSC.GetServiceCentersByCity(cityId, (int)makeId);
                 objDealerDetails.IsServiceCenterPresentInCity = obj.Count > 0;
 

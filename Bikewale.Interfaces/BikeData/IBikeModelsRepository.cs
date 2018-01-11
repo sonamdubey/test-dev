@@ -125,5 +125,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotosInCity(U modelId, ushort totalRecords, uint cityId);
         BikeMileageEntity GetMileageForModel();
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
+        IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData);
     }
 }
