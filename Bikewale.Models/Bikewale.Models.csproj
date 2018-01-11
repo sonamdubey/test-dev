@@ -172,6 +172,7 @@
     <Compile Include="News\NewsScootersPageVM.cs" />
     <Compile Include="Photos\PhotosPageVM.cs" />
     <Compile Include="Photos\SimilarBikesWithPhotosVM.cs" />
+    <Compile Include="Photos\v1\PhotosPageVM.cs" />
     <Compile Include="PopUp\BikeCityPopup.cs" />
     <Compile Include="PriceInCity\PriceInCityPageAMPVM.cs" />
     <Compile Include="PopUp\PopupLeadCaptureVM.cs" />
