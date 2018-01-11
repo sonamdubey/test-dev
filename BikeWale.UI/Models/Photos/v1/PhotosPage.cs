@@ -51,7 +51,7 @@ namespace Bikewale.Models.Photos.v1
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.v1.GetData : GetData()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.GetData()");
             }
 
             return _objData;
@@ -75,14 +75,13 @@ namespace Bikewale.Models.Photos.v1
         }
         private void BindPageWidgets()
         {
-            PQSourceEnum pqSource = IsMobile ? PQSourceEnum.Mobile_Photos_Page : PQSourceEnum.Desktop_Photos_page;
             try
             {
                
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindPageWidgets : BindPageWidgets()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.BindPageWidgets()");
             }
         }
 
@@ -94,7 +93,7 @@ namespace Bikewale.Models.Photos.v1
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.SetPageMetas : SetPageMetas()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.SetPageMetas()");
             }
 
         }

@@ -1,31 +1,32 @@
 ﻿@model Bikewale.Models.OtherMakesVM
-@if (Model != null && Model.Makes != null) {
-<h2 class="related-bikes__title">Users also looked at</h2>
+@if (Model != null && Model.Makes != null)
+{
+    <h2 class="related-bikes__title">Users also looked at</h2>
 
-<div class="jcarousel-wrapper carousel--full-width carousel__related-makes">
-    <div class="jcarousel" data-swipe="5">
-        <ul>
-            @foreach (var make in Model.Makes)
-            {
-                <li class="carousel-slide">
-                    <a href="" title="" class="related-make-card">
-                        <div class="make-icon__content">
-                            <span class="brandlogosprite brand-@make.MakeId"></span>
-                        </div>
-                        <div class="make-details__content">
-                            <h3 class="make-details__title">@make.MakeName Bikes</h3>
-                            <p class="make-details__subtitle">@make.PhotosCount Images from @make.TotalCount Bikes</p>
+    <div class="jcarousel-wrapper carousel--full-width carousel__related-makes">
+        <div class="jcarousel" data-swipe="5">
+            <ul>
+                @foreach (var make in Model.Makes)
+                {
+                    <li class="carousel-slide">
+                        <a href="" title="" class="related-make-card">
+                            <div class="make-icon__content">
+                                <span class="brandlogosprite brand-@make.MakeId"></span>
+                            </div>
+                            <div class="make-details__content">
+                                <h3 class="make-details__title">@make.MakeName Bikes</h3>
+                                <p class="make-details__subtitle">@make.PhotosCount Images from @make.TotalCount Bikes</p>
                         </div>
                     </a>
                 </li>
-            }
-        </ul>
+                }
+            </ul>
+        </div>
+        <span class="jcarousel-control-left">
+            <span class="jcarousel-arrow-prev"></span>
+        </span>
+        <span class="jcarousel-control-right">
+            <span class="jcarousel-arrow-next"></span>
+        </span>
     </div>
-    <span class="jcarousel-control-left">
-        <span class="jcarousel-arrow-prev"></span>
-    </span>
-    <span class="jcarousel-control-right">
-        <span class="jcarousel-arrow-next"></span>
-    </span>
-</div>
 }
