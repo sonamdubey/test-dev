@@ -63,13 +63,13 @@
                         <span class="error-text hide"></span>
                     </div>
                     <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() && (mfgCampaignId() > 0)">
-                        <input type="email" id="getEmailID" data-bind="textInput: emailId" maxlength="100">
+                        <input type="email" id="getEmailID" data-bind="textInput: emailId" maxlength="50">
                         <label for="getEmailID">Email<sup>*</sup></label>
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
                     </div>
                     <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
-                        <input type="text" id="getPinCode" autocomplete="off">
+                        <input type="text" id="getPinCode" autocomplete="off" maxlength="6">
                         <label for="getPinCode">Pincode<sup>*</sup></label>
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
