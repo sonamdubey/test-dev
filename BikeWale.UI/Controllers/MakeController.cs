@@ -112,6 +112,16 @@ namespace Bikewale.Controllers
             }
 
         }
+
+		// GET: Makes
+		[Route("m/make/")]
+		public ActionResult Index_Mobile_New(string makeMaskingName)
+		{
+			ModelBase objModel = new ModelBase();
+			return View(objModel);
+		}
+
+
         // GET: Makes
 
         /// <summary>
