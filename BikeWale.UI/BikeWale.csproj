@@ -3110,6 +3110,10 @@
     <Content Include="sass\partials\_news-section.sass" />
     <Content Include="sass\partials\_video-card-container.sass" />
     <Content Include="sass\m\make\make.sass" />
+    <Content Include="sass\mixins\_flex.sass" />
+    <Content Include="sass\utils\_color.sass" />
+    <Content Include="sass\mixins\_index.sass" />
+    <Content Include="sass\utils\_index.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
