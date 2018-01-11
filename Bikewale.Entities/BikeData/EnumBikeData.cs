@@ -4,8 +4,10 @@ namespace Bikewale.Entities.BikeData
     /// <summary>
     /// Modified by :   Sumit Kate on 29 Mar 2016
     /// Description :   Dealer value is added
-    ///  Modified by :   Subodh Jain  on 08 Nov 2016
+    /// Modified by :   Subodh Jain  on 08 Nov 2016
     /// Description :   ServiceCenter value is added
+    /// Modified by :   Rajan Chauhan on 11 Jan 2018
+    /// Description :   Added Photos
     /// </summary>
     public enum EnumBikeType
     {
@@ -25,6 +27,7 @@ namespace Bikewale.Entities.BikeData
         ServiceCenter = 13,
         Scooters = 14,
         NewLaunched = 15,
-        Videos = 16
+        Videos = 16,
+        Photos = 17
     }
 }

@@ -13,6 +13,8 @@ namespace Bikewale.Entities.BikeData
     /// Description :   Added PopularityIndex
     /// Modified by sajal Gupta on 14-11-2017
     /// Description : Added MakeCategoryId
+    /// Modified by : Rajan Chauhan on 11 Jan 2018
+    /// Description : Added PhotosCount
     /// </summary>
     [Serializable, DataContract]
     public class BikeMakeEntityBase
@@ -40,6 +42,9 @@ namespace Bikewale.Entities.BikeData
 
         [JsonProperty("totalCount"), DataMember]
         public uint TotalCount { get; set; }
+
+        [JsonProperty("photosCount"), DataMember]
+        public uint PhotosCount { get; set; }
 
         [JsonProperty("href"), DataMember]
         public string Href { get; set; }

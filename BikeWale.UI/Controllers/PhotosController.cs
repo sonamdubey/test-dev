@@ -97,6 +97,8 @@ namespace Bikewale.Controllers
 		[Route("photos/")]
 		public ActionResult Index()
 		{
+            Bikewale.Models.Photos.v1.PhotosPageVM obj = new Bikewale.Models.Photos.v1.PhotosPageVM();
+            obj.OtherPopularMakes = SomeFunction();
 			ModelBase objModel = new ModelBase();
 			return View(objModel);
 		}
