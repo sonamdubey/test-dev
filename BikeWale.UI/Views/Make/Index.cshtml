@@ -322,17 +322,28 @@
                             }
                         </div>
                     }
-                    @if (Model.IsVideosAvailable)
+                
+                    @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
                     {
-                        <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-                            <h2 class="padding-right10 padding-left10">@Model.MakeName Videos</h2>
-                            @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
-                            <div class="padding-left10 more-article-target view-all-btn-container">
-                                <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">View all videos<span class="bwsprite teal-right"></span></a>
-                            </div>
-                        </div>
-                    }
+                        <section>
+                            <div id="makeVideosContent"  class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
 
+
+                                <h2 class="padding-left20 padding-right20">@string.Format("{0} Videos", Model.MakeName)</h2>
+
+
+                                @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
+
+                                <div class="margin-top10 padding-left20">
+                                    <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
+                                        View all videos <span class="bwsprite teal-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+							<div class="border-solid-bottom margin-right10 margin-left10"></div>                            
+                               
+                        </section>
+                    }
 
                     @if (Model.IsUsedModelsBikeAvailable)
                     {

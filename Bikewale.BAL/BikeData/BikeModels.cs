@@ -1,4 +1,9 @@
-﻿using Bikewale.BAL.Customer;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
 using Bikewale.BAL.UserReviews.Search;
@@ -30,11 +35,6 @@ using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Bikewale.BAL.BikeData
 {

@@ -109,6 +109,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdOperations\AdOperationEnum.cs" />
+    <Compile Include="AdOperations\PromotedBike.cs" />
     <Compile Include="AdSlotEntity.cs" />
     <Compile Include="AppEnum.cs" />
     <Compile Include="AppVersionEntity.cs" />
@@ -159,6 +161,7 @@
     <Compile Include="ContractCampaign\DealerEntityBase.cs" />
     <Compile Include="ContractCampaign\ManufactureDealerCampaign.cs" />
     <Compile Include="ContractCampaign\MaskingNumber.cs" />
+    <Compile Include="ContractStatusEnum.cs" />
     <Compile Include="DealerAreaDetails.cs" />
     <Compile Include="DealerBenefitEntity.cs" />
     <Compile Include="CityEntityBase.cs" />

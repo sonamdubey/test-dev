@@ -13,6 +13,7 @@ using BikewaleOpr.BAL.Used;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DALs;
+using BikewaleOpr.DALs.AdOperation;
 using BikewaleOpr.DALs.AdSlot;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.Bikedata;
@@ -96,7 +97,8 @@ namespace BikewaleOpr
                 .RegisterType<IBikeSeries, BikeSeries>()
                 .RegisterType<IAdSlotRepository, AdSlot>()
                 .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
-                .RegisterType<IBikeBodyStyles, BikeBodyStyles>();
+                .RegisterType<IBikeBodyStyles, BikeBodyStyles>()
+                .RegisterType<IAdOperation, AdOperation>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 

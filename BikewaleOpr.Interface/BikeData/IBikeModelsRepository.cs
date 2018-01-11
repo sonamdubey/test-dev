@@ -16,6 +16,8 @@ namespace BikewaleOpr.Interface.BikeData
     /// Summary     : added function to get model ingo by makeId
     /// Modified By: Ashutosh Sharma on 27-07-2017
     /// Discription: Added UpdateAsSoldInquiry
+    /// Modified By: Sanskar Gupta on 2018-01-04
+    /// Description: Added GetPromotionBikes
     /// </summary>
     public interface IBikeModelsRepository
     {
@@ -32,5 +34,6 @@ namespace BikewaleOpr.Interface.BikeData
         bool UpdateInquiryAsSold(uint inquiryId);
         IEnumerable<BikeVersionEntityBase> GetVersionsByModel(EnumBikeType requestType, uint modelId);
         bool IsModelMaskingNameExists(uint makeId, string modelMaskingName);
+        IEnumerable<BikeMakeModelData> GetPromotionBikes();
     }
 }

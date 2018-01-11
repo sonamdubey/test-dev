@@ -8,7 +8,22 @@ $("input:checkbox").change(function () { $(this).val($(this).is(':checked')); })
 var select = $('select');
 
 $(document).ready(function () {
-    pageFooter.setPosition();
+	var bodyHeight = $('body').height();
+	var bodyHeightTimerId = null;
+
+	pageFooter.setPosition();
+
+	$(document).on('click', function() {
+		clearTimeout(bodyHeightTimerId);
+
+		bodyHeightTimerId = setTimeout(function() {
+			if ($('body').height() !== bodyHeight) {
+				pageFooter.setPosition();
+				bodyHeight = $('body').height();
+			}
+		}, 1000);
+	});
+
 });
 
 var pageFooter = {
@@ -20,10 +35,10 @@ var pageFooter = {
         var flag = pageFooter.bodyElement.height() + 50 - window.innerHeight > pageFooter.container.height();
 
         if (pageFooter.bodyElement.height() > window.innerHeight && flag) {
-            pageFooter.container.addClass('footer-relative');
+        	pageFooter.container.removeClass('footer-fixed').addClass('footer-relative');
         }
         else {
-            pageFooter.container.addClass('footer-fixed');
+        	pageFooter.container.removeClass('footer-relative').addClass('footer-fixed');
         }
     }
 };

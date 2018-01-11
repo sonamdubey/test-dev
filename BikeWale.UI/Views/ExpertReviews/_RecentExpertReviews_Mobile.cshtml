@@ -7,13 +7,13 @@
             {
                 <li class="margin-bottom20">
                     <div class="review-image-wrapper">
-                        <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))">
+                        <span data-url="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" class="article-target-image redirect-url">
                             <img class="lazy" alt="@review.Title" title="@review.Title" data-original="@Image.GetPathToShowImages(review.OriginalImgUrl, review.HostUrl, ImageSize._144x81, QualityFactor._70)" />
-                        </a>
+                        </span>
                     </div>
                     <div class="review-heading-wrapper">
                         <h3>
-                            <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title" class="font14 target-link">@review.Title.Truncate(44)</a>
+                            <span data-url="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title" class="font14 target-link redirect-url">@review.Title.Truncate(44)</span>
                         </h3>
                         <div class="grid-7 alpha padding-right5">
                             <span class="bwmsprite calender-grey-sm-icon"></span>
@@ -29,7 +29,7 @@
                         @FormatDescription.TruncateDescription(review.Description, 180)
                     </p>
 
-                        <a title="@review.Title"  href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" rel="nofollow">Read more</a>
+                    <span title="@review.Title" data-url="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" rel="nofollow" class="article-target-read-more redirect-url">Read more</span>
 
                 </li> }
         </ul>

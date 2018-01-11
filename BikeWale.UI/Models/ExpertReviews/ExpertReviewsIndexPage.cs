@@ -97,6 +97,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 30 Mar 2017
         /// Summary    : Function to get the expert reviews landing page data
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         public ExpertReviewsIndexPageVM GetData(int widgetTopCount)
         {
@@ -156,6 +158,7 @@ namespace Bikewale.Models
                         objData.Series = _models.GetSeriesByModelId(ModelId);
                     }
                     SetBreadcrumList(objData);
+                    objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
                     if (bikeType.Equals(EnumBikeType.Scooters))
                     {
                         BindMoreAboutScootersWidget(objData);
@@ -876,10 +879,10 @@ namespace Bikewale.Models
                         WidgetHref = string.Format("/m/{0}-bikes/{1}/", objMake.MaskingName, objData.Series.MaskingName)
                     };
 					
-				}
+                }
 
-				if (objData.SeriesWidget.PopularBikesByBodyStyle.Any())
-				{
+                if (objData.SeriesWidget.PopularBikesByBodyStyle.Any())
+                {
                     objData.SeriesMobileWidget.PopularBikesByBodyStyleVM = new BestBikesEditorialWidgetVM() {
                         BestBikes = objData.SeriesWidget.PopularBikesByBodyStyle.Take(6),
                         WidgetHeading = string.Format("Popular {0}", bodyStyleText),
@@ -887,10 +890,10 @@ namespace Bikewale.Models
                         WidgetHref = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(this.BodyStyle))
                     
                     };
-				}
-			}
-			else
-			{
+                }
+            }
+            else
+            {
 				objData.PopularSeriesAndBodyStyleWidget = new MultiTabsWidgetVM() {
                     TabHeading1 = string.Format("{0} {1}", objSeries.SeriesName, this.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes"),
 				    ViewPath1 = "~/Views/Shared/_EditorialSeriesBikesWidget.cshtml",
@@ -913,9 +916,9 @@ namespace Bikewale.Models
                 };
 
 
-				// Bottom widget
+                // Bottom widget
 
-				bool IsUpcomingViewAllLinkShown = !(this.BodyStyle == EnumBikeBodyStyles.Scooter || this.BodyStyle == EnumBikeBodyStyles.Sports || this.BodyStyle == EnumBikeBodyStyles.Cruiser);
+                bool IsUpcomingViewAllLinkShown = !(this.BodyStyle == EnumBikeBodyStyles.Scooter || this.BodyStyle == EnumBikeBodyStyles.Sports || this.BodyStyle == EnumBikeBodyStyles.Cruiser);
 
                 objData.UpcomingBikesByBodyStyleWidget = new UpcomingBikesWidgetVM()
                 {

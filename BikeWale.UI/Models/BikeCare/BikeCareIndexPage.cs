@@ -89,6 +89,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Populate page view model 
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         public BikeCareIndexPageVM GetData(int widgetTopCount)
         {
@@ -119,6 +121,7 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData);
                     GetWidgetData(objData, widgetTopCount);
+                    objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
                 }
                 else
                     status = StatusCodes.ContentNotFound;

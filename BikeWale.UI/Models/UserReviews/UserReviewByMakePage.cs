@@ -34,6 +34,8 @@ namespace Bikewale.Models.UserReviews
 
         }
 
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         public UserReviewByMakeVM GetData()
         {
             try
@@ -46,9 +48,11 @@ namespace Bikewale.Models.UserReviews
                     objData.OtherBikes = objBikes.Skip(PopularBikesCount);
 
                     objData.Make = objData.PopularBikes.First().Make;
+                    objData.Page = Entities.Pages.GAPages.UserReviews_MakeWise_Page;
                 }
                 BindOtherMakes();
                 BindPageMetas();
+
             }
             catch (Exception ex)
             {
@@ -124,6 +128,8 @@ namespace Bikewale.Models.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList()
         {
@@ -136,6 +142,8 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
+
             string makepageUrl = String.Format("{0}{1}-bikes/", url, objData.Make.MaskingName);
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url + "reviews/", "Reviews"));

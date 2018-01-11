@@ -80,6 +80,8 @@ namespace Bikewale.Models.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
         /// Description : Function to get list review page data
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         internal UserReviewListingVM GetData()
@@ -105,6 +107,7 @@ namespace Bikewale.Models.UserReviews
 
                     BindWidgets(objData);
                     BindPageMetas(objData);
+                    objData.Page = Entities.Pages.GAPages.User_Reviews;
                 }
             }
             catch (Exception ex)
@@ -349,6 +352,8 @@ namespace Bikewale.Models.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList(UserReviewListingVM objPage)
         {
@@ -363,6 +368,7 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
 
 
             if (objPage.RatingsInfo != null && objPage.RatingsInfo.Make != null)
