@@ -6,8 +6,9 @@
         {
             var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
             <div class="swiper-slide">
-                <div class="swiper-card">
+                <div class="swiper-card" data-newlaunch="1">
                     <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName"  class="block">
+						<span class="model-category__tag category--newlaunch">Newly Launched</span>
                         <div class="swiper-image-preview">
                             <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName" alt="@bikeName" src="" />
                           <span class="swiper-lazy-preloader"></span>
