@@ -18,10 +18,20 @@
 	    }
 
 	    if (model != null && model != undefined) {
-	        window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/"; // To be replaced for photos page
+	        if (isMobile) {
+	            window.location.href = "/m/photos/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+	        }
+	        else {
+	            window.location.href = "/photos/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+	        }
 	        return true;
 	    } else if (make != null && make != undefined) {
-	        window.location.href = "/" + make.maskingName + "-bikes/"; // To be replaced for photos page
+	        if (isMobile) {
+	            window.location.href = "/m/photos/" + make.maskingName + "-bikes/"; // To be replaced for photos page
+	        }
+	        else {
+	            window.location.href = "/photos/" + make.maskingName + "-bikes/"; // To be replaced for photos page
+	        }
 	        return true;
 	    }
 	}
