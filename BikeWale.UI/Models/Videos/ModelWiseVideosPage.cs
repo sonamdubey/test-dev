@@ -351,7 +351,7 @@ namespace Bikewale.Models.Videos
             try
             {
                 IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-                string bikeUrl, seriesUrl, scooterUrl;
+                string bikeUrl, scooterUrl;
                 scooterUrl = bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
                 ushort position = 1;
                 if (IsMobile)
