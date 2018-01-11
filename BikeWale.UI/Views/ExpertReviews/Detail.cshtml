@@ -109,7 +109,40 @@
             <div class="grid-4 omega">
                 @if (Model.Model != null && Model.Model.ModelId > 0)
                 {
-                    if (Model.PopularMakeScootersAndOtherBrandsWidget != null && Model.PopularScootersAndUpcomingScootersWidget != null)
+                    if (Model.IsSeriesAvailable)
+                    {
+                        if (Model.IsScooter && Model.SeriesBikesAndOtherBrands != null && Model.PopularScootersAndUpcomingScootersWidget!= null) 
+                        {
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.SeriesBikesAndOtherBrands)
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularScootersAndUpcomingScootersWidget)
+                        }
+                        else if (Model.SeriesBikesAndModelBodyStyleBikes != null)
+                        {
+                            if (Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes != null && Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes.Any())
+                            {
+                                <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
+                                    <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+                                        <ul id="widgetTab">
+                                            <li>
+                                                <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.SeriesWidget.SeriesName Bikes</h2>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="sidebar-list--overflow">
+                                        @Html.Partial("~/Views/Shared/_EditorialSeriesBikesWidget.cshtml", Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes)
+                                    </div>
+                                    <div class="view-all-btn-container padding-10-20-20 read-more">
+                                        <a href="@Model.SeriesWidget.WidgetLink" title="@Model.SeriesWidget.WidgetLinkTitle" class="btn view-all-target-btn">@Model.SeriesWidget.WidgetLinkTitle<span class="bwsprite teal-right"></span></a>
+                                    </div>
+                                </div>
+                            }
+                            if (Model.PopularBikesAndUpcomingBikesWidget != null)
+                            {
+                                @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
+                            }
+                        }
+                    }
+                    else if (Model.PopularMakeScootersAndOtherBrandsWidget != null && Model.PopularScootersAndUpcomingScootersWidget != null)
                     {
                         @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularMakeScootersAndOtherBrandsWidget)
                         @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularScootersAndUpcomingScootersWidget)

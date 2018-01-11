@@ -67,9 +67,10 @@ namespace Bikewale.Models
 
     public class EditorialSeriesWidgetVM
     {
-
+        public string SeriesName { get; set; }
+        public string WidgetLinkTitle { get; set; }
+        public string WidgetLink { get; set; }
         public IEnumerable<MostPopularBikesBase> PopularSeriesBikes { get; set; }
-
         public IEnumerable<BestBikeEntityBase> PopularBikesByBodyStyle { get; set; }
         public IEnumerable<UpcomingBikeEntity> UpcomingBikesByBodyStyle { get; set; }
     }
@@ -77,7 +78,7 @@ namespace Bikewale.Models
     public class EditorialSeriesMobileWidgetVM
     {
         public PopularBodyStyleVM PopularSeriesBikesVM { get; set; }
-        public BestBikesEditorialWidgetVM PopularBikesByBodyStyleVM {get;set;}
+        public BestBikesEditorialWidgetVM PopularBikesByBodyStyleVM { get; set; }
     }
 
 }
