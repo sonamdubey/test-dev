@@ -1,5 +1,4 @@
-﻿using Bikewale.Common;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
@@ -96,6 +95,7 @@ namespace Bikewale.Models
                     CreatePrevNextUrl(objData);
                     SetBreadcrumList(objData);
                     GetWidgetData(objData, widgetTopCount);
+                    objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
                 }
                 else
                 {
@@ -345,7 +345,7 @@ namespace Bikewale.Models
 
                 Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Videos.ScooterVideos.SetBreadcrumList()");
             }
-            #endregion
+        #endregion
         }
     }
 }

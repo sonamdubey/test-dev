@@ -42,7 +42,7 @@
             <p class="review-card__bike text-truncate" title="@review.BikeName">@review.BikeName</p>
             <p class="review-card__desc">@string.Format("{0}...", review.ReviewDescription)</p>
             <p class="review-card__date">@Bikewale.Utility.FormatDate.GetTimeSpan(review.EntryDate) ago</p>
-            <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/",review.MakeMaskingName,review.ModelMaskingName,review.ReviewId)" title="@string.Format("{0} Review by {1}",review.BikeName,review.CustomerName)" class="font14">Read full review</a>
+            <span data-url="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/",review.MakeMaskingName,review.ModelMaskingName,review.ReviewId)" title="@string.Format("{0} Review by {1}",review.BikeName,review.CustomerName)" class="article-target-read-more redirect-url">Read full review</span>
         </div>
     </li>
 }

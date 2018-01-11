@@ -186,6 +186,8 @@ namespace Bikewale.Models.UserReviews
         /// Description : Function to create page level schema for breadcrum
         /// Modified by Sajal Gupt on 10-11-2017       
         /// desccription : Changed breadcrumbs
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Descritption : Added 'New Bikes' in Breadcrumb
         /// </summary>
         private void SetBreadcrumList(UserReviewDetailsVM objPage)
         {
@@ -200,6 +202,7 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", bikeUrl), "New Bikes"));
 
             if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null)
             {

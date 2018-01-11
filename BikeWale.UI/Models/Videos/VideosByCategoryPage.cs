@@ -54,6 +54,7 @@ namespace Bikewale.Models.Videos
                 objVM.Videos = _objVideoCache.GetVideosBySubCategory(_categoryIdList, 1, totalCount, VideosSortOrder.JustLatest);
                 BindPageMetas(objVM);
                 SetBreadcrumList(objVM);
+                objVM.Page = Entities.Pages.GAPages.Videos_Landing_Page;
             }
             catch (Exception ex)
             {
@@ -124,7 +125,7 @@ namespace Bikewale.Models.Videos
             }
 
 
-           
+
 
         }
         #endregion

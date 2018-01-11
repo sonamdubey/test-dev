@@ -69,6 +69,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Sangram Nandkhile on 07-Apr-2017 
         /// Gets the data.
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         public UpcomingPageVM GetData()
         {
@@ -96,6 +98,7 @@ namespace Bikewale.Models
                 objUpcoming.MakesList = _upcoming.GetMakeList();
                 BindCmsContent(objUpcoming);
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);
+                objUpcoming.Page = Entities.Pages.GAPages.Upcoming_Landing_Page;
 
             }
             catch (Exception ex)
