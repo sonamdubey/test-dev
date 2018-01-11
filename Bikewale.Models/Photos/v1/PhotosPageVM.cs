@@ -8,6 +8,6 @@ namespace Bikewale.Models.Photos.v1
 {
     public class PhotosPageVM : ModelBase
     {
-
+        public OtherMakesVM OtherPopularMakes { get; set; }
     }
 }
