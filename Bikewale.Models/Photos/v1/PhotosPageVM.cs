@@ -5,6 +5,6 @@
     /// </summary>
     public class PhotosPageVM : ModelBase
     {
-
+        public OtherMakesVM OtherPopularMakes { get; set; }
     }
 }

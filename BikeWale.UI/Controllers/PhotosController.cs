@@ -22,6 +22,7 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _objGenericBike = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         private readonly IVideos _objVideos = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
 
         public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos)
         {
@@ -48,6 +49,7 @@ namespace Bikewale.Controllers
             ModelBase objModel = new ModelBase();
             return View(objModel);
         }
+
         /// <summary>
         /// Created by  : Sushil Kumar on 30th Sep 2017
         /// Description :  Photos page for desktop
