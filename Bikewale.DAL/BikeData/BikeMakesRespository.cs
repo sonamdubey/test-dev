@@ -38,6 +38,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : getbikemakes_new_08112016 added ServiceCenter and changed par_request from string to tinyint(2)
         /// Modified by sajal Gupta on 14-11-2017
         /// Description : Added MakeCategoryId
+        /// Modified by : Rajan Chauhan on 11 Jan 2018
+        /// Description : Added PhotosCount
         /// </summary>
         /// <param name="makeType">Type of bike data</param>
         /// <returns>Returns list of type BikeMakeEntityBase</returns>
@@ -48,7 +50,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_23112017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_11012018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, requestType));
@@ -70,6 +72,7 @@ namespace Bikewale.DAL.BikeData
                                     LogoUrl = Convert.ToString(dr["LogoUrl"]),
                                     PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
                                     TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"]),
+                                    PhotosCount = SqlReaderConvertor.ToUInt32(dr["PhotosCount"]),
                                     MakeCategoryId = SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"])
                                 });
                             }
