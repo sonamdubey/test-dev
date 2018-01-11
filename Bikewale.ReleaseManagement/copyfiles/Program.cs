@@ -160,8 +160,9 @@ namespace CopyFiles
                     }
 
 
-                    if (fileExtension.Equals(".js") || fileExtension.Equals(".css") || filePathName.Equals("appshell.html") )
+                    if (fileExtension.Equals(".js") || fileExtension.Equals(".css") || filePathName.Contains("appshell") )
                     {
+                        
                         string newTargetPath = targetPath.Replace(@"\website\", @"\cdn\");
                         if (!Directory.Exists(newTargetPath))
                         {
@@ -174,10 +175,10 @@ namespace CopyFiles
 
                     if (isMinify && fileName.IsHtmlFile())
                     {
+                        
                         string ntargetPath = targetPath + filePathName;
                         // Minify contents
                         string minifiedContents = MinifyHtml(ntargetPath, features);
-
                         // Write to the same file
                         File.WriteAllText(ntargetPath, minifiedContents, Encoding.UTF8);
                     }
