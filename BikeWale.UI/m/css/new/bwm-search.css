@@ -271,7 +271,7 @@ span.ui-helper-hidden-accessible { display: none; }
     margin-right: 10px;
 }
 
-.review-image-wrapper a {
+.review-image-wrapper .article-target-image {
     width: 100%;
     display: block;
 }

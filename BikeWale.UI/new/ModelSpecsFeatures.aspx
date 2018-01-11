@@ -34,6 +34,10 @@
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <a href="/" itemprop="url"><span itemprop="title">Home</span></a>
                             </li>
+                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
+                                <a href="/new-bikes-in-india/" itemprop="url"><span itemprop="title">New Bikes</span></a>
+                            </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= makeMaskingName %>-bikes/" itemprop="url"><span itemprop="title"><%= makeName %> Bikes</span></a>

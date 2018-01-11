@@ -210,7 +210,8 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl  %>/src/used-landing.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" >  
-        var CustomerId="<%=currentUser%>";
+            var CustomerId = "<%=currentUser%>";
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Landing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Landing%>' };
             </script>
 
         <!-- #include file="/includes/fontBW.aspx" -->

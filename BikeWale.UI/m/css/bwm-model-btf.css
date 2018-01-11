@@ -283,7 +283,7 @@
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
 
 .content-details-wrapper .overall-specs-tabs-wrapper li.active h3 { font-weight: bold; }
-.content-details-wrapper h2 { font-size: 18px; margin-bottom:13px; }
+.content-details-wrapper h2 { font-size: 16px; margin-bottom:13px; }
 h2.text-bold { font-weight: bold; }
 .content-details-wrapper h3, .content-details-wrapper .model-specs-header { margin-bottom:12px; }
 #modelReviewsContent h3.model-section-subtitle { margin-bottom:20px; }
@@ -651,9 +651,9 @@ h2.text-bold { font-weight: bold; }
 
 
 .news-image-wrapper { width:148px; height:83px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:15px; }
-.news-image-wrapper a { width:148px; height:83px; display:table-cell; vertical-align:middle; text-align:center; }
+.news-image-wrapper .article-target-image { width:148px; height:83px; display:table-cell; vertical-align:middle; text-align:center; cursor: pointer; }
 .news-image-wrapper img { width:148px; height:83px;}
-.review-image-wrapper a { width:100%; display:block; }
+.review-image-wrapper .article-target-image { width:100%; display:block; }
 .review-image-wrapper img { width:100%; height: 68px; }
 .news-heading-wrapper { width:47%; display:inline-block; vertical-align:top; }
 .review-image-wrapper { width:120px; height:68px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:10px; }

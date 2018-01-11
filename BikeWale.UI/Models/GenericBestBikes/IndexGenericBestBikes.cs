@@ -78,6 +78,8 @@ namespace Bikewale.Models
         /// Summary :- Generic Bike Model GetData;        
         /// Modified By :Sajal Gupta on 1-11-2017
         /// Description: Gneric bikes news widget
+        /// Modified by : Snehal Dange on 28th Dec 2017
+        /// Description: added ga pages 
         /// </summary>
         /// <param name="objUpcoming"></param>
         /// </summary>
@@ -95,7 +97,7 @@ namespace Bikewale.Models
                 obj.BestBikes = new BestBikeWidgetModel(null, _objBestBikes).GetData();
                 obj.BestBikes.CurrentPage = BodyStyleType;
                 obj.Brands = new BrandWidgetModel(makeTopCount, _bikeMakes).GetData(BodyStyleType == EnumBikeBodyStyles.Scooter ? Entities.BikeData.EnumBikeType.Scooters : Entities.BikeData.EnumBikeType.New);
-
+                obj.Page = Entities.Pages.GAPages.Best_Bikes;
                 SetPageJSONLDSchema(obj);
                 obj.News = new RecentNews(5, 0, _modelIdList, _objArticles).GetData();
             }

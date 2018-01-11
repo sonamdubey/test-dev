@@ -76,6 +76,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Get bike care detail page data
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         public BikeCareDetailPageVM GetData(int widgetTopCount)
         {
@@ -91,6 +93,7 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     GetWidgetData(objData, widgetTopCount);
                     PopulatePhotoGallery(objData);
+                    objData.Page = Entities.Pages.GAPages.Editorial_Details_Page;
                 }
                 else
                 {

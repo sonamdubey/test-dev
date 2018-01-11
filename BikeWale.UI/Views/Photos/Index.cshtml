@@ -79,19 +79,30 @@
 
     if (Model.ModelVideos != null && Model.Videos != null)
     {
+
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
-                    <div id="modelVideosContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
-                        <!-- Video start -->
-                        <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Videos</h2>
-                        @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
-                        <div class="padding-left10 more-article-target view-all-btn-container">
-                            <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="View_all_videos_link_cliked" data-var="@Model.BikeName">View all videos<span class="bwsprite teal-right"></span></a>
+                    <div id="modelVideosContent" data-id="#modelVideosContent" class="bw-model-tabs-data active">
+
+                        <div class="content-box-shadow padding-top20 padding-bottom25">
+
+                            <div class="carousel-heading-content">
+                                <h2>@Model.BikeName Videos</h2>
+                            </div>
+
+                            @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
+
+                            <div class="margin-top10 padding-left20">
+								<a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
+									View all videos <span class="bwsprite teal-right"></span>
+								</a>
+                            </div>
                         </div>
-                        <!-- Video ends -->
+
                     </div>
                 </div>
+                <div class="clear"></div>
             </div>
         </section>
     }

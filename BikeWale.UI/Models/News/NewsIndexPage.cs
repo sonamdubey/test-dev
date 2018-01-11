@@ -156,6 +156,8 @@ namespace Bikewale.Models
         /// Summary    : Get page data
         /// Modified by : Ashutosh Sharma on 27 Nov 2017
         /// Description : Added call to GetArticlesByCategoryList for news page of series.
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public NewsIndexPageVM GetData(int widgetTopCount)
@@ -199,6 +201,7 @@ namespace Bikewale.Models
                     CreatePrevNextUrl(objData, recordCount);
                     GetWidgetData(objData, widgetTopCount);
                     SetPageMetas(objData);
+                    objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
 
                 }
                 else
@@ -268,6 +271,7 @@ namespace Bikewale.Models
                             objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
                                 "/m/news/", "root", "ServerRouterWrapper");
                             objData.WindowState = storeJson;
+                            objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
                         }
                     }
                     catch
@@ -677,9 +681,9 @@ namespace Bikewale.Models
 
                         if (objData.PopularBodyStyle != null)
                         {
-							objData.PopularBodyStyle.BodyStyleText = BodyStyleLinks.BodyStyleText(objData.PopularBodyStyle.BodyStyle);
+                            objData.PopularBodyStyle.BodyStyleText = BodyStyleLinks.BodyStyleText(objData.PopularBodyStyle.BodyStyle);
 
-							objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
+                            objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
                             objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                             objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
                         }
@@ -1115,8 +1119,8 @@ namespace Bikewale.Models
                     PageName = "News"
                 };
 
-				// Bottom widget
-				bool IsUpcomingViewAllLinkShown = !(this.BodyStyle == EnumBikeBodyStyles.Scooter || this.BodyStyle == EnumBikeBodyStyles.Sports || this.BodyStyle == EnumBikeBodyStyles.Cruiser);
+                // Bottom widget
+                bool IsUpcomingViewAllLinkShown = !(this.BodyStyle == EnumBikeBodyStyles.Scooter || this.BodyStyle == EnumBikeBodyStyles.Sports || this.BodyStyle == EnumBikeBodyStyles.Cruiser);
 
                 objData.UpcomingBikesByBodyStyleWidget = new UpcomingBikesWidgetVM()
                 { 

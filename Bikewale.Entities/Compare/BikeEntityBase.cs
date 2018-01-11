@@ -58,6 +58,9 @@ namespace Bikewale.Entities.Compare
         public bool IsUpcoming { get; set; }
         [DataMember]
         public bool IsDiscontinued { get; set; }
+        [DataMember]
+        public ushort Mileage { get; set; }
+
 
     }
 }

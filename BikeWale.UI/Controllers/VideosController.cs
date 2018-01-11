@@ -274,21 +274,22 @@ namespace Bikewale.Controllers.Desktop.Videos
         {
             ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objBikeVersionsCache, _modelCache);
 
-            if(objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
+            if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
             {
                 objModel.redirectUrl = Request.RawUrl;
-                if(objModel.makeStatus == Entities.StatusCodes.RedirectPermanent)
+                if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent)
                 {
                     objModel.redirectUrl = objModel.redirectUrl.Replace(makeMaskingName, objModel.newMakeMasking);
                 }
 
-                if(objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
+                if (objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
                 {
                     objModel.redirectUrl = objModel.redirectUrl.Replace(modelMaskingName, objModel.newModelMasking);
                 }
 
                 return RedirectPermanent(objModel.redirectUrl);
-            } else if(objModel.makeStatus == Entities.StatusCodes.ContentNotFound || objModel.modelStatus == Entities.StatusCodes.ContentNotFound)
+            }
+            else if (objModel.makeStatus == Entities.StatusCodes.ContentNotFound || objModel.modelStatus == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
             }
@@ -324,6 +325,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         {
             ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objBikeVersionsCache, _modelCache);
 
+            objModel.IsMobile = true;
             if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
             {
                 objModel.redirectUrl = Request.RawUrl;
