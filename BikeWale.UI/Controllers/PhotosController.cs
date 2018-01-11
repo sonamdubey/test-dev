@@ -1,11 +1,11 @@
-﻿using Bikewale.Entities;
+﻿using System.Web.Mvc;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Models.Photos;
-using System.Web.Mvc;
 using Bikewale.Models;
+using Bikewale.Models.Photos;
 
 namespace Bikewale.Controllers
 {
@@ -35,6 +35,19 @@ namespace Bikewale.Controllers
             _objVideos = objVideos;
         }
 
+        [Route("photos/"), Filters.DeviceDetection]
+        public ActionResult Index()
+        {
+            ModelBase objModel = new ModelBase();
+            return View(objModel);
+        }
+
+        [Route("m/photos/")]
+        public ActionResult Index_Mobile()
+        {
+            ModelBase objModel = new ModelBase();
+            return View(objModel);
+        }
         /// <summary>
         /// Created by  : Sushil Kumar on 30th Sep 2017
         /// Description :  Photos page for desktop
@@ -93,20 +106,6 @@ namespace Bikewale.Controllers
                 return Redirect("/pagenotfound.aspx");
             }
         }
-
-		[Route("photos/")]
-		public ActionResult Index()
-		{
-			ModelBase objModel = new ModelBase();
-			return View(objModel);
-		}
-
-		[Route("m/photos/")]
-		public ActionResult Index_Mobile()
-		{
-			ModelBase objModel = new ModelBase();
-			return View(objModel);
-		}
 
 		[Route("photos/make/")]
 		public ActionResult Make()
