@@ -206,9 +206,15 @@ $(document).ready(function () {
         switch (rdoModel) {
             case "1":
                 modelIds = $("#ddlModels :selected").val();
-                if (!$("#ddlModels :selected").val()) {
+                if ($("#ddlModels :selected").val() == '') {
                     isValid = false;
                     Materialize.toast("Please select one or more models", 6000);
+                }
+                else {
+                    $("#ddlModels :selected").each(function () {
+                        if ($(this).val())
+                            modelIds = modelIds + $(this).val() + ',';
+                    });
                 }
                 break;
             case "2":
@@ -261,10 +267,6 @@ $(document).ready(function () {
     });
 
     setRulesData = function () {
-        $("#ddlModels :selected").each(function () {
-            if ($(this).val())
-                modelIds = modelIds + $(this).val() + ',';
-        });
         $('#hdnModelIdList').val(modelIds);
         $('#hdnCityIdList').val(cityIds);
         $('#hdnStateIdList').val(stateIds);

@@ -32,6 +32,14 @@ namespace Bikewale.Models
         public MultiTabsWidgetVM PopularMakeBikesAndBodyStyleBikesWidget { get; set; }
         public MultiTabsWidgetVM PopularMakeScootersAndOtherBrandsWidget { get; set; }
         public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
+
+        public MultiTabsWidgetVM SeriesBikesAndOtherBrands { get; set; }
+        public MultiTabsWidgetVM SeriesBikesAndModelBodyStyleBikes { get; set; }
+
         public SimilarBikesWidgetVM SimilarBikes { get; set; }
+        public EditorialSeriesWidgetVM SeriesWidget { get; set; }
+
+        public bool IsSeriesAvailable { get; set; }
+        public bool IsScooter { get; set; }
     }
 }

@@ -111,8 +111,24 @@
 </section>
 
 
-
-@if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Any())
+@if (Model.IsSeriesAvailable && Model.MostPopularBikes != null)
+{
+    <section>
+        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>@Model.MostPopularBikes.WidgetHeading</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="@string.Format("/m{0}",Model.MostPopularBikes.WidgetHref)" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.MostPopularBikes)
+        </div>
+    </section>
+}
+else if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Any())
 {
     <section>
         <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
