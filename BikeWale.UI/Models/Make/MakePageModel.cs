@@ -152,8 +152,8 @@ namespace Bikewale.Models
                     objData.SelectedSortingText = "Popular";
                 }
                 objData.ShowCheckOnRoadpriceBtn = !BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageOnRoadPriceBtnPct);
-                BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindUpcomingBikes(objData);
+                BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindCompareBikes(objData, CompareSource, cityId);
                 BindDealerServiceData(objData, cityId);
                 BindCMSContent(objData);
@@ -420,20 +420,46 @@ namespace Bikewale.Models
         /// Summary :- Added Target Make
         /// Modified By : Sushil Kumar on 23rd Aug 2017
         /// Description : Added null check for min and max price
+        /// Modified by : Snehal Dange on 11th Jan 2017
+        /// Decription: Changed meta title and description
         private void BindPageMetaTags(MakePageVM objData, IEnumerable<MostPopularBikesBase> objModelList, BikeMakeEntityBase objMakeBase)
         {
             long minPrice = 0;
             long MaxPrice = 0;
+            IEnumerable<MostPopularBikesBase> objTopModelList = null;
+            IList<string> topBikeList = null;
+            int topModelCount = 4;
+            string topModelsName = null;
             try
             {
+                topBikeList = new List<string>();
                 if (objModelList != null && objModelList.Any())
                 {
                     minPrice = objModelList.Min(bike => bike.VersionPrice);
                     MaxPrice = objModelList.Max(bike => bike.VersionPrice);
                 }
+                if (objModelList.Count() < topModelCount)
+                {
+                    topModelCount = objModelList.Count();
+                }
+                objTopModelList = objModelList.Take(topModelCount);
 
-                objData.PageMetaTags.Title = string.Format("{0} Bikes | {1} {0} Models- Prices, Dealers, & Images- BikeWale", objData.MakeName, objData.Bikes.Count());
-                objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1} - Rs. {2}. Check out {0} on road price, reviews, mileage, versions, news & images at Bikewale.", objData.MakeName, Bikewale.Utility.Format.FormatPrice(minPrice.ToString()), Bikewale.Utility.Format.FormatPrice(MaxPrice.ToString()));
+                foreach (var objBike in objTopModelList.Take(topModelCount - 1))
+                {
+                    topBikeList.Add(objBike.BikeName);
+                }
+
+                if (objTopModelList.Last() != null)
+                {
+                    topModelsName = string.Format("{0} and {1}", string.Join(",", topBikeList), objTopModelList.Last().BikeName);
+                }
+
+
+
+                objData.PageMetaTags.Title = string.Format("{0} Bikes in India- {0} New Bikes Prices, Specs, & Images - BikeWale", objData.MakeName);
+
+                objData.PageMetaTags.Description = string.Format("{0} has a total of {1} models. The top 4 {0} models are- {2}. BikeWale offers history, prices, specs, and images for all {0} models in India.{3}", objData.MakeName, objModelList.Count(), topModelsName, (objData.UpcomingBikes.UpcomingBikes.Count() > 0 ? string.Format("There are {0} {1} upcoming models as well", objData.UpcomingBikes.UpcomingBikes.Count(), objData.MakeName) : ""));
+
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
                 objData.PageMetaTags.AmpUrl = string.Format("{0}/m/{1}-bikes/amp/", BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
