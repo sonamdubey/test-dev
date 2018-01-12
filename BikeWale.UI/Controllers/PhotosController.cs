@@ -108,8 +108,9 @@ namespace Bikewale.Controllers
 		[Route("m/photos/")]
 		public ActionResult Index_Mobile()
 		{
-			ModelBase objModel = new ModelBase();
-			return View(objModel);
+            Bikewale.Models.Photos.v1.PhotosPage _objData = new Bikewale.Models.Photos.v1.PhotosPage(false, _objMakeCache);
+            Bikewale.Models.Photos.v1.PhotosPageVM obj = _objData.GetData();
+            return View(obj);
 		}
 
 		[Route("photos/make/")]

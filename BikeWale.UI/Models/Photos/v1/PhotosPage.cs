@@ -64,13 +64,13 @@ namespace Bikewale.Models.Photos.v1
         /// <returns></returns>
         private void BindMakesWidget()
         {
-            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos);
+            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos).Take(9);
             _objData.OtherPopularMakes = new OtherMakesVM()
             {
                 Makes = makes,
-                PageLinkFormat = "/{0}-bikes/",
+                PageLinkFormat = "/{0}-bikes/images/",
                 PageTitleFormat = "{0} Bikes",
-                CardText = "bike"
+                CardText = "Bike"
             };
         }
         private void BindPageWidgets()
