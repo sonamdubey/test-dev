@@ -30,13 +30,15 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  :   Sumit Kate on 03 Mar 2016
         /// Summary     :   Gets the Makes list
+        /// Modified by :   Rajan Chauhan
+        /// Description :   Changed key
         /// </summary>
         /// <param name="makeType">Type of make</param>
         /// <returns></returns>
         public IEnumerable<Entities.BikeData.BikeMakeEntityBase> GetMakesByType(Entities.BikeData.EnumBikeType makeType)
         {
             IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
-            string key = String.Format("BW_Makes_V1_{0}", makeType.ToString());
+            string key = String.Format("BW_Makes_{0}", makeType.ToString());
             try
             {
                 makes = _cache.GetFromCache<IEnumerable<Entities.BikeData.BikeMakeEntityBase>>(key, new TimeSpan(1, 0, 0, 0), () => _objMakes.GetMakesByType(makeType));

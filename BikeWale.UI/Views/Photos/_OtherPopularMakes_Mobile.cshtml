@@ -1,0 +1,22 @@
+﻿@model Bikewale.Models.OtherMakesVM
+@if (Model != null && Model.Makes != null)
+{
+    <div class="swiper-container carousel__related-makes" data-spacebetween="0">
+        <ul class="swiper-wrapper">
+            @foreach (var make in Model.Makes)
+            {
+                <li class="swiper-slide carousel-slide">
+                    <a href=@string.Format("/m{0}",string.Format(Model.PageLinkFormat, make.MaskingName)) title="@string.Format(Model.PageTitleFormat, make.MakeName)" class="related-make-card">
+                        <div class="make-icon__content">
+                            <span class="brandlogosprite brand-@make.MakeId"></span>
+                        </div>
+                        <div class="make-details__content">
+                            <h3 class="make-details__title">@make.MakeName Bikes</h3>
+                            <p class="make-details__subtitle">@string.Format("{0} {1}", make.PhotosCount, (make.PhotosCount < 2 ? "Image" : "Images")) from @string.Format("{0} {1}{2}", make.TotalCount, Model.CardText, (make.PhotosCount < 2 ? "" : "s"))</p>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}
