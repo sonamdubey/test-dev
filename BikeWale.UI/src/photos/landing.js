@@ -5,11 +5,44 @@
 		isMobile = false;
 	}
 
+	function MakeModelPhotosRedirection(items) {
+	    var make = new Object();
+	    make.maskingName = items.payload.makeMaskingName;
+	    make.id = items.payload.makeId;
+	    var model = null;
+	    if (items.payload.modelId > 0) {
+	        model = new Object();
+	        model.maskingName = items.payload.modelMaskingName;
+	        model.id = items.payload.modelId;
+	        model.futuristic = items.payload.futuristic;
+	    }
+
+	    if (model != null && model != undefined) {
+	        if (isMobile) {
+	            window.location.href = "/m/photos/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+	        }
+	        else {
+	            window.location.href = "/photos/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+	        }
+	        return true;
+	    } else if (make != null && make != undefined) {
+	        if (isMobile) {
+	            window.location.href = "/m/photos/" + make.maskingName + "-bikes/"; // To be replaced for photos page
+	        }
+	        else {
+	            window.location.href = "/photos/" + make.maskingName + "-bikes/"; // To be replaced for photos page
+	        }
+	        return true;
+	    }
+	}
+
 	// explore bikes search
 	$("#exploreBikesField").bw_autocomplete({
 		recordCount: 5,
-		source: 1,
+		source: 8,
 		click: function (event, ui, orgTxt) {
+		    MakeModelPhotosRedirection(ui.item);
+		    isMakeModelPhotosRedirected = true;
 		},
 		open: function (result) {
 			$("ul.ui-menu").width($('#exploreBikesField').innerWidth());

@@ -268,6 +268,9 @@ var bwAutoComplete = function (options) {
                 ulItem.closest('li').addClass('event-none');
                 ulItem.append(' <span class="rightfloat margin-left10 font14 text-grey">Not reviewed yet</span>')
             }
+            if (options.source == '8') {
+                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.photosCount + ' Photos)</span>')
+            }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {
                     if (item.payload.futuristic == 'True') {
@@ -1021,6 +1024,9 @@ docReady(function () {
         open: function (result) {
             objBikes.result = result;
             $("ul.ui-menu").width($('#newBikeList').innerWidth());
+            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+                $('.ui-autocomplete').off('menufocus hover mouseover');
+            }
         },
         focus: function () {
             if ($('#newBikeList').val().trim() == '') {
