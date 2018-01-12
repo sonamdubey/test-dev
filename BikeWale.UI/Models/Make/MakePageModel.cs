@@ -433,29 +433,34 @@ namespace Bikewale.Models
             try
             {
                 topBikeList = new List<string>();
-                if (objModelList != null && objModelList.Any())
+                if (objModelList != null)
                 {
-                    minPrice = objModelList.Min(bike => bike.VersionPrice);
-                    MaxPrice = objModelList.Max(bike => bike.VersionPrice);
+                    if (objModelList.Any())
+                    {
+                        minPrice = objModelList.Min(bike => bike.VersionPrice);
+                        MaxPrice = objModelList.Max(bike => bike.VersionPrice);
+                    }
+                    if (objModelList.Count() < topModelCount)
+                    {
+                        topModelCount = objModelList.Count();
+                    }
+
+                    objTopModelList = objModelList.OrderBy(x => x.BikePopularityIndex).Take(topModelCount);
+
+                    if (objTopModelList != null)
+                    {
+                        foreach (var objBike in objTopModelList.Take(topModelCount - 1))
+                        {
+                            topBikeList.Add(objBike.BikeName);
+                        }
+
+                        if (objTopModelList.Last() != null)
+                        {
+                            topModelsName = string.Format("{0} and {1}", string.Join(",", topBikeList), objTopModelList.Last().BikeName);
+                        }
+                    }
+
                 }
-                if (objModelList.Count() < topModelCount)
-                {
-                    topModelCount = objModelList.Count();
-                }
-                objTopModelList = objModelList.Take(topModelCount);
-
-                foreach (var objBike in objTopModelList.Take(topModelCount - 1))
-                {
-                    topBikeList.Add(objBike.BikeName);
-                }
-
-                if (objTopModelList.Last() != null)
-                {
-                    topModelsName = string.Format("{0} and {1}", string.Join(",", topBikeList), objTopModelList.Last().BikeName);
-                }
-
-
-
                 objData.PageMetaTags.Title = string.Format("{0} Bikes in India- {0} New Bikes Prices, Specs, & Images - BikeWale", objData.MakeName);
 
                 objData.PageMetaTags.Description = string.Format("{0} has a total of {1} models. The top 4 {0} models are- {2}. BikeWale offers history, prices, specs, and images for all {0} models in India.{3}", objData.MakeName, objModelList.Count(), topModelsName, (objData.UpcomingBikes.UpcomingBikes.Count() > 0 ? string.Format("There are {0} {1} upcoming models as well", objData.UpcomingBikes.UpcomingBikes.Count(), objData.MakeName) : ""));
