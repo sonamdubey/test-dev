@@ -3278,18 +3278,18 @@ namespace Bikewale.DAL.BikeData
             }
             return objSeries;
         }
-        public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData)
+        public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters)
         {
             List<MostPopularBikesBase> objList = null;
             MostPopularBikesBase objData = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakecity"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getadpromotedbikesdetails"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, ObjData.TopCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, ObjData.MakeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, ObjData.CityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, bikeFilters.TopCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, bikeFilters.MakeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, bikeFilters.CityId));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -3314,7 +3314,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
                                 objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
                                 objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
-                                objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
@@ -3334,7 +3333,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "BikeModelsRepository.GetMostPopularBikesbymakecity");
+                ErrorClass.LogError(ex, "BikeModelsRepository.GetAdPromotedBikesDetails");
 
             }
             return objList;
