@@ -203,6 +203,7 @@
     <Compile Include="BikeData\MakeSubFooterEntity.cs" />
     <Compile Include="BikeData\MileageInfoByBodyStyle.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
+    <Compile Include="BikeData\ModelIdWithBodyStyle.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
     <Compile Include="BikeData\MostPopularBikesBase.cs" />
     <Compile Include="BikeData\NewBikeEntityBase.cs" />
