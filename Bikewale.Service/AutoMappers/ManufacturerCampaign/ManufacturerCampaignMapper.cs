@@ -132,11 +132,11 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 }
                 campaignResponse.DetailsCampaign.EsCamapign.TemplateHtml = template;
                 campaignResponse.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
-                campaignResponse.CampaignLeadSource.CaptionText = LeadCampaign.LeadsPropertyTextMobile;
+                campaignResponse.CampaignLeadSource.CaptionText = String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization);
                 campaignResponse.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
                 campaignResponse.CampaignType = CampaignType.ES;
 
-                
+
                 campaignResponse.CampaignLeadSource.LinkUrl = HttpUtility.HtmlDecode(LeadCampaign.PageUrl);
             }
 
