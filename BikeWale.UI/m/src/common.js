@@ -269,7 +269,8 @@ var bwAutoComplete = function (options) {
                 ulItem.append(' <span class="rightfloat margin-left10 font14 text-grey">Not reviewed yet</span>')
             }
             if (options.source == '8') {
-                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.photosCount + ' Photos)</span>')
+                var suffixText = (parseInt(item.payload.photosCount) > 1) ? ' Photos' : ' Photo';
+                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.photosCount.toString() + suffixText + ')</span>')
             }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {
