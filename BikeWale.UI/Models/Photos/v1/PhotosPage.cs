@@ -46,7 +46,7 @@ namespace Bikewale.Models.Photos.v1
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.v1.GetData : GetData()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.GetData()");
             }
 
             return _objData;
@@ -59,25 +59,24 @@ namespace Bikewale.Models.Photos.v1
         /// <returns></returns>
         private void BindMakesWidget()
         {
-            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos);
+            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos).Take(9);
             _objData.OtherPopularMakes = new OtherMakesVM()
             {
                 Makes = makes,
-                PageLinkFormat = "/{0}-bikes/",
+                PageLinkFormat = "/{0}-bikes/images/",
                 PageTitleFormat = "{0} Bikes",
-                CardText = "bike"
+                CardText = "Bike"
             };
         }
         private void BindPageWidgets()
         {
-            PQSourceEnum pqSource = IsMobile ? PQSourceEnum.Mobile_Photos_Page : PQSourceEnum.Desktop_Photos_page;
             try
             {
                
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindPageWidgets : BindPageWidgets()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.BindPageWidgets()");
             }
         }
 
@@ -89,7 +88,7 @@ namespace Bikewale.Models.Photos.v1
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.SetPageMetas : SetPageMetas()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.SetPageMetas()");
             }
 
         }

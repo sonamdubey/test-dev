@@ -119,57 +119,13 @@
 		</div>
 	</div>
 </section>
+@if (Model != null && Model.OtherPopularMakes != null)
+{
+    <section>
+        <div class="container bg-white padding-bottom10 section-bottom-margin">
+            <h2 class="related-bikes__title">Users also looked at</h2>
+            @Html.Partial("~/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
+        </div>
+    </section>
+}
 
-<section>
-	<div class="container bg-white padding-bottom10 section-bottom-margin">
-		<h2 class="related-bikes__title">Users also looked at</h2>
-		<div class="swiper-container carousel__related-makes" data-spacebetween="0">
-			<ul class="swiper-wrapper">
-				<li class="swiper-slide carousel-slide">
-					<a href="" title="" class="related-make-card">
-						<div class="make-icon__content">
-							<span class="brandlogosprite brand-2"></span>
-						</div>
-						<div class="make-details__content">
-							<h3 class="make-details__title">Royal Enfield Bikes</h3>
-							<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-						</div>
-					</a>
-				</li>
-				<li class="swiper-slide carousel-slide">
-					<a href="" title="" class="related-make-card">
-						<div class="make-icon__content">
-							<span class="brandlogosprite brand-7"></span>
-						</div>
-						<div class="make-details__content">
-							<h3 class="make-details__title">Royal Enfield Bikes</h3>
-							<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-						</div>
-					</a>
-				</li>
-				<li class="swiper-slide carousel-slide">
-					<a href="" title="" class="related-make-card">
-						<div class="make-icon__content">
-							<span class="brandlogosprite brand-13"></span>
-						</div>
-						<div class="make-details__content">
-							<h3 class="make-details__title">Yamaha Bikes</h3>
-							<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-						</div>
-					</a>
-				</li>
-				<li class="swiper-slide carousel-slide">
-					<a href="" title="" class="related-make-card">
-						<div class="make-icon__content">
-							<span class="brandlogosprite brand-23"></span>
-						</div>
-						<div class="make-details__content">
-							<h3 class="make-details__title">Husqvarna Bikes</h3>
-							<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-						</div>
-					</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</section>
