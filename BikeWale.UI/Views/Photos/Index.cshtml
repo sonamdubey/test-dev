@@ -1,829 +1,404 @@
 ﻿@model Bikewale.Models.Photos.v1.PhotosPageVM
 
 @{
-	ViewBag.Title = "Bike Images";
-	Model.IsHeaderFix = true;
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
-	Model.Page_JS_Path = "/src/photos/landing.js";
+    ViewBag.Title = "Bike Images";
+    Model.IsHeaderFix = true;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
+    Model.Page_JS_Path = "/src/photos/landing.js";
 }
 
 <section class="container padding-top10">
-	<div class="grid-12">
-		<div class="breadcrumb margin-bottom15">
-			<ul>
-				<li>
-					<a class="breadcrumb-link" href="/" title="Home">
-						<span class="breadcrumb-link__label">Home</span>
-					</a>
-				</li>
-				<li class="current">
-					<span class="breadcrumb-link__label">Bike Images</span>
-				</li>
-			</ul>
-			<div class="clear"></div>
-		</div>
-	</div>
-	<div class="clear"></div>
+    <div class="grid-12">
+        <div class="breadcrumb margin-bottom15">
+            <ul>
+                <li>
+                    <a class="breadcrumb-link" href="/" title="Home">
+                        <span class="breadcrumb-link__label">Home</span>
+                    </a>
+                </li>
+                <li class="current">
+                    <span class="breadcrumb-link__label">Bike Images</span>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
 </section>
 
 <section>
-	<div class="container section-bottom-margin">
-		<div class="grid-12">
-			<div class="padding-15-20-20 content-box-shadow">
-				<h1 class="text-semibold margin-bottom10">Bike Images</h1>
-				<div class="foldable-content" data-toggle="yes">
-					<p class="truncatable-content" data-readtextflag="1">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce condimentum consectetur mauris. In convallis sem risus, pulvinar faucibus erat semper vel. Ut porttitor, turpis eget tempus euismod, velit nibh porttitor nunc, ac lobortis eros augue sed tortor. Pellentesque bibendum euismod mauris eget tempor. Nam nulla ante, facilisis a dignissim sed, suscipit vel ex. Sed in porta leo, efficitur fringilla lectus. Praesent malesuada, erat nec dictum egestas, eros ex ornare libero, hendrerit feugiat metus risus quis orci. Vestibulum in pellentesque quam. Donec fringilla massa et odio malesuada maximus. Curabitur dignissim nisi non ipsum blandit lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec libero sem, lobortis quis nisl sit amet, pretium bibendum orci. Cras sed luctus lectus. In tincidunt, leo in porttitor placerat, elit quam porttitor ex, a vestibulum massa felis ac ante. Sed sit amet tellus ac leo euismod tempus. Proin arcu turpis, aliquam vitae odio vitae, consectetur vulputate leo.</p>
-					<a href="javascript:void(0)" class="read-more-button" rel="nofollow" data-text="Collapse">...Read more</a>
-				</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
+    <div class="container section-bottom-margin">
+        <div class="grid-12">
+            <div class="padding-15-20-20 content-box-shadow">
+                <h1 class="text-semibold margin-bottom10">Bike Images</h1>
+                <div class="foldable-content" data-toggle="yes">
+                    <p class="truncatable-content" data-readtextflag="1">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce condimentum consectetur mauris. In convallis sem risus, pulvinar faucibus erat semper vel. Ut porttitor, turpis eget tempus euismod, velit nibh porttitor nunc, ac lobortis eros augue sed tortor. Pellentesque bibendum euismod mauris eget tempor. Nam nulla ante, facilisis a dignissim sed, suscipit vel ex. Sed in porta leo, efficitur fringilla lectus. Praesent malesuada, erat nec dictum egestas, eros ex ornare libero, hendrerit feugiat metus risus quis orci. Vestibulum in pellentesque quam. Donec fringilla massa et odio malesuada maximus. Curabitur dignissim nisi non ipsum blandit lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec libero sem, lobortis quis nisl sit amet, pretium bibendum orci. Cras sed luctus lectus. In tincidunt, leo in porttitor placerat, elit quam porttitor ex, a vestibulum massa felis ac ante. Sed sit amet tellus ac leo euismod tempus. Proin arcu turpis, aliquam vitae odio vitae, consectetur vulputate leo.
+                    </p>
+                    <a href="javascript:void(0)" class="read-more-button" rel="nofollow" data-text="Collapse">...Read more</a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
 </section>
 
 <section>
-	<div class="container section-bottom-margin">
-		<div class="grid-12">
-			<div class="content-box-shadow padding-bottom15">
-				<h2 class="image-carousel__title">Recently Added Bike Images</h2>
-				<div class="jcarousel-wrapper carousel--full-width carousel__recently-added">
-					<div class="jcarousel">
-						<ul>
-							<li class="carousel-slide">
-								<a href="" title="" class="model-image__card">
-									<ul class="image-grid__list" data-grid="7">
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd8.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Cornering-5137.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd8.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Headlamp-5138.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd6.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5136.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-										</li>
-									</ul>
-									<div class="card-image__details">
-										<h3 class="card-details__left-col">
-											<span class="card-details__make">Bajaj</span>
-											<span class="card-details__model">Pulsar NS200</span>
-										</h3>
-										<div class="card-details__right-col">
-											<span class="card-details__image-count">74</span></div>
-									</div>
-								</a>
-							</li>
-							<li class="swiper-slide carousel-slide">
-								<a href="" title="" class="model-image__card">
-									<ul class="image-grid__list" data-grid="7">
-										<li class="image-grid-list__item">
-												<img src="https://imgd.aeplcdn.com//310x174//n/bw/models/colors/kawasaki-ninja-300-lime-green-1505992283319.jpg" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15360/img/l/Kawasaki-Ninja-300-Exterior-44305.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd8.aeplcdn.com//310x174//bikewaleimg/ec/15360/img/l/Kawasaki-Ninja-300-Exhaust-44372.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15360/img/l/Kawasaki-Ninja-300-Exterior-44373.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15360/img/l/Kawasaki-Ninja-300-Brakes-44377.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd6.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5136.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/15360/img/l/Kawasaki-Ninja-300-Exterior-44379.jpg?v=20170425" alt="">
-										</li>
-									</ul>
-									<div class="card-image__details">
-										<h3 class="card-details__left-col">
-											<span class="card-details__make">Kawasaki</span>
-											<span class="card-details__model">Ninja 300</span>
-										</h3>
-										<div class="card-details__right-col">
-											<span class="card-details__image-count">8888</span></div>
-									</div>
-								</a>
-							</li>
-							<li class="swiper-slide carousel-slide">
-								<a href="" title="" class="model-image__card">
-									<ul class="image-grid__list" data-grid="7">
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Exterior-47531.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd.aeplcdn.com//310x174//n/bw/models/colors/royal-enfield-thunderbird-350-marine-1486393696401.jpg" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Exhaust-47537.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd8.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Exterior-47540.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Front-47543.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Brakes-47545.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Exterior-47547.jpg?v=20170425" alt="">
-										</li>
-									</ul>
-									<div class="card-image__details">
-										<h3 class="card-details__left-col">
-											<span class="card-details__make">Royal Enfield</span>
-											<span class="card-details__model">Thunderbird 350</span>
-										</h3>
-										<div class="card-details__right-col">
-											<span class="card-details__image-count">74</span></div>
-									</div>
-								</a>
-							</li>
-							<li class="swiper-slide carousel-slide">
-								<a href="" title="" class="model-image__card">
-									<ul class="image-grid__list" data-grid="7">
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd8.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Cornering-5137.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd8.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Headlamp-5138.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd6.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5136.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-										</li>
-									</ul>
-									<div class="card-image__details">
-										<h3 class="card-details__left-col">
-											<span class="card-details__make">Royal Enfield</span>
-											<span class="card-details__model">Thunderbird 500</span>
-										</h3>
-										<div class="card-details__right-col">
-											<span class="card-details__image-count">8888</span></div>
-									</div>
-								</a>
-							</li>
-							<li class="swiper-slide carousel-slide">
-								<a href="" title="" class="model-image__card">
-									<ul class="image-grid__list" data-grid="7">
-										<li class="image-grid-list__item">
-												<img src="https://imgd.aeplcdn.com//310x174//n/bw/models/colors/kawasaki-ninja-300-lime-green-1505992283319.jpg" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15360/img/l/Kawasaki-Ninja-300-Exterior-44305.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd8.aeplcdn.com//310x174//bikewaleimg/ec/15360/img/l/Kawasaki-Ninja-300-Exhaust-44372.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15360/img/l/Kawasaki-Ninja-300-Exterior-44373.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15360/img/l/Kawasaki-Ninja-300-Brakes-44377.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd6.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5136.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/15360/img/l/Kawasaki-Ninja-300-Exterior-44379.jpg?v=20170425" alt="">
-										</li>
-									</ul>
-									<div class="card-image__details">
-										<h3 class="card-details__left-col">
-											<span class="card-details__make">Kawasaki</span>
-											<span class="card-details__model">Ninja 300</span>
-										</h3>
-										<div class="card-details__right-col">
-											<span class="card-details__image-count">8888</span></div>
-									</div>
-								</a>
-							</li>
-							<li class="swiper-slide carousel-slide">
-								<a href="" title="" class="model-image__card">
-									<ul class="image-grid__list" data-grid="3">
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Exterior-47531.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd.aeplcdn.com//310x174//n/bw/models/colors/royal-enfield-thunderbird-350-marine-1486393696401.jpg" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Exhaust-47537.jpg?v=20170425" alt="">
-										</li>
-									</ul>
-									<div class="card-image__details">
-										<h3 class="card-details__left-col">
-											<span class="card-details__make">Royal Enfield</span>
-											<span class="card-details__model">Thunderbird 350</span>
-										</h3>
-										<div class="card-details__right-col">
-											<span class="card-details__image-count">3</span></div>
-									</div>
-								</a>
-							</li>
-							<li class="swiper-slide carousel-slide">
-								<a href="" title="" class="model-image__card">
-									<ul class="image-grid__list" data-grid="7">
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Exterior-47531.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd.aeplcdn.com//310x174//n/bw/models/colors/royal-enfield-thunderbird-350-marine-1486393696401.jpg" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Exhaust-47537.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd8.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Exterior-47540.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Front-47543.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Brakes-47545.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/15279/img/l/Royal-Enfield-Thunderbird-350-Exterior-47547.jpg?v=20170425" alt="">
-										</li>
-									</ul>
-									<div class="card-image__details">
-										<h3 class="card-details__left-col">
-											<span class="card-details__make">Royal Enfield</span>
-											<span class="card-details__model">Thunderbird 350</span>
-										</h3>
-										<div class="card-details__right-col">
-											<span class="card-details__image-count">74</span></div>
-									</div>
-								</a>
-							</li>
-							<li class="swiper-slide carousel-slide">
-								<a href="" title="" class="model-image__card">
-									<ul class="image-grid__list" data-grid="7">
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd8.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Cornering-5137.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd8.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Headlamp-5138.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd6.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5136.jpg?v=20170425" alt="">
-										</li>
-										<li class="image-grid-list__item">
-												<img src="https://imgd5.aeplcdn.com//310x174//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-										</li>
-									</ul>
-									<div class="card-image__details">
-										<h3 class="card-details__left-col">
-											<span class="card-details__make">Royal Enfield</span>
-											<span class="card-details__model">Thunderbird 500</span>
-										</h3>
-										<div class="card-details__right-col">
-											<span class="card-details__image-count">8888</span></div>
-									</div>
-								</a>
-							</li>
-							<li class="swiper-slide carousel-slide">
-								<a href="" title="" class="model-image__card">
-									<ul class="image-grid__list" data-grid="1">
-										<li class="image-grid-list__item">
-												<img src="https://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-										</li>
-									</ul>
-									<div class="card-image__details">
-										<h3 class="card-details__left-col">
-											<span class="card-details__make">Royal Enfield</span>
-											<span class="card-details__model">Thunderbird 500</span>
-										</h3>
-										<div class="card-details__right-col">
-											<span class="card-details__image-count">1</span></div>
-									</div>
-								</a>
-							</li>
-						</ul>
-					</div>
-					<span class="jcarousel-control-left">
-						<span class="jcarousel-arrow-prev"></span>
-					</span>
-					<span class="jcarousel-control-right">
-						<span class="jcarousel-arrow-next"></span>
-					</span>
-				</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
+    <div class="container section-bottom-margin">
+        <div class="grid-12">
+            <div class="content-box-shadow padding-bottom15">
+                <h2 class="image-carousel__title">Recently Added Bike Images</h2>
+                @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.ModelsImages)
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
 </section>
 
 <section>
-	<div class="container section-bottom-margin">
-		<div class="grid-12">
-			<div class="content-box-shadow padding-top15">
-				<h2 class="explore-bikes__title">Explore Bikes</h2>
-				<div class="padding-bottom20">
-					<div class="explore-bikes__search form-control-box">
-						<input type="text" id="exploreBikesField" class="form-control__input" placeholder="Search Bike and Brands">
+    <div class="container section-bottom-margin">
+        <div class="grid-12">
+            <div class="content-box-shadow padding-top15">
+                <h2 class="explore-bikes__title">Explore Bikes</h2>
+                <div class="padding-bottom20">
+                    <div class="explore-bikes__search form-control-box">
+                        <input type="text" id="exploreBikesField" class="form-control__input" placeholder="Search Bike and Brands">
 
-						<ul id="errExploreBikes" class="ui-autocomplete ui-front ui-menu hide form-control__error">
-								<li class="ui-menu-item" tabindex="-1">
-										<span class="text-bold">Oops! No suggestions found</span><br />
-										<span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
-								</li>
-						</ul>
-					</div>
+                        <ul id="errExploreBikes" class="ui-autocomplete ui-front ui-menu hide form-control__error">
+                            <li class="ui-menu-item" tabindex="-1">
+                                <span class="text-bold">Oops! No suggestions found</span><br />
+                                <span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
+                            </li>
+                        </ul>
+                    </div>
 
-					<ul class="explore-model-image__list image-card--list">
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="4">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-									</li>								
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="4">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-									</li>								
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="4">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-									</li>								
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="4">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-									</li>								
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="4">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-									</li>								
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="3">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="1">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="3">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="1">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="4">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-									</li>								
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="4">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-									</li>								
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-						<li class="explore-model-image-list__item">
-							<a href="" title="" class="model-image__card">
-								<ul class="image-grid__list" data-grid="4">
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-									</li>
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-									</li>								
-									<li class="image-grid-list__item">
-											<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-									</li>
-								</ul>
-								<div class="card-image__details">
-									<h3 class="card-details__left-col">
-										<span class="card-details__make">Bajaj</span>
-										<span class="card-details__model">Pulsar NS200</span>
-									</h3>
-									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-					</ul>
-					<div class="clear"></div>
+                    <ul class="explore-model-image__list image-card--list">
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="4">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="4">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="4">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="4">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="4">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="3">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="1">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="3">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="1">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="4">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="4">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="explore-model-image-list__item">
+                            <a href="" title="" class="model-image__card">
+                                <ul class="image-grid__list" data-grid="4">
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
+                                    </li>
+                                    <li class="image-grid-list__item">
+                                        <img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
+                                    </li>
+                                </ul>
+                                <div class="card-image__details">
+                                    <h3 class="card-details__left-col">
+                                        <span class="card-details__make">Bajaj</span>
+                                        <span class="card-details__model">Pulsar NS200</span>
+                                    </h3>
+                                    <div class="card-details__right-col">
+                                        <span class="card-details__image-count">74</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
 
-					<div class="explore-model__more-btn">
-						<button type="button" class="btn btn-inv-blue">View More</button>
-					</div>
+                    <div class="explore-model__more-btn">
+                        <button type="button" class="btn btn-inv-blue">View More</button>
+                    </div>
 
-				</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
 </section>
+@if (Model != null && Model.OtherPopularMakes != null)
+{
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-bottom5">
+                    <h2 class="related-bikes__title">Users also looked at</h2>
+                    @Html.Partial("~/Views/Photos/_OtherPopularMakes.cshtml", Model.OtherPopularMakes)
 
-<section>
-	<div class="container section-bottom-margin">
-		<div class="grid-12">
-			<div class="content-box-shadow padding-bottom5">
-				<h2 class="related-bikes__title">Users also looked at</h2>
-
-				<div class="jcarousel-wrapper carousel--full-width carousel__related-makes">
-					<div class="jcarousel" data-swipe="5">
-						<ul>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-2"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Royal Enfield Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-7"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Royal Enfield Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-13"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Yamaha Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-23"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Husqvarna Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-2"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Royal Enfield Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-7"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Royal Enfield Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-13"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Yamaha Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-23"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Husqvarna Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-2"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Royal Enfield Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-7"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Royal Enfield Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-13"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Yamaha Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-							<li class="carousel-slide">
-								<a href="" title="" class="related-make-card">
-									<div class="make-icon__content">
-										<span class="brandlogosprite brand-23"></span>
-									</div>
-									<div class="make-details__content">
-										<h3 class="make-details__title">Husqvarna Bikes</h3>
-										<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-									</div>
-								</a>
-							</li>
-						</ul>
-					</div>
-					<span class="jcarousel-control-left">
-						<span class="jcarousel-arrow-prev"></span>
-					</span>
-					<span class="jcarousel-control-right">
-						<span class="jcarousel-arrow-next"></span>
-					</span>
-				</div>
-
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-</section>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}

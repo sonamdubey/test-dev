@@ -1,19 +1,11 @@
-﻿using Bikewale.Entities;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.GenericBikes;
-using Bikewale.Entities.Location;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.Schema;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Location;
-using Bikewale.Interfaces.Videos;
-using Bikewale.Models.Gallery;
-using Bikewale.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Web;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Notifications;
 
 namespace Bikewale.Models.Photos.v1
 {
@@ -23,18 +15,20 @@ namespace Bikewale.Models.Photos.v1
     /// </summary>
     public class PhotosPage
     {
-        private readonly IBikeMakesCacheRepository _objMakeCache;
-        private PhotosPageVM _objData;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
+        private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
+        private PhotosPageVM _objData = null;
         public bool IsMobile { get; set; }
 
         /// <summary>
         /// Created by  :  Rajan Chauhan on 11 jan 2017
         /// Description :  To resolve depedencies for photo page
         /// </summary>
-        public PhotosPage(bool isMobile,IBikeMakesCacheRepository objMakeCache)
+        public PhotosPage(bool isMobile, IBikeMakesCacheRepository objMakeCache, IBikeModels<BikeModelEntity, int> objModelEntity)
         {
             IsMobile = isMobile;
             _objMakeCache = objMakeCache;
+            _objModelEntity = objModelEntity;
         }
 
         /// <summary>
@@ -47,11 +41,12 @@ namespace Bikewale.Models.Photos.v1
             try
             {
                 _objData = new PhotosPageVM();
+                _objData.ModelsImages = BindPopularSportsBikeWidget();
                 BindMakesWidget();
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.v1.GetData : GetData()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.GetData()");
             }
 
             return _objData;
@@ -64,13 +59,13 @@ namespace Bikewale.Models.Photos.v1
         /// <returns></returns>
         private void BindMakesWidget()
         {
-            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos);
+            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos).Take(9);
             _objData.OtherPopularMakes = new OtherMakesVM()
             {
                 Makes = makes,
-                PageLinkFormat = "/{0}-bikes/",
+                PageLinkFormat = "/{0}-bikes/images/",
                 PageTitleFormat = "{0} Bikes",
-                CardText = "bike"
+                CardText = "Bike"
             };
         }
         private void BindPageWidgets()
@@ -81,7 +76,7 @@ namespace Bikewale.Models.Photos.v1
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindPageWidgets : BindPageWidgets()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.BindPageWidgets()");
             }
         }
 
@@ -93,13 +88,37 @@ namespace Bikewale.Models.Photos.v1
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.SetPageMetas : SetPageMetas()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.SetPageMetas()");
             }
 
         }
 
         private void SetBreadcrumList()
         {
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 12th Jan 2018
+        /// Description : Bind sports bike image widget
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ModelImages> BindPopularSportsBikeWidget()
+        {
+            IEnumerable<ModelImages> modelsImages = null;
+            try
+            {
+                IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = _objModelEntity.GetModelIdsForImages(0, Entities.GenericBikes.EnumBikeBodyStyles.Sports, 1, 9);
+                var modelIds = string.Join(",", modelIdsWithBodyStyle.Select(m => m.ModelId.ToString()));
+                if (!string.IsNullOrEmpty(modelIds))
+                {
+                    modelsImages = _objModelEntity.GetBikeModelsPhotoGallery(modelIds, 7);
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage");
+            }
+            return modelsImages;
         }
     }
 }

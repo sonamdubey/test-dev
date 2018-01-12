@@ -18,6 +18,7 @@ using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Customer;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
@@ -35,7 +36,6 @@ using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
 using Microsoft.Practices.Unity;
-
 namespace Bikewale.BAL.BikeData
 {
     /// <summary>
@@ -370,6 +370,33 @@ namespace Bikewale.BAL.BikeData
                 if (_objGrpcmodelPhotoList != null && _objGrpcmodelPhotoList.LstGrpcModelImage.Count > 0)
                 {
                     return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelPhotoList);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Created By  : Vivek Singh Tomar on 12th Jan 2018
+        /// Descriptio  : Get models with list of images
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<ModelImages> GetBikeModelsPhotoGallery(string modelIds, int requiredImageCount)
+        {
+            try
+            {
+
+                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest, EnumCMSContentType.ComparisonTests });
+
+                var _objGrpcmodelsPhotoList = GrpcMethods.GetModelsImages(Convert.ToInt32(_applicationid), modelIds, contentTypeList, requiredImageCount);
+
+                if (_objGrpcmodelsPhotoList != null && _objGrpcmodelsPhotoList.LstGrpcModelImaegs.Count > 0)
+                {
+                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelsPhotoList);
                 }
             }
             catch (Exception err)
@@ -991,6 +1018,38 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetSeriesByModelId modelId = {0}", modelId));
             }
             return objSeries;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 11th Jan 2018
+        /// Description : Get model ids with body style with required filters
+        /// Functionality : list return will [startIndex, endIndex] i.e. inclusive, indexing starts from 1
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex)
+        {
+            IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
+            try
+            {
+                if(makeId >= 0 && startIndex > 0 && (startIndex <= endIndex))
+                {
+                    var objData = _modelCacheRepository.GetModelIdsForImages();
+                    if (objData != null)
+                    {
+                        modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)));
+                        if (modelIdsWithBodyStyle != null)
+                        {
+                            
+                            modelIdsWithBodyStyle = modelIdsWithBodyStyle.Skip(Convert.ToInt32(startIndex - 1)).Take(Convert.ToInt32(endIndex - startIndex + 1));
+                        }
+                    }
+                }                
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetModelIdsForImages");
+            }
+            return modelIdsWithBodyStyle;
         }
 
     }   // Class

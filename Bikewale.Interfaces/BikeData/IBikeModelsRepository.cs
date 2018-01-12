@@ -1,11 +1,11 @@
-﻿using Bikewale.Entities;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
 {
@@ -125,5 +125,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotosInCity(U modelId, ushort totalRecords, uint cityId);
         BikeMileageEntity GetMileageForModel();
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
+        IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages();
     }
 }

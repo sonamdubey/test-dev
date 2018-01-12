@@ -1,4 +1,8 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
@@ -7,10 +11,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -24,6 +24,7 @@ namespace Bikewale.Cache.BikeData
         private readonly ICacheManager _cache;
         private readonly IBikeModelsRepository<T, U> _modelRepository;
         private readonly IPager _objPager;
+        private static readonly string _modelIdsWithBodyStyleKey = "BW_ModelIdsWithBodyStyle";
 
         /// <summary>
         /// Intitalize the references for the cache and BL
@@ -1541,6 +1542,25 @@ namespace Bikewale.Cache.BikeData
                 ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetSeriesByModelId modelId = {0}", modelId));
             }
             return objSeries;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 11th Jan 2018
+        /// Description : Get Model Ids with there bodystyle
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages()
+        {
+            IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
+            try
+            {
+                modelIdsWithBodyStyle = _cache.GetFromCache<IEnumerable<ModelIdWithBodyStyle>>(_modelIdsWithBodyStyleKey, new TimeSpan(24, 0, 0), () => _modelRepository.GetModelIdsForImages());
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Cache.BikeData.BikeModelsCacheRepoostiory.GetModelIdsForImages");
+            }
+            return modelIdsWithBodyStyle;
         }
     }
 }

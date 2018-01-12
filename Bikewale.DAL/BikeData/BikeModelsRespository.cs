@@ -1,4 +1,13 @@
-﻿using Bikewale.DAL.CoreDAL;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -12,15 +21,6 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Dapper;
 using MySql.CoreDAL;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -3277,6 +3277,45 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Bikedata.GetSeriesByModelId modelId = {0}", modelId));
             }
             return objSeries;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 11th Jan 2018
+        /// Description : Get Model Ids with body style
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages()
+        {
+            List<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
+
+            try
+            {
+                using(DbCommand cmd = DbFactory.GetDBCommand("getmodelidsforimages"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if(dr != null)
+                        {
+                            modelIdsWithBodyStyle = new List<ModelIdWithBodyStyle>();
+                            while (dr.Read())
+                            {
+                                modelIdsWithBodyStyle.Add(new ModelIdWithBodyStyle {
+                                    MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
+                                    ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]),
+                                    BodyStyle = (EnumBikeBodyStyles)Enum.Parse(typeof(EnumBikeBodyStyles), Convert.ToString(dr["BodyStyleId"]))
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.BikeModelsRepository.GetModelIdsForImages");
+            }
+
+            return modelIdsWithBodyStyle;
         }
 
     }   // class
