@@ -8,7 +8,7 @@ import Breadcrumb from '../Shared/Breadcrumb'
 import NewBikes from '../NewBikes'
 import Footer from '../Shared/Footer'
 import AdUnit320x50 from '../AdUnit320x50'
-import { NewsArticlesPerPage , Status , AD_PATH_REVIEWS_TOP_320_50 , AD_DIV_REVIEWS_TOP_320_50 , AD_DIV_REVIEWS_MIDDLE_320_50 , AD_PATH_REVIEWS_MIDDLE_320_50} from '../../utils/constants'
+import { NewsArticlesPerPage , Status , AD_PATH_NEWS_MOBILE_TOP_320_50 , AD_DIV_REVIEWS_TOP_320_50 , AD_DIV_REVIEWS_MIDDLE_320_50 , AD_PATH_NEWS_MOBILE_MIDDLE_320_50} from '../../utils/constants'
 import { isServer, CMSUserReviewSlugPosition, CMSUserReviewSlugData } from '../../utils/commonUtils'
 
 
@@ -113,9 +113,7 @@ class ArticleListComponent extends React.Component{
     }
     componentWillUnmount() {
         this.props.resetArticleListData();
-        removeAdSlot(AD_PATH_REVIEWS_TOP_320_50); 
-        removeAdSlot(AD_PATH_REVIEWS_MIDDLE_320_50);
-       
+        
     }
     updateArticleList(PageNo) {
         this.props.fetchArticleList(PageNo);
@@ -171,19 +169,18 @@ class ArticleListComponent extends React.Component{
         var componentData = this.props.ArticleListData;
         
         var loadingState = (<div>
-                                <AdUnit320x50 adSlot={AD_PATH_REVIEWS_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> 
                                 <SpinnerRelative/>
-                                <div className="margin-bottom15">
-                                    <AdUnit320x50 adSlot={AD_PATH_REVIEWS_MIDDLE_320_50} adContainerId={AD_DIV_REVIEWS_MIDDLE_320_50}/>                               
-                                </div>
                             </div>)
         
         if(!componentData || componentData.Status == Status.Reset || componentData.Status == Status.IsFetching || componentData.Status == Status.Error) {
             return loadingState;
            
         }
+        var adSlotTop = <AdUnit320x50 uniqueKey={componentData.PageNo} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
+        var adSlotMiddle = <AdUnit320x50 uniqueKey={componentData.PageNo} adSlot={AD_PATH_NEWS_MOBILE_MIDDLE_320_50} adContainerId={AD_DIV_REVIEWS_MIDDLE_320_50}/> ;                          
+        
         return (<div>
-                    <AdUnit320x50 adSlot={AD_PATH_REVIEWS_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> 
+                    {adSlotTop}
                     <div className="container bg-white box-shadow section-bottom-margin">
                         <h1 className="box-shadow card-heading">Bike News</h1>
                         <ArticleList articleList={componentData.ArticleList.Articles} 
@@ -197,7 +194,7 @@ class ArticleListComponent extends React.Component{
                                         updateArticleList={this.updateArticleList}/>
                     </div>
                     <div className="margin-bottom15">
-                        <AdUnit320x50 adSlot={AD_PATH_REVIEWS_MIDDLE_320_50} adContainerId={AD_DIV_REVIEWS_MIDDLE_320_50}/>                               
+                        {adSlotMiddle}
                     </div>
                     {this.renderNewBikesList()}
                     <Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '',Title : 'News'}]}/>

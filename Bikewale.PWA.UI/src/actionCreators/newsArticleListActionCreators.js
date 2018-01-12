@@ -5,16 +5,6 @@ import {extractPageNoFromURL} from '../components/News/NewsCommon'
 import {refreshGPTAds} from '../utils/googleAdUtils'
 import {NewsArticlesPerPage} from '../utils/constants'
 
-var numberOfApi = 2;
-var apisFetched = numberOfApi;
-function refreshGPTAdsOnNewsListPage() {
-	apisFetched -- ;
-	if(apisFetched == 0) {
-		apisFetched = numberOfApi;
-		refreshGPTAds();
-	}
-}
-
 
 var fetchNewsArticleList = function(pageNo) {
 	return function(dispatch) {
@@ -28,7 +18,6 @@ var fetchNewsArticleList = function(pageNo) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if(xhr.readyState == 4) {
-				refreshGPTAdsOnNewsListPage();
 				if(xhr.status == 200) {
 					
 					dispatch({type:newsListAction.FETCH_NEWSLIST_SUCCESS,payload:JSON.parse(xhr.responseText)});
@@ -63,7 +52,6 @@ var fetchNewBikesListDataForNewsList = function(basicId) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if(xhr.readyState == 4 && xhr.status == 200) {
-				refreshGPTAdsOnNewsListPage();
 				if(xhr.status == 200)
 					dispatch({type:newBikesListAction.FETCH_NEW_BIKES_LIST_SUCCESS_FOR_NEWS_LIST,payload:JSON.parse(xhr.responseText)})
 				else

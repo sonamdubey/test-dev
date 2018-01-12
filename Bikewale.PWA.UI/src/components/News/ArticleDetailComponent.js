@@ -1,7 +1,6 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
-// import Helmet from 'react-helmet'
 import SocialMediaSlug from '../Shared/SocialMediaSlug'
 import ArticleDetailContent  from './ArticleDetailContent'
 import ArticleDetailPagination from './ArticleDetailPagination'
@@ -18,7 +17,7 @@ import { scrollPosition , resetScrollPosition , isBrowserWithoutScrollSupport } 
 
 import {endTimer} from '../../utils/timing'
 import AdUnit320x50 from '../AdUnit320x50'
-import { Status ,AD_PATH_REVIEWS_BOTTOM_320_50 , AD_DIV_REVIEWS_BOTTOM_320_50 , AD_PATH_REVIEWS_TOP_320_50 , AD_DIV_REVIEWS_TOP_320_50} from '../../utils/constants'
+import { Status ,AD_PATH_NEWS_MOBILE_BOTTOM_320_50 , AD_DIV_REVIEWS_BOTTOM_320_50 , AD_PATH_NEWS_MOBILE_TOP_320_50 , AD_DIV_REVIEWS_TOP_320_50} from '../../utils/constants'
 
 
 class ArticleDetail extends React.Component {
@@ -123,8 +122,6 @@ class ArticleDetail extends React.Component {
                     if(isBrowserWithoutScrollSupport()) {
                         window.scrollTo(0,0);
                     }
-                    removeAdSlot(AD_PATH_REVIEWS_TOP_320_50); 
-                    removeAdSlot(AD_PATH_REVIEWS_BOTTOM_320_50);
                     
             } 
             
@@ -134,11 +131,7 @@ class ArticleDetail extends React.Component {
         }
     
     }
-    componentWillUnmount() {
-        removeAdSlot(AD_PATH_REVIEWS_TOP_320_50); 
-        removeAdSlot(AD_PATH_REVIEWS_BOTTOM_320_50);
-        
-    }
+    
     scrollToPosition() {
         if(scrollPosition.x >= 0 && scrollPosition.y >= 0) { // needs to be scrolled
             if(this.props.ArticleDetailData && this.props.ArticleDetailData.Status == Status.Fetched) { // checks whether ready to scroll
@@ -299,14 +292,15 @@ class ArticleDetail extends React.Component {
         var adSlotBottom = null;
         
         if(articleDetail) {
-            adSlotTop = <AdUnit320x50 tags={articleDetail.Tags} adSlot={AD_PATH_REVIEWS_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
-            adSlotBottom = <AdUnit320x50 tags={articleDetail.Tags} adSlot={AD_PATH_REVIEWS_BOTTOM_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50}/> ;
+            adSlotTop = <AdUnit320x50 uniqueKey={articleDetail.Title} tags={articleDetail.Tags} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
+            adSlotBottom = <AdUnit320x50 uniqueKey={articleDetail.Title} tags={articleDetail.Tags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50}/> ;
         }
 
         var documentTitle = (articleInitialData.Title == "") ?"BikeWale News" : (articleInitialData.Title + " - BikeWale News");
        
         return (
             <div>
+
                 {adSlotTop}
                 <div className="container bg-white box-shadow section-bottom-margin article-details-container">
                     <ArticleDetailTitle title={articleInitialData.Title} authorName={articleInitialData.AuthorName} authorMaskingName={articleInitialData.AuthorMaskingName} displayDate={articleInitialData.DisplayDateTime} />
@@ -317,7 +311,7 @@ class ArticleDetail extends React.Component {
                 </div>
                 {this.renderNewBikesList()}
                 <div className="margin-bottom15">
-                    {adSlotBottom}      
+                    {adSlotBottom}
                 </div>
                 {this.renderBreadcrumb(articleInitialData.Title)}
                 {this.renderFooter()}

@@ -3,15 +3,6 @@ import {newsDetailAction,newBikesListAction,modelObjectAction} from  '../actionT
 import {isInt } from '../utils/commonUtils'
 import {refreshGPTAds} from '../utils/googleAdUtils'
 
-var numberOfApi = 3;
-var apisFetched = numberOfApi;
-function refreshGPTAdsOnNewsDetailPage() {
-	apisFetched -- ;
-	if(apisFetched == 0) {
-		apisFetched = numberOfApi;
-		refreshGPTAds();
-	}
-}
 var fetchNewsArticleDetail = function(articleInitialData) {
 	
 	return function(dispatch) {	
@@ -32,7 +23,6 @@ var fetchNewsArticleDetail = function(articleInitialData) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if(xhr.readyState == 4) {
-				refreshGPTAdsOnNewsDetailPage();
 				if(xhr.status == 200)
 					dispatch({type:newsDetailAction.FETCH_NEWSDETAIL_SUCCESS,payload:JSON.parse(xhr.responseText)});
 				else 
@@ -60,7 +50,6 @@ var fetchNewBikesListDataForNewsDetail = function(basicId) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if(xhr.readyState == 4) {
-				refreshGPTAdsOnNewsDetailPage();
 				if(xhr.status == 200)	
 					dispatch({type:newBikesListAction.FETCH_NEW_BIKES_LIST_SUCCESS_FOR_NEWS_DETAIL,payload:JSON.parse(xhr.responseText)})
 				else 
@@ -82,7 +71,6 @@ var fetchRelatedModelObjectForNewsDetail = function(basicId) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if(xhr.readyState == 4) {
-				refreshGPTAdsOnNewsDetailPage();
 				if(xhr.status == 200)
  					dispatch({type:modelObjectAction.FETCH_MODEL_OBJECT_SUCCESS_FOR_NEWS_DETAIL,payload:JSON.parse(xhr.responseText)})
  				else 
