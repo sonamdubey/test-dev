@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Bikewale.Entities.CMS.Photos.ModelImages>
+@using Bikewale.Utility;
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="swiper-container carousel__recently-added" data-spacebetween="0">
+        <ul class="swiper-wrapper">
+            @foreach (var bike in Model)
+            {
+                <li class="swiper-slide carousel-slide">
+                    <a href="@string.Format("{0}/{1}-bikes/{2}/images", BWConfiguration.Instance.BwHostUrl, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.BikeName" class="model-image__card">
+                        @if (bike.RecordCount >= 7)
+                        {
+                            <ul class="image-grid__list" data-grid="7">
+                                @{
+                                    var bikeImages = bike.ModelImage.Take(7);
+                                }
+                                @foreach (var bikeImage in bikeImages)
+                                {
+                                    <li class="image-grid-list__item">
+                                        <img class="swiper-lazy" src="" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeImage.OriginalImgPath, bikeImage.HostUrl, ImageSize._310x174, QualityFactor._80)">
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else if (bike.RecordCount >= 3)
+                        {
+                            <ul class="image-grid__list" data-grid="3">
+                                @{
+                                    var bikeImages = bike.ModelImage.Take(3);
+                                }
+                                @foreach (var bikeImage in bikeImages)
+                                {
+                                    <li class="image-grid-list__item">
+                                        <img class="swiper-lazy" src="" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeImage.OriginalImgPath, bikeImage.HostUrl, ImageSize._310x174, QualityFactor._80)">
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="image-grid__list" data-grid="1">
+                                @{
+                                    var bikeImages = bike.ModelImage.Take(1);
+                                }
+                                @foreach (var bikeImage in bikeImages)
+                                {
+                                    <li class="image-grid-list__item">
+                                        <img class="swiper-lazy" src="" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeImage.OriginalImgPath, bikeImage.HostUrl, ImageSize._310x174, QualityFactor._80)">
+                                    </li>
+                                }
+                            </ul>
+
+                        }
+                        <div class="card-image__details">
+                            <h3 class="card-details__left-col">
+                                <span class="card-details__make">@bike.MakeBase.MakeName</span>
+                                <span class="card-details__model">@bike.ModelBase.ModelName</span>
+                            </h3>
+                            <div class="card-details__right-col">
+                                <span class="card-details__image-count">@bike.RecordCount</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}
