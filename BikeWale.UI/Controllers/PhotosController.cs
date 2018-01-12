@@ -1,12 +1,12 @@
-﻿using Bikewale.Entities;
+﻿using System.Web.Mvc;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Models.Photos;
-using System.Web.Mvc;
 using Bikewale.Models;
 using Bikewale.BAL.Images;
+using Bikewale.Models.Photos;
 
 namespace Bikewale.Controllers
 {
@@ -26,7 +26,7 @@ namespace Bikewale.Controllers
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly ImageBL _objImageBL = null;
 
-        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos, ImageBL objImageBL)
+        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos, ImageBL objImageBL, IBikeMakesCacheRepository objMakeCache)
         {
 
             _objModelCache = objModelCache;
@@ -37,6 +37,25 @@ namespace Bikewale.Controllers
             _objVersionCache = objVersionCache;
             _objVideos = objVideos;
             _objImageBL = objImageBL;
+            _objMakeCache = objMakeCache;
+        }
+
+        [Route("photos/"), Filters.DeviceDetection]
+        public ActionResult Index()
+        {
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, _objImageBL);
+
+            Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
+            return View(objData);
+        }
+
+        [Route("m/photos/")]
+        public ActionResult Index_Mobile()
+        {
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache, _objImageBL);
+
+            Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
+            return View(objData);
         }
 
         /// <summary>
@@ -97,21 +116,6 @@ namespace Bikewale.Controllers
                 return Redirect("/pagenotfound.aspx");
             }
         }
-
-		[Route("photos/")]
-		public ActionResult Index()
-		{
-            // false sent for Desktop view
-            Bikewale.Models.Photos.v1.PhotosPage photosPage = new Bikewale.Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, _objImageBL);
-			return View(photosPage.GetData());
-		}
-
-		[Route("m/photos/")]
-		public ActionResult Index_Mobile()
-		{
-			ModelBase objModel = new ModelBase();
-			return View(objModel);
-		}
 
 		[Route("photos/make/")]
 		public ActionResult Make()

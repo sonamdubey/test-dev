@@ -1,23 +1,19 @@
 ﻿using Bikewale.BAL.Images;
-using Bikewale.Entities;
-using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
-using Bikewale.Entities.GenericBikes;
-using Bikewale.Entities.Location;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.Schema;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Location;
-using Bikewale.Interfaces.Videos;
-using Bikewale.Models.Gallery;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using BikewaleOpr.Interface.BikeData;
 using Grpc.CMS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Notifications;
+using Bikewale.Entities.GenericBikes;
+using Bikewale.Utility;
 using System.Web;
 
 namespace Bikewale.Models.Photos.v1
@@ -44,6 +40,7 @@ namespace Bikewale.Models.Photos.v1
             IsMobile = isMobile;
             _objModelEntity = objModelEntity;
             _objMakeCache = objMakeCache;
+            _objModelEntity = objModelEntity;
             _objImageBL = objImageBL;
             ProcessQueryString();
         }
@@ -90,7 +87,6 @@ namespace Bikewale.Models.Photos.v1
         {
             try
             {
-                objData.PageMetaTags.
                 ushort modelsPerPage = 30;
                 IEnumerable<ModelIdWithBodyStyle> objModelIds =  _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (PageNo - 1) * modelsPerPage + 1, PageNo * modelsPerPage);
                 string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
@@ -135,13 +131,37 @@ namespace Bikewale.Models.Photos.v1
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.SetPageMetas : SetPageMetas()"));
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.SetPageMetas()");
             }
 
         }
 
         private void SetBreadcrumList()
         {
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 12th Jan 2018
+        /// Description : Bind sports bike image widget
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ModelImages> BindPopularSportsBikeWidget()
+        {
+            IEnumerable<ModelImages> modelsImages = null;
+            try
+            {
+                IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = _objModelEntity.GetModelIdsForImages(0, Entities.GenericBikes.EnumBikeBodyStyles.Sports, 1, 9);
+                var modelIds = string.Join(",", modelIdsWithBodyStyle.Select(m => m.ModelId.ToString()));
+                if (!string.IsNullOrEmpty(modelIds))
+                {
+                    modelsImages = _objModelEntity.GetBikeModelsPhotoGallery(modelIds, 7);
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage");
+            }
+            return modelsImages;
         }
     }
 }
