@@ -1,4 +1,6 @@
-﻿using Bikewale.Entities.Images;
+﻿using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.Images;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Images
 {
@@ -10,5 +12,6 @@ namespace Bikewale.Interfaces.Images
     {
         ImageToken GenerateImageUploadToken(Image objImage);
         ImageToken ProcessImageUpload(ImageToken token);
+        IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount);
     }
 }

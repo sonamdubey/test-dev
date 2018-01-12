@@ -6,6 +6,7 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Models.Photos;
 using System.Web.Mvc;
 using Bikewale.Models;
+using Bikewale.BAL.Images;
 
 namespace Bikewale.Controllers
 {
@@ -23,8 +24,9 @@ namespace Bikewale.Controllers
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         private readonly IVideos _objVideos = null;
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
+        private readonly ImageBL _objImageBL = null;
 
-        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos)
+        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos, ImageBL objImageBL)
         {
 
             _objModelCache = objModelCache;
@@ -34,6 +36,7 @@ namespace Bikewale.Controllers
             _objGenericBike = objGenericBike;
             _objVersionCache = objVersionCache;
             _objVideos = objVideos;
+            _objImageBL = objImageBL;
         }
 
         /// <summary>
@@ -99,9 +102,8 @@ namespace Bikewale.Controllers
 		public ActionResult Index()
 		{
             // false sent for Desktop view
-            Bikewale.Models.Photos.v1.PhotosPage _objData = new Bikewale.Models.Photos.v1.PhotosPage(false, _objMakeCache);
-            Bikewale.Models.Photos.v1.PhotosPageVM obj = _objData.GetData();
-			return View(obj);
+            Bikewale.Models.Photos.v1.PhotosPage photosPage = new Bikewale.Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, _objImageBL);
+			return View(photosPage.GetData());
 		}
 
 		[Route("m/photos/")]
