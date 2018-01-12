@@ -102,7 +102,7 @@ namespace Bikewale.Models
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);
                 objUpcoming.Page = Entities.Pages.GAPages.Upcoming_Landing_Page;
                 SetBreadcrumList(objUpcoming);
-
+                SetPageJSONLDSchema(objUpcoming);
             }
             catch (Exception ex)
             {
@@ -196,6 +196,22 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, "Bikewale.Models.UpcomingPageModel.BindCmsContent()");
             }
 
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 12th Jan 2017
+        /// Desc : Added breadcrum and webpage schema
+        /// </summary>
+        /// <param name="objPageMeta"></param>
+        private void SetPageJSONLDSchema(UpcomingPageVM objPageMeta)
+        {
+            //set webpage schema 
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
         }
 
         /// <summary>
