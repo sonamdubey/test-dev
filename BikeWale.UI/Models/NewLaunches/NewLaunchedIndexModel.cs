@@ -1,12 +1,14 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -27,6 +29,7 @@ namespace Bikewale.Models
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
         public ushort MakeTopCount { get; set; }
+        public bool IsMobile { get; set; }
         public NewLaunchedIndexModel(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming,
                                      InputFilter filter, PQSourceEnum pqSource, ushort? pageNumber, ICMSCacheContent objArticles)
         {
@@ -69,6 +72,7 @@ namespace Bikewale.Models
                 CreateMeta(objVM.PageMetaTags);
                 BindCmsContent(objVM);
                 objVM.Page = Entities.Pages.GAPages.Newly_Launched;
+                SetBreadcrumList(objVM);
             }
             catch (Exception ex)
             {
@@ -179,6 +183,39 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.BindCmsContent()");
+            }
+
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 12th Dec 2017
+        /// Desc : Added breadcrumb for new launches
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetBreadcrumList(NewLaunchedIndexVM objData)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    url += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+                url = string.Format("{0}new-bikes-in-india/", url);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "New Bikes"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "New Bike Launches"));
+
+                objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewLaunchedIndexModel.SetBreadcrumList()");
             }
 
         }

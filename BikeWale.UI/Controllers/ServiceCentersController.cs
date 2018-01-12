@@ -103,6 +103,7 @@ namespace Bikewale.Controllers
                     modelObj.NewLaunchedBikesWidgtData = 9;
                     modelObj.UpcomingBikesWidgetData = 9;
                     modelObj.UsedBikeModelWidgetTopCount = 9;
+                    modelObj.IsMobile = true;
                     ServiceCenterLandingPageVM pageVM = modelObj.GetData();
                     return View(pageVM);
                 }
