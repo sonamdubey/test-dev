@@ -297,22 +297,13 @@ function setPriceQuoteFlag() {
 
 function MakeModelRedirection(items) {
     if (!IsPriceQuoteLinkClicked) {
-        var make = new Object();
-        make.maskingName = items.payload.makeMaskingName;
-        make.id = items.payload.makeId;
-        var model = null;
-        if (items.payload.modelId > 0) {
-            model = new Object();
-            model.maskingName = items.payload.modelMaskingName;
-            model.id = items.payload.modelId;
-            model.futuristic = items.payload.futuristic;
-        }
-
-        if (model != null && model != undefined) {
-            window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+        var makeMaskingName = items.payload.makeMaskingName;
+        var modelMaskingName = items.payload.modelMaskingName;
+        if (items.payload.modelId > 0 && makeMaskingName != null && makeMaskingName != "" && modelMaskingName != null && modelMaskingName != "") {
+            window.location.href = "/" + makeMaskingName + "-bikes/" + modelMaskingName + "/";
             return true;
-        } else if (make != null && make != undefined) {
-            window.location.href = "/" + make.maskingName + "-bikes/";
+        } else if (makeMaskingName != null && makeMaskingName != "") {
+            window.location.href = "/" + makeMaskingName + "-bikes/";
             return true;
         }
     }

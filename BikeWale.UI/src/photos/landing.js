@@ -8,31 +8,22 @@ docReady(function () {
 	$("#exploreBikesField").val("");
 	
 	function MakeModelPhotosRedirection(items) {
-	    var make = new Object();
-	    make.maskingName = items.payload.makeMaskingName;
-	    make.id = items.payload.makeId;
-	    var model = null;
-	    if (items.payload.modelId > 0) {
-	        model = new Object();
-	        model.maskingName = items.payload.modelMaskingName;
-	        model.id = items.payload.modelId;
-	        model.futuristic = items.payload.futuristic;
-	    }
-
-	    if (model != null && model != undefined) {
+	    var makeMaskingName = items.payload.makeMaskingName;
+	    var modelMaskingName = items.payload.modelMaskingName;
+	    if (items.payload.modelId > 0 && makeMaskingName != null && makeMaskingName != "" && modelMaskingName != null && modelMaskingName != "") {
 	        if (isMobile) {
-	            window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/images/";
+	            window.location.href = "/m/" + makeMaskingName + "-bikes/" + modelMaskingName + "/images/";
 	        }
 	        else {
-	            window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/images/";
+	            window.location.href = "/" + makeMaskingName + "-bikes/" + modelMaskingName + "/images/";
 	        }
 	        return true;
-	    } else if (make != null && make != undefined) {
+	    } else if (makeMaskingName != null && makeMaskingName !="") {
 	        if (isMobile) {
-	            window.location.href = "/m/photos/" + make.maskingName + "-bikes/"; // To be replaced for photos page
+	            window.location.href = "/m/photos/" + makeMaskingName + "-bikes"; // To be replaced for photos page
 	        }
 	        else {
-	            window.location.href = "/photos/" + make.maskingName + "-bikes/"; // To be replaced for photos page
+	            window.location.href = "/photos/" + makeMaskingName + "-bikes"; // To be replaced for photos page
 	        }
 	        return true;
 	    }
