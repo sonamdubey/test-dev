@@ -463,7 +463,7 @@ namespace Bikewale.Models
                 }
                 objData.PageMetaTags.Title = string.Format("{0} Bikes in India- {0} New Bikes Prices, Specs, & Images - BikeWale", objData.MakeName);
 
-                objData.PageMetaTags.Description = string.Format("{0} has a total of {1} models. The top 4 {0} models are- {2}. BikeWale offers history, prices, specs, and images for all {0} models in India.{3}", objData.MakeName, objModelList.Count(), topModelsName, (objData.UpcomingBikes.UpcomingBikes.Count() > 0 ? string.Format("There are {0} {1} upcoming models as well", objData.UpcomingBikes.UpcomingBikes.Count(), objData.MakeName) : ""));
+                objData.PageMetaTags.Description = string.Format("{0} has a total of {1} models. The top 4 {0} models are- {2}. BikeWale offers history, prices, specs, and images for all {0} models in India.{3}", objData.MakeName, objModelList.Count(), topModelsName, (objData.UpcomingBikes.UpcomingBikes.Count() > 0 ? string.Format("There are {0} {1} upcoming models as well.", objData.UpcomingBikes.UpcomingBikes.Count(), objData.MakeName) : ""));
 
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _makeMaskingName);

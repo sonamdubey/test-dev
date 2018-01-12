@@ -1,12 +1,14 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bikewale.Models
@@ -35,7 +37,7 @@ namespace Bikewale.Models
         public EnumUpcomingBikesFilter SortBy { get; set; }
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
-
+        public bool IsMobile { get; set; }
         #endregion
 
         #region Constructor
@@ -99,6 +101,7 @@ namespace Bikewale.Models
                 BindCmsContent(objUpcoming);
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);
                 objUpcoming.Page = Entities.Pages.GAPages.Upcoming_Landing_Page;
+                SetBreadcrumList(objUpcoming);
 
             }
             catch (Exception ex)
@@ -191,6 +194,39 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.UpcomingPageModel.BindCmsContent()");
+            }
+
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 12th Dec 2017
+        /// Desc : Added breadcrumb for upcoming page
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetBreadcrumList(UpcomingPageVM objData)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    url += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+                url = string.Format("{0}new-bikes-in-india/", url);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "New Bikes"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Upcoming Bikes"));
+
+                objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.UpcomingPageModel.SetBreadcrumList()");
             }
 
         }
