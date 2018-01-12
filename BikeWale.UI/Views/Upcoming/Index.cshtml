@@ -1,9 +1,7 @@
 ﻿@model Bikewale.Models.UpcomingPageVM
 
 @{
-    Model.IsHeaderFix = false;
-    Model.IsTransparentHeader = true;
-    Model.IsPageTypeLanding = true;
+    Model.IsHeaderFix = true;
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/upcoming-bikes/upcoming-bikes.css' inline />";
     Model.Page_JS_Path = "/src/upcoming-bikes.js";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,25 +9,38 @@
 
 @if (Model != null)
 {
-    <header class="upcoming-bikes-banner">
-        <div id="upcoming-bikes-center-box" class="container">
-            <div class="welcome-box">
-                <h1 class="font30 text-uppercase margin-bottom30">Upcoming bikes</h1>
-                <h2 class="font20 text-unbold text-white margin-bottom50">Expected Launches in @DateTime.Now.Year</h2>
-            </div>
-        </div>
-    </header>
+	<section class="container padding-top10">
+		<div class="grid-12">
+			<div class="breadcrumb margin-bottom15">
+				<ul>
+					<li>
+						<a class="breadcrumb-link" href="/" title="Home">
+							<span class="breadcrumb-link__label">Home</span>
+						</a>
+					</li>
+					<li class="current">
+						<span class="breadcrumb-link__label">Upcoming bikes</span>
+					</li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</section>
 
     <section>
         <div class="container">
             <div class="grid-12">
-                <div class="content-box-shadow negative-50 padding-15-20 font14 text-light-grey collapsible-content">
-                    <p class="main-content">
-                        India is the world’s largest two-wheeler market, and it can get a little confusing for the buyer who is waiting for their dream bike to launch. 
-                        Here on BikeWale’s ‘Upcoming Bikes’ page, we give you all the information about that bike you’ve been waiting for, 
-                        so you can take an educated decision on whether to put off your purchase for a while and be ready to purchase that bike you’ve always wanted the instant it is launched!
-                    </p>
-                </div>
+				<div class="content-box-shadow">
+					<h1 class="content-box-shadow padding-15-20">Upcoming bikes</h1>
+					<div class="padding-15-20 font14 text-light-grey collapsible-content">
+						<p class="main-content">
+							India is the world’s largest two-wheeler market, and it can get a little confusing for the buyer who is waiting for their dream bike to launch.
+							Here on BikeWale’s ‘Upcoming Bikes’ page, we give you all the information about that bike you’ve been waiting for,
+							so you can take an educated decision on whether to put off your purchase for a while and be ready to purchase that bike you’ve always wanted the instant it is launched!
+						</p>
+					</div>
+				</div>
             </div>
             <div class="clear"></div>
         </div>
