@@ -6,7 +6,7 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/landing.css' inline />";
     Model.IsHeaderFix = true;
     Model.IsTransparentHeader = false;
-    Model.IsPageTypeLanding = true;   
+    Model.IsPageTypeLanding = true;
     Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/bike-videos/";
     Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/bike-videos/";
 }
@@ -17,14 +17,9 @@
         <div class="container margin-bottom20">
             <div class="grid-12">
                 <div class="content-box-shadow">
-                    <div class="content-box-shadow padding-14-20 padding-bottom10 padding-top10">
-                        <h1 class="margin-left10">Bike Videos</h1>
-
-                        <div class="padding-14-20 padding-bottom10 padding-top10 font14 text-light-grey">
-                            <p class="margin-left10">BikeWale brings you videos for first impression, launch alerts, and expert reviews. Watch videos from BikeWale experts and know more about your favorite bike.</p>
-
-
-                        </div>
+                    <h1 class="content-box-shadow padding-15-20">Bike Videos</h1>
+                    <div class="padding-15-20 font14 text-light-grey collapsible-content">
+                        <p class="margin-left10">BikeWale brings you videos for first impression, launch alerts, and expert reviews. Watch videos from BikeWale experts and know more about your favorite bike.</p>
                     </div>
                 </div>
             </div>
@@ -37,29 +32,29 @@
                 <div class="content-box-shadow margin-bottom20">
                     @if (Model.LandingFirstVideoData != null)
                     {
-                    <div class="grid-8">
-                        <a href="@UrlFormatter.VideoDetailPageUrl(Model.LandingFirstVideoData.VideoTitleUrl, Model.LandingFirstVideoData.BasicId.ToString())" class="main-video-container">
-                            <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", Model.LandingFirstVideoData.VideoId)" alt="@Model.LandingFirstVideoData.VideoTitle" title="@Model.LandingFirstVideoData.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", Model.LandingFirstVideoData.VideoId)" border="0" />
-                            <span>@Model.LandingFirstVideoData.VideoTitle</span>
-                        </a>
-                    </div>
+                        <div class="grid-8">
+                            <a href="@UrlFormatter.VideoDetailPageUrl(Model.LandingFirstVideoData.VideoTitleUrl, Model.LandingFirstVideoData.BasicId.ToString())" class="main-video-container">
+                                <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", Model.LandingFirstVideoData.VideoId)" alt="@Model.LandingFirstVideoData.VideoTitle" title="@Model.LandingFirstVideoData.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", Model.LandingFirstVideoData.VideoId)" border="0" />
+                                <span>@Model.LandingFirstVideoData.VideoTitle</span>
+                            </a>
+                        </div>
                     }
                     @if (Model.LandingOtherVideosData != null && Model.LandingOtherVideosData.Count() > 0)
                     {
-                    <div class="grid-4">
-                        <ul>
-                            @foreach (var video in Model.LandingOtherVideosData)
+                        <div class="grid-4">
+                            <ul>
+                                @foreach (var video in Model.LandingOtherVideosData)
                                 {
-                                <li>
-                                    <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="sidebar-video-image">
-                                        <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/default.jpg", video.VideoId)" alt="@video.VideoTitle" title="@video.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/default.jpg", video.VideoId)" border="0" />
-                                    </a>
-                                    <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="sidebar-video-title font14 text-light-grey">@video.VideoTitle.Truncate(35)</a>
-                                </li>
+                                    <li>
+                                        <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="sidebar-video-image">
+                                            <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/default.jpg", video.VideoId)" alt="@video.VideoTitle" title="@video.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/default.jpg", video.VideoId)" border="0" />
+                                        </a>
+                                        <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="sidebar-video-title font14 text-light-grey">@video.VideoTitle.Truncate(35)</a>
+                                    </li>
                                 }
-                        </ul>
-                    </div>
-                    <div class="clear"></div>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
                     }
                 </div>
             </div>
@@ -75,25 +70,25 @@
                     <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Expert Reviews</h2>
                     @foreach (var video in Model.ExpertReviewsWidgetData.VideoList.Videos)
                     {
-                    <div class="grid-6 ">
-                        <div class="reviews-image-wrapper rounded-corner2">
-                            <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))">
-                                <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", video.VideoId)" alt="@video.VideoTitle" title="@video.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", video.VideoId)" border="0" />
-                            </a>
-                        </div>
-                        <div class="reviews-desc-wrapper">
-                            <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="article-target-link font14">@video.VideoTitle</a>
-                            <div class="font12 text-light-grey margin-top10 margin-bottom10">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate),"dd MMMM yyyy")</div>
-                            <div class="font14 text-light-grey margin-bottom15">@FormatDescription.TruncateDescription(video.Description, 125)</div>
-                            <div class="grid-4 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+                        <div class="grid-6 ">
+                            <div class="reviews-image-wrapper rounded-corner2">
+                                <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))">
+                                    <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", video.VideoId)" alt="@video.VideoTitle" title="@video.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", video.VideoId)" border="0" />
+                                </a>
                             </div>
-                            <div class="grid-8 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                            <div class="reviews-desc-wrapper">
+                                <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="article-target-link font14">@video.VideoTitle</a>
+                                <div class="font12 text-light-grey margin-top10 margin-bottom10">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMMM yyyy")</div>
+                                <div class="font14 text-light-grey margin-bottom15">@FormatDescription.TruncateDescription(video.Description, 125)</div>
+                                <div class="grid-4 alpha omega border-light-right font14">
+                                    <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+                                </div>
+                                <div class="grid-8 omega padding-left20 font14">
+                                    <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                                </div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="clear"></div>
                         </div>
-                    </div>
                     }
                     <div class="clear"></div>
                     <div class="view-all-btn-container padding-top15 padding-bottom20">
@@ -157,6 +152,6 @@
     {
         @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.MiscellaneousWidgetData)
     }
-    
+
     <div class="margin-bottom25"></div>
 }
