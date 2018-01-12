@@ -9,7 +9,7 @@
                 @foreach (var make in Model.Makes)
                 {
                     <li class="carousel-slide">
-                        <a href="" title="" class="related-make-card">
+                        <a href=@string.Format("/photos/{0}-bikes/",@make.MaskingName) title="" class="related-make-card">
                             <div class="make-icon__content">
                                 <span class="brandlogosprite brand-@make.MakeId"></span>
                             </div>
