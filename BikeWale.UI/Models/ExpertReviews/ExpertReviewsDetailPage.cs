@@ -440,16 +440,15 @@ namespace Bikewale.Models
                             SetPopularBikeByBodyStyleId(objData, topCount);
                         }
 
-                        //BikeSeriesEntityBase bikeSeriesEntityBase = _models.GetSeriesByModelId(ModelId);
                         if (bikeSeriesEntityBase != null && objData.IsSeriesAvailable)
                         {
                             FetchPopularBikes(objData, bikeSeriesEntityBase.SeriesId);
                             objData.MostPopularBikes = new MostPopularBikeWidgetVM()
                             {
                                 Bikes = objData.SeriesWidget.PopularSeriesBikes,
-                                WidgetHeading = string.Format("Popular {0} Bikes", bikeSeriesEntityBase.SeriesName),
+                                WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "scooters" : "bikes"),
                                 WidgetHref = UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
-                                WidgetLinkTitle = "View all"
+                                WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.MaskingName, objData.IsScooter ? "scooters" : "bikes")
                             };
                         }
                         else if (objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
