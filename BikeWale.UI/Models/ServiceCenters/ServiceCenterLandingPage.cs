@@ -72,6 +72,7 @@ namespace Bikewale.Models.ServiceCenters
                 BindPageMetas(objVM);
                 objVM.Page = Entities.Pages.GAPages.ServiceCenter_Landing_Page;
                 SetBreadcrumList(objVM);
+                SetPageJSONLDSchema(objVM);
             }
             catch (Exception ex)
             {
@@ -163,6 +164,22 @@ namespace Bikewale.Models.ServiceCenters
                 ErrorClass.LogError(ex, "ServiceCenterLandingPage.BindUpCompingBikesWidget()");
             }
             return objUpcomingBikes;
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 12th Jan 2017
+        /// Desc : Added breadcrum and webpage schema
+        /// </summary>
+        /// <param name="objPageMeta"></param>
+        private void SetPageJSONLDSchema(ServiceCenterLandingPageVM objPageMeta)
+        {
+            //set webpage schema 
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
         }
 
         /// <summary>

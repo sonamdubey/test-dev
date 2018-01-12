@@ -73,6 +73,7 @@ namespace Bikewale.Models
                 BindCmsContent(objVM);
                 objVM.Page = Entities.Pages.GAPages.Newly_Launched;
                 SetBreadcrumList(objVM);
+                SetPageJSONLDSchema(objVM);
             }
             catch (Exception ex)
             {
@@ -186,6 +187,23 @@ namespace Bikewale.Models
             }
 
         }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 12th Jan 2017
+        /// Desc : Added breadcrum and webpage schema
+        /// </summary>
+        /// <param name="objPageMeta"></param>
+        private void SetPageJSONLDSchema(NewLaunchedIndexVM objPageMeta)
+        {
+            //set webpage schema 
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
 
         /// <summary>
         /// Created by : Snehal Dange on 12th Dec 2017

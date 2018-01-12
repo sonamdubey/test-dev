@@ -87,7 +87,7 @@
             </div>
         </div>
         <div class="padding-10-20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(Model.HasPages ? "block" : "none")">
-            <div class="footer-pagination font14 border-solid-top padding-top10 padding-bottom10">
+            <div class="footer-pagination font14 border-solid-top padding-top10 padding-bottom10 padding-left20">
                 <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalBikes() > 0">
                     @if (Model.Pager != null)
                     {
