@@ -118,7 +118,7 @@ namespace Bikewale.Models
             try
             {
                 bikeSeriesEntityBase = _models.GetSeriesByModelId(ModelId);
-                if (null != bikeSeriesEntityBase && bikeSeriesEntityBase.SeriesId > 0)
+                if (null != bikeSeriesEntityBase && bikeSeriesEntityBase.IsSeriesPageUrl )
                 {
                     objdata.IsSeriesAvailable = true;
                 }
@@ -506,14 +506,14 @@ namespace Bikewale.Models
                 if (currentCityArea != null)
                     CityId = currentCityArea.CityId;
 
-                EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
+                objData.BodyStyle = EnumBikeBodyStyles.AllBikes;
 
                 List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
                 if (objVersionsList != null && objVersionsList.Count > 0)
-                    bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+                    objData.BodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
 
-                objData.IsScooter = bodyStyle.Equals(EnumBikeBodyStyles.Scooter);
+                objData.IsScooter = objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter);
                 MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, objData.IsScooter ? EnumBikeType.Scooters : EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
                 objPopularBikes.TopCount = topCount;
                 objPopularBikes.CityId = CityId;
@@ -542,6 +542,20 @@ namespace Bikewale.Models
                     objData.BikeInfo = objBikeInfo.GetData();
                     objData.BikeInfo.IsSmallSlug = true;
 
+
+                    if (objData.IsSeriesAvailable)
+                    {
+                        objData.SeriesBikes = new MostPopularBikeWidgetVM()
+                        {
+                            Bikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId),
+                            CityId = CityId,
+                            WidgetHeading = string.Format("Popular {0} bikes", bikeSeriesEntityBase.SeriesName),
+                            WidgetLinkTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName),
+                            WidgetHref = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
+
+                        };
+                    }
+
                     if (IsMobile)  // Mobile
                     {
                         if (objData.IsScooter && !isPWA)
@@ -554,6 +568,7 @@ namespace Bikewale.Models
                         {
                             SetPopularBikeByBodyStyleId(objData, topCount);
                         }
+
                     }
                     else  // Desktop
                     {
@@ -594,7 +609,6 @@ namespace Bikewale.Models
                         // Fetch upcoming scooters
                         objUpcomingBikes.Filters.BodyStyleId = (uint)EnumBikeBodyStyles.Scooter;
                         UpcomingScooters = objUpcomingBikes.GetData();
-
 
                         PopularScooterBrandsWidget objPopularScooterBrands = null;
                         // If model is a scooter
@@ -654,7 +668,7 @@ namespace Bikewale.Models
                         else //if (bodyStyle.Equals(EnumBikeBodyStyles.Sports) || bodyStyle.Equals(EnumBikeBodyStyles.Cruiser))
                         {
                             // Bind everything except scooters
-                            BindSportsAndCruisers(objData, MostPopularMakeBikes, bodyStyle);
+                            BindSportsAndCruisers(objData, MostPopularMakeBikes, objData.BodyStyle);
                             BindPopularAndUpcomingBikes(objData, MostPopularBikes, UpcomingBikes);
                         }
                         //else // When Body style is other Than Scooter, sports or Cruisers
@@ -674,7 +688,7 @@ namespace Bikewale.Models
                 // if make is available
                 if (MakeId > 0 && objData.Make != null)
                 {
-                    BindPopularBikesOrScooters(objData, PopularBikesWidget, bodyStyle);
+                    BindPopularBikesOrScooters(objData, PopularBikesWidget, objData.BodyStyle);
                 }
                 else
                 {

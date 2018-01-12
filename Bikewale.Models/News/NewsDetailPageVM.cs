@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Models.BikeModels;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Bikewale.Models
         public ArticleDetails ArticleDetails { get; set; }
         public PopularBodyStyleVM PopularBodyStyle { get; set; }
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
+        public MostPopularBikeWidgetVM SeriesBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public BikeInfoVM BikeInfo { get; set; }
         public BikeMakeEntityBase Make { get; set; }
@@ -38,6 +40,7 @@ namespace Bikewale.Models
 
         public SimilarBikesWidgetVM SimilarBikes { get; set; }
         public EditorialSeriesWidgetVM SeriesWidget { get; set; }
+        public EnumBikeBodyStyles BodyStyle { get; set; }
 
         public bool IsSeriesAvailable { get; set; }
         public bool IsScooter { get; set; }

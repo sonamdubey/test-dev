@@ -116,7 +116,7 @@
                             @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.SeriesBikesAndOtherBrands)
                             @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularScootersAndUpcomingScootersWidget)
                         }
-                        else if (Model.SeriesBikesAndModelBodyStyleBikes != null)
+                        else if (Model.BodyStyle.Equals(EnumBikeBodyStyles.Street))
                         {
                             if (Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes != null && Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes.Any())
                             {
@@ -192,7 +192,6 @@
                             </div>
                         </div>
                     }
-
                     if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
                     {
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">

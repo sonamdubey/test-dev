@@ -92,7 +92,7 @@ namespace Bikewale.Models
             try
             {
                 bikeSeriesEntityBase = _models.GetSeriesByModelId(ModelId);
-                if (null != bikeSeriesEntityBase && bikeSeriesEntityBase.SeriesId > 0)
+                if (null != bikeSeriesEntityBase && bikeSeriesEntityBase.IsSeriesPageUrl)
                 {
                     objdata.IsSeriesAvailable = true;
                 }
@@ -376,16 +376,16 @@ namespace Bikewale.Models
                 if (currentCityArea != null)
                     CityId = currentCityArea.CityId;
 
-                EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
+                objData.BodyStyle = EnumBikeBodyStyles.AllBikes;
 
                 List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
                 if (objVersionsList != null && objVersionsList.Count > 0)
-                    bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+                    objData.BodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
 
-                objData.IsScooter = bodyStyle.Equals(EnumBikeBodyStyles.Scooter);
+                objData.IsScooter = objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter);
 
-                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bodyStyle.Equals(EnumBikeBodyStyles.Scooter) ? EnumBikeType.Scooters : EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
+                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, objData.IsScooter ? EnumBikeType.Scooters : EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
                 objPopularBikes.TopCount = topCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
@@ -412,10 +412,23 @@ namespace Bikewale.Models
                     BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, BikeInfoTabType.ExpertReview);
                     objData.BikeInfo = objBikeInfo.GetData();
                     objData.BikeInfo.IsSmallSlug = true;
+                    if (objData.IsSeriesAvailable)
+                    {
+                        objData.SeriesBikes = new MostPopularBikeWidgetVM()
+                        {
+                            Bikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId),
+                            CityId = CityId,
+                            WidgetHeading = string.Format("Popular {0} bikes", bikeSeriesEntityBase.SeriesName),
+                            WidgetLinkTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName),
+                            WidgetHref = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
+
+                        };
+                    }
+
 
                     if (IsMobile)
                     {
-                        if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                        if (objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                         {
                             PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
                             objPopularScooterBrands.TopCount = 6;
@@ -439,7 +452,7 @@ namespace Bikewale.Models
                                 WidgetLinkTitle = "View all"
                             };
                         }
-                        else if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                        else if (objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                         {
                             objData.MostPopularBikes = MostPopularMakeScooters;
                             objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} Scooters", objData.Make.MakeName);
@@ -489,7 +502,7 @@ namespace Bikewale.Models
 
                         UpcomingScooters = objUpcomingBikes.GetData();
 
-                        if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                        if (objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                         {
                             PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
                             objPopularScooterBrands.TopCount = 6;
@@ -533,7 +546,7 @@ namespace Bikewale.Models
                             //objData.PopularMakeBikesAndBodyStyleBikesWidget = new MultiTabsWidgetVM();
                             //PopularMakeBikesAndBodyStyleBikesWidget(objData, MostPopularMakeBikes, MostPopularBikes, UpcomingBikes, bodyStyle);
                             // BindPopularAndUpcomingBikes(objData, MostPopularBikes, UpcomingBikes);
-                            BindSportsAndCruisers(objData, MostPopularMakeBikes, bodyStyle);
+                            BindSportsAndCruisers(objData, MostPopularMakeBikes, objData.BodyStyle);
                             BindPopularAndUpcomingBikes(objData, MostPopularBikes, UpcomingBikes);
 
                         }
@@ -602,7 +615,7 @@ namespace Bikewale.Models
 
                 if (MakeId > 0 && objData.Make != null)
                 {
-                    BindPopularBikesOrScooters(objData, PopularBikesWidget, bodyStyle);
+                    BindPopularBikesOrScooters(objData, PopularBikesWidget, objData.BodyStyle);
                 }
                 else
                 {
