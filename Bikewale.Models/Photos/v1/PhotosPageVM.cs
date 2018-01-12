@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Bikewale.Entities.CMS.Photos;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +18,6 @@ namespace Bikewale.Models.Photos.v1
     public class PhotosPageVM : ModelBase
     {
         public OtherMakesVM OtherPopularMakes { get; set; }
+        public IEnumerable<ModelImages> ModelsImages { get; set; }
     }
 }

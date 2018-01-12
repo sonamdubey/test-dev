@@ -1,11 +1,11 @@
-﻿using Bikewale.Entities;
+﻿using System.Web.Mvc;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Models.Photos;
-using System.Web.Mvc;
 using Bikewale.Models;
+using Bikewale.Models.Photos;
 
 namespace Bikewale.Controllers
 {
@@ -35,6 +35,24 @@ namespace Bikewale.Controllers
             _objVersionCache = objVersionCache;
             _objVideos = objVideos;
             _objMakeCache = objMakeCache;
+        }
+
+        [Route("photos/"), Filters.DeviceDetection]
+        public ActionResult Index()
+        {
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objMakeCache, _objModelEntity);
+
+            Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
+            return View(objData);
+        }
+
+        [Route("m/photos/")]
+        public ActionResult Index_Mobile()
+        {
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objMakeCache, _objModelEntity);
+
+            Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
+            return View(objData);
         }
 
         /// <summary>
@@ -96,23 +114,9 @@ namespace Bikewale.Controllers
             }
         }
 
-		[Route("photos/")]
-		public ActionResult Index()
-		{
-            // false sent for Desktop view
-            Bikewale.Models.Photos.v1.PhotosPage _objData = new Bikewale.Models.Photos.v1.PhotosPage(false, _objMakeCache);
-            Bikewale.Models.Photos.v1.PhotosPageVM obj = _objData.GetData();
-			return View(obj);
-		}
-
-		[Route("m/photos/")]
-		public ActionResult Index_Mobile()
-		{
             Bikewale.Models.Photos.v1.PhotosPage _objData = new Bikewale.Models.Photos.v1.PhotosPage(false, _objMakeCache);
             Bikewale.Models.Photos.v1.PhotosPageVM obj = _objData.GetData();
             return View(obj);
-		}
-
 		[Route("photos/make/")]
 		public ActionResult Make()
 		{

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bikewale.DTO.Videos;
 using Bikewale.Entities.Authors;
 using Bikewale.Entities.BikeData;
@@ -174,7 +175,7 @@ namespace Bikewale.BAL.GrpcFiles
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static List<ModelImages> ConvertFromGrpcToBikeWale(GrpcModelsImageList data)
+        public static IEnumerable<ModelImages> ConvertFromGrpcToBikeWale(GrpcModelsImageList data)
         {
             if(data == null)
             {
@@ -207,12 +208,16 @@ namespace Bikewale.BAL.GrpcFiles
                         };
                         modelImage.Add(curModelImage);
                     }
-
+                    var bike = modelImage.FirstOrDefault();
+                    
                     retData.Add(new ModelImages
                     {
                         ModelId = model.ModelId,
                         RecordCount = model.RecordCount,
-                        ModelImage = modelImage
+                        ModelImage = modelImage,
+                        BikeName = string.Format("{0} {1}", bike != null ?  bike.MakeBase.MakeName : "", bike != null ? bike.ModelBase.ModelName : ""),
+                        MakeBase  = bike != null ? bike.MakeBase : null,
+                        ModelBase = bike != null ? bike.ModelBase : null
                     });
 
                 }
