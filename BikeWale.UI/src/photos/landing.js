@@ -1,51 +1,51 @@
-﻿docReady(function() {
+﻿var objBikes = new Object(), focusedMakeModel = null, isMakeModelRedirected = false;
+docReady(function () {
 	var isMobile = true
 
 	if(window.innerWidth > 768) {
 		isMobile = false;
 	}
-
+	$("#exploreBikesField").val("");
+	
 	function MakeModelPhotosRedirection(items) {
-	    var make = new Object();
-	    make.maskingName = items.payload.makeMaskingName;
-	    make.id = items.payload.makeId;
-	    var model = null;
-	    if (items.payload.modelId > 0) {
-	        model = new Object();
-	        model.maskingName = items.payload.modelMaskingName;
-	        model.id = items.payload.modelId;
-	        model.futuristic = items.payload.futuristic;
-	    }
-
-	    if (model != null && model != undefined) {
+	    var makeMaskingName = items.payload.makeMaskingName;
+	    var modelMaskingName = items.payload.modelMaskingName;
+	    if (items.payload.modelId > 0 && makeMaskingName != null && makeMaskingName != "" && modelMaskingName != null && modelMaskingName != "") {
 	        if (isMobile) {
-	            window.location.href = "/m/photos/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+	            window.location.href = "/m/" + makeMaskingName + "-bikes/" + modelMaskingName + "/images/";
 	        }
 	        else {
-	            window.location.href = "/photos/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+	            window.location.href = "/" + makeMaskingName + "-bikes/" + modelMaskingName + "/images/";
 	        }
 	        return true;
-	    } else if (make != null && make != undefined) {
+	    } else if (makeMaskingName != null && makeMaskingName !="") {
 	        if (isMobile) {
-	            window.location.href = "/m/photos/" + make.maskingName + "-bikes/"; // To be replaced for photos page
+	            window.location.href = "/m/photos/" + makeMaskingName + "-bikes"; // To be replaced for photos page
 	        }
 	        else {
-	            window.location.href = "/photos/" + make.maskingName + "-bikes/"; // To be replaced for photos page
+	            window.location.href = "/photos/" + makeMaskingName + "-bikes"; // To be replaced for photos page
 	        }
 	        return true;
 	    }
 	}
-
+	$("#btnexplorebikesfield").on("click", function () {
+	    if (focusedMakeModel == undefined || focusedMakeModel == null) {
+	        return false;
+	    }
+	    return MakeModelPhotosRedirection(focusedMakeModel);
+	});
 	// explore bikes search
 	$("#exploreBikesField").bw_autocomplete({
 		recordCount: 5,
 		source: 8,
 		click: function (event, ui, orgTxt) {
+		    $("#exploreBikesField").val("");
 		    MakeModelPhotosRedirection(ui.item);
-		    isMakeModelPhotosRedirected = true;
+		    isMakeModelRedirected = true;
 		},
 		open: function (result) {
-			$("ul.ui-menu").width($('#exploreBikesField').innerWidth());
+		    $("ul.ui-menu").width($('#exploreBikesField').innerWidth());
+		    objBikes.result = result;
 		},
 		focus: function() {
 			if (isMobile) {
@@ -53,24 +53,60 @@
 					scrollTop: $('#exploreBikesField').offset().top - 20
 				})
 			}
+			focusedMakeModel = new Object();
+			focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
 		},
 		focusout: function () {
-			if ($('li.ui-state-focus a:visible').text() != "") {
+		    if ($('#exploreBikesField').find('li.ui-state-focus a:visible').text() != "") {
+		        focusedMakeModel = new Object();
+		        focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
 			}
 			else {
 				$('#errExploreBikes').hide();
 			}
 		},
 		afterfetch: function (result, searchtext) {
-			if (result != undefined && result.length > 0 && searchtext.trim()) {
+		    if (result != undefined && result != null && result.length > 0 && searchtext.trim()) {
 				$('#errExploreBikes').hide();
 			}
-			else {
+		    else {
+		        focusedMakeModel = null;
 				if (searchtext.trim() != '') {
 					$('#errExploreBikes').show();
 				}
 			}
+		},
+		keyup: function () {
+		    if ($('#exploreBikesField').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+		        focusedMakeModel = new Object();
+		        focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+		        $('#errExploreBikes').hide();
+		    } else {
+		        if ($('#exploreBikesField').val().trim() == '') {
+		            $('#errExploreBikes').hide();
+		        }
+		    }
+
+		    if ($('#exploreBikesField').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+		        if (focusedMakeModel == null || focusedMakeModel == undefined) {
+		            if ($('#exploreBikesField').val().trim() != '') {
+		                $('#errExploreBikes').show();
+		            }
+		        }
+		        else {
+		            $('#errExploreBikes').hide();
+		        }
+
+		    }
 		}
+	}).keydown(function (e) {
+	    if (e.keyCode == 13) {
+	        if (!isMakeModelRedirected)
+	            $('#btnExploreBikesField').click();
+	        else
+	            isMakeModelRedirected = false;
+	    }
+
 	});
 
 	// body type filter
