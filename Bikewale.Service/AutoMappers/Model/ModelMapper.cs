@@ -787,6 +787,19 @@ namespace Bikewale.Service.AutoMappers.Model
                 if (objModelPage.ModelDetails != null)
                 {
 
+                    colorPhotoCount = objModelPage.colorPhotos.Any() ? objModelPage.colorPhotos.Count() : colorPhotoCount;
+                    if (objModelPage.ModelDetails.PhotosCount > 0)
+                    {
+                        objGalleryComponent.Add(
+                                new ModelGalleryComponent
+                                {
+                                    CategoryId = 1,
+                                    CategoryName = "Photos",
+                                    CategoryCount = objModelPage.ModelDetails.PhotosCount + colorPhotoCount,
+                                    DataUrl = string.Format("api/model/{0}/photos/", modelId)
+                                }
+                            );
+                    }
 
                     if (objModelPage.ModelDetails.VideosCount > 0)
                     {
@@ -801,9 +814,9 @@ namespace Bikewale.Service.AutoMappers.Model
                             );
                     }
 
-                    if (objModelPage.colorPhotos.Any())
+                    if (colorPhotoCount > 0)
                     {
-                        colorPhotoCount = objModelPage.colorPhotos.Count();
+
                         objGalleryComponent.Add(
                                 new ModelGalleryComponent
                                 {
@@ -815,18 +828,7 @@ namespace Bikewale.Service.AutoMappers.Model
                             );
                     }
 
-                    if (objModelPage.ModelDetails.PhotosCount > 0)
-                    {
-                        objGalleryComponent.Add(
-                                new ModelGalleryComponent
-                                {
-                                    CategoryId = 1,
-                                    CategoryName = "Photos",
-                                    CategoryCount = objModelPage.ModelDetails.PhotosCount + colorPhotoCount,
-                                    DataUrl = string.Format("api/model/{0}/photos/", modelId)
-                                }
-                            );
-                    }
+
                 }
 
                 var component = objGalleryComponent.FirstOrDefault();
