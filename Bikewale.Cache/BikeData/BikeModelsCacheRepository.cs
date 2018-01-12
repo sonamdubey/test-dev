@@ -1550,11 +1550,11 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters)
         {
-            IEnumerable<MostPopularBikesBase> mostPopularBikes  = null;
+            IEnumerable<MostPopularBikesBase> mostPopularBikes = null;
             string key = string.Empty;
             try
             {
-                key = string.Format("BW_AdPromotedBike_{0}", bikeFilters);
+                key = string.Format("BW_AdPromotedBike_MakeId_{0}_CityId_{1}", bikeFilters.MakeId, bikeFilters.CityId);
                 mostPopularBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetAdPromotedBike(bikeFilters));
             }
             catch (Exception ex)
