@@ -23,8 +23,8 @@ namespace Bikewale.Models.Photos.v1
     /// </summary>
     public class PhotosPage
     {
-        private readonly IBikeMakesCacheRepository _objMakeCache = null;
-        private PhotosPageVM _objData = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache;
+        private PhotosPageVM _objData;
         public bool IsMobile { get; set; }
 
         /// <summary>
@@ -75,7 +75,6 @@ namespace Bikewale.Models.Photos.v1
         }
         private void BindPageWidgets()
         {
-            PQSourceEnum pqSource = IsMobile ? PQSourceEnum.Mobile_Photos_Page : PQSourceEnum.Desktop_Photos_page;
             try
             {
                
