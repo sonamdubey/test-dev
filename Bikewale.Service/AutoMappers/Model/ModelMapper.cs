@@ -562,7 +562,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static DTO.Model.v5.ModelPage ConvertV5(BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ushort platformId = 0)
         {
-            bool isApp = platformId == 3? true: false;
+            bool isApp = platformId == 3 ? true : false;
             DTO.Model.v5.ModelPage objDTOModelPage = null;
             try
             {
@@ -780,11 +780,14 @@ namespace Bikewale.Service.AutoMappers.Model
         internal static ModelGallery ConvertToModelGallery(BikeModelPageEntity objModelPage, int modelId)
         {
             ModelGallery objModelGallery = new ModelGallery();
+            var colorPhotoCount = 0;
             if (objModelPage != null)
             {
                 ICollection<ModelGalleryComponent> objGalleryComponent = new List<ModelGalleryComponent>();
                 if (objModelPage.ModelDetails != null)
                 {
+
+                    colorPhotoCount = objModelPage.colorPhotos.Any() ? objModelPage.colorPhotos.Count() : colorPhotoCount;
                     if (objModelPage.ModelDetails.PhotosCount > 0)
                     {
                         objGalleryComponent.Add(
@@ -792,7 +795,7 @@ namespace Bikewale.Service.AutoMappers.Model
                                 {
                                     CategoryId = 1,
                                     CategoryName = "Photos",
-                                    CategoryCount = objModelPage.ModelDetails.PhotosCount,
+                                    CategoryCount = objModelPage.ModelDetails.PhotosCount + colorPhotoCount,
                                     DataUrl = string.Format("api/model/{0}/photos/", modelId)
                                 }
                             );
@@ -811,18 +814,21 @@ namespace Bikewale.Service.AutoMappers.Model
                             );
                     }
 
-                    if (objModelPage.colorPhotos.Any())
+                    if (colorPhotoCount > 0)
                     {
+
                         objGalleryComponent.Add(
                                 new ModelGalleryComponent
                                 {
                                     CategoryId = 3,
                                     CategoryName = "Colours",
-                                    CategoryCount = objModelPage.colorPhotos.Count(),
+                                    CategoryCount = colorPhotoCount,
                                     DataUrl = string.Format("api/model/{0}/colorphotos/", modelId)
                                 }
                             );
                     }
+
+
                 }
 
                 var component = objGalleryComponent.FirstOrDefault();
