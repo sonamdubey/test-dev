@@ -15,7 +15,7 @@ node ('master'){
 		externalMethod = load("${BikewaleCI}" + "\\ProductionTesting\\ProductionTesting.groovy")
 	}
 	else if(details[0]=='BikewaleSonarQubeAnalysis'){
-		externalMethod = load("D:\\JenkinsUtilities\\bikewale\\SonarQube\\SonarQube.groovy")	
+		externalMethod = load("${BikewaleCI}" + "\\SonarQube\\SonarQube.groovy")	
 	}
      //Call the method we defined in externalMethod.
 }
