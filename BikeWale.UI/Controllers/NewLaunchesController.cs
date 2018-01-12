@@ -74,6 +74,7 @@ namespace Bikewale.Controllers
             model.BaseUrl = "/m/new-bike-launches/";
             model.PageSize = 10;
             model.MakeTopCount = 6;
+            model.IsMobile = true;
             return View(model.GetData());
         }
 
