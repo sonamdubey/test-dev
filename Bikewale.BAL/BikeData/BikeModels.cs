@@ -379,6 +379,33 @@ namespace Bikewale.BAL.BikeData
             return null;
         }
 
+        /// <summary>
+        /// Created By  : Vivek Singh Tomar on 12th Jan 2018
+        /// Descriptio  : Get models with list of images
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<ModelImages> GetBikeModelsPhotoGallery(string modelIds, int requiredImageCount)
+        {
+            try
+            {
+
+                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest, EnumCMSContentType.ComparisonTests });
+
+                var _objGrpcmodelsPhotoList = GrpcMethods.GetModelsImages(Convert.ToInt32(_applicationid), modelIds, contentTypeList, requiredImageCount);
+
+                if (_objGrpcmodelsPhotoList != null && _objGrpcmodelsPhotoList.LstGrpcModelImaegs.Count > 0)
+                {
+                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelsPhotoList);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+            }
+            return null;
+        }
+
         //// The delegate must have the same signature as the method
         //// it will call asynchronously.
         //public delegate IEnumerable<ModelImage> AsyncMethodCaller(U modelId);
@@ -1009,7 +1036,15 @@ namespace Bikewale.BAL.BikeData
                     var objData = _modelCacheRepository.GetModelIdsForImages();
                     if (objData != null)
                     {
-                        modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)))?.Skip(Convert.ToInt32(startIndex - 1))?.Take(Convert.ToInt32(endIndex - startIndex + 1));
+                        modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)));
+                        if (modelIdsWithBodyStyle != null)
+                        {
+                            modelIdsWithBodyStyle = modelIdsWithBodyStyle.Skip(Convert.ToInt32(startIndex - 1));
+                            if(modelIdsWithBodyStyle != null)
+                            {
+                                modelIdsWithBodyStyle = modelIdsWithBodyStyle.Take(Convert.ToInt32(endIndex - startIndex + 1));
+                            }
+                        }
                     }
                 }                
             }

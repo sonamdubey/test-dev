@@ -62,5 +62,6 @@ namespace Bikewale.Interfaces.BikeData
         BikeMileageEntity GetMileageDetails(uint modelId);
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex);
+        IEnumerable<ModelImages> GetBikeModelsPhotoGallery(string modelIds, int requiredImageCount);
     }
 }

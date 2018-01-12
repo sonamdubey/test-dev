@@ -24,7 +24,7 @@ namespace Bikewale.Controllers
         private readonly IVideos _objVideos = null;
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
 
-        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos)
+        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos, IBikeMakesCacheRepository objMakeCache)
         {
 
             _objModelCache = objModelCache;
@@ -34,20 +34,25 @@ namespace Bikewale.Controllers
             _objGenericBike = objGenericBike;
             _objVersionCache = objVersionCache;
             _objVideos = objVideos;
+            _objMakeCache = objMakeCache;
         }
 
         [Route("photos/"), Filters.DeviceDetection]
         public ActionResult Index()
         {
-            ModelBase objModel = new ModelBase();
-            return View(objModel);
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objMakeCache, _objModelEntity);
+
+            Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
+            return View(objData);
         }
 
         [Route("m/photos/")]
         public ActionResult Index_Mobile()
         {
-            ModelBase objModel = new ModelBase();
-            return View(objModel);
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objMakeCache, _objModelEntity);
+
+            Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
+            return View(objData);
         }
 
         /// <summary>
