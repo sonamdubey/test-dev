@@ -28,7 +28,8 @@ workboxSW.router.registerRoute(/.*\/m\/(news|bike-videos).*/, function (input) {
             else {
                 caches.open(PRECACHE_NAME).then(function (cache) {
                     fetch(APPSHELL).then(function (response) {
-                        cache.put(APPSHELL, response);
+                        if(response)
+                            cache.put(APPSHELL, response);
                     })
                 })
                 return fetchRequest(input.url.href);
@@ -87,4 +88,12 @@ workboxSW.router.registerRoute(/.*fonts\.(googleapis|gstatic).*/,
             maxAgeSeconds: 864000
         },
         cacheableResponce: { statuses: [200] }
-}));
+    }));
+
+this.addEventListener('activate', function (event) { // deleting old caches 
+    var cachesToDelete = ['cdn-JS', 'cdn-images', 'api', 'bw-offline-precache', 'google-resources', 'bw-precache'];
+    cachesToDelete.map(function(cacheName) {
+        caches.delete(cacheName);
+    })
+
+});

@@ -249,7 +249,8 @@ function getCdnPath() {
 		case "Debug":
 			return '/';
 		case "Staging":
-			return 'https://stb.aeplcdn.com/staging/bikewale/';
+			return '/'; // not placing static files on staging cdn
+			// return 'https://stb.aeplcdn.com/staging/bikewale/';
 		case "Release":
 			return 'https://stb.aeplcdn.com/bikewale/';
 		default : 
@@ -260,6 +261,10 @@ function getCdnPath() {
 
 
 gulp.task('appshell-procesing', function() {
+	if(Configuration != "Release") {
+		return
+	}
+	
 	return gulp.src([
 		app + 'pwa/appshell.html'
 		] , { base : app})
@@ -284,6 +289,9 @@ gulp.task('appshell-procesing', function() {
 
 
 gulp.task("replace-filepath-in-SW" , function() {
+	if(Configuration != "Release") {
+		return
+	}
 	var revManifest = require('./'+buildFolder+'rev-manifest.json');
 	var cdnUrlPattern = /var(\s)*baseUrl(\s|\n)*=(\s|\n)*(?:"|')([^,"']*)(?:"|')(\s|\n)*;/
 	return gulp.src([app + 'm/sw.js',
@@ -303,6 +311,10 @@ gulp.task("replace-filepath-in-SW" , function() {
 });
 
 gulp.task('generate-service-worker' , function() { // this task has to follow 'replace-filepath-in-SW' as it takes the file created by previous task
+	if(Configuration != "Release") {
+		return
+	}
+	
 	var revManifest = require('./'+buildFolder+'rev-manifest.json');
 	var regexPatternForAppshell = /.*appshell.*/;
 	return workbox.injectManifest({

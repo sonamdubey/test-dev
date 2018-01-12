@@ -10,7 +10,7 @@ var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlug
 var AssetsPlugin = require('assets-webpack-plugin');
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
-var BUILD_DIR = path.resolve(__dirname, '..', 'build');
+var BUILD_DIR = path.resolve(__dirname, '../../Bikewale.UI/', 'pwa');
 var APP_DIR = path.resolve(__dirname, '..', 'src');
 var ROOT_DIR = path.resolve(__dirname, '..');
 var vendorLibraries = ['react' , 'react-dom', 'redux' , 'react-router-dom' , 'react-redux' , 'redux-thunk' , 'immutable' , 'redux-immutable' , 'react-helmet', 'prop-types','react-lazy-load','es-abstract']
@@ -63,7 +63,7 @@ var config ={
           cssProcessorOptions: { discardComments: {removeAll: true } },
           canPrint: true
         }),
-        new CleanWebpackPlugin(['build'], { root: ROOT_DIR })
+        new CleanWebpackPlugin(['js','css'], { root: BUILD_DIR })
         /*,
     
 		

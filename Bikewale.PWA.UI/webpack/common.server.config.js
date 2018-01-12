@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname,'..', 'build');
+var BUILD_DIR = path.resolve(__dirname, '../../Bikewale.UI/', 'pwa');
 var APP_DIR = path.resolve(__dirname, '..','src');
 
 
@@ -10,8 +10,8 @@ var config = {
         server : APP_DIR + '/server.js',
     },
     output: {
-        path: BUILD_DIR+'/server/',
-        filename: '[name].bundle.js'
+        path : BUILD_DIR,
+        filename: 'server/[name].bundle.js'
     },
     module: {
         loaders: [
@@ -36,17 +36,7 @@ var config = {
        maxAssetSize: 100000,
        maxEntrypointSize: 300000,
        hints: 'warning'
-    },
-    plugins: [
-        new webpack.DefinePlugin({ //<--key to reduce React's size
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production'), 
-                'SERVER' : true
-            }
-        }),
-        new webpack.optimize.UglifyJsPlugin(),
-        new webpack.optimize.AggressiveMergingPlugin()
-    ]
+    }
 };
 
 module.exports = config;

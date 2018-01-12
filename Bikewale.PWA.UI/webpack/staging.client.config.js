@@ -1,19 +1,21 @@
 const merge = require('webpack-merge')
 var webpack = require('webpack');
-const commonConfig = require('./common.config.js');
-const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
+const commonConfig = require('./common.client.config.js');
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
+
 var cssChunksPublicPath = '/';
 
-var extractVideoSass = new ExtractCssChunks( {filename : "css/videos/videosBundle.[chunkhash].css" , publicPath : cssChunksPublicPath } );
-var extractAppSass = new ExtractCssChunks( {filename : "css/app.[chunkhash].css" , publicPath : cssChunksPublicPath } );
-var extractNewsSass = new ExtractCssChunks( {filename : "css/news/newsBundle.[chunkhash].css" , publicPath : cssChunksPublicPath } );
+var extractVideoSass = new ExtractCssChunks( {filename : "css/videos/videosBundle.css" , publicPath : cssChunksPublicPath } );
+var extractAppSass = new ExtractCssChunks( {filename : "css/app.css" , publicPath : cssChunksPublicPath } );
+var extractNewsSass = new ExtractCssChunks( {filename : "css/news/newsBundle.css" , publicPath : cssChunksPublicPath } );
+
 
 const config = merge(commonConfig, {
 	output : {
-		filename: 'js/[name].bundle.[chunkhash].js',
-        chunkFilename : 'js/[name].bundle.[chunkhash].js',
-        publicPath : 'https://stb.aeplcdn.com/bikewale/pwa/'
+		filename: 'js/[name].bundle.js',
+        chunkFilename : 'js/[name].bundle.js',
+        publicPath : '/pwa/'
 	},
     module: {
         loaders: [
@@ -51,23 +53,20 @@ const config = merge(commonConfig, {
         extractAppSass,
         extractNewsSass,
         extractVideoSass,
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true
+        new UglifyJsPlugin({
+            parallel : true,
+            sourceMap: true,
+            extractComments : true,
+            uglifyOptions : {
+                compress : {
+                    dead_code : true,
+                    drop_console : true,
+                    drop_debugger : true,
+                    reduce_vars: true,
+                    warnings : true
+                }    
+            }
         }),
-        // new UglifyJsPlugin({
-        //     parallel : true,
-        //     sourceMap: true,
-        //     extractComments : true,
-        //     uglifyOptions : {
-        //         compress : {
-        //             dead_code : true,
-        //             drop_console : true,
-        //             drop_debugger : true,
-        //             reduce_vars: true,
-        //             warnings : true
-        //         }    
-        //     }
-        // }),
         new webpack.optimize.AggressiveMergingPlugin(),
 	]
 })

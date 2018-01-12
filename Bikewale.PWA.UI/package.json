@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "Server": "webpack --config ./webpack/webpack.server.config.js",
-    "Debug": "webpack -d --config ./webpack/webpack.dev.config.js --display-chunks --display-entrypoints  --display-origins",
-    "Staging": "webpack -p --config ./webpack/webpack.staging.config.js",
-    "Release": "webpack -p --config ./webpack/webpack.prod.config.js",
+    "ServerRelease": "webpack --config ./webpack/release.server.config.js",
+    "ServerDebug": "webpack --watch --config ./webpack/debug.server.config.js",
+    "Debug": "webpack -d --watch --config ./webpack/debug.client.config.js --display-chunks --display-entrypoints  --display-origins",
+    "Staging": "webpack -p --config ./webpack/staging.client.config.js",
+    "Release": "webpack -p --config ./webpack/release.client.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Shivani Sanyal",

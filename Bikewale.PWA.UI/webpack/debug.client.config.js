@@ -1,9 +1,11 @@
 const merge = require('webpack-merge')
+var path = require('path');
 var webpack = require('webpack');
-const commonConfig = require('./common.config.js');
+const commonConfig = require('./common.client.config.js');
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
 var cssChunksPublicPath = '/';
+
 
 var extractVideoSass = new ExtractCssChunks( {filename : "css/videos/videosBundle.css" , publicPath : cssChunksPublicPath } );
 var extractAppSass = new ExtractCssChunks( {filename : "css/app.css" , publicPath : cssChunksPublicPath } );
@@ -11,7 +13,7 @@ var extractNewsSass = new ExtractCssChunks( {filename : "css/news/newsBundle.css
 
 const config = merge(commonConfig, {
 	output : {
-		filename: 'js/[name].bundle.js',
+    filename: 'js/[name].bundle.js',
         chunkFilename: 'js/[name].bundle.js',
         publicPath : '/pwa/'
 	},
