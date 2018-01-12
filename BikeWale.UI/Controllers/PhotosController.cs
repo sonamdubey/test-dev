@@ -24,7 +24,7 @@ namespace Bikewale.Controllers
         private readonly IVideos _objVideos = null;
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
 
-        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos)
+        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos, IBikeMakesCacheRepository objMakeCache)
         {
 
             _objModelCache = objModelCache;
@@ -34,6 +34,7 @@ namespace Bikewale.Controllers
             _objGenericBike = objGenericBike;
             _objVersionCache = objVersionCache;
             _objVideos = objVideos;
+            _objMakeCache = objMakeCache;
         }
 
         /// <summary>
@@ -107,8 +108,9 @@ namespace Bikewale.Controllers
 		[Route("m/photos/")]
 		public ActionResult Index_Mobile()
 		{
-			ModelBase objModel = new ModelBase();
-			return View(objModel);
+            Bikewale.Models.Photos.v1.PhotosPage _objData = new Bikewale.Models.Photos.v1.PhotosPage(false, _objMakeCache);
+            Bikewale.Models.Photos.v1.PhotosPageVM obj = _objData.GetData();
+            return View(obj);
 		}
 
 		[Route("photos/make/")]
