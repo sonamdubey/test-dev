@@ -84,6 +84,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Returns the Scooters Index Page view model
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public ScootersMakePageVM GetData()
@@ -124,6 +126,7 @@ namespace Bikewale.Models
                 objData.ScooterNewsUrl = UrlFormatter.FormatScootersNewsUrl(objData.News.MakeMasking, objData.News.ModelMasking);
 
                 BindPageMetaTags();
+                objData.Page = Entities.Pages.GAPages.Make_Scooters;
 
             }
             catch (Exception ex)

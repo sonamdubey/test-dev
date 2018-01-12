@@ -10,6 +10,15 @@ var bikeRating = {
 var ratingQuestion = [];
 var ratingError = false, questionError = false, userNameError = false, emailError = false;
 
+function removeMaliciousCode(text) {
+    if (!text)
+        return text;
+    var regex = /<script[^>]*>[\s\S]*?<\/script\s*>/gi;
+    while (regex.test(text)) {
+        text = text.replace(regex, "");
+    }
+    return text;
+}
 
 function initKoSlider() {
     ko.bindingHandlers.KOSlider = {
@@ -325,8 +334,7 @@ var writeReview = function () {
     self.reviewQuestions = ko.observableArray(reviewQuestion);
     self.reviewCheckbox = ko.observable(true);
     self.descLength = ko.computed(function () {
-
-        return self.detailedReview().replace(/\n|\r/g, "").length;
+        return self.detailedReview().replace(/\n|\r/g, "").length ;
     });
     self.submitReview = function () {
         var array = new Array;
@@ -366,8 +374,6 @@ var writeReview = function () {
                 return toReplace.toUpperCase();
             }));
         }
-
-
 
         if ($('#formattedDescripton'))
             $('#formattedDescripton').val(formattedDescArray);
@@ -425,8 +431,9 @@ var writeReview = function () {
 
     self.validate = {
         detailedReview: function () {
+            self.detailedReview(removeMaliciousCode(self.detailedReview()).trim());
+            
             if (self.descLength() < 300) {
-                self.detailedReview(self.detailedReview().trim());
                 self.detailedReviewFlag(true);
 
                 if (self.descLength() == 0)

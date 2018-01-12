@@ -96,6 +96,7 @@ namespace Bikewale.Models.Features
                     {
                         BindAmpJsTags(objDetailsVM);
                     }
+                    objDetailsVM.Page = Entities.Pages.GAPages.Editorial_Details_Page;
                 }
                 else
                 {

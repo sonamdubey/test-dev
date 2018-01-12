@@ -1,4 +1,10 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
 using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -8,12 +14,6 @@ using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using Dapper;
 using MySql.CoreDAL;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
 
 namespace BikewaleOpr.DALs.Bikedata
 {
@@ -486,20 +486,29 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <returns></returns>
         public BikeMakeEntity GetMakeDetailsById(uint makeId)
         {
-            BikeMakeEntity makeDetail = null;
+            BikeMakeEntity makeDetails = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    var param = new DynamicParameters();
-                    param.Add("par_makeid", makeId);
-                    connection.Open();
-                    var details = connection.Query<BikeMakeEntity>("getmakedetails_14082017", param: param, commandType: CommandType.StoredProcedure);
-                    if (details != null)
-                        makeDetail = details.FirstOrDefault();
-                    if (connection != null && connection.State == ConnectionState.Open)
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmakedetails_14082017";
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        connection.Close();
+                        if (reader != null)
+                        {
+                            makeDetails = new BikeMakeEntity();
+                            while (reader.Read())
+                            {
+                                makeDetails.MakeId = SqlReaderConvertor.ToInt32(reader["id"]);
+                                makeDetails.MakeName = Convert.ToString(reader["name"]);
+                                makeDetails.MaskingName = Convert.ToString(reader["maskingname"]);
+                            }
+                            reader.Close();
+                        }
                     }
                 }
             }
@@ -508,7 +517,7 @@ namespace BikewaleOpr.DALs.Bikedata
                 ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.BikeData.GetMakeDetailsById_MakeId: =>{0}", makeId));
             }
 
-            return makeDetail;
+            return makeDetails;
         }
     }   // class
 }   // namespace

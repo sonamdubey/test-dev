@@ -160,6 +160,7 @@
     <Compile Include="BikeBooking\PageUrl.cs" />
     <Compile Include="BikeData\BikeColorsbyVersion.cs" />
     <Compile Include="BikeData\BikeColorsbyVersionDTO.cs" />
+    <Compile Include="BikeData\BikeVersionWithMinSpecDTO.cs" />
     <Compile Include="BikeData\ModelSpecificationsDTO.cs" />
     <Compile Include="BikeData\VersionSegmentDTO.cs" />
     <Compile Include="BikeData\MakeModelBase.cs" />
@@ -217,10 +218,12 @@
     <Compile Include="Customer\CustomerBase.cs" />
     <Compile Include="Customer\RegisteredCustomer.cs" />
     <Compile Include="DealerLocator\DealerBase.cs" />
+    <Compile Include="DealerLocator\DealerBikeModels.cs" />
     <Compile Include="DealerLocator\DealerBikes.cs" />
     <Compile Include="DealerLocator\DealerDetail.cs" />
     <Compile Include="DealerLocator\v2\DealerBikeBase.cs" />
     <Compile Include="DealerLocator\v2\DealerBikes.cs" />
+    <Compile Include="Dealer\DealerVersionPrices.cs" />
     <Compile Include="Dealer\NewBikeDealerBase.cs" />
     <Compile Include="Dealer\NewBikeDealerList.cs" />
     <Compile Include="Dealer\v2\NewBikeDealerBase.cs" />
@@ -451,6 +454,7 @@
     <Compile Include="Version\VersionList.cs" />
     <Compile Include="Version\VersionMinSpecs.cs" />
     <Compile Include="Version\VersionSpecifications.cs" />
+    <Compile Include="Version\VersionSpecs.cs" />
     <Compile Include="Videos\v2\VideoBase.cs" />
     <Compile Include="Videos\v2\VideosList.cs" />
     <Compile Include="Videos\VideoBase.cs" />

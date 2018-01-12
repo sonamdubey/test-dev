@@ -9,7 +9,9 @@ var gulp = require('gulp'),
 	replace = require('gulp-replace'),
 	fsCache = require('gulp-fs-cache'),
 	rev = require('gulp-rev'),
+	htmlmin = require('gulp-htmlmin'),
 	workbox = require('workbox-build');
+
 
 var app = 'BikeWale.UI/',
 	buildFolder = app + 'build/',
@@ -269,6 +271,7 @@ gulp.task('appshell-procesing', function() {
 		.pipe(replace(/@@/g,function(match, p1, offset, string){
 			return '@';
 		}))
+		.pipe(htmlmin({collapseWhitespace: true, minifyJS : true}))
 		.pipe(rev())
 		.pipe(gulp.dest(buildFolder))
 		.pipe(rev.manifest({
@@ -287,6 +290,7 @@ gulp.task("replace-filepath-in-SW" , function() {
     				app + 'm/news/sw.js'] , { base: app })
         .pipe(replace(/pwa\/appshell(-(\w)*)?\.html/g , function(match, p1, offset, string){ 
         	return revManifest["pwa/appshell.html"]
+        	
         }))
         .pipe(replace(cdnUrlPattern,function(match, p1, offset, string){
 			return 'var baseUrl = \''+getCdnPath()+'\';';

@@ -1,13 +1,10 @@
-﻿using Bikewale.Entities;
-using Bikewale.Entities.Location;
+﻿using Bikewale.Entities.Location;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models.Videos
 {
@@ -19,7 +16,7 @@ namespace Bikewale.Models.Videos
     {
         private readonly IVideos _videos = null;
         public bool IsMobile = false;
-        
+
 
 
         public ScooterVideos(IVideos videos)
@@ -30,6 +27,8 @@ namespace Bikewale.Models.Videos
         /// <summary>
         /// Created by : Ashutosh Sharma on 17-Aug-2017
         /// Description : Method to get list of scooter videos.
+        /// Modified by : Snehal Dange on 29th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns>List of scooter videos.</returns>
         public ScooterVideosVM GetData()
@@ -48,14 +47,14 @@ namespace Bikewale.Models.Videos
 
                 BindPageMetas(objVideos);
                 SetBreadcrumList(objVideos);
-
+                objVideos.Page = Entities.Pages.GAPages.Videos_Landing_Page;
 
 
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.Videos.ScooterVideos.GetData");
-                
+
             }
             return objVideos;
         }
@@ -79,7 +78,7 @@ namespace Bikewale.Models.Videos
                     if (!IsMobile)
                     {
                         scooterVideo.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/scooters/videos/";
-                    } 
+                    }
                 }
             }
             catch (Exception ex)

@@ -196,14 +196,14 @@
 								</div>
 							</div>
 							<div class="load-more-btn-container" style="display: @(String.IsNullOrEmpty(Model.BikeSearch.PageUrl.NextPageUrl) ? "none" : "")" data-bind="visible: IsMoreBikesAvailable() && !IsLoading()">
-								<a id="loadMoreBikes" title="Load More Bikes" href="javascript:void(0)" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" rel="nofollow" class="btn btn-teal" data-bind="attr: {'data-url' : LoadMoreTarget()}">
-									<span data-bind="visible: (!IsLoadMore() && IsMoreBikesAvailable())">
-										Load More
-									</span>
-									<span data-bind="visible: IsLoadMore()" style="display: none">
-										Loading...
-									</span>
-								</a>
+                                <a id="loadMoreBikes" title="Load More Bikes" href="@Model.PageMetaTags.NextPageUrl" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" class="btn btn-teal" data-bind="attr: {'data-url' : LoadMoreTarget()}">
+                                    <span data-bind="visible: (!IsLoadMore() && IsMoreBikesAvailable())">
+                                        Load More
+                                    </span>
+                                    <span data-bind="visible: IsLoadMore()" style="display: none">
+                                        Loading...
+                                    </span>
+                                </a>
 							</div>
 							<div style="text-align: center" data-bind="visible: TotalBikes() == 0">
 								<div id="nobikeresults" class="hide">

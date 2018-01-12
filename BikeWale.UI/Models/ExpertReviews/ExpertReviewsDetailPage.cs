@@ -114,6 +114,8 @@ namespace Bikewale.Models
         /// Summary    : Get entire data for expert reviews detail page
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         public ExpertReviewsDetailPageVM GetData(int widgetTopCount)
         {
@@ -133,6 +135,7 @@ namespace Bikewale.Models
                     BindSimilarBikes(objData);
                     SetBikeTested(objData);
                     InsertBikeInfoWidgetIntoContent(objData);
+                    objData.Page = GAPages.Editorial_Details_Page;
                     if (IsAMPPage)
                     {
                         BindAmpJsTags(objData);

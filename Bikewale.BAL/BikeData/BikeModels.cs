@@ -250,7 +250,6 @@ namespace Bikewale.BAL.BikeData
             try
             {
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId);
-
                 if (objModelPage != null)
                 {
                     CreateAllPhotoList(modelId, objModelPage);

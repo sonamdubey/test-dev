@@ -78,6 +78,8 @@ namespace Bikewale.Models.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Get data for the write reviews page
+        /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// </summary>
         /// <returns></returns>
         public WriteReviewPageVM GetData()
@@ -115,6 +117,7 @@ namespace Bikewale.Models.UserReviews
 
                 GetUserRatings(objPage);
                 BindPageMetas(objPage);
+                objPage.Page = Entities.Pages.GAPages.Write_Review;
             }
             catch (Exception ex)
             {

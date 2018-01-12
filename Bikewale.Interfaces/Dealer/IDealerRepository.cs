@@ -43,5 +43,7 @@ namespace Bikewale.Interfaces.Dealer
         bool UpdateManufaturerLead(uint pqId, string custEmail, string mobile, string response);
         IEnumerable<DealerBrandEntity> GetDealerByBrandList();
         IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId);
+        DealerBikeModelsEntity GetBikesByDealerAndMake(uint dealerId, uint makeId);
+        DealerVersionPrices GetBikeVersionPrice(uint dealerId, uint versionId);
     }
 }

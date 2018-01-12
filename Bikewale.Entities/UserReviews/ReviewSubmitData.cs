@@ -6,6 +6,8 @@ namespace Bikewale.Entities.UserReviews
     /// Description : This entity holds submit data of form rating reviews form
     /// Modified By :   Vishnu Teja Yalakuntla on 07 Sep 2017
     /// Description :   Added CustomerId
+    /// Modified By : Sanskar Gupta 09/01/2018
+    /// Description : Added the bool field called "fromParamterRatingPage" to know the page from which the request has been made.
     /// </summary>
     public class ReviewSubmitData
     {
@@ -23,5 +25,7 @@ namespace Bikewale.Entities.UserReviews
         public string EncodedString { get; set; }
         public bool? IsDesktop { get; set; }
         public uint Mileage { get; set; }
+
+        public bool? fromParamterRatingPage { get; set; }
     }
 }
