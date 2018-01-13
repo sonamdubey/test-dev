@@ -1,6 +1,5 @@
 ﻿using Bikewale.BAL.Images;
 using Bikewale.Entities.CMS;
-using Bikewale.Notifications;
 using BikewaleOpr.Interface.BikeData;
 using Grpc.CMS;
 using System;
@@ -114,13 +113,13 @@ namespace Bikewale.Models.Photos.v1
         private void BindMakesWidget(PhotosPageVM objData)
         {
             IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos);
-            //objData.OtherPopularMakes = new OtherMakesVM()
-            //{
-            //    Makes = makes,
-            //    PageLinkFormat = "/{0}-bikes/",
-            //    PageTitleFormat = "{0} Bikes",
-            //    CardText = "bike"
-            //};
+            objData.OtherPopularMakes = new OtherMakesVM()
+            {
+                Makes = makes,
+                PageLinkFormat = "/{0}-bikes/",
+                PageTitleFormat = "{0} Bikes",
+                CardText = "bike"
+            };
         }
 
         private void SetPageMetas()

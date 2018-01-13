@@ -14,9 +14,19 @@ namespace Bikewale.Service.AutoMappers.CMS
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// Summary : class to map the cms entities to the DTOs.
+    /// Modified By : Rajan Chauhan on 13 Jan 2018
+    /// Description : Added ModelImages to ModelImageList
     /// </summary>
     public class CMSMapper
     {
+        internal static List<DTO.CMS.Photos.ModelImageList> Convert(IEnumerable<Entities.CMS.Photos.ModelImages> objImageList)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<ModelImage, CMSModelImageBase>();
+            return Mapper.Map<IEnumerable<ModelImages>, List<ModelImageList>>(objImageList);
+        }
+
         internal static List<DTO.CMS.Photos.CMSModelImageBase> Convert(IEnumerable<Entities.CMS.Photos.ModelImage> objImageList)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();

@@ -7,7 +7,7 @@
         Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
         Model.Page_JS_Path = "/src/photos/landing.js";
     }
-
+}
         <section class="container padding-top10">
             <div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
@@ -73,19 +73,22 @@
                                     </li>
                                 </ul>
                             </div>
+                        @if (Model != null && Model.BikeModelsPhotos != null)
+                        {
                             @Html.Partial("~/Views/Photos/_ModelsImageList.cshtml", Model.BikeModelsPhotos)
                             <div class="clear"></div>
                             <div class="explore-model__more-btn">
                                 <button type="button" class="btn btn-inv-blue">View More</button>
                             </div>
+                        }
                         </div>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-@if (Model != null && Model.OtherPopularMakes != null)
-{
+    @if (Model != null && Model.OtherPopularMakes != null)
+    {
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
@@ -97,4 +100,4 @@
             <div class="clear"></div>
         </div>
     </section>
-}
+    }

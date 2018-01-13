@@ -1,12 +1,20 @@
-﻿using Bikewale.DTO.Images;
+﻿using Bikewale.DTO.CMS.Photos;
+using Bikewale.DTO.Images;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Images;
+using Bikewale.Entities.CMS;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Images;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Images;
 using Bikewale.Service.Utilities;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Bikewale.Service.AutoMappers.CMS;
 
 namespace Bikewale.Service.Controllers
 {
@@ -17,9 +25,11 @@ namespace Bikewale.Service.Controllers
     public class ImageController : CompressionApiController
     {
         private readonly IImage _objImageBL = null;
-        public ImageController(IImage objImageBL)
+        private readonly IBikeModels<BikeModelEntity, int> _objModelEntity;
+        public ImageController(IImage objImageBL, IBikeModels<BikeModelEntity, int> objModelEntity)
         {
             _objImageBL = objImageBL;
+            _objModelEntity = objModelEntity;
         }
 
         /// <summary>
@@ -98,5 +108,39 @@ namespace Bikewale.Service.Controllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 13 Jan 2018
+        /// Description : API for images landing page
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [Route("api/images/pages/{pageNo}/{pageSize}"), HttpGet, ResponseType(typeof(ModelImageList))]
+        public IHttpActionResult GetModelsImagesList(uint pageNo, uint pageSize)
+        {
+            try
+            {
+                pageSize = (pageSize == 0)? pageSize: 30;
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (pageNo - 1) * pageSize + 1, pageNo * pageSize);
+                string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
+                int requiredImageCount = 7;
+                string categoryIds = Bikewale.Utility.CommonApiOpn.GetContentTypesString(
+                    new List<EnumCMSContentType>()
+                    {
+                        EnumCMSContentType.PhotoGalleries,
+                        EnumCMSContentType.RoadTest
+                    }
+                );
+                IEnumerable<ModelImageList> obj = CMSMapper.Convert(_objImageBL.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount));
+                return Ok(obj);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controller.ImageController : GetModelsImagesList({0}, {1})", pageNo, pageSize));
+                return BadRequest();
+            }
+
+        }
+
     }
 }

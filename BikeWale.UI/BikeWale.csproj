@@ -3961,6 +3961,7 @@
     <Content Include="Views\Photos\_ImageCarousel_Mobile.cshtml" />
     <Content Include="Views\Photos\_OtherPopularMakes.cshtml" />
     <Content Include="Views\Photos\_OtherPopularMakes_Mobile.cshtml" />
+    <Content Include="Views\Photos\_ModelsImageList_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

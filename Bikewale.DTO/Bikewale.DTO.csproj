@@ -180,6 +180,7 @@
     <Compile Include="Campaign\DetailsDto.cs" />
     <Compile Include="Campaign\ESCampaignBase .cs" />
     <Compile Include="Campaign\PreRenderCampaignBase.cs" />
+    <Compile Include="CMS\Photos\ModelImageList.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />
     <Compile Include="BikeBooking\BikeCancellationCustomer.cs" />
     <Compile Include="Compare\BikeCompareDTO.cs" />
