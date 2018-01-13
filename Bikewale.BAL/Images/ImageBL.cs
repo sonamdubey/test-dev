@@ -8,6 +8,11 @@ using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
+using Bikewale.Entities.CMS.Photos;
+using System.Collections.Generic;
+using Grpc.CMS;
+using Bikewale.BAL.GrpcFiles;
+
 namespace Bikewale.BAL.Images
 {
     /// <summary>
@@ -105,6 +110,28 @@ namespace Bikewale.BAL.Images
                 ErrorClass.LogError(ex, String.Format("ProcessImageUpload({0})", JsonConvert.SerializeObject(token)));
             }
             return token;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 11th Jan 2018
+        /// Description : Method to get photos of bike models.
+        /// </summary>
+        /// <param name="modelIds">CSV modelIds for which Photos are to be fetched.</param>
+        /// <param name="categoryIds">CSV categoryIds which Photos are to be fetched.</param>
+        /// <param name="requiredImageCount">Count of Photos to be fetched for every model.</param>
+        /// <returns></returns>
+        public IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount)
+        {
+            try
+            {
+                var objImages = GrpcMethods.GetModelsImages(modelIds, categoryIds, requiredImageCount);
+                return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BAL.Images.ImageBL.GetBikeModelsPhotos_modelIds_{0}_categoryIds_{1}_requiredImageCount_{2}", modelIds, categoryIds, requiredImageCount));
+            }
+            return null;
         }
     }
 }

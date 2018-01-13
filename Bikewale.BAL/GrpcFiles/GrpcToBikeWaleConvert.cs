@@ -177,58 +177,55 @@ namespace Bikewale.BAL.GrpcFiles
         /// <returns></returns>
         public static IEnumerable<ModelImages> ConvertFromGrpcToBikeWale(GrpcModelsImageList data)
         {
-            if(data == null)
-            {
-                return null;
-            }
             try
             {
-                List<ModelImages> retData = new List<ModelImages>();
-                foreach (var model in data.LstGrpcModelImaegs)
+                if (data != null)
                 {
-                    List<ModelImage> modelImage = new List<ModelImage>();
-                    foreach (var curGrpcModelImage in model.LstGrpcModelImage)
+                    List<ModelImages> retData = new List<ModelImages>();
+                    foreach (var model in data.LstGrpcModelImaegs)
                     {
-                        var curModelImage = new ModelImage()
+                        List<ModelImage> modelImage = new List<ModelImage>();
+                        foreach (var curGrpcModelImage in model.LstGrpcModelImage)
                         {
-                            AltImageName = curGrpcModelImage.AltImageName,
-                            Caption = curGrpcModelImage.Caption,
-                            HostUrl = curGrpcModelImage.HostUrl,
-                            ImageCategory = curGrpcModelImage.ImageCategory,
-                            ImageDescription = curGrpcModelImage.ImageDescription,
-                            ImageId = curGrpcModelImage.ImageId,
-                            ImageName = curGrpcModelImage.ImageName,
-                            ImagePathLarge = curGrpcModelImage.ImagePathLarge,
-                            ImagePathThumbnail = curGrpcModelImage.ImagePathThumbnail,
-                            ImageTitle = curGrpcModelImage.ImageTitle,
-                            MainImgCategoryId = (short)curGrpcModelImage.MainImgCategoryId,
-                            MakeBase = ConvertFromGrpcToBikeWale(curGrpcModelImage.MakeBase),
-                            ModelBase = ConvertFromGrpcToBikeWale(curGrpcModelImage.ModelBase),
-                            OriginalImgPath = curGrpcModelImage.OriginalImgPath
-                        };
-                        modelImage.Add(curModelImage);
-                    }
+                            var curModelImage = new ModelImage()
+                            {
+                                AltImageName = curGrpcModelImage.AltImageName,
+                                Caption = curGrpcModelImage.Caption,
+                                HostUrl = curGrpcModelImage.HostUrl,
+                                ImageCategory = curGrpcModelImage.ImageCategory,
+                                ImageDescription = curGrpcModelImage.ImageDescription,
+                                ImageId = curGrpcModelImage.ImageId,
+                                ImageName = curGrpcModelImage.ImageName,
+                                ImagePathLarge = curGrpcModelImage.ImagePathLarge,
+                                ImagePathThumbnail = curGrpcModelImage.ImagePathThumbnail,
+                                ImageTitle = curGrpcModelImage.ImageTitle,
+                                MainImgCategoryId = (short)curGrpcModelImage.MainImgCategoryId,
+                                MakeBase = ConvertFromGrpcToBikeWale(curGrpcModelImage.MakeBase),
+                                ModelBase = ConvertFromGrpcToBikeWale(curGrpcModelImage.ModelBase),
+                                OriginalImgPath = curGrpcModelImage.OriginalImgPath
+                            };
+                            modelImage.Add(curModelImage);
+                        }
                     var bike = modelImage.FirstOrDefault();
                     
-                    retData.Add(new ModelImages
-                    {
-                        ModelId = model.ModelId,
-                        RecordCount = model.RecordCount,
-                        ModelImage = modelImage,
-                        BikeName = string.Format("{0} {1}", bike != null ?  bike.MakeBase.MakeName : "", bike != null ? bike.ModelBase.ModelName : ""),
-                        MakeBase  = bike != null ? bike.MakeBase : null,
-                        ModelBase = bike != null ? bike.ModelBase : null
-                    });
+                        retData.Add(new ModelImages
+                        {
+                            ModelId = model.ModelId,
+                            RecordCount = model.RecordCount,
+                            ModelImage = modelImage,
+                            BikeName = string.Format("{0} {1}", bike != null ?  bike.MakeBase.MakeName : "", bike != null ? bike.ModelBase.ModelName : ""),
+                            MakeBase  = bike != null ? bike.MakeBase : null,
+                            ModelBase = bike != null ? bike.ModelBase : null
+                        });
 
+                    }
+                    return retData; 
                 }
-
-                return retData;
             }
             catch (Exception ex)
             {
                 log.Error(ex);
             }
-
             return null;
         }
 

@@ -738,7 +738,7 @@ namespace Grpc.CMS
         /// <param name="categoryIds"></param>
         /// <param name="requiredImageCount"></param>
         /// <returns></returns>
-        public static GrpcModelsImageList GetModelsImages(int applicationId, string modelIds, string categoryIds, int requiredImageCount)
+        public static GrpcModelsImageList GetModelsImages(string modelIds, string categoryIds, int requiredImageCount)
         {
             Stopwatch sw = null;
 
@@ -762,7 +762,7 @@ namespace Grpc.CMS
                             return client.GetModelsImages
                                 (new GrpcModelListPhotoURI()
                                 {
-                                    ApplicationId = applicationId,
+                                    ApplicationId = 2,
                                     ModelIds = modelIds,
                                     CategoryIds = categoryIds,
                                     RequiredImageCount = requiredImageCount

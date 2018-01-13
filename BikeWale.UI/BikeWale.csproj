@@ -3315,6 +3315,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\News\_RecentNews_v1.cshtml" />
+    <Content Include="Views\Photos\_ModelsImageList.cshtml" />
     <Content Include="VisitorAgreement.aspx" />
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
     <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe" />

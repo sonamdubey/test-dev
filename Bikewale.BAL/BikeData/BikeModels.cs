@@ -392,7 +392,7 @@ namespace Bikewale.BAL.BikeData
 
                 string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest, EnumCMSContentType.ComparisonTests });
 
-                var _objGrpcmodelsPhotoList = GrpcMethods.GetModelsImages(Convert.ToInt32(_applicationid), modelIds, contentTypeList, requiredImageCount);
+                var _objGrpcmodelsPhotoList = GrpcMethods.GetModelsImages(modelIds, contentTypeList, requiredImageCount);
 
                 if (_objGrpcmodelsPhotoList != null && _objGrpcmodelsPhotoList.LstGrpcModelImaegs.Count > 0)
                 {
@@ -1031,7 +1031,7 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
             try
             {
-                if(makeId >= 0 && startIndex > 0 && (startIndex <= endIndex))
+                if(startIndex > 0 && (startIndex <= endIndex))
                 {
                     var objData = _modelCacheRepository.GetModelIdsForImages();
                     if (objData != null)

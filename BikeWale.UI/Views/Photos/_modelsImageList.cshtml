@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Bikewale.Entities.CMS.Photos.ModelImages>
+@using Bikewale.Utility
+@if (Model != null)
+{
+    <ul class="explore-model-image__list image-card--list">
+        @foreach (var modelImages in Model)
+        {
+            @if (modelImages.RecordCount > 1)
+            {
+                ushort gridSize = (ushort)(modelImages.RecordCount >= 4 ? 4 : modelImages.RecordCount >= 3 ? 3 : 1);
+                var firstModelImages = modelImages.ModelImage.First();
+
+                <li class="explore-model-image-list__item">
+                    <a href="" title="" class="model-image__card">
+                        <ul class="image-grid__list" data-grid="@gridSize">
+                            @foreach (var modelImage in modelImages.ModelImage)
+                            {
+                                <li class="image-grid-list__item">
+                                    <img class="lazy" src="" data-original="@Image.GetPathToShowImages(modelImage.OriginalImgPath, modelImage.HostUrl, ImageSize._476x268, QualityFactor._70)" alt="@modelImage.AltImageName">
+                                </li>
+                            }
+                        </ul>
+                        <div class="card-image__details">
+                            <h3 class="card-details__left-col">
+                                <span class="card-details__make">@firstModelImages.MakeBase.MakeName</span>
+                                <span class="card-details__model">@firstModelImages.ModelBase.ModelName</span>
+                            </h3>
+                            <div class="card-details__right-col">
+                                <span class="card-details__image-count">@modelImages.RecordCount</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+}
