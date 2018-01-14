@@ -77,9 +77,13 @@
                         {
                             @Html.Partial("~/Views/Photos/_ModelsImageList.cshtml", Model.BikeModelsPhotos)
                             <div class="clear"></div>
-                            <div class="explore-model__more-btn">
-                                <button type="button" class="btn btn-inv-blue">View More</button>
-                            </div>
+                            if (!string.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+                            {
+                                <div class="explore-model__more-btn">
+                                    <a id="viewMoreBtn" href="@Model.PageMetaTags.NextPageUrl" class="btn btn-inv-blue">View More</a>
+                                </div>
+                            }
+
                         }
                         </div>
                     </div>

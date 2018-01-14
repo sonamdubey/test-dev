@@ -24,9 +24,8 @@ namespace Bikewale.Controllers
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         private readonly IVideos _objVideos = null;
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
-        private readonly ImageBL _objImageBL = null;
 
-        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos, ImageBL objImageBL, IBikeMakesCacheRepository objMakeCache)
+        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos, IBikeMakesCacheRepository objMakeCache)
         {
 
             _objModelCache = objModelCache;
@@ -36,15 +35,14 @@ namespace Bikewale.Controllers
             _objGenericBike = objGenericBike;
             _objVersionCache = objVersionCache;
             _objVideos = objVideos;
-            _objImageBL = objImageBL;
             _objMakeCache = objMakeCache;
         }
 
         [Route("photos/"), Filters.DeviceDetection]
         public ActionResult Index()
         {
-            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, _objImageBL);
-
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache);
+            objModel.PageSize = 30;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
             return View(objData);
         }
@@ -52,8 +50,8 @@ namespace Bikewale.Controllers
         [Route("m/photos/")]
         public ActionResult Index_Mobile()
         {
-            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache, _objImageBL);
-
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache);
+            objModel.PageSize = 30;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
             return View(objData);
         }

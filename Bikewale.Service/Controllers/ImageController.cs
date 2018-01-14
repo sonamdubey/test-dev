@@ -108,39 +108,7 @@ namespace Bikewale.Service.Controllers
                 return BadRequest();
             }
         }
-        /// <summary>
-        /// Created By  : Rajan Chauhan on 13 Jan 2018
-        /// Description : API for images landing page
-        /// </summary>
-        /// <param name="pageNo"></param>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
-        [Route("api/images/pages/{pageNo}/{pageSize}"), HttpGet, ResponseType(typeof(ModelImageList))]
-        public IHttpActionResult GetModelsImagesList(uint pageNo, uint pageSize)
-        {
-            try
-            {
-                pageSize = (pageSize == 0)? pageSize: 30;
-                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (pageNo - 1) * pageSize + 1, pageNo * pageSize);
-                string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                int requiredImageCount = 7;
-                string categoryIds = Bikewale.Utility.CommonApiOpn.GetContentTypesString(
-                    new List<EnumCMSContentType>()
-                    {
-                        EnumCMSContentType.PhotoGalleries,
-                        EnumCMSContentType.RoadTest
-                    }
-                );
-                IEnumerable<ModelImageList> obj = CMSMapper.Convert(_objImageBL.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount));
-                return Ok(obj);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controller.ImageController : GetModelsImagesList({0}, {1})", pageNo, pageSize));
-                return BadRequest();
-            }
-
-        }
+        
 
     }
 }

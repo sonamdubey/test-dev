@@ -8,6 +8,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Service.AutoMappers.CMS
 {
@@ -19,12 +20,18 @@ namespace Bikewale.Service.AutoMappers.CMS
     /// </summary>
     public class CMSMapper
     {
-        internal static List<DTO.CMS.Photos.ModelImageList> Convert(IEnumerable<Entities.CMS.Photos.ModelImages> objImageList)
+        internal static ModelImageList Convert(IEnumerable<ModelImages> objImageList)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<ModelImage, CMSModelImageBase>();
-            return Mapper.Map<IEnumerable<ModelImages>, List<ModelImageList>>(objImageList);
+            Mapper.CreateMap<ModelImages, CMSModelImages>();
+
+            var obj = new ModelImageList();
+            obj.ModelsImages = Mapper.Map<IEnumerable<ModelImages>, IEnumerable<CMSModelImages>>(objImageList);
+            obj.RecordCount = obj.ModelsImages.Count();
+            
+            return obj;
         }
 
         internal static List<DTO.CMS.Photos.CMSModelImageBase> Convert(IEnumerable<Entities.CMS.Photos.ModelImage> objImageList)

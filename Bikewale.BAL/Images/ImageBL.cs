@@ -26,6 +26,10 @@ namespace Bikewale.BAL.Images
 
         private readonly IImageRepository<Entities.Images.Image, ulong> _objDAL = null;
         private readonly ISecurity _security = null;
+        public ImageBL()
+        {
+
+        }
         public ImageBL(IImageRepository<Entities.Images.Image, ulong> objDAL, ISecurity security)
         {
             _objDAL = objDAL;
@@ -112,26 +116,6 @@ namespace Bikewale.BAL.Images
             return token;
         }
 
-        /// <summary>
-        /// Created by : Ashutosh Sharma on 11th Jan 2018
-        /// Description : Method to get photos of bike models.
-        /// </summary>
-        /// <param name="modelIds">CSV modelIds for which Photos are to be fetched.</param>
-        /// <param name="categoryIds">CSV categoryIds which Photos are to be fetched.</param>
-        /// <param name="requiredImageCount">Count of Photos to be fetched for every model.</param>
-        /// <returns></returns>
-        public IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount)
-        {
-            try
-            {
-                var objImages = GrpcMethods.GetModelsImages(modelIds, categoryIds, requiredImageCount);
-                return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, String.Format("BAL.Images.ImageBL.GetBikeModelsPhotos_modelIds_{0}_categoryIds_{1}_requiredImageCount_{2}", modelIds, categoryIds, requiredImageCount));
-            }
-            return null;
-        }
+        
     }
 }

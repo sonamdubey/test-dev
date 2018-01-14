@@ -17,6 +17,7 @@ namespace Bikewale.Models.Photos.v1
     public class PhotosPageVM : ModelBase
     {
         public IEnumerable<ModelImages> BikeModelsPhotos { get; set; }
+        public int TotalBikeModels { get; set; }
         public OtherMakesVM OtherPopularMakes { get; set; }
         public IEnumerable<ModelImages> ModelsImages { get; set; }
         public PagerEntity Pager { get; set; }

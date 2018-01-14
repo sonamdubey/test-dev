@@ -6,15 +6,12 @@ using Bikewale.DTO.BikeData;
 namespace Bikewale.DTO.CMS.Photos
 {
     [Serializable, DataContract]
-    public class ModelImageList : BikeMakeModel
+    public class ModelImageList
     {
-        [DataMember]
-        public int ModelId { get; set; }
         [DataMember]
         public int RecordCount { get; set; }
         [DataMember]
-        public IEnumerable<CMSModelImageBase> ModelImage { get; set; }
-        [DataMember]
-        public string BikeName { get; set; }
+        public IEnumerable<CMSModelImages> ModelsImages { get; set; }
+        
     }
 }

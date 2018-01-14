@@ -3,6 +3,7 @@ using Bikewale.DTO.CMS.Photos;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
@@ -148,6 +149,40 @@ namespace Bikewale.Service.Controllers.CMS
 
             return NotFound();
         }  //othermodelist api
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 13 Jan 2018
+        /// Description : API for images landing page
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [Route("api/images/pages/{pageNo}/{pageSize}"), HttpGet, ResponseType(typeof(ModelImageList))]
+        public IHttpActionResult GetModelsImagesList(uint pageNo, uint pageSize)
+        {
+            try
+            {
+                pageSize = (pageSize != 0) ? pageSize : 30;
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _bikeModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (pageNo - 1) * pageSize + 1, pageNo * pageSize);
+                string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
+                int requiredImageCount = 7;
+                string categoryIds = Bikewale.Utility.CommonApiOpn.GetContentTypesString(
+                    new List<EnumCMSContentType>()
+                    {
+                        EnumCMSContentType.PhotoGalleries,
+                        EnumCMSContentType.RoadTest
+                    }
+                );
+                ModelImageList obj = CMSMapper.Convert(_bikeModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount));
+                return Ok(obj);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controller.ImageController : GetModelsImagesList({0}, {1})", pageNo, pageSize));
+                return BadRequest();
+            }
+
+        }
         #endregion
 
         #region Article Content Details Api

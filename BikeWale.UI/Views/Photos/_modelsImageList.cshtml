@@ -5,7 +5,7 @@
     <ul class="explore-model-image__list image-card--list">
         @foreach (var modelImages in Model)
         {
-            if (modelImages.RecordCount > 1)
+            if (modelImages.RecordCount > 0)
             {
                 ushort gridSize = (ushort)(modelImages.RecordCount >= 4 ? 4 : modelImages.RecordCount >= 3 ? 3 : 1);
                 var firstModelImages = modelImages.ModelImage.First();

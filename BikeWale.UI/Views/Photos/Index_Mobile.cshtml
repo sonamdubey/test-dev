@@ -1,10 +1,10 @@
 ﻿@model Bikewale.Models.Photos.v1.PhotosPageVM
 
 @{
-	ViewBag.Title = "Bike Images";
-	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
-	Model.Page_JS_Path = "/src/photos/landing.js";
+    ViewBag.Title = "Bike Images";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
+    Model.Page_JS_Path = "/src/photos/landing.js";
 }
 
 <section>
@@ -17,13 +17,16 @@
 			</div>
 	</div>
 </section>
+@if (Model.ModelsImages != null)
+{
+    <section>
+        <div class="container margin-bottom15">
+            <h2 class="image-carousel__title">Recently Added Bike Images</h2>
+            @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.ModelsImages)
+        </div>
+    </section>
+}
 
-<section>
-	<div class="container margin-bottom15">
-		<h2 class="image-carousel__title">Recently Added Bike Images</h2>
-        @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.ModelsImages)
-	</div>
-</section>
 
 <section class="text-center section-bottom-margin"></section>
 
@@ -46,9 +49,12 @@
                 {
                     @Html.Partial("~/Views/Photos/_ModelsImageList_Mobile.cshtml", Model.BikeModelsPhotos)
                 }
-				<div class="explore-model__more-btn">
-					<button type="button" class="btn btn-inv-blue">View More</button>
-				</div>
+                @if (!string.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+                {
+                    <div class="explore-model__more-btn">
+                        <button type="button" class="btn btn-inv-blue">View More</button>
+                    </div>
+                }
 			</div>
 		</div>
 	</div>
