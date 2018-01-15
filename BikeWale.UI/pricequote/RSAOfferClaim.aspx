@@ -223,7 +223,7 @@
     $(document).ready(function () {
         $("#txtPreferredDate").datepicker({
             showOn: "both",
-            buttonImage: "../images/date-icon.png",
+            buttonImage: "../image/date-icon.png",
             buttonImageOnly: true,
             dateFormat: 'dd/mm/yy',
             numberOfMonths: 1,

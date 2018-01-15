@@ -405,7 +405,27 @@ namespace Bikewale.BAL.BikeData
             }
             return null;
         }
-
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 11th Jan 2018
+        /// Description : Method to get photos of bike models.
+        /// </summary>
+        /// <param name="modelIds">CSV modelIds for which Photos are to be fetched.</param>
+        /// <param name="categoryIds">CSV categoryIds which Photos are to be fetched.</param>
+        /// <param name="requiredImageCount">Count of Photos to be fetched for every model.</param>
+        /// <returns></returns>
+        public IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount)
+        {
+            try
+            {
+                var objImages = GrpcMethods.GetModelsImages(modelIds, categoryIds, requiredImageCount);
+                return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BAL.Images.ImageBL.GetBikeModelsPhotos_modelIds_{0}_categoryIds_{1}_requiredImageCount_{2}", modelIds, categoryIds, requiredImageCount));
+            }
+            return null;
+        }
         //// The delegate must have the same signature as the method
         //// it will call asynchronously.
         //public delegate IEnumerable<ModelImage> AsyncMethodCaller(U modelId);
@@ -1031,6 +1051,36 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
             try
             {
+                if (startIndex > 0 && (startIndex <= endIndex))
+                {
+                    var objData = _modelCacheRepository.GetModelIdsForImages();
+                    if (objData != null)
+                    {
+                        modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)));
+                        if (modelIdsWithBodyStyle != null)
+                        {
+                            modelIdsWithBodyStyle = modelIdsWithBodyStyle.Skip(Convert.ToInt32(startIndex - 1)).Take(Convert.ToInt32(endIndex - startIndex + 1));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetModelIdsForImages");
+            }
+            return modelIdsWithBodyStyle;
+        }
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 11th Jan 2018
+        /// Description : Get model ids with body style with required filters
+        /// Functionality : list return will [startIndex, endIndex] i.e. inclusive, indexing starts from 1
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex, ref int totalCount)
+        {
+            IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
+            try
+            {
                 if(startIndex > 0 && (startIndex <= endIndex))
                 {
                     var objData = _modelCacheRepository.GetModelIdsForImages();
@@ -1039,7 +1089,7 @@ namespace Bikewale.BAL.BikeData
                         modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)));
                         if (modelIdsWithBodyStyle != null)
                         {
-                            
+                            totalCount = modelIdsWithBodyStyle.Count();
                             modelIdsWithBodyStyle = modelIdsWithBodyStyle.Skip(Convert.ToInt32(startIndex - 1)).Take(Convert.ToInt32(endIndex - startIndex + 1));
                         }
                     }

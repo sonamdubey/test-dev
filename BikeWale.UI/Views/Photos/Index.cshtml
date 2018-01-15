@@ -7,7 +7,7 @@
         Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
         Model.Page_JS_Path = "/src/photos/landing.js";
     }
-
+}
         <section class="container padding-top10">
             <div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
@@ -44,27 +44,20 @@
             </div>
         </section>
 
+    @if (Model != null && Model.ModelsImages != null)
+    {
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow padding-bottom15">
                         <h2 class="image-carousel__title">Recently Added Bike Images</h2>
-                @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.ModelsImages)
-                                                </div>
-                                                </div>
-                                                </div>
-                                                </div>
-                                                </div>
-                                                </div>
-                                                </div>
-                                                </div>
-                                                </div>
+                        @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.ModelsImages)
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-
+    }
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
@@ -80,31 +73,26 @@
                                     </li>
                                 </ul>
                             </div>
+                        @if (Model != null && Model.BikeModelsPhotos != null)
+                        {
                             @Html.Partial("~/Views/Photos/_ModelsImageList.cshtml", Model.BikeModelsPhotos)
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
                             <div class="clear"></div>
-                            <div class="explore-model__more-btn">
-                                <button type="button" class="btn btn-inv-blue">View More</button>
-                            </div>
+                            if (!string.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+                            {
+                                <div class="explore-model__more-btn">
+                                    <a id="viewMoreBtn" href="@Model.PageMetaTags.NextPageUrl" class="btn btn-inv-blue">View More</a>
+                                </div>
+                            }
+
+                        }
                         </div>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-@if (Model != null && Model.OtherPopularMakes != null)
-{
+    @if (Model != null && Model.OtherPopularMakes != null)
+    {
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
@@ -116,4 +104,4 @@
             <div class="clear"></div>
         </div>
     </section>
-}
+    }

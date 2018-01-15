@@ -1,10 +1,10 @@
 ﻿@model Bikewale.Models.Photos.v1.PhotosPageVM
 
 @{
-	ViewBag.Title = "Bike Images";
-	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
-	Model.Page_JS_Path = "/src/photos/landing.js";
+    ViewBag.Title = "Bike Images";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
+    Model.Page_JS_Path = "/src/photos/landing.js";
 }
 
 <section>
@@ -17,13 +17,16 @@
 			</div>
 	</div>
 </section>
+@if (Model.ModelsImages != null)
+{
+    <section>
+        <div class="container margin-bottom15">
+            <h2 class="image-carousel__title">Recently Added Bike Images</h2>
+            @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.ModelsImages)
+        </div>
+    </section>
+}
 
-<section>
-	<div class="container margin-bottom15">
-		<h2 class="image-carousel__title">Recently Added Bike Images</h2>
-        @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.ModelsImages)
-	</div>
-</section>
 
 <section class="text-center section-bottom-margin"></section>
 
@@ -42,79 +45,16 @@
 							</li>
 					</ul>
 				</div>
-
-				<ul class="explore-model-image__list image-card--list">
-					<li class="explore-model-image-list__item">
-						<a href="" title="" class="model-image__card">
-							<ul class="image-grid__list" data-grid="4">
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-								</li>
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-								</li>
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-								</li>								
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-								</li>
-							</ul>
-							<div class="card-image__details">
-								<h3 class="card-details__left-col">
-									<span class="card-details__make">Bajaj</span>
-									<span class="card-details__model">Pulsar NS200</span>
-								</h3>
-								<div class="card-details__right-col">
-									<span class="card-details__image-count">74</span></div>
-							</div>
-						</a>
-					</li>
-					<li class="explore-model-image-list__item">
-						<a href="" title="" class="model-image__card">
-							<ul class="image-grid__list" data-grid="3">
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-								</li>
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-								</li>
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-								</li>
-							</ul>
-							<div class="card-image__details">
-								<h3 class="card-details__left-col">
-									<span class="card-details__make">Bajaj</span>
-									<span class="card-details__model">Pulsar NS200</span>
-								</h3>
-								<div class="card-details__right-col">
-									<span class="card-details__image-count">74</span></div>
-							</div>
-						</a>
-					</li>
-					<li class="explore-model-image-list__item">
-						<a href="" title="" class="model-image__card">
-							<ul class="image-grid__list" data-grid="1">
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-								</li>
-							</ul>
-							<div class="card-image__details">
-								<h3 class="card-details__left-col">
-									<span class="card-details__make">Bajaj</span>
-									<span class="card-details__model">Pulsar NS200</span>
-								</h3>
-								<div class="card-details__right-col">
-									<span class="card-details__image-count">74</span></div>
-							</div>
-						</a>
-					</li>
-				</ul>
-
-				<div class="explore-model__more-btn">
-					<button type="button" class="btn btn-inv-blue">View More</button>
-				</div>
+                @if (Model != null && Model.BikeModelsPhotos != null)
+                {
+                    @Html.Partial("~/Views/Photos/_ModelsImageList_Mobile.cshtml", Model.BikeModelsPhotos)
+                }
+                @if (!string.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+                {
+                    <div class="explore-model__more-btn">
+                        <button type="button" class="btn btn-inv-blue">View More</button>
+                    </div>
+                }
 			</div>
 		</div>
 	</div>
