@@ -248,7 +248,7 @@ namespace Bikewale.Models
                 obj.TopCount = 2;
                 IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
 
-                MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, MostPopularBikes.Bikes);
+                MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, MostPopularBikes.Bikes, topCount > 6 ? (uint)topCount : 6);
 
                 MostPopularBikesWidget objPopularScooters = new MostPopularBikesWidget(_bikeModels, EnumBikeType.Scooters, false, false);
                 objPopularScooters.TopCount = topCount > 6 ? topCount : 6;

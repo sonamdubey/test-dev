@@ -225,7 +225,7 @@ namespace Bikewale.BAL.BikeData
             return objList;
 
         }
-        public IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> promotedBikes, IEnumerable<MostPopularBikesBase> MostPopularBikes)
+        public IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> promotedBikes, IEnumerable<MostPopularBikesBase> MostPopularBikes, uint TopCount)
         {
 
             IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(MostPopularBikes.Take(5), new MostPopularBikesBaseComparer());
@@ -240,7 +240,7 @@ namespace Bikewale.BAL.BikeData
                 }
                 MostPopularBikes = bikes;
             }
-            return MostPopularBikes;
+            return MostPopularBikes.Take((int)TopCount);
         }
 
         public Hashtable GetMaskingNames()
