@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
 {
@@ -80,5 +80,6 @@ namespace Bikewale.Interfaces.BikeData
         BikeMileageEntity GetMileageDetails();
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages();
+        ICollection<Entities.BikeData.BikeModelColorImageEntity> GetModelImages(string modelIds);
     }
 }
