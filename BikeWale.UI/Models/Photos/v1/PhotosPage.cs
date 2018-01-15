@@ -70,6 +70,7 @@ namespace Bikewale.Models.Photos.v1
             try
             {
                 _objData = new PhotosPageVM();
+                _objData.PopularSportsModelsImages = BindPopularSportsBikeWidget();
                 BindBikeModelsPhotos(_objData);
                 BindMakesWidget(_objData);
             }
@@ -178,7 +179,7 @@ namespace Bikewale.Models.Photos.v1
             IEnumerable<ModelImages> modelsImages = null;
             try
             {
-                IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = _objModelEntity.GetModelIdsForImages(0, Entities.GenericBikes.EnumBikeBodyStyles.Sports, 1, 9);
+                IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, 1, 9);
                 var modelIds = string.Join(",", modelIdsWithBodyStyle.Select(m => m.ModelId.ToString()));
                 if (!string.IsNullOrEmpty(modelIds))
                 {
