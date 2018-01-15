@@ -471,7 +471,7 @@ namespace Bikewale.BAL.BikeData
                             modelsImages.Add(img);
                         }
                     }
-                    modelsImages = modelsImages.OrderBy(m => Array.IndexOf(modelIdsArray,m.ModelId)).ToList();
+                    modelsImages = modelsImages.OrderBy(m => Array.IndexOf(modelIdsArray, m.ModelId)).ToList();
                 }
                 catch (Exception ex)
                 {
@@ -507,9 +507,9 @@ namespace Bikewale.BAL.BikeData
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                ErrorClass.LogError(ex, "ConvertToModelImages");
             }
             return images;
         }
