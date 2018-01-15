@@ -245,6 +245,7 @@ namespace Bikewale.Models
 
                 BikeFilters obj = new BikeFilters();
                 obj.CityId = CityId;
+                obj.TopCount = 2;
                 IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
 
 
@@ -252,6 +253,21 @@ namespace Bikewale.Models
                 objPopularScooters.TopCount = topCount > 6 ? topCount : 6;
                 objPopularScooters.CityId = CityId;
                 MostPopularScooters = objPopularScooters.GetData();
+
+                IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(MostPopularBikes.Bikes.Take(5), new MostPopularBikesBaseComparer());
+
+                if (results.Any())
+                {
+                    var bikes = MostPopularBikes.Bikes.ToList();
+                    bikes.Insert(0, results.ElementAt(0));
+                    if (results.Count() == 2)
+                    {
+                        bikes.Insert(1, results.ElementAt(1));
+                    }
+                    MostPopularBikes.Bikes = bikes;
+                }
+
+
                 UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                 objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
                 objUpcomingBikes.Filters.PageNo = 1;
@@ -330,6 +346,8 @@ namespace Bikewale.Models
             }
         }
 
+
+
         /// <summary>
         /// Created By :Snehal Dange on 8th Nov 2017
         /// Description : Function to create page level schema for breadcrum
@@ -361,6 +379,57 @@ namespace Bikewale.Models
 
         }
         #endregion
+        //public static IEnumerable<T> PrependTo<T>(this T value, IEnumerable<T> values)
+        //{
+        //    return new[] { value }.Concat(values);
+        //}
+
+
+        // Custom comparer for the Product class
+        private class MostPopularBikesBaseComparer : IEqualityComparer<MostPopularBikesBase>
+        {
+            // Products are equal if their names and product numbers are equal.
+            public bool Equals(MostPopularBikesBase x, MostPopularBikesBase y)
+            {
+
+                //Check whether the compared objects reference the same data.
+                if (Object.ReferenceEquals(x, y)) return true;
+
+                //Check whether any of the compared objects is null.
+                if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+                    return false;
+
+                //Check whether the products' properties are equal.
+                return x.objModel.ModelId == y.objModel.ModelId;
+            }
+
+            // If Equals() returns true for a pair of objects 
+            // then GetHashCode() must return the same value for these objects.
+
+            public int GetHashCode(MostPopularBikesBase product)
+            {
+                //Check whether the object is null
+                if (Object.ReferenceEquals(product, null)) return 0;
+
+                //Get hash code for the Name field if it is not null.
+                int hashProductName = product.objModel.ModelName == null ? 0 : product.objModel.ModelName.GetHashCode();
+
+                //Get hash code for the Code field.
+                int hashProductCode = product.objModel.ModelId.GetHashCode();
+
+                //Calculate the hash code for the product.
+                return hashProductName ^ hashProductCode;
+            }
+
+        }
 
     }
+    //public static class IEnumerableExtensions
+    //{
+    //    public static IEnumerable<T> Prepend<T>(this IEnumerable<T> source, params T[] items)
+    //    {
+    //        return items.Concat(source ?? new T[0]);
+    //    }
+    //}
+
 }

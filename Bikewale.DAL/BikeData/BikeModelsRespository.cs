@@ -3324,6 +3324,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.CityName = Convert.ToString(dr["cityname"]);
                                 objData.CityMaskingName = Convert.ToString(dr["citymasking"]);
+                                objData.IsAdPromoted = true;
                                 objList.Add(objData);
                             }
                             dr.Close();
