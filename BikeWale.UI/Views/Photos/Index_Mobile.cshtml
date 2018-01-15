@@ -17,12 +17,12 @@
 			</div>
 	</div>
 </section>
-@if (Model.ModelsImages != null)
+@if (Model.PopularSportsModelsImages != null)
 {
     <section>
         <div class="container margin-bottom15">
             <h2 class="image-carousel__title">Recently Added Bike Images</h2>
-            @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.ModelsImages)
+            @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.PopularSportsModelsImages)
         </div>
     </section>
 }

@@ -34,7 +34,7 @@ namespace Bikewale.Service.AutoMappers.CMS
             return obj;
         }
 
-        internal static List<DTO.CMS.Photos.CMSModelImageBase> Convert(IEnumerable<Entities.CMS.Photos.ModelImage> objImageList)
+        internal static List<CMSModelImageBase> Convert(IEnumerable<ModelImage> objImageList)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -42,7 +42,7 @@ namespace Bikewale.Service.AutoMappers.CMS
             return Mapper.Map<IEnumerable<ModelImage>, List<CMSModelImageBase>>(objImageList);
         }
 
-        internal static DTO.CMS.Articles.CMSArticlePageDetails Convert(Entities.CMS.Articles.ArticlePageDetails objFeaturedArticles)
+        internal static CMSArticlePageDetails Convert(ArticlePageDetails objFeaturedArticles)
         {
             Mapper.CreateMap<ArticlePageDetails, CMSArticlePageDetails>();
             Mapper.CreateMap<ArticleBase, CMSArticleBase>();

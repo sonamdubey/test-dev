@@ -3958,7 +3958,7 @@
     <Content Include="Views\Photos\Make.cshtml" />
     <Content Include="Views\Photos\Make_Mobile.cshtml" />
     <Content Include="Views\Photos\_ImageCaraousel.cshtml" />
-    <Content Include="Views\Photos\_ImageCarousel_Mobile.cshtml" />
+    <Content Include="Views\Photos\_ImageCaraousel_Mobile.cshtml" />
     <Content Include="Views\Photos\_OtherPopularMakes.cshtml" />
     <Content Include="Views\Photos\_OtherPopularMakes_Mobile.cshtml" />
     <Content Include="Views\Photos\_ModelsImageList_Mobile.cshtml" />

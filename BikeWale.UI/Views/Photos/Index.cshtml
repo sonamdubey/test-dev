@@ -44,14 +44,14 @@
             </div>
         </section>
 
-    @if (Model != null && Model.ModelsImages != null)
+    @if (Model != null && Model.PopularSportsModelsImages != null)
     {
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow padding-bottom15">
                         <h2 class="image-carousel__title">Recently Added Bike Images</h2>
-                        @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.ModelsImages)
+                        @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsModelsImages)
                     </div>
                 </div>
                 <div class="clear"></div>

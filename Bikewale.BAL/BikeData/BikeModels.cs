@@ -390,7 +390,7 @@ namespace Bikewale.BAL.BikeData
             try
             {
 
-                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest, EnumCMSContentType.ComparisonTests });
+                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest});
 
                 var _objGrpcmodelsPhotoList = GrpcMethods.GetModelsImages(modelIds, contentTypeList, requiredImageCount);
 
