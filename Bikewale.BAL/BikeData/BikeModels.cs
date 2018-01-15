@@ -220,7 +220,7 @@ namespace Bikewale.BAL.BikeData
         {
             IEnumerable<MostPopularBikesBase> objList = null;
 
-            objList = modelRepository.GetAdPromotedBike(ObjData);
+            objList = _modelCacheRepository.GetAdPromotedBike(ObjData);
 
             return objList;
 
