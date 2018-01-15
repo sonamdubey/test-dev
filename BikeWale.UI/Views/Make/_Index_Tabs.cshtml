@@ -10,18 +10,19 @@
             {
                 <span class="navtab" data-href="#bikeMakeList" data-lab="@string.Format("{0}_Models", Model.MakeName)">Bike Models</span>
             }
-            @if (Model.IsUpComingBikesAvailable)
+            @*@if (Model.IsUpComingBikesAvailable)
             {
                 <span class="navtab" data-href="#makeUpcomingBikesContent" data-lab="@string.Format("{0}_UpcomingBikes", Model.MakeName)">Upcoming</span>
-            }
+            }*@
             @if (Model.IsCompareBikesAvailable)
             {
                 <span class="navtab" data-href="#popularComparisonAndOtherBrands" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)">Top Comparisons</span>
             }
-           @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
-           {
-                <span class="navtab" data-href="#dealerAndServiceContent" data-lab="@string.Format("{0}_Showrooms", Model.MakeName)">Dealers</span>
-            }
+			@*
+			@if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
+			{
+				 <span class="navtab" data-href="#dealerAndServiceContent" data-lab="@string.Format("{0}_Showrooms", Model.MakeName)">Dealers</span>
+			 }*@
             @if (Model.IsNewsAvailable)
             {
                 <span class="navtab" data-href="#modelNewsContent" data-lab="@string.Format("{0}_News", Model.MakeName)">News</span>
@@ -33,11 +34,12 @@
             @if (Model.IsVideosAvailable)
             {
                 <span class="navtab" data-href="#makeVideosContent" data-lab="@string.Format("{0}_Videos", Model.MakeName)" >Videos</span>
-            }            
+            }
+			@*
             @if (Model.IsUsedModelsBikeAvailable)
             {
                 <span class="navtab" data-href="#makeUsedBikeContent" data-lab="@string.Format("{0}_UsedBikes", Model.MakeName)" >Used Bikes</span>
-            }
+            }*@
         </div>
     </div>
 </div>
