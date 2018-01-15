@@ -1057,7 +1057,7 @@ namespace Bikewale.BAL.BikeData
                     if (objData != null)
                     {
                         modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)));
-                        if (modelIdsWithBodyStyle != null)
+                        if(modelIdsWithBodyStyle != null)
                         {
                             modelIdsWithBodyStyle = modelIdsWithBodyStyle.Skip(Convert.ToInt32(startIndex - 1)).Take(Convert.ToInt32(endIndex - startIndex + 1));
                         }
