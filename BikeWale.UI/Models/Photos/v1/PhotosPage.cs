@@ -127,7 +127,7 @@ namespace Bikewale.Models.Photos.v1
         /// <returns></returns>
         private void BindMakesWidget(PhotosPageVM objData)
         {
-            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos);
+            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos).Take(9);
             objData.OtherPopularMakes = new OtherMakesVM()
             {
                 Makes = makes,
