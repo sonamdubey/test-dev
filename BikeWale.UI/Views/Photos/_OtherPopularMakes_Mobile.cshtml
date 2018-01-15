@@ -6,7 +6,7 @@
             @foreach (var make in Model.Makes)
             {
                 <li class="swiper-slide carousel-slide">
-                    <a href=@string.Format("/m{0}",string.Format(Model.PageLinkFormat, make.MaskingName)) title="@string.Format(Model.PageTitleFormat, make.MakeName)" class="related-make-card">
+                    <a href=@string.Format("/m{0}images/",string.Format(Model.PageLinkFormat, make.MaskingName)) title="@string.Format("{0} Bike Images", make.MakeName)" class="related-make-card">
                         <div class="make-icon__content">
                             <span class="brandlogosprite brand-@make.MakeId"></span>
                         </div>
