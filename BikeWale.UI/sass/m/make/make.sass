@@ -6,12 +6,22 @@
 @import ../../utils/index
 
 .page__heading
-	font-size: 18px
-	font-weight: $font-semibold
-	padding: 15px 20px
+	@include heading-h1
+	padding: 16px
 	background: color('white')
 
 @include overall-tabs
+
+.content--inner-padding
+	padding: 25px 16px
+
+.page__heading-h2
+	@include heading-h2
+	margin-bottom: 2px
+
+.page-heading__disclaimer
+	font-size: 12px
+	color: #a8afb3
 
 @import ../../partials/all-bikes-list
 @include model-card__explore

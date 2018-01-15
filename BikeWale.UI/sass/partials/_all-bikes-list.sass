@@ -1,13 +1,11 @@
+.all-model__list
+	.model-list__item
+		margin-top: 16px
+
 @include model-card
 @include model-card__image(285)
-@include model-card__detail
 
-@include card-details__specs
-
-@include model-card__exshowroom-content
-@include model-card__exshowroom
-@include card-emi__col
-
+/* rating badge */
 @import rating
 
 @for $i from 1 through 5
@@ -17,9 +15,11 @@
 	.rating-badge
 		margin-bottom: 8px
 
-.badge-star-white
-	@include star-white
-	background-size: contain
-	width: 10px
-	height: 10px
-	display: inline-block
+@include model-card__detail
+@include card-details__specs
+
+@include model-card__exshowroom-content
+@include model-card__exshowroom
+@include card-emi__col
+
+@include model-card__pros-cons-list
