@@ -1,14 +1,68 @@
 ﻿@model Bikewale.Models.ModelBase
 
 @{
+	ViewBag.Title = "Bike Make page";
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
 	Model.Page_JS_Path = "/m/src/make.js";
 }
 
 <section>
-	<div class="container">
-		
+	<div class="container section-bottom-margin">
+		<h1 class="page__heading">Royal Enfield Bikes</h1>
+
+		<div class="overall-tabs__placeholder">
+			<div class="overall-tabs__content">
+				<ul class="overall-tabs__list">
+					<li class="overall-tabs-list__item tab--active">Popular Models</li>
+					<li class="overall-tabs-list__item">Bike Models</li>
+					<li class="overall-tabs-list__item">Upcoming Bikes</li>
+					<li class="overall-tabs-list__item">Latest Updates</li>
+					<li class="overall-tabs-list__item">Dealer / Stores</li>
+					<li class="overall-tabs-list__item">News</li>
+					<li class="overall-tabs-list__item">Reviews</li>
+					<li class="overall-tabs-list__item">Images</li>
+					<li class="overall-tabs-list__item">Videos</li>
+				</ul>
+			</div>
+		</div>
+
+		<section>
+			<div class="content-inner-block-20">
+				<div class="model__card">
+					<div class="model-card__image">
+						<img src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" title="" alt="">
+					</div>
+					<div class="model-card__detail">
+						<span class="rating-badge" data-rate-bg="4">
+							<span class="badge-star-white"></span>
+							<span>4</span>
+						</span>
+
+						<h3 class="card-detail__name">Himalayan</h3>
+						<ul class="card-detail__specs-list">
+							<li>2204.8 cc</li>
+							<li>381.5 kmpl</li>
+							<li>21.89 bhp</li>
+						</ul>
+					</div>
+					<div class="model-card__exshowroom-content">
+						<div class="model-card__exshowroom">
+							<div class="card-exshowroom__col">
+								<p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+								<span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
+							</div>
+							<div class="card-emi__col">
+								<p class="card-emi__label">EMI starting at</p>
+								<span class="card-emi__value">&#x20b9;&nbsp;1,560/month</span>
+							</div>
+							@*<button type="button" class="btn btn-white model-card__explore">Explore</button>*@
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
 	</div>
 </section>
 

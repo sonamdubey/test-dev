@@ -3114,6 +3114,9 @@
     <Content Include="sass\utils\_color.sass" />
     <Content Include="sass\mixins\_index.sass" />
     <Content Include="sass\utils\_index.sass" />
+    <Content Include="sass\partials\_all-bikes-list.sass" />
+    <Content Include="sass\mixins\_model-card.sass" />
+    <Content Include="sass\mixins\_overall-tabs.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />

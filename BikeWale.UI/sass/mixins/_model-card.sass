@@ -1,0 +1,132 @@
+@mixin model-card
+	.model__card
+		width: 100%
+		height: auto
+		border: 1px solid #e6e6e6
+		border-radius: 3px
+		background: color('white')
+		box-shadow: 0 2px 4px 0 rgba(213, 213, 213, .5)
+		text-decoration: none
+		cursor: pointer
+
+		&:hover
+			text-decoration: none
+
+
+/*
+ * Model card: image element
+ * Parameter: image width (unitless)
+ */
+@mixin model-card__image($imageWidth: 243)
+	@if unitless($imageWidth)
+		$imageHeight: round($imageWidth / 1.777) * 1px
+		$imageWidth: $imageWidth * 1px
+
+		.model-card__image
+			width: $imageWidth
+			height: $imageHeight
+			margin-top: 10px
+			padding-left: 10px
+
+			img
+				height: $imageHeight
+
+	@else
+		@warn 'Please provide unitless value for model-card `$height` parameter'
+
+
+/*
+ * Model card: details element (container and model name)
+ */
+@mixin model-card__detail
+	.model-card__detail
+		padding: 5px 20px 10px
+
+	.card-detail__name
+		font-size: 16px
+		font-weight: $font-semibold
+		color: #3e3e3e
+
+
+/*
+ * Model card: specification list
+ */
+@mixin card-details__specs
+	.card-detail__specs-list
+		li
+			float: left
+			margin-top: 8px
+			margin-right: 18px
+			font-size: 12px
+			color: color('light-grey')
+
+			&:last-child
+				margin-right: 0
+
+		&:after
+			content: ''
+			clear: both
+			display: block
+
+
+/*
+ * Model card: exshowroom container
+ */
+@mixin model-card__exshowroom-content($background: #f5f5f5)
+	.model-card__exshowroom-content
+		background: #{$background}
+
+/*
+ * Model card: exshowroom
+ */
+@mixin model-card__exshowroom
+	.model-card__exshowroom
+		@include flexbox
+		@include flex-wrap
+		@include align-items(center)
+		padding: 10px 20px
+		max-width: 320px
+
+	.card-exshowroom__col
+		@include flex-grow
+
+	.card-exshowroom__label
+		font-size: 11px
+		color: color('light-grey')
+		margin-bottom: 4px
+
+	.card-exshowroom__value
+		color: color('default')
+		font-size: 20px
+
+	.text--semibold
+		font-weight: $font-semibold
+
+
+/*
+ * Model card: explore button
+ */
+@mixin model-card__explore
+	.model-card__explore
+		width: 96px
+		font-size: 14px
+		font-weight: $font-bold
+		padding: 7px
+
+
+@mixin card-emi__col
+	.card-emi__col
+		text-align: right
+
+	.card-emi__label
+		color: color('light-grey')
+		font-size: 11px
+		margin-bottom: 8px
+		position: relative
+		top: -2px
+
+	.card-emi__value
+		color: color('default')
+		font-size: 13px
+		font-weight: $font-semibold
+
