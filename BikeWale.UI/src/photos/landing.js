@@ -107,7 +107,7 @@ docReady(function () {
 	            isMakeModelRedirected = false;
 	    }
 
-	});
+	}).autocomplete("widget").addClass("bike-images-autocomplete")
 
 	// body type filter
 	$('#filterBodyType').on('click', '.body-type__item', function() {
