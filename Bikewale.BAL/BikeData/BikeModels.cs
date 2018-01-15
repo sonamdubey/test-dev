@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bikewale.BAL.Customer;
+﻿using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
 using Bikewale.BAL.UserReviews.Search;
@@ -36,6 +31,11 @@ using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 namespace Bikewale.BAL.BikeData
 {
     /// <summary>
@@ -387,23 +387,25 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public IEnumerable<ModelImages> GetBikeModelsPhotoGallery(string modelIds, int requiredImageCount)
         {
+            IList<ModelImages> images = new List<ModelImages>();
             try
             {
 
-                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest});
+                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest });
 
                 var _objGrpcmodelsPhotoList = GrpcMethods.GetModelsImages(modelIds, contentTypeList, requiredImageCount);
 
                 if (_objGrpcmodelsPhotoList != null && _objGrpcmodelsPhotoList.LstGrpcModelImaegs.Count > 0)
                 {
-                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelsPhotoList);
+                    images = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelsPhotoList).ToList();
                 }
+                AppendModelImages(modelIds, requiredImageCount, images);
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
             }
-            return null;
+            return images;
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 11th Jan 2018
@@ -417,14 +419,99 @@ namespace Bikewale.BAL.BikeData
         {
             try
             {
+                IList<ModelImages> modelsImages = new List<ModelImages>();
                 var objImages = GrpcMethods.GetModelsImages(modelIds, categoryIds, requiredImageCount);
-                return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages);
+                if (objImages != null && objImages.LstGrpcModelImaegs != null && objImages.LstGrpcModelImaegs.Count > 0)
+                {
+                    modelsImages = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages).ToList();
+                }
+                AppendModelImages(modelIds, requiredImageCount, modelsImages);
+                return modelsImages;
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("BAL.Images.ImageBL.GetBikeModelsPhotos_modelIds_{0}_categoryIds_{1}_requiredImageCount_{2}", modelIds, categoryIds, requiredImageCount));
             }
             return null;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 15 Jan 2018
+        /// Description :   Appends model image and model color photos to image lists
+        /// </summary>
+        /// <param name="modelIds"></param>
+        /// <param name="requiredImageCount"></param>
+        /// <param name="modelsImages"></param>
+        private void AppendModelImages(string modelIds, int requiredImageCount, IList<ModelImages> modelsImages)
+        {
+            if (!String.IsNullOrEmpty(modelIds) && requiredImageCount > 0 && modelsImages != null)
+            {
+                try
+                {
+                    var modelIdsArray = Array.ConvertAll(modelIds.Split(','), int.Parse);
+
+                    var missingModelIds = modelIdsArray.Except(modelsImages.Select(m => m.ModelId));
+                    if (missingModelIds != null && missingModelIds.Count() > 0)
+                    {
+                        ICollection<BikeModelColorImageEntity> colorImages = _modelCacheRepository.GetModelImages(String.Join(",", missingModelIds));
+                        var missingModelImages = colorImages.Where(m => missingModelIds.Contains(m.Model.ModelId));
+                        var images = missingModelImages.GroupBy(m => m.Model.ModelId);
+                        foreach (var image in images)
+                        {
+                            var firstImg = image.First();
+                            var img = new ModelImages()
+                            {
+                                ModelId = firstImg.Model.ModelId,
+                                ModelBase = firstImg.Model,
+                                MakeBase = new BikeMakeEntityBase() { MakeId = firstImg.Make.MakeId, MakeName = firstImg.Make.MakeName, MaskingName = firstImg.Make.MakeMaskingName },
+                                RecordCount = image.Count(),
+                                BikeName = String.Format("{0} {1}", firstImg.Make.MakeName, firstImg.Model.ModelName),
+                                ModelImage = ConvertToModelImages(image).Take(requiredImageCount)
+                            };
+                            modelsImages.Add(img);
+                        }
+                    }
+                    modelsImages = modelsImages.OrderBy(m => Array.IndexOf(modelIdsArray,m.ModelId)).ToList();
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass.LogError(ex, "Error in AppendModelImages");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 15 Jan 2018
+        /// Description :   Convert To ModelImages
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        private IEnumerable<ModelImage> ConvertToModelImages(IGrouping<int, BikeModelColorImageEntity> image)
+        {
+            List<ModelImage> images = new List<ModelImage>();
+            try
+            {
+
+                if (image != null && image.Count() > 0)
+                {
+                    images = new List<ModelImage>();
+                    foreach (var img in image)
+                    {
+                        images.Add(new ModelImage()
+                        {
+                            HostUrl = img.HostUrl,
+                            OriginalImgPath = img.OriginalImagePath,
+                            MakeBase = new BikeMakeEntityBase() { MakeId = img.Make.MakeId, MakeName = img.Make.MakeName, MaskingName = img.Make.MakeMaskingName },
+                            ModelBase = img.Model
+                        });
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return images;
         }
         //// The delegate must have the same signature as the method
         //// it will call asynchronously.
@@ -1081,7 +1168,7 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
             try
             {
-                if(startIndex > 0 && (startIndex <= endIndex))
+                if (startIndex > 0 && (startIndex <= endIndex))
                 {
                     var objData = _modelCacheRepository.GetModelIdsForImages();
                     if (objData != null)
@@ -1093,9 +1180,9 @@ namespace Bikewale.BAL.BikeData
                             modelIdsWithBodyStyle = modelIdsWithBodyStyle.Skip(Convert.ToInt32(startIndex - 1)).Take(Convert.ToInt32(endIndex - startIndex + 1));
                         }
                     }
-                }                
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetModelIdsForImages");
             }

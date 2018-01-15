@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using Bikewale.DAL.CoreDAL;
+﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -21,6 +12,15 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Dapper;
 using MySql.CoreDAL;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -100,31 +100,6 @@ namespace Bikewale.DAL.BikeData
             throw new NotImplementedException();
         }
 
-        //public BikeModelPageEntity GetModelPage(U modelId, bool isNew)
-        //{
-        //    BikeModelPageEntity modelPage = new BikeModelPageEntity();
-
-        //    try
-        //    {
-
-        //        modelPage.ModelDetails = GetById(modelId);
-        //        modelPage.ModelDesc = GetModelSynopsis(modelId);
-        //        modelPage.ModelVersions = GetVersionMinSpecs(modelId, isNew);
-        //        modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
-        //        modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
-        //        modelPage.ModelColors = GetModelColor(modelId);
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-
-        //        Bikewale.Notifications.ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-
-        //    }
-
-        //    return modelPage;
-
-        //}
 
         /// <summary>
         /// Modified By : Sushil Kumar on 21st jan 2016
@@ -170,7 +145,7 @@ namespace Bikewale.DAL.BikeData
                     {
                         modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
                         modelPage.ModelVersionSpecs = modelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == modelPage.ModelVersions[0].VersionId);
-					}
+                    }
                     modelPage.ModelColors = GetModelColor(modelId);
                     modelPage.colorPhotos = GetModelColorPhotos(modelId);
                 }
@@ -3290,17 +3265,18 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using(DbCommand cmd = DbFactory.GetDBCommand("getmodelidsforimages"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelidsforimages"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if(dr != null)
+                        if (dr != null)
                         {
                             modelIdsWithBodyStyle = new List<ModelIdWithBodyStyle>();
                             while (dr.Read())
                             {
-                                modelIdsWithBodyStyle.Add(new ModelIdWithBodyStyle {
+                                modelIdsWithBodyStyle.Add(new ModelIdWithBodyStyle
+                                {
                                     MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
                                     ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]),
                                     BodyStyle = (EnumBikeBodyStyles)Enum.Parse(typeof(EnumBikeBodyStyles), Convert.ToString(dr["BodyStyleId"]))
@@ -3318,5 +3294,82 @@ namespace Bikewale.DAL.BikeData
             return modelIdsWithBodyStyle;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 15 Jan 2018
+        /// Description :   GetModelImages contains, model image and color images
+        /// </summary>
+        /// <param name="modelIds"></param>
+        /// <returns></returns>
+        public ICollection<BikeModelColorImageEntity> GetModelImages(string modelIds)
+        {
+            ICollection<BikeModelColorImageEntity> images = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelsphotos"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.String, modelIds));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            images = new List<BikeModelColorImageEntity>();
+                            while (dr.Read())
+                            {
+                                images.Add(new BikeModelColorImageEntity
+                                {
+                                    Make = new BikeMakeBase()
+                                    {
+                                        MakeId = Utility.SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                        MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                        MakeName = Convert.ToString(dr["MakeName"])
+
+                                    },
+                                    Model = new BikeModelEntityBase()
+                                    {
+                                        ModelId = Utility.SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                        ModelName = Convert.ToString(dr["ModelName"]),
+                                        MaskingName = Convert.ToString(dr["MaskingName"])
+                                    },
+                                    HostUrl = Convert.ToString(dr["hostUrl"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagepath"])
+                                });
+                            }
+                            if (dr.NextResult())
+                            {
+                                while (dr.Read())
+                                {
+                                    images.Add(new BikeModelColorImageEntity
+                                    {
+                                        Make = new BikeMakeBase()
+                                        {
+                                            MakeId = Utility.SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                            MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                            MakeName = Convert.ToString(dr["MakeName"])
+
+                                        },
+                                        Model = new BikeModelEntityBase()
+                                        {
+                                            ModelId = Utility.SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                            ModelName = Convert.ToString(dr["ModelName"]),
+                                            MaskingName = Convert.ToString(dr["MaskingName"])
+                                        },
+                                        HostUrl = Convert.ToString(dr["hostUrl"]),
+                                        OriginalImagePath = Convert.ToString(dr["OriginalImagepath"]),
+                                        ColorId = Utility.SqlReaderConvertor.ToUInt32(dr["modelcolorid"]),
+                                        PhotoId = Utility.SqlReaderConvertor.ToUInt32(dr["PhotoId"])
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.DAL.BikeData.BikeModelsRepository.GetModelImages", modelIds));
+            }
+            return images;
+        }
     }   // class
 }   // namespace
