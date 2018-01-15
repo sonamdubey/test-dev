@@ -225,6 +225,23 @@ namespace Bikewale.BAL.BikeData
             return objList;
 
         }
+        public IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> promotedBikes, IEnumerable<MostPopularBikesBase> MostPopularBikes)
+        {
+
+            IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(MostPopularBikes.Take(5), new MostPopularBikesBaseComparer());
+
+            if (results.Any())
+            {
+                var bikes = MostPopularBikes.ToList();
+                bikes.Insert(0, results.ElementAt(0));
+                if (results.Count() == 2)
+                {
+                    bikes.Insert(1, results.ElementAt(1));
+                }
+                MostPopularBikes = bikes;
+            }
+            return MostPopularBikes;
+        }
 
         public Hashtable GetMaskingNames()
         {
@@ -1001,6 +1018,38 @@ namespace Bikewale.BAL.BikeData
             }
             return objSeries;
         }
+        private class MostPopularBikesBaseComparer : IEqualityComparer<MostPopularBikesBase>
+        {
+
+            public bool Equals(MostPopularBikesBase x, MostPopularBikesBase y)
+            {
+
+
+                if (Object.ReferenceEquals(x, y)) return true;
+
+
+                if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+                    return false;
+
+
+                return x.objModel.ModelId == y.objModel.ModelId;
+            }
+
+
+            public int GetHashCode(MostPopularBikesBase product)
+            {
+
+                if (Object.ReferenceEquals(product, null)) return 0;
+
+
+                int hashProductName = product.objModel.ModelName == null ? 0 : product.objModel.ModelName.GetHashCode();
+
+                int hashProductCode = product.objModel.ModelId.GetHashCode();
+                return hashProductName ^ hashProductCode;
+            }
+
+        }
+
 
     }   // Class
 }   // namespace
