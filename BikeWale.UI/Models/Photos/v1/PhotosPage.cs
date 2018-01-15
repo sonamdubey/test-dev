@@ -14,6 +14,7 @@ using Bikewale.Notifications;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Utility;
 using System.Web;
+using Bikewale.Entities.Schema;
 
 namespace Bikewale.Models.Photos.v1
 {
@@ -56,6 +57,7 @@ namespace Bikewale.Models.Photos.v1
                 _objData.PopularSportsModelsImages = BindPopularSportsBikeWidget();
                 BindBikeModelsPhotos(_objData);
                 BindMakesWidget(_objData);
+                SetBreadcrumList(ref _objData);
             }
             catch (Exception ex)
             {
@@ -148,8 +150,26 @@ namespace Bikewale.Models.Photos.v1
 
         }
 
-        private void SetBreadcrumList()
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 15th Jan 2018
+        /// Description : Set breadcrum list for image landing page 
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetBreadcrumList(ref PhotosPageVM objData)
         {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            url = string.Format("{0}new-bikes-in-india/", url);
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "New Bikes"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Images"));
+            objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
         }
 
         /// <summary>
