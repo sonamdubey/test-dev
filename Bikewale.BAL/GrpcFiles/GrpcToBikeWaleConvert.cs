@@ -236,7 +236,8 @@ namespace Bikewale.BAL.GrpcFiles
                 BikeMakeEntityBase bwMake = new BikeMakeEntityBase()
                 {
                     MakeId = grpcMake.MakeId,
-                    MakeName = grpcMake.MakeName
+                    MakeName = grpcMake.MakeName,
+                    MaskingName = grpcMake.MaskingName
                 };
                 return bwMake;
             }
