@@ -243,6 +243,11 @@ namespace Bikewale.Models
                 objPopularBikes.CityId = CityId;
                 MostPopularBikes = objPopularBikes.GetData();
 
+                BikeFilters obj = new BikeFilters();
+                obj.CityId = CityId;
+                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
+
+
                 MostPopularBikesWidget objPopularScooters = new MostPopularBikesWidget(_bikeModels, EnumBikeType.Scooters, false, false);
                 objPopularScooters.TopCount = topCount > 6 ? topCount : 6;
                 objPopularScooters.CityId = CityId;
