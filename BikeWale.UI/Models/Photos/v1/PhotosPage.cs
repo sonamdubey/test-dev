@@ -1,6 +1,5 @@
 ﻿using Bikewale.BAL.Images;
 using Bikewale.Entities.CMS;
-using Bikewale.Notifications;
 using BikewaleOpr.Interface.BikeData;
 using Grpc.CMS;
 using System;
@@ -26,22 +25,20 @@ namespace Bikewale.Models.Photos.v1
     {
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
-        private readonly ImageBL _objImageBL = null;
         public bool IsMobile { get; set; }
         private uint PageNo;
+        public uint PageSize;
 
 
         /// <summary>
         /// Created by  :  Rajan Chauhan on 11 jan 2017
         /// Description :  To resolve depedencies for photo page
         /// </summary>
-        public PhotosPage(bool isMobile, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository objMakeCache, ImageBL objImageBL)
+        public PhotosPage(bool isMobile, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository objMakeCache)
         {
             IsMobile = isMobile;
             _objModelEntity = objModelEntity;
             _objMakeCache = objMakeCache;
-            _objModelEntity = objModelEntity;
-            _objImageBL = objImageBL;
             ProcessQueryString();
         }
 
@@ -68,10 +65,11 @@ namespace Bikewale.Models.Photos.v1
         /// </summary>
         /// <returns></returns>
         public PhotosPageVM GetData()
-        { 
+        {
+            PhotosPageVM _objData = null;
             try
             {
-                PhotosPageVM _objData = new PhotosPageVM();
+                _objData = new PhotosPageVM();
                 BindBikeModelsPhotos(_objData);
                 BindMakesWidget(_objData);
             }
@@ -80,17 +78,45 @@ namespace Bikewale.Models.Photos.v1
                 ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage : GetData");
             }
 
-            return null;
+            return _objData;
+        }
+
+        private void CreatePager(PhotosPageVM objData)
+        {
+            try
+            {
+                int totalPageCount = (int)(objData.TotalBikeModels / PageSize);
+                totalPageCount = objData.TotalBikeModels % PageSize > 0 ? totalPageCount + 1 : totalPageCount;
+                string baseUrl = "/image/";
+                objData.Pager = new Entities.Pager.PagerEntity
+                {
+                    BaseUrl = baseUrl,
+                    PageUrlType = "page/",
+                    PageNo = (int)PageNo,
+                    PageSize = (int)PageSize,
+                    TotalResults = objData.TotalBikeModels
+                };
+                string prevUrl = string.Empty, nextUrl = string.Empty;
+                Paging.CreatePrevNextUrl(totalPageCount, baseUrl, objData.Pager.PageNo, objData.Pager.PageUrlType, ref nextUrl, ref prevUrl);
+                nextUrl = PageNo > totalPageCount ? "" : nextUrl;
+                objData.PageMetaTags.NextPageUrl = nextUrl;
+                objData.PageMetaTags.PreviousPageUrl = prevUrl;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage : CreatePager");
+            }
         }
 
         private void BindBikeModelsPhotos(PhotosPageVM objData)
         {
             try
             {
-                ushort modelsPerPage = 30;
-                IEnumerable<ModelIdWithBodyStyle> objModelIds =  _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (PageNo - 1) * modelsPerPage + 1, PageNo * modelsPerPage);
+                int totalCount = 0;
+                IEnumerable<ModelIdWithBodyStyle> objModelIds =  _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (PageNo - 1) * PageSize + 1, PageNo * PageSize, ref totalCount);
                 string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                int requiredImageCount = 7;
+                objData.TotalBikeModels = totalCount;
+                int requiredImageCount = 4;
                 string categoryIds = CommonApiOpn.GetContentTypesString(
                     new List<EnumCMSContentType>()
                     {
@@ -98,7 +124,9 @@ namespace Bikewale.Models.Photos.v1
                         EnumCMSContentType.RoadTest
                     }
                 );
-                objData.BikeModelsPhotos = _objImageBL.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+                objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+                CreatePager(objData);
+
             }
             catch (Exception ex)
             {
@@ -114,13 +142,13 @@ namespace Bikewale.Models.Photos.v1
         private void BindMakesWidget(PhotosPageVM objData)
         {
             IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos);
-            //objData.OtherPopularMakes = new OtherMakesVM()
-            //{
-            //    Makes = makes,
-            //    PageLinkFormat = "/{0}-bikes/",
-            //    PageTitleFormat = "{0} Bikes",
-            //    CardText = "bike"
-            //};
+            objData.OtherPopularMakes = new OtherMakesVM()
+            {
+                Makes = makes,
+                PageLinkFormat = "/{0}-bikes/",
+                PageTitleFormat = "{0} Bikes",
+                CardText = "bike"
+            };
         }
 
         private void SetPageMetas()
