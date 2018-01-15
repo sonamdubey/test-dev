@@ -39,18 +39,18 @@ namespace Bikewale.Controllers
         }
 
         [Route("photos/"), Filters.DeviceDetection]
-        public ActionResult Index()
+        public ActionResult Index(uint? pageNo)
         {
-            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache);
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, pageNo);
             objModel.PageSize = 30;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
             return View(objData);
         }
 
         [Route("m/photos/")]
-        public ActionResult Index_Mobile()
+        public ActionResult Index_Mobile(uint? pageNo)
         {
-            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache);
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache, pageNo);
             objModel.PageSize = 30;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
             return View(objData);

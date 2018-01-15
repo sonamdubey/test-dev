@@ -26,7 +26,7 @@ namespace Bikewale.Models.Photos.v1
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         public bool IsMobile { get; set; }
-        private uint PageNo;
+        private uint _pageNo;
         public uint PageSize;
 
 
@@ -34,29 +34,12 @@ namespace Bikewale.Models.Photos.v1
         /// Created by  :  Rajan Chauhan on 11 jan 2017
         /// Description :  To resolve depedencies for photo page
         /// </summary>
-        public PhotosPage(bool isMobile, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository objMakeCache)
+        public PhotosPage(bool isMobile, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository objMakeCache, uint? pageNo)
         {
             IsMobile = isMobile;
             _objModelEntity = objModelEntity;
             _objMakeCache = objMakeCache;
-            ProcessQueryString();
-        }
-
-        private void ProcessQueryString()
-        {
-            try
-            {
-                var request = HttpContext.Current.Request;
-                var queryString = request != null ? request.QueryString : null;
-                if (queryString != null && !string.IsNullOrEmpty(queryString["pageno"]))
-                {
-                    PageNo = Convert.ToUInt32(queryString["pageno"]);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage : ProcessQueryString");
-            }
+            _pageNo = (pageNo == null)? 1: (uint)pageNo;
         }
 
         /// <summary>
@@ -87,18 +70,18 @@ namespace Bikewale.Models.Photos.v1
             {
                 int totalPageCount = (int)(objData.TotalBikeModels / PageSize);
                 totalPageCount = objData.TotalBikeModels % PageSize > 0 ? totalPageCount + 1 : totalPageCount;
-                string baseUrl = "/image/";
+                string baseUrl = "/images/";
                 objData.Pager = new Entities.Pager.PagerEntity
                 {
                     BaseUrl = baseUrl,
                     PageUrlType = "page/",
-                    PageNo = (int)PageNo,
+                    PageNo = (int)_pageNo,
                     PageSize = (int)PageSize,
                     TotalResults = objData.TotalBikeModels
                 };
                 string prevUrl = string.Empty, nextUrl = string.Empty;
                 Paging.CreatePrevNextUrl(totalPageCount, baseUrl, objData.Pager.PageNo, objData.Pager.PageUrlType, ref nextUrl, ref prevUrl);
-                nextUrl = PageNo > totalPageCount ? "" : nextUrl;
+                nextUrl = _pageNo > totalPageCount ? "" : nextUrl;
                 objData.PageMetaTags.NextPageUrl = nextUrl;
                 objData.PageMetaTags.PreviousPageUrl = prevUrl;
             }
@@ -113,7 +96,7 @@ namespace Bikewale.Models.Photos.v1
             try
             {
                 int totalCount = 0;
-                IEnumerable<ModelIdWithBodyStyle> objModelIds =  _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (PageNo - 1) * PageSize + 1, PageNo * PageSize, ref totalCount);
+                IEnumerable<ModelIdWithBodyStyle> objModelIds =  _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (_pageNo - 1) * PageSize + 1, _pageNo * PageSize, ref totalCount);
                 string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
                 objData.TotalBikeModels = totalCount;
                 int requiredImageCount = 4;
