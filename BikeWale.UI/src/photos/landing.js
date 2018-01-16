@@ -155,6 +155,24 @@ docReady(function () {
 		}
 	});
 
+	function createImageUrl(image) {
+	    if (image.originalImgPath.indexOf('?') > 0) {
+	        return image.hostUrl + '476x268/' + image.originalImgPath + '&q=70';
+	    }
+	    else {
+	        return image.hostUrl + '476x268/' + image.originalImgPath + '?q=70';
+	    }
+	}
+
+	function createImagePageUrl(val) {
+	    if (isMobile) {
+	        return "/m/" + val.MakeBase.maskingName + "-bikes/" + val.ModelBase.maskingName + "/images/";
+	    }
+	    else {
+	        return "/" + val.MakeBase.maskingName + "-bikes/" + val.ModelBase.maskingName + "/images/";
+	    }
+	}
+
 	$("#viewMoreBtn").click(function () {
 	    event.preventDefault();
 	});
@@ -207,22 +225,12 @@ docReady(function () {
                             $.each(val.ImagesList, function (index, image) {
                                 var img = new modelImage();
                                 img.alt = val.ModelBase.modelName + ' ' + 'Images';
-                                if (image.originalImgPath.indexOf('?') > 0) {
-                                    img.src = image.hostUrl + '476x268/' + image.originalImgPath + '&q=70';
-                                }
-                                else {
-                                    img.src = image.hostUrl + '476x268/' + image.originalImgPath + '?q=70';
-                                }
+                                img.src(createImageUrl(image));
                                 showcasedModelImageList.push(img);
                             });
                             var newModel = new model();
                             newModel.modelTitle(val.ModelBase.modelName + ' ' + 'Images');
-                            if (isMobile) {
-                                newModel.modelImagePageUrl("/m/" + val.MakeBase.maskingName + "-bikes/" + val.ModelBase.maskingName + "/images/");
-                            }
-                            else {
-                                newModel.modelImagePageUrl("/" + val.MakeBase.maskingName + "-bikes/" + val.ModelBase.maskingName + "/images/");
-                            }
+                            newModel.modelImagePageUrl(createImagePageUrl(val));
                             newModel.makeName(val.MakeBase.makeName);
                             newModel.modelName(val.ModelBase.modelName);
                             newModel.modelImages(showcasedModelImageList);
