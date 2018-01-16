@@ -1,4 +1,5 @@
 ﻿var objBikes = new Object(), focusedMakeModel = null, isMakeModelRedirected = false;
+var nextPageUrl;
 docReady(function () {
 	$("#exploreBikesField").val("");
 	function MakeModelPhotosRedirection(items) {
@@ -153,9 +154,11 @@ docReady(function () {
 				break;
 		}
 	});
+
 	$("#viewMoreBtn").click(function () {
 	    event.preventDefault();
 	});
+
 	var modelImage = function () {
 	    this.src = ko.observable();
 	    this.alt = ko.observable();
@@ -180,19 +183,26 @@ docReady(function () {
 	        return self.recordCount() >= 4 ? 4 : self.recordCount() >= 3 ? 3 : 1;
 	    });
 	};
-	var modelListViewModel = function () {
+	modelListViewModel = function () {
 	    var self = this;
+	    self.RedirectLoad = ko.observable(false);
 	    self.modelList = ko.observableArray([]);
 	    self.isLoadMore = ko.observable(true);
+	    self.Filters = ko.observable({ pageno: '1', pagesize: '30' });
 	    self.LoadMore = function () {
 	        event.preventDefault();
-	        console.log("Done");
-	        var nextPageUrl = "/api/images/pages/2/30";
+	        if (self.RedirectLoad()) {
+	            nextPageUrl = "/api/images/pages/" + self.Filters()['pageno'] + "/";
+	        }
+	        else {
+	            nextPageUrl = "/api/images/pages/" + (parseInt(self.Filters()['pageno']) + 1).toString() + "/";
+	        }
+	            
 	        $.getJSON(nextPageUrl,
                 function (res) {
                     var result = res;
                     if (result.RecordCount > 0) {
-                        $.each(result.ModelsImages, function (index, val) {
+                        $.each(result.Models, function (index, val) {
                             var showcasedModelImageList = [];
                             $.each(val.ImagesList, function (index, image) {
                                 var img = new modelImage();
@@ -219,12 +229,41 @@ docReady(function () {
                             newModel.recordCount(val.recordCount);
                             self.modelList.push(newModel);
                         });
+                        if (self.RedirectLoad()) {
+                            window.location.hash = 'pageno=' + self.Filters()['pageno'].toString() + '&' + 'pagesize=' + self.Filters()['pagesize'];
+                            self.RedirectLoad(false);
+                        }
+                        else {
+                            window.location.hash = 'pageno=' + (parseInt(self.Filters()['pageno'].toString())+1).toString() + '&' + 'pagesize=' + self.Filters()['pagesize'];
+                        }
+                        var url = window.location.hash.replace('#', '');
+                        self.setFilters(url);
                     }
-                    else {
+                    if (result.RecordCount < parseInt(self.Filters()['pagesize'])) {
                         self.isLoadMore(false);
                     }
                 });
 	    };
+
+	    self.setFilters = function (url) {
+	        try {
+	            var params = url.split('&');
+	            for (var index in params) {
+	                var pair = params[index].split('=');
+	                self.Filters()[pair[0]] = pair[1];
+	            }
+	        } catch (e) {
+	            console.warn(e.message);
+	        }
+	    };
 	};
-	    ko.applyBindings(new modelListViewModel(), document.getElementById("exploreModelListing"));
+	var viewModel = new modelListViewModel();
+	if (window.location.hash) {
+	    var url = window.location.hash.replace('#', '');
+	    
+	    viewModel.RedirectLoad(true);
+	    viewModel.setFilters(url);
+	    viewModel.LoadMore();
+	}
+	ko.applyBindings(viewModel, document.getElementById("exploreModelListing"));
 	});
