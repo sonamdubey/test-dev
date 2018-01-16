@@ -18,7 +18,7 @@ namespace Bikewale.BAL.BikeSearch
             Mapper.CreateMap<BikeModelEntity, ModelDetail>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-
+            Mapper.CreateMap<Bikewale.Entities.NewBikeSearch.SearchBudgetLink, Bikewale.DTO.NewBikeSearch.SearchBudgetLink>();
             return Mapper.Map<SearchOutputEntity, SearchOutput>(objSuggestion);
         }
     }

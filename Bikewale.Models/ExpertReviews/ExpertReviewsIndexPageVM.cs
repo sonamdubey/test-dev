@@ -55,6 +55,8 @@ namespace Bikewale.Models
 
         public EditorialSeriesWidgetVM SeriesWidget { get; set; }
         public EditorialSeriesMobileWidgetVM SeriesMobileWidget { get; set; }
+        public MultiTabsWidgetVM SeriesBikesAndModelBodyStyleBikes { get; set; }
+        public MultiTabsWidgetVM SeriesBikesAndOtherBrands { get; set; }
     }
 
 }

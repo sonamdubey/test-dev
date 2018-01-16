@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Bikewale.DTO.NewBikeSearch.SearchBudgetLink>
+@if (Model != null)
+{
+    <ul class="alpha omega text-black">        
+        @foreach (var item in Model)
+        {
+            if (item.Link.Item4 > 0) { 
+
+            <li class="grid-4 margin-bottom20">
+                <a title="@Html.Raw(item.Link.Item2)" href="@item.Link.Item3">@Html.Raw(item.Link.Item1)</a>
+                <p class="margin-top10">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(item.Link.Item4)) @(item.Link.Item4 == 1 ? " bike" : " bikes") available</p>
+            </li>
+        }
+
+        }
+    </ul>
+}
