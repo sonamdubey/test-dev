@@ -53,6 +53,10 @@ docReady(function () {
                         else {
                             fallbackGallery.open(0);
                         }
+                        if (typeof (logBhrighuForImage) != "undefined") {
+                            //included in gallery js
+                            logBhrighuForImage($(this));
+                        } 
                     }
                 } catch (e) {
                     console.warn(e.message);
