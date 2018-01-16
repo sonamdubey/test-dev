@@ -399,7 +399,7 @@ namespace Bikewale.BAL.BikeData
                 {
                     images = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelsPhotoList).ToList();
                 }
-                AppendModelImages(modelIds, requiredImageCount, images);
+                AppendModelImages(modelIds, requiredImageCount,ref images);
             }
             catch (Exception err)
             {
@@ -425,7 +425,7 @@ namespace Bikewale.BAL.BikeData
                 {
                     modelsImages = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages).ToList();
                 }
-                AppendModelImages(modelIds, requiredImageCount, modelsImages);
+                AppendModelImages(modelIds, requiredImageCount,ref modelsImages);
                 return modelsImages;
             }
             catch (Exception ex)
@@ -442,7 +442,7 @@ namespace Bikewale.BAL.BikeData
         /// <param name="modelIds"></param>
         /// <param name="requiredImageCount"></param>
         /// <param name="modelsImages"></param>
-        private void AppendModelImages(string modelIds, int requiredImageCount, IList<ModelImages> modelsImages)
+        private void AppendModelImages(string modelIds, int requiredImageCount,ref IList<ModelImages> modelsImages)
         {
             if (!String.IsNullOrEmpty(modelIds) && requiredImageCount > 0 && modelsImages != null)
             {
