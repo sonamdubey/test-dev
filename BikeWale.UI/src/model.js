@@ -372,7 +372,7 @@ docReady(function () {
 });
 
 docReady(function () {
-    bwcache.setOptions({ 'EnableEncryption': true });
+
     applyLazyLoad();
 
     // version dropdown
@@ -734,6 +734,9 @@ docReady(function () {
 	$("#modelExpertReviewsContent").on('click', function () {
 		triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
 	});
+    // For saving page in recently viewed models/make
+	if (typeof pageData != "undefined" && pageData != null)
+	    recentSearches.saveRecentSearches(pageData);
 });
 
 

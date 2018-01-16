@@ -82,8 +82,25 @@
 
             </div>
         </article>
+        if (Model.IsSeriesAvailable && Model.SeriesBikes != null && Model.SeriesBikes.Bikes != null)
+        {
+            <section>
+                <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>@Model.SeriesBikes.WidgetHeading</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Model.SeriesBikes.WidgetHref)" title="@Model.SeriesBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.SeriesBikes.WidgetLinkTitle</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile_Amp.cshtml", Model.SeriesBikes)
+                </div>
+            </section>
 
-        if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+        }
+        else if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
         {
             <section>
                 <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
@@ -92,7 +109,7 @@
                             <h2>@Model.MostPopularBikes.WidgetHeading</h2>
                         </div>
                         <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="@string.Format("{0}/m{1}",BWConfiguration.Instance.BwHostUrl, Model.MostPopularBikes.WidgetHref)" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                            <a href="@string.Format("{0}/m{1}",BWConfiguration.Instance.BwHostUrl, Model.MostPopularBikes.WidgetHref)" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularBikes.WidgetLinkTitle</a>
                         </div>
                         <div class="clear"></div>
                     </div>

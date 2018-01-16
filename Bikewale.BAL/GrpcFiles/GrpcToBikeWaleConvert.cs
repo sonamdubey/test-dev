@@ -119,7 +119,7 @@ namespace Bikewale.BAL.GrpcFiles
             DateTime outValue;
 
             if
-                (DateTime.TryParse(Convert.ToString(strDateValue), out outValue))
+                (DateTime.TryParse(strDateValue, out outValue))
                 return outValue;
             else
             {
@@ -167,6 +167,64 @@ namespace Bikewale.BAL.GrpcFiles
                 log.Error(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 10th Jan 2018
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static List<ModelImages> ConvertFromGrpcToBikeWale(GrpcModelsImageList data)
+        {
+            if(data == null)
+            {
+                return null;
+            }
+            try
+            {
+                List<ModelImages> retData = new List<ModelImages>();
+                foreach (var model in data.LstGrpcModelImaegs)
+                {
+                    List<ModelImage> modelImage = new List<ModelImage>();
+                    foreach (var curGrpcModelImage in model.LstGrpcModelImage)
+                    {
+                        var curModelImage = new ModelImage()
+                        {
+                            AltImageName = curGrpcModelImage.AltImageName,
+                            Caption = curGrpcModelImage.Caption,
+                            HostUrl = curGrpcModelImage.HostUrl,
+                            ImageCategory = curGrpcModelImage.ImageCategory,
+                            ImageDescription = curGrpcModelImage.ImageDescription,
+                            ImageId = curGrpcModelImage.ImageId,
+                            ImageName = curGrpcModelImage.ImageName,
+                            ImagePathLarge = curGrpcModelImage.ImagePathLarge,
+                            ImagePathThumbnail = curGrpcModelImage.ImagePathThumbnail,
+                            ImageTitle = curGrpcModelImage.ImageTitle,
+                            MainImgCategoryId = (short)curGrpcModelImage.MainImgCategoryId,
+                            MakeBase = ConvertFromGrpcToBikeWale(curGrpcModelImage.MakeBase),
+                            ModelBase = ConvertFromGrpcToBikeWale(curGrpcModelImage.ModelBase),
+                            OriginalImgPath = curGrpcModelImage.OriginalImgPath
+                        };
+                        modelImage.Add(curModelImage);
+                    }
+
+                    retData.Add(new ModelImages
+                    {
+                        ModelId = model.ModelId,
+                        RecordCount = model.RecordCount,
+                        ModelImage = modelImage
+                    });
+
+                }
+
+                return retData;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
         }
 
         public static BikeMakeEntityBase ConvertFromGrpcToBikeWale(GrpcCarMakeEntityBase grpcMake)
@@ -436,11 +494,12 @@ namespace Bikewale.BAL.GrpcFiles
                 List<VideoBase> lstVideos = new List<VideoBase>();
                 foreach (var curGrpcVideo in data.LstGrpcVideos)
                 {
+                    string displayDate = ParseDateObject(curGrpcVideo.DisplayDate).ToString("dd MMMM yyyy");
                     curVid = new VideoBase()
                     {
                         BasicId = Convert.ToUInt32(curGrpcVideo.BasicId),
                         Description = curGrpcVideo.Description,
-                        DisplayDate = curGrpcVideo.DisplayDate,
+                        DisplayDate = displayDate,
                         Duration = Convert.ToUInt32(curGrpcVideo.Duration),
                         ImagePath = curGrpcVideo.ImagePath,
                         ImgHost = curGrpcVideo.ImgHost,

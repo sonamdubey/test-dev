@@ -1,12 +1,12 @@
-﻿using Bikewale.DTO.BikeData;
+﻿using System.Collections.Generic;
+using System.Web.Http;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
 using Bikewale.Service.Utilities;
-using System.Collections.Generic;
-using System.Web.Http;
 
 namespace Bikewale.Service.Controllers.BikeData
 {
@@ -85,5 +85,26 @@ namespace Bikewale.Service.Controllers.BikeData
             return Ok(makeModels);
         }
 
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 2nd Jan 2018
+        /// Summary    : Get popular bikes 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Route("api/popularbikes/")]
+        public IHttpActionResult GetMostPopularBikes(int topCount)
+        {
+            IEnumerable<MostPopularBikes> makeModels = null;
+            try
+            {
+                IEnumerable<MostPopularBikesBase> bikeModelEntity = _bikeMakeCache.GetMostPopularBikes(topCount);
+                makeModels = MakeModelEntityMapper.Convert(bikeModelEntity);
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass.LogError(ex, "MakeModelsController.GetPopularBikes");
+                InternalServerError();
+            }
+            return Ok(makeModels);
+        }
     }
 }
