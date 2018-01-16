@@ -901,19 +901,23 @@ docReady(function () {
     };
 
     $('.swiper-container:not(".noSwiper")').each(function (index, element) {
-        $(this).addClass('sw-' + index);
-        $('.sw-' + index).swiper({
+    	var currentSwiper = $(this);
+    	var spaceBetween = currentSwiper.attr('data-spacebetween');
+    	var spaceBetweenValue = 10;
+
+    	if (spaceBetween) {
+    		spaceBetweenValue = isNaN(spaceBetween) ? spaceBetweenValue : Number(spaceBetween);
+    	}
+
+    	currentSwiper.addClass('sw-' + index).swiper({
             effect: 'slide',
             speed: 300,
-            //autoplay: 3000,
             nextButton: $(this).find('.swiper-button-next'),
             prevButton: $(this).find('.swiper-button-prev'),
             pagination: $(this).find('.swiper-pagination'),
             slidesPerView: 'auto',
             paginationClickable: true,
-            spaceBetween: 10,
-            //freeMode: true,
-            //freeModeSticky: true,
+            spaceBetween: spaceBetweenValue,
             preloadImages: false,
             lazyLoading: true,
             lazyLoadingInPrevNext: true,
