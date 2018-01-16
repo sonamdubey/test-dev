@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Entities.CMS.Photos
 {
@@ -21,4 +21,21 @@ namespace Bikewale.Entities.CMS.Photos
         [DataMember]
         public BikeModelEntityBase ModelBase { get; set; }
     }
+
+    [Serializable, DataContract]
+    public class ModelImageWrapper
+    {
+        [DataMember]
+        public int RecordCount { get; set; }
+
+        [DataMember]
+        public string PrevPageUrl { get; set; }
+
+        [DataMember]
+        public string NextPageUrl { get; set; }
+
+        [DataMember]
+        public IEnumerable<ModelImages> Models { get; set; }
+    }
+
 }
