@@ -15,7 +15,7 @@ namespace Bikewale.Models
         public string TargetedModels { get; set; }
         public string TargetedMakes { get; set; }
         public string TargetedCity { get; set; }
-		public string TargetedSeries { get; set; }
+        public string TargetedSeries { get; set; }
         public string TargetedTags { get; set; }
 
         public bool Ad_970x90 { get; set; }
@@ -36,6 +36,9 @@ namespace Bikewale.Models
         public bool Ad_292x359 { get; set; }
 
         public bool Ad_292x360 { get; set; }
+        public bool Bikewale_Make_Top_300x250 { get; set; }
+        public bool Bikewale_Make_ATF_300x250 { get; set; }
+        public bool Bikewale_Make_Botom_300x250 { get; set; }
         public bool ShowInnovationBannerDesktop { get; set; }
         #endregion
 
