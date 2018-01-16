@@ -209,7 +209,6 @@
 			}
 
 			@if ((Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0) || (Model.ServiceCenterDetails != null && Model.ServiceCenterDetails.ServiceCentersList != null && Model.ServiceCenterDetails.ServiceCentersList.Count() > 0) || (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0))
-@if (Model.IsServiceCenterPresentInCity)
 			{
 				<div class="content-box-shadow section-bottom-margin">
 					@if (Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0)
