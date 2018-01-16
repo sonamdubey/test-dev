@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Pager;
+using System;
 using System.Runtime.Serialization;
-using Bikewale.Entities.GenericBikes;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -18,5 +19,24 @@ namespace Bikewale.Entities.BikeData
         public uint ModelId { get; set; }
         [DataMember]
         public EnumBikeBodyStyles BodyStyle { get; set; }
+    }
+
+    [Serializable, DataContract]
+    public class ImagePager : PagerEntity
+    {
+        [DataMember]
+        public int StartIndex { get; set; }
+
+        [DataMember]
+        public int EndIndex { get; set; }
+
+        [DataMember]
+        public int TotalPages { get; set; }
+
+        [DataMember]
+        public string NextPageUrl { get; set; }
+
+        [DataMember]
+        public string PrevPageUrl { get; set; }
     }
 }

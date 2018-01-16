@@ -79,7 +79,7 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-               
+
 
                 return InternalServerError();
 
@@ -143,7 +143,7 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-               
+
                 return InternalServerError();
             }
 
@@ -157,13 +157,22 @@ namespace Bikewale.Service.Controllers.CMS
         /// <param name="pageNo"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        [Route("api/images/pages/{pageNo}/{pageSize}"), HttpGet, ResponseType(typeof(ModelImageList))]
-        public IHttpActionResult GetModelsImagesList(uint pageNo, uint pageSize)
+        [Route("api/images/pages/{pageNo}/"), HttpGet, ResponseType(typeof(ModelImageList))]
+        public IHttpActionResult GetModelsImagesList(int pageNo, int? pageSize = null)
         {
             try
             {
-                pageSize = (pageSize != 0) ? pageSize : 30;
-                IEnumerable<ModelIdWithBodyStyle> objModelIds = _bikeModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (pageNo - 1) * pageSize + 1, pageNo * pageSize);
+
+                int _pageSize = pageSize != null ? Convert.ToInt32(pageSize) : 30;
+                ImagePager pager = new ImagePager()
+                {
+                    PageNo = pageNo,
+                    PageSize = _pageSize,
+                    StartIndex = (pageNo - 1) * _pageSize + 1,
+                    EndIndex = pageNo * _pageSize
+
+                };
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _bikeModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.AllBikes, ref pager);
                 string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
                 int requiredImageCount = 7;
                 string categoryIds = Bikewale.Utility.CommonApiOpn.GetContentTypesString(
@@ -173,7 +182,10 @@ namespace Bikewale.Service.Controllers.CMS
                         EnumCMSContentType.RoadTest
                     }
                 );
-                ModelImageList obj = CMSMapper.Convert(_bikeModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount));
+
+                ModelImageWrapper ImageWrapper = _bikeModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount, pager);
+                ImageWrapper.RecordCount = pager.CurrentSetResults;
+                ModelImageList obj = CMSMapper.Convert(ImageWrapper);
                 return Ok(obj);
             }
             catch (Exception ex)
@@ -198,7 +210,7 @@ namespace Bikewale.Service.Controllers.CMS
         /// <returns>Article Details</returns>
         [ResponseType(typeof(CMSArticlePageDetails)), Route("api/cms/id/{basicId}/pages/")]
         public HttpResponseMessage Get(string basicId)
-        {            
+        {
             uint _basicId = default(uint);
             string articleDetailsJson = string.Empty;
 
@@ -218,7 +230,7 @@ namespace Bikewale.Service.Controllers.CMS
                         {
                             Content = new System.Net.Http.StringContent(articleDetailsJson, System.Text.Encoding.UTF8, "application/json")
                         };
-                    }                    
+                    }
                 }
                 else
                 {
@@ -227,9 +239,9 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");                
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
                 return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
-            }            
+            }
         }  //get article content          
 
         #endregion
@@ -246,11 +258,11 @@ namespace Bikewale.Service.Controllers.CMS
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>News Details</returns>
-        [HttpGet,ResponseType(typeof(CMSArticleDetails)), Route("api/cms/id/{basicId}/page/")]
+        [HttpGet, ResponseType(typeof(CMSArticleDetails)), Route("api/cms/id/{basicId}/page/")]
         //public IHttpActionResult GetArticleDetailsPage(string basicId)
         public HttpResponseMessage ArticlePages(string basicId)
         {
-            uint _basicId = default(uint);            
+            uint _basicId = default(uint);
             string articleDetailsJson = string.Empty;
 
             try
@@ -270,7 +282,7 @@ namespace Bikewale.Service.Controllers.CMS
                         {
                             Content = new System.Net.Http.StringContent(articleDetailsJson, System.Text.Encoding.UTF8, "application/json")
                         };
-                    }                    
+                    }
                 }
                 else
                 {
@@ -279,9 +291,9 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");                
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
                 return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
-            }            
+            }
         }  //get News Details
 
         #endregion
@@ -321,7 +333,7 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-               
+
                 return InternalServerError();
             }
 

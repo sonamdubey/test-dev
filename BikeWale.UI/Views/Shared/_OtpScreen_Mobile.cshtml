@@ -43,7 +43,7 @@
         </div>
         <p class="font18 text-bold margin-top20">Thank you, <span data-bind="text: userName()"></span>!</p>
         <p class="text-black font14 margin-top20">Your loan application is being processed by our finance partner. The status of the application will be shared over SMS and E-mail.</p>
-        <input type="button" id="sendEmail" data-bind="event: { click: redirect }" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done">
+        <input type="button" id="sendEmail" data-bind="event: { click: redirect }" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done" onclick="Android.closeForm();">
     </div>
     <div id="failureScreen" class="failure-container hide">
         <div class="icon-outer-container rounded-corner50">

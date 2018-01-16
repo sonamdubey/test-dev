@@ -1,19 +1,13 @@
-﻿using Bikewale.BAL.Images;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
-using BikewaleOpr.Interface.BikeData;
-using Grpc.CMS;
+using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Notifications;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS.Photos;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Notifications;
-using Bikewale.Entities.GenericBikes;
-using Bikewale.Utility;
-using System.Web;
 
 namespace Bikewale.Models.Photos.v1
 {
@@ -39,7 +33,7 @@ namespace Bikewale.Models.Photos.v1
             IsMobile = isMobile;
             _objModelEntity = objModelEntity;
             _objMakeCache = objMakeCache;
-            _pageNo = (pageNo == null)? 1: (uint)pageNo;
+            _pageNo = (pageNo == null) ? 1 : (uint)pageNo;
         }
 
         /// <summary>
@@ -97,7 +91,8 @@ namespace Bikewale.Models.Photos.v1
             try
             {
                 int totalCount = 0;
-                IEnumerable<ModelIdWithBodyStyle> objModelIds =  _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (_pageNo - 1) * PageSize + 1, _pageNo * PageSize, ref totalCount);
+                ImagePager pager = new ImagePager();
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, ref pager);
                 string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
                 objData.TotalBikeModels = totalCount;
                 int requiredImageCount = 4;
@@ -108,7 +103,7 @@ namespace Bikewale.Models.Photos.v1
                         EnumCMSContentType.RoadTest
                     }
                 );
-                objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+                objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(new ImagePager(), modelIds, categoryIds, requiredImageCount);
                 CreatePager(objData);
 
             }
@@ -139,7 +134,7 @@ namespace Bikewale.Models.Photos.v1
         {
             try
             {
-                
+
             }
             catch (Exception ex)
             {
@@ -169,7 +164,7 @@ namespace Bikewale.Models.Photos.v1
                     modelsImages = _objModelEntity.GetBikeModelsPhotoGallery(modelIds, 7);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage");
             }

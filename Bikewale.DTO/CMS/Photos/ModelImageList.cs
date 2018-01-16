@@ -10,8 +10,17 @@ namespace Bikewale.DTO.CMS.Photos
     {
         [DataMember]
         public int RecordCount { get; set; }
+
         [DataMember]
-        public IEnumerable<CMSModelImages> ModelsImages { get; set; }
-        
+        public string PrevPageUrl { get; set; }
+
+        [DataMember]
+        public string NextPageUrl { get; set; }
+
+        [DataMember]
+        public IEnumerable<CMSModelImages> Models { get; set; }
+
     }
+
+
 }

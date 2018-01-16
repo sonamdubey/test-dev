@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bikewale.BAL.Customer;
+﻿using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
 using Bikewale.BAL.UserReviews.Search;
@@ -36,6 +31,11 @@ using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 namespace Bikewale.BAL.BikeData
 {
     /// <summary>
@@ -390,7 +390,7 @@ namespace Bikewale.BAL.BikeData
             try
             {
 
-                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest});
+                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest });
 
                 var _objGrpcmodelsPhotoList = GrpcMethods.GetModelsImages(modelIds, contentTypeList, requiredImageCount);
 
@@ -413,18 +413,80 @@ namespace Bikewale.BAL.BikeData
         /// <param name="categoryIds">CSV categoryIds which Photos are to be fetched.</param>
         /// <param name="requiredImageCount">Count of Photos to be fetched for every model.</param>
         /// <returns></returns>
-        public IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount)
+        public IEnumerable<ModelImages> GetBikeModelsPhotos(ImagePager pager, string modelIds, string categoryIds, int requiredImageCount)
         {
             try
             {
                 var objImages = GrpcMethods.GetModelsImages(modelIds, categoryIds, requiredImageCount);
-                return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages);
+                IEnumerable<ModelImages> modelImages = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages);
+                return modelImages;
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("BAL.Images.ImageBL.GetBikeModelsPhotos_modelIds_{0}_categoryIds_{1}_requiredImageCount_{2}", modelIds, categoryIds, requiredImageCount));
             }
             return null;
+        }
+
+
+        /// <summary>
+        /// Gets the bike models photos.
+        /// </summary>
+        /// <param name="modelIds">The model ids.</param>
+        /// <param name="categoryIds">The category ids.</param>
+        /// <param name="requiredImageCount">The required image count.</param>
+        /// <param name="pager">The pager.</param>
+        /// <returns></returns>
+        public ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount, ImagePager pager)
+        {
+            ModelImageWrapper imageWrapper;
+            try
+            {
+                var objImages = GrpcMethods.GetModelsImages(modelIds, categoryIds, requiredImageCount);
+                imageWrapper = new ModelImageWrapper();
+                imageWrapper.Models = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages);
+                imageWrapper = SetNextPrevUrl(imageWrapper, pager);
+                if (imageWrapper.Models != null)
+                    imageWrapper.RecordCount = imageWrapper.Models.Count();
+                return imageWrapper;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BAL.Images.ImageBL.GetBikeModelsPhotos_modelIds_{0}_categoryIds_{1}_requiredImageCount_{2}", modelIds, categoryIds, requiredImageCount));
+            }
+            return null;
+        }
+
+
+
+        /// <summary>
+        /// Sets the next previous URL.
+        /// </summary>
+        /// <param name="imageWrapper">The image wrapper.</param>
+        /// <param name="pager">The pager.</param>
+        /// <returns></returns>
+        private ModelImageWrapper SetNextPrevUrl(ModelImageWrapper imageWrapper, ImagePager pager)
+        {
+            string controllerurl = "/api/images/pages/";
+
+            pager.PageNo = (pager.PageNo == 0) ? 1 : pager.PageNo;
+            if (pager.PageNo == pager.TotalPages)
+                imageWrapper.NextPageUrl = string.Empty;
+            else
+            {
+                //string apiUrlStrforNext = GetApiUrl(objFilters, 1);
+                imageWrapper.NextPageUrl = string.Format("{0}{1}?pagesize={2}", controllerurl, pager.PageNo + 1, pager.PageSize);
+            }
+
+            if (pager.PageNo == 1 || pager.PageNo == 0)
+                imageWrapper.PrevPageUrl = string.Empty;
+            else
+            {
+
+                imageWrapper.PrevPageUrl = string.Format("{0}{1}?pagesize={2}", controllerurl, pager.PageNo - 1, pager.PageSize);
+            }
+            return imageWrapper;
+
         }
         //// The delegate must have the same signature as the method
         //// it will call asynchronously.
@@ -1076,12 +1138,12 @@ namespace Bikewale.BAL.BikeData
         /// Functionality : list return will [startIndex, endIndex] i.e. inclusive, indexing starts from 1
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex, ref int totalCount)
+        public IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, ref ImagePager pager)
         {
             IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
             try
             {
-                if(startIndex > 0 && (startIndex <= endIndex))
+                if (pager.StartIndex > 0 && (pager.StartIndex <= pager.EndIndex))
                 {
                     var objData = _modelCacheRepository.GetModelIdsForImages();
                     if (objData != null)
@@ -1089,13 +1151,15 @@ namespace Bikewale.BAL.BikeData
                         modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)));
                         if (modelIdsWithBodyStyle != null)
                         {
-                            totalCount = modelIdsWithBodyStyle.Count();
-                            modelIdsWithBodyStyle = modelIdsWithBodyStyle.Skip(Convert.ToInt32(startIndex - 1)).Take(Convert.ToInt32(endIndex - startIndex + 1));
+                            pager.TotalResults = modelIdsWithBodyStyle.Count();
+                            pager.TotalPages = (int)Math.Ceiling((double)pager.TotalResults / (double)pager.PageSize); //  / pager.PageSize;
+                            modelIdsWithBodyStyle = modelIdsWithBodyStyle.Skip(pager.StartIndex - 1).Take(pager.EndIndex - pager.StartIndex + 1);
+                            pager.CurrentSetResults = modelIdsWithBodyStyle.Count();
                         }
                     }
-                }                
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetModelIdsForImages");
             }
