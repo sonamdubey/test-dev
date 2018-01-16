@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Bikewale.DTO.Videos;
+﻿using Bikewale.DTO.Videos;
 using Bikewale.Entities.Authors;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
@@ -13,6 +10,9 @@ using Bikewale.Utility;
 using EditCMSWindowsService.Messages;
 using Google.Protobuf.Collections;
 using log4net;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.BAL.GrpcFiles
 {
@@ -54,8 +54,8 @@ namespace Bikewale.BAL.GrpcFiles
                     curArt.OriginalImgUrl = item.OriginalImgUrl;
                     curArt.SmallPicUrl = item.SmallPicUrl;
                     curArt.Views = item.Views;
-					curArt.SubCategory = item.SubCategory;
-					curArt.SubCategoryId = item.SubCategoryId;
+                    curArt.SubCategory = item.SubCategory;
+                    curArt.SubCategoryId = item.SubCategoryId;
                     dataNew.Articles.Add(curArt);
                 }
                 return dataNew;
@@ -206,20 +206,20 @@ namespace Bikewale.BAL.GrpcFiles
                             };
                             modelImage.Add(curModelImage);
                         }
-                    var bike = modelImage.FirstOrDefault();
-                    
+                        var bike = modelImage.FirstOrDefault();
+
                         retData.Add(new ModelImages
                         {
                             ModelId = model.ModelId,
                             RecordCount = model.RecordCount,
                             ModelImage = modelImage,
-                            BikeName = string.Format("{0} {1}", bike != null ?  bike.MakeBase.MakeName : "", bike != null ? bike.ModelBase.ModelName : ""),
-                            MakeBase  = bike != null ? bike.MakeBase : null,
+                            BikeName = string.Format("{0} {1}", bike != null ? bike.MakeBase.MakeName : "", bike != null ? bike.ModelBase.ModelName : ""),
+                            MakeBase = bike != null ? bike.MakeBase : null,
                             ModelBase = bike != null ? bike.ModelBase : null
                         });
 
                     }
-                    return retData; 
+                    return retData;
                 }
             }
             catch (Exception ex)
@@ -236,7 +236,8 @@ namespace Bikewale.BAL.GrpcFiles
                 BikeMakeEntityBase bwMake = new BikeMakeEntityBase()
                 {
                     MakeId = grpcMake.MakeId,
-                    MakeName = grpcMake.MakeName
+                    MakeName = grpcMake.MakeName,
+                    MaskingName = grpcMake.MaskingName
                 };
                 return bwMake;
             }

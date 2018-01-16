@@ -2,6 +2,7 @@
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -50,6 +51,7 @@ namespace Bikewale.Models.Photos.v1
                 _objData.PopularSportsModelsImages = BindPopularSportsBikeWidget();
                 BindBikeModelsPhotos(_objData);
                 BindMakesWidget(_objData);
+                SetBreadcrumList(ref _objData);
             }
             catch (Exception ex)
             {
@@ -120,7 +122,7 @@ namespace Bikewale.Models.Photos.v1
         /// <returns></returns>
         private void BindMakesWidget(PhotosPageVM objData)
         {
-            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos);
+            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos).Take(9);
             objData.OtherPopularMakes = new OtherMakesVM()
             {
                 Makes = makes,
@@ -143,8 +145,26 @@ namespace Bikewale.Models.Photos.v1
 
         }
 
-        private void SetBreadcrumList()
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 15th Jan 2018
+        /// Description : Set breadcrum list for image landing page 
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetBreadcrumList(ref PhotosPageVM objData)
         {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            url = string.Format("{0}new-bikes-in-india/", url);
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "New Bikes"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Images"));
+            objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
         }
 
         /// <summary>

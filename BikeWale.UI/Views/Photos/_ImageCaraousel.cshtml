@@ -10,7 +10,7 @@
                 {
                     <li class="carousel-slide">
 
-                        <a href="@string.Format("{0}/{1}-bikes/{2}/images", BWConfiguration.Instance.BwHostUrl, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.BikeName" class="model-image__card">
+                        <a href="@string.Format("{0}/{1}-bikes/{2}/images/", BWConfiguration.Instance.BwHostUrl, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@string.Format("{0} Images", bike.BikeName)" class="model-image__card">
                             @if (bike.RecordCount >= 7)
                             {
                                 <ul class="image-grid__list" data-grid="7">

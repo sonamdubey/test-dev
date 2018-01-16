@@ -51,7 +51,20 @@ body
 	margin-right: 20px
 	margin-left: 20px
 
-@include input-field(13, 'search')
+@include input-field
+@include input-field__search
+
+.bike-images-autocomplete
+	span.rightfloat
+		margin-left: 0
+		font-size: 13px
+		position: relative
+		top: 1px
+
+	.ui-menu-item
+		a
+			width: 62%
+			display: inline-block
 
 // filter by
 .filter__content
@@ -281,6 +294,14 @@ body
 	// explore bikes search field
 	.explore-bikes__search
 		width: 410px
+
+	.bike-images-autocomplete
+		.ui-search-icon
+			top: 0
+
+		.ui-menu-item
+			a
+				@include text-truncate(65%)
 
 	// filter by
 	.filter__content

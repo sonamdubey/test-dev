@@ -174,7 +174,7 @@ namespace Bikewale.Service.Controllers.CMS
                 };
                 IEnumerable<ModelIdWithBodyStyle> objModelIds = _bikeModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.AllBikes, ref pager);
                 string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                int requiredImageCount = 7;
+                int requiredImageCount = 4;
                 string categoryIds = Bikewale.Utility.CommonApiOpn.GetContentTypesString(
                     new List<EnumCMSContentType>()
                     {

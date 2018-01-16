@@ -21,5 +21,6 @@ namespace Bikewale.Models.Photos.v1
         public OtherMakesVM OtherPopularMakes { get; set; }
         public IEnumerable<ModelImages> PopularSportsModelsImages { get; set; }
         public PagerEntity Pager { get; set; }
+        public bool IsMobile { get; set; }
     }
 }

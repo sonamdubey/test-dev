@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
@@ -11,6 +7,10 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -1556,7 +1556,32 @@ namespace Bikewale.Cache.BikeData
             {
                 modelIdsWithBodyStyle = _cache.GetFromCache<IEnumerable<ModelIdWithBodyStyle>>(_modelIdsWithBodyStyleKey, new TimeSpan(24, 0, 0), () => _modelRepository.GetModelIdsForImages());
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Cache.BikeData.BikeModelsCacheRepoostiory.GetModelIdsForImages");
+            }
+            return modelIdsWithBodyStyle;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 15 Jan 2018
+        /// Description :   Returns Model Images with color photos from cache
+        /// </summary>
+        /// <param name="modelIds"></param>
+        /// <returns></returns>
+        public ICollection<BikeModelColorImageEntity> GetModelImages(string modelIds)
+        {
+            ICollection<BikeModelColorImageEntity> modelIdsWithBodyStyle = null;
+            string key = "BW_ModelImages_{0}";
+            try
+            {
+                var modelIdsArray = Array.ConvertAll(modelIds.Split(','), int.Parse);
+                Array.Sort(modelIdsArray);
+                key = String.Format(key, String.Join(",", modelIdsArray).Replace(",", "_"));
+
+                modelIdsWithBodyStyle = _cache.GetFromCache<ICollection<BikeModelColorImageEntity>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetModelImages(modelIds));
+            }
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Cache.BikeData.BikeModelsCacheRepoostiory.GetModelIdsForImages");
             }
