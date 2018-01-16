@@ -4,6 +4,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created By : Ashish G. Kamble on 20 Mar 2017
     /// Summary : Class have properties related to ad tags
+    /// Modified by : Snehal Dange on 16th Jan 2017
+    /// Description: Added ad tags for make page 
     /// </summary>
     public class AdTags
     {
