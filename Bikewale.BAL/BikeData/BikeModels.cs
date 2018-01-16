@@ -466,7 +466,7 @@ namespace Bikewale.BAL.BikeData
                             if (image != null && image.Any())
                             {
                                 cmsImages.AddRange(ConvertToModelImages(image));
-                                img.ModelImage = cmsImages;
+                                img.ModelImage = cmsImages.Take(requiredImageCount);
                             }
                         }
 
