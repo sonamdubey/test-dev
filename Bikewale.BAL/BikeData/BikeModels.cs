@@ -415,7 +415,7 @@ namespace Bikewale.BAL.BikeData
         /// <param name="categoryIds">CSV categoryIds which Photos are to be fetched.</param>
         /// <param name="requiredImageCount">Count of Photos to be fetched for every model.</param>
         /// <returns></returns>
-        public IEnumerable<ModelImages> GetBikeModelsPhotos(ImagePager pager, string modelIds, string categoryIds, int requiredImageCount)
+        public IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount)
         {
             IList<ModelImages> modelsImages = null;
             try
@@ -447,15 +447,21 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount, ImagePager pager)
         {
-            ModelImageWrapper imageWrapper;
+
+            ModelImageWrapper imageWrapper = null;
             try
             {
-                var objImages = GrpcMethods.GetModelsImages(modelIds, categoryIds, requiredImageCount);
-                imageWrapper = new ModelImageWrapper();
-                imageWrapper.Models = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages);
-                imageWrapper = SetNextPrevUrl(imageWrapper, pager);
-                if (imageWrapper.Models != null)
-                    imageWrapper.RecordCount = imageWrapper.Models.Count();
+                IEnumerable<ModelImages> modelsImages = null;
+                modelsImages = GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+
+                if (modelsImages != null && modelsImages.Any())
+                {
+                    imageWrapper = new ModelImageWrapper();
+                    imageWrapper.Models = modelsImages;
+                    imageWrapper = SetNextPrevUrl(imageWrapper, pager);
+                    if (imageWrapper.Models != null)
+                        imageWrapper.RecordCount = imageWrapper.Models.Count();
+                }
                 return imageWrapper;
             }
             catch (Exception ex)

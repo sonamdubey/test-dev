@@ -64,7 +64,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex);
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, ref ImagePager pager);
         IEnumerable<ModelImages> GetBikeModelsPhotoGallery(string modelIds, int requiredImageCount);
-        IEnumerable<ModelImages> GetBikeModelsPhotos(ImagePager pager, string modelIds, string categoryIds, int requiredImageCount);
-        ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount,ImagePager pager);
+        IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount);
+        ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount, ImagePager pager);
     }
 }
