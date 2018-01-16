@@ -399,7 +399,7 @@ namespace Bikewale.BAL.BikeData
                 {
                     images = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelsPhotoList).ToList();
                 }
-                AppendModelImages(modelIds, requiredImageCount,ref images);
+                AppendModelImages(modelIds, requiredImageCount, ref images);
             }
             catch (Exception err)
             {
@@ -425,7 +425,7 @@ namespace Bikewale.BAL.BikeData
                 {
                     modelsImages = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages).ToList();
                 }
-                AppendModelImages(modelIds, requiredImageCount,ref modelsImages);
+                AppendModelImages(modelIds, requiredImageCount, ref modelsImages);
                 return modelsImages;
             }
             catch (Exception ex)
@@ -442,7 +442,7 @@ namespace Bikewale.BAL.BikeData
         /// <param name="modelIds"></param>
         /// <param name="requiredImageCount"></param>
         /// <param name="modelsImages"></param>
-        private void AppendModelImages(string modelIds, int requiredImageCount,ref IList<ModelImages> modelsImages)
+        private void AppendModelImages(string modelIds, int requiredImageCount, ref IList<ModelImages> modelsImages)
         {
             if (!String.IsNullOrEmpty(modelIds) && requiredImageCount > 0 && modelsImages != null)
             {
@@ -455,14 +455,24 @@ namespace Bikewale.BAL.BikeData
                     {
                         ICollection<BikeModelColorImageEntity> colorImages = _modelCacheRepository.GetModelImages(modelIds);
 
+                        var images = colorImages.GroupBy(m => m.Model.ModelId);
+
                         foreach (var img in modelsImages)
                         {
-                            img.RecordCount += colorImages.Count(m => m.Model.ModelId == img.ModelId);
+
+                            var cmsImages = img.ModelImage.ToList();
+                            img.RecordCount += img.ModelImage.Count();
+                            var image = images.Where(m => m.Key == img.ModelId).FirstOrDefault();
+                            if (image != null && image.Any())
+                            {
+                                cmsImages.AddRange(ConvertToModelImages(image));
+                                img.ModelImage = cmsImages;
+                            }
                         }
 
                         var missingModelImages = colorImages.Where(m => missingModelIds.Contains(m.Model.ModelId));
-                        var images = missingModelImages.GroupBy(m => m.Model.ModelId);
-                        foreach (var image in images)
+                        var missingImages = missingModelImages.GroupBy(m => m.Model.ModelId);
+                        foreach (var image in missingImages)
                         {
                             var firstImg = image.First();
                             var img = new ModelImages()
