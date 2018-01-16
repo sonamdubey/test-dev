@@ -1,30 +1,14 @@
 ﻿var objBikes = new Object(), focusedMakeModel = null, isMakeModelRedirected = false;
 docReady(function () {
-	var isMobile = true
-
-	if(window.innerWidth > 768) {
-		isMobile = false;
-	}
 	$("#exploreBikesField").val("");
-	
 	function MakeModelPhotosRedirection(items) {
 	    var makeMaskingName = items.payload.makeMaskingName;
 	    var modelMaskingName = items.payload.modelMaskingName;
 	    if (items.payload.modelId > 0 && makeMaskingName != null && makeMaskingName != "" && modelMaskingName != null && modelMaskingName != "") {
-	        if (isMobile) {
-	            window.location.href = "/m/" + makeMaskingName + "-bikes/" + modelMaskingName + "/images/";
-	        }
-	        else {
-	            window.location.href = "/" + makeMaskingName + "-bikes/" + modelMaskingName + "/images/";
-	        }
+	        window.location.href = "/" + makeMaskingName + "-bikes/" + modelMaskingName + "/images/";
 	        return true;
 	    } else if (makeMaskingName != null && makeMaskingName !="") {
-	        if (isMobile) {
-	            window.location.href = "/m/photos/" + makeMaskingName + "-bikes"; // To be replaced for photos page
-	        }
-	        else {
-	            window.location.href = "/photos/" + makeMaskingName + "-bikes"; // To be replaced for photos page
-	        }
+	        window.location.href = "/photos/" + makeMaskingName + "-bikes"; // To be replaced for photos page
 	        return true;
 	    }
 	}
@@ -48,11 +32,6 @@ docReady(function () {
 		    objBikes.result = result;
 		},
 		focus: function() {
-			if (isMobile) {
-				$('html, body').animate({
-					scrollTop: $('#exploreBikesField').offset().top - 20
-				})
-			}
 			focusedMakeModel = new Object();
 			focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
 		},
@@ -159,4 +138,73 @@ docReady(function () {
 				break;
 		}
 	});
-})
+	$("#viewMoreBtn").click(function () {
+	    event.preventDefault();
+	});
+	var modelImage = function () {
+	    this.src = ko.observable();
+	    this.alt = ko.observable();
+	};
+	var model = function () {
+	    var self = this;
+	    self.modelTitle = ko.observable();
+	    self.modelImagePageUrl = ko.observable();
+	    self.makeName = ko.observable();
+	    self.modelName = ko.observable();
+	    self.modelImages = ko.observableArray([]);
+	    self.showcasedModelImages = ko.computed(function () {
+	        if (self.modelImages().length === 2) {
+	            return self.modelImages().splice(0, 1);
+	        }
+	        else {
+	            return self.modelImages();
+	        }
+	    });
+	    self.recordCount = ko.observable();
+	    self.gridSize = ko.computed(function () {
+	        return self.recordCount() >= 4 ? 4 : self.recordCount() >= 3 ? 3 : 1;
+	    });
+	};
+	var modelListViewModel = function () {
+	    var self = this;
+	    self.modelList = ko.observableArray([]);
+	    self.isLoadMore = ko.observable(true);
+	    self.LoadMore = function () {
+	        event.preventDefault();
+	        console.log("Done");
+	        var nextPageUrl = "/api/images/pages/2/30";
+	        $.getJSON(nextPageUrl,
+                function (res) {
+                    var result = res;
+                    if (result.RecordCount > 0) {
+                        $.each(result.ModelsImages, function (index, val) {
+                            var showcasedModelImageList = [];
+                            $.each(val.ImagesList, function (index, image) {
+                                var img = new modelImage();
+                                img.alt = val.ModelBase.modelName + ' ' + 'Images';
+                                if (image.originalImgPath.indexOf('?') > 0) {
+                                    img.src = image.hostUrl + '476x268/' + image.originalImgPath + '&q=70';
+                                }
+                                else {
+                                    img.src = image.hostUrl + '476x268/' + image.originalImgPath + '?q=70';
+                                }
+                                showcasedModelImageList.push(img);
+                            });
+                            var newModel = new model();
+                            newModel.modelTitle(val.ModelBase.modelName + ' ' + 'Images');
+                            newModel.modelImagePageUrl("/" + val.MakeBase.maskingName + "-bikes/" + val.ModelBase.maskingName + "/images/");
+                            newModel.makeName(val.MakeBase.makeName);
+                            newModel.modelName(val.ModelBase.modelName);
+                            newModel.modelImages(showcasedModelImageList);
+                            newModel.recordCount(val.recordCount);
+                            self.modelList.push(newModel);
+                        });
+                    }
+                    else {
+                        self.isLoadMore(false);
+                    }
+                });
+	    };
+	};
+	    ko.applyBindings(new modelListViewModel(), document.getElementById("exploreModelListing"));
+	});

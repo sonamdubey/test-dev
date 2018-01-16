@@ -99,7 +99,7 @@ namespace Bikewale.Models.Photos.v1
             try
             {
                 int totalCount = 0;
-                IEnumerable<ModelIdWithBodyStyle> objModelIds =  _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (_pageNo - 1) * PageSize + 1, _pageNo * PageSize, ref totalCount);
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.AllBikes, (_pageNo - 1) * PageSize + 1, _pageNo * PageSize, ref totalCount);
                 string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
                 objData.TotalBikeModels = totalCount;
                 int requiredImageCount = 4;
