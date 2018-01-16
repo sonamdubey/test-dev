@@ -53,6 +53,4 @@
             console.warn(e.message);
         }
     }
-
-    bikeModelId = $('.photos-grid-list').attr("data-modelid");
 });
