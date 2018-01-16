@@ -4,7 +4,7 @@
     ViewBag.Title = "Bike Images";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
-    Model.Page_JS_Path = "/src/photos/landing.js";
+    Model.Page_JS_Path = "/m/src/photos/landing.js";
 }
 
 <section>
@@ -31,21 +31,21 @@
 <section class="text-center section-bottom-margin"></section>
 
 <section>
-	<div class="container section-bottom-margin">
-		<h2 class="explore-bikes__title">Explore Bikes</h2>
-		<div class="explore-bikes__container">
-			<div class="explore-bikes__content">
-				<div class="explore-bikes__search form-control-box">
-					<input type="text" id="exploreBikesField" class="form-control__input" placeholder="Search Bike and Brands">
+    <div class="container section-bottom-margin" id="exploreModelListing">
+        <h2 class="explore-bikes__title">Explore Bikes</h2>
+        <div class="explore-bikes__container">
+            <div class="explore-bikes__content">
+                <div class="explore-bikes__search form-control-box">
+                    <input type="text" id="exploreBikesField" class="form-control__input" placeholder="Search Bike and Brands">
                     <span class="input__search-icon" id="btnexplorebikesfield"></span>
 
-					<ul id="errExploreBikes" class="ui-autocomplete ui-front ui-menu hide form-control__error">
-							<li class="ui-menu-item" tabindex="-1">
-									<span class="text-bold">Oops! No suggestions found</span><br />
-									<span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
-							</li>
-					</ul>
-				</div>
+                    <ul id="errExploreBikes" class="ui-autocomplete ui-front ui-menu hide form-control__error">
+                        <li class="ui-menu-item" tabindex="-1">
+                            <span class="text-bold">Oops! No suggestions found</span><br />
+                            <span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
+                        </li>
+                    </ul>
+                </div>
                 @if (Model != null && Model.BikeModelsPhotos != null)
                 {
                     @Html.Partial("~/Views/Photos/_ModelsImageList_Mobile.cshtml", Model.BikeModelsPhotos)
@@ -53,12 +53,12 @@
                 @if (!string.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
                 {
                     <div class="explore-model__more-btn">
-                        <button type="button" class="btn btn-inv-blue">View More</button>
+                        <button type="button" class="btn btn-inv-blue" data-bind="click: $root.LoadMore, visible: $root.isLoadMore">View More</button>
                     </div>
                 }
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </section>
 @if (Model != null && Model.OtherPopularMakes != null)
 {

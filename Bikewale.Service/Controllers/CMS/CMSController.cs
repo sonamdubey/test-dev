@@ -163,9 +163,9 @@ namespace Bikewale.Service.Controllers.CMS
             try
             {
                 pageSize = (pageSize != 0) ? pageSize : 30;
-                IEnumerable<ModelIdWithBodyStyle> objModelIds = _bikeModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, (pageNo - 1) * pageSize + 1, pageNo * pageSize);
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _bikeModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.AllBikes, (pageNo - 1) * pageSize + 1, pageNo * pageSize);
                 string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                int requiredImageCount = 7;
+                int requiredImageCount = 4;
                 string categoryIds = Bikewale.Utility.CommonApiOpn.GetContentTypesString(
                     new List<EnumCMSContentType>()
                     {
