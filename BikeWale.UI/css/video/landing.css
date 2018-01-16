@@ -366,3 +366,6 @@
         width: 170px
     }
 }
+#dealer-main-content, #dealer-more-content.active {
+    display: inline;
+}

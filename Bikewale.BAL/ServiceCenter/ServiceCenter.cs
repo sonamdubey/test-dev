@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Entities.Location;
+using Bikewale.Entities.MobileVerification;
 using Bikewale.Entities.service;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.ServiceCenter;
@@ -42,7 +43,7 @@ namespace Bikewale.BAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "ServiceCenters.GetServiceCentersByCity");
-                
+
             }
             return objServiceCenterData;
         }
@@ -64,7 +65,7 @@ namespace Bikewale.BAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "ServiceCenters.GetServiceScheduleByMake");
-                
+
             }
             return objServiceSchedule;
         }
@@ -85,7 +86,7 @@ namespace Bikewale.BAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Error in ServiceCenters.GetServiceCenterDataById for parameters serviceCenterId : {0}", serviceCenterId));
-                
+
             }
             return null;
         }
@@ -104,37 +105,37 @@ namespace Bikewale.BAL.ServiceCenter
         /// Created By : Sajal Gupta on 16/11/2016
         /// Description: BAL layer Function for sending service center sms data from DAL.
         /// </summary>
-        public EnumServiceCenterSMSStatus GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber, string pageUrl)
+        public EnumSMSStatus GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber, string pageUrl)
         {
             try
             {
-                ServiceCenterSMSData objSMSData = _objSMSData.GetServiceCenterSMSData(serviceCenterId, mobileNumber);
+                SMSData objSMSData = _objSMSData.GetServiceCenterSMSData(serviceCenterId, mobileNumber);
 
                 if (objSMSData != null)
                 {
-                    if (objSMSData.SMSStatus == EnumServiceCenterSMSStatus.Success)
+                    if (objSMSData.SMSStatus == EnumSMSStatus.Success)
                     {
                         SMSTypes newSms = new SMSTypes();
-                        newSms.ServiceCenterDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, pageUrl);
-                        return EnumServiceCenterSMSStatus.Success;
+                        newSms.ServiceCenterDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, pageUrl, objSMSData.Latitude, objSMSData.Longitude, objSMSData.MakeName);
+                        return EnumSMSStatus.Success;
                     }
-                    else if (objSMSData.SMSStatus == EnumServiceCenterSMSStatus.Daily_Limit_Exceeded)
+                    else if (objSMSData.SMSStatus == EnumSMSStatus.Daily_Limit_Exceeded)
                     {
-                        return EnumServiceCenterSMSStatus.Daily_Limit_Exceeded;
+                        return EnumSMSStatus.Daily_Limit_Exceeded;
                     }
                     else
                     {
-                        return EnumServiceCenterSMSStatus.Invalid;
+                        return EnumSMSStatus.Invalid;
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Error in ServiceCenters.GetServiceCenterSMSData for parameters serviceCenterId : {0}, mobileNumber : {1}", serviceCenterId, mobileNumber));
-                
+
             }
             return 0;
         }
-        
+
     }
 }

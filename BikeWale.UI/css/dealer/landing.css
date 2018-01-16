@@ -1,12 +1,17 @@
-﻿#dealer-locator-box .welcome-box {
-    margin-top: 85px;
+﻿.collapsible-content .main-content {
+  display: inline;
 }
 
-.dealerlocator-banner {
-    background: #393a3e url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/dealer-locator-banner.jpg?v1=29Sep2016) no-repeat center top;
-    background-size: cover;
-    height: 268px;
-    padding-top: 1px
+.collapsible-content .more-content {
+  display: none;
+}
+
+.collapsible-content.active .more-content {
+  display: inline;
+}
+
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none;
 }
 
 /* section-container */
@@ -30,7 +35,7 @@ h2.section-header {
 
 .locator-search-container {
     margin: 0 auto;
-    width: 570px
+    width: 820px;
 }
 .locator-search-container .form-control {
     padding: 8px;
@@ -38,16 +43,9 @@ h2.section-header {
 }
 .locator-search-brand,
 .locator-search-city {
+	width: 314px;
     height: 40px;
     float: left
-}
-
-.locator-search-brand {
-    width: 334px;
-}
-
-.locator-search-city {
-    width: 233px;
 }
 
 .locator-search-brand select,
@@ -57,9 +55,6 @@ h2.section-header {
     color: #555;
 }
 
-.locator-search-city .chosen-container {
-    border-left: 0 !important;
-}
 .locator-search-brand .chosen-container,
 .locator-search-city .chosen-container {
     border: 1px solid #e2e2e2 !important;
@@ -67,12 +62,16 @@ h2.section-header {
     padding: 12px 20px;
 }
 
+.locator-search-city .chosen-container {
+    border-left: 0 !important;
+}
+
 #applyFiltersBtn {
-    margin-top: 35px;
+    float: left;
 }
 
 .locator-search-btn.btn-lg {
-    padding: 8px 64px;
+    padding: 10px 67px;
 }
 
 .locator-search-container .error-icon {

@@ -796,5 +796,138 @@ namespace Bikewale.DAL.BikeData
             }
             return objMakesList;
         }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 18th Jan 2018
+        /// Description : Created as a common method to get 'research more about make' details when city is present or not. 
+        /// </summary>
+        /// <param name="spName"></param>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        private ResearchMoreAboutMake GetResearchMoreAboutMakeDetails(string spName, uint makeId, uint cityId = 0)
+        {
+            ResearchMoreAboutMake obj = null;
+            IList<BikeSeriesEntity> objSeriesList = null;
+            try
+            {
+                if (makeId > 0)
+                {
+
+                    using (DbCommand cmd = DbFactory.GetDBCommand(spName))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                        if (cityId > 0)
+                        {
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                        }
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            if (dr != null && dr.Read())
+                            {
+                                obj = new ResearchMoreAboutMake();
+                                if (obj != null)
+                                {
+                                    obj.Make = new BikeMakeEntityBase()
+                                    {
+                                        MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                        MakeName = Convert.ToString(dr["MakeName"]),
+                                        MaskingName = Convert.ToString(dr["MakeMaskingName"])
+                                    };
+                                    obj.IsScooterOnlyMake = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]);
+                                    if (cityId > 0)
+                                    {
+                                        obj.DealerShowroomCount = SqlReaderConvertor.ToUInt16(dr["dealerscount"]);
+                                        obj.ServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["servicecenterscount"]);
+                                        obj.UsedBikesCount = SqlReaderConvertor.ToUInt16(dr["usedbikescount"]);
+                                    }
+
+                                    obj.TotalDealerShowroomCount = SqlReaderConvertor.ToUInt16(dr["totaldealerscount"]);
+                                    obj.TotalServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["totalservicecenterscount"]);
+                                    obj.TotalUsedBikesCount = SqlReaderConvertor.ToUInt16(dr["totalusedbikescount"]);
+                                    if (dr.NextResult())
+                                    {
+                                        objSeriesList = new List<BikeSeriesEntity>();
+                                        if (objSeriesList != null)
+                                        {
+                                            while (dr.Read())
+                                            {
+                                                objSeriesList.Add(new BikeSeriesEntity()
+                                                {
+                                                    SeriesId = SqlReaderConvertor.ToUInt16(dr["seriesid"]),
+                                                    SeriesName = Convert.ToString(dr["seriesname"]),
+                                                    MaskingName = Convert.ToString(dr["seriesmaskingname"])
+                                                }
+                                                    );
+                                            }
+                                        }
+
+                                    }
+                                    obj.SeriesList = objSeriesList;
+                                }
+
+                                dr.Close();
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.GetResearchMoreAboutMakeDetails:Makeid {0} ,CityId {1},", makeId, cityId));
+            }
+            return obj;
+
+        }
+        /// <summary>
+        /// Created by : Snehal Dange on 16th Jan 2017
+        /// Description: Method to get ResearchMoreAboutMake widget data .
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId)
+        {
+            ResearchMoreAboutMake obj = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmake", makeId);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.ResearchMoreAboutMake:Makeid_{0}", makeId));
+            }
+            return obj;
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 16th Jan 2017
+        /// Description: Method to get ResearchMoreAboutMake widget data  when city is present
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId)
+        {
+            ResearchMoreAboutMake obj = null;
+            try
+            {
+                if (makeId > 0 && cityId > 0)
+                {
+                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmakebycity", makeId, cityId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.ResearchMoreAboutMakeByCity: Makeid- {0},CityId- {1}", makeId, cityId));
+            }
+            return obj;
+        }
     }
 }

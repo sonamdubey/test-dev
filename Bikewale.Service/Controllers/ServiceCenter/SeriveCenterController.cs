@@ -1,4 +1,5 @@
 ﻿using Bikewale.DTO.City;
+using Bikewale.DTO.MobileVerification;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
@@ -39,7 +40,7 @@ namespace Bikewale.Service.Controllers.ServiceCenter
                 catch (Exception ex)
                 {
                     ErrorClass.LogError(ex, "Bikewale.Service.Controllers.City.SeriveCenterController.Get");
-                   
+
                     return InternalServerError();
                 }
             }
@@ -55,19 +56,19 @@ namespace Bikewale.Service.Controllers.ServiceCenter
         /// Created By:- Sajal Gupta on 16-11-2016
         /// Summary :- For service center locator sms data
         /// </summary>
-        [HttpPost, Route("api/servicecenter/{id}/details/sms/")]
-        public IHttpActionResult GetServiceCenterSMSData(uint id, string mobile, string pageUrl)
+        [HttpPost, Route("api/servicecenter/")]
+        public IHttpActionResult GetServiceCenterSMSData([FromBody] MobileSmsVerification objData)
         {
-            if (id > 0)
+            if (objData.Id > 0)
             {
                 try
                 {
-                    return Ok(_objServiceCenter.GetServiceCenterSMSData(id, mobile, pageUrl));
+                    return Ok(_objServiceCenter.GetServiceCenterSMSData(objData.Id, objData.MobileNumber, objData.PageUrl));
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controllers.City.SeriveCenterController.GetServiceCenterSMSData {0},{1}", id, mobile));
-                   
+                    ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controllers.City.SeriveCenterController.GetServiceCenterSMSData {0},{1}", objData.Id, objData.MobileNumber));
+
                     return InternalServerError();
                 }
             }

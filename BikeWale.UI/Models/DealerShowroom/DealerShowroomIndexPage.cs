@@ -2,10 +2,12 @@
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Pages;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 namespace Bikewale.Models
@@ -22,6 +24,7 @@ namespace Bikewale.Models
         public uint MakeId { get; set; }
         public ushort TopCount { get; set; }
         public StatusCodes status { get; set; }
+        public bool IsMobile { get; set; }
 
         public DealerShowroomIndexPage(IBikeModelsCacheRepository<int> objBestBikes, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakes, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, ushort topCount)
         {
@@ -49,8 +52,8 @@ namespace Bikewale.Models
                 objDealerVM.Brands = new BrandWidgetModel(TopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.Dealer);
                 BindPageMetas(objDealerVM.PageMetaTags);
                 objDealerVM.Page = GAPages.Dealer_Locator_Page;
-
-
+                SetBreadcrumList(objDealerVM);
+                SetPageJSONLDSchema(objDealerVM);
             }
             catch (Exception ex)
             {
@@ -142,6 +145,55 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.BindUpCompingBikesWidget()");
             }
             return objUpcomingBikes;
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 12th Jan 2017
+        /// Desc : Added breadcrum and webpage schema
+        /// </summary>
+        /// <param name="objPageMeta"></param>
+        private void SetPageJSONLDSchema(IndexVM objPageMeta)
+        {
+            //set webpage schema 
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 12th Dec 2017
+        /// Desc : Added breadcrumb for dealerpage
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetBreadcrumList(IndexVM objData)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    url += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+                url = string.Format("{0}new-bikes-in-india/", url);
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "New Bikes"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Dealer Locator"));
+
+
+                objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass.LogError(ex, "DealerShowroomIndiaPage.SetBreadcrumList()");
+            }
+
         }
     }
 }

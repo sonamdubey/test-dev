@@ -107,7 +107,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .opacity40 { opacity:0.4; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"; filter: alpha(opacity=40); -moz-opacity: 0.4; -khtml-opacity: 0.4; }
 .opacity50 { opacity:0.5; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity: 0.5; -khtml-opacity: 0.5; }
 .opacity60 { opacity:0.6; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; filter: alpha(opacity=60); -moz-opacity: 0.6; -khtml-opacity: 0.6; }
-.pos-overlap {z-index:1;}
+.pos-overlap {z-index:2;}
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 .home-getFinalPrice-banner { background:#161209 no-repeat center top; background-size: cover; height: 373px; }
@@ -129,6 +129,10 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
     background: #fff;
 }
 
+/* autoexpo header */
+.auto-expo-header {
+	display: none;
+}
 
 .booking-how-it-works { background-color: #cbcbcb; width: 320px; height: 900px; margin:0 auto;}
 /* welcome box home page classes */

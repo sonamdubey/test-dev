@@ -19,16 +19,16 @@
             <h1 class="section-header bg-white">@Model.Page_H1</h1>
             @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
             {
-                <ul class="photos-grid-list">
+                <ul id="grid-images-noremainder" class="photos-grid-list" data-modelid="@(Model.objModel!=null ? Model.objModel.ModelId : 0)">
                     @for (; i < Model.GridPhotoCount && i < 6; i++)
                     {
-                        <li>
+                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                             <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
                         </li>
                     }
                     @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
                     {
-                        <li>
+                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                             <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
                         </li>
                     }
@@ -40,14 +40,14 @@
                     {
                         for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
                         {
-                            <li>
+                            <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                                 <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
                             </li>
                         }
                     }
                     else if (Model.TotalPhotos == 1)
                     {
-                        <li>
+                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                             <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
                         </li>
                     }
@@ -58,7 +58,15 @@
             <div class="clear"></div>
         </div>
     </section>
-
+    <div id="photoTemplateWrapper" class="hide">
+        <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
+        <ul data-bind="foreach : Loadedphotos">
+            <li data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}">
+                <img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" @*alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)"*@ />
+            </li>
+        </ul>
+        <!-- /ko -->
+    </div>
     if (Model.BikeInfo != null)
     { <section>
         <div class="container bg-white box-shadow section-bottom-margin">

@@ -229,6 +229,8 @@ namespace Bikewale.Models
         /// Summary    : Get data for the page widgets
         /// Modified By Sajal Gupta on 25-04-20187
         /// Descrition : Call most popular bike widget by body type
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         private void GetWidgetData(BikeCareDetailPageVM objData, int topCount)
         {
@@ -254,6 +256,14 @@ namespace Bikewale.Models
                             objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                             objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
                             bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
+
+                            if (bikeType == EnumBikeType.All)
+                            {
+                                BikeFilters obj = new BikeFilters();
+                                obj.CityId = CityId;
+                                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                                objData.PopularBodyStyle.PopularBikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBodyStyle.PopularBikes);
+                            }
                         }
                     }
                     else
@@ -315,6 +325,11 @@ namespace Bikewale.Models
                         PopularBikesWidget.WidgetHref = "/best-bikes-in-india/";
                         PopularBikesWidget.WidgetLinkTitle = "Best Bikes in India";
                         PopularBikesWidget.CtaText = "View all bikes";
+
+                        BikeFilters obj = new BikeFilters();
+                        obj.CityId = CityId;
+                        IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                        PopularBikesWidget.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, PopularBikesWidget.Bikes);
                     }
                 }
                 else
@@ -389,7 +404,13 @@ namespace Bikewale.Models
                     objData.PopularBikesAndPopularScootersWidget.ShowViewAllLink2 = true;
                     objData.PopularBikesAndPopularScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndPopularScooters;
                     objData.PopularBikesAndPopularScootersWidget.PageName = "BikeCare";
+
+                    BikeFilters obj = new BikeFilters();
+                    obj.CityId = CityId;
+                    IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                    objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                 }
+                
             }
             catch (Exception ex)
             {

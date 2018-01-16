@@ -1,0 +1,60 @@
+.article-head
+    .article-stats-content
+        width: 90%
+
+.article-content-padding
+    padding: 20px 20px 10px
+
+@import "placeholder/grid"
+@include grid(6)
+
+.article-stats-content
+	font-size: 12px
+	color: $primary-color
+	width: 78%
+	display: inline-block
+	vertical-align: middle
+	text-align: left
+	text-overflow: ellipsis
+	white-space: nowrap
+	overflow: hidden
+
+	&.text-link
+		color: $link-color
+
+.article-content
+    font-size: $font-size-base
+    line-height: 1.5
+    margin-bottom: 15px
+
+    img
+        width: 100%
+
+    p
+        text-align: justify
+        margin-bottom: 10px
+
+@import "placeholder/padding"
+@include padding-right(5)
+
+.article-content-image-wrapper
+    min-height: 174px
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat center
+
+.calender-grey-sm-icon,
+.author-grey-sm-icon
+    width: 10px
+    height: 10px
+    margin-right: 2px
+    vertical-align: middle
+
+.author-grey-sm-icon
+    background-position: -66px -486px
+
+.calender-grey-sm-icon
+    background-position: -48px -486px
+
+@media (max-width: 350px)
+    .article-head
+        .article-stats-content
+            width: 87%

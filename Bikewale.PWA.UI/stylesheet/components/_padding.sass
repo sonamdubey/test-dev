@@ -1,0 +1,21 @@
+@mixin padding($direction: top, $value1: 5, $value2: 0, $value3: 0)
+	@if ($value2) == 0 and ($value3) == 0
+		@if type-of($value1) == 'number' and type-of($direction) == 'string'
+			@if ($direction) == 'all'
+				.padding#{$value1}
+					padding: $value1 * 1px
+			@else
+				.padding-#{$direction}#{$value1}
+					padding-#{$direction}: $value1 * 1px
+		@else
+			@error "wrong value"
+
+	@else if ($value2) != 0 and ($value3) == 0
+		@if type-of($value1) == 'number' and type-of($direction) == 'string' and type-of($value2) == 'number'
+			.padding-#{$value1}-#{$value2}
+				padding: $value1* 1px $value2* 1px
+
+	@else if ($value3) != 0
+		@if type-of($value1) == 'number' and type-of($direction) == 'string' and type-of($value2) == 'number' and type-of($value3) == 'number'
+			.padding-#{$value1}-#{$value2}-#{$value3}
+				padding: $value1* 1px $value2* 1px $value3* 1px

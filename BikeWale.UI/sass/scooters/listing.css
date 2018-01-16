@@ -453,7 +453,8 @@
   display: table;
   text-align: center;
   border: 1px solid #e2e2e2; }
-  .model-preview-image-container a {
+  .model-preview-image-container a,
+  .model-preview-image-container .article-target-image {
     width: 292px;
     height: 164px;
     display: block;
@@ -476,3 +477,6 @@
   position: relative;
   top: 1px;
   left: 7px; }
+
+#ctrlNews .grid-4.alpha {
+  padding-left: 10px; }

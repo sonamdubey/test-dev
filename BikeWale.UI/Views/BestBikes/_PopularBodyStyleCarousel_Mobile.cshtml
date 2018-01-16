@@ -6,11 +6,13 @@
 		<div class="swiper-wrapper">
 			@foreach (var bike in Model.PopularBikes)
 			{
-				string bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);
+				string bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
 				<div class="swiper-slide">
-					<div class="swiper-card">
+					<div class="swiper-card" data-newlaunch="@string.Format("{0}",bike.IsAdPromoted?1:0)">
 						<div class="position-rel">
 							<a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName" class="block">
+                                @if (bike.IsAdPromoted)
+                                {<span class="model-category__tag category--newlaunch">Newly Launched</span>}
 								<div class="swiper-image-preview position-rel">
 									<img class="swiper-lazy" alt="@bikeName" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName">
 								</div>

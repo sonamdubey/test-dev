@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bikewale.BAL.Customer;
+﻿using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
 using Bikewale.BAL.UserReviews.Search;
@@ -36,12 +31,19 @@ using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bikewale.BAL.BikeData
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 24 Apr 2014
     /// Summary :     
+    /// Modified by : Sanskar Gupta on 22 Jan 2018
+    /// Description : Added boolean 'isCityLogicPresent' in 'GetAdPromotedBike' function to separate Newly Launched logic of HomePage and Editorial Pages
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -218,6 +220,53 @@ namespace Bikewale.BAL.BikeData
 
         }
 
+        public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData, bool isCityLogicPresent)
+        {
+            IEnumerable<MostPopularBikesBase> objList = null;
+            if (isCityLogicPresent)
+            {
+                if (ObjData.CityId == 0)
+                    objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
+                else
+                    objList = _modelCacheRepository.GetAdPromotedBike(ObjData);
+            }
+
+            else
+                objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
+
+            objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
+
+            return objList;
+
+        }
+        public IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> promotedBikes, IEnumerable<MostPopularBikesBase> MostPopularBikes)
+        {
+
+            IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(MostPopularBikes.Take(5), new MostPopularBikesBaseComparer());
+
+            if (results.Any())
+            {
+                var bikes = MostPopularBikes.ToList();
+                try
+                {
+                    var itemToRemove = bikes.SingleOrDefault(r => r.objModel.ModelId == results.ElementAt(0).objModel.ModelId);
+                    bikes.Remove(itemToRemove);
+                    bikes.Insert(0, results.ElementAt(0));
+                    if (results.Count() >= 2)
+                    {
+                        itemToRemove = bikes.SingleOrDefault(r => r.objModel.ModelId == results.ElementAt(1).objModel.ModelId);
+                        bikes.Remove(itemToRemove);
+                        bikes.Insert(1, results.ElementAt(1));
+                    }
+                }
+                catch (Exception ex) {
+                    ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetAdPromoteBikeFilters");
+                }
+                MostPopularBikes = bikes;
+               
+            }
+            return MostPopularBikes;
+        }
 
         public Hashtable GetMaskingNames()
         {
@@ -615,6 +664,7 @@ namespace Bikewale.BAL.BikeData
                         OriginalImgPath = x.OriginalImagePath,
                         ColorId = x.BikeModelColorId,
                         ImageTitle = x.Name,
+                        ImageId = x.Id,
                         ImageType = ImageBaseType.ModelColorImage,
                         ImageCategory = x.ImageCategory,
                         Colors = x.ColorCodes.Select(y => y.HexCode)
@@ -626,6 +676,7 @@ namespace Bikewale.BAL.BikeData
                         HostUrl = modelImage.HostUrl,
                         OriginalImgPath = modelImage.OriginalImgPath,
                         ImageTitle = modelImage.ImageCategory,
+                        ImageId = modelImage.ImageId,
                         ImageType = ImageBaseType.ModelGallaryImage,
                         ImageCategory = modelImage.ImageCategory
                     });
@@ -691,6 +742,7 @@ namespace Bikewale.BAL.BikeData
                         OriginalImgPath = x.OriginalImagePath,
                         ColorId = x.BikeModelColorId,
                         ImageTitle = x.Name,
+                        ImageId = x.Id,
                         ImageType = ImageBaseType.ModelColorImage,
                         ImageCategory = x.ImageCategory,
                         Colors = x.ColorCodes.Select(y => y.HexCode)
@@ -722,6 +774,7 @@ namespace Bikewale.BAL.BikeData
                                     OriginalImgPath = m.OriginalImgPath,
                                     ImageCategory = m.ImageCategory,
                                     ImageTitle = m.ImageTitle,
+                                    ImageId = m.ImageId,
                                     ImageType = ImageBaseType.ModelGallaryImage
                                 });
                         if (galleryBikeImages != null)
@@ -782,6 +835,7 @@ namespace Bikewale.BAL.BikeData
                             OriginalImgPath = x.OriginalImagePath,
                             ColorId = x.BikeModelColorId,
                             ImageTitle = x.Name,
+                            ImageId = x.Id,
                             ImageType = ImageBaseType.ModelColorImage,
                             ImageCategory = x.ImageCategory,
                             Colors = x.ColorCodes.Select(y => y.HexCode)
@@ -803,6 +857,7 @@ namespace Bikewale.BAL.BikeData
                                     OriginalImgPath = m.OriginalImgPath,
                                     ImageCategory = m.ImageCategory,
                                     ImageTitle = m.ImageTitle,
+                                    ImageId = m.ImageId,
                                     ImageType = ImageBaseType.ModelGallaryImage
                                 });
                         if (galleryBikeImages != null)
@@ -1000,6 +1055,38 @@ namespace Bikewale.BAL.BikeData
             }
             return objSeries;
         }
+        private class MostPopularBikesBaseComparer : IEqualityComparer<MostPopularBikesBase>
+        {
+
+            public bool Equals(MostPopularBikesBase x, MostPopularBikesBase y)
+            {
+
+
+                if (Object.ReferenceEquals(x, y)) return true;
+
+
+                if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+                    return false;
+
+
+                return x.objModel.ModelId == y.objModel.ModelId;
+            }
+
+
+            public int GetHashCode(MostPopularBikesBase product)
+            {
+
+                if (Object.ReferenceEquals(product, null)) return 0;
+
+
+                int hashProductName = product.objModel.ModelName == null ? 0 : product.objModel.ModelName.GetHashCode();
+
+                int hashProductCode = product.objModel.ModelId.GetHashCode();
+                return hashProductName ^ hashProductCode;
+            }
+
+        }
+
 
     }   // Class
 }   // namespace

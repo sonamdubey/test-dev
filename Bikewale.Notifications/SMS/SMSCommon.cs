@@ -12,6 +12,8 @@ namespace Bikewale.Notifications
     /// <summary>
     /// Modified by:-Subodh Jain 24 Nov 2016
     /// Summary:- Added SMSForPhotoUploadTwoDays
+    /// Modified by : Snehal Dange on 18th Jan 2017
+    /// Description : added DealerShowroomDetailsSMSToCustomer
     /// </summary>
     public enum EnumSMSServiceType
     {
@@ -54,7 +56,8 @@ namespace Bikewale.Notifications
         BikeListingExpiryOneDaySMSToSeller = 37,
         SMSForPhotoUploadTwoDays = 38,
         SMSforCapitalFirstSuccess = 39,
-        SMSforCapitalFirstFailure = 40
+        SMSforCapitalFirstFailure = 40,
+        DealerShowroomDetailsSMSToCustomer = 41
     }
 
     public class SMSCommon

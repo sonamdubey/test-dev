@@ -8,8 +8,9 @@ var gulp = require('gulp'),
 	fs = require('fs'),
 	replace = require('gulp-replace'),
 	fsCache = require('gulp-fs-cache'),
+	rev = require('gulp-rev'),
 	htmlmin = require('gulp-htmlmin'),
-	rev = require('gulp-rev');
+	workbox = require('workbox-build');
 
 
 var app = 'BikeWale.UI/',
@@ -28,7 +29,7 @@ var pattern = {
 };
 
 var Configuration = process.argv[3] || 'Debug';
-var webpackAssetsJson = require('./webpack-assets.json');
+var webpackAssetsJson = require('./BikeWale.UI/pwa/webpack-assets.json');
 if(!webpackAssetsJson) {
 	console.log('Webpack assets json not found');
 	return;
@@ -41,7 +42,7 @@ for (const key of Object.keys(webpackAssetsJson)) {
 var jsChunksJson = {};
 for(const key of Object.keys(webpackAssetsJson)) {
 	if(webpackAssetsJson[key].js) {
-		jsChunksJson['/pwa/'+key+'.bundle.js'] = webpackAssetsJson[key].js;
+		jsChunksJson['/pwa/js/'+key+'.bundle.js'] = webpackAssetsJson[key].js;
 	}
 }
 
@@ -192,7 +193,7 @@ gulp.task('replace-css-link-reference', function () {
 });
 
 // PWA specific gulp tasks
-var patternJSBundle = /\/pwa\/(\w)+.bundle.js/g;
+var patternJSBundle = /\/pwa\/js\/(\w)+.bundle.js/g;
 var replaceJsVersion = function(match, p1, offset, string) { //replace js urls with hashcode
 			if(jsChunksJson[match])
 				return jsChunksJson[match];
@@ -200,15 +201,18 @@ var replaceJsVersion = function(match, p1, offset, string) { //replace js urls w
 				console.log('No match found for js link '+match);
 	    }
 var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline css
-	    	var regex = /\/pwa\/css\/(.*\/)?(.*).css/;
+			
+			var regex = /\/pwa\/css\/(.*\/)?(.*).css/;
 			var matches = regex.exec(fileName);
 			if(!matches || !matches[2]) {
 				console.log('Could not find filename from '+fileName);
 				return;
 			}
 			var cssNameWithHash = cssChunksJson[matches[2]];
+						
 			regex = /\/pwa\/css\/.*\.(.*)\.css/;
 			matches = regex.exec(cssNameWithHash);
+
 			if(!matches || !matches[1]) {
 				console.log('Could not extract chunk hash for '+fileName);
 				return;
@@ -220,6 +224,9 @@ var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline c
 			return styleTag;
 		}
 gulp.task('replace-js-css-reference' , function() {
+	if(Configuration != "Release") {
+				return
+			}
 	return gulp.src([
 		app + 'Views/News/Index_Mobile_Pwa.cshtml',
 		app + 'Views/News/Detail_Mobile.cshtml',
@@ -248,7 +255,8 @@ function getCdnPath() {
 		case "Debug":
 			return '/';
 		case "Staging":
-			return 'https://stb.aeplcdn.com/staging/bikewale/';
+			return '/'; // not placing static files on staging cdn
+			// return 'https://stb.aeplcdn.com/staging/bikewale/';
 		case "Release":
 			return 'https://stb.aeplcdn.com/bikewale/';
 		default : 
@@ -258,7 +266,11 @@ function getCdnPath() {
 }
 
 
-gulp.task('swResourceProcesing', function() {
+gulp.task('appshell-procesing', function() {
+	if(Configuration != "Release") {
+		return
+	}
+	
 	return gulp.src([
 		app + 'pwa/appshell.html'
 		] , { base : app})
@@ -280,7 +292,12 @@ gulp.task('swResourceProcesing', function() {
 		.pipe(gulp.dest(buildFolder))
 })
 
-gulp.task("replaceSWResouceHashInSW" , function() {
+
+
+gulp.task("replace-filepath-in-SW" , function() {
+	if(Configuration != "Release") {
+		return
+	}
 	var revManifest = require('./'+buildFolder+'rev-manifest.json');
 	var cdnUrlPattern = /var(\s)*baseUrl(\s|\n)*=(\s|\n)*(?:"|')([^,"']*)(?:"|')(\s|\n)*;/
 	return gulp.src([app + 'm/sw.js',
@@ -292,8 +309,40 @@ gulp.task("replaceSWResouceHashInSW" , function() {
         .pipe(replace(cdnUrlPattern,function(match, p1, offset, string){
 			return 'var baseUrl = \''+getCdnPath()+'\';';
 		}))
+		.pipe(replace(/workboxSW\.precache\(\[.*\]\);?/g,function(match,p1,offset,string) {
+			console.log('found appshell in sw');
+			return "workboxSW.precache([]);";
+		}))
         .pipe(gulp.dest(buildFolder));
 });
+
+gulp.task('generate-service-worker' , function() { // this task has to follow 'replace-filepath-in-SW' as it takes the file created by previous task
+	if(Configuration != "Release") {
+		return
+	}
+	
+	var revManifest = require('./'+buildFolder+'rev-manifest.json');
+	var regexPatternForAppshell = /.*appshell.*/;
+	return workbox.injectManifest({
+		swSrc : buildFolder + 'm/sw.js',
+		swDest : buildFolder + 'm/sw.js',
+		globDirectory : buildFolder,
+		staticFileGlobs: [
+			revManifest["pwa/appshell.html"]
+		],
+		dontCacheBustUrlsMatching: regexPatternForAppshell,
+		manifestTransforms : [(manifestEntries) => {
+			return manifestEntries.map(entry => {
+				if (entry.url.match(regexPatternForAppshell)) {
+			      return getCdnPath()+revManifest["pwa/appshell.html"];
+			    } 
+			})
+		}]
+		
+
+	})
+}); 
+
 
 
 gulp.task('sass', function () {
@@ -302,10 +351,10 @@ gulp.task('sass', function () {
 		.pipe(gulp.dest(app));
 });
 
-//Watch task
 gulp.task('sass:watch', function () {
-	gulp.watch(app + 'sass/**/*.sass', ['sass']);
+    gulp.watch([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], ['sass']);
 });
+
 
 gulp.task('default', gulpSequence(
 			'clean',
@@ -316,9 +365,11 @@ gulp.task('default', gulpSequence(
 			'replace-css-link-reference',
 			'replace-css-chunk-json',
 			'replace-js-css-reference',
-			'swResourceProcesing',
-			'replaceSWResouceHashInSW',
+			'appshell-procesing',
+			'replace-filepath-in-SW',
+			'generate-service-worker',
 			'replace-mvc-layout-css-reference'
+			
 		)
 );
 //end
