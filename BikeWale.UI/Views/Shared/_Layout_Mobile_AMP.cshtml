@@ -333,17 +333,17 @@
             @(Html.Raw(Model.PageMetaTags.PageSchemaJSON))
         </script>
     }
-    @if (Model.Page != null)
+    @*@if (Model.Page != null)
     {
         <amp-state id="gaObj">
             <script type="application/json">
                 {
                 "id" : @((int)Model.Page),
-                "name": '@Model.Page'
+                "name": "@Model.Page"
                 }
             </script>
         </amp-state>
-    }
+    }*@
     
 
     <script async src="https://cdn.ampproject.org/v0.js"></script>
