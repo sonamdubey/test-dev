@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bikewale.BAL.Customer;
+﻿using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
 using Bikewale.BAL.UserReviews.Search;
@@ -35,6 +30,11 @@ using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -219,8 +219,12 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData)
         {
             IEnumerable<MostPopularBikesBase> objList = null;
+            if (ObjData.CityId > 0)
+                objList = _modelCacheRepository.GetAdPromotedBike(ObjData);
+            else
+                objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
 
-            objList = _modelCacheRepository.GetAdPromotedBike(ObjData);
+            objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
 
             return objList;
 
