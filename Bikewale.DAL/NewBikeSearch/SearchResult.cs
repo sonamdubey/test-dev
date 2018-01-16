@@ -240,14 +240,15 @@ namespace Bikewale.DAL.NewBikeSearch
                         {
                             while (dr.Read())
                             {
-                                ranges.Budget[dr["Range"].ToString()] = SqlReaderConvertor.ToUInt32(dr["Bikes"]);
+                                if (Convert.ToString(dr["Range"]) != "0")
+                                    ranges.Budget[dr["Range"].ToString()] = SqlReaderConvertor.ToUInt32(dr["Bikes"]);
                             }
                             dr.Close();
                         }
                     }
                 }
 
-                int validRanges = ranges.Budget.Count - 2;
+                int validRanges = ranges.Budget.Count - 1;
                 uint currentCount = 0;
                 int index = 0;
                 var budgets = new System.Collections.Generic.Dictionary<string, uint>();
