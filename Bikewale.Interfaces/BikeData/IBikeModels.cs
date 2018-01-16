@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.UserReviews;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
 {
@@ -56,15 +56,15 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
-    
+
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId);
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
         BikeMileageEntity GetMileageDetails(uint modelId);
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex);
-        IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex, ref int totalCount);
+        IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, ref ImagePager pager);
         IEnumerable<ModelImages> GetBikeModelsPhotoGallery(string modelIds, int requiredImageCount);
-        IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount);
-
+        IEnumerable<ModelImages> GetBikeModelsPhotos(ImagePager pager, string modelIds, string categoryIds, int requiredImageCount);
+        ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount,ImagePager pager);
     }
 }

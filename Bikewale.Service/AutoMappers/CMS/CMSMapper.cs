@@ -26,12 +26,26 @@ namespace Bikewale.Service.AutoMappers.CMS
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<ModelImage, CMSModelImageBase>();
             Mapper.CreateMap<ModelImages, CMSModelImages>();
-
             var obj = new ModelImageList();
-            obj.ModelsImages = Mapper.Map<IEnumerable<ModelImages>, IEnumerable<CMSModelImages>>(objImageList);
-            obj.RecordCount = obj.ModelsImages.Count();
-            
+            obj.Models = Mapper.Map<IEnumerable<ModelImages>, IEnumerable<CMSModelImages>>(objImageList);
+            obj.RecordCount = obj.Models.Count();
+
             return obj;
+        }
+
+        /// <summary>
+        /// Converts the specified image wrapper.
+        /// </summary>
+        /// <param name="ImageWrapper">The image wrapper.</param>
+        /// <returns></returns>
+        internal static ModelImageList Convert(ModelImageWrapper ImageWrapper)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<ModelImage, CMSModelImageBase>();
+            Mapper.CreateMap<ModelImages, CMSModelImages>();
+            Mapper.CreateMap<ModelImageWrapper, ModelImageList>();
+            return Mapper.Map<ModelImageWrapper, ModelImageList>(ImageWrapper);
         }
 
         internal static List<CMSModelImageBase> Convert(IEnumerable<ModelImage> objImageList)
