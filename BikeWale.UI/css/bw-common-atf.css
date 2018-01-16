@@ -227,6 +227,28 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .search-icon-white { background-position: -64px -278px; }
 .login-no-photo-icon { background-position:-151px -121px; width: 27px; height: 29px; }
 
+/* auto expo nav icon */
+
+.auto-expo-nav__logo {
+	width: 81px;
+	height: 32px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/auto-expo-2018/autoexpo-logo-white.png') no-repeat 20px center;
+	background-size: 61px;
+	display: inline-block;
+	position: relative;
+	margin-left: 20px;
+}
+
+.auto-expo-nav__logo:before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 7px;
+	height: 21px;
+	border-left: 1px solid #fff;
+}
+
 .inr-xsm-grey { width: 7px; height: 10px; background-position: -46px -427px; position: relative; top: 1px; }
 .inr-sm-dark { width:10px; height:12px; background-position:-128px -468px; }
 .inr-md, .inr-md-light { width:9px; height:13px; }
