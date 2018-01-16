@@ -44,7 +44,6 @@ namespace Bikewale.Controllers
             Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, pageNo);
             objModel.PageSize = 30;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
-            objData.IsMobile = false;
             return View(objData);
         }
 
@@ -54,7 +53,6 @@ namespace Bikewale.Controllers
             Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache, pageNo);
             objModel.PageSize = 30;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
-            objData.IsMobile = true;
             return View(objData);
         }
 

@@ -5,7 +5,7 @@ docReady(function () {
 	    var makeMaskingName = items.payload.makeMaskingName;
 	    var modelMaskingName = items.payload.modelMaskingName;
 	    if (items.payload.modelId > 0 && makeMaskingName != null && makeMaskingName != "" && modelMaskingName != null && modelMaskingName != "") {
-	        if (isMobile === 'True') {
+	        if (isMobile) {
 	            window.location.href = "/m/" + makeMaskingName + "-bikes/" + modelMaskingName + "/images/";
 	        }
 	        else {
@@ -13,8 +13,8 @@ docReady(function () {
 	        }
 	        return true;
 	    } else if (makeMaskingName != null && makeMaskingName != "") {
-	        if (isMobile === 'True') {
-	            window.location.href = "/m/" + makeMaskingName + "-bikes/images/";
+	        if (isMobile) {
+	            window.location.href = "/m/" + makeMaskingName + "-bikes/images/"; 
 	        }
 	        else {
 	            window.location.href = "/" + makeMaskingName + "-bikes/images/";
@@ -42,7 +42,7 @@ docReady(function () {
 		    objBikes.result = result;
 		},
 		focus: function () {
-		    if (isMobile === 'True') {
+		    if (isMobile) {
 		        $('html, body').animate({
 		            scrollTop: $('#exploreBikesField').offset().top - 20
 		        });
@@ -207,7 +207,7 @@ docReady(function () {
                             });
                             var newModel = new model();
                             newModel.modelTitle(val.ModelBase.modelName + ' ' + 'Images');
-                            if (isMobile === 'True') {
+                            if (isMobile) {
                                 newModel.modelImagePageUrl("/m/" + val.MakeBase.maskingName + "-bikes/" + val.ModelBase.maskingName + "/images/");
                             }
                             else {
