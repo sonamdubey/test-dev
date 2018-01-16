@@ -77,7 +77,7 @@ namespace Bikewale.Models.Photos.v1
                 objData.Pager = new Entities.Pager.PagerEntity
                 {
                     BaseUrl = baseUrl,
-                    PageUrlType = "page/",
+                    PageUrlType = "page-",
                     PageNo = (int)_pageNo,
                     PageSize = (int)PageSize,
                     TotalResults = objData.TotalBikeModels
