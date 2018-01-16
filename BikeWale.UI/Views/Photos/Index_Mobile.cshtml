@@ -1,12 +1,16 @@
 ﻿@model Bikewale.Models.Photos.v1.PhotosPageVM
-
-@{
+@if (Model != null)
+{
+    {
     ViewBag.Title = "Bike Images";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
-    Model.Page_JS_Path = "/m/src/photos/landing.js";
+    Model.Page_JS_Path = "/src/photos/landing.js";
+    }
+    <script type="text/javascript">
+        var isMobile = '@Model.IsMobile';
+    </script>
 }
-
 <section>
 	<div class="container padding-15-20-20 bg-white">
 		<h1 class="text-semibold margin-bottom10">Bike Images</h1>
@@ -37,7 +41,7 @@
             <div class="explore-bikes__content">
                 <div class="explore-bikes__search form-control-box">
                     <input type="text" id="exploreBikesField" class="form-control__input" placeholder="Search Bike and Brands">
-                    <span class="input__search-icon" id="btnexplorebikesfield"></span>
+                    <span class="input__search-icon" id="btnExploreBikesField"></span>
 
                     <ul id="errExploreBikes" class="ui-autocomplete ui-front ui-menu hide form-control__error">
                         <li class="ui-menu-item" tabindex="-1">
