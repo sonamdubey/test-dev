@@ -122,7 +122,6 @@ namespace Bikewale.Service.Controllers
             try
             {
                 bool mobileVerified = _mobileVerRespo.VerifyMobileVerificationCode(objDetails.MobileNumber, otp, string.Empty);
-                _objICapitalFirst.PushToLeadConsumerQueue(objDetails);
                 if (mobileVerified)
                 {
                     objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
