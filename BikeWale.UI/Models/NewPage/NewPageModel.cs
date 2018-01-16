@@ -116,7 +116,7 @@ namespace Bikewale.Models
             obj.TopCount = 2;
             IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
             if (objVM.PopularBikes != null)
-                objVM.PopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objVM.PopularBikes.Bikes, 9);
+                objVM.PopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objVM.PopularBikes.Bikes);
 
             objVM.NewLaunchedBikes = new NewLaunchedWidgetModel(LaunchedRecordCount, _newLaunches).GetData();
             objVM.NewLaunchedBikes.PageCatId = 5;
