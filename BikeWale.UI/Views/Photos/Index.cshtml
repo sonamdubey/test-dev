@@ -7,7 +7,11 @@
         Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
         Model.Page_JS_Path = "/src/photos/landing.js";
     }
+    <script type="text/javascript">
+        var isMobile = '@Model.IsMobile';
+    </script>
 }
+
     <section>
         <div class="container section-bottom-margin">
             <div class="grid-12">
@@ -47,7 +51,7 @@
                         <div class="padding-bottom20">
                             <div class="explore-bikes__search form-control-box">
                                 <input type="text" id="exploreBikesField" class="form-control__input" placeholder="Search Bike and Brands">
-                                <span class="input__search-icon" id="btnexplorebikesfield"></span>
+                                <span class="input__search-icon" id="btnExploreBikesField"></span>
                                 <ul id="errExploreBikes" class="ui-autocomplete ui-front ui-menu hide form-control__error">
                                     <li class="ui-menu-item" tabindex="-1">
                                         <span class="text-bold">Oops! No suggestions found</span><br />
