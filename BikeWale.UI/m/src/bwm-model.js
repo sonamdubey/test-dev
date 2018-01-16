@@ -434,6 +434,9 @@ docReady(function () {
                     triggerGA('Model_Page', 'Image_Carousel_Clicked', myBikeName + '_Next');
                 }
             }
+
+            logBhrighuForImage($('#model-photos-swiper .swiper-slide-active'));
+
         },
         onTouchEnd: function (swiper, event) {
             var targetId = event.target.id;
@@ -1010,6 +1013,26 @@ var modelUserReviews = function () {
 function logBhrighu(itemNo, eventName) {
     label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + (++itemNo) + '|pageSource=' + $('#pageSource').val();
     cwTracking.trackUserReview(eventName, label);
+}
+
+function logBhrighuForImage(item) {
+    if (item) {
+        var imageid = item.attr("data-imgid"), imgcat = item.attr("data-imgcat"), imgtype = item.attr("data-imgtype");
+        if (imageid) {
+            var lb = "";
+            if (imgcat) {
+                lb += "|category=" + imgcat;
+            }
+
+            if (imgtype) {
+                lb += "|type=" + imgtype;
+            }
+
+            label = 'modelId=' + bikeModelId + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
+            cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
+        }
+    }
+
 }
 
 function updateView(reviewId) {

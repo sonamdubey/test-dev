@@ -46,6 +46,8 @@ namespace Bikewale.Entities.CMS.Photos
     public class ImageBaseEntity
     {
         [DataMember]
+        public uint ImageId { get; set; }
+        [DataMember]
         public string HostUrl { get; set; }
         [DataMember]
         public string OriginalImgPath { get; set; }

@@ -633,6 +633,7 @@ namespace Bikewale.BAL.BikeData
                         OriginalImgPath = x.OriginalImagePath,
                         ColorId = x.BikeModelColorId,
                         ImageTitle = x.Name,
+                        ImageId = x.Id,
                         ImageType = ImageBaseType.ModelColorImage,
                         ImageCategory = x.ImageCategory,
                         Colors = x.ColorCodes.Select(y => y.HexCode)
@@ -644,6 +645,7 @@ namespace Bikewale.BAL.BikeData
                         HostUrl = modelImage.HostUrl,
                         OriginalImgPath = modelImage.OriginalImgPath,
                         ImageTitle = modelImage.ImageCategory,
+                        ImageId = modelImage.ImageId,
                         ImageType = ImageBaseType.ModelGallaryImage,
                         ImageCategory = modelImage.ImageCategory
                     });
@@ -709,6 +711,7 @@ namespace Bikewale.BAL.BikeData
                         OriginalImgPath = x.OriginalImagePath,
                         ColorId = x.BikeModelColorId,
                         ImageTitle = x.Name,
+                        ImageId = x.Id,
                         ImageType = ImageBaseType.ModelColorImage,
                         ImageCategory = x.ImageCategory,
                         Colors = x.ColorCodes.Select(y => y.HexCode)
@@ -740,6 +743,7 @@ namespace Bikewale.BAL.BikeData
                                     OriginalImgPath = m.OriginalImgPath,
                                     ImageCategory = m.ImageCategory,
                                     ImageTitle = m.ImageTitle,
+                                    ImageId = m.ImageId,
                                     ImageType = ImageBaseType.ModelGallaryImage
                                 });
                         if (galleryBikeImages != null)
@@ -800,6 +804,7 @@ namespace Bikewale.BAL.BikeData
                             OriginalImgPath = x.OriginalImagePath,
                             ColorId = x.BikeModelColorId,
                             ImageTitle = x.Name,
+                            ImageId = x.Id,
                             ImageType = ImageBaseType.ModelColorImage,
                             ImageCategory = x.ImageCategory,
                             Colors = x.ColorCodes.Select(y => y.HexCode)
@@ -821,6 +826,7 @@ namespace Bikewale.BAL.BikeData
                                     OriginalImgPath = m.OriginalImgPath,
                                     ImageCategory = m.ImageCategory,
                                     ImageTitle = m.ImageTitle,
+                                    ImageId = m.ImageId,
                                     ImageType = ImageBaseType.ModelGallaryImage
                                 });
                         if (galleryBikeImages != null)

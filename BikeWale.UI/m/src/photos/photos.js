@@ -1,5 +1,4 @@
-﻿
-docReady(function () {
+﻿docReady(function () {
     try {
         var photosLength = $('.photos-grid-list').first().find('li').length,
            photosLimit = 30,
@@ -27,6 +26,12 @@ docReady(function () {
                 if (photoCount > 1) {
                     galleryRoot.find('.gallery-loader-placeholder').show();
 
+                    if (typeof (logBhrighuForImage) != "undefined")
+                    {
+                        //included in gallery js
+                        logBhrighuForImage($(this));
+                    }                    
+
                     var imageIndex = $(this).index(),
                         parentGridType = $(this).closest('.photos-grid-list');
 
@@ -49,4 +54,5 @@ docReady(function () {
         }
     }
 
+    bikeModelId = $('.photos-grid-list').attr("data-modelid");
 });

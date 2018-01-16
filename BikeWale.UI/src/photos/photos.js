@@ -62,7 +62,12 @@ docReady(function () {
             $(document).on('click', '.model-grid-images li', function () {
                 try {
                     var imageIndex = $(this).index(),
-                                parentGridType = $(this).closest('.model-grid-images');
+                        parentGridType = $(this).closest('.model-grid-images');
+
+                    if (typeof (logBhrighuForImage) != "undefined") {
+                        //included in gallery js
+                        logBhrighuForImage($(this));
+                    } 
 
                     if (!parentGridType.hasClass('remainder-grid-list')) {
                         imageIndex = imageIndex + 1;
