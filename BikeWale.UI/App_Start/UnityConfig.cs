@@ -1,4 +1,3 @@
-using System.Web.Mvc;
 using Bikewale.BAL.AdSlot;
 using Bikewale.BAL.Authors;
 using Bikewale.BAL.BikeBooking;
@@ -19,6 +18,7 @@ using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.AdSlot;
 using Bikewale.Cache.Authors;
 using Bikewale.Cache.BikeData;
+using Bikewale.Cache.BikeSearch;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
@@ -78,6 +78,7 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Interface;
 using Microsoft.Practices.Unity;
+using System.Web.Mvc;
 using Unity.Mvc5;
 
 namespace Bikewale
@@ -90,6 +91,8 @@ namespace Bikewale
     /// Description : Added IBikeSeriesRepository
     /// Modified by : Ashutosh Sharma on 31 Oct 2017
     /// Description : Added IAdSlot, IAdSlotCacheRepository, IAdSlotRepository.
+    /// Modified by :   Sumit Kate on 05 Jan 2018
+    /// Description :   Register IBikeSearchCacheRepository
     /// </summary>
     public static class UnityConfig
     {
@@ -175,6 +178,7 @@ namespace Bikewale
             container.RegisterType<ISearchResult, DAL.NewBikeSearch.SearchResult>();
             container.RegisterType<IProcessFilter, DAL.NewBikeSearch.ProcessFilter>();
             container.RegisterType<IBikeSearchResult, BikeSearchResult>();
+            container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

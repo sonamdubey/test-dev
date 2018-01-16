@@ -139,7 +139,7 @@ namespace Bikewale.BAL.PriceQuote
                             catch (Exception ex)
                             {
                                 ErrorClass.LogError(ex, "PQByCityArea: " + "GetOnRoadPrice");
-                                
+
                             }
                         }
                     }
@@ -148,7 +148,7 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "PQByCityArea: " + "GetOnRoadPrice");
-                
+
             }
             return pqOnRoad;
         }
@@ -171,7 +171,7 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "ModelPageController" + "FetchCityByModelId");
-                
+
             }
             return cityList;
         }
@@ -194,7 +194,7 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "ModelPageController" + "GetAreaForCityAndModel");
-                
+
             }
 
             return areaList;
@@ -391,7 +391,7 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : PQByCityArea GetPriceQuoteByCityArea");
-                
+
             }
             return pqOutput;
 
@@ -420,7 +420,7 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : PQByCityArea .SwapVersionList");
-                
+
             }
             return modelVersions;
         }
@@ -476,7 +476,7 @@ namespace Bikewale.BAL.PriceQuote
                     {
                         pqEntity.City = selectedCity;
                         var areaList = GetAreaForCityAndModel(modelId, Convert.ToInt16(cityId));
-                        pqEntity.IsAreaExists = (areaList != null && areaList.Any());
+                        pqEntity.IsAreaExists = (areaList != null && areaList.Any()) && selectedCity.HasAreas;
                         // If area is provided, check if area exists in list
                         if (areaId > 0 && pqEntity.IsAreaExists)
                         {

@@ -111,7 +111,7 @@ namespace Bikewale.Controllers
         [Route("m/expertreviews/details/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
@@ -140,7 +140,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -172,7 +172,7 @@ namespace Bikewale.Controllers
         {
             ExpertReviewsDetailPageVM objData = null;
 
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _seriesCache, _series);
             if (obj.status == StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");

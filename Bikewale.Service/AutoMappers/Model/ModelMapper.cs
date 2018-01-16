@@ -28,6 +28,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Bikewale.Service.AutoMappers.Model
 {
@@ -561,6 +562,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static DTO.Model.v5.ModelPage ConvertV5(BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ushort platformId = 0)
         {
+            bool isApp = platformId == 3 ? true : false;
             DTO.Model.v5.ModelPage objDTOModelPage = null;
             try
             {
@@ -726,11 +728,13 @@ namespace Bikewale.Service.AutoMappers.Model
                         VersionId = objModelPage.ModelVersionSpecs.BikeVersionId,
                         PlatformId = platformId,
                         IsAmp = true,
-
                         BikeName = string.Format("{0} {1}", objModelPage.ModelDetails.MakeBase.MakeName, objModelPage.ModelDetails.ModelName),
                         LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionSpecs.BikeVersionId).Price) * 0.8)
                     };
-
+                    if (isApp)
+                    {
+                        LeadCampaign.IsAmp = false;
+                    }
 
                     if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                     {
@@ -745,12 +749,19 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.Campaign.DetailsCampaign = new DetailsDto();
                     objDTOModelPage.Campaign.DetailsCampaign.EsCamapign = new PreRenderCampaignBase();
                     objDTOModelPage.Campaign.CampaignLeadSource = new ESCampaignBase();
-                    objDTOModelPage.Campaign.DetailsCampaign.EsCamapign.TemplateHtml = MvcHelper.GetRenderedContent(String.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
+                    string template = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
+                    //Check if it contains javascript:void(0), replace it with 
+                    if (isApp && !string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
+                    {
+                        template = template.Replace("href=\"javascript:void(0)\"", "onclick=\"Android.openLeadCaptureForm();\"");
+                    }
+
+                    objDTOModelPage.Campaign.DetailsCampaign.EsCamapign.TemplateHtml = template;
                     objDTOModelPage.Campaign.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
                     objDTOModelPage.Campaign.CampaignLeadSource.CaptionText = String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization);
                     objDTOModelPage.Campaign.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
                     objDTOModelPage.Campaign.CampaignType = CampaignType.ES;
-                    objDTOModelPage.Campaign.CampaignLeadSource.LinkUrl = LeadCampaign.PageUrl;
+                    objDTOModelPage.Campaign.CampaignLeadSource.LinkUrl = HttpUtility.HtmlDecode(LeadCampaign.PageUrl);
                 }
             }
             catch (System.Exception ex)
@@ -769,11 +780,14 @@ namespace Bikewale.Service.AutoMappers.Model
         internal static ModelGallery ConvertToModelGallery(BikeModelPageEntity objModelPage, int modelId)
         {
             ModelGallery objModelGallery = new ModelGallery();
+            var colorPhotoCount = 0;
             if (objModelPage != null)
             {
                 ICollection<ModelGalleryComponent> objGalleryComponent = new List<ModelGalleryComponent>();
                 if (objModelPage.ModelDetails != null)
                 {
+
+                    colorPhotoCount = objModelPage.colorPhotos.Any() ? objModelPage.colorPhotos.Count() : colorPhotoCount;
                     if (objModelPage.ModelDetails.PhotosCount > 0)
                     {
                         objGalleryComponent.Add(
@@ -781,7 +795,7 @@ namespace Bikewale.Service.AutoMappers.Model
                                 {
                                     CategoryId = 1,
                                     CategoryName = "Photos",
-                                    CategoryCount = objModelPage.ModelDetails.PhotosCount,
+                                    CategoryCount = objModelPage.ModelDetails.PhotosCount + colorPhotoCount,
                                     DataUrl = string.Format("api/model/{0}/photos/", modelId)
                                 }
                             );
@@ -800,18 +814,21 @@ namespace Bikewale.Service.AutoMappers.Model
                             );
                     }
 
-                    if (objModelPage.colorPhotos.Any())
+                    if (colorPhotoCount > 0)
                     {
+
                         objGalleryComponent.Add(
                                 new ModelGalleryComponent
                                 {
                                     CategoryId = 3,
                                     CategoryName = "Colours",
-                                    CategoryCount = objModelPage.colorPhotos.Count(),
+                                    CategoryCount = colorPhotoCount,
                                     DataUrl = string.Format("api/model/{0}/colorphotos/", modelId)
                                 }
                             );
                     }
+
+
                 }
 
                 var component = objGalleryComponent.FirstOrDefault();
