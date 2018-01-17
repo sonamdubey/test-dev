@@ -219,10 +219,8 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData)
         {
             IEnumerable<MostPopularBikesBase> objList = null;
-            if (ObjData.CityId > 0)
-                objList = _modelCacheRepository.GetAdPromotedBike(ObjData);
-            else
-                objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
+       
+            objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
 
             objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
 
