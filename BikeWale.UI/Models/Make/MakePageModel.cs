@@ -93,6 +93,8 @@ namespace Bikewale.Models
         /// Descriptition :  Added BikeCityPopup
         /// Modified BY: Snehal Dange on 23rd Nov 2017
         /// Description: Added IsFooterDescriptionAvailable ,IsPriceListingAvailable checks
+        /// Modified by : Snehal Dange on 17th Jan 2018
+        /// Description: Added BindResearchMoreMakeWidget()
         /// </summary>         
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
@@ -174,7 +176,7 @@ namespace Bikewale.Models
                 };
 
                 BindShowroomPopularCityWidget(objData);
-
+                BindResearchMoreMakeWidget(objData);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -674,6 +676,35 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindMakeFooterCategoriesandPriceWidget() makeId:{0}", _makeId));
+            }
+        }
+
+        /// <summary>
+        /// Created by :  Snehal Dange on 17th Jan 2018
+        /// Description: Method to bind research more about make widget data
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindResearchMoreMakeWidget(MakePageVM objData)
+        {
+
+            try
+            {
+                if (_makeId > 0)
+                {
+                    objData.ResearchMoreMakeWidget = new ResearchMoreAboutMakeVM();
+                    if (cityBase != null && cityBase.CityId > 0)
+                    {
+                        objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMakeByCity(_makeId, cityBase.CityId);
+                    }
+                    else
+                    {
+                        objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMake(_makeId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindResearchMoreMakeWidget() makeId:{0} , cityId:{1}", _makeId, cityBase.CityId));
             }
         }
     }

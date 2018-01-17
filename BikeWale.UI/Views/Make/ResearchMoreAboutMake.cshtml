@@ -1,0 +1,27 @@
+﻿@model Bikewale.Models.Make.ResearchMoreAboutMakeVM
+
+@if (Model != null)
+{
+    <div class="content-box-shadow section-bottom-margin">
+        <h2 class="sidebar-list-heading">Research More</h2>
+        <ul class="research-more__list">
+            @foreach (var bikes in Model.WidgetObj.SeriesList)
+            {
+                <li>
+                    <a href="#">TVS Apache Bikes</a>
+                </li>
+            }
+           
+           
+            
+                <a href="#">Used @Model.MakeName Bikes</a>
+            </li>
+            <li>
+                <a href="#">@Model.MakeName Service Centers</a>
+            </li>
+            <li>
+                <a href="#">Top 10 Bikes</a>
+            </li>
+        </ul>
+    </div>
+}

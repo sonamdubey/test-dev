@@ -796,5 +796,48 @@ namespace Bikewale.DAL.BikeData
             }
             return objMakesList;
         }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 16th Jan 2017
+        /// Description: Method to get ResearchMoreAboutMake widget data 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId)
+        {
+            ResearchMoreAboutMake obj = null;
+            try
+            {
+                obj = new ResearchMoreAboutMake();
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.DAL.ResearchMoreAboutMake");
+            }
+            return obj;
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 16th Jan 2017
+        /// Description: Method to get ResearchMoreAboutMake widget data  when city is present
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId)
+        {
+            ResearchMoreAboutMake obj = null;
+            try
+            {
+                obj = new ResearchMoreAboutMake();
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.DAL.ResearchMoreAboutMake");
+            }
+            return obj;
+        }
     }
 }
