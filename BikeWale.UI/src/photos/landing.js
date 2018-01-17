@@ -205,10 +205,12 @@ docReady(function () {
 	    var self = this;
 	    self.RedirectLoad = ko.observable(false);
 	    self.modelList = ko.observableArray([]);
-	    self.isLoadMore = ko.observable(true);
+	    self.IsLoadMore = ko.observable(true);
 	    self.Filters = ko.observable({ pageno: '1', pagesize: '30' });
+	    self.IsLoading = ko.observable(false);
 	    self.LoadMore = function () {
 	        event.preventDefault();
+	        self.IsLoading(true);
 	        if (self.RedirectLoad()) {
 	            nextPageUrl = "/api/images/pages/" + self.Filters()['pageno'] + "/";
 	        }
@@ -248,8 +250,9 @@ docReady(function () {
                         self.setFilters(url);
                     }
                     if (result.RecordCount < parseInt(self.Filters()['pagesize'])) {
-                        self.isLoadMore(false);
+                        self.IsLoadMore(false);
                     }
+                    self.IsLoading(false);
                 });
 	    };
 
