@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Bikewale.Entities.PriceQuote;
+using System;
 using System.Collections.Generic;
-using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.Entities.NewBikeSearch
 {
@@ -13,5 +13,12 @@ namespace Bikewale.Entities.NewBikeSearch
         public int CurrentPageNo { get; set; }
 
         public PQSourceEnum PqSource { get; set; }
+
+        public ICollection<SearchBudgetLink> BudgetLinks { get; set; }
+    }
+
+    public class SearchBudgetLink
+    {
+        public Tuple<String, String, String, uint> Link { get; set; }
     }
 }

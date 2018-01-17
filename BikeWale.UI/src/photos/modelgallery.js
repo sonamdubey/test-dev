@@ -4,9 +4,9 @@
     modelColorImages = [],
     videoList = null;
 var pageNo = 1,pageSize = 4,eleGallery, vmModelGallery,colorIndex = 0,isIEBrowser;
-var photoCount, videoCount, modelName, imageIndex, colorImageId, returnUrl;
+var photoCount, videoCount, modelName, imageIndex, colorImageId, returnUrl, bikeModelId;
 var thumbnailSwiperEvents, gallerySwiper, colorGallerySwiper, thumbnailSwiper, colorThumbnailSwiper, videoThumbnailSwiper;
-
+var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
 
 var popupGallery = {
     open: function () {
@@ -260,11 +260,32 @@ var setPageVariables = function () {
         colorImageId = eleGallery.data("selectedcolorimageid");
         returnUrl = eleGallery.data("returnurl");
         modelName = eleGallery.data("modelname");
+        bikeModelId = eleGallery.data("modelid");
         isIEBrowser = detectIEBrowser();
 
     } catch (e) {
         console.warn(e);
     }
+}
+
+function logBhrighuForImage(item) {
+    if (item) {
+        var imageid = item.attr("data-imgid"), imgcat = item.attr("data-imgcat"), imgtype = item.attr("data-imgtype");
+        if (imageid) {
+            var lb = "";
+            if (imgcat) {
+                lb += "|category=" + imgcat;
+            }
+
+            if (imgtype) {
+                lb += "|type=" + imageTypes[imgtype];
+            }
+
+            label = 'modelId=' + bikeModelId + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
+            cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
+        }
+    }
+
 }
 
 docReady(function () {
@@ -349,6 +370,9 @@ docReady(function () {
         onSlideChangeStart: function (swiper) {
             thumbnailSwiperEvents.setPhotoDetails(swiper);
             thumbnailSwiperEvents.focusThumbnail(thumbnailSwiper, vmModelGallery.activePhotoIndex(), true);
+        },
+        onSlideChangeEnd: function (swiper) {
+            logBhrighuForImage($('.gallery-type-swiper .swiper-slide-active').first());
         }
     });
 
@@ -365,6 +389,7 @@ docReady(function () {
         mousewheelControl: true,
         onInit: function (swiper) {
             thumbnailSwiperEvents.setColorPhotoDetails(swiper);
+            logBhrighuForImage($('.gallery-type-swiper .swiper-slide-active').first());
         },
         onTouchStart: function () {
             if (vmModelGallery.modelInfoScreen()) {
@@ -375,6 +400,9 @@ docReady(function () {
             thumbnailSwiperEvents.setColorPhotoDetails(swiper);
             thumbnailSwiperEvents.focusThumbnail(colorThumbnailSwiper, vmModelGallery.activeColorIndex(), true);
             triggerGA('Gallery_Page', 'Colour_Changed', modelName);
+        },
+        onSlideChangeEnd: function (swiper) {
+            logBhrighuForImage($('.gallery-color-type-swiper .swiper-slide-active').first());
         }
     });
 

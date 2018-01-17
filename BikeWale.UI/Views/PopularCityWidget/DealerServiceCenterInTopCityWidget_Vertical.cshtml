@@ -1,0 +1,55 @@
+﻿@model Bikewale.Models.DealersServiceCentersIndiaWidgetVM
+@using Bikewale.Utility
+
+
+@if (Model != null && Model.DealerServiceCenters != null && Model.DealerServiceCenters.DealerDetails != null && Model.DealerServiceCenters.DealerDetails.Any())
+{
+    <ul class="sidebar-bike-list sidebar__city-list">
+        @foreach (var details in Model.DealerServiceCenters.DealerDetails)
+        {
+            if ((Model.IsServiceCenterPage && details.ServiceCenterCount > 0) || (!Model.IsServiceCenterPage && details.DealerCount > 0))
+            {
+                <li>
+                    <a href="@string.Format("/{0}/{1}/{2}/", Model.CityCardLink, Model.MakeMaskingName, details.CityMaskingName)" title="@string.Format("{0} {1} {2}", Model.MakeName, Model.CityCardTitle, details.CityName)" class="bike-target-link">
+                        <div class="bike-target-image inline-block">
+                            <span class="bwm-city-sprite @string.Format("c-{0}-icon", details.CityMaskingName)"></span>
+                        </div>
+                        <div class="bike-target-content inline-block padding-left10">
+                            <p class="dealer-showroom__city">@details.CityName</p>
+                            @if (Model.IsServiceCenterPage)
+                            {
+                                <h3>@details.ServiceCenterCount @Model.MakeName Service @((details.ServiceCenterCount > 1) ? "centers" : "center")</h3>
+
+
+                            }
+                            else
+                            {
+                                <h3>@details.DealerCount @Model.MakeName @((details.DealerCount > 1) ? "showrooms" : "showroom")</h3>
+
+                            }
+                        </div>
+                    </a>
+                </li>
+            }
+
+        }
+        @if (Model.IsIndiaCardNeeded)
+        {
+            <li>
+                <a href="/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName showrooms in India" class="bike-target-link">
+                    <div class="bike-target-image inline-block">
+                        <span class="bwm-city-sprite c-india-icon"></span>
+                    </div>
+                    <div class="bike-target-content inline-block padding-left10">
+                        <p class="dealer-showroom__city">India</p>
+                        @if (Model.DealerServiceCenters.TotalDealerCount > 0)
+                        {  <h3>@Bikewale.Utility.Format.FormatPrice(Model.DealerServiceCenters.TotalDealerCount.ToString()) @Model.MakeName showrooms</h3>
+                        }
+                    </div>
+                </a>
+            </li>
+        }
+
+    </ul>
+}
+

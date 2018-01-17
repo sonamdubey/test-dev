@@ -126,5 +126,7 @@ namespace Bikewale.Interfaces.BikeData
         BikeMileageEntity GetMileageForModel();
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData);
+        IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters ObjData);
+
     }
 }

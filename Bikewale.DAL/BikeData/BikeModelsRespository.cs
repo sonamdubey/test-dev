@@ -3284,11 +3284,11 @@ namespace Bikewale.DAL.BikeData
             MostPopularBikesBase objData = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getadpromotedbikesdetails"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getadpromotedbikesdetailsbycity"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, bikeFilters.TopCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, bikeFilters.MakeId));
+
+
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, bikeFilters.CityId));
 
 
@@ -3324,6 +3324,67 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.CityName = Convert.ToString(dr["cityname"]);
                                 objData.CityMaskingName = Convert.ToString(dr["citymasking"]);
+                                objData.StartDate = SqlReaderConvertor.ToDateTime(dr["startdatetime"]);
+                                objData.EndDate = SqlReaderConvertor.ToDateTime(dr["enddatetime"]);
+                                objData.IsAdPromoted = true;
+                                objList.Add(objData);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeModelsRepository.GetAdPromotedBikesDetails");
+
+            }
+            return objList;
+        }
+
+        public IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters)
+        {
+            List<MostPopularBikesBase> objList = null;
+            MostPopularBikesBase objData = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getadpromotedbikesdetails"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objList = new List<MostPopularBikesBase>();
+
+                            while (dr.Read())
+                            {
+                                objData = new MostPopularBikesBase();
+                                objData.objMake = new BikeMakeEntityBase();
+                                objData.objModel = new BikeModelEntityBase();
+                                objData.objVersion = new BikeVersionsListEntity();
+                                objData.Specs = new MinSpecsEntity();
+                                objData.objMake.MakeName = Convert.ToString(dr["Make"]);
+                                objData.objModel.ModelName = Convert.ToString(dr["Model"]);
+                                objData.objMake.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objData.objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objData.ModelRating = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
+                                objData.HostURL = Convert.ToString(dr["HostUrl"]);
+                                objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
+                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+                                objData.CityName = Convert.ToString(dr["cityname"]);
+                                objData.CityMaskingName = Convert.ToString(dr["citymasking"]);
+                                objData.StartDate = SqlReaderConvertor.ToDateTime(dr["startdatetime"]);
+                                objData.EndDate = SqlReaderConvertor.ToDateTime(dr["enddatetime"]);
                                 objData.IsAdPromoted = true;
                                 objList.Add(objData);
                             }

@@ -58,5 +58,10 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public bool IsAdPromoted { get; set; }
 
+        [DataMember]
+        public DateTime StartDate { get; set; }
+        [DataMember]
+        public DateTime EndDate { get; set; }
+
     }
 }

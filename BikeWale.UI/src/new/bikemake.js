@@ -3,7 +3,6 @@ ga_pg_id = '3';
 var dt = '';
 
 docReady(function () {
-
     if ($("#discontinuedMore a") && $("#discontinuedMore a").length > 4) {
         $('#discontinuedMore').hide();
     }
@@ -210,7 +209,7 @@ docReady(function () {
             $(this).addClass('inactive');
         })
         .jcarouselControl({
-            target: '-=2'
+            target: '-=1'
         });
 
     $('.comparison-type-carousel .jcarousel-control-next')
@@ -221,7 +220,32 @@ docReady(function () {
             $(this).addClass('inactive');
         })
         .jcarouselControl({
-            target: '+=2'
+            target: '+=1'
+        });
+
+
+    $('.carousel-type--videos').jcarousel();
+
+	$('.carousel-type--videos .jcarousel-control-prev')
+        .on('jcarouselcontrol:active', function () {
+        	$(this).removeClass('inactive');
+        })
+        .on('jcarouselcontrol:inactive', function () {
+        	$(this).addClass('inactive');
+        })
+        .jcarouselControl({
+        	target: '-=2'
+        });
+
+	$('.carousel-type--videos .jcarousel-control-next')
+        .on('jcarouselcontrol:active', function () {
+        	$(this).removeClass('inactive');
+        })
+        .on('jcarouselcontrol:inactive', function () {
+        	$(this).addClass('inactive');
+        })
+        .jcarouselControl({
+        	target: '+=2'
         });
 
 
@@ -283,4 +307,7 @@ docReady(function () {
         bikeName = bikeName.replace(/\s+/, '_');
         triggerGA("MakePage", "Clicked_on_ModelCard", cookieValue + "_" + bikeName);
     });
+    // For saving page in recently viewed models/make
+    if (typeof pageData != "undefined" && pageData != null)
+        recentSearches.saveRecentSearches(pageData);
 });

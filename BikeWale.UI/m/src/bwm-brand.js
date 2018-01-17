@@ -1,7 +1,6 @@
 ﻿ga_pg_id = '3';
 
 docReady(function () {
-
     $("img.lazy").lazyload();
 
     $('.jcarousel-wrapper.upComingBikes .jcarousel').on('jcarousel:targetin', 'li', function () {
@@ -319,5 +318,8 @@ docReady(function () {
                 break;
         }
     });
+    // For saving page in recent viewed items
+    if (typeof pageData != "undefined" && pageData != null)
+        recentSearches.saveRecentSearches(pageData);
 
 });
