@@ -1,0 +1,93 @@
+﻿.popular-carousel__title
+	padding: 25px 16px 10px
+
+.carousel__popular-bikes
+	padding: 5px 20px 20px 0
+
+	.carousel-slide
+		width: 325px
+		min-height: 174px
+		padding-left: 10px
+
+		&:first-child
+			margin-left: 6px
+
+@include model-card
+
+.carousel__popular-bikes
+	@include model-card__image(220)
+
+	.model__card
+		overflow: hidden
+
+	.model-card__detail-content
+		height: 90px
+
+	.model-card__detail
+		padding: 0
+		transition: all .2s ease
+		will-change: transform
+
+		.model-card__target
+			padding: 5px 20px 10px
+
+/* rating badge */
+@import rating
+
+@for $i from 1 through 5
+	@include rating-badge($i)
+
+.model-card__detail
+	.rating-badge
+		margin-bottom: 8px
+
+@include model-card__detail
+@include card-details__specs
+
+@include model-card__exshowroom-content(#fff9f9)
+@include model-card__exshowroom
+
+.carousel__popular-bikes
+	.model-card__exshowroom
+		position: relative
+
+.view-pros-cons__target
+	position: absolute
+	right: 20px
+	bottom: 8px
+	padding: 5px
+	font-size: 12px
+	font-weight: $font-semibold
+	color: #0288d1
+	cursor: pointer
+
+@include card-detail__pros-cons
+
+.card-detail__pros-cons
+	opacity: 0
+	transition: opacity .2s ease
+
+/* pros and cons active state */
+.card--active
+	.model-card__detail
+		height: 291px
+		position: relative
+		transform: translateY(-134px)
+		background: #fff9f9
+		z-index: 1
+
+		.model-card__target
+			padding-top: 20px
+			padding-bottom: 17px
+
+	.card-detail__target
+		&:after
+			content: ''
+			position: relative
+			top: 18px
+			border-bottom: 1px solid #e2e2e2
+			display: block
+
+	.card-detail__pros-cons
+		opacity: 1
+

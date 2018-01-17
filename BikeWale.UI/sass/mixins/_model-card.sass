@@ -47,6 +47,7 @@
 		padding: 5px 20px 10px
 
 	.card-detail__name
+		@include text-truncate
 		font-size: 16px
 		font-weight: $font-semibold
 		color: #3e3e3e // TODO: Add in color map
@@ -137,9 +138,9 @@
 
 
 /*
- * Model card: pros and cons list
+ * Model card: pros and cons
  */
-@mixin model-card__pros-cons-list
+@mixin model-card__pros-cons
 	.model-card__pros-cons
 		padding: 20px 20px 10px
 		max-width: 328px
@@ -147,9 +148,57 @@
 	.pros-cons__content
 		position: relative
 
+	@include pros-cons__list
 	.pros-cons__list
 		padding-left: 25px
 
+	.list-type--pros
+		@include like-acacac-icon
+		background-position: left 0
+
+	.list-type--cons
+		@include dislike-acacac-icon
+		background-position: left 0
+
+	@include pros-cons__more-btn
+
+
+@mixin card-detail__pros-cons
+	.card-detail__pros-cons
+		padding: 15px 20px
+
+		.pros-cons__list
+			padding-left: 0
+
+			li
+				margin-bottom: 5px
+
+	@include pros-cons__list
+
+	.pros-list__title
+		@include like-acacac-icon
+		background-position: left 0
+		padding-left: 25px
+		color: #82888b
+		font-size: 12px
+		font-weight: $font-semibold
+		margin-bottom: 10px
+
+	.cons-list__title
+		@include dislike-acacac-icon
+		background-position: left 0
+		padding-left: 25px
+		color: #82888b
+		font-size: 12px
+		font-weight: $font-semibold
+		margin-bottom: 10px
+
+
+/*
+ * Model card: pros and cons list
+ */
+@mixin pros-cons__list
+	.pros-cons__list
 		&:after
 			content: ''
 			clear: both
@@ -157,7 +206,7 @@
 
 		li
 			font-size: 10px
-			color: #acacac
+			color: #acacac // TODO: Add in color map
 			float: left
 			margin-bottom: 10px
 			margin-right: 15px
@@ -175,14 +224,11 @@
 				position: relative
 				top: 3px
 
-	.list-type--pros
-		@include like-acacac-icon
-		background-position: left 0
 
-	.list-type--cons
-		@include dislike-acacac-icon
-		background-position: left 0
-
+/*
+ * Model card: pros and cons more button
+ */
+@mixin pros-cons__more-btn
 	.pros-cons__more-btn
 		width: 24px
 		height: 24px
