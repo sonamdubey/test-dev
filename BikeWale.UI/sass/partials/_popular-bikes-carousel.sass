@@ -18,18 +18,23 @@
 	@include model-card__image(220)
 
 	.model__card
+		border-color: color('salmon')
 		overflow: hidden
 
 	.model-card__detail-content
 		height: 90px
 
 	.model-card__detail
+		position: relative
 		padding: 0
-		transition: all .2s ease
+		@include vendor-prefix('transition', all .2s ease)
 		will-change: transform
+		z-index: 1
 
 		.model-card__target
 			padding: 5px 20px 10px
+
+	@include model-card__exshowroom-content('snow')
 
 /* rating badge */
 @import rating
@@ -44,7 +49,6 @@
 @include model-card__detail
 @include card-details__specs
 
-@include model-card__exshowroom-content(#fff9f9)
 @include model-card__exshowroom
 
 .carousel__popular-bikes
@@ -53,15 +57,27 @@
 
 .view-pros-cons__target
 	position: absolute
-	right: 20px
-	bottom: 8px
-	padding: 5px
+	right: 15px
+	bottom: 3px
+	padding: 10px
 	font-size: 12px
 	font-weight: $font-semibold
-	color: #0288d1
+	color: color('pacific-blue')
 	cursor: pointer
+	z-index: 1
 
-@include card-detail__pros-cons
+	&:after
+		content: '\0002b'
+		display: inline-block
+		font-size: 21px
+		font-weight: 400
+		position: relative
+		top: 3px
+		right: -7px
+		line-height: 14px
+
+
+@include pros-cons-detailed-list
 
 .card-detail__pros-cons
 	opacity: 0
@@ -71,13 +87,11 @@
 .card--active
 	.model-card__detail
 		height: 291px
-		position: relative
-		transform: translateY(-134px)
-		background: #fff9f9
-		z-index: 1
+		padding-top: 15px
+		@include vendor-prefix('transform', translateY(-134px))
+		background: color('snow')
 
 		.model-card__target
-			padding-top: 20px
 			padding-bottom: 17px
 
 	.card-detail__target
@@ -85,9 +99,18 @@
 			content: ''
 			position: relative
 			top: 18px
-			border-bottom: 1px solid #e2e2e2
+			border-bottom: 1px solid color('gainsboro')
 			display: block
 
 	.card-detail__pros-cons
 		opacity: 1
 
+
+/* active card: view pros-cons target state */
+.collapse-btn--active
+	.view-pros-cons__target
+		bottom: 248px
+
+		&:after
+			content: '\02013'
+			top: 2px
