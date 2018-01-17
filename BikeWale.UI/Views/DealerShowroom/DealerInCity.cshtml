@@ -83,9 +83,8 @@
                                     <p class="@string.Format("{0}",String.IsNullOrEmpty(Details.MaskingNumber)?"hide":"dealer-details__number")">
                                         <span>@Details.MaskingNumber</span>
                                     </p>
-                                    @if (Details.objArea != null)
+                                    @if (Details.objArea != null && (Details.objArea.Latitude > 0 || Details.objArea.Longitude>0))
                                     {
-
                                         <a href="https://maps.google.com/?saddr=&amp;daddr=@Details.objArea.Latitude,@Details.objArea.Longitude" class="dealer-details__direction" target="_blank" rel="noopener">Get Directions</a>
                                     }
                                 </div>
@@ -103,7 +102,7 @@
                                         <div class="dealer-details__form">
                                             <div class="form-field__content">
                                                 <input type="tel" class="form-control form-field__input field-input__mobile" placeholder="Enter your Mobile number" maxlength="10" />
-                                                <button type="button" class="btn btn-blue dealer-form__submit-btn form-field__submit-btn">Send</button>
+                                                <button type="button" class="btn btn-blue dealer-form__submit-btn form-field__submit-btn" data-id="@Details.DealerId">Send</button>
                                                 <span class="input-mobile__prefix">+91-</span>
                                                 <p class="field__error-message"></p>
                                             </div>
@@ -184,7 +183,7 @@
                         @foreach (var city in Model.DealerCountCity.objDealerInNearCityList)
                         {
                             <li>
-                                <a href="/service-centers/@Model.Make.MaskingName/@city.CityMaskingName/" title="@Model.Make.MakeName service centers in @city.CityName">@city.CityName</a>
+                                <a href="/dealer-showrooms/@Model.Make.MaskingName/@city.CityMaskingName/" title="@Model.Make.MakeName showrooms in @city.CityName">@Model.Make.MakeName showrooms in @city.CityName</a>
                             </li>
                         }
 

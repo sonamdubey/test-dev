@@ -82,7 +82,8 @@
                                                 <span>@serviceCenter.Phone</span>
                                             </p>
 											}
-                                        <a href="https://maps.google.com/?saddr=&amp;daddr=@serviceCenter.Lattitude,@serviceCenter.Longitude" class="dealer-details__direction" target="_blank" rel="noopener">Get Directions</a>
+                                            @if (!string.IsNullOrEmpty(serviceCenter.Lattitude) || !string.IsNullOrEmpty(serviceCenter.Longitude))
+                                            {<a href="https://maps.google.com/?saddr=&amp;daddr=@serviceCenter.Lattitude,@serviceCenter.Longitude" class="dealer-details__direction" target="_blank" rel="noopener">Get Directions</a>}
                                     </div>
 
 
@@ -206,7 +207,7 @@
                                 @foreach (var city in Model.NearByCityWidgetData.ServiceCentersNearbyCities)
                                 {
                                 <li>
-                                    <a href="/service-centers/@Model.Make.MaskingName/@city.CityMaskingName/" title="@Model.Make.MakeName service centers in @city.CityName">@city.CityName</a>
+                                    <a href="/service-centers/@Model.Make.MaskingName/@city.CityMaskingName/" title="@Model.Make.MakeName service centers in @city.CityName">@Model.Make.MakeName service centers in  @city.CityName</a>
                                 </li>
                                 }
                               
