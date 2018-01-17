@@ -238,7 +238,7 @@ namespace Bikewale.BAL.BikeData
             {
                 var bikes = MostPopularBikes.ToList();
                 bikes.Insert(0, results.ElementAt(0));
-                if (results.Count() == 2)
+                if (results.Count() >= 2)
                 {
                     bikes.Insert(1, results.ElementAt(1));
                 }
