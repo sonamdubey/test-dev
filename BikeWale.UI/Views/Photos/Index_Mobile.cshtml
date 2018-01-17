@@ -8,7 +8,7 @@
     Model.Page_JS_Path = "/src/photos/landing.js";
     }
     <script type="text/javascript">
-        var isMobile = '@Model.IsMobile';
+        var isMobile = true;
     </script>
 }
 <section>
@@ -57,7 +57,7 @@
                 @if (!string.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
                 {
                     <div class="explore-model__more-btn">
-                        <button type="button" class="btn btn-inv-blue" data-bind="click: $root.LoadMore, visible: $root.isLoadMore">View More</button>
+                        <a id="viewMoreBtn" href="@Model.PageMetaTags.NextPageUrl" class="btn btn-inv-blue" data-bind="click: $root.LoadMore, visible: $root.isLoadMore">View More</a>
                     </div>
                 }
             </div>

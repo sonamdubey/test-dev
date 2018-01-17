@@ -71,7 +71,7 @@ namespace Bikewale.Models.Photos.v1
                 objData.Pager = new Entities.Pager.PagerEntity
                 {
                     BaseUrl = baseUrl,
-                    PageUrlType = "page/",
+                    PageUrlType = "page-",
                     PageNo = (int)_pageNo,
                     PageSize = (int)PageSize,
                     TotalResults = objData.TotalBikeModels
@@ -92,11 +92,16 @@ namespace Bikewale.Models.Photos.v1
         {
             try
             {
-                int totalCount = 0;
-                ImagePager pager = new ImagePager();
+                ImagePager pager = new ImagePager()
+                {
+                    PageNo = (int)_pageNo,
+                    StartIndex = 1,
+                    EndIndex = 30,
+                    PageSize = (int)PageSize
+                };
                 IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, ref pager);
                 string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                objData.TotalBikeModels = totalCount;
+                objData.TotalBikeModels = pager.TotalResults;
                 int requiredImageCount = 4;
                 string categoryIds = CommonApiOpn.GetContentTypesString(
                     new List<EnumCMSContentType>()
