@@ -626,7 +626,7 @@
 /* overflow sidebar list */
 .sidebar-list--overflow .sidebar-bike-list {
 	padding-right: 18px;
-	padding-left: 18px;
+	padding-left: 10px;
 	height: 320px;
 	overflow-y: scroll;
 }
