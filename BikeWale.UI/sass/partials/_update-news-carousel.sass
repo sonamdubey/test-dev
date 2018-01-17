@@ -1,0 +1,124 @@
+﻿$contact-icon-color: #a8afb3
+$editorial-about-block-border: #d5d5d5
+
+@mixin editorial-card()
+	.editorial-card
+		@include card
+		width: 100%
+		height: auto
+		display: block
+		text-decoration: none
+
+		&:hover
+			text-decoration: none
+
+.editorial-card__detail
+	padding: 20px 16px 16px
+
+.editorial-card__name
+	font-size: 16px
+	padding-bottom: 10px
+
+.editorial-card__description
+	font-size: 14px
+	color: color('default')
+
+.editorial-card__target
+	display: block
+	color: color('default')
+
+	&:hover
+		text-decoration: none
+
+	&:visited
+		text-decoration: none
+
+@mixin editorial-card__about-block($border-color: $editorial-about-block-border)
+	.editorial-card__about-block
+		padding: 8px 20px 17px 58px
+		position: relative
+
+		&:before
+			content: ''
+			display: block
+			height: 30px
+			width: 30px
+			position: absolute
+			left: 16px
+			top: 13px
+			@include contact-icon
+			background-size: 14px
+			background-color: $contact-icon-color
+			border-radius: 50%
+
+		&:after
+			content: ''
+			margin-left: 20px
+			margin-right: 20px
+			border-top: 2px solid $border-color
+			opacity: 0.5
+			position: absolute
+			top: 0
+			left: 0
+			width: 87%
+
+.latest-update-section
+	.swiper-block__title
+		@include update-icon
+		background-size: 24px
+		background-position: 15px
+		padding-left: 48px
+
+.latest-news-section
+	.swiper-block__title
+		@include news-icon()
+		background-size: 23px
+		background-position: 15px
+		padding-left: 48px
+
+.carousel__latest-update
+	padding: 5px 20px 20px 0
+
+	.carousel-slide
+		width: 304px
+		min-height: 419px
+		padding-left: 10px
+
+		&:first-child
+			margin-left: 6px
+
+.editorial-card__author-name
+	font-size: 13px
+	padding-bottom: 2px
+	display: block
+
+.upcoming-card__date-section
+	font-size: 11px
+		
+.swiper-block__title
+	padding: 16px
+	@include flexbox()
+	@include flex-wrap()
+	@include align-items(center)
+		
+.swiper-block__label
+	@include flex-grow
+	width: 78%
+	white-space: nowrap
+	overflow: hidden
+	text-overflow: ellipsis
+
+.latest-update-icon
+	height: 21px
+	width: 28px
+	display: inline-block
+	vertical-align: middle
+	position: relative
+	top: -2px
+
+.view-all-btn
+	font-size: 14px
+	font-weight: $font-semibold
+
+@include editorial-card()
+@include editorial-card__about-block()

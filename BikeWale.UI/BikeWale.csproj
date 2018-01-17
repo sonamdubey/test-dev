@@ -3121,6 +3121,7 @@
     <Content Include="sass\mixins\_heading.sass" />
     <Content Include="sass\mixins\_text.sass" />
     <Content Include="sass\partials\_upcoming-bikes-carousel.sass" />
+    <Content Include="sass\partials\_update-news-carousel.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
