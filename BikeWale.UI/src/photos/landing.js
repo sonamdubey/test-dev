@@ -208,6 +208,7 @@ docReady(function () {
 	    self.IsLoadMore = ko.observable(true);
 	    self.Filters = ko.observable({ pageno: '1', pagesize: '30' });
 	    self.IsLoading = ko.observable(false);
+	    self.FirstPageLoad = ko.observable(true);
 	    self.LoadMore = function () {
 	        event.preventDefault();
 	        self.IsLoading(true);
@@ -253,6 +254,8 @@ docReady(function () {
                         self.IsLoadMore(false);
                     }
                     self.IsLoading(false);
+                }).fail(function () {
+                    setTimeout(function () { self.IsLoading(false); }, 5000);
                 });
 	    };
 
@@ -271,7 +274,7 @@ docReady(function () {
 	var viewModel = new modelListViewModel();
 	if (window.location.hash) {
 	    var url = window.location.hash.replace('#', '');
-	    
+	    viewModel.FirstPageLoad(false);
 	    viewModel.RedirectLoad(true);
 	    viewModel.setFilters(url);
 	    viewModel.LoadMore();
