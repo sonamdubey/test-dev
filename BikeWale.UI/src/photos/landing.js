@@ -254,6 +254,8 @@ docReady(function () {
                         self.IsLoadMore(false);
                     }
                     self.IsLoading(false);
+                }).fail(function () {
+                    setTimeout(function () { self.IsLoading(false); }, 5000);
                 });
 	    };
 
