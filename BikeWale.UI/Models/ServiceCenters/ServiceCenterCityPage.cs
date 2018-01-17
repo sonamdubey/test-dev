@@ -79,6 +79,8 @@ namespace Bikewale.Models.ServiceCenters
                 objPopularBikesWidget.CityId = _cityId;
                 objVM.PopularWidgetData = objPopularBikesWidget.GetData();
 
+
+
                 objVM.UsedBikesByMakeList = BindUsedBikeByModel(objVM.City);
 
                 BindDealersWidget(objVM);

@@ -118,7 +118,7 @@ namespace Bikewale.Models
             try
             {
                 bikeSeriesEntityBase = _models.GetSeriesByModelId(ModelId);
-                if (null != bikeSeriesEntityBase && bikeSeriesEntityBase.IsSeriesPageUrl )
+                if (null != bikeSeriesEntityBase && bikeSeriesEntityBase.IsSeriesPageUrl)
                 {
                     objdata.IsSeriesAvailable = true;
                 }
@@ -592,7 +592,7 @@ namespace Bikewale.Models
 
                         BikeFilters obj = new BikeFilters();
                         obj.CityId = CityId;
-                       
+
                         IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
                         MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, MostPopularBikes.Bikes);
 
@@ -646,7 +646,7 @@ namespace Bikewale.Models
                             objData.PopularScooterMakesWidget = PopularScooterMakes.Take(6);
 
                             // fetch popular scooters for make
-                            MostPopularBikesWidget objPopularScooters = new MostPopularBikesWidget(_bikeModels, EnumBikeType.Scooters, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
+                            objPopularScooters = new MostPopularBikesWidget(_bikeModels, EnumBikeType.Scooters, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
                             objPopularScooters.TopCount = 9;
                             objPopularScooters.CityId = CityId;
                             MostPopularMakeScooters = objPopularScooters.GetData();
