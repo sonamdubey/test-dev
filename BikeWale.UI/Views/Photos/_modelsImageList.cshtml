@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 @if (Model != null)
 {
-    <ul class="explore-model-image__list image-card--list">
+    <ul class="explore-model-image__list image-card--list" data-bind="visible: $root.FirstPageLoad">
         @foreach (var modelImages in Model)
         {
             if (modelImages.RecordCount > 0)
