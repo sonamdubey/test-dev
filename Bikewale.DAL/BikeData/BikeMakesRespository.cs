@@ -805,7 +805,7 @@ namespace Bikewale.DAL.BikeData
         /// <param name="makeId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        private ResearchMoreAboutMake GetResearchMoreAboutMakeDetails(string spName, uint makeId, uint cityId)
+        private ResearchMoreAboutMake GetResearchMoreAboutMakeDetails(string spName, uint makeId, uint cityId = 0)
         {
             ResearchMoreAboutMake obj = null;
             IList<BikeSeriesEntity> objSeriesList = null;
@@ -828,34 +828,38 @@ namespace Bikewale.DAL.BikeData
                             if (dr != null && dr.Read())
                             {
                                 obj = new ResearchMoreAboutMake();
-                                obj.Make = new BikeMakeEntityBase()
+                                if (obj != null)
                                 {
-                                    MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
-                                    MakeName = Convert.ToString(dr["MakeName"]),
-                                    MaskingName = Convert.ToString(dr["MakeMaskingName"])
-                                };
-                                obj.IsScooterOnlyMake = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]);
-                                obj.ServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["servicecenterscount"]);
-                                obj.UsedBikesCount = SqlReaderConvertor.ToUInt16(dr["usedbikescount"]);
-                                if (dr.NextResult())
-                                {
-                                    objSeriesList = new List<BikeSeriesEntity>();
-                                    if (objSeriesList != null)
+                                    obj.Make = new BikeMakeEntityBase()
                                     {
-                                        while (dr.Read())
+                                        MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                        MakeName = Convert.ToString(dr["MakeName"]),
+                                        MaskingName = Convert.ToString(dr["MakeMaskingName"])
+                                    };
+                                    obj.IsScooterOnlyMake = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]);
+                                    obj.ServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["servicecenterscount"]);
+                                    obj.UsedBikesCount = SqlReaderConvertor.ToUInt16(dr["usedbikescount"]);
+                                    if (dr.NextResult())
+                                    {
+                                        objSeriesList = new List<BikeSeriesEntity>();
+                                        if (objSeriesList != null)
                                         {
-                                            objSeriesList.Add(new BikeSeriesEntity()
+                                            while (dr.Read())
                                             {
-                                                SeriesId = SqlReaderConvertor.ToUInt16(dr["seriesid"]),
-                                                SeriesName = Convert.ToString(dr["seriesname"]),
-                                                MaskingName = Convert.ToString(dr["seriesmaskingname"])
+                                                objSeriesList.Add(new BikeSeriesEntity()
+                                                {
+                                                    SeriesId = SqlReaderConvertor.ToUInt16(dr["seriesid"]),
+                                                    SeriesName = Convert.ToString(dr["seriesname"]),
+                                                    MaskingName = Convert.ToString(dr["seriesmaskingname"])
+                                                }
+                                                    );
                                             }
-                                                );
                                         }
-                                    }
 
+                                    }
+                                    obj.SeriesList = objSeriesList;
                                 }
-                                obj.SeriesList = objSeriesList;
+
                                 dr.Close();
                             }
                         }
@@ -883,7 +887,7 @@ namespace Bikewale.DAL.BikeData
             {
                 if (makeId > 0)
                 {
-                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmake", makeId, 0);
+                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmake", makeId);
                 }
 
             }
@@ -906,8 +910,10 @@ namespace Bikewale.DAL.BikeData
             ResearchMoreAboutMake obj = null;
             try
             {
-                obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmakebycity", makeId, cityId);
-
+                if (makeId > 0 && cityId > 0)
+                {
+                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmakebycity", makeId, cityId);
+                }
             }
             catch (Exception ex)
             {

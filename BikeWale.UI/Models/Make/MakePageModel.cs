@@ -689,24 +689,32 @@ namespace Bikewale.Models
 
             try
             {
-                if (_makeId > 0)
+                if (_makeId > 0 && objData != null)
                 {
                     objData.ResearchMoreMakeWidget = new ResearchMoreAboutMakeVM();
 
-                    if (cityBase != null && cityBase.CityId > 0)
+                    if (objData.ResearchMoreMakeWidget != null)
                     {
-                        objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMakeByCity(_makeId, cityBase.CityId);
-                        objData.ResearchMoreMakeWidget.WidgetObj.City = cityBase;
+                        if (cityBase != null && cityBase.CityId > 0)
+                        {
+                            objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMakeByCity(_makeId, cityBase.CityId);
+                            if (objData.ResearchMoreMakeWidget.WidgetObj != null)
+                            {
+                                objData.ResearchMoreMakeWidget.WidgetObj.City = cityBase;
+                            }
+
+                        }
+                        else
+                        {
+                            objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMake(_makeId);
+                        }
                     }
-                    else
-                    {
-                        objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMake(_makeId);
-                    }
+
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindResearchMoreMakeWidget() makeId:{0} , cityId:{1}", _makeId, cityBase.CityId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindResearchMoreMakeWidget() makeId:{0} , cityId:{1}", _makeId, (cityBase != null ? cityBase.CityId.ToString() : "0")));
             }
         }
     }
