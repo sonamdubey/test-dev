@@ -29,12 +29,6 @@
                 if (photoCount > 1) {
                     galleryRoot.find('.gallery-loader-placeholder').show();
 
-                    if (typeof (logBhrighuForImage) != "undefined" && imageIndex <= 0)
-                    {
-                        //included in gallery js
-                        logBhrighuForImage($(this));
-                    }                    
-
                     var imageIndex = $(this).index(),
                         parentGridType = $(this).closest('.photos-grid-list');
 
@@ -42,6 +36,11 @@
                         var gridOneLength = $('.photos-grid-list').first().find('li').length;
 
                         imageIndex = gridOneLength + imageIndex; // (grid type 1's length + grid type remainder's index)
+                    }
+
+                    if (typeof (logBhrighuForImage) != "undefined" && imageIndex <= 0) {
+                        //included in gallery js
+                        logBhrighuForImage($(this));
                     }
 
                     popupGallery.bindGallery(imageIndex);
