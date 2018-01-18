@@ -1,0 +1,162 @@
+﻿$count-color: #ff5500
+$article-section__count: #d5d5d5
+
+.review-card
+	@include card
+	width: 100%
+	height: auto
+	display: block
+	text-decoration: none
+	text-align: center
+	padding: 18px 26px
+	&:hover
+		text-decoration: none
+
+.article-section__count
+	color: color('light-grey')
+	padding: 20px 38px 25px
+	font-size: 16px
+	text-align: center
+	position: relative
+
+	&:before
+		content: ''
+		display: block
+		position: absolute
+		top: 0
+		left: 0
+		margin-right: 16px
+		margin-left: 16px
+		border: 1px solid $article-section__count
+		opacity: .5
+		width: 91%
+
+.article-count__number
+	font-size: 20px
+	font-weight: $font-semibold
+	color: $count-color
+	opacity: .8
+
+.review-card__title
+	font-size: 16px
+	font-weight: $font-bold
+	padding-top: 10px
+	padding-bottom: 7px
+
+.review-card__target-link
+	font-size: 14px
+	display: inline-block
+	margin-top: 15px
+	font-weight: $font-semibold
+
+
+
+
+@mixin expert-review
+	.expert-review-section
+		.page__heading-h2
+			padding: 25px 20px 0 60px
+			overflow: hidden
+			white-space: nowrap
+			text-overflow: ellipsis
+
+			&:before
+				content: ''
+				display: block
+				height: 25px
+				width: 32px
+				@include review-icon
+				position: absolute
+				left: 16px
+
+	.carousel__expert-review
+		padding: 5px 20px 20px 0
+
+		.carousel-slide
+			width: 282px
+			min-height: 268px
+			padding-left: 10px
+
+			&:first-child
+				margin-left: 6px	
+
+	.card-category__tag
+		position: relative
+		background-color: grey
+	
+		&:before
+			left: 38px
+			top: 3px
+
+	.review-card__desc
+		color: color('light-grey')
+		font-size: 13px
+		line-height: 1.69
+
+	.review-card__about
+		padding-top: 14px
+
+	.review-card__author-name
+		font-size: 12px
+		margin-bottom: 2px
+
+	.review-card__date
+		font-size: 10px
+		color: color('light-grey')
+
+	@include review-author()
+
+@mixin review-author($width: 40px, $height: 40px)
+	.review-card__author
+		@include vendor-prefix('border-radius', 50%)
+		border: 1px solid color('border-dark')
+		height: $height
+		width: $width
+		overflow: hidden
+		margin: 0 auto 8px
+
+		img.review-author__img
+			max-width: 100px
+			position: relative
+			height: $height
+			left: -15%
+
+		.review-author_defult-img
+			@include vendor-prefix('border-radius', 50%)
+			display: block
+			width: 40px
+			height: 40px
+			margin: 0 auto
+			@include review-default-icon
+
+
+@mixin review-card__image($height: 96px)
+	.review-card__image
+		height: $height
+		overflow: hidden
+		text-align: center
+
+		img
+			height: $height
+
+@mixin user-review($width: 217px, $height: 192px)
+	.carousel__user-review
+		.review-card
+			padding: 0 0 20px
+
+	.review-card__title
+		padding-bottom: 0
+
+	.carousel__user-review
+		padding: 5px 20px 20px 0
+
+		.carousel-slide
+			width: $width
+			min-height: $height
+			padding-left: 10px
+
+			&:first-child
+				margin-left: 6px	
+	
+	@include review-card__image()
+

@@ -1,0 +1,67 @@
+﻿$know-more-color: #e6e6e6
+$dealer-contact: #2ea173
+$dealer-direction: #2096d6
+
+.dealer-section
+	.carousel-title__label
+		padding-left: 44px
+
+.dealer-section__note
+	padding: 0 16px 22px
+	font-size: 12px
+	color: color('light-grey')
+
+@mixin carousel__specific-dealer
+	.carousel__specific-dealer
+		padding: 5px 20px 20px 0
+
+		.carousel-slide
+			width: 318px
+			min-height: 174px
+			padding-left: 10px
+
+			&:first-child
+				margin-left: 6px
+				
+	.specific-dealer-card
+		padding: 16px 16px 0
+		@include card
+		
+	.specific-dealer__title
+		font-size: 16px
+		font-weight: $font-semibold
+		margin-bottom: 7px
+	
+	.specific-dealer__state
+		margin-bottom: 14px
+		font-size: 12px
+		color: color('light-grey')
+	
+	.specific-dealer__address
+		font-size: 12px
+		line-height: 1.17
+		padding-bottom: 24px
+		color: color('light-grey')
+
+
+@mixin specific-dealer__know-more
+	.specific-dealer__know-more
+		@include flexbox()
+		@include align-items(center)
+		font-size: 13px
+		border-top: 1px solid $know-more-color
+
+.specific-dealer__contact
+	@include flex-grow
+	color: $dealer-contact
+	padding-bottom: 16px
+	padding-top: 11px
+
+.specific-dealer__direction
+	@include flex-grow
+	color: $dealer-direction
+	padding-top: 11px
+	padding-bottom: 16px
+	text-align: right
+
+@include specific-dealer__know-more
