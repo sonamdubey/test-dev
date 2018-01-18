@@ -6,5 +6,6 @@ namespace Bikewale.Entities.BikeData
     {
         public uint ColorId { get; set; }
         public uint PhotoId { get; set; }
+        public ushort PhotosCount { get; set; }
     }
 }

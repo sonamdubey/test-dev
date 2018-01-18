@@ -3332,7 +3332,8 @@ namespace Bikewale.DAL.BikeData
                                         MaskingName = Convert.ToString(dr["MaskingName"])
                                     },
                                     HostUrl = Convert.ToString(dr["hostUrl"]),
-                                    OriginalImagePath = Convert.ToString(dr["OriginalImagepath"])
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagepath"]),
+                                    PhotosCount = Utility.SqlReaderConvertor.ToUInt16(dr["photoscount"])
                                 });
                             }
                             if (dr.NextResult())
