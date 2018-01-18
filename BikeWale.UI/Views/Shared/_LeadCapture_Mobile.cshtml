@@ -671,6 +671,7 @@
             self.validateUserName = function () {
                 leadUsername = fullName;
                 var isValid = false;
+                var regMaxLen = /^[a-zA-Z ]{1,50}$/;
                 if (self.fullName() != null && self.fullName().trim() != "") {
                     nameLength = self.fullName().length;
 
@@ -680,6 +681,10 @@
                     }
                     else if (nameLength == 0) {
                         validate.setError(leadUsername, 'Please enter your name');
+                        isValid = false;
+                    }
+                    else if (!regMaxLen.test(self.fullName())) {
+                        validate.setError(leadUsername, 'Name cannot be more than 50 characters');
                         isValid = false;
                     }
                     else if (nameLength >= 1) {
@@ -695,8 +700,8 @@
             };
 
             self.validateEmailId = function () {
+                var regMaxLen = /^[A-z0-9._+-@@]{1,50}$/;
                 leadEmailId = emailid;
-
                 var isValid = true,
                     emailVal = leadEmailId.val(),
                     reEmail = /^[A-z0-9._+-]+@@[A-z0-9.-]+\.[A-z]{2,6}$/;
@@ -709,6 +714,10 @@
                 }
                 else if (!reEmail.test(emailVal)) {
                     validate.setError(leadEmailId, 'Invalid Email');
+                    isValid = false;
+                }
+                else if (!regMaxLen.test(emailVal)) {
+                    validate.setError(leadEmailId, 'Email cannot be more than 50 characters');
                     isValid = false;
                 }
                 return isValid;
