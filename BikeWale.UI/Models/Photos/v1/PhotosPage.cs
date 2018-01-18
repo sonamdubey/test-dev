@@ -110,7 +110,7 @@ namespace Bikewale.Models.Photos.v1
                         EnumCMSContentType.RoadTest
                     }
                 );
-                objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(new ImagePager(), modelIds, categoryIds, requiredImageCount);
+                objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
                 CreatePager(objData);
 
             }
