@@ -16,7 +16,7 @@
                             @if (gridSize == 1)
                             {
                                 <li class="image-grid-list__item">
-                                    <img class="lazy" src="" data-original="@Image.GetPathToShowImages(firstModelImages.OriginalImgPath, firstModelImages.HostUrl, ImageSize._476x268, QualityFactor._70)" alt="@firstModelImages.AltImageName">
+                                    <img class="lazy" src="" data-original="@Image.GetPathToShowImages(firstModelImages.OriginalImgPath, firstModelImages.HostUrl, ImageSize._476x268, QualityFactor._70)" alt="@String.Format("{0}",!String.IsNullOrEmpty(firstModelImages.AltImageName)? firstModelImages.AltImageName: String.Format("{0} {1} {2}", firstModelImages.MakeBase.MakeName, firstModelImages.ModelBase.ModelName, "Image"))" title="@firstModelImages.MakeBase.MakeName @firstModelImages.ModelBase.ModelName Images">
                                 </li>
                             }
                             else
@@ -24,7 +24,7 @@
                                 foreach (var modelImage in modelImages.ModelImage)
                                 {
                                     <li class="image-grid-list__item">
-                                        <img class="lazy" src="" data-original="@Image.GetPathToShowImages(modelImage.OriginalImgPath, modelImage.HostUrl, ImageSize._476x268, QualityFactor._70)" alt="@modelImage.AltImageName">
+                                        <img class="lazy" src="" data-original="@Image.GetPathToShowImages(modelImage.OriginalImgPath, modelImage.HostUrl, ImageSize._476x268, QualityFactor._70)" alt="@String.Format("{0}", !String.IsNullOrEmpty(modelImage.AltImageName)? modelImage.AltImageName: String.Format("{0} {1} {2}", firstModelImages.MakeBase.MakeName, firstModelImages.ModelBase.ModelName, "Image"))" title="@firstModelImages.MakeBase.MakeName @firstModelImages.ModelBase.ModelName Images">
                                     </li>
                                 }
                             }
@@ -50,7 +50,7 @@
         <a href="" title="" class="model-image__card" data-bind="attr:{ 'href': modelImagePageUrl, 'title': modelTitle }">
             <ul class="image-grid__list" data-bind='foreach: showcasedModelImages, attr:{"data-grid": gridSize}'>
                 <li class="image-grid-list__item">
-                    <img class="lazy" data-bind="attr: { 'alt': alt,'src': src }" style="display: block">
+                    <img class="lazy" data-bind="attr: { 'alt': alt,'src': src,'title':title }" style="display: block">
                 </li>
             </ul>
             <div class="card-image__details">

@@ -18,7 +18,7 @@
                                 @foreach (var bikeImage in bikeImages)
                                 {
                                     <li class="image-grid-list__item">
-                                        <img class="swiper-lazy" src="" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeImage.OriginalImgPath, bikeImage.HostUrl, ImageSize._310x174, QualityFactor._80)">
+                                        <img class="swiper-lazy" src="" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeImage.OriginalImgPath, bikeImage.HostUrl, ImageSize._310x174, QualityFactor._80)" alt=@String.Format("{0}", !String.IsNullOrEmpty(bikeImage.Caption) ? bikeImage.Caption : String.Format("{0} Image", bike.BikeName)) title="@string.Format("{0} Images", bike.BikeName)">
                                     </li>
                                 }
                             </ul>
@@ -32,7 +32,7 @@
                                 @foreach (var bikeImage in bikeImages)
                                 {
                                     <li class="image-grid-list__item">
-                                        <img class="swiper-lazy" src="" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeImage.OriginalImgPath, bikeImage.HostUrl, ImageSize._310x174, QualityFactor._80)">
+                                        <img class="swiper-lazy" src="" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeImage.OriginalImgPath, bikeImage.HostUrl, ImageSize._310x174, QualityFactor._80)" alt=@String.Format("{0}", !String.IsNullOrEmpty(bikeImage.Caption) ? bikeImage.Caption : String.Format("{0} Image", bike.BikeName)) title="@string.Format("{0} Images", bike.BikeName)">
                                     </li>
                                 }
                             </ul>
@@ -46,7 +46,7 @@
                                 @foreach (var bikeImage in bikeImages)
                                 {
                                     <li class="image-grid-list__item">
-                                        <img class="swiper-lazy" src="" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeImage.OriginalImgPath, bikeImage.HostUrl, ImageSize._310x174, QualityFactor._80)">
+                                        <img class="swiper-lazy" src="" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeImage.OriginalImgPath, bikeImage.HostUrl, ImageSize._310x174, QualityFactor._80)" alt=@String.Format("{0}", !String.IsNullOrEmpty(bikeImage.Caption) ? bikeImage.Caption : String.Format("{0} Image", bike.BikeName)) title="@string.Format("{0} Images", bike.BikeName)">
                                     </li>
                                 }
                             </ul>
