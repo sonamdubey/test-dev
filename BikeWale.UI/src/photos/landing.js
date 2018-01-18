@@ -232,7 +232,7 @@ docReady(function () {
                                 showcasedModelImageList.push(img);
                             });
                             var newModel = new model();
-                            newModel.modelTitle(val.ModelBase.modelName + ' ' + 'Images');
+                            newModel.modelTitle(val.MakeBase.makeName + ' ' + val.ModelBase.modelName + ' ' + 'Images');
                             newModel.modelImagePageUrl(createImagePageUrl(val));
                             newModel.makeName(val.MakeBase.makeName);
                             newModel.modelName(val.ModelBase.modelName);
