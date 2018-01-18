@@ -82,7 +82,7 @@
                                                 <span>@serviceCenter.Phone</span>
                                             </p>
 											}
-                                            @if (!string.IsNullOrEmpty(serviceCenter.Lattitude) || !string.IsNullOrEmpty(serviceCenter.Longitude))
+                                            @if ((!string.IsNullOrEmpty(serviceCenter.Lattitude) && Convert.ToDouble(serviceCenter.Lattitude) > 0) || (!string.IsNullOrEmpty(serviceCenter.Longitude) && Convert.ToDouble(serviceCenter.Longitude) > 0))
                                             {<a href="https://maps.google.com/?saddr=&amp;daddr=@serviceCenter.Lattitude,@serviceCenter.Longitude" class="dealer-details__direction" target="_blank" rel="noopener">Get Directions</a>}
                                     </div>
 
