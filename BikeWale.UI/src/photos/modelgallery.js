@@ -389,7 +389,6 @@ docReady(function () {
         mousewheelControl: true,
         onInit: function (swiper) {
             thumbnailSwiperEvents.setColorPhotoDetails(swiper);
-            logBhrighuForImage($('.gallery-type-swiper .swiper-slide-active').first());
         },
         onTouchStart: function () {
             if (vmModelGallery.modelInfoScreen()) {

@@ -118,7 +118,7 @@ namespace Bikewale.Models
             try
             {
                 bikeSeriesEntityBase = _models.GetSeriesByModelId(ModelId);
-                if (null != bikeSeriesEntityBase && bikeSeriesEntityBase.IsSeriesPageUrl )
+                if (null != bikeSeriesEntityBase && bikeSeriesEntityBase.IsSeriesPageUrl)
                 {
                     objdata.IsSeriesAvailable = true;
                 }

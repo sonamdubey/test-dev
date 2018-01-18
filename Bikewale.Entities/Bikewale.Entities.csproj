@@ -218,6 +218,7 @@
     <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\PriceAndCityEntityBase.cs" />
     <Compile Include="BikeData\PriceEntityBase.cs" />
+    <Compile Include="BikeData\ResearchMoreAboutMake.cs" />
     <Compile Include="BikeData\SeriesMaskingResponse.cs" />
     <Compile Include="BikeData\SimilarBikeComparisions .cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
