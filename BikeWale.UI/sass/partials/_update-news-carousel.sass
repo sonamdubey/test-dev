@@ -1,16 +1,15 @@
 ﻿$contact-icon-color: #a8afb3
 $editorial-about-block-border: #d5d5d5
 
-@mixin editorial-card()
-	.editorial-card
-		@include card
-		width: 100%
-		height: auto
-		display: block
-		text-decoration: none
+.editorial-card
+	@include card
+	width: 100%
+	height: auto
+	display: block
+	text-decoration: none
 
-		&:hover
-			text-decoration: none
+	&:hover
+		text-decoration: none
 
 .editorial-card__detail
 	padding: 20px 16px 16px
@@ -20,12 +19,12 @@ $editorial-about-block-border: #d5d5d5
 	padding-bottom: 10px
 
 .editorial-card__description
-	font-size: 14px
 	color: color('default')
+	font-size: 14px
 
 .editorial-card__target
-	display: block
 	color: color('default')
+	display: block
 
 	&:hover
 		text-decoration: none
@@ -33,23 +32,12 @@ $editorial-about-block-border: #d5d5d5
 	&:visited
 		text-decoration: none
 
-@mixin editorial-card__about-block($border-color: $editorial-about-block-border)
-	.editorial-card__about-block
-		padding: 8px 20px 17px 58px
+@mixin editorial-card__footer($border-color: $editorial-about-block-border)
+	.editorial-card__footer
+		@include flexbox()
+		@include align-items(center)
+		padding: 8px 16px 17px
 		position: relative
-
-		&:before
-			content: ''
-			display: block
-			height: 30px
-			width: 30px
-			position: absolute
-			left: 16px
-			top: 13px
-			@include contact-icon
-			background-size: 14px
-			background-color: $contact-icon-color
-			border-radius: 50%
 
 		&:after
 			content: ''
@@ -62,21 +50,46 @@ $editorial-about-block-border: #d5d5d5
 			left: 0
 			width: 87%
 
+@mixin editorial-author($width: 30px, $height: 30px)
+	.editorial-author_defult-img
+		@include contact-icon
+		height: $height - 2px
+		width: $width - 2px
+		display: block
+		background-color: $contact-icon-color
+
+	.editorial-footer__author-img
+		height: $height
+		width: $width
+		overflow: hidden
+		border: 1px solid color('border-dark')
+		border-radius: 50%
+		margin-right: 12px
+
+		img.editorial-author-img
+			max-width: 100px
+			position: relative
+			height: $height
+			left: -15%
+
+.editorial-card__about
+	@include flex-grow
+
 .latest-update-section
-	.swiper-block__title
+	.carousel__title
 		@include update-icon
 		background-size: 24px
-		background-position: 15px
+		background-position: 16px 28px
 		padding-left: 48px
 
 .latest-news-section
-	.swiper-block__title
+	.carousel__title
 		@include news-icon()
 		background-size: 23px
-		background-position: 15px
+		background-position: 16px 28px
 		padding-left: 48px
 
-.carousel__latest-update
+.carousel__editorial
 	padding: 5px 20px 20px 0
 
 	.carousel-slide
@@ -92,16 +105,17 @@ $editorial-about-block-border: #d5d5d5
 	padding-bottom: 2px
 	display: block
 
-.upcoming-card__date-section
+.editorial-card__date-section
+	color: color('light-grey')
 	font-size: 11px
-		
-.swiper-block__title
-	padding: 16px
+
+.carousel__title
 	@include flexbox()
 	@include flex-wrap()
 	@include align-items(center)
+	padding: 25px 16px 16px
 		
-.swiper-block__label
+.carousel-title__label
 	@include flex-grow
 	width: 78%
 	white-space: nowrap
@@ -120,5 +134,13 @@ $editorial-about-block-border: #d5d5d5
 	font-size: 14px
 	font-weight: $font-semibold
 
-@include editorial-card()
-@include editorial-card__about-block()
+.editorial-card__image
+	height: 164px
+	width: auto
+	overflow-y: hidden
+
+	img
+		height: 164px
+
+@include editorial-card__footer()
+@include editorial-author()

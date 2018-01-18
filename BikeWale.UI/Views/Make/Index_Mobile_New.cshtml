@@ -345,9 +345,9 @@
 
         <section>
             <div class="bg-white section-bottom-margin latest-update-section">
-                <div class="swiper-block__title">
-                    <h2 class="page__heading-h2 swiper-block__label"> Latest Updates Latest Updates Latest Updates</h2>
-                    <div class="swiper-heading-btn-block">
+                <div class="carousel__title">
+                    <h2 class="page__heading-h2 carousel-title__label"> Latest Updates</h2>
+                    <div class="carousel-title-btn">
                         <a href="" class="view-all-btn">
                             View all
                         </a>
@@ -355,68 +355,51 @@
 
                 </div>
 
-                <div class="swiper-container carousel__latest-update" data-spacebetween="0">
+                <div class="swiper-container carousel__editorial" data-spacebetween="0">
                     <ul class="swiper-wrapper">
-                        <li class="swiper-slide carousel-slide">
-                            <div class="editorial-card">
-                                <a href="" title="" class="editorial-card__target">
-                                    <div class="editorial-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                        @for (var i = 0; i <= 5; i++)
+                        {
+                            <li class="swiper-slide carousel-slide">
+                                <div class="editorial-card">
+                                    <a href="" title="" class="editorial-card__target">
+                                        <div class="editorial-card__image">
+                                            <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                        </div>
+                                        <div class="editorial-card__detail">
+                                            <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
+                                            <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
+                                        </div>
+                                    </a>
+                                    <div class="editorial-card__footer">
+                                        <div class="editorial-footer__author-img">
+                                            @{var author = 0;
+                                            if (author == 0)
+                                            {
+                                                <span class="editorial-author_defult-img"></span>
+                                            }
+                                            else
+                                            {
+                                                <img class="swiper-lazy editorial-author-img" src="" data-src="" title="" alt="" />
+                                            }
+
+
+
+}
+                                        </div>
+                                        <div class="editorial-card__about">
+                                            <span class="editorial-card__author-name">Ranjan B.</span>
+                                            <p class="editorial-card__date-section">
+                                                <span>2 Dec</span> -
+                                                <span>4 min read</span>
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="editorial-card__detail">
-                                        <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
-                                        <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
-                                    </div>
-                                </a>
-                                <div class="editorial-card__about-block">
-                                    <span class="editorial-card__author-name">Ranjan B.</span>
-                                    <p class="upcoming-card__date-section">
-                                        <span>2 Dec</span> -
-                                        <span>4 min read</span>
-                                    </p>                                 
+
                                 </div>
-                            </div>
-                        </li>
-                        <li class="swiper-slide carousel-slide">
-                            <div class="editorial-card">
-                                <a href="" title="" class="editorial-card__target">
-                                    <div class="editorial-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                    <div class="editorial-card__detail">
-                                        <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
-                                        <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
-                                    </div>
-                                </a>
-                                <div class="editorial-card__about-block">
-                                    <span class="editorial-card__author-name">Ranjan B.</span>
-                                    <p class="upcoming-card__date-section">
-                                        <span>2 Dec</span> -
-                                        <span>4 min read</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="swiper-slide carousel-slide">
-                            <div class="editorial-card">
-                                <a href="" title="" class="editorial-card__target">
-                                    <div class="editorial-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                    <div class="editorial-card__detail">
-                                        <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
-                                        <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
-                                    </div>
-                                </a>
-                                <div class="editorial-card__about-block">
-                                    <span class="editorial-card__author-name">Ranjan B.</span>
-                                    <p class="upcoming-card__date-section">
-                                        <span>2 Dec</span> -
-                                        <span>4 min read</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        }
+
+
                     </ul>
                 </div>
             </div>
@@ -424,9 +407,9 @@
 
         <section>
             <div class="bg-white section-bottom-margin latest-news-section">
-                <div class="swiper-block__title">
-                    <h2 class="page__heading-h2 swiper-block__label">Royal Enfield News</h2>
-                    <div class="swiper-heading-btn-block">
+                <div class="carousel__title">
+                    <h2 class="page__heading-h2 carousel-title__label">Royal Enfield News</h2>
+                    <div class="carousel-title-btn">
                         <a href="" class="view-all-btn">
                             View all
                         </a>
@@ -434,9 +417,11 @@
 
                 </div>
 
-                <div class="swiper-container carousel__latest-update" data-spacebetween="0">
+                <div class="swiper-container carousel__editorial" data-spacebetween="0">
                     <ul class="swiper-wrapper">
-                        <li class="swiper-slide carousel-slide">
+                        @for (var i = 0; i <= 5; i++)
+                        {
+                          <li class="swiper-slide carousel-slide">
                             <div class="editorial-card">
                                 <a href="" title="" class="editorial-card__target">
                                     <div class="editorial-card__image">
@@ -447,55 +432,41 @@
                                         <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
                                     </div>
                                 </a>
-                                <div class="editorial-card__about-block">
-                                    <span class="editorial-card__author-name">Ranjan B.</span>
-                                    <p class="upcoming-card__date-section">
-                                        <span>2 Dec</span> -
-                                        <span>4 min read</span>
-                                    </p>
+                                <div class="editorial-card__footer">
+                                    <div class="editorial-footer__author-img">
+                                        @{var author = 1;
+                                          if (author == 0)
+                                          {
+                                              <span class="editorial-author_defult-img"></span>
+                                          }
+                                          else
+                                          {
+                                              if (i % 2 == 0)
+                                              {
+                                                <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
+                                              }
+                                              else
+                                              {
+                                                <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
+
+                                              }
+                                          }
+}
+                                    </div>
+                                    <div class="editorial-card__about">
+                                        <span class="editorial-card__author-name">Ranjan B.</span>
+                                        <p class="editorial-card__date-section">
+                                            <span>2 Dec</span> -
+                                            <span>4 min read</span>
+                                        </p>
+                                    </div>
                                 </div>
+
                             </div>
-                        </li>
-                        <li class="swiper-slide carousel-slide">
-                            <div class="editorial-card">
-                                <a href="" title="" class="editorial-card__target">
-                                    <div class="editorial-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                    <div class="editorial-card__detail">
-                                        <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
-                                        <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
-                                    </div>
-                                </a>
-                                <div class="editorial-card__about-block">
-                                    <span class="editorial-card__author-name">Ranjan B.</span>
-                                    <p class="upcoming-card__date-section">
-                                        <span>2 Dec</span> -
-                                        <span>4 min read</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="swiper-slide carousel-slide">
-                            <div class="editorial-card">
-                                <a href="" title="" class="editorial-card__target">
-                                    <div class="editorial-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                    <div class="editorial-card__detail">
-                                        <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
-                                        <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
-                                    </div>
-                                </a>
-                                <div class="editorial-card__about-block">
-                                    <span class="editorial-card__author-name">Ranjan B.</span>
-                                    <p class="upcoming-card__date-section">
-                                        <span>2 Dec</span> -
-                                        <span>4 min read</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
+                        </li>                          
+                        }
+
+
                     </ul>
                 </div>
             </div>
