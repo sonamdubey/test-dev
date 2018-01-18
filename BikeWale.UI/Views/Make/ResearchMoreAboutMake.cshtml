@@ -2,26 +2,36 @@
 
 @if (Model != null)
 {
-    <div class="content-box-shadow section-bottom-margin">
-        <h2 class="sidebar-list-heading">Research More</h2>
+    var makeName = Model.WidgetObj.Make.MakeName;
+    var makeMasking = Model.WidgetObj.Make.MaskingName;
+    
         <ul class="research-more__list">
             @foreach (var bikes in Model.WidgetObj.SeriesList)
             {
                 <li>
-                    <a href="#">TVS Apache Bikes</a>
+                    <a href="@string.Format("/{0}-bikes/{1}/",makeMasking,bikes.MaskingName)" title="@string.Format("{0} {1} Bikes", makeName, bikes.SeriesName)">@string.Format("{0} {1} Bikes", makeName, bikes.SeriesName)</a>
+
                 </li>
             }
            
-           
+           @if (Model.WidgetObj.UsedBikesCount > 0)
+           {
+            <li>
+                <a href="@string.Format("/used/{0}-bikes-in-{1}/", makeMasking,(Model.WidgetObj.City!=null ? Model.WidgetObj.City.CityMaskingName : "india"))" title="@string.Format("Used {0} Bikes in {1}", makeName, (Model.WidgetObj.City != null ? Model.WidgetObj.City.CityName : "India"))">@string.Format("Used {0} Bike{1}", makeName, (Model.WidgetObj.UsedBikesCount > 1 ? "s" : ""))</a>
+            </li>
+           }
             
-                <a href="#">Used @Model.MakeName Bikes</a>
-            </li>
+            @if (Model.WidgetObj.ServiceCentersCount > 0)
+            {
+                <li>
+                    <a href="@string.Format("/service-centers/{0}/{1}", makeMasking, (Model.WidgetObj.City != null ? string.Format("{0}/", Model.WidgetObj.City.CityMaskingName) : ""))" title="@string.Format("{0} Service Centers in {1}", makeName, (Model.WidgetObj.City != null ? Model.WidgetObj.City.CityName : "India"))">@string.Format("{0} Service Center{1}", makeName, (Model.WidgetObj.ServiceCentersCount > 1 ? "s" : ""))</a>
+                </li>
+            }
+               
             <li>
-                <a href="#">@Model.MakeName Service Centers</a>
+                <a href="@string.Format("/best-{0}-in-india/",(Model.WidgetObj.IsScooterOnlyMake ? "scooters" : "bikes"))"> @string.Format("Top 10 {0}", (Model.WidgetObj.IsScooterOnlyMake ? "Scooters" : "Bikes"))</a>
             </li>
-            <li>
-                <a href="#">Top 10 Bikes</a>
-            </li>
+
         </ul>
-    </div>
+   
 }

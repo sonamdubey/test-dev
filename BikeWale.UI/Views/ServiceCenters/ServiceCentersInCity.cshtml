@@ -235,7 +235,7 @@
 					@if (Model.PopularWidgetData != null || Model.UsedBikesByMakeList != null)
 					{
 
-    if (Model.IsShowroomPresentInCity)
+                    <div>
 						@if (Model.PopularWidgetData != null && Model.PopularWidgetData.Bikes != null && Model.PopularWidgetData.Bikes.Count() > 0)
 						{
 						<h2 class="sidebar-list-heading">Popular @Model.Make.MakeName bikes in @Model.City.CityName</h2>

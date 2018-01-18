@@ -14,8 +14,8 @@ namespace Bikewale.Entities.BikeData
         public BikeMakeEntityBase Make { get; set; }
         public CityEntityBase City { get; set; }
         public IEnumerable<BikeSeriesEntity> SeriesList { get; set; }
-        public bool IsUsedBikesAvailable { get; set; }
+        public uint UsedBikesCount { get; set; }
         public bool IsScooterOnlyMake { get; set; }
-        public bool IsServiceCentersAvailable { get; set; }
+        public uint ServiceCentersCount { get; set; }
     }
 }

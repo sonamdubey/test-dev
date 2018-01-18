@@ -692,9 +692,11 @@ namespace Bikewale.Models
                 if (_makeId > 0)
                 {
                     objData.ResearchMoreMakeWidget = new ResearchMoreAboutMakeVM();
+
                     if (cityBase != null && cityBase.CityId > 0)
                     {
                         objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMakeByCity(_makeId, cityBase.CityId);
+                        objData.ResearchMoreMakeWidget.WidgetObj.City = cityBase;
                     }
                     else
                     {

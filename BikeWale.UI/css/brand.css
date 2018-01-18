@@ -1406,3 +1406,12 @@
     width: 106px;
     background-position: -529px 0;
 }
+
+.c-india-icon {
+	width: 64px;
+	height: 70px;
+	display: inline-block;
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/india.png');
+	background-repeat: no-repeat;
+	opacity: .7;
+}
