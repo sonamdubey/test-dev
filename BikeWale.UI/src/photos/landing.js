@@ -180,6 +180,7 @@ docReady(function () {
 	var modelImage = function () {
 	    this.src = ko.observable();
 	    this.alt = ko.observable();
+	    this.title = ko.observable();
 	};
 	var model = function () {
 	    var self = this;
@@ -227,7 +228,8 @@ docReady(function () {
                             var showcasedModelImageList = [];
                             $.each(val.ImagesList, function (index, image) {
                                 var img = new modelImage();
-                                img.alt = val.ModelBase.modelName + ' ' + 'Images';
+                                img.alt = val.MakeBase.makeName + ' ' + val.ModelBase.modelName + ' ' + 'Image';
+                                img.title = val.MakeBase.makeName + ' ' + val.ModelBase.modelName + ' ' + 'Images';
                                 img.src(createImageUrl(image));
                                 showcasedModelImageList.push(img);
                             });
