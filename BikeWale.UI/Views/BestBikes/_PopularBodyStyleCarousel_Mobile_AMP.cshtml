@@ -5,7 +5,11 @@
         {
             string bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);
                 <div class="swiper-card">
-                    <a class="block" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName))" title="@bikeName">
+                    <a class="block position-rel" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName))" title="@bikeName">
+                        @if (bike.IsAdPromoted)
+                        {
+                            <span class="model-category__tag category--newlaunch">Newly Launched</span>
+                        }
                         <div class="swiper-image-preview">
                             <amp-img alt="@bikeName" src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName" width="160" height="90"></amp-img>
                         </div>
