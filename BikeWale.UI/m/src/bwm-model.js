@@ -406,7 +406,6 @@ docReady(function () {
 
 docReady(function () {
 
-    bwcache.setOptions({ 'EnableEncryption': true });
 
     var userEventSource = true;
 
@@ -418,6 +417,9 @@ docReady(function () {
         preloadImages: false,
         lazyLoading: true,
         lazyLoadingInPrevNext: true,
+        onInit: function (swiper) {
+            logBhrighuForImage($('#model-photos-swiper .swiper-slide-active'));
+        },
         onSlideChangeEnd: function (swiper) {
             if (userEventSource) {
                 if (swiper.activeIndex < swiper.previousIndex) {
@@ -787,6 +789,9 @@ docReady(function () {
 	$("#expertReviewsContent").on('click', function () {
 		triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
 	});
+    // For saving page in recently viewed models/make
+	if (typeof pageData != "undefined" && pageData != null)
+	    recentSearches.saveRecentSearches(pageData);
 
 }
 );

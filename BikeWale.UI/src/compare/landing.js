@@ -11,7 +11,7 @@ var bikeDetails = new Array();
 docReady(function () {
     bwcache.removeAll(true);
     bwcache.setScope('CLPage');
-    bwcache.setOptions({ 'EnableEncryption': true });
+
     var bikeComparisonBox = document.getElementById('bike-comparison-box');
 
     $('.comparison-type-carousel .jcarousel-control-prev').jcarouselControl({

@@ -663,7 +663,7 @@
 
 /* overflow sidebar list */
 .sidebar-list--overflow .sidebar-bike-list {
-	height: 320px;
+	max-height: 320px;
 	overflow-y: scroll;
 }
 

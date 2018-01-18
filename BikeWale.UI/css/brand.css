@@ -474,15 +474,36 @@
 /*Compare carousel*/
 
 .inner-content-carousel.comparison-type-carousel .jcarousel {
-    left: 17px !important;
+	left: 17px !important;
 }
 .comparison-type-carousel.inner-content-carousel .jcarousel li {
-    width: 453px;
-    min-height: 295px;
+	width: 450px;
+	min-height: 295px;
+	margin-right: 20px;
+	box-shadow: none;
+	border: 0;
+}
+.comparison-type-carousel.inner-content-carousel .jcarousel li:last-child {
+	width: 470px;
+	padding-right: 20px;
 }
 .comparison-type-carousel .card-target {
-    padding: 20px 10px;
-    display: block;
+	padding: 20px 10px;
+	display: block;
+	border: 1px solid #f6f6f6;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	-ms-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+}
+.comparison-type-carousel .jcarousel:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%);
+	width: 20px;
+	height: 100%;
 }
 .comparison-type-carousel .model-img-content {
     width: 189px;
@@ -963,17 +984,12 @@
 
 .video-carousel .inner-content-carousel {
 	width: 644px;
-    padding-top: 20px
+  padding-top: 20px
 }
 
 .carousel-type--videos.inner-content-carousel .video-article__card {
     width: 292px;
     height: 255px;
-    margin-left: 20px
-}
-
-.jcarousel .video-article__card:first-child {
-    margin-left: 20px;
 }
 
 .jcarousel .video-article__card:last-child .carousel-card {
@@ -1114,14 +1130,14 @@
 }
 
 .carousel-type--videos.jcarousel-wrapper .jcarousel {
-    width: 100%;
-    left: 0;
-    padding-left: 0;
-    padding-right: 0
+	width: 600px;
+	left: 20px !important;
+	padding-left: 0;
+	padding-right: 0
 }
 
 .carousel-type--videos.inner-content-carousel .jcarousel li {
-    margin-right: 0;
+    margin-right: 16px;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -1139,7 +1155,7 @@
 @media only screen and (max-width: 1024px) {
 	.carousel-type--videos.inner-content-carousel .jcarousel li {
 		width: 280px !important;
-		margin-right: 0 !important;
+		margin-right: 16px !important;
 	}
 
 	#makeOverallTabs.overall-floating-tabs {
@@ -1151,7 +1167,7 @@
 	}
 
 	.grid-8 .inner-content-carousel .jcarousel {
-		width: 600px !important;
+		width: 580px !important;
 	}
 }
 
@@ -1414,4 +1430,6 @@
 	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/india.png');
 	background-repeat: no-repeat;
 	opacity: .7;
+
+
 }

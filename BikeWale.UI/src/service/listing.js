@@ -204,9 +204,16 @@ docReady(function () {
         }
         else {
             if (attemptCount < 4) {
+                var obj = {
+                    "mobilenumber":inputbox.val(),
+                    "pageurl":window.location.href.replace('&', '%26'),
+                    "id": serviceCenterId
+                }
                 $.ajax({
                     type: "POST",
-                    url: "/api/servicecenter/" + serviceCenterId + "/details/sms/?mobile=" + inputbox.val() + "&pageUrl=" + window.location.href.replace('&', '%26'),
+                    url: "/api/servicecenter/",
+                    contentType: "application/json",
+                    data: ko.toJSON(obj),
                     success: function (response) {
                         if (response == 2) {
                             captureLeadMobile.checkAttempts(10, listItem);

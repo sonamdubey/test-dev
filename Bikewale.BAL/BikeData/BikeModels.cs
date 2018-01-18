@@ -219,13 +219,15 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData)
         {
             IEnumerable<MostPopularBikesBase> objList = null;
+       
+            objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
 
-            objList = _modelCacheRepository.GetAdPromotedBike(ObjData);
+            objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
 
             return objList;
 
         }
-        public IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> promotedBikes, IEnumerable<MostPopularBikesBase> MostPopularBikes, uint TopCount)
+        public IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> promotedBikes, IEnumerable<MostPopularBikesBase> MostPopularBikes)
         {
 
             IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(MostPopularBikes.Take(5), new MostPopularBikesBaseComparer());
@@ -234,13 +236,13 @@ namespace Bikewale.BAL.BikeData
             {
                 var bikes = MostPopularBikes.ToList();
                 bikes.Insert(0, results.ElementAt(0));
-                if (results.Count() == 2)
+                if (results.Count() >= 2)
                 {
                     bikes.Insert(1, results.ElementAt(1));
                 }
                 MostPopularBikes = bikes;
             }
-            return MostPopularBikes.Take((int)TopCount);
+            return MostPopularBikes;
         }
 
         public Hashtable GetMaskingNames()

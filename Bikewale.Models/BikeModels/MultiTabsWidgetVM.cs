@@ -50,6 +50,8 @@ namespace Bikewale.Models.BikeModels
         PopularMakeScootersAndOtherBrands = 5,
         PopularScootersAndUpcomingScooters = 6,
         PopularSeriesAndBodyStyleWidget = 7,
-        PopularUpcomingBodyStyleWidget = 8
+        PopularUpcomingBodyStyleWidget = 8,
+        SeriesBikesAndModelBodyStyleBike = 9,
+        SeriesBikesAndOtherBrands = 10
     }
 }

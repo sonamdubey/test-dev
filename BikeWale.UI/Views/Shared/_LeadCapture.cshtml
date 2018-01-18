@@ -38,7 +38,7 @@
             </div>
             <!-- /ko -->
             <div class="input-box form-control-box personal-info-list">
-                <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName" tabindex="1">
+                <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName" tabindex="1" maxlength="50">
                 <label for="getFullName">Name<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
@@ -52,13 +52,13 @@
                 <span class="error-text"></span>
             </div>
             <div class="input-box form-control-box personal-info-list" data-bind="visible : emailRequired() && (mfgCampaignId() > 0)">
-                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="3">
+                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="3" maxlength="50">
                 <label for="getEmailID">Email<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
             <div id="getPincode-input-box" class="input-box form-control-box personal-info-list" data-bind="visible : pinCodeRequired()">
-                <input type="text" id="getPinCode" autocomplete="off" tabindex="4">
+                <input type="text" id="getPinCode" autocomplete="off" tabindex="4" maxlength="6">
                 <label for="getPinCode">Pincode<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>

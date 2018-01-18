@@ -3,7 +3,6 @@ ga_pg_id = '3';
 var dt = '';
 
 docReady(function () {
-
     if ($("#discontinuedMore a") && $("#discontinuedMore a").length > 4) {
         $('#discontinuedMore').hide();
     }
@@ -308,4 +307,7 @@ docReady(function () {
         bikeName = bikeName.replace(/\s+/, '_');
         triggerGA("MakePage", "Clicked_on_ModelCard", cookieValue + "_" + bikeName);
     });
+    // For saving page in recently viewed models/make
+    if (typeof pageData != "undefined" && pageData != null)
+        recentSearches.saveRecentSearches(pageData);
 });

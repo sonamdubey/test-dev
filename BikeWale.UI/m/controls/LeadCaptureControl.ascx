@@ -35,7 +35,7 @@
                 </div>
                 <!-- /ko -->
                 <div class="input-box form-control-box margin-bottom15">
-                    <input type="text" id="getFullName" data-bind="textInput: fullName">
+                    <input type="text" id="getFullName" data-bind="textInput: fullName" maxlength="50">
                     <label for="getFullName">Name<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text hide"></span>

@@ -1559,7 +1559,22 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetAdPromotedBike bikeFilters = {0}", bikeFilters));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetAdPromotedBike"));
+            }
+            return mostPopularBikes;
+        }
+        public IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters)
+        {
+            IEnumerable<MostPopularBikesBase> mostPopularBikes = null;
+            string key = string.Empty;
+            try
+            {
+                key = "BW_AdPromotedBike";
+                mostPopularBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetAdPromotedBikeWithOutCity(bikeFilters));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetAdPromotedBike"));
             }
             return mostPopularBikes;
         }

@@ -19,6 +19,9 @@
         try {
             if (returnUrl && returnUrl.length > 0) {
                 popupGallery.bindGallery(imageIndex);
+                if (typeof (logBhrighuForImage) != "undefined" && imageIndex <= 0) {
+                    logBhrighuForImage($('#main-photo-swiper .swiper-slide-active'));
+                }
             }
 
 
@@ -26,7 +29,7 @@
                 if (photoCount > 1) {
                     galleryRoot.find('.gallery-loader-placeholder').show();
 
-                    if (typeof (logBhrighuForImage) != "undefined")
+                    if (typeof (logBhrighuForImage) != "undefined" && imageIndex <= 0)
                     {
                         //included in gallery js
                         logBhrighuForImage($(this));

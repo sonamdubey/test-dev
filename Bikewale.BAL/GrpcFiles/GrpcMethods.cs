@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -5,8 +7,6 @@ using EditCMSWindowsService.Messages;
 using Grpc.Core;
 using GRPCLoadBalancer;
 using log4net;
-using System;
-using System.Diagnostics;
 
 namespace Grpc.CMS
 {
@@ -719,9 +719,81 @@ namespace Grpc.CMS
             }
             finally
             {
-                if (_logGrpcErrors)
+                if (_logGrpcErrors && sw != null)
                 {
 
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetModelPhotosList took " + sw.ElapsedMilliseconds);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 10th Jan 2018
+        /// Description : Get list of images for provided models
+        /// </summary>
+        /// <param name="applicationId"></param>
+        /// <param name="modelIds"></param>
+        /// <param name="categoryIds"></param>
+        /// <param name="requiredImageCount"></param>
+        /// <returns></returns>
+        public static GrpcModelsImageList GetModelsImages(int applicationId, string modelIds, string categoryIds, int requiredImageCount)
+        {
+            Stopwatch sw = null;
+
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+
+                            return client.GetModelsImages
+                                (new GrpcModelListPhotoURI()
+                                {
+                                    ApplicationId = applicationId,
+                                    ModelIds = modelIds,
+                                    CategoryIds = categoryIds,
+                                    RequiredImageCount = requiredImageCount
+                                },
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
+                    }
+                    else
+                        break;
+                }
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors && sw != null)
+                {
                     sw.Stop();
                     if (sw.ElapsedMilliseconds > _msLimit)
                         log.Error("Error105 GetModelPhotosList took " + sw.ElapsedMilliseconds);

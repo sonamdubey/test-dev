@@ -18,7 +18,16 @@
                        <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                     </li>
                 </ul>
-                <ul id="global-recent-searches" class="recent-searches-dropdown"></ul>
+                <div id="global-search-section" class="bg-white hide">
+                    <div id="history-search">
+                        <div class="search-title">Recently Viewed</div>
+                        <ul id="global-recent-searches" class="recent-searches-dropdown bw-ui-menu"></ul>
+                    </div>
+                    <div id="trending-search">
+                        <div class="search-title">Trending Searches</div>
+                        <ul id="trending-bikes" class="recent-searches-dropdown bw-ui-menu"></ul>
+                    </div>
+                </div>
             </div>
             <div class="global-location">
                 <div class="gl-default-stage">
