@@ -522,12 +522,11 @@ namespace Bikewale.BAL.BikeData
                         var images = colorImages.GroupBy(m => m.Model.ModelId);
                         foreach (var img in modelsImages)
                         {
-
                             var cmsImages = img.ModelImage.ToList();
-                            img.RecordCount += img.ModelImage.Count();
                             var image = images.Where(m => m.Key == img.ModelId).FirstOrDefault();
                             if (image != null && image.Any())
                             {
+                                img.RecordCount += image.Count();
                                 cmsImages.AddRange(ConvertToModelImages(image));
                                 img.ModelImage = cmsImages.Take(requiredImageCount);
                             }
@@ -549,12 +548,6 @@ namespace Bikewale.BAL.BikeData
                             };
                             modelsImages.Add(img);
                         }
-                    }
-                    foreach (var curImage in modelsImages)
-                    {
-                        var photoObj = colorImages.Where(x => x.Model.ModelId == curImage.ModelId).FirstOrDefault();
-                        if (photoObj != null)
-                            curImage.RecordCount = photoObj.PhotosCount;
                     }
                     modelsImages = modelsImages.OrderBy(m => Array.IndexOf(modelIdsArray, m.ModelId)).ToList();
                 }
