@@ -133,7 +133,7 @@
                 case 4:
                     return String.Format("googletag.defineSlot('{0}970x90_BTF', [[970, 200],[970, 150],[960, 60], [970, 66], [960, 90], [970, 60], [728, 90], [970, 90], [960, 66]], 'div-gpt-ad-{1}-4').addService(googletag.pubads());", adPath, adId);
                 case 5:
-                    return String.Format("googletag.defineSlot('{0}Bottom_970x90', [[970, 60], [960, 90], [970, 66], [960, 66], [728, 90], [970, 90], [950, 90], [960, 60]], 'div-gpt-ad-{1}-5').addService(googletag.pubads());", adPath, adId);
+                    return String.Format("googletag.defineSlot('{0}_Bottom_970x90', [[970, 60], [960, 90], [970, 66], [960, 66], [728, 90], [970, 90], [950, 90], [960, 60]], 'div-gpt-ad-{1}-5').addService(googletag.pubads());", adPath, adId);
                 case 6:
                     return String.Format("googletag.defineSlot('{0}FirstSlot_976x400',[[976, 150], [976, 100], [976, 250], [976, 300], [976, 350], [976, 400], [970, 90], [976, 200]],'div-gpt-ad-{1}-6').addService(googletag.pubads());", adPath, adId);
                 case 7:
@@ -156,6 +156,8 @@
                     return "googletag.defineSlot('/1017752/Bikewale_Desktop_PQ_292x359', [292, 359], 'div-gpt-ad-1506343636197-15').addService(googletag.pubads()); ";
                 case 16:
                     return "googletag.defineSlot('/1017752/Bikewale_BestBikes_Widget_Desktop_292x360',[292, 360], 'div-gpt-ad-1507278280998-16').addService(googletag.pubads()); ";
+                case 17:
+                    return String.Format("googletag.defineSlot('{0}_Top_970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-{1}-17').addService(googletag.pubads());", adPath, adId);
 
                 default:
                     return "";
@@ -201,7 +203,8 @@
         @if(Model.AdTags.Ad_976x400_Middle){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x399){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x359){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}        
+        @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}  
+        @if(Model.AdTags.Ad_970x90Top){@Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
@@ -270,15 +273,15 @@
         <div class="clear"></div>
     </div> <!-- ends here -->
     <div class="clear"></div>
-    @if (Model.AdTags.Ad_970x90)
+    @if (Model.AdTags.Ad_970x90Top)
     {
         <div class="bg-white ">
             <div class="container">
                 <div class="grid-12">
                     <div>
-                        <div id='div-gpt-ad-@Model.AdTags.AdId-3' class="margin-bottom15 margin-top10 text-center">
+                        <div id='div-gpt-ad-@Model.AdTags.AdId-17' class="margin-bottom15 margin-top10 text-center">
                             <script type='text/javascript'>
-                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-3'); });
+                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-17'); });
                             </script>
                         </div>
                     </div>
