@@ -297,7 +297,7 @@ namespace Bikewale.Models.DealerShowroom
         private NearByCityDealer BindOtherDealerInCitiesWidget()
         {
             NearByCityDealer objDealer = new NearByCityDealer();
-            uint topCount = 9;
+            uint topCount = (uint)(IsMobile ? 9 : 6);
             try
             {
                 objDealer.objDealerInNearCityList = _objDealerCache.FetchNearByCityDealersCount(makeId, cityId);
