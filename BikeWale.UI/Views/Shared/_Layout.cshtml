@@ -160,6 +160,8 @@
                     return string.Format("googletag.defineSlot('{0}Bottom_970x90',[[950, 90], [728, 90], [960, 60], [970, 60], [970, 90], [960, 90]],'div-gpt-ad-{1}-17').addService(googletag.pubads());", adPath, adId);
                 case 18:
                     return string.Format("googletag.defineSlot('{0}Comparo_976x400',[[976, 250], [976, 460], [976, 400], [976, 300], [976, 450]],'div-gpt-ad-{1}-18').addService(googletag.pubads());", adPath, adId);
+                case 19:
+                    return String.Format("googletag.defineSlot('{0}Top_970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-{1}-17').addService(googletag.pubads());", adPath, adId);
                 default:
                     return "";
             }
@@ -204,7 +206,8 @@
         @if(Model.AdTags.Ad_976x400_Middle){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x399){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x359){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}  
+        @if(Model.AdTags.Ad_970x90Top){@Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
@@ -276,15 +279,15 @@
         <div class="clear"></div>
     </div> <!-- ends here -->
     <div class="clear"></div>
-    @if (Model.AdTags.Ad_970x90)
+    @if (Model.AdTags.Ad_970x90Top)
     {
         <div class="bg-white ">
             <div class="container">
                 <div class="grid-12">
                     <div>
-                        <div id='div-gpt-ad-@Model.AdTags.AdId-3' class="margin-bottom15 margin-top10 text-center">
+                        <div id='div-gpt-ad-@Model.AdTags.AdId-17' class="margin-bottom15 margin-top10 text-center">
                             <script type='text/javascript'>
-                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-3'); });
+                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-17'); });
                             </script>
                         </div>
                     </div>

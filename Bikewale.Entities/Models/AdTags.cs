@@ -21,6 +21,7 @@ namespace Bikewale.Models
         public string TargetedTags { get; set; }
 
         public bool Ad_970x90 { get; set; }
+        public bool Ad_970x90Top { get; set; }
         public bool Ad_970x90BTF { get; set; }
         public bool Ad_970x90Bottom { get; set; }
 
@@ -49,6 +50,7 @@ namespace Bikewale.Models
 
         public bool Ad_Mid_320x50 { get; set; }
         public bool Ad_320x50 { get; set; }
+        public bool Ad_320x50Top { get; set; }
         public bool Ad_Bot_320x50 { get; set; }
         public bool Ad320x150_Top { get; set; }
         public bool Ad320x150_Bottom { get; set; }
