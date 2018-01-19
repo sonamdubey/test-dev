@@ -299,11 +299,7 @@
             <div class="container">
                 <div class="grid-12">
                     <div>
-                        <div id='div-gpt-ad-@string.Format("{0}-10", Model.AdTags.AdId)' class="margin-bottom15 margin-top10 text-center">
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@string.Format("{0}-10", Model.AdTags.AdId)'); });
-                            </script>
-                        </div>
+                        @{Html.RenderPartial("~/Views/Shared/Ads/Desktop/Model_ATF_970x90.cshtml", Model.AdTags);}
                     </div>
                 </div>
                 <div class="clear"></div>
