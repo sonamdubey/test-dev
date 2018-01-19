@@ -108,7 +108,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
         <div class="clear"></div>
     </div>
 }
-@if (Model.AdTags.Ad_300x250BTF && !Model.IsUpcomingBike)
+@if (Model.AdTags.Ad_300x250BTF)
 {
     <div class="margin-bottom20 text-center">
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
