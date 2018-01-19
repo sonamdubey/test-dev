@@ -1,5 +1,6 @@
 ﻿$count-color: #ff5500
 $article-section__count: #d5d5d5
+$link-color: #0288d1
 
 .review-card
 	@include card
@@ -14,7 +15,7 @@ $article-section__count: #d5d5d5
 
 .article-section__count
 	color: color('light-grey')
-	padding: 20px 38px 25px
+	padding: 20px 38px 20px
 	font-size: 16px
 	text-align: center
 	position: relative
@@ -42,32 +43,52 @@ $article-section__count: #d5d5d5
 	font-weight: $font-bold
 	padding-top: 10px
 	padding-bottom: 7px
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
 
-.review-card__target-link
+.review-card__read-more
+	color: $link-color;
 	font-size: 14px
 	display: inline-block
-	margin-top: 15px
+	padding-top: 15px
 	font-weight: $font-semibold
+	
+	&:hover
+		text-decoration: none
 
+.review-card__target-link
+	display: block
+	padding-bottom: 20px
+	color: color('default')
 
+	&:hover
+		text-decoration: none
 
+.review-section
+	.page__heading-h2
+		padding: 25px 20px 0 60px
+		overflow: hidden
+		white-space: nowrap
+		text-overflow: ellipsis
+
+		&:before
+			content: ''
+			display: block
+			height: 25px
+			width: 32px
+			@include review-icon
+			position: absolute
+			left: 16px
 
 @mixin expert-review
-	.expert-review-section
-		.page__heading-h2
-			padding: 25px 20px 0 60px
-			overflow: hidden
-			white-space: nowrap
-			text-overflow: ellipsis
+	@include review-carousel-card()
+	@include card-category__tag-code()
+	@include review-author()
 
-			&:before
-				content: ''
-				display: block
-				height: 25px
-				width: 32px
-				@include review-icon
-				position: absolute
-				left: 16px
+	.expert-review-section
+		.carousel-title__label
+			font-size: 16px
 
 	.carousel__expert-review
 		padding: 5px 20px 20px 0
@@ -81,16 +102,13 @@ $article-section__count: #d5d5d5
 				margin-left: 6px	
 
 	.card-category__tag
+		font-size: 12px
 		position: relative
-		background-color: grey
-	
-		&:before
-			left: 38px
-			top: 3px
 
 	.review-card__desc
 		color: color('light-grey')
 		font-size: 13px
+		margin-top: 7px
 		line-height: 1.69
 
 	.review-card__about
@@ -103,8 +121,6 @@ $article-section__count: #d5d5d5
 	.review-card__date
 		font-size: 10px
 		color: color('light-grey')
-
-	@include review-author()
 
 @mixin review-author($width: 40px, $height: 40px)
 	.review-card__author
@@ -142,10 +158,10 @@ $article-section__count: #d5d5d5
 @mixin user-review($width: 217px, $height: 192px)
 	.carousel__user-review
 		.review-card
-			padding: 0 0 20px
+			padding: 0
 
 	.review-card__title
-		padding-bottom: 0
+		padding: 10px 10px 0
 
 	.carousel__user-review
 		padding: 5px 20px 20px 0
@@ -156,7 +172,11 @@ $article-section__count: #d5d5d5
 			padding-left: 10px
 
 			&:first-child
-				margin-left: 6px	
+				margin-left: 6px
+				
+	.user-review-section
+		.carousel-title__label
+			font-size: 16px	
 	
 	@include review-card__image()
 

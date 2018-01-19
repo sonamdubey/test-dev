@@ -1,24 +1,53 @@
-﻿.card-category__tag
-	&:before
-		content: ''
-		display: block
-		position: absolute
-		left: 8px
-		top: 5px
-		width: 15px
-		height: 13px
+﻿@mixin carousel-card-category
+	.card-category__tag
+		&:before
+			content: ''
+			display: block
+			position: absolute
+			left: 8px
+			top: 5px
+			width: 15px
+			height: 13px
 
-.carousel-card[data-review-category='40']
-	.card-category__tag
-		&:before
-			@include star-white
-.carousel-card[data-review-category='24']
-	.card-category__tag
-		&:before
-			@include flag-white
+	.carousel-card[data-review-category='40']
+		.card-category__tag
+			&:before
+				@include star-white
+	.carousel-card[data-review-category='24']
+		.card-category__tag
+			&:before
+				@include flag-white
 
-.carousel-card[data-review-category='23']
+	.carousel-card[data-review-category='23']
+		.card-category__tag
+			&:before
+				@include helmet-white
+				top: 4px
+
+@mixin review-carousel-card()
 	.card-category__tag
+		padding-left: 20px
+
 		&:before
-			@include helmet-white
-			top: 4px
+			content: ''
+			display: block
+			position: absolute
+			width: 15px
+			height: 13px
+			top: 2px
+			left: 0
+
+
+	.carousel-card[data-review-category='40']
+		.card-category__tag
+			&:before
+				@include star-white
+	.carousel-card[data-review-category='24']
+		.card-category__tag
+			&:before
+				@include flag-white
+
+	.carousel-card[data-review-category='23']
+		.card-category__tag
+			&:before
+				@include helmet-teal

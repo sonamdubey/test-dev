@@ -47,3 +47,17 @@
 		
 			&:after
 				border-top-color: $color3
+
+
+@mixin card-category__tag-code($color1: #68c7d2, $color2: #f2aa58, $color3: #57abeb)
+	.carousel-card[data-review-category='40']
+		.card-category__tag
+			color: $color1
+
+	.carousel-card[data-review-category='24']
+		.card-category__tag
+			color: $color2
+
+	.carousel-card[data-review-category='23']
+		.card-category__tag
+			color: $color3

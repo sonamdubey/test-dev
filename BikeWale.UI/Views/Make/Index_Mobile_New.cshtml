@@ -347,12 +347,9 @@
             <div class="bg-white section-bottom-margin latest-update-section">
                 <div class="carousel__title">
                     <h2 class="page__heading-h2 carousel-title__label"> Latest Updates</h2>
-                    <div class="carousel-title-btn">
-                        <a href="" class="view-all-btn">
-                            View all
-                        </a>
-                    </div>
-
+                    <a href="" class="view-all-btn">
+                        View all
+                    </a>
                 </div>
 
                 <div class="swiper-container carousel__editorial" data-spacebetween="0">
@@ -404,17 +401,87 @@
                 </div>
             </div>
         </section>
+        <section>
+            <div class="bg-white section-bottom-margin dealer-section">
+                <div class="carousel__title">
+                    <h2 class="carousel-title__label">Dealer / Stores</h2>
+                    <a href="" class="view-all-btn">
+                        View all
+                    </a>
+                </div>
+                <p class="dealer-section__note">
+                    Showing Dealer/Store results from
+                    <a href="" title="" class="dealer-note__link">
+                        All India
+                    </a>
+                </p>
+                <div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
+                    <ul class="swiper-wrapper">
+                        @for (var i = 0; i <= 5; i++)
+                        {
+                            <li class="swiper-slide carousel-slide">
+                                <div class="dealer-in-city-card carousel-card">
+                                    <h3 class="dealer-in-city__title">
+                                        Executive Bajaj
+                                    </h3>
+                                    <p class="dealer-in-city__state">Andheri (E)</p>
+                                    <p class="dealer-in-city__address">Shop No. 21 & 22, Plot no. 18/19, Satyam Tower, Sector 20,</p>
+                                    <div class="dealer-in-city__know-more">
+                                        <a href="tel:+91 9845477722" title="" class="dealer-in-city__contact">
+                                            +91 9845477722
+                                        </a>
+                                        <a href="" title="" class="dealer-in-city__direction">
+                                            Get Directions
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
 
+
+                    </ul>
+                </div>
+
+                <div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
+                    <ul class="swiper-wrapper">
+                        @for (var i = 0; i <= 5; i++)
+                        {
+                            <li class="swiper-slide carousel-slide">
+                                <div class="dealer-by-city-card carousel-card">
+                                    <a href="" title="" class="dealer-by-city__target-link">
+                                        <div class="dealer-city__image">
+                                            <span class="city-sprite @((i%2==0)?"mumbai-icon": "kolkata-icon")"></span>
+                                        </div>
+                                        <div class="dealer-city__detail">
+                                            <span class="dealer-city__count">10</span>
+                                            <div class="dealer-city__text">
+                                                Dealers in
+                                                @if (i % 2 == 0)
+                                                {
+                                                    <p class="dealer-city__name">mumbai</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="dealer-city__name">Pimpri-Chinchwad</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </section>
         <section>
             <div class="bg-white section-bottom-margin latest-news-section">
                 <div class="carousel__title">
                     <h2 class="page__heading-h2 carousel-title__label">Royal Enfield News</h2>
-                    <div class="carousel-title-btn">
-                        <a href="" class="view-all-btn">
-                            View all
-                        </a>
-                    </div>
-
+                    <a href="" class="view-all-btn">
+                        View all
+                    </a>
                 </div>
 
                 <div class="swiper-container carousel__editorial" data-spacebetween="0">
@@ -474,161 +541,112 @@
 
 
         <section>
-            <div class="bg-white section-bottom-margin expert-review-section">
-                <div class="page__heading-h2">Royal Enfield Reviews</div>
-                <div class="carousel__title">
-                    <h2 class="carousel-title__label">Expert Reviews</h2>
-                    <div class="carousel-title-btn">
+            <div class="bg-white section-bottom-margin review-section">
+                <h2 class="page__heading-h2">Royal Enfield Reviews</h2>
+                <section class="expert-review-section">
+                    <div class="carousel__title">
+                        <h3 class="carousel-title__label">Expert Reviews</h3>
                         <a href="" class="view-all-btn">
                             View all
                         </a>
                     </div>
-
-                </div>
-                <div class="article-section__count">
-                    <span class="article-count__number">32</span>&nbsp;Expert Review Articles for <span class="article-count__number">14</span>&nbsp;Models 
-                </div>
-                <div class="swiper-container carousel__expert-review" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (var i = 0; i <= 5; i++)
-                        {
-                            <li class="swiper-slide carousel-slide">
-                                <div class="review-card carousel-card" data-review-category="40">
-                                    <p class="card-category__tag">
-                                        First Ride Review
-                                    </p>
-                                    <h3 class="review-card__title">
-                                        TVS Apache RR 310
-                                    </h3>
-                                    <p class="review-card__desc">
-                                    “Style is very good in terms offering and sporty look. Engine per...”
-                                    </p>
-                                    <div class="review-card__about">
-                                        <div class="review-card__author">
-                                            @{
-                                                if (i == 0)
-                                                {
-                                                    <span class="review-author_defult-img"></span>
-                                                }
-                                                else
-                                                {
-                                                    if (i % 2 == 0)
-                                                    {
-                                                    <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
-                                                    }
-                                                    else
-                                                    {
-                                                        <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
-
-                                                    }
-                                                }
-}
-                                        </div>
-                                        <p class="review-card__author-name">Ranjan B.</p>
-                                        <p class="review-card__date">
-                                            3 days ago
-                                        </p>
-                                    </div>
-
-                                    <a class="review-card__target-link" href="" title="">
-                                        Read full reivew
-                                    </a>
-                                </div>
-                            </li>
-                        }
-
-
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-
-        <section>
-            <div class="bg-white section-bottom-margin user-review-section">
-                <div class="carousel__title">
-                    <h2 class="carousel-title__label">user Reviews</h2>
-                    <div class="carousel-title-btn">
-                        <a href="" class="view-all-btn">
-                            View all
-                        </a>
+                    <div class="article-section__count">
+                        <span class="article-count__number">32</span>&nbsp;Expert Review Articles for <span class="article-count__number">14</span>&nbsp;Models
                     </div>
-
-                </div>
-                <div class="article-section__count">
-                    <span class="article-count__number">32</span>&nbsp;User Review Articles for <span class="article-count__number">14</span>&nbsp;Models
-                </div>
-                <div class="swiper-container carousel__user-review" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (var i = 0; i <= 5; i++)
-                        {
-                            <li class="swiper-slide carousel-slide">
-                                <div class="review-card carousel-card">
-                                    <div class="review-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                    <h3 class="review-card__title">
-                                        TVS Apache RR 310
-                                    </h3>
-                                    <a class="review-card__target-link" href="" title="">
-                                        40 Review
-                                    </a>
-                                </div>
-                            </li>
-                        }
-
-
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-
-        <section>
-            <div class="bg-white section-bottom-margin dealer-section">
-                <div class="carousel__title">
-                    <h2 class="carousel-title__label">Dealer / Stores</h2>
-                    <div class="carousel-title-btn">
-                        <a href="" class="view-all-btn">
-                            View all
-                        </a>
-                    </div>
-
-                </div>
-                <p class="dealer-section__note">
-                    Showing Dealer/Store results from 
-                    <a href="" title="">
-                        All India
-                    </a>
-                </p>
-                <div class="swiper-container carousel__specific-dealer" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (var i = 0; i <= 5; i++)
-                        {
-                            <li class="swiper-slide carousel-slide">
-                                <div class="specific-dealer-card carousel-card">
-                                    <h3 class="specific-dealer__title">
-                                        Executive Bajaj
-                                    </h3>
-                                    <p class="specific-dealer__state">Andheri (E)</p>
-                                    <p class="specific-dealer__address">Shop No. 21 & 22, Plot no. 18/19, Satyam Tower, Sector 20,</p>
-                                    <div class="specific-dealer__know-more">
-                                        <span class="specific-dealer__contact"> 
-                                            +91 9845477722
+                    <div class="swiper-container carousel__expert-review" data-spacebetween="0">
+                        <ul class="swiper-wrapper">
+                            @for (var i = 0; i <= 5; i++)
+                            {
+                                <li class="swiper-slide carousel-slide">
+                                    <div class="review-card carousel-card" data-review-category="@((i==0)?"23": (i==1)?"24":"40")">
+                                        <span class="card-category__tag">
+                                            First Ride Review
                                         </span>
-                                        <a href="" title="" class="specific-dealer__direction">
-                                            Get Directions
+                                        <h3 class="review-card__title">
+                                            TVS Apache RR 310
+                                        </h3>
+                                        <p class="review-card__desc">
+                                            “Style is very good in terms offering and sporty look. Engine per...”
+                                        </p>
+                                        <div class="review-card__about">
+                                            <div class="review-card__author">
+                                                @{
+                                if (i == 0)
+                                {
+                                    <span class="review-author_defult-img"></span>
+                                }
+                                else
+                                {
+                                    if (i % 2 == 0)
+                                    {
+                                        <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
+                                    }
+                                    else
+                                    {
+                                        <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
+
+                                    }
+                                }
+                                                }
+                                            </div>
+                                            <p class="review-card__author-name">Ranjan B.</p>
+                                            <p class="review-card__date">
+                                                3 days ago
+                                            </p>
+                                        </div>
+
+                                        <a class="review-card__read-more" href="" title="">
+                                            Read full reivew
                                         </a>
                                     </div>
-                                </div>
-                            </li>
-                        }
+                                </li>
+                            }
 
 
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bg-white user-review-section">
+                        <div class="carousel__title">
+                            <h2 class="carousel-title__label">user Reviews</h2>
+                                <a href="" class="view-all-btn">
+                                    View all
+                                </a>
+                        </div>
+                        <div class="article-section__count">
+                            <span class="article-count__number">32</span>&nbsp;User Review Articles for <span class="article-count__number">14</span>&nbsp;Models
+                        </div>
+                        <div class="swiper-container carousel__user-review" data-spacebetween="0">
+                            <ul class="swiper-wrapper">
+                                @for (var i = 0; i <= 5; i++)
+                                {
+                                    <li class="swiper-slide carousel-slide">
+                                        <div class="review-card carousel-card">
+                                            <a href="" title="" class="review-card__target-link">
+                                                <div class="review-card__image">
+                                                    <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                                </div>
+                                                <h3 class="review-card__title">
+                                                    TVS Apache RR 310
+                                                </h3>
+                                                <span class="review-card__read-more">
+                                                    40 Review
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                }
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
+
     </div>
 </section>
 
