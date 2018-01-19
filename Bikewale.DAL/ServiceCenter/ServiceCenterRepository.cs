@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.Location;
+using Bikewale.Entities.MobileVerification;
 using Bikewale.Entities.service;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.ServiceCenter;
@@ -386,9 +387,9 @@ namespace Bikewale.DAL.ServiceCenter
         /// Created By : Sajal Gupta on 15/11/2016
         /// Description: DAL layer Function for fetching service center details for sending sms.
         /// </summary>     
-        public ServiceCenterSMSData GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber)
+        public SMSData GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber)
         {
-            ServiceCenterSMSData objSMSData = null;
+            SMSData objSMSData = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getservicecenteraddress"))
@@ -401,7 +402,7 @@ namespace Bikewale.DAL.ServiceCenter
                     {
                         if (dr != null)
                         {
-                            objSMSData = new ServiceCenterSMSData();
+                            objSMSData = new SMSData();
                             int status;
                             if (dr.Read())
                             {
@@ -410,7 +411,7 @@ namespace Bikewale.DAL.ServiceCenter
                                 {
                                     if (dr.NextResult() && dr.Read())
                                     {
-                                        objSMSData.SMSStatus = EnumServiceCenterSMSStatus.Success;
+                                        objSMSData.SMSStatus = EnumSMSStatus.Success;
                                         objSMSData.Name = Convert.ToString(dr["name"]);
                                         objSMSData.Address = Convert.ToString(dr["address"]);
                                         objSMSData.Phone = Convert.ToString(dr["phone"]);
@@ -421,7 +422,7 @@ namespace Bikewale.DAL.ServiceCenter
                                 }
                                 else if (status == 2)
                                 {
-                                    objSMSData.SMSStatus = EnumServiceCenterSMSStatus.Daily_Limit_Exceeded;
+                                    objSMSData.SMSStatus = EnumSMSStatus.Daily_Limit_Exceeded;
                                 }
                                 dr.Close();
                             }

@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.MobileVerification;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
@@ -1101,6 +1102,65 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass.LogError(ex, string.Format("DealersRepository.GetBikeVersionPrice. dealerId = {0}, versionId = {1}", dealerId, versionId));
             }
             return versionPrice;
+        }
+
+        /// <summary>
+        /// Created by Snehal Dange on 18TH Jan 2018
+        /// Descritpion:DAL layer Function for fetching dealer details for sending sms.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="mobileNumber"></param>
+        /// <returns></returns>
+        public SMSData GetDealerShowroomSMSData(uint dealerId, string mobileNumber)
+        {
+            SMSData objSMSData = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetailsandlogsms"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobilenumber", DbType.String, mobileNumber));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objSMSData = new SMSData();
+                            int status;
+                            if (dr.Read())
+                            {
+                                status = SqlReaderConvertor.ToUInt16(dr["status"]);
+                                if (status == 1)
+                                {
+                                    if (dr.NextResult() && dr.Read())
+                                    {
+                                        objSMSData.SMSStatus = EnumSMSStatus.Success;
+                                        objSMSData.Name = Convert.ToString(dr["name"]);
+                                        objSMSData.Address = Convert.ToString(dr["address"]);
+                                        objSMSData.Phone = Convert.ToString(dr["phone"]);
+                                        objSMSData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
+                                        objSMSData.CityName = Convert.ToString(dr["cityname"]);
+                                        objSMSData.Area = Convert.ToString(dr["area"]);
+                                        dr.Close();
+                                    }
+                                }
+                                else if (status == 2)
+                                {
+                                    objSMSData.SMSStatus = EnumSMSStatus.Daily_Limit_Exceeded;
+                                }
+                                dr.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("DealersRepository.GetDealerShowroomSMSData: DealerId : {0}, MobileNumber : {1}", dealerId, mobileNumber));
+
+            }
+            return objSMSData;
         }
     }//End class
 }

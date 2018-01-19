@@ -360,7 +360,9 @@
     <Compile Include="MobileAppAlert\MobileAppAlertData.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotificationBase.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />
+    <Compile Include="MobileVerification\EnumSMSStatus.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
+    <Compile Include="MobileVerification\SMSData.cs" />
     <Compile Include="Models\AdSlotEntity.cs" />
     <Compile Include="Models\AdTags.cs" />
     <Compile Include="Models\AmpJsTags.cs" />
@@ -446,8 +448,6 @@
     <Compile Include="SEO\CustomPageMetas.cs" />
     <Compile Include="ServiceCenters\BrandServiceCenters.cs" />
     <Compile Include="ServiceCenters\CityBrandServiceCenters.cs" />
-    <Compile Include="ServiceCenters\EnumServiceCenterSMSStatus.cs" />
-    <Compile Include="ServiceCenters\ServiceCenterSMSData.cs" />
     <Compile Include="ServiceCenters\ServiceScheduleBase.cs" />
     <Compile Include="ServiceCenters\ServiceCenterCompleteData.cs" />
     <Compile Include="service\ServiceCenterLocatorList.cs" />
