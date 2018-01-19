@@ -156,12 +156,8 @@
                     return "googletag.defineSlot('/1017752/Bikewale_Desktop_PQ_292x359', [292, 359], 'div-gpt-ad-1506343636197-15').addService(googletag.pubads()); ";
                 case 16:
                     return "googletag.defineSlot('/1017752/Bikewale_BestBikes_Widget_Desktop_292x360',[292, 360], 'div-gpt-ad-1507278280998-16').addService(googletag.pubads()); ";
-                case 17:
-                    return "googletag.defineSlot('/1017752/Bikewale_Make_Top_300x250', [300, 250], 'div-gpt-ad-1515570825648-17').addService(googletag.pubads());";
-                case 18:
-                    return "googletag.defineSlot('/1017752/Bikewale_Make_ATF_300x250', [300, 250], 'div-gpt-ad-1515570825648-18').addService(googletag.pubads());";
-                case 19:
-                    return "googletag.defineSlot('/1017752/Bikewale_Make_Botom_300x250', [300, 250], 'div-gpt-ad-1515570825648-19').addService(googletag.pubads());";
+                case 17: return string.Format("googletag.defineSlot('{0}Top_300x250',  [300, 250], 'div-gpt-ad-{1}-17').addService(googletag.pubads());",adPath,adId);
+              
                 default:
                     return "";
             }
@@ -207,12 +203,8 @@
         @if(Model.AdTags.Ad_292x399){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x359){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if (Model.AdTags.Bikewale_Make_Top_300x250)
-        { @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if (Model.AdTags.Bikewale_Make_ATF_300x250)
-        { @Html.Raw(GetAdSlot(18, Model.AdTags.AdPath, Model.AdTags.AdId))}
-         @if (Model.AdTags.Bikewale_Make_Botom_300x250)
-         { @Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_Top_300x250){ @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
+       
 
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
