@@ -32,5 +32,14 @@ namespace Bikewale.Entities.MobileVerification
 
         [DataMember]
         public string Area { get; set; }
+
+        [DataMember]
+        public double Latitude { get; set; }
+
+        [DataMember]
+        public double Longitude { get; set; }
+
+        [DataMember]
+        public string MakeName { get; set; }
     }
 }
