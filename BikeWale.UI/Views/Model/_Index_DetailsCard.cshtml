@@ -15,25 +15,20 @@
     {
         @Html.Partial("~/Views/Model/_Index_ModelColors.cshtml", Model)
     }
-    @if (Model.AdTags.Ad_976x400_Middle)
-    {
-        <section>
-            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Middle.cshtml", new { AdId = "1495092203328" });}
-        </section>
-                }
-
+    
     @if (Model.IsSimilarBikesAvailable)
     {
+        if (Model.AdTags.Ad_Model_Comparo_976x400)
+        {
+            <section>
+                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_Comparo_976x400.cshtml", new { AdId = Model.AdTags.AdId });}
+            </section>
+        }
         <div id="modelSimilarContent" data-id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
             <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15">@Model.BodyStyleText Similar to @Model.ModelPageEntity.ModelDetails.ModelName</h2>
             <div class="jcarousel-wrapper inner-content-carousel">
                 <div class="jcarousel">
                     <ul>
-                        @if (Model.AdTags.Ad_292x399)
-                        {
-                            { Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x399.cshtml", new { AdId = "1505919734321" }); }
-
-                        }
                         @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
                     </ul>
                 </div>
@@ -77,7 +72,7 @@
                 </div>
             }
 			@if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription) && Model.ModelPageEntity.ModelDetails != null && Model.IsUpcomingBike)
-			{
+			{   
                 <div id="modelAboutContent" class="content-box-shadow content-inner-block-20 card-bottom-margin font14">
                     <div class="grid-8 alpha">
                         <h2 class="h2-heading margin-bottom15">About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
@@ -85,14 +80,22 @@
                             @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
                         </div>
                     </div>
-                    <div class="grid-4 text-center alpha omega">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+                    <div class="grid-8 alpha">
+                        @if (Model.AdTags.Ad_Model_BTF_300x250)
+                        {
+                            @Html.Partial("~/Views/Shared/Ads/Desktop/Ad_BTF_300x250.cshtml", Model.AdTags)
+                        }
                     </div>
                     <div class="clear"></div>
                 </div>
 			}
         </div>
     }
+    @if (Model.AdTags.Ad_Model_BTF_970x90)
+    {
+        Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", Model.AdTags);
+    }
+    
 	@if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
 	{
 		@Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
@@ -208,6 +211,10 @@
             </div>
 	<!-- News widget ends -->
      }
+     @if (Model.AdTags.Ad_Model_Bottom_970x90)
+     {
+        Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_Bottom_970x90.cshtml",Model.AdTags);
+     }
         <div id="videosAndServiceCenterContent" data-id="videosAndServiceCenterContent" class="bw-model-tabs-data">
             @if (Model.IsVideosAvailable)
         {
@@ -221,7 +228,6 @@
                     <!-- Video ends -->
                 </div>
         }
-            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
             @if (Model.IsOtherDealersAvailable || Model.IsDealersServiceCenterAvailable)
         {
                 <div id="dealerAndServiceContent" class="content-box-shadow card-bottom-margin padding-top20 carousel-heading-10">
