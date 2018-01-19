@@ -29,6 +29,11 @@
             <div class="jcarousel-wrapper inner-content-carousel">
                 <div class="jcarousel">
                     <ul>
+                        @if (Model.AdTags.Ad_292x399)
+                        {
+                            Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x399.cshtml", new { AdId = "1505919734321" });
+
+                        }
                         @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
                     </ul>
                 </div>
