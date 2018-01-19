@@ -2,6 +2,7 @@
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.MobileVerification;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
@@ -140,7 +141,7 @@ namespace Bikewale.BAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, System.Web.HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return lstCity;
@@ -166,7 +167,7 @@ namespace Bikewale.BAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetDealerByMakeCity");
-                
+
                 return null;
             }
         }
@@ -186,7 +187,7 @@ namespace Bikewale.BAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "FetchDealerCitiesByMake");
-                
+
                 return null;
             }
         }
@@ -206,7 +207,7 @@ namespace Bikewale.BAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetDealerDetailsAndBikes");
-                
+
                 return null;
             }
         }
@@ -224,7 +225,7 @@ namespace Bikewale.BAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetDealerDetailsAndBikes");
-                
+
                 return null;
             }
         }
@@ -244,7 +245,7 @@ namespace Bikewale.BAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
-                
+
                 return null;
             }
         }
@@ -266,7 +267,7 @@ namespace Bikewale.BAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("UpdateManufaturerLead({0}, {1}, {2}, {3})", pqId, custEmail, mobile, response));
-                
+
                 return false;
             }
         }
@@ -290,7 +291,7 @@ namespace Bikewale.BAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("exception in BAL layer for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
-                
+
             }
             return objDealerCountList;
         }
@@ -307,9 +308,46 @@ namespace Bikewale.BAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetDealerByBrandList");
-                
+
                 return null;
             }
+        }
+
+
+        /// <summary>
+        /// Created By : Snehal Dange on 18th Jan 2018
+        /// Description: BAL layer Function for sending dealer showroom sms data from DAL.
+        /// </summary>
+        public EnumSMSStatus GetDealerShowroomSMSData(uint dealerId, string mobileNumber, string pageUrl)
+        {
+            try
+            {
+                SMSData objSMSData = _dealerRepository.GetDealerShowroomSMSData(dealerId, mobileNumber);
+
+                if (objSMSData != null)
+                {
+                    if (objSMSData.SMSStatus == EnumSMSStatus.Success)
+                    {
+                        SMSTypes newSms = new SMSTypes();
+                        newSms.DealerShowroomDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Area, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, pageUrl);
+                        return EnumSMSStatus.Success;
+                    }
+                    else if (objSMSData.SMSStatus == EnumSMSStatus.Daily_Limit_Exceeded)
+                    {
+                        return EnumSMSStatus.Daily_Limit_Exceeded;
+                    }
+                    else
+                    {
+                        return EnumSMSStatus.Invalid;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Dealer.GetDealerSMSData : {0}, mobileNumber : {1}", dealerId, mobileNumber));
+
+            }
+            return 0;
         }
     }
 }

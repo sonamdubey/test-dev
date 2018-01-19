@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Entities.Location;
+using Bikewale.Entities.MobileVerification;
 using Bikewale.Entities.ServiceCenters;
 using System.Collections.Generic;
 namespace Bikewale.Interfaces.ServiceCenter
@@ -19,6 +20,6 @@ namespace Bikewale.Interfaces.ServiceCenter
         ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId);
         IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(uint makeId);
         ServiceCenterCompleteData GetServiceCenterDataById(uint serviceCenterId);
-        EnumServiceCenterSMSStatus GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber, string pageUrl);
+        EnumSMSStatus GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber, string pageUrl);
      }
 }

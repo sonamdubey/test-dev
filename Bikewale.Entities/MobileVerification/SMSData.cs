@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Bikewale.Entities.ServiceCenters
+namespace Bikewale.Entities.MobileVerification
 {
     /// <summary>
     /// Created By :  Sajal Gupta
     /// Created On  : 16 Nov 2016
-    /// Description : Service center sms data.
+    /// Description : Sms data.
     /// </summary>
 
     [Serializable, DataContract]
-    public class ServiceCenterSMSData
+    public class SMSData
     {
         [DataMember]
-        public EnumServiceCenterSMSStatus SMSStatus { get; set; }
+        public EnumSMSStatus SMSStatus { get; set; }
 
         [DataMember]
         public string Name { get; set; }
@@ -29,5 +29,8 @@ namespace Bikewale.Entities.ServiceCenters
 
         [DataMember]
         public string CityName { get; set; }
+
+        [DataMember]
+        public string Area { get; set; }
     }
 }
