@@ -3122,6 +3122,14 @@
     <Content Include="sass\mixins\_text.sass" />
     <Content Include="sass\partials\_upcoming-bikes-carousel.sass" />
     <Content Include="sass\partials\_popular-bikes-carousel.sass" />
+    <Content Include="sass\mixins\_image-grid.sass" />
+    <Content Include="sass\mixins\_image-card.sass" />
+    <Content Include="sass\partials\_bike-images-carousel.sass" />
+    <Content Include="sass\mixins\_animation.sass" />
+    <Content Include="sass\partials\_input.sass" />
+    <Content Include="sass\partials\_notify-update-popup.sass" />
+    <Content Include="sass\partials\_related-make-card.sass" />
+    <Content Include="sass\partials\_related-make-carousel.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
