@@ -199,7 +199,7 @@ docReady(function () {
 	    });
 	    self.recordCount = ko.observable();
 	    self.gridSize = ko.computed(function () {
-	        return self.recordCount() >= 4 ? 4 : self.recordCount() >= 3 ? 3 : 1;
+	        return self.modelImages().length >= 4 ? 4 : self.modelImages().length >= 3 ? 3 : 1;
 	    });
 	};
 	modelListViewModel = function () {
