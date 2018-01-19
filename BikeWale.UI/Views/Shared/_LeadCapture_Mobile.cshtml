@@ -107,7 +107,7 @@
                 <!-- ko ifnot : !dealerMessage() -->
                 <p class="font16 margin-bottom40" id="ko_thankyoumessage" data-bind="html: dealerMessage()"></p>
                 <!-- /ko -->
-                <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" @(Html.Raw(Model.IsApp ? "onclick=\"" + "Android.closeForm()" + "\"" : "")) />
+                <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" @(Html.Raw(Model.IsApp ? "onclick=\"" + "Android.leadSubmit()" + "\"" : "")) />
             </div>
             <!-- thank you message ends here -->
             @if (Model.CityId <= 0)
