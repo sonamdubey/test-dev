@@ -38,9 +38,8 @@ namespace Bikewale.Models
         public bool Ad_292x359 { get; set; }
 
         public bool Ad_292x360 { get; set; }
-        public bool Bikewale_Make_Top_300x250 { get; set; }
-        public bool Bikewale_Make_ATF_300x250 { get; set; }
-        public bool Bikewale_Make_Botom_300x250 { get; set; }
+        public bool Ad_Top_300x250 { get; set; }
+
         public bool ShowInnovationBannerDesktop { get; set; }
         #endregion
 
