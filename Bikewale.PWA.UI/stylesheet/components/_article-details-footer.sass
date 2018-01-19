@@ -1,0 +1,39 @@
+@import "placeholder/grid"
+@include grid(6)
+
+.next-prev-article-target
+    display: block
+
+.next-prev-article-box
+    width: 86%
+
+.next-prev-article-title
+    display: block
+    font-weight: $font-bold
+    font-size: $font-size-base
+    color: $dark-grey
+    text-decoration: none
+
+.next-page-title
+    height: 42px
+    overflow: hidden
+
+.next-arrow,
+.prev-arrow
+    width: 14px
+    height: 18px
+    vertical-align: middle
+
+.next-arrow
+    background-position: -185px -219px
+
+.prev-arrow
+    background-position: -159px -219px
+
+@import "placeholder/padding"
+@include padding-top(10)
+@include padding-left(5)
+
+@import "placeholder/border"
+@include border(top)
+@include border(right)
