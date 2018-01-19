@@ -23,6 +23,8 @@ namespace Bikewale.Models.ServiceCenters
     /// Description : This Model will fetch data for service centers in city page 
     /// Modified By:Snehal Dange on 29th Sep 2017
     /// Descrption : Added BindServiceCenterPopularCityWidget
+    /// Modified by : Snehal Dange on 19th Jan 2017
+    /// Description : Added BindResearchMoreMakeWidget
     /// </summary>
     public class ServiceCenterCityPage
     {
@@ -85,6 +87,7 @@ namespace Bikewale.Models.ServiceCenters
 
                 BindDealersWidget(objVM);
                 BindServiceCenterPopularCityWidget(objVM);
+                BindResearchMoreMakeWidget(objVM);
                 objVM.BrandCityPopupWidget = new BrandCityPopupModel(EnumBikeType.ServiceCenter, (uint)_makeId, (uint)_cityId).GetData();
 
                 objVM.BikeCityPopup = new PopUp.BikeCityPopup()
@@ -311,6 +314,51 @@ namespace Bikewale.Models.ServiceCenters
                 ErrorClass.LogError(ex, string.Format("ServiceCenterDetailsPage.GetServiceCenterBrandsInCity_Make_{0}_City_{1}", _makeId, _cityId));
             }
 
+        }
+
+
+        /// <summary>
+        /// Created by :  Snehal Dange on 19th Jan 2018
+        /// Description: Method to bind research more about make widget data
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindResearchMoreMakeWidget(ServiceCenterCityPageVM objData)
+        {
+
+            try
+            {
+                if (_makeId > 0 && objData != null)
+                {
+                    objData.ResearchMoreMakeWidget = new ResearchMoreAboutMakeVM();
+
+                    if (objData.ResearchMoreMakeWidget != null)
+                    {
+                        if (objData.City != null && objData.City.CityId > 0)
+                        {
+                            objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMakeByCity(_makeId, objData.City.CityId);
+                            if (objData.ResearchMoreMakeWidget.WidgetObj != null)
+                            {
+                                objData.ResearchMoreMakeWidget.WidgetObj.City = objData.City;
+                            }
+
+                        }
+                        else
+                        {
+                            objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMake(_makeId);
+                        }
+                        if (objData.ResearchMoreMakeWidget.WidgetObj != null)
+                        {
+                            objData.ResearchMoreMakeWidget.WidgetObj.ShowServiceCenterLink = false;
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("ServiceCenterCityPage.BindResearchMoreMakeWidget() makeId:{0} , cityId:{1}", _makeId, (objData.City != null ? objData.City.CityId.ToString() : "0")));
+            }
         }
     }
 }

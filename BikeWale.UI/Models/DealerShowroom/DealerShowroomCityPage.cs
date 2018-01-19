@@ -59,6 +59,8 @@ namespace Bikewale.Models.DealerShowroom
         /// Summary     : Added variable for GA trigger 
         /// Modified By: Snehal Dange on 13th Dec 2017
         /// Summary : added BindDealerBrandsInCity
+        /// Modified by : Snehal Dange on 19th Jan 2017
+        /// Description : added BindResearchMoreMakeWidget
         /// </summary>
         /// <returns></returns>
         public DealerShowroomCityPageVM GetData()
@@ -100,6 +102,7 @@ namespace Bikewale.Models.DealerShowroom
                     IsCityWrapperPresent = 1
                 };
                 BindShowroomPopularCityWidget(objDealerVM);
+                BindResearchMoreMakeWidget(objDealerVM);
                 if (cityId > 0)
                 {
                     BindDealerBrandsInCity(objDealerVM);
@@ -405,7 +408,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (System.Exception ex)
             {
 
-                ErrorClass.LogError(ex, "ServiceCenterDetailsPage.BindShowroomPopularCityWidget");
+                ErrorClass.LogError(ex, "DealerShowroomCityPage.BindShowroomPopularCityWidget");
             }
 
         }
@@ -445,9 +448,52 @@ namespace Bikewale.Models.DealerShowroom
             }
             catch (System.Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("ServiceCenterDetailsPage.BindDealerBrandsInCity_Make_{0}_City_{1}", makeId, cityId));
+                ErrorClass.LogError(ex, string.Format("DealerShowroomCityPage.BindDealerBrandsInCity_Make_{0}_City_{1}", makeId, cityId));
             }
 
+        }
+        /// <summary>
+        /// Created by :  Snehal Dange on 19th Jan 2018
+        /// Description: Method to bind research more about make widget data
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindResearchMoreMakeWidget(DealerShowroomCityPageVM objData)
+        {
+
+            try
+            {
+                if (makeId > 0 && objData != null)
+                {
+                    objData.ResearchMoreMakeWidget = new ResearchMoreAboutMakeVM();
+
+                    if (objData.ResearchMoreMakeWidget != null)
+                    {
+                        if (CityDetails != null && CityDetails.CityId > 0)
+                        {
+                            objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMakeByCity(makeId, CityDetails.CityId);
+                            if (objData.ResearchMoreMakeWidget.WidgetObj != null)
+                            {
+                                objData.ResearchMoreMakeWidget.WidgetObj.City = CityDetails;
+                            }
+
+                        }
+                        else
+                        {
+                            objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMake(makeId);
+                        }
+                        if (objData.ResearchMoreMakeWidget.WidgetObj != null)
+                        {
+                            objData.ResearchMoreMakeWidget.WidgetObj.ShowServiceCenterLink = true;
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("DealerShowroomCityPage.BindResearchMoreMakeWidget() makeId:{0} , cityId:{1}", makeId, (CityDetails != null ? CityDetails.CityId.ToString() : "0")));
+            }
         }
     }
 }

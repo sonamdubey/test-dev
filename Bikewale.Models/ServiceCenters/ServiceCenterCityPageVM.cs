@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.ServiceCenters;
+using Bikewale.Models.Make;
 using Bikewale.Models.PopUp;
 
 namespace Bikewale.Models.ServiceCenters
@@ -11,6 +12,8 @@ namespace Bikewale.Models.ServiceCenters
     /// Description: Added DealersServiceCentersIndiaWidgetVM   
     /// Modified by: Snehal Dange on 14th Nov 2017
     /// Descritpion: Added SimilarBrandsByCity to get similar brands in city
+    /// Modified by : Snehal Dange on 19th Jan 2017
+    /// Description : Added ResearchMoreMakeWidget
     /// </summary>
     public class ServiceCenterCityPageVM : ModelBase
     {
@@ -26,5 +29,6 @@ namespace Bikewale.Models.ServiceCenters
         public BikeCityPopup BikeCityPopup { get; set; }
         public OtherMakesVM SimilarBrandsByCity { get; set; }
         public bool IsShowroomPresentInCity { get; set; }
+        public ResearchMoreAboutMakeVM ResearchMoreMakeWidget { get; set; }
     }
 }

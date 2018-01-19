@@ -837,8 +837,16 @@ namespace Bikewale.DAL.BikeData
                                         MaskingName = Convert.ToString(dr["MakeMaskingName"])
                                     };
                                     obj.IsScooterOnlyMake = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]);
-                                    obj.ServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["servicecenterscount"]);
-                                    obj.UsedBikesCount = SqlReaderConvertor.ToUInt16(dr["usedbikescount"]);
+                                    if (cityId > 0)
+                                    {
+                                        obj.DealerShowroomCount = SqlReaderConvertor.ToUInt16(dr["dealerscount"]);
+                                        obj.ServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["servicecenterscount"]);
+                                        obj.UsedBikesCount = SqlReaderConvertor.ToUInt16(dr["usedbikescount"]);
+                                    }
+
+                                    obj.TotalDealerShowroomCount = SqlReaderConvertor.ToUInt16(dr["totaldealerscount"]);
+                                    obj.TotalServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["totalservicecenterscount"]);
+                                    obj.TotalUsedBikesCount = SqlReaderConvertor.ToUInt16(dr["totalusedbikescount"]);
                                     if (dr.NextResult())
                                     {
                                         objSeriesList = new List<BikeSeriesEntity>();
