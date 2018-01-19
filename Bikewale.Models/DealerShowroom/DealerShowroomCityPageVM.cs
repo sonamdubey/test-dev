@@ -4,6 +4,7 @@ using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Models.Make;
 using Bikewale.Models.PopUp;
 using Bikewale.Models.ServiceCenters;
 namespace Bikewale.Models
@@ -32,5 +33,6 @@ namespace Bikewale.Models
         public BikeCityPopup BikeCityPopup { get; set; }
         public OtherMakesVM SimilarBrandsByCity { get; set; }
         public bool IsServiceCenterPresentInCity { get; set; }
+        public ResearchMoreAboutMakeVM ResearchMoreMakeWidget { get; set; }
     }
 }

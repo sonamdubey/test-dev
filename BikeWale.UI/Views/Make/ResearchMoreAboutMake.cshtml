@@ -4,7 +4,7 @@
 {
     var makeName = Model.WidgetObj.Make.MakeName;
     var makeMasking = Model.WidgetObj.Make.MaskingName;
-
+    uint cityId = ( Model.WidgetObj.City !=null ? Model.WidgetObj.City.CityId : 0);
     <ul class="research-more__list">
         @if (Model.WidgetObj.SeriesList != null && Model.WidgetObj.SeriesList.Any())
         {
@@ -17,23 +17,52 @@
             }
         }
 
-
-        @if (Model.WidgetObj.UsedBikesCount > 0)
+        @if(cityId > 0 && Model.WidgetObj.UsedBikesCount > 0)
         {
             <li>
-                <a href="@string.Format("/used/{0}-bikes-in-{1}/", makeMasking,(Model.WidgetObj.City!=null ? Model.WidgetObj.City.CityMaskingName : "india"))" title="@string.Format("Used {0} Bikes in {1}", makeName, (Model.WidgetObj.City != null ? Model.WidgetObj.City.CityName : "India"))">@string.Format("Used {0} Bike{1}", makeName, (Model.WidgetObj.UsedBikesCount > 1 ? "s" : ""))</a>
+                <a href="@string.Format("/used/{0}-bikes-in-{1}/", makeMasking, Model.WidgetObj.City.CityMaskingName )" title="@string.Format("Used {0} Bikes in {1}", makeName,Model.WidgetObj.City.CityName )">@string.Format("Used {0} Bike{1}", makeName, (Model.WidgetObj.UsedBikesCount > 1 ? "s" : ""))</a>
             </li>
         }
-
-        @if (Model.WidgetObj.ServiceCentersCount > 0)
+        else if(Model.WidgetObj.TotalUsedBikesCount > 0)
         {
             <li>
-                <a href="@string.Format("/service-centers/{0}/{1}", makeMasking, (Model.WidgetObj.City != null ? string.Format("{0}/", Model.WidgetObj.City.CityMaskingName) : ""))" title="@string.Format("{0} Service Centers in {1}", makeName, (Model.WidgetObj.City != null ? Model.WidgetObj.City.CityName : "India"))">@string.Format("{0} Service Center{1}", makeName, (Model.WidgetObj.ServiceCentersCount > 1 ? "s" : ""))</a>
+                <a href="@string.Format("/used/{0}-bikes-in-india/", makeMasking)" title="@string.Format("Used {0} Bikes in India", makeName)">@string.Format("Used {0} Bike{1}", makeName, (Model.WidgetObj.TotalUsedBikesCount > 1 ? "s" : ""))</a>
             </li>
+        }
+       
+        @if(Model.WidgetObj.ShowServiceCenterLink)
+        {
+            if (cityId > 0 && Model.WidgetObj.ServiceCentersCount > 0)
+            {
+                <li>
+                    <a href="@string.Format("/service-centers/{0}/{1}/", makeMasking, Model.WidgetObj.City.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", makeName, Model.WidgetObj.City.CityName)">@string.Format("{0} Service Center{1}", makeName, (Model.WidgetObj.ServiceCentersCount > 1 ? "s" : ""))</a>
+                </li>
+            }
+            else if (Model.WidgetObj.TotalServiceCentersCount > 0)
+            {
+                <li>
+                    <a href="@string.Format("/service-centers/{0}/", makeMasking)" title="@string.Format("{0} Service Centers in India", makeName)">@string.Format("{0} Service Center{1}", makeName, (Model.WidgetObj.TotalServiceCentersCount > 1 ? "s" : ""))</a>
+                </li>
+            }
+        }
+        else
+        {
+            if (cityId > 0 && Model.WidgetObj.DealerShowroomCount > 0)
+            {
+                <li>
+                    <a href="@string.Format("/dealer-showrooms/{0}/{1}/", makeMasking, Model.WidgetObj.City.CityMaskingName)" title="@string.Format("{0} Showrooms in {1}", makeName, Model.WidgetObj.City.CityName)">@string.Format("{0} Showroom{1}", makeName, (Model.WidgetObj.DealerShowroomCount > 1 ? "s" : ""))</a>
+                </li>
+            }
+            else if (Model.WidgetObj.TotalDealerShowroomCount > 0)
+            {
+                <li>
+                    <a href="@string.Format("/dealer-showrooms/{0}/", makeMasking)" title="@string.Format("{0} Showrooms in India", makeName)">@string.Format("{0} Showroom{1}", makeName, (Model.WidgetObj.TotalDealerShowroomCount > 1 ? "s" : ""))</a>
+                </li>
+            }
         }
 
         <li>
-            <a href="@string.Format("/best-{0}-in-india/",(Model.WidgetObj.IsScooterOnlyMake ? "scooters" : "bikes"))"> @string.Format("Top 10 {0}", (Model.WidgetObj.IsScooterOnlyMake ? "Scooters" : "Bikes"))</a>
+            <a href="@string.Format("/best-{0}-in-india/",(Model.WidgetObj.IsScooterOnlyMake ? "scooters" : "bikes"))" title="@string.Format("Top 10 {0}", (Model.WidgetObj.IsScooterOnlyMake ? "Scooters" : "Bikes"))"> @string.Format("Top 10 {0}", (Model.WidgetObj.IsScooterOnlyMake ? "Scooters" : "Bikes"))</a>
         </li>
 
     </ul>

@@ -711,7 +711,12 @@ namespace Bikewale.Models
                         {
                             objData.ResearchMoreMakeWidget.WidgetObj = _bikeMakesCache.ResearchMoreAboutMake(_makeId);
                         }
+                        if (objData.ResearchMoreMakeWidget.WidgetObj != null)
+                        {
+                            objData.ResearchMoreMakeWidget.WidgetObj.ShowServiceCenterLink = true;
+                        }
                     }
+
 
                 }
             }
