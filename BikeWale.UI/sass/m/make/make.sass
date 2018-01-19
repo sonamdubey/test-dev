@@ -33,19 +33,36 @@
 @import ../../partials/upcoming-bikes-carousel
 
 /* news and update carousel */
-@import ../../partials/_editorial-carousel
+@import ../../partials/editorial-carousel
 
 /* review carousel */
-@import ../../modules/_review-category
-@import ../../modules/_card-category
-@import ../../partials/_review-carousel
+@import ../../modules/review-category
+@import ../../modules/card-category
+@import ../../partials/review-carousel
 
 @include expert-review
 @include user-review()
 
 /* dealer carousel */
-@import ../../partials/_dealer-carousel
-@import ../../modules/_city-icons
+@import ../../partials/dealer-carousel
+@import ../../modules/city-icons
 
 @include carousel__dealer-in-city
 @include carousel__dealer-by-city
+
+
+/* video section */
+
+.video-section
+	.carousel__title
+		@include video-icon
+		background-size: 24px
+		background-position: 16px 26px
+		padding-left: 48px
+		padding-bottom: 19px
+
+@import ../../components/mixins
+@import ../../partials/video-card-container
+
+/*  newly lauched */
+@import ../../partials/newly-lauched-carousel

@@ -25,3 +25,38 @@
 
 		&:nth-of-type(2)
 			text-align: right
+
+.video-list
+	>.video-card-container
+		padding-top: 20px
+		margin-left: 16px
+		margin-right: 16px
+		padding-bottom: 25px
+		border-top: 1px solid color('border-dark')
+
+		&:first-child
+			border: none
+			padding-top: 0
+
+	.swiper-card__label
+		font-size: 13px
+		font-weight: $font-semibold
+		padding-bottom: 12px
+
+	.grid-4
+		position: relative
+		top: 2px
+
+.model-card__sub-title
+	color: color('light-grey')
+	position: relative
+
+@mixin thumbsup-icon($width: 18px, $height: 18px)
+	.thumbsup-icon
+		@include thumbsup
+		display: inline-block
+		height: $height
+		width: $width
+		top: 3px
+				
+	
