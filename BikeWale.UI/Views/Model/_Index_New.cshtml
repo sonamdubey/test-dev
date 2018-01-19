@@ -151,10 +151,10 @@
 		{
 			<div>
 				@if (Model.IsModelDescriptionAvailable)
-				{   <div class="grid-12">
-					@Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
-				</div>
-				}
+                {   <div class="grid-12">
+                    @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
+                </div>
+                }
 				@if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
 				{
 					<div id="modelsBySeriesWidget" data-id="modelSummaryContent" class="card-bottom-margin bw-ga bw-model-tabs-data" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">

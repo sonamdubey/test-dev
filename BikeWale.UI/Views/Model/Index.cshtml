@@ -2,67 +2,68 @@
 @{
 
 
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/model-atf.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/modules/review-article.css' inline/>";
-    Model.Page_BTF_CSS_Path = "/css/model-btf.css";
-    Model.Page_JS_Paths = new string[] {"/src/model.js" ,"/src/emi-calculator.js"};
-    Model.AdTags.AdPath = "/1017752/Bikewale_Model_";
-    Model.AdTags.AdId = "1442913773076";
-    Model.AdTags.Ad_Model_BTF_970x90 = true;
-    Model.AdTags.Ad_Model_ATF_970x90 = !Model.AdTags.ShowInnovationBannerDesktop;
-    Model.AdTags.Ad_Model_ATF_300x250 = !Model.IsUpcomingBike && Model.IsModelDescriptionAvailable;
-    Model.AdTags.Ad_Model_BTF_300x250 = Model.ModelPageEntity!=null && Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription);
-    Model.AdTags.Ad_976x400_Middle = true;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/model-atf.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/modules/review-article.css' inline/>";
+	Model.Page_BTF_CSS_Path = "/css/model-btf.css";
+	Model.Page_JS_Paths = new string[] {"/src/model.js" ,"/src/emi-calculator.js"};
+	Model.AdTags.AdPath = "/1017752/BikeWale_Model_";
+	Model.AdTags.AdId = "1516076585526";
+	Model.AdTags.Ad_Model_BTF_970x90 = !Model.IsUpcomingBike;
+	Model.AdTags.Ad_Model_ATF_970x90 = true;
+	Model.AdTags.Ad_Model_ATF_300x250 = false;
+	Model.AdTags.Ad_Model_BTF_300x250 = true;
+	Model.AdTags.Ad_Model_Bottom_970x90 = true;
+    Model.AdTags.Ad_Model_Comparo_976x400 = Model.IsSimilarBikesAvailable; // For discontinued bike similar bike section is not avaliable So 2 ads comes together
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }   
-    @if (Model.IsNewBike)
-    {
-        @Html.Partial("~/Views/Model/_Index_New.cshtml", Model)
-    }
-    else if (Model.IsDiscontinuedBike)
-    {
-        @Html.Partial("~/Views/Model/_Index_Discontinued.cshtml", Model)
-    }
-    else if (Model.IsUpcomingBike)
-    {
-        @Html.Partial("~/Views/Model/_Index_Upcoming.cshtml", Model)
-    }
-    
+	@if (Model.IsNewBike)
+	{
+		@Html.Partial("~/Views/Model/_Index_New.cshtml", Model)
+	}
+	else if (Model.IsDiscontinuedBike)
+	{
+		@Html.Partial("~/Views/Model/_Index_Discontinued.cshtml", Model)
+	}
+	else if (Model.IsUpcomingBike)
+	{
+		@Html.Partial("~/Views/Model/_Index_Upcoming.cshtml", Model)
+	}
+	
 
-    <script type="text/javascript">
-    ga_pg_id = '2';
-    var dealerId = '@Model.DealerId';
-    var pqId = '@Model.PQId';
-    var versionId = '@Model.VersionId';
-    var cityId = '@Model.CityId';
-    var bikeVersionLocation = '';
-    var bikeVersion = '';
-    var isBikeWalePq = "@Model.IsBPQAvailable";
-    var areaId = "@Model.AreaId";
-    var isDealerPriceAvailable = "@Model.IsDPQAvailable";
-    var campaignId = "@Model.CampaignId";
-    var myBikeName = "@Model.BikeName";
-    var clientIP = "@Model.ClientIP";
-    var pageUrl = window.location.href;
-    var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
-    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
-    {
-    <text>
-    var pageData = {
-        label: "@Model.BikeName",
-        payload: {
-            makeId: "@Model.ModelPageEntity.ModelDetails.MakeBase.MakeId",
-            modelId: "@Model.ModelPageEntity.ModelDetails.ModelId",
-            makeMaskingName: "@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName",
-            modelMaskingName: "@Model.ModelPageEntity.ModelDetails.MaskingName",
-            futuristic: "@Model.ModelPageEntity.ModelDetails.Futuristic",
-            isNew: "@Model.ModelPageEntity.ModelDetails.New",
-            userRatingsCount: "@Model.ModelPageEntity.ModelDetails.RatingCount",
-            expertReviewsCount: "@Model.ModelPageEntity.ModelDetails.ExpertReviewsCount"
-        },
-        value: "@Model.BikeName"
-    };
-    </text>
-    }
-    </script>
-    
-    <script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+	<script type="text/javascript">
+	ga_pg_id = '2';
+	var dealerId = '@Model.DealerId';
+	var pqId = '@Model.PQId';
+	var versionId = '@Model.VersionId';
+	var cityId = '@Model.CityId';
+	var bikeVersionLocation = '';
+	var bikeVersion = '';
+	var isBikeWalePq = "@Model.IsBPQAvailable";
+	var areaId = "@Model.AreaId";
+	var isDealerPriceAvailable = "@Model.IsDPQAvailable";
+	var campaignId = "@Model.CampaignId";
+	var myBikeName = "@Model.BikeName";
+	var clientIP = "@Model.ClientIP";
+	var pageUrl = window.location.href;
+	var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
+	@if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
+	{
+	<text>
+	var pageData = {
+		label: "@Model.BikeName",
+		payload: {
+			makeId: "@Model.ModelPageEntity.ModelDetails.MakeBase.MakeId",
+			modelId: "@Model.ModelPageEntity.ModelDetails.ModelId",
+			makeMaskingName: "@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName",
+			modelMaskingName: "@Model.ModelPageEntity.ModelDetails.MaskingName",
+			futuristic: "@Model.ModelPageEntity.ModelDetails.Futuristic",
+			isNew: "@Model.ModelPageEntity.ModelDetails.New",
+			userRatingsCount: "@Model.ModelPageEntity.ModelDetails.RatingCount",
+			expertReviewsCount: "@Model.ModelPageEntity.ModelDetails.ExpertReviewsCount"
+		},
+		value: "@Model.BikeName"
+	};
+	</text>
+	}
+	</script>
+	
+	<script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
