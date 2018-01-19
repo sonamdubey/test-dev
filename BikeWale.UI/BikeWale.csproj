@@ -3935,6 +3935,9 @@
     <Content Include="Views\Scooters\_ModelRelatedCard_Mobile_Amp.cshtml" />
     <Content Include="Views\NewBikeSearch\_NewBikeSearchBudget.cshtml" />
     <Content Include="Views\NewBikeSearch\_NewBikeSearchBudget_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x250BTF.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x100BTF.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x100ATF.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
