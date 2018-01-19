@@ -326,24 +326,15 @@
             }
 
 
-
-            <div class="content-box-shadow section-bottom-margin">
-                <h2 class="sidebar-list-heading">Research More</h2>
-                <ul class="research-more__list">
-                    <li>
-                        <a href="#">TVS Apache Bikes</a>
-                    </li>
-                    <li>
-                        <a href="#">Used @Model.MakeName Bikes</a>
-                    </li>
-                    <li>
-                        <a href="#">@Model.MakeName Service Centers</a>
-                    </li>
-                    <li>
-                        <a href="#">Top 10 Bikes</a>
-                    </li>
-                </ul>
-            </div>
+            @if (Model.ResearchMoreMakeWidget != null)
+            {
+                
+                <div class="content-box-shadow section-bottom-margin">
+                    <h2 class="sidebar-list-heading">Research More</h2>
+                    @Html.Partial("~/Views/Make/ResearchMoreAboutMake.cshtml", Model.ResearchMoreMakeWidget)
+                </div>
+            }
+            
 
         </div>
         <div class="clear"></div>

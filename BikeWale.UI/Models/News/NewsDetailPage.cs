@@ -592,7 +592,6 @@ namespace Bikewale.Models
 
                         BikeFilters obj = new BikeFilters();
                         obj.CityId = CityId;
-
                         IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
                         MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, MostPopularBikes.Bikes);
 
