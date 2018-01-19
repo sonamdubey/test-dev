@@ -1116,10 +1116,10 @@ namespace Bikewale.DAL.Dealer
             SMSData objSMSData = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand(""))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetailsandlogsms"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobilenumber", DbType.String, mobileNumber));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))

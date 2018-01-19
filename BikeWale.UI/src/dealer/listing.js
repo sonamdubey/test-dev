@@ -121,8 +121,44 @@ docReady(function () {
     	var isValid = validatePhone(inputbox);
 
     	if (isValid) {
-    		listItem.removeClass('input-active').addClass('response-active');
-    		captureLeadMobile.checkAttempts(attemptCount, listItem);
+    	    listItem.removeClass('input-active').addClass('response-active');
+    	    if (attemptCount < 4)
+    	    {
+    	        var dealerId = $(this).attr("data-id");
+    	        var obj = {
+    	            "mobilenumber": inputbox.val(),
+    	            "pageurl": window.location.href.replace('&', '%26'),
+    	            "id": dealerId
+    	        }
+    	        $.ajax({
+    	            type: "POST",
+    	            url: "/api/dealer/",
+    	            contentType: "application/json",
+    	            data: ko.toJSON(obj),
+    	            success: function (response) {
+    	                if (response == 2) {
+    	                    captureLeadMobile.checkAttempts(10, listItem);
+    	                }
+    	                else if (response == 1) {
+    	                    captureLeadMobile.checkAttempts(attemptCount, listItem);
+    	                }
+    	                else {
+    	                    captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
+    	                }
+    	            },
+    	            failure: function (xhr, ajaxOptions, thrownError) {
+    	                captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
+    	            },
+    	            complete: function (xhr, ajaxOptions, thrownError) {
+    	                if (xhr.status != 200)
+    	                    captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
+    	            }
+    	        });
+
+    	    }
+    	    else {
+    	        captureLeadMobile.checkAttempts(attemptCount, listItem);
+    	    }
     	}
 
     });
