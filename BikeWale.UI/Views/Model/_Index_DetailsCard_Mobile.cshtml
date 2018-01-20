@@ -15,13 +15,6 @@
     @Html.Partial("~/Views/Model/_Index_ModelColors_Mobile.cshtml", Model)
 
 }
-@*@if (Model.AdTags.Ad_320x400_Middle)
-    {
-        <section>
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x400_Middle.cshtml", new { AdId = "1495092203328" });}
-        </section>
-    }*@
-
 
 @if (Model.AdTags.Ad_320x400_Middle)
 {
@@ -37,11 +30,11 @@
         <h2 class="padding-left20 padding-right20">@Model.BodyStyleText Similar to @Model.ModelPageEntity.ModelDetails.ModelName</h2>
         <div class="swiper-container card-container swiper-type-similar">
             <div class="swiper-wrapper">
-                @*@if (Model.AdTags.Ad_200x253)
+                @if (Model.AdTags.Ad_200x253)
                     {
                         { Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad200x253.cshtml", new { AdId = "1505919734321" }); }
 
-                    }*@
+                    }
                 @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikes)
             </div>
         </div>
