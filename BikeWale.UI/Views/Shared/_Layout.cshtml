@@ -279,7 +279,24 @@
         <div class="clear"></div>
     </div> <!-- ends here -->
     <div class="clear"></div>
-    @if (Model.AdTags.Ad_970x90Top)
+    @if (Model.AdTags.Ad_970x90)
+    {
+        <div class="bg-white ">
+            <div class="container">
+                <div class="grid-12">
+                    <div>
+                        <div id='div-gpt-ad-@Model.AdTags.AdId-3' class="margin-bottom15 margin-top10 text-center">
+                            <script type='text/javascript'>
+                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-3'); });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    }
+    else if (Model.AdTags.Ad_970x90Top)
     {
         <div class="bg-white ">
             <div class="container">
@@ -557,7 +574,7 @@
         </div>
     </footer><!-- Ends here -->
     @Html.Partial("~/Views/Shared/_LoginControl.cshtml")
-   
+
     <script defer type="text/javascript" src="@String.Format("{0}/src/bwcache.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
     <script>
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
