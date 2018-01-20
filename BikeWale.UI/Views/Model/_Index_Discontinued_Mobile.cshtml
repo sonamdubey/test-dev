@@ -53,6 +53,12 @@
                     </div>
                 </div>
             </div>
+            @if (Model.AdTags.Ad320x100ATF)
+            {
+                <div class="margin-bottom20 text-center">
+                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
+                </div>
+             }
             @if (Model.ModelPageEntity.ModelVersionSpecs != null)
             {
                 <div>
@@ -66,12 +72,6 @@
     </div>
 </section>
 
-@if (Model.AdTags.Ad320x100ATF)
-{
-    <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
-    </div>
-}
 @if (Model.OtherBestBikes != null && Model.OtherBestBikes.BestBikes != null && Model.OtherBestBikes.BestBikes.Any())
 {
     <section>
