@@ -3,10 +3,10 @@
     <!DOCTYPE html>
     @{
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-        var ManifestJsUrl = "/pwa/manifest.bundle.js";
-        var VendorJsUrl = "/pwa/vendor.bundle.js";
-        var AppJsUrl = "/pwa/app.bundle.js";
-        var VideosJsUrl = "/pwa/videosBundle.bundle.js";
+        var ManifestJsUrl = "/pwa/js/manifest.bundle.js";
+        var VendorJsUrl = "/pwa/js/vendor.bundle.js";
+        var AppJsUrl = "/pwa/js/app.bundle.js";
+        var VideosJsUrl = "/pwa/js/videosBundle.bundle.js";
         var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
         
     }

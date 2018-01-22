@@ -1,0 +1,77 @@
+.autocomplete-menu
+	width: 100%
+	position: absolute
+	top: 100%
+	left: 0
+	background: #fff
+	text-align: left
+	border-radius: 0 0 2px 2px
+	border: 1px solid #ccc
+	border-top: 0
+
+	.menu--item-label
+		color: #333
+		width: 50%
+		float: left
+		overflow: hidden
+		text-overflow: ellipsis
+		white-space: nowrap
+
+.autocomplete-menu--item
+	padding: 10px
+	cursor: pointer
+
+	&:after
+		content: ''
+		display: block
+		clear: both
+
+.menu--right-align-label
+	width: auto
+	position: absolute
+	right: 10px
+	font-size: 12px
+
+.menu--item-focus
+	background: #eee
+
+.menu--full-width-item
+	.menu--item-label
+		width: 100%
+
+.menu--no-item-icon
+	.menu--item-icon
+		display: none
+
+.autocomplete-wrapper
+	.cross-sm-dark-grey
+		width: 18px
+		height: 18px
+		background-position: -81px -235px
+		cursor: pointer
+		position: absolute
+		top: 10px
+		right: 10px
+		z-index: 1
+
+// icons
+.history-icon,
+.search-icon
+	width: 16px
+	position: relative
+	margin-right: 10px
+	float: left
+
+.history-icon
+	height: 13px
+	background-position: -126px -265px
+	top: 3px
+
+.search-icon
+	height: 16px
+	background-position: -126px -249px
+	top: 2px
+	@include transform(scale(0.85))
+
+.text-blue
+	color: #0288d1

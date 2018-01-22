@@ -1,0 +1,116 @@
+#nav-drawer
+    background: $white
+    width: 275px
+    position: fixed
+    top: 0
+    bottom: 0
+    overflow-y: scroll
+    z-index: 10
+
+.nav-drawer-list
+    padding-bottom: 130px
+
+    li
+        display: block
+        position: relative
+
+.nested-nav-list
+    display: none
+    border-top: 1px solid #ebecec
+    border-bottom: 1px solid #ebecec
+    background: #f6f7f7
+
+.nav-drawer-list
+    .nav-item
+        color: #1a1a1a
+        text-decoration: none
+        display: block
+        height: 48px
+        padding-top: 6px
+        padding-left: 15px
+        font-weight: normal
+        cursor: pointer
+
+.nested-nav-list
+    a
+        color: #1a1a1a
+        text-decoration: none
+        display: block
+        height: 48px
+        padding-top: 6px
+        padding-left: 15px
+        font-weight: normal
+        cursor: pointer
+        padding-top: 15px
+        padding-left: 50px
+        border-left: 4px solid transparent
+
+        &:hover
+            border-left: 4px solid red
+            font-weight: bold
+            background: $white
+
+.nav-drawer-list
+    .item-active
+        .nested-nav-list
+            display: block
+
+    .fa-angle-down
+        position: absolute
+        right: 10px
+        top: 20px
+
+// nav: app slug
+#nav-app-content
+    width: 275px
+    border-top: 1px solid $border-color
+    padding: 10px
+    background: $light-grey
+    position: fixed
+    bottom: 0
+
+    p
+        width: 69%
+
+#nav-drawer,
+#nav-app-content
+    left: -275px
+
+.nav-app-install-btn
+    font-size: 12px
+    padding: 6px 18px
+
+// nav drawer active
+body
+    &.nav-drawer-active
+        overflow-y: hidden
+
+.nav-drawer-active
+    #nav-drawer,
+    #nav-app-content
+        left: 0
+
+    #nav-drawer
+        @include box-shadow(0, 0, 5px, 0, #222)
+
+.nav-drawer-active
+    .black-overlay
+        display: block
+        z-index: 5
+
+.item-active
+    .fa-angle-down
+        @include transform(rotateZ(180deg))
+
+// nav transition effect
+.transition-ease
+    @include transition(all, 0.3s, ease)
+
+@import "placeholder/padding"
+@include padding-top(10)
+@include padding-left(15)
+
+@import "placeholder/border"
+@include border(top)
+
+@import "nav-drawer-icons"
