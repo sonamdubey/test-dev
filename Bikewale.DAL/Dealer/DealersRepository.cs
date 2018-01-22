@@ -419,7 +419,7 @@ namespace Bikewale.DAL.Dealer
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getdealerbymakecity_04082017";
+                    cmd.CommandText = "getdealerbymakecity_20012018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelid > 0 ? modelid : Convert.DBNull));
@@ -453,7 +453,7 @@ namespace Bikewale.DAL.Dealer
                                 dealerdetail.DisplayTextLarge = Convert.ToString(dr["CtaLongText"]);
                                 dealerdetail.DisplayTextSmall = Convert.ToString(dr["CtaSmallText"]);
                                 dealerdetail.IsFeatured = SqlReaderConvertor.ToBoolean(dr["isfeatured"]);
-                                // dealerdetail.IsBwDealer = SqlReaderConvertor.ToBoolean(dr["isbwdealer"]);
+                                dealerdetail.IsBwDealer = SqlReaderConvertor.ToBoolean(dr["isbwdealer"]);
                                 dealerList.Add(dealerdetail);
                             }
 
@@ -1143,9 +1143,11 @@ namespace Bikewale.DAL.Dealer
                                         objSMSData.Name = Convert.ToString(dr["name"]);
                                         objSMSData.Address = Convert.ToString(dr["address"]);
                                         objSMSData.Phone = Convert.ToString(dr["phone"]);
-                                        objSMSData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
+                                        objSMSData.CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]);
                                         objSMSData.CityName = Convert.ToString(dr["cityname"]);
                                         objSMSData.Area = Convert.ToString(dr["area"]);
+                                        objSMSData.Latitude = SqlReaderConvertor.ParseToDouble(dr["latitude"]);
+                                        objSMSData.Longitude = SqlReaderConvertor.ParseToDouble(dr["longitude"]);
                                         dr.Close();
                                     }
                                 }

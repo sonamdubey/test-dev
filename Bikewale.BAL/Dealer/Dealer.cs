@@ -330,7 +330,7 @@ namespace Bikewale.BAL.Dealer
                     if (objSMSData.SMSStatus == EnumSMSStatus.Success)
                     {
                         SMSTypes newSms = new SMSTypes();
-                        newSms.DealerShowroomDetailsSMS(objData.MobileNumber, objSMSData.Name, objSMSData.Area, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, objData.PageUrl);
+                        newSms.DealerShowroomDetailsSMS(objData.MobileNumber, objSMSData.Name, objSMSData.Area, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, objData.PageUrl, objSMSData.Latitude, objSMSData.Longitude);
                         return EnumSMSStatus.Success;
                     }
                     else if (objSMSData.SMSStatus == EnumSMSStatus.Daily_Limit_Exceeded)

@@ -711,20 +711,24 @@ namespace Bikewale.Notifications
         /// <param name="phone"></param>
         /// <param name="city"></param>
         /// <param name="pageUrl"></param>
-        public void DealerShowroomDetailsSMS(string number, string name, string area, string address, string phone, string city, string pageUrl)
+        public void DealerShowroomDetailsSMS(string number, string name, string area, string address, string phone, string city, string pageUrl, double latitude, double longitude)
         {
             try
             {
-                string message = String.Format("Details of dealer showrooms nearby:{0}{0}{1}{0}{2},{3}{0}{4}{0}{0}Thanks for visiting BikeWale.", Environment.NewLine, name, address, city, phone);
+                UrlShortner objUrlShortner = new UrlShortner();
 
-                //EnumSMSServiceType esms = EnumSMSServiceType.DealerShowroomDetailsSMSToCustomer;
+                var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", latitude, longitude));
+                string shortUrl = shortUrlObj != null ? shortUrlObj.ShortUrl : "";
+                string message = String.Format("{1},{2}{0}{3}{0}+91-{4}{0}{5}Thanks for visiting BikeWale.", Environment.NewLine, name, area, address, phone, (!string.IsNullOrEmpty(shortUrl) ? string.Format("Get Directions-{1}{0}", Environment.NewLine, shortUrl) : ""));
+                EnumSMSServiceType esms = EnumSMSServiceType.DealerShowroomDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
-                //sc.ProcessSMS(number, message, esms, pageUrl);
+                sc.ProcessSMS(number, message, esms, pageUrl);
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("Notifications.DealerShowroomDetailsSMS({0},{1},{2},{3},{4},{5})", number, name, address, phone, city, pageUrl));
+                ErrorClass.LogError(ex, String.Format("Notifications.DealerShowroomDetailsSMS({0},{1},{2},{3})", number, pageUrl, city, phone));
             }
+
         }
     }   //End of class
 }   //End of namespace
