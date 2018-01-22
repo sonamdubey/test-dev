@@ -213,12 +213,6 @@ namespace Bikewale.Models
                 objPopularBikes.CityId = CityId;
                 MostPopularBikes = objPopularBikes.GetData();
 
-                BikeFilters obj = new BikeFilters();
-                obj.CityId = CityId;
-                obj.TopCount = 2;
-                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
-                MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, MostPopularBikes.Bikes);
-
                 MostPopularBikesWidget objPopularScooters = new MostPopularBikesWidget(_bikeModels, EnumBikeType.Scooters, false, false);
                 objPopularScooters.TopCount = topCount > 6 ? topCount : 6;
                 objPopularScooters.CityId = CityId;
@@ -306,6 +300,11 @@ namespace Bikewale.Models
                     objIndex.PopularBikesAndPopularScootersWidget.ShowViewAllLink2 = true;
                     objIndex.PopularBikesAndPopularScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndPopularScooters;
                     objIndex.PopularBikesAndPopularScootersWidget.PageName = "Features";
+
+                    BikeFilters obj = new BikeFilters();
+                    obj.CityId = CityId;
+                    IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
+                    objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                 }
             }
             catch (Exception err)
