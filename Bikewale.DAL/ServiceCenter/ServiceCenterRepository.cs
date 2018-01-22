@@ -417,7 +417,6 @@ namespace Bikewale.DAL.ServiceCenter
                                         objSMSData.Phone = Convert.ToString(dr["phone"]);
                                         objSMSData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
                                         objSMSData.CityName = Convert.ToString(dr["cityname"]);
-                                        objSMSData.Area = Convert.ToString(dr["area"]);
                                         objSMSData.Latitude = SqlReaderConvertor.ParseToDouble(dr["lattitude"]);
                                         objSMSData.Longitude = SqlReaderConvertor.ParseToDouble(dr["longitude"]);
                                         objSMSData.MakeName = Convert.ToString(dr["makename"]);
