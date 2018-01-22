@@ -176,7 +176,7 @@
 
                         <div class="row">
                             <div class="input-field col m6">
-                                <input id="txtButtonlinkDesktop" name="DesktopBannerDetails.TargetHref" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.TargetHref:"")" type="text" data-bind="css:buttonLinkDesktopMsg()!=''?'invalid':'' " maxlength="100">
+                                <input id="txtButtonlinkDesktop" name="DesktopBannerDetails.TargetHref" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.TargetHref:"")" type="text" data-bind="css:buttonLinkDesktopMsg()!=''?'invalid':'' " maxlength="250">
                                 <label for="txtButtonlinkDesktop" data-error="" data-bind="attr:{'data-error':buttonLinkDesktopMsg},css:buttonLinkDesktopMsg()!=''?'active':''">Button Link*</label>
                             </div>
                             <div class="col m6 margin-top25">
@@ -310,7 +310,7 @@
 
                         <div class="row">
                             <div class="input-field col m6">
-                                <input id="txtButtonlinkMobile" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.TargetHref:"")" type="text" class="validate" data-bind="css:buttonLinkMobileMsg()!=''?'invalid':'' " maxlength="100">
+                                <input id="txtButtonlinkMobile" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.TargetHref:"")" type="text" class="validate" data-bind="css:buttonLinkMobileMsg()!=''?'invalid':'' " maxlength="250">
                                 <label for="txtButtonlinkMobile" data-error="" data-bind="attr:{'data-error':buttonLinkMobileMsg},css:buttonLinkMobileMsg()!=''?'active':''">Button Link*</label>
                             </div>
                             <div class="col m6 margin-top25">
