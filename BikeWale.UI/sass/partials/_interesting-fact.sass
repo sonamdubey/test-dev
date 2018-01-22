@@ -1,0 +1,167 @@
+﻿$interesting-fact-gredient2: #c84438
+$interesting-fact-gredient1: #ffaaa1
+$readmore-button: #0288d1
+
+@mixin interesting-fact-section($color1: $interesting-fact-gredient1, $color2: $interesting-fact-gredient2 )
+	.interesting-fact-section
+		padding: 25px 20px
+		background: linear-gradient(120deg, $color1, $color2)
+
+
+@mixin interesting-fact__white-overlay
+	.interesting-fact-popup
+		.interesting-fact__content[data-overlay= 'bottom']
+			&:after
+				content: ''
+				position: absolute
+				height: 35%
+				bottom: 0
+				left: 0
+				right: 0
+				display: block
+				background: linear-gradient(180deg, transparent, color('white'))
+
+		.interesting-fact__content[data-overlay= 'top']
+			&:after
+				content: ''
+				position: absolute
+				height: 35%
+				top: 26px
+				left: 0
+				right: 0
+				display: block
+				background: linear-gradient(180deg, color('white'), transparent)
+
+		.interesting-fact__content[data-overlay= 'both']
+			&:before
+				content: ''
+				position: absolute
+				height: 35%
+				top: 26px
+				left: 0
+				right: 0
+				display: block
+				background: linear-gradient(180deg, color('white'), transparent)
+
+			&:after
+				content: ''
+				position: absolute
+				height: 35%
+				bottom: 0
+				left: 0
+				right: 0
+				display: block
+				background: linear-gradient(180deg, transparent, color('white'))
+
+.interesting-fact__whiteout-window
+	@include vendor-prefix('transition', all 0.3s cubic-bezier(0, 0, 0.3, 1))
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	will-change: opacity
+	background: rgba( 255, 255, 2555, 0.2)
+	opacity: 0
+
+@mixin interesting-fact-popup
+	.interesting-fact-popup
+		@include vendor-prefix('transform', translate(0, 110%))
+		@include vendor-prefix('transition', all 0.3s cubic-bezier(0, 0, 0.3, 1))
+		z-index: 2
+		position: fixed
+		height: 80%
+		bottom: 0
+		left: 0
+		right: 0
+		height: 80%
+
+		.interesting-fact-container
+			height: 88%
+			position: relative
+			border-radius: 3px
+			padding-right: 0
+
+		.interesting-fact__content
+			max-height: 100%
+			overflow: auto
+			line-height: 2
+			padding-right: 20px
+
+		@include interesting-fact__white-overlay
+
+	.interesting-popup--active
+		.interesting-fact__whiteout-window
+			opacity: 1
+			pointer-events: auto;
+			z-index: 1
+
+		.interesting-fact-popup
+			-webkit-transform: translate(0, 0)
+			-moz-transform: translate(0, 0)
+			-ms-transform: translate(0, 0)
+			transform: translate(0, 0)
+
+.interesting-fact-section
+	.page__heading-h2
+		color: color('white')
+		margin-bottom: 30px
+		text-transform: capitalize
+
+.interesting-fact__title
+	position: relative
+	
+	.close
+		position: absolute
+		right: -6px
+		top: -4px
+		width: 30px
+		height: 30px
+		background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/cross.svg') no-repeat center
+		background-size: 14px
+
+.interesting-fact-container
+	background: color('white')
+	padding: 30px 20px 20px
+	position: relative
+
+	&:before
+		@include quote-icon
+		content: ''
+		display: block
+		height: 30px
+		width: 49px
+		background-repeat: space
+		position: absolute
+		top: -10px
+
+	&:before		
+		left: 0
+
+.interesting-fact__content
+	font-size: 14px
+	line-height: 1.57
+	max-height: 63px
+	overflow: hidden
+	margin-bottom: 12px
+
+.interesting-fact__read-more
+	font-size: 14px
+	font-weight: $font-semibold
+	text-align: right
+	display: block
+	color: $readmore-button
+	z-index: 3
+
+@mixin interesting-fact__container-scrollbar
+	.interesting-fact__content::-webkit-scrollbar
+		width: 6px
+
+	.interesting-fact__content::-webkit-scrollbar-track
+		box-shadow: inset 0 0 5px grey
+		border-radius: 3px
+		background: rgba(255, 255, 255, 0.42)
+
+	.interesting-fact__content::-webkit-scrollbar-thumb
+		background: rgba(255, 255, 255, 0.54)
+		border-radius: 3px

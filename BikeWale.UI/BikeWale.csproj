@@ -3125,6 +3125,7 @@
     <Content Include="sass\partials\_review-carousel.sass" />
     <Content Include="sass\partials\_dealer-carousel.sass" />
     <Content Include="sass\partials\_newly-lauched-carousel.sass" />
+    <Content Include="sass\partials\_interesting-fact.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
