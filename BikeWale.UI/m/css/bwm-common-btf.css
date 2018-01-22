@@ -1544,3 +1544,66 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     color: #2a2a2a;
     text-decoration: none;
 }
+
+
+/* auto expo navigation start */
+.auto-expo-nav {
+	padding: 15px;
+	background: rgba(14, 58, 80, 1);
+	background: -moz-linear-gradient(left, rgba(14, 58, 80, 1) 0%, rgba(24, 113, 145, 1) 100%);
+	background: -webkit-linear-gradient(left, rgba(14, 58, 80, 1) 0%, rgba(24, 113, 145, 1) 100%);
+	background: -o-linear-gradient(left, rgba(14, 58, 80, 1) 0%, rgba(24, 113, 145, 1) 100%);
+	background: -ms-linear-gradient(left, rgba(14, 58, 80, 1) 0%, rgba(24, 113, 145, 1) 100%);
+	background: linear-gradient(to right, rgba(14, 58, 80, 1) 0%, rgba(24, 113, 145, 1) 100%);
+	display: block;
+	cursor: pointer;
+}
+
+.auto-expo-nav__logo {
+	width: 61px;
+	height: 32px;
+	background-image: url('https://imgd.aeplcdn.com/0x0/cw/es/auto-expo-2018/auto-expo-white.svg?v1');
+	background-repeat: no-repeat;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+}
+
+.auto-expo-nav__logo:after {
+	content: '';
+	position: absolute;
+	top: 16px;
+	right: -23px;
+	width: 15px;
+	height: 10px;
+	display: inline-block;
+	background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/uparrow.svg) no-repeat 50%;
+	background-size: cover;
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	transform: rotate(90deg);
+	opacity: 0.6;
+}
+
+.auto-expo-nav__title {
+	width: 65%;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.auto-expo-nav__title--main,
+.auto-expo-nav__title--sub {
+	color: #fff;
+}
+
+.auto-expo-nav__title--sub {
+	text-transform: uppercase;
+	font-size: 11px;
+	opacity: 0.6;
+	letter-spacing: 1px;
+}
+
+.auto-expo-nav__title--main {
+	font-size: 14px;
+}
+/* auto expo navigation end */

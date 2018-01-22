@@ -118,7 +118,7 @@ $(document).ready(function () {
         campaignId = $('#CampaignId').val();
         userId = $('#UserId').val();
         isAllIndia = clicked.attr('data-allindia');
-        
+
         var obj = {
             'campaignId': campaignId,
             'modelId': modelId,
@@ -166,7 +166,7 @@ $(document).ready(function () {
             $('#ddlModels option').first().prop('selected', false);
             $(this).material_select();
         }
-      });
+    });
 
     $('#ddlCities').on('change', function () {
         var option = $(this).find(':selected').val();
@@ -176,9 +176,9 @@ $(document).ready(function () {
             });
             $(this).material_select();
         }
-       else if ($('#ddlCities option:selected').length > 1) {
+        else if ($('#ddlCities option:selected').length > 1) {
             $('#ddlCities option').first().prop('selected', false);
-       }       
+        }
     });
 
     showAllIndiaAlert = function () {
@@ -195,8 +195,8 @@ $(document).ready(function () {
             if ($(this).val()) {
                 cityIds = cityIds + $(this).val() + ',';
             }
-            });
-        if ((cityIds == "" || cityIds==undefined) && mfgVM.selectedState()>0)
+        });
+        if ((cityIds == "" || cityIds == undefined) && mfgVM.selectedState() > 0)
             stateIds = mfgVM.selectedState();
     };
 
@@ -205,17 +205,10 @@ $(document).ready(function () {
         var rdoModel = $("[name=rdoModel]:checked").val();
         switch (rdoModel) {
             case "1":
-                modelIds = $("#ddlModels :selected").val();
-                if ($("#ddlModels :selected").val() == '') {
-                    isValid = false;
-                    Materialize.toast("Please select one or more models", 6000);
-                }
-                else {
-                    $("#ddlModels :selected").each(function () {
-                        if ($(this).val())
-                            modelIds = modelIds + $(this).val() + ',';
-                    });
-                }
+                $("#ddlModels :selected").each(function () {
+                    if ($(this).val())
+                        modelIds = modelIds + $(this).val() + ',';
+                });
                 break;
             case "2":
                 modelIds = $("#txtModels").val().trim();

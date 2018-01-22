@@ -4,6 +4,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created By : Ashish G. Kamble on 20 Mar 2017
     /// Summary : Class have properties related to ad tags
+    /// Modified By : Rajan Chauhan on 18 Jan 2018
+    /// Description : Added Ad_Model_Bottom_970x90 and Ad_Model_Comparo_976x400 fields
     /// </summary>
     public class AdTags
     {
@@ -19,6 +21,7 @@ namespace Bikewale.Models
         public string TargetedTags { get; set; }
 
         public bool Ad_970x90 { get; set; }
+        public bool Ad_970x90Top { get; set; }
         public bool Ad_970x90BTF { get; set; }
         public bool Ad_970x90Bottom { get; set; }
 
@@ -31,6 +34,8 @@ namespace Bikewale.Models
         public bool Ad_Model_BTF_300x250 { get; set; }
         public bool Ad_976x204 { get; set; }
         public bool Ad_976x400_Middle { get; set; }
+        public bool Ad_Model_Comparo_976x400 { get; set; }
+        public bool Ad_Model_Bottom_970x90 { get; set; }
 
         public bool Ad_292x399 { get; set; }
         public bool Ad_292x359 { get; set; }
@@ -45,6 +50,7 @@ namespace Bikewale.Models
 
         public bool Ad_Mid_320x50 { get; set; }
         public bool Ad_320x50 { get; set; }
+        public bool Ad_320x50Top { get; set; }
         public bool Ad_Bot_320x50 { get; set; }
         public bool Ad320x150_Top { get; set; }
         public bool Ad320x150_Bottom { get; set; }

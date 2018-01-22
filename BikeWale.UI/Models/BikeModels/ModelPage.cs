@@ -1199,6 +1199,7 @@ namespace Bikewale.Models.BikeModels
                     _objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName);
 
                     _objData.AdTags.TargetedModel = _objData.ModelPageEntity.ModelDetails.ModelName;
+                    _objData.AdTags.TargetedMakes = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName;
                     _objData.PageMetaTags.AlternateUrl = BWConfiguration.Instance.BwHostUrl + "/m/" + _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName + "-bikes/" + _objData.ModelPageEntity.ModelDetails.MaskingName + "/";
                     _objData.AdTags.TargetedCity = _objData.LocationCookie.City;
                     _objData.PageMetaTags.Keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", _objData.BikeName);
