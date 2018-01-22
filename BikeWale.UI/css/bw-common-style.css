@@ -486,6 +486,27 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 .fa-angle-down { width:11px; height:6px; background: #fff url(https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; }
 
+/* auto expo nav icon */
+.auto-expo-nav__logo {
+	width: 81px;
+	height: 32px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/auto-expo-2018/autoexpo-logo-white.png') no-repeat 20px center;
+	background-size: 61px;
+	display: inline-block;
+	position: relative;
+	margin-left: 20px;
+}
+
+.auto-expo-nav__logo:before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 7px;
+	height: 21px;
+	border-left: 1px solid #fff;
+}
+
 /* News-Reviews-Videos New Bikes */
 .newBikes-latest-updates-container .grid-4 { padding-left:10px !important; }
 .newBikes-latest-updates-container .grid-8 { padding-right:10px !important; }
