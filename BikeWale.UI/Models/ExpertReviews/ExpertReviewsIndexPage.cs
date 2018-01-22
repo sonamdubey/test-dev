@@ -382,6 +382,8 @@ namespace Bikewale.Models
         /// description : AddedMultiTab widget
         /// Modified by : Snehal Dange on 21st dec 2017
         /// Summary : added
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         private void GetWidgetData(ExpertReviewsIndexPageVM objData, int topCount)
         {
@@ -592,7 +594,7 @@ namespace Bikewale.Models
                             BikeFilters obj = new BikeFilters();
                             obj.CityId = CityId;
                             obj.TopCount = 2;
-                            IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
+                            IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
                             objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                         }
                         else

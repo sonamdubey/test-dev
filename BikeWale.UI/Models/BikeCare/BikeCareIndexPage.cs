@@ -225,6 +225,8 @@ namespace Bikewale.Models
         /// Summary    : Get data to populate widget view model
         /// Modified by Sajal Gupta on 5-12-2017
         /// Desc : Addded multi tabs widget
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         private void GetWidgetData(BikeCareIndexPageVM objData, int topCount)
         {
@@ -318,11 +320,13 @@ namespace Bikewale.Models
                     objData.PopularBikesAndPopularScootersWidget.ShowViewAllLink2 = true;
                     objData.PopularBikesAndPopularScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndPopularScooters;
                     objData.PopularBikesAndPopularScootersWidget.PageName = "BikeCare";
+
+                    BikeFilters obj = new BikeFilters();
+                    obj.CityId = CityId;
+                    IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                    objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                 }
-                BikeFilters obj = new BikeFilters();
-                obj.CityId = CityId;
-                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
-                objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
+     
             }
             catch (Exception ex)
             {

@@ -915,6 +915,9 @@ namespace Bikewale.Models
 
         /// <summary>
         /// Binds the popular and upcoming bikes.
+        /// 
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         /// <param name="objData">The object data.</param>
         /// <param name="MostPopularBikes">The most popular bikes.</param>
@@ -936,7 +939,7 @@ namespace Bikewale.Models
 
             BikeFilters obj = new BikeFilters();
             obj.CityId = CityId;
-            IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
+            IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
             objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes.Bikes);
 
             objData.PopularBikesAndUpcomingBikesWidget.UpcomingBikes = UpcomingBikes;

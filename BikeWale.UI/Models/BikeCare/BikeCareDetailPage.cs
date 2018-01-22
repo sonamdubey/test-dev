@@ -229,6 +229,8 @@ namespace Bikewale.Models
         /// Summary    : Get data for the page widgets
         /// Modified By Sajal Gupta on 25-04-20187
         /// Descrition : Call most popular bike widget by body type
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         private void GetWidgetData(BikeCareDetailPageVM objData, int topCount)
         {
@@ -392,7 +394,7 @@ namespace Bikewale.Models
                 }
                 BikeFilters obj = new BikeFilters();
                 obj.CityId = CityId;
-                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
+                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
                 objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
             }
             catch (Exception ex)
