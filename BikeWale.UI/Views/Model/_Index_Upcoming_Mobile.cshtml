@@ -63,12 +63,7 @@
             </div>
 
 
-            @if (Model.AdTags.Ad320x100ATF)
-            {
-                <div class="margin-bottom20 text-center">
-                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
-                </div>
-            }
+            
 
             @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
             {
@@ -95,6 +90,12 @@
                         }
                     }
                     @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
+                </div>
+            }
+            @if (Model.AdTags.Ad320x100ATF)
+            {
+                <div class="margin-bottom20 text-center">
+                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
                 </div>
             }
             @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
