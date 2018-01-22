@@ -375,7 +375,7 @@
 
 
         @Html.Raw(Model.Amp_Page_CSS)
-    </style>		
+    </style>
 
     @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
     {
@@ -403,12 +403,9 @@
     
 
     <script async src="https://cdn.ampproject.org/v0.js"></script>
+	<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     @if (Model.AmpJsTags != null)
 	{
-		if (Model.AmpJsTags.IsAnalytics)
-		{
-			<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-		}
 		if (Model.AmpJsTags.IsSidebar)
 		{
 			<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
@@ -557,6 +554,31 @@
 
         </ul>
     </amp-sidebar>
+
+	<amp-analytics type="googleanalytics">
+		<script type="application/json">
+		{
+			"vars": {
+				"account": "UA-34771801-1"
+			},
+			"extraUrlParams": {
+				"pageSourceType": "AMP"
+			},
+			"triggers": {
+				"trackEvent": {
+					"selector": ".auto-expo-nav-ga",
+					"on": "click",
+					"request": "event",
+					"vars": {
+						"eventCategory": "@(Model.Page)_AMP",
+						"eventAction": "AutoExpo_2018_Link Clicked"
+					}
+				}
+			}
+		}
+		</script>
+	</amp-analytics>
+
 
     <header>
         <button class="bwmsprite nav-icon" on="tap:nav.open"></button>
