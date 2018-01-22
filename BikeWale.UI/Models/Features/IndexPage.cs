@@ -194,6 +194,8 @@ namespace Bikewale.Models
         /// Summary    : Bind Widgets
         /// Modified by sajal Gupta on 05-12-2017
         /// Desc : Adderd multui tab widget
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         private void BindWidget(IndexFeatureVM objIndex, int topCount)
         {
@@ -303,7 +305,7 @@ namespace Bikewale.Models
 
                     BikeFilters obj = new BikeFilters();
                     obj.CityId = CityId;
-                    IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
+                    IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
                     objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                 }
             }

@@ -581,6 +581,8 @@ namespace Bikewale.Models
         /// description : Added Popular Scooter Brands widget
         /// Modified by: SnehaL Dange on 21st dec 2017
         /// Desc: Added BindMoreAboutScootersWidget
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         private void GetWidgetData(NewsIndexPageVM objData, int topCount)
         {
@@ -911,7 +913,7 @@ namespace Bikewale.Models
                         }
                         BikeFilters obj = new BikeFilters();
                         obj.CityId = CityId;
-                        IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
+                        IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
                         objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                     }
                 }

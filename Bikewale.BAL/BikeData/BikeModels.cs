@@ -41,6 +41,8 @@ namespace Bikewale.BAL.BikeData
     /// <summary>
     /// Created By : Ashish G. Kamble on 24 Apr 2014
     /// Summary :     
+    /// Modified by : Sanskar Gupta on 22 Jan 2018
+    /// Description : Added boolean 'isCityLogicPresent' in 'GetAdPromotedBike' function to separate Newly Launched logic of HomePage and Editorial Pages
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -216,11 +218,19 @@ namespace Bikewale.BAL.BikeData
 
         }
 
-        public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData)
+        public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData, bool isCityLogicPresent)
         {
             IEnumerable<MostPopularBikesBase> objList = null;
-       
-            objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
+            if (isCityLogicPresent)
+            {
+                if (ObjData.CityId == 0)
+                    objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
+                else
+                    objList = _modelCacheRepository.GetAdPromotedBike(ObjData);
+            }
+
+            else
+                objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
 
             objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
 
