@@ -651,7 +651,7 @@ namespace Bikewale.Notifications
 
                 var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", latitude, longitude));
                 string shortUrl = shortUrlObj != null ? shortUrlObj.ShortUrl : "";
-                string message = String.Format("{1} Service Center in {2}:{0}{0}{3}{0}{4},{5}{0}+91-{6}{0}{7}Thanks for visiting BikeWale.", Environment.NewLine, makeName, city, name, address, city, phone, (!string.IsNullOrEmpty(shortUrl) ? string.Format("Get Directions-{1}{0}", Environment.NewLine, shortUrl) : ""));
+                string message = String.Format("{1}{0}{2},{3}{0}+91-{4}{0}{5}Thanks for visiting BikeWale.", Environment.NewLine, name, address, city, phone, (!string.IsNullOrEmpty(shortUrl) ? string.Format("Get Directions-{1}{0}", Environment.NewLine, shortUrl) : ""));
 
                 EnumSMSServiceType esms = EnumSMSServiceType.ServiceCenterDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
