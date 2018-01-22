@@ -155,6 +155,7 @@
     <Compile Include="Compare\BikeCompareRepository.cs" />
     <Compile Include="Customer\CustomerRespository.cs" />
     <Compile Include="Dealer\DealersRepository.cs" />
+    <Compile Include="Dealer\MobileSmsVerification.cs" />
     <Compile Include="Dealer\OfferRepository.cs" />
     <Compile Include="Feedback\FeedbackRepository.cs" />
     <Compile Include="Finance\FinanceRepository.cs" />
@@ -187,6 +188,10 @@
     <ProjectReference Include="..\Bikewale.DAL.CoreDAL\Bikewale.DAL.CoreDAL.csproj">
       <Project>{d5229109-3b85-48e7-9ff8-5385bdb54c87}</Project>
       <Name>Bikewale.DAL.CoreDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.DTO\Bikewale.DTO.csproj">
+      <Project>{a6404f19-b267-4e37-b186-d8fc010ad2ce}</Project>
+      <Name>Bikewale.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>

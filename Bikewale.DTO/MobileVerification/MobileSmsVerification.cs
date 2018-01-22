@@ -14,7 +14,7 @@ namespace Bikewale.DTO.MobileVerification
         public string MobileNumber { get; set; }
         [JsonProperty("pageurl")]
         public string PageUrl { get; set; }
-        [JsonProperty("agentType")]
-        public sbyte AgentType { get; set; }
+        [JsonProperty("isbwdealer")]
+        public bool IsBwDealer { get; set; }
     }
 }

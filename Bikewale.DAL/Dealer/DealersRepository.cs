@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeBooking;
+﻿using Bikewale.DTO.MobileVerification;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
@@ -452,6 +453,7 @@ namespace Bikewale.DAL.Dealer
                                 dealerdetail.DisplayTextLarge = Convert.ToString(dr["CtaLongText"]);
                                 dealerdetail.DisplayTextSmall = Convert.ToString(dr["CtaSmallText"]);
                                 dealerdetail.IsFeatured = SqlReaderConvertor.ToBoolean(dr["isfeatured"]);
+                                // dealerdetail.IsBwDealer = SqlReaderConvertor.ToBoolean(dr["isbwdealer"]);
                                 dealerList.Add(dealerdetail);
                             }
 
@@ -1111,7 +1113,7 @@ namespace Bikewale.DAL.Dealer
         /// <param name="dealerId"></param>
         /// <param name="mobileNumber"></param>
         /// <returns></returns>
-        public SMSData GetDealerShowroomSMSData(uint dealerId, string mobileNumber)
+        public SMSData GetDealerShowroomSMSData(MobileSmsVerification objData)
         {
             SMSData objSMSData = null;
             try
@@ -1119,8 +1121,10 @@ namespace Bikewale.DAL.Dealer
                 using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetailsandlogsms"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobilenumber", DbType.String, mobileNumber));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, objData.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobilenumber", DbType.String, objData.MobileNumber));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isbwdealer", DbType.Boolean, objData.IsBwDealer));
+
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -1157,7 +1161,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("DealersRepository.GetDealerShowroomSMSData: DealerId : {0}, MobileNumber : {1}", dealerId, mobileNumber));
+                ErrorClass.LogError(ex, string.Format("DealersRepository.GetDealerShowroomSMSData: DealerId : {0}, MobileNumber : {1}", objData.Id, objData.MobileNumber));
 
             }
             return objSMSData;

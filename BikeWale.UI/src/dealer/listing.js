@@ -125,10 +125,12 @@ docReady(function () {
     	    if (attemptCount < 4)
     	    {
     	        var dealerId = $(this).attr("data-id");
+    	        var isBwDealer = $(this).attr("data-isbwdealer");
     	        var obj = {
     	            "mobilenumber": inputbox.val(),
     	            "pageurl": window.location.href.replace('&', '%26'),
-    	            "id": dealerId
+    	            "id": dealerId,
+    	            "isbwdealer": isBwDealer
     	        }
     	        $.ajax({
     	            type: "POST",

@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.DTO.MobileVerification;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
@@ -318,18 +319,18 @@ namespace Bikewale.BAL.Dealer
         /// Created By : Snehal Dange on 18th Jan 2018
         /// Description: BAL layer Function for sending dealer showroom sms data from DAL.
         /// </summary>
-        public EnumSMSStatus GetDealerShowroomSMSData(uint dealerId, string mobileNumber, string pageUrl)
+        public EnumSMSStatus GetDealerShowroomSMSData(MobileSmsVerification objData)
         {
             try
             {
-                SMSData objSMSData = _dealerRepository.GetDealerShowroomSMSData(dealerId, mobileNumber);
+                SMSData objSMSData = _dealerRepository.GetDealerShowroomSMSData(objData);
 
                 if (objSMSData != null)
                 {
                     if (objSMSData.SMSStatus == EnumSMSStatus.Success)
                     {
                         SMSTypes newSms = new SMSTypes();
-                        newSms.DealerShowroomDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Area, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, pageUrl);
+                        newSms.DealerShowroomDetailsSMS(objData.MobileNumber, objSMSData.Name, objSMSData.Area, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, objData.PageUrl);
                         return EnumSMSStatus.Success;
                     }
                     else if (objSMSData.SMSStatus == EnumSMSStatus.Daily_Limit_Exceeded)
@@ -344,7 +345,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Dealer.GetDealerSMSData : {0}, mobileNumber : {1}", dealerId, mobileNumber));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Dealer.GetDealerSMSData : {0}, mobileNumber : {1}", objData.Id, objData.MobileNumber));
 
             }
             return 0;

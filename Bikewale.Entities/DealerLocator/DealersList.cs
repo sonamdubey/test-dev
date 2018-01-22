@@ -25,5 +25,6 @@ namespace Bikewale.Entities.DealerLocator
         public string DisplayTextLarge { get; set; }
         public string DisplayTextSmall { get; set; }
         public string GetOffersGALabel { get; set; }
+        public bool IsBwDealer { get; set; }
     }
 }

@@ -248,7 +248,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
             {
                 try
                 {
-                    return Ok(_dealer.GetDealerShowroomSMSData(objData.Id, objData.MobileNumber, objData.PageUrl));
+                    return Ok(_dealer.GetDealerShowroomSMSData(objData));
                 }
                 catch (Exception ex)
                 {

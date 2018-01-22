@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.DTO.MobileVerification;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
@@ -46,6 +47,6 @@ namespace Bikewale.Interfaces.Dealer
         bool UpdateManufaturerLead(uint pqId, string custEmail, string mobile, string response);
         IEnumerable<DealerBrandEntity> GetDealerByBrandList();
         IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId);
-        EnumSMSStatus GetDealerShowroomSMSData(uint dealerId, string mobileNumber, string pageUrl);
+        EnumSMSStatus GetDealerShowroomSMSData(MobileSmsVerification objData);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.DTO.MobileVerification;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
@@ -46,6 +47,6 @@ namespace Bikewale.Interfaces.Dealer
         IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId);
         DealerBikeModelsEntity GetBikesByDealerAndMake(uint dealerId, uint makeId);
         DealerVersionPrices GetBikeVersionPrice(uint dealerId, uint versionId);
-        SMSData GetDealerShowroomSMSData(uint dealerId, string mobileNumber);
+        SMSData GetDealerShowroomSMSData(MobileSmsVerification objData);
     }
 }
