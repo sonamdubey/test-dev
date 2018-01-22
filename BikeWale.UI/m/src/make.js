@@ -8,30 +8,31 @@
 	interestingFactPopup.registerEvents();
 });
 var interestingFactPopup = (function () {
-    var fixedPoupContainer, readMoreBtn, closeBtn;
+    var fixedPoupContainer, container, readMoreBtn, closeBtn;
 
     function _setSelectores() {
         fixedPoupContainer = $('#interestingFact');
-        readMoreBtn = $('.interesting-fact__read-more'),
         closeBtn = $('.interesting-fact-popup .close');
+        container = $('.interesting-popup--active');
     }
 
     function registerEvents() {
         _setSelectores();
-        readMoreBtn.on('click', function () {
+        $('.interesting-fact__read-more').on('click', function () {
             var interestingFactContainer = $(this).closest('.interesting-fact-section'),
                 interestingFactContent = interestingFactContainer.find('.interesting-fact__content').text();
             open(interestingFactContent);
             history.pushState('interestingFactPopup', '', '');
+            _setSelectores();
         });
 
         closeBtn.on('click', function () {
-            if (fixedPoupContainer.is(':visible')) {
+            if (container.is(':visible')) {
                 window.history.back();
             }
         });
         $('.interesting-fact__whiteout-window').on('click', function () {
-            if (fixedPoupContainer.is(':visible')) {
+            if (container.is(':visible')) {
                 window.history.back();
             }
         });
@@ -65,14 +66,14 @@ var interestingFactPopup = (function () {
     }
 
     $(window).on('popstate', function () {
-        if (fixedPoupContainer.is(':visible')) {
+        if (container.is(':visible')) {
             close();
         }
     });
 
     $(document).keydown(function (e) {
         if (e.keyCode == 27) {
-            if (fixedPoupContainer.is(':visible')) {
+            if (container.is(':visible')) {
                 window.history.back();
             }
         }

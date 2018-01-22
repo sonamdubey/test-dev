@@ -63,6 +63,8 @@ $readmore-button: #0288d1
 	will-change: opacity
 	background: rgba( 255, 255, 2555, 0.2)
 	opacity: 0
+	cursor: pointer
+	pointer-events: none
 
 @mixin interesting-fact-popup
 	.interesting-fact-popup
@@ -95,6 +97,7 @@ $readmore-button: #0288d1
 			opacity: 1
 			pointer-events: auto;
 			z-index: 1
+			display: block
 
 		.interesting-fact-popup
 			-webkit-transform: translate(0, 0)
