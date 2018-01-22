@@ -3,8 +3,9 @@
     modelColorImages = [],
     videoList = null;
 var eleGallery, vmModelGallery, colorIndex = 0, galleryRoot;
-var photoCount, videoCount, modelName, imageIndex, colorImageId, returnUrl, isColorImageSet = false;
+var photoCount, videoCount, modelName, bikeModelId, imageIndex, colorImageId, returnUrl, isColorImageSet = false;
 var thumbnailSwiperEvents, gallerySwiper, colorGallerySwiper, thumbnailSwiper, colorThumbnailSwiper, videoThumbnailSwiper, videoListEvents;
+var imageTypes = ["Other","ModelImage", "ModelGallaryImage", "ModelColorImage"];
 
 var setPageVariables = function () {
     eleGallery = $("#pageGallery");
@@ -31,6 +32,7 @@ var setPageVariables = function () {
         colorImageId = eleGallery.data("selectedcolorimageid");
         returnUrl = eleGallery.data("returnurl");
         modelName = eleGallery.data("modelname");
+        bikeModelId = eleGallery.data("modelid");
 
 
     } catch (e) {
@@ -361,6 +363,26 @@ function toggleFullScreen(goFullScreen) {
     }
 }
 
+function logBhrighuForImage(item) {
+    if (item) {
+        var imageid = item.attr("data-imgid"), imgcat = item.attr("data-imgcat"), imgtype = item.attr("data-imgtype");
+        if (imageid) {
+            var lb = "";
+            if (imgcat) {
+                lb += "|category=" + imgcat;
+            }
+
+            if (imgtype) {
+                lb += "|type=" + imageTypes[imgtype];
+            }
+
+            label = 'modelId=' + bikeModelId + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
+            cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
+        }
+    }
+
+}
+
 docReady(function () {
 
     galleryRoot = $('#gallery-root');
@@ -471,6 +493,10 @@ docReady(function () {
         onSlideChangeStart: function (swiper) {
             thumbnailSwiperEvents.setPhotoDetails(swiper);
             swiper.lazy.load();
+        },
+        onSlideChangeEnd: function (swiper)
+        {
+            logBhrighuForImage($('#main-photo-swiper .swiper-slide-active'));
         }
     });
 
@@ -500,6 +526,9 @@ docReady(function () {
             if (vmModelGallery.modelInfoScreen()) {
                 vmModelGallery.modelInfoScreen(false);
             }
+        },
+        onSlideChangeEnd: function (swiper) {
+            logBhrighuForImage($('#main-color-swiper .swiper-slide-active'));
         }
     });
 

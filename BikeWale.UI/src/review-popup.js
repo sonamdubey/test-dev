@@ -69,7 +69,6 @@ function applyLikeDislikes() {
 docReady(function () {
 	reviewPopupCotent = $('#reviewPopup');
 	desktopUserReview = $('#userReviewContentDesktop').length;
-	bwcache.setOptions({ 'EnableEncryption': true });
 
 	bwcache.removeAll(true);
 	reviewPopup = {
@@ -114,9 +113,12 @@ docReady(function () {
 		reviewPopup.open(reviewPopupCotent);
 	});
 
-	$(document).on('click','.review-popup .review-popup-close-btn, .blackOut-window', function () {
-		reviewPopup.close(reviewPopupCotent);
-		window.history.back();
+	$(document).on('click', '.review-popup .review-popup-close-btn, .blackOut-window', function () {
+	    if (reviewPopupCotent.is(':visible')) {
+	            reviewPopup.close(reviewPopupCotent);
+	            window.history.back();
+	    }
+		
 	});
 
 	$(window).on('popstate', function (event) {

@@ -243,10 +243,16 @@ namespace Bikewale.Models
                 objPopularBikes.CityId = CityId;
                 MostPopularBikes = objPopularBikes.GetData();
 
+                BikeFilters obj = new BikeFilters();
+                obj.CityId = CityId;
+                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
+                MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, MostPopularBikes.Bikes);
+
                 MostPopularBikesWidget objPopularScooters = new MostPopularBikesWidget(_bikeModels, EnumBikeType.Scooters, false, false);
                 objPopularScooters.TopCount = topCount > 6 ? topCount : 6;
                 objPopularScooters.CityId = CityId;
                 MostPopularScooters = objPopularScooters.GetData();
+
                 UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                 objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
                 objUpcomingBikes.Filters.PageNo = 1;
@@ -325,6 +331,8 @@ namespace Bikewale.Models
             }
         }
 
+
+
         /// <summary>
         /// Created By :Snehal Dange on 8th Nov 2017
         /// Description : Function to create page level schema for breadcrum
@@ -357,5 +365,8 @@ namespace Bikewale.Models
         }
         #endregion
 
+
     }
+
+
 }

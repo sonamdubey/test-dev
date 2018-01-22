@@ -11,6 +11,8 @@
     Model.AdTags.AdPath = "/1017752/BikeWale_New_";
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90Bottom = true;
+    Model.AdTags.Ad_Model_ATF_300x250 = true;
+    Model.AdTags.Ad_Model_BTF_300x250 = true;
 
 
 }
@@ -44,8 +46,8 @@
     {
         <section>
             <div class="container section-bottom-margin">
-                <div class="grid-12">
-                    <div class="content-box-shadow">
+                <div class="grid-8">
+                    <div class="content-box-shadow section-bottom-margin">
                         <div class="padding-15-20">
                             <h2 class="font18 text-black text-bold bg-white inline-block margin-right10">@String.Format("{0} {1}", Model.ServiceCentersListObject.Count, Model.Make.MakeName) service center@( Model.ServiceCentersListObject.Count > 1 ? "s" : "") in @Model.City.CityName</h2>
                             <div class="inline-block">
@@ -53,263 +55,207 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div id="listing-left-column" class="grid-4 alpha omega">
+                        <div id="listing-left-column">
                             <ul id="center-list">
 
                                 @foreach (var serviceCenter in Model.ServiceCentersListObject.ServiceCenters)
-                                {
+								{
 
-                                    <li data-item-id="@serviceCenter.ServiceCenterId" data-item-inquired="false" data-lat="@serviceCenter.Lattitude" data-log="@serviceCenter.Longitude" data-item-number="@serviceCenter.Phone" data-address="@serviceCenter.Address"
-                                        data-item-url="@UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId)">
-                                        <a href="javascript:void(0)" rel="nofollow" title="@serviceCenter.Name" class="dealer-card-target font14">
-                                            <div class="dealer-card-content">
-                                                <h3 class="dealer-name text-black text-bold margin-bottom5">@serviceCenter.Name</h3>
-                                                @if (!(String.IsNullOrEmpty(serviceCenter.Address)))
-                                                {
-                                                    <p class="text-light-grey margin-bottom5">
-                                                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                                        <span class="vertical-top details-column">@serviceCenter.Address</span>
-                                                    </p>
-                                                }
-                                                @if (!(String.IsNullOrEmpty(serviceCenter.Phone)))
-                                                {
-                                                    <p>
-                                                        <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                                                        <span class="vertical-top text-bold text-default details-column">@serviceCenter.Phone</span>
-                                                    </p>
-                                                }
-                                            </div>
-                                        </a>
-                                        <div class="service-center-lead-content margin-top15 padding-left20 padding-right20">
+                                <li class="dealer-card-target" data-item-id="@serviceCenter.ServiceCenterId" data-item-inquired="false" data-lat="@serviceCenter.Lattitude" data-log="@serviceCenter.Longitude" data-item-number="@serviceCenter.Phone" data-address="@serviceCenter.Address"
+                                    data-item-url="@UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId)">
+                                    <a href="javascript:void(0)" rel="nofollow" title="@serviceCenter.Name" class="dealer-details__target">
+                                        <div class="dealer-card-content">
+                                            <h3 class="dealer-details__name">@serviceCenter.Name</h3>
                                             @if (!(String.IsNullOrEmpty(serviceCenter.Address)))
-                                            {
-                                                <button type="button" class="btn btn-white service-btn get-details-btn font14">Get details on phone</button>
-                                            }
-                                            <div class="lead-mobile-content">
-                                                <div class="input-box input-number-box form-control-box type-user-details">
-                                                    <input type="tel" id="lead-input-@serviceCenter.ServiceCenterId" class="service-center-lead-mobile" maxlength="10">
-                                                    <label for="lead-input-@serviceCenter.ServiceCenterId">Type in your mobile number</label>
-                                                    <span class="input-number-prefix">+91-</span>
-                                                    <span class="boundary"></span>
-                                                    <span class="error-text"></span>
-                                                </div>
-                                                <button type="button" class="btn btn-orange submit-service-center-lead-btn font14" data-id="@serviceCenter.ServiceCenterId">Send details</button>
-                                                <div class="clear"></div>
-                                            </div>
+												{
+                                                <p class="dealer-details__address">
+                                                    <span>@serviceCenter.Address</span>
+                                                </p>
+												}
+                                        </div>
+                                    </a>
 
-                                            <div class="service-center-lead-response font12 text-light-grey">
-                                                <span class="service-sprite response-icon"></span>
-                                                <p class="response-text inline-block"></p>
+                                    <div class="dealer-details__footer">
+                                        @if (!(String.IsNullOrEmpty(serviceCenter.Phone)))
+											{
+                                            <p class="dealer-details__number">
+                                                <span>@serviceCenter.Phone</span>
+                                            </p>
+											}
+                                            @if ((!string.IsNullOrEmpty(serviceCenter.Lattitude) && Convert.ToDouble(serviceCenter.Lattitude) > 0) || (!string.IsNullOrEmpty(serviceCenter.Longitude) && Convert.ToDouble(serviceCenter.Longitude) > 0))
+                                            {<a href="https://maps.google.com/?saddr=&amp;daddr=@serviceCenter.Lattitude,@serviceCenter.Longitude" class="dealer-details__direction" target="_blank" rel="noopener">Get Directions</a>}
+                                    </div>
+
+
+                                    <div class="dealer-details__form-content service-center-lead-content">
+                                        @if (!(String.IsNullOrEmpty(serviceCenter.Address)))
+											{
+                                            <p class="dealer-details-form__target get-details-btn">Send Details to mobile phone</p>
+											}
+                                        <div class="dealer-details__form lead-mobile-content">
+                                            <div class="form-field__content type-user-details">
+                                                <input type="tel" id="lead-input-@serviceCenter.ServiceCenterId" class="service-center-lead-mobile form-control form-field__input field-input__mobile" placeholder="Enter your Mobile number" maxlength="10">
+                                                <button type="button" class="btn btn-blue dealer-form__submit-btn form-field__submit-btn submit-service-center-lead-btn font14" data-id="@serviceCenter.ServiceCenterId">Send</button>
+                                                <span class="input-mobile__prefix">+91-</span>
+                                                <p class="field__error-message"></p>
                                             </div>
                                         </div>
-                                    </li>
-                                }
+
+                                        <div class="service-center-lead-response font12 text-light-grey">
+                                            <span class="service-sprite response-icon"></span>
+                                            <p class="response-text inline-block"></p>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+								}
 
                             </ul>
                         </div>
-                        <div id="listing-right-column" class="grid-8 alpha omega">
-                            <div class="dealer-map-wrapper">
-                                <div id="dealerMapWrapper" data-currentcityname="@Model.City.CityName" style="width: 661px; height: 530px; background: #fff url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
-                                    <div id="dealersMap" style="width: 661px; height: 530px;"></div>
-                                </div>
-                            </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <section>
+                        <div class="content-box-shadow section-bottom-margin">
+                            <h2 class="section-h2-title padding-15-20">Tips from BikeWale experts to keep your bike in good shape!</h2>
+                            <ul id="bw-tips-list">
+                                <li>
+                                    <a href="/bike-care/" target="_blank" rel="noopener" title="Bike Care - Maintenance tips">
+                                        <span class="service-sprite care-icon"></span>
+                                        <h3 class="bike-tips-label margin-left10 inline-block">Bike Care - Maintenance tips</h3>
+                                        <span class="bwsprite right-arrow"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/bike-troubleshooting/" target="_blank" rel="noopener" title="Bike troubleshooting - FAQs">
+                                        <span class="service-sprite faq-icon"></span>
+                                        <h3 class="bike-tips-label margin-left10 inline-block">Bike troubleshooting - FAQs</h3>
+                                        <span class="bwsprite right-arrow"></span>
+                                    </a>
+                                </li>
+                            </ul>
                             <div class="clear"></div>
                         </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div id="listing-footer"></div>
-        </section>
-    }
+                    </section>
 
-    <section>
-        <div class="container section-bottom-margin">
-            <div class="grid-12">
-                <div class="content-box-shadow">
-                    <h2 class="section-h2-title padding-15-20">Tips from BikeWale experts to keep your bike in good shape!</h2>
-                    <ul id="bw-tips-list">
-                        <li class="grid-6">
-                            <a href="/bike-care/" target="_blank" rel="noopener" title="Bike Care - Maintenance tips">
-                                <span class="service-sprite care-icon"></span>
-                                <h3 class="bike-tips-label margin-left10 inline-block">Bike Care - Maintenance tips</h3>
-                                <span class="bwsprite right-arrow"></span>
-                            </a>
-                        </li>
-                        <li class="grid-6">
-                            <a href="/bike-troubleshooting/" target="_blank" rel="noopener" title="Bike troubleshooting - FAQs">
-                                <span class="service-sprite faq-icon"></span>
-                                <h3 class="bike-tips-label margin-left10 inline-block">Bike troubleshooting - FAQs</h3>
-                                <span class="bwsprite right-arrow"></span>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-
-    if (Model.NearByCityWidgetData != null && Model.NearByCityWidgetData.ServiceCentersNearbyCities != null && Model.NearByCityWidgetData.ServiceCentersNearbyCities.Count() > 0)
-    {
-        <div class="container section-container ">
-            <div class="grid-12 margin-bottom20">
-                <div class="content-box-shadow padding-top20 padding-bottom20">
-                    <h2 class="font18 padding-bottom20 padding-left20">@String.Format("Explore {0} service centers in cities near {1}", Model.Make.MakeName, Model.City.CityName)</h2>
-                    <div class="jcarousel-wrapper inner-content-carousel map-type-carousel">
-                        <div class="jcarousel">
-                            @Html.Partial("~/Views/ServiceCenters/_ServiceCentersInNearByCities.cshtml", Model.NearByCityWidgetData)
-                        </div>
-                        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    }
-
-    if (Model.PopularWidgetData != null || Model.UsedBikesByMakeList != null)
-    {
-        <section>
-            <div class="container">
-                <div class="grid-12">
-                    <div class="content-box-shadow ">
-                        @if (Model.PopularWidgetData != null && Model.PopularWidgetData.Bikes != null && Model.PopularWidgetData.Bikes.Count() > 0)
-                        {
-                            <div class="padding-bottom20">
-                                <div class="carousel-heading-content padding-top20">
-                                    <div class="swiper-heading-left-grid inline-block">
-                                        <h2>Popular @Model.Make.MakeName bikes in @Model.City.CityName</h2>
+                    @if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0
+					&& Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any(m => m.ServiceCenterCount > 0))
+					{
+                    <section>
+                        <div class="content-box-shadow padding-bottom20 section-bottom-margin">
+                            <div class="content-inner-block-20">
+                                <div class="grid-7 inline-block margin-right-4 alpha">
+                                    <span class="bwsprite service-center-grey"></span>
+                                    <h2 class="other-city__title font18 margin-bottom10 inline-block padding-left10">@Model.Make.MakeName service centers in other cities</h2>
+                                    <div>
+                                        <p class="font14 text-slate-grey">You are currently viewing service centers of @Model.Make.MakeName in @Model.City.CityName. Not from @Model.City.CityName? Select your city to find @Model.Make.MakeName service centers  in your city.</p>
                                     </div>
-                                    <div class="swiper-heading-right-grid inline-block text-right">
-                                        <a href="/@Model.Make.MaskingName-bikes/" title="@Model.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
-                                    </div>
-                                    <div class="clear"></div>
                                 </div>
-                                @Html.Partial("~/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularWidgetData)
-                            </div>
-                        }
-                        <div class="clear"></div>
-                        <!-- Used bikes widget -->
-                        @if (Model.UsedBikesByMakeList != null && Model.UsedBikesByMakeList.UsedBikeModelList != null && Model.UsedBikesByMakeList.UsedBikeModelList.Count() > 0)
-                        {
-                            <div class="carousel-heading-content padding-top20">
-                                <div class="swiper-heading-left-grid inline-block">
-                                    <h2>@string.Format("Second-hand {0} bikes in {1}", Model.Make.MakeName, Model.City.CityName)</h2>
-                                </div><div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="@string.Format("/used/{0}-bikes-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("Second-hand Bikes in {0}", Model.City.CityName)" class="btn view-all-target-btn">View all</a>
+
+                                <div class="grid-5 omega inline-block padding-top20 text-right">
+                                    <a href="javascript:void(0)" id="changeCity" data-makemasking="@Model.Make.MaskingName" class="btn changepriceincitypage btn-orange btn-200-32 " rel="nofollow">Select your city</a>
+                                    @Html.Partial("~/Views/PopUp/BikeCityPopup.cshtml", @Model.BikeCityPopup)
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <div class="padding-bottom20">
-                                @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikesByMakeList)
-                            </div>
-                        }
-                        <div class="clear"></div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-    }
-
-    if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0
-        && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Any(m => m.ServiceCenterCount > 0))
-    {
-        <section>
-            <div class="container section-bottom-margin">
-                <div class="grid-12">
-                    <div class="content-box-shadow padding-bottom20">
-                        <div class="content-inner-block-20">
-                            <div class="grid-9 inline-block margin-right-4 alpha">
-                                <span class="bwsprite service-center-grey"></span>
-                                <h2 class="font18 margin-bottom10 inline-block padding-left10">@Model.Make.MakeName service centers in other cities</h2>
-                                <div class="grid-11 alpha">
-                                    <p class="font14 text-slate-grey">You are currently viewing service centers of @Model.Make.MakeName in @Model.City.CityName. Not from @Model.City.CityName? Select your city to find @Model.Make.MakeName service centers  in your city.</p>
-                                </div>
-                            </div>
-
-                            <div class="grid-3 omega inline-block padding-top20">
-                                <a href="javascript:void(0)" id="changeCity" data-makemasking="@Model.Make.MaskingName" class="btn changepriceincitypage btn-orange btn-200-32 " rel="nofollow">Select your city</a>
-                                @Html.Partial("~/Views/PopUp/BikeCityPopup.cshtml", @Model.BikeCityPopup)
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        @if (Model.DealersServiceCenterPopularCities != null)
-                        {
+                            @if (Model.DealersServiceCenterPopularCities != null)
+							{
                             <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
                             <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.Make.MakeName service centers in popular cities</h3>
-                            @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget.cshtml", Model.DealersServiceCenterPopularCities);
-                        }
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-           
-        </section>
-    }
 
-    if (Model.SimilarBrandsByCity != null && Model.SimilarBrandsByCity.Makes != null && Model.SimilarBrandsByCity.Makes.Count() > 0)
-    {
-        <section>
-            <div class="container section-bottom-margin">
-                <div class="grid-12">
-                    <div class="content-box-shadow padding-top20 padding-bottom20">
-                        <div class="carousel-heading-content">
-                            <div class="swiper-heading-left-grid inline-block">
-                                @if (Model.City != null)
-                                {
+                            <div class="jcarousel-grid-8">
+                                @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget.cshtml", Model.DealersServiceCenterPopularCities)
+                            </div>
+							}
+                        </div>
+                    </section>
+					}
+
+                    @if (Model.SimilarBrandsByCity != null && Model.SimilarBrandsByCity.Makes != null && Model.SimilarBrandsByCity.Makes.Count() > 0)
+					{
+                    <section>
+                        <div class="content-box-shadow padding-top20 padding-bottom20 section-bottom-margin">
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    @if (Model.City != null)
+									{
                                     <span class="font16 text-semibold text-black">@string.Format("Service Center of other brands in {0}", Model.City.CityName)  </span>
-                                }
+									}
 
-                            </div>
-                            <div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="/service-centers/" title="Bikes Service Center Locator" class="btn view-all-target-btn">View all</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        @Html.Partial("~/Views/Make/_BrandsModelCount.cshtml", Model.SimilarBrandsByCity)
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-    }
-
-
-
-    if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
-    {
-        <section>
-            <div class="container section-bottom-margin ">
-                <div class="grid-12">
-                    <div class="content-box-shadow">
-                        <div class="content-inner-block-20 ">
-                            <div class="grid-10-inline margin-right-4">
-                                <span class="bwsprite dealer-grey"></span>
-                                <div class="grid-11-inline padding-left10 inline-block">
-
-                                    <h2 class="font18 margin-bottom10">@string.Format("{0} Showrooms in {1}", @Model.Make.MakeName, Model.City.CityName)</h2>
                                 </div>
-                                <p class="grid-11-inline font14 text-slate-grey">Get in touch with your nearest @Model.Make.MakeName showrooms in @Model.City.CityName for service enquiries, service and repair costs and more!</p>
-
+                                <div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="/service-centers/" title="Bikes Service Center Locator" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="inline-block text-right">
-                                <a href="@string.Format("/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("{0} Dealer Showrooms in {1}", Model.Make.MakeName, Model.City.CityName)" class="btn view-all-target-btn">View complete list<span class="bwsprite teal-right"></span></a>
+                            <div class="jcarousel-grid-8">
+                                @Html.Partial("~/Views/Make/_BrandsModelCount.cshtml", Model.SimilarBrandsByCity)
                             </div>
                         </div>
-                    </div>
+
+                    </section>
+					}
+
 
                 </div>
+                <div class="grid-4">
+                    @if (Model.NearByCityWidgetData != null && Model.NearByCityWidgetData.ServiceCentersNearbyCities != null && Model.NearByCityWidgetData.ServiceCentersNearbyCities.Count() > 0)
+                    {
+                        <div class="content-box-shadow section-bottom-margin">
+                            <h2 class="sidebar-list-heading">@String.Format("{0} service centers near {1}", Model.Make.MakeName, Model.City.CityName)</h2>
+                            <ul class="sidebar__other-city-list">
+                                @foreach (var city in Model.NearByCityWidgetData.ServiceCentersNearbyCities)
+                                {
+                                <li>
+                                    <a href="/service-centers/@Model.Make.MaskingName/@city.CityMaskingName/" title="@Model.Make.MakeName service centers in @city.CityName">@Model.Make.MakeName service centers in  @city.CityName</a>
+                                </li>
+                                }
+                              
+                             
+                            </ul>
+                        </div>
+                    }
+
+                    @if (Model.PopularWidgetData != null )
+                    {
+                        <div class="content-box-shadow section-bottom-margin">
+
+                            @if ( Model.PopularWidgetData.Bikes != null && Model.PopularWidgetData.Bikes.Count() > 0)
+                            {
+                                <h2 class="sidebar-list-heading">Popular @Model.Make.MakeName bikes in @Model.City.CityName</h2>
+
+                                <div class="sidebar-list--overflow">
+                                    @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.PopularWidgetData)
+                                </div>
+
+                                <div class="view-all-btn-container padding-10-20-20">
+                                    <a href="/@Model.Make.MaskingName-bikes/" title="@Model.Make.MakeName Bikes" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                                </div>
+
+
+                            }
+                        </div>
+                    }
+
+                    @if (Model.ResearchMoreMakeWidget != null)
+                    {
+
+                        <div class="content-box-shadow section-bottom-margin">
+                            <h2 class="sidebar-list-heading">Research More</h2>
+                            @Html.Partial("~/Views/Make/ResearchMoreAboutMake.cshtml", Model.ResearchMoreMakeWidget)
+                        </div>
+                    }
+
+
+                </div>
+
                 <div class="clear"></div>
-            </div>
+
+                <div id="listing-footer"></div>
+
         </section>
-
     }
-
 
 
     <section>
@@ -326,7 +272,5 @@
     @Html.Partial("~/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopupWidget)
 
 
-
 }
 @{Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.City.CityId, cityName = Model.City.CityName });}
-<script defer src="@string.Format("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places", BWConfiguration.Instance.GoogleMapApiKey)"></script>

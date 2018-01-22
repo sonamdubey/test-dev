@@ -88,7 +88,7 @@
     @if(Model.Page !=null)
         {
             <text>
-        gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};
+    gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};
     </text>
         }
     (function (w, d, s, l, i) {
@@ -156,7 +156,12 @@
                     return "googletag.defineSlot('/1017752/Bikewale_Desktop_PQ_292x359', [292, 359], 'div-gpt-ad-1506343636197-15').addService(googletag.pubads()); ";
                 case 16:
                     return "googletag.defineSlot('/1017752/Bikewale_BestBikes_Widget_Desktop_292x360',[292, 360], 'div-gpt-ad-1507278280998-16').addService(googletag.pubads()); ";
-
+                case 17:
+                    return "googletag.defineSlot('/1017752/Bikewale_Make_Top_300x250', [300, 250], 'div-gpt-ad-1515570825648-17').addService(googletag.pubads());";
+                case 18:
+                    return "googletag.defineSlot('/1017752/Bikewale_Make_ATF_300x250', [300, 250], 'div-gpt-ad-1515570825648-18').addService(googletag.pubads());";
+                case 19:
+                    return "googletag.defineSlot('/1017752/Bikewale_Make_Botom_300x250', [300, 250], 'div-gpt-ad-1515570825648-19').addService(googletag.pubads());";
                 default:
                     return "";
             }
@@ -201,7 +206,14 @@
         @if(Model.AdTags.Ad_976x400_Middle){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x399){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x359){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}        
+        @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if (Model.AdTags.Bikewale_Make_Top_300x250)
+        { @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if (Model.AdTags.Bikewale_Make_ATF_300x250)
+        { @Html.Raw(GetAdSlot(18, Model.AdTags.AdPath, Model.AdTags.AdId))}
+         @if (Model.AdTags.Bikewale_Make_Botom_300x250)
+         { @Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
+
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
@@ -213,7 +225,7 @@
         googletag.pubads().enableSingleRequest();
         googletag.enableServices();
     });
-    </script>
+</script>
     @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
     {
         <script type="application/ld+json">
@@ -244,7 +256,16 @@
                         <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                     </li>
                 </ul>
-                <ul id="global-recent-searches" class="recent-searches-dropdown"></ul>
+                <div id="global-search-section" class="bg-white hide">
+                    <div id="history-search">
+                        <div class="search-title">Recently Viewed</div>
+                        <ul id="global-recent-searches" class="recent-searches-dropdown bw-ui-menu"></ul>
+                    </div>
+                    <div id="trending-search">
+                        <div class="search-title">Trending Searches</div>
+                        <ul id="trending-bikes" class="recent-searches-dropdown bw-ui-menu"></ul>
+                    </div>
+                </div>
             </div>
             <div class="global-location">
                 <div class="gl-default-stage">

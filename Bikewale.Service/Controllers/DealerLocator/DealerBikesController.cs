@@ -1,6 +1,7 @@
 ﻿using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Dealer;
 using Bikewale.DTO.DealerLocator;
+using Bikewale.DTO.MobileVerification;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Interfaces.BikeData;
@@ -231,6 +232,34 @@ namespace Bikewale.Service.Controllers.DealerLocator
             {
                 ErrorClass.LogError(ex, string.Format("Service.DealerLocator.DealerBikesController, dealerId: {0} and makeId: {1}", dealerId, versionId));
                 return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 18th Jan 2017
+        /// Description: For dealer showroom sms data
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/dealer/")]
+        public IHttpActionResult GetDealerShowroomSMSData([FromBody] MobileSmsVerification objData)
+        {
+            if (objData.Id > 0)
+            {
+                try
+                {
+                    return Ok(_dealer.GetDealerShowroomSMSData(objData.Id, objData.MobileNumber, objData.PageUrl));
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass.LogError(ex, string.Format("Service.DealerLocator.DealerBikesController.GetDealerShowroomSMSData {0},{1}", objData.Id, objData.MobileNumber));
+
+                    return InternalServerError();
+                }
+            }
+            else
+            {
+                return BadRequest();
             }
         }
 

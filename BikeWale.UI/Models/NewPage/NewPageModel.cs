@@ -14,6 +14,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bikewale.Models
@@ -108,6 +109,14 @@ namespace Bikewale.Models
             objVM.PopularBikes = popularBikes.GetData();
             objVM.PopularBikes.PageCatId = 5;
             objVM.PopularBikes.PQSourceId = PQSourceEnum.Desktop_HP_MostPopular;
+
+
+            BikeFilters obj = new BikeFilters();
+            obj.CityId = cityId;
+            obj.TopCount = 2;
+            IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj);
+            if (objVM.PopularBikes != null)
+                objVM.PopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objVM.PopularBikes.Bikes);
 
             objVM.NewLaunchedBikes = new NewLaunchedWidgetModel(LaunchedRecordCount, _newLaunches).GetData();
             objVM.NewLaunchedBikes.PageCatId = 5;

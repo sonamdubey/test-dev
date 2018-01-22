@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -12,6 +13,7 @@ using Bikewale.Models.BikeCare;
 using Bikewale.ServiceCenters;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Models.ServiceCenters
 {
@@ -35,6 +37,7 @@ namespace Bikewale.Models.ServiceCenters
         public ushort NewLaunchedBikesWidgtData { get; set; }
         public ushort UpcomingBikesWidgetData { get; set; }
         public ushort UsedBikeModelWidgetTopCount { get; set; }
+        public bool IsMobile { get; set; }
 
         public ServiceCenterLandingPage(ICityCacheRepository ICityCache, IUsedBikeDetailsCacheRepository objUsedCache, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICMSCacheContent articles, IBikeMakesCacheRepository bikeMakes)
         {
@@ -68,6 +71,8 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.UsedBikesCityWidgetData = BindUsedBikeCityWidget(objVM);
                 BindPageMetas(objVM);
                 objVM.Page = Entities.Pages.GAPages.ServiceCenter_Landing_Page;
+                SetBreadcrumList(objVM);
+                SetPageJSONLDSchema(objVM);
             }
             catch (Exception ex)
             {
@@ -161,5 +166,55 @@ namespace Bikewale.Models.ServiceCenters
             return objUpcomingBikes;
         }
 
+        /// <summary>
+        /// Created by : Snehal Dange on 12th Jan 2017
+        /// Desc : Added breadcrum and webpage schema
+        /// </summary>
+        /// <param name="objPageMeta"></param>
+        private void SetPageJSONLDSchema(ServiceCenterLandingPageVM objPageMeta)
+        {
+            //set webpage schema 
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 12th Dec 2017
+        /// Desc : Added breadcrumb for dealerpage
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetBreadcrumList(ServiceCenterLandingPageVM objData)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    url += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+                url = string.Format("{0}new-bikes-in-india/", url);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "New Bikes"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Service Center Locator"));
+
+                objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass.LogError(ex, "ServiceCenterLandingPage.SetBreadcrumList()");
+            }
+
+        }
+
     }
+
 }

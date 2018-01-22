@@ -16,7 +16,7 @@
             {
                 string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
-                <div class="swiper-slide">
+                <div class="swiper-slide" data-cat="Model_Page" data-imgcat="@image.ImageCategory" data-imgtype="@image.ImageType" data-imgid="@image.ImageId">
                     @if (imageIndex == 0)
                     {
                         <a href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" data-url="@string.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.AlternateUrl)))" class="bw-ga redirect-url" data-cat="Model_Page" data-act="Main_Image_Clicked" data-lab="@Model.BikeName">

@@ -333,17 +333,17 @@
             @(Html.Raw(Model.PageMetaTags.PageSchemaJSON))
         </script>
     }
-    @if (Model.Page != null)
+    @*@if (Model.Page != null)
     {
         <amp-state id="gaObj">
             <script type="application/json">
                 {
                 "id" : @((int)Model.Page),
-                "name": '@Model.Page'
+                "name": "@Model.Page"
                 }
             </script>
         </amp-state>
-    }
+    }*@
     
 
     <script async src="https://cdn.ampproject.org/v0.js"></script>
@@ -539,7 +539,7 @@
         </section>
     }
 
-    @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
+    @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
     {
         <div class="margin-bottom10 margin-top15">
             <amp-ad width=320 height=50 type="doubleclick" layout=responsive data-slot="/1017752/Bikewale_Mobile_NewBikes_Bottom_320x50"></amp-ad>

@@ -1,176 +1,18 @@
-var markerArr = [], dealerArr = [], map, infowindow, readMoreTarget, dealerMoreContent, mapDimension, currentCityName;
-var blackMarkerImage = 'https://imgd.aeplcdn.com/0x0/bw/static/design15/map-marker-black.png';
-var redMarkerImage = 'https://imgd.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
+var readMoreTarget, dealerMoreContent;
 var clientip;
-function initializeMap(dealerArr) {
-    var i, marker, dealer, markerPosition, content, zIndex;
-    currentCityName = $("#dealerMapWrapper").attr("data-currentcityname");
-    var mapProp = {
-        scrollwheel: false,
-        streetViewControl: false,
-        mapTypeControl: false,
-        zoomControl: true,
-        zoomControlOptions: {
-            position: google.maps.ControlPosition.LEFT_TOP
-        },
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    map = new google.maps.Map(document.getElementById("dealersMap"), mapProp);
 
-    infowindow = new google.maps.InfoWindow();
-    for (i = 0; i < dealerArr.length; i++) {
-        dealer = dealerArr[i];
-        markerPosition = new google.maps.LatLng(dealer.latitude, dealer.longitude);
-        if (!dealer.isFeatured) {
-            markerIcon = blackMarkerImage;
-            zIndex = 100;
-        }
-        else {
-            markerIcon = redMarkerImage;
-            zIndex = 101;
-        }
-        marker = new google.maps.Marker({
-            dealerId: dealer.id,
-            dealerName: dealer.name,
-            dealerNumber: dealer.maskingNumber,
-            position: markerPosition,
-            icon: markerIcon,
-            zIndex: zIndex
-        });
+var attemptCount = 1,
+    successMessage = 'Service Center details successfully<br />sent on your phone.<br />Not Received? <span class="service-center-resend-btn">Resend</span>',
+    threeAttemptsMessage = 'Sorry! You have reached the limit of sending details of this service center. Look for a different service center.',
+    failureMessage = "Sorry!, Something went wrong. Please try again.",
+    tenAttemptsMessage = 'Sorry! You have reached the daily limit of sending details.<br />Please try again after a day.';
 
-        markerArr.push(marker);
-        marker.setMap(map);
-        if (dealer.isFeatured) {
-            if (dealer.maskingNumber == '')
-                content = '<div class="dealer-info-tooltip"><a href="' + dealer.id + '-' + dealer.dealermaskingname + '/" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></a></div>';
-            else
-                content = '<div class="dealer-info-tooltip"><a href="' + dealer.id + '-' + dealer.dealermaskingname + '/" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
-        } else {
-            if (dealer.maskingNumber == '')
-                content = '<div class="dealer-info-tooltip"><span class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></span></div>';
-            else
-                content = '<div class="dealer-info-tooltip"><span class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></span></div>';
-        }
-        google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
-
-            return function () {
-                infowindow.setContent(content);
-                infowindow.open(map, marker);
-            };
-        })(marker, content, infowindow));
-
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': currentCityName + ", India" }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                map.fitBounds(results[0].geometry.viewport);
-            }
-        });
-    }
-}
-
-function mapDealersArray() {
-    $("ul#dealersList li").each(function () {
-        _self = $(this);
-        _dealer = new Object();
-        _dealer.id = _self.data("item-id");
-        _dealer.isFeatured = parseInt(_self.data("isfeatured")) > 0;
-        _dealer.latitude = _self.data("lat");
-        _dealer.longitude = _self.data("log");
-        _dealer.address = _self.data("address");
-        _dealer.name = _self.data("dealername");
-        _dealer.maskingNumber = _self.attr("data-item-number");
-        _dealer.dealermaskingname = _self.attr("data-item-url");
-        dealerArr.push(_dealer);
-    });
-}
-
-function initializeDealerMap() {
-    mapDealersArray();
-    initializeMap(dealerArr);
-};
 
 docReady(function () {
     clientip = $("#dealerLead").attr("data-clientip");
-    var windowHeight = window.innerHeight,
-        mapWrapper = $('#listing-right-column'),
-        mapColumn = $('#dealerMapWrapper'),
-        listingFooter = $('#listing-footer');
-
-
-    $('#listing-left-column').css({
-        'min-height': windowHeight
-    });
 
     // read more-collapse
     readMoreTarget = $('#read-more-target'), dealerMoreContent = $('#dealer-more-content');
-
-    mapDimension = function () {
-        var windowHeight = window.innerHeight;
-
-        $('.dealer-map-wrapper').css({
-            'height': $('#listing-left-column').height()
-        });
-
-        $('#dealerMapWrapper, #dealersMap').css({
-            'width': $('#listing-right-column').width() + 1,
-            'height': windowHeight + 1
-        });
-    };
-    
-    mapDimension();
-    initializeDealerMap();
-    $(window).on('scroll', function () {
-        var windowTop = $(window).scrollTop(),
-            mapWrapperOffset = mapWrapper.offset(),
-            listingFooterOffset = listingFooter.offset();
-
-        if (windowTop > mapWrapperOffset.top) {
-            mapColumn.css({
-                'position': 'fixed',
-                'top': 0,
-                'left': mapWrapperOffset.left
-            });
-
-            if (windowTop > listingFooterOffset.top - windowHeight - 20) {
-                mapColumn.css({
-                    'position': 'absolute',
-                    'top': 'auto',
-                    'left': 0,
-                    'bottom': 0
-                });
-            }
-        }
-        else {
-            mapColumn.css({
-                'position': 'relative',
-                'top': 0,
-                'left': 0
-            });
-        }  
-    });
-
-    // dealer card mouseover show tooltip
-    $(document).on('mouseover', '#dealersList li', function () {
-
-        var currentLI = $(this),
-            currentDealerId = currentLI.attr('data-item-id');
-        var latitude = currentLI.attr('data-lat');
-        var longitude = currentLI.attr('data-log');
-        if (latitude != 0 || longitude != 0) {
-            for (var i = 0; i < markerArr.length; i++) {
-                if (markerArr[i].dealerId == currentDealerId) {
-                    infowindow.setContent(markerArr[i].dealerName);
-                    infowindow.open(map, markerArr[i]);
-                    break;
-                }
-            }
-        }
-    });
-
-    $(window).resize(function () {
-        mapDimension();
-    });
 
     readMoreTarget.on('click', function () {
         if (!dealerMoreContent.hasClass('active')) {
@@ -200,6 +42,222 @@ docReady(function () {
             "eventcategory": ele.attr('data-eventcategory')
         };
         dleadvm.setOptions(leadOptions);
+    });
+
+	// showrooms in popular cities carousel
+    $('.carousel-type-city').jcarousel();
+
+	$('.carousel-type-city .jcarousel-control-prev')
+		.on('jcarouselcontrol:active', function () {
+			$(this).removeClass('inactive');
+		})
+		.on('jcarouselcontrol:inactive', function () {
+			$(this).addClass('inactive');
+		})
+		.jcarouselControl({
+			target: '-=2'
+		});
+
+	$('.carousel-type-city .jcarousel-control-next')
+		.on('jcarouselcontrol:active', function () {
+			$(this).removeClass('inactive');
+		})
+		.on('jcarouselcontrol:inactive', function () {
+			$(this).addClass('inactive');
+		})
+		.jcarouselControl({
+			target: '+=2'
+		});
+
+	$('.brand-type-carousel').jcarousel();
+
+	$('.brand-type-carousel .jcarousel-control-prev')
+		.on('jcarouselcontrol:active', function () {
+			$(this).removeClass('inactive');
+		})
+		.on('jcarouselcontrol:inactive', function () {
+			$(this).addClass('inactive');
+		})
+		.jcarouselControl({
+			target: '-=2'
+		});
+
+	$('.brand-type-carousel .jcarousel-control-next')
+		.on('jcarouselcontrol:active', function () {
+			$(this).removeClass('inactive');
+		})
+		.on('jcarouselcontrol:inactive', function () {
+			$(this).addClass('inactive');
+		})
+		.jcarouselControl({
+			target: '+=2'
+		});
+
+	$('.dealer-details-form__target').on('click', function () {
+		var listItem = $(this).closest('.dealer-card-target');
+		var activeListItem = $('#dealersList').find('.input-active');
+
+		if (activeListItem.length) {
+			activeListItem.removeClass('input-active');
+			activeListItem.find('.form-field__content.btn--active').removeClass('btn--active');
+			activeListItem.find('.form-field__input').attr('placeholder', 'Enter your mobile number');
+		}
+
+		listItem.removeClass('response-active').addClass('input-active');
+
+		var inputbox = listItem.find('.form-field__input');
+
+		if (inputbox.val().length) {
+			inputbox.focus();
+		}
+    	
+    });
+
+    $('.dealer-form__submit-btn').on('click', function () {
+    	var inputContainer = $(this).closest('.dealer-details__form');
+    	var inputbox = inputContainer.find('.form-field__input');
+    	var listItem = $(this).closest('li');
+
+    	var isValid = validatePhone(inputbox);
+
+    	if (isValid) {
+    	    listItem.removeClass('input-active').addClass('response-active');
+    	    if (attemptCount < 4)
+    	    {
+    	        var dealerId = $(this).attr("data-id");
+    	        var obj = {
+    	            "mobilenumber": inputbox.val(),
+    	            "pageurl": window.location.href.replace('&', '%26'),
+    	            "id": dealerId
+    	        }
+    	        $.ajax({
+    	            type: "POST",
+    	            url: "/api/dealer/",
+    	            contentType: "application/json",
+    	            data: ko.toJSON(obj),
+    	            success: function (response) {
+    	                if (response == 2) {
+    	                    captureLeadMobile.checkAttempts(10, listItem);
+    	                }
+    	                else if (response == 1) {
+    	                    captureLeadMobile.checkAttempts(attemptCount, listItem);
+    	                }
+    	                else {
+    	                    captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
+    	                }
+    	            },
+    	            failure: function (xhr, ajaxOptions, thrownError) {
+    	                captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
+    	            },
+    	            complete: function (xhr, ajaxOptions, thrownError) {
+    	                if (xhr.status != 200)
+    	                    captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
+    	            }
+    	        });
+
+    	    }
+    	    else {
+    	        captureLeadMobile.checkAttempts(attemptCount, listItem);
+    	    }
+    	}
+
+    });
+
+    $('.form-field__input').on('focus', function () {
+    	var fieldContainer = $(this).closest('.form-field__content');
+
+    	if (!fieldContainer.hasClass('btn--active')) {
+    		fieldContainer.addClass('btn--active');
+    		$(this).attr('placeholder', 'Your mobile number');
+    	}
+
+    	validateForm.onFocus($(this));
+    });
+
+    var captureLeadMobile = {
+    	inputBox: {
+    		set: function (listElement) {
+    			var inputContainer = listElement.find('.lead-mobile-content');
+
+    			listElement.removeClass('response-active').addClass('input-active');
+    			inputContainer.find('input').focus();
+    		}
+    	},
+
+    	responseBox: {
+    		set: function (listElement, stateClass, message) {
+    			var responseContainer = listElement.find('.response-text');
+
+    			listElement.removeClass('input-active').addClass(stateClass);
+    			responseContainer.html(message).show();
+    		}
+    	},
+
+    	checkAttempts: function (count, listItem) {
+    		if (count < 4) {
+    			captureLeadMobile.responseBox.set(listItem, 'response-active', successMessage);
+    		}
+
+    		if (count == 4) {
+    			captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', threeAttemptsMessage);
+    		}
+
+    		if (count == 10) {
+    			captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', tenAttemptsMessage);
+    		}
+    	}
+    };
+
+    function validatePhone(inputElement) {
+    	var leadMobileNo = inputElement.val(),
+			isValid = true,
+			reMobile = /[7-9][0-9]{9}$/;
+
+    	if (leadMobileNo == "") {
+    		validateForm.setError(inputElement, "Enter your mobile number.");
+    		isValid = false;
+    	}
+    	else if (leadMobileNo[0] < 7) {
+    		validateForm.setError(inputElement, "Enter a valid mobile number.");
+    		isValid = false;
+    	}
+    	else if (!reMobile.test(leadMobileNo) && isValid) {
+    		validateForm.setError(inputElement, "10 digit mobile number only.");
+    		isValid = false;
+    	}
+    	else
+    		validateForm.hideError(inputElement)
+    	return isValid;
+    }
+
+	/* form validation */
+    var validateForm = {
+    	setError: function (element, message) {
+    		var elementLength = element.val().length;
+    		errorTag = element.siblings('.field__error-message');
+
+    		errorTag.show().text(message);
+    		element.closest('.form-field__content').addClass('field--invalid');
+    	},
+
+    	hideError: function (element) {
+    		element.closest('.form-field__content').removeClass('field--invalid');
+    		element.siblings('.field__error-message').text('');
+    	},
+
+    	onFocus: function (inputField) {
+    		if (inputField.closest('.form-field__content').hasClass('field--invalid')) {
+    			validateForm.hideError(inputField);
+    		}
+    	}
+    }
+
+	// resend details
+    $('#dealersList').on('click', '.service-center-resend-btn', function () {
+    	var resendBtn = $(this),
+            listItem = resendBtn.closest('li');
+
+    	captureLeadMobile.inputBox.set(listItem);
     });
 
 });
