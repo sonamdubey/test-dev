@@ -1,0 +1,138 @@
+html
+    height: 100%
+    -webkit-text-size-adjust: 100%
+    -ms-text-size-adjust: 100%
+    line-height: 1.42857143
+    -webkit-overflow-scrolling: touch
+
+body
+    font-family: $font-family-base
+    font-size: $font-size-base
+    color: $primary-color
+    background: $light-grey
+    height: 100%
+    -webkit-overflow-scrolling: touch
+
+*, :before, :after
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+a
+    color: $link-color
+    text-decoration: none
+    cursor: pointer
+
+ul,
+ol
+    list-style: none
+
+article,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section,
+summary
+    display: block
+
+@import "./heading-typography"
+
+// common classes
+.container
+    width: 100%
+    margin: 0 auto
+    clear: both
+
+.section-bottom-margin
+    margin-bottom: 10px
+
+.box-shadow
+    @include box-shadow
+
+.bg-white
+    background: $white
+
+.card-heading
+    padding: 15px 20px
+
+.leftfloat
+    float: left
+
+.rightfloat
+    float: right
+
+.block
+    display: block
+
+.inline-block
+    display: inline-block
+    vertical-align: middle
+
+.vertical-top
+    display: inline-block
+    vertical-align: top
+
+.position-rel
+    position: relative
+
+.position-abt
+    position: absolute
+
+.text-bold
+    font-weight: bold
+
+.clear
+    clear: both
+
+.fa-spinner
+    width: 16px
+    height: 16px
+    background: #fff url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat
+
+.black-overlay,
+.blackOut-window
+    display: none
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+    background: #000
+    z-index: 2
+    @include opacity(0.8)
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"
+    filter: alpha(opacity = 80)
+    z-index: 2
+
+@import "placeholder/font-size"
+@include font-size(14)
+
+.text-truncate
+    width: 100%
+    text-align: left
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+
+.target-link
+    font-weight: $font-semibold
+    color: $dark-grey
+    display: block
+
+.cur-pointer
+    cursor: pointer
+
+.lock-browser-scroll
+    position: fixed
+    overflow-y: scroll
+    width: 100%
+
+// sprite
+.bwmsprite
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29June2017') no-repeat
+    display: inline-block

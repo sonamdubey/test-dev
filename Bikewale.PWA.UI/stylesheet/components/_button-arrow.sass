@@ -1,0 +1,17 @@
+@mixin teal($direction: right)
+    .teal-#{$direction}
+        background-position: -69px -437px
+        width: 6px
+        height: 10px
+        position: relative
+        top: 1px
+        margin-left: 6px
+
+        @if ($direction)== down
+            @include transform(rotate(90deg))
+
+        @else if ($direction)== left
+            @include transform(rotate(180deg))
+
+        @else if ($direction)== up
+            @include transform(rotate(270deg))

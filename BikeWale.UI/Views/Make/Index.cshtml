@@ -4,15 +4,14 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline />";
     Model.Page_JS_Paths = new string[] { "/src/new/bikemake.js", "/src/review-popup.js" };
 
-    Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
-    Model.AdTags.AdId = "1442913773076";
-    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.AdPath = "/1017752/Bikewale_Make_";
+    Model.AdTags.AdId = "1516179232964";
+    Model.AdTags.Ad_Model_ATF_300x250 = true;
+    Model.AdTags.Ad_Model_BTF_300x250 = true;
+    Model.AdTags.Ad_Top_300x250 = true;
     Model.AdTags.Ad_970x90Bottom = true;
-    Model.AdTags.Ad_300x250 = true;
-    Model.AdTags.Bikewale_Make_Top_300x250 = true;
-    Model.AdTags.Bikewale_Make_ATF_300x250 = true;
-    Model.AdTags.Bikewale_Make_Botom_300x250 = true;
-
+    Model.AdTags.Ad_970x90 = true;
+  
 }
 
 <section id="makeTabsContentWrapper">
@@ -254,10 +253,10 @@
                 </div>
 
 
-                if (Model.AdTags.Bikewale_Make_Top_300x250)
+                if (Model.AdTags.Ad_Top_300x250)
                 {
                     <section>
-                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Bikewale_Make_Top_300x250.cshtml", new { AdId = "1515570825648" });}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_Top_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
                     </section>
                 }
                 <div class="content-box-shadow section-bottom-margin"></div>
@@ -292,10 +291,10 @@
                     }
                 </div>
 
-                if (Model.AdTags.Bikewale_Make_ATF_300x250)
+                if (Model.AdTags.Ad_Model_ATF_300x250)
                 {
                     <section>
-                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Bikewale_Make_ATF_300x250.cshtml", new { AdId = "1515570825648" });}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
                     </section>
                 }
                 <div class="content-box-shadow section-bottom-margin"></div>
@@ -316,10 +315,10 @@
                     </div>
                 </div>
 
-                if (Model.AdTags.Bikewale_Make_Botom_300x250)
+                if (Model.AdTags.Ad_Model_BTF_300x250)
                 {
                     <section>
-                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Bikewale_Make_Botom_300x250.cshtml", new { AdId = "1515570825648" });}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
                     </section>
                 }
                 <div class="content-box-shadow section-bottom-margin"></div>

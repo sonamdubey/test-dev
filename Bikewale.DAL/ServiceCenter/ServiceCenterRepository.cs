@@ -392,7 +392,7 @@ namespace Bikewale.DAL.ServiceCenter
             SMSData objSMSData = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecenteraddress"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecenteraddress_19012018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_servicecenterid", DbType.Int32, serviceCenterId));
@@ -417,6 +417,10 @@ namespace Bikewale.DAL.ServiceCenter
                                         objSMSData.Phone = Convert.ToString(dr["phone"]);
                                         objSMSData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
                                         objSMSData.CityName = Convert.ToString(dr["cityname"]);
+                                        objSMSData.Area = Convert.ToString(dr["area"]);
+                                        objSMSData.Latitude = SqlReaderConvertor.ParseToDouble(dr["lattitude"]);
+                                        objSMSData.Longitude = SqlReaderConvertor.ParseToDouble(dr["longitude"]);
+                                        objSMSData.MakeName = Convert.ToString(dr["makename"]);
                                         dr.Close();
                                     }
                                 }

@@ -1,0 +1,60 @@
+.article-list
+    a
+        display: block
+        padding: 0 20px 20px
+
+    .article-item-content
+        padding-top: 20px
+        border-top: 1px solid $border-color
+
+.article-wrapper
+    display: table
+    margin-bottom: 10px
+
+.article-image-wrapper,
+.article-desc-wrapper
+    display: table-cell
+    vertical-align: top
+
+.article-image-wrapper
+    width: 120px
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat center
+
+    img
+        height: 66px
+
+.article-desc-wrapper
+    padding-left: 10px
+    position: relative
+    top: -5px
+
+.article-category
+    text-transform: uppercase
+    font-weight: $font-semibold
+    color: #c20000
+    font-size: 12px
+
+.article-stats-wrapper
+    min-width: 115px
+    padding-right: 10px
+
+@import "placeholder/font-size"
+@include font-size(12)
+
+@import "placeholder/margin"
+@include margin-top(10)
+ 
+.calender-grey-icon,
+.author-grey-icon
+    width: 14px
+    height: 15px
+    position: relative
+    top: -1px
+    margin-right: 6px
+    vertical-align: middle
+
+.calender-grey-icon
+    background-position: -40px -460px
+
+.author-grey-icon
+    background-position: -64px -460px

@@ -43,7 +43,7 @@ namespace Bikewale.BAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "ServiceCenters.GetServiceCentersByCity");
-                
+
             }
             return objServiceCenterData;
         }
@@ -65,7 +65,7 @@ namespace Bikewale.BAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "ServiceCenters.GetServiceScheduleByMake");
-                
+
             }
             return objServiceSchedule;
         }
@@ -86,7 +86,7 @@ namespace Bikewale.BAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Error in ServiceCenters.GetServiceCenterDataById for parameters serviceCenterId : {0}", serviceCenterId));
-                
+
             }
             return null;
         }
@@ -116,7 +116,7 @@ namespace Bikewale.BAL.ServiceCenter
                     if (objSMSData.SMSStatus == EnumSMSStatus.Success)
                     {
                         SMSTypes newSms = new SMSTypes();
-                        newSms.ServiceCenterDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, pageUrl);
+                        newSms.ServiceCenterDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, pageUrl, objSMSData.Latitude, objSMSData.Longitude, objSMSData.MakeName);
                         return EnumSMSStatus.Success;
                     }
                     else if (objSMSData.SMSStatus == EnumSMSStatus.Daily_Limit_Exceeded)
@@ -132,10 +132,10 @@ namespace Bikewale.BAL.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Error in ServiceCenters.GetServiceCenterSMSData for parameters serviceCenterId : {0}, mobileNumber : {1}", serviceCenterId, mobileNumber));
-                
+
             }
             return 0;
         }
-        
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Notifications.NotificationDAL;
+using Bikewale.Utility;
 using System;
 using System.Configuration;
 using System.Web;
@@ -642,11 +643,15 @@ namespace Bikewale.Notifications
         /// Created By  : Sajal Gupta on 16-11-2016
         /// Description : Send SMS to customer on requesting service center details.
         /// </summary>
-        public void ServiceCenterDetailsSMS(string number, string name, string address, string phone, string city, string pageUrl)
+        public void ServiceCenterDetailsSMS(string number, string name, string address, string phone, string city, string pageUrl, double latitude, double longitude, string makeName)
         {
             try
             {
-                string message = String.Format("Details of service center details nearby:{0}{0}{1}{0}{2},{3}{0}{4}{0}{0}Thanks for visiting BikeWale.", Environment.NewLine, name, address, city, phone);
+                UrlShortner objUrlShortner = new UrlShortner();
+
+                var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", latitude, longitude));
+                string shortUrl = shortUrlObj != null ? shortUrlObj.ShortUrl : "";
+                string message = String.Format("{1} Service Center in {2}:{0}{0}{3}{0}{4},{5}{0}{6}{0}{7}Thanks for visiting BikeWale.", Environment.NewLine, makeName, city, name, address, city, phone, (!string.IsNullOrEmpty(shortUrl) ? string.Format("Get Directions-{7}{0}", shortUrl) : ""));
 
                 EnumSMSServiceType esms = EnumSMSServiceType.ServiceCenterDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
@@ -712,9 +717,9 @@ namespace Bikewale.Notifications
             {
                 string message = String.Format("Details of dealer showrooms nearby:{0}{0}{1}{0}{2},{3}{0}{4}{0}{0}Thanks for visiting BikeWale.", Environment.NewLine, name, address, city, phone);
 
-                EnumSMSServiceType esms = EnumSMSServiceType.DealerShowroomDetailsSMSToCustomer;
+                //EnumSMSServiceType esms = EnumSMSServiceType.DealerShowroomDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
-                sc.ProcessSMS(number, message, esms, pageUrl);
+                //sc.ProcessSMS(number, message, esms, pageUrl);
             }
             catch (Exception ex)
             {

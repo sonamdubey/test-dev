@@ -1,0 +1,68 @@
+@import "placeholder/grid"
+@include grid(5)
+@include grid(7)
+
+.pagination-container
+	padding-top: 15px
+	padding-bottom: 15px
+	margin-right: 10px
+	margin-left: 10px
+	border-top: 1px solid $border-color
+	font-size: 13px
+	color: $primary-color
+
+.pagination-list-content
+	width: auto
+
+.pagination-list
+	margin-right: 20px
+	margin-left: 20px
+	overflow: hidden
+
+	li
+		float: left
+		margin-right: 2px
+		margin-left: 2px
+
+	.active,
+	a
+		color: $primary-color
+		font-size: 12px
+		border: 1px solid $white
+		display: block
+		min-width: 25px
+		text-align: center
+
+	li.active
+		color: $primary-color
+		font-weight: $font-bold
+		border: 1px solid #a2a2a2
+		border-radius: 1px
+
+.pagination-control-prev,
+.pagination-control-next
+	position: absolute
+	top: 0
+	height: 20px
+
+.pagination-control-prev
+	left: 0
+
+.pagination-control-next
+	right: 0
+
+.prev-page-icon,
+.next-page-icon
+	width: 18px
+	height: 18px
+
+.prev-page-icon
+	background-position: -164px -391px
+
+.next-page-icon
+	background-position: -178px -391px
+
+.pagination-control-prev.inactive .prev-page-icon,
+.pagination-control-next.inactive .next-page-icon
+	opacity: 0.2
+	pointer-events: none
