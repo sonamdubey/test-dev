@@ -155,7 +155,6 @@
     <Compile Include="Compare\BikeCompareRepository.cs" />
     <Compile Include="Customer\CustomerRespository.cs" />
     <Compile Include="Dealer\DealersRepository.cs" />
-    <Compile Include="Dealer\MobileSmsVerification.cs" />
     <Compile Include="Dealer\OfferRepository.cs" />
     <Compile Include="Feedback\FeedbackRepository.cs" />
     <Compile Include="Finance\FinanceRepository.cs" />
