@@ -628,25 +628,9 @@ namespace Bikewale.Service.AutoMappers.Model
 
                     objDTOModelPage.Photos = photos;
                 }
-
-                if (objModelPage.ModelColors != null && objModelPage.ModelColors.Any())
+                if (objModelPage.colorPhotos != null && objModelPage.colorPhotos.Any())
                 {
-                    var colors = new List<NewModelColorWithPhoto>();
-                    foreach (var color in objModelPage.ModelColors)
-                    {
-                        var addcolor = new NewModelColorWithPhoto()
-                        {
-                            ColorImageId = color.Id,
-                            HasColorPhoto = color.Id > 0,
-                            ColorName = color.ColorName,
-                            ModelId = color.ModelId,
-                            HexCodes = color.HexCodes
-
-
-                        };
-                        colors.Add(addcolor);
-                    }
-                    objDTOModelPage.ModelColors = colors;
+                    objDTOModelPage.ModelColors = ModelMapper.Convert(objModelPage.colorPhotos);
                 }
                 if (pqEntity != null)
                 {
