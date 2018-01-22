@@ -193,7 +193,6 @@
     <None Include="stylesheet\placeholder\_padding.sass" />
     <None Include="stylesheet\placeholder\_text-align.sass" />
     <None Include="stylesheet\video.sass" />
-    <None Include="webpack-assets.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
