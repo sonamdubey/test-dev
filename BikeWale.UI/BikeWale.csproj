@@ -3130,6 +3130,7 @@
     <Content Include="sass\partials\_notify-update-popup.sass" />
     <Content Include="sass\partials\_related-make-card.sass" />
     <Content Include="sass\partials\_related-make-carousel.sass" />
+    <Content Include="sass\partials\_other-bikes-list.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
