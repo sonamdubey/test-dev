@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var BUILD_DIR = path.resolve(__dirname, '../../Bikewale.UI/', 'pwa');
 var APP_DIR = path.resolve(__dirname, '..','src');
@@ -36,7 +37,10 @@ var config = {
        maxAssetSize: 100000,
        maxEntrypointSize: 300000,
        hints: 'warning'
-    }
+    },
+    plugins:[
+        new CleanWebpackPlugin(['server'], { root: BUILD_DIR })
+    ]
 };
 
 module.exports = config;

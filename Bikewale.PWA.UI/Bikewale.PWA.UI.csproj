@@ -203,18 +203,21 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">
+  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild">
     <Message Text="Installing npm dependencies" Importance="high" />
     <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />
   </Target>
-  <Target Name="ExecuteWebpackBundlingForClient" DependsOnTargets="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">
+  <Target Name="ExecuteWebpackBundlingForClient" DependsOnTargets="CheckNPMInstall" AfterTargets="BeforeBuild">
     <Message Text="Running webpack bundling task $(Configuration)" Importance="high" />
     <Exec Command="npm run $(Configuration)" WorkingDirectory="$(ProjectDir)" />
   </Target>
-  <!-- Do not change order of ExecuteWebpackBundlingForClient and ExecuteWebpackBundlingForServer. Build folder is cleaned in first task -->
   <Target Name="ExecuteWebpackBundlingForServer" DependsOnTargets="ExecuteWebpackBundlingForClient" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running webpack bundling task for server bundle" Importance="high" />
     <Exec Command="npm run ServerRelease" WorkingDirectory="$(ProjectDir)" />
+  </Target>
+  <Target Name="ExecuteWebpackBundlingForServerDebug" DependsOnTargets="ExecuteWebpackBundlingForClient" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Debug'">
+    <Message Text="Running webpack bundling task for server bundle" Importance="high" />
+    <Exec Command="npm run ServerDebug" WorkingDirectory="$(ProjectDir)" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>
