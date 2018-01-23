@@ -9,49 +9,50 @@ $readmore-button: #0288d1
 
 
 @mixin interesting-fact__white-overlay
-	.interesting-fact-popup
-		.interesting-fact__content[data-overlay= 'bottom']
-			&:after
-				content: ''
-				position: absolute
-				height: 35%
-				bottom: 0
-				left: 0
-				right: 0
-				display: block
-				background: linear-gradient(180deg, transparent, color('white'))
+	.fact-container__block[data-overlay= 'bottom']
+		&:after
+			content: ''
+			position: absolute
+			height: 20%
+			bottom: 0
+			left: 0
+			right: 0
+			display: block
+			background: linear-gradient(180deg, transparent, color('white'))
 
-		.interesting-fact__content[data-overlay= 'top']
-			&:after
-				content: ''
-				position: absolute
-				height: 10%
-				top: 26px
-				left: 0
-				right: 0
-				display: block
-				background: linear-gradient(180deg, color('white'), transparent)
+	.fact-container__block[data-overlay= 'top']
+		&:after
+			content: ''
+			position: absolute
+			height: 20%
+			top: 0
+			left: 0
+			right: 0
+			z-index: 1
+			display: block
+			background: linear-gradient(180deg, color('white') 30%, transparent 90%)
 
-		.interesting-fact__content[data-overlay= 'both']
-			&:before
-				content: ''
-				position: absolute
-				height: 10%
-				top: 26px
-				left: 0
-				right: 0
-				display: block
-				background: linear-gradient(180deg, color('white'), transparent)
+	.fact-container__block[data-overlay= 'both']
+		&:before
+			content: ''
+			position: absolute
+			height: 20%
+			top: 0
+			left: 0
+			right: 0
+			z-index: 1
+			display: block
+			background: linear-gradient(180deg, color('white') 30%, transparent 90%)
 
-			&:after
-				content: ''
-				position: absolute
-				height: 35%
-				bottom: 0
-				left: 0
-				right: 0
-				display: block
-				background: linear-gradient(180deg, transparent, color('white'))
+		&:after
+			content: ''
+			position: absolute
+			height: 20%
+			bottom: 0
+			left: 0
+			right: 0
+			display: block
+			background: linear-gradient(180deg, transparent, color('white'))
 
 .interesting-fact__whiteout-window
 	@include vendor-prefix('transition', all 0.3s cubic-bezier(0, 0, 0.3, 1))
@@ -82,13 +83,20 @@ $readmore-button: #0288d1
 			height: 88%
 			position: relative
 			border-radius: 3px
-			padding-right: 0
+			padding: 0
+
+			&:before
+				z-index: 2
 
 		.interesting-fact__content
 			max-height: 100%
 			overflow: auto
 			line-height: 2
-			padding-right: 20px
+			position: relative
+			right: -6px
+			margin-bottom: 0
+			padding: 20px
+
 
 	@include interesting-fact__white-overlay
 
@@ -96,14 +104,19 @@ $readmore-button: #0288d1
 		.interesting-fact__whiteout-window
 			opacity: 1
 			pointer-events: auto;
-			z-index: 1
+			z-index: 4
 			display: block
 
 		.interesting-fact-popup
+			z-index: 5
 			-webkit-transform: translate(0, 0)
 			-moz-transform: translate(0, 0)
 			-ms-transform: translate(0, 0)
 			transform: translate(0, 0)
+
+	.fact-container__block
+		position: relative
+		height: 100%
 
 .interesting-fact-section
 	.page__heading-h2
@@ -152,18 +165,25 @@ $readmore-button: #0288d1
 	font-size: 14px
 	font-weight: $font-semibold
 	color: $readmore-button
-	z-index: 3
+	position: relative
+	display: inline-block
+	padding-right: 15px
+	@include right-arrow-0288d1-icon
+	background-position: 100% center
+	background-size: 7px
+
 .interesting-fact__link-block
 	text-align: right	
 
 @mixin interesting-fact__container-scrollbar
+
 	.interesting-fact__content::-webkit-scrollbar
 		width: 6px
-
 	.interesting-fact__content::-webkit-scrollbar-track
 		box-shadow: inset 0 0 5px grey
 		border-radius: 3px
 		background: rgba(255, 255, 255, 0.42)
+
 
 	.interesting-fact__content::-webkit-scrollbar-thumb
 		background: rgba(255, 255, 255, 0.54)

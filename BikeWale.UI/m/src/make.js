@@ -141,15 +141,16 @@ var interestingFactPopup = (function () {
             }
         });
         $(".interesting-fact-popup .interesting-fact__content").scroll(function () {
-            var interestingFactContainer = $(this),
-                containerPosition = interestingFactContainer.scrollTop();
-            if (containerPosition <= 0 && containerPosition > interestingFactContainer.outerHeight()) {
+            var interestingFactContent = $(this),
+                interestingFactContainer = interestingFactContent.closest('.fact-container__block');
+            containerPosition = interestingFactContent.scrollTop();
+            if (containerPosition <= 0 && containerPosition > interestingFactContent.outerHeight()) {
                 interestingFactContainer.attr('data-overlay', 'none');
             }
             else if (containerPosition <= 0) {
                 interestingFactContainer.attr('data-overlay', 'bottom');
             }
-            else if (containerPosition > interestingFactContainer.outerHeight()) {
+            else if (containerPosition+40 > interestingFactContent.innerHeight()- 40) {
                 interestingFactContainer.attr('data-overlay', 'top');
             }
             else {
