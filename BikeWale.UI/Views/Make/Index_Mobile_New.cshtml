@@ -7,31 +7,33 @@
     Model.Page_JS_Path = "/m/src/make.js";
 }
 
-<section>
+<section id="overallContainer">
     <div class="container section-bottom-margin">
         <h1 class="page__heading">Royal Enfield Bikes</h1>
 
         <div class="overall-tabs__placeholder">
             <div class="overall-tabs__content">
                 <ul class="overall-tabs__list">
-                    <li class="overall-tabs-list__item tab--active">Popular Models</li>
-                    <li class="overall-tabs-list__item">Bike Models</li>
-                    <li class="overall-tabs-list__item">Upcoming Bikes</li>
-                    <li class="overall-tabs-list__item">Latest Updates</li>
-                    <li class="overall-tabs-list__item">Dealer / Stores</li>
-                    <li class="overall-tabs-list__item">News</li>
-                    <li class="overall-tabs-list__item">Reviews</li>
-                    <li class="overall-tabs-list__item">Images</li>
-                    <li class="overall-tabs-list__item">Videos</li>
+                    <li class="overall-tabs-list__item tab--active" data-tabs="popularModel">Popular Models</li>
+                    <li class="overall-tabs-list__item" data-tabs="bikeModel">Bike Models</li>
+                    <li class="overall-tabs-list__item" data-tabs="upcomingBikes">Upcoming Bikes</li>
+                    <li class="overall-tabs-list__item" data-tabs="latestUpdate">Latest Updates</li>
+                    <li class="overall-tabs-list__item" data-tabs="dealer">Dealer / Stores</li>
+                    <li class="overall-tabs-list__item" data-tabs="news">News</li>
+                    <li class="overall-tabs-list__item" data-tabs="reviews">Reviews</li>
+                    <li class="overall-tabs-list__item" data-tabs="images">Images</li>
+                    <li class="overall-tabs-list__item" data-tabs="videos">Videos</li>
                 </ul>
             </div>
         </div>
         
         <section>
-            <div class="bg-white section-bottom-margin newly-lauched-section">
-                <h2 class="carousel__title">
-                    Newly launched
-                </h2>
+            <div data-id="popularModel" class="bg-white section-bottom-margin newly-lauched-section overall-tabs-data">
+                <div class="carousel__title">
+                    <h2 class="page__heading-h2">
+                        Newly launched
+                    </h2>         
+                </div>
                 <div class="swiper-container carousel__newly-lauched" data-spacebetween="0">
                     <ul class="swiper-wrapper">
                         @for (var i = 0; i <= 5; i++)
@@ -63,7 +65,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </li>
                         }
@@ -73,7 +75,7 @@
         </section>
 
         <section>
-			<div class="bg-white section-bottom-margin">
+            	<div data-id="bikeModel" class="content--inner-padding bg-white section-bottom-margin overall-tabs-data">
 				<div class="popular-carousel__title">
 					<h2 class="page__heading-h2">Popular Royal Enfield Bikes</h2>
 					<p class="page-heading__disclaimer">*Based on number of searches</p>
@@ -261,7 +263,6 @@
 		</section>
 
 		<section>
-            <div class="content--inner-padding bg-white section-bottom-margin">
                 <h2 class="page__heading-h2">All Royal Enfield Bikes</h2>
                 <p class="page-heading__disclaimer">*Prices are indicative Ex-Showroom, Navi Mumbai</p>
 
@@ -482,7 +483,7 @@
         </section>
 
         <section>
-            <div class="bg-white section-bottom-margin">
+            <div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
                 <h2 class="upcoming-carousel__title page__heading-h2">Upcoming Royal Enfield Bikes</h2>
 
                 <div class="swiper-container carousel__upcoming-bikes" data-spacebetween="0">
@@ -602,23 +603,23 @@
 
         <div id="interestingFact">
             <div class="interesting-fact-popup interesting-fact-section">
-
                 <div class="interesting-fact__title">
                     <h2 class="page__heading-h2">Interesting Fact</h2>
                     <span class="close"></span>
                 </div>
-
                 <div class="interesting-fact-container">
-                    <p class="interesting-fact__content" data-overlay="none">
-                    </p>
+                    <div class="fact-container__block">
+                        <p class="interesting-fact__content" data-overlay="none">
+                        </p>
+                    </div>
                 </div>
-
+                
             </div>
             <div class="interesting-fact__whiteout-window"></div>
         </div>
 
         <section>
-            <div class="section-bottom-margin interesting-fact-section">
+                <div class="section-bottom-margin interesting-fact-section  overall-tabs-data">
                 <h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
                 <div class="interesting-fact-container">
                     <p class="interesting-fact__content">
@@ -626,15 +627,18 @@
                         Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
                         Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
                     </p>
-                    <span class="interesting-fact__read-more">
-                        Read more about Bajaj
-                    </span>
-                </div>
+                    <div class="interesting-fact__link-block">
+                        <span class="interesting-fact__read-more">
+                            Read more about Bajaj
+                        </span>
+                    </div>
+
+                    </div>
             </div>
         </section>
 
         <section>
-            <div class="bg-white section-bottom-margin latest-update-section">
+               	<div data-id="latestUpdate" class="bg-white section-bottom-margin latest-update-section  overall-tabs-data">
                 <div class="carousel__title">
                     <h2 class="page__heading-h2 carousel-title__label"> Latest Updates</h2>
                     <a href="" class="view-all-btn">
@@ -693,7 +697,7 @@
         </section>
 
         <section>
-            <div class="bg-white section-bottom-margin dealer-section">
+       		<div data-id="dealer" class="bg-white section-bottom-margin dealer-section overall-tabs-data">
                 <div class="carousel__title">
                     <h2 class="carousel-title__label">Dealer / Stores</h2>
                     <a href="" class="view-all-btn">
@@ -753,7 +757,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <p class="dealer-city__name">Pimpri-Chinchwad</p>
+                                                    <p class="dealer-city__name">bengaluru</p>
                                                 }
                                             </div>
                                         </div>
@@ -768,7 +772,7 @@
         </section>
 
         <section>
-            <div class="bg-white section-bottom-margin latest-news-section">
+                <div data-id="news" class="bg-white section-bottom-margin latest-news-section overall-tabs-data">
                 <div class="carousel__title">
                     <h2 class="page__heading-h2 carousel-title__label">Royal Enfield News</h2>
                     <a href="" class="view-all-btn">
@@ -833,8 +837,10 @@
 
 
 		<section>
-			<div class="bg-white section-bottom-margin review-section">
-				<h2 class="page__heading-h2">Royal Enfield Reviews</h2>
+                	<div data-id="reviews" class="bg-white section-bottom-margin review-section overall-tabs-data">
+                    		<div class="carousel__title">
+					<h2 class="page__heading-h2">Royal Enfield Reviews</h2>
+                    		</div>
 				<section class="expert-review-section">
 					<div class="carousel__title">
 						<h3 class="carousel-title__label">Expert Reviews</h3>
@@ -1083,7 +1089,7 @@
 		</section>
 
 		<section>
-			<div class="bg-white section-bottom-margin">
+                	<div data-id="videos" class="bg-white section-bottom-margin video-section overall-tabs-data">
 				<h2 class="page__heading-h2">Other Brands</h2>
 				<div class="swiper-container carousel__related-makes" data-spacebetween="0">
 					<ul class="swiper-wrapper image-card--list">

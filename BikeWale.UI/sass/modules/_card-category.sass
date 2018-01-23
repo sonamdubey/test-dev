@@ -24,7 +24,9 @@
 		.card-category__tag
 			width: $mwidth
 
-
+//data-review-category= '40' for long term report review #68c7d2
+// data-review-category= '23' for road test #57abeb
+// data-review-category= '24' for first ride review #f2aa58
 
 @mixin card-category__tag-color($color1: #68c7d2, $color2: #f2aa58, $color3: #57abeb)
 	.carousel-card[data-review-category= '40']
@@ -50,7 +52,7 @@
 
 
 @mixin card-category__tag-code($color1: #68c7d2, $color2: #f2aa58, $color3: #57abeb)
-	.carousel-card[data-review-category='40']
+	.carousel-card[data-review-category='40'] 
 		.card-category__tag
 			color: $color1
 
@@ -58,6 +60,6 @@
 		.card-category__tag
 			color: $color2
 
-	.carousel-card[data-review-category='23']
+	.carousel-card[data-review-category='23'] 
 		.card-category__tag
 			color: $color3

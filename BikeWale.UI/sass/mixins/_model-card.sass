@@ -51,6 +51,9 @@
 		font-size: 16px
 		font-weight: $font-semibold
 		color: #3e3e3e // TODO: Add in color map
+		overflow: hidden
+		text-overflow: ellisis
+		white-space: nowrap
 
 
 /*
@@ -123,22 +126,13 @@
 		border:	1px solid $color
 		border-radius: 3px
 		position: relative
-
-		&:after
-			content: ''
-			display: inline-block
-			border-right: 1px solid
-			border-bottom: 1px solid
-			height: 8px
-			width: 8px
-			-webkit-transform: rotate(-45deg)
-			-moz-transform: rotate(-45deg)
-			transform: rotate(-45deg)
-			position: absolute
-			right: 13px
-			top: 14px
-
+		padding-right: 15px
+		@include right-arrow-ef402f-icon
+		background-position: 87% center
+		background-size: 7px
+		background-color: color('white')
 		&:hover
+
 			text-decoration: none
 
 
