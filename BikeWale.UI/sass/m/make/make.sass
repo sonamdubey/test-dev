@@ -5,6 +5,16 @@
 @import ../../mixins/index
 @import ../../utils/index
 
+.model-image-section
+	.carousel__title
+		padding-bottom: 12px
+
+	.page__heading-h2
+		@include image-icon
+		background-size: 19px
+		background-position: 0 center
+		padding-left: 33px
+			
 .section-bottom-margin
 	margin-bottom: 20px
 
@@ -75,6 +85,12 @@
 @include interesting-fact-popup
 @include interesting-fact-section
 @include interesting-fact__container-scrollbar
+
+
+@media only screen and (max-width: 320px) 
+	.carousel__popular-bikes
+		.carousel-slide
+			width: 305px
 
 
 

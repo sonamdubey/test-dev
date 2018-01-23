@@ -93,67 +93,34 @@ var floatingNav = (function () {
                         $(this).addClass('tab--active');
 
                         currentActiveTab = overallTabsContainer.find('li[data-tabs="' + $(this).attr('data-id') + '"]');
-                        overallTabsContainer.find(currentActiveTab).addClass('tab--active');
-                        //centerItVariableWidth(overallTabsContainer.find('li[data-tabs="' + $(this).attr('data-id') + '"]'), '.overall-tabs__content');
-                        
-
+                        overallTabsContainer.find(currentActiveTab).addClass('tab--active');                      
+                        centerNavBar($('li[data-tabs="' + $(this).attr('data-id') + '"]'), '.overall-tabs__content');
                     }
+
                 });
-
-            var tabElementThird = overallContainer.find('.overall-tabs-data:eq(3)'),
-                tabElementSixth = overallContainer.find('.overall-tabs-data:eq(6)'),
-                tabElementNinth = overallContainer.find('.overall-tabs-data:eq(9)'),
-                tabElementTwelve = overallContainer.find('.overall-tabs-data:eq(13)');
-
-                if (tabElementThird.length != 0) {
-                    focusFloatingTab(tabElementThird, 300, 0);
-                }
-
-                if (tabElementSixth.length != 0) {
-                    focusFloatingTab(tabElementSixth, 600, 300);
-                }
-
-                if (tabElementNinth.length != 0) {
-                    focusFloatingTab(tabElementNinth, 900, 600);
-                }
-
-                if (tabElementTwelve.length != 0) {
-                    focusFloatingTab(tabElementTwelve, 1200, 900);
-                }
-
-        });
-        
-        
+        });    
         $('.overall-tabs__list li').on('click', function () {
             var target = $(this).attr('data-tabs'),
                 topNavBarHeight = $('.overall-tabs__content').height();
             $('html, body').animate({ scrollTop: Math.ceil($(".overall-tabs-data[data-id=" + target+"]").offset().top) - topNavBarHeight }, 1000);
-            centerItVariableWidth($(this), '.overall-tabs__content');
         });
 
-    }
-    
-    function focusFloatingTab(element, startPosition, endPosition) {
-        var windowScrollTop = $(window).scrollTop();
-        if (windowScrollTop > element.offset().top - 45) {
-            if (!overallTabsContainer.hasClass('scrolled-left-' + startPosition)) {
-                overallTabsContainer.addClass('scrolled-left-' + startPosition);
-                scrollHorizontal(startPosition);
+        function centerNavBar(target, outer) {
+            var out = $(outer);
+            var tar = target;
+            var x = out.width();
+            var y = tar.outerWidth(true);
+            var z = tar.index();
+            var q = 0;
+            var m = out.find('li');
+            //Just need to add up the width of all the elements before our target. 
+            for (var i = 0; i < z; i++) {
+                q += $(m[i]).outerWidth(true);
             }
+            out.animate({ scrollLeft: Math.max(0, q - (x - y) / 2) }, 10, 'swing');
         }
-
-        else if (windowScrollTop < element.offset().top) {
-            if (overallTabsContainer.hasClass('scrolled-left-' + startPosition)) {
-                overallTabsContainer.removeClass('scrolled-left-' + startPosition);
-                scrollHorizontal(endPosition);
-            }
-        }
-    };
-    
-    function scrollHorizontal(pos) {
-        $('.overall-tabs__content').animate({ scrollLeft: pos - 15 + 'px' }, 500);
     }
-    
+  
     return {
         registerEvents: registerEvents
     }
