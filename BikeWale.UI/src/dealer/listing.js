@@ -2,7 +2,7 @@ var readMoreTarget, dealerMoreContent;
 var clientip;
 
 var attemptCount = 1,
-    successMessage = 'Service Center details successfully<br />sent on your phone.<br />Not Received? <span class="service-center-resend-btn">Resend</span>',
+    successMessage = 'Dealer details successfully<br />sent on your phone.<br />Not Received? <span class="service-center-resend-btn">Resend</span>',
     threeAttemptsMessage = 'Sorry! You have reached the limit of sending details of this service center. Look for a different service center.',
     failureMessage = "Sorry!, Something went wrong. Please try again.",
     tenAttemptsMessage = 'Sorry! You have reached the daily limit of sending details.<br />Please try again after a day.';
