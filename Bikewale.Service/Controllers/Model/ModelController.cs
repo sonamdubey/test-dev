@@ -279,6 +279,8 @@ namespace Bikewale.Service.Controllers.Model
         /// <summary>
         /// Created by : Vivek Singh Tomar on 5th Oct 2017
         /// Summary : Get color photos for modelid
+        /// Modified by : Rajan Chauhan on 23 Jan 2017
+        /// Description : Added filter for no color image
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
