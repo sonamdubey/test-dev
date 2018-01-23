@@ -6,6 +6,10 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/generic/listing.css' inline />";
     int i = 10;
     string prevMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
+    Model.AdTags.AdPath = "/1017752/Bikewale_BestBike_";
+    Model.AdTags.AdId = "1516081185645";
+    Model.AdTags.Ad_Model_BTF_970x90 = true;
+    Model.AdTags.Ad_970x90Bottom = true;
 }
 <header>
     <div class="generic-banner @Model.bannerImagePos" style="background-image: url(@Model.bannerImage)">
@@ -57,21 +61,21 @@
                             <li class="list-item" id="bike@(i)">
                                 <div class="item-details-content">
                                     <div class="grid-3 padding-left20">
-                                        <a href="@string.Format("/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName)" title="@bike.BikeName" class="item-image-content">
+                                        <a href="@string.Format("/{0}-bikes/{1}/", bike.Make.MaskingName, bike.Model.MaskingName)" title="@bike.BikeName" class="item-image-content">
                                             <span class="item-rank">#@i@{i--;} </span>
                                             @if (i > 7)
                                             {
-                                                <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._227x128,QualityFactor._85) " alt="@bike.BikeName " />
+                                                <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._227x128, QualityFactor._85) " alt="@bike.BikeName " />
                                             }
                                             else
                                             {
-                                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._227x128,QualityFactor._85) " alt="@bike.BikeName " src="" />
+                                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._227x128, QualityFactor._85) " alt="@bike.BikeName " src="" />
                                             }
 
                                         </a>
                                     </div>
                                     <div class="grid-6 bike-details-block border-grey-right padding-right20">
-                                        <h3><a href="@string.Format(" /{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName " class="bikeTitle">@bike.BikeName </a></h3>
+                                        <h3><a href="@string.Format(" /{0}-bikes/{1}/", bike.Make.MaskingName, bike.Model.MaskingName) " title="@bike.BikeName " class="bikeTitle">@bike.BikeName </a></h3>
                                         <ul class="key-specs-list text-light-grey padding-bottom15 margin-bottom15 border-solid-bottom">
                                             @if (bike.MinSpecs.Displacement != 0)
                                             {
@@ -140,7 +144,7 @@
                                                 @if (bike.NewsCount > 0)
                                                 {
                                                     <li>
-                                                        <a href="@UrlFormatter.FormatNewsUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  News">
+                                                        <a href="@UrlFormatter.FormatNewsUrl(bike.Make.MaskingName, bike.Model.MaskingName) " title="@bike.BikeName  News">
                                                             <span class="bwsprite news-sm"></span>
                                                             <span class="icon-label">News</span>
                                                         </a>
@@ -149,7 +153,7 @@
                                                 @if (bike.ExpertReviewsCount > 0)
                                                 {
                                                     <li>
-                                                        <a href="@UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Reviews">
+                                                        <a href="@UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName, bike.Model.MaskingName) " title="@bike.BikeName  Reviews">
                                                             <span class="bwsprite reviews-sm"></span>
                                                             <span class="icon-label">Reviews</span>
                                                         </a>
@@ -158,7 +162,7 @@
                                                 @if (bike.PhotosCount > 0)
                                                 {
                                                     <li>
-                                                        <a href="@UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Images">
+                                                        <a href="@UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName, bike.Model.MaskingName) " title="@bike.BikeName  Images">
                                                             <span class="bwsprite photos-sm"></span>
                                                             <span class="icon-label">Images</span>
                                                         </a>
@@ -167,7 +171,7 @@
                                                 @if (bike.VideosCount > 0)
                                                 {
                                                     <li>
-                                                        <a href="@UrlFormatter.FormatVideoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Videos">
+                                                        <a href="@UrlFormatter.FormatVideoPageUrl(bike.Make.MaskingName, bike.Model.MaskingName) " title="@bike.BikeName  Videos">
                                                             <span class="bwsprite videos-sm"></span>
                                                             <span class="icon-label">Videos</span>
                                                         </a>
@@ -176,7 +180,7 @@
                                                 @if (bike.MinSpecs != null)
                                                 {
                                                     <li>
-                                                        <a href="@UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Specs">
+                                                        <a href="@UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName, bike.Model.MaskingName) " title="@bike.BikeName  Specs">
                                                             <span class="bwsprite specs-sm"></span>
                                                             <span class="icon-label">Specs</span>
                                                         </a>
@@ -198,16 +202,20 @@
 
                             </li>
 
-                                                }
+                        }
                     </ul>
                 </div>
             </div>
             <div class="clear"></div>
         </div>
     </section>
-
-                                                }
-
+}
+<section class="container">
+    @if (Model.AdTags.Ad_Model_BTF_970x90)
+    {
+        Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", new { AdId = Model.AdTags.AdId });
+    }
+</section>
 @if (Model.Brands != null && Model.BestBikes.CurrentPage != EnumBikeBodyStyles.Scooter)
 {
     <section>
@@ -469,7 +477,7 @@
             <div class="clear"></div>
         </div>
     </section>
-                        }
+}
 
 <section>
     <div class="container section-bottom-margin">

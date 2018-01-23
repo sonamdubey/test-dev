@@ -7,6 +7,10 @@
     int i = 10;
     string prevMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
     Model.IsTransparentHeader = true;
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_BestBike";
+    Model.AdTags.AdId = "1516081533239";
+    Model.AdTags.Ad_300x250BTF = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
 }
 
 <section>
@@ -191,13 +195,19 @@
                                 </a>
                             }
                         </li>
-                                        }
+                    }
                 </ul>
             </div>
         </div>
     </section>
 
-                                        }
+}
+@if (Model.AdTags.Ad_300x250BTF)
+{
+    <div class="margin-bottom15 text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+    </div>
+}
 @if (Model.Brands != null && Model.BestBikes.CurrentPage != EnumBikeBodyStyles.Scooter)
 {
 
@@ -348,6 +358,7 @@
         </div>
     </section>
 }
+
 @if (Model.Brands != null && Model.BestBikes.CurrentPage == EnumBikeBodyStyles.Scooter)
 {
     <section>
@@ -447,7 +458,7 @@
             </div>
         </div>
     </section>
-                                }
+}
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Best bikes in other categories</h2>
@@ -458,16 +469,16 @@
 </section>
 
 @if (Model.News != null)
-    {
-<section>
-    <h2 class="section-heading">More news about top 10 @Model.PageName.ToLower()</h2>
-    <div id="newsContent" class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+{
+    <section>
+        <h2 class="section-heading">More news about top 10 @Model.PageName.ToLower()</h2>
+        <div id="newsContent" class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
 
-        @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+            @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
 
-    </div>
-</section>
-    }
+        </div>
+    </section>
+}
 
 <script type="text/javascript">
     var descWrapper;
