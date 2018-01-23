@@ -99,7 +99,7 @@ namespace Bikewale.Models.Photos.v1
         {
             try
             {
-                int startIndex =(int)((_pageNo - 1) * PageSize + 1);
+                int startIndex = (int)((_pageNo - 1) * PageSize + 1);
                 int endIndex = (int)(_pageNo * PageSize);
                 ImagePager pager = new ImagePager()
                 {

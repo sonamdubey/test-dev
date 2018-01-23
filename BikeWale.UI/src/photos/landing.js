@@ -207,7 +207,7 @@ docReady(function () {
 	    self.RedirectLoad = ko.observable(false);
 	    self.modelList = ko.observableArray([]);
 	    self.IsLoadMore = ko.observable(true);
-	    self.Filters = ko.observable({ pageno: '1', pagesize: '30' });
+	    self.Filters = ko.observable({ pageno: currentPageNo, pagesize: '30' });
 	    self.IsLoading = ko.observable(false);
 	    self.FirstPageLoad = ko.observable(true);
 	    self.LoadMore = function () {
