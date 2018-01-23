@@ -575,308 +575,14 @@
                 </div>
             </div>
         </section>
-        <div id="interestingFact">
-            <div class="interesting-fact-popup interesting-fact-section">
-
-                <div class="interesting-fact__title">
-                    <h2 class="page__heading-h2">Interesting Fact</h2>
-                    <span class="close"></span>
-                </div>
-
-                <div class="interesting-fact-container">
-                    <p class="interesting-fact__content" data-overlay="none">
-                    </p>
-                </div>
-
-            </div>
-            <div class="interesting-fact__whiteout-window">
-
-            </div>
-        </div>
-            <section>
-                <div class="section-bottom-margin interesting-fact-section">
-                    <h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
-                    <div class="interesting-fact-container">
-                        <p class="interesting-fact__content">
-                            Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
-                            Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
-                            Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
-                        </p>
-                        <span class="interesting-fact__read-more">
-                            Read more about Bajaj
-                        </span>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <div class="bg-white section-bottom-margin latest-update-section">
-                    <div class="carousel__title">
-                        <h2 class="page__heading-h2 carousel-title__label"> Latest Updates</h2>
-                        <a href="" class="view-all-btn">
-                            View all
-                        </a>
-                    </div>
-
-                    <div class="swiper-container carousel__editorial" data-spacebetween="0">
-                        <ul class="swiper-wrapper">
-                            @for (var i = 0; i <= 5; i++)
-                            {
-                                <li class="swiper-slide carousel-slide">
-                                    <div class="editorial-card">
-                                        <a href="" title="" class="editorial-card__target">
-                                            <div class="editorial-card__image">
-                                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                            </div>
-                                            <div class="editorial-card__detail">
-                                                <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
-                                                <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
-                                            </div>
-                                        </a>
-                                        <div class="editorial-card__footer">
-                                            <div class="editorial-footer__author-img">
-                                                @{var author = 0;
-                                                if (author == 0)
-                                                {
-                                                    <span class="editorial-author_defult-img"></span>
-                                                }
-                                                else
-                                                {
-                                                    <img class="swiper-lazy editorial-author-img" src="" data-src="" title="" alt="" />
-                                                }
-
-
-
-                                                }
-                                            </div>
-                                            <div class="editorial-card__about">
-                                                <span class="editorial-card__author-name">Ranjan B.</span>
-                                                <p class="editorial-card__date-section">
-                                                    <span>2 Dec</span> -
-                                                    <span>4 min read</span>
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-                            }
-
-
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <div class="bg-white section-bottom-margin dealer-section">
-                    <div class="carousel__title">
-                        <h2 class="carousel-title__label">Dealer / Stores</h2>
-                        <a href="" class="view-all-btn">
-                            View all
-                        </a>
-                    </div>
-                    <p class="dealer-section__note">
-                        Showing Dealer/Store results from
-                        <a href="" title="" class="dealer-note__link">
-                            All India
-                        </a>
-                    </p>
-                    <div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
-                        <ul class="swiper-wrapper">
-                            @for (var i = 0; i <= 5; i++)
-                            {
-                                <li class="swiper-slide carousel-slide">
-                                    <div class="dealer-in-city-card carousel-card">
-                                        <h3 class="dealer-in-city__title">
-                                            Executive Bajaj
-                                        </h3>
-                                        <p class="dealer-in-city__state">Andheri (E)</p>
-                                        <p class="dealer-in-city__address">Shop No. 21 & 22, Plot no. 18/19, Satyam Tower, Sector 20,</p>
-                                        <div class="dealer-in-city__know-more">
-                                            <a href="tel:+91 9845477722" title="" class="dealer-in-city__contact">
-                                                +91 9845477722
-                                            </a>
-                                            <a href="" title="" class="dealer-in-city__direction">
-                                                Get Directions
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-
-
-                        </ul>
-                    </div>
-
-                    <div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
-                        <ul class="swiper-wrapper">
-                            @for (var i = 0; i <= 5; i++)
-                            {
-                                <li class="swiper-slide carousel-slide">
-                                    <div class="dealer-by-city-card carousel-card">
-                                        <a href="" title="" class="dealer-by-city__target-link">
-                                            <div class="dealer-city__image">
-                                                <span class="city-sprite @((i%2==0)?"mumbai-icon": "kolkata-icon")"></span>
-                                            </div>
-                                            <div class="dealer-city__detail">
-                                                <span class="dealer-city__count">10</span>
-                                                <div class="dealer-city__text">
-                                                    Dealers in
-                                                    @if (i % 2 == 0)
-                                                    {
-                                                        <p class="dealer-city__name">mumbai</p>
-                                                    }
-                                                    else
-                                                    {
-                                                        <p class="dealer-city__name">Pimpri-Chinchwad</p>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </li>
-                            }
-
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <div class="bg-white section-bottom-margin latest-news-section">
-                    <div class="carousel__title">
-                        <h2 class="page__heading-h2 carousel-title__label">Royal Enfield News</h2>
-                        <a href="" class="view-all-btn">
-                            View all
-                        </a>
-                    </div>
-
-                    <div class="swiper-container carousel__editorial" data-spacebetween="0">
-                        <ul class="swiper-wrapper">
-                            @for (var i = 0; i <= 5; i++)
-                            {
-                                <li class="swiper-slide carousel-slide">
-                                    <div class="editorial-card">
-                                        <a href="" title="" class="editorial-card__target">
-                                            <div class="editorial-card__image">
-                                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                            </div>
-                                            <div class="editorial-card__detail">
-                                                <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
-                                                <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
-                                            </div>
-                                        </a>
-                                        <div class="editorial-card__footer">
-                                            <div class="editorial-footer__author-img">
-                                                @{var author = 1;
-                                                if (author == 0)
-                                                {
-                                                    <span class="editorial-author_defult-img"></span>
-                                                }
-                                                else
-                                                {
-                                                    if (i % 2 == 0)
-                                                    {
-                                                        <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
-                                                    }
-                                                    else
-                                                    {
-                                                        <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
-
-                                                    }
-                                                }
-                                                }
-                                            </div>
-                                            <div class="editorial-card__about">
-                                                <span class="editorial-card__author-name">Ranjan B.</span>
-                                                <p class="editorial-card__date-section">
-                                                    <span>2 Dec</span> -
-                                                    <span>4 min read</span>
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-                            }
-
-
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-
-            <section>
-                <div class="bg-white section-bottom-margin review-section">
-                    <h2 class="page__heading-h2">Royal Enfield Reviews</h2>
-                    <section class="expert-review-section">
-                        <div class="carousel__title">
-                            <h3 class="carousel-title__label">Expert Reviews</h3>
-                            <a href="" class="view-all-btn">
-                                View all
-                            </a>
-                        </div>
-                        <div class="article-section__count">
-                            <span class="article-count__number">32</span>&nbsp;Expert Review Articles for <span class="article-count__number">14</span>&nbsp;Models
-                        </div>
-                        <div class="swiper-container carousel__expert-review" data-spacebetween="0">
-                            <ul class="swiper-wrapper">
-                                @for (var i = 0; i <= 5; i++)
-                                {
-                                    <li class="swiper-slide carousel-slide">
-                                        <div class="review-card carousel-card" data-review-category="@((i==0)?"23": (i==1)?"24":"40")">
-                                            <span class="card-category__tag">
-                                                First Ride Review
-                                            </span>
-                                            <h3 class="review-card__title">
-                                                TVS Apache RR 310
-                                            </h3>
-                                            <p class="review-card__desc">
-                                                “Style is very good in terms offering and sporty look. Engine per...”
-                                            </p>
-                                            <div class="review-card__about">
-                                                <div class="review-card__author">
-                                                    @{
-                                    if (i == 0)
-                                    {
-                                        <span class="review-author_defult-img"></span>
-                                    }
-                                    else
-                                    {
-                                        if (i % 2 == 0)
-                                        {
-                                            <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
-                                        }
-                                        else
-                                        {
-                                            <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
-
-                                        }
-                                    }
-                                                    }
-                                                </div>
-                                                <p class="review-card__author-name">Ranjan B.</p>
-                                                <p class="review-card__date">
-                                                    3 days ago
-                                                </p>
-                                            </div>
-
-                                            <a class="review-card__read-more" href="" title="">
-                                                Read full reivew
-                                            </a>
-                                        </div>
-                                    </li>
-                                }
-
 
 		<div id="notifyPopup">
 			<div class="notify-popup__content">
 				<span id="notifyCloseBtn"></span>
-				<!--<span class="notify__bell-icon"></span>-->
 				<svg class="notify__bell-icon" viewBox="0 0 27 33" xmlns="http://www.w3.org/2000/svg">
 					<g fill="#fff" stroke="#fff" fill-rule="evenodd">
-						<path d="M23.48 17.62v-5.05a9.78 9.78 0 0 0-7.22-9.4 2.52 2.52 0 0 0-5.05 0A9.78 9.78 0 0 0 4 12.57v5.05L1.1 20.15v3.97h25.25v-3.97l-2.88-2.53z" stroke-linecap="round" stroke-linejoin="round"/>
-						<path class="bell-clapper" d="M17.34 27.3v1.08a3.43 3.43 0 0 1-3.42 3.42h-.36a3.44 3.44 0 0 1-3.43-3.43V27.3"/>
+						<path d="M23.48 17.62v-5.05a9.78 9.78 0 0 0-7.22-9.4 2.52 2.52 0 0 0-5.05 0A9.78 9.78 0 0 0 4 12.57v5.05L1.1 20.15v3.97h25.25v-3.97l-2.88-2.53z" stroke-linecap="round" stroke-linejoin="round" />
+						<path class="bell-clapper" d="M17.34 27.3v1.08a3.43 3.43 0 0 1-3.42 3.42h-.36a3.44 3.44 0 0 1-3.43-3.43V27.3" />
 					</g>
 				</svg>
 
@@ -893,6 +599,345 @@
 			</div>
 			<div id="notifyWhiteoutWindow"></div>
 		</div>
+
+        <div id="interestingFact">
+            <div class="interesting-fact-popup interesting-fact-section">
+
+                <div class="interesting-fact__title">
+                    <h2 class="page__heading-h2">Interesting Fact</h2>
+                    <span class="close"></span>
+                </div>
+
+                <div class="interesting-fact-container">
+                    <p class="interesting-fact__content" data-overlay="none">
+                    </p>
+                </div>
+
+            </div>
+            <div class="interesting-fact__whiteout-window"></div>
+        </div>
+
+        <section>
+            <div class="section-bottom-margin interesting-fact-section">
+                <h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
+                <div class="interesting-fact-container">
+                    <p class="interesting-fact__content">
+                        Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
+                        Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
+                        Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
+                    </p>
+                    <span class="interesting-fact__read-more">
+                        Read more about Bajaj
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="bg-white section-bottom-margin latest-update-section">
+                <div class="carousel__title">
+                    <h2 class="page__heading-h2 carousel-title__label"> Latest Updates</h2>
+                    <a href="" class="view-all-btn">
+                        View all
+                    </a>
+                </div>
+
+                <div class="swiper-container carousel__editorial" data-spacebetween="0">
+                    <ul class="swiper-wrapper">
+                        @for (var i = 0; i <= 5; i++)
+                        {
+                            <li class="swiper-slide carousel-slide">
+                                <div class="editorial-card">
+                                    <a href="" title="" class="editorial-card__target">
+                                        <div class="editorial-card__image">
+                                            <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                        </div>
+                                        <div class="editorial-card__detail">
+                                            <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
+                                            <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
+                                        </div>
+                                    </a>
+                                    <div class="editorial-card__footer">
+                                        <div class="editorial-footer__author-img">
+                                            @{var author = 0;
+                                            if (author == 0)
+                                            {
+                                                <span class="editorial-author_defult-img"></span>
+                                            }
+                                            else
+                                            {
+                                                <img class="swiper-lazy editorial-author-img" src="" data-src="" title="" alt="" />
+                                            }
+
+
+
+                                            }
+                                        </div>
+                                        <div class="editorial-card__about">
+                                            <span class="editorial-card__author-name">Ranjan B.</span>
+                                            <p class="editorial-card__date-section">
+                                                <span>2 Dec</span> -
+                                                <span>4 min read</span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="bg-white section-bottom-margin dealer-section">
+                <div class="carousel__title">
+                    <h2 class="carousel-title__label">Dealer / Stores</h2>
+                    <a href="" class="view-all-btn">
+                        View all
+                    </a>
+                </div>
+                <p class="dealer-section__note">
+                    Showing Dealer/Store results from
+                    <a href="" title="" class="dealer-note__link">
+                        All India
+                    </a>
+                </p>
+                <div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
+                    <ul class="swiper-wrapper">
+                        @for (var i = 0; i <= 5; i++)
+                        {
+                            <li class="swiper-slide carousel-slide">
+                                <div class="dealer-in-city-card carousel-card">
+                                    <h3 class="dealer-in-city__title">
+                                        Executive Bajaj
+                                    </h3>
+                                    <p class="dealer-in-city__state">Andheri (E)</p>
+                                    <p class="dealer-in-city__address">Shop No. 21 & 22, Plot no. 18/19, Satyam Tower, Sector 20,</p>
+                                    <div class="dealer-in-city__know-more">
+                                        <a href="tel:+91 9845477722" title="" class="dealer-in-city__contact">
+                                            +91 9845477722
+                                        </a>
+                                        <a href="" title="" class="dealer-in-city__direction">
+                                            Get Directions
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+
+                <div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
+                    <ul class="swiper-wrapper">
+                        @for (var i = 0; i <= 5; i++)
+                        {
+                            <li class="swiper-slide carousel-slide">
+                                <div class="dealer-by-city-card carousel-card">
+                                    <a href="" title="" class="dealer-by-city__target-link">
+                                        <div class="dealer-city__image">
+                                            <span class="city-sprite @((i%2==0)?"mumbai-icon": "kolkata-icon")"></span>
+                                        </div>
+                                        <div class="dealer-city__detail">
+                                            <span class="dealer-city__count">10</span>
+                                            <div class="dealer-city__text">
+                                                Dealers in
+                                                @if (i % 2 == 0)
+                                                {
+                                                    <p class="dealer-city__name">mumbai</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="dealer-city__name">Pimpri-Chinchwad</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="bg-white section-bottom-margin latest-news-section">
+                <div class="carousel__title">
+                    <h2 class="page__heading-h2 carousel-title__label">Royal Enfield News</h2>
+                    <a href="" class="view-all-btn">
+                        View all
+                    </a>
+                </div>
+
+                <div class="swiper-container carousel__editorial" data-spacebetween="0">
+                    <ul class="swiper-wrapper">
+                        @for (var i = 0; i <= 5; i++)
+                        {
+                            <li class="swiper-slide carousel-slide">
+                                <div class="editorial-card">
+                                    <a href="" title="" class="editorial-card__target">
+                                        <div class="editorial-card__image">
+                                            <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                        </div>
+                                        <div class="editorial-card__detail">
+                                            <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
+                                            <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
+                                        </div>
+                                    </a>
+                                    <div class="editorial-card__footer">
+                                        <div class="editorial-footer__author-img">
+                                            @{var author = 1;
+                                            if (author == 0)
+                                            {
+                                                <span class="editorial-author_defult-img"></span>
+                                            }
+                                            else
+                                            {
+                                                if (i % 2 == 0)
+                                                {
+                                                    <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
+                                                }
+                                                else
+                                                {
+                                                    <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
+
+                                                }
+                                            }
+                                            }
+                                        </div>
+                                        <div class="editorial-card__about">
+                                            <span class="editorial-card__author-name">Ranjan B.</span>
+                                            <p class="editorial-card__date-section">
+                                                <span>2 Dec</span> -
+                                                <span>4 min read</span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+		<section>
+			<div class="bg-white section-bottom-margin review-section">
+				<h2 class="page__heading-h2">Royal Enfield Reviews</h2>
+				<section class="expert-review-section">
+					<div class="carousel__title">
+						<h3 class="carousel-title__label">Expert Reviews</h3>
+						<a href="" class="view-all-btn">
+							View all
+						</a>
+					</div>
+					<div class="article-section__count">
+						<span class="article-count__number">32</span>&nbsp;Expert Review Articles for <span class="article-count__number">14</span>&nbsp;Models
+					</div>
+					<div class="swiper-container carousel__expert-review" data-spacebetween="0">
+						<ul class="swiper-wrapper">
+							@for (var i = 0; i <= 5; i++)
+							{
+								<li class="swiper-slide carousel-slide">
+									<div class="review-card carousel-card" data-review-category="@((i==0)?"23": (i==1)?"24":"40")">
+										<span class="card-category__tag">
+											First Ride Review
+										</span>
+										<h3 class="review-card__title">
+											TVS Apache RR 310
+										</h3>
+										<p class="review-card__desc">
+											“Style is very good in terms offering and sporty look. Engine per...”
+										</p>
+										<div class="review-card__about">
+											<div class="review-card__author">
+												@{
+								if (i == 0)
+								{
+									<span class="review-author_defult-img"></span>
+								}
+								else
+								{
+									if (i % 2 == 0)
+									{
+										<img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
+									}
+									else
+									{
+										<img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
+
+									}
+								}
+												}
+											</div>
+											<p class="review-card__author-name">Ranjan B.</p>
+											<p class="review-card__date">
+												3 days ago
+											</p>
+										</div>
+
+										<a class="review-card__read-more" href="" title="">
+											Read full reivew
+										</a>
+									</div>
+								</li>
+							}
+
+
+						</ul>
+					</div>
+				</section>
+
+				<section>
+					<div class="bg-white user-review-section">
+						<div class="carousel__title">
+							<h2 class="carousel-title__label">user Reviews</h2>
+							<a href="" class="view-all-btn">
+								View all
+							</a>
+						</div>
+						<div class="article-section__count">
+							<span class="article-count__number">32</span>&nbsp;User Review Articles for <span class="article-count__number">14</span>&nbsp;Models
+						</div>
+						<div class="swiper-container carousel__user-review" data-spacebetween="0">
+							<ul class="swiper-wrapper">
+								@for (var i = 0; i <= 5; i++)
+								{
+									<li class="swiper-slide carousel-slide">
+										<div class="review-card carousel-card">
+											<a href="" title="" class="review-card__target-link">
+												<div class="review-card__image">
+													<img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+												</div>
+												<h3 class="review-card__title">
+													TVS Apache RR 310
+												</h3>
+												<span class="review-card__read-more">
+													40 Review
+												</span>
+											</a>
+										</div>
+									</li>
+								}
+
+
+							</ul>
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
 
 		<section>
 			<div class="bg-white section-bottom-margin">
@@ -921,7 +966,8 @@
 										<span class="card-details__model">Pulsar NS200</span>
 									</h3>
 									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
+										<span class="card-details__image-count">74</span>
+									</div>
 								</div>
 							</a>
 						</li>
@@ -947,7 +993,8 @@
 										<span class="card-details__model">Pulsar NS200</span>
 									</h3>
 									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
+										<span class="card-details__image-count">74</span>
+									</div>
 								</div>
 							</a>
 						</li>
@@ -973,61 +1020,8 @@
 										<span class="card-details__model">Pulsar NS200</span>
 									</h3>
 									<div class="card-details__right-col">
-										<span class="card-details__image-count">74</span></div>
-								</div>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</section>
-
-		<section>
-			<div class="bg-white section-bottom-margin">
-				<h2 class="page__heading-h2">Other Brands</h2>
-				<div class="swiper-container carousel__related-makes" data-spacebetween="0">
-					<ul class="swiper-wrapper image-card--list">
-						<li class="swiper-slide carousel-slide">
-							<a href="" title="" class="related-make-card">
-								<div class="make-icon__content">
-									<span class="brandlogosprite brand-2"></span>
-								</div>
-								<div class="make-details__content">
-									<h3 class="make-details__title">Royal Enfield Bikes</h3>
-									<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-								</div>
-							</a>
-						</li>
-						<li class="swiper-slide carousel-slide">
-							<a href="" title="" class="related-make-card">
-								<div class="make-icon__content">
-									<span class="brandlogosprite brand-7"></span>
-								</div>
-								<div class="make-details__content">
-									<h3 class="make-details__title">Royal Enfield Bikes</h3>
-									<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-								</div>
-							</a>
-						</li>
-						<li class="swiper-slide carousel-slide">
-							<a href="" title="" class="related-make-card">
-								<div class="make-icon__content">
-									<span class="brandlogosprite brand-13"></span>
-								</div>
-								<div class="make-details__content">
-									<h3 class="make-details__title">Yamaha Bikes</h3>
-									<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-								</div>
-							</a>
-						</li>
-						<li class="swiper-slide carousel-slide">
-							<a href="" title="" class="related-make-card">
-								<div class="make-icon__content">
-									<span class="brandlogosprite brand-23"></span>
-								</div>
-								<div class="make-details__content">
-									<h3 class="make-details__title">Husqvarna Bikes</h3>
-									<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
+										<span class="card-details__image-count">74</span>
+									</div>
 								</div>
 							</a>
 						</li>
@@ -1088,5 +1082,57 @@
 			</div>
 		</section>
 
-	</div>
+		<section>
+			<div class="bg-white section-bottom-margin">
+				<h2 class="page__heading-h2">Other Brands</h2>
+				<div class="swiper-container carousel__related-makes" data-spacebetween="0">
+					<ul class="swiper-wrapper image-card--list">
+						<li class="swiper-slide carousel-slide">
+							<a href="" title="" class="related-make-card">
+								<div class="make-icon__content">
+									<span class="brandlogosprite brand-2"></span>
+								</div>
+								<div class="make-details__content">
+									<h3 class="make-details__title">Royal Enfield Bikes</h3>
+									<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
+								</div>
+							</a>
+						</li>
+						<li class="swiper-slide carousel-slide">
+							<a href="" title="" class="related-make-card">
+								<div class="make-icon__content">
+									<span class="brandlogosprite brand-7"></span>
+								</div>
+								<div class="make-details__content">
+									<h3 class="make-details__title">Royal Enfield Bikes</h3>
+									<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
+								</div>
+							</a>
+						</li>
+						<li class="swiper-slide carousel-slide">
+							<a href="" title="" class="related-make-card">
+								<div class="make-icon__content">
+									<span class="brandlogosprite brand-13"></span>
+								</div>
+								<div class="make-details__content">
+									<h3 class="make-details__title">Yamaha Bikes</h3>
+									<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
+								</div>
+							</a>
+						</li>
+						<li class="swiper-slide carousel-slide">
+							<a href="" title="" class="related-make-card">
+								<div class="make-icon__content">
+									<span class="brandlogosprite brand-23"></span>
+								</div>
+								<div class="make-details__content">
+									<h3 class="make-details__title">Husqvarna Bikes</h3>
+									<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
 </section>
