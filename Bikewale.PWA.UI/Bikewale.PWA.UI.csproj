@@ -152,6 +152,7 @@
     <None Include="stylesheet\components\_article-list.sass" />
     <None Include="stylesheet\components\_article-social-share.sass" />
     <None Include="stylesheet\components\_autocomplete.sass" />
+    <None Include="stylesheet\components\_autoexpo-nav-drawer-slug.sass" />
     <None Include="stylesheet\components\_border.sass" />
     <None Include="stylesheet\components\_brand-collapsible.sass" />
     <None Include="stylesheet\components\_brand-logo.sass" />

@@ -24,7 +24,7 @@ class Footer extends React.Component {
                         <li><a href="/m/advertisewithus.aspx" rel="nofollow">Advertise with Us</a></li>
                     </ul>
                     <p>Download Mobile App</p>
-                    <a href="" target="_blank" className="bwmsprite google-play-logo" rel="nofollow"></a>
+                    <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" className="bwmsprite google-play-logo" rel="noopener nofollow"></a>
                     <br />
                     <a href="/?site=desktop" target="_blank">View Desktop Version</a>
                 </div>
