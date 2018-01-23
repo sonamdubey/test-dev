@@ -7,13 +7,13 @@ namespace Bikewale.DTO.Model
     /// Created by:Sangram Nandkhile on 02 Feb 2017
     /// To return DTO of model images, color images and mainimage
     /// Modified by : Rajan Chauhan on 22 Jan 2017
-    /// Description : imgPathLarge changed to originalImagePath Json Property
+    /// Description : imgPathLarge changed to originalImgPath Json Property
     /// </summary>    
     public class ImageBaseDTO
     {
         [JsonProperty("hostUrl")]
         public string HostUrl { get; set; }
-        [JsonProperty("originalImagePath")]
+        [JsonProperty("originalImgPath")]
         public string OriginalImgPath { get; set; }
         [JsonProperty("imageType")]
         public ImageBaseType ImageType { get; set; }
