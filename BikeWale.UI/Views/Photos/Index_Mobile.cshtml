@@ -15,83 +15,83 @@
         var isMobile = true;
         var currentPageNo = @Model.Pager.PageNo;
     </script>
-}
-<section>
-	<div class="container padding-15-20-20 bg-white">
-		<h1 class="text-semibold margin-bottom10">Bike Images</h1>
-		<div class="foldable-content" data-toggle="yes">
-			<p class="truncatable-content" data-readtextflag="1">@Model.ImagesSynopsis</p>
-		    <a href="javascript:void(0)" class="read-more-button" rel="nofollow" data-text="Collapse">...Read more</a>
-			</div>
-	</div>
-</section>
-<section>
-    <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
-        <script type='text/javascript'>
-            googletag.cmd.push(function () {
-                googletag.defineSlot('/1017752/Bikewale_Bike_Image_Mobile_ATF_320x50', [[320, 50], [320, 100]], 'div-gpt-ad-1516009422206-0').addService(googletag.pubads());
-                googletag.pubads().enableSingleRequest();
-                googletag.pubads().collapseEmptyDivs();
-                googletag.enableServices();
-            });
-        </script>
-    </div>
-</section>
-@if (Model.PopularSportsModelsImages != null)
-{
+
     <section>
-        <div class="container margin-bottom15">
-            <h2 class="image-carousel__title">Popular Sport Bikes Images</h2>
-            @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.PopularSportsModelsImages)
-        </div>
-    </section>
-}
-
-
-<section class="text-center section-bottom-margin"></section>
-
-<section>
-    <div class="container section-bottom-margin" id="exploreModelListing">
-        <h2 class="explore-bikes__title">Explore Images by Models</h2>
-        <div class="explore-bikes__container">
-            <div class="explore-bikes__content">
-                <div class="explore-bikes__search form-control-box">
-                    <input type="text" id="exploreBikesField" class="form-control__input" placeholder="Search Bike and Brands">
-                    <span class="input__search-icon" id="btnExploreBikesField"></span>
-
-                    <ul id="errExploreBikes" class="ui-autocomplete ui-front ui-menu hide form-control__error">
-                        <li class="ui-menu-item" tabindex="-1">
-                            <span class="text-bold">Oops! No suggestions found</span><br />
-                            <span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
-                        </li>
-                    </ul>
-                </div>
-                @if (Model != null && Model.BikeModelsPhotos != null)
-                {
-                    @Html.Partial("~/Views/Photos/_ModelsImageList_Mobile.cshtml", Model.BikeModelsPhotos)
-                }
-                @if (!string.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
-                {
-                    <div style="text-align: center; margin-top:20px;">
-                        <div id="loading" style="display: none;" data-bind="visible : $root.IsLoading()">
-                            <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif">
-                        </div>
-                    </div>
-                    <div class="explore-model__more-btn">
-                        <a id="viewMoreBtn" href="@Model.PageMetaTags.NextPageUrl" class="btn btn-inv-blue" data-bind="click: $root.LoadMore, visible: $root.IsLoadMore() && !$root.IsLoading()">Load More</a>
-                    </div>
-                }
+        <div class="container padding-15-20-20 bg-white">
+            <h1 class="text-semibold margin-bottom10">Bike Images</h1>
+            <div class="foldable-content" data-toggle="yes">
+                <p class="truncatable-content" data-readtextflag="1">@Model.ImagesSynopsis</p>
+                <a href="javascript:void(0)" class="read-more-button" rel="nofollow" data-text="Collapse">...Read more</a>
             </div>
         </div>
-    </div>
-</section>
-@if (Model != null && Model.OtherPopularMakes != null)
-{
+    </section>
     <section>
-        <div class="container bg-white padding-bottom10 section-bottom-margin">
-            <h2 class="related-bikes__title">Browse Images by Brands</h2>
-            @Html.Partial("~/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
+        <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
+            <script type='text/javascript'>
+                googletag.cmd.push(function () {
+                    googletag.defineSlot('/1017752/Bikewale_Bike_Image_Mobile_ATF_320x50', [[320, 50], [320, 100]], 'div-gpt-ad-1516009422206-0').addService(googletag.pubads());
+                    googletag.pubads().enableSingleRequest();
+                    googletag.pubads().collapseEmptyDivs();
+                    googletag.enableServices();
+                });
+            </script>
         </div>
     </section>
-}
+    @if (Model.PopularSportsModelsImages != null)
+    {
+        <section>
+            <div class="container margin-bottom15">
+                <h2 class="image-carousel__title">Popular Sport Bikes Images</h2>
+                @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.PopularSportsModelsImages)
+            </div>
+        </section>
+    }
 
+
+    <section class="text-center section-bottom-margin"></section>
+
+    <section>
+        <div class="container section-bottom-margin" id="exploreModelListing">
+            <h2 class="explore-bikes__title">Explore Images by Models</h2>
+            <div class="explore-bikes__container">
+                <div class="explore-bikes__content">
+                    <div class="explore-bikes__search form-control-box">
+                        <input type="text" id="exploreBikesField" class="form-control__input" placeholder="Search Bike and Brands">
+                        <span class="input__search-icon" id="btnExploreBikesField"></span>
+                        <ul id="errExploreBikes" class="ui-autocomplete ui-front ui-menu hide form-control__error">
+                            <li class="ui-menu-item" tabindex="-1">
+                                <span class="text-bold">Oops! No suggestions found</span><br />
+                                <span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
+                            </li>
+                        </ul>
+                    </div>
+                    @if (Model != null && Model.BikeModelsPhotos != null)
+                    {
+                        @Html.Partial("~/Views/Photos/_ModelsImageList_Mobile.cshtml", Model.BikeModelsPhotos)
+                    }
+                    
+                    @if (!string.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+                    {
+                        <div style="text-align: center; margin-top:20px;">
+                            <div id="loading" style="display: none;" data-bind="visible : $root.IsLoading()">
+                                <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif">
+                            </div>
+                        </div>
+                        <div class="explore-model__more-btn">
+                            <a id="viewMoreBtn" href="@Model.PageMetaTags.NextPageUrl" class="btn btn-inv-blue" data-bind="click: $root.LoadMore, visible: $root.IsLoadMore() && !$root.IsLoading()">Load More</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    @if (Model != null && Model.OtherPopularMakes != null)
+    {
+        <section>
+            <div class="container bg-white padding-bottom10 section-bottom-margin">
+                <h2 class="related-bikes__title">Browse Images by Brands</h2>
+                @Html.Partial("~/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
+            </div>
+        </section>
+    }
+}
