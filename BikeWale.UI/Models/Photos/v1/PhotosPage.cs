@@ -52,6 +52,8 @@ namespace Bikewale.Models.Photos.v1
                 BindBikeModelsPhotos(_objData);
                 BindMakesWidget(_objData);
                 SetBreadcrumList(ref _objData);
+                SetPageMetas(_objData);
+                _objData.ImagesSynopsis = "BikeWale brings you high quality images of 250+ bike models and 50+ scooters in India. Be it your dream bike, or the one you are planning to buy next month, we have got good quality bike images for all your needs. Bike images are of paramount importance while one is planning to buy a bike. View images of your favorite motorcycle in multiple colors and different angles.";
             }
             catch (Exception ex)
             {
@@ -88,6 +90,11 @@ namespace Bikewale.Models.Photos.v1
             }
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 13 Jan 2018
+        /// Description : Method to get photos of bike models, method retrieves model ids based on current page no. and bind photos of those models. 
+        /// </summary>
+        /// <param name="objData">View Model of photos page.</param>
         private void BindBikeModelsPhotos(PhotosPageVM objData)
         {
             try
@@ -139,15 +146,37 @@ namespace Bikewale.Models.Photos.v1
             };
         }
 
-        private void SetPageMetas()
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 23 Jan 2018
+        /// Description : Method to set page metas.
+        /// </summary>
+        /// <param name="objData">View Model of Photos page.</param>
+        private void SetPageMetas(PhotosPageVM objData)
         {
             try
             {
+                int totalPageCount = (int)(objData.TotalBikeModels / PageSize);
+                totalPageCount = objData.TotalBikeModels % PageSize > 0 ? totalPageCount + 1 : totalPageCount;
+                string title = "Bike Images, Motorcycle Images | Latest Bike Wallpapers - BikeWale";
+                string description = " BikeWale brings you high-quality images of latest bikes in India. Images of 250+ bike models are available in different colors and angles.View images and photo gallery of your favorite motorcycle on BikeWale.";
 
+                if (_pageNo == 1)
+                {
+                    objData.PageMetaTags.Title = title;
+                    objData.PageMetaTags.Description = description;
+                }
+                else
+                {
+                    objData.PageMetaTags.Title = string.Format("Page {0} of {1} - {2}", _pageNo, totalPageCount, title);
+                    objData.PageMetaTags.Description = string.Format("Page {0} of {1} - {2}", _pageNo, totalPageCount, description);
+                }
+                objData.PageMetaTags.CanonicalUrl = string.Format("{0}/images/", BWConfiguration.Instance.BwHostUrl);
+                objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/images/", BWConfiguration.Instance.BwHostUrl);
+                objData.PageMetaTags.Keywords = "bike images, bike photos, bike wallpapers, bike image gallery, bike photo gallery, bike images india, bike photos india, bike gallery india";
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.SetPageMetas()");
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage.SetPageMetas()");
             }
 
         }

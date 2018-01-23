@@ -989,7 +989,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Models.News.NewsIndexPage.BindSeriesBikesAndOtherBrands");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Models.News.NewsIndexPage.BindPopularScootersAndUpcomingScootersWidget");
             }
         }
 

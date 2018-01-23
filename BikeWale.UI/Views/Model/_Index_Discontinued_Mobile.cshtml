@@ -4,11 +4,11 @@
     @{
         string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
     }
-	  <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" class="contest-slug-sm slug-teal-target">
-		<span class="trophy-white"></span>
-		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney</p>
-		<span class="bwmsprite arrow-white-right"></span>
-	</a>
+    <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" class="contest-slug-sm slug-teal-target">
+        <span class="trophy-white"></span>
+        <p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney</p>
+        <span class="bwmsprite arrow-white-right"></span>
+    </a>
 </section>
 
 <section>
@@ -41,11 +41,11 @@
                                     @if (Model.BikePrice != 0)
                                     {
                                         @Html.Raw("<span class='font24'>&#x20B9;</span>")
-                                        <span class="font24 text-bold padding-right5" >&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
+                                        <span class="font24 text-bold padding-right5">&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
                                     }
                                     else
                                     {
-                                        <span class="font18 text-bold" >Price not available</span>
+                                        <span class="font18 text-bold">Price not available</span>
                                     }
                                 </span>
                             </div>
@@ -53,12 +53,18 @@
                     </div>
                 </div>
             </div>
+            @if (Model.AdTags.Ad320x100ATF)
+            {
+                <div class="margin-bottom20 text-center">
+                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
+                </div>
+             }
             @if (Model.ModelPageEntity.ModelVersionSpecs != null)
-			{
-				<div>
-					@Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
-				</div>
-			}
+            {
+                <div>
+                    @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
+                </div>
+            }
             @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
 
         </div>
@@ -91,4 +97,10 @@
             </div>
         </div>
     </section>
+}
+@if (Model.AdTags.Ad320x100BTF)
+{
+    <div class="margin-bottom20 text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+    </div>
 }

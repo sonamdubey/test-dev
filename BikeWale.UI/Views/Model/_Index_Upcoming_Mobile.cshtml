@@ -4,11 +4,11 @@
     @{
         string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
     }
-	<a href="@string.Format("/m/bike-review-contest/?q={0}",q)" class="contest-slug-sm slug-teal-target">
-		<span class="trophy-white"></span>
-		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney</p>
-		<span class="bwmsprite arrow-white-right"></span>
-	</a>
+    <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" class="contest-slug-sm slug-teal-target">
+        <span class="trophy-white"></span>
+        <p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney</p>
+        <span class="bwmsprite arrow-white-right"></span>
+    </a>
 </section>
 
 <section>
@@ -28,7 +28,7 @@
                 <div class="content-box-shadow card-bottom-margin">
                     @Html.Partial("~/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)
                     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.UpcomingBike != null)
-                        {
+                    {
                         <div class="elevated-shadow-top padding-15-20">
                             <p class="font12 text-light-grey">Expected price</p>
                             @if (Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
@@ -44,51 +44,70 @@
                             else
                             {
                                 <p class="font26 default-showroom-text text-light-grey margin-bottom5">Price Unavailable</p>
-                                }
+                            }
                             @if (!string.IsNullOrEmpty(Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate))
-                                {
+                            {
                                 <div class="border-solid-bottom margin-top10 margin-bottom10"></div>
                                 <p class="font12 text-light-grey">Expected launch date</p>
                                 <p class="font18 margin-bottom5 text-bold">@Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate</p>
 
                                 <p class="font14 text-grey">@Model.BikeName is not launched in India yet. Information on this page is tentative.</p>
-                                }
+                            }
                         </div>
-                        }
+                    }
                 </div>
                 @if (Model.ModelPageEntity.ModelVersionSpecs != null)
-                    {
+                {
                     @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
-                    }
+                }
             </div>
+
+
+            
+
             @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
             {
                 <div id="modelsBySeriesWidget" class="margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
-					@if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
-					{
-						if (Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
-						{
-							<div class="carousel-heading-content">
-								<div class="swiper-heading-left-grid inline-block">
-									<h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
-								</div>
-								<div class="swiper-heading-right-grid inline-block text-right">
-									<a href="@string.Format("/m/{0}-bikes/{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelsBySeries.SeriesBase.MaskingName)" title="@string.Format("{0} {1} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelsBySeries.SeriesBase.SeriesName)" class="btn view-all-target-btn">View all</a>
-								</div>
-								<div class="clear"></div>
-							</div>
-						}
-						else
-						{
-							<div class="carousel-heading-content">
-								<h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
-							</div>
-						}
-					}
+                    @if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
+                    {
+                        if (Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
+                        {
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
+                                </div>
+                                <div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="@string.Format("/m/{0}-bikes/{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelsBySeries.SeriesBase.MaskingName)" title="@string.Format("{0} {1} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelsBySeries.SeriesBase.SeriesName)" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="carousel-heading-content">
+                                <h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
+                            </div>
+                        }
+                    }
                     @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
+                </div>
+            }
+            @if (Model.AdTags.Ad320x100ATF)
+            {
+                <div class="margin-bottom20 text-center">
+                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
                 </div>
             }
             @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
         </div>
     </div>
 </section>
+
+
+
+@if (Model.AdTags.Ad320x100BTF)
+{
+    <div class="margin-bottom20 text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+    </div>
+}

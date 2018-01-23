@@ -6,9 +6,9 @@
     @{
         string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
     }
-	<a href="@string.Format("/m/bike-review-contest/?q={0}", q)" class="contest-slug-sm slug-teal-target">
+    <a href="@string.Format("/m/bike-review-contest/?q={0}", q)" class="contest-slug-sm slug-teal-target">
         <span class="trophy-white"></span>
-		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;@BWConfiguration.Instance.ContestPriceMoney</p>
+        <p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;@BWConfiguration.Instance.ContestPriceMoney</p>
         <span class="bwmsprite arrow-white-right"></span>
     </a>
 </section>
@@ -70,7 +70,7 @@
                                 }
                             </div>
                         </div>
-                        
+
                         @if ((Model.BikePrice > 0) || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0))
                         {
                             if (Model.EMIDetails != null && Model.EMICalculator != null)
@@ -103,7 +103,8 @@
                             </div>
                         }
                     </div>
-                </div>                
+                </div>
+
                 @if (Model.IsManufacturerLeadAdShown)
                 {
                     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
@@ -125,57 +126,59 @@
                         <div class="clear"></div>
                     </div>
                 }
-                @if (!(Model.IsManufacturerLeadAdShown || Model.IsDealerDetailsExists) && !Model.AdTags.ShowInnovationBannerMobile)
+
+                @if (Model.AdTags.Ad320x100ATF)
                 {
                     <div class="margin-bottom20 text-center">
                         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
                     </div>
-                            }
-				@if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
-			|| (Model.ModelPageEntity.ModelVersionSpecs != null)))
-				{
-					<div>
-						@if (Model.ModelPageEntity.ModelVersionSpecs != null)
-						{
-							@Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
-						}
-						@if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
-						{
-							<div id="modelsBySeriesWidget" data-id="overviewContent" class="margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
-								@if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
-								{
-									if (Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
-									{
-										<div class="carousel-heading-content">
-											<div class="swiper-heading-left-grid inline-block">
-												<h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
-											</div>
-											<div class="swiper-heading-right-grid inline-block text-right">
-												<a href="@string.Format("/m/{0}-bikes/{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelsBySeries.SeriesBase.MaskingName)" title="@string.Format("{0} {1} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelsBySeries.SeriesBase.SeriesName)" class="btn view-all-target-btn">View all</a>
-											</div>
-											<div class="clear"></div>
-										</div>
-									}
-									else
-									{
-										<div class="carousel-heading-content">
-											<h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
-										</div>
-									}
-								}
+                }
 
-								@Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
+                @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+|| (Model.ModelPageEntity.ModelVersionSpecs != null)))
+                {
+                    <div>
+                        @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+                        {
+                            @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
+                        }
+                        @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
+                        {
+                            <div id="modelsBySeriesWidget" data-id="overviewContent" class="margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
+                                @if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
+                                {
+                                    if (Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
+                                    {
+                                        <div class="carousel-heading-content">
+                                            <div class="swiper-heading-left-grid inline-block">
+                                                <h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
+                                            </div>
+                                            <div class="swiper-heading-right-grid inline-block text-right">
+                                                <a href="@string.Format("/m/{0}-bikes/{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelsBySeries.SeriesBase.MaskingName)" title="@string.Format("{0} {1} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelsBySeries.SeriesBase.SeriesName)" class="btn view-all-target-btn">View all</a>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="carousel-heading-content">
+                                            <h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
+                                        </div>
+                                    }
+                                }
 
-							</div>
+                                @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
 
-
-							}
+                            </div>
 
 
-					</div>
-				}
+                        }
+
+
+                    </div>
+                }
             </div>
-            
+
             @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
         </div>
     </div>
@@ -207,6 +210,14 @@
         </div>
     </section>
 }
+
+@if (Model.AdTags.Ad320x100BTF)
+{
+    <div class="margin-bottom20 text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+    </div>
+}
+
 @if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown))
 {
     @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)

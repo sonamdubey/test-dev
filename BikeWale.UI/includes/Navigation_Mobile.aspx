@@ -1,6 +1,13 @@
 ﻿<%@ Register Src="~/m/controls/LogInOutControl.ascx" TagPrefix="BW" TagName="Login" %>
 
 <nav id="nav">
+	<a href="https://www.bikewale.com/autoexpo2018/" title="AutoExpo 2018 - BikeWale" class="auto-expo-nav bw-ga" data-cat="Other" data-act="AutoExpo_2018_Link Clicked" data-lab="Navigation_Drawer_Link">
+		<div class="auto-expo-nav__title">
+			<p class="auto-expo-nav__title--sub">Explore</p>
+			<p class="auto-expo-nav__title--main">Auto Expo 2018</p>
+		</div>
+		<div class="auto-expo-nav__logo"></div>
+	</a>
     <!-- nav code starts here -->
     <ul class="navUL padding-top10">
         <li>
@@ -70,7 +77,7 @@
                 <li><a href="/m/features/">Features</a></li>
                 <li><a href="/m/bike-care/">Bike Care</a></li>
                 <li><a href="/m/bike-videos/">Videos</a></li>
-
+                <li><a href="/m/images/">Images</a></li>
             </ul>
         </li>
         <li>
