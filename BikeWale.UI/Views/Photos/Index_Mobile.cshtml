@@ -1,16 +1,16 @@
 ﻿@model Bikewale.Models.Photos.v1.PhotosPageVM
 @if (Model != null)
 {
-    {
-        ViewBag.Title = "Bike Images";
-        Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
-        Model.Page_JS_Path = "/src/photos/landing.js";
-        //Top Ad is being set in this file, not in _Layout_Mobile.cshtml
-        Model.AdTags.Ad_Bot_320x50 = true;
-        Model.AdTags.AdId = "1516009422206";
-        Model.AdTags.AdPath = "/1017752/Bikewale_Bike_Image";
-    }
+
+    ViewBag.Title = "Bike Images";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' atf-css />";
+    Model.Page_JS_Path = "/src/photos/landing.js";
+    //Top Ad is being set in this file, not in _Layout_Mobile.cshtml
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.AdId = "1516009422206";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Bike_Image";
+
     <script type="text/javascript">
         var isMobile = true;
         var currentPageNo = @Model.Pager.PageNo;
