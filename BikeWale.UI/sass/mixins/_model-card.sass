@@ -112,12 +112,35 @@
 /*
  * Model card: explore button
  */
-@mixin model-card__explore
+@mixin model-card__explore($color: #ef402f)
 	.model-card__explore
 		width: 96px
 		font-size: 14px
 		font-weight: $font-bold
-		padding: 7px
+		padding: 7px 26px 7px 16px
+		background: color('white')
+		color: $color
+		border:	1px solid $color
+		border-radius: 3px
+		position: relative
+
+		&:after
+			content: ''
+			display: inline-block
+			border-right: 1px solid
+			border-bottom: 1px solid
+			height: 8px
+			width: 8px
+			-webkit-transform: rotate(-45deg)
+			-moz-transform: rotate(-45deg)
+			transform: rotate(-45deg)
+			position: absolute
+			right: 13px
+			top: 14px
+
+		&:hover
+			text-decoration: none
+
 
 
 @mixin card-emi__col
@@ -242,3 +265,14 @@
 		background: #f5f5f5 // TODO: Add in color map
 		border-radius: 50%
 		cursor: pointer
+
+/*
+ * Model card: launch date
+ */
+
+@mixin card-detail__launch-date($font-size: 11px)
+	.card-detail__launch-date
+		font-size: $font-size
+		color: color('light-grey')
+		margin-bottom: 2px
+		margin-top: 3px

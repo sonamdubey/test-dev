@@ -1,0 +1,35 @@
+﻿$background-color: #fff1f1
+
+.carousel__newly-lauched
+	padding: 5px 20px 25px 0
+
+	.carousel-slide
+		width: 318px
+		min-height: 308px
+		padding-left: 10px
+
+		&:first-child
+			margin-left: 6px	
+
+.newly-lauched-section
+	@include model-card__exshowroom-content($background-color)
+
+	.carousel__title
+		@include newly-lauched()
+		background-position: 16px 27px
+		padding-left: 39px
+		background-size: 13px
+		padding-bottom: 12px
+
+	.model-card__exshowroom
+		padding-top: 15px
+		padding-bottom: 15px
+
+@include model-card
+@include model-card__image()
+@include model-card__detail
+@include card-details__specs
+@include model-card__exshowroom
+
+@include model-card__explore()
+@include card-detail__launch-date()

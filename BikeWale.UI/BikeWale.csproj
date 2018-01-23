@@ -3126,6 +3126,11 @@
     <Content Include="sass\mixins\_image-card.sass" />
     <Content Include="sass\partials\_bike-images-carousel.sass" />
     <Content Include="sass\mixins\_animation.sass" />
+    <Content Include="sass\partials\_editorial-carousel.sass" />
+    <Content Include="sass\partials\_review-carousel.sass" />
+    <Content Include="sass\partials\_dealer-carousel.sass" />
+    <Content Include="sass\partials\_newly-lauched-carousel.sass" />
+    <Content Include="sass\partials\_interesting-fact.sass" />
     <Content Include="sass\partials\_input.sass" />
     <Content Include="sass\partials\_notify-update-popup.sass" />
     <Content Include="sass\partials\_related-make-card.sass" />

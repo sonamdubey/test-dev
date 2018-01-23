@@ -1,33 +1,78 @@
 ﻿@model Bikewale.Models.ModelBase
 
 @{
-	ViewBag.Title = "Bike Make page";
-	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
-	Model.Page_JS_Path = "/m/src/make.js";
+    ViewBag.Title = "Bike Make page";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
+    Model.Page_JS_Path = "/m/src/make.js";
 }
 
 <section>
-	<div class="container section-bottom-margin">
-		<h1 class="page__heading">Royal Enfield Bikes</h1>
+    <div class="container section-bottom-margin">
+        <h1 class="page__heading">Royal Enfield Bikes</h1>
 
-		<div class="overall-tabs__placeholder">
-			<div class="overall-tabs__content">
-				<ul class="overall-tabs__list">
-					<li class="overall-tabs-list__item tab--active">Popular Models</li>
-					<li class="overall-tabs-list__item">Bike Models</li>
-					<li class="overall-tabs-list__item">Upcoming Bikes</li>
-					<li class="overall-tabs-list__item">Latest Updates</li>
-					<li class="overall-tabs-list__item">Dealer / Stores</li>
-					<li class="overall-tabs-list__item">News</li>
-					<li class="overall-tabs-list__item">Reviews</li>
-					<li class="overall-tabs-list__item">Images</li>
-					<li class="overall-tabs-list__item">Videos</li>
-				</ul>
-			</div>
-		</div>
+        <div class="overall-tabs__placeholder">
+            <div class="overall-tabs__content">
+                <ul class="overall-tabs__list">
+                    <li class="overall-tabs-list__item tab--active">Popular Models</li>
+                    <li class="overall-tabs-list__item">Bike Models</li>
+                    <li class="overall-tabs-list__item">Upcoming Bikes</li>
+                    <li class="overall-tabs-list__item">Latest Updates</li>
+                    <li class="overall-tabs-list__item">Dealer / Stores</li>
+                    <li class="overall-tabs-list__item">News</li>
+                    <li class="overall-tabs-list__item">Reviews</li>
+                    <li class="overall-tabs-list__item">Images</li>
+                    <li class="overall-tabs-list__item">Videos</li>
+                </ul>
+            </div>
+        </div>
+        
+        <section>
+            <div class="bg-white section-bottom-margin newly-lauched-section">
+                <h2 class="carousel__title">
+                    Newly launched
+                </h2>
+                <div class="swiper-container carousel__newly-lauched" data-spacebetween="0">
+                    <ul class="swiper-wrapper">
+                        @for (var i = 0; i <= 5; i++)
+                        {
+                            <li class="swiper-slide carousel-slide model-list__item">
+                                <div class="model__card">
+                                    <a href="" title="" class="model-card__target">
+                                        <div class="model-card__image">
+                                            <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                        </div>
+                                        <div class="model-card__detail">
+                                            <h3 class="card-detail__name">Himalayan</h3>
+                                            <p class="card-detail__launch-date">Launch Date: 24 Jan 2019</p>
+                                            <ul class="card-detail__specs-list">
+                                                <li>2204.8 cc</li>
+                                                <li>381.5 kmpl</li>
+                                                <li>21.89 bhp</li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                    <div class="model-card__exshowroom-content">
+                                        <div class="model-card__exshowroom">
+                                            <div class="card-exshowroom__col">
+                                                <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                                <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
+                                            </div>
+                                            <a href="" title="" class="model-card__explore">
+                                                Explore
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-		<section>
+        <section>
 			<div class="bg-white section-bottom-margin">
 				<div class="popular-carousel__title">
 					<h2 class="page__heading-h2">Popular Royal Enfield Bikes</h2>
@@ -216,320 +261,613 @@
 		</section>
 
 		<section>
-			<div class="content--inner-padding bg-white section-bottom-margin">
-				<h2 class="page__heading-h2">All Royal Enfield Bikes</h2>
-				<p class="page-heading__disclaimer">*Prices are indicative Ex-Showroom, Navi Mumbai</p>
+            <div class="content--inner-padding bg-white section-bottom-margin">
+                <h2 class="page__heading-h2">All Royal Enfield Bikes</h2>
+                <p class="page-heading__disclaimer">*Prices are indicative Ex-Showroom, Navi Mumbai</p>
 
-				<ul class="all-model__list">
-					<li class="model-list__item">
-						<div class="model__card">
-							<a href="" title="" class="model-card__target">
-								<div class="model-card__image">
-									<img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-								</div>
-								<div class="model-card__detail">
-									<span class="rating-badge" data-rate-bg="4">
-										<span class="rating-badge__star"></span>
-										<span>4</span>
-									</span>
+                <ul class="all-model__list">
+                    <li class="model-list__item">
+                        <div class="model__card">
+                            <a href="" title="" class="model-card__target">
+                                <div class="model-card__image">
+                                    <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                </div>
+                                <div class="model-card__detail">
+                                    <span class="rating-badge" data-rate-bg="4">
+                                        <span class="rating-badge__star"></span>
+                                        <span>4</span>
+                                    </span>
 
-									<h3 class="card-detail__name">Himalayan</h3>
-									<ul class="card-detail__specs-list">
-										<li>2204.8 cc</li>
-										<li>381.5 kmpl</li>
-										<li>21.89 bhp</li>
-									</ul>
-								</div>
-								<div class="model-card__exshowroom-content">
-									<div class="model-card__exshowroom">
-										<div class="card-exshowroom__col">
-											<p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-											<span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
-										</div>
-										<div class="card-emi__col">
-											<p class="card-emi__label">EMI starting at</p>
-											<span class="card-emi__value">&#x20b9;&nbsp;1,560/month</span>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="model-card__pros-cons">
-								<div class="pros-cons__content margin-bottom10">
-									<ul class="pros-cons__list list-type--pros">
-										<li>Reliablity</li>
-										<li>Visual Appeal</li>
-										<li style="display: none">Reliablity</li>
-										<li style="display: none">Visual Appeal</li>
-									</ul>
-									<span class="pros-cons__more-btn">+2</span>
-								</div>
-								<div class="pros-cons__content">
-									<ul class="pros-cons__list list-type--cons">
-										<li>Mileage</li>
-										<li>Spares</li>
-										<li>Over-Heating</li>
-										<li style="display: none">Reliablity</li>
-										<li style="display: none">Visual Appeal</li>
-									</ul>
-									<span class="pros-cons__more-btn">+2</span>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="model-list__item">
-						<div class="model__card">
-							<a href="" title="" class="model-card__target">
-								<div class="model-card__image">
-									<img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-								</div>
-								<div class="model-card__detail">
-									<span class="rating-badge" data-rate-bg="3">
-										<span class="rating-badge__star"></span>
-										<span>3.2</span>
-									</span>
+                                    <h3 class="card-detail__name">Himalayan</h3>
+                                    <ul class="card-detail__specs-list">
+                                        <li>2204.8 cc</li>
+                                        <li>381.5 kmpl</li>
+                                        <li>21.89 bhp</li>
+                                    </ul>
+                                </div>
+                                <div class="model-card__exshowroom-content">
+                                    <div class="model-card__exshowroom">
+                                        <div class="card-exshowroom__col">
+                                            <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                            <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
+                                        </div>
+                                        <div class="card-emi__col">
+                                            <p class="card-emi__label">EMI starting at</p>
+                                            <span class="card-emi__value">&#x20b9;&nbsp;1,560/month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="model-card__pros-cons">
+                                <div class="pros-cons__content margin-bottom10">
+                                    <ul class="pros-cons__list list-type--pros">
+                                        <li>Reliablity</li>
+                                        <li>Visual Appeal</li>
+                                        <li style="display: none">Reliablity</li>
+                                        <li style="display: none">Visual Appeal</li>
+                                    </ul>
+                                    <span class="pros-cons__more-btn">+2</span>
+                                </div>
+                                <div class="pros-cons__content">
+                                    <ul class="pros-cons__list list-type--cons">
+                                        <li>Mileage</li>
+                                        <li>Spares</li>
+                                        <li>Over-Heating</li>
+                                        <li style="display: none">Reliablity</li>
+                                        <li style="display: none">Visual Appeal</li>
+                                    </ul>
+                                    <span class="pros-cons__more-btn">+2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="model-list__item">
+                        <div class="model__card">
+                            <a href="" title="" class="model-card__target">
+                                <div class="model-card__image">
+                                    <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                </div>
+                                <div class="model-card__detail">
+                                    <span class="rating-badge" data-rate-bg="3">
+                                        <span class="rating-badge__star"></span>
+                                        <span>3.2</span>
+                                    </span>
 
-									<h3 class="card-detail__name">Himalayan</h3>
-									<ul class="card-detail__specs-list">
-										<li>2204.8 cc</li>
-										<li>381.5 kmpl</li>
-										<li>21.89 bhp</li>
-									</ul>
-								</div>
-								<div class="model-card__exshowroom-content">
-									<div class="model-card__exshowroom">
-										<div class="card-exshowroom__col">
-											<p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-											<span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
-										</div>
-										<div class="card-emi__col">
-											<p class="card-emi__label">EMI starting at</p>
-											<span class="card-emi__value">&#x20b9;&nbsp;1,560/month</span>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="model-card__pros-cons">
-								<div class="pros-cons__content margin-bottom10">
-									<ul class="pros-cons__list list-type--pros">
-										<li>Reliablity</li>
-										<li>Visual Appeal</li>
-									</ul>
-								</div>
-								<div class="pros-cons__content">
-									<ul class="pros-cons__list list-type--cons">
-										<li>Mileage</li>
-										<li>Spares</li>
-										<li>Over-Heating</li>
-										<li style="display: none">Reliablity</li>
-										<li style="display: none">Visual Appeal</li>
-									</ul>
-									<span class="pros-cons__more-btn">+2</span>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="model-list__item">
-						<div class="model__card">
-							<a href="" title="" class="model-card__target">
-								<div class="model-card__image">
-									<img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-								</div>
-								<div class="model-card__detail">
-									<span class="rating-badge" data-rate-bg="2">
-										<span class="rating-badge__star"></span>
-										<span>2</span>
-									</span>
+                                    <h3 class="card-detail__name">Himalayan</h3>
+                                    <ul class="card-detail__specs-list">
+                                        <li>2204.8 cc</li>
+                                        <li>381.5 kmpl</li>
+                                        <li>21.89 bhp</li>
+                                    </ul>
+                                </div>
+                                <div class="model-card__exshowroom-content">
+                                    <div class="model-card__exshowroom">
+                                        <div class="card-exshowroom__col">
+                                            <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                            <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
+                                        </div>
+                                        <div class="card-emi__col">
+                                            <p class="card-emi__label">EMI starting at</p>
+                                            <span class="card-emi__value">&#x20b9;&nbsp;1,560/month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="model-card__pros-cons">
+                                <div class="pros-cons__content margin-bottom10">
+                                    <ul class="pros-cons__list list-type--pros">
+                                        <li>Reliablity</li>
+                                        <li>Visual Appeal</li>
+                                    </ul>
+                                </div>
+                                <div class="pros-cons__content">
+                                    <ul class="pros-cons__list list-type--cons">
+                                        <li>Mileage</li>
+                                        <li>Spares</li>
+                                        <li>Over-Heating</li>
+                                        <li style="display: none">Reliablity</li>
+                                        <li style="display: none">Visual Appeal</li>
+                                    </ul>
+                                    <span class="pros-cons__more-btn">+2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="model-list__item">
+                        <div class="model__card">
+                            <a href="" title="" class="model-card__target">
+                                <div class="model-card__image">
+                                    <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                </div>
+                                <div class="model-card__detail">
+                                    <span class="rating-badge" data-rate-bg="2">
+                                        <span class="rating-badge__star"></span>
+                                        <span>2</span>
+                                    </span>
 
-									<h3 class="card-detail__name">Himalayan</h3>
-									<ul class="card-detail__specs-list">
-										<li>2204.8 cc</li>
-										<li>381.5 kmpl</li>
-										<li>21.89 bhp</li>
-									</ul>
-								</div>
-								<div class="model-card__exshowroom-content">
-									<div class="model-card__exshowroom">
-										<div class="card-exshowroom__col">
-											<p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-											<span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
-										</div>
-										<div class="card-emi__col">
-											<p class="card-emi__label">EMI starting at</p>
-											<span class="card-emi__value">&#x20b9;&nbsp;1,560/month</span>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="model-card__pros-cons">
-								<div class="pros-cons__content margin-bottom10">
-									<ul class="pros-cons__list list-type--pros">
-										<li>Reliablity</li>
-										<li>Visual Appeal</li>
-									</ul>
-								</div>
-								<div class="pros-cons__content">
-									<ul class="pros-cons__list list-type--cons">
-										<li>Mileage</li>
-										<li>Spares</li>
-										<li>Over-Heating</li>
-										<li style="display: none">Reliablity</li>
-										<li style="display: none">Visual Appeal</li>
-									</ul>
-									<span class="pros-cons__more-btn">+2</span>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="model-list__item">
-						<div class="model__card">
-							<a href="" title="" class="model-card__target">
-								<div class="model-card__image">
-									<img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-								</div>
-								<div class="model-card__detail">
-									<span class="rating-badge" data-rate-bg="1">
-										<span class="rating-badge__star"></span>
-										<span>1</span>
-									</span>
+                                    <h3 class="card-detail__name">Himalayan</h3>
+                                    <ul class="card-detail__specs-list">
+                                        <li>2204.8 cc</li>
+                                        <li>381.5 kmpl</li>
+                                        <li>21.89 bhp</li>
+                                    </ul>
+                                </div>
+                                <div class="model-card__exshowroom-content">
+                                    <div class="model-card__exshowroom">
+                                        <div class="card-exshowroom__col">
+                                            <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                            <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
+                                        </div>
+                                        <div class="card-emi__col">
+                                            <p class="card-emi__label">EMI starting at</p>
+                                            <span class="card-emi__value">&#x20b9;&nbsp;1,560/month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="model-card__pros-cons">
+                                <div class="pros-cons__content margin-bottom10">
+                                    <ul class="pros-cons__list list-type--pros">
+                                        <li>Reliablity</li>
+                                        <li>Visual Appeal</li>
+                                    </ul>
+                                </div>
+                                <div class="pros-cons__content">
+                                    <ul class="pros-cons__list list-type--cons">
+                                        <li>Mileage</li>
+                                        <li>Spares</li>
+                                        <li>Over-Heating</li>
+                                        <li style="display: none">Reliablity</li>
+                                        <li style="display: none">Visual Appeal</li>
+                                    </ul>
+                                    <span class="pros-cons__more-btn">+2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="model-list__item">
+                        <div class="model__card">
+                            <a href="" title="" class="model-card__target">
+                                <div class="model-card__image">
+                                    <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                </div>
+                                <div class="model-card__detail">
+                                    <span class="rating-badge" data-rate-bg="1">
+                                        <span class="rating-badge__star"></span>
+                                        <span>1</span>
+                                    </span>
 
-									<h3 class="card-detail__name">Himalayan</h3>
-									<ul class="card-detail__specs-list">
-										<li>2204.8 cc</li>
-										<li>381.5 kmpl</li>
-										<li>21.89 bhp</li>
-									</ul>
-								</div>
-								<div class="model-card__exshowroom-content">
-									<div class="model-card__exshowroom">
-										<div class="card-exshowroom__col">
-											<p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-											<span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
-										</div>
-										<div class="card-emi__col">
-											<p class="card-emi__label">EMI starting at</p>
-											<span class="card-emi__value">&#x20b9;&nbsp;1,560/month</span>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="model-card__pros-cons">
-								<div class="pros-cons__content margin-bottom10">
-									<ul class="pros-cons__list list-type--pros">
-										<li>Reliablity</li>
-										<li>Visual Appeal</li>
-									</ul>
-								</div>
-								<div class="pros-cons__content">
-									<ul class="pros-cons__list list-type--cons">
-										<li>Mileage</li>
-										<li>Spares</li>
-										<li>Over-Heating</li>
-										<li style="display: none">Reliablity</li>
-										<li style="display: none">Visual Appeal</li>
-									</ul>
-									<span class="pros-cons__more-btn">+2</span>
-								</div>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</section>
+                                    <h3 class="card-detail__name">Himalayan</h3>
+                                    <ul class="card-detail__specs-list">
+                                        <li>2204.8 cc</li>
+                                        <li>381.5 kmpl</li>
+                                        <li>21.89 bhp</li>
+                                    </ul>
+                                </div>
+                                <div class="model-card__exshowroom-content">
+                                    <div class="model-card__exshowroom">
+                                        <div class="card-exshowroom__col">
+                                            <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                            <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
+                                        </div>
+                                        <div class="card-emi__col">
+                                            <p class="card-emi__label">EMI starting at</p>
+                                            <span class="card-emi__value">&#x20b9;&nbsp;1,560/month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="model-card__pros-cons">
+                                <div class="pros-cons__content margin-bottom10">
+                                    <ul class="pros-cons__list list-type--pros">
+                                        <li>Reliablity</li>
+                                        <li>Visual Appeal</li>
+                                    </ul>
+                                </div>
+                                <div class="pros-cons__content">
+                                    <ul class="pros-cons__list list-type--cons">
+                                        <li>Mileage</li>
+                                        <li>Spares</li>
+                                        <li>Over-Heating</li>
+                                        <li style="display: none">Reliablity</li>
+                                        <li style="display: none">Visual Appeal</li>
+                                    </ul>
+                                    <span class="pros-cons__more-btn">+2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
-		<section>
-			<div class="bg-white section-bottom-margin">
-				<h2 class="upcoming-carousel__title page__heading-h2">Upcoming Royal Enfield Bikes</h2>
+        <section>
+            <div class="bg-white section-bottom-margin">
+                <h2 class="upcoming-carousel__title page__heading-h2">Upcoming Royal Enfield Bikes</h2>
 
-				<div class="swiper-container carousel__upcoming-bikes" data-spacebetween="0">
-					<ul class="swiper-wrapper">
-						<li class="swiper-slide carousel-slide">
-							<div class="model-upcoming__card">
-								<a href="" title="" class="upcoming-card__target">
-									<div class="upcoming-card__image">
-										<img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-									</div>
-									<div class="upcoming-card__detail">
-										<span class="upcoming-card__date">July 2017 Expected</span>
-										<h3 class="upcoming-card__name">Himalayan 750</h3>
-										<p class="upcoming-card__price-label">Expected Price Range</p>
-										<p class="upcoming-card__price">
-											&#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
-										</p>
-									</div>
-								</a>
-								<div class="upcoming-card__footer">
-									<p class="upcoming-card__notify-label">Get latest update of this bike</p>
-									<span class="upcoming-card__notify-btn">Notify Me</span>
-								</div>
-							</div>
-						</li>
-						<li class="swiper-slide carousel-slide">
-							<div class="model-upcoming__card">
-								<a href="" title="" class="upcoming-card__target">
-									<div class="upcoming-card__image">
-										<img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-									</div>
-									<div class="upcoming-card__detail">
-										<span class="upcoming-card__date">July 2017 Expected</span>
-										<h3 class="upcoming-card__name">Himalayan 750</h3>
-										<p class="upcoming-card__price-label">Expected Price Range</p>
-										<p class="upcoming-card__price">
-											&#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
-										</p>
-									</div>
-								</a>
-								<div class="upcoming-card__footer">
-									<p class="upcoming-card__notify-label">Get latest update of this bike</p>
-									<span class="upcoming-card__notify-btn">Notify Me</span>
-								</div>
-							</div>
-						</li>						
-						<li class="swiper-slide carousel-slide">
-							<div class="model-upcoming__card">
-								<a href="" title="" class="upcoming-card__target">
-									<div class="upcoming-card__image">
-										<img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-									</div>
-									<div class="upcoming-card__detail">
-										<span class="upcoming-card__date">July 2017 Expected</span>
-										<h3 class="upcoming-card__name">Himalayan 750</h3>
-										<p class="upcoming-card__price-label">Expected Price Range</p>
-										<p class="upcoming-card__price">
-											&#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
-										</p>
-									</div>
-								</a>
-								<div class="upcoming-card__footer">
-									<p class="upcoming-card__notify-label">Get latest update of this bike</p>
-									<span class="upcoming-card__notify-btn">Notify Me</span>
-								</div>
-							</div>
-						</li>
-						<li class="swiper-slide carousel-slide">
-							<div class="model-upcoming__card">
-								<a href="" title="" class="upcoming-card__target">
-									<div class="upcoming-card__image">
-										<img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-									</div>
-									<div class="upcoming-card__detail">
-										<span class="upcoming-card__date">July 2017 Expected</span>
-										<h3 class="upcoming-card__name">Himalayan 750</h3>
-										<p class="upcoming-card__price-label">Expected Price Range</p>
-										<p class="upcoming-card__price">
-											&#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
-										</p>
-									</div>
-								</a>
-								<div class="upcoming-card__footer">
-									<p class="upcoming-card__notify-label">Get latest update of this bike</p>
-									<span class="upcoming-card__notify-btn">Notify Me</span>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</section>
+                <div class="swiper-container carousel__upcoming-bikes" data-spacebetween="0">
+                    <ul class="swiper-wrapper">
+                        <li class="swiper-slide carousel-slide">
+                            <div class="model-upcoming__card">
+                                <a href="" title="" class="upcoming-card__target">
+                                    <div class="upcoming-card__image">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                    </div>
+                                    <div class="upcoming-card__detail">
+                                        <span class="upcoming-card__date">July 2017 Expected</span>
+                                        <h3 class="upcoming-card__name">Himalayan 750</h3>
+                                        <p class="upcoming-card__price-label">Expected Price Range</p>
+                                        <p class="upcoming-card__price">
+                                            &#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="upcoming-card__footer">
+                                    <p class="upcoming-card__notify-label">Get latest update of this bike</p>
+                                    <span class="upcoming-card__notify-btn">Notify Me</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="swiper-slide carousel-slide">
+                            <div class="model-upcoming__card">
+                                <a href="" title="" class="upcoming-card__target">
+                                    <div class="upcoming-card__image">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                    </div>
+                                    <div class="upcoming-card__detail">
+                                        <span class="upcoming-card__date">July 2017 Expected</span>
+                                        <h3 class="upcoming-card__name">Himalayan 750</h3>
+                                        <p class="upcoming-card__price-label">Expected Price Range</p>
+                                        <p class="upcoming-card__price">
+                                            &#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="upcoming-card__footer">
+                                    <p class="upcoming-card__notify-label">Get latest update of this bike</p>
+                                    <span class="upcoming-card__notify-btn">Notify Me</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="swiper-slide carousel-slide">
+                            <div class="model-upcoming__card">
+                                <a href="" title="" class="upcoming-card__target">
+                                    <div class="upcoming-card__image">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                    </div>
+                                    <div class="upcoming-card__detail">
+                                        <span class="upcoming-card__date">July 2017 Expected</span>
+                                        <h3 class="upcoming-card__name">Himalayan 750</h3>
+                                        <p class="upcoming-card__price-label">Expected Price Range</p>
+                                        <p class="upcoming-card__price">
+                                            &#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="upcoming-card__footer">
+                                    <p class="upcoming-card__notify-label">Get latest update of this bike</p>
+                                    <span class="upcoming-card__notify-btn">Notify Me</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="swiper-slide carousel-slide">
+                            <div class="model-upcoming__card">
+                                <a href="" title="" class="upcoming-card__target">
+                                    <div class="upcoming-card__image">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                    </div>
+                                    <div class="upcoming-card__detail">
+                                        <span class="upcoming-card__date">July 2017 Expected</span>
+                                        <h3 class="upcoming-card__name">Himalayan 750</h3>
+                                        <p class="upcoming-card__price-label">Expected Price Range</p>
+                                        <p class="upcoming-card__price">
+                                            &#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="upcoming-card__footer">
+                                    <p class="upcoming-card__notify-label">Get latest update of this bike</p>
+                                    <span class="upcoming-card__notify-btn">Notify Me</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div id="interestingFact">
+            <div class="interesting-fact-popup interesting-fact-section">
+
+                <div class="interesting-fact__title">
+                    <h2 class="page__heading-h2">Interesting Fact</h2>
+                    <span class="close"></span>
+                </div>
+
+                <div class="interesting-fact-container">
+                    <p class="interesting-fact__content" data-overlay="none">
+                    </p>
+                </div>
+
+            </div>
+            <div class="interesting-fact__whiteout-window">
+
+            </div>
+        </div>
+            <section>
+                <div class="section-bottom-margin interesting-fact-section">
+                    <h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
+                    <div class="interesting-fact-container">
+                        <p class="interesting-fact__content">
+                            Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
+                            Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
+                            Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.Bajaj Auto is the world's sixth-largest manufacturer of motorcycles and the second-largest in India.
+                        </p>
+                        <span class="interesting-fact__read-more">
+                            Read more about Bajaj
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="bg-white section-bottom-margin latest-update-section">
+                    <div class="carousel__title">
+                        <h2 class="page__heading-h2 carousel-title__label"> Latest Updates</h2>
+                        <a href="" class="view-all-btn">
+                            View all
+                        </a>
+                    </div>
+
+                    <div class="swiper-container carousel__editorial" data-spacebetween="0">
+                        <ul class="swiper-wrapper">
+                            @for (var i = 0; i <= 5; i++)
+                            {
+                                <li class="swiper-slide carousel-slide">
+                                    <div class="editorial-card">
+                                        <a href="" title="" class="editorial-card__target">
+                                            <div class="editorial-card__image">
+                                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                            </div>
+                                            <div class="editorial-card__detail">
+                                                <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
+                                                <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
+                                            </div>
+                                        </a>
+                                        <div class="editorial-card__footer">
+                                            <div class="editorial-footer__author-img">
+                                                @{var author = 0;
+                                                if (author == 0)
+                                                {
+                                                    <span class="editorial-author_defult-img"></span>
+                                                }
+                                                else
+                                                {
+                                                    <img class="swiper-lazy editorial-author-img" src="" data-src="" title="" alt="" />
+                                                }
+
+
+
+                                                }
+                                            </div>
+                                            <div class="editorial-card__about">
+                                                <span class="editorial-card__author-name">Ranjan B.</span>
+                                                <p class="editorial-card__date-section">
+                                                    <span>2 Dec</span> -
+                                                    <span>4 min read</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            }
+
+
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="bg-white section-bottom-margin dealer-section">
+                    <div class="carousel__title">
+                        <h2 class="carousel-title__label">Dealer / Stores</h2>
+                        <a href="" class="view-all-btn">
+                            View all
+                        </a>
+                    </div>
+                    <p class="dealer-section__note">
+                        Showing Dealer/Store results from
+                        <a href="" title="" class="dealer-note__link">
+                            All India
+                        </a>
+                    </p>
+                    <div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
+                        <ul class="swiper-wrapper">
+                            @for (var i = 0; i <= 5; i++)
+                            {
+                                <li class="swiper-slide carousel-slide">
+                                    <div class="dealer-in-city-card carousel-card">
+                                        <h3 class="dealer-in-city__title">
+                                            Executive Bajaj
+                                        </h3>
+                                        <p class="dealer-in-city__state">Andheri (E)</p>
+                                        <p class="dealer-in-city__address">Shop No. 21 & 22, Plot no. 18/19, Satyam Tower, Sector 20,</p>
+                                        <div class="dealer-in-city__know-more">
+                                            <a href="tel:+91 9845477722" title="" class="dealer-in-city__contact">
+                                                +91 9845477722
+                                            </a>
+                                            <a href="" title="" class="dealer-in-city__direction">
+                                                Get Directions
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+
+
+                        </ul>
+                    </div>
+
+                    <div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
+                        <ul class="swiper-wrapper">
+                            @for (var i = 0; i <= 5; i++)
+                            {
+                                <li class="swiper-slide carousel-slide">
+                                    <div class="dealer-by-city-card carousel-card">
+                                        <a href="" title="" class="dealer-by-city__target-link">
+                                            <div class="dealer-city__image">
+                                                <span class="city-sprite @((i%2==0)?"mumbai-icon": "kolkata-icon")"></span>
+                                            </div>
+                                            <div class="dealer-city__detail">
+                                                <span class="dealer-city__count">10</span>
+                                                <div class="dealer-city__text">
+                                                    Dealers in
+                                                    @if (i % 2 == 0)
+                                                    {
+                                                        <p class="dealer-city__name">mumbai</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="dealer-city__name">Pimpri-Chinchwad</p>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="bg-white section-bottom-margin latest-news-section">
+                    <div class="carousel__title">
+                        <h2 class="page__heading-h2 carousel-title__label">Royal Enfield News</h2>
+                        <a href="" class="view-all-btn">
+                            View all
+                        </a>
+                    </div>
+
+                    <div class="swiper-container carousel__editorial" data-spacebetween="0">
+                        <ul class="swiper-wrapper">
+                            @for (var i = 0; i <= 5; i++)
+                            {
+                                <li class="swiper-slide carousel-slide">
+                                    <div class="editorial-card">
+                                        <a href="" title="" class="editorial-card__target">
+                                            <div class="editorial-card__image">
+                                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                            </div>
+                                            <div class="editorial-card__detail">
+                                                <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
+                                                <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
+                                            </div>
+                                        </a>
+                                        <div class="editorial-card__footer">
+                                            <div class="editorial-footer__author-img">
+                                                @{var author = 1;
+                                                if (author == 0)
+                                                {
+                                                    <span class="editorial-author_defult-img"></span>
+                                                }
+                                                else
+                                                {
+                                                    if (i % 2 == 0)
+                                                    {
+                                                        <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
+
+                                                    }
+                                                }
+                                                }
+                                            </div>
+                                            <div class="editorial-card__about">
+                                                <span class="editorial-card__author-name">Ranjan B.</span>
+                                                <p class="editorial-card__date-section">
+                                                    <span>2 Dec</span> -
+                                                    <span>4 min read</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            }
+
+
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+
+            <section>
+                <div class="bg-white section-bottom-margin review-section">
+                    <h2 class="page__heading-h2">Royal Enfield Reviews</h2>
+                    <section class="expert-review-section">
+                        <div class="carousel__title">
+                            <h3 class="carousel-title__label">Expert Reviews</h3>
+                            <a href="" class="view-all-btn">
+                                View all
+                            </a>
+                        </div>
+                        <div class="article-section__count">
+                            <span class="article-count__number">32</span>&nbsp;Expert Review Articles for <span class="article-count__number">14</span>&nbsp;Models
+                        </div>
+                        <div class="swiper-container carousel__expert-review" data-spacebetween="0">
+                            <ul class="swiper-wrapper">
+                                @for (var i = 0; i <= 5; i++)
+                                {
+                                    <li class="swiper-slide carousel-slide">
+                                        <div class="review-card carousel-card" data-review-category="@((i==0)?"23": (i==1)?"24":"40")">
+                                            <span class="card-category__tag">
+                                                First Ride Review
+                                            </span>
+                                            <h3 class="review-card__title">
+                                                TVS Apache RR 310
+                                            </h3>
+                                            <p class="review-card__desc">
+                                                “Style is very good in terms offering and sporty look. Engine per...”
+                                            </p>
+                                            <div class="review-card__about">
+                                                <div class="review-card__author">
+                                                    @{
+                                    if (i == 0)
+                                    {
+                                        <span class="review-author_defult-img"></span>
+                                    }
+                                    else
+                                    {
+                                        if (i % 2 == 0)
+                                        {
+                                            <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
+                                        }
+                                        else
+                                        {
+                                            <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
+
+                                        }
+                                    }
+                                                    }
+                                                </div>
+                                                <p class="review-card__author-name">Ranjan B.</p>
+                                                <p class="review-card__date">
+                                                    3 days ago
+                                                </p>
+                                            </div>
+
+                                            <a class="review-card__read-more" href="" title="">
+                                                Read full reivew
+                                            </a>
+                                        </div>
+                                    </li>
+                                }
+
 
 		<div id="notifyPopup">
 			<div class="notify-popup__content">
