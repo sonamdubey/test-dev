@@ -92,11 +92,13 @@ namespace Bikewale.Models.Photos.v1
         {
             try
             {
+                int startIndex = (int)((_pageNo - 1) * PageSize + 1);
+                int endIndex = (int)(_pageNo * PageSize);
                 ImagePager pager = new ImagePager()
                 {
                     PageNo = (int)_pageNo,
-                    StartIndex = 1,
-                    EndIndex = 30,
+                    StartIndex = startIndex,
+                    EndIndex = endIndex,
                     PageSize = (int)PageSize
                 };
                 IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.AllBikes, ref pager);
