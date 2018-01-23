@@ -299,7 +299,11 @@ namespace Bikewale.Service.Controllers.Model
                     var platformId = Request.Headers.GetValues("platformId").First();
                     if (platformId != null && platformId.ToString().Equals("3"))
                     {
-                        IEnumerable<ModelColorImage> objAllPhotosEntity = _modelsContent.GetModelColorPhotos(modelId).Where( modelColorPhoto=> modelColorPhoto.IsImageExists == true);
+                        IEnumerable<ModelColorImage> objAllPhotosEntity = _modelsContent.GetModelColorPhotos(modelId);
+                        if (objAllPhotosEntity != null)
+                        {
+                            objAllPhotosEntity = objAllPhotosEntity.Where(modelColorPhoto => modelColorPhoto.IsImageExists == true);
+                        }
                         objAllPhotos = ModelMapper.Convert(objAllPhotosEntity);
                         return Ok(objAllPhotos);
                     }
