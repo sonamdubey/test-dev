@@ -25,25 +25,24 @@
   padding: 15px 20px; }
 
 .search-box .section-heading {
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  margin-top: 10px; }
+
+#applyFiltersBtn {
+  float: left; }
 
 .locator-search-container {
   margin: 0 auto;
-  width: 570px; }
+  width: 820px; }
   .locator-search-container .form-control {
     padding: 8px;
     border-radius: 0; }
 
 .locator-search-brand,
 .locator-search-city {
+  width: 314px;
   height: 40px;
   float: left; }
-
-.locator-search-brand {
-  width: 334px; }
-
-.locator-search-city {
-  width: 233px; }
 
 .locator-search-brand select {
   width: 100%;
@@ -67,11 +66,11 @@
   border-radius: 0;
   padding: 12px 20px; }
 
-#applyFiltersBtn {
-  margin-top: 35px; }
+.locator-search-brand .chosen-container {
+  border-right: none !important; }
 
 .locator-search-btn.btn-lg {
-  padding: 8px 64px; }
+  padding: 10px 67px; }
 
 .locator-search-container .error-icon {
   right: 20px; }

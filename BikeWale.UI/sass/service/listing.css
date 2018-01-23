@@ -71,6 +71,9 @@
   border: 1px solid #e2e2e2;
   padding: 15px 20px; }
 
+.dealer-card-content {
+  cursor: default; }
+
 .dealer-details__name {
   height: 44px;
   font-size: 16px;
@@ -95,7 +98,8 @@
   vertical-align: middle;
   color: #1ba273;
   padding-left: 22px;
-  margin-right: 25px; }
+  margin-right: 25px;
+  cursor: default; }
 
 .dealer-details__direction {
   background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/direction.svg") no-repeat;

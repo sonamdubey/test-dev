@@ -201,6 +201,7 @@ var replaceJsVersion = function(match, p1, offset, string) { //replace js urls w
 				console.log('No match found for js link '+match);
 	    }
 var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline css
+			
 			var regex = /\/pwa\/css\/(.*\/)?(.*).css/;
 			var matches = regex.exec(fileName);
 			if(!matches || !matches[2]) {
@@ -208,8 +209,10 @@ var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline c
 				return;
 			}
 			var cssNameWithHash = cssChunksJson[matches[2]];
+						
 			regex = /\/pwa\/css\/.*\.(.*)\.css/;
 			matches = regex.exec(cssNameWithHash);
+
 			if(!matches || !matches[1]) {
 				console.log('Could not extract chunk hash for '+fileName);
 				return;
@@ -221,6 +224,9 @@ var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline c
 			return styleTag;
 		}
 gulp.task('replace-js-css-reference' , function() {
+	if(Configuration != "Release") {
+				return
+			}
 	return gulp.src([
 		app + 'Views/News/Index_Mobile_Pwa.cshtml',
 		app + 'Views/News/Detail_Mobile.cshtml',
