@@ -7,7 +7,11 @@ $count-color: #fa8d81
 .dealer-section
 	.carousel-title__label
 		font-size: 18px
-		padding-left: 44px
+		padding-left: 30px
+		@include dealer-locator-icon
+		background-size: 18px
+		background-position: 0 center
+
 
 .dealer-section__note
 	padding: 0 16px 22px
@@ -36,6 +40,9 @@ $count-color: #fa8d81
 		font-size: 16px
 		font-weight: $font-semibold
 		margin-bottom: 7px
+		text-overflow: ellipsis
+		overflow: hidden
+		white-space: nowrap
 	
 	.dealer-in-city__state
 		margin-bottom: 14px
@@ -152,8 +159,7 @@ $count-color: #fa8d81
 		@include justify-content(center)
 		align-content: space-around
 		@include align-items(center)
-		padding-top: 7px
-		padding-bottom: 13px
+		padding: 7px 10px 13px
 
 	.dealer-city__count
 		font-size: 38px
