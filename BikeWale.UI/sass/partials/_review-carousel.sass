@@ -12,7 +12,7 @@ $link-color: #0288d1
 	padding: 18px 26px
 	&:hover
 		text-decoration: none
-
+			
 .article-section__count
 	color: color('light-grey')
 	padding: 20px 38px 20px
@@ -67,19 +67,18 @@ $link-color: #0288d1
 
 .review-section
 	.page__heading-h2
-		padding: 25px 20px 0 60px
+		@include review-icon
+		background-size: 27px
+		background-position: 0 center
+		padding-left: 33px
 		overflow: hidden
 		white-space: nowrap
 		text-overflow: ellipsis
+		
 
-		&:before
-			content: ''
-			display: block
-			height: 25px
-			width: 32px
-			@include review-icon
-			position: absolute
-			left: 16px
+
+	.carousel__title
+		padding-bottom: 0
 
 @mixin expert-review
 	@include review-carousel-card()
@@ -89,6 +88,7 @@ $link-color: #0288d1
 	.expert-review-section
 		.carousel-title__label
 			font-size: 16px
+			padding-bottom: 16px
 
 	.carousel__expert-review
 		padding: 5px 20px 20px 0
@@ -176,7 +176,8 @@ $link-color: #0288d1
 				
 	.user-review-section
 		.carousel-title__label
-			font-size: 16px	
+			font-size: 16px
+			padding-bottom: 16px	
 	
 	@include review-card__image()
 

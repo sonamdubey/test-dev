@@ -25,7 +25,7 @@ $readmore-button: #0288d1
 			&:after
 				content: ''
 				position: absolute
-				height: 35%
+				height: 10%
 				top: 26px
 				left: 0
 				right: 0
@@ -36,7 +36,7 @@ $readmore-button: #0288d1
 			&:before
 				content: ''
 				position: absolute
-				height: 35%
+				height: 10%
 				top: 26px
 				left: 0
 				right: 0
@@ -90,7 +90,7 @@ $readmore-button: #0288d1
 			line-height: 2
 			padding-right: 20px
 
-		@include interesting-fact__white-overlay
+	@include interesting-fact__white-overlay
 
 	.interesting-popup--active
 		.interesting-fact__whiteout-window
@@ -151,10 +151,10 @@ $readmore-button: #0288d1
 .interesting-fact__read-more
 	font-size: 14px
 	font-weight: $font-semibold
-	text-align: right
-	display: block
 	color: $readmore-button
 	z-index: 3
+.interesting-fact__link-block
+	text-align: right	
 
 @mixin interesting-fact__container-scrollbar
 	.interesting-fact__content::-webkit-scrollbar
