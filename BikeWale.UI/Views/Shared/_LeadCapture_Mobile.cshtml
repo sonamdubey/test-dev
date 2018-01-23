@@ -50,7 +50,7 @@
                     </div>
                     <!-- /ko -->
                     <div class="input-box form-control-box margin-bottom15">
-                        <input type="text" id="getFullName" data-bind="textInput: fullName">
+                        <input type="text" id="getFullName" data-bind="textInput: fullName" maxlength="50" >
                         <label for="getFullName">Name<sup>*</sup></label>
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
@@ -63,13 +63,13 @@
                         <span class="error-text hide"></span>
                     </div>
                     <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() && (mfgCampaignId() > 0)">
-                        <input type="email" id="getEmailID" data-bind="textInput: emailId">
+                        <input type="email" id="getEmailID" data-bind="textInput: emailId" maxlength="50">
                         <label for="getEmailID">Email<sup>*</sup></label>
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
                     </div>
                     <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
-                        <input type="text" id="getPinCode" autocomplete="off">
+                        <input type="text" id="getPinCode" autocomplete="off" maxlength="6">
                         <label for="getPinCode">Pincode<sup>*</sup></label>
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
@@ -107,7 +107,7 @@
                 <!-- ko ifnot : !dealerMessage() -->
                 <p class="font16 margin-bottom40" id="ko_thankyoumessage" data-bind="html: dealerMessage()"></p>
                 <!-- /ko -->
-                <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" @(Html.Raw(Model.IsApp ? "onclick=\"" + "Android.closeForm()" + "\"" : "")) />
+                <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" @(Html.Raw(Model.IsApp ? "onclick=\"" + "Android.leadSubmit()" + "\"" : "")) />
             </div>
             <!-- thank you message ends here -->
             @if (Model.CityId <= 0)
@@ -671,6 +671,7 @@
             self.validateUserName = function () {
                 leadUsername = fullName;
                 var isValid = false;
+                var regMaxLen = /^[a-zA-Z ]{1,50}$/;
                 if (self.fullName() != null && self.fullName().trim() != "") {
                     nameLength = self.fullName().length;
 
@@ -680,6 +681,10 @@
                     }
                     else if (nameLength == 0) {
                         validate.setError(leadUsername, 'Please enter your name');
+                        isValid = false;
+                    }
+                    else if (!regMaxLen.test(self.fullName())) {
+                        validate.setError(leadUsername, 'Name cannot be more than 50 characters');
                         isValid = false;
                     }
                     else if (nameLength >= 1) {
@@ -695,8 +700,8 @@
             };
 
             self.validateEmailId = function () {
+                var regMaxLen = /^[A-z0-9._+-@@]{1,50}$/;
                 leadEmailId = emailid;
-
                 var isValid = true,
                     emailVal = leadEmailId.val(),
                     reEmail = /^[A-z0-9._+-]+@@[A-z0-9.-]+\.[A-z]{2,6}$/;
@@ -709,6 +714,10 @@
                 }
                 else if (!reEmail.test(emailVal)) {
                     validate.setError(leadEmailId, 'Invalid Email');
+                    isValid = false;
+                }
+                else if (!regMaxLen.test(emailVal)) {
+                    validate.setError(leadEmailId, 'Email cannot be more than 50 characters');
                     isValid = false;
                 }
                 return isValid;

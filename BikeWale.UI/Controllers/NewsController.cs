@@ -184,7 +184,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache);
+            NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -210,7 +210,7 @@ namespace Bikewale.Controllers
         [Route("m/news/detail/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache);
+            NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache, _seriesCache, _series);
             obj.IsMobile = true;
             obj.LogNewsUrl = _logNewsUrl;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
@@ -273,7 +273,7 @@ namespace Bikewale.Controllers
             NewsDetailPageVM objData = null;
             try
             {
-                NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache);
+                NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache, _seriesCache, _series);
                 obj.IsMobile = true;
                 obj.IsAMPPage = true;
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
