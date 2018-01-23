@@ -977,6 +977,14 @@ namespace Bikewale.Models
                     objData.PopularBodyStyle.CityId = CityId;
                     objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                     bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
+
+                    if(bikeType == EnumBikeType.All && string.Compare(objData.PopularBodyStyle.WidgetHeading, "Popular bikes") == 0)
+                    {
+                        BikeFilters obj = new BikeFilters();
+                        obj.CityId = CityId;
+                        IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                        objData.PopularBodyStyle.PopularBikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBodyStyle.PopularBikes);
+                    }
                 }
             }
         }

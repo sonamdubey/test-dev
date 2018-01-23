@@ -167,6 +167,15 @@ namespace Bikewale.Models.Features
                             objData.PopularBodyStyle.CityId = CityId;
                             objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/features/{1}-{2}/", BWConfiguration.Instance.BwHostUrl, objData.objFeature.ArticleUrl, objData.objFeature.BasicId);
                             bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
+
+                            if (bikeType == EnumBikeType.All && string.Compare(objData.PopularBodyStyle.WidgetHeading, "Popular bikes") == 0)
+                            {
+                                BikeFilters obj = new BikeFilters();
+                                obj.CityId = CityId;
+                                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                                objData.PopularBodyStyle.PopularBikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBodyStyle.PopularBikes);
+                            }
+
                         }
                     }
                     else
@@ -239,6 +248,11 @@ namespace Bikewale.Models.Features
                             PopularBikesWidget.WidgetHref = "/best-bikes-in-india/";
                             PopularBikesWidget.WidgetLinkTitle = "Best Bikes in India";
                             PopularBikesWidget.CtaText = "View all bikes";
+
+                            BikeFilters obj = new BikeFilters();
+                            obj.CityId = CityId;
+                            IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                            PopularBikesWidget.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, PopularBikesWidget.Bikes);
                         }
                     }
                 }
