@@ -1,14 +1,15 @@
 ﻿@model Bikewale.Models.CompareDetailsVM
 @{
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/compare/details.css' inline />";
-	Model.Page_JS_Path = "/src/compare/details.js";
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	bool isFirstActiveTab = true;
-	int i = 0;
-	Model.AdTags.AdId = "1395986297721";
-	Model.AdTags.AdPath = "/1017752/BikeWale_CompareBikes_";
-	Model.AdTags.Ad_970x90Bottom = true;
-	Model.AdTags.Ad_970x90 = true;
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/compare/details.css' inline />";
+    Model.Page_JS_Path = "/src/compare/details.js";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isFirstActiveTab = true;
+    int i = 0;
+    Model.AdTags.AdId = "1516080196692";
+    Model.AdTags.AdPath = "/1017752/BikeWale_CompareBikes_";
+    Model.AdTags.Ad_970x90Bottom = true;
+    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_Model_BTF_300x250 = true;
 
 }
 <section id="overallSpecsTabContainer">
@@ -594,19 +595,25 @@
 	@if (Model.compareSummaryText != null)
 	{
 		<section>
-			<div class="container card-bottom-margin">
-				<div class="grid-12">
-					<div class="content-box-shadow content-inner-block-20">
-						<p class="h2-heading text-bold text-black margin-bottom20">Bike Comparison - @Model.templateSummaryTitle</p>
-						<div class="font14 text-slate-grey collapsible-content">
-							<p class="main-content">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 300))</p>
-							<p class="more-content">@Html.Raw(Model.compareSummaryText.Substring(300))</p>
-							<a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
-						</div>
-					</div>
-				</div>
-				<div class="clear"></div>
-			</div>
+            <div class="container card-bottom-margin">
+                <div class="content-box-shadow content-inner-block-20">
+                    <div class="grid-8 alpha">
+                        <p class="h2-heading text-bold text-black margin-bottom20">Bike Comparison - @Model.templateSummaryTitle</p>
+                        <div class="font14 text-slate-grey collapsible-content">
+                            <p class="main-content">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 300))</p>
+                            <p class="more-content">@Html.Raw(Model.compareSummaryText.Substring(300))</p>
+                            <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                        </div>
+                    </div>
+                    <div class="grid-4 alpha">
+                        @if (Model.AdTags.Ad_Model_BTF_300x250)
+                        {
+                           @Html.Partial("~/Views/Shared/Ads/Desktop/Ad_BTF_300x250.cshtml", Model.AdTags)
+                        }
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
 		</section>
 	}
 	<!--  similar bike comparison start-->
