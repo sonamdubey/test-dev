@@ -26,6 +26,16 @@
 	font-size: 12px
 	color: #a8afb3
 
+.fixed-tab-nav
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	z-index: 3
+
+	.overall-tabs-list__item
+		padding-left: 13px
+		padding-right: 13px
 @import ../../partials/all-bikes-list
 @include model-card__explore
 
@@ -52,14 +62,6 @@
 
 
 /* video section */
-
-.video-section
-	.carousel-title__label
-		@include video-icon
-		background-size: 24px
-		background-position: 0 center
-		padding-left: 33px
-
 @import ../../components/mixins
 @import ../../partials/video-card-container
 
@@ -75,9 +77,4 @@
 @include interesting-fact__container-scrollbar
 
 
-.fixed-tab-nav
-	position: fixed
-	top: 0
-	left: 0
-	right: 0
-	z-index: 3
+
