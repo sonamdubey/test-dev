@@ -6,7 +6,7 @@
 
 	.carousel-slide
 		width: 325px
-		min-height: 174px
+		height: 293px
 		padding-left: 10px
 
 		&:first-child
@@ -18,6 +18,7 @@
 	@include model-card__image(220)
 
 	.model__card
+		height: 293px
 		border-color: color('salmon')
 		overflow: hidden
 
@@ -67,7 +68,7 @@
 	z-index: 1
 
 	&:after
-		content: '\0002b'
+		content: '+'
 		display: inline-block
 		font-size: 21px
 		font-weight: 400
@@ -105,12 +106,11 @@
 	.card-detail__pros-cons
 		opacity: 1
 
-
 /* active card: view pros-cons target state */
 .collapse-btn--active
 	.view-pros-cons__target
 		bottom: 248px
 
 		&:after
-			content: '\02013'
+			content: '-'
 			top: 2px
