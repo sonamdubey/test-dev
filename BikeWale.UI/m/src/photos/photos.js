@@ -1,19 +1,33 @@
-﻿docReady(function () {
-    try {
-        var photosLength = $('.photos-grid-list').first().find('li').length,
-           photosLimit = 30,
-           lastPhotoIndex = photosLimit - 1;
+﻿function morePhotosOverlay(limitCount) {
+    var lastPhoto = $('.photos-grid-list li').eq(limitCount),
+               morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + (photoCount - limitCount) + '<br />images</span></span>');
+    lastPhoto.append(morePhotoCount);
+}
 
-        // add 'more photos count' if photo grid contains 30 images
-        if (photosLength == photosLimit) {
-            var lastPhoto = $('.photos-grid-list li').eq(lastPhotoIndex),
-                morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + (photoCount - lastPhotoIndex) + '<br />images</span></span>');
-            lastPhoto.append(morePhotoCount);
-        }
+function bindPhotos(photosLimit) {
+    var photosLength = $('.photos-grid-list').first().find('li').length;
+          
+             lastPhotoIndex = photosLimit - 1;
 
-    } catch (e) {
-        console.log(e.message);
+    // add 'more photos count' if photo grid contains 30 images
+    if (photosLength == photosLimit) {
+        morePhotosOverlay(photosLength-1);
     }
+}
+var vmLoadPhotos = function () {
+    var self = this;
+    self.Loadedphotos = ko.observableArray();
+    self.init = function () {
+
+    };
+}
+
+
+docReady(function () {
+    var photosLimit = 30;
+    bindPhotos(photosLimit);
+    var vmPhotosMore = new vmLoadPhotos();
+    ko.applyBindings(vmPhotosMore, $("#photoTemplateWrapper")[0]);
     if (popupGallery) {
 
         try {
@@ -27,7 +41,7 @@
 
             $('.photos-grid-list').on('click', 'li', function () {
                 if (photoCount > 1) {
-                    galleryRoot.find('.gallery-loader-placeholder').show();
+                   
 
                     var imageIndex = $(this).index(),
                         parentGridType = $(this).closest('.photos-grid-list');
@@ -42,9 +56,32 @@
                         //included in gallery js
                         logBhrighuForImage($(this));
                     }
+                    if (photosLimit == imageIndex+1) {
+                        $('.photos-grid-list').find("span").remove();
+                        if (vmModelGallery.photoList().length >= imageIndex + 12) {
+                            vmPhotosMore.Loadedphotos(vmModelGallery.photoList().slice(imageIndex + 1, imageIndex + 13));
+                            $("#grid-images-noremainder").append($("#photoTemplateWrapper ul li"));
+                            photosLimit = photosLimit + 12;
+                            morePhotosOverlay($('.photos-grid-list li').length - 1);
+                        }
+                        else {
+                            var nonGirdIndex = (vmModelGallery.photoList().length - imageIndex) % 6;
+                            vmPhotosMore.Loadedphotos(vmModelGallery.photoList().slice(imageIndex + 1, vmModelGallery.photoList().length - nonGirdIndex+1));
+                            $("#grid-images-noremainder").append($("#photoTemplateWrapper ul li"));
+                            vmPhotosMore.Loadedphotos('');
+                            vmPhotosMore.Loadedphotos(vmModelGallery.photoList().slice(vmModelGallery.photoList().length - nonGirdIndex+1, vmModelGallery.photoList().length));
+                            $(".remainder-grid-list").append($("#photoTemplateWrapper ul li"));
+                        }
 
-                    popupGallery.bindGallery(imageIndex);
-                    galleryRoot.find('.gallery-loader-placeholder').hide();
+
+
+                    }
+                    else {
+                        galleryRoot.find('.gallery-loader-placeholder').show();
+                        popupGallery.bindGallery(imageIndex);
+                        galleryRoot.find('.gallery-loader-placeholder').hide();
+                    }
+               
                 }
             });
 
