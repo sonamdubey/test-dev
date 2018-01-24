@@ -51,9 +51,6 @@
 		font-size: 16px
 		font-weight: $font-semibold
 		color: #3e3e3e // TODO: Add in color map
-		overflow: hidden
-		text-overflow: ellisis
-		white-space: nowrap
 
 
 /*
@@ -93,6 +90,7 @@
 		@include flexbox
 		@include flex-wrap
 		@include align-items(center)
+		width: 100%
 		padding: 10px 20px
 		max-width: 328px // primary screen width - right & left padding [360 - (16 + 16)]
 
@@ -132,10 +130,9 @@
 		background-position: right 10px center
 		background-size: 7px
 		background-color: color('white')
+
 		&:hover
-
 			text-decoration: none
-
 
 
 @mixin card-emi__col
@@ -183,7 +180,7 @@
 
 @mixin pros-cons-detailed-list
 	.card-detail__pros-cons
-		padding: 15px 20px
+		padding: 15px 20px 15px
 
 		.pros-cons__list
 			padding-left: 0
@@ -231,7 +228,7 @@
 				margin-right: 0
 			
 			&:before
-				content: '\2022'
+				content: '•'
 				display: inline-block
 				font-size: 17px
 				line-height: 10px
