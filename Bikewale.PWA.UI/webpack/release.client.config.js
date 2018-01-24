@@ -2,7 +2,6 @@ const merge = require('webpack-merge')
 var webpack = require('webpack');
 const commonConfig = require('./common.client.config.js');
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 var cssChunksPublicPath = '/';
 
 var extractVideoSass = new ExtractCssChunks( {filename : "css/videos/videosBundle.[chunkhash].css" , publicPath : cssChunksPublicPath } );
@@ -54,21 +53,7 @@ const config = merge(commonConfig, {
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: true
         }),
-        // new UglifyJsPlugin({
-        //     parallel : true,
-        //     sourceMap: true,
-        //     extractComments : true,
-        //     uglifyOptions : {
-        //         compress : {
-        //             dead_code : true,
-        //             drop_console : true,
-        //             drop_debugger : true,
-        //             reduce_vars: true,
-        //             warnings : true
-        //         }    
-        //     }
-        // }),
-        new webpack.optimize.AggressiveMergingPlugin(),
+        new webpack.optimize.AggressiveMergingPlugin()
 	]
 })
 
