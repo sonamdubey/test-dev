@@ -245,13 +245,13 @@ namespace Bikewale.BAL.BikeData
             if (results.Any())
             {
                 var bikes = MostPopularBikes.ToList();
-                var itemToRemove = bikes.Single(r => r.objModel.ModelId == results.ElementAt(0).objModel.ModelId);
-                bikes.Remove(itemToRemove);
+                //var itemToRemove = bikes.Single(r => r.objModel.ModelId == results.ElementAt(0).objModel.ModelId);
+                //bikes.Remove(itemToRemove);
                 bikes.Insert(0, results.ElementAt(0));
                 if (results.Count() >= 2)
                 {
-                    itemToRemove = bikes.Single(r => r.objModel.ModelId == results.ElementAt(1).objModel.ModelId);
-                    bikes.Remove(itemToRemove);
+                    //itemToRemove = bikes.Single(r => r.objModel.ModelId == results.ElementAt(1).objModel.ModelId);
+                    //bikes.Remove(itemToRemove);
                     bikes.Insert(1, results.ElementAt(1));
                 }
                 MostPopularBikes = bikes;
