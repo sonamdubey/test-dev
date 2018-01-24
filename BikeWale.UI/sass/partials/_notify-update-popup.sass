@@ -42,15 +42,13 @@ $_notify-popup-z-index: 5
 	cursor: pointer
 
 .notify__bell-icon
+	@include vendor-prefix('transform-origin', 50%)
 	width: 35px
 	height: 43px
 	padding-bottom: 10px
 	margin-bottom: 20px
-	@include vendor-prefix('animation', bell-swing 1s infinite ease-in-out alternate)
-	@include vendor-prefix('transform-origin', 50%)
 
 .bell-clapper
-	@include vendor-prefix('animation', bell-clapper-swing .25s infinite ease-in-out alternate)
 	@include vendor-prefix('transform-origin', 50%)
 
 @include bell-swing
@@ -82,5 +80,11 @@ $_notify-popup-z-index: 5
 	#notifyWhiteoutWindow
 		opacity: 1
 		pointer-events: auto
+
+	.notify__bell-icon
+		@include vendor-prefix('animation', bell-swing 1s infinite ease-in-out alternate)
+
+	.bell-clapper
+		@include vendor-prefix('animation', bell-clapper-swing .25s infinite ease-in-out alternate)
 
 @import input

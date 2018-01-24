@@ -1,8 +1,8 @@
-﻿$interesting-fact-gredient2: #c84438
-$interesting-fact-gredient1: #ffaaa1
-$readmore-button: #0288d1
+﻿$_interesting-fact-gradient2: #c84438 // TODO: Add in color map array
+$_interesting-fact-gradient1: #ffaaa1 // TODO: Add in color map array
+$_readmore-button: color('pacific-blue')
 
-@mixin interesting-fact-section($color1: $interesting-fact-gredient1, $color2: $interesting-fact-gredient2 )
+@mixin interesting-fact-section($color1: $_interesting-fact-gradient1, $color2: $_interesting-fact-gradient2)
 	.interesting-fact-section
 		padding: 25px 20px
 		background: linear-gradient(120deg, $color1, $color2)
@@ -55,14 +55,14 @@ $readmore-button: #0288d1
 			background: linear-gradient(180deg, transparent, color('white'))
 
 .interesting-fact__whiteout-window
-	@include vendor-prefix('transition', all 0.3s cubic-bezier(0, 0, 0.3, 1))
+	@include vendor-prefix('transition', all .3s cubic-bezier(0, 0, .3, 1))
 	position: fixed
 	top: 0
 	left: 0
 	right: 0
 	bottom: 0
 	will-change: opacity
-	background: rgba( 255, 255, 2555, 0.2)
+	background: rgba( 255, 255, 2555, .2)
 	opacity: 0
 	cursor: pointer
 	pointer-events: none
@@ -70,7 +70,7 @@ $readmore-button: #0288d1
 @mixin interesting-fact-popup
 	.interesting-fact-popup
 		@include vendor-prefix('transform', translate(0, 110%))
-		@include vendor-prefix('transition', all 0.3s cubic-bezier(0, 0, 0.3, 1))
+		@include vendor-prefix('transition', all .3s cubic-bezier(0, 0, .3, 1))
 		z-index: 2
 		position: fixed
 		height: 80%
@@ -103,7 +103,7 @@ $readmore-button: #0288d1
 	.interesting-popup--active
 		.interesting-fact__whiteout-window
 			opacity: 1
-			pointer-events: auto;
+			pointer-events: auto
 			z-index: 4
 			display: block
 
@@ -126,15 +126,15 @@ $readmore-button: #0288d1
 
 .interesting-fact__title
 	position: relative
-	
-	.close
-		position: absolute
-		right: -6px
-		top: -4px
-		width: 30px
-		height: 30px
-		background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/cross.svg') no-repeat center
-		background-size: 14px
+
+#interestingFactCloseBtn
+	position: absolute
+	right: -6px
+	top: -4px
+	width: 30px
+	height: 30px
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/cross.svg') no-repeat center
+	background-size: 14px
 
 .interesting-fact-container
 	background: color('white')
@@ -164,7 +164,7 @@ $readmore-button: #0288d1
 .interesting-fact__read-more
 	font-size: 14px
 	font-weight: $font-semibold
-	color: $readmore-button
+	color: $_readmore-button
 	position: relative
 	display: inline-block
 	padding-right: 15px
@@ -176,15 +176,14 @@ $readmore-button: #0288d1
 	text-align: right	
 
 @mixin interesting-fact__container-scrollbar
-
 	.interesting-fact__content::-webkit-scrollbar
 		width: 6px
+
 	.interesting-fact__content::-webkit-scrollbar-track
 		box-shadow: inset 0 0 5px grey
 		border-radius: 3px
-		background: rgba(255, 255, 255, 0.42)
-
+		background: rgba(255, 255, 255, .42)
 
 	.interesting-fact__content::-webkit-scrollbar-thumb
-		background: rgba(255, 255, 255, 0.54)
+		background: rgba(255, 255, 255, .54)
 		border-radius: 3px
