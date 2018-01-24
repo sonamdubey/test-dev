@@ -245,14 +245,20 @@ namespace Bikewale.BAL.BikeData
             if (results.Any())
             {
                 var bikes = MostPopularBikes.ToList();
-                var itemToRemove = bikes.SingleOrDefault(r => r.objModel.ModelId == results.ElementAt(0).objModel.ModelId);
-                bikes.Remove(itemToRemove);
-                bikes.Insert(0, results.ElementAt(0));
-                if (results.Count() >= 2)
+                try
                 {
-                    itemToRemove = bikes.Single(r => r.objModel.ModelId == results.ElementAt(1).objModel.ModelId);
+                    var itemToRemove = bikes.SingleOrDefault(r => r.objModel.ModelId == results.ElementAt(0).objModel.ModelId);
                     bikes.Remove(itemToRemove);
-                    bikes.Insert(1, results.ElementAt(1));
+                    bikes.Insert(0, results.ElementAt(0));
+                    if (results.Count() >= 2)
+                    {
+                        itemToRemove = bikes.SingleOrDefault(r => r.objModel.ModelId == results.ElementAt(1).objModel.ModelId);
+                        bikes.Remove(itemToRemove);
+                        bikes.Insert(1, results.ElementAt(1));
+                    }
+                }
+                catch (Exception ex) {
+                    ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetAdPromoteBikeFilters");
                 }
                 MostPopularBikes = bikes;
                
