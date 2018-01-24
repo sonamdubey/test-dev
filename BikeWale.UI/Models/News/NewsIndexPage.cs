@@ -691,6 +691,10 @@ namespace Bikewale.Models
                         }
                     }
 
+                    BikeFilters obj = new BikeFilters();
+                    obj.CityId = CityId;
+                    IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+
                     if (IsMobile || (MakeId > 0 && ModelId == 0))
 
                     {
@@ -731,6 +735,9 @@ namespace Bikewale.Models
                             objData.MostPopularBikes.WidgetLinkTitle = "Best Bikes in India";
                         }
                         objData.MostPopularBikes.Bikes = objData.MostPopularBikes.Bikes.Take(topCount);
+
+                        objData.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.MostPopularBikes.Bikes);
+
                     }
                     else
                     {
@@ -911,9 +918,6 @@ namespace Bikewale.Models
                                 objData.PopularBikesAndUpcomingBikesWidget.PageName = "News";
                             }
                         }
-                        BikeFilters obj = new BikeFilters();
-                        obj.CityId = CityId;
-                        IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
                         objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                     }
                 }
