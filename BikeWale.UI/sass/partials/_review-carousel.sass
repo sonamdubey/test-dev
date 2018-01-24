@@ -1,6 +1,7 @@
-﻿$count-color: #ff5500
-$article-section__count: #d5d5d5
-$link-color: #0288d1
+﻿$_count-color: #ff5500
+$_article-section__count: #d5d5d5
+$_link-color: #0288d1
+$_expert-review-border: #fd8d81
 
 .review-card
 	@include card
@@ -28,27 +29,26 @@ $link-color: #0288d1
 		left: 0
 		margin-right: 16px
 		margin-left: 16px
-		border: 1px solid $article-section__count
+		border: 1px solid $_article-section__count
 		opacity: .5
 		width: 91%
 
 .article-count__number
 	font-size: 20px
 	font-weight: $font-semibold
-	color: $count-color
+	color: $_count-color
 	opacity: .8
 
 .review-card__title
+	@include text-truncate
 	font-size: 16px
 	font-weight: $font-bold
 	padding-top: 10px
 	padding-bottom: 7px
-	overflow: hidden
-	text-overflow: ellipsis
-	white-space: nowrap
+	text-align: center
 
 .review-card__read-more
-	color: $link-color;
+	color: $_link-color;
 	font-size: 14px
 	display: inline-block
 	padding-top: 15px
@@ -68,14 +68,10 @@ $link-color: #0288d1
 .review-section
 	.page__heading-h2
 		@include review-icon
+		@include text-truncate
 		background-size: 27px
 		background-position: 0 center
-		padding-left: 36px
-		overflow: hidden
-		white-space: nowrap
-		text-overflow: ellipsis
-		
-
+		padding-left: 36px		
 
 	.carousel__title
 		padding-bottom: 0
@@ -85,12 +81,17 @@ $link-color: #0288d1
 	@include card-category__tag-code()
 	@include review-author()
 
+
 	.expert-review-section
 		.carousel-title__label
 			font-size: 16px
+			text-transform: capitalize
 
 		.carousel__title
 			padding-bottom: 16px
+
+		.review-card
+			border-bottom: 2px solid $_expert-review-border
 
 	.carousel__expert-review
 		padding: 5px 20px 20px 0
@@ -179,6 +180,7 @@ $link-color: #0288d1
 	.user-review-section
 		.carousel-title__label
 			font-size: 16px
+			text-transform: capitalize
 			
 		.carousel__title
 			padding-bottom: 16px

@@ -26,7 +26,6 @@
                 </ul>
             </div>
         </div>
-
         <section>
             <div data-id="popularModel" class="bg-white section-bottom-margin newly-lauched-section overall-tabs-data">
                 <div class="carousel__title">
@@ -34,43 +33,84 @@
                         Newly launched
                     </h2>
                 </div>
-                <div class="swiper-container carousel__newly-lauched" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (var i = 0; i <= 5; i++)
-                        {
-                            <li class="swiper-slide carousel-slide model-list__item">
-                                <div class="model__card">
-                                    <a href="" title="" class="model-card__target">
-                                        <div class="model-card__image">
-                                            <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                        </div>
-                                        <div class="model-card__detail">
-                                            <h3 class="card-detail__name">Himalayan</h3>
-                                            <p class="card-detail__launch-date">Launch Date: 24 Jan 2019</p>
-                                            <ul class="card-detail__specs-list">
-                                                <li>2204.8 cc</li>
-                                                <li>381.5 kmpl</li>
-                                                <li>21.89 bhp</li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                    <div class="model-card__exshowroom-content">
-                                        <div class="model-card__exshowroom">
-                                            <div class="card-exshowroom__col">
-                                                <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-                                                <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
-                                            </div>
-                                            <a href="" title="" class="model-card__explore">
-                                                Explore
-                                            </a>
-                                        </div>
-                                    </div>
-
+                @{var totalCard = 1;
+                if (totalCard == 1)
+                {
+                    <div class="newly-lauched-card">
+                        <div class="model__card">
+                            <a href="" title="" class="model-card__target">
+                                <div class="model-card__image">
+                                    <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
                                 </div>
-                            </li>
-                        }
-                    </ul>
-                </div>
+                                <div class="model-card__detail">
+                                    <h3 class="card-detail__name">Himalayan</h3>
+                                    <p class="card-detail__launch-date">Launch Date: 24 Jan 2019</p>
+                                    <ul class="card-detail__specs-list">
+                                        <li>2204.8 cc</li>
+                                        <li>381.5 kmpl</li>
+                                        <li>21.89 bhp</li>
+                                    </ul>
+                                </div>
+                            </a>
+                            <div class="model-card__exshowroom-content">
+                                <div class="model-card__exshowroom">
+                                    <div class="card-exshowroom__col">
+                                        <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                        <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
+                                    </div>
+                                    <a href="" title="" class="model-card__explore">
+                                        Explore
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="swiper-container carousel__newly-lauched" data-spacebetween="0">
+                        <ul class="swiper-wrapper">
+                            @for (var i = 0; i <= 5; i++)
+                            {
+                                <li class="swiper-slide carousel-slide model-list__item">
+                                    <div class="model__card">
+                                        <a href="" title="" class="model-card__target">
+                                            <div class="model-card__image">
+                                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                            </div>
+                                            <div class="model-card__detail">
+                                                <h3 class="card-detail__name">Himalayan</h3>
+                                                <p class="card-detail__launch-date">Launch Date: 24 Jan 2019</p>
+                                                <ul class="card-detail__specs-list">
+                                                    <li>2204.8 cc</li>
+                                                    <li>381.5 kmpl</li>
+                                                    <li>21.89 bhp</li>
+                                                </ul>
+                                            </div>
+                                        </a>
+                                        <div class="model-card__exshowroom-content">
+                                            <div class="model-card__exshowroom">
+                                                <div class="card-exshowroom__col">
+                                                    <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                                    <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
+                                                </div>
+                                                <a href="" title="" class="model-card__explore">
+                                                    Explore
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                }
+
+
             </div>
 
         </section>
@@ -605,9 +645,9 @@
 
         <div id="interestingFact">
             <div class="interesting-fact-popup interesting-fact-section">
+                <span id="interestingFactCloseBtn"></span>
                 <div class="interesting-fact__title">
                     <h2 class="page__heading-h2">Interesting Fact</h2>
-                    <span id="interestingFactCloseBtn"></span>
                 </div>
                 <div class="interesting-fact-container">
                     <div class="fact-container__block" data-overlay="none">
@@ -723,12 +763,17 @@
                                     <p class="dealer-in-city__state">Andheri (E)</p>
                                     <p class="dealer-in-city__address">Shop No. 21 & 22, Plot no. 18/19, Satyam Tower, Sector 20,</p>
                                     <div class="dealer-in-city__know-more">
-                                        <a href="tel:+91 9845477722" title="" class="dealer-in-city__contact">
-                                            +91 9845477722
-                                        </a>
-                                        <a href="" title="" class="dealer-in-city__direction">
-                                            Get Directions
-                                        </a>
+                                        <div class="dealer-in-city__contact">
+                                            <a href="tel:+91 9845477722" title="" class="dealer-in-city__contact-link">
+                                                +91 9845477722
+                                            </a>
+                                        </div>
+
+                                        <div class="dealer-in-city__direction">
+                                            <a href="" title="" class="dealer-in-city__direction-link">
+                                                Get Directions
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -850,7 +895,7 @@
                         </a>
                     </div>
                     <div class="article-section__count">
-                        <span class="article-count__number">32</span>&nbsp;Expert Review Articles for <span class="article-count__number">14</span>&nbsp;Models
+                        <span class="article-count__number">32</span>&nbsp;Expert Review for <span class="article-count__number">14</span>&nbsp;Models
                     </div>
                     <div class="swiper-container carousel__expert-review" data-spacebetween="0">
                         <ul class="swiper-wrapper">
@@ -915,7 +960,7 @@
                             </a>
                         </div>
                         <div class="article-section__count">
-                            <span class="article-count__number">32</span>&nbsp;User Review Articles for <span class="article-count__number">14</span>&nbsp;Models
+                            <span class="article-count__number">32</span>&nbsp;User Review for <span class="article-count__number">14</span>&nbsp;Models
                         </div>
                         <div class="swiper-container carousel__user-review" data-spacebetween="0">
                             <ul class="swiper-wrapper">
@@ -1108,6 +1153,7 @@
             </div>
 
         </section>
+    </div>
 </section>
 
 <section>

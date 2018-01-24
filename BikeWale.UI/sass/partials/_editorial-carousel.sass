@@ -1,5 +1,5 @@
-﻿$contact-icon-color: #a8afb3
-$editorial-about-block-border: #d5d5d5
+﻿$_contact-icon-color: #a8afb3
+$_editorial-about-block-border: #d5d5d5
 
 .editorial-card
 	@include card
@@ -33,7 +33,7 @@ $editorial-about-block-border: #d5d5d5
 	&:visited
 		text-decoration: none
 
-@mixin editorial-card__footer($border-color: $editorial-about-block-border)
+@mixin editorial-card__footer($border-color: $_editorial-about-block-border)
 	.editorial-card__footer
 		@include flexbox()
 		@include align-items(center)
@@ -57,7 +57,7 @@ $editorial-about-block-border: #d5d5d5
 		height: $height - 2px
 		width: $width - 2px
 		display: block
-		background-color: $contact-icon-color
+		background-color: $_contact-icon-color
 
 	.editorial-footer__author-img
 		height: $height
@@ -120,11 +120,8 @@ $editorial-about-block-border: #d5d5d5
 		
 .carousel-title__label
 	@include flex-grow
-	width: 78%
-	white-space: nowrap
-	overflow: hidden
-	text-overflow: ellipsis
-	text-transform: capitalize
+	@include text-truncate(78%)
+	
 
 .latest-update-icon
 	height: 21px

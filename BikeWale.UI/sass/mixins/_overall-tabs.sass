@@ -18,6 +18,7 @@
 			background: $_backgroundColor
 
 		.overall-tabs__list
+			display: table
 			@include flexbox
 			@include flex-wrap
 			height: $height
@@ -36,7 +37,7 @@
 		.overall-tabs-list__item
 			position: relative
 			height: $height
-			display: inline-block
+			display: table-cell
 			font-size: 14px
 			color: color('aluminium')
 			padding: 13px 16px 15px
@@ -47,7 +48,7 @@
 		.tab--active
 			&.overall-tabs-list__item
 				color: color('nero')
-				font-weight: $font-semibold
+				//font-weight: $font-semibold
 
 				&:after
 					content: ''
