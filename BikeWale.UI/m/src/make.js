@@ -308,10 +308,14 @@ var interestingFactPopup = (function () {
 				interestingFactContainer = interestingFactContent.closest('.fact-container__block'),
 				contentScrollTop = interestingFactContent.scrollTop();
 
-			if (contentScrollTop <= 0) {
+			if (contentScrollTop <= 0 && contentScrollTop > interestingFactContent.outerHeight()) {
+				contentScrollTop = interestingFactContent.scrollTop();
+				interestingFactContainer.attr('data-overlay', 'none');
+			}
+			else if (contentScrollTop <= 0) {
 				interestingFactContainer.attr('data-overlay', 'bottom');
 			}
-			else if (contentScrollTop + 40 > interestingFactContent.innerHeight() - 40) {
+			else if (contentScrollTop > interestingFactContent.innerHeight()) {
 				interestingFactContainer.attr('data-overlay', 'top');
 			}
 			else {
