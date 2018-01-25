@@ -89,6 +89,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017
         /// Summary    : To get list of news articles
+        /// Modified by : Pratibha Verma on 25the January
+        /// Description : Added AutoExpo2018 in news category
         /// </summary>
         public RecentNewsVM GetData()
         {

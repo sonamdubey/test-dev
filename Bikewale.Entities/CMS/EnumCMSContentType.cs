@@ -4,6 +4,8 @@ namespace Bikewale.Entities.CMS
     /// <summary>
     /// Modified By : Sushil Kumar on 21st Dec 2016
     /// Description : Add new category for tackday
+    /// Modified by : Pratibha Verma on 25the January
+    /// Description : Added AutoExpo2018 in news category
     /// </summary>
     public enum EnumCMSContentType
     {
