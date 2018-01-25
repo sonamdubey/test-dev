@@ -8,6 +8,5 @@ namespace Bikewale.Interfaces.Finance
         LeadResponseMessage SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource);
         LeadResponseMessage SaveEmployeDetails(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource);
         LeadResponseMessage PushLeadinCTandAutoBiz(PersonalDetails objDetails, ushort leadSource);
-        void PushToLeadConsumerQueue(PersonalDetails objDetails);
     }
 }

@@ -133,7 +133,7 @@ namespace Bikewale.BAL.Finance
                     response.CpId = 0;
                     response.CTleadId = 0;
                 }
-
+                PushToLeadConsumerQueue(objDetails);
                 response.LeadId = objDetails.LeadId;
                 if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
                 {
@@ -379,7 +379,7 @@ namespace Bikewale.BAL.Finance
         /// Description :   Push To Lead ConsumerQueue
         /// </summary>
         /// <param name="objDetails"></param>
-        public void PushToLeadConsumerQueue(PersonalDetails objDetails)
+        private void PushToLeadConsumerQueue(PersonalDetails objDetails)
         {
             try
             {
