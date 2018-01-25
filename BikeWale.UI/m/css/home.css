@@ -1,4 +1,33 @@
-﻿@charset "utf-8";
+﻿/* autoexpo header */
+body .auto-expo-header {
+	display: inline;
+}
+
+.auto-expo-header {
+	position: absolute;
+	top: 11px;
+	left: 148px;
+	padding-left: 15px;
+}
+
+.auto-expo-header:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 4px;
+	height: 21px;
+	border-left: 1px solid #fff;
+}
+
+.auto-expo-header .auto-expo-nav__logo {
+	width: 50px;
+	height: 26px;
+}
+
+.auto-expo-header .auto-expo-nav__logo:after {
+	content: none;
+}
+
 .banner-home { height: 268px; }
 /* 268px #161209 home-top-banner right center */
 .banner-container {

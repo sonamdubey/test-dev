@@ -579,7 +579,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .pos-bottom15 { bottom: 15px; }
 .pos-bottom20 { bottom: 20px; }
 
-.pos-overlap {z-index:1;}
+.pos-overlap {z-index:2;}
 .cur-pointer { cursor: pointer; }
 .cur-default { cursor: default; }
 .bw-blackbg-tooltip { background:#4d5057; color:#fff; font-size:12px; padding:3px 5px; position:absolute; right:0px; top:37px; z-index: 2;}

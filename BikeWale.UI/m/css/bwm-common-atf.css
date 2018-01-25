@@ -114,6 +114,10 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
     position: relative;
 }
 
+/* autoexpo header */
+.auto-expo-header {
+	display: none;
+}
 
 
 /* breadcrumb classes */
