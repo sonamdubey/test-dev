@@ -1,0 +1,24 @@
+@mixin powerdrift-banner($width: 87%)
+	.powerdrift-banner
+		width: 87%
+		background: url($powerdrift-banner__image) center no-repeat #222
+		height: 109px
+
+@mixin powerdrift-banner__title()
+	.powerdrift-banner__title
+		padding-top: 10px
+		margin-left: 20px
+		padding-bottom: 10px
+		color: map-get($color-map, "white")
+		font-weight: bold
+
+@mixin powerdrift-subscribe($font-size: 14)
+	.powerdrift-subscribe
+		margin-left: 5px
+		margin-right: 5px
+		padding: 5px 5px 0
+
+		.powerdrift-subscribe__head
+			margin-top: 3px
+			float: left
+			font-size: $font-size * 1px

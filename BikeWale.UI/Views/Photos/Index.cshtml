@@ -24,7 +24,7 @@
                     <h1 class="content-box-shadow padding-14-20">@Model.Page_H1</h1>
 
                     <ul class="photos-grid-list model-main-image">
-                        <li>
+                        <li data-imgcat="@Model.ModelImage.ImageCategory" data-imgtype="@((int)Model.ModelImage.ImageType)" data-imgid="@Model.ModelImage.ImageId">
                             @if (Model.ModelImage != null)
                             {
                                 <div class="main-image-container">
@@ -38,19 +38,21 @@
 
                         if (Model.TotalPhotos > 1)
                         {
-                            <ul class="photos-grid-list model-grid-images">
+                            <ul id="grid-images-noremainder" class="photos-grid-list model-grid-images">
                                 @for (; i < Model.GridPhotoCount && i < 9; i++)
                                 {
-                                    <li>
+                                    <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                                         <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
                                     </li>
                                 }
                                 @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
                                 {
-                                    <li>
+                                    <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                                         <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
                                     </li>
                                 }
+
+
                             </ul>
 
                             <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images @Model.TotalPhotos @Model.GridSize">
@@ -58,7 +60,7 @@
                                 {
                                     for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
                                     {
-                                        <li>
+                                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                                             <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
                                         </li>
                                     }
@@ -71,6 +73,16 @@
             <div class="clear"></div>
         </div>
     </section>
+    
+    <div id="photoTemplateWrapper" class="hide">
+        <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
+        <ul data-bind="foreach : Loadedphotos">
+            <li data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}" >
+                <img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" @*alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)"*@ />
+            </li>
+        </ul>
+        <!-- /ko -->
+    </div>
 
     if (Model.BikeInfo != null)
     {
@@ -94,9 +106,9 @@
                             @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
 
                             <div class="margin-top10 padding-left20">
-								<a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
-									View all videos <span class="bwsprite teal-right"></span>
-								</a>
+                                <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
+                                    View all videos <span class="bwsprite teal-right"></span>
+                                </a>
                             </div>
                         </div>
 

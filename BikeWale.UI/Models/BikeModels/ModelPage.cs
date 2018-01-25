@@ -193,6 +193,10 @@ namespace Bikewale.Models.BikeModels
                     SetPageJSONLDSchema();
                     ShowInnovationBanner(_modelId);
                     BindAdSlotTags();
+                    if (_objData != null && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionSpecs != null)
+                    {
+                        _objData.IsElectricBike = _objData.ModelPageEntity.ModelVersionSpecs.FuelType.Equals("Electric");
+                    }
                     #endregion Do Not change the sequence
                 }
             }

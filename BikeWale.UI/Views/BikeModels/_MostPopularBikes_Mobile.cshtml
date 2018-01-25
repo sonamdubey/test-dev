@@ -6,11 +6,13 @@
         {
             var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
             <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName"  class="block">
+                <div class="swiper-card" data-newlaunch="@string.Format("{0}",bike.IsAdPromoted?1:0)">
+                    <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName" class="block">
+                        @if (bike.IsAdPromoted)
+                        {<span class="model-category__tag category--newlaunch">Newly Launched</span>}
                         <div class="swiper-image-preview">
                             <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName" alt="@bikeName" src="" />
-                          <span class="swiper-lazy-preloader"></span>
+                            <span class="swiper-lazy-preloader"></span>
                         </div>
                         <div class="swiper-details-block">
                             <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>

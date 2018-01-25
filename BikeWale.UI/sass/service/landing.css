@@ -21,40 +21,28 @@
   margin-bottom: 15px;
   font-weight: 700; }
 
-.service-center-banner {
-  background: #565b5e url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/bw-service-banner.jpg) no-repeat center;
-  height: 268px;
-  padding-top: 1px; }
-
 .padding-15-20 {
   padding: 15px 20px; }
 
-#service-center-box .welcome-box {
-  margin-top: 85px; }
-
-.negative-50 {
-  margin-top: -50px; }
-
 .search-box .section-heading {
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  margin-top: 10px; }
+
+#applyFiltersBtn {
+  float: left; }
 
 .locator-search-container {
   margin: 0 auto;
-  width: 570px; }
+  width: 820px; }
   .locator-search-container .form-control {
     padding: 8px;
     border-radius: 0; }
 
 .locator-search-brand,
 .locator-search-city {
+  width: 314px;
   height: 40px;
   float: left; }
-
-.locator-search-brand {
-  width: 334px; }
-
-.locator-search-city {
-  width: 233px; }
 
 .locator-search-brand select {
   width: 100%;
@@ -78,11 +66,11 @@
   border-radius: 0;
   padding: 12px 20px; }
 
-#applyFiltersBtn {
-  margin-top: 35px; }
+.locator-search-brand .chosen-container {
+  border-right: none !important; }
 
 .locator-search-btn.btn-lg {
-  padding: 8px 64px; }
+  padding: 10px 67px; }
 
 .locator-search-container .error-icon {
   right: 20px; }
@@ -165,6 +153,18 @@
   font-size: 16px;
   color: #4d5057;
   font-weight: 700; }
+
+.collapsible-content .main-content {
+  display: inline; }
+
+.collapsible-content .more-content {
+  display: none; }
+
+.collapsible-content.active .more-content {
+  display: inline; }
+
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; }
 
 .brand-type {
   height: 50px;
@@ -419,7 +419,8 @@
   display: table;
   text-align: center;
   border: 1px solid #e2e2e2; }
-  .model-preview-image-container a {
+  .model-preview-image-container a,
+  .model-preview-image-container .article-target-image {
     width: 292px;
     height: 164px;
     display: block;
@@ -442,6 +443,9 @@
   position: relative;
   top: 1px;
   left: 7px; }
+
+#ctrlNews .grid-4.alpha {
+  padding-left: 10px; }
 
 .accordion-list {
   padding-right: 20px;

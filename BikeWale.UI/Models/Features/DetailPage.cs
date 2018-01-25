@@ -137,6 +137,8 @@ namespace Bikewale.Models.Features
         /// <summary>
         /// Modified By Sajal Gupta on 25-04-20187
         /// Descrition : Call most popular bike widget by body type
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         private void GetWidgetData(DetailFeatureVM objData, int topCount)
         {
@@ -165,6 +167,15 @@ namespace Bikewale.Models.Features
                             objData.PopularBodyStyle.CityId = CityId;
                             objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/features/{1}-{2}/", BWConfiguration.Instance.BwHostUrl, objData.objFeature.ArticleUrl, objData.objFeature.BasicId);
                             bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
+
+                            if (bikeType == EnumBikeType.All && string.Compare(objData.PopularBodyStyle.WidgetHeading, "Popular bikes") == 0)
+                            {
+                                BikeFilters obj = new BikeFilters();
+                                obj.CityId = CityId;
+                                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                                objData.PopularBodyStyle.PopularBikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBodyStyle.PopularBikes);
+                            }
+
                         }
                     }
                     else
@@ -206,6 +217,7 @@ namespace Bikewale.Models.Features
                         objData.MostPopularBikes.CityId = CityId;
                         objData.MostPopularBikes.ReturnUrlForAmpPages = string.Format("{0}/m/features/{1}-{2}/", BWConfiguration.Instance.BwHostUrl, objData.objFeature.ArticleUrl, objData.objFeature.BasicId);
                     }
+
                     MostPopularBikeWidgetVM PopularBikesWidget = objData.MostPopularBikes;
 
                     if (PopularBikesWidget != null)
@@ -236,6 +248,11 @@ namespace Bikewale.Models.Features
                             PopularBikesWidget.WidgetHref = "/best-bikes-in-india/";
                             PopularBikesWidget.WidgetLinkTitle = "Best Bikes in India";
                             PopularBikesWidget.CtaText = "View all bikes";
+
+                            BikeFilters obj = new BikeFilters();
+                            obj.CityId = CityId;
+                            IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                            PopularBikesWidget.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, PopularBikesWidget.Bikes);
                         }
                     }
                 }
@@ -323,6 +340,11 @@ namespace Bikewale.Models.Features
                     objData.PopularBikesAndPopularScootersWidget.ShowViewAllLink2 = true;
                     objData.PopularBikesAndPopularScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndPopularScooters;
                     objData.PopularBikesAndPopularScootersWidget.PageName = "Features";
+
+                    BikeFilters obj = new BikeFilters();
+                    obj.CityId = CityId;
+                    IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                    objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                 }
             }
             catch (Exception ex)

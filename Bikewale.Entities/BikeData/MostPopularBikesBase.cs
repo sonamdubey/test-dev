@@ -54,6 +54,14 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public string CategoryName { get; set; }
         [DataMember]
-        public EnumBikeBodyStyles BodyStyle { get ; set ;}
+        public EnumBikeBodyStyles BodyStyle { get; set; }
+        [DataMember]
+        public bool IsAdPromoted { get; set; }
+
+        [DataMember]
+        public DateTime StartDate { get; set; }
+        [DataMember]
+        public DateTime EndDate { get; set; }
+
     }
 }

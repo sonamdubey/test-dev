@@ -1,0 +1,97 @@
+@mixin jumbotron($height: 180px, $width: 100%)
+	.jumbotron
+		width: 100%
+		height: $height
+		display: block
+		position: relative
+		overflow: hidden
+		background: #fff
+
+		.jumbotron__link
+			width: auto
+			height: $height
+			display: block
+			@include circle-loader
+			background-position: center
+			text-align: center
+			margin: 0 auto
+
+@mixin jumbotron__image($width: 320px, $top: 0)
+	.jumbotron__image
+		width: $width
+		position: relative
+		top: -32px
+
+@mixin jumbotron__head($font-size: 14, $color: white)
+	.jumbotron__head
+		position: absolute
+		left: 0
+		bottom: 0
+		width: 100%
+		text-align: left
+		font-size: $font-size * 1px
+		font-weight: 700
+		color: #fff
+		padding: 10px
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(5, 0, 0, .7)), 0
+
+@mixin jumbotron-list($background-color: white)
+	.jumbotron-list
+		padding: 20px
+		overflow: hidden
+		background: map-get($color-map, ""+$background-color+"")
+
+@mixin jumbotron-list__block($border-top-color: white, $width: 100%)
+	.jumbotron-list__block
+		width: $width
+		display: inline-block
+		border-top: 1px solid map-get($color-map, ""+$border-top-color+"")
+		margin-top: 20px
+		padding-top: 20px
+
+		&:first-child
+			border-top: none
+			margin-top: 0
+			padding-top: 0
+
+		a
+			display: inline-block
+			vertical-align: middle
+
+@mixin jumbotron-list-image($top: 0, $width: 100px, $height: 50px)
+	.jumbotron-list-image
+		width: $width
+		height: $height
+		overflow: hidden
+		@include circle-loader
+		background-position: center
+		text-align: center
+
+		img
+			position: relative
+			top: $top
+			width: 100%
+
+@mixin jumbotron-list-title($width: 64%)
+	.jumbotron-list-title
+		width: $width
+		color: map-get($color-map, "default")
+		font-size: 14px
+		padding-left: 20px
+
+@mixin card-list__info($font-size: 12)
+	.card-list__info
+		margin-top: 10px
+		margin-bottom: 10px
+		color: map-get($color-map, "light-grey")
+		font-size: $font-size * 1px
+
+@mixin card-list__details()
+	.card-list__details
+		line-height: 1.7
+		margin-bottom: 10px
+		font-size: 14px
+		color: map-get($color-map, "light-grey")
+
+.bottom-shadow
+	box-shadow: 0 2px 2px #ccc

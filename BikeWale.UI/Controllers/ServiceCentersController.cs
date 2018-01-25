@@ -103,6 +103,7 @@ namespace Bikewale.Controllers
                     modelObj.NewLaunchedBikesWidgtData = 9;
                     modelObj.UpcomingBikesWidgetData = 9;
                     modelObj.UsedBikeModelWidgetTopCount = 9;
+                    modelObj.IsMobile = true;
                     ServiceCenterLandingPageVM pageVM = modelObj.GetData();
                     return View(pageVM);
                 }
@@ -230,7 +231,7 @@ namespace Bikewale.Controllers
                 {
                     if (modelObj.status == Entities.StatusCodes.ContentFound)
                     {
-                        modelObj.NearByCitiesWidgetTopCount = 9;
+                        modelObj.NearByCitiesWidgetTopCount = 6;
                         modelObj.UsedBikeWidgetTopCount = 9;
                         modelObj.BikeShowroomWidgetTopCount = 3;
                         ServiceCenterCityPageVM objPage = modelObj.GetData();

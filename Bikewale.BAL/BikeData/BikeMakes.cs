@@ -156,5 +156,20 @@ namespace Bikewale.BAL.BikeData
             return makesRepository.GetServiceCenterBrandsInCity(cityId);
         }
 
+        /// <summary>
+        /// Created by : 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId)
+        {
+            return makesRepository.ResearchMoreAboutMake(makeId);
+        }
+
+        public ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId)
+        {
+            return makesRepository.ResearchMoreAboutMakeByCity(makeId, cityId);
+        }
+
     }   // Class
 }   //Namespace

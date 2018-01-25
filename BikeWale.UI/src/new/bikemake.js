@@ -209,7 +209,7 @@ docReady(function () {
             $(this).addClass('inactive');
         })
         .jcarouselControl({
-            target: '-=2'
+            target: '-=1'
         });
 
     $('.comparison-type-carousel .jcarousel-control-next')
@@ -220,7 +220,32 @@ docReady(function () {
             $(this).addClass('inactive');
         })
         .jcarouselControl({
-            target: '+=2'
+            target: '+=1'
+        });
+
+
+    $('.carousel-type--videos').jcarousel();
+
+	$('.carousel-type--videos .jcarousel-control-prev')
+        .on('jcarouselcontrol:active', function () {
+        	$(this).removeClass('inactive');
+        })
+        .on('jcarouselcontrol:inactive', function () {
+        	$(this).addClass('inactive');
+        })
+        .jcarouselControl({
+        	target: '-=2'
+        });
+
+	$('.carousel-type--videos .jcarousel-control-next')
+        .on('jcarouselcontrol:active', function () {
+        	$(this).removeClass('inactive');
+        })
+        .on('jcarouselcontrol:inactive', function () {
+        	$(this).addClass('inactive');
+        })
+        .jcarouselControl({
+        	target: '+=2'
         });
 
 

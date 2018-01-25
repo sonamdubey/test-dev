@@ -1,0 +1,65 @@
+@mixin miscWrapper()
+	.miscWrapper
+		padding: 20px		
+		background: map-get($color-map, "white")
+		overflow: hidden
+
+		li
+			width: 100%
+			border-top: 1px solid map-get($color-map, "dark-border")
+			margin-top: 20px
+			padding-top: 20px
+
+			&:first-child
+				border-top: none
+				margin-top: 0
+				padding-top: 0
+
+@mixin misc-container()
+	.misc-container
+		display: table
+
+		a
+			display: table-cell
+			vertical-align: middle
+
+@mixin misc-list-image($size: "small")
+	$width: 0
+	$height: 0
+	$top: 0
+	
+	@if ($size)=="small"
+		$width: 100px
+		$height: 56px
+		$top: -9px
+	@else if ($size) == "topsmall"
+		$width: 100px
+		$height: 56px
+		$top: 0
+
+	.misc-list-image
+		width: $width
+		height: $height
+		@include circle-loader
+		background-position: center
+		overflow: hidden
+		text-align: center
+
+		.misc-container__image
+			height: $height
+
+			img
+				width: 100%
+				position: relative
+				top: $top
+				border: none
+
+@mixin misc-list-title($font-weight: bold, $color: map-get($color-map, "default"), $font-size: 14px)
+	@if ($font-weight)=="none"
+		$font-weight: normal
+
+	.misc-list-title
+		padding-left: 20px
+		font-size: 14px
+		color: $color
+		font-weight: $font-weight

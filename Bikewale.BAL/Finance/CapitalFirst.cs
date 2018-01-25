@@ -133,7 +133,7 @@ namespace Bikewale.BAL.Finance
                     response.CpId = 0;
                     response.CTleadId = 0;
                 }
-
+                PushToLeadConsumerQueue(objDetails);
                 response.LeadId = objDetails.LeadId;
                 if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
                 {
@@ -170,6 +170,7 @@ namespace Bikewale.BAL.Finance
                 {
                     objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
                 }
+                PushToLeadConsumerQueue(objDetails);
 
                 #region Do not change the sequence
                 //Save Lead Details to Bikewale Capital First Lead Table
@@ -345,26 +346,6 @@ namespace Bikewale.BAL.Finance
             LeadResponseMessage response = null;
             try
             {
-                var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
-
-                if (numberList != null && !numberList.Contains(Convert.ToString(objDetails.MobileNumber)))
-                {
-                    // push in autobiz
-                    NameValueCollection objNVC = new NameValueCollection();
-                    objNVC.Add("pqId", objDetails.objLead.PQId.ToString());
-                    objNVC.Add("dealerId", objDetails.objLead.DealerId.ToString());
-                    objNVC.Add("customerName", String.Format("{0} {1}", objDetails.FirstName, objDetails.LastName));
-                    objNVC.Add("customerEmail", objDetails.EmailId);
-                    objNVC.Add("customerMobile", Convert.ToString(objDetails.MobileNumber));
-                    objNVC.Add("versionId", objDetails.objLead.VersionId.ToString());
-                    objNVC.Add("pincodeId", Convert.ToString(objDetails.Pincode));
-                    objNVC.Add("cityId", objDetails.objLead.CityId.ToString());
-                    objNVC.Add("leadType", "2");
-                    objNVC.Add("manufacturerDealerId", Convert.ToString(objDetails.objLead.ManufacturerDealerId));
-                    objNVC.Add("manufacturerLeadId", objDetails.LeadId.ToString());
-                    RabbitMqPublish objRMQPublish = new RabbitMqPublish();
-                    objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
-                }
 
                 #region Do not change sequence
                 var ctResponse = SendCustomerDetailsToCarTrade(objDetails, leadSource);
@@ -391,6 +372,42 @@ namespace Bikewale.BAL.Finance
                 ErrorClass.LogError(ex, String.Format("CapitalFirst.PushLeadinCTandAutoBiz({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
             return response;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 25 Jan 2018
+        /// Description :   Push To Lead ConsumerQueue
+        /// </summary>
+        /// <param name="objDetails"></param>
+        private void PushToLeadConsumerQueue(PersonalDetails objDetails)
+        {
+            try
+            {
+                var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
+
+                if (numberList != null && !numberList.Contains(Convert.ToString(objDetails.MobileNumber)))
+                {
+                    // push in autobiz
+                    NameValueCollection objNVC = new NameValueCollection();
+                    objNVC.Add("pqId", objDetails.objLead.PQId.ToString());
+                    objNVC.Add("dealerId", objDetails.objLead.DealerId.ToString());
+                    objNVC.Add("customerName", String.Format("{0} {1}", objDetails.FirstName, objDetails.LastName));
+                    objNVC.Add("customerEmail", objDetails.EmailId);
+                    objNVC.Add("customerMobile", Convert.ToString(objDetails.MobileNumber));
+                    objNVC.Add("versionId", objDetails.objLead.VersionId.ToString());
+                    objNVC.Add("pincodeId", Convert.ToString(objDetails.Pincode));
+                    objNVC.Add("cityId", objDetails.objLead.CityId.ToString());
+                    objNVC.Add("leadType", "2");
+                    objNVC.Add("manufacturerDealerId", Convert.ToString(objDetails.objLead.ManufacturerDealerId));
+                    objNVC.Add("manufacturerLeadId", objDetails.LeadId.ToString());
+                    RabbitMqPublish objRMQPublish = new RabbitMqPublish();
+                    objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("PushToLeadConsumerQueue({0})", (objDetails != null && objDetails.objLead != null) ? objDetails.objLead.PQId : 0));
+            }
         }
 
     }
