@@ -287,6 +287,8 @@ namespace Bikewale.Utility
         ///  Description : To get article url for news,expert reviews and features listing pages
         /// Modified by :-Subodh 0n 08 nov 2016
         /// Description : To get article url for TipsAndAdvices
+        /// Modified by : Pratibha Verma on 25the January
+        /// Description : Added AutoExpo2018 in news category
         /// </summary>
         /// <param name="basicId"></param>
         /// <param name="articleUrl"></param>
