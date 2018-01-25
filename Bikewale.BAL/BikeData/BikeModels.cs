@@ -463,6 +463,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   Use BAL to get the old User reviews for App
+        /// Modified by : Pratibha Verma on 25the January
+        /// Description : Added AutoExpo2018 in news category
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
