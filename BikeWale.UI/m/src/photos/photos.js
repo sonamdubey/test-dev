@@ -1,7 +1,10 @@
 ﻿function morePhotosOverlay(limitCount) {
-    var lastPhoto = $('.photos-grid-list li').last(),
-               morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + (photoCount - limitCount) + '<br />images</span></span>');
-    lastPhoto.append(morePhotoCount);
+    var photosCnt = (photoCount - limitCount - 1);
+    if (photosCnt && photosCnt > 0) {
+        var lastPhoto = $('.photos-grid-list li').last(),
+                   morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + photosCnt + '<br />images</span></span>');
+        lastPhoto.append(morePhotoCount);
+    }
 }
 
 function bindPhotos(photosLimit) {
@@ -17,9 +20,6 @@ function bindPhotos(photosLimit) {
 var vmLoadPhotos = function () {
     var self = this;
     self.Loadedphotos = ko.observableArray();
-    self.init = function () {
-
-    };
 }
 
 

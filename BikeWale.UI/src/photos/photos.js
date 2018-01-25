@@ -1,17 +1,19 @@
 ﻿function morePhotosOverlay(limitCount) {
-    var lastPhoto = $('.model-grid-images li').last(),
-        countOverlay = '<span class="black-overlay"><span class="font18 text-bold">+' + (photoCount - limitCount-1) + '</span><br /><span class="font16">images</span></span>';
-    lastPhoto.append(countOverlay);
+    var photosCnt = (photoCount - limitCount - 1);
+    if (photosCnt && photosCnt > 0)
+    {
+        var lastPhoto = $('.model-grid-images li').last(),
+        countOverlay = '<span class="black-overlay"><span class="font18 text-bold">+' + photosCnt + '</span><br /><span class="font16">images</span></span>';
+        lastPhoto.append(countOverlay);
+    }    
 };
 
 var vmLoadPhotos = function()
 {
     var self = this;
     self.Loadedphotos = ko.observableArray();
-    self.init = function () {
-
-    };
 }
+
 function bindPhotos(photoLimitCount)
 {
     var photosLength = $('.model-grid-images li').length;
