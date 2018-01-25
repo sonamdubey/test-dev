@@ -88,6 +88,7 @@ namespace Bikewale.Models
         {
             List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>();
             categoryList.Add(EnumCMSContentType.News);
+            categoryList.Add(EnumCMSContentType.AutoExpo2018);
             _newsContentType = CommonApiOpn.GetContentTypesString(categoryList);
 
             categoryList.Add(EnumCMSContentType.AutoExpo2016);
