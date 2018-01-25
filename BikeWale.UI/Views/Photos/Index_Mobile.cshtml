@@ -25,18 +25,7 @@
             </div>
         </div>
     </section>
-    <section>
-        <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
-            <script type='text/javascript'>
-                googletag.cmd.push(function () {
-                    googletag.defineSlot('/1017752/Bikewale_Bike_Image_Mobile_ATF_320x50', [[320, 50], [320, 100]], 'div-gpt-ad-1516009422206-0').addService(googletag.pubads());
-                    googletag.pubads().enableSingleRequest();
-                    googletag.pubads().collapseEmptyDivs();
-                    googletag.enableServices();
-                });
-            </script>
-        </div>
-    </section>
+    
     if (Model.PopularSportsModelsImages != null)
     {
         <section>
@@ -47,8 +36,19 @@
         </section>
     }
 
-
-    <section class="text-center section-bottom-margin"></section>
+    <section>
+        <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
+            <script type='text/javascript'>
+                googletag.cmd.push(function () {
+                    googletag.defineSlot('/1017752/Bikewale_Bike_Image_Mobile_ATF_320x50', [[320, 50], [320, 100]], 'div-gpt-ad-1516009422206-0').addService(googletag.pubads());
+                    googletag.pubads().enableSingleRequest();
+                    googletag.pubads().collapseEmptyDivs();
+                    googletag.enableServices();
+                });
+                googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516009422206-0'); });
+            </script>
+        </div>
+    </section>
 
     <section>
         <div class="container section-bottom-margin" id="exploreModelListing">
