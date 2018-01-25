@@ -22,7 +22,8 @@ namespace Bikewale.Entities.CMS
         AutoExpoMedia = 13,
         SpecialFeature = 18,
         AutoExpo2016 = 19,
-        TrackDay = 23
+        TrackDay = 23,
+        AutoExpo2018 = 26
     }
 
 }   // namespace

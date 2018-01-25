@@ -301,6 +301,7 @@ namespace Bikewale.Utility
                 switch (_contentType)
                 {
                     case EnumCMSContentType.AutoExpo2016:
+                    case EnumCMSContentType.AutoExpo2018:
                     case EnumCMSContentType.News:
                         _articleUrl = string.Format("/news/{0}-{1}.html", basicId, articleUrl);
                         break;
