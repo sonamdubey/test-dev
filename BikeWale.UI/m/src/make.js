@@ -99,7 +99,7 @@ var floatingNav = (function () {
 					    $('#overallContainer .overall-tabs-data').removeClass('tab--active');					      
 					        
 					      overallTabsContainer.find(currentActiveTab).addClass('tab--active');
-					    },100);
+					    },10);
 					   
 					}
 					else {

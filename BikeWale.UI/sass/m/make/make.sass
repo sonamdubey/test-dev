@@ -5,15 +5,9 @@
 @import ../../mixins/index
 @import ../../utils/index
 
-.model-image-section
-	.carousel__title
-		padding-bottom: 12px
-
-	.page__heading-h2
-		@include image-icon
-		background-size: 19px
-		background-position: 0 center
-		padding-left: 33px
+body
+	&.bg-light-grey
+		background: #e3e3e3
 			
 .section-bottom-margin
 	margin-bottom: 20px
@@ -47,6 +41,16 @@
 @import ../../partials/notify-update-popup
 
 @import ../../partials/bike-images-carousel
+
+.model-image-section
+	.carousel__title
+		padding-bottom: 12px
+
+	.carousel-title__label
+		@include image-line-icon
+		background-size: 20px
+		background-position: 0 center
+		padding-left: 30px
 
 @import ../../partials/related-make-carousel
 

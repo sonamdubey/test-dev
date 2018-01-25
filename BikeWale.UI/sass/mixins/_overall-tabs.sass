@@ -1,5 +1,5 @@
 @mixin overall-tabs($height: 50)
-	$_backgroundColor: #f5f5f5 // TODO: add in color map
+	$_backgroundColor: color('border-light')
 	$_bottomBorderHeight: 4px
 	$_bottomBorderColor: color('gainsboro')
 	$_bottomBorderActiveColor: color('cinnabar')
@@ -48,7 +48,7 @@
 		.tab--active
 			&.overall-tabs-list__item
 				color: color('nero')
-				//font-weight: $font-semibold
+				font-weight: $font-semibold
 
 				&:after
 					content: ''
