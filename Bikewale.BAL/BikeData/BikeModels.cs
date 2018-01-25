@@ -429,7 +429,6 @@ namespace Bikewale.BAL.BikeData
 
             try
             {
-                RecentNewsVM recentNews = new RecentNewsVM();
                 List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>();
                 categoryList.Add(EnumCMSContentType.News);
                 categoryList.Add(EnumCMSContentType.AutoExpo2018);
