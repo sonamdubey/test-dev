@@ -30,6 +30,7 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Grpc.CMS;
@@ -58,6 +59,7 @@ namespace Bikewale.BAL.BikeData
         private readonly IUserReviews _userReviews = null;
         private readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
         private readonly uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
+        private string _newsContentType;
 
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
@@ -412,6 +414,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   Use BAL to get the old User reviews for App
+        /// Modified by : Pratibha Verma on 25the January
+        /// Description : Added AutoExpo2018 in news category
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -425,8 +429,12 @@ namespace Bikewale.BAL.BikeData
 
             try
             {
+                List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>();
+                categoryList.Add(EnumCMSContentType.News);
+                categoryList.Add(EnumCMSContentType.AutoExpo2018);
+                _newsContentType = CommonApiOpn.GetContentTypesString(categoryList);
                 var reviewTask = Task.Factory.StartNew(() => objReview = _userReviews.GetUserReviews(1, 2, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent).ReviewList);
-                var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), 2, 0, Convert.ToUInt32(modelId)));
+                var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesByIdList(_newsContentType, 2, 0, Convert.ToUInt32(modelId)));
                 var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.RoadTest), 2, 0, Convert.ToUInt32(modelId)));
                 var videosTask = Task.Factory.StartNew(() => objVideos = GetVideosByModelIdViaGrpc(Convert.ToInt32(modelId)));
 

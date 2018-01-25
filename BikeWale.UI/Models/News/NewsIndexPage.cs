@@ -88,6 +88,7 @@ namespace Bikewale.Models
         {
             List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>();
             categoryList.Add(EnumCMSContentType.News);
+            categoryList.Add(EnumCMSContentType.AutoExpo2018);
             _newsContentType = CommonApiOpn.GetContentTypesString(categoryList);
 
             categoryList.Add(EnumCMSContentType.AutoExpo2016);
@@ -158,6 +159,8 @@ namespace Bikewale.Models
         /// Description : Added call to GetArticlesByCategoryList for news page of series.
         /// Modified by : Snehal Dange on 29th Nov 2017
         /// Descritpion : Added ga for page
+        /// Modified by : Pratibha Verma on 25the January
+        /// Description : Added AutoExpo2018 in news category
         /// </summary>
         /// <returns></returns>
         public NewsIndexPageVM GetData(int widgetTopCount)
