@@ -774,7 +774,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 if (objModelPage.ModelDetails != null)
                 {
 
-                    colorPhotoCount = objModelPage.colorPhotos.Any() ? objModelPage.colorPhotos.Count() : colorPhotoCount;
+                    colorPhotoCount = objModelPage.colorPhotos.Any() ? objModelPage.colorPhotos.Count(m => m.IsImageExists) : colorPhotoCount;
                     allPhotosCount = objModelPage.AllPhotos.Any() ? objModelPage.AllPhotos.Count() : allPhotosCount;
                     if (allPhotosCount > 0)
                     {
