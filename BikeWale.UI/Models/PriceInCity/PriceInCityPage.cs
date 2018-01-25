@@ -877,6 +877,7 @@ namespace Bikewale.Models
                 objVM.ModelImage = objVM.PageMetaTags.OGImage = Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, ImageSize._310x174, QualityFactor._75);
                 objVM.CityEntity = new CityEntityBase() { CityId = cityId, CityMaskingName = cityMaskingName, CityName = firstVersion.City };
                 objVM.VersionId = firstVersion.VersionId;
+
             }
             catch (Exception ex)
             {
@@ -896,6 +897,7 @@ namespace Bikewale.Models
 
                 objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _objCityCache, modelId, cityId, BikeInfoTabCount, Entities.GenericBikes.BikeInfoTabType.PriceInCity)).GetData();
                 objVM.BikeRank = (new BikeModelRank(_modelCache, modelId)).GetData();
+                objVM.IsElectricBike = objVM.BikeInfo.BikeInfo.FuelType.Equals(5);
             }
             catch (Exception ex)
             {

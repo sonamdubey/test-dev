@@ -536,7 +536,33 @@
 
     <!-- top 10 bikes start -->
 
-    if (Model.BikeRank != null)
+    if (Model.IsElectricBike)
+    {
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div class="electric-fullwidth-widget__content">
+                        <div class="electric-widget__background"></div>
+                        <div class="position--relative">
+                            <div class="electric-scooter-icon"></div>
+                            <div class="electric-fullwidth-widget__details">
+                                <div class="electric-widget__left-col">
+                                    <p class="electric-widget__title">Go Green, Go Electric.</p>
+                                    <p class="electric-widget__subtitle">Research about a range of electric bikes and scooters in India.</p>
+                                </div>
+                                <div class="electric-widget__right-col">
+                                    <a href="/electric-bikes/" title="Electric Bikes" class="btn btn-white btn-explore-scooters">Explore</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+    }
+    else if (Model.BikeRank != null)
     {
         <section>
             <div class="container section-bottom-margin">

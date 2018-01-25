@@ -19,7 +19,6 @@
 .brand-4,
 .brand-24,
 .brand-5,
-.brand-6,
 .brand-39,
 .brand-37,
 .brand-7,
@@ -480,3 +479,105 @@
     position: relative;
     top: 1px
 }
+
+
+.electric-fullwidth-widget__content {
+  position: relative;
+  border: 1px solid #b5b5b5;
+  background: #fff;
+  box-shadow: 0 2px 2px #e2e2e2;
+  overflow: hidden;
+  min-height: 92px;
+  padding-top: 15px;
+  padding-bottom: 10px; }
+  .electric-fullwidth-widget__content .electric-widget__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+    .electric-fullwidth-widget__content .electric-widget__background:before {
+      background-image: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/skyline-bg.svg");
+      background-repeat: repeat-x;
+      -webkit-animation: animateSkyline 30s linear 10;
+      -moz-animation: animateSkyline 30s linear 10;
+      -ms-animation: animateSkyline 30s linear 10;
+      animation: animateSkyline 30s linear 10;
+      content: '';
+      position: absolute;
+      bottom: 18px;
+      width: 3072px;
+      height: 60px;
+      display: block;
+      background-position: center bottom;
+      will-change: transform;
+      opacity: .2; }
+
+@-webkit-keyframes animateSkyline {
+  from {
+    -webkit-transform: translate(-1024px, 0);
+    -moz-transform: translate(-1024px, 0);
+    -ms-transform: translate(-1024px, 0);
+    transform: translate(-1024px, 0); }
+  to {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0); } }
+
+@keyframes animateSkyline {
+  from {
+    -webkit-transform: translate(-1024px, 0);
+    -moz-transform: translate(-1024px, 0);
+    -ms-transform: translate(-1024px, 0);
+    transform: translate(-1024px, 0); }
+  to {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0); } }
+
+.electric-fullwidth-widget__details {
+  padding-left: 280px; }
+
+.electric-widget__left-col,
+.electric-widget__right-col {
+  display: inline-block;
+  vertical-align: middle; }
+
+.electric-widget__left-col {
+  margin-right: 95px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.3); }
+
+.position--relative {
+  position: relative; }
+
+.electric-widget__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #4acea8;
+  margin-bottom: 5px;
+  text-transform: capitalize; }
+
+.electric-widget__subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: #82888b; }
+
+.btn-explore-scooters {
+  position: relative;
+  font-size: 12px;
+  width: 100px;
+  padding: 5px;
+  background: #fff; }
+
+.electric-scooter-icon {
+  position: absolute;
+  left: 97px;
+  bottom: 0;
+  width: 77px;
+  height: 49px;
+  margin: 0 auto;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/electric-scooter.svg") no-repeat center;
+  background-size: contain; }
