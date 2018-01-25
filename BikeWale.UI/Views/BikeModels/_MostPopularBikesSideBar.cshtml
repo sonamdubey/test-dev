@@ -1,7 +1,7 @@
 ﻿@model  Bikewale.Models.MostPopularBikeWidgetVM
 @using Bikewale.Entities.BikeData;
 @using Bikewale.Utility;
-<ul class="sidebar-bike-list">
+<ul class="sidebar-bike-list sidebar-list__popuplar-bikes">
     @foreach (var bike in Model.Bikes)
     {
     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
@@ -26,6 +26,7 @@
                 }
             </div>
         </a>
+		<a href="#" title="" class="bike-target__price-link text-truncate">Price in City</a>
     </li>
     }
 </ul>
