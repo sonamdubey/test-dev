@@ -61,7 +61,7 @@ $(window).on('popstate', function (event) {
     if (emiPopup.is(':visible')) {
         emiCalculator.close(emiPopup);
     }
-    if ($('#leadCapturePopup').is(':visible')) {
+    if ($('#leadCapturePopup').is(':visible') && window.history.state !== "leadCapture") {
         emiCalculator.close($('#leadCapturePopup'));
     }
 });

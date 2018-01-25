@@ -488,7 +488,7 @@ docReady(function () {
             $('.model-preview-more-content').hide();
             self.text(self.text() === 'Read more' ? 'Collapse' : 'Read more');
             self.removeClass('open');
-			$('html, body').animate({ scrollTop: $('#aboutContent').offset().top - 44 }, 500)
+            $('html, body').animate({ scrollTop: $('#aboutContent').offset().top - 44 }, 500)
         }
     });
 
@@ -780,15 +780,78 @@ docReady(function () {
         }
     }
 
-	$("#expertReviewsContent").on('click', function () {
-		triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
-	});
+    $("#expertReviewsContent").on('click', function () {
+        triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
+    });
     // For saving page in recently viewed models/make
-	if (typeof pageData != "undefined" && pageData != null)
-	    recentSearches.saveRecentSearches(pageData);
+    if (typeof pageData != "undefined" && pageData != null)
+        recentSearches.saveRecentSearches(pageData);
 
-}
-);
+
+
+
+    agreementPolicyPopup.registerEvents();
+   
+
+});
+var agreementPolicyPopup = (function () {
+    var policyPopup, closebtn, leadCapturePopup, container;
+    function _setSelectores() {
+        policyPopup = $('#policyPopup');
+        closebtn = $('.policy-close-btn');
+        leadCapturePopup = $('#leadCapturePopup');
+        container = $('.aggreement-Privacy-container');
+
+    }
+    function registerEvents() {
+        _setSelectores();
+        $('#visitor-agreement-link, #privacy-policy-link').on('click', function (e) {
+            e.preventDefault();
+
+            if ($(this).attr('title') === "Privacy policy") {
+            }
+            else if ($(this).attr('title') === "Visitor agreement") {
+            }
+            agreementPolicyPopup.open();
+            console.log($(this).attr('title'));
+        });
+        $('.policy-close-btn').on('click', function () {
+            if (policyPopup.is(':visible')) {
+                window.history.back();
+            }
+            
+        });
+        container.on('scroll', function () {
+            if (container.scrollTop() == 0) {
+                $('.aggreement-Privacy-container').removeClass('box-shadow-top');
+            }
+            else {
+                $('.aggreement-Privacy-container').addClass('box-shadow-top');
+            }
+        });
+    }
+    function open() {
+        popup.lock();
+        policyPopup.fadeIn(200);
+        history.pushState('agreementpopup', '', '');
+    }
+    function close() {
+        policyPopup.fadeOut(200);
+        popup.unlock();
+    }
+    $(window).on('popstate', function () {
+        if (policyPopup.is(':visible')) {
+            close();
+        }
+    });
+    return {
+        registerEvents: registerEvents,
+        open: open,
+        close: close
+    }
+
+})();
+
 
 function upVoteListReview(e) {
     try {

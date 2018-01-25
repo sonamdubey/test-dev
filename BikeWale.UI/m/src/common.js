@@ -1737,7 +1737,7 @@ docReady(function () {
         if ($('#nav').is(':visible')) {
             navDrawer.close();
         }
-        if ($('#leadCapturePopup').is(':visible')) {
+        if ($('#leadCapturePopup').is(':visible') && window.history.state !== "leadCapture") {
             $('#leadCapturePopup').find('.leadCapture-close-btn').trigger('click');
         }
     });

@@ -1607,3 +1607,36 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 	font-size: 14px;
 }
 /* auto expo navigation end */
+
+/* agreement and privacy popup starts*/
+#policyPopup .close-btn {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+}
+#policyPopup .popup-inner-container {
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    height: 100%;
+}
+#policyPopup {
+    box-sizing: border-box;
+    overflow: hidden;
+    padding-right: 0;
+    padding-left: 0
+}
+.aggreement-Privacy-container {
+    box-sizing: border-box;
+    height: 100%;
+    overflow: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.box-shadow-top {
+    box-shadow: inset 0px 11px 8px -10px #CCC;
+}
+
+
+/* agreement and privacy popup ends*/
