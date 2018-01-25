@@ -761,7 +761,7 @@ namespace Bikewale.Models
                 objData.PopularBikesAndUpcomingBikesWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndUpcomingBikes;
                 objData.PopularBikesAndUpcomingBikesWidget.PageName = "ExpertReviews";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviewsDetailPage.PopularMakeBikesAndBodyStyleBikesWidget - BasicId : " + _basicId);
             }
