@@ -55,7 +55,7 @@ namespace Bikewale.Models
             try
             {
                 objVM = new NewLaunchedIndexVM();
-                objVM.Page_H1 = string.Format("NEW BIKE LAUNCHES - {0}", DateTime.Today.Year);
+                objVM.Page_H1 = string.Format("New Bike Launches - {0}", DateTime.Today.Year);
 
                 objVM.NewLaunched = (new NewLaunchesBikesModel(_newLaunches, _filter, _pqSource)).GetData();
 
