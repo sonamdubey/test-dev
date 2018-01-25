@@ -100,17 +100,7 @@
                 </tbody>
             </table>
         </div>
-        @if (Model.IsElectricBike)
-        {
-            <a href="/m/electric-bikes/" title="Electric Bikes" class="electric-slug__content">
-                <span class="electric-scooter-icon"></span>
-                <div class="electric-slug__details">
-                    <p class="electric-slug__title">Go Green, Go Electric.</p>
-                    <p class="electric-slug__subtitle">Find electric bikes and scooter.</p>
-                </div>
-            </a>
-        }
-        
+
         @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
                                 && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
         {
@@ -121,7 +111,7 @@
                     {
                         <span class="model-preview-main-content">
                             @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
-                        {
+                            {
                                 @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
                             }
                             else
@@ -144,5 +134,22 @@
                 </p>
             </div>
         }
+
+
     </div>
+    if (Model.IsElectricBike)
+    {
+        <div class="content-box-shadow card-bottom-margin padding-top15 padding-right20 padding-bottom20 padding-left20">
+
+
+            <a href="/m/electric-bikes/" title="Electric Bikes" class="electric-slug__content">
+                <span class="electric-scooter-icon"></span>
+                <div class="electric-slug__details">
+                    <p class="electric-slug__title">Go Green, Go Electric.</p>
+                    <p class="electric-slug__subtitle">Find electric bikes and scooter.</p>
+                </div>
+            </a>
+
+        </div>
+    }
 }
