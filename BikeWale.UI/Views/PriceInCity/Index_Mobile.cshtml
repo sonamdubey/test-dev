@@ -8,7 +8,7 @@
     Model.AdTags.AdPath = "/1017752/Bikewale_CityPrice_Mobile";
     Model.AdTags.AdId = "1444028976556";
     Model.PageMetaTags.AlternateUrl = "";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' inline /> <link rel='stylesheet' type='text/css' href='/m/css/campaign/hero-campaign.css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline />";    
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' inline /> <link rel='stylesheet' type='text/css' href='/m/css/campaign/hero-campaign.css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline />";
     Model.Page_JS_Paths = new string[] { "/m/src/priceincity.js" };
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
@@ -38,18 +38,18 @@
                                 }
                                 @{string returnUrl = string.Format("/m/{0}-bikes/{1}/price-in-{2}/", Model.Make.MaskingName, Model.BikeModel.MaskingName, Model.CityEntity.CityMaskingName); }
 
-                               <a class="redirect-url" href="@String.Format(@"/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName))" data-url="@string.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName),Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}{1}", BWConfiguration.Instance.BwHostUrl, returnUrl)))">
-                                            <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
+                                <a class="redirect-url" href="@String.Format(@"/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName))" data-url="@string.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName),Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}{1}", BWConfiguration.Instance.BwHostUrl, returnUrl)))">
+                                    <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                                 </a>
-                                
-                                
+
+
                             </div>
                             <div class="model-version-block inline-block padding-left15">
                                 <p class="font12 text-light-grey">Version:</p>
                                 @if (Model.BikeVersionPrices.Count() > 1)
                                 {
                                     <div class="dropdown-select-wrapper">
-                                    <select class="dropdown-select bw-ga" data-title="Version" data-cat="Price_in_City_Page" data-act="Version_Changed" data-lab="@gaBikeName">
+                                        <select class="dropdown-select bw-ga" data-title="Version" data-cat="Price_in_City_Page" data-act="Version_Changed" data-lab="@gaBikeName">
                                             @foreach (var version in Model.BikeVersionPrices)
                                             {
                                                 <option value="@version.VersionId">@version.VersionName</option>
@@ -92,7 +92,7 @@
                                             Insurance (Comprehensive)<br><p class='position-rel'>
                                                 @if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
                                                 {
-                                            <a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Price_in_City_Page" data-act="CoverFox_Link_Clicked" data-lab="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
+                                                    <a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Price_in_City_Page" data-act="CoverFox_Link_Clicked" data-lab="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
 
                                                 }
                                             </p>
@@ -101,8 +101,8 @@
                                     </tr>
                                     <!-- /ko -->
                                     <tr>
-                                    <td align="left" valign="top" class="padding-top15 padding-bottom5 border-solid-top text-default">@Model.BikeModel.ModelName on-road price in @Model.CityEntity.CityName</td>
-                                    <td align="right" valign="top" class="padding-top15 padding-bottom15 border-solid-top font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: onRoadPrice()"></span></td>
+                                        <td align="left" valign="top" class="padding-top15 padding-bottom5 border-solid-top text-default">@Model.BikeModel.ModelName on-road price in @Model.CityEntity.CityName</td>
+                                        <td align="right" valign="top" class="padding-top15 padding-bottom15 border-solid-top font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: onRoadPrice()"></span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -187,7 +187,7 @@
                                                 <li>Exclusive offers</li>
                                                 <li>Complete buying assistance</li>
                                             </ul>
-                                        <a href="javascript:void(0)" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea)" data-preselcity="@Model.CityEntity.CityId" data-modelid="@Model.BikeModel.ModelId" data-cat="Price_in_City_Page" data-act="Select_Area_Clicked" data-lab="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="btn btn-orange btn-auto-32 getquotation changeCity bw-ga" rel="nofollow">Select your location</a>
+                                            <a href="javascript:void(0)" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea)" data-preselcity="@Model.CityEntity.CityId" data-modelid="@Model.BikeModel.ModelId" data-cat="Price_in_City_Page" data-act="Select_Area_Clicked" data-lab="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="btn btn-orange btn-auto-32 getquotation changeCity bw-ga" rel="nofollow">Select your location</a>
                                         </div>
                                     </div>
                                 }
@@ -211,7 +211,7 @@
                                                     <li>EMI options</li>
                                                     <li>Complete buying assistance</li>
                                                 </ul>
-                                        <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" data-cat="Price_in_City_Page" data-act="View_dealer_details_Clicked" data-lab="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.FirstVersion.VersionName)" class="btn btn-orange btn-180-32 bw-ga" rel="nofollow">View dealer details</a>
+                                                <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" data-cat="Price_in_City_Page" data-act="View_dealer_details_Clicked" data-lab="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.FirstVersion.VersionName)" class="btn btn-orange btn-180-32 bw-ga" rel="nofollow">View dealer details</a>
                                             </div>
                                         </div>
                                     }
@@ -277,7 +277,7 @@
                                     <div class="clear"></div>
                                     <div id="downPaymentSlider"
                                          data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2) + minDnPay()) }"
-                                     class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" data-cat="Price_in_City_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@gaBikeName">
+                                         class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" data-cat="Price_in_City_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@gaBikeName">
                                         <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                         <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                     </div>
@@ -293,7 +293,7 @@
                                     <div class="clear"></div>
                                     <div id="loanAmountSlider"
                                          data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
-                                     class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" data-cat="Price_in_City_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@gaBikeName">
+                                         class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" data-cat="Price_in_City_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@gaBikeName">
                                         <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                         <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                     </div>
@@ -309,7 +309,7 @@
                                     <div class="clear"></div>
                                     <div id="tenureSlider"
                                          data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
-                                     class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" data-cat="Price_in_City_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@gaBikeName">
+                                         class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" data-cat="Price_in_City_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@gaBikeName">
                                         <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                         <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                     </div>
@@ -325,7 +325,7 @@
                                     <div class="clear"></div>
                                     <div id="rateOfInterestSlider"
                                          data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
-                                     class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" data-cat="Price_in_City_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@gaBikeName">
+                                         class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" data-cat="Price_in_City_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@gaBikeName">
                                         <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                         <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                     </div>
@@ -474,11 +474,11 @@
             @if (Model.HasPriceInTopCities && Model.IsNew)
             {
         <!-- model prices in other cities start -->
-                <div class="content-box-shadow padding-bottom5 card-bottom-margin">
+                <div class="content-box-shadow padding-bottom5">
                     <div class="content-inner-block-20">
                         <h2 class="card-h2-heading margin-bottom10">@Model.BikeModel.ModelName prices in other cities</h2>
                         <p class="font14 text-slate-grey margin-bottom15">You are currently viewing price of @Model.BikeName in @Model.CityEntity.CityName. Not from @Model.CityEntity.CityName? Select your city to see price in your city.</p>
-                    <a href="javascript:void(0)" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage bw-ga" rel="nofollow" data-cat="Price_in_City_Page" data-act="City_Change_Initiated_Bottom_Card" data-lab="@gaBikeName" data-modelid="@Model.BikeModel.ModelId" data-makemasking="@Model.Make.MaskingName" data-modelmasking="@Model.BikeModel.MaskingName">Select your city</a>
+                        <a href="javascript:void(0)" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage bw-ga" rel="nofollow" data-cat="Price_in_City_Page" data-act="City_Change_Initiated_Bottom_Card" data-lab="@gaBikeName" data-modelid="@Model.BikeModel.ModelId" data-makemasking="@Model.Make.MaskingName" data-modelmasking="@Model.BikeModel.MaskingName">Select your city</a>
                         @Html.Partial("~/Views/Price/_PriceInCityPopUp_Mobile.cshtml")
                     </div>
                     <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
@@ -491,8 +491,24 @@
             }
         </div>
     </section>
+    if (Model.IsElectricBike)
+    {
+        <section>
+            <div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
+                
+                <a href="/m/electric-bikes/" title="Electric Bikes" class="electric-slug__content">
+                    <span class="electric-scooter-icon"></span>
+                    <div class="electric-slug__details">
+                        <p class="electric-slug__title">Go Green, Go Electric.</p>
+                        <p class="electric-slug__subtitle">Find electric bikes and scooter.</p>
+                    </div>
+                </a>
+               
+            </div>
+        </section>
 
-    if (Model.BikeRank != null && Model.BikeRank.BikeType != null)
+    }
+    else if (Model.BikeRank != null && Model.BikeRank.BikeType != null)
     {
         <section>
             <div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
@@ -508,17 +524,17 @@
         </section>
     }
 
-                        
-                        if (Model.objMoreAboutScooter != null)
-                        {
-                            <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
-                                <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
-                                    <div class="swiper-wrapper">
-                                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
-                                    </div>
-                                </div>
-                            </div>
-                        }
+
+    if (Model.objMoreAboutScooter != null)
+    {
+        <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
+            <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
+                <div class="swiper-wrapper">
+                    @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
+                </div>
+            </div>
+        </div>
+    }
     <section>
         <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
             <p class="text-default text-bold">Disclaimer:</p>
