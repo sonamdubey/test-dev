@@ -20,7 +20,6 @@ namespace Bikewale.Models
         private readonly uint _makeId;
         private readonly uint _modelId;
         private readonly string _title, _makeName, _makeMasking, _modelName, _modelMasking, _modelIdList;
-        private string _newsContentType;
 
         #region Constructor
 
@@ -94,6 +93,7 @@ namespace Bikewale.Models
         /// </summary>
         public RecentNewsVM GetData()
         {
+            string _newsContentType;
             RecentNewsVM recentNews = new RecentNewsVM();
             List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>();
             categoryList.Add(EnumCMSContentType.News);
