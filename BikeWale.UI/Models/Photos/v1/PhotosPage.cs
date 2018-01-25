@@ -54,6 +54,7 @@ namespace Bikewale.Models.Photos.v1
                 SetBreadcrumList(ref _objData);
                 SetPageMetas(_objData);
                 _objData.ImagesSynopsis = "BikeWale brings you high quality images of 250+ bike models and 50+ scooters in India. Be it your dream bike, or the one you are planning to buy next month, we have got good quality bike images for all your needs. Bike images are of paramount importance while one is planning to buy a bike. View images of your favorite motorcycle in multiple colors and different angles.";
+                SetPageJSONLDSchema(_objData);
             }
             catch (Exception ex)
             {
@@ -225,6 +226,15 @@ namespace Bikewale.Models.Photos.v1
                 ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage");
             }
             return modelsImages;
+        }
+        private void SetPageJSONLDSchema(PhotosPageVM objData)
+        {
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
         }
     }
 }
