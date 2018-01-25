@@ -1,7 +1,5 @@
 ﻿$_count-color: #ff5500
 $_article-section__count: #d5d5d5
-$_link-color: #0288d1
-$_expert-review-border: #fd8d81
 
 .review-card
 	@include card
@@ -11,9 +9,10 @@ $_expert-review-border: #fd8d81
 	text-decoration: none
 	text-align: center
 	padding: 18px 26px
+
 	&:hover
 		text-decoration: none
-			
+
 .article-section__count
 	color: color('light-grey')
 	padding: 20px 38px 20px
@@ -48,18 +47,19 @@ $_expert-review-border: #fd8d81
 	text-align: center
 
 .review-card__read-more
-	color: $_link-color;
+	color: color('pacific-blue')
 	font-size: 14px
 	display: inline-block
 	padding-top: 15px
 	font-weight: $font-semibold
-	
+
 	&:hover
 		text-decoration: none
 
 .review-card__target-link
 	display: block
-	padding-bottom: 20px
+	padding-top: 15px
+	padding-bottom: 15px
 	color: color('default')
 
 	&:hover
@@ -81,7 +81,6 @@ $_expert-review-border: #fd8d81
 	@include card-category__tag-code()
 	@include review-author()
 
-
 	.expert-review-section
 		.carousel-title__label
 			font-size: 16px
@@ -91,7 +90,7 @@ $_expert-review-border: #fd8d81
 			padding-bottom: 16px
 
 		.review-card
-			border-bottom: 2px solid $_expert-review-border
+			border-bottom: 2px solid color('mona-lisa')
 
 	.carousel__expert-review
 		padding: 5px 20px 20px 0
