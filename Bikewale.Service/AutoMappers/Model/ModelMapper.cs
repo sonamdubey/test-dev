@@ -755,8 +755,10 @@ namespace Bikewale.Service.AutoMappers.Model
             return objDTOModelPage;
         }
         /// <summary>
-        /// Created by : Vivek Singh Tomar on 4th Oct 2017
+        /// Created by  : Vivek Singh Tomar on 4th Oct 2017
         /// Summary : Map BikeModelPage to gallery component
+        /// Modified by : Rajan Chauhan on 25 Jan 2018
+        /// Description : Changed the categoryCount for photos to match AllPhotos count
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <param name="modelId"></param>
@@ -764,7 +766,8 @@ namespace Bikewale.Service.AutoMappers.Model
         internal static ModelGallery ConvertToModelGallery(BikeModelPageEntity objModelPage, int modelId)
         {
             ModelGallery objModelGallery = new ModelGallery();
-            var colorPhotoCount = 0;
+            int colorPhotoCount = 0;
+            int allPhotosCount = 0;
             if (objModelPage != null)
             {
                 ICollection<ModelGalleryComponent> objGalleryComponent = new List<ModelGalleryComponent>();
@@ -772,14 +775,15 @@ namespace Bikewale.Service.AutoMappers.Model
                 {
 
                     colorPhotoCount = objModelPage.colorPhotos.Any() ? objModelPage.colorPhotos.Count() : colorPhotoCount;
-                    if (objModelPage.ModelDetails.PhotosCount > 0)
+                    allPhotosCount = objModelPage.AllPhotos.Any() ? objModelPage.AllPhotos.Count() : allPhotosCount;
+                    if (allPhotosCount > 0)
                     {
                         objGalleryComponent.Add(
                                 new ModelGalleryComponent
                                 {
                                     CategoryId = 1,
                                     CategoryName = "Photos",
-                                    CategoryCount = objModelPage.ModelDetails.PhotosCount + colorPhotoCount,
+                                    CategoryCount = allPhotosCount,
                                     DataUrl = string.Format("api/model/{0}/photos/", modelId)
                                 }
                             );
