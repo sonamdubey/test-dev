@@ -379,7 +379,7 @@ namespace Bikewale.BAL.Finance
         /// Description :   Push To Lead ConsumerQueue
         /// </summary>
         /// <param name="objDetails"></param>
-        private void PushToLeadConsumerQueue(PersonalDetails objDetails)
+        public void PushToLeadConsumerQueue(PersonalDetails objDetails)
         {
             try
             {
