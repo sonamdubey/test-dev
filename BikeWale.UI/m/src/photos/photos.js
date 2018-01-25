@@ -62,6 +62,8 @@ docReady(function () {
                             vmPhotosMore.Loadedphotos(vmModelGallery.photoList().slice(imageIndex + 1, imageIndex + 13));
                             $("#grid-images-noremainder").append($("#photoTemplateWrapper ul li"));
                             photosLimit = photosLimit + 12;
+
+                            if ($('.photos-grid-list li').length != vmModelGallery.photoList().length)
                             morePhotosOverlay($('.photos-grid-list li').length);
                         }
                         else {
@@ -71,7 +73,7 @@ docReady(function () {
                             vmPhotosMore.Loadedphotos('');
                             vmPhotosMore.Loadedphotos(vmModelGallery.photoList().slice(vmModelGallery.photoList().length - nonGirdIndex+1, vmModelGallery.photoList().length));
                             $(".remainder-grid-list").append($("#photoTemplateWrapper ul li"));
-                            photosLimit = vmModelGallery.photoList().length - imageIndex;
+                            photosLimit = vmModelGallery.photoList().length - imageIndex+1;
                         }
 
 

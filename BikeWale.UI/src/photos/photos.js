@@ -1,6 +1,6 @@
 ﻿function morePhotosOverlay(limitCount) {
     var lastPhoto = $('.model-grid-images li').last(),
-        countOverlay = '<span class="black-overlay"><span class="font18 text-bold">+' + (photoCount - limitCount) + '</span><br /><span class="font16">images</span></span>';
+        countOverlay = '<span class="black-overlay"><span class="font18 text-bold">+' + (photoCount - limitCount-1) + '</span><br /><span class="font16">images</span></span>';
     lastPhoto.append(countOverlay);
 };
 
@@ -119,7 +119,7 @@ docReady(function () {
                             vmPhotosMore.Loadedphotos('');
                             vmPhotosMore.Loadedphotos(vmModelGallery.photoList().slice(vmModelGallery.photoList().length - nonGirdIndex, vmModelGallery.photoList().length));
                             $(".remainder-grid-list").append($("#photoTemplateWrapper ul li"));
-                            photoLimitCount = photoLimitCount + vmModelGallery.photoList().length - imageIndex - 1;
+                            photoLimitCount = photoLimitCount + vmModelGallery.photoList().length - imageIndex;
                         }
                        
                       
