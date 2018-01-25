@@ -80,8 +80,8 @@ namespace Bikewale.Models.BikeModels
         #region Model Page Widgets with Flags
         public RecentNewsVM News { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
-		public RecentExpertReviewsVM ComparisionTestExpertReviews { get; set; }
-		public RecentVideosVM Videos { get; set; }
+        public RecentExpertReviewsVM ComparisionTestExpertReviews { get; set; }
+        public RecentVideosVM Videos { get; set; }
         public SimilarBikesWidgetVM SimilarBikes { get; set; }
         public DealerCardVM OtherDealers { get; set; }
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
@@ -139,6 +139,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsMileageByUsersAvailable { get; set; }
 
         public EMICalculatorVM EMICalculator { get; set; }
+        public bool IsElectricBike { get; set; }
     }
 
 }

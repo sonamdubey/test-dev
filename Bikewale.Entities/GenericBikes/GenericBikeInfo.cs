@@ -17,6 +17,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Description : Added PriceInCity
     /// Modified By :   Vishnu Teja Yalakuntla on 18 Sep 2017
     /// Summary     :   Added BodyStyleId property
+    /// Modified by : Snehal Dange on 24th Jan 2018
+    /// Desc:       Added IsElectricBike flag
     /// </summary>
     [Serializable]
     public class GenericBikeInfo //: BasicBikeEntityBase
@@ -52,6 +54,7 @@ namespace Bikewale.Entities.GenericBikes
         public UInt16 RatingCount { get; set; }
         public UInt16 UserReviewCount { get; set; }
         public Int16 BodyStyleId { get; set; }
+        public uint FuelType { get; set; }
     }
     /// Created  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo

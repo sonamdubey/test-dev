@@ -154,7 +154,7 @@ namespace Bikewale.DAL.AutoBiz
             {
                 HttpContext.Current.Trace.Warn("GetDealerPriceQuote ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objPriceQuote;
@@ -194,7 +194,7 @@ namespace Bikewale.DAL.AutoBiz
             {
                 HttpContext.Current.Trace.Warn("GetBikeBookingCities ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return cities;
         }   // End of GetBikeBookingCities
@@ -235,7 +235,7 @@ namespace Bikewale.DAL.AutoBiz
             {
                 HttpContext.Current.Trace.Warn("GetBikeMakesInCity ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return makes;
         }   // end of GetBikeMakesInCity
@@ -266,7 +266,7 @@ namespace Bikewale.DAL.AutoBiz
                             offerTerms = new OfferHtmlEntity();
                             while (dr.Read())
                             {
-                                offerTerms.Html = Convert.ToString(dr["terms"]);
+                                offerTerms.Html = Convert.ToString(dr["terms"]); ;
                                 offerTerms.IsExpired = Convert.ToBoolean(dr["IsExpired"]);
                             }
                         }
@@ -277,7 +277,7 @@ namespace Bikewale.DAL.AutoBiz
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return offerTerms;
         }
@@ -552,7 +552,7 @@ namespace Bikewale.DAL.AutoBiz
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.DealerPriceQuoteRepository.GetDealerPriceQuoteByPackage");
-                
+
             }
             return objDetailedDealerQuotationEntity;
         }
@@ -876,7 +876,7 @@ namespace Bikewale.DAL.AutoBiz
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.DealerPriceQuoteRepository.GetDealerPriceQuoteByPackage");
-                
+
             }
             return objDetailedDealerQuotationEntity;
         }

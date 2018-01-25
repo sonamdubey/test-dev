@@ -1,0 +1,16 @@
+@mixin grid($size)
+    .grid-#{$size}
+        width: ($size * 8.33333333) * 1%
+
+[class^=grid-]
+    float: left
+    position: relative
+    min-height: 1px
+    padding-right: 10px
+    padding-left: 10px
+
+.alpha
+    padding-left: 0
+
+.omega
+    padding-right: 0

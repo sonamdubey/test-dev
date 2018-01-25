@@ -20,3 +20,9 @@ Bikewale.DataSync/DataSync/obj
 Bikewale.ReleaseManagement/copyfiles/bin
 Bikewale.ReleaseManagement/copyfiles/obj
 *.sh
+Bikewale.PWA.UI/node_modules/*
+Bikewale.PWA.UI/build/*
+BikeWale.UI/pwa/css/
+BikeWale.UI/pwa/js/
+BikeWale.UI/pwa/server/
+BikeWale.UI/pwa/webpack-assets.json

@@ -29,8 +29,13 @@ namespace Bikewale.Models
     /// 
     /// Modified by sajal Gupta on 06-11-2017
     /// Descriptition :  Added BikeCityPopup, DealersServiceCenterPopularCities
+
+    /// Modified by : Snehal Dange on 16th Jan 2018
+    /// Description: Added ResearchMoreMakeWidget
+
     /// Modified by  : Rajan Chauhan on 3 Jan 2017
     /// Description  : Added MakeId Field
+
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -84,6 +89,7 @@ namespace Bikewale.Models
         public BikeCityPopup BikeCityPopup { get; set; }
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenterPopularCities { get; set; }
         public MakeFooterCategoriesandPriceVM SubFooter { get; set; }
+        public ResearchMoreAboutMakeVM ResearchMoreMakeWidget { get; set; }
 
 
     }
