@@ -120,15 +120,7 @@
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_First.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
 }
-<div class="content-inner-block-10">
-    <div class="electric-widget__content">
-        <div class="electric-widget__background"></div>
-        <p class="electric-widget__title">Go Green, Go Electric.</p>
-        <p class="electric-widget__subtitle">40+ electric bikes and scooter.</p>
-        <a href="/m/electric-bikes/" title="Electric Bikes" class="btn btn-white btn-explore-scooters">Explore</a>
-        <div class="electric-scooter-icon"></div>
-    </div>
-</div>
+
 <section>
     <h2 class="section-heading">Featured scooters</h2>
     <div class="featured-bikes-panel content-box-shadow padding-bottom10 panel-type-scooter">
@@ -170,6 +162,17 @@
             </div>
     </div>
 </section>
+
+<div class="content-inner-block-10">
+    <div class="electric-widget__content">
+        <div class="electric-widget__background"></div>
+        <p class="electric-widget__title">Go Green, Go Electric.</p>
+        <p class="electric-widget__subtitle">40+ electric bikes and scooter.</p>
+        <a href="/m/electric-bikes/" title="Electric Bikes" class="btn btn-white btn-explore-scooters">Explore</a>
+        <div class="electric-scooter-icon"></div>
+    </div>
+</div>
+
 @if (Model.HasComparison)
 {
     <section>
