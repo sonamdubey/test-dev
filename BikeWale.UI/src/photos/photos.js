@@ -106,7 +106,7 @@ docReady(function () {
                     if (photoLimitCount == imageIndex)
                     {
                         $('.model-grid-images li').find("span").remove();
-                        if (vmModelGallery.photoList().length >= imageIndex + 16) {
+                        if (vmModelGallery.photoList().length > imageIndex + 17) {
                             vmPhotosMore.Loadedphotos(vmModelGallery.photoList().slice(imageIndex + 1, imageIndex+17));
                             $("#grid-images-noremainder").append($("#photoTemplateWrapper ul li"));
                             photoLimitCount = photoLimitCount + 16;
@@ -119,6 +119,7 @@ docReady(function () {
                             vmPhotosMore.Loadedphotos('');
                             vmPhotosMore.Loadedphotos(vmModelGallery.photoList().slice(vmModelGallery.photoList().length - nonGirdIndex, vmModelGallery.photoList().length));
                             $(".remainder-grid-list").append($("#photoTemplateWrapper ul li"));
+                            photoLimitCount = photoLimitCount + vmModelGallery.photoList().length - imageIndex - 1;
                         }
                        
                       
