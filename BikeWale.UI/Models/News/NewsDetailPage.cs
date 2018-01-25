@@ -1028,6 +1028,14 @@ namespace Bikewale.Models
                     objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
                     objData.PopularBodyStyle.CityId = CityId;
                     objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
+
+                    if (objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.AllBikes) {
+                        BikeFilters obj = new BikeFilters();
+                        obj.CityId = CityId;
+                        IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+                        objData.PopularBodyStyle.PopularBikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBodyStyle.PopularBikes);
+                    }
+
                 }
             }
         }
