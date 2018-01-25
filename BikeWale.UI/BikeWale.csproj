@@ -3091,6 +3091,8 @@
     <Content Include="sass\partials\_model-series-list.sass" />
     <Content Include="sass\partials\_news-section.sass" />
     <Content Include="sass\partials\_video-card-container.sass" />
+    <Content Include="sass\mixins\_animation.sass" />
+    <Content Include="sass\mixins\_electric-scooter-widget.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />

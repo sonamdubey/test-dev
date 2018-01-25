@@ -351,10 +351,10 @@ gulp.task('sass', function () {
 		.pipe(gulp.dest(app));
 });
 
-//Watch task
 gulp.task('sass:watch', function () {
-	gulp.watch(app + 'sass/**/*.sass', ['sass']);
+    gulp.watch([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], ['sass']);
 });
+
 
 gulp.task('default', gulpSequence(
 			'clean',

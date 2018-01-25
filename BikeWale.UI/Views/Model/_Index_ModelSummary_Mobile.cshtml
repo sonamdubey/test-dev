@@ -100,6 +100,17 @@
                 </tbody>
             </table>
         </div>
+        @if (Model.IsElectricBike)
+        {
+            <a href="/m/electric-bikes/" title="Electric Bikes" class="electric-slug__content">
+                <span class="electric-scooter-icon"></span>
+                <div class="electric-slug__details">
+                    <p class="electric-slug__title">Go Green, Go Electric.</p>
+                    <p class="electric-slug__subtitle">Find electric bikes and scooter.</p>
+                </div>
+            </a>
+        }
+        
         @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
                                 && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
         {
