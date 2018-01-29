@@ -58,7 +58,6 @@ namespace Bikewale.BAL.BikeData
         private readonly IUserReviews _userReviews = null;
         private readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
         private readonly uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
-
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   Register the User Reviews BAL and resolve it
@@ -1206,6 +1205,31 @@ namespace Bikewale.BAL.BikeData
         }
 
         /// <summary>
+        /// Created By  : Rajan Chauhan on 29 Jan 2018
+        /// Description : Get All ModelIds with BodyStyle of particular make 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="bodyStyle"></param>
+        /// <returns></returns>
+        public IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle)
+        {
+            IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
+            try
+            {
+                var objData = _modelCacheRepository.GetModelIdsForImages();
+                if (objData != null)
+                {
+                    modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetModelIdsForImages");
+            }
+            return modelIdsWithBodyStyle;
+        }
+
+        /// <summary>
         /// Created by  : Vivek Singh Tomar on 11th Jan 2018
         /// Description : Get model ids with body style with required filters
         /// Functionality : list return will [startIndex, endIndex] i.e. inclusive, indexing starts from 1
@@ -1267,6 +1291,25 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetModelIdsForImages");
             }
             return modelIdsWithBodyStyle;
+        }
+
+        public Dictionary<EnumBikeBodyStyles, IEnumerable<int>> GetModelsWithBodyStyleLookupArray(uint makeId)
+        {
+            Dictionary<EnumBikeBodyStyles, IEnumerable<int>> LookupArray = null;
+            IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
+            try
+            {
+                var objData = GetModelIdsForImages(makeId, EnumBikeBodyStyles.AllBikes);
+                if (objData != null)
+                {
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetModelsWithBodyStyleLookupArray : GetModelsWithBodyStyleLookupArray({0})", makeId));
+            }
+            return LookupArray;
         }
 
     }   // Class

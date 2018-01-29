@@ -45,6 +45,7 @@ namespace Bikewale.Models.Photos
             {
                 _objData = new MakePhotosPageVM();
                 BindModelPhotos(_objData);
+                BindModelBodyStyleLookupArray(_objData);
             }
             catch (Exception ex)
             {
@@ -54,9 +55,39 @@ namespace Bikewale.Models.Photos
             
         }
 
-        private void BindModelPhotos()
+        private void BindModelPhotos(MakePhotosPageVM objData)
         {
+            try
+            {
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(_makeId, EnumBikeBodyStyles.AllBikes);
+                string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
+                int requiredImageCount = 4;
+                string categoryIds = CommonApiOpn.GetContentTypesString(
+                    new List<EnumCMSContentType>()
+                    {
+                        EnumCMSContentType.PhotoGalleries,
+                        EnumCMSContentType.RoadTest
+                    }
+                );
+                objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.MakePhotosPage.BindModelPhotos : BindModelPhotos({0})", objData));
+            }
+        }
 
+        private void BindModelBodyStyleLookupArray(MakePhotosPageVM objData)
+        {
+            try
+            {
+                objData.ModelBodyStyleArray = _objModelEntity.GetModelsWithBodyStyleLookupArray(_makeId);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.MakePhotosPage.BindModelBodyStyleLookupArray : BindModelBodyStyleLookupArray({0})", objData));
+            }
         }
 
         private void ProcessQuery(string makeMaskingName)

@@ -31,6 +31,9 @@ namespace Bikewale.Interfaces.BikeData
     /// Description: Added GetMileageDetails() to get mileage info for model
     /// Modified By : Vivek Singh Tomar on 28th Nov 2017
     /// Description : Added GetSeriesByModelId to get series details for given model id
+    /// Modified By : Rajan Chauhan on 29 Jan 2018
+    /// Description : overload function GetModelIdsForImages to get all models 
+    ///               Added method GetModelsWithBodyStyleLookupArray for getting Dictionary mapping bodyStyle with modelIds
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -61,10 +64,12 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
         BikeMileageEntity GetMileageDetails(uint modelId);
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
+        IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle);
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex);
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, ref ImagePager pager);
         IEnumerable<ModelImages> GetBikeModelsPhotoGallery(string modelIds, int requiredImageCount);
         IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount);
         ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount, ImagePager pager);
+        Dictionary<EnumBikeBodyStyles, IEnumerable<int>> GetModelsWithBodyStyleLookupArray(uint makeId);
     }
 }
