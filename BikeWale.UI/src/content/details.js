@@ -190,20 +190,24 @@ var gallery = {
 };
 
 // light box logic
-var lightBoxContainer = $('#lightBoxContainer')
-$('#content img').on('click', function () {
-    if (!$(this).closest('#divPhotos').length) {
-        var image = lightBoxContainer.find('img.lazy'),
-        cdnLink = 'https://imgd.aeplcdn.com/0x0';
-        image.attr('data-original', cdnLink + $(this).attr('src').slice(32));
-        lightBoxContainer.fadeIn(200);
-        image.lazyload();
-        popup.lock();
-        $(".blackOut-window").hide();
-        window.history.pushState('addImage', "", "");
-    }
+docReady(function() {
+	$('.article-content').find('img').parent().addClass('position-rel').append('<span class="image__zoom-btn"></span>');
+});
 
-        
+var lightBoxContainer = $('#lightBoxContainer')
+$('.article-content').on('click', '.image__zoom-btn', function () {
+    if (!$(this).closest('#divPhotos').length) {
+			var image = lightBoxContainer.find('img.lazy');
+			var imageSrc = $(this).siblings('img').attr('src');
+			var fullWidthImageSrc = imageSrc.replace(/\/[0-9]+x[0-9]+\/+/g, '/0x0/')
+
+			image.attr('data-original', fullWidthImageSrc);
+			lightBoxContainer.fadeIn(200);
+			image.lazyload();
+			popup.lock();
+			$(".blackOut-window").hide();
+			window.history.pushState('addImage', "", "");
+    }
 });
 
 $('#lightBoxContainer .light-box__close-icon').on('click', function () {
