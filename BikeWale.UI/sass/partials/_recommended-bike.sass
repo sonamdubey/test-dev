@@ -1,0 +1,91 @@
+﻿/* recommended bike *.
+@include model-card
+
+/* rating badge */
+@for $i from 1 through 5
+	@include rating-badge($i)
+
+.model-card__detail
+	.rating-badge
+		margin-bottom: 8px
+
+@include model-card__detail
+@include card-details__specs
+
+@include model-card__exshowroom-content
+@include model-card__exshowroom
+@include card-emi__col
+
+.recommended-bike
+	background: color('white')
+	padding-top: 25px
+	padding-bottom: 20px
+	
+.recommended-bike__title
+	padding-left: 16px
+	font-weight: $font_semibold
+
+.recommended-bike-list
+	padding: 4px 6px 5px 16px
+
+	&:after
+		content: ''
+		display: table
+		clear: both
+
+	.recommended-bike__list-card
+		width: 159px
+		margin-top: 16px
+		margin-right: 10px
+		float: left
+
+	@include model-card__image(135)
+	
+	.rating-badge
+		height: 17px
+		font-size: 11px
+
+	.card-detail__name
+		font-size: 14px
+
+	.model-card__detail
+		padding-left: 11px
+		padding-right: 11px
+
+	.card-detail__specs-list
+		li
+			font-size: 10px
+			margin-right: 16px
+
+	.model-card__exshowroom
+		padding: 6px 11px 7px
+
+	.card-exshowroom__label
+		font-size: 11px
+
+	.card-exshowroom__value
+		font-size: 16px
+
+@media only screen and (max-width: 320px)
+	.recommended-bike-list
+		.recommended-bike__list-card
+			width: 140px
+			margin-right: 7px
+
+		.model-card__image
+			height: 78px
+			margin: 0
+		
+			img
+				height: 77px
+
+		.card-detail__specs-list
+			li
+				font-size: 9px
+				margin-right: 12px
+				margin-top: 5px
+
+		.card-exshowroom__label
+			font-size: 10px
+
+

@@ -3136,6 +3136,8 @@
     <Content Include="sass\partials\_related-make-card.sass" />
     <Content Include="sass\partials\_related-make-carousel.sass" />
     <Content Include="sass\partials\_other-bikes-list.sass" />
+    <Content Include="sass\partials\_refine-result.sass" />
+    <Content Include="sass\partials\_recommended-bike.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />

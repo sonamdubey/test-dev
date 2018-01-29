@@ -90,7 +90,6 @@ body
 @include interesting-fact-section
 @include interesting-fact__container-scrollbar
 
-
 @media only screen and (max-width: 320px) 
 	.carousel__popular-bikes
 		.carousel-slide
@@ -98,3 +97,14 @@ body
 
 
 
+/* inpage filter */
+
+@import ../../partials/refine-result
+
+@include refine-result()
+@include refine-result__checkbox
+@include refine-result__view-more
+
+
+/* recommended bike */
+@import ../../partials/recommended-bike
