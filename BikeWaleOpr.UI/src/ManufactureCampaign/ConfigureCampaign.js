@@ -42,7 +42,7 @@ var ConfigureCampaign = function () {
             $("#alertModal").modal('open');
             return false;
         }
-        if (dailyStartTime.localeCompare(dailyEndTime) != -1)
+        if (dailyStartTime != "" && dailyEndTime != "" && dailyStartTime.localeCompare(dailyEndTime) != -1)
         {
             $('#modal-p').text("Daily Campaign Start time must be less than Daily Campaign End time.");
             $("#alertModal").modal('open');

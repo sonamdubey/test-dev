@@ -114,17 +114,16 @@
             <div class="row">
                 <div class="col s1 offset-s3">
                     <div class="input-field">
-                        @if (Model.CampaignInformation.DealerDetails.DailyEndTime == DateTime.MinValue)
-                        {
-                            Model.CampaignInformation.DealerDetails.DailyEndTime = Model.CampaignInformation.DealerDetails.DailyEndTime.Date + new TimeSpan(23, 59, 59);
-                        }     
-                        <input type="time" id="dailyStartTimeEle" value="@Model.CampaignInformation.DealerDetails.DailyStartTime.ToString("HH:mm")" />
+                        @{ 
+                            bool IsDailyTimeAvailable = Model.CampaignInformation.DealerDetails.DailyEndTime != DateTime.MinValue;
+                        }
+                        <input type="time" id="dailyStartTimeEle" value="@(IsDailyTimeAvailable ? Model.CampaignInformation.DealerDetails.DailyStartTime.ToString("HH:mm") : "")" />
                         <label for="dailyStartTimeEle" class="active">Daily Start Time</label>
                     </div>
                 </div>
                 <div class="col s1">
                     <div class="input-field">
-                        <input type="time" id="dailyEndTimeEle" value="@Model.CampaignInformation.DealerDetails.DailyEndTime.ToString("HH:mm")" />
+                        <input type="time" id="dailyEndTimeEle" value="@(IsDailyTimeAvailable ? Model.CampaignInformation.DealerDetails.DailyEndTime.ToString("HH:mm") : "")" />
                         <label for="dailyEndTimeEle" class="active">Daily End Time</label>
                     </div>
                 </div>
