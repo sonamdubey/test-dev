@@ -5,6 +5,10 @@
 	});
 
 	// popular bikes carousel
+	if (navigator.userAgent.match(/Firefox/gi)) {
+		$('.carousel__popular-bikes').addClass('popular-bikes--fallback');
+	}
+
 	$('.carousel__popular-bikes').on('click', '.view-pros-cons__target', function() {
 		var modelCard = $(this).closest('.model__card');
 

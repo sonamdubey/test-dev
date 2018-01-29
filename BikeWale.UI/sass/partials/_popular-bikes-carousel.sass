@@ -114,3 +114,23 @@
 		&:after
 			content: '-'
 			top: 2px
+
+// fallback for active state
+.popular-bikes--fallback
+	&.carousel__popular-bikes
+		.model-card__detail-content
+			overflow: hidden
+
+	.card--active
+		.model-card__detail-content
+			position: relative
+			top: -134px
+			height: 293px
+
+		.model-card__detail
+			@include vendor-prefix('transform', translateY(0))
+
+	.collapse-btn--active
+		.view-pros-cons__target
+			bottom: 450px
+
