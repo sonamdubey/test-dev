@@ -26,3 +26,19 @@ $('.update-status').on('click', function () {
 
     });
 });
+
+
+$('#chkApprove').change(function () {
+    if (this.checked)
+    {
+        $('input:checkbox').each(function () {
+            $(this).prop('checked', true);
+        });
+    }
+    else
+    {
+        $('input:checkbox').each(function () {
+            $(this).prop('checked', false);
+        });
+    }    
+});

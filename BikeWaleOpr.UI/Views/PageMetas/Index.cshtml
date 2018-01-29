@@ -9,6 +9,10 @@
             <table class="bordered highlight z-depth-3 centered responsive-table">
                 <thead>
                     <tr>
+                        <th>
+                            <input type="checkbox" class="filled-in" id="chkAll" />
+                            <label for="chkAll"></label>
+                        </th>
                         <th>Id</th>
                         <th>Page</th>
                         <th>Platform</th>
@@ -26,6 +30,10 @@
                         @foreach (var item in Model.PageMetaList)
                         {
                             <tr>
+                                <td>
+                                    <input data-metaid="@item.Id" type="checkbox" class="filled-in" id="chkAll-@item.Id" title="Select all" />
+                                    <label for="chkAll-@item.Id"></label>
+                                </td>
                                 <td>@item.Id</td>
                                 <td>@item.PageName</td>
                                 <td>@item.Platform</td>
