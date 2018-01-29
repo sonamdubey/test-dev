@@ -21,7 +21,7 @@ namespace BikewaleOpr.Entity.ManufacturerCampaign
         public string UserId { get; set; }
         public string OldMaskingNumber { get; set; }
         public string MobileNumber { get; set; }
-        public DateTime DailyStartTime { get; set; }
-        public DateTime DailyEndTime { get; set; }
+        public DateTime? DailyStartTime { get; set; }
+        public DateTime? DailyEndTime { get; set; }
     }
 }
