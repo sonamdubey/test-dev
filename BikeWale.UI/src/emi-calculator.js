@@ -65,9 +65,15 @@ $('#leadCapturePopup .leadCapture-close-btn').mouseup(function () {
 $(window).on('popstate', function (event) {
     if ($('#leadCapturePopup').is(':visible') && window.history.state !== "leadCapture") {
         emiCalculator.close($('#leadCapturePopup'));
+        setTimeout(function () {
+            if (emiPopup.is(':visible') || window.history.state === "addEMIPopup") {
+                window.history.back();
+            }
+        }, 1);
     }
     if (emiPopup.is(':visible') || window.history.state === "addEMIPopup") {
         emiCalculator.close(emiPopup);
+
     }
 });
 $(document).keyup(function (e) {
