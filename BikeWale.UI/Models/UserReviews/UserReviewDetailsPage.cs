@@ -159,7 +159,7 @@ namespace Bikewale.Models.UserReviews
                 if (objPage != null && objPage.PageMetaTags != null && objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
                 {
 
-                    objPage.PageMetaTags.Title = string.Format("{0}- BikeWale", objPage.UserReviewDetailsObj.Title);
+                    objPage.PageMetaTags.Title = string.Format("{0} - BikeWale", objPage.UserReviewDetailsObj.Title);
                     objPage.Page_H1 = objPage.UserReviewDetailsObj.Title.Truncate(45);
 
                     objPage.AdTags.TargetedMakes = objPage.UserReviewDetailsObj.Make.MakeName;
