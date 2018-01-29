@@ -984,6 +984,7 @@
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\ScooterNewsPage.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
+    <Compile Include="Models\Photos\MakePhotosPage.cs" />
     <Compile Include="Models\Photos\PhotosPage.cs" />
     <Compile Include="Models\Photos\SimilarBikesWithPhotosWidget.cs" />
     <Compile Include="Models\Photos\v1\PhotosPage.cs" />
