@@ -1052,7 +1052,7 @@
 							policyPopup = $('#policyPopup');
 							closebtn = $('.policy-close-btn');
 							leadCapturePopup = $('#leadCapturePopup');
-							container = $('.aggreement-Privacy-container');
+							container = $('.policy-container');
 					}
 
 					function registerEvents() {
@@ -1078,10 +1078,10 @@
 
 							container.on('scroll', function () {
 									if (container.scrollTop() == 0) {
-											$('.aggreement-Privacy-container').removeClass('box-shadow-top');
+											$('.policy-container').removeClass('box-shadow-top');
 									}
 									else {
-											$('.aggreement-Privacy-container').addClass('box-shadow-top');
+											$('.policy-container').addClass('box-shadow-top');
 									}
 							});
 

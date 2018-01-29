@@ -52,17 +52,22 @@ $('#emiPopup .emi-popup-close-btn, .blackOut-window').mouseup(function () {
 $('#leadCapturePopup .leadCapture-close-btn').mouseup(function () {
 
     if (isMobile.length) {
-        if ($('#leadCapturePopup').is(':visible')) {
-            history.go(-2)
-        }
+        if ($('#leadCapturePopup').is(':visible') && window.history.state === "leadCapture") {
+            window.history.back();
+            setTimeout(function () {
+                if (emiPopup.is(':visible') || window.history.state === "addEMIPopup") {
+                    window.history.back();
+                }
+            }, 1);            
+        }    
     }
 });
 $(window).on('popstate', function (event) {
-    if (emiPopup.is(':visible')) {
-        emiCalculator.close(emiPopup);
-    }
     if ($('#leadCapturePopup').is(':visible') && window.history.state !== "leadCapture") {
         emiCalculator.close($('#leadCapturePopup'));
+    }
+    if (emiPopup.is(':visible') || window.history.state === "addEMIPopup") {
+        emiCalculator.close(emiPopup);
     }
 });
 $(document).keyup(function (e) {
