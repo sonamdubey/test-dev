@@ -217,7 +217,6 @@
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))}
-        @if (Model.AdTags.Ad_Model_Bottom_970x90) { @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if (Model.AdTags.Ad_Model_Comparo_976x400) { @Html.Raw(GetAdSlot(18, Model.AdTags.AdPath, Model.AdTags.AdId))}
 
 
