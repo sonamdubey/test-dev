@@ -25,6 +25,8 @@ namespace Bikewale.Utility
                     switch (_contentType)
                     {
                         case EnumCMSContentType.AutoExpo2018:
+                            _category = "AutoExpo 2018";
+                            break;
                         case EnumCMSContentType.AutoExpo2016:
                         case EnumCMSContentType.News:
                             _category = "NEWS";
