@@ -159,7 +159,7 @@ namespace Bikewale.Models.Photos.v1
                 int totalPageCount = (int)(objData.TotalBikeModels / PageSize);
                 totalPageCount = objData.TotalBikeModels % PageSize > 0 ? totalPageCount + 1 : totalPageCount;
                 string title = "Bike Images, Bike Photos | Latest Bike Wallpapers - BikeWale";
-                string description = " BikeWale brings you high-quality images of latest bikes in India. Images of 250+ bike models are available in different colors and angles.View images and photo gallery of your favorite motorcycle on BikeWale.";
+                string description = "BikeWale brings you high-quality images of latest bikes in India. Images of 250+ bike models are available in different colors and angles.View images and photo gallery of your favorite motorcycle on BikeWale.";
 
                 if (_pageNo == 1)
                 {

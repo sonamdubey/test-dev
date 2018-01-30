@@ -1293,24 +1293,30 @@ namespace Bikewale.BAL.BikeData
             }
             return modelIdsWithBodyStyle;
         }
-
-        public Dictionary<EnumBikeBodyStyles, IEnumerable<uint>> GetModelsWithBodyStyleLookupArray(uint makeId)
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Jan 2017
+        /// Description : Creation of lookup array for make images page
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> GetModelsWithBodyStyleLookupArray(uint makeId)
         {
-            Dictionary<EnumBikeBodyStyles, IEnumerable<uint>> LookupArray = new Dictionary<EnumBikeBodyStyles,IEnumerable<uint>>();
+            IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> LookupArray = new Dictionary<EnumBikeBodyStyles,IEnumerable<uint>>();
             try
             {
                 var objData = GetModelIdsForImages(makeId, EnumBikeBodyStyles.AllBikes);
                 if (objData != null)
                 {
+                    IEnumerable<ModelIdWithBodyStyle> modelIdWithBodyStyle = null;
+                    IEnumerable<uint> modelIds = null;
                     foreach (EnumBikeBodyStyles bodyStyle in _bodyStyles)
                     {
-                        IEnumerable<uint> modelIds = null;
-                        modelIds = objData.Where(g => (bodyStyle.Equals(g.BodyStyle))).Select(g => g.ModelId);
-                        if (modelIds != null && modelIds.Any())
+                        modelIdWithBodyStyle = objData.Where(g => (bodyStyle.Equals(g.BodyStyle)));
+                        if(modelIdWithBodyStyle != null && modelIdWithBodyStyle.Any())
                         {
+                            modelIds = modelIdWithBodyStyle.Select(g => g.ModelId);
                             LookupArray.Add(bodyStyle, modelIds);
                         }
-                        
                     }
                 }
             }

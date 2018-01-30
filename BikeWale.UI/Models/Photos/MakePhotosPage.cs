@@ -26,9 +26,13 @@ namespace Bikewale.Models.Photos
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
-        public uint _makeId;
+        private uint _makeId;
         public bool IsMobile { get; set; }
+        private string MakeName = string.Empty;
+        private int ModelsCount;
+        private string MakeMaskingName = string.Empty;
         
+
 
         public MakePhotosPage(bool isMobile, string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository objMakeCache)
         {
@@ -46,13 +50,111 @@ namespace Bikewale.Models.Photos
                 _objData = new MakePhotosPageVM();
                 BindModelPhotos(_objData);
                 BindModelBodyStyleLookupArray(_objData);
+                if (_objData.BikeModelsPhotos != null && _objData.BikeModelsPhotos.Any())
+                {
+                    MakeName = _objData.BikeModelsPhotos.First().MakeBase.MakeName;
+                    ModelsCount = _objData.BikeModelsPhotos.Count();
+                }
+                BindImageSynopsis(_objData);
+                SetBreadcrumList(_objData);
+                SetPageMetas(_objData);
+                SetPageJSONLDSchema(_objData);
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Bikewale.Models.Photos.MakePhotosPage : GetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.MakePhotosPage.GetData()");
             }
             return _objData;
             
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 29 Jan 2018
+        /// Description : Method to bind synopsis of make images page.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindImageSynopsis(MakePhotosPageVM objData)
+        {
+            try
+            {
+                objData.ImagesSynopsis = string.Format("{0} offers {1} bike models in India. BikeWale brings you high-quality images of {0} bikes to make your bike buying decision easier. View images of all models of {0} in different colors and different angles.", MakeName, ModelsCount);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.MakePhotosPage : BindImageSynopsis");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 29 Jan 2018
+        /// Description : Method to set breadcrum list.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetBreadcrumList(MakePhotosPageVM objData)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    url += "m/";
+                }
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "Home"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "New Bikes"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}", url, UrlFormatter.BikeMakeUrl(MakeMaskingName)), string.Format("{0} Bikes", MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Images"));
+                objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.MakePhotosPage.SetBreadcrumList()");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 29 Jan 2018
+        /// Description : Method to set page metas. 
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetPageMetas(MakePhotosPageVM objData)
+        {
+            try
+            {
+                objData.PageMetaTags.Title = string.Format("Images of {0} Bikes | Photo Gallery of {0} Models - BikeWale", MakeName);
+                objData.PageMetaTags.Description = string.Format("View images and photo gallery of all models of {0}. BikeWale brings you images of all {1} models of {0} bikes in different colors and angles. Explore images of your favorite {0} Model.", MakeName, ModelsCount);
+
+                objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/images/", BWConfiguration.Instance.BwHostUrl, MakeMaskingName);
+                objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/images/", BWConfiguration.Instance.BwHostUrl, MakeMaskingName);
+                objData.PageMetaTags.Keywords = string.Format("{0} bike images, {0} bike photos, {0} bike wallpapers, {0} bike image gallery, {0} bike photo gallery", MakeName);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.Photos.MakePhotosPage.SetPageMetas()");
+            }
+
+        }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 29 Jan 2018
+        /// Description : Method to set JSON/LD schema.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetPageJSONLDSchema(MakePhotosPageVM objData)
+        {
+            try
+            {
+                WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+
+                if (webpage != null)
+                {
+                    objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.Photos.MakePhotosPage.SetPageJSONLDSchema()");
+            }
         }
 
         private void BindModelPhotos(MakePhotosPageVM objData)
@@ -101,6 +203,7 @@ namespace Bikewale.Models.Photos
                     if (objResponse.StatusCode == 200)
                     {
                         _makeId = objResponse.MakeId;
+                        MakeMaskingName = objResponse.MaskingName;
                     }
                     else if (objResponse.StatusCode == 301)
                     {
