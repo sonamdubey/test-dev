@@ -370,28 +370,28 @@
                             <p class="refine-result__instruction">Select a fuel economy range for your driving pattern</p>
                             <ul class="refine-result__list">
                                 <li class="refine-result__list-item">
-                                    <input type="checkbox" class="refine-result__list-checkbox" name="checkbox" id="inpageFilter1" value="value">
+                                    <input type="checkbox" class="refine-result__list-checkbox" name="checkbox" id="inpageFilter1" value="30 - 40kmpl">
                                     <label class="refine-result__checkbox-label" for="inpageFilter1">30 - 40kmpl</label>
                                     <span class="refine-result__text">
                                         Monthly running < 1200kms
                                     </span>
                                 </li>
                                 <li class="refine-result__list-item">
-                                    <input type="checkbox" name="checkbox" class="refine-result__list-checkbox" id="inpageFilter2" value="value">
+                                    <input type="checkbox" name="checkbox" class="refine-result__list-checkbox" id="inpageFilter2" value="40 - 50kmpl">
                                     <label class="refine-result__checkbox-label" for="inpageFilter2">40 - 50kmpl</label>
                                     <span class="refine-result__text">
                                         Monthly running > 1500kms
                                     </span>
                                 </li>
                                 <li class="refine-result__list-item">
-                                    <input type="checkbox" name="checkbox" class="refine-result__list-checkbox" id="inpageFilter3" value="value">
+                                    <input type="checkbox" name="checkbox" class="refine-result__list-checkbox" id="inpageFilter3" value="50 - 60kmpl">
                                     <label class="refine-result__checkbox-label" for="inpageFilter3">50 - 60kmpl</label>
                                     <span class="refine-result__text">
                                         Lowest running cost 
                                     </span>
                                 </li>
                                 <li class="refine-result__list-item">
-                                    <input type="checkbox" name="checkbox" class="refine-result__list-checkbox" id="inpageFilter4" value="value">
+                                    <input type="checkbox" name="checkbox" class="refine-result__list-checkbox" id="inpageFilter4" value="60 - 65kmpl">
                                     <label class="refine-result__checkbox-label" for="inpageFilter4">60 - 65kmpl</label>
                                     <span class="refine-result__text">
                                         Lorem Ipsum
@@ -399,7 +399,7 @@
                                 </li>
 
                             </ul>
-                            <a href="" class="btn btn-inv-blue refine-result__view-more">Apply</a>
+                            <a id="refineResultApply" href="" class="btn btn-inv-blue refine-result__view-more">Apply</a>
                         </div>
                     </li>
                     <li class="model-list__item">
@@ -697,46 +697,124 @@
             <div class="interesting-fact__whiteout-window"></div>
         </div>
 
-        <section>
-            <div class="recommended-bike">
-                <h2 class="recommended-bike__title page__heading-h2">Recommended Royal Enfield Bikes</h2>
-                <ul class="recommended-bike-list">
-                    @for (var i = 1; i <= 4; i++)
-                    {
-                        <li class="recommended-bike__list-card">
-                            <div class="model__card">
-                                <a href="" title="" class="model-card__target">
-                                    <div class="model-card__image">
-                                        <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&amp;q=75" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&amp;q=75" title="" alt="" style="display: inline;">
-                                    </div>
-                                    <div class="model-card__detail">
-                                        <span class="rating-badge" data-rate-bg="4">
-                                            <span class="rating-badge__star"></span>
-                                            <span>4</span>
-                                        </span>
+        <div id="recommendedBike">
+            <div class="recommended-bike-popup">
+                <span id="recommendedBikeCloseBtn"></span>
+                <div class="recommended-bike__found-result">
+                    15 Bikes found based on your criteria
+                </div>
+                <div class="recommended-bike__filter-section">
+                    <div class="recommended-bike__filter-content">
+                        <ul class="filter-list">
+                            @*@for (var i = 0; i < 5; i++)
+                            {
+                                <li class="filter-list__item">
+                                    <span class="filter-item">
+                                        Rs 8,00,000
+                                    </span>
+                                </li>
+                            }*@
 
-                                        <h3 class="card-detail__name">Himalayan</h3>
-                                        <ul class="card-detail__specs-list">
-                                            <li>2204.8 cc</li>
-                                            <li>381.5 kmpl</li>
-                                            <li>21.89 bhp</li>
-                                        </ul>
-                                    </div>
-                                    <div class="model-card__exshowroom-content">
-                                        <div class="model-card__exshowroom">
-                                            <div class="card-exshowroom__col">
-                                                <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-                                                <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold">92,352</span></span>
-                                            </div>
+                        </ul>
+                    </div>
+                    <div class="filter__edit">Edit</div>
+                    </div>
+                <div class="recommended-bike-container">
+
+                        <section>
+                            <div class="bg-white section-bottom-margin">
+                                <div class="recommended-bike-section">
+                                    <h2 class="recommended-bike__title page__heading-h2">Recommended Royal Enfield Bikes</h2>
+                                    <ul class="recommended-bike-list">
+                                        @for (var i = 1; i <= 2; i++)
+                                    {
+                                    <li class="recommended-bike__list-card">
+                                        <div class="model__card">
+                                            <a href="" title="" class="model-card__target">
+                                                <div class="model-card__image">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&amp;q=75" src="" title="" alt="" style="display: inline;">
+                                                </div>
+                                                <div class="model-card__detail">
+                                                    <span class="rating-badge" data-rate-bg="4">
+                                                        <span class="rating-badge__star"></span>
+                                                        <span>4</span>
+                                                    </span>
+                                                    <p class="model-detail__make-name">Royal Enfield</p>
+                                                    <h3 class="card-detail__name">Himalayan</h3>
+                                                    <ul class="card-detail__specs-list">
+                                                        <li>2204.8 cc</li>
+                                                        <li>381.5 kmpl</li>
+                                                        <li>21.89 bhp</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="model-card__exshowroom-content">
+                                                    <div class="model-card__exshowroom">
+                                                        <div class="card-exshowroom__col">
+                                                            <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                                            <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold">92,352</span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </li>
-                    }
+                                    </li>
+                                    }
 
-                </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section>
+                            <div class="other-recommended-bike inactive-overlay">
+                                <h2 class="recommended-bike__title page__heading-h2">Recommended Royal Enfield Bikes</h2>
+                                <ul class="recommended-bike-list">
+                                    @for (var i = 1; i <= 10; i++)
+                                    {
+                                        <li class="recommended-bike__list-card">
+                                            <div class="model__card">
+                                                <a href="" title="" class="model-card__target">
+                                                    <div class="model-card__image">
+                                                        <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&amp;q=75" src="" title="" alt="" style="display: inline;">
+                                                    </div>
+                                                    <div class="model-card__detail">
+                                                        <span class="rating-badge" data-rate-bg="4">
+                                                            <span class="rating-badge__star"></span>
+                                                            <span>4</span>
+                                                        </span>
+
+                                                        <h3 class="card-detail__name">Himalayan</h3>
+                                                        <ul class="card-detail__specs-list">
+                                                            <li>2204.8 cc</li>
+                                                            <li>381.5 kmpl</li>
+                                                            <li>21.89 bhp</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="model-card__exshowroom-content">
+                                                        <div class="model-card__exshowroom">
+                                                            <div class="card-exshowroom__col">
+                                                                <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                                                <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold">92,352</span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+
+                    
+
             </div>
+        </div>
+
+        <section>
+           
             <div data-id="upcomingBikes" class="section-bottom-margin interesting-fact-section  overall-tabs-data">
                 <h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
                 <div class="interesting-fact-container">
