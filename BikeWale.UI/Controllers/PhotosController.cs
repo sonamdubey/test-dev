@@ -115,18 +115,18 @@ namespace Bikewale.Controllers
             }
         }
 
-		[Route("photos/make/")]
-		public ActionResult Make()
-		{
-			ModelBase objModel = new ModelBase();
-			return View(objModel);
-		}
+        [Route("photos/make/")]
+        public ActionResult Make()
+        {
+            MakePhotosPage objModel = new MakePhotosPage();
+            return View(objModel.GetData());
+        }
 
-		[Route("m/photos/make/")]
-		public ActionResult Make_Mobile()
-		{
-			ModelBase objModel = new ModelBase();
-			return View(objModel);
+        [Route("m/photos/make/")]
+        public ActionResult Make_Mobile()
+        {
+            MakePhotosPage objModel = new MakePhotosPage();
+            return View(objModel.GetData());
 		}
     }
 }
