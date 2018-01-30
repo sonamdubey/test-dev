@@ -190,9 +190,6 @@ var gallery = {
 };
 
 // light box logic
-docReady(function() {
-	$('.article-content').find('img').parent().addClass('position-rel').append('<span class="image__zoom-btn"></span>');
-});
 
 var lightBoxContainer = $('#lightBoxContainer')
 $('.article-content').on('click', '.image__zoom-btn', function () {

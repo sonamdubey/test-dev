@@ -725,7 +725,6 @@
 	padding: 10px 20px 20px;
 }
 
-<<<<<<< HEAD
 /* new launch category tag start */
 .sidebar-bike-list .model-category__tag {
 	position: static;
@@ -741,7 +740,7 @@
 	background-size: 10px;
 }
 /* new launch category tag end */
-=======
+
 .image__zoom-btn {
     display: block;
     position: absolute;
@@ -861,4 +860,3 @@
         width: 90%;
     }
 }
->>>>>>> 41ceb02c4d3893a51f5733c240470f255d3d946c
