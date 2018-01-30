@@ -74,7 +74,28 @@
                                     </div>
                                 </div>
                             }
+                            
+                            <script defer type="text/javascript">
+                                // plain js script to set lightbox plugin properties and structure for images zoom feature
+                                var relClassName = 'position-rel';
+                                var articleContentEles = document.querySelectorAll('.article-content');
+                                Array.prototype.forEach.call(articleContentEles, function (el) {
+                                    var articleImgs = el.querySelectorAll('img');
+                                    Array.prototype.forEach.call(articleImgs, function (imgEl) {
+                                        var ptNode = imgEl.parentNode;
+                                        var imgSpan = document.createElement('span');
+                                        imgSpan.setAttribute('class', 'image__zoom-btn');
+                                        if (ptNode.classList)
+                                            ptNode.classList.add(relClassName);
+                                        else
+                                            ptNode.relClassName += ' ' + relClassName;
+
+                                        ptNode.appendChild(imgSpan);
+                                    });
+                                });
+                            </script>
                         }
+                        
 
                         @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
                         {
@@ -238,3 +259,8 @@
     </section>
 }
 <script defer type="text/javascript" src="@String.Format("{0}/src/jquery.floating-social-share.min.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+<div id="lightBoxContainer" class="hide">
+    <span class="light-box__close-icon"></span>
+    <span class="spin-loader fixed-loader"></span>
+    <img class="lazy" data-original="" src=" " alt="">
+</div>

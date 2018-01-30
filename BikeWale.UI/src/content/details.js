@@ -14,26 +14,12 @@ docReady(function () {
         $('.modelgallery-close-btn, .bike-gallery-popup').removeClass('hide').addClass('show');
         $('.carousel-stage-photos li').find('img.lazy').trigger('imgLazyLoad');
         $('.carousel-navigation-photos li').find('img.lazy').trigger('imgLazyLoad');
-
         setGalleryImage(itemIndex);
+        window.history.pushState('addGallery', "", "");
     });
-    $('#image-gallery').on('click', 'li', function () {
-        var itemIndex = $(this).index();
-        gallery.lock();
-        $('.blackOut-window-model').show();
-        $('.modelgallery-close-btn, .bike-gallery-popup').removeClass('hide').addClass('show');
-        $('.carousel-stage-photos li').find('img.lazy').trigger('imgLazyLoad');
-        $('.carousel-navigation-photos li').find('img.lazy').trigger('imgLazyLoad');
-
-        setGalleryImage(itemIndex);
-    });
-
     $(".modelgallery-close-btn, .blackOut-window-model").click(function () {
-        gallery.unlock();
-        $(".blackOut-window-model").hide();
-        $(".modelgallery-close-btn, .bike-gallery-popup").removeClass("show").addClass("hide");
-        var galleryThumbIndex = $(".carousel-navigation-photos ul li.active").index();
-        $(".article-jcarousel").jcarousel('scroll', galleryThumbIndex);
+        window.history.back();
+
     });
     $(".photos-next-stage").click(function () {
         getImageNextIndex();
@@ -202,3 +188,48 @@ var gallery = {
         $('html, body').scrollTop(-windowScrollTop);
     }
 };
+
+// light box logic
+
+var lightBoxContainer = $('#lightBoxContainer')
+$('.article-content').on('click', '.image__zoom-btn', function () {
+    if (!$(this).closest('#divPhotos').length) {
+			var image = lightBoxContainer.find('img.lazy');
+			var imageSrc = $(this).siblings('img').attr('src');
+			var fullWidthImageSrc = imageSrc.replace(/\/[0-9]+x[0-9]+\/+/g, '/0x0/')
+
+			image.attr('data-original', fullWidthImageSrc);
+			lightBoxContainer.fadeIn(200);
+			image.lazyload();
+			popup.lock();
+			$(".blackOut-window").hide();
+			window.history.pushState('addImage', "", "");
+    }
+});
+
+$('#lightBoxContainer .light-box__close-icon').on('click', function () {
+    window.history.back();
+});
+$(window).on("popstate", function (e) {
+    if ($('.bike-gallery-popup').is(":visible")) {
+        gallery.unlock();
+        $(".blackOut-window-model").hide();
+        $(".modelgallery-close-btn, .bike-gallery-popup").removeClass("show").addClass("hide");
+        var galleryThumbIndex = $(".carousel-navigation-photos ul li.active").index();
+        $(".article-jcarousel").jcarousel('scroll', galleryThumbIndex);
+    }
+    if ($('#lightBoxContainer').is(":visible")) {
+        var image = lightBoxContainer.find('img');
+        lightBoxContainer.hide();
+        image.attr('src', '');
+        popup.unlock();
+    }
+});
+$(document).keyup(function (e) {
+    if ($('#lightBoxContainer').is(":visible")) {
+        window.history.back();
+    }
+    if ($('.bike-gallery-popup').is(":visible")) {
+        window.history.back();
+    }
+});
