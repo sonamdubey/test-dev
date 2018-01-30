@@ -145,6 +145,16 @@
     <div id="ub-ajax-loader">
         <div class="cover-popup-loader"></div>
     </div>
+	
+	<div id="policyPopup" class="bw-popup bwm-fullscreen-popup hide">
+		<div class="popup-inner-container">
+			<span class="bwmsprite close-btn policy-close-btn"></span>
+			<div id="policyPopupContainer" class="policy-container">
+				@Html.Partial("~/Views/Shared/_PrivacyPolicy.cshtml")
+				@*@Html.Partial("~/Views/Shared/_VisitorAgreement.cshtml")*@
+			</div>
+		</div>
+	</div>
 
    <!-- Lead Capture pop up end  -->
 
@@ -1045,71 +1055,71 @@
             $("#brandSearchBar").addClass('open').animate({ 'left': '100%' }, 500);
         };
 
-				var agreementPolicyPopup = (function () {
-					var policyPopup, closebtn, leadCapturePopup, container;
+		var agreementPolicyPopup = (function () {
+			var policyPopup, closebtn, leadCapturePopup, container;
 
-					function _setSelectores() {
-							policyPopup = $('#policyPopup');
-							closebtn = $('.policy-close-btn');
-							leadCapturePopup = $('#leadCapturePopup');
-							container = $('.policy-container');
+			function _setSelectors() {
+				policyPopup = $('#policyPopup');
+				closebtn = $('.policy-close-btn');
+				leadCapturePopup = $('#leadCapturePopup');
+				container = $('.policy-container');
+			}
+
+			function registerEvents() {
+				_setSelectors();
+
+				$('#visitor-agreement-link, #privacy-policy-link').on('click', function (e) {
+					e.preventDefault();
+
+					if ($(this).attr('data-link') === "privacy-policy") {
+						// ajax call
 					}
-
-					function registerEvents() {
-							_setSelectores();
-
-							$('#visitor-agreement-link, #privacy-policy-link').on('click', function (e) {
-									e.preventDefault();
-
-									if ($(this).attr('data-link') === "privacy-policy") {
-										// ajax call
-									}
-									else if ($(this).attr('data-link') === "visitor-agreement") {
-										// ajax call
-									}
-									agreementPolicyPopup.open();
-							});
-
-							$('.policy-close-btn').on('click', function () {
-									if (policyPopup.is(':visible')) {
-											window.history.back();
-									}
-							});
-
-							container.on('scroll', function () {
-									if (container.scrollTop() == 0) {
-											$('.policy-container').removeClass('box-shadow-top');
-									}
-									else {
-											$('.policy-container').addClass('box-shadow-top');
-									}
-							});
-
-							$(window).on('popstate', function () {
-									if (policyPopup.is(':visible')) {
-											close();
-									}
-							});
+					else if ($(this).attr('data-link') === "visitor-agreement") {
+						// ajax call
 					}
+					agreementPolicyPopup.open();
+				});
 
-					function open() {
-							popup.lock();
-							policyPopup.fadeIn(200);
-							history.pushState('agreementpopup', '', '');
+				$('.policy-close-btn').on('click', function () {
+					if (policyPopup.is(':visible')) {
+						window.history.back();
 					}
+				});
 
-					function close() {
-							policyPopup.fadeOut(200);
-							popup.unlock();
+				container.on('scroll', function () {
+					if (container.scrollTop() == 0) {
+						$('.policy-container').removeClass('box-shadow-top');
 					}
-
-					return {
-							registerEvents: registerEvents,
-							open: open,
-							close: close
+					else {
+						$('.policy-container').addClass('box-shadow-top');
 					}
+				});
 
-			})();
+				$(window).on('popstate', function () {
+					if (policyPopup.is(':visible')) {
+						close();
+					}
+				});
+			}
+
+			function open() {
+				popup.lock();
+				policyPopup.fadeIn(200);
+				$('#policyPopupContainer').scrollTop(0);
+				history.pushState('agreementpopup', '', '');
+			}
+
+			function close() {
+				policyPopup.fadeOut(200);
+				popup.unlock();
+			}
+
+			return {
+				registerEvents: registerEvents,
+				open: open,
+				close: close
+			}
+		})();
 
         docReady(function () {
 
@@ -1342,8 +1352,8 @@
 
             brandSearchBar = $("#brandSearchBar"), dealerSearchBrand = $(".dealer-search-brand"), dealerSearchBrandForm = $(".dealer-search-brand-form");
 
-						// register agreement and privacy policy popup events
-						agreementPolicyPopup.registerEvents();
+			// register agreement and privacy policy popup events
+			agreementPolicyPopup.registerEvents();
 
         });
 
