@@ -2,6 +2,10 @@
 
 namespace Bikewale.ManufacturerCampaign.DTO.SearchCampaign
 {
+    /// <summary>
+    /// Modified by : Ashutosh Sharma on 25 Jan 2017
+    /// Description : Added 'DailyStartTime' and 'DailyEndTime'.
+    /// </summary>
     public class ManufacturerCampaignDetailsDTO
     {
         [JsonProperty("id")]
@@ -26,5 +30,9 @@ namespace Bikewale.ManufacturerCampaign.DTO.SearchCampaign
         public string Status { get; set; }
         [JsonProperty("showCampaignOnExshowroom")]
         public bool ShowCampaignOnExshowroom { get; set; }
+        [JsonProperty("dailyStartTime")]
+        public string DailyStartTime { get; set; }
+        [JsonProperty("dailyEndTime")]
+        public string DailyEndTime { get; set; }
     }
 }

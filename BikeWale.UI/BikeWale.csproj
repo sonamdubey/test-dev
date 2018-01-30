@@ -2221,10 +2221,12 @@
     <Content Include="css\compare\details.css" />
     <Content Include="css\components\article-next-prev.css" />
     <Content Include="css\components\boundary-box.css" />
+    <Content Include="css\components\brand-logo.css" />
     <Content Include="css\components\card.css" />
     <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
     <Content Include="css\components\input-box.css" />
+    <Content Include="css\components\m-brand-logo.css" />
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
@@ -3093,6 +3095,7 @@
     <Content Include="sass\partials\_video-card-container.sass" />
     <Content Include="sass\mixins\_animation.sass" />
     <Content Include="sass\mixins\_electric-scooter-widget.sass" />
+    <Content Include="sass\modules\_m-brand-logo.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
