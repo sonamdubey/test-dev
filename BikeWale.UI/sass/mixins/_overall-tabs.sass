@@ -16,6 +16,7 @@
 			height: $height
 			overflow-x: auto
 			background: $_backgroundColor
+			@include scrollbar-hide
 
 		.overall-tabs__list
 			display: table
@@ -65,6 +66,14 @@
 			left: 0
 			right: 0
 			z-index: 3
+
+		// fallback
+		.overall-tabs--fallback
+			.overall-tabs__list
+				display: table
+			
+			.overall-tabs-list__item
+				width: 1%
 
 	@else
 		@warn "Please provide unitless value for overall tabs `$height` parameter"

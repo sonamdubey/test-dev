@@ -67,8 +67,16 @@ var floatingNav = (function () {
 		topNavBarHeight = overallTabsContainer.height();
 	}
 
+	function _setFallback() {
+		if (navigator.userAgent.match(/OPR/gi)) {
+			$('.overall-tabs__content').addClass('overall-tabs--fallback');
+		}
+	}
+
 	function registerEvents() {
 		_setSelectores();
+		_setFallback();
+
 		$(window).scroll(function () {
 		    var windowScrollTop = $(window).scrollTop(),
                 specsTabsOffsetTop = $('.overall-tabs__placeholder').offset().top,
