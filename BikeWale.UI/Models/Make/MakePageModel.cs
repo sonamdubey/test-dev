@@ -95,6 +95,8 @@ namespace Bikewale.Models
         /// Description: Added IsFooterDescriptionAvailable ,IsPriceListingAvailable checks
         /// Modified by : Snehal Dange on 17th Jan 2018
         /// Description: Added BindResearchMoreMakeWidget()
+        /// Modified by: Deepak Israni on 30th Jan 2018
+        /// Description: Removed ShowCheckOnRoadpriceBtn property
         /// </summary>         
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
@@ -156,7 +158,6 @@ namespace Bikewale.Models
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
                 }
-                objData.ShowCheckOnRoadpriceBtn = !BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageOnRoadPriceBtnPct);
                 BindUpcomingBikes(objData);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindCompareBikes(objData, CompareSource, cityId);
