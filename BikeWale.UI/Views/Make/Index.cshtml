@@ -118,7 +118,11 @@
                                                     else
                                                     { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))));
                                                     }
-                                                </div>
+                                                </div>                                                
+                                                @if (bike.VersionPrice > 0)
+                                                {
+                                                    <a rel="nofollow" href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                                }
                                             </div>
                                         </div>
                                     </li>
