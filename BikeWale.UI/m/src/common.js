@@ -43,6 +43,18 @@ function triggerGA(cat, act, lab) {
     }
 }
 
+function triggerVirtualPageView(url, title) {
+    try {
+        dataLayer.push({
+            'event': 'VirtualPageview',
+            'virtualPageURL': url,
+            'virtualPageTitle': title
+        })
+    } catch (e) {
+
+    }
+}
+
 function triggerNonInteractiveGA(cat, act, lab) {
     try {
 
