@@ -58,6 +58,7 @@ namespace Bikewale.BAL.BikeData
         private readonly IUserReviews _userReviews = null;
         private readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
         private readonly uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
+        private static readonly IEnumerable<EnumBikeBodyStyles> _bodyStyles = new List<EnumBikeBodyStyles> { EnumBikeBodyStyles.Scooter, EnumBikeBodyStyles.Street, EnumBikeBodyStyles.Cruiser, EnumBikeBodyStyles.Sports};
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   Register the User Reviews BAL and resolve it
@@ -1293,16 +1294,24 @@ namespace Bikewale.BAL.BikeData
             return modelIdsWithBodyStyle;
         }
 
-        public Dictionary<EnumBikeBodyStyles, IEnumerable<int>> GetModelsWithBodyStyleLookupArray(uint makeId)
+        public Dictionary<EnumBikeBodyStyles, IEnumerable<uint>> GetModelsWithBodyStyleLookupArray(uint makeId)
         {
-            Dictionary<EnumBikeBodyStyles, IEnumerable<int>> LookupArray = null;
-            IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
+            Dictionary<EnumBikeBodyStyles, IEnumerable<uint>> LookupArray = new Dictionary<EnumBikeBodyStyles,IEnumerable<uint>>();
             try
             {
                 var objData = GetModelIdsForImages(makeId, EnumBikeBodyStyles.AllBikes);
                 if (objData != null)
                 {
-                   
+                    foreach (EnumBikeBodyStyles bodyStyle in _bodyStyles)
+                    {
+                        IEnumerable<uint> modelIds = null;
+                        modelIds = objData.Where(g => (bodyStyle.Equals(g.BodyStyle))).Select(g => g.ModelId);
+                        if (modelIds != null && modelIds.Any())
+                        {
+                            LookupArray.Add(bodyStyle, modelIds);
+                        }
+                        
+                    }
                 }
             }
             catch (Exception ex)

@@ -12,7 +12,7 @@ namespace Bikewale.Models.Photos
     public class MakePhotosPageVM : ModelBase
     {
         public IEnumerable<ModelImages> BikeModelsPhotos { get; set; }
-        public Dictionary<EnumBikeBodyStyles, IEnumerable<int>> ModelBodyStyleArray { get; set; }
+        public Dictionary<EnumBikeBodyStyles, IEnumerable<uint>> ModelBodyStyleArray { get; set; }
         public string ImagesSynopsis { get; set; }
     }
 }

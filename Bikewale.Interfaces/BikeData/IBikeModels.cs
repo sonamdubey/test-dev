@@ -70,6 +70,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<ModelImages> GetBikeModelsPhotoGallery(string modelIds, int requiredImageCount);
         IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount);
         ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount, ImagePager pager);
-        Dictionary<EnumBikeBodyStyles, IEnumerable<int>> GetModelsWithBodyStyleLookupArray(uint makeId);
+        Dictionary<EnumBikeBodyStyles, IEnumerable<uint>> GetModelsWithBodyStyleLookupArray(uint makeId);
     }
 }

@@ -38,6 +38,11 @@ namespace Bikewale.Controllers
             _objMakeCache = objMakeCache;
         }
 
+        /// <summary>
+        /// Description : Image landing page for Desktop
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <returns></returns>
         [Route("photos/"), Filters.DeviceDetection]
         public ActionResult Index(uint? pageNo)
         {
@@ -47,6 +52,11 @@ namespace Bikewale.Controllers
             return View(objData);
         }
 
+        /// <summary>
+        /// Description : Image landing page for mobile
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <returns></returns>
         [Route("m/photos/")]
         public ActionResult Index_Mobile(uint? pageNo)
         {
@@ -54,6 +64,54 @@ namespace Bikewale.Controllers
             objModel.PageSize = 30;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
             return View(objData);
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Jan 2018
+        /// Description : Make images landing page for Desktop 
+        /// </summary>
+        /// <returns></returns>
+        [Route("photos/{makeMasking}-bikes/"), Filters.DeviceDetection]
+        public ActionResult Make(string makeMasking)
+        {
+            MakePhotosPage obj = new MakePhotosPage(false, makeMasking, _objModelEntity, _objMakeCache);
+            if (obj.Status.Equals(StatusCodes.ContentFound))
+            {
+                MakePhotosPageVM objData = obj.GetData();
+                return View(objData);
+            }
+            else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
+            {
+                return RedirectPermanent(obj.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Jan 2018
+        /// Description : Make images landing page for mobile 
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/photos/{makeMasking}-bikes/")]
+        public ActionResult Make_Mobile(string makeMasking)
+        {
+            MakePhotosPage obj = new MakePhotosPage(true, makeMasking, _objModelEntity, _objMakeCache);
+            if (obj.Status.Equals(StatusCodes.ContentFound))
+            {
+                MakePhotosPageVM objData = obj.GetData();
+                return View(objData);
+            }
+            else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
+            {
+                return RedirectPermanent(obj.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
         }
 
         /// <summary>
@@ -115,18 +173,5 @@ namespace Bikewale.Controllers
             }
         }
 
-		[Route("photos/make/")]
-		public ActionResult Make()
-		{
-			ModelBase objModel = new ModelBase();
-			return View(objModel);
-		}
-
-		[Route("m/photos/make/")]
-		public ActionResult Make_Mobile()
-		{
-			ModelBase objModel = new ModelBase();
-			return View(objModel);
-		}
     }
 }
