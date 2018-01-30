@@ -1,8 +1,8 @@
 ﻿@model  Bikewale.Models.DealerShowroomCityPageVM
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_JS_Path = "/src/dealer/listing.js";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/listing.css' inline />";
+	Model.Page_JS_Path = "/src/dealer/listing.js";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/brand-logo.css' inline />";
     Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
     Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
     Model.AdTags.AdId = "1516179171948";
