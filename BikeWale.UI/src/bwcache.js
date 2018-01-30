@@ -288,6 +288,8 @@ Description : WebStorage Library with cookie as a fallback.
 			Example : getbyExpiry(object,string);
 		*/
 
+
+
 	var getbyExpiry = function (key, expiry, storage) {
             try {
                 if (typeCheck(key, 'string')) {
@@ -409,16 +411,28 @@ Description : WebStorage Library with cookie as a fallback.
                     if (typeCheck(isExpired, 'boolean')) {
                         var currentTime = (new Date()).getTime();
                         for (var i in storage) {
+                            try
+                            {
                             if (i.indexOf(_options.StoragePrefix) > -1) {
                                 var data = storage[i];
                                 if (_options.EnableEncryption && data) data = Base64.decode(data);
                                 var _item_ = JSON.parse(data) || {};
-                                var time = _item_.expiryTime || 1;
+
+                                 var time = _item_.expiryTime || 1;
+
                                 if (_item_.expiryTime)
                                 {
-                                    if (time < currentTime) storage.removeItem(i);
-                                }                             
 
+                                    if (time < currentTime) storage.removeItem(i);
+                                }
+                                 
+            
+                                }
+                            }
+                            catch(e)
+                            {
+                                storage.removeItem(i);
+                                continue;
                             }
                         }
                         return true;
@@ -489,12 +503,13 @@ Description : WebStorage Library with cookie as a fallback.
             try {
                 key = createKey(key);
                 if (_webStorageSupported) {
-                    var _item_ = { 'key': key, 'value': value };
+                    var _item_ = { 'key': key, 'value': value, 'expiryTime': 15 };
                     var storage = ((isSession && typeCheck(isSession, 'boolean')) || (typeCheck(isSession, 'undefined') && typeCheck(value, 'boolean')) || _options.IsSessionStorage) ? window.sessionStorage : window.localStorage;
                     if (typeCheck(key, 'object')) {
                         _item_ = {
                             'key': createKey(key.key, key.scope ? key.scope : ''),
-                            'value': key.value
+                            'value': key.value,
+                            'expiryTime': 15
                         };
                         if (key.expiryTime) _item_.expiryTime = key.expiryTime || 0;
 
@@ -613,6 +628,7 @@ Description : WebStorage Library with cookie as a fallback.
             removeAllCookie: function (isExpired) // check for isExpired if true then remove only expired cookie
             {
                 try {
+
                     var bwc = document.cookie.split(';').map(function (x) { return x.trim().split('='); }).reduce(function (a, b) { a[b[0]] = b[1]; return a; }, {});
                     if (typeCheck(isExpired, 'boolean')) {
                         var currentTime = (new Date()).getTime();
