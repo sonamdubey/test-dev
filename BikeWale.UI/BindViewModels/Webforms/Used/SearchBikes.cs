@@ -1,8 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.Used.Search;
@@ -24,6 +20,10 @@ using Bikewale.Interfaces.Used.Search;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 namespace Bikewale.BindViewModels.Webforms.Used
 {
     public class SearchUsedBikes
@@ -240,7 +240,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
                 heading = string.Format("Used {0} Bikes in {1}", BikeName, City);
 
-                pageTitle = string.Format("Used {0} Bikes in {1} - {2} Verified Bike Listing For Sale | BikeWale", BikeName, City, _totalBikes);
+                pageTitle = string.Format("{0} Verified used {1} bikes in {2} - BikeWale", _totalBikes, BikeName, City);
 
                 pageCanonical = string.Format("https://www.bikewale.com/{0}", HttpContext.Current.Request.RawUrl.ToLower().Substring(1));
 
