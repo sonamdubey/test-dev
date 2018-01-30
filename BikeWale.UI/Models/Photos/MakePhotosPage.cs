@@ -54,6 +54,7 @@ namespace Bikewale.Models.Photos
                 {
                     MakeName = _objData.BikeModelsPhotos.First().MakeBase.MakeName;
                     ModelsCount = _objData.BikeModelsPhotos.Count();
+                    _objData.Make = _objData.BikeModelsPhotos.First().MakeBase;
                 }
                 BindImageSynopsis(_objData);
                 SetBreadcrumList(_objData);

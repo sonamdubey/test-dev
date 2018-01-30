@@ -6,22 +6,29 @@
 	Model.Page_JS_Path = "/src/photos/landing.js";
 }
 
+<script>
+    var isMobile = true;
+</script>
 <section>
-	<div class="container padding-15-20-20 bg-white">
-		<h1 class="text-semibold margin-bottom10">Bike Images</h1>
-		<div class="foldable-content" data-toggle="yes">
-			<p class="truncatable-content" data-readtextflag="1">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce condimentum consectetur mauris. In convallis sem risus, pulvinar faucibus erat semper vel. Ut porttitor, turpis eget tempus euismod, velit nibh porttitor nunc, ac lobortis eros augue sed tortor. Pellentesque bibendum euismod mauris eget tempor. Nam nulla ante, facilisis a dignissim sed, suscipit vel ex. Sed in porta leo, efficitur fringilla lectus. Praesent malesuada, erat nec dictum egestas, eros ex ornare libero, hendrerit feugiat metus risus quis orci. Vestibulum in pellentesque quam. Donec fringilla massa et odio malesuada maximus. Curabitur dignissim nisi non ipsum blandit lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec libero sem, lobortis quis nisl sit amet, pretium bibendum orci. Cras sed luctus lectus. In tincidunt, leo in porttitor placerat, elit quam porttitor ex, a vestibulum massa felis ac ante. Sed sit amet tellus ac leo euismod tempus. Proin arcu turpis, aliquam vitae odio vitae, consectetur vulputate leo.</p>
-				<a href="javascript:void(0)" class="read-more-button" rel="nofollow" data-text="Collapse">...Read more</a>
-			</div>
-	</div>
+@if (Model.Make != null)
+{
+    <div class="container padding-15-20-20 bg-white">
+
+        <h1 class="text-semibold margin-bottom10">@Model.Make.MakeName Bikes Images</h1>
+        <div class="foldable-content" data-toggle="yes">
+            <p class="truncatable-content" data-readtextflag="1">@Model.ImagesSynopsis</p>
+            <a href="javascript:void(0)" class="read-more-button" rel="nofollow" data-text="Collapse">...Read more</a>
+        </div>
+
+    </div>
+}
 </section>
 
 <section class="text-center section-bottom-margin"></section>
 
 <section>
 	<div class="container section-bottom-margin">
-		<h2 class="explore-bikes__title">All Bikes</h2>
+		<h2 class="explore-bikes__title">All @Model.Make.MakeName Bikes</h2>
 		<div class="explore-bikes__container">
 			<div class="explore-bikes__content">
 				<div class="explore-bikes__search form-control-box">

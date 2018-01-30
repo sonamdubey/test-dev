@@ -1,4 +1,7 @@
 ﻿var objBikes = new Object(), focusedMakeModel = null, isMakeModelRedirected = false;
+if (typeof currentPageNo === "undefined") {
+    var currentPageNo = "1";
+}
 var nextPageUrl;
 docReady(function () {
 	$("#exploreBikesField").val("");
