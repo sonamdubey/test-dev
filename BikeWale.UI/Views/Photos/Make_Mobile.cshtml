@@ -1,13 +1,41 @@
 ﻿@model Bikewale.Models.Photos.MakePhotosPageVM
+@using Bikewale.Entities.GenericBikes;
+
 @{
-	ViewBag.Title = "Bike Images";
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
 	Model.Page_JS_Path = "/src/photos/landing.js";
 }
 
-<script>
+<script type="text/javascript">
     var isMobile = true;
+    var lookupArray = {};
+    @if (Model.ModelBodyStyleArray != null)
+    {
+
+    if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Scooter) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Scooter].Any())
+    {
+        <text>
+        lookupArray["@((int)EnumBikeBodyStyles.Scooter)"] = @Json.Encode(Model.ModelBodyStyleArray[EnumBikeBodyStyles.Scooter]);
+        </text>
+    }
+    if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Cruiser) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Cruiser].Any()) {
+        <text>
+        lookupArray["@((int)EnumBikeBodyStyles.Cruiser)"] = @Json.Encode(Model.ModelBodyStyleArray[EnumBikeBodyStyles.Cruiser]);
+        </text>
+    }
+    if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Sports) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Sports].Any()) {
+        <text>
+        lookupArray["@((int)EnumBikeBodyStyles.Sports)"] = @Json.Encode(Model.ModelBodyStyleArray[EnumBikeBodyStyles.Sports]);
+        </text>
+    }
+    if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Street) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Street].Any()) {
+        <text>
+        lookupArray["@((int)EnumBikeBodyStyles.Street)"] = @Json.Encode(Model.ModelBodyStyleArray[EnumBikeBodyStyles.Street]);
+        </text>
+    }
+    }
+
 </script>
 <section>
 @if (Model.Make != null)
@@ -28,7 +56,9 @@
 
 <section>
 	<div class="container section-bottom-margin">
-		<h2 class="explore-bikes__title">All @Model.Make.MakeName Bikes</h2>
+        @if(Model.Make != null ) {
+            <h2 class="explore-bikes__title">All @Model.Make.MakeName Bikes</h2>
+        }
 		<div class="explore-bikes__container">
 			<div class="explore-bikes__content">
 				<div class="explore-bikes__search form-control-box">
@@ -49,153 +79,84 @@
 					</p>
 					<div class="filter-category__list-content">
 						<ul id="filterBodyType" class="filter-category__list">
-							<li class="filter-list__item body-type__item active">
-								<span class="scooter-style-icon"></span>
-								<span class="body-type__label">Scooter</span>
-							</li>
-							<li class="filter-list__item body-type__item">
-								<span class="street-style-icon"></span>
-								<span class="body-type__label">Street</span>
-							</li>
-							<li class="filter-list__item body-type__item">
-								<span class="cruiser-style-icon"></span>
-								<span class="body-type__label">Cruiser</span>
-							</li>
-							<li class="filter-list__item body-type__item disable">
-								<span class="sports-style-icon"></span>
-								<span class="body-type__label">Sports</span>
-							</li>
+                            @if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Scooter) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Scooter].Any())
+                            {
+                                <li class="filter-list__item body-type__item" data-bodytype="@((int)EnumBikeBodyStyles.Scooter)">
+                                    <span class="scooter-style-icon"></span>
+                                    <span class="body-type__label">Scooter</span>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="filter-list__item body-type__item disable" data-bodytype="@((int)EnumBikeBodyStyles.Scooter)">
+                                    <span class="scooter-style-icon"></span>
+                                    <span class="body-type__label">Scooter</span>
+                                </li>
+                            }
+
+
+                            @if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Street) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Street].Any())
+                            {
+                                <li class="filter-list__item body-type__item" data-bodytype="@((int)EnumBikeBodyStyles.Street)">
+                                    <span class="street-style-icon"></span>
+                                    <span class="body-type__label">Street</span>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="filter-list__item body-type__item disable" data-bodytype="@((int)EnumBikeBodyStyles.Street)">
+                                    <span class="street-style-icon"></span>
+                                    <span class="body-type__label">Street</span>
+                                </li>
+                            }
+                                    
+							@if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Cruiser) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Cruiser].Any())
+                            {
+                                <li class="filter-list__item body-type__item" data-bodytype="@((int)EnumBikeBodyStyles.Cruiser)">
+                                    <span class="cruiser-style-icon"></span>
+                                    <span class="body-type__label">Cruiser</span>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="filter-list__item body-type__item disable" data-bodytype="@((int)EnumBikeBodyStyles.Cruiser)">
+                                    <span class="cruiser-style-icon"></span>
+                                    <span class="body-type__label">Cruiser</span>
+                                </li>
+                            }
+                                    
+							@if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Sports) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Sports].Any())
+                            {
+                                <li class="filter-list__item body-type__item" data-bodytype="@((int)EnumBikeBodyStyles.Sports)">
+                                    <span class="sports-style-icon"></span>
+                                    <span class="body-type__label">Sports</span>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="filter-list__item body-type__item disable" data-bodytype="@((int)EnumBikeBodyStyles.Sports)">
+                                    <span class="sports-style-icon"></span>
+                                    <span class="body-type__label">Sports</span>
+                                </li>
+                            }
+                                    
 						</ul>
 					</div>
 				</div>
 
 				<ul class="explore-model-image__list image-card--list">
-					<li class="explore-model-image-list__item">
-						<a href="" title="" class="model-image__card">
-							<ul class="image-grid__list" data-grid="4">
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-								</li>
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-								</li>
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-								</li>								
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15178/img/l/Bajaj-Pulsar-NS200-Exterior-46161.jpg?v=20170425" alt="">
-								</li>
-							</ul>
-							<div class="card-image__details">
-								<h3 class="card-details__left-col">
-									<span class="card-details__make">Bajaj</span>
-									<span class="card-details__model">Pulsar NS200</span>
-								</h3>
-								<div class="card-details__right-col">
-									<span class="card-details__image-count">74</span></div>
-							</div>
-						</a>
-					</li>
-					<li class="explore-model-image-list__item">
-						<a href="" title="" class="model-image__card">
-							<ul class="image-grid__list" data-grid="3">
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-								</li>
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Front-three-quarter-5134.jpg?v=20170425" alt="">
-								</li>
-								<li class="image-grid-list__item">
-										<img class="lazy" src="" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Side-5135.jpg?v=20170425" alt="">
-								</li>
-							</ul>
-							<div class="card-image__details">
-								<h3 class="card-details__left-col">
-									<span class="card-details__make">Bajaj</span>
-									<span class="card-details__model">Pulsar NS200</span>
-								</h3>
-								<div class="card-details__right-col">
-									<span class="card-details__image-count">74</span></div>
-							</div>
-						</a>
-					</li>
-					<li class="explore-model-image-list__item">
-						<a href="" title="" class="model-image__card">
-							<ul class="image-grid__list" data-grid="1">
-								<li class="image-grid-list__item">
-									<img class="lazy" src="" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/548/img/l/Bajaj-Pulsar-200NS-Rear-three-quarter-5133.jpg?v=20170425" alt="">
-								</li>
-							</ul>
-							<div class="card-image__details">
-								<h3 class="card-details__left-col">
-									<span class="card-details__make">Bajaj</span>
-									<span class="card-details__model">Pulsar NS200</span>
-								</h3>
-								<div class="card-details__right-col">
-									<span class="card-details__image-count">74</span></div>
-							</div>
-						</a>
-					</li>
+					@Html.Partial("~/Views/Photos/_ModelsImageListBase_Mobile.cshtml", Model.BikeModelsPhotos)
 				</ul>
-
-				<div class="explore-model__more-btn">
-					<button type="button" class="btn btn-inv-blue">View More</button>
-				</div>
 			</div>
 		</div>
 	</div>
 </section>
-
-<section>
-	<div class="container bg-white padding-bottom10 section-bottom-margin">
-		<h2 class="related-bikes__title">Users also looked at</h2>
-		<div class="swiper-container carousel__related-makes" data-spacebetween="0">
-			<ul class="swiper-wrapper">
-				<li class="swiper-slide carousel-slide">
-					<a href="" title="" class="related-make-card">
-						<div class="make-icon__content">
-							<span class="brandlogosprite brand-2"></span>
-						</div>
-						<div class="make-details__content">
-							<h3 class="make-details__title">Royal Enfield Bikes</h3>
-							<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-						</div>
-					</a>
-				</li>
-				<li class="swiper-slide carousel-slide">
-					<a href="" title="" class="related-make-card">
-						<div class="make-icon__content">
-							<span class="brandlogosprite brand-7"></span>
-						</div>
-						<div class="make-details__content">
-							<h3 class="make-details__title">Royal Enfield Bikes</h3>
-							<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-						</div>
-					</a>
-				</li>
-				<li class="swiper-slide carousel-slide">
-					<a href="" title="" class="related-make-card">
-						<div class="make-icon__content">
-							<span class="brandlogosprite brand-13"></span>
-						</div>
-						<div class="make-details__content">
-							<h3 class="make-details__title">Yamaha Bikes</h3>
-							<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-						</div>
-					</a>
-				</li>
-				<li class="swiper-slide carousel-slide">
-					<a href="" title="" class="related-make-card">
-						<div class="make-icon__content">
-							<span class="brandlogosprite brand-23"></span>
-						</div>
-						<div class="make-details__content">
-							<h3 class="make-details__title">Husqvarna Bikes</h3>
-							<p class="make-details__subtitle">1234 Images from 156 Bikes</p>
-						</div>
-					</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</section>
+@if (Model != null && Model.OtherPopularMakes != null)
+{
+    <section>
+        <div class="container bg-white padding-bottom10 section-bottom-margin">
+            <h2 class="related-bikes__title">Users also looked at</h2>
+            @Html.Partial("~/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
+        </div>
+    </section>
+}

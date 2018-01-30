@@ -50,6 +50,7 @@ namespace Bikewale.Models.Photos
                 _objData = new MakePhotosPageVM();
                 BindModelPhotos(_objData);
                 BindModelBodyStyleLookupArray(_objData);
+                BindOtherMakesWidget(_objData);
                 if (_objData.BikeModelsPhotos != null && _objData.BikeModelsPhotos.Any())
                 {
                     MakeName = _objData.BikeModelsPhotos.First().MakeBase.MakeName;
@@ -158,6 +159,11 @@ namespace Bikewale.Models.Photos
             }
         }
 
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Jan 2018
+        /// Description : Binding of Bike models of particular make
+        /// </summary>
+        /// <param name="objData"></param>
         private void BindModelPhotos(MakePhotosPageVM objData)
         {
             try
@@ -180,6 +186,11 @@ namespace Bikewale.Models.Photos
             }
         }
 
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Jan 2018
+        /// Description : Creation of Lookup array
+        /// </summary>
+        /// <param name="objData"></param>
         private void BindModelBodyStyleLookupArray(MakePhotosPageVM objData)
         {
             try
@@ -191,6 +202,22 @@ namespace Bikewale.Models.Photos
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.Models.MakePhotosPage.BindModelBodyStyleLookupArray : BindModelBodyStyleLookupArray({0})", objData));
             }
+        }
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Jan 2018
+        /// Description : Bind Other popular makes skipping current make
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindOtherMakesWidget(MakePhotosPageVM objData)
+        {
+            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos).Take(10).Where(make => make.MakeId != _makeId).Take(9);
+            objData.OtherPopularMakes = new OtherMakesVM()
+            {
+                Makes = makes,
+                PageLinkFormat = "/{0}-bikes/",
+                PageTitleFormat = "{0} Bikes",
+                CardText = "bike"
+            };
         }
 
         private void ProcessQuery(string makeMaskingName)

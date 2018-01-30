@@ -1,4 +1,5 @@
 ﻿var objBikes = new Object(), focusedMakeModel = null, isMakeModelRedirected = false;
+var choosenBodyType = "";
 if (typeof currentPageNo === "undefined") {
     var currentPageNo = "1";
 }
@@ -175,6 +176,30 @@ docReady(function () {
 	        return "/" + val.MakeBase.maskingName + "-bikes/" + val.ModelBase.maskingName + "/images/";
 	    }
 	}
+    
+	function filterBikesByBodyType(bodyType) {
+	    var index;
+	    var bikesList = $(".explore-model-image-list__item");
+	    for (index = bikesList.length - 1; index >= 0; index--) {
+	        if (bodyType === 0 || (lookupArray.hasOwnProperty(bodyType) && lookupArray[bodyType].indexOf(parseInt($(bikesList[index]).data('modelid'))) !== -1)) {
+	            $(bikesList[index]).removeClass('hide');
+	        }
+	        else {
+	            $(bikesList[index]).addClass('hide');
+	        }
+	    }
+	}
+
+    // for selecting current enabled filter
+	$(".filter-list__item").not(".disable").click(function (e) {
+	    if (choosenBodyType === $(this).data("bodytype"))
+	        choosenBodyType = 0;
+	    else {
+	        choosenBodyType = $(this).data("bodytype");
+	    }
+	    filterBikesByBodyType(choosenBodyType);
+	    
+	});
 
 	$("#viewMoreBtn").click(function () {
 	    event.preventDefault();

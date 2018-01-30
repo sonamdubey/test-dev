@@ -10,9 +10,14 @@ using Bikewale.Entities.GenericBikes;
 
 namespace Bikewale.Models.Photos
 {
+    /// <summary>
+    /// Created By  : Rajan Chauhan on 30 Jan 2018
+    /// Description : View Model for make photos page
+    /// </summary>
     public class MakePhotosPageVM : ModelBase
     {
         public IEnumerable<ModelImages> BikeModelsPhotos { get; set; }
+        public OtherMakesVM OtherPopularMakes { get; set; }
         public IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> ModelBodyStyleArray { get; set; }
         public BikeMakeEntityBase Make;
         public string ImagesSynopsis { get; set; }
