@@ -1,0 +1,72 @@
+.other-model-list__content
+	margin-top: 15px
+	border: 1px solid color('gainsboro')
+	border-radius: 3px
+
+.other-model-card__target
+	@include flexbox
+	@include flex-wrap
+	@include align-items(center)
+	position: relative
+	padding: 15px 18px
+
+	&:after
+		content: ''
+		position: absolute
+		bottom: 0
+		left: 18px
+		right: 18px
+		border-bottom: 1px solid #e2e2e2
+
+	&:hover
+		text-decoration: none
+
+
+.other-model-card__image
+	width: 107px
+	height: 60px
+	background: color('white-smoke')
+
+	img
+		height: 60px
+
+
+.other-model-card__detail
+	@include flex-grow
+	width: 50%
+	padding-left: 30px
+	padding-right: 15px
+	color: color('default')
+
+.other-model-card__name
+	@include text-truncate
+	font-size: 14px
+	font-weight: $font-semibold
+	margin-bottom: 10px
+
+.other-model-card__count
+	font-size: 13px
+	margin-bottom: 10px
+
+.other-model-card__price
+	font-size: 12px
+
+.other-model-card__arrow
+	@include arrow-right
+	background-position: right
+	background-size: 6px
+	width: 6px
+	height: 12px
+	opacity: .7
+
+.other-model__btn-content
+	padding: 20px
+
+.other-model__more-btn
+	width: 100%
+
+.btn-inv-blue
+	background: color('white')
+	color: color('pacific-blue')
+	border-color: color('pacific-blue')
+

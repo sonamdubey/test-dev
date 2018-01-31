@@ -1,0 +1,147 @@
+﻿$_contact-icon-color: color('gull-grey')
+$_editorial-about-block-border: #d5d5d5 // TODO: Add in color map array
+
+.editorial-card
+	@include card
+	width: 100%
+	height: auto
+	display: block
+	text-decoration: none
+
+	&:hover
+		text-decoration: none
+
+.editorial-card__detail
+	padding: 20px 16px 16px
+
+.editorial-card__name
+	font-size: 16px
+	padding-bottom: 10px
+
+.editorial-card__description
+	color: color('default')
+	font-size: 14px
+	min-height: 100px
+
+.editorial-card__target
+	color: color('default')
+	display: block
+
+	&:hover
+		text-decoration: none
+
+	&:visited
+		text-decoration: none
+
+@mixin editorial-card__footer($border-color: $_editorial-about-block-border)
+	.editorial-card__footer
+		@include flexbox()
+		@include align-items(center)
+		padding: 10px 16px 15px
+		position: relative
+
+		&:after
+			content: ''
+			margin-left: 20px
+			margin-right: 20px
+			border-top: 2px solid $border-color
+			opacity: .5
+			position: absolute
+			top: 0
+			left: 0
+			width: 87%
+
+@mixin editorial-author($width: 30px, $height: 30px)
+	.editorial-author_defult-img
+		@include contact-icon
+		height: $height - 2px
+		width: $width - 2px
+		display: block
+		background-color: $_contact-icon-color
+
+	.editorial-footer__author-img
+		height: $height
+		width: $width
+		overflow: hidden
+		border: 1px solid color('border-dark')
+		border-radius: 50%
+		margin-right: 12px
+
+		img.editorial-author-img
+			max-width: 100px
+			position: relative
+			height: $height
+			left: -15%
+
+.editorial-card__about
+	@include flex-grow
+
+.latest-update-section
+	.carousel-title__label
+		@include update-line-icon
+		background-size: 24px
+		background-position: 0 3px
+		padding-left: 33px
+
+.latest-news-section
+	.carousel-title__label
+		@include news-line-icon()
+		background-size: 24px
+		background-position: 0 center
+		padding-left: 34px
+
+.carousel__editorial
+	padding: 5px 20px 20px 0
+
+	.carousel-slide
+		width: 304px
+		min-height: 419px
+		padding-left: 10px
+
+		&:first-child
+			margin-left: 6px
+	.editorial-card
+		min-height: 419px
+
+.editorial-card__author-name
+	font-size: 13px
+	padding-bottom: 2px
+	display: block
+
+.editorial-card__date-section
+	color: color('light-grey')
+	font-size: 11px
+
+.carousel__title
+	@include flexbox()
+	@include flex-wrap()
+	@include align-items(center)
+	padding: 25px 16px 10px
+		
+.carousel-title__label
+	@include flex-grow
+	@include text-truncate(78%)
+	
+
+.latest-update-icon
+	height: 21px
+	width: 28px
+	display: inline-block
+	vertical-align: middle
+	position: relative
+	top: -2px
+
+.view-all-btn
+	font-size: 14px
+	font-weight: $font-semibold
+
+.editorial-card__image
+	height: 164px
+	width: auto
+	overflow-y: hidden
+
+	img
+		height: 164px
+
+@include editorial-card__footer()
+@include editorial-author()

@@ -1,0 +1,100 @@
+﻿// Core variables and mixins
+@import ../../base/variables
+@import ../../components/typography
+
+@import ../../mixins/index
+@import ../../utils/index
+
+body
+	&.bg-light-grey
+		background: #e3e3e3
+			
+.section-bottom-margin
+	margin-bottom: 20px
+
+.page__heading
+	@include heading-h1
+	padding: 16px
+	background: color('white')
+
+@include overall-tabs
+
+.content--inner-padding
+	padding: 25px 16px 20px
+
+.page__heading-h2
+	@include heading-h2
+	margin-bottom: 2px
+
+.page-heading__disclaimer
+	font-size: 12px
+	color: color('gull-grey')
+
+/* upcoming bikes carousel */
+@import ../../partials/popular-bikes-carousel
+
+
+@import ../../partials/all-bikes-list
+
+/* upcoming bikes carousel */
+@import ../../partials/upcoming-bikes-carousel
+@import ../../partials/notify-update-popup
+
+@import ../../partials/bike-images-carousel
+
+.model-image-section
+	.carousel__title
+		padding-bottom: 12px
+
+	.carousel-title__label
+		@include image-line-icon
+		background-size: 20px
+		background-position: 0 center
+		padding-left: 30px
+
+@import ../../partials/related-make-carousel
+
+@import ../../partials/other-bikes-list
+
+/* news and update carousel */
+@import ../../partials/editorial-carousel
+
+/* review carousel */
+@import ../../modules/review-category
+@import ../../modules/card-category
+@import ../../partials/review-carousel
+
+@include expert-review
+@include user-review()
+
+/* dealer carousel */
+@import ../../partials/dealer-carousel
+@import ../../modules/city-icons
+
+@include carousel__dealer-in-city
+@include carousel__dealer-by-city
+
+
+/* video section */
+@import ../../components/mixins
+@import ../../partials/video-card-container
+
+/*  newly lauched */
+@import ../../partials/newly-lauched-carousel
+
+
+/* interesting fact  */
+@import ../../partials/interesting-fact
+
+@include interesting-fact-popup
+@include interesting-fact-section
+@include interesting-fact__container-scrollbar
+
+
+@media only screen and (max-width: 320px) 
+	.carousel__popular-bikes
+		.carousel-slide
+			width: 305px
+
+
+
