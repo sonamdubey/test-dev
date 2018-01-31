@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// <summary>
+/// Created By : Pratibha Verma on 31st January 2018
+/// Description  : Controller method to render Partial views PrivacyPolicy and VisitorAgreement
+/// </summary>
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
