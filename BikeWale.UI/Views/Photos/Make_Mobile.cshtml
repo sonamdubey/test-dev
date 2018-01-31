@@ -6,7 +6,8 @@
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
 	Model.Page_JS_Path = "/src/photos/landing.js";
 }
-
+@if(Model != null)
+{
 <script type="text/javascript">
     var isMobile = true;
     var lookupArray = {};
@@ -102,15 +103,17 @@
                         </ul>
 					</div>
 				</div>
-
-				<ul class="explore-model-image__list image-card--list">
-					@Html.Partial("~/Views/Photos/_ModelsImageListBase_Mobile.cshtml", Model.BikeModelsPhotos)
-				</ul>
+                @if (Model.BikeModelsPhotos != null)
+                {
+                    <ul class="explore-model-image__list image-card--list">
+                        @Html.Partial("~/Views/Photos/_ModelsImageListBase_Mobile.cshtml", Model.BikeModelsPhotos)
+                    </ul>
+                }
 			</div>
 		</div>
 	</div>
 </section>
-@if (Model != null && Model.OtherPopularMakes != null)
+if (Model.OtherPopularMakes != null)
 {
     <section>
         <div class="container bg-white padding-bottom10 section-bottom-margin">
@@ -118,4 +121,5 @@
             @Html.Partial("~/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
         </div>
     </section>
+}
 }
