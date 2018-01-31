@@ -105,8 +105,8 @@ namespace Bikewale.Models.Photos
                 }
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}new-bikes-in-india/", url), "New Bikes"));
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}", url, UrlFormatter.BikeMakeUrl(MakeMaskingName)), string.Format("{0} Bikes", MakeName)));
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Images"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}images/", url), "Images"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null,string.Format("{0} Images", MakeName)));
                 objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
             }
             catch (Exception ex)
