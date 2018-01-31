@@ -140,6 +140,43 @@ namespace Bikewale.BAL.BikeData.NewLaunched
 
             return result;
         }
+        /// <summary>
+        /// Created by : Sanskar Gupta on 31st Jan 2018
+        /// Description : Get NewlyLaunched bikes by number of days.
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        public NewLaunchedBikeResult GetBikesByDays(InputFilter filters)
+        {
+            NewLaunchedBikeResult result = null;
+            IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
+            try
+            {
+                if (filters.CityId > 0)
+                    bikes = _modelCache.GetNewLaunchedBikesList(filters.CityId);
+                else
+                    bikes = _modelCache.GetNewLaunchedBikesList();
+
+                if (bikes != null && bikes.Any())
+                {
+                    result = new NewLaunchedBikeResult();
+
+                    var filteredBikes = bikes.Where(ProcessInputFilter(filters));
+                    if (filteredBikes != null && filteredBikes.Any())
+                    {
+                        result.Bikes = filteredBikes.Page(filters.PageNo, filters.PageSize);
+                        result.TotalCount = (uint)filteredBikes.Count();
+                        result.Filter = filters;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("NewBikeLaunchesBL.GetBikesByDays({0})", Newtonsoft.Json.JsonConvert.SerializeObject(filters)));
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 10 Feb 2017
