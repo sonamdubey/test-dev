@@ -250,7 +250,6 @@ docReady(function () {
                     },
                     complete: function (xhr) {
                         if (xhr.status == 404 || xhr.status == 204) {
-                            
                             bwcache.set({ key: key, value: null, expiryTime: 15 });
                             compareBox.resetDropdownSelection(selectBox);
                         }
@@ -280,13 +279,11 @@ docReady(function () {
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (response) {
-                        
                         bwcache.set({ key: key, value: response.modelList, expiryTime: 15 });
                         compareBox.setModelDropdown(response.modelList, selectBox);
                     },
                     complete: function (xhr) {
                         if (xhr.status == 404 || xhr.status == 204) {
-                            
                             bwcache.set({ key: key, value: null, expiryTime: 15 });
                             compareBox.resetDropdownSelection(selectBox);
                         }
@@ -311,13 +308,11 @@ docReady(function () {
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (response) {
-
                         bwcache.set({ key: key, value: response.Version, expiryTime: 15 });
                         compareBox.setVersionDropdown(response.Version, selectBox);
                     },
                     complete: function (xhr) {
                     if (xhr.status == 404 || xhr.status == 204) {
-
                         bwcache.set({ key: key, value: null, expiryTime: 15 });
                         compareBox.resetDropdownSelection(selectBox);
                     }
@@ -359,12 +354,10 @@ docReady(function () {
                             data.index = 0;
                             bikeDetails.push(data);
                             selectBox.first().find('.error-text').hide();
-                            
                             bwcache.set({ key: key, value: response, expiryTime: 15 });
                         },
                         complete: function (xhr) {
                             if (xhr.status == 404 || xhr.status == 204) {
-                                //bwcache.set(key, null, 30);
                                 bwcache.set({ key: key, value: null, expiryTime: 15 });
                             }
                         }
