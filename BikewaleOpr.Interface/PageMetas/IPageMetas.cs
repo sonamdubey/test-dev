@@ -5,6 +5,6 @@
     /// </summary>
     public interface IPageMetas
     {
-        bool UpdatePageMetaStatus(uint id, ushort status );
+        bool UpdatePageMetaStatus(string id, ushort status);
     }
 }
