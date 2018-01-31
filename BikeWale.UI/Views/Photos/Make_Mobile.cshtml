@@ -5,8 +5,13 @@
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
 	Model.Page_JS_Path = "/src/photos/landing.js";
+    Model.AdTags.AdId = "1516009422206";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Bike_Image_Mobile";
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_Mid_320x50 = true;
 }
-
+@if(Model != null)
+{
 <script type="text/javascript">
     var isMobile = true;
     var lookupArray = {};
@@ -42,7 +47,7 @@
 {
     <div class="container padding-15-20-20 bg-white">
 
-        <h1 class="text-semibold margin-bottom10">@Model.Make.MakeName Bikes Images</h1>
+        <h1 class="text-semibold margin-bottom10">@Model.Make.MakeName Bike Images</h1>
         <div class="foldable-content" data-toggle="yes">
             <p class="truncatable-content" data-readtextflag="1">@Model.ImagesSynopsis</p>
             <a href="javascript:void(0)" class="read-more-button" rel="nofollow" data-text="Collapse">...Read more</a>
@@ -51,13 +56,18 @@
     </div>
 }
 </section>
-
+if (Model.AdTags != null && Model.AdTags.Ad_Mid_320x50)
+{
+    <section>
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50_Middle.cshtml", Model.AdTags);}
+    </section>
+}
 <section class="text-center section-bottom-margin"></section>
 
 <section>
 	<div class="container section-bottom-margin">
         @if(Model.Make != null ) {
-            <h2 class="explore-bikes__title">All @Model.Make.MakeName Bikes</h2>
+            <h2 class="explore-bikes__title">Explore Images of @Model.Make.MakeName Bikes</h2>
         }
 		<div class="explore-bikes__container">
 			<div class="explore-bikes__content">
@@ -102,20 +112,23 @@
                         </ul>
 					</div>
 				</div>
-
-				<ul class="explore-model-image__list image-card--list">
-					@Html.Partial("~/Views/Photos/_ModelsImageListBase_Mobile.cshtml", Model.BikeModelsPhotos)
-				</ul>
+                @if (Model.BikeModelsPhotos != null)
+                {
+                    <ul class="explore-model-image__list image-card--list">
+                        @Html.Partial("~/Views/Photos/_ModelsImageListBase_Mobile.cshtml", Model.BikeModelsPhotos)
+                    </ul>
+                }
 			</div>
 		</div>
 	</div>
 </section>
-@if (Model != null && Model.OtherPopularMakes != null)
+if (Model.OtherPopularMakes != null)
 {
     <section>
         <div class="container bg-white padding-bottom10 section-bottom-margin">
-            <h2 class="related-bikes__title">Users also looked at</h2>
+            <h2 class="related-bikes__title">Browse Images by Brands</h2>
             @Html.Partial("~/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
         </div>
     </section>
+}
 }
