@@ -16,9 +16,16 @@ namespace BikewaleOpr.BAL
         {
             _pageMetas = PageMetas;
         }
-        public bool UpdatePageMetaStatus(uint id, ushort status)
+        /// <summary>
+        /// Modified by : Snehal Dange on 30th Jan 2018
+        /// Description : Changed datatype of id from 'uint' to 'string'
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public bool UpdatePageMetaStatus(string id, ushort status)
         {
-           return  _pageMetas.UpdatePageMetaStatus(id, status);
+            return _pageMetas.UpdatePageMetaStatus(id, status);
         }
     }
 }

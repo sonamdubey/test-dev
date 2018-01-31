@@ -1,4 +1,4 @@
-﻿@model Bikewale.Models.ModelBase
+﻿@model Bikewale.Models.MakePageVM
 
 @{
     ViewBag.Title = "Bike Make page";
@@ -448,102 +448,16 @@
                 </ul>
             </div>
         </section>
-
+@if (Model.IsUpComingBikesAvailable)
+        {
         <section>
             <div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
-                <h2 class="upcoming-carousel__title page__heading-h2">Upcoming Royal Enfield Bikes</h2>
+                <h2 class="upcoming-carousel__title page__heading-h2">Upcoming @Model.MakeName bikes</h2>
 
-                <div class="swiper-container carousel__upcoming-bikes" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        <li class="swiper-slide carousel-slide">
-                            <div class="model-upcoming__card">
-                                <a href="" title="" class="upcoming-card__target">
-                                    <div class="upcoming-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                    <div class="upcoming-card__detail">
-                                        <span class="upcoming-card__date">July 2017 Expected</span>
-                                        <h3 class="upcoming-card__name">Himalayan 750</h3>
-                                        <p class="upcoming-card__price-label">Expected Price Range</p>
-                                        <p class="upcoming-card__price">
-                                            &#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="upcoming-card__footer">
-                                    <p class="upcoming-card__notify-label">Get latest update of this bike</p>
-                                    <span class="upcoming-card__notify-btn">Notify Me</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="swiper-slide carousel-slide">
-                            <div class="model-upcoming__card">
-                                <a href="" title="" class="upcoming-card__target">
-                                    <div class="upcoming-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                    <div class="upcoming-card__detail">
-                                        <span class="upcoming-card__date">July 2017 Expected</span>
-                                        <h3 class="upcoming-card__name">Himalayan 750</h3>
-                                        <p class="upcoming-card__price-label">Expected Price Range</p>
-                                        <p class="upcoming-card__price">
-                                            &#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="upcoming-card__footer">
-                                    <p class="upcoming-card__notify-label">Get latest update of this bike</p>
-                                    <span class="upcoming-card__notify-btn">Notify Me</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="swiper-slide carousel-slide">
-                            <div class="model-upcoming__card">
-                                <a href="" title="" class="upcoming-card__target">
-                                    <div class="upcoming-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                    <div class="upcoming-card__detail">
-                                        <span class="upcoming-card__date">July 2017 Expected</span>
-                                        <h3 class="upcoming-card__name">Himalayan 750</h3>
-                                        <p class="upcoming-card__price-label">Expected Price Range</p>
-                                        <p class="upcoming-card__price">
-                                            &#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="upcoming-card__footer">
-                                    <p class="upcoming-card__notify-label">Get latest update of this bike</p>
-                                    <span class="upcoming-card__notify-btn">Notify Me</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="swiper-slide carousel-slide">
-                            <div class="model-upcoming__card">
-                                <a href="" title="" class="upcoming-card__target">
-                                    <div class="upcoming-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                    <div class="upcoming-card__detail">
-                                        <span class="upcoming-card__date">July 2017 Expected</span>
-                                        <h3 class="upcoming-card__name">Himalayan 750</h3>
-                                        <p class="upcoming-card__price-label">Expected Price Range</p>
-                                        <p class="upcoming-card__price">
-                                            &#x20b9;&nbsp;<span class="text--semibold">23,45,000 - </span>&#x20b9;&nbsp;<span class="text-semibold">24,50,000</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="upcoming-card__footer">
-                                    <p class="upcoming-card__notify-label">Get latest update of this bike</p>
-                                    <span class="upcoming-card__notify-btn">Notify Me</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile_V2.cshtml", Model.UpcomingBikes)
             </div>
         </section>
-
+}
         <div id="notifyPopup">
             <div class="notify-popup__content">
                 <span id="notifyCloseBtn"></span>

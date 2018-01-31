@@ -3,12 +3,16 @@
     ViewBag.Title = "Page Metas";
     ViewBag.PageTitle = "Page Metas";
 }
-<div class="row" style="margin-top:10px;">
+<div class="row" style="margin-top:10px;" id="managePageMetas">
     <div class="col m10">
         <div id="tblBanners" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
             <table class="bordered highlight z-depth-3 centered responsive-table">
                 <thead>
                     <tr>
+                        <th>
+                            <input type="checkbox" class="filled-in deleteCheckBoxClicked" id="chkAll" />
+                            <label for="chkAll"></label>
+                        </th>
                         <th>Id</th>
                         <th>Page</th>
                         <th>Platform</th>
@@ -26,6 +30,10 @@
                         @foreach (var item in Model.PageMetaList)
                         {
                             <tr>
+                                <td>
+                                    <input data-metaid="@item.Id" type="checkbox" class="filled-in deleteCheckBoxClicked" id="chkAll-@item.Id" title="Select all" />
+                                    <label for="chkAll-@item.Id"></label>
+                                </td>
                                 <td>@item.Id</td>
                                 <td>@item.PageName</td>
                                 <td>@item.Platform</td>
@@ -39,7 +47,7 @@
                                 @if (item.IsActive)
                                 {
                                     <td>
-                                        <a data-pagemetaid="@item.Id" data-modelid="@item.ModelId" data-makeid="@item.MakeId" data-setstatus="0" href="javascript:void(0)" class="tooltipped update-status" data-position="bottom" data-delay="50" data-tooltip="Delete page meta"><i class="material-icons icon-red">delete</i></a>
+                                        <a id="metaDelete_@item.Id" data-pagemetaid="@item.Id" data-modelid="@item.ModelId" data-makeid="@item.MakeId" data-setstatus="0" href="javascript:void(0)" class="tooltipped update-status" data-position="bottom" data-delay="50" data-tooltip="Delete page meta"><i class="material-icons icon-red">delete</i></a>
                                     </td>
                                 }
                                 else
@@ -62,11 +70,24 @@
                 <div class="collapsible-body">
                     <div class="input-field row s12" style="margin-left:20px">
                         <a target="_blank" rel="noopener" class="btn waves-effect waves-light" href="/PageMetas/add/">Add new</a>
+                      
+                    </div>
+                </div>
+            </li>
+            <li id="deleteAccordian">
+                <div class="collapsible-header"><strong>Delete Page Meta</strong></div>
+                <div class="collapsible-body">
+                    <div class="input-field row s12" style="margin-left:20px">
+                        <a href="#!" target="_blank" rel="noopener" class="btn waves-effect waves-light" data-bind="click : function(){ deleteRecords(); }">Delete</a>
+                    </div>
+                    <div class="input-field row s12" style="margin-left:20px">
+                        <a target="_blank" rel="noopener" class="btn waves-effect waves-light red lighten-2" href="#!" data-bind="click : function(){ slideUp(); }">Cancel</a>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
+  
 
 </div>
 <script src="/src/pagemetasearch.js"></script>

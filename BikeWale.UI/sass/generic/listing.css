@@ -210,12 +210,51 @@
   .brand-type-container li {
     width: 170px; } }
 
-.brand-1, .brand-10, .brand-11, .brand-12, .brand-13, .brand-14, .brand-15, .brand-16, .brand-17, .brand-18, .brand-19, .brand-2, .brand-20, .brand-22, .brand-23, .brand-24, .brand-3, .brand-34, .brand-37, .brand-38, .brand-39, .brand-4, .brand-40, .brand-41, .brand-42, .brand-5, .brand-6, .brand-7, .brand-8, .brand-81, .brand-71, .brand-9, .brand-21, .brand-38, .brand-23, .brand-72, .brand-73, .brand-74, .brand-75 {
-  height: 50px; }
-
 .brandlogosprite {
-  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?18Dec20171513599310542) no-repeat;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?30Jan20181517282547756") no-repeat;
   display: inline-block; }
+
+.brand-1,
+.brand-10,
+.brand-11,
+.brand-12,
+.brand-13,
+.brand-14,
+.brand-15,
+.brand-16,
+.brand-17,
+.brand-18,
+.brand-19,
+.brand-2,
+.brand-20,
+.brand-22,
+.brand-23,
+.brand-24,
+.brand-3,
+.brand-34,
+.brand-37,
+.brand-38,
+.brand-39,
+.brand-4,
+.brand-40,
+.brand-41,
+.brand-42,
+.brand-5,
+.brand-6,
+.brand-7,
+.brand-8,
+.brand-81,
+.brand-71,
+.brand-9,
+.brand-21,
+.brand-38,
+.brand-23,
+.brand-72,
+.brand-73,
+.brand-74,
+.brand-75,
+.brand-76 {
+  height: 50px; }
 
 .brand-2 {
   width: 87px;
@@ -352,6 +391,10 @@
 .brand-75 {
   width: 122px;
   background-position: -3400px 0; }
+
+.brand-76 {
+  width: 124px;
+  background-position: -3530px 0; }
 
 .block-button-list li {
   text-align: center;
