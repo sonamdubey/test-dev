@@ -273,6 +273,7 @@
 
 @mixin model-detail__make-name($font-size: 10px, $color: color('light-grey'))
 	.model-detail__make-name
+		@include text-truncate
 		font-size: $font-size
 		color: $color
 		font-weight: $font_semibold

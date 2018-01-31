@@ -1,66 +1,53 @@
-﻿$_interesting-fact-gradient2: #c84438 // TODO: Add in color map array
-$_interesting-fact-gradient1: #ffaaa1 // TODO: Add in color map array
-$_readmore-button: color('pacific-blue')
-$_color-transparent: rgba(255,255,255,0.001)
-@mixin interesting-fact-section($color1: $_interesting-fact-gradient1, $color2: $_interesting-fact-gradient2)
+﻿$_color-transparent: rgba(255,255,255,0.001)
+
+@mixin interesting-fact-section($color1: color('rose-bud'), $color2: color('grenadier'))
 	.interesting-fact-section
 		padding: 25px 20px
 		background: -webkit-linear-gradient(120deg, $color2, $color1)
 		background: linear-gradient(120deg, $color1, $color2)
 
+@mixin interesting-fact__top-overlay
+	content: ''
+	position: absolute
+	height: 20%
+	top: 0
+	left: 0
+	right: 0
+	z-index: 1
+	display: block
+	background: -webkit-linear-gradient(270deg, color('white') 30%, $_color-transparent 90%)
+	background: linear-gradient(180deg, color('white') 30%, $_color-transparent 90%)
+
+@mixin interesting-fact__bottom-overlay
+	content: ''
+	position: absolute
+	height: 20%
+	bottom: 0
+	left: 0
+	right: 0
+	z-index: 1
+	display: block
+	background: -webkit-linear-gradient(270deg, $_color-transparent 30%, color('white') 90%)
+	background: linear-gradient(180deg, $_color-transparent 30%, color('white') 90%)
 
 @mixin interesting-fact__white-overlay
 	.fact-container__block
 		&[data-overlay= 'bottom']
 			&:after
-				content: ''
-				position: absolute
-				height: 20%
-				bottom: 0
-				left: 0
-				right: 0
-				display: block
-				background: -webkit-linear-gradient(270deg, $_color-transparent, color('white'))
-				background: linear-gradient(180deg, $_color-transparent, color('white'))
+				@include interesting-fact__bottom-overlay
 
 	.fact-container__block
 		&[data-overlay= 'top']
 			&:after
-				content: ''
-				position: absolute
-				height: 20%
-				top: 0
-				left: 0
-				right: 0
-				z-index: 1
-				display: block
-				background: -webkit-linear-gradient(270deg, color('white') 30%, $_color-transparent 90%)
-				background: linear-gradient(180deg, color('white') 30%, $_color-transparent 90%)
+				@include interesting-fact__top-overlay
 
 	.fact-container__block
 		&[data-overlay= 'both']
 			&:before
-				content: ''
-				position: absolute
-				height: 20%
-				top: 0
-				left: 0
-				right: 0
-				z-index: 1
-				display: block
-				background: -webkit-linear-gradient(270deg, color('white') 30%, $_color-transparent 90%)
-				background: linear-gradient(180deg, color('white') 30%, $_color-transparent 90%)
-
+				@include interesting-fact__top-overlay
+				
 			&:after
-				content: ''
-				position: absolute
-				height: 20%
-				bottom: 0
-				left: 0
-				right: 0
-				display: block
-				background: -webkit-linear-gradient(270deg, $_color-transparent, color('white'))
-				background: linear-gradient(180deg, $_color-transparent, color('white'))
+				@include interesting-fact__bottom-overlay
 
 .interesting-fact__whiteout-window
 	@include vendor-prefix('transition', all .3s cubic-bezier(0, 0, .3, 1))
@@ -108,6 +95,14 @@ $_color-transparent: rgba(255,255,255,0.001)
 		.page__heading-h2
 			padding-right: 30px
 
+	#interestingFactCloseBtn
+		@include cross-fff-icon
+		position: absolute
+		right: 15px
+		top: 20px
+		width: 30px
+		height: 30px
+		background-size: 14px
 
 	@include interesting-fact__white-overlay
 
@@ -131,16 +126,6 @@ $_color-transparent: rgba(255,255,255,0.001)
 		color: color('white')
 		margin-bottom: 30px
 		text-transform: capitalize
-
-
-#interestingFactCloseBtn
-	position: absolute
-	right: 15px
-	top: 20px
-	width: 30px
-	height: 30px
-	@include cross-fff-icon
-	background-size: 14px
 
 .interesting-fact-container
 	background: color('white')
@@ -171,14 +156,14 @@ $_color-transparent: rgba(255,255,255,0.001)
 	@include right-arrow-0288d1-icon
 	font-size: 14px
 	font-weight: $font-semibold
-	color: $_readmore-button
+	color: color('pacific-blue')
 	position: relative
 	display: inline-block
 	padding-right: 15px
 	background-position: 100% center
 	background-size: 7px
 
-.interesting-fact__link-block
+.interesting-fact__link
 	text-align: right	
 
 @mixin interesting-fact__container-scrollbar
