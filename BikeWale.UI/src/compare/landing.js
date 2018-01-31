@@ -365,7 +365,7 @@ docReady(function () {
                         complete: function (xhr) {
                             if (xhr.status == 404 || xhr.status == 204) {
                                 //bwcache.set(key, null, 30);
-                                bwcache.set({ key: key, value: null, expiryTime: 30 });
+                                bwcache.set({ key: key, value: null, expiryTime: 15 });
                             }
                         }
                     });
