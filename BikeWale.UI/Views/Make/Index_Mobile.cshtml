@@ -115,7 +115,7 @@
                                                         <span class="text-bold font18">Price unavailable</span>
                                                     }
                                                 </div>
-                                                @if (bike.VersionPrice > 0 && Model.ShowCheckOnRoadpriceBtn)
+                                                @if (bike.VersionPrice > 0)
                                                 {
                                                     <a href="javascript:void(0)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage)" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
                                                 }
