@@ -984,6 +984,7 @@
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\ScooterNewsPage.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
+    <Compile Include="Models\Photos\MakePhotosPage.cs" />
     <Compile Include="Models\Photos\PhotosPage.cs" />
     <Compile Include="Models\Photos\SimilarBikesWithPhotosWidget.cs" />
     <Compile Include="Models\Photos\v1\PhotosPage.cs" />
@@ -3968,6 +3969,7 @@
     <Content Include="Views\Shared\Ads\Desktop\Ad_Comparo_976x400.cshtml" />
     <Content Include="Views\Photos\_OtherPopularMakes_Mobile.cshtml" />
     <Content Include="Views\Photos\_ModelsImageList_Mobile.cshtml" />
+    <Content Include="Views\Photos\_ModelsImageListBase_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
