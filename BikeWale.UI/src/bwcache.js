@@ -503,13 +503,13 @@ Description : WebStorage Library with cookie as a fallback.
             try {
                 key = createKey(key);
                 if (_webStorageSupported) {
-                    var _item_ = { 'key': key, 'value': value, 'expiryTime': 15 };
+                    var _item_ = { 'key': key, 'value': value };
                     var storage = ((isSession && typeCheck(isSession, 'boolean')) || (typeCheck(isSession, 'undefined') && typeCheck(value, 'boolean')) || _options.IsSessionStorage) ? window.sessionStorage : window.localStorage;
                     if (typeCheck(key, 'object')) {
                         _item_ = {
                             'key': createKey(key.key, key.scope ? key.scope : ''),
                             'value': key.value,
-                            'expiryTime': 15
+                            
                         };
                         if (key.expiryTime) _item_.expiryTime = key.expiryTime || 0;
 
