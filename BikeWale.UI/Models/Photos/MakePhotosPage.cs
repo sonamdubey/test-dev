@@ -24,7 +24,7 @@ namespace Bikewale.Models.Photos
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         public StatusCodes Status { get; set; }
-        public MakeMaskingResponse objResponse { get; set; }
+        public MakeMaskingResponse ObjResponse { get; set; }
         public string RedirectUrl { get; set; }
         private uint _makeId;
         public bool IsMobile { get; set; }
@@ -169,16 +169,19 @@ namespace Bikewale.Models.Photos
             try
             {
                 IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(_makeId, EnumBikeBodyStyles.AllBikes);
-                string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                int requiredImageCount = 4;
-                string categoryIds = CommonApiOpn.GetContentTypesString(
-                    new List<EnumCMSContentType>()
+                if (objModelIds != null && objModelIds.Any())
+                {
+                    string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
+                    int requiredImageCount = 4;
+                    string categoryIds = CommonApiOpn.GetContentTypesString(
+                        new List<EnumCMSContentType>()
                     {
                         EnumCMSContentType.PhotoGalleries,
                         EnumCMSContentType.RoadTest
                     }
-                );
-                objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+                    );
+                    objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+                }
             }
             catch (Exception ex)
             {
@@ -210,32 +213,40 @@ namespace Bikewale.Models.Photos
         /// <param name="objData"></param>
         private void BindOtherMakesWidget(MakePhotosPageVM objData)
         {
-            IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos).Take(10).Where(make => make.MakeId != _makeId).Take(9);
-            objData.OtherPopularMakes = new OtherMakesVM()
+            try
             {
-                Makes = makes,
-                PageLinkFormat = "/{0}-bikes/",
-                PageTitleFormat = "{0} Bikes",
-                CardText = "bike"
-            };
+                IEnumerable<BikeMakeEntityBase> makes = _objMakeCache.GetMakesByType(EnumBikeType.Photos).Where(make => make.MakeId != _makeId).Take(9);
+                objData.OtherPopularMakes = new OtherMakesVM()
+                {
+                    Makes = makes,
+                    PageLinkFormat = "/{0}-bikes/",
+                    PageTitleFormat = "{0} Bikes",
+                    CardText = "bike"
+                };
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.MakePhotosPage.BindOtherMakesWidget : BindOtherMakesWidget({0})", objData));
+            }
+            
         }
 
         private void ProcessQuery(string makeMaskingName)
         {
             try
             {
-                objResponse = _objMakeCache.GetMakeMaskingResponse(makeMaskingName);
-                if (objResponse != null)
+                ObjResponse = _objMakeCache.GetMakeMaskingResponse(makeMaskingName);
+                if (ObjResponse != null)
                 {
-                    Status = (StatusCodes)objResponse.StatusCode;
-                    if (objResponse.StatusCode == 200)
+                    Status = (StatusCodes)ObjResponse.StatusCode;
+                    if (ObjResponse.StatusCode == 200)
                     {
-                        _makeId = objResponse.MakeId;
-                        MakeMaskingName = objResponse.MaskingName;
+                        _makeId = ObjResponse.MakeId;
+                        MakeMaskingName = ObjResponse.MaskingName;
                     }
-                    else if (objResponse.StatusCode == 301)
+                    else if (ObjResponse.StatusCode == 301)
                     {
-                        RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName);
+                        RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(makeMaskingName, ObjResponse.MaskingName);
                         Status = StatusCodes.RedirectPermanent;
                     }
                     else

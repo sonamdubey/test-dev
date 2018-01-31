@@ -1,5 +1,5 @@
 ﻿var objBikes = new Object(), focusedMakeModel = null, isMakeModelRedirected = false;
-var choosenBodyType = "";
+var choosenBodyType = 0;
 if (typeof currentPageNo === "undefined") {
     var currentPageNo = "1";
 }
@@ -182,10 +182,10 @@ docReady(function () {
 	    var bikesList = $(".explore-model-image-list__item");
 	    for (index = bikesList.length - 1; index >= 0; index--) {
 	        if (bodyType === 0 || (lookupArray.hasOwnProperty(bodyType) && lookupArray[bodyType].indexOf(parseInt($(bikesList[index]).data('modelid'))) !== -1)) {
-	            $(bikesList[index]).removeClass('hide');
+	            $(bikesList[index]).show();
 	        }
 	        else {
-	            $(bikesList[index]).addClass('hide');
+	            $(bikesList[index]).hide();
 	        }
 	    }
 	}

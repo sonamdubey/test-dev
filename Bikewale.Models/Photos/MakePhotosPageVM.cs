@@ -19,7 +19,7 @@ namespace Bikewale.Models.Photos
         public IEnumerable<ModelImages> BikeModelsPhotos { get; set; }
         public OtherMakesVM OtherPopularMakes { get; set; }
         public IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> ModelBodyStyleArray { get; set; }
-        public BikeMakeEntityBase Make;
+        public BikeMakeEntityBase Make { get; set; }
         public string ImagesSynopsis { get; set; }
     }
 }
