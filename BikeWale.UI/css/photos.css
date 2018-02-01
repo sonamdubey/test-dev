@@ -447,6 +447,11 @@
     display: inline-block;
 }
 
+.text-default.footer-tab:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
 
 /* gallery icons */
 .grid-icon,
@@ -1351,3 +1356,4 @@
 .article-desc__title:hover {
 	text-decoration: underline;
 }
+

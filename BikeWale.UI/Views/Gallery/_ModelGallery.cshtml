@@ -65,11 +65,13 @@
 
             <div class="gallery-footer">
                 <div class="footer-tabs-wrapper" data-bind="css: !photosTabActive() && totalVideoCount < 2 ? 'video-tab-absent' : ''">
-
-                    <a data-bind="attr: { href: getImageDownloadUrl() }" class="footer-tab" download>
+                    
+                   
+                    <a class="text-default footer-tab" data-bind="attr: { href: getImageDownloadUrl() }" download>
                         <span class="download-icon"></span>
                         <span class="inline-block font14">Download this Image</span>
                     </a>
+                  
 
                     <div style="display: none" data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab">
                         <span class="bwsprite color-palette"></span>
