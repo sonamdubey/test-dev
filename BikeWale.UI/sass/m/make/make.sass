@@ -108,5 +108,18 @@ body
 
 /* recommended bike */
 @import ../../partials/recommended-bike
+@import ../../partials/_loader
+
+@include recommended-bike__filter-section
+
+// skeleton loader
+@include recommended-bike__model-loader()  // for loader list card
+@include model-loader()
+@include model-loader__image()
+@include model-card__exshowroom-loader()
+
+@import ../../partials/result-not-found
+@include not-found__image()
+@include not-found-description()
 
 @import ../../partials/filter-screen

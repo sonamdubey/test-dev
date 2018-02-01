@@ -1,9 +1,4 @@
-﻿$checkbox-label-color: #565a5c
-$checkbox-color: #bcbcbc
-$refine-result-text: #ababab
-$checkbox-light-green: #4acea8
-
-@mixin refine-result($background: color('border-light'))
+﻿@mixin refine-result($background: color('border-light'))
 	.refine-result
 		position: relative
 		left: -16px
@@ -15,12 +10,12 @@ $checkbox-light-green: #4acea8
 
 	@media only screen and (min-width: 475px)
 		.refine-result
-			width: 107%
+			width: 107%     //fallback for opera mini
 			width: 100vw
 
 	@media only screen and (min-width: 650px)
 		.refine-result
-			width: 103%
+			width: 103%     //fallback for opera mini
 			width: 100vw
 
 .refine-result__heading
@@ -33,14 +28,18 @@ $checkbox-light-green: #4acea8
 	color: color('aluminium')
 
 .btn-inv-blue
-	background: #fff
+	@include text-truncate
+	text-align: center
+	background: color('white')
 	color: color('pacific-blue')
 	border: 1px solid color('pacific-blue')
 	padding: 12px
-	overflow: hidden
-	text-overflow: ellipsis
 	font-weight: 600
 	font-size: 14px
+
+.refine-result__view-more:disabled,
+.refine-result__view-more[disabled]
+	opacity: .5
 
 .refine-result__list
 	padding-top: 15px
@@ -54,17 +53,17 @@ $checkbox-light-green: #4acea8
 		display: none
 
 		&:checked
-			background: $checkbox-light-green
+			background: color('puerto-rico')
 
 			+ .refine-result__checkbox-label
 				font-weight: $font_bold
 
 				&:before
-					background: $checkbox-light-green
+					background: color('puerto-rico')
 		
 	.refine-result__checkbox-label
 		font-size: 14px
-		color: $checkbox-label-color
+		color: color('fiord')
 		padding-right: 10px
 		margin-right: 7px
 		position: relative
@@ -72,6 +71,7 @@ $checkbox-light-green: #4acea8
 		min-width: 118px
 
 		&:before
+			@include vendor-prefix('border-radius', 3px)
 			content: ''
 			display: inline-block
 			width: 18px
@@ -79,15 +79,14 @@ $checkbox-light-green: #4acea8
 			margin: -2px 10px 0 0
 			vertical-align: middle
 			cursor: pointer
-			border: 1px solid $checkbox-color
-			@include vendor-prefix('border-radius', 3px)
+			border: 1px solid color('silver')
 
 
 	.refine-result__text
 		font-size: 12px
 		display: inline-block
 		vertical-align: top
-		color: $refine-result-text
+		color: color('dark-gray')
 
 	@media only screen and (max-width: 320px)
 		.refine-result__checkbox-label
@@ -99,6 +98,6 @@ $checkbox-light-green: #4acea8
 
 @mixin refine-result__view-more
 	.refine-result__view-more
+		@include vendor-prefix('border-radius', 3px)
 		width: 100%
 		padding: 9px
-		@include vendor-prefix('border-radius', 3px)

@@ -3,7 +3,6 @@
 	@include vendor-prefix('transition', all .3s cubic-bezier(0, 0, .3, 1))
 	z-index: 2
 	position: fixed
-	height: 80%
 	bottom: 0
 	left: 0
 	right: 0
@@ -16,12 +15,12 @@
 		z-index: 5
 
 #recommendedBikeCloseBtn
+	@include cross-fff-icon
 	position: absolute
 	right: 3px
 	top: 3px
 	width: 30px
 	height: 30px
-	@include cross-fff-icon
 	background-size: 13px
 
 .recommended-bike__found-result
@@ -31,65 +30,75 @@
 	text-align: left
 	padding: 13px 16px 11px
 
-.recommended-bike__filter-section
-	background: color('border-light')
-	position: relative
+@mixin recommended-bike__filter-section
+	.recommended-bike__filter-section
+		background: color('border-light')
+		position: relative
 
-.recommended-bike__filter-content
-	width: 100%
-	overflow-x: auto
+	.recommended-bike__filter-content
+		width: 100%
+		overflow-x: auto
 
-.filter-list
-	display: table
-	@include flexbox
-	@include flex-wrap
-	white-space: nowrap
-	position: relative
+	.filter-list
+		display: table
+		@include flexbox
+		@include flex-wrap
+		white-space: nowrap
+		position: relative
 
-.filter-list__item
-	color: color('default')
-	padding: 11px 0 11px 13px
+	.filter-list__item
+		color: color('default')
+		padding: 11px 0 11px 13px
 
-	&:first-child
-		padding-left: 16px
+		&:first-child
+			padding-left: 16px
 
-	&:last-child
-		padding-right: 80px
+		&:last-child
+			padding-right: 80px
 
-.filter-item
-	background: color('white')
-	font-weight: $font_semibold
-	font-size: 12px
-	position: relative
-	display: table-cell
-	padding: 5px 32px 7px 8px
-	cursor: pointer	
+	.filter-item
+		background: color('white')
+		font-weight: $font_semibold
+		font-size: 12px
+		position: relative
+		display: table-cell
+		padding: 5px 32px 7px 8px
+		cursor: pointer	
 
-.filter__edit
-	position: absolute
-	top: 0
-	right: 0
-	font-size: 13px
-	font-weight: 700
-	line-height: 48px
-	color: #3fbfff
-	padding: 4px 20px 0 30px
-	background: #fff
-	background: linear-gradient(90deg,hsla(0,0%,100%,.1) 0,color('border-light') 20%)
-	cursor: pointer
+	.filter__edit
+		position: absolute
+		top: 0
+		right: 0
+		font-size: 13px
+		font-weight: 700
+		line-height: 48px
+		color: color('summer-sky')
+		padding-left: 20px
+		padding-right: 30px
+		background: color('white')
+		background: linear-gradient(90deg,hsla(0,0%,100%,.1) 0,color('border-light') 20%)
+		cursor: pointer
+
 
 .recommended-bike-container
 	height: 100%
 	overflow: auto
-	background: #f4f3f3
+	background: color('white-smoke')
+	margin-top: 3px
+	padding-bottom: 95px
+
+.recommended-bike__shadow-top
+	box-shadow: 0 -15px 20px -5px color('border-dark')
 
 .recommended-bike-section
 	padding-bottom: 25px
 
 .other-recommended-bike
 	background: color('white')
+	padding-bottom: 15px
 
-.inactive-overlay
+
+.overlay--inactive
 	opacity: 0.7
 
 @include model-card
@@ -118,7 +127,7 @@
 	
 .recommended-bike__title
 	@include text-truncate
-	padding: 25px 16px 5px
+	padding: 20px 16px 5px
 	font-weight: $font_semibold
 
 .recommended-bike-list
@@ -157,6 +166,7 @@
 		padding: 6px 11px 7px
 
 	.card-exshowroom__label
+		@include text-truncate
 		font-size: 11px
 
 	.card-exshowroom__value
@@ -184,4 +194,18 @@
 		.card-exshowroom__label
 			font-size: 10px
 
+@mixin recommended-bike__model-loader($width: 159px)
+	.model-loader-list__content
+		background: color('white')
+		padding: 4px 6px 5px 16px
 
+		&:after
+			content: ''
+			display: table
+			clear: both
+
+	.model-loader-list__item
+		width: $width
+		float: left
+		margin-right: 10px
+		margin-top: 16px	
