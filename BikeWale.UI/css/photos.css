@@ -451,7 +451,8 @@
 /* gallery icons */
 .grid-icon,
 .color-palette,
-.info-icon {
+.info-icon,
+.download-icon {
     width: 20px;
     height: 20px;
     margin-right: 10px;
@@ -483,6 +484,17 @@
 .tab-active .info-icon,
 .footer-tab:hover .info-icon {
     background-position: -205px -639px;
+}
+
+.download-icon {
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/download.svg') no-repeat center;
+	display: inline-block;
+	background-size: 20px;
+}
+
+.tab-active .download-icon,
+.footer-tab:hover .download-icon {
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/download.svg');
 }
 
 /* Swiper 3.4.1 */
