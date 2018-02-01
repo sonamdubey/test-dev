@@ -123,3 +123,66 @@ body
 @include not-found-description()
 
 @import ../../partials/filter-screen
+
+
+.body-type__list
+	text-align: center
+	padding-top: 8px
+
+	li
+		width: auto
+		height: auto
+		display: inline-block
+		vertical-align: middle
+		margin-left: 16px
+
+
+		&:first-child
+			margin-left: 0
+
+	input[type=checkbox] 
+		display: none
+
+		&:checked
+			+ .bodytype-scooter
+				background-image: url('/images/scooter_hover.png')
+
+			+ .bodytype-cruiser
+				background-image: url('/images/cruiser_hover.png')
+
+			+ .bodytype-street
+				background-image: url('/images/street_hover.png')
+
+			+ .bodytype-sports
+				background-image: url('/images/sports_hover.png')
+
+	.bodytype-box__label
+		font-size: 11px
+		color: color('light-grey')
+
+.bodytype-box__icon
+	width: 52px
+	height: 30px
+	display: block
+	background-repeat: no-repeat
+	background-position: bottom center
+	background-size: contain
+	margin-bottom: 11px
+	
+.bodytype-box
+	display: block
+
+
+.bodytype-scooter
+	background-image: url('/images/scooter.png') 
+	
+.bodytype-cruiser
+	background-image: url('/images/cruiser.png')
+
+.bodytype-street
+	background-image: url('/images/street.png') 
+
+.bodytype-sports
+	background-image: url('/images/sports.png') 
+
+

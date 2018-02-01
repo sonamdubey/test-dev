@@ -813,7 +813,7 @@
                     </section>
 
                     <section>
-                        <div class=@((recommendedNoFound == 2) ? "other-recommended-bike" : "other-recommended-bike overlay--inactive")>
+                        <div class="other-recommended-bike">
                             <h2 class="recommended-bike__title page__heading-h2">Other Recommended Bikes (7)</h2>
                             <ul class="model-loader-list__content">
                                     @for (var i = 1; i <= 2; i++)
@@ -1489,212 +1489,212 @@
 </section>
 
 <div id="filtersPopup">
-	<div class="filters__screen">
-		<div class="filters-screen__head">
-			<div class="filters-head__left-content">
-				<span class="filters-head__title">Filter</span>
-			</div>
-			<div class="filter__apply">Apply</div>
-		</div>
+    <div class="filters__screen">
+        <div class="filters-screen__head">
+            <div class="filters-head__left-content">
+                <span class="filters-head__title">Filter</span>
+            </div>
+            <div class="filter__apply">Apply</div>
+        </div>
 
-		<div class="filters-screen__body">
-			<ul class="accordion__list" data-state="one">
-				<li class="accordion-list__item">
-					<div class="accordion__head accordion-item--active">
-						<div class="accordion-head__content">
-							<p class="accordion-head__title">Budget</p>
-							<p class="accordion-head__preview">&#x20b9; 50,000 - &#x20b9; 75,000</p>
-						</div>
-					</div>
-					<div class="accordion__body">
-						<div class="accordion-body__content">
-							<ul>
-								<li>< 30 kmpl</li>
-								<li>30 - 40 kmpl</li>
-								<li>40 - 50 kmpl</li>
-								<li>> 50 kmpl</li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li class="accordion-list__item">
-					<div class="accordion__head">
-						<div class="accordion-head__content">
-							<p class="accordion-head__title">Body Type</p>
-							<p class="accordion-head__preview"></p>
-						</div>
-					</div>
-					<div class="accordion__body">
-						<div class="accordion-body__content">
-							<ul>
-								<li>
-									<label for="filterBodyType1" class="bodytype-box">
-										<input type="checkbox" id="filterBodyType1" name="filterBodyType">
-										<span class="bodytype-box__icon bodytype-scooter"></span>
-										<span class="bodytype-box__label">Scooter</span>
-									</label>
-								</li>
-								<li>
-									<label for="filterBodyType2" class="bodytype-box">
-										<input type="checkbox" id="filterBodyType2" name="filterBodyType">
-										<span class="bodytype-box__icon bodytype-cruiser"></span>
-										<span class="bodytype-box__label">Cruiser</span>
-									</label>
-								</li>
-								<li>
-									<label for="filterBodyType3" class="bodytype-box">
-										<input type="checkbox" id="filterBodyType3" name="filterBodyType">
-										<span class="bodytype-box__icon bodytype-street"></span>
-										<span class="bodytype-box__label">Street</span>
-									</label>
-								</li>
-								<li>
-									<label for="filterBodyType4" class="bodytype-box">
-										<input type="checkbox" id="filterBodyType4" name="filterBodyType">
-										<span class="bodytype-box__icon bodytype-sports"></span>
-										<span class="bodytype-box__label">Sports</span>
-									</label>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li class="accordion-list__item">
-					<div class="accordion__head">
-						<div class="accordion-head__content">
-							<p class="accordion-head__title">Mileage</p>
-							<p class="accordion-head__preview"></p>
-						</div>
-					</div>
-					<div class="accordion__body">
-						<div class="accordion-body__content">
-							<ul class="filter-checkbox__list">
-								<li>
-									<label for="filterMileage1" class="check-box">
-										<input type="checkbox" id="filterMileage1" name="filterMileage">
-										<span class="check-box__label">< 30 kmpl</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-								<li>
-									<label for="filterMileage2" class="check-box">
-										<input type="checkbox" id="filterMileage2" name="filterMileage">
-										<span class="check-box__label">30 - 40 kmpl</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-								<li>
-									<label for="filterMileage3" class="check-box">
-										<input type="checkbox" id="filterMileage3" name="filterMileage">
-										<span class="check-box__label">40 - 50 kmpl</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-								<li>
-									<label for="filterMileage4" class="check-box">
-										<input type="checkbox" id="filterMileage4" name="filterMileage">
-										<span class="check-box__label">> 50 kmpl</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li class="accordion-list__item">
-					<div class="accordion__head">
-						<div class="accordion-head__content">
-							<p class="accordion-head__title">Suspension</p>
-							<p class="accordion-head__preview"></p>
-						</div>
-					</div>
-					<div class="accordion__body">
-						<div class="accordion-body__content">
-							<ul class="filter-checkbox__list">
-								<li>
-									<label for="filterSuspension1" class="check-box">
-										<input type="checkbox" id="filterSuspension1" name="filterSuspension">
-										<span class="check-box__label">< 100 cc</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-								<li>
-									<label for="filterSuspension2" class="check-box">
-										<input type="checkbox" id="filterSuspension2" name="filterSuspension">
-										<span class="check-box__label">100-150 cc</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-								<li>
-									<label for="filterSuspension3" class="check-box">
-										<input type="checkbox" id="filterSuspension3" name="filterSuspension">
-										<span class="check-box__label">150- 200 cc</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-								<li>
-									<label for="filterSuspension4" class="check-box">
-										<input type="checkbox" id="filterSuspension4" name="filterSuspension">
-										<span class="check-box__label">200 - 300 cc</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-								<li>
-									<label for="filterSuspension5" class="check-box">
-										<input type="checkbox" id="filterSuspension5" name="filterSuspension">
-										<span class="check-box__label">> 300 cc</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li class="accordion-list__item">
-					<div class="accordion__head">
-						<div class="accordion-head__content">
-							<p class="accordion-head__title">Power</p>
-							<p class="accordion-head__preview"></p>
-						</div>
-					</div>
-					<div class="accordion__body">
-						<div class="accordion-body__content">
-							<ul class="filter-checkbox__list">
-								<li>
-									<label for="filterPower1" class="check-box">
-										<input type="checkbox" id="filterPower1" name="filterPower">
-										<span class="check-box__label">< 10 bhp</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-								<li>
-									<label for="filterPower2" class="check-box">
-										<input type="checkbox" id="filterPower2" name="filterPower">
-										<span class="check-box__label">10-30 bhp</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-								<li>
-									<label for="filterPower3" class="check-box">
-										<input type="checkbox" id="filterPower3" name="filterPower">
-										<span class="check-box__label">30-60 bhp</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-								<li>
-									<label for="filterPower4" class="check-box">
-										<input type="checkbox" id="filterPower4" name="filterPower">
-										<span class="check-box__label">> 60 bhp</span>
-										<span class="check-box__icon"></span>
-									</label>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
+        <div class="filters-screen__body">
+            <ul class="accordion__list" data-state="one">
+                <li class="accordion-list__item">
+                    <div class="accordion__head accordion-item--active">
+                        <div class="accordion-head__content">
+                            <p class="accordion-head__title">Budget</p>
+                            <p class="accordion-head__preview">&#x20b9; 50,000 - &#x20b9; 75,000</p>
+                        </div>
+                    </div>
+                    <div class="accordion__body">
+                        <div class="accordion-body__content">
+                            <ul>
+                                <li>< 30 kmpl</li>
+                                <li>30 - 40 kmpl</li>
+                                <li>40 - 50 kmpl</li>
+                                <li>> 50 kmpl</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="accordion-list__item">
+                    <div class="accordion__head">
+                        <div class="accordion-head__content">
+                            <p class="accordion-head__title">Body Type</p>
+                            <p class="accordion-head__preview"></p>
+                        </div>
+                    </div>
+                    <div class="accordion__body">
+                        <div class="accordion-body__content">
+                            <ul class="body-type__list">
+                                <li>
+                                    <label for="filterBodyType1" class="bodytype-box">
+                                        <input type="checkbox" id="filterBodyType1" name="filterBodyType">
+                                        <span class="bodytype-box__icon bodytype-scooter"></span>
+                                        <span class="bodytype-box__label">Scooter</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterBodyType2" class="bodytype-box">
+                                        <input type="checkbox" id="filterBodyType2" name="filterBodyType">
+                                        <span class="bodytype-box__icon bodytype-cruiser"></span>
+                                        <span class="bodytype-box__label">Cruiser</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterBodyType3" class="bodytype-box">
+                                        <input type="checkbox" id="filterBodyType3" name="filterBodyType">
+                                        <span class="bodytype-box__icon bodytype-street"></span>
+                                        <span class="bodytype-box__label">Street</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterBodyType4" class="bodytype-box">
+                                        <input type="checkbox" id="filterBodyType4" name="filterBodyType">
+                                        <span class="bodytype-box__icon bodytype-sports"></span>
+                                        <span class="bodytype-box__label">Sports</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="accordion-list__item">
+                    <div class="accordion__head">
+                        <div class="accordion-head__content">
+                            <p class="accordion-head__title">Mileage</p>
+                            <p class="accordion-head__preview"></p>
+                        </div>
+                    </div>
+                    <div class="accordion__body">
+                        <div class="accordion-body__content">
+                            <ul class="filter-checkbox__list">
+                                <li>
+                                    <label for="filterMileage1" class="check-box">
+                                        <input type="checkbox" id="filterMileage1" name="filterMileage">
+                                        <span class="check-box__label">< 30 kmpl</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterMileage2" class="check-box">
+                                        <input type="checkbox" id="filterMileage2" name="filterMileage">
+                                        <span class="check-box__label">30 - 40 kmpl</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterMileage3" class="check-box">
+                                        <input type="checkbox" id="filterMileage3" name="filterMileage">
+                                        <span class="check-box__label">40 - 50 kmpl</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterMileage4" class="check-box">
+                                        <input type="checkbox" id="filterMileage4" name="filterMileage">
+                                        <span class="check-box__label">> 50 kmpl</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="accordion-list__item">
+                    <div class="accordion__head">
+                        <div class="accordion-head__content">
+                            <p class="accordion-head__title">Suspension</p>
+                            <p class="accordion-head__preview"></p>
+                        </div>
+                    </div>
+                    <div class="accordion__body">
+                        <div class="accordion-body__content">
+                            <ul class="filter-checkbox__list">
+                                <li>
+                                    <label for="filterSuspension1" class="check-box">
+                                        <input type="checkbox" id="filterSuspension1" name="filterSuspension">
+                                        <span class="check-box__label">< 100 cc</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterSuspension2" class="check-box">
+                                        <input type="checkbox" id="filterSuspension2" name="filterSuspension">
+                                        <span class="check-box__label">100-150 cc</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterSuspension3" class="check-box">
+                                        <input type="checkbox" id="filterSuspension3" name="filterSuspension">
+                                        <span class="check-box__label">150- 200 cc</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterSuspension4" class="check-box">
+                                        <input type="checkbox" id="filterSuspension4" name="filterSuspension">
+                                        <span class="check-box__label">200 - 300 cc</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterSuspension5" class="check-box">
+                                        <input type="checkbox" id="filterSuspension5" name="filterSuspension">
+                                        <span class="check-box__label">> 300 cc</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="accordion-list__item">
+                    <div class="accordion__head">
+                        <div class="accordion-head__content">
+                            <p class="accordion-head__title">Power</p>
+                            <p class="accordion-head__preview"></p>
+                        </div>
+                    </div>
+                    <div class="accordion__body">
+                        <div class="accordion-body__content">
+                            <ul class="filter-checkbox__list">
+                                <li>
+                                    <label for="filterPower1" class="check-box">
+                                        <input type="checkbox" id="filterPower1" name="filterPower">
+                                        <span class="check-box__label">< 10 bhp</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterPower2" class="check-box">
+                                        <input type="checkbox" id="filterPower2" name="filterPower">
+                                        <span class="check-box__label">10-30 bhp</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterPower3" class="check-box">
+                                        <input type="checkbox" id="filterPower3" name="filterPower">
+                                        <span class="check-box__label">30-60 bhp</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="filterPower4" class="check-box">
+                                        <input type="checkbox" id="filterPower4" name="filterPower">
+                                        <span class="check-box__label">> 60 bhp</span>
+                                        <span class="check-box__icon"></span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-	</div>
-	<div id="filtersBlackoutWindow"></div>
+    </div>
+    <div id="filtersBlackoutWindow"></div>
 </div>

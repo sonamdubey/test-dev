@@ -451,6 +451,9 @@ var recommendedBike = (function () {
             }, 200);
             history.pushState('recommendedBikePopup', '', '');
 
+            // for other recommended bike overlay
+             recommendedBikeOverlay();
+
             //add filter item in filter list
             var refineResultContainer = applyBtn.closest('.refine-result').find('.refine-result__list'),
                 checkedBox = $('.refine-result__list .refine-result__list-checkbox:checked');
@@ -469,19 +472,10 @@ var recommendedBike = (function () {
             window.history.back();
         });
         container.on('scroll', function () {
-            var otherBikeContainer = $('.other-recommended-bike'),
-                recommendedBikeElement = otherBikeContainer.find('.recommended-bike__list-card:first-child'),
-                containerHeading = ($('.recommended-bike__found-result').outerHeight() + $('.recommended-bike__filter-section').outerHeight());
-            
+         
             /* other recommended overlay */
+            recommendedBikeOverlay();
 
-            if ((recommendedBikeElement.length !== 0) && (recommendedBikeElement.offset().top + (recommendedBikeElement.outerHeight() + containerHeading)) < container.scrollTop() + $(window).height() - containerHeading) {
-                otherBikeContainer.removeClass('overlay--inactive');
-            }
-            else if (recommendedBikeElement.length !== 0) {  // .. 
-
-                otherBikeContainer.addClass('overlay--inactive');
-            }
 
             /* add box shadow to container on top while scroll */
             if (container.scrollTop() !== 0) {
@@ -507,7 +501,19 @@ var recommendedBike = (function () {
 					bikeFilters.open();
 				});
     }
+    function recommendedBikeOverlay() {
+        var containerHeading = ($('.recommended-bike__found-result').outerHeight() + $('.recommended-bike__filter-section').outerHeight()),
+            otherBikeContainer = $('.other-recommended-bike'),
+            recommendedBikeElement = otherBikeContainer.find('.recommended-bike__list-card:first-child');
 
+        if ((recommendedBikeElement.length !== 0) && (recommendedBikeElement.offset().top + (recommendedBikeElement.outerHeight() + containerHeading)) < container.scrollTop() + $(window).height() - containerHeading) {
+            otherBikeContainer.removeClass('overlay--inactive');
+        }
+        else if (recommendedBikeElement.length !== 0) { 
+
+            otherBikeContainer.addClass('overlay--inactive');
+        }
+    }
     function open() {
         popup.addClass('recommended-bike-popup--active');
         documentBody.lock();
@@ -519,7 +525,7 @@ var recommendedBike = (function () {
     }
 
     $(window).on('popstate', function () {
-        if (popup.hasClass('recommended-bike-popup--active')) {
+        if (popup.hasClass('recommended-bike-popup--active') && history.state === "recommendedBikePopup") {
             close();
         }
     });
