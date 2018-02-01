@@ -3,7 +3,14 @@
 		$(this).hide();
 		$(this).closest('.pros-cons__content').find('li').show();
 	});
+	$("#notifySubmitBtn").on("click", function () {
+	  
+	    flag = validateEmailId($("#notifyEmailField"));
+	    if (flag == true) {
+	        executeNotification();
+	    }
 
+	});
 	// popular bikes carousel
 	if (navigator.userAgent.match(/Firefox/gi)) {
 		$('.carousel__popular-bikes').addClass('popular-bikes--fallback');
@@ -45,7 +52,10 @@
 	// upcoming card: notify
 	notifyPopup.registerEvents();
 
-	$('.upcoming-card__notify-btn').on('click', function() {
+	$('.upcoming-card__notify-btn').on('click', function () {
+	    $('.notify-details__model').text($(this).attr('data-bikeName'));
+	    $('.form-field__submit-btn').attr('data-makeid', $(this).attr('data-makeid'));
+	    $('.form-field__submit-btn').attr('data-modelid', $(this).attr('data-modelid'));
 		notifyPopup.open();
 	});
 
@@ -57,7 +67,21 @@
   //floating navbar
 	floatingNav.registerEvents();
 });
+function validateEmailId(inputEmail) {
+    var isValid = true,
+        emailVal = $(inputEmail).val(),
+        reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
+    if (emailVal == "") {
+        validate.setError($(inputEmail), 'Please enter Email Id');
+        isValid = false;
+    }
+    else if (!reEmail.test(emailVal)) {
+        validate.setError($(inputEmail), 'Please enter valid Email Id');
+        isValid = false;
+    }
+    return isValid;
+}
 var floatingNav = (function () {
 	var overallTabsContainer, overallContainer;
 
@@ -157,6 +181,27 @@ var floatingNav = (function () {
 	}
 })();
 
+function executeNotification() {
+    var userData = {
+        "emailId": $("#notifyEmailField").val(),
+        "makeId": $('.form-field__submit-btn').attr("data-makeid"),
+        "modelId": $('.form-field__submit-btn').attr("data-modelid"),
+
+    };
+    $.ajax({
+        type: "POST",
+        url: "api/notifyuser/",
+        contentType: "application/json",
+        data: ko.toJSON(userData),
+        sucess: function (response) {
+
+        },
+        error: function (response) {
+
+        }
+
+    });
+}
 /* upcoming bikes set notification popup */
 var notifyPopup = (function() {
 	var container, emailField, formSubmitBtn;

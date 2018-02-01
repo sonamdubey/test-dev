@@ -1,5 +1,4 @@
 ﻿using Bikewale.DTO.Make;
-using Bikewale.DTO.Upcoming;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
@@ -7,9 +6,7 @@ using Bikewale.Service.AutoMappers.Make;
 using System;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.Entities.UpcomingNotification;
-using Bikewale.Service.AutoMappers.UpcomingNotification;
-using Bikewale.Entities.UpcomingNotification;
+
 
 namespace Bikewale.Service.Controllers.Make
 {
@@ -29,7 +26,7 @@ namespace Bikewale.Service.Controllers.Make
             _bikeMakesCache = bikeMakesCache;
             _bikeMakes = bikeMakes;
         }
-        
+
         /// <summary>
         ///  To get make Details based on MakeId  for DropDown
         /// </summary>
@@ -47,10 +44,10 @@ namespace Bikewale.Service.Controllers.Make
                     objMake = _bikeMakesCache.GetMakeDetails(makeId);
 
                     if (objMake != null)
-                    { 
+                    {
                         objDTOMakeBase = MakeListMapper.Convert(objMake);
                         return Ok(objDTOMakeBase);
-                    } 
+                    }
                 }
                 else
                 {
@@ -60,27 +57,13 @@ namespace Bikewale.Service.Controllers.Make
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Make.MakeController");
-               
+
                 return InternalServerError();
             }
             return NotFound();
         }//get make details
-        
-        [Route("api/notifyuser/")]
-        public IHttpActionResult UpcomingNotification([FromBody]UpcomingNotificationDTO dtoNotif)
-        {
-            if(ModelState.IsValid)
-            {
-                UpcomingNotificationEntity entitiyNotif = NotificationMapper.Convert(dtoNotif);
-                if(entitiyNotif != null)
-                {
-                    _bikeMakes.ProcessNotification(entitiyNotif);
 
-                }
-                
-            }
-            return Ok();
-        }
+
 
     }
 }
