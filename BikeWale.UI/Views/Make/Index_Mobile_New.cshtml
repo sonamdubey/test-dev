@@ -115,193 +115,87 @@
 
         </section>
 
-        <section>
-            <div data-id="popularModel" class="bg-white section-bottom-margin overall-tabs-data">
-                <div class="popular-carousel__title">
-                    <h2 class="page__heading-h2">Popular Royal Enfield Bikes</h2>
-                    <p class="page-heading__disclaimer">*Based on number of searches</p>
+        @if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
+        {
+            <section>
+                <div data-id="popularModel" class="bg-white section-bottom-margin overall-tabs-data">
+                    <div class="popular-carousel__title">
+                        <h2 class="page__heading-h2">Popular @Model.MakeName Bikes</h2>
+                        <p class="page-heading__disclaimer">*Based on number of searches</p>
+                    </div>
+
+                    <div class="swiper-container carousel__popular-bikes" data-spacebetween="0">
+                        <ul class="swiper-wrapper">
+                            @foreach (var bike in Model.TopPopularBikes)
+                            {
+                                var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+                                var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+                                <li class="swiper-slide carousel-slide">
+                                    <div class="model__card">
+                                        <a title="@bike.BikeName" href='@string.Format("/m{0}", modelUrl)' class="model-card__target">
+                                            <div class="model-card__image">
+                                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bikeName" alt="@bike.objModel.ModelName">
+                                            </div>
+                                        </a>
+                                        <div class="model-card__detail-content">
+                                            <div class="model-card__detail">
+                                                <a title="@bike.BikeName" href='@string.Format("/m{0}", modelUrl)' class="model-card__target card-detail__target">
+                                                    <span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
+                                                        <span class="rating-badge__star"></span>
+                                                        <span>@bike.ModelRating.ToString("0.0").TrimEnd('0', '.')</span>
+                                                    </span>
+
+                                                    <h3 class="card-detail__name">@bike.objModel.ModelName</h3>
+
+                                                    <ul class="card-detail__specs-list">
+                                                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="model-card__exshowroom-content">
+                                            <div class="model-card__exshowroom">
+                                                <div class="card-exshowroom__col">
+                                                    @if (bike.ExShowroomPrice > 0)
+                                                    {
+                                                        <p class="card-exshowroom__label">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="card-exshowroom__label">
+                                                            <span>Avg. Ex-showroom price</span><span class="info-icon tooltip-icon-target tooltip-top">
+                                                                <span class="bw-tooltip info-tooltip">
+                                                                    <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.City.City)</span>
+                                                                </span>
+                                                            </span>
+                                                        </p>
+                                                    }
+                                                    <span class="card-exshowroom__value">
+
+                                                        @if (bike.VersionPrice > 0)
+                                                        {
+                                                            @Html.Raw("&#x20b9;&nbsp;")
+                                                        }
+                                                        @if (bike.AvgPrice > 0)
+                                                        {
+                                                            <span class="text--semibold">@Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) : Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice))))</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="text--semibold">Price unavailable</span>
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 </div>
-
-                <div class="swiper-container carousel__popular-bikes" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        <li class="swiper-slide carousel-slide">
-                            <div class="model__card">
-                                <a href="" title="" class="model-card__target">
-                                    <div class="model-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                </a>
-                                <div class="model-card__detail-content">
-                                    <div class="model-card__detail">
-                                        <a href="" title="" class="model-card__target card-detail__target">
-                                            <span class="rating-badge" data-rate-bg="4">
-                                                <span class="rating-badge__star"></span>
-                                                <span>4</span>
-                                            </span>
-
-                                            <h3 class="card-detail__name">Himalayan 750</h3>
-
-                                            <ul class="card-detail__specs-list">
-                                                <li>2204.8 cc</li>
-                                                <li>381.5 kmpl</li>
-                                                <li>21.89 bhp</li>
-                                            </ul>
-                                        </a>
-                                        <div class="card-detail__pros-cons">
-                                            <div class="pros-cons__content margin-bottom15">
-                                                <p class="pros-list__title">Pros</p>
-                                                <ul class="pros-cons__list">
-                                                    <li>Reliablity</li>
-                                                    <li>Visual Appeal</li>
-                                                    <li>Reliablity</li>
-                                                    <li>Visual Appeal</li>
-                                                </ul>
-                                            </div>
-                                            <div class="pros-cons__content">
-                                                <p class="cons-list__title">Cons</p>
-                                                <ul class="pros-cons__list">
-                                                    <li>Mileage</li>
-                                                    <li>Spares</li>
-                                                    <li>Over-Heating</li>
-                                                    <li>Reliablity</li>
-                                                    <li>Visual Appeal</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="model-card__exshowroom-content">
-                                    <div class="model-card__exshowroom">
-                                        <div class="card-exshowroom__col">
-                                            <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-                                            <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
-                                        </div>
-
-                                        <p class="view-pros-cons__target" data-text="Collapse">View Pros &amp; Cons</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="swiper-slide carousel-slide">
-                            <div class="model__card">
-                                <a href="" title="" class="model-card__target">
-                                    <div class="model-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                </a>
-                                <div class="model-card__detail-content">
-                                    <div class="model-card__detail">
-                                        <a href="" title="" class="model-card__target card-detail__target">
-                                            <span class="rating-badge" data-rate-bg="3">
-                                                <span class="rating-badge__star"></span>
-                                                <span>3</span>
-                                            </span>
-
-                                            <h3 class="card-detail__name">Himalayan 750</h3>
-
-                                            <ul class="card-detail__specs-list">
-                                                <li>2204.8 cc</li>
-                                                <li>381.5 kmpl</li>
-                                                <li>21.89 bhp</li>
-                                            </ul>
-                                        </a>
-                                        <div class="card-detail__pros-cons">
-                                            <div class="pros-cons__content margin-bottom15">
-                                                <p class="pros-list__title">Pros</p>
-                                                <ul class="pros-cons__list">
-                                                    <li>Reliablity</li>
-                                                    <li>Visual Appeal</li>
-                                                    <li>Reliablity</li>
-                                                    <li>Visual Appeal</li>
-                                                </ul>
-                                            </div>
-                                            <div class="pros-cons__content">
-                                                <p class="cons-list__title">Cons</p>
-                                                <ul class="pros-cons__list">
-                                                    <li>Mileage</li>
-                                                    <li>Spares</li>
-                                                    <li>Over-Heating</li>
-                                                    <li>Reliablity</li>
-                                                    <li>Visual Appeal</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="model-card__exshowroom-content">
-                                    <div class="model-card__exshowroom">
-                                        <div class="card-exshowroom__col">
-                                            <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-                                            <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
-                                        </div>
-
-                                        <p class="view-pros-cons__target" data-text="Collapse">View Pros &amp; Cons</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="swiper-slide carousel-slide">
-                            <div class="model__card">
-                                <a href="" title="" class="model-card__target">
-                                    <div class="model-card__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                    </div>
-                                </a>
-                                <div class="model-card__detail-content">
-                                    <div class="model-card__detail">
-                                        <a href="" title="" class="model-card__target card-detail__target">
-                                            <span class="rating-badge" data-rate-bg="2">
-                                                <span class="rating-badge__star"></span>
-                                                <span>2</span>
-                                            </span>
-
-                                            <h3 class="card-detail__name">Himalayan 750</h3>
-
-                                            <ul class="card-detail__specs-list">
-                                                <li>2204.8 cc</li>
-                                                <li>381.5 kmpl</li>
-                                                <li>21.89 bhp</li>
-                                            </ul>
-                                        </a>
-                                        <div class="card-detail__pros-cons">
-                                            <div class="pros-cons__content margin-bottom15">
-                                                <p class="pros-list__title">Pros</p>
-                                                <ul class="pros-cons__list">
-                                                    <li>Reliablity</li>
-                                                    <li>Visual Appeal</li>
-                                                    <li>Reliablity</li>
-                                                    <li>Visual Appeal</li>
-                                                </ul>
-                                            </div>
-                                            <div class="pros-cons__content">
-                                                <p class="cons-list__title">Cons</p>
-                                                <ul class="pros-cons__list">
-                                                    <li>Mileage</li>
-                                                    <li>Spares</li>
-                                                    <li>Over-Heating</li>
-                                                    <li>Reliablity</li>
-                                                    <li>Visual Appeal</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="model-card__exshowroom-content">
-                                    <div class="model-card__exshowroom">
-                                        <div class="card-exshowroom__col">
-                                            <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-                                            <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
-                                        </div>
-
-                                        <p class="view-pros-cons__target" data-text="Collapse">View Pros &amp; Cons</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+            </section>
+        }
 
         @if (Model.Bikes != null && Model.Bikes.Count() > 0)
         {
@@ -383,6 +277,7 @@
                 </div>
             </section>
         }
+
 
         @if (Model.IsUpComingBikesAvailable)
         {
@@ -511,86 +406,53 @@
                 </div>
             </div>
         </section>
+        @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
+        {
+            <section>
+                <div data-id="dealer" class="bg-white section-bottom-margin dealer-section overall-tabs-data">
+                 
+                    @if (Model.IsDealerAvailable)
+                    {
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2 carousel-title__label">Honda showrooms @string.Format("in {0}", Model.Dealers.CityName) </h2>
+                            <a href="/m/dealer-showrooms/@Model.MakeMaskingName/@Model.Dealers.CityMaskingName" class="view-all-btn">
+                                View all
+                            </a>
+                        </div>
+                        <p class="dealer-section__note">
+                            Showing Dealer/Store results from
+                            <span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" class="dealer-note__link text-link">
+                                All India
+                            </span>
+                        </p>
+                        <div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
+                            @Html.Partial("~/Views/DealerShowroom/_NewDealerShowroomWithCount.cshtml", Model.Dealers)
+                        </div>
+                    }
+                    else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
+                    {
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName showrooms</h2>
+                            <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" class="view-all-btn">
+                                View all
+                            </a>
+                        </div>
+                        <p class="dealer-section__note">
+                            Showing Dealer/Store results from
+                            <span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" class="dealer-note__link text-link">
+                                All India
+                            </span>
+                        </p>
 
-        <section>
-            <div data-id="dealer" class="bg-white section-bottom-margin dealer-section overall-tabs-data">
-                <div class="carousel__title">
-                    <h2 class="page__heading-h2 carousel-title__label">Dealer / Stores</h2>
-                    <a href="" class="view-all-btn">
-                        View all
-                    </a>
+                        <div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
+                            @Html.Partial("~/Views/PopularCityWidget/_DealerInPopularCity_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
+                        </div>
+                    }
+
+
                 </div>
-                <p class="dealer-section__note">
-                    Showing Dealer/Store results from
-                    <a href="" title="" class="dealer-note__link">
-                        All India
-                    </a>
-                </p>
-                <div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (var i = 0; i <= 5; i++)
-                        {
-                            <li class="swiper-slide carousel-slide">
-                                <div class="dealer-in-city-card carousel-card">
-                                    <h3 class="dealer-in-city__title">
-                                        Executive Bajaj
-                                    </h3>
-                                    <p class="dealer-in-city__state">Andheri (E)</p>
-                                    <p class="dealer-in-city__address">Shop No. 21 & 22, Plot no. 18/19, Satyam Tower, Sector 20,</p>
-                                    <div class="dealer-in-city__know-more">
-                                        <div class="dealer-in-city__contact">
-                                            <a href="tel:+91 9845477722" title="" class="dealer-in-city__contact-link">
-                                                +91 9845477722
-                                            </a>
-                                        </div>
-
-                                        <div class="dealer-in-city__direction">
-                                            <a href="" title="" class="dealer-in-city__direction-link">
-                                                Get Directions
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-
-
-                    </ul>
-                </div>
-
-                <div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (var i = 0; i <= 5; i++)
-                        {
-                            <li class="swiper-slide carousel-slide">
-                                <div class="dealer-by-city-card carousel-card">
-                                    <a href="" title="" class="dealer-by-city__target-link">
-                                        <div class="dealer-city__image">
-                                            <span class="city-sprite @((i%2==0)?"mumbai-icon": "kolkata-icon")"></span>
-                                        </div>
-                                        <div class="dealer-city__detail">
-                                            <span class="dealer-city__count">10</span>
-                                            <div class="dealer-city__text">
-                                                Dealers in
-                                                @if (i % 2 == 0)
-                                                {
-                                                    <p class="dealer-city__name">mumbai</p>
-                                                }
-                                                else
-                                                {
-                                                    <p class="dealer-city__name">bengaluru</p>
-                                                }
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                        }
-
-                    </ul>
-                </div>
-            </div>
-        </section>
+            </section>
+        }
 
         <section>
             <div data-id="news" class="bg-white section-bottom-margin latest-news-section overall-tabs-data">

@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 }
-                @if (Model.Bikes != null && Model.Bikes.Count() > 0)
+                @if (Model.Bikes != null && Model.Bikes.Any())
                 {
                     <div id="bikeMakeList" class="search-bike-container bw-model-tabs-data padding-top15 bg-white position-rel pos-top3 box-shadow">
                         <h2 class="text-bold padding-left20">@string.Format("{0} Bikes Prices in  India", Model.MakeName)</h2>

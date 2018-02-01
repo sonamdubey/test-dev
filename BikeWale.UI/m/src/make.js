@@ -4,6 +4,12 @@
 		$(this).closest('.pros-cons__content').find('li').show();
 	});
 
+	$('#allIndiaUrl').on('click',function()
+	{
+       $.removeCookie('location', { path: '/' });
+	    window.location = $(this).attr('data-url');
+    });
+
 	// popular bikes carousel
 	if (navigator.userAgent.match(/Firefox/gi)) {
 		$('.carousel__popular-bikes').addClass('popular-bikes--fallback');
@@ -57,6 +63,8 @@
   //floating navbar
 	floatingNav.registerEvents();
 });
+
+
 
 var floatingNav = (function () {
 	var overallTabsContainer, overallContainer;

@@ -49,6 +49,7 @@ namespace Bikewale.Models
         public string LocationMasking { get; set; }
         public string Location { get; set; }
         public IEnumerable<MostPopularBikesBase> Bikes { get; set; }
+        public IEnumerable<MostPopularBikesBase> TopPopularBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public PopularComparisonsVM CompareSimilarBikes { get; set; }
         public BikeDescriptionEntity BikeDescription { get; set; }
