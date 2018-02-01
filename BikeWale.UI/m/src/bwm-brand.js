@@ -18,9 +18,9 @@ function validateEmailId(inputEmail) {
 
 function executeNotification() {
     var userData = {
-        "emailId": $("notifyEmailField").val(),
+        "emailId": $("#notifyEmailField").val(),
         "makeId": $("#bike-detail").attr("data-make").val(),
-        "modelID": $("bike-detail").attr("data-model").val(),
+        "modelID": $("#bike-detail").attr("data-model").val(),
 
     };
     $.ajax({
