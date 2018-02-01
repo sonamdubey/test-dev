@@ -448,16 +448,16 @@
                 </ul>
             </div>
         </section>
-@if (Model.IsUpComingBikesAvailable)
+        @if (Model.IsUpComingBikesAvailable)
         {
-        <section>
-            <div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
-                <h2 class="upcoming-carousel__title page__heading-h2">Upcoming @Model.MakeName bikes</h2>
+            <section>
+                <div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
+                    <h2 class="upcoming-carousel__title page__heading-h2">Upcoming @Model.MakeName bikes</h2>
 
-                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile_V2.cshtml", Model.UpcomingBikes)
-            </div>
-        </section>
-}
+                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile_V2.cshtml", Model.UpcomingBikes)
+                </div>
+            </section>
+        }
         <div id="notifyPopup">
             <div class="notify-popup__content">
                 <span id="notifyCloseBtn"></span>
@@ -575,86 +575,53 @@
                 </div>
             </div>
         </section>
+        @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
+        {
+            <section>
+                <div data-id="dealer" class="bg-white section-bottom-margin dealer-section overall-tabs-data">
+                 
+                    @if (Model.IsDealerAvailable)
+                    {
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2 carousel-title__label">Honda showrooms @string.Format("in {0}", Model.Dealers.CityName) </h2>
+                            <a href="/m/dealer-showrooms/@Model.MakeMaskingName/@Model.Dealers.CityMaskingName" class="view-all-btn">
+                                View all
+                            </a>
+                        </div>
+                        <p class="dealer-section__note">
+                            Showing Dealer/Store results from
+                            <span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" class="dealer-note__link text-link">
+                                All India
+                            </span>
+                        </p>
+                        <div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
+                            @Html.Partial("~/Views/DealerShowroom/_NewDealerShowroomWithCount.cshtml", Model.Dealers)
+                        </div>
+                    }
+                    else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
+                    {
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName showrooms</h2>
+                            <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" class="view-all-btn">
+                                View all
+                            </a>
+                        </div>
+                        <p class="dealer-section__note">
+                            Showing Dealer/Store results from
+                            <span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" class="dealer-note__link text-link">
+                                All India
+                            </span>
+                        </p>
 
-        <section>
-            <div data-id="dealer" class="bg-white section-bottom-margin dealer-section overall-tabs-data">
-                <div class="carousel__title">
-                    <h2 class="page__heading-h2 carousel-title__label">Dealer / Stores</h2>
-                    <a href="" class="view-all-btn">
-                        View all
-                    </a>
+                        <div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
+                            @Html.Partial("~/Views/PopularCityWidget/_DealerInPopularCity_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
+                        </div>
+                    }
+
+
                 </div>
-                <p class="dealer-section__note">
-                    Showing Dealer/Store results from
-                    <a href="" title="" class="dealer-note__link">
-                        All India
-                    </a>
-                </p>
-                <div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (var i = 0; i <= 5; i++)
-                        {
-                            <li class="swiper-slide carousel-slide">
-                                <div class="dealer-in-city-card carousel-card">
-                                    <h3 class="dealer-in-city__title">
-                                        Executive Bajaj
-                                    </h3>
-                                    <p class="dealer-in-city__state">Andheri (E)</p>
-                                    <p class="dealer-in-city__address">Shop No. 21 & 22, Plot no. 18/19, Satyam Tower, Sector 20,</p>
-                                    <div class="dealer-in-city__know-more">
-                                        <div class="dealer-in-city__contact">
-                                            <a href="tel:+91 9845477722" title="" class="dealer-in-city__contact-link">
-                                                +91 9845477722
-                                            </a>
-                                        </div>
-
-                                        <div class="dealer-in-city__direction">
-                                            <a href="" title="" class="dealer-in-city__direction-link">
-                                                Get Directions
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-
-
-                    </ul>
-                </div>
-
-                <div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (var i = 0; i <= 5; i++)
-                        {
-                            <li class="swiper-slide carousel-slide">
-                                <div class="dealer-by-city-card carousel-card">
-                                    <a href="" title="" class="dealer-by-city__target-link">
-                                        <div class="dealer-city__image">
-                                            <span class="city-sprite @((i%2==0)?"mumbai-icon": "kolkata-icon")"></span>
-                                        </div>
-                                        <div class="dealer-city__detail">
-                                            <span class="dealer-city__count">10</span>
-                                            <div class="dealer-city__text">
-                                                Dealers in
-                                                @if (i % 2 == 0)
-                                                {
-                                                    <p class="dealer-city__name">mumbai</p>
-                                                }
-                                                else
-                                                {
-                                                    <p class="dealer-city__name">bengaluru</p>
-                                                }
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                        }
-
-                    </ul>
-                </div>
-            </div>
-        </section>
+            </section>
+        }
 
         <section>
             <div data-id="news" class="bg-white section-bottom-margin latest-news-section overall-tabs-data">
@@ -989,9 +956,9 @@
                         </li>
                     }
                 </ul>
-				<div class="video-list__more-btn-content">
-					<input type="button" class="btn btn-inv-blue" value="Load More">
-				</div>
+                <div class="video-list__more-btn-content">
+                    <input type="button" class="btn btn-inv-blue" value="Load More">
+                </div>
             </div>
 
         </section>
