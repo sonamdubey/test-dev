@@ -50,7 +50,7 @@
                     </div>
                     <!-- /ko -->
                     <div class="input-box form-control-box margin-bottom15">
-                        <input type="text" id="getFullName" data-bind="textInput: fullName" maxlength="50" >
+                        <input type="text" id="getFullName" data-bind="textInput: fullName" maxlength="50">
                         <label for="getFullName">Name<sup>*</sup></label>
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
@@ -90,7 +90,7 @@
                     </div>
                     <div class="clear"></div>
                     <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                    <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
+                    <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <span id="visitor-agreement-link" class="terms-target-link" data-link=2>visitor agreement</span> and <span id="privacy-policy-link" class="terms-target-link" data-link=1>privacy policy</span>.</p>
                 </div>
             </div>
             <!-- thank you message starts here -->
@@ -112,7 +112,7 @@
             <!-- thank you message ends here -->
             @if (Model.CityId <= 0)
             {
-            <!-- city drawer starts here -->
+                <!-- city drawer starts here -->
                 <div id="pqcity-slideIn-drawer" class="slideIn-drawer-container">
                     <div class="form-control-box text-left">
                         <div class="drawer-top-header">
@@ -136,16 +136,26 @@
                         </script>
                     </div>
                 </div>
-            <!-- city drawer ends here -->
+                <!-- city drawer ends here -->
             }
 
         </div>
     </div>
+
     <div id="ub-ajax-loader">
         <div class="cover-popup-loader"></div>
     </div>
 
-   <!-- Lead Capture pop up end  -->
+    <div id="policyPopup" class="bw-popup bwm-fullscreen-popup hide">
+        <div class="popup-inner-container">
+            <span class="bwmsprite close-btn policy-close-btn"></span>
+            <div id="policyPopupContainer" class="policy-container">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Lead Capture pop up end  -->
 
     <script type="text/javascript">
 
@@ -1044,6 +1054,94 @@
             $("#brandSearchBar").addClass('open').animate({ 'left': '100%' }, 500);
         };
 
+		var agreementPolicyPopup = (function () {
+			var policyPopup, closebtn, leadCapturePopup, container;
+
+			function _setSelectors() {
+				policyPopup = $('#policyPopup');
+				closebtn = $('.policy-close-btn');
+				leadCapturePopup = $('#leadCapturePopup');
+				container = $('.policy-container');
+			}
+
+			function registerEvents() {
+				_setSelectors();
+
+				$('#visitor-agreement-link, #privacy-policy-link').on('click', function (e) {
+                    e.preventDefault();
+                    var containerId = $("#policyPopupContainer");
+					if ($(this).data('link') === 1) {
+                       $.ajax({
+                            type: "GET",
+                            url: "/Privacy/PrivacyPolicy",
+                            contentType: "application/json",
+                            dataType: "html",
+                            success: function (data) {
+                                containerId.html(data);
+                            },
+                            error: function () {
+                                containerId.html("Page Not Found");
+                          }
+                        });
+					}
+					else if ($(this).data('link') === 2) {
+                        $.ajax({
+                            type: "GET",
+                            url: "/Privacy/VisitorAgreement",
+                            contentType: "application/json",
+                            dataType: "html",
+                            success: function (data) {
+                                containerId.html(data);
+                            },
+                            error: function () {
+                                containerId.html("Page Not Found");
+                            }
+                        });
+					}
+					agreementPolicyPopup.open();
+				});
+
+				$('.policy-close-btn').on('click', function () {
+					if (policyPopup.is(':visible')) {
+						window.history.back();
+					}
+				});
+
+				container.on('scroll', function () {
+					if (container.scrollTop() == 0) {
+						$('.policy-container').removeClass('box-shadow-top');
+					}
+					else {
+						$('.policy-container').addClass('box-shadow-top');
+					}
+				});
+
+				$(window).on('popstate', function () {
+					if (policyPopup.is(':visible')) {
+						close();
+					}
+				});
+			}
+
+			function open() {
+				popup.lock();
+				policyPopup.fadeIn(200);
+				$('#policyPopupContainer').scrollTop(0);
+				history.pushState('agreementpopup', '', '');
+			}
+
+			function close() {
+				policyPopup.fadeOut(200);
+				popup.unlock();
+			}
+
+			return {
+				registerEvents: registerEvents,
+				open: open,
+				close: close
+			}
+		})();
+
         docReady(function () {
 
 
@@ -1274,6 +1372,9 @@
             };
 
             brandSearchBar = $("#brandSearchBar"), dealerSearchBrand = $(".dealer-search-brand"), dealerSearchBrandForm = $(".dealer-search-brand-form");
+
+			// register agreement and privacy policy popup events
+			agreementPolicyPopup.registerEvents();
 
         });
 

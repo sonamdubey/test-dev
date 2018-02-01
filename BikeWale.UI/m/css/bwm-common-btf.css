@@ -1650,3 +1650,39 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 	font-size: 14px;
 }
 /* auto expo navigation end */
+
+/* agreement and privacy popup starts*/
+.terms-target-link {
+	color: #0288d1;
+	cursor: pointer;
+}
+
+#policyPopup .close-btn {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+}
+
+#policyPopup .popup-inner-container {
+    overflow: hidden;
+    margin-top: 35px;
+    height: 100%;
+}
+
+#policyPopup {
+    overflow: hidden;
+    padding-right: 0;
+    padding-left: 0
+}
+
+.policy-container {
+    height: 100%;
+    overflow: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.box-shadow-top {
+    box-shadow: inset 0px 1px 5px 0px #ddd;
+}
+/* agreement and privacy popup ends*/
