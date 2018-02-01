@@ -1,136 +1,96 @@
-﻿@model Bikewale.Models.Photos.PhotosPageVM
-@{
-    /**/
-
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/photos.css' inline />";
-    Model.Page_JS_Paths = new string[] { "/m/src/photos/modelgallery.js", "/m/src/photos/photos.js" };
-    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Image";
-    Model.AdTags.AdId = "1516082384256";
-    Model.AdTags.Ad_320x50 = true;
-    Model.AdTags.Ad_320x50BTF = true;
-    Model.AdTags.Ad_300x250BTF = true;
-}
-
+﻿@model Bikewale.Models.Photos.v1.PhotosPageVM
 @if (Model != null)
 {
-    int i = 0; IList<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> objImages = new List<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity>();
 
-    if (Model.ModelImages != null)
-    {
-        objImages = Model.ModelImages.ToList();
-    }
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
+    Model.Page_JS_Path = "/src/photos/landing.js";
+    // Top Ad is being set in this file, not in _Layout_Mobile.cshtml
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.AdId = "1516009422206";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Bike_Image_Mobile";
+
+    <script type="text/javascript">
+        var isMobile = true;
+        var currentPageNo = @Model.Pager.PageNo;
+    </script>
 
     <section>
-        <div class="container box-shadow section-bottom-margin padding-bottom2">
-            <h1 class="section-header bg-white">@Model.Page_H1</h1>
-            @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
-            {
-                <ul id="grid-images-noremainder" class="photos-grid-list" data-modelid="@(Model.objModel!=null ? Model.objModel.ModelId : 0)">
-                    @for (; i < Model.GridPhotoCount && i < 6; i++)
-                    {
-                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                        </li>
-                    }
-                    @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
-                    {
-                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                        </li>
-                    }
-                </ul>
-
-
-                <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images">
-                    @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 1)
-                    {
-                        for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
-                        {
-                            <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                            </li>
-                        }
-                    }
-                    else if (Model.TotalPhotos == 1)
-                    {
-                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                        </li>
-                    }
-                </ul>
-
-
-            }
-            <div class="clear"></div>
+        <div class="container padding-15-20-20 bg-white">
+            <h1 class="text-semibold margin-bottom10">Bike Images</h1>
+            <div class="foldable-content" data-toggle="yes">
+                <p class="truncatable-content" data-readtextflag="1">@Model.ImagesSynopsis</p>
+                <a href="javascript:void(0)" class="read-more-button" rel="nofollow" data-text="Collapse">...Read more</a>
+            </div>
         </div>
     </section>
-    if (Model.AdTags.Ad_300x250BTF)
+    
+    if (Model.PopularSportsModelsImages != null)
     {
-        <div class="margin-bottom20 text-center">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
-        </div>
-    }
-    <div id="photoTemplateWrapper" class="hide">
-        <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
-        <ul data-bind="foreach : Loadedphotos">
-            <li data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}">
-                <img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" @*alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)"*@ />
-            </li>
-        </ul>
-        <!-- /ko -->
-    </div>
-    if (Model.BikeInfo != null)
-    { <section>
-            <div class="container bg-white box-shadow section-bottom-margin">
-                @Html.Partial("~/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
+        <section>
+            <div class="container margin-bottom15">
+                <h2 class="image-carousel__title">Popular Sport Bikes Images</h2>
+                @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.PopularSportsModelsImages)
             </div>
         </section>
     }
 
-    if (Model.ModelVideos != null && Model.Videos != null)
-    {
-        <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
-
-            <h2 class="margin-bottom15">@Model.BikeName Videos</h2>
-
-            @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
-
-            <div class="margin-top10">
-                <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
-                    View all videos <span class="bwmsprite teal-right"></span>
-                </a>
-            </div>
+    <section>
+        <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
+            <script type='text/javascript'>
+                googletag.cmd.push(function () {
+                    googletag.defineSlot('/1017752/Bikewale_Bike_Image_Mobile_ATF_320x50', [[320, 50], [320, 100]], 'div-gpt-ad-1516009422206-0').addService(googletag.pubads());
+                    googletag.pubads().enableSingleRequest();
+                    googletag.pubads().collapseEmptyDivs();
+                    googletag.enableServices();
+                });
+                googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516009422206-0'); });
+            </script>
         </div>
+    </section>
 
-
-    }
-
-    if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
-    {
-        @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_Mobile.cshtml", Model.SimilarBikes)
-    }
-
-    if (Model.ModelGallery != null)
-    {
-        @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
-    }
-
-    if (Model.objMoreAboutScooter != null)
-    {
-        <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
-            <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
-                <div class="swiper-wrapper">
-                    @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
+    <section>
+        <div class="container section-bottom-margin" id="exploreModelListing">
+            <h2 class="explore-bikes__title">Explore Images by Models</h2>
+            <div class="explore-bikes__container">
+                <div class="explore-bikes__content">
+                    <div class="explore-bikes__search form-control-box">
+                        <input type="text" id="exploreBikesField" class="form-control__input" placeholder="Search Bike and Brands">
+                        <span class="input__search-icon" id="btnExploreBikesField"></span>
+                        <ul id="errExploreBikes" class="ui-autocomplete ui-front ui-menu hide form-control__error">
+                            <li class="ui-menu-item" tabindex="-1">
+                                <span class="text-bold">Oops! No suggestions found</span><br />
+                                <span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
+                            </li>
+                        </ul>
+                    </div>
+                    @if (Model != null && Model.BikeModelsPhotos != null)
+                    {
+                        @Html.Partial("~/Views/Photos/_ModelsImageList_Mobile.cshtml", Model.BikeModelsPhotos)
+                    }
+                    
+                    @if (!string.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+                    {
+                        <div style="text-align: center; margin-top:20px;">
+                            <div id="loading" style="display: none;" data-bind="visible : $root.IsLoading()">
+                                <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif">
+                            </div>
+                        </div>
+                        <div class="explore-model__more-btn">
+                            <a id="viewMoreBtn" href="@Model.PageMetaTags.NextPageUrl" class="btn btn-inv-blue" data-bind="click: $root.LoadMore, visible: $root.IsLoadMore() && !$root.IsLoading()">Load More</a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
+    </section>
+    if (Model != null && Model.OtherPopularMakes != null)
+    {
+        <section>
+            <div class="container bg-white padding-bottom10 section-bottom-margin">
+                <h2 class="related-bikes__title">Browse Images by Brands</h2>
+                @Html.Partial("~/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
+            </div>
+        </section>
     }
-
-}
-@if (Model.AdTags.Ad_320x50BTF)
-{
-    <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
-    </div>
 }

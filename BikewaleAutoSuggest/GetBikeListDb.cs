@@ -13,13 +13,18 @@ namespace BikewaleAutoSuggest
     public class GetBikeListDb
     {
         private static string _con = ConfigurationManager.AppSettings["connectionString"];
+        /// <summary>
+        /// Modified by : Rajan Chauhan on 10 Jan 2017
+        /// Description : Added PhotosCount
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<TempList> GetBikeList()
         {
             IList<TempList> objList = null;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist_11102017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist_09012018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -41,7 +46,8 @@ namespace BikewaleAutoSuggest
                                     MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     New = Convert.ToBoolean(dr["New"]),
-                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])
+                                    Futuristic = Convert.ToBoolean(dr["Futuristic"]),
+                                    PhotosCount = Convert.ToUInt32(dr["PhotosCount"])
                                 });
                             }
 
@@ -60,7 +66,8 @@ namespace BikewaleAutoSuggest
                                     New = Convert.ToBoolean(dr["New"]),
                                     Futuristic = Convert.ToBoolean(dr["Futuristic"]),
                                     UserRatingsCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"]),
-                                    ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"])
+                                    ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"]),
+                                    PhotosCount = SqlReaderConvertor.ToUInt32(dr["PhotosCount"])
                                 });
                             }
                             dr.Close();
@@ -83,9 +90,13 @@ namespace BikewaleAutoSuggest
             try
             {
                 objSuggestList = new List<BikeList>();
+                string bikeName;
                 foreach (TempList bikeItem in objBikeList)
                 {
-                    string bikeName = string.Format("{0} {1}", bikeItem.Make, bikeItem.Model);
+                    if (bikeItem.Model == "")
+                        bikeName = bikeItem.Make;
+                    else
+                        bikeName = string.Format("{0} {1}", bikeItem.Make, bikeItem.Model);
                     BikeList ObjTemp = new BikeList();
 
                     ObjTemp.Id = string.Format("{0}_{1}", bikeItem.MakeId, bikeItem.ModelId);
@@ -103,7 +114,8 @@ namespace BikewaleAutoSuggest
                         Futuristic = Convert.ToString(bikeItem.Futuristic),
                         IsNew = Convert.ToString(bikeItem.New),
                         UserRatingsCount = Convert.ToString(bikeItem.UserRatingsCount),
-                        ExpertReviewsCount = Convert.ToString(bikeItem.ExpertReviewsCount)
+                        ExpertReviewsCount = Convert.ToString(bikeItem.ExpertReviewsCount),
+                        PhotosCount = Convert.ToString(bikeItem.PhotosCount)
                     };
 
                     ObjTemp.mm_suggest.Weight = count;
@@ -147,6 +159,8 @@ namespace BikewaleAutoSuggest
 
                     if (!bikeItem.Futuristic && bikeItem.ModelId > 0)
                         ObjTemp.mm_suggest.contexts.types.Add("NonUpcomingBikes");
+                    if (bikeItem.New && !bikeItem.Futuristic && bikeItem.PhotosCount > 0)
+                        ObjTemp.mm_suggest.contexts.types.Add("BikeImages");
 
                     objSuggestList.Add(ObjTemp);
                     count--;

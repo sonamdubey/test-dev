@@ -180,6 +180,12 @@
     <Compile Include="Campaign\DetailsDto.cs" />
     <Compile Include="Campaign\ESCampaignBase .cs" />
     <Compile Include="Campaign\PreRenderCampaignBase.cs" />
+    <Compile Include="CMS\Photos\CMSImageList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CMS\Photos\CMSModelImageBase.cs" />
+    <Compile Include="CMS\Photos\CMSModelImages.cs" />
+    <Compile Include="CMS\Photos\ModelImageList.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />
     <Compile Include="BikeBooking\BikeCancellationCustomer.cs" />
     <Compile Include="Compare\BikeCompareDTO.cs" />
@@ -202,7 +208,6 @@
     <Compile Include="BikeData\UpcomingBikeList.cs" />
     <Compile Include="CMS\Articles\HtmlContent.cs" />
     <Compile Include="CMS\Articles\HtmlItem.cs" />
-    <Compile Include="CMS\Photos\CMSModelImageBase.cs" />
     <Compile Include="Compare\BikeDTOBase.cs" />
     <Compile Include="Compare\BikeFeatureDTO.cs" />
     <Compile Include="Compare\BikeSpecificationDTO.cs" />
@@ -433,9 +438,6 @@
     <Compile Include="CMS\Articles\CMSImage.cs" />
     <Compile Include="CMS\Articles\CMSPage.cs" />
     <Compile Include="CMS\Articles\CMSVehicleTag.cs" />
-    <Compile Include="CMS\Photos\CMSImageList.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="UserReviews\FilterByBase.cs" />
     <Compile Include="UserReviews\ReviewDetails.cs" />
     <Compile Include="UserReviews\Review.cs" />

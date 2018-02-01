@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Bikewale.Entities.CMS.Photos.ModelImages>
+@using Bikewale.Utility
+@if (Model != null)
+{
+    foreach (var modelImages in Model)
+    {
+        if (modelImages.RecordCount > 0)
+        {
+            ushort gridSize = (ushort)(modelImages.RecordCount >= 4 ? 4 : modelImages.RecordCount >= 3 ? 3 : 1);
+            var firstModelImages = modelImages.ModelImage.First();
+
+            <li class="explore-model-image-list__item" data-modelid="@firstModelImages.ModelBase.ModelId">
+                <a href="@string.Format("/{0}-bikes/{1}/images/", firstModelImages.MakeBase.MaskingName, firstModelImages.ModelBase.MaskingName )" title="@firstModelImages.MakeBase.MakeName @firstModelImages.ModelBase.ModelName Images" class="model-image__card">
+                    <ul class="image-grid__list" data-grid="@gridSize">
+                        @if (gridSize == 1)
+                        {
+                            <li class="image-grid-list__item">
+                                <img class="lazy" src="" data-original="@Image.GetPathToShowImages(firstModelImages.OriginalImgPath, firstModelImages.HostUrl, ImageSize._476x268, QualityFactor._70)" alt="@String.Format("{0}",!String.IsNullOrEmpty(firstModelImages.AltImageName)? firstModelImages.AltImageName: String.Format("{0} {1} {2}", firstModelImages.MakeBase.MakeName, firstModelImages.ModelBase.ModelName, "Image"))" title="@firstModelImages.MakeBase.MakeName @firstModelImages.ModelBase.ModelName Images">
+                            </li>
+                        }
+                        else
+                        {
+                            foreach (var modelImage in modelImages.ModelImage)
+                            {
+                                <li class="image-grid-list__item">
+                                    <img class="lazy" src="" data-original="@Image.GetPathToShowImages(modelImage.OriginalImgPath, modelImage.HostUrl, ImageSize._476x268, QualityFactor._70)" alt="@String.Format("{0}", !String.IsNullOrEmpty(modelImage.AltImageName)? modelImage.AltImageName: String.Format("{0} {1} {2}", firstModelImages.MakeBase.MakeName, firstModelImages.ModelBase.ModelName, "Image"))" title="@firstModelImages.MakeBase.MakeName @firstModelImages.ModelBase.ModelName Images">
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <div class="card-image__details">
+                        <h3 class="card-details__left-col">
+                            <span class="card-details__make">@firstModelImages.MakeBase.MakeName</span>
+                            <span class="card-details__model">@firstModelImages.ModelBase.ModelName</span>
+                        </h3>
+                        <div class="card-details__right-col">
+                            <span class="card-details__image-count">@modelImages.RecordCount</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        }
+    }
+}

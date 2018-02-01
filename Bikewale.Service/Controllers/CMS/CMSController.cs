@@ -3,6 +3,7 @@ using Bikewale.DTO.CMS.Photos;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
@@ -78,7 +79,7 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-               
+
 
                 return InternalServerError();
 
@@ -142,12 +143,58 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-               
+
                 return InternalServerError();
             }
 
             return NotFound();
         }  //othermodelist api
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 13 Jan 2018
+        /// Description : API for images landing page
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [Route("api/images/pages/{pageNo}/"), HttpGet, ResponseType(typeof(ModelImageList))]
+        public IHttpActionResult GetModelsImagesList(int pageNo, int? pageSize = null)
+        {
+            try
+            {
+
+                int _pageSize = pageSize != null ? Convert.ToInt32(pageSize) : 30;
+                ImagePager pager = new ImagePager()
+                {
+                    PageNo = pageNo,
+                    PageSize = _pageSize,
+                    StartIndex = (pageNo - 1) * _pageSize + 1,
+                    EndIndex = pageNo * _pageSize
+
+                };
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _bikeModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.AllBikes, ref pager);
+                string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
+                int requiredImageCount = 4;
+                string categoryIds = Bikewale.Utility.CommonApiOpn.GetContentTypesString(
+                    new List<EnumCMSContentType>()
+                    {
+                        EnumCMSContentType.PhotoGalleries,
+                        EnumCMSContentType.RoadTest
+                    }
+                );
+
+                ModelImageWrapper ImageWrapper = _bikeModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount, pager);
+                ImageWrapper.RecordCount = pager.CurrentSetResults;
+                ModelImageList obj = CMSMapper.Convert(ImageWrapper);
+                return Ok(obj);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controller.ImageController : GetModelsImagesList({0}, {1})", pageNo, pageSize));
+                return BadRequest();
+            }
+
+        }
         #endregion
 
         #region Article Content Details Api
@@ -163,7 +210,7 @@ namespace Bikewale.Service.Controllers.CMS
         /// <returns>Article Details</returns>
         [ResponseType(typeof(CMSArticlePageDetails)), Route("api/cms/id/{basicId}/pages/")]
         public HttpResponseMessage Get(string basicId)
-        {            
+        {
             uint _basicId = default(uint);
             string articleDetailsJson = string.Empty;
 
@@ -183,7 +230,7 @@ namespace Bikewale.Service.Controllers.CMS
                         {
                             Content = new System.Net.Http.StringContent(articleDetailsJson, System.Text.Encoding.UTF8, "application/json")
                         };
-                    }                    
+                    }
                 }
                 else
                 {
@@ -192,9 +239,9 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");                
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
                 return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
-            }            
+            }
         }  //get article content          
 
         #endregion
@@ -211,11 +258,11 @@ namespace Bikewale.Service.Controllers.CMS
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>News Details</returns>
-        [HttpGet,ResponseType(typeof(CMSArticleDetails)), Route("api/cms/id/{basicId}/page/")]
+        [HttpGet, ResponseType(typeof(CMSArticleDetails)), Route("api/cms/id/{basicId}/page/")]
         //public IHttpActionResult GetArticleDetailsPage(string basicId)
         public HttpResponseMessage ArticlePages(string basicId)
         {
-            uint _basicId = default(uint);            
+            uint _basicId = default(uint);
             string articleDetailsJson = string.Empty;
 
             try
@@ -235,7 +282,7 @@ namespace Bikewale.Service.Controllers.CMS
                         {
                             Content = new System.Net.Http.StringContent(articleDetailsJson, System.Text.Encoding.UTF8, "application/json")
                         };
-                    }                    
+                    }
                 }
                 else
                 {
@@ -244,9 +291,9 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");                
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
                 return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
-            }            
+            }
         }  //get News Details
 
         #endregion
@@ -286,7 +333,7 @@ namespace Bikewale.Service.Controllers.CMS
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-               
+
                 return InternalServerError();
             }
 

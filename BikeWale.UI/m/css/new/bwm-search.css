@@ -29,7 +29,6 @@
     display: block;
     z-index: 1;
 }
-/*.bwm-usedbike { background:url(../images/bwm-usedbike.png) no-repeat 0px 0px; display: inline-block; }*/
 .sort-list.ui-radio { display: table; width: 100%; border-bottom: 1px solid #ccc; color: #333; cursor: pointer; }
 .sort-list.ui-radio input[type="radio"] { display: table-cell; padding: 15px 10px 15px 0px; position: relative; left: 0px; top: 4px; width: 42px; height: 20px; margin: 0; outline: 0; }
 .sort-list.ui-radio label { display: table-cell; width: 100%; padding: 15px 10px; }

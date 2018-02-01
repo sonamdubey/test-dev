@@ -1,0 +1,143 @@
+﻿@model Bikewale.Models.Photos.MakePhotosPageVM
+@using Bikewale.Entities.GenericBikes;
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	Model.IsHeaderFix = true;
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
+	Model.Page_JS_Path = "/src/photos/landing.js";
+    Model.AdTags.AdId = "1516009985687";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Bike_Image_";
+    Model.AdTags.Ad_970x90Top = true;
+    Model.AdTags.Ad_970x90Bottom = true;
+}
+@if (Model != null)
+{
+<script type="text/javascript">
+    var isMobile = false;
+    var lookupArray = {};
+    @if (Model.ModelBodyStyleArray != null)
+    {
+
+    if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Scooter) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Scooter].Any())
+    {
+        <text>
+        lookupArray["@((int)EnumBikeBodyStyles.Scooter)"] = @Json.Encode(Model.ModelBodyStyleArray[EnumBikeBodyStyles.Scooter]);
+        </text>
+    }
+    if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Cruiser) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Cruiser].Any()) {
+        <text>
+        lookupArray["@((int)EnumBikeBodyStyles.Cruiser)"] = @Json.Encode(Model.ModelBodyStyleArray[EnumBikeBodyStyles.Cruiser]);
+        </text>
+    }
+    if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Sports) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Sports].Any()) {
+        <text>
+        lookupArray["@((int)EnumBikeBodyStyles.Sports)"] = @Json.Encode(Model.ModelBodyStyleArray[EnumBikeBodyStyles.Sports]);
+        </text>
+    }
+    if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Street) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Street].Any()) {
+        <text>
+        lookupArray["@((int)EnumBikeBodyStyles.Street)"] = @Json.Encode(Model.ModelBodyStyleArray[EnumBikeBodyStyles.Street]);
+        </text>
+    }
+    }
+
+</script>
+
+<section>
+@if (Model.Make != null)
+{
+	<div class="container section-bottom-margin">
+		<div class="grid-12">
+			<div class="padding-15-20-20 content-box-shadow">
+				<h1 class="text-semibold margin-bottom10">@Model.Make.MakeName Bike Images</h1>
+				<div class="foldable-content" data-toggle="yes">
+					<p class="truncatable-content" data-readtextflag="1">@Model.ImagesSynopsis</p>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+}
+</section>
+
+<section>
+	<div class="container section-bottom-margin">
+		<div class="grid-12">
+			<div class="content-box-shadow padding-top15">
+				@if (Model.Make != null)
+                {
+                    <h2 class="explore-bikes__title">Explore Images of @Model.Make.MakeName Bikes</h2>
+                }
+				<div class="padding-bottom20">
+					<div class="explore-bikes__search form-control-box">
+						<input type="text" id="exploreBikesField" class="form-control__input" placeholder="Search Bike and Brands">
+                        <span class="input__search-icon" id="btnExploreBikesField"></span>
+
+						<ul id="errExploreBikes" class="ui-autocomplete ui-front ui-menu hide form-control__error">
+							<li class="ui-menu-item" tabindex="-1">
+								<span class="text-bold">Oops! No suggestions found</span><br />
+								<span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
+							</li>
+						</ul>
+					</div>
+
+					<div class="filter__content">
+						<p class="filter-category__label">
+							<span class="filter-by__label">Filter by</span><span class="filter-by__category-name">&nbsp;(Body type)</span>&nbsp;:
+						</p>
+						<div class="filter-category__list-content">
+							<ul id="filterBodyType" class="filter-category__list">
+                                <li class="filter-list__item body-type__item @((Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Scooter) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Scooter].Any()) ? "" : "disable")" data-bodytype="@((int)EnumBikeBodyStyles.Scooter)">
+                                    <span class="scooter-style-icon"></span>
+                                    <span class="body-type__label">Scooter</span>
+                                </li>
+
+                                <li class="filter-list__item body-type__item @((Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Street) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Street].Any())?"" : "disable")" data-bodytype="@((int)EnumBikeBodyStyles.Street)">
+                                    <span class="street-style-icon"></span>
+                                    <span class="body-type__label">Street</span>
+                                </li>
+
+                                <li class="filter-list__item body-type__item @((Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Cruiser) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Cruiser].Any())?"" : "disable")" data-bodytype="@((int)EnumBikeBodyStyles.Cruiser)">
+                                    <span class="cruiser-style-icon"></span>
+                                    <span class="body-type__label">Cruiser</span>
+                                </li>
+
+                                <li class="filter-list__item body-type__item @((Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Sports) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Sports].Any()) ? "" : "disable")" data-bodytype="@((int)EnumBikeBodyStyles.Sports)">
+                                    <span class="sports-style-icon"></span>
+                                    <span class="body-type__label">Sports</span>
+                                </li>
+							</ul>
+						</div>
+					</div>
+                    @if (Model.BikeModelsPhotos != null)
+                    {
+                        <ul class="explore-model-image__list image-card--list">
+                            @Html.Partial("~/Views/Photos/_ModelsImageListBase.cshtml", Model.BikeModelsPhotos)
+                        </ul>
+                    }
+					<div class="clear"></div>
+
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</section>
+    
+if (Model.OtherPopularMakes != null)
+{
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-bottom5">
+                    <h2 class="related-bikes__title">Browse Images by Brands</h2>
+                    @Html.Partial("~/Views/Photos/_OtherPopularMakes.cshtml", Model.OtherPopularMakes)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+
+}

@@ -1,12 +1,20 @@
-﻿using Bikewale.DTO.Images;
+﻿using Bikewale.DTO.CMS.Photos;
+using Bikewale.DTO.Images;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Images;
+using Bikewale.Entities.CMS;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Images;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Images;
 using Bikewale.Service.Utilities;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Bikewale.Service.AutoMappers.CMS;
 
 namespace Bikewale.Service.Controllers
 {
@@ -17,9 +25,11 @@ namespace Bikewale.Service.Controllers
     public class ImageController : CompressionApiController
     {
         private readonly IImage _objImageBL = null;
-        public ImageController(IImage objImageBL)
+        private readonly IBikeModels<BikeModelEntity, int> _objModelEntity;
+        public ImageController(IImage objImageBL, IBikeModels<BikeModelEntity, int> objModelEntity)
         {
             _objImageBL = objImageBL;
+            _objModelEntity = objModelEntity;
         }
 
         /// <summary>
@@ -98,5 +108,7 @@ namespace Bikewale.Service.Controllers
                 return BadRequest();
             }
         }
+        
+
     }
 }

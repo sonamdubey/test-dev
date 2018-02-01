@@ -13,6 +13,7 @@ using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Customer;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
@@ -36,7 +37,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace Bikewale.BAL.BikeData
 {
     /// <summary>
@@ -61,8 +61,8 @@ namespace Bikewale.BAL.BikeData
         private readonly IUserReviews _userReviews = null;
         private readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
         private readonly uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
+        private static readonly IEnumerable<EnumBikeBodyStyles> _bodyStyles = new List<EnumBikeBodyStyles> { EnumBikeBodyStyles.Scooter, EnumBikeBodyStyles.Street, EnumBikeBodyStyles.Cruiser, EnumBikeBodyStyles.Sports};
         private string _newsContentType;
-
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   Register the User Reviews BAL and resolve it
@@ -430,6 +430,218 @@ namespace Bikewale.BAL.BikeData
             return null;
         }
 
+        /// <summary>
+        /// Created By  : Vivek Singh Tomar on 12th Jan 2018
+        /// Descriptio  : Get models with list of images
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<ModelImages> GetBikeModelsPhotoGallery(string modelIds, int requiredImageCount)
+        {
+            IList<ModelImages> images = new List<ModelImages>();
+            try
+            {
+
+                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest });
+
+                var _objGrpcmodelsPhotoList = GrpcMethods.GetModelsImages(modelIds, contentTypeList, requiredImageCount);
+
+                if (_objGrpcmodelsPhotoList != null && _objGrpcmodelsPhotoList.LstGrpcModelImaegs.Count > 0)
+                {
+                    images = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelsPhotoList).ToList();
+                }
+                AppendModelImages(modelIds, requiredImageCount, ref images);
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+            }
+            return images;
+        }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 11th Jan 2018
+        /// Description : Method to get photos of bike models.
+        /// </summary>
+        /// <param name="modelIds">CSV modelIds for which Photos are to be fetched.</param>
+        /// <param name="categoryIds">CSV categoryIds which Photos are to be fetched.</param>
+        /// <param name="requiredImageCount">Count of Photos to be fetched for every model.</param>
+        /// <returns></returns>
+        public IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount)
+        {
+            IList<ModelImages> modelsImages = null;
+            try
+            {
+                modelsImages = new List<ModelImages>();
+                var objImages = GrpcMethods.GetModelsImages(modelIds, categoryIds, requiredImageCount);
+                if (objImages != null && objImages.LstGrpcModelImaegs != null && objImages.LstGrpcModelImaegs.Count > 0)
+                {
+                    modelsImages = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(objImages).ToList();
+                }
+                AppendModelImages(modelIds, requiredImageCount, ref modelsImages);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BAL.Images.ImageBL.GetBikeModelsPhotos{0}_categoryIds_{1}_requiredImageCount_{2}", modelIds, categoryIds, requiredImageCount));
+            }
+            return modelsImages;
+        }
+
+
+        /// <summary>
+        /// Gets the bike models photos.
+        /// </summary>
+        /// <param name="modelIds">The model ids.</param>
+        /// <param name="categoryIds">The category ids.</param>
+        /// <param name="requiredImageCount">The required image count.</param>
+        /// <param name="pager">The pager.</param>
+        /// <returns></returns>
+        public ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount, ImagePager pager)
+        {
+
+            ModelImageWrapper imageWrapper = null;
+            try
+            {
+                IEnumerable<ModelImages> modelsImages = null;
+                modelsImages = GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+
+                if (modelsImages != null && modelsImages.Any())
+                {
+                    imageWrapper = new ModelImageWrapper();
+                    imageWrapper.Models = modelsImages;
+                    imageWrapper = SetNextPrevUrl(imageWrapper, pager);
+                    if (imageWrapper.Models != null)
+                        imageWrapper.RecordCount = imageWrapper.Models.Count();
+                }
+                return imageWrapper;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BAL.Images.ImageBL.GetBikeModelsPhotos_modelIds_{0}_categoryIds_{1}_requiredImageCount_{2}", modelIds, categoryIds, requiredImageCount));
+            }
+            return null;
+        }
+        /// <summary>
+        /// Sets the next previous URL.
+        /// </summary>
+        /// <param name="imageWrapper">The image wrapper.</param>
+        /// <param name="pager">The pager.</param>
+        /// <returns></returns>
+        private ModelImageWrapper SetNextPrevUrl(ModelImageWrapper imageWrapper, ImagePager pager)
+        {
+            string controllerurl = "/api/images/pages/";
+
+            pager.PageNo = (pager.PageNo == 0) ? 1 : pager.PageNo;
+            if (pager.PageNo == pager.TotalPages)
+                imageWrapper.NextPageUrl = string.Empty;
+            else
+            {
+                //string apiUrlStrforNext = GetApiUrl(objFilters, 1);
+                imageWrapper.NextPageUrl = string.Format("{0}{1}?pagesize={2}", controllerurl, pager.PageNo + 1, pager.PageSize);
+            }
+
+            if (pager.PageNo == 1 || pager.PageNo == 0)
+                imageWrapper.PrevPageUrl = string.Empty;
+            else
+            {
+
+                imageWrapper.PrevPageUrl = string.Format("{0}{1}?pagesize={2}", controllerurl, pager.PageNo - 1, pager.PageSize);
+            }
+            return imageWrapper;
+
+        }
+        /// <summary>
+        /// Created by  :   Sumit Kate on 15 Jan 2018
+        /// Description :   Appends model image and model color photos to image lists
+        /// </summary>
+        /// <param name="modelIds"></param>
+        /// <param name="requiredImageCount"></param>
+        /// <param name="modelsImages"></param>
+        private void AppendModelImages(string modelIds, int requiredImageCount, ref IList<ModelImages> modelsImages)
+        {
+            if (!String.IsNullOrEmpty(modelIds) && requiredImageCount > 0 && modelsImages != null)
+            {
+                try
+                {
+                    ICollection<BikeModelColorImageEntity> colorImages = null;
+                    var modelIdsArray = Array.ConvertAll(modelIds.Split(','), int.Parse);
+
+                    var missingModelIds = modelIdsArray.Except(modelsImages.Select(m => m.ModelId));
+                    if (missingModelIds != null && missingModelIds.Count() > 0)
+                    {
+                        colorImages = _modelCacheRepository.GetModelImages(modelIds);
+                        var images = colorImages.GroupBy(m => m.Model.ModelId);
+                        foreach (var img in modelsImages)
+                        {
+                            var cmsImages = img.ModelImage.ToList();
+                            var image = images.Where(m => m.Key == img.ModelId).FirstOrDefault();
+                            if (image != null && image.Any())
+                            {
+                                img.RecordCount += image.Count();
+                                cmsImages.AddRange(ConvertToModelImages(image));
+                                img.ModelImage = cmsImages.Take(requiredImageCount);
+                            }
+                        }
+
+                        var missingModelImages = colorImages.Where(m => missingModelIds.Contains(m.Model.ModelId));
+                        var missingImages = missingModelImages.GroupBy(m => m.Model.ModelId);
+                        foreach (var image in missingImages)
+                        {
+                            var firstImg = image.First();
+                            var img = new ModelImages()
+                            {
+                                ModelId = firstImg.Model.ModelId,
+                                ModelBase = firstImg.Model,
+                                MakeBase = new BikeMakeEntityBase() { MakeId = firstImg.Make.MakeId, MakeName = firstImg.Make.MakeName, MaskingName = firstImg.Make.MakeMaskingName },
+                                RecordCount = image.Count(),
+                                BikeName = String.Format("{0} {1}", firstImg.Make.MakeName, firstImg.Model.ModelName),
+                                ModelImage = ConvertToModelImages(image).Take(requiredImageCount)
+                            };
+                            modelsImages.Add(img);
+                        }
+                    }
+                    modelsImages = modelsImages.OrderBy(m => Array.IndexOf(modelIdsArray, m.ModelId)).ToList();
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass.LogError(ex, "Error in AppendModelImages");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 15 Jan 2018
+        /// Description :   Convert To ModelImages
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        private IEnumerable<ModelImage> ConvertToModelImages(IGrouping<int, BikeModelColorImageEntity> image)
+        {
+            List<ModelImage> images = new List<ModelImage>();
+            try
+            {
+
+                if (image != null && image.Count() > 0)
+                {
+                    images = new List<ModelImage>();
+                    foreach (var img in image)
+                    {
+                        images.Add(new ModelImage()
+                        {
+                            HostUrl = img.HostUrl,
+                            OriginalImgPath = img.OriginalImagePath,
+                            MakeBase = new BikeMakeEntityBase() { MakeId = img.Make.MakeId, MakeName = img.Make.MakeName, MaskingName = img.Make.MakeMaskingName },
+                            ModelBase = img.Model
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "ConvertToModelImages");
+            }
+            return images;
+        }
         //// The delegate must have the same signature as the method
         //// it will call asynchronously.
         //public delegate IEnumerable<ModelImage> AsyncMethodCaller(U modelId);
@@ -1054,6 +1266,128 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetSeriesByModelId modelId = {0}", modelId));
             }
             return objSeries;
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 29 Jan 2018
+        /// Description : Get All ModelIds with BodyStyle of particular make 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="bodyStyle"></param>
+        /// <returns></returns>
+        public IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle)
+        {
+            IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
+            try
+            {
+                var objData = _modelCacheRepository.GetModelIdsForImages();
+                if (objData != null)
+                {
+                    modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetModelIdsForImages");
+            }
+            return modelIdsWithBodyStyle;
+        }
+
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 11th Jan 2018
+        /// Description : Get model ids with body style with required filters
+        /// Functionality : list return will [startIndex, endIndex] i.e. inclusive, indexing starts from 1
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex)
+        {
+            IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
+            try
+            {
+                if (startIndex > 0 && (startIndex <= endIndex))
+                {
+                    var objData = _modelCacheRepository.GetModelIdsForImages();
+                    if (objData != null)
+                    {
+                        modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)));
+                        if (modelIdsWithBodyStyle != null)
+                        {
+                            modelIdsWithBodyStyle = modelIdsWithBodyStyle.Skip(Convert.ToInt32(startIndex - 1)).Take(Convert.ToInt32(endIndex - startIndex + 1));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetModelIdsForImages");
+            }
+            return modelIdsWithBodyStyle;
+        }
+        /// <summary>
+        /// Created by  : Vivek Singh Tomar on 11th Jan 2018
+        /// Description : Get model ids with body style with required filters
+        /// Functionality : list return will [startIndex, endIndex] i.e. inclusive, indexing starts from 1
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, ref ImagePager pager)
+        {
+            IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = null;
+            try
+            {
+                if (pager.StartIndex > 0 && (pager.StartIndex <= pager.EndIndex))
+                {
+                    var objData = _modelCacheRepository.GetModelIdsForImages();
+                    if (objData != null)
+                    {
+                        modelIdsWithBodyStyle = objData.Where(g => (g.MakeId == makeId || makeId == 0) && (bodyStyle.Equals(g.BodyStyle) || bodyStyle.Equals(EnumBikeBodyStyles.AllBikes)));
+                        if (modelIdsWithBodyStyle != null)
+                        {
+                            pager.TotalResults = modelIdsWithBodyStyle.Count();
+                            pager.TotalPages = (int)Math.Ceiling((double)pager.TotalResults / (double)pager.PageSize); //  / pager.PageSize;
+                            modelIdsWithBodyStyle = modelIdsWithBodyStyle.Skip(pager.StartIndex - 1).Take(pager.EndIndex - pager.StartIndex + 1);
+                            pager.CurrentSetResults = modelIdsWithBodyStyle.Count();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetModelIdsForImages");
+            }
+            return modelIdsWithBodyStyle;
+        }
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Jan 2017
+        /// Description : Creation of lookup array for make images page
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> GetModelsWithBodyStyleLookupArray(uint makeId)
+        {
+            IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> LookupArray = new Dictionary<EnumBikeBodyStyles,IEnumerable<uint>>();
+            try
+            {
+                var objData = GetModelIdsForImages(makeId, EnumBikeBodyStyles.AllBikes);
+                if (objData != null)
+                {
+                    IEnumerable<ModelIdWithBodyStyle> modelIdWithBodyStyle = null;
+                    IEnumerable<uint> modelIds = null;
+                    foreach (EnumBikeBodyStyles bodyStyle in _bodyStyles)
+                    {
+                        modelIdWithBodyStyle = objData.Where(g => (bodyStyle.Equals(g.BodyStyle)));
+                        if(modelIdWithBodyStyle != null && modelIdWithBodyStyle.Any())
+                        {
+                            modelIds = modelIdWithBodyStyle.Select(g => g.ModelId);
+                            LookupArray.Add(bodyStyle, modelIds);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetModelsWithBodyStyleLookupArray : GetModelsWithBodyStyleLookupArray({0})", makeId));
+            }
+            return LookupArray;
         }
         private class MostPopularBikesBaseComparer : IEqualityComparer<MostPopularBikesBase>
         {

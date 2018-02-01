@@ -17,7 +17,6 @@ namespace Bikewale.BAL.UserReviews.Search
     /// </summary>
     public class UserReviewsSearch : IUserReviewsSearch
     {
-        ProcessedInputFilters filterInputs = null;
         private readonly IPager _pager = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
 
