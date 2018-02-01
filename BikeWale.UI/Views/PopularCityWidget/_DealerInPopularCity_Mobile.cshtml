@@ -1,0 +1,34 @@
+﻿@model Bikewale.Models.DealersServiceCentersIndiaWidgetVM
+@using Bikewale.Utility
+
+@if (Model != null && Model.DealerServiceCenters != null && Model.DealerServiceCenters.DealerDetails != null && Model.DealerServiceCenters.DealerDetails.Any())
+{
+<ul class="swiper-wrapper">
+@foreach (var details in Model.DealerServiceCenters.DealerDetails)
+{
+    if (details.DealerCount > 0)
+    {
+    <li class="swiper-slide carousel-slide">
+        <div class="dealer-by-city-card carousel-card">
+            <a href="@string.Format("/m/{0}/{1}/{2}/",Model.CityCardLink, Model.MakeMaskingName, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName,Model.CityCardTitle,  details.CityName)" class="dealer-by-city__target-link">
+                <div class="dealer-city__image">
+                    <span class="city-sprite @string.Format("{0}-icon",details.CityMaskingName)"></span>
+                </div>
+                <div class="dealer-city__detail">
+                    <span class="dealer-city__count">@details.DealerCount</span>
+                    <div class="dealer-city__text">
+                        @Model.MakeName @((details.DealerCount > 1) ? "showrooms" : "showroom") in
+                      
+                            <p class="dealer-city__name">@details.CityName</p>
+                        
+                    </div>
+                </div>
+            </a>
+        </div>
+    </li>
+    }
+
+}
+
+</ul>
+}

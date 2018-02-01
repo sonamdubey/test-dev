@@ -93,9 +93,9 @@
                         <span class="bwmsprite fullscreen-icon"></span>
                     </div>
 
-                    <div data-bind="click: toggleModelInfoScreen, css: modelInfoScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
-						<span class="download-icon"></span>
-                    </div>
+                    <a data-bind="attr: { href: getImageDownloadUrl() }" download class="footer-tab grid-3-tab">
+                        <span class="download-icon"></span>
+                    </a>
 
                     <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
                         <span class="bwmsprite color-palette"></span>
