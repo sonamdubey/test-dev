@@ -399,7 +399,7 @@
                                 </li>
 
                             </ul>
-                            <a id="refineResultApply" href="" class="btn btn-inv-blue refine-result__view-more">Apply</a>
+                            <button id="refineResultApply" class="inv-blue--disabled btn btn-inv-blue refine-result__view-more" disabled>Apply</button>
                         </div>
                     </li>
                     <li class="model-list__item">
@@ -710,26 +710,61 @@
                     <div class="filter__edit">Edit</div>
                 </div>
                 <div class="recommended-bike-container">
+                    @{var recommendedNoFound = 2;}
+                    @if(recommendedNoFound==1){
+                        <div class="not-found-container">
+                        <div class="not-found-section">
+                            <span class="not-found__image">
 
+                            </span>
+                            <div class="not-found-description">
+                                <p class="not-found__title">
+                                    Oops!
+                                </p>
+                                <p class="not-found__text">
+                                    We couldn't find any bike based on your criteria.
+                                </p>
+                            </div>
+                        </div>
+                    </div>                       
+                    }
+                    else {
                     <section>
                         <div class="bg-white section-bottom-margin">
-                            <div class="recommended-bike-section">
-                                <h2 class="recommended-bike__title page__heading-h2">Recommended Royal Enfield Bikes</h2>
+                            <h2 class="recommended-bike__title page__heading-h2">Recommended Royal Enfield Bikes</h2>
+                            @if (recommendedNoFound == 2)
+                            {
+                                <div class="not-found-container">
+                                    <div class="not-found-section">
+                                        <span class="not-found__image">
 
-                                <ul class="recommended-bike-list recommended-bike__sekeleton-loader">
+                                        </span>
+                                        <div class="not-found-description">
+                                            <p class="not-found__title">
+                                                Oops!
+                                            </p>
+                                            <p class="not-found__text">
+                                                We couldn't find any bike based on your criteria.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                              <div class="recommended-bike-section">
+                                <ul class="model-loader-list__content">
                                     @for (var i = 1; i <= 2; i++)
                                     {
-                                        <li class="recommended-bike__list-card">
+                                        <li class="model-loader-list__item">
                                             <div class="model__card">
-                                                <a href="" title="" class="model-card__target">
-                                                    <div class="model-loader__box">
-                                                        <div class="model-loader__image"></div>
-                                                        <div class="model-loader__title">
-                                                        </div>
+                                                <div class="model-loader__box">
+                                                    <div class="model-loader__image"></div>
+                                                    <div class="model-loader__title">
                                                     </div>
-                                                    <div class="model-exshowroom__loader-box">
-                                                    </div>
-                                                </a>
+                                                </div>
+                                                <div class="model-exshowroom__loader-box">
+                                                </div>
                                             </div>
                                         </li>
 
@@ -771,19 +806,20 @@
                                     }
 
                                 </ul>
-                            </div>
+                            </div>                              
+                            }
+
                         </div>
                     </section>
 
                     <section>
-                        <div class="other-recommended-bike overlay--inactive">
-                            <h2 class="recommended-bike__title page__heading-h2">Recommended Royal Enfield Bikes</h2>
-                            <ul class="recommended-bike-list">
-                                @for (var i = 1; i <= 4; i++)
-                                {
-                                    <li class="recommended-bike__list-card recommended-bike__sekeleton-loader">
-                                        <div class="model__card">
-                                            <a href="" title="" class="model-card__target">
+                        <div class=@((recommendedNoFound == 2) ? "other-recommended-bike" : "other-recommended-bike overlay--inactive")>
+                            <h2 class="recommended-bike__title page__heading-h2">Other Recommended Bikes (7)</h2>
+                            <ul class="model-loader-list__content">
+                                    @for (var i = 1; i <= 2; i++)
+                                    {
+                                        <li class="model-loader-list__item">
+                                            <div class="model__card">
                                                 <div class="model-loader__box">
                                                     <div class="model-loader__image"></div>
                                                     <div class="model-loader__title">
@@ -791,13 +827,14 @@
                                                 </div>
                                                 <div class="model-exshowroom__loader-box">
                                                 </div>
-                                            </a>
-                                        </div>
-                                    </li>
+                                            </div>
+                                        </li>
 
-                                }
+                                    }
+                                </ul>
+                            <ul class="recommended-bike-list hide">
                                 @for (var i = 1; i <= 10; i++)
-                                {
+                                    {
                                     <li class="recommended-bike__list-card">
                                         <div class="model__card">
                                             <a href="" title="" class="model-card__target">
@@ -828,11 +865,13 @@
                                             </a>
                                         </div>
                                     </li>
-                                }
+                                    }
 
                             </ul>
                         </div>
                     </section>
+                    }
+
                 </div>
 
 

@@ -88,3 +88,97 @@
     stroke-dashoffset: 187
     -webkit-transform: rotate(450deg)
             transform: rotate(450deg)
+
+//loader
+@mixin loader-background($backgroundColor: #f9f9f9, $loaderColor: #efefef)
+	@include vendor-prefix('animation', placeholderShimmer 1.25s linear 25 forwards)
+	background: $backgroundColor
+	background: linear-gradient(to right, $backgroundColor 15%, $loaderColor 20%, $backgroundColor 25%)
+	background-size: 1024px 100%
+	position: relative
+
+@-webkit-keyframes placeholderShimmer
+	0%
+		background-position: -512px 0
+
+	100%
+		background-position: 512px 0
+
+@keyframes placeholderShimmer
+	0%
+		background-position: -512px 0
+
+	100%
+		background-position: 512px 0
+
+// model loader
+
+$loaderLineHeight: 15px
+@mixin model-loader($min-height: 200px)
+	.model-loader__box
+		padding: 10px
+		margin-bottom: 5px
+		text-decoration: none
+		min-height: $min-height
+
+	.model-loader__title
+		display: block
+		margin-top: 2 * $loaderLineHeight
+		width: 100%
+		position: relative
+
+		&:before		
+			@include loader-background
+			content: ''
+			display: block
+			width: 75%
+			height: 10px
+			position: absolute
+			top: 3px
+			left: 0
+
+		&:after		
+			@include loader-background
+			height: 14px
+			width: 100%
+			content: ''
+			display: block
+			position: absolute
+			top: 21px
+			left: 0
+
+@mixin model-loader__image($height: 76px)
+	.model-loader__image
+		@include loader-background
+		display: block
+		width: 100%
+		height: $height	
+
+@mixin model-card__exshowroom-loader($height: 54px)
+	.model-exshowroom__loader-box
+		@include vendor-prefix('border-radius', 3px)
+		height: $height
+		padding: 6px 11px 7px
+		border: 1px solid color('white-smoke')
+		background-color: color('border-light')
+		position: relative
+
+
+		&:before
+			@include loader-background(color('white'), color('border-light'))
+			content: ''
+			width: 85%
+			height: 9px
+			position: absolute
+			top: 11px
+
+		&:after
+			@include loader-background(color('white'), color('border-light'))
+			content: ''
+			width: 85%
+			height: 14px
+			position: absolute
+			bottom: 12px
+
+
+

@@ -1,0 +1,34 @@
+﻿$_not-found__image: '#{$img-cdn-path}/0x0/bw/static/icons/d5d5d5/bike-image.png'
+
+.not-found-container
+	@include flexbox
+	@include align-items(center)
+	@include justify-content(center)
+	text-align: center
+	background: color('white')
+	height: 100%
+
+.not-found-section
+	margin-top: 15px
+	margin-bottom: 15px
+
+@mixin not-found__image($width: 133px, $height: 80px, $background-url: $_not-found__image)
+	.not-found__image
+		display: block
+		height: $height
+		width: $width
+		background: url($background-url) no-repeat center
+		margin: 0 auto 13%
+
+@mixin not-found-description($max-width: 168px)
+	.not-found-description
+		max-width: $max-width
+
+	.not-found__title
+		font-size: 28px
+		font-weight: $font_semibold
+		margin-bottom: 10px
+
+	.not-found__text
+		font-size: 14px
+		color: color('light-grey')

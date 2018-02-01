@@ -81,10 +81,11 @@
 
 
 .recommended-bike-container
-	height: 85%
+	height: 100%
 	overflow: auto
 	background: color('white-smoke')
 	margin-top: 3px
+	padding-bottom: 95px
 
 .recommended-bike__shadow-top
 	box-shadow: 0 -15px 20px -5px color('border-dark')
@@ -95,6 +96,7 @@
 .other-recommended-bike
 	background: color('white')
 	padding-bottom: 15px
+
 
 .overlay--inactive
 	opacity: 0.7
@@ -192,127 +194,18 @@
 		.card-exshowroom__label
 			font-size: 10px
 
-	.recommended-bike-container
-		height: 80%
-
-@media only screen and (min-width: 400px)
-	.recommended-bike-container
-		height: 88%
-
-@media only screen and (min-width: 600px)
-	.recommended-bike-container
-		height: 91%
-
-
-
-
-//loader
-@mixin loader-background($backgroundColor: #f9f9f9, $loaderColor: #efefef)
-	@include vendor-prefix('animation', placeholderShimmer 1.25s linear 25 forwards)
-	background: $backgroundColor
-	background: linear-gradient(to right, $backgroundColor 15%, $loaderColor 20%, $backgroundColor 25%)
-	background-size: 1024px 100%
-	position: relative
-
-@mixin loader-background1($backgroundColor: #fff, $loaderColor: #f9f9f9)
-	@include vendor-prefix('animation', placeholderShimmer 1.25s linear 25 forwards)
-	background: $backgroundColor
-	background: linear-gradient(to right, $backgroundColor 15%, $loaderColor 20%, $backgroundColor 25%)
-	background-size: 1024px 100%
-	position: relative
-
-@-webkit-keyframes placeholderShimmer
-	0%
-		background-position: -512px 0
-
-	100%
-		background-position: 512px 0
-
-@keyframes placeholderShimmer
-	0%
-		background-position: -512px 0
-
-	100%
-		background-position: 512px 0
-
-
-$loaderLineHeight: 15px
-@mixin model-loader($min-height: 200px)
-	.model-loader__box
-		padding: 10px
-		margin-bottom: 5px
-		text-decoration: none
-		min-height: $min-height
-
-	.model-loader__image
-		@include loader-background
-		display: block
-		width: 100%
-		height: 76px
-
-	.model-loader__title
-		display: block
-		margin-top: 2 * $loaderLineHeight
-		margin-bottom: 2 * $loaderLineHeight
-		width: 100%
-		position: relative
-
-		&:before		
-			@include loader-background
-			content: ''
-			display: block
-			width: 90px
-			height: 10px
-			position: absolute
-			top: 3px
-			left: 0
-
-		&:after		
-			@include loader-background
-			height: 14px
-			width: 100%
-			content: ''
-			display: block
-			position: absolute
-			top: 21px
-			left: 0
-
-	.model-loader__model-name
-		@include loader-background
-		width: 100%
-		height: $loaderLineHeight
-
-
-
-
-@include model-loader()
-
-// version loader
-@mixin model-card__exshowroom-loader($height: 54px)
-	.model-exshowroom__loader-box
-		@include vendor-prefix('border-radius', 3px)
-		height: $height
-		padding: 6px 11px 7px
-		border: 1px solid color('white-smoke')
-		background-color: color('border-light')
-		position: relative
-
-
-		&:before
-			@include loader-background1
-			content: ''
-			width: 85%
-			height: 9px
-			position: absolute
-			top: 11px
+@mixin recommended-bike__model-loader($width: 159px)
+	.model-loader-list__content
+		background: color('white')
+		padding: 4px 6px 5px 16px
 
 		&:after
-			@include loader-background1
 			content: ''
-			width: 85%
-			height: 14px
-			position: absolute
-			bottom: 12px
+			display: table
+			clear: both
 
-@include model-card__exshowroom-loader()
-
+	.model-loader-list__item
+		width: $width
+		float: left
+		margin-right: 10px
+		margin-top: 16px	
