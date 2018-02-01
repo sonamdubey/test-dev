@@ -177,13 +177,15 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 13-12-2017
         /// Description :- Bind Similar Bikes Only for desktop
+        /// Modified by : Deepak Israni on 1st Feb 2018
+        /// Descritpion : Added a null check for Model object in onjData
         /// </summary>
         /// <param name="objData"></param>
         private void BindSimilarBikes(ExpertReviewsDetailPageVM objData)
         {
             try
             {
-                if (objData.Model.ModelId > 0)
+                if (objData.Model != null && objData.Model.ModelId > 0)
                 {
                     var objSimilarBikes = new SimilarBikesWidget(_objBikeVersionsCache, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
 
