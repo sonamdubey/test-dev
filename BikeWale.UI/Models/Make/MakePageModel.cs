@@ -187,6 +187,7 @@ namespace Bikewale.Models
 
                 BindShowroomPopularCityWidget(objData);
                 BindResearchMoreMakeWidget(objData);
+                GetEMIDetails(objData);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -731,6 +732,61 @@ namespace Bikewale.Models
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindResearchMoreMakeWidget() makeId:{0} , cityId:{1}", _makeId, (cityBase != null ? cityBase.CityId.ToString() : "0")));
             }
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 1st Feb 2018
+        /// Descritpion: Method created to set emi details for bikelist models
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        private void GetEMIDetails(MakePageVM objData)
+        {
+
+            try
+            {
+                if (objData != null)
+                {
+                    if (cityBase != null && cityBase.CityId > 0) // when city is selected
+                    {
+                        foreach (var bike in objData.Bikes)
+                        {
+                            if (bike != null)
+                            {
+                                if (bike.ExShowroomPrice > 0)
+                                {
+                                    bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.ExShowroomPrice);
+                                }
+                                else if (bike.AvgPrice > 0)
+                                {
+                                    bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.AvgPrice);
+                                }
+                            }
+
+
+                        }
+
+                    }
+                    else // when city is not selected
+                    {
+                        foreach (var bike in objData.Bikes)
+                        {
+                            if (bike != null)
+                            {
+                                bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.ExShowroomPrice);
+                            }
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("MakePageModel.GetEMIDetails: Make : {0} , City : {1}", _makeId, cityBase.CityId));
+            }
+
         }
     }
 }
