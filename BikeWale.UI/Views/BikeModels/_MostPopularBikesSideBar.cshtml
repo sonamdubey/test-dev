@@ -27,9 +27,9 @@
                 </div>
             </a>
             @if (Model.ShowPriceInCityCTA && bike.VersionPrice > 0)
-{
-    <a href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(bike.objMake.MaskingName, bike.objModel.MaskingName, bike.CityMaskingName)" class=" bike-target__price-link text-truncate" title="@String.Format("{0} {1} Price in {2}", bike.objMake.MakeName, bike.objModel.ModelName, bike.CityName)">@String.Format("Price in {0}", bike.CityName)</a>
-}
+            {
+                <a href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(bike.objMake.MaskingName, bike.objModel.MaskingName, bike.CityMaskingName)" class=" bike-target__price-link text-truncate" title="@String.Format("{0} {1} Price in {2}", bike.objMake.MakeName, bike.objModel.ModelName, bike.CityName)">@String.Format("Price in {0}", bike.CityName)</a>
+            }
         </li>
 
     }

@@ -7,6 +7,8 @@ namespace Bikewale.Entities.BikeData
     /// <summary>
     /// Created by : Snehal Dange on 16th Jan 2017
     /// Description: Entity created for 'research more about make ' widget on make page
+    /// Created by : Sanskar Gupta on 31st Jan 2018
+    /// Description : Added 'ScootersCount' to fetch the number of scooters of the current make.
     /// </summary>
     [Serializable]
     public class ResearchMoreAboutMake
@@ -22,5 +24,7 @@ namespace Bikewale.Entities.BikeData
         public uint TotalServiceCentersCount { get; set; }
         public uint TotalDealerShowroomCount { get; set; }
         public bool ShowServiceCenterLink { get; set; }
+
+        public int ScootersCount { get; set; }
     }
 }

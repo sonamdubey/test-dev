@@ -2835,6 +2835,7 @@
     <Content Include="m\news\sw_installer.html" />
     <Content Include="m\news\sw.js" />
     <Content Include="m\new\photos\Default.aspx" />
+    <Content Include="m\sass\generic\listing.css" />
     <Content Include="m\sass\scooters\listing.css" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
@@ -3990,7 +3991,6 @@
     <Content Include="Views\BikeSeries\_PopularSeriesBikes_Mobile.cshtml" />
     <Content Include="Views\Shared\_EditorialBestBikesSideBar.cshtml" />
     <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
-    <Content Include="Views\Upcoming\_UpcomingBikes_Mobile_V2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
