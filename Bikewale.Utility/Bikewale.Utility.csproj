@@ -170,6 +170,7 @@
     <Compile Include="Description.cs" />
     <Compile Include="DeviceDetectionManager.cs" />
     <Compile Include="Distance.cs" />
+    <Compile Include="EMICalculation.cs" />
     <Compile Include="EncodingDecodingHelper.cs" />
     <Compile Include="Format.cs" />
     <Compile Include="FormatDate.cs" />
