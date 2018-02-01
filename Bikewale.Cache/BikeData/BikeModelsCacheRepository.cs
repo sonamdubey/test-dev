@@ -1580,7 +1580,7 @@ namespace Bikewale.Cache.BikeData
         }
         /// <summary>
         /// Created by : Sanskar Gupta on 31st Jan 2018
-        /// Description : Function to fetch Newly Launched bikes of a particular make within a span of particular number of days
+        /// Description : Function to fetch Newly Launched bikes of a particular make within a span of particular number of days.
         /// </summary>
         /// <returns></returns>
         public NewLaunchedBikesBase GetNewLaunchedBikesListByMakeAndDays(InputFilter inputFilter)
@@ -1590,7 +1590,7 @@ namespace Bikewale.Cache.BikeData
 
             try
             {
-                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesListByMake(0, inputFilter.Days-1, 1));
+                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => GetNewLaunchedBikesListByMake(0, inputFilter.Days, Convert.ToInt32(inputFilter.Make)));
             }
             catch (Exception ex)
             {

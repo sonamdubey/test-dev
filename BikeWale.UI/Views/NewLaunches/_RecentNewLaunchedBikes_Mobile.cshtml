@@ -1,0 +1,126 @@
+﻿@model Bikewale.Models.NewLaunchesBikesVM
+@{  
+    ushort i = 0;
+}
+@if (Model != null && Model.HasBikes)
+{
+    <div class="container bg-white box-shadow section-bottom-margin">
+
+        @if (Model.HasMakes)
+        {
+            <div class="box-shadow padding-top10 padding-bottom10">
+                <div class="grid-12 padding-left15 padding-right15 border-solid-right">
+                    <p class="font12 text-light-grey">Brand</p>
+                    <p id="brand-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        }
+
+
+        <!-- ko if : models() && models().length > 0 -->
+        <ul class="new-launches-list" data-bind="visible : !noBikes() && TotalBikes() != 0">
+            @foreach (var bike in Model.Bikes.Bikes)
+            {
+                <!-- ko if : models()[@i] -->
+                string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+                <li class="list-item">
+                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName))" title="@bikeName" class="block" data-bind="attr : {'href' : '/m/' + models()[@i].make.maskingName + '-bikes/' + models()[@i].model.maskingName + '/',title : models()[@i].bikeName  }">
+                        <div class="item-image-content">
+                            @if (i > 2)
+                            {
+                                <img class="lazy" data-bind="attr : { 'data-original' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath + '&q=70' : '/bikewaleimg/images/noimage.png' ), 'src':'' ,'lazyload' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ),'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._70)" alt="@bikeName" src="" />
+                            }
+                            else
+                            {
+                                <img data-bind="attr : { 'src' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath + '&q=70' : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._70)" alt="@bikeName" />
+                            }
+
+                        </div>
+                        <h3 data-bind="text : models()[@i].bikeName ">@bikeName</h3>
+                        <ul class="key-specs-list font12 margin-bottom5">
+
+                            <li data-bind="visible : models()[@i].minSpec.displacement != 0" @(bike.MinSpecs.Displacement > 0 ? "" : " style=display:none ")>
+                                <span data-bind="text:models()[@i].minSpec.displacement + ' cc'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc")</span>
+                            </li>
+
+                            <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0" @(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "" : " style=display:none ")>
+                                <span data-bind="text:models()[@i].minSpec.fuelEffeciency + ' kmpl'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")</span>
+                            </li>
+
+                            <li data-bind="visible : models()[@i].minSpec.maxPower != 0" @(bike.MinSpecs.MaxPower > 0 ? "" : " style=display:none ")>
+                                <span data-bind="text:models()[@i].minSpec.maxPower + ' bhp'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(), "bhp")</span>
+                            </li>
+
+                            <li data-bind="visible : models()[@i].minSpec.kerbWeight != 0" @(bike.MinSpecs.KerbWeight > 0 ? "" : " style=display:none ")>
+                                <span data-bind="text:models()[@i].minSpec.kerbWeight + ' kgs'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bike.MinSpecs.KerbWeight), "kgs")</span>
+                            </li>
+
+                        </ul>
+                        <div class="leftfloat exshowroom-price-content">
+                            <p class="key-size-13 text-truncate">Ex-showroom price, <span data-bind="text : selectedCityId() > 0 ? selectedCityName() : 'Mumbai'">@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</span></p>
+                            @Html.Raw("<span class='value-size-18'> &#x20B9;</span>")&nbsp;<span class="value-size-18" data-bind="CurrencyText : models()[@i].price ">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString())</span>
+                        </div>
+                        <div class="leftfloat launched-date-content ">
+                            <p class="key-size-13 text-truncate">Launched on</p>
+                            <span class="value-size-16" data-bind="text : models()[@i].launchedOn ">@Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchedOn.ToString(), "dd MMM yyyy")</span>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+
+                    <div class="margin-top10" @(bike.Price > 0 ? "" : " style=display:none ") data-bind="visible : models()[@i].price != 0">
+                        <a href="javascript:void(0)" data-pqsourceid="@Model.PqSource" data-bind="attr : { 'data-modelid' : models()[@i].model.modelId }" data-modelid="@bike.Model.ModelId" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
+                    </div>
+                </li>
+                 <!-- /ko -->
+                            i++;
+            }
+
+        </ul>
+        <!-- /ko -->
+        <div style="text-align: center;display:@(Model.HasPages ? "none" : "block")" data-bind="visible:noBikes() || TotalBikes()==0">
+            <div id="nobike" data-bind="visible : noBikes()">
+                <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
+            </div>
+        </div>
+        <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(Model.HasPages ? "block" : "none")">
+            <div class=" grid-5 omega text-light-grey font13">
+                <div class="font14" data-bind="visible: TotalBikes() > 0"><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@Model.Pager.TotalResults</span> bikes</div>
+            </div>
+            @if (Model.Pager.TotalResults > 10) { Html.RenderAction("Index", "Pager", new { objPager = @Model.Pager }); }
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+@if (Model.HasMakes)
+{
+
+    <div id="brand-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
+        <div class="drawer-top-header">
+            <span id="close-brand-slideIn-drawer" class="back-arrow-box inline-block">
+                <span class="bwmsprite back-long-arrow-left"></span>
+            </span><p class="head-label inline-block">Select brand</p>
+        </div>
+        <div class="drawer-body-content">
+            <div class="filter-input-box">
+                <div class="form-control-box">
+                    <input type="text" id="" class="form-control padding-right40" placeholder="Type to select brand">
+                    <span class="bwmsprite search-icon-grey"></span>
+                </div>
+            </div>
+            <ul class="filter-list" data-filter="makewise">
+                <li data-bind="click : function(d,e) { setMakeFilter(e);}"> <span>All brands</span> </li>
+                @foreach (var make in Model.Makes)
+{
+    <li  data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName" data-makename-lower="@make.Make.MakeName.ToLower()" data-bind="click : function(d,e) { setMakeFilter(e);}">
+        <span>@make.Make.MakeName</span>
+    </li>
+}
+
+            </ul>
+        </div>
+    </div>
+}
+<div id="sort-filters-loader" style="display: none;" data-bind="visible : IsLoading()">
+    <div class="cover-popup-loader"></div>
+</div>
