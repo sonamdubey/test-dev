@@ -89,26 +89,62 @@ if (Model.AdTags != null && Model.AdTags.Ad_Mid_320x50)
 					</p>
 					<div class="filter-category__list-content">
                         <ul id="filterBodyType" class="filter-category__list">
-
-                            <li class="filter-list__item body-type__item @((Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Scooter) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Scooter].Any())? "" : "disable")" data-bodytype="@((int)EnumBikeBodyStyles.Scooter)">
-                                <span class="scooter-style-icon"></span>
-                                <span class="body-type__label">Scooter</span>
-                            </li>
-
-                            <li class="filter-list__item body-type__item @((Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Street) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Street].Any())?"" : "disable")" data-bodytype="@((int)EnumBikeBodyStyles.Street)">
-                                <span class="street-style-icon"></span>
-                                <span class="body-type__label">Street</span>
-                            </li>
-
-                            <li class="filter-list__item body-type__item @((Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Cruiser) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Cruiser].Any())?"" : "disable")" data-bodytype="@((int)EnumBikeBodyStyles.Cruiser)">
-                                <span class="cruiser-style-icon"></span>
-                                <span class="body-type__label">Cruiser</span>
-                            </li>
-
-                            <li class="filter-list__item body-type__item @((Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Sports) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Sports].Any()) ? "" : "disable")" data-bodytype="@((int)EnumBikeBodyStyles.Sports)">
-                                <span class="sports-style-icon"></span>
-                                <span class="body-type__label">Sports</span>
-                            </li>
+                            @if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Scooter) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Scooter].Any())
+                            {
+                                <li class="filter-list__item body-type__item" data-bodytype="@((int)EnumBikeBodyStyles.Scooter)">
+                                    <span class="scooter-style-icon"></span>
+                                    <span class="body-type__label">Scooter</span>
+                                </li>
+                            }
+                            @if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Street) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Street].Any())
+                            {
+                                <li class="filter-list__item body-type__item" data-bodytype="@((int)EnumBikeBodyStyles.Street)">
+                                    <span class="street-style-icon"></span>
+                                    <span class="body-type__label">Street</span>
+                                </li>
+                            }
+                            @if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Cruiser) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Cruiser].Any())
+                            {
+                                <li class="filter-list__item body-type__item" data-bodytype="@((int)EnumBikeBodyStyles.Cruiser)">
+                                    <span class="cruiser-style-icon"></span>
+                                    <span class="body-type__label">Cruiser</span>
+                                </li>
+                            }
+                            @if (Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Sports) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Sports].Any())
+                            {
+                                <li class="filter-list__item body-type__item" data-bodytype="@((int)EnumBikeBodyStyles.Sports)">
+                                    <span class="sports-style-icon"></span>
+                                    <span class="body-type__label">Sports</span>
+                                </li>
+                            }
+                            @if (!(Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Scooter) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Scooter].Any()))
+                            {
+                                <li class="filter-list__item body-type__item disable" data-bodytype="@((int)EnumBikeBodyStyles.Scooter)">
+                                    <span class="scooter-style-icon"></span>
+                                    <span class="body-type__label">Scooter</span>
+                                </li>
+                            }
+                            @if (!(Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Street) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Street].Any()))
+                            {
+                                <li class="filter-list__item body-type__item disable" data-bodytype="@((int)EnumBikeBodyStyles.Street)">
+                                    <span class="street-style-icon"></span>
+                                    <span class="body-type__label">Street</span>
+                                </li>
+                            }
+                            @if (!(Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Cruiser) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Cruiser].Any()))
+                            {
+                                <li class="filter-list__item body-type__item disable" data-bodytype="@((int)EnumBikeBodyStyles.Cruiser)">
+                                    <span class="cruiser-style-icon"></span>
+                                    <span class="body-type__label">Cruiser</span>
+                                </li>
+                            }
+                            @if (!(Model.ModelBodyStyleArray.ContainsKey(EnumBikeBodyStyles.Sports) && Model.ModelBodyStyleArray[EnumBikeBodyStyles.Sports].Any()))
+                            {
+                                <li class="filter-list__item body-type__item disable" data-bodytype="@((int)EnumBikeBodyStyles.Sports)">
+                                    <span class="sports-style-icon"></span>
+                                    <span class="body-type__label">Sports</span>
+                                </li>
+                            }
                         </ul>
 					</div>
 				</div>

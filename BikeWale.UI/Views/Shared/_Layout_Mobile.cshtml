@@ -261,6 +261,20 @@
     }
     @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
     @RenderBody()
+    @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
+    {
+        <section>
+            <div class="container">
+                <div>
+                    <div id="div-gpt-ad-@Model.AdTags.AdId-1" style="width:320px; text-align:center;margin:10px auto;">
+                        <script type="text/javascript">
+                            googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-1'); });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
     {
         <section>
@@ -290,20 +304,7 @@
             <div class="clear"></div>
         </section>
     }
-    @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
-    {
-        <section>
-            <div class="container">
-                <div>
-                    <div id='div-gpt-ad-@Model.AdTags.AdId-1' style='width:320px; height:50px;text-align:center;margin:10px auto;'>
-                        <script type='text/javascript'>
-                            googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-1'); });
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </section>
-    }
+    
     <div class="blackOut-window"></div>
     <nav id="nav">
 		<a href="https://www.bikewale.com/autoexpo2018/" title="AutoExpo 2018 - BikeWale" class="auto-expo-nav bw-ga" data-cat="@Model.Page" data-act="AutoExpo_2018_Link Clicked" data-lab="Navigation_Drawer_Link">
