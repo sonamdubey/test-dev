@@ -1,6 +1,56 @@
 ﻿ga_pg_id = '3';
 
+function validateEmailId(inputEmail) {
+    var isValid = true,
+        emailVal = $(inputEmail).val(),
+        reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
+
+    if (emailVal == "") {
+        validate.setError($(inputEmail), 'Please enter Email Id');
+        isValid = false;
+    }
+    else if (!reEmail.test(emailVal)) {
+        validate.setError($(inputEmail), 'Please enter valid Email Id');
+        isValid = false;
+    }
+    return isValid;
+}
+
+function executeNotification() {
+    var userData = {
+        "emailId": $("notifyEmailField").val(),
+        "makeId": $("#bike-detail").attr("data-make").val(),
+        "modelID": $("bike-detail").attr("data-model").val(),
+
+    };
+    $.ajax({
+        type: "POST",
+        url: "api/notifyuser/",
+        contentType: "application/json",
+        data: ko.toJSON(userData),
+        sucess: function (response) {
+
+        },
+        error: function (response) {
+
+        }
+
+    });
+}
+
+
+
 docReady(function () {
+
+    $("#notifySubmitBtn").on("click", function () {
+        flag = validateEmailId($(""));
+        if (flag == true) {
+            executeNotification();
+        }
+
+    });
+
+
     $("img.lazy").lazyload();
 
     $('.jcarousel-wrapper.upComingBikes .jcarousel').on('jcarousel:targetin', 'li', function () {

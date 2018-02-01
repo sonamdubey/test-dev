@@ -1,5 +1,6 @@
 ﻿using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UpcomingNotification;
 using Bikewale.Interfaces.BikeData;
 using Microsoft.Practices.Unity;
 using System;
@@ -169,6 +170,12 @@ namespace Bikewale.BAL.BikeData
         public ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId)
         {
             return makesRepository.ResearchMoreAboutMakeByCity(makeId, cityId);
+        }
+
+        public void ProcessNotification(UpcomingNotificationEntity entityNotif)
+        {
+            makesRepository.ProcessNotification(entityNotif);
+
         }
 
     }   // Class

@@ -12,7 +12,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-
+using Bikewale.Entities.UpcomingNotification;
 namespace Bikewale.DAL.BikeData
 {
     /// <summary>
@@ -932,5 +932,34 @@ namespace Bikewale.DAL.BikeData
             }
             return obj;
         }
+        public void ProcessNotification(UpcomingNotificationEntity entityNotif)
+        {
+
+            try
+            {
+                //
+                using (DbCommand cmd = DbFactory.GetDBCommand("AddUserNotification"))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, entityNotif.EmailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, entityNotif.MakeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.String, entityNotif.ModelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_notificationid", DbType.Int32, entityNotif.NotificationId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, entityNotif.UserId));
+
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.ProcessNotification: MakeId:{0} ModelId:{1} EmailId:{3} NotificationId:{4} UserId:{5}", entityNotif.MakeId, entityNotif.ModelId, entityNotif.EmailId, entityNotif.NotificationId, entityNotif.UserId));
+            }
+
+
+        }
     }
+
 }

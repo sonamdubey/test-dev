@@ -458,6 +458,7 @@
     <Compile Include="service\ServiceCityEntity.cs" />
     <Compile Include="App\SplashScreenEntity.cs" />
     <Compile Include="StatusCodes.cs" />
+    <Compile Include="UpcomingNotification\UpcomingNotificationEntity.cs" />
     <Compile Include="UrlShortner\UrlShortnerResponse.cs" />
     <Compile Include="Used\BikeDetails.cs" />
     <Compile Include="Used\BikeDetailsMin.cs" />

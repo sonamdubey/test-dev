@@ -1,15 +1,15 @@
 ﻿using Bikewale.DTO.Make;
 using Bikewale.DTO.Upcoming;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Upcoming;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Make;
 using System;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.Entities.Upcoming;
-using Bikewale.Service.AutoMappers.Notification;
+using Bikewale.Entities.UpcomingNotification;
+using Bikewale.Service.AutoMappers.UpcomingNotification;
+using Bikewale.Entities.UpcomingNotification;
 
 namespace Bikewale.Service.Controllers.Make
 {
@@ -21,10 +21,12 @@ namespace Bikewale.Service.Controllers.Make
     public class MakeController : ApiController
     {
 
-        private readonly IBikeMakesCacheRepository _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
 
-        public MakeController(IBikeMakesCacheRepository bikeMakes)
+        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        public MakeController(IBikeMakesCacheRepository bikeMakesCache, IBikeMakes<BikeMakeEntity, int> bikeMakes)
         {
+            _bikeMakesCache = bikeMakesCache;
             _bikeMakes = bikeMakes;
         }
         
@@ -42,7 +44,7 @@ namespace Bikewale.Service.Controllers.Make
             {
                 if (makeId > 0)
                 {
-                    objMake = _bikeMakes.GetMakeDetails(makeId);
+                    objMake = _bikeMakesCache.GetMakeDetails(makeId);
 
                     if (objMake != null)
                     { 
@@ -72,11 +74,12 @@ namespace Bikewale.Service.Controllers.Make
                 UpcomingNotificationEntity entitiyNotif = NotificationMapper.Convert(dtoNotif);
                 if(entitiyNotif != null)
                 {
-                   _bikeMakes.ProcessNotification(entitiyNotif);
+                    _bikeMakes.ProcessNotification(entitiyNotif);
 
                 }
-
+                
             }
+            return Ok();
         }
 
     }

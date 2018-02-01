@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UpcomingNotification;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -42,5 +43,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId);
         ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId);
         ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId);
+        void ProcessNotification(UpcomingNotificationEntity entityNotif);
     }
 }
