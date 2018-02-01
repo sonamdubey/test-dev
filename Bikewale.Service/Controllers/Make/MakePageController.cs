@@ -1,8 +1,11 @@
 ﻿using Bikewale.DTO.Make;
+using Bikewale.DTO.Upcoming;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UpcomingNotification;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Make;
+using Bikewale.Service.AutoMappers.UpcomingNotification;
 using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
@@ -70,10 +73,25 @@ namespace Bikewale.Service.Controllers.Make
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Make.MakePageController");
-                
+
                 return InternalServerError();
             }
             return NotFound();
+        }
+        [Route("api/notifyuser/")]
+        public IHttpActionResult UpcomingNotification([FromBody]UpcomingNotificationDTO dtoNotif)
+        {
+            if (ModelState.IsValid)
+            {
+                UpcomingNotificationEntity entitiyNotif = NotificationMapper.Convert(dtoNotif);
+                if (entitiyNotif != null)
+                {
+                    _makesRepository.ProcessNotification(entitiyNotif);
+
+                }
+
+            }
+            return Ok();
         }
     }
 }
