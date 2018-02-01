@@ -3138,6 +3138,9 @@
     <Content Include="sass\partials\_other-bikes-list.sass" />
     <Content Include="sass\partials\_refine-result.sass" />
     <Content Include="sass\partials\_recommended-bike.sass" />
+    <Content Include="sass\mixins\_blackout-window.sass" />
+    <Content Include="sass\mixins\_check-box.sass" />
+    <Content Include="sass\partials\_filter-screen.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />

@@ -62,18 +62,8 @@ $_color-transparent: rgba(255,255,255,0.001)
 				background: -webkit-linear-gradient(270deg, $_color-transparent, color('white'))
 				background: linear-gradient(180deg, $_color-transparent, color('white'))
 
-.interesting-fact__whiteout-window
-	@include vendor-prefix('transition', all .3s cubic-bezier(0, 0, .3, 1))
-	position: fixed
-	top: 0
-	left: 0
-	right: 0
-	bottom: 0
-	will-change: opacity
-	background: rgba(0, 0, 0, .3)
-	opacity: 0
-	cursor: pointer
-	pointer-events: none
+.interesting-fact__bg-window
+	@include blackout-window(.3)
 
 @mixin interesting-fact-popup
 	.interesting-fact-popup
@@ -85,7 +75,7 @@ $_color-transparent: rgba(255,255,255,0.001)
 		bottom: 0
 		left: 0
 		right: 0
-		height: 80%
+		z-index: $blackout-window-z-index + 1
 
 		.interesting-fact-container
 			height: 88%
@@ -112,14 +102,12 @@ $_color-transparent: rgba(255,255,255,0.001)
 	@include interesting-fact__white-overlay
 
 	.interesting-popup--active
-		.interesting-fact__whiteout-window
+		.interesting-fact__bg-window
 			opacity: 1
 			pointer-events: auto
-			z-index: 4
 
 		.interesting-fact-popup
 			@include vendor-prefix('transform', translate(0, 0))
-			z-index: 5
 
 	.fact-container__block
 		position: relative

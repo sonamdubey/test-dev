@@ -1,0 +1,49 @@
+@mixin check-box($size: 18, $alignment: 'left')
+	.check-box
+		input[type="checkbox"]
+			display: none
+
+		&
+			position: relative
+			display: inline-block
+			vertical-align: middle
+
+	.check-box
+		input[type="checkbox"]
+			&:checked
+				~ .check-box__icon
+					@include tick-icon
+					border-color: color('sunset-orange')
+					background-color: color('sunset-orange')
+
+			&:disabled
+				~
+					.check-box__label,
+					.check-box__icon
+						@include vendor-prefix('opacity', .4)
+
+
+	.check-box__label
+		color: $base-color
+		font-size: 12px
+		display: inline-block
+		padding-#{$alignment}: ($size + 10) * 1px
+		line-height: $size * 1px
+
+
+	.check-box__icon
+		@include vendor-prefix('border-radius', 3px)
+		position: absolute
+		top: 0
+
+		@if $alignment == 'left'
+			left: 0
+
+		@else
+			right: 0
+
+		width: $size * 1px
+		height: $size * 1px
+		display: block
+		border: 1px solid color('dark-gray')
+		background-color: color('white')

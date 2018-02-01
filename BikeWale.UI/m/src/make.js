@@ -57,8 +57,13 @@
   //floating navbar
 	floatingNav.registerEvents();
 
-    //recommended bike popup
+  //recommended bike popup
 	recommendedBike.registerEvents();
+
+	// filters popup
+	bikeFilters.registerEvents();
+
+	Accordion.registerEvents();
 });
 
 var floatingNav = (function () {
@@ -466,7 +471,11 @@ var recommendedBike = (function () {
             }
             $(this).closest('.filter-list__item').remove();
 
-        });
+				});
+				
+				$('.filter__edit').on('click', function() {
+					bikeFilters.open();
+				});
     }
     function open() {
         recommendedBike.addClass('recommended-bike-popup--active');
@@ -483,4 +492,90 @@ var recommendedBike = (function () {
         close: close
     }
 
+})();
+
+
+var bikeFilters = (function() {
+	var container, backgroundWindow;
+
+	function _setSelectors() {
+		container = $('#filtersPopup');
+		backgroundWindow = $('#filtersBlackoutWindow');
+	}
+
+	function registerEvents() {
+		_setSelectors();
+		_setBodyDimension();
+
+		backgroundWindow.on('click', function() {
+			close();
+		});
+
+		$(window).on('popstate', function () {
+			if (container.hasClass('filters-screen--active')) {
+				close();
+			}
+		});
+	}
+
+	function _setBodyDimension() {
+		var bodyHeight = container.find('.filters__screen').height() - container.find('.filters-screen__head').height();
+
+		container.find('.filters-screen__body').css('height', bodyHeight);
+	}
+
+	function open() {
+		container.addClass('filters-screen--active');
+		history.pushState('filtersPopup', '', '');
+	}
+
+	function close() {
+		container.removeClass('filters-screen--active');
+		history.back();
+	}
+
+	return {
+		registerEvents: registerEvents,
+		open: open,
+		close: close
+	}
+
+})();
+
+
+var Accordion = (function() {
+	function registerEvents() {
+		$('.accordion__list').on('click', '.accordion__head', function() {
+			handleClick($(this))
+		});
+	}
+
+	function handleClick(accordionHead) {
+		var accordionList = accordionHead.closest('.accordion__list');
+		
+		if(accordionList.attr('data-state') === 'one') {
+			var accordionItem = accordionHead.closest('.accordion-list__item');
+			var accordionSiblingItems = accordionItem.siblings('.accordion-list__item');
+
+			accordionSiblingItems.find('.accordion-item--active').removeClass('accordion-item--active');
+			accordionSiblingItems.find('.accordion__body').css('height', 0);
+
+			var accordionBody = accordionHead.siblings('.accordion__body');
+			var accordionContentHeight = accordionBody.find('.accordion-body__content').outerHeight(true);
+
+			if (!accordionHead.hasClass('accordion-item--active')) {
+				accordionHead.addClass('accordion-item--active');
+				accordionBody.css('height', accordionContentHeight);
+			}
+			else {
+				accordionHead.removeClass('accordion-item--active');
+				accordionBody.css('height', 0);
+			}
+		}
+
+	}
+
+	return {
+		registerEvents: registerEvents
+	}
 })();
