@@ -1,13 +1,15 @@
 ﻿using Bikewale.DTO.Make;
 using Bikewale.DTO.Upcoming;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Upcoming;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Make;
 using System;
 using System.Web.Http;
 using System.Web.Http.Description;
-
+using Bikewale.Entities.Upcoming;
+using Bikewale.Service.AutoMappers.Notification;
 
 namespace Bikewale.Service.Controllers.Make
 {
@@ -63,9 +65,18 @@ namespace Bikewale.Service.Controllers.Make
         }//get make details
         
         [Route("api/notifyuser/")]
-        public IHttpActionResult PostNotification([FromBody]UpcomingNotification notifObj)
+        public IHttpActionResult UpcomingNotification([FromBody]UpcomingNotificationDTO dtoNotif)
         {
+            if(ModelState.IsValid)
+            {
+                UpcomingNotificationEntity entitiyNotif = NotificationMapper.Convert(dtoNotif);
+                if(entitiyNotif != null)
+                {
+                   _bikeMakes.ProcessNotification(entitiyNotif);
 
+                }
+
+            }
         }
 
     }
