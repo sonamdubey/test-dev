@@ -1587,5 +1587,41 @@ namespace Bikewale.Cache.BikeData
             }
             return modelIdsWithBodyStyle;
         }
+        /// <summary>
+        /// Created By  : Sanskar Gupta on 12 Jan 2018
+        /// Description : Cache Layer for getting all the promoted bikes
+        /// </summary>
+        /// <param name="bikeFilters"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters)
+        {
+            IEnumerable<MostPopularBikesBase> mostPopularBikes = null;
+            string key = string.Empty;
+            try
+            {
+                key = string.Format("BW_AdPromotedBike_MakeId_{0}_CityId_{1}", bikeFilters.MakeId, bikeFilters.CityId);
+                mostPopularBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetAdPromotedBike(bikeFilters));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetAdPromotedBike"));
+            }
+            return mostPopularBikes;
+        }
+        public IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters)
+        {
+            IEnumerable<MostPopularBikesBase> mostPopularBikes = null;
+            string key = string.Empty;
+            try
+            {
+                key = "BW_AdPromotedBike";
+                mostPopularBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetAdPromotedBikeWithOutCity(bikeFilters));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetAdPromotedBike"));
+            }
+            return mostPopularBikes;
+        }
     }
 }

@@ -1,0 +1,76 @@
+input,
+select,
+button
+	font-family: 'Open Sans', sans-serif, Arial
+	border: none
+	outline: none
+	margin: 0
+
+input::-moz-focus-inner,
+button::-moz-focus-inner,
+input::-webkit-focus-inner,
+button::-webkit-focus-inner
+	border: 0
+	padding: 0
+	outline: none
+
+input::-webkit-input-placeholder
+	color: #a8afb3
+	font-size: 13px
+
+input:-moz-placeholder,
+input::-moz-placeholder
+	color: #a8afb3
+	font-size: 13px
+	opacity: 1
+
+input:-ms-input-placeholder
+	color: #a8afb3
+	font-size: 13px
+
+.form-control-box
+	position: relative
+
+.form-control
+	display: block
+	width: 100%
+	padding: 10px
+	line-height: 1.42857143
+	color: $primary-color
+	position: relative
+	background-color: #fff
+	background-image: none
+	border: 1px solid #ccc
+	border-radius: 2px
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+
+	&:focus
+		border-color: #66afe9
+		outline: 0
+		-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba(102, 175, 233, 0.6)
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba(102, 175, 233, 0.6)
+
+input
+	&[type="text"]:focus,
+	&[type="number"]:focus,
+	&[type="search"]:focus
+		border-color: #66afe9
+		outline: 0
+		-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba(102, 175, 233, 0.6)
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba(102, 175, 233, 0.6)
+
+textarea:focus
+	border-color: #66afe9
+	outline: 0
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba(102, 175, 233, 0.6)
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba(102, 175, 233, 0.6)
+
+select
+	&.form-control
+		-moz-appearance: none
+		-webkit-appearance: none
+		background: #fff url('https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png') no-repeat 96% 50%
+		padding-right: 30px
+		background: #fff
+		padding-right: 5px

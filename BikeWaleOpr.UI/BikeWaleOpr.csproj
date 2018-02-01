@@ -1410,6 +1410,7 @@
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="css\960_12_col.css" />
+    <Content Include="css\brand-logo.css" />
     <Content Include="css\chosen.min.css" />
     <Content Include="css\common-new.css" />
     <Content Include="css\Common.css" />

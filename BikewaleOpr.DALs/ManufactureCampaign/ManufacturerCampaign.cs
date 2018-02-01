@@ -18,6 +18,8 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
     /// <summary>
     /// Created by Subodh Jain 22 jun 2017
     /// Description :For Manufacturer Campaign
+    /// Modified by : Ashutosh Sharma on 25 Jan 2017
+    /// Description : Replaced sp from 'getmanufacturecampaignsdetails' to 'getmanufacturecampaignsdetails_25012018' to get campaign start and end time.
     /// </summary>
     /// <param name="dealerId"></param>
     /// <returns></returns>
@@ -37,7 +39,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
 
                     param.Add("par_dealerid", dealerId);
                     param.Add("par_allactivecampaign", allActiveCampaign);
-                    dtManufactureCampaigns = connection.Query<ManufacturerCampaignDetailsList>("getmanufacturecampaignsdetails", param: param, commandType: CommandType.StoredProcedure);
+                    dtManufactureCampaigns = connection.Query<ManufacturerCampaignDetailsList>("getmanufacturecampaignsdetails_25012018", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();

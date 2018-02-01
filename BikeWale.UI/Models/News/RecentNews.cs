@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 
 namespace Bikewale.Models
 {
@@ -86,25 +88,32 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017
         /// Summary    : To get list of news articles
+        /// Modified by : Pratibha Verma on 25the January
+        /// Description : Added AutoExpo2018 in news category
         /// </summary>
         public RecentNewsVM GetData()
         {
+            string _newsContentType;
             RecentNewsVM recentNews = new RecentNewsVM();
+            List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>();
+            categoryList.Add(EnumCMSContentType.News);
+            categoryList.Add(EnumCMSContentType.AutoExpo2018);
+            _newsContentType = CommonApiOpn.GetContentTypesString(categoryList);
             try
             {
                 if (!string.IsNullOrEmpty(_modelIdList))
                 {
-                    recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelIdList);
+                    recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_newsContentType, _totalRecords, _makeId, _modelIdList);
                 }
                 else
                 {
                     if (IsScooter)
                     {
                         string bodyStyleId = ((int)EnumBikeBodyStyles.Scooter).ToString();
-                        recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, bodyStyleId, _makeId, _modelId);
+                        recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_newsContentType, _totalRecords, bodyStyleId, _makeId, _modelId);
                     }
                     else
-                        recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelId);
+                        recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_newsContentType, _totalRecords, _makeId, _modelId);
 
                 }
 

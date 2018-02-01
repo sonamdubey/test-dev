@@ -31,6 +31,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description: Added GetMileageDetails() to get mileage info for model
     /// Modified By : Vivek Singh Tomar on 28th Nov 2017
     /// Description : Added GetSeriesByModelId to get series details for given model id
+    /// Modified by : Sanskar Gupta on 22 Jan 2018
+    /// Description : Added boolean 'isCityLogicPresent' in function 'GetAdPromotedBike' to separate Newly Launched logic of HomePage and Editorial Pages
     /// Modified By : Rajan Chauhan on 29 Jan 2018
     /// Description : overload function GetModelIdsForImages to get all models 
     ///               Added method GetModelsWithBodyStyleLookupArray for getting Dictionary mapping bodyStyle with modelIds
@@ -64,6 +66,9 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
         BikeMileageEntity GetMileageDetails(uint modelId);
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
+        IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData, bool isCityLogicPresent);
+        IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> PromotedBikes, IEnumerable<MostPopularBikesBase> PopularBikes);
+
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle);
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex);
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, ref ImagePager pager);

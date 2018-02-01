@@ -159,6 +159,7 @@
     <Compile Include="HomePage\HomePageVM.cs" />
     <Compile Include="Location\ChangeLocationPopupVM.cs" />
     <Compile Include="Make\OtherMakesVM.cs" />
+    <Compile Include="Make\ResearchMoreAboutMakeVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
     <Compile Include="NewBikeSearch\NewBikeSearchVM.cs" />

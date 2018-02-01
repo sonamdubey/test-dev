@@ -132,7 +132,7 @@
                             {
                                 string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
-                            <li class="bw-ga" data-lab="@bikeName&#95;@image.ImageCategory" data-act="Image_Carousel_Clicked" data-cat="Model_Page">
+                            <li class="bw-ga" data-lab="@bikeName&#95;@image.ImageCategory" data-act="Image_Carousel_Clicked" data-cat="Model_Page" data-imgcat="@image.ImageCategory" data-imgtype="@image.ImageType" data-imgid="@image.ImageId">
 
                                 <span class="carousel-nav-img-container">
                                     @if (imageIndex < 7)

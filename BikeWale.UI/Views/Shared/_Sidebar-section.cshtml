@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.SimilarBikesWidgetVM
 @using Bikewale.Utility;
-<div class="sidebar-bike-container">
+<div class="sidebar-list--overflow sidebar-list__simibar-bikes">
     <ul class="sidebar-bike-list">
         @foreach (var bike in Model.Bikes)
         {
@@ -41,4 +41,3 @@
         }
     </ul>
 </div>
-<link rel="stylesheet" type="text/css" href="/sass/modules/sidebar-bike-section.css">

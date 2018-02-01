@@ -194,6 +194,8 @@ namespace Bikewale.Models
         /// Summary    : Bind Widgets
         /// Modified by sajal Gupta on 05-12-2017
         /// Desc : Adderd multui tab widget
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         private void BindWidget(IndexFeatureVM objIndex, int topCount)
         {
@@ -230,6 +232,11 @@ namespace Bikewale.Models
                 };
                 objUpcomingBikes.Filters.BodyStyleId = (uint)EnumBikeBodyStyles.Scooter;
                 UpcomingScooters = objUpcomingBikes.GetData();
+
+                BikeFilters obj = new BikeFilters();
+                obj.CityId = CityId;
+                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+
                 if (IsMobile)
                 {
                     objIndex.UpcomingBikes = new UpcomingBikesWidgetVM();
@@ -240,6 +247,10 @@ namespace Bikewale.Models
 
                     objIndex.MostPopularBikes = new MostPopularBikeWidgetVM();
                     objIndex.MostPopularBikes.Bikes = MostPopularBikes.Bikes.Take(topCount);
+
+                    objIndex.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objIndex.MostPopularBikes.Bikes);
+
+
                     objIndex.MostPopularBikes.WidgetHeading = "Popular bikes";
                     objIndex.MostPopularBikes.WidgetHref = "/best-bikes-in-india/";
                     objIndex.MostPopularBikes.WidgetLinkTitle = "Best Bikes in India";
@@ -300,6 +311,8 @@ namespace Bikewale.Models
                     objIndex.PopularBikesAndPopularScootersWidget.ShowViewAllLink2 = true;
                     objIndex.PopularBikesAndPopularScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndPopularScooters;
                     objIndex.PopularBikesAndPopularScootersWidget.PageName = "Features";
+                    
+                    objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objIndex.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                 }
             }
             catch (Exception err)

@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Notifications.NotificationDAL;
+using Bikewale.Utility;
 using System;
 using System.Configuration;
 using System.Web;
@@ -25,7 +26,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.RegistrationSMS");
-                
+
             }
 
         }
@@ -43,7 +44,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.SMSDealerAddress");
-                
+
             }
         }//
 
@@ -69,7 +70,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.SMSNewBikeQuote");
-                
+
             }
         }//
 
@@ -97,7 +98,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.SMSNewBikeQuote");
-                
+
             }
         }
 
@@ -128,7 +129,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.NewBikePriceQuoteSMSToDealer");
-                
+
             }
         }
 
@@ -177,7 +178,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.NewBikePriceQuoteSMSToCustomer");
-                
+
             }
         }
 
@@ -221,7 +222,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.BikeBookingSMSToCustomer");
-                
+
             }
         }
 
@@ -261,7 +262,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.NewBikePriceQuoteSMSToDealer");
-                
+
             }
         }
 
@@ -277,7 +278,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.ClaimedOfferSMSToCustomer");
-                
+
             }
         }
 
@@ -308,7 +309,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.NewBikePriceQuoteSMSToDealer");
-                
+
             }
         }
 
@@ -358,7 +359,7 @@ namespace Bikewale.Notifications
             {
                 HttpContext.Current.Trace.Warn("Notifications.SaveNewBikePriceQuoteSMSToCustomer : " + err.Message);
                 ErrorClass.LogError(err, "Notifications.NewBikePriceQuoteSMSToCustomer");
-                
+
             }
         }
 
@@ -445,7 +446,7 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Notifications.SMSTypes.SaveNewBikePriceQuoteSMSToCustomer");
-                
+
             }
         }
 
@@ -467,7 +468,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.SMSBikeBookingCancellation");
-                
+
             }
         }
         /// <summary>
@@ -494,7 +495,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "SMSTypes.SMSForPhotoUploadTwoDays");
-                
+
             }
 
         }
@@ -514,7 +515,7 @@ namespace Bikewale.Notifications
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "Notifications.SMSBikeBookingCancellation");
-                
+
             }
         }
 
@@ -536,7 +537,7 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Notifications.UsedPurchaseInquirySMSToSeller({0},{1},{2})", number, message, pageurl));
-                
+
             }
         }
         /// <summary>
@@ -560,7 +561,7 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Notifications.ApprovalUsedSellListingSMSToSeller({0},{1},{2},{3})", number, message, pageurl, profileId));
-                
+
             }
         }
         /// <summary>
@@ -579,7 +580,7 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Notifications.RejectionUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
-                
+
             }
         }
 
@@ -595,7 +596,7 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Notifications.UsedSellSuccessfulListingSMS({0},{1},{2})", number, message, pageurl));
-                
+
             }
         }
         /// <summary>
@@ -614,7 +615,7 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Notifications.ApprovalEditedUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
-                
+
             }
         }
 
@@ -634,7 +635,7 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Notifications.RejectionEditedUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
-                
+
             }
         }
 
@@ -642,11 +643,15 @@ namespace Bikewale.Notifications
         /// Created By  : Sajal Gupta on 16-11-2016
         /// Description : Send SMS to customer on requesting service center details.
         /// </summary>
-        public void ServiceCenterDetailsSMS(string number, string name, string address, string phone, string city, string pageUrl)
+        public void ServiceCenterDetailsSMS(string number, string name, string address, string phone, string city, string pageUrl, double latitude, double longitude, string makeName)
         {
             try
             {
-                string message = String.Format("Details of service center details nearby:{0}{0}{1}{0}{2},{3}{0}{4}{0}{0}Thanks for visiting BikeWale.", Environment.NewLine, name, address, city, phone);
+                UrlShortner objUrlShortner = new UrlShortner();
+
+                var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", latitude, longitude));
+                string shortUrl = shortUrlObj != null ? shortUrlObj.ShortUrl : "";
+                string message = String.Format("{1}{0}{2},{3}{0}+91-{4}{0}{5}Thanks for visiting BikeWale.", Environment.NewLine, name, address, city, phone, (!string.IsNullOrEmpty(shortUrl) ? string.Format("Get Directions-{1}{0}", Environment.NewLine, shortUrl) : ""));
 
                 EnumSMSServiceType esms = EnumSMSServiceType.ServiceCenterDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
@@ -655,7 +660,7 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Notifications.ServiceCenterDetailsSMS({0},{1},{2},{3},{4},{5})", number, name, address, phone, city, pageUrl));
-                
+
             }
         }
 
@@ -674,7 +679,7 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3})", number, pageUrl, esms, message));
-                
+
             }
         }
 
@@ -694,6 +699,36 @@ namespace Bikewale.Notifications
             {
                 ErrorClass.LogError(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3})", number, pageUrl, esms, message));
             }
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 18th Jan 2018
+        /// Description :Send SMS to customer on requesting dealer showroom details.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="name"></param>
+        /// <param name="address"></param>
+        /// <param name="phone"></param>
+        /// <param name="city"></param>
+        /// <param name="pageUrl"></param>
+        public void DealerShowroomDetailsSMS(string number, string name, string area, string address, string phone, string city, string pageUrl, double latitude, double longitude)
+        {
+            try
+            {
+                UrlShortner objUrlShortner = new UrlShortner();
+
+                var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", latitude, longitude));
+                string shortUrl = shortUrlObj != null ? shortUrlObj.ShortUrl : "";
+                string message = String.Format("{1},{2}{0}{3}{0}+91-{4}{0}{5}Thanks for visiting BikeWale.", Environment.NewLine, name, area, address, phone, (!string.IsNullOrEmpty(shortUrl) ? string.Format("Get Directions-{1}{0}", Environment.NewLine, shortUrl) : ""));
+                EnumSMSServiceType esms = EnumSMSServiceType.DealerShowroomDetailsSMSToCustomer;
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(number, message, esms, pageUrl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Notifications.DealerShowroomDetailsSMS({0},{1},{2},{3})", number, pageUrl, city, phone));
+            }
+
         }
     }   //End of class
 }   //End of namespace

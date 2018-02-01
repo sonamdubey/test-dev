@@ -1,37 +1,41 @@
 ﻿@model  Bikewale.Models.IndexVM
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/landing.css' inline />";
-    Model.IsHeaderFix = false;
-    Model.IsTransparentHeader = true;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/landing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/brand-logo.css' inline />";
+    Model.IsHeaderFix = true;
     Model.Page_JS_Path = "/src/dealer/landing.js";
     Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/dealer-showrooms/";
     Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/dealer-showrooms/";
     Model.IsPageTypeLanding = true;
 }
 
-<header class="dealerlocator-banner">
-    <div id="dealer-locator-box" class="container">
-        <div class="welcome-box">
-            <h1 class="font30 text-uppercase margin-bottom30">Showroom Locator</h1>
-            <h2 class="font20 text-unbold text-white margin-bottom50">Find new bike dealers across 200+ cities</h2>
-        </div>
-    </div>
-</header>
+<section>
+	<div class="container section-bottom-margin">
+		<div class="grid-12">
+			<div class="content-box-shadow">
+				<h1 class="content-box-shadow padding-15-20">Showroom Locator</h1>
+				<div class="padding-15-20 collapsible-content font14 text-light-grey">
+					<p class="main-content">Looking to buy a new bike? You have come to the right place. BikeWale's dealer locator helps you find authorized dealers for more than 25 motorcycle and scooter brands in India. We have listed over 7000 authorized bike dealers located in 1000+ cities in India. Get contact information, full address and google map direction of the nearest dealer around you.</p>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</section>
 
 <section>
     <div class="container section-container">
         <div class="grid-12">
-            <div class="content-box-shadow negative-50 text-center padding-25-30">
+            <div class="content-box-shadow text-center padding-top15 padding-bottom20">
                 <h2 class="section-header">Find bike dealers in your city</h2>
                 <div class="locator-search-container">
                     <div class="locator-search-brand form-control-box">
                         <select id="ddlMakes" class="form-control  chosen-select">
                             <option value="0">Select a brand</option>
                             @foreach (var Make in Model.MakesList)
-                            {
+							{
                                 <option maskingname="@Make.MaskingName" value="@Make.MakeId">@Make.MakeName</option>
-                            }
+							}
                         </select>
                         <div class="clear"></div>
                         <span class="bwsprite error-icon errorIcon hide"></span>
@@ -46,8 +50,8 @@
                         <span class="bwsprite error-icon errorIcon hide"></span>
                         <div class="bw-blackbg-tooltip errorText hide"></div>
                     </div>
+					<input type="button" id="applyFiltersBtn" class="btn btn-orange btn-lg locator-search-btn" value="Search" />
                     <div class="clear"></div>
-                    <input type="button" id="applyFiltersBtn" class="btn btn-orange btn-lg locator-search-btn margin-bottom5" value="Search" />
                 </div>
             </div>
         </div>

@@ -60,7 +60,7 @@ namespace Bikewale.Controllers
 
             if (sort.HasValue)
                 objData.SortBy = sort.Value;
-
+            objData.IsMobile = true;
             UpcomingPageVM objVM = objData.GetData();
             return View(objVM);
         }

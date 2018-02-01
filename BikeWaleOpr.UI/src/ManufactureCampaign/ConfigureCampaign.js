@@ -26,7 +26,10 @@ var ConfigureCampaign = function () {
     if ($('#inputCampaignId') && $('#inputCampaignId').val())
         var campaignId = $('#inputCampaignId').val().trim();
 
-    self.configureCampaign = function () {        
+    self.configureCampaign = function () {    
+
+        var dailyStartTime = $("#dailyStartTimeEle").val();
+        var dailyEndTime = $("#dailyEndTimeEle").val();
         if (!self.description() || self.description() == "")
         {
             $('#modal-p').text("Campaign Description is Mandatory. Please fill it. ");
@@ -40,6 +43,17 @@ var ConfigureCampaign = function () {
             return false;
         }
 
+        if ((dailyStartTime != "" && dailyEndTime == "") || (dailyStartTime == "" && dailyEndTime != "") ) {
+            $('#modal-p').text("Either set both start and end time OR none.");
+            $("#alertModal").modal('open');
+            return false;
+        }
+        if (dailyStartTime != "" && dailyEndTime != "" && dailyStartTime.localeCompare(dailyEndTime) != -1)
+        {
+            $('#modal-p').text("Daily Campaign Start time must be less than Daily Campaign End time.");
+            $("#alertModal").modal('open');
+            return false;
+        }
         if (($('#txtDailyLeadLimit').val() && ($('#txtDailyLeadLimit').val() < 0)) || ($('#txtTotalLeadLimit').val() && ($('#txtTotalLeadLimit').val() < 0)))
         {
             $('#modal-p').text("Lead Limits should be positive");
@@ -68,7 +82,10 @@ var ConfigureCampaign = function () {
         $('#StartDate').val($('#startDateEle').val() + ' ' + $('#startTimeEle').val());
 
         if ($('#endDateEle').val() != "")
-            $('#EndDate').val($('#endDateEle').val() + ' ' + $('#endTimeEle').val());              
+            $('#EndDate').val($('#endDateEle').val() + ' ' + $('#endTimeEle').val());     
+
+        $("#DailyStartTime").val(dailyStartTime);
+        $("#DailyEndTime").val(dailyEndTime);
 
         var oldMaskingNumber = $("#olMaskingNumber").val().trim();        
         if (self.maskingNumber() != "" && oldMaskingNumber != "" && oldMaskingNumber != self.maskingNumber()) {

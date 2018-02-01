@@ -1413,3 +1413,54 @@ body {
     }
 }
 
+/* electric slug */
+.electric-slug__content {
+	padding: 15px 30px 15px 15px;
+	margin-bottom: 10px;
+	display: block;
+	font-size: 0;
+	border: 1px solid #b5b5b5;
+	background: #fff url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/arrow-right.svg') no-repeat 95%;
+	box-shadow: 0 2px 2px #e2e2e2;
+}
+
+.electric-scooter-icon {
+	width: 55px;
+	height: 47px;
+	display: inline-block;
+	vertical-align: middle;
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/electric-scooter.svg') no-repeat center;
+	background-size: contain;
+}
+
+.electric-slug__details {
+	width: 74%;
+	padding-left: 15px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.electric-slug__title {
+	font-size: 14px;
+	font-weight: 600;
+	color: #4acea8;
+	margin-bottom: 5px;
+	text-transform: capitalize;
+}
+
+.electric-slug__subtitle {
+	font-size: 11px;
+	font-weight: 600;
+	color: #82888b;
+}
+
+@media (max-width: 320px) {
+	.electric-slug__content {
+		padding: 10px;
+	}
+
+	.electric-slug__details {
+		width: 70%;
+		padding-left: 10px;
+	}
+}

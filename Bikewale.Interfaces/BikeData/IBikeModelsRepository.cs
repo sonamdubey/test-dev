@@ -129,5 +129,8 @@ namespace Bikewale.Interfaces.BikeData
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
         IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages();
         ICollection<Entities.BikeData.BikeModelColorImageEntity> GetModelImages(string modelIds);
+        IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData);
+        IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters ObjData);
+
     }
 }

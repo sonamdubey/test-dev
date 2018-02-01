@@ -114,6 +114,10 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
     position: relative;
 }
 
+/* autoexpo header */
+.auto-expo-header {
+	display: none;
+}
 
 
 /* breadcrumb classes */
@@ -328,16 +332,13 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 
 .swiper-card {
     margin-left: 5px;
-    width: 200px;
+	width: 200px;
     min-height: 210px;
     background: #fff;
+    position: relative;
     -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.2);
     -moz-box-shadow: 0 1px 4px rgba(0,0,0,.2);
-    -ms-box-shadow: 0 1px 4px rgba(0,0,0,.2);
     box-shadow: 0 1px 4px rgba(0,0,0,.2);
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
     border-radius: 2px;
 }
 
@@ -348,7 +349,8 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .swiper-image-preview {
     height: 95px;
     padding: 5px 5px 0;
-    position: relative;
+		position: relative;
+		background: #fff;
 }
 
 .swiper-image-preview img {

@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 @using Bikewale.Entities.GenericBikes
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline />";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
     Model.Page_JS_Paths = new string[] { "/src/content/details.js", "/src/sidebarsection.js" };
     Model.PageMetaTags.FBTitle = Model.ArticleDetails.Title;
@@ -210,7 +210,7 @@
                 @if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null && Model.SimilarBikes.Bikes.Any() && Model.Model.ModelId != 987)
                 {
                     <div id="sidebarBikeSection" class="content-box-shadow sidebar-bike-section margin-bottom20">
-                        <h2 class="sidebar-list__title">You may also like</h2>
+						<h2 class="sidebar-list-heading">You may also like</h2>
                         @Html.Partial("~/Views/Shared/_Sidebar-section.cshtml", Model.SimilarBikes)
                     </div>
                 }

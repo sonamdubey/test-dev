@@ -73,6 +73,7 @@ namespace Bikewale.Controllers
         {
             DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_objBestBikes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 6);
 
+            objDealerIndex.IsMobile = true;
             IndexVM objDealerIndexVM = objDealerIndex.GetData();
             if (objDealerIndexVM != null)
                 return View(objDealerIndexVM);

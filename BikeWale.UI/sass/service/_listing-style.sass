@@ -9,10 +9,7 @@
 		display: inline
 
 #listing-left-column
-	&.grid-4
-		width: 32.333333%
-		@include box-shadow(0, 0, 8px, 0, #ddd)
-		z-index: 1
+	padding: 0 10px 10px
 
 #listing-right-column.grid-8
 	width: 67.66667%
@@ -27,29 +24,14 @@
 
 #center-list
 	a
-		padding-right: 20px
-		padding-left: 20px
-		display: block
-
 		&:hover
 			text-decoration: none
-
-	.dealer-card-content
-		padding-top: 15px
-		font-size: 14px
-		border-top: 1px solid #e2e2e2
 
 	.service-center-lead-content
 		min-height: 55px
 
 	li
-		padding-bottom: 10px
 		cursor: pointer
-
-		&:first-child
-			.dealer-card-content
-				border-top: 0
-				margin-top: 0
 
 		&.input-active
 			.get-details-btn,
@@ -66,14 +48,59 @@
 
 			.service-center-lead-response
 				display: block
-			
+
+	.dealer-card-target
+		width: 47.4%
+		margin-left: 12px
+		margin-bottom: 12px
+		display: inline-block
+		vertical-align: top
+		border: 1px solid #e2e2e2
+		padding: 15px 20px
+
+
+.dealer-card-content
+	cursor: default
+
+.dealer-details__name
+	height: 44px
+	font-size: 16px
+	margin-bottom: 9px
+	color: #4d5057
+	display: block
+	text-align: left
+	overflow: hidden
+
+.dealer-details__address
+	height: 54px
+	margin-bottom: 10px
+	color: #82888b
+	overflow: hidden
+
+.dealer-details__number
+	@include call-green
+	background-position: left 2px
+	background-size: 12px
+	font-size: 12px
+	display: inline-block
+	vertical-align: middle
+	color: #1ba273
+	padding-left: 22px
+	margin-right: 25px
+	cursor: default
+
+.dealer-details__direction
+	@include get-direction
+	background-position: left 2px
+	background-size: 12px
+	font-size: 12px
+	display: inline-block
+	vertical-align: middle
+	color: #0288d1
+	padding-left: 25px
 
 .details-column
 	width: 92%
-
-.service-btn
-	padding: 9px 0
-	width: 180px
 
 .lead-mobile-content
 	display: none
@@ -100,7 +127,6 @@
 			padding-left: 35px
 
 .submit-service-center-lead-btn
-	margin-left: 10px
 	display: inline-block
 	vertical-align: top
 	padding: 9px 0
@@ -266,7 +292,7 @@
   width: 28px
   height: 32px
   background-position: -197px -705px
-  vertical-align: top
+  vertical-align: middle
 
 .dealer-grey
   width: 25px
@@ -305,133 +331,218 @@
   .jcarousel-control-left, .jcarousel-control-right
     top: 26%
 
-.brand-1, .brand-10, .brand-11, .brand-12, .brand-13, .brand-14, .brand-15, .brand-16, .brand-17, .brand-18, .brand-19, .brand-2, .brand-20, .brand-22, .brand-23, .brand-24, .brand-3, .brand-34, .brand-37, .brand-38, .brand-39, .brand-4, .brand-40, .brand-41, .brand-42, .brand-5, .brand-6, .brand-7, .brand-8, .brand-81, .brand-71, .brand-9, .brand-21, .brand-38, .brand-23, .brand-72
-  height: 50px
 
-.brandlogosprite
-  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?22Nov20171511351092222) no-repeat
-  display: inline-block
+/* dealer details form */
+.dealer-details__form-content
+	margin-top: 15px
+	padding-top: 10px
+	height: 68px
+	border-top: 2px solid #e2e2e2
 
-.brand-2
-  width: 87px
-  background-position: 0 0
+.dealer-details-form__target
+	@include send-to-phone
+	background-position: right
+	background-size: 16px
+	color: #0288d1
+	font-size: 14px
+	padding: 4px 30px 4px 0
+	margin-top: 14px
+	cursor: pointer
 
-.brand-7
-  width: 56px
-  background-position: -96px 0
+.dealer-details__form
+	display: none
+	margin-top: 11px
+	top: 0
 
-.brand-1
-  width: 88px
-  background-position: -162px 0
+.form-field__content
+	position: relative
+	overflow: hidden
 
-.brand-8
-  width: 100px
-  background-position: -260px 0
+	.form-field__input
+		font-size: 14px
+		background: #f5f5f5
+		padding: 8px 15px
 
-.brand-12
-  width: 67px
-  background-position: -370px 0
+	.form-field__submit-btn
+		position: absolute
+		top: 0
+		left: 0
+		@include vendor-prefix('transform', translate(-200px, 0))
+		@include vendor-prefix('transition', transform .3s linear)
 
-.brand-40
-  width: 125px
-  background-position: -447px 0
+	.dealer-form__submit-btn
+		width: 76px
+		padding: 8px 5px
+		font-size: 14px
 
-.brand-34
-  width: 122px
-  background-position: -582px 0
+.btn-blue
+	color: #fff
+	background: #0288d1
+	border-color: #0288d1
 
-.brand-22
-  width: 121px
-  background-position: -714px 0
+.field__error-message
+	min-height: 18px
+	padding-top: 2px
+	font-size: 10px
+	color: #fd8d81
 
-.brand-3
-  width: 44px
-  background-position: -845px 0
+/* input mobile */
+.field-input__mobile.form-field__input
+	padding-left: 40px
 
-.brand-17
-  width: 86px
-  background-position: -899px 0
+.input-mobile__prefix
+	display: none
+	font-size: 14px
+	color: #82888b
+	position: absolute
+	top: 9px
+	left: 10px
 
-.brand-15
-  width: 118px
-  background-position: -995px 0
+.dealer-form__response
+	@include like-icon
+	background-position: left
+	font-size: 14px
+	font-weight: 600
+	color: #82888b
+	margin-top: 18px
+	padding-left: 30px
 
-.brand-4
-  width: 43px
-  background-position: -1123px 0
+/* active state */
+.btn--active .dealer-form__submit-btn
+	@include vendor-prefix('transform', translate(177px, 0))
 
-.brand-9
-  width: 99px
-  background-position: -1176px 0
+.field--invalid .form-field__input
+	border-color: #fd8d81
 
-.brand-16
-  width: 117px
-  background-position: -1285px 0
+.btn--active .input-mobile__prefix
+	display: block
 
-.brand-5
-  width: 59px
-  background-position: -1412px 0
+/* tips */
+.container
+	#bw-tips-list
+		li
+			margin-bottom: 0
+			padding-bottom: 20px
 
-.brand-19
-  width: 122px
-  background-position: -1481px 0
+			&:first-child
+				border-right: 0
 
-.brand-13
-  width: 122px
-  background-position: -1613px 0
 
-.brand-6
-  width: 63px
-  background-position: -1745px 0
+/* overflow sidebar list
 
-.brand-10
-  width: 102px
-  background-position: -1818px 0
+.sidebar-list--overflow .sidebar-bike-list
+  padding-right: 18px
+  padding-left: 18px
+  height: 320px
+  overflow-y: scroll
 
-.brand-14
-  width: 127px
-  background-position: -1930px 0
+.sidebar-bike-list
+	&::-webkit-scrollbar
+		width: 8px
 
-.brand-39
-  width: 89px
-  background-position: -2067px 0
+	&::-webkit-scrollbar-track
+		background: #fff
 
-.brand-20
-  width: 82px
-  background-position: -2166px 0
+	&::-webkit-scrollbar-thumb
+		background: #ddd
+		
+		&:hover
+			background: #ccc
 
-.brand-11
-  width: 121px
-  background-position: -2258px 0
+/* sidebar list */
+.padding-15-20-10
+	padding: 15px 20px 10px
 
-.brand-41
-  width: 63px
-  background-position: -2389px 0
+.padding-10-20-20
+	padding: 10px 20px 20px
 
-.brand-42
-  width: 64px
-  background-position: -2461px 0
+.sidebar-list-heading
+	font-size: 14px
+	font-weight: 600
+	padding: 10px
+	color: #4d5057
+	border-bottom: 1px solid #ccc
 
-.brand-81
-  width: 71px
-  background-position: -2535px 0
+.sidebar-bike-list
+	.bike-target-image
+		line-height: 0
 
-.brand-71
-  width: 39px
-  background-position: -2616px 0
+		img
+			width: 80px
+			height: 45px
+			border: 1px solid #f5f5f5
 
-.brand-21
-  width: 97px
-  background-position: -2867px 0
+	.bike-target-content
+		width: 65%
 
-.brand-38
-  width: 42px
-  background-position: -2974px 0
+	.bike-target-link
+		display: block
+		color: #4d5057
+		padding-top: 10px
+		padding-bottom: 10px
+		border-top: 1px solid #f5f5f5
 
-.brand-23
-  width: 125px
-  background-position: -3026px 0
+	li
+		&:first-child
+			.bike-target-link
+				border-top: 0
 
-.brand-72
-  width: 50px
-  background-position: -3161px 0
+	.bike-target-link
+		&:hover
+			text-decoration: none
+
+	h3
+		margin-bottom: 3px
+
+
+.sidebar-bike-container
+	.sidebar-bike-list
+		max-height: 415px
+		overflow: auto
+		padding-right: 20px
+		padding-left: 20px
+
+	.view-all-btn-container
+		padding-left: 20px
+		padding-right: 20px
+
+
+/* sidebar city list */
+
+.sidebar__other-city-list
+	padding: 10px 20px
+	
+	li
+		margin-top: 10px
+		
+		&:first-child
+			margin-top: 0
+
+	a		
+		&:hover
+			text-decoration: none
+
+.jcarousel-grid-8
+	.jcarousel-wrapper
+		width: 644px
+
+	.inner-content-carousel
+		.jcarousel
+			width: 610px
+			left: 17px !important
+
+			li
+				margin-right: 20px
+
+.other-city__title
+	width: 90%
+
+/* research more list */
+.research-more__list
+	padding: 10px 20px
+	
+	li
+		margin-top: 10px
+		
+		&:first-child
+			margin-top: 0

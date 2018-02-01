@@ -6,6 +6,8 @@ namespace Bikewale.Models
     /// Summary : Class have properties related to ad tags
     /// Modified By : Rajan Chauhan on 18 Jan 2018
     /// Description : Added Ad_Model_Bottom_970x90 and Ad_Model_Comparo_976x400 fields
+    /// Modified by : Snehal Dange on 16th Jan 2017
+    /// Description: Added ad tags for make page 
     /// </summary>
     public class AdTags
     {
@@ -17,7 +19,7 @@ namespace Bikewale.Models
         public string TargetedModels { get; set; }
         public string TargetedMakes { get; set; }
         public string TargetedCity { get; set; }
-		public string TargetedSeries { get; set; }
+        public string TargetedSeries { get; set; }
         public string TargetedTags { get; set; }
 
         public bool Ad_970x90 { get; set; }
@@ -41,6 +43,8 @@ namespace Bikewale.Models
         public bool Ad_292x359 { get; set; }
 
         public bool Ad_292x360 { get; set; }
+        public bool Ad_Top_300x250 { get; set; }
+
         public bool ShowInnovationBannerDesktop { get; set; }
         #endregion
 

@@ -2223,10 +2223,12 @@
     <Content Include="css\compare\details.css" />
     <Content Include="css\components\article-next-prev.css" />
     <Content Include="css\components\boundary-box.css" />
+    <Content Include="css\components\brand-logo.css" />
     <Content Include="css\components\card.css" />
     <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
     <Content Include="css\components\input-box.css" />
+    <Content Include="css\components\m-brand-logo.css" />
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
@@ -2948,6 +2950,7 @@
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\sw.js" />
     <Content Include="m\trackday2016\css\track-day.css" />
     <Content Include="m\trackday2016\default.aspx" />
     <Content Include="m\trackday2016\details.aspx" />
@@ -2973,26 +2976,9 @@
     <Content Include="m\sass\modules\_key-specs.sass" />
     <Content Include="m\sass\modules\_button.sass" />
     <Content Include="m\sass\new-launch\_media-query.sass" />
-    <Content Include="pwa\app.bundle.aec06205ff5c05abcf94.js" />
     <Content Include="pwa\appshell.html" />
-    <Content Include="pwa\css\app.css" />
-    <Content Include="pwa\css\news\newsBundle.aec06205ff5c05abcf94.css" />
-    <Content Include="pwa\css\news\newsBundle.css" />
-    <Content Include="pwa\css\videos\videosBundle.aec06205ff5c05abcf94.css" />
-    <Content Include="pwa\css\videos\videosBundle.css" />
-    <Content Include="pwa\manifest.bundle.aec06205ff5c05abcf94.js" />
-    <Content Include="pwa\manifest.bundle.js" />
-    <Content Include="pwa\newsBundle.bundle.aec06205ff5c05abcf94.js" />
-    <Content Include="pwa\NewsBundle.bundle.js" />
-    <Content Include="pwa\app.bundle.js" />
-    <Content Include="pwa\app.css" />
-    <Content Include="pwa\peripheralComponents.bundle.aec06205ff5c05abcf94.js" />
-    <Content Include="pwa\peripheralComponents.bundle.js" />
-    <Content Include="pwa\vendor.bundle.aec06205ff5c05abcf94.js" />
-    <Content Include="pwa\vendor.bundle.js" />
-    <Content Include="pwa\videosBundle.bundle.aec06205ff5c05abcf94.js" />
-    <Content Include="pwa\VideosBundle.bundle.js" />
     <Content Include="pwa\sw-toolbox.js" />
+    <Content Include="pwa\workbox-sw.prod.v2.1.2.js" />
     <Content Include="robots.txt" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
@@ -3124,6 +3110,9 @@
     <Content Include="sass\utils\_color.sass" />
     <Content Include="sass\utils\_index.sass" />
     <Content Include="sass\modules\_related-make-card.sass" />
+    <Content Include="sass\mixins\_animation.sass" />
+    <Content Include="sass\mixins\_electric-scooter-widget.sass" />
+    <Content Include="sass\modules\_m-brand-logo.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
@@ -3954,6 +3943,8 @@
     <Content Include="Views\Scooters\_ModelRelatedCard.cshtml" />
     <Content Include="Views\Scooters\_ModelRelatedCard_Mobile.cshtml" />
     <Content Include="Views\Scooters\_ModelRelatedCard_Mobile_Amp.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealerCard_Vertical.cshtml" />
+    <Content Include="Views\PopularCityWidget\DealerServiceCenterInTopCityWidget_Vertical.cshtml" />
     <Content Include="Views\NewBikeSearch\_NewBikeSearchBudget.cshtml" />
     <Content Include="Views\NewBikeSearch\_NewBikeSearchBudget_Mobile.cshtml" />
     <Content Include="Views\Photos\Index_Mobile.cshtml" />
@@ -3966,6 +3957,16 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad300x250BTF.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x100BTF.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x100ATF.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x250BTF.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x100BTF.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x100ATF.cshtml" />
+    <Content Include="Views\Make\_BrandsModelCount_Vertical.cshtml" />
+    <Content Include="Views\Make\ResearchMoreAboutMake.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad_Top_300x250.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Model_Bottom_970x90.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Model_Comparo_976x400.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad_BTF_300x250.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad_Comparo_976x400.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_Bottom_970x90.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_Comparo_976x400.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad_BTF_300x250.cshtml" />
@@ -4110,6 +4111,10 @@
     <ProjectReference Include="..\Bikewale.PWA.Entities\Bikewale.PWA.Entities.csproj">
       <Project>{891ee3d8-f296-4efc-a136-a278f0f06f61}</Project>
       <Name>Bikewale.PWA.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.PWA.UI\Bikewale.PWA.UI.csproj">
+      <Project>{3279e44e-3eae-4fe9-9721-980610c6f896}</Project>
+      <Name>Bikewale.PWA.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.PWA.Utils\Bikewale.PWA.Utils.csproj">
       <Project>{c1ec6868-50c6-41a0-a849-c0f8e4351eb2}</Project>
