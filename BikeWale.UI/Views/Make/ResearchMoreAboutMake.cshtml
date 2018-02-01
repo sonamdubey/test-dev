@@ -16,6 +16,13 @@
                 </li>
             }
         }
+        
+        @if (!Model.WidgetObj.IsScooterOnlyMake && Model.WidgetObj.ScootersCount > 0)
+        {
+            <li>
+                <a href="@string.Format("/{0}-scooters/", makeMasking)" title="@string.Format("{0} Scooters", makeName)">@string.Format("{0} Scooters", makeName)</a>
+            </li>
+        }
 
         @if(cityId > 0 && Model.WidgetObj.UsedBikesCount > 0)
         {
