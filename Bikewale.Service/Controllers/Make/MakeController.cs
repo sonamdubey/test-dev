@@ -1,4 +1,5 @@
 ﻿using Bikewale.DTO.Make;
+using Bikewale.DTO.Upcoming;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
@@ -6,6 +7,7 @@ using Bikewale.Service.AutoMappers.Make;
 using System;
 using System.Web.Http;
 using System.Web.Http.Description;
+
 
 namespace Bikewale.Service.Controllers.Make
 {
@@ -60,5 +62,11 @@ namespace Bikewale.Service.Controllers.Make
             return NotFound();
         }//get make details
         
+        [Route("api/notifyuser/")]
+        public IHttpActionResult PostNotification([FromBody]UpcomingNotification notifObj)
+        {
+
+        }
+
     }
 }
