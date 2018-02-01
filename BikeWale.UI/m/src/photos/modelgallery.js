@@ -307,6 +307,14 @@ function filterColorImagesArray(responseArray) {
     });
 }
 
+function getImageDownloadUrl() {
+    var activeImageIndex = vmModelGallery.activePhotoIndex() - 1;
+    if (activeImageIndex == -1)
+        activeImageIndex++;
+    var currImage = modelImages[activeImageIndex];
+    return currImage.HostUrl + "0x0" + currImage.OriginalImgPath;
+}
+
 function resizePortraitImage(element) {
     element.hide();
 
