@@ -1,0 +1,136 @@
+﻿.popular-carousel__title
+	padding: 25px 16px 10px
+
+.carousel__popular-bikes
+	padding: 5px 20px 20px 0
+
+	.carousel-slide
+		width: 325px
+		height: 293px
+		padding-left: 10px
+
+		&:first-child
+			margin-left: 6px
+
+@include model-card
+
+.carousel__popular-bikes
+	@include model-card__image(220)
+
+	.model__card
+		height: 293px
+		border-color: color('salmon')
+		overflow: hidden
+
+	.model-card__detail-content
+		height: 90px
+
+	.model-card__detail
+		position: relative
+		padding: 0
+		@include vendor-prefix('transition', all .2s ease)
+		will-change: transform
+		z-index: 1
+
+		.model-card__target
+			padding: 5px 20px 10px
+
+	@include model-card__exshowroom-content('snow')
+
+/* rating badge */
+@import rating
+
+@for $i from 1 through 5
+	@include rating-badge($i)
+
+.model-card__detail
+	.rating-badge
+		margin-bottom: 8px
+
+@include model-card__detail
+@include card-details__specs
+
+@include model-card__exshowroom
+
+.carousel__popular-bikes
+	.model-card__exshowroom
+		position: relative
+
+.view-pros-cons__target
+	position: absolute
+	right: 15px
+	bottom: 3px
+	padding: 10px
+	font-size: 12px
+	font-weight: $font-semibold
+	color: color('pacific-blue')
+	cursor: pointer
+	z-index: 1
+
+	&:after
+		content: '+'
+		display: inline-block
+		font-size: 21px
+		font-weight: 400
+		position: relative
+		top: 3px
+		right: -7px
+		line-height: 14px
+
+
+@include pros-cons-detailed-list
+
+.card-detail__pros-cons
+	opacity: 0
+	transition: opacity .2s ease
+
+/* pros and cons active state */
+.card--active
+	.model-card__detail
+		height: 291px
+		padding-top: 15px
+		@include vendor-prefix('transform', translateY(-134px))
+		background: color('snow')
+
+		.model-card__target
+			padding-bottom: 17px
+
+	.card-detail__target
+		&:after
+			content: ''
+			position: relative
+			top: 18px
+			border-bottom: 1px solid color('gainsboro')
+			display: block
+
+	.card-detail__pros-cons
+		opacity: 1
+
+/* active card: view pros-cons target state */
+.collapse-btn--active
+	.view-pros-cons__target
+		bottom: 248px
+
+		&:after
+			content: '-'
+			top: 2px
+
+// fallback for active state
+.popular-bikes--fallback
+	&.carousel__popular-bikes
+		.model-card__detail-content
+			overflow: hidden
+
+	.card--active
+		.model-card__detail-content
+			position: relative
+			top: -134px
+			height: 293px
+
+		.model-card__detail
+			@include vendor-prefix('transform', translateY(0))
+
+	.collapse-btn--active
+		.view-pros-cons__target
+			bottom: 450px
+

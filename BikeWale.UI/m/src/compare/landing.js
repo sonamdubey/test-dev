@@ -78,13 +78,13 @@ docReady(function () {
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (response) {
-                        bwcache.set(key, response.makes, 30);
+                        bwcache.set({key: key,value: response.makes, expiryTime: 15});
                         self.makesArray(response.makes);
 
                     },
                     complete: function (xhr) {
                         if (xhr.status != 200) {
-                            bwcache.set(key, null, 30);
+                            bwcache.set({key: key, value: null, expiryTime: 15});
                             self.makesArray(null);
                         }
                         self.IsLoading(false);

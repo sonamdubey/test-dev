@@ -70,7 +70,8 @@
         Used_Bike_Landing = 41,
         Used_Bike_Listing = 42,
         Used_Bike_Details = 43,
-        Sell_Page = 44
+        Sell_Page = 44,
+        Videos_Category_Page = 45
 
     }
 }

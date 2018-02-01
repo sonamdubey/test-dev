@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.MakePageVM
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline />";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
     Model.Page_JS_Paths = new string[] { "/src/new/bikemake.js", "/src/review-popup.js" };
 
     Model.AdTags.AdPath = "/1017752/Bikewale_Make_";
@@ -118,8 +118,8 @@
                                                     else
                                                     { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))));
                                                     }
-                                                </div>
-                                                @if (bike.VersionPrice > 0 && Model.ShowCheckOnRoadpriceBtn)
+                                                </div>                                                
+                                                @if (bike.VersionPrice > 0)
                                                 {
                                                     <a rel="nofollow" href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                                 }

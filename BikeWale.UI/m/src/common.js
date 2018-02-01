@@ -43,6 +43,18 @@ function triggerGA(cat, act, lab) {
     }
 }
 
+function triggerVirtualPageView(url, title) {
+    try {
+        dataLayer.push({
+            'event': 'VirtualPageview',
+            'virtualPageURL': url,
+            'virtualPageTitle': title
+        })
+    } catch (e) {
+
+    }
+}
+
 function triggerNonInteractiveGA(cat, act, lab) {
     try {
 
@@ -918,19 +930,23 @@ docReady(function () {
     };
 
     $('.swiper-container:not(".noSwiper")').each(function (index, element) {
-        $(this).addClass('sw-' + index);
-        $('.sw-' + index).swiper({
+    	var currentSwiper = $(this);
+    	var spaceBetween = currentSwiper.attr('data-spacebetween');
+    	var spaceBetweenValue = 10;
+
+    	if (spaceBetween) {
+    		spaceBetweenValue = isNaN(spaceBetween) ? spaceBetweenValue : Number(spaceBetween);
+    	}
+
+    	currentSwiper.addClass('sw-' + index).swiper({
             effect: 'slide',
             speed: 300,
-            //autoplay: 3000,
             nextButton: $(this).find('.swiper-button-next'),
             prevButton: $(this).find('.swiper-button-prev'),
             pagination: $(this).find('.swiper-pagination'),
             slidesPerView: 'auto',
             paginationClickable: true,
-            spaceBetween: 10,
-            //freeMode: true,
-            //freeModeSticky: true,
+            spaceBetween: spaceBetweenValue,
             preloadImages: false,
             lazyLoading: true,
             lazyLoadingInPrevNext: true,
@@ -1807,7 +1823,8 @@ docReady(function () {
 
             if (!this.options.trendingSearchesLoaded) {
                 if (trendingBikes) {
-                    html = "";
+                    html = '<li data-makeid="0" data-modelid="0" class="ui-menu-item bw-ga" data-cat="' + pageName + '" data-act="AutoExpo_2018_Link Clicked" data-lab="Trending_Searches_Autosuggest_Clicked">\
+                            <span class="trending-searches"></span><a href="https://www.bikewale.com/autoexpo2018/" data-href="https://www.bikewale.com/autoexpo2018/">Auto Expo 2018</a>';
                     for (var index in trendingBikes) {
                         item = trendingBikes[index];
                         html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="ui-menu-item bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName

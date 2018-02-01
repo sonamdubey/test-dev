@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.MakePageVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline />";
+	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
     Model.Page_JS_Paths = new string[] {"/m/src/bwm-brand.js", "/src/review-popup.js"};;
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Make";
     Model.AdTags.AdId = "1444028878952";
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 }
-                @if (Model.Bikes != null && Model.Bikes.Count() > 0)
+                @if (Model.Bikes != null && Model.Bikes.Any())
                 {
                     <div id="bikeMakeList" class="search-bike-container bw-model-tabs-data padding-top15 bg-white position-rel pos-top3 box-shadow">
                         <h2 class="text-bold padding-left20">@string.Format("{0} Bikes Prices in  India", Model.MakeName)</h2>
@@ -115,7 +115,7 @@
                                                         <span class="text-bold font18">Price unavailable</span>
                                                     }
                                                 </div>
-                                                @if (bike.VersionPrice > 0 && Model.ShowCheckOnRoadpriceBtn)
+                                                @if (bike.VersionPrice > 0)
                                                 {
                                                     <a href="javascript:void(0)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage)" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
                                                 }

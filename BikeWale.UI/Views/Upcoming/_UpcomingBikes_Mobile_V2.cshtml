@@ -1,0 +1,46 @@
+﻿@model Bikewale.Models.UpcomingBikesWidgetVM
+@if (Model != null)
+{
+    <div class="swiper-container carousel__upcoming-bikes" data-spacebetween="0">
+        <ul class="swiper-wrapper">
+            @foreach (var bike in Model.UpcomingBikes)
+            {
+                string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName);
+                <li class="swiper-slide carousel-slide">
+                    <div class="model-upcoming__card">
+                        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName))" title="@bikeName" class="upcoming-card__target">
+                            <div class="upcoming-card__image">
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174,Bikewale.Utility.QualityFactor._75)" alt="@bikeName" src="" title="@bikeName">
+                            </div>
+                            <div class="upcoming-card__detail">
+                                @if (bike.ExpectedLaunchDate != null)
+                                {
+                                    <span class="upcoming-card__date">@Bikewale.Utility.FormatDate.GetFormatDate(bike.ExpectedLaunchDate, "MMMM yyyy") Expected</span>
+                                }
+                                <h3 class="upcoming-card__name">@bikeName</h3>
+                                @if (bike.EstimatedPriceMin > 0)
+                                {
+                                    <p class="upcoming-card__price-label">Expected Price Range</p>
+                                    <p class="upcoming-card__price">
+                                        &#x20b9;&nbsp;<span class="text--semibold">@bike.EstimatedPriceMin - </span>&#x20b9;&nbsp;<span class="text-semibold">@bike.EstimatedPriceMax</span>
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="upcoming-card__price">
+                                        <span class="text--semibold">Price not available</span>
+                                    </p>
+                                }
+                            </div>
+                        </a>
+                        <div class="upcoming-card__footer">
+                            <p class="upcoming-card__notify-label">Get latest update of this bike</p>
+                            <span class="upcoming-card__notify-btn">Notify Me</span>
+                        </div>
+                    </div>
+                </li>
+            }
+
+        </ul>
+    </div>
+}

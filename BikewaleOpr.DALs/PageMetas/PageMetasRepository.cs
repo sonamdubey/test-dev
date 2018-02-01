@@ -36,12 +36,12 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
                 ErrorClass.LogError(ex, string.Format("PageMetasRepository.GetPagesList"));
             }
             return objPageList;
-        }                 
-        
+        }
+
 
         public bool SavePageMetas(PageMetasEntity objMetas)
         {
-            bool isSuccess = false;            
+            bool isSuccess = false;
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -51,7 +51,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
                     param.Add("par_id", objMetas.PageMetaId);
                     param.Add("par_pageid", objMetas.PageId);
                     param.Add("par_makeid", objMetas.MakeId);
-                    param.Add("par_modelid", objMetas.ModelId == 0 ? null: objMetas.ModelId);
+                    param.Add("par_modelid", objMetas.ModelId == 0 ? null : objMetas.ModelId);
                     param.Add("par_title", objMetas.Title);
                     param.Add("par_description", objMetas.Description);
                     param.Add("par_keywords", objMetas.Keywords);
@@ -59,7 +59,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
                     param.Add("par_summary", objMetas.Summary);
                     param.Add("par_enterdby", objMetas.EnteredBy);
                     param.Add("par_bothPlatform", objMetas.BothPlatform);
-                   
+
                     connection.Execute("setpagemetas", param: param, commandType: CommandType.StoredProcedure);
                     isSuccess = true;
                 }
@@ -96,8 +96,8 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             return objPageMetasList;
         }
 
-        
-        public PageMetasEntity GetPageMetasById (uint pageMetaId)
+
+        public PageMetasEntity GetPageMetasById(uint pageMetaId)
         {
             PageMetasEntity objPageMetas = null;
             try
@@ -119,7 +119,14 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             return objPageMetas;
         }
 
-        public bool UpdatePageMetaStatus(uint id, ushort status)
+        /// <summary>
+        /// Created by : Snehal Dange on 30th Jan 2018
+        /// Description :  Changed datatype of id from 'uint' to 'string' to handle multiple ids. Changed sp name from 'setpagemetastatus' to 'setpagemetastatus_30012018'
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public bool UpdatePageMetaStatus(string idList, ushort status)
         {
             bool result = false;
             try
@@ -128,16 +135,16 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_id", id);
+                    param.Add("par_ids", idList);
                     param.Add("par_status", status);
-                    
-                    connection.Execute("setpagemetastatus", param: param, commandType: CommandType.StoredProcedure);
+
+                    connection.Execute("setpagemetastatus_30012018", param: param, commandType: CommandType.StoredProcedure);
                     result = true;
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("PageMetasRepository.UpdatePageMetaStatus: id:{0}", id));
+                ErrorClass.LogError(ex, string.Format("PageMetasRepository.UpdatePageMetaStatus: idList:{0}", idList));
             }
             return result;
         }
