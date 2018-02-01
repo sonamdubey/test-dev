@@ -86,8 +86,8 @@
                 <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
             </div>
         </div>
-        <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(Model.HasPages ? "block" : "none")">
-            <div class="footer-pagination font14 border-solid-top padding-top10">
+        <div class="padding-10-20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(Model.HasPages ? "block" : "none")">
+            <div class="footer-pagination font14 border-solid-top padding-top10 padding-bottom10 padding-left20">
                 <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalBikes() > 0">
                     @if (Model.Pager != null)
                     {

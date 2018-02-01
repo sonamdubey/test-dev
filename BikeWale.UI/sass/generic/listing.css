@@ -21,29 +21,6 @@
   margin-bottom: 15px;
   font-weight: 700; }
 
-.generic-banner {
-  background-color: #787878;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 268px;
-  padding-top: 1px; }
-
-.center-pos {
-  background-position: center; }
-
-.center-right-pos {
-  background-position: center right; }
-
-.left-center-pos {
-  background-position: left center; }
-
-.banner-box {
-  margin-top: 95px; }
-
-.margin-minus50 {
-  margin-top: -50px; }
-
-/* more-less desc */
 .desc-main-content {
   display: inline; }
 

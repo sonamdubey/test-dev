@@ -1,5 +1,9 @@
 ﻿namespace Bikewale.ManufacturerCampaign.Entities.SearchCampaign
 {
+    /// <summary>
+    /// Modified by : Ashutosh Sharma on 25 Jan 2017
+    /// Description : Added 'DailyStartTime' and 'DailyEndTime'.
+    /// </summary>
     public class ManufacturerCampaignDetailsList
     {
         public uint Id { get; set; }
@@ -13,7 +17,8 @@
         public int DailyLeadsDelivered { get; set; }
         public int TotalLeadsDelivered { get; set; }
         public string  Status { get; set; }
-
         public bool ShowCampaignOnExshowroom { get; set; }
+        public string DailyStartTime { get; set; }
+        public string DailyEndTime { get; set; }
     }
 }

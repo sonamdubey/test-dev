@@ -23,6 +23,8 @@ namespace Bikewale.Models
     /// Description : Removed PhotoGallery, IsGalleryLoaded and ModelGallery.
     /// Modified by: Snehal Dange on 20th dec 2017
     /// Summary : added MoreAboutScootersWidgetVM
+    /// Modified by : Snehal Dange on 24th Jan 2018
+    /// Summary: added IsElectricBike flag
     /// </summary>
     public class PriceInCityPageVM : ModelBase
     {
@@ -98,5 +100,6 @@ namespace Bikewale.Models
         public ModelGalleryVM ModelGallery { get; set; }
         public ModelPhotoGalleryEntity PhotoGallery { get; set; }
         public MoreAboutScootersWidgetVM objMoreAboutScooter { get; set; }
+        public bool IsElectricBike { get; set; }
     }
 }

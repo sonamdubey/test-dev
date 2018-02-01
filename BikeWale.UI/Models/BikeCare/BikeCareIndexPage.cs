@@ -225,6 +225,8 @@ namespace Bikewale.Models
         /// Summary    : Get data to populate widget view model
         /// Modified by Sajal Gupta on 5-12-2017
         /// Desc : Addded multi tabs widget
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         private void GetWidgetData(BikeCareIndexPageVM objData, int topCount)
         {
@@ -247,6 +249,7 @@ namespace Bikewale.Models
                 objPopularScooters.TopCount = topCount > 6 ? topCount : 6;
                 objPopularScooters.CityId = CityId;
                 MostPopularScooters = objPopularScooters.GetData();
+
                 UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                 objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
                 objUpcomingBikes.Filters.PageNo = 1;
@@ -259,6 +262,11 @@ namespace Bikewale.Models
                 };
                 objUpcomingBikes.Filters.BodyStyleId = (uint)EnumBikeBodyStyles.Scooter;
                 UpcomingScooters = objUpcomingBikes.GetData();
+
+                BikeFilters obj = new BikeFilters();
+                obj.CityId = CityId;
+                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+
                 if (IsMobile)
                 {
                     objData.UpcomingBikes = new UpcomingBikesWidgetVM();
@@ -269,6 +277,9 @@ namespace Bikewale.Models
 
                     objData.MostPopularBikes = new MostPopularBikeWidgetVM();
                     objData.MostPopularBikes.Bikes = MostPopularBikes.Bikes.Take(topCount);
+
+                    objData.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.MostPopularBikes.Bikes);
+
                     objData.MostPopularBikes.WidgetHeading = "Popular bikes";
                     objData.MostPopularBikes.WidgetHref = "/best-bikes-in-india/";
                     objData.MostPopularBikes.WidgetLinkTitle = "Best Bikes in India";
@@ -317,13 +328,18 @@ namespace Bikewale.Models
                     objData.PopularBikesAndPopularScootersWidget.ShowViewAllLink2 = true;
                     objData.PopularBikesAndPopularScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndPopularScooters;
                     objData.PopularBikesAndPopularScootersWidget.PageName = "BikeCare";
+                    
+                    objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                 }
+     
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.BikeCareIndexPage.GetWidgetData");
             }
         }
+
+
 
         /// <summary>
         /// Created By :Snehal Dange on 8th Nov 2017
@@ -357,5 +373,8 @@ namespace Bikewale.Models
         }
         #endregion
 
+
     }
+
+
 }

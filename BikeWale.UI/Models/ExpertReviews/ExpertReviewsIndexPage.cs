@@ -382,6 +382,8 @@ namespace Bikewale.Models
         /// description : AddedMultiTab widget
         /// Modified by : Snehal Dange on 21st dec 2017
         /// Summary : added
+        /// Modified by : Sanskar Gupta on 22 Jan 2018
+        /// Description : Added Newly Launched feature
         /// </summary>
         private void GetWidgetData(ExpertReviewsIndexPageVM objData, int topCount)
         {
@@ -463,6 +465,12 @@ namespace Bikewale.Models
 
                     UpcomingScooters = objUpcomingBikes.GetData();
 
+
+                    BikeFilters obj = new BikeFilters();
+                    obj.CityId = CityId;
+                    obj.TopCount = 2;
+                    IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
+
                     if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                     {
                         PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_objMakeCache);
@@ -487,8 +495,15 @@ namespace Bikewale.Models
                             objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
                             objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                             objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
+
+                            if (objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.AllBikes)
+                            {
+                                objData.PopularBodyStyle.PopularBikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBodyStyle.PopularBikes);
+                            }
+
                         }
                     }
+
 
                     if (IsMobile || (MakeId > 0 && ModelId == 0))
                     {
@@ -506,6 +521,8 @@ namespace Bikewale.Models
                                 WidgetHref = UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
                                 WidgetLinkTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName)
                             };
+
+                            objData.MostPopularBikes.Bikes = objData.MostPopularBikes.Bikes.Take(topCount);
                         }
                         else if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                         {
@@ -513,6 +530,8 @@ namespace Bikewale.Models
                             objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} Scooters", objMake.MakeName);
                             objData.MostPopularBikes.WidgetHref = string.Format("/{0}-scooters/", objMake.MaskingName);
                             objData.MostPopularBikes.WidgetLinkTitle = string.Format("{0} Scooters", objMake.MakeName);
+
+                           objData.MostPopularBikes.Bikes = objData.MostPopularBikes.Bikes.Take(topCount);
                         }
                         else if (MakeId > 0 && objMake != null)
                         {
@@ -520,6 +539,8 @@ namespace Bikewale.Models
                             objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} bikes", objMake.MakeName);
                             objData.MostPopularBikes.WidgetHref = string.Format("/{0}-bikes/", objMake.MaskingName);
                             objData.MostPopularBikes.WidgetLinkTitle = string.Format("{0} Bikes", objMake.MakeName);
+
+                            objData.MostPopularBikes.Bikes = objData.MostPopularBikes.Bikes.Take(topCount);
                         }
                         else
                         {
@@ -527,8 +548,12 @@ namespace Bikewale.Models
                             objData.MostPopularBikes.WidgetHeading = "Popular Bikes";
                             objData.MostPopularBikes.WidgetHref = "/best-bikes-in-india/";
                             objData.MostPopularBikes.WidgetLinkTitle = "Best Bikes in India";
+
+                            objData.MostPopularBikes.Bikes = objData.MostPopularBikes.Bikes.Take(topCount);
+                            objData.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.MostPopularBikes.Bikes);
                         }
-                        objData.MostPopularBikes.Bikes = objData.MostPopularBikes.Bikes.Take(topCount);
+
+
                     }
                     else
                     {
@@ -588,6 +613,8 @@ namespace Bikewale.Models
                             objData.PopularBikesAndPopularScootersWidget.ShowViewAllLink2 = true;
                             objData.PopularBikesAndPopularScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndPopularScooters;
                             objData.PopularBikesAndPopularScootersWidget.PageName = "ExpertReviews";
+                            
+                            objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                         }
                         else
                         {
@@ -705,9 +732,13 @@ namespace Bikewale.Models
                                 objData.PopularBikesAndUpcomingBikesWidget.ShowViewAllLink2 = true;
                                 objData.PopularBikesAndUpcomingBikesWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndUpcomingBikes;
                                 objData.PopularBikesAndUpcomingBikesWidget.PageName = "ExpertReviews";
+
+                                objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes.Bikes);
+
                             }
                         }
                     }
+
                 }
                 catch (Exception ex)
                 {

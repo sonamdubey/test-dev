@@ -157,11 +157,13 @@
                 case 16:
                     return "googletag.defineSlot('/1017752/Bikewale_BestBikes_Widget_Desktop_292x360',[292, 360], 'div-gpt-ad-1507278280998-16').addService(googletag.pubads()); ";
                 case 17:
-                    return string.Format("googletag.defineSlot('{0}Bottom_970x90',[[950, 90], [728, 90], [960, 60], [970, 60], [970, 90], [960, 90]],'div-gpt-ad-{1}-17').addService(googletag.pubads());", adPath, adId);
+                    return string.Format("googletag.defineSlot('{0}Top_300x250', [300, 250], 'div-gpt-ad-{1}-17').addService(googletag.pubads());", adPath, adId);
                 case 18:
                     return string.Format("googletag.defineSlot('{0}Comparo_976x400',[[976, 250], [976, 460], [976, 400], [976, 300], [976, 450]],'div-gpt-ad-{1}-18').addService(googletag.pubads());", adPath, adId);
                 case 19:
                     return String.Format("googletag.defineSlot('{0}Top_970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-{1}-17').addService(googletag.pubads());", adPath, adId);
+                case 20:
+                    return String.Format("googletag.defineSlot('{0}Bottom_970x90', [[970, 60], [960, 90], [970, 66], [960, 66], [728, 90], [970, 90], [950, 90], [960, 60]], 'div-gpt-ad-{1}-20').addService(googletag.pubads());", adPath, adId);
                 default:
                     return "";
             }
@@ -207,14 +209,17 @@
         @if(Model.AdTags.Ad_292x399){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x359){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}  
+        @if(Model.AdTags.Ad_Top_300x250){ @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_970x90Top){@Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
+       
+
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))}
-        @if (Model.AdTags.Ad_Model_Bottom_970x90) { @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if (Model.AdTags.Ad_Model_Bottom_970x90) { @Html.Raw(GetAdSlot(20, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if (Model.AdTags.Ad_Model_Comparo_976x400) { @Html.Raw(GetAdSlot(18, Model.AdTags.AdPath, Model.AdTags.AdId))}
 
 
@@ -222,7 +227,7 @@
         googletag.pubads().enableSingleRequest();
         googletag.enableServices();
     });
-    </script>
+</script>
     @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
     {
         <script type="application/ld+json">

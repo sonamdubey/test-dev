@@ -8,73 +8,6 @@
 .brand-type-title, .style-type-title { margin-top:10px; display:block; }
 .brand-type-container a, .style-type-container a { text-decoration:none; color:#82888b; display: inline-block; }
 .inr-budget { width:10px; height:16px; background-position:0 -515px; position:relative; top:1px; }
-.brandlogosprite {
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?18Dec20171513599310542') no-repeat;
-	display: inline-block;
-}
-.brand-2,
-.brand-1,
-.brand-40,
-.brand-3,
-.brand-4,
-.brand-24,
-.brand-5,
-.brand-6,
-.brand-39,
-.brand-37,
-.brand-7,
-.brand-23,
-.brand-8,
-.brand-34,
-.brand-17,
-.brand-18,
-.brand-9,
-.brand-19,
-.brand-10,
-.brand-20,
-.brand-41,
-.brand-38,
-.brand-11,
-.brand-12,
-.brand-22,
-.brand-15,
-.brand-42,
-.brand-16,
-.brand-16,
-.brand-13,
-.brand-14,
-.brand-81,
-.brand-71,
-.brand-23,
-.brand-72,
-.brand-73,
-.brand-74,
-.brand-75 {
-	height: 50px;
-}
-
-.brand-2 { width: 87px; background-position: 0 0; }.brand-7 { width: 56px; background-position: -96px 0; }.brand-1 { width: 88px; background-position: -162px 0; }.brand-8 { width: 100px; background-position: -260px 0; }.brand-12 { width: 67px; background-position: -370px 0; }.brand-40 { width: 125px; background-position: -447px 0; }.brand-34 { width: 122px; background-position: -582px 0; }.brand-22 { width: 121px; background-position: -714px 0; }.brand-3 { width: 44px; background-position: -845px 0; }.brand-17 { width: 86px; background-position: -899px 0; }.brand-15 { width: 118px; background-position: -995px 0; }.brand-4 { width: 43px; background-position: -1123px 0; }.brand-9 { width: 99px; background-position: -1176px 0; }.brand-16 { width: 117px; background-position: -1285px 0; }.brand-5 { width: 59px; background-position: -1412px 0; }.brand-19 { width: 122px; background-position: -1481px 0; }.brand-13 { width: 122px; background-position: -1613px 0; }.brand-6 { width: 63px; background-position: -1745px 0; }.brand-10 { width: 102px; background-position: -1818px 0; }.brand-14 { width: 127px; background-position: -1930px 0; }.brand-39 { width: 89px; background-position: -2067px 0; }.brand-20 { width: 82px; background-position: -2166px 0; }.brand-11 { width: 121px; background-position: -2258px 0; }.brand-41 { width:63px; background-position: -2389px 0; }.brand-42 { width:64px; background-position:-2461px 0; }.brand-81 { width:71px; background-position:-2535px 0; }.brand-73{width: 60px;background-position:-3217px 0;}
-
-.brand-71 {
-    width: 39px;
-    background-position: -2616px 0;
-}
-.brand-23 {
-    width: 125px;
-    background-position: -3026px 0;
-}
-.brand-72 {
-	width: 50px;
-	background-position: -3161px 0;
-}
-.brand-74 {
-    width: 110px;
-    background-position: -3281px 0;
-}
-.brand-75 {
-    width: 122px;
-    background-position: -3400px 0;
-}
 
 .style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }
 .styletypesprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/style-type-sprite.png) no-repeat; display: inline-block;  }
@@ -480,3 +413,105 @@
     position: relative;
     top: 1px
 }
+
+
+.electric-fullwidth-widget__content {
+  position: relative;
+  border: 1px solid #b5b5b5;
+  background: #fff;
+  box-shadow: 0 2px 2px #e2e2e2;
+  overflow: hidden;
+  min-height: 92px;
+  padding-top: 15px;
+  padding-bottom: 10px; }
+  .electric-fullwidth-widget__content .electric-widget__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+    .electric-fullwidth-widget__content .electric-widget__background:before {
+      background-image: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/skyline-bg.svg");
+      background-repeat: repeat-x;
+      -webkit-animation: animateSkyline 30s linear 10;
+      -moz-animation: animateSkyline 30s linear 10;
+      -ms-animation: animateSkyline 30s linear 10;
+      animation: animateSkyline 30s linear 10;
+      content: '';
+      position: absolute;
+      bottom: 18px;
+      width: 3072px;
+      height: 60px;
+      display: block;
+      background-position: center bottom;
+      will-change: transform;
+      opacity: .2; }
+
+@-webkit-keyframes animateSkyline {
+  from {
+    -webkit-transform: translate(-1024px, 0);
+    -moz-transform: translate(-1024px, 0);
+    -ms-transform: translate(-1024px, 0);
+    transform: translate(-1024px, 0); }
+  to {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0); } }
+
+@keyframes animateSkyline {
+  from {
+    -webkit-transform: translate(-1024px, 0);
+    -moz-transform: translate(-1024px, 0);
+    -ms-transform: translate(-1024px, 0);
+    transform: translate(-1024px, 0); }
+  to {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0); } }
+
+.electric-fullwidth-widget__details {
+  padding-left: 280px; }
+
+.electric-widget__left-col,
+.electric-widget__right-col {
+  display: inline-block;
+  vertical-align: middle; }
+
+.electric-widget__left-col {
+  margin-right: 95px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.3); }
+
+.position--relative {
+  position: relative; }
+
+.electric-widget__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #4acea8;
+  margin-bottom: 5px;
+  text-transform: capitalize; }
+
+.electric-widget__subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: #82888b; }
+
+.btn-explore-scooters {
+  position: relative;
+  font-size: 12px;
+  width: 100px;
+  padding: 5px;
+  background: #fff; }
+
+.electric-scooter-icon {
+  position: absolute;
+  left: 97px;
+  bottom: 0;
+  width: 77px;
+  height: 49px;
+  margin: 0 auto;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/electric-scooter.svg") no-repeat center;
+  background-size: contain; }

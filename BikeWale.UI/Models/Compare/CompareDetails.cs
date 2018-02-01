@@ -248,6 +248,8 @@ namespace Bikewale.Models
         /// Description : Added reverseComparisonText for page title
         /// Modified by sajal Gupta on 10-11-2017
         /// Descriptiotion : Added GAPages;
+        /// Modified by : Snehal dange on 29th Jan 2018
+        /// Desc: Modifed title for the page
         /// </summary>
         /// <returns></returns>
         private void GetComparisionTextAndMetas(CompareDetailsVM obj)
@@ -287,19 +289,10 @@ namespace Bikewale.Models
                         }
                     }
 
+                    obj.PageMetaTags.Title = string.Format("Compare {0} - BikeWale", obj.comparisionText);
 
-                    if (bikeList.Count() == 2)
-                    {
-                        string reverseComparisonText = string.Join(" vs ", bikeModels.Reverse());
-                        obj.PageMetaTags.Title = string.Format("Compare {0} | {1}", obj.comparisionText, reverseComparisonText);
-                    }
-                    else
-                    {
-                        obj.PageMetaTags.Title = string.Format("Compare  {0}", obj.comparisionText);
-                    }
-
-                    string ComparePriceText = string.Join(" and ", obj.Compare.BasicInfo.Take(2).Select(x => string.Format("{0} {1} Ex-showroom starts at - {2}", x.Make, x.Model, Format.FormatPrice(x.Price.ToString()))));
-                    string CompareMileageText = string.Join(" whereas ", obj.Compare.BasicInfo.Take(2).Where(x=>x.Mileage > 0).Select(x => string.Format("{0} has a mileage of {1} kmpl", x.Model, x.Mileage)));
+                    string ComparePriceText = string.Join(" and ", obj.Compare.BasicInfo.Take(2).Select(x => string.Format("{0} {1} Ex-showroom starts at - ₹ {2}", x.Make, x.Model, Format.FormatPrice(x.Price.ToString()))));
+                    string CompareMileageText = string.Join(" whereas ", obj.Compare.BasicInfo.Take(2).Where(x => x.Mileage > 0).Select(x => string.Format("{0} has a mileage of {1} kmpl", x.Model, x.Mileage)));
                     string CompareModelText = string.Join(" and ", bikeList.Take(2));
 
                     obj.PageMetaTags.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";

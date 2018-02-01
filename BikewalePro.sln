@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bikewale.DAL", "Bikewale.DAL", "{42FF1FB7-AC82-4750-8DF6-2BF39E69950E}"
 EndProject
@@ -144,6 +144,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.Sitemap.ServiceCenter", "Bikewale.Sitemap.ServiceCenter\Bikewale.Sitemap.ServiceCenter.csproj", "{40C97DF0-5794-4CD7-A30B-A523AC07284A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.Sitemap.CopySiteMapToServers", "Bikewale.Sitemap.CopySiteMapToServers\Bikewale.Sitemap.CopySiteMapToServers.csproj", "{D3FE9C65-9B11-46E8-9F57-E2376B4D5F98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bikewale.PWA.Presentation", "Bikewale.PWA.Presentation", "{6F6FA249-5E36-41E4-89B3-605F8A01D8F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.PWA.UI", "Bikewale.PWA.UI\Bikewale.PWA.UI.csproj", "{3279E44E-3EAE-4FE9-9721-980610C6F896}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1412,8 +1416,8 @@ Global
 		{B6F8B91E-38AB-4ABB-8E35-935A70D95288}.Release|x64.Build.0 = Release|Any CPU
 		{B6F8B91E-38AB-4ABB-8E35-935A70D95288}.Release|x86.ActiveCfg = Release|Any CPU
 		{B6F8B91E-38AB-4ABB-8E35-935A70D95288}.Release|x86.Build.0 = Release|Any CPU
-		{B6F8B91E-38AB-4ABB-8E35-935A70D95288}.Staging|Any CPU.ActiveCfg = Release|Any CPU
-		{B6F8B91E-38AB-4ABB-8E35-935A70D95288}.Staging|Any CPU.Build.0 = Release|Any CPU
+		{B6F8B91E-38AB-4ABB-8E35-935A70D95288}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{B6F8B91E-38AB-4ABB-8E35-935A70D95288}.Staging|Any CPU.Build.0 = Staging|Any CPU
 		{B6F8B91E-38AB-4ABB-8E35-935A70D95288}.Staging|x64.ActiveCfg = Release|Any CPU
 		{B6F8B91E-38AB-4ABB-8E35-935A70D95288}.Staging|x64.Build.0 = Release|Any CPU
 		{B6F8B91E-38AB-4ABB-8E35-935A70D95288}.Staging|x86.ActiveCfg = Release|Any CPU
@@ -1568,6 +1572,22 @@ Global
 		{D3FE9C65-9B11-46E8-9F57-E2376B4D5F98}.Testing|x64.Build.0 = Release|Any CPU
 		{D3FE9C65-9B11-46E8-9F57-E2376B4D5F98}.Testing|x86.ActiveCfg = Release|Any CPU
 		{D3FE9C65-9B11-46E8-9F57-E2376B4D5F98}.Testing|x86.Build.0 = Release|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Release|x64.ActiveCfg = Release|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Release|x86.ActiveCfg = Release|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Staging|Any CPU.Build.0 = Staging|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Staging|x64.ActiveCfg = Release|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Staging|x86.ActiveCfg = Release|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Testing|x64.ActiveCfg = Release|Any CPU
+		{3279E44E-3EAE-4FE9-9721-980610C6F896}.Testing|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1633,5 +1653,6 @@ Global
 		{22506474-0EF7-4D3D-B79D-A7F2DDF4B3CA} = {89B11CB8-6DDC-40E8-8289-D97332957264}
 		{40C97DF0-5794-4CD7-A30B-A523AC07284A} = {89B11CB8-6DDC-40E8-8289-D97332957264}
 		{D3FE9C65-9B11-46E8-9F57-E2376B4D5F98} = {89B11CB8-6DDC-40E8-8289-D97332957264}
+		{3279E44E-3EAE-4FE9-9721-980610C6F896} = {6F6FA249-5E36-41E4-89B3-605F8A01D8F5}
 	EndGlobalSection
 EndGlobal

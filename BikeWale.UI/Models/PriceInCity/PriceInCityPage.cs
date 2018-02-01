@@ -877,6 +877,7 @@ namespace Bikewale.Models
                 objVM.ModelImage = objVM.PageMetaTags.OGImage = Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, ImageSize._310x174, QualityFactor._75);
                 objVM.CityEntity = new CityEntityBase() { CityId = cityId, CityMaskingName = cityMaskingName, CityName = firstVersion.City };
                 objVM.VersionId = firstVersion.VersionId;
+
             }
             catch (Exception ex)
             {
@@ -896,6 +897,7 @@ namespace Bikewale.Models
 
                 objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _objCityCache, modelId, cityId, BikeInfoTabCount, Entities.GenericBikes.BikeInfoTabType.PriceInCity)).GetData();
                 objVM.BikeRank = (new BikeModelRank(_modelCache, modelId)).GetData();
+                objVM.IsElectricBike = objVM.BikeInfo.BikeInfo.FuelType.Equals(5);
             }
             catch (Exception ex)
             {
@@ -1129,6 +1131,8 @@ namespace Bikewale.Models
         /// Added target city and model
         /// Modified by : Ashutosh Sharma on 30 Aug 2017 
         /// Description : Removed GST from Title and Description 
+        /// Modified by : Snehal Dange on 29th Jan 2018
+        /// Description: Modified title for the page
         /// </summary>
         /// <param name="metas"></param>
         private void BuildPageMetas(PriceInCityPageVM objVM)
@@ -1138,7 +1142,7 @@ namespace Bikewale.Models
                 string bikeName = String.Format("{0} {1}", firstVersion.MakeName, firstVersion.ModelName);
                 objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
                 objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
-                objVM.PageMetaTags.Title = string.Format("{0} price in {1} - Check On Road Price &amp; Dealer Info. | BikeWale", bikeName, firstVersion.City);
+                objVM.PageMetaTags.Title = string.Format("{0} price in {1} | Check on-road price - BikeWale", bikeName, firstVersion.City);
                 objVM.ReturnUrl = string.Format("/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
                 objVM.PageMetaTags.AmpUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/amp/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
 

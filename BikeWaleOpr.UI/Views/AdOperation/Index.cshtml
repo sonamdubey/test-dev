@@ -1,7 +1,7 @@
 ﻿@model  BikewaleOpr.Models.AdOperationVM
 @{
     ViewBag.Title = "AdOperation Page";
-    ViewBag.PageTitle = "Bikewale Operations - Home";
+    ViewBag.PageTitle = "Bike Promotions";
 }
 <div class="row" style="margin-top:5px;" id="adOperationContainer" data-modelId="@Model.ModelId" data-makeId="@Model.MakeId" >
     <div class="col m10">
@@ -33,7 +33,7 @@
                     <td>@bike.Model.ModelName</td>
                     <td>@bike.StartTime.Value.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
                     <td>@bike.EndTime.Value.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
-                    <td data-value="adoperationtype">@bike.AdOperationType</td>
+                    <td data-value="adoperationtype">@string.Format("{0}",bike.AdOperationType==1?"Promotion":"Monetization")</td>
                     <td>@bike.UserId</td>
                     <td data-value="contractstatus">@bike.ContractStatus</td>
                     <td>@bike.LastUpdatedOn.ToString("dd/MM/yyyy HH:mm:ss tt")</td>
@@ -98,7 +98,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="input-field">
-                                    <input type="time" id="startTimeEle" value="" />
+                                    <input type="time" id="startTimeEle" value="00:00:00" />
 
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="input-field">
-                                    <input type="time" id="endTimeEle" value="" />
+                                    <input type="time" id="endTimeEle" value="23:59" />
 
                                 </div>
                             </div>

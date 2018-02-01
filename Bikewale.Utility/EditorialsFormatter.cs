@@ -10,6 +10,8 @@ namespace Bikewale.Utility
     public class EditorialsFormatter
     {
         /// <summary>
+        /// Modified by : Pratibha Verma on 25the January
+        /// Description : Added AutoExpo2018 in news category
         /// Created by : Aditi Srivastava on 27 Mar 2017
         /// Summary    : To return content category based on id
         /// </summary>
@@ -22,6 +24,9 @@ namespace Bikewale.Utility
                 {
                     switch (_contentType)
                     {
+                        case EnumCMSContentType.AutoExpo2018:
+                            _category = "AutoExpo 2018";
+                            break;
                         case EnumCMSContentType.AutoExpo2016:
                         case EnumCMSContentType.News:
                             _category = "NEWS";

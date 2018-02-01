@@ -257,6 +257,7 @@
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignDTO.cs" />
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignEMIConfigurationDTO.cs" />
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignLeadConfigurationDTO.cs" />
+    <Compile Include="MobileVerification\MobileSmsVerification.cs" />
     <Compile Include="Model\BikeModelContentDTO.cs" />
     <Compile Include="Model\BikeSpecs.cs" />
     <Compile Include="Model\Features.cs" />

@@ -1,7 +1,9 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.DTO.MobileVerification;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.MobileVerification;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Dealer
@@ -23,6 +25,8 @@ namespace Bikewale.Interfaces.Dealer
     /// Description :   Get Dealer By BrandList
     /// Modified by :  Subodh Jain on 21 Dec 2016
     /// Description :   Merge Dealer and service center for make and model page
+    /// Created by : Snehal Dange on 18th Jan 2018
+    /// Descritpion: Created GetDealerShowroomSMSData() for fetching dealer details for sending sms.
     /// </summary>    
     public interface IDealer
     {
@@ -43,5 +47,6 @@ namespace Bikewale.Interfaces.Dealer
         bool UpdateManufaturerLead(uint pqId, string custEmail, string mobile, string response);
         IEnumerable<DealerBrandEntity> GetDealerByBrandList();
         IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId);
+        EnumSMSStatus GetDealerShowroomSMSData(MobileSmsVerification objData);
     }
 }

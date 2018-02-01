@@ -18,6 +18,10 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary     : Method to get list of  makes in which dealer showroom is present for city
     /// Modified by : Snehal Dange on 14th Dec 2017
     /// Summary     : Method to get list of  makes in which service center is present for city
+    /// Modified by : Snehal Dange on 17th Jan 2018
+    /// Summary     : Created method ResearchMoreAboutMake to get 'research more about make' widget data (without city) 
+    /// Modified by : Snehal Dange on 17th Jan 2018
+    /// Summary     : Created Method ResearchMoreAboutMakeByCity to get 'research more about make' widget data (with city) 
     /// </summary>
     public interface IBikeMakesCacheRepository
     {
@@ -32,5 +36,7 @@ namespace Bikewale.Interfaces.BikeData
         MakeSubFooterEntity GetMakeFooterCategoriesandPrice(uint makeId);
         IEnumerable<BikeMakeEntityBase> GetDealerBrandsInCity(uint cityid);
         IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId);
+        ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId);
+        ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId);
     }
 }

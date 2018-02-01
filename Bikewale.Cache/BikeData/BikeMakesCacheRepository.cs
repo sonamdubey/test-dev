@@ -301,5 +301,56 @@ namespace Bikewale.Cache.BikeData
             return objMakesList;
         }
 
+        /// <summary>
+        /// Created by : Snehal Dange on 16th Jan 2017
+        /// Description: Cache Method to get ResearchMoreAboutMake widget data (when city is not selected)
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId)
+        {
+            ResearchMoreAboutMake widgetObj = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    string key = string.Format("BW_ResearchMoreAboutMake_MK_{0}", makeId);
+                    widgetObj = _cache.GetFromCache<ResearchMoreAboutMake>(key, new TimeSpan(24, 0, 0), () => _objMakes.ResearchMoreAboutMake(makeId));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.ResearchMoreAboutMake :Make_{0}", makeId));
+            }
+            return widgetObj;
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 16th Jan 2018
+        /// Description: Cache Method to get ResearchMoreAboutMake widget data (when city is  selected)
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId)
+        {
+            ResearchMoreAboutMake widgetObj = null;
+            try
+            {
+                if (makeId > 0 && cityId > 0)
+                {
+                    string key = string.Format("BW_ResearchMoreAboutMake_MK_{0}_CityId_{1}", makeId, cityId);
+                    widgetObj = _cache.GetFromCache<ResearchMoreAboutMake>(key, new TimeSpan(24, 0, 0), () => _objMakes.ResearchMoreAboutMakeByCity(makeId, cityId));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.ResearchMoreAboutMakeByCity :Make_{0} , City_{1}", makeId, cityId));
+            }
+            return widgetObj;
+        }
+
+
     }
 }

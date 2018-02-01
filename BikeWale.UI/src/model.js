@@ -68,6 +68,30 @@ function openLeadCaptureForm(dealerID) {
     event.stopPropagation();
 }
 
+function logBhrighuForImage(item) {
+    if (item)
+    {
+        var imageid = item.attr("data-imgid"), imgcat = item.attr("data-imgcat"), imgtype = item.attr("data-imgtype");
+        if (imageid)
+        {
+            var lb = "";
+            if (imgcat)
+            {
+                lb += "|category=" + imgcat;
+            }
+
+            if (imgtype)
+            {
+                lb += "|type=" + imgtype;
+            }
+
+            label = 'modelId=' + bikeModelId + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
+            cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
+        }        
+    }
+    
+}
+
 function bindInsuranceText() {
     icityArea = GetGlobalCityArea();
     if (!viewModel.isDealerPQAvailable()) {
@@ -288,6 +312,7 @@ docReady(function () {
                 item
                     .on('jcarouselcontrol:active', function () {
                         carouselNavigation.jcarousel('scrollIntoView', this);
+                        logBhrighuForImage(item);
                         item.addClass('active');
                     })
                     .on('jcarouselcontrol:inactive', function () {

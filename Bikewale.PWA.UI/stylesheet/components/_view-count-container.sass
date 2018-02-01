@@ -1,0 +1,26 @@
+@mixin views-count-container($min-width: 50%, $font-size: 14)
+	.views-count-container
+		min-width: $min-width
+		font-size: $font-size * 1px
+		float: left
+		padding-right: 10px
+
+		span
+			margin-right: 5px
+
+			&:last-child
+				margin-right: 0
+
+@mixin video-views-icon()
+	.video-views-icon
+		width: 17px
+		height: 13px
+		background-position: -59px -303px
+
+@mixin video-likes-icon()
+	.video-likes-icon
+		width: 15px
+		height: 15px
+		background-position: -63px -322px
+		position: relative
+		top: 2px
