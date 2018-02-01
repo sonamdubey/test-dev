@@ -141,7 +141,7 @@ namespace Bikewale.Models
 
                 objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
 
-                if (objData.Bikes!=null && objData.Bikes.Count() > 6)
+                if (objData.Bikes!=null && objData.Bikes.Count() > 5)
                 {
                     objData.TopPopularBikes = objData.Bikes.OrderBy(x => x.BikePopularityIndex).Take(4);
                 }
