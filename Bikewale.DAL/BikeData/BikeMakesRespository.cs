@@ -898,7 +898,7 @@ namespace Bikewale.DAL.BikeData
             {
                 if (makeId > 0)
                 {
-                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmake", makeId);
+                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmake_01022018", makeId);
                 }
 
             }
@@ -923,7 +923,7 @@ namespace Bikewale.DAL.BikeData
             {
                 if (makeId > 0 && cityId > 0)
                 {
-                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmakebycity", makeId, cityId);
+                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmakebycity_01022018", makeId, cityId);
                 }
             }
             catch (Exception ex)
