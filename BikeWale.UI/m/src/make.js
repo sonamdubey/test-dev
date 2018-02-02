@@ -385,13 +385,14 @@ var recommendedBike = (function () {
         var containerHeading = ($('.recommended-bike__found-result').outerHeight() + $('.recommended-bike__filter-section').outerHeight()),
             otherBikeContainer = $('.other-recommended-bike'),
             recommendedBikeElement = otherBikeContainer.find('.recommended-bike__list-card:first-child');
+        if (popup.find('.not-found-container').length === 0) {
+            if ((recommendedBikeElement.length !== 0) && (recommendedBikeElement.offset().top + (recommendedBikeElement.outerHeight() + containerHeading)) < container.scrollTop() + $(window).height() - containerHeading) {
+                otherBikeContainer.removeClass('overlay--inactive');
+            }
+            else if (recommendedBikeElement.length == 0) {
 
-        if ((recommendedBikeElement.length !== 0) && (recommendedBikeElement.offset().top + (recommendedBikeElement.outerHeight() + containerHeading)) < container.scrollTop() + $(window).height() - containerHeading) {
-            otherBikeContainer.removeClass('overlay--inactive');
-        }
-        else if (recommendedBikeElement.length !== 0) {
-
-            otherBikeContainer.addClass('overlay--inactive');
+                otherBikeContainer.addClass('overlay--inactive');
+            }
         }
     }
     function open() {
