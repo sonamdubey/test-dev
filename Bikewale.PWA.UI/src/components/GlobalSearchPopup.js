@@ -9,7 +9,8 @@ class GlobalSearchPopup extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			status : globalSearchStatus.RESET,
+		    status : globalSearchStatus.RESET,
+            globalDisplay : 'none',
 			value : '' ,
 			autocompleteList : [] ,
 			globalSearchList: { recentSearchList : [] , trendingSearchList : [] },
@@ -48,8 +49,7 @@ class GlobalSearchPopup extends React.Component {
 	showAutocompleteList(autocompleteList) {
 		this.setState({
 			status: globalSearchStatus.AUTOCOMPLETE ,
-			autocompleteList : autocompleteList,
-			globalSearchList : { recentSearchList: recentSearchList, trendingSearchList: trendingSearchList }
+			autocompleteList : autocompleteList
 		})		
 	}
 	
@@ -86,17 +86,25 @@ class GlobalSearchPopup extends React.Component {
 	}
 	resetListOnEmptyInput() {
 	    var recentSearchList = recentSearches.getRecentSearches();
+	    if(recentSearchList !=null) {
+	        recentSearchList =recentSearchList.map(function (item) {
+	            return { label: item.name, payload: item }
+	        });
+	    }
 	    var trendingSearchList = recentSearches.getTrendingSearches();
+	    if(trendingSearchList !=null) {
+	        trendingSearchList.map(function (item) {
+	            return { label: item.name, payload: item }
+	        });
+	    }
 	    if(recentSearchList === null || recentSearchList.length === 0) {
 	        recentSearchList = [];
 	    }
 	    if(trendingSearchList === null || trendingSearchList.length === 0) {
 	        trendingSearchList = [];
 	    }
-        if(trendingSearchList.length === 0 && recentSearchList.length === 0) {
+        if(trendingSearchList.length !== 0 || recentSearchList.length !== 0) {
 			this.setState({
-				value : '',
-				strippedValue : '', 
 				status: globalSearchStatus.RECENTSEARCH ,
 				globalSearchList : { recentSearchList : recentSearchList, trendingSearchList :trendingSearchList }
 			});
@@ -104,8 +112,6 @@ class GlobalSearchPopup extends React.Component {
 		}
 		else {
 			this.setState({
-				value : '',
-				strippedValue : '',
 				status: globalSearchStatus.RESET
 			});
 			
@@ -217,8 +223,6 @@ class GlobalSearchPopup extends React.Component {
 			return [];
 		else  if(this.state.status == globalSearchStatus.AUTOCOMPLETE) 
 			return this.state.autocompleteList;
-		else if(this.state.status == globalSearchStatus.RECENTSEARCH) 
-			return [];
 		else return [];
 	}
 	shouldComponentUpdate(nextProps, nextState) {
@@ -293,7 +297,7 @@ class GlobalSearchPopup extends React.Component {
 						}}
 					/>
 					<span id="loaderGlobalSearch" className="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style={{'display':'none','right':'35px','top':'13px'}}></span>
-		            <GlobalSearchList searchProps = {{ className:'global-search-section' }} searchItems = { this.state.globalSearchList }></GlobalSearchList>
+		            <GlobalSearchList searchProps = {{ className:'global-search-section bg-white' }} styleProps={{display:this.state.status === globalSearchStatus.RECENTSEARCH?'block':'none' }} searchItems = { this.state.globalSearchList }/>
 		        	
 		        </div>
 		    </div>

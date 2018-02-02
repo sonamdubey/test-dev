@@ -81,6 +81,7 @@
     <Content Include="src\components\News\UserReviewSlug.js" />
     <Content Include="src\components\OnRoadPricePopup.js" />
     <Content Include="src\components\peripheralComponents.js" />
+    <Content Include="src\components\SearchList.js" />
     <Content Include="src\components\Shared\Breadcrumb.js" />
     <Content Include="src\components\Shared\CarouselBikeItem.js" />
     <Content Include="src\components\Shared\CarouselContainer.js" />
