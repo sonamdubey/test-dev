@@ -1590,7 +1590,7 @@ namespace Bikewale.Cache.BikeData
 
             try
             {
-                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => GetNewLaunchedBikesListByMake(0, inputFilter.Days, Convert.ToInt32(inputFilter.Make)));
+                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => FilterNewlyLaunchedBikesCache(inputFilter));
             }
             catch (Exception ex)
             {
@@ -1598,6 +1598,28 @@ namespace Bikewale.Cache.BikeData
 
             }
 
+            return objBikes;
+        }
+
+        /// <summary>
+        /// Created by : Sanskar Gupta on 02 Feb 2018
+        /// Description : Function to filter Newly Launched Make Bikes by Number of Days.
+        /// </summary>
+        /// <param name="inputFilter"></param>
+        /// <returns></returns>
+        public NewLaunchedBikesBase FilterNewlyLaunchedBikesCache(InputFilter inputFilter)
+        {
+            NewLaunchedBikesBase objBikes = null;
+            try
+            {
+                objBikes = GetNewLaunchedBikesListByMake(0, 100, Convert.ToInt32(inputFilter.Make));
+
+                objBikes.Models = objBikes.Models.Where(x => DateTime.Now >= x.LaunchDate && DateTime.Now <= x.LaunchDate.AddDays(10));
+            }catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.FilterNewlyLaunchedBikesCache");
+
+            }
             return objBikes;
         }
 
