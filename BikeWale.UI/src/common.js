@@ -402,6 +402,18 @@ function CloseCityPopUp() {
     unlockPopup();
 }
 
+function triggerVirtualPageView(url, title) {
+    try {
+        dataLayer.push({
+            'event': 'VirtualPageview',
+            'virtualPageURL': url,
+            'virtualPageTitle': title
+        })
+    } catch (e) {
+
+    }
+}
+
 function CheckGlobalCookie() {
     var cookieName = "location";
     if (isCookieExists(cookieName)) {

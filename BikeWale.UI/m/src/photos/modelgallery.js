@@ -502,6 +502,7 @@ docReady(function () {
         onSlideChangeStart: function (swiper) {
             thumbnailSwiperEvents.setPhotoDetails(swiper);
             swiper.lazy.load();
+            triggerGA('Gallery_Page', 'Image_Carousel_Clicked', null);
         },
         onSlideChangeEnd: function (swiper)
         {
