@@ -26,7 +26,7 @@
                                     <div class="rating-container">
                                         <div class="rate-count-@Math.Round(bike.OverallRating)" data-rate-bg="@Math.Round(bike.OverallRating)">
                                             <span class="star-icon star-size-14"></span>
-                                            <span class="font14 inline-block">@bike.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
+                                            <span class="font14 inline-block">@bike.OverallRating.ToString("0.0")</span>
                                         </div>
                                         <div class="font12 text-default review-left-divider">@string.Format("{0} review{1}", bike.ReviewCount, bike.ReviewCount > 1 ? "s" : "")</div>
                                     </div>

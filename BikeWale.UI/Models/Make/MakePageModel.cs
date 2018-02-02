@@ -98,6 +98,8 @@ namespace Bikewale.Models
         /// Description: Added IsFooterDescriptionAvailable ,IsPriceListingAvailable checks
         /// Modified by : Snehal Dange on 17th Jan 2018
         /// Description: Added BindResearchMoreMakeWidget()
+        /// Modified by: Deepak Israni on 30th Jan 2018
+        /// Description: Removed ShowCheckOnRoadpriceBtn property
         /// </summary>         
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
@@ -141,6 +143,12 @@ namespace Bikewale.Models
                 #endregion
 
                 objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
+
+                if (objData.Bikes!=null && objData.Bikes.Count() > 5)
+                {
+                    objData.TopPopularBikes = objData.Bikes.OrderBy(x => x.BikePopularityIndex).Take(4);
+                }
+                
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription(_makeId);
                 objData.SelectedSortingId = 0;
@@ -159,7 +167,6 @@ namespace Bikewale.Models
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
                 }
-                objData.ShowCheckOnRoadpriceBtn = !BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageOnRoadPriceBtnPct);
                 BindUpcomingBikes(objData);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindCompareBikes(objData, CompareSource, cityId);
@@ -183,6 +190,7 @@ namespace Bikewale.Models
 
                 BindShowroomPopularCityWidget(objData);
                 BindResearchMoreMakeWidget(objData);
+                GetEMIDetails(objData);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -739,6 +747,61 @@ namespace Bikewale.Models
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindResearchMoreMakeWidget() makeId:{0} , cityId:{1}", _makeId, (cityBase != null ? cityBase.CityId.ToString() : "0")));
             }
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 1st Feb 2018
+        /// Descritpion: Method created to set emi details for bikelist models
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        private void GetEMIDetails(MakePageVM objData)
+        {
+
+            try
+            {
+                if (objData != null)
+                {
+                    if (cityBase != null && cityBase.CityId > 0) // when city is selected
+                    {
+                        foreach (var bike in objData.Bikes)
+                        {
+                            if (bike != null)
+                            {
+                                if (bike.ExShowroomPrice > 0)
+                                {
+                                    bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.ExShowroomPrice);
+                                }
+                                else if (bike.AvgPrice > 0)
+                                {
+                                    bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.AvgPrice);
+                                }
+                            }
+
+
+                        }
+
+                    }
+                    else // when city is not selected
+                    {
+                        foreach (var bike in objData.Bikes)
+                        {
+                            if (bike != null)
+                            {
+                                bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.ExShowroomPrice);
+                            }
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("MakePageModel.GetEMIDetails: Make : {0} , City : {1}", _makeId, cityBase.CityId));
+            }
+
         }
     }
 }

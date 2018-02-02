@@ -23,7 +23,7 @@
                 <div id="reviewRatingsDiv" class="margin-bottom10 position-rel position--left-neg-5">
                     <span class="rate-count-@Math.Round(Model.BikeInfo.Rating)">
                         <span class="bwmsprite star-icon star-size-16"></span>
-                        <span class="font14 text-bold inline-block rate-count-3">@Model.BikeInfo.Rating.ToString("0.0").TrimEnd('0', '.')</span>
+                        <span class="font14 text-bold inline-block rate-count-3">@Model.BikeInfo.Rating.ToString("0.0")</span>
                     </span>
                     <span class="font11 text-xx-light inline-block padding-left5">(@string.Format("{0} {1}", Model.BikeInfo.RatingCount, Model.BikeInfo.RatingCount > 1 ? "ratings" : "rating"))</span>
                     @if (Model.BikeInfo.UserReviewCount > 0)

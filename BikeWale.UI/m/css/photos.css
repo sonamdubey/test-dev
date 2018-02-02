@@ -606,7 +606,8 @@ after margin
 .grid-icon,
 .color-palette,
 .fullscreen-icon,
-.info-icon {
+.info-icon,
+.download-icon {
     width: 20px;
     height: 20px;
 }
@@ -643,6 +644,17 @@ after margin
 .tab-active .info-icon {
     background-position: -161px -572px;
 }
+
+.download-icon {
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/download.svg') no-repeat center;
+	display: inline-block;
+	background-size: 20px;
+}
+
+.tab-active .download-icon {
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/download.svg');
+}
+
 
 .play-icon-lg {
     width: 38px;

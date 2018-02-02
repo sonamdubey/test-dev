@@ -85,7 +85,7 @@
                 <div class="col s2 offset-s3">
                     <div class="input-field">
                         <i class="material-icons prefix margin-top15">date_range</i>
-                        <input type="date" id="startDateEle" class="datepicker margin-left5" data-bind="textInput : $root.startDate"  data-value="@(Model.CampaignInformation.DealerDetails.CampaignStartDate != DateTime.MinValue ? Model.CampaignInformation.DealerDetails.CampaignStartDate.ToString("yyyy-MM-dd"): "")" />
+                        <input type="date" id="startDateEle" class="datepicker margin-left5" data-bind="textInput : $root.startDate"  data-value="@(Model.CampaignInformation.DealerDetails.CampaignStartDate != DateTime.MinValue ? Model.CampaignInformation.DealerDetails.CampaignStartDate.ToString("yyyy-MM-dd") : "")" />
                         <label for="startDateEle">Campaign Start Date *</label>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                 <div class="col s2">
                     <div class="input-field">
                         <i class="material-icons prefix margin-top15">date_range</i>
-                        <input type="date" id="endDateEle" class="datepicker margin-left5" value="@(Model.CampaignInformation.DealerDetails.CampaignEndDate != DateTime.MinValue ? Model.CampaignInformation.DealerDetails.CampaignEndDate.ToString("yyyy-MM-dd"): "")" />
+                        <input type="date" id="endDateEle" class="datepicker margin-left5" value="@(Model.CampaignInformation.DealerDetails.CampaignEndDate != DateTime.MinValue ? Model.CampaignInformation.DealerDetails.CampaignEndDate.ToString("yyyy-MM-dd") : "")" />
                         <label for="endDateEle">Campaign End Date</label>
                     </div>
                 </div>
@@ -111,7 +111,23 @@
                 </div>
 
             </div>
-
+            <div class="row">
+                <div class="col s1 offset-s3">
+                    <div class="input-field">
+                        @{ 
+                            bool IsDailyTimeAvailable = Model.CampaignInformation.DealerDetails.DailyEndTime != DateTime.MinValue;
+                        }
+                        <input type="time" id="dailyStartTimeEle" value="@(IsDailyTimeAvailable ? Model.CampaignInformation.DealerDetails.DailyStartTime.ToString("HH:mm") : "")" />
+                        <label for="dailyStartTimeEle" class="active">Daily Start Time</label>
+                    </div>
+                </div>
+                <div class="col s1">
+                    <div class="input-field">
+                        <input type="time" id="dailyEndTimeEle" value="@(IsDailyTimeAvailable ? Model.CampaignInformation.DealerDetails.DailyEndTime.ToString("HH:mm") : "")" />
+                        <label for="dailyEndTimeEle" class="active">Daily End Time</label>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col offset-s3">
                     <input type="checkbox" class="filled-in" id="chkShowCampaign" name="ShowOnExShowroomPrice" data-abc="@(Model.CampaignInformation.DealerDetails.ShowCampaignOnExshowroom)"  @(Model.CampaignInformation.DealerDetails.ShowCampaignOnExshowroom ? "checked value=true " : "") />
@@ -124,6 +140,8 @@
             <input type="hidden" id="CampaignPages" name="campaignPages" />
             <input type="hidden" id="StartDate" name="startDate" />
             <input type="hidden" id="EndDate" name="endDate" />
+            <input type="hidden" id="DailyStartTime" name="dailyStartTime" />
+            <input type="hidden" id="DailyEndTime" name="dailyEndTime" />
             <input type="hidden" id="maskingNumber" name="MaskingNumber" data-bind="textInput : $root.maskingNumber()" />
             <input type="hidden" name="userId" id="userId" value="@BikeWaleOpr.Common.CurrentUser.Id" />
             <input type="hidden" id="olMaskingNumber" name="OldMaskingNumber" value="@Model.CampaignInformation.DealerDetails.MaskingNumber" />

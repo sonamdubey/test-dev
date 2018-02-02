@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.GenericBikes;
+﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.GenericBikes;
 using System;
 using System.Runtime.Serialization;
 
@@ -11,6 +12,9 @@ namespace Bikewale.Entities.BikeData
     /// Description : Added MakeId, MakeMaskingName.
     /// Modified by : Ashutosh Sharma on 29 Sep 2017
     /// Description : Added AvgPrice and ExShowroomPrice.
+    /// Modified by : Snehal Dange on 1st Feb 2018
+    /// Description :  added EMIDetails
+
     /// </summary>
     [Serializable, DataContract]
     public class MostPopularBikesBase
@@ -62,6 +66,9 @@ namespace Bikewale.Entities.BikeData
         public DateTime StartDate { get; set; }
         [DataMember]
         public DateTime EndDate { get; set; }
+
+        [DataMember]
+        public EMI EMIDetails { get; set; }
 
     }
 }
