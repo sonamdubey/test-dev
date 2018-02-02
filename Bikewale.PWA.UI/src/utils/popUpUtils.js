@@ -173,6 +173,7 @@ if(!isServer()) {
 var recentSearches =
 {
     searchKey: "recentsearches",
+    trendingKey: "trendingsearches",
     options: {
         bikeSearchEle: isServer() ? null :  document.getElementById('globalSearch'),
         recentSearchesEle: isServer() ? null : ((document.getElementById("new-global-recent-searches") && document.getElementById("new-global-recent-searches").length) ? document.getElementById("new-global-recent-searches") : document.getElementById("global-recent-searches")),
@@ -206,6 +207,19 @@ var recentSearches =
                 return objSearches.searches;
             }
             else return null;
+    },
+    showTrendingSearches: function(showTrendingSearchList) {
+        var objSearches = bwcache.get(this.trendingKey);
+        if (objSearches && objSearches.searches) {
+            showTrendingSearchList(objSearches.searches);
+        }
+    },
+    getTrendingSearches: function(showTrendingSearchList) {
+        var objSearches = bwcache.get(this.trendingKey);
+        if (objSearches && objSearches.searches) {
+            return objSearches.searches;
+        }
+        else return null;
     },
     objectIndexOf: function (arr, opt) {
         var makeId = opt.makeId, modelId = opt.modelId;

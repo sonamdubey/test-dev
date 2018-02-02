@@ -1,5 +1,6 @@
 import React from 'react'
 import Autocomplete from '../components/Autocomplete'
+import GlobalSearchList from '../components/GlobalSearchList'
 import {setDataForPriceQuotePopup , closeGlobalSearchPopUp, recentSearches,autocomplete,showElement, hideElement,getStrippedTerm ,highlightText, globalSearchCache,MakeModelRedirection, setPriceQuoteFlag , pqSourceId , globalSearchStatus} from '../utils/popUpUtils'
 import { isServer } from '../utils/commonUtils'
 import {GetCatForNav} from '../utils/analyticsUtils'
@@ -11,7 +12,7 @@ class GlobalSearchPopup extends React.Component {
 			status : globalSearchStatus.RESET,
 			value : '' ,
 			autocompleteList : [] ,
-			recentSearchList : [] ,
+			globalSearchList: { recentSearchList : [] , trendingSearchList : [] },
 			strippedValue :  '' 
 		}
 		this.renderRecentSearchItems = this.renderRecentSearchItems.bind(this);
@@ -47,7 +48,8 @@ class GlobalSearchPopup extends React.Component {
 	showAutocompleteList(autocompleteList) {
 		this.setState({
 			status: globalSearchStatus.AUTOCOMPLETE ,
-			autocompleteList : autocompleteList
+			autocompleteList : autocompleteList,
+			globalSearchList : { recentSearchList: recentSearchList, trendingSearchList: trendingSearchList }
 		})		
 	}
 	
@@ -83,13 +85,20 @@ class GlobalSearchPopup extends React.Component {
 		}catch(err){}
 	}
 	resetListOnEmptyInput() {
-		var recentSearchList = recentSearches.getRecentSearches();
-		if(recentSearchList != null && recentSearchList.length > 0) {
+	    var recentSearchList = recentSearches.getRecentSearches();
+	    var trendingSearchList = recentSearches.getTrendingSearches();
+	    if(recentSearchList === null || recentSearchList.length === 0) {
+	        recentSearchList = [];
+	    }
+	    if(trendingSearchList === null || trendingSearchList.length === 0) {
+	        trendingSearchList = [];
+	    }
+        if(trendingSearchList.length === 0 && recentSearchList.length === 0) {
 			this.setState({
 				value : '',
 				strippedValue : '', 
 				status: globalSearchStatus.RECENTSEARCH ,
-				recentSearchList : recentSearchList
+				globalSearchList : { recentSearchList : recentSearchList, trendingSearchList :trendingSearchList }
 			});
 			
 		}
@@ -209,7 +218,7 @@ class GlobalSearchPopup extends React.Component {
 		else  if(this.state.status == globalSearchStatus.AUTOCOMPLETE) 
 			return this.state.autocompleteList;
 		else if(this.state.status == globalSearchStatus.RECENTSEARCH) 
-			return this.state.recentSearchList;
+			return [];
 		else return [];
 	}
 	shouldComponentUpdate(nextProps, nextState) {
@@ -284,7 +293,7 @@ class GlobalSearchPopup extends React.Component {
 						}}
 					/>
 					<span id="loaderGlobalSearch" className="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style={{'display':'none','right':'35px','top':'13px'}}></span>
-		            <ul id="global-recent-searches" style={{'position': 'relative','margin':'0','textAlign': 'left','height':'auto !important','background':'#fff'}} className="hide"></ul>
+		            <GlobalSearchList searchProps = {{ className:'global-search-section' }} searchItems = { this.state.globalSearchList }></GlobalSearchList>
 		        	
 		        </div>
 		    </div>
