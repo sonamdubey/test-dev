@@ -14,7 +14,10 @@
         <div class="overall-tabs__placeholder">
             <div class="overall-tabs__content">
                 <ul class="overall-tabs__list">
-                    <li class="overall-tabs-list__item tab--active" data-tabs="popularModel">Popular Models</li>
+                    @if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
+                    {
+                        <li class="overall-tabs-list__item tab--active" data-tabs="popularModel">Popular Models</li>
+                    }
                     <li class="overall-tabs-list__item" data-tabs="bikeModel">Bike Models</li>
                     <li class="overall-tabs-list__item" data-tabs="upcomingBikes">Upcoming Bikes</li>
                     <li class="overall-tabs-list__item" data-tabs="latestUpdate">Latest Updates</li>
@@ -142,7 +145,7 @@
                                                 <a title="@bike.BikeName" href='@string.Format("/m{0}", modelUrl)' class="model-card__target card-detail__target">
                                                     <span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
                                                         <span class="rating-badge__star"></span>
-                                                        <span>@bike.ModelRating.ToString("0.0").TrimEnd('0', '.')</span>
+                                                        <span>@bike.ModelRating.ToString("0.0")</span>
                                                     </span>
 
                                                     <h3 class="card-detail__name">@bike.objModel.ModelName</h3>
@@ -408,7 +411,7 @@
         {
             <section>
                 <div data-id="dealer" class="bg-white section-bottom-margin dealer-section overall-tabs-data">
-                 
+
                     @if (Model.IsDealerAvailable)
                     {
                         <div class="carousel__title">

@@ -25,7 +25,7 @@
                     <div class="model-overall-rating">
                         <span class="rate-count-@Math.Round(Model.UserReviewDetailsObj.OverAllModelRating)">
                             <span class="star-icon"></span>
-                            <span class="font14 text-bold">@Model.UserReviewDetailsObj.OverAllModelRating.ToString("0.0").TrimEnd('0', '.')</span>
+                            <span class="font14 text-bold">@Model.UserReviewDetailsObj.OverAllModelRating.ToString("0.0")</span>
                         </span>
                         <span class="font12 text-slate-grey review-left-divider">@string.Format("{0} rating{1}", Model.UserReviewDetailsObj.TotalRatings, (Model.UserReviewDetailsObj.TotalRatings > 1 ? "s" : ""))</span>
                         <span class="font12 text-slate-grey review-left-divider">@string.Format("{0} review{1}", Model.UserReviewDetailsObj.TotalReviews, (Model.UserReviewDetailsObj.TotalReviews > 1 ? "s" : ""))</span>
