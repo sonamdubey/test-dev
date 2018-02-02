@@ -23,9 +23,9 @@ namespace BikewaleOpr.BAL
         /// <param name="id"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public bool UpdatePageMetaStatus(string id, ushort status)
+        public bool UpdatePageMetaStatus(string id, ushort status, uint updatedBy)
         {
-            return _pageMetas.UpdatePageMetaStatus(id, status);
+            return _pageMetas.UpdatePageMetaStatus(id, status, updatedBy);
         }
     }
 }

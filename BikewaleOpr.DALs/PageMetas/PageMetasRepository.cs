@@ -126,7 +126,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
         /// <param name="id"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public bool UpdatePageMetaStatus(string idList, ushort status)
+        public bool UpdatePageMetaStatus(string idList, ushort status, uint updatedBy)
         {
             bool result = false;
             try
@@ -137,6 +137,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
                     var param = new DynamicParameters();
                     param.Add("par_ids", idList);
                     param.Add("par_status", status);
+                    param.Add("par_updatedby", updatedBy);
 
                     connection.Execute("setpagemetastatus_30012018", param: param, commandType: CommandType.StoredProcedure);
                     result = true;

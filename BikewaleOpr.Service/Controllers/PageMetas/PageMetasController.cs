@@ -39,7 +39,7 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
         {
             try
             {
-                bool result = _pageMetas.UpdatePageMetaStatus(dtoObj.PageMetaId, dtoObj.Status);
+                bool result = _pageMetas.UpdatePageMetaStatus(dtoObj.PageMetaId, dtoObj.Status, dtoObj.UpdatedBy);
                 if (result)
                 {
                     if (dtoObj.ModelId > 0)
