@@ -150,7 +150,7 @@
 					<div class="model-overall-rating inline-block">
 						<span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
 							<span class="bwsprite star-icon star-size-18"></span>
-							<span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span>
+							<span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span>
 						</span>
 						@if (Model.UserReviews.UserReviews.Result != null)
                         {
