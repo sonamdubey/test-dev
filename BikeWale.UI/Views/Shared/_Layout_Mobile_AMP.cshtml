@@ -588,7 +588,7 @@
     @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
     {
         <div class="margin-bottom10 margin-top15">
-            <amp-ad width=320 height=50 type="doubleclick" layout="responsive" data-slot="@string.Format("{0}_Top_320x50",Model.AdTags.AdPath)" json='{"targeting":{"Model":"@Model.AdTags.TargetedModel", "City":"@Model.AdTags.TargetedCity"}}'></amp-ad>
+            <amp-ad width=320 height=50 type="doubleclick" layout="responsive" data-slot="@string.Format("{0}_Top_320x50",Model.AdTags.AdPath)"></amp-ad>
         </div>
     }
 
