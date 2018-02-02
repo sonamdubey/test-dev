@@ -48,7 +48,7 @@ class ArticleListComponent extends React.Component{
 
         if(typeof(gaObj)!="undefined")
         {
-            gaObj = GA_PAGE_MAPPING["DetailsPage"];
+            gaObj = GA_PAGE_MAPPING["ListPage"];
         }
        
     }

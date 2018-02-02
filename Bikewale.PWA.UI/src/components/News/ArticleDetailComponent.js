@@ -45,7 +45,7 @@ class ArticleDetail extends React.Component {
         this.extractBasicIdFromArticleUrl = this.extractBasicIdFromArticleUrl.bind(this);
         if(typeof(gaObj)!="undefined")
         {
-            gaObj = GA_PAGE_MAPPING["ListPage"];
+            gaObj = GA_PAGE_MAPPING["DetailsPage"];
         }  
     }
     componentDidUpdate() {
