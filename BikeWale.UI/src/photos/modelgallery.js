@@ -370,6 +370,7 @@ docReady(function () {
         onSlideChangeStart: function (swiper) {
             thumbnailSwiperEvents.setPhotoDetails(swiper);
             thumbnailSwiperEvents.focusThumbnail(thumbnailSwiper, vmModelGallery.activePhotoIndex(), true);
+            triggerGA('Gallery_Page', 'Image_Carousel_Clicked', null);
         },
         onSlideChangeEnd: function (swiper) {
             logBhrighuForImage($('.gallery-type-swiper .swiper-slide-active').first());
