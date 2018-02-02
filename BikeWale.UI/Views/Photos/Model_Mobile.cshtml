@@ -3,6 +3,11 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/photos.css' inline />";
     Model.Page_JS_Paths = new string[] { "/m/src/photos/modelgallery.js", "/m/src/photos/photos.js" };
+    Model.AdTags.Ad_300x250BTF = true;
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_320x50BTF = true;
+    Model.AdTags.AdId = "1516082576550";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Image";
 }
 @if (Model != null)
 {
@@ -57,6 +62,12 @@
             <div class="clear"></div>
         </div>
     </section>
+    if (Model.AdTags.Ad_300x250BTF)
+    {
+        <div class="margin-bottom20 text-center">
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+        </div>
+    }
     <div id="photoTemplateWrapper" class="hide">
         <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
         <ul data-bind="foreach : Loadedphotos">
@@ -68,10 +79,10 @@
     </div>
     if (Model.BikeInfo != null)
     { <section>
-        <div class="container bg-white box-shadow section-bottom-margin">
-            @Html.Partial("~/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
-        </div>
-    </section>
+            <div class="container bg-white box-shadow section-bottom-margin">
+                @Html.Partial("~/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
+            </div>
+        </section>
     }
 
     if (Model.ModelVideos != null && Model.Videos != null)
@@ -112,3 +123,10 @@
     }
 
 }
+
+ if (Model.AdTags.Ad_320x50BTF)
+    {
+<div class="margin-bottom20 text-center">
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</div>
+    }
