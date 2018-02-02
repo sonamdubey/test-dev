@@ -35,6 +35,8 @@ namespace Bikewale.Models
     /// Description : Added property IsAmpPage.
     /// Modified By :Snehal Dange on 21st Nov 2017
     /// Description: Added IUserReviewsCache _cacheUserReviews
+    /// Modified by : Sanskar Gupta on 02 Feb 2018
+    /// Description : Added logic to fetch Newly Launched Bikes for a make by number of days.
     /// </summary>
     public class MakePageModel
     {
