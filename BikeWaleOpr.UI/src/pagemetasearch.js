@@ -1,6 +1,7 @@
 ﻿var pageMetas = $('#managePageMetas');
 var deleteButton = $('#deleteAccordian');
-var pageMetaRecord = { pageMetaId: "", status: "", modelId: "", makeId: "" }
+var pageMetaRecord = { pageMetaId: "", status: "", modelId: "", makeId: "",updatedBy: "" };
+var currentUserId = $('#userId').val();
 function Show() {
     var status = $("input[name='group1']:checked").val();
     if (status)
@@ -8,25 +9,31 @@ function Show() {
 }
 
 $('.update-status').on('click', function () {
-    var ele = $(this);
-    pageMetaRecord.status = ele.data('setstatus');
-    pageMetaRecord.pageMetaId = ele.data('pagemetaid');
-    pageMetaRecord.modelId = ele.data('modelid');
-    pageMetaRecord.makeId = ele.data('makeid');
+    if (confirm("Do you really want to delete?")) {
+        var ele = $(this);
+        pageMetaRecord.status = ele.data('setstatus');
+        pageMetaRecord.pageMetaId = ele.data('pagemetaid');
+        pageMetaRecord.modelId = ele.data('modelid');
+        pageMetaRecord.makeId = ele.data('makeid');
+        pageMetaRecord.updatedBy = currentUserId;
 
-    $.ajax({
-        type: "POST",
-        url: "/api/pagemetas/update/",
-        data: ko.toJSON(pageMetaRecord),
-        success: function () {
-            ele.closest('tr').hide();
-            Materialize.toast('Page meta data has been updated', 4000);
-        },
-        error: function (e) {
-            Materialize.toast('Error occured', 4000);
-        }
+        $.ajax({
+            type: "POST",
+            url: "/api/pagemetas/update/",
+            contentType: "application/json",
+            data: ko.toJSON(pageMetaRecord),
+            success: function () {
+                ele.closest('tr').hide();
+                Materialize.toast("Page Meta Id " + pageMetaRecord.pageMetaId + " Status Updated Successfully", 2000);
+            },
+            error: function (e) {
+                Materialize.toast('Error occured', 4000);
+            }
 
-    });
+        });
+    }
+    
+
 });
 
 $('.deleteCheckBoxClicked').change(function () {
@@ -91,38 +98,46 @@ var pageMetas = function () {
 
     };
     self.changeStatus = function (status) {
-        pageMetaRecord.pageMetaId = self.pageMetaIdList;
-        pageMetaRecord.status = 0;
-        $.ajax({
-            type: "POST",
-            url: "/api/pagemetas/update/",
-            contentType: "application/json",
-            data: ko.toJSON(pageMetaRecord),
-            success: function (response) {
-                if (response) {
-                    var array = self.pageMetaIdList.toString().split(',');
-                    for (var i = 0; i < array.length; i++) {
+        if (confirm("Do you really want to delete?"))
+        {
+            pageMetaRecord.pageMetaId = self.pageMetaIdList;
+            pageMetaRecord.status = 0;
+            pageMetaRecord.updatedBy = currentUserId;
+            $.ajax({
+                type: "POST",
+                url: "/api/pagemetas/update/",
+                contentType: "application/json",
+                data: ko.toJSON(pageMetaRecord),
+                success: function (response) {
+                    if (response) {
+                        var array = self.pageMetaIdList.toString().split(',');
+                        for (var i = 0; i < array.length; i++) {
 
-                        if (array[i]) {
-                            $("#metaDelete_" + array[i]).closest("tr").remove();
-                            Materialize.toast("Page Meta Id " + array[i] + " Status Updated Successfully", 2000);
+                            if (array[i]) {
+                                $("#metaDelete_" + array[i]).closest("tr").remove();
+                                Materialize.toast("Page Meta Id " + array[i] + " Status Updated Successfully", 2000);
+                            }
                         }
+
                     }
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        Materialize.toast("Failed to update", 2000);
+                    }
+                    self.pageMetaIdList = '';
+                    self.slideUp();
 
                 }
-            },
-            complete: function (xhr) {
-                if (xhr.status != 200) {
-                    Materialize.toast("Failed to update", 2000);
-                }
-                self.pageMetaIdList = '';
-                $('#chkAll').prop('checked', false);
-                self.slideUp();
+            });
+        }
+        else
+        {
+            self.slideUp();
+        }
 
-            }
-        });
-    }
-
+        }
+       
 };
 
 var vmPageMetas = new pageMetas();

@@ -20,5 +20,8 @@ namespace BikewaleOpr.DTO.PageMeta
 
         [JsonProperty("makeId")]
         public uint? MakeId { get; set; }
+
+        [JsonProperty("updatedBy")]
+        public uint UpdatedBy { get; set; }
     }
 }
