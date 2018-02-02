@@ -75,12 +75,6 @@
 											if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
 											{
 												<div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@String.Format("{0}_Top Card", bikeName)" class="bw-ga know-more-target text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
-
-
-												@Model.KnowMoreLinkText
-
-
-												<span class="bwsprite know-more-icon"></span>
 }
 											else
 											{
