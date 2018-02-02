@@ -1,6 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
@@ -202,6 +203,18 @@ namespace Bikewale.Models
 
                     objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
 
+                }
+
+                if (IsMobile)
+                {
+                    RecentNewLaunchedWidgetVM NewLaunchedWidgetVMNDays = new RecentNewLaunchedWidgetVM();
+
+                    InputFilter inputFilter = new InputFilter();
+                    inputFilter.Days = 10;
+                    inputFilter.Make = _makeId;
+
+                    NewLaunchedWidgetVMNDays.NewLaunchedMakeBikesNDays = _bikeModelsCache.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
+                    objData.NewLaunchedMakeWidgetNDays = NewLaunchedWidgetVMNDays;
                 }
 
                 if (IsAmpPage)

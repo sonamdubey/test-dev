@@ -36,6 +36,8 @@ namespace Bikewale.Models
     /// Modified by  : Rajan Chauhan on 3 Jan 2017
     /// Description  : Added MakeId Field
 
+    /// Modified by : Sanskar Gupta on 02 Feb 2018
+    /// Description : Added NewLaunchedMakeWidgetNDays
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -91,6 +93,6 @@ namespace Bikewale.Models
         public MakeFooterCategoriesandPriceVM SubFooter { get; set; }
         public ResearchMoreAboutMakeVM ResearchMoreMakeWidget { get; set; }
 
-
+        public RecentNewLaunchedWidgetVM NewLaunchedMakeWidgetNDays { get; set; }
     }
 }
