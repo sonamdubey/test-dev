@@ -190,10 +190,14 @@ function executeNotification() {
     };
     $.ajax({
         type: "POST",
-        url: "api/notifyuser/",
+        url: "/api/notifyuser/",
         contentType: "application/json",
         data: ko.toJSON(userData),
         sucess: function (response) {
+            if (response)
+            {
+                alert(response);
+            }
 
         },
         error: function (response) {

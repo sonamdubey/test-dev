@@ -1,3 +1,7 @@
+/* like icon */
+/* dislike icon */
+/* like icon */
+/* dislike icon */
 .padding-15-20 {
   padding: 15px 20px; }
 
@@ -99,6 +103,13 @@
 .rating-badge[data-rate-bg="1"] {
   background-color: #ef3f30; }
 
+.rating-badge__star {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg") no-repeat center;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
+
 .bg-rate-1 {
   background-color: #ef3f30; }
 
@@ -146,6 +157,13 @@
 
 .rating-badge[data-rate-bg="2"] {
   background-color: #fd971c; }
+
+.rating-badge__star {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg") no-repeat center;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
 
 .bg-rate-2 {
   background-color: #fd971c; }
@@ -195,6 +213,13 @@
 .rating-badge[data-rate-bg="3"] {
   background-color: #efd700; }
 
+.rating-badge__star {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg") no-repeat center;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
+
 .bg-rate-3 {
   background-color: #efd700; }
 
@@ -243,6 +268,13 @@
 .rating-badge[data-rate-bg="4"] {
   background-color: #13b65d; }
 
+.rating-badge__star {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg") no-repeat center;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
+
 .bg-rate-4 {
   background-color: #13b65d; }
 
@@ -290,6 +322,13 @@
 
 .rating-badge[data-rate-bg="5"] {
   background-color: #198d55; }
+
+.rating-badge__star {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg") no-repeat center;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
 
 .bg-rate-5 {
   background-color: #198d55; }

@@ -9,9 +9,6 @@ namespace Bikewale.DTO.Upcoming
 {
     public class UpcomingNotificationDTO
     {
-        [JsonProperty("userId")]
-        public int UserId { get; set; }
-
         [JsonProperty("emailId")]
         public string EmailId { get; set; }
 
@@ -22,16 +19,16 @@ namespace Bikewale.DTO.Upcoming
         public int MakeId { get; set; }
 
         [JsonProperty("modelId")]
-        public string ModelId { get; set; }
+        public int ModelId { get; set; }
 
         [JsonProperty("entryDate")]
         public DateTime EntryDate { get; set; }
-
+        
         [JsonProperty("isActive")]
         public bool IsActive { get; set; }
 
         [JsonProperty("notificationTypeId")]
-        public string NotificationTypeId { get; set; }
+        public int NotificationTypeId { get; set; }
 
     }
 }

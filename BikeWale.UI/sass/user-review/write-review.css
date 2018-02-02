@@ -568,6 +568,8 @@ h1,
   background-color: #fafafa; }
 
 /*Rating and star icon css Starts here */
+/* like icon */
+/* dislike icon */
 .rating-badge {
   min-width: 40px;
   height: 20px;
@@ -587,6 +589,13 @@ h1,
 
 .rating-badge[data-rate-bg="1"] {
   background-color: #ef3f30; }
+
+.rating-badge__star {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg") no-repeat center;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
 
 .rate-count-1 .star-icon {
   display: inline-block;
@@ -622,6 +631,13 @@ h1,
 .rating-badge[data-rate-bg="2"] {
   background-color: #fd971c; }
 
+.rating-badge__star {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg") no-repeat center;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
+
 .rate-count-2 .star-icon {
   display: inline-block;
   background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-2-26x25.png") no-repeat center;
@@ -655,6 +671,13 @@ h1,
 
 .rating-badge[data-rate-bg="3"] {
   background-color: #efd700; }
+
+.rating-badge__star {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg") no-repeat center;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
 
 .rate-count-3 .star-icon {
   display: inline-block;
@@ -690,6 +713,13 @@ h1,
 .rating-badge[data-rate-bg="4"] {
   background-color: #13b65d; }
 
+.rating-badge__star {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg") no-repeat center;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
+
 .rate-count-4 .star-icon {
   display: inline-block;
   background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-4-26x25.png") no-repeat center;
@@ -723,6 +753,13 @@ h1,
 
 .rating-badge[data-rate-bg="5"] {
   background-color: #198d55; }
+
+.rating-badge__star {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg") no-repeat center;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
 
 .rate-count-5 .star-icon {
   display: inline-block;
