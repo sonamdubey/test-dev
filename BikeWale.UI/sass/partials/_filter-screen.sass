@@ -127,3 +127,58 @@ $_filter-head-line-height: 44px
 		font-weight: $font_semibold
 		color: color('aluminium')
 
+
+.slider-box
+	.ui-slider
+    position: relative
+    text-align: left
+
+	.ui-widget-content
+    background: #e2e2e2
+    height: 3px
+    margin: 20px 0 3px
+    width: 100%
+
+	.ui-slider-range
+    border: none
+    display: block
+    position: absolute
+    z-index: 1
+    border-radius: 0
+    height: 3px
+
+	.ui-widget-header
+    background: #f45944
+    height: 3px
+
+	.ui-slider
+		.ui-slider-handle
+			background-color: transparent
+			cursor: pointer
+			height: 30px
+			width: 30px
+			display: block
+			margin-left: -15px
+			position: absolute
+			outline: none
+			top: -13px
+			z-index: 2
+			background-position: 3px 3px
+
+			&:after
+				content: ''
+				display: block
+				height: 28px
+				width: 28px
+				margin: 1px
+				background-color: #f45944
+				border: 2px solid #fff
+				-webkit-border-radius: 35px
+				-moz-border-radius: 35px
+				border-radius: 35px
+
+
+.budget__slider
+	margin-right: 20px
+	margin-left: 20px
+

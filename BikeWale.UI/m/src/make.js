@@ -561,6 +561,25 @@ var bikeFilters = (function() {
 			    close();
 			}
 		});
+
+		$("#budgetSlider").slider({
+			range: true,
+			min: 0,
+			step: 50000,
+			max: 6000000,
+			values: [30000, 6000000],
+			slide: function (event, ui) {
+				$("#budgetAmountPreview").html("&#x20b9;" + ui.values[0] + " - &#x20b9;" + ui.values[1]);
+			}
+		});
+
+		/*
+		0,
+		30, 40, 50, 60, 70, 80, 90, 1
+		1.5, 2, 2.5, 3, 3.5
+		5, 7.5, 10, 12.5, 15
+		30, 60
+		*/
 	}
 
 	function _setBodyDimension() {
