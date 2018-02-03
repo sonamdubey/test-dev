@@ -1,6 +1,6 @@
 
 import {isServer} from './commonUtils'
-
+var topCount = "5";
 function closeGlobalSearchPopUp() {
     hideElement(document.getElementById('global-search-popup'));
 	unlockPopup();
@@ -214,12 +214,25 @@ var recentSearches =
             showTrendingSearchList(objSearches);
         }
     },
-    getTrendingSearches: function(showTrendingSearchList) {
-        var objSearches = bwcache.get(this.trendingKey);
-        if (objSearches) {
-            return objSearches;
+    getTrendingSearches: function (showTrendingSearchList) {
+        var trendingSearches = bwcache.get(this.trendingKey);
+        if (!trendingSearches) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET',path);
+            xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");
+            $.ajax({
+                type: "GET",
+                url: "/api/popularbikes/?topCount=" + topCount,
+                dataType: 'json',
+                success: function (response) {
+                    if (response != null) {
+                        trendingSearches = response;
+                        bwcache.set(this.trendingKey, JSON.stringify(trendingSearches));
+                    }
+                }
+            });
         }
-        else return null;
+        return trendingSearches;
     },
     objectIndexOf: function (arr, opt) {
         var makeId = opt.makeId, modelId = opt.modelId;
