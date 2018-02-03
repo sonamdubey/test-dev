@@ -173,7 +173,7 @@ if(!isServer()) {
 var recentSearches =
 {
     searchKey: "recentsearches",
-    trendingKey: "trendingsearches",
+    trendingKey: "trendingbikes",
     options: {
         bikeSearchEle: isServer() ? null :  document.getElementById('globalSearch'),
         recentSearchesEle: isServer() ? null : ((document.getElementById("new-global-recent-searches") && document.getElementById("new-global-recent-searches").length) ? document.getElementById("new-global-recent-searches") : document.getElementById("global-recent-searches")),
@@ -210,14 +210,14 @@ var recentSearches =
     },
     showTrendingSearches: function(showTrendingSearchList) {
         var objSearches = bwcache.get(this.trendingKey);
-        if (objSearches && objSearches.searches) {
-            showTrendingSearchList(objSearches.searches);
+        if (objSearches) {
+            showTrendingSearchList(objSearches);
         }
     },
     getTrendingSearches: function(showTrendingSearchList) {
         var objSearches = bwcache.get(this.trendingKey);
-        if (objSearches && objSearches.searches) {
-            return objSearches.searches;
+        if (objSearches) {
+            return objSearches;
         }
         else return null;
     },
@@ -481,9 +481,12 @@ function MakeModelRedirection(searchText , item ) {
                 	moId = item.modelId,
                     eleIndex = recentSearches.objectIndexOf(objSearches.searches, { makeId: mkId, modelId: moId }),
                     obj = objSearches.searches[eleIndex];
-                if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
-                objSearches.searches.unshift(obj);
-                bwcache.set(recentSearches.searchKey, objSearches);
+                if (objSearches.searches != null && eleIndex > -1)
+                {
+                    objSearches.searches.splice(eleIndex, 1);
+                    objSearches.searches.unshift(obj);
+                    bwcache.set(recentSearches.searchKey, objSearches);
+                }
                 closeGlobalSearchPopUp();
                 window.location.href = '/m/'+item.makeMaskingName+'-bikes/'+item.modelMaskingName;
             }

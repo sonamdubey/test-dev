@@ -64,6 +64,7 @@
     <Content Include="src\components\Autocomplete.js" />
     <Content Include="src\components\CityAreaAutocomplete.js" />
     <Content Include="src\components\GlobalCityPopup.js" />
+    <Content Include="src\components\GlobalSearchList.js" />
     <Content Include="src\components\GlobalSearchPopup.js" />
     <Content Include="src\components\NewBikes.js" />
     <Content Include="src\components\News\ArticleDetailComponent.js" />

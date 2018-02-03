@@ -13,6 +13,7 @@ class GlobalSearchPopup extends React.Component {
             globalDisplay : 'none',
 			value : '' ,
 			autocompleteList : [] ,
+            recentSearchesLoaded: false,
 			globalSearchList: { recentSearchList : [] , trendingSearchList : [] },
 			strippedValue :  '' 
 		}
@@ -41,8 +42,11 @@ class GlobalSearchPopup extends React.Component {
 	focusInput() {
 		document.getElementById('globalSearch').focus();	
 		var value = this.state.value;
+		var category = GetCatForNav();
+		var label = "Recently_Viewed_Bikes_" + (this.state.recentSearchesLoaded ? "Present" : "Not_Present");
 		if(value.trim() == '') {
-			this.resetListOnEmptyInput();
+		    this.resetListOnEmptyInput();
+		    dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': "Search_Bar_Clicked", 'lab': label });
 		}	
 	}
 	
@@ -87,15 +91,17 @@ class GlobalSearchPopup extends React.Component {
 	resetListOnEmptyInput() {
 	    var recentSearchList = recentSearches.getRecentSearches();
 	    if(recentSearchList !=null) {
-	        recentSearchList =recentSearchList.map(function (item) {
-	            return { label: item.name, payload: item }
+	        recentSearchList = recentSearchList.filter((item) => { return (item != null && typeof item != "undefined")}).map(function (item) {
+                return { label: item.name, payload: item }
 	        });
+	        this.setState({ recentSearchesLoaded : true});
 	    }
 	    var trendingSearchList = recentSearches.getTrendingSearches();
 	    if(trendingSearchList !=null) {
-	        trendingSearchList.map(function (item) {
-	            return { label: item.name, payload: item }
+	        trendingSearchList = trendingSearchList.filter((item) => { return (item != null && typeof item != "undefined")}).map(function (item) {
+                return { label: item.BikeName, payload: {'expertReviewsCount':'0', 'modelId': item.objModel.modelId, 'modelMaskingName': item.objModel.maskingName, 'makeId': item.objMake.makeId, 'makeMaskingName' : item.objMake.maskingName, 'isNew' : "True", 'name' : item.BikeName} }
 	        });
+	        trendingSearchList.unshift({ label: "Auto Expo 2018", payload: {'expertReviewsCount':'0', 'modelId': "0", 'modelMaskingName': "", 'makeId': "0", 'makeMaskingName' : "", 'isNew' : "False", 'name' : "Auto Expo 2018", "href" : "autoexpo2018"} })
 	    }
 	    if(recentSearchList === null || recentSearchList.length === 0) {
 	        recentSearchList = [];
@@ -127,6 +133,7 @@ class GlobalSearchPopup extends React.Component {
         }
 	}
 	clickClearButton() {
+	    this.setState({ value : ''});
 		this.resetListOnEmptyInput();
 		hideElement(document.getElementById('gs-text-clear'));
 		this.focusInput();
