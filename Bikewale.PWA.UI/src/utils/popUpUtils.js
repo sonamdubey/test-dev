@@ -218,19 +218,20 @@ var recentSearches =
         var trendingSearches = bwcache.get(this.trendingKey);
         if (!trendingSearches) {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET',path);
+            xhr.open('GET', "/api/popularbikes/?topCount=" + topCount);
             xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");
-            $.ajax({
-                type: "GET",
-                url: "/api/popularbikes/?topCount=" + topCount,
-                dataType: 'json',
-                success: function (response) {
-                    if (response != null) {
-                        trendingSearches = response;
-                        bwcache.set(this.trendingKey, JSON.stringify(trendingSearches));
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response != null) {
+                            trendingSearches = response;
+                            localStorage.setItem("bwc_trendingbikes", JSON.stringify(trendingSearches));
+                        }
                     }
                 }
-            });
+            }
+            xhr.send();
         }
         return trendingSearches;
     },
