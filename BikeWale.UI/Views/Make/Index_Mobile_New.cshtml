@@ -15,9 +15,13 @@
         <div class="overall-tabs__placeholder">
             <div class="overall-tabs__content">
                 <ul class="overall-tabs__list">
+                    @if (Model.NewLaunchedMakeWidgetNDays != null && Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays != null && Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays.Models.Count() > 0)
+                    {
+                        <li class="overall-tabs-list__item tab--active" data-tabs="newlyLaunched">Newly Launched</li>
+                    }
                     @if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
                     {
-                        <li class="overall-tabs-list__item tab--active" data-tabs="popularModel">Popular Models</li>
+                        <li class="overall-tabs-list__item" data-tabs="popularModel">Popular Models</li>
                     }
                     <li class="overall-tabs-list__item" data-tabs="bikeModel">Bike Models</li>
                     <li class="overall-tabs-list__item" data-tabs="upcomingBikes">Upcoming Bikes</li>
