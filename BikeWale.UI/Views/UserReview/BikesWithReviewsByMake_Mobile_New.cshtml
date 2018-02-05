@@ -1,0 +1,55 @@
+﻿@model Bikewale.Models.UserReviews.BikesWithReviewsByMakeVM
+@using Bikewale.Utility
+
+@if (Model != null && Model.BikesReviewsList != null)
+{
+    var firstCard = Model.BikesReviewsList.FirstOrDefault();
+
+    if (firstCard != null)
+    {
+        <div class="article-section__count">
+            <span class="article-count__number">@firstCard.MakeReviewCount</span>&nbsp;User Reviews for
+            <span class="article-count__number">@firstCard.ModelCountWithUserReviews</span>&nbsp;Models
+        </div>
+    }
+
+    <div class="swiper-container carousel__user-review" data-spacebetween="0">
+        <ul class="swiper-wrapper">
+            @foreach (var obj in Model.BikesReviewsList)
+            {
+                if (obj != null)
+                {
+                    if (obj.BikeModel != null && obj.BikeModel.Make!=null && obj.BikeModel.Model!=null)
+                    {
+                        var bikeName = string.Format("{0} {1}", obj.BikeModel.Make.MakeName, obj.BikeModel.Model.ModelName);
+                        <li class="swiper-slide carousel-slide">
+                            <div class="review-card carousel-card">
+                                <a href="@string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(obj.BikeModel.Make.MaskingName, obj.BikeModel.Model.MaskingName))" title="@string.Format("{0} {1}", bikeName, ((obj.BikeModel.ReviewCount > 1) ? "Reviews" : "Review"))" class="review-card__target-link">
+                                    <div class="review-card__image">
+                                        <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(obj.BikeModel.OriginalImagePath, obj.BikeModel.HostUrl, ImageSize._310x174, QualityFactor._75)" src="" alt="@bikeName">
+                                    </div>
+                                    <h3 class="review-card__title">
+                                        @bikeName
+                                    </h3>
+                                    @if (obj.BikeModel.ReviewCount > 0)
+                                    {
+                                        <span class="review-card__read-more">
+                                            @string.Format("({0} {1})", obj.BikeModel.ReviewCount, ((obj.BikeModel.ReviewCount > 1) ? "Reviews" : "Review"))
+                                        </span>
+                                    }
+
+                                </a>
+                            </div>
+                        </li>
+                    }
+
+                }
+
+            }
+        </ul>
+    </div>
+}
+
+
+
+

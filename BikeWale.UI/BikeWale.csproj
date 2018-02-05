@@ -4034,6 +4034,7 @@
     <Content Include="Views\BikeSeries\_PopularSeriesBikes_Mobile.cshtml" />
     <Content Include="Views\Shared\_EditorialBestBikesSideBar.cshtml" />
     <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
+    <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_New.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
