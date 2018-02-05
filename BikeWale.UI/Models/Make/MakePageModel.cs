@@ -141,11 +141,11 @@ namespace Bikewale.Models
 
                 objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
 
-                if (objData.Bikes!=null && objData.Bikes.Count() > 5)
+                if (objData.Bikes != null && objData.Bikes.Count() > 5)
                 {
                     objData.TopPopularBikes = objData.Bikes.OrderBy(x => x.BikePopularityIndex).Take(4);
                 }
-                
+
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription(_makeId);
                 objData.SelectedSortingId = 0;
@@ -651,6 +651,10 @@ namespace Bikewale.Models
                     if (objData.PopularBikesUserReviews != null)
                     {
                         objData.PopularBikesUserReviews.BikesReviewsList = _cacheUserReviews.GetBikesWithReviewsByMake(_makeId);
+                        if (!IsMobile)
+                        {
+                            objData.PopularBikesUserReviews.BikesReviewsList = objData.PopularBikesUserReviews.BikesReviewsList.Take(4);
+                        }
                     }
                 }
 
