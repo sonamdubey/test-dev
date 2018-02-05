@@ -1,0 +1,52 @@
+.carousel--full-width
+	.jcarousel-control-left,
+	.jcarousel-control-right
+		height: 100%
+		top: 0
+		z-index: 2
+
+		&:after
+			content: ''
+			width: 30px
+			height: 100%
+			position: absolute
+			top: 0
+			z-index: 1
+			cursor: default
+
+	.jcarousel-control-left
+		left: 0
+
+		&:after
+			left: 0
+			background: linear-gradient(to right, #fff 0, rgba(255, 255, 255, 0) 100%)
+
+	.jcarousel-control-right
+		right: 0
+
+		&:after
+			right: 0
+			background: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%)
+
+	.jcarousel-arrow-prev,
+	.jcarousel-arrow-next
+		@include arrow-right
+		background-position: 55%
+		width: 40px
+		height: 93px
+		display: block
+		position: relative
+		top: 36%
+		z-index: 2
+		border: 1px solid #e2e2e2
+		box-shadow: 0 0 10px rgba(213, 213, 213, .5)
+		border-radius: 2px
+
+	.jcarousel-arrow-prev
+		@include vendor-prefix('transform', rotate(-180deg))
+
+	// inactive state
+	.control--inactive
+		&.jcarousel-control-left,
+		&.jcarousel-control-right
+			display: none

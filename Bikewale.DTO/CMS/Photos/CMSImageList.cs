@@ -9,6 +9,6 @@ namespace Bikewale.DTO.CMS.Photos
         public uint RecordCount { get; set; }
 
         [JsonProperty("ImagesList")]
-        public List<CMSModelImageBase> Images { get; set; }
+        public List<CMSModelImageBase> ModelImage { get; set; }
     }
 }

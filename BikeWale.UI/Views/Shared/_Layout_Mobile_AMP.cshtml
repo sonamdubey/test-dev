@@ -28,9 +28,9 @@
     @if (Model.PageMetaTags.EnableOG)
     {
         <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
-            <meta property="og:type" content="website" />
-            <meta property="og:description" content="@Html.Raw(Model.PageMetaTags.Description)" />
-            <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="@Html.Raw(Model.PageMetaTags.Description)" />
+        <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
         if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
         {
             <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
@@ -39,9 +39,9 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta name="amp-google-client-id-api" content="googleanalytics">
     <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-      
+
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-        
+
     <style amp-custom>
             body {
                 font-family: 'Open Sans',Serif;
@@ -390,69 +390,69 @@
         </script>
     }
     @*@if (Model.Page != null)
-    {
-        <amp-state id="gaObj">
-            <script type="application/json">
-                {
-                "id" : @((int)Model.Page),
-                "name": "@Model.Page"
-                }
-            </script>
-        </amp-state>
-    }*@
-    
+        {
+            <amp-state id="gaObj">
+                <script type="application/json">
+                    {
+                    "id" : @((int)Model.Page),
+                    "name": "@Model.Page"
+                    }
+                </script>
+            </amp-state>
+        }*@
+
 
     <script async src="https://cdn.ampproject.org/v0.js"></script>
-	<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     @if (Model.AmpJsTags != null)
-	{
-		if (Model.AmpJsTags.IsSidebar)
-		{
-			<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
-		}
-		if (Model.AmpJsTags.IsAccordion)
-		{
-			<script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
-		}
-		if (Model.AmpJsTags.IsIframe)
-		{
-			<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
-		}
-		if (Model.AmpJsTags.IsAd)
-		{
-			<script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
-		}
-		if (Model.AmpJsTags.IsSocialShare)
-		{
-			<script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
-		}
-		if (Model.AmpJsTags.IsCarousel)
-		{
-			<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-		}
-		if (Model.AmpJsTags.IsBind)
-		{
-			<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-		}
-		if (Model.AmpJsTags.IsSelector)
-		{
-			<script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-		}
+    {
+        if (Model.AmpJsTags.IsSidebar)
+        {
+            <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsAccordion)
+        {
+            <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsIframe)
+        {
+            <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsAd)
+        {
+            <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSocialShare)
+        {
+            <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsCarousel)
+        {
+            <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsBind)
+        {
+            <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSelector)
+        {
+            <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+        }
 
-	}
+    }
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
 
-    
+
 </head>
 <body>
     <amp-sidebar id="nav" layout="nodisplay" side="left">
-			<a href="https://www.bikewale.com/autoexpo2018/" title="AutoExpo 2018 - BikeWale" class="auto-expo-nav auto-expo-nav-ga">
-				<div class="auto-expo-nav__title">
-					<p class="auto-expo-nav__title--sub">Explore</p>
-					<p class="auto-expo-nav__title--main">Auto Expo 2018</p>
-				</div>
-				<div class="auto-expo-nav__logo"></div>
-			</a>
+        <a href="https://www.bikewale.com/autoexpo2018/" title="AutoExpo 2018 - BikeWale" class="auto-expo-nav auto-expo-nav-ga">
+            <div class="auto-expo-nav__title">
+                <p class="auto-expo-nav__title--sub">Explore</p>
+                <p class="auto-expo-nav__title--main">Auto Expo 2018</p>
+            </div>
+            <div class="auto-expo-nav__logo"></div>
+        </a>
         <ul class="navUL">
             <li>
                 <h2>
@@ -539,6 +539,7 @@
                             <li><a href="https://www.bikewale.com/m/features/" target="_top">Features</a></li>
                             <li><a href="https://www.bikewale.com/m/bike-care/" target="_top">Bike Care</a></li>
                             <li><a href="https://www.bikewale.com/m/bike-videos/" target="_top">Videos</a></li>
+                            <li><a href="https://www.bikewale.com/m/images/" target="_top">Images</a></li>
                         </ul>
                     </section>
                 </amp-accordion>
@@ -555,29 +556,29 @@
         </ul>
     </amp-sidebar>
 
-	<amp-analytics type="googleanalytics">
-		<script type="application/json">
-		{
-			"vars": {
-				"account": "UA-34771801-1"
-			},
-			"extraUrlParams": {
-				"pageSourceType": "AMP"
-			},
-			"triggers": {
-				"trackEvent": {
-					"selector": ".auto-expo-nav-ga",
-					"on": "click",
-					"request": "event",
-					"vars": {
-						"eventCategory": "@(Model.Page)_AMP",
-						"eventAction": "AutoExpo_2018_Link Clicked"
-					}
-				}
-			}
-		}
-		</script>
-	</amp-analytics>
+    <amp-analytics type="googleanalytics">
+        <script type="application/json">
+            {
+            "vars": {
+            "account": "UA-34771801-1"
+            },
+            "extraUrlParams": {
+            "pageSourceType": "AMP"
+            },
+            "triggers": {
+            "trackEvent": {
+            "selector": ".auto-expo-nav-ga",
+            "on": "click",
+            "request": "event",
+            "vars": {
+            "eventCategory": "@(Model.Page)_AMP",
+            "eventAction": "AutoExpo_2018_Link Clicked"
+            }
+            }
+            }
+            }
+        </script>
+    </amp-analytics>
 
 
     <header>
@@ -587,7 +588,7 @@
     @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
     {
         <div class="margin-bottom10 margin-top15">
-            <amp-ad width=320 height=50 type="doubleclick" layout=responsive data-slot="/1017752/Bikewale_Mobile_NewBikes_Top_320x50"></amp-ad>
+            <amp-ad width=320 height=50 type="doubleclick" layout="responsive" data-slot="@string.Format("{0}_Top_320x50",Model.AdTags.AdPath)"></amp-ad>
         </div>
     }
 
@@ -627,7 +628,7 @@
     @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
     {
         <div class="margin-bottom10 margin-top15">
-            <amp-ad width=320 height=50 type="doubleclick" layout=responsive data-slot="/1017752/Bikewale_Mobile_NewBikes_Bottom_320x50"></amp-ad>
+            <amp-ad width=320 height=50 type="doubleclick" layout=responsive data-slot=@string.Format("{0}_Bottom_320x50",Model.AdTags.AdPath)></amp-ad>
         </div>
     }
 

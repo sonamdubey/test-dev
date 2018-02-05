@@ -1,0 +1,21 @@
+@mixin model-image-carousel($cardWidth: 277, $cardHeight: 354)
+	.image-carousel__title
+		font-size: 18px
+		padding: 20px 20px 15px
+
+	.carousel__recently-added
+		position: relative
+		padding: 5px 20px 5px 0
+
+		.carousel-slide
+			width: ($cardWidth + 15) * 1px
+			height: $cardHeight * 1px
+			padding-left: 15px
+
+			&:first-child
+				margin-left: 5px
+
+		.model-image__card
+			border-color: #fd8d81
+
+

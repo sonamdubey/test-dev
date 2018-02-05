@@ -628,25 +628,9 @@ namespace Bikewale.Service.AutoMappers.Model
 
                     objDTOModelPage.Photos = photos;
                 }
-
-                if (objModelPage.ModelColors != null && objModelPage.ModelColors.Any())
+                if (objModelPage.colorPhotos != null && objModelPage.colorPhotos.Any())
                 {
-                    var colors = new List<NewModelColorWithPhoto>();
-                    foreach (var color in objModelPage.ModelColors)
-                    {
-                        var addcolor = new NewModelColorWithPhoto()
-                        {
-                            ColorImageId = color.Id,
-                            HasColorPhoto = color.Id > 0,
-                            ColorName = color.ColorName,
-                            ModelId = color.ModelId,
-                            HexCodes = color.HexCodes
-
-
-                        };
-                        colors.Add(addcolor);
-                    }
-                    objDTOModelPage.ModelColors = colors;
+                    objDTOModelPage.ModelColors = ModelMapper.Convert(objModelPage.colorPhotos);
                 }
                 if (pqEntity != null)
                 {
@@ -771,8 +755,10 @@ namespace Bikewale.Service.AutoMappers.Model
             return objDTOModelPage;
         }
         /// <summary>
-        /// Created by : Vivek Singh Tomar on 4th Oct 2017
+        /// Created by  : Vivek Singh Tomar on 4th Oct 2017
         /// Summary : Map BikeModelPage to gallery component
+        /// Modified by : Rajan Chauhan on 25 Jan 2018
+        /// Description : Changed the categoryCount for photos to match AllPhotos count
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <param name="modelId"></param>
@@ -780,22 +766,24 @@ namespace Bikewale.Service.AutoMappers.Model
         internal static ModelGallery ConvertToModelGallery(BikeModelPageEntity objModelPage, int modelId)
         {
             ModelGallery objModelGallery = new ModelGallery();
-            var colorPhotoCount = 0;
+            int colorPhotoCount = 0;
+            int allPhotosCount = 0;
             if (objModelPage != null)
             {
                 ICollection<ModelGalleryComponent> objGalleryComponent = new List<ModelGalleryComponent>();
                 if (objModelPage.ModelDetails != null)
                 {
 
-                    colorPhotoCount = objModelPage.colorPhotos.Any() ? objModelPage.colorPhotos.Count() : colorPhotoCount;
-                    if (objModelPage.ModelDetails.PhotosCount > 0)
+                    colorPhotoCount = objModelPage.colorPhotos.Any() ? objModelPage.colorPhotos.Count(m => m.IsImageExists) : colorPhotoCount;
+                    allPhotosCount = objModelPage.AllPhotos.Any() ? objModelPage.AllPhotos.Count() : allPhotosCount;
+                    if (allPhotosCount > 0)
                     {
                         objGalleryComponent.Add(
                                 new ModelGalleryComponent
                                 {
                                     CategoryId = 1,
                                     CategoryName = "Photos",
-                                    CategoryCount = objModelPage.ModelDetails.PhotosCount + colorPhotoCount,
+                                    CategoryCount = allPhotosCount,
                                     DataUrl = string.Format("api/model/{0}/photos/", modelId)
                                 }
                             );

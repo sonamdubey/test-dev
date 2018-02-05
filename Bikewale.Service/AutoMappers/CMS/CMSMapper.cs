@@ -8,16 +8,47 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Service.AutoMappers.CMS
 {
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// Summary : class to map the cms entities to the DTOs.
+    /// Modified By : Rajan Chauhan on 13 Jan 2018
+    /// Description : Added ModelImages to ModelImageList
     /// </summary>
     public class CMSMapper
     {
-        internal static List<DTO.CMS.Photos.CMSModelImageBase> Convert(IEnumerable<Entities.CMS.Photos.ModelImage> objImageList)
+        internal static ModelImageList Convert(IEnumerable<ModelImages> objImageList)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<ModelImage, CMSModelImageBase>();
+            Mapper.CreateMap<ModelImages, CMSModelImages>();
+            var obj = new ModelImageList();
+            obj.Models = Mapper.Map<IEnumerable<ModelImages>, IEnumerable<CMSModelImages>>(objImageList);
+            obj.RecordCount = obj.Models.Count();
+
+            return obj;
+        }
+
+        /// <summary>
+        /// Converts the specified image wrapper.
+        /// </summary>
+        /// <param name="ImageWrapper">The image wrapper.</param>
+        /// <returns></returns>
+        internal static ModelImageList Convert(ModelImageWrapper ImageWrapper)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<ModelImage, CMSModelImageBase>();
+            Mapper.CreateMap<ModelImages, CMSModelImages>();
+            Mapper.CreateMap<ModelImageWrapper, ModelImageList>();
+            return Mapper.Map<ModelImageWrapper, ModelImageList>(ImageWrapper);
+        }
+
+        internal static List<CMSModelImageBase> Convert(IEnumerable<ModelImage> objImageList)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -25,7 +56,7 @@ namespace Bikewale.Service.AutoMappers.CMS
             return Mapper.Map<IEnumerable<ModelImage>, List<CMSModelImageBase>>(objImageList);
         }
 
-        internal static DTO.CMS.Articles.CMSArticlePageDetails Convert(Entities.CMS.Articles.ArticlePageDetails objFeaturedArticles)
+        internal static CMSArticlePageDetails Convert(ArticlePageDetails objFeaturedArticles)
         {
             Mapper.CreateMap<ArticlePageDetails, CMSArticlePageDetails>();
             Mapper.CreateMap<ArticleBase, CMSArticleBase>();

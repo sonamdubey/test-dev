@@ -596,7 +596,8 @@ namespace Bikewale.Models
                             objData.PopularBikesAndPopularScootersWidget.MostPopularBikes = MostPopularBikes;
 
                             if (MostPopularBikes != null)
-                                objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes.Take(6);
+                                objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes.Take(6));
+
 
                             objData.PopularBikesAndPopularScootersWidget.MostPopularScooters = MostPopularScooters;
 
@@ -613,8 +614,6 @@ namespace Bikewale.Models
                             objData.PopularBikesAndPopularScootersWidget.ShowViewAllLink2 = true;
                             objData.PopularBikesAndPopularScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndPopularScooters;
                             objData.PopularBikesAndPopularScootersWidget.PageName = "ExpertReviews";
-                            
-                            objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndPopularScootersWidget.MostPopularBikes.Bikes);
                         }
                         else
                         {

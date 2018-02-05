@@ -299,19 +299,19 @@ var AppendCertificationStar = function (abStars) {
     val = abStars;
     intVal = Math.floor(val);
     for (i = 0; i < intVal ; i++) {
-        certificationStar += '<img src="/images/ratings/1.png" alt="Rate">';
+        certificationStar += '<img src="/image/ratings/1.png" alt="Rate">';
     }
     if (val > intVal) {
-        certificationStar += '<img src="/images/ratings/half.png" alt="Rate">';
+        certificationStar += '<img src="/image/ratings/half.png" alt="Rate">';
         count = (5 - intVal) - 1;
         for (i = 0; i < count; i++) {
-            certificationStar += '<img src="/images/ratings/0.png" alt="Rate">';
+            certificationStar += '<img src="/image/ratings/0.png" alt="Rate">';
         }
     }
     else {
         count = 5 - intVal;
         for (i = 0; i < count; i++) {
-            certificationStar += '<img src="/images/ratings/0.png" alt="Rate">';
+            certificationStar += '<img src="/image/ratings/0.png" alt="Rate">';
         }
     }
     return certificationStar;
