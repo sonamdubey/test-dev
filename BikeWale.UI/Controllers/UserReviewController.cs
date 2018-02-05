@@ -396,27 +396,32 @@ namespace Bikewale.Controllers
                 
                 objResponse = _userReviews.SaveUserReviews(objReviewData);
 
-                if (objResponse.IsSuccess)
+                if (objResponse != null)
                 {
-                    if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value && fromParametersRatingScreen.HasValue && !fromParametersRatingScreen.Value)
-                        return Redirect(string.Format("/parameter-ratings/?q={0}", objReviewData.EncodedString));
-                    else if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value)
-                        return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
-                    else
-                        return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
-                }
-                else
-                {
-                    WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, objReviewData.EncodedString);
-                    var objData = objPage.GetData();
-                    objData.SubmitResponse = objResponse;
 
-                    if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value)
+                    if (objResponse.IsSuccess)
                     {
-                        return View("WriteReview", objData);
-                    }else
+                        if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value && fromParametersRatingScreen.HasValue && !fromParametersRatingScreen.Value)
+                            return Redirect(string.Format("/parameter-ratings/?q={0}", objReviewData.EncodedString));
+                        else if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value)
+                            return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
+                        else
+                            return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
+                    }
+                    else
                     {
-                        return View("WriteReview_Mobile", objData);
+                        WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, objReviewData.EncodedString);
+                        var objData = objPage.GetData();
+                        objData.SubmitResponse = objResponse;
+
+                        if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value)
+                        {
+                            return View("WriteReview", objData);
+                        }
+                        else
+                        {
+                            return View("WriteReview_Mobile", objData);
+                        }
                     }
                 }
             }
