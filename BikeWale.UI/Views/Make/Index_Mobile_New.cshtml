@@ -31,86 +31,53 @@
         </div>
         <section>
             <div data-id="popularModel" class="bg-white section-bottom-margin newly-lauched-section overall-tabs-data">
+                @if (Model.NewLaunchedMakeWidgetNDays != null && Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays != null)
+                {
                 <div class="newly-launched__title">
                     <h2 class="page__heading-h2">
                         Newly launched
                     </h2>
                 </div>
-                @{var totalCard = 1;
-                if (totalCard == 1)
-                {
-                    <div class="newly-lauched-card">
-                        <div class="model__card">
-                            <a href="" title="" class="model-card__target">
-                                <div class="model-card__image">
-                                    <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                </div>
-                                <div class="model-card__detail">
-                                    <h3 class="card-detail__name">Himalayan</h3>
-                                    <p class="card-detail__launch-date">Launch Date: 24 Jan 2019</p>
-                                    <ul class="card-detail__specs-list">
-                                        <li>2204.8 cc</li>
-                                        <li>381.5 kmpl</li>
-                                        <li>21.89 bhp</li>
-                                    </ul>
-                                </div>
-                            </a>
-                            <div class="model-card__exshowroom-content">
-                                <div class="model-card__exshowroom">
-                                    <div class="card-exshowroom__col">
-                                        <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-                                        <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
-                                    </div>
-                                    <a href="" title="" class="model-card__explore">
-                                        Explore
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="swiper-container carousel__newly-lauched" data-spacebetween="0">
-                        <ul class="swiper-wrapper">
-                            @for (var i = 0; i <= 5; i++)
+                    
+                <div class="swiper-container carousel__newly-lauched" data-spacebetween="0">
+                    <ul class="swiper-wrapper">
+                        @for (var i = 0; i < Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays.Models.Count(); i++)
                             {
+                                var bike = Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays.Models.ElementAt(i);
+
                                 <li class="swiper-slide carousel-slide model-list__item">
-                                    <div class="model__card">
-                                        <a href="" title="" class="model-card__target">
-                                            <div class="model-card__image">
-                                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                            </div>
-                                            <div class="model-card__detail">
-                                                <h3 class="card-detail__name">Himalayan</h3>
-                                                <p class="card-detail__launch-date">Launch Date: 24 Jan 2019</p>
-                                                <ul class="card-detail__specs-list">
-                                                    <li>2204.8 cc</li>
-                                                    <li>381.5 kmpl</li>
-                                                    <li>21.89 bhp</li>
-                                                </ul>
-                                            </div>
-                                        </a>
-                                        <div class="model-card__exshowroom-content">
-                                            <div class="model-card__exshowroom">
-                                                <div class="card-exshowroom__col">
-                                                    <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-                                                    <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
-                                                </div>
-                                                <a href="" title="" class="model-card__explore">
-                                                    Explore
-                                                </a>
-                                            </div>
+                                <div class="model__card">
+                                    <a href="" title="" class="model-card__target">
+                                        <div class="model-card__image">
+                                            <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
                                         </div>
-
+                                        <div class="model-card__detail">
+                                            <h3 class="card-detail__name">@bike.ModelName</h3>
+                                            <p class="card-detail__launch-date">Launch Date: @bike.LaunchDate</p>
+                                            <ul class="card-detail__specs-list">
+                                                <li>@bike.Specs.FuelEfficiencyOverall cc</li>
+                                                <li>@bike.Specs.FuelEfficiencyOverall kmpl</li>
+                                                <li>@bike.Specs.MaxPower bhp</li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                    <div class="model-card__exshowroom-content">
+                                        <div class="model-card__exshowroom">
+                                            <div class="card-exshowroom__col">
+                                                <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                                <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
+                                            </div>
+                                            <a href="" title="" class="model-card__explore">
+                                                Explore
+                                            </a>
+                                        </div>
                                     </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
 
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
                 }
 
 
