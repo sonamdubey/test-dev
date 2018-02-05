@@ -410,7 +410,14 @@ namespace Bikewale.Controllers
                     WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, objReviewData.EncodedString);
                     var objData = objPage.GetData();
                     objData.SubmitResponse = objResponse;
-                    return View("WriteReview", objData);
+
+                    if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value)
+                    {
+                        return View("WriteReview", objData);
+                    }else
+                    {
+                        return View("WriteReview_Mobile", objData);
+                    }
                 }
             }
             catch (Exception ex)
