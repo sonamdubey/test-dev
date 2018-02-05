@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.MakePageVM
+@using Bikewale.Utility;
 
 @{
     ViewBag.Title = "Bike Make page";
@@ -31,7 +32,7 @@
         </div>
         <section>
             <div data-id="popularModel" class="bg-white section-bottom-margin newly-lauched-section overall-tabs-data">
-                @if (Model.NewLaunchedMakeWidgetNDays != null && Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays != null)
+                @if (Model.NewLaunchedMakeWidgetNDays != null && Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays != null && Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays.Models.Count() > 0)
                 {
                 <div class="newly-launched__title">
                     <h2 class="page__heading-h2">
@@ -53,11 +54,29 @@
                                         </div>
                                         <div class="model-card__detail">
                                             <h3 class="card-detail__name">@bike.ModelName</h3>
-                                            <p class="card-detail__launch-date">Launch Date: @bike.LaunchDate</p>
+                                            <p class="card-detail__launch-date">Launch Date: @string.Format("{0}", FormatDate.GetFormatDate(bike.LaunchDate.ToString(), "dd MMM yyyy"))</p>
                                             <ul class="card-detail__specs-list">
-                                                <li>@bike.Specs.FuelEfficiencyOverall cc</li>
-                                                <li>@bike.Specs.FuelEfficiencyOverall kmpl</li>
-                                                <li>@bike.Specs.MaxPower bhp</li>
+                                                @if (bike.Specs.Displacement != 0)
+                                                {
+                                                    <li>
+                                                        <span class="bwsprite capacity-sm"></span>
+                                                        <span>@FormatMinSpecs.ShowAvailable(bike.Specs.Displacement.ToString(), "cc") </span>
+                                                    </li>
+                                                }
+                                                @if (bike.Specs.FuelEfficiencyOverall != 0)
+                                                {
+                                                    <li>
+                                                        <span class="bwsprite mileage-sm"></span>
+                                                        <span>@FormatMinSpecs.ShowAvailable(bike.Specs.FuelEfficiencyOverall.ToString(), "kmpl") </span>
+                                                    </li>
+                                                }
+                                                @if (bike.Specs.MaxPower != 0)
+                                                {
+                                                    <li>
+                                                        <span class="bwsprite power-sm"></span>
+                                                        <span>@FormatMinSpecs.ShowAvailable(bike.Specs.MaxPower.ToString(), "bhp") </span>
+                                                    </li>
+                                                }
                                             </ul>
                                         </div>
                                     </a>
