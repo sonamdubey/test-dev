@@ -453,70 +453,24 @@
             </section>
         }
 
-        <section>
-            <div data-id="news" class="bg-white section-bottom-margin latest-news-section overall-tabs-data">
-                <div class="carousel__title">
-                    <h2 class="page__heading-h2 carousel-title__label">Royal Enfield News</h2>
-                    <a href="" class="view-all-btn">
-                        View all
-                    </a>
+
+        @if (Model.IsNewsAvailable)
+        {
+            <section>
+                <div data-id="news" class="bg-white section-bottom-margin latest-news-section overall-tabs-data">
+                    <div class="carousel__title">
+                        <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName News</h2>
+                        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" class="view-all-btn">
+                            View all
+                        </a>
+                    </div>
+
+                    <div class="swiper-container carousel__editorial" data-spacebetween="0">
+                        @Html.Partial("~/Views/News/_RecentNews_Mobile_New.cshtml", Model.News)
+                    </div>
                 </div>
-
-                <div class="swiper-container carousel__editorial" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (var i = 0; i <= 5; i++)
-                        {
-                            <li class="swiper-slide carousel-slide">
-                                <div class="editorial-card">
-                                    <a href="" title="" class="editorial-card__target">
-                                        <div class="editorial-card__image">
-                                            <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                        </div>
-                                        <div class="editorial-card__detail">
-                                            <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
-                                            <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
-                                        </div>
-                                    </a>
-                                    <div class="editorial-card__footer">
-                                        <div class="editorial-footer__author-img">
-                                            @{var author = 1;
-                                            if (author == 0)
-                                            {
-                                                <span class="editorial-author_defult-img"></span>
-                                            }
-                                            else
-                                            {
-                                                if (i % 2 == 0)
-                                                {
-                                                    <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
-                                                }
-                                                else
-                                                {
-                                                    <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
-
-                                                }
-                                            }
-                                            }
-                                        </div>
-                                        <div class="editorial-card__about">
-                                            <span class="editorial-card__author-name">Ranjan B.</span>
-                                            <p class="editorial-card__date-section">
-                                                <span>24 Jan 2019</span> -
-                                                <span>4 min read</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </li>
-                        }
-
-
-                    </ul>
-                </div>
-            </div>
-        </section>
-
+            </section>
+        }
 
         <section>
             <div data-id="reviews" class="bg-white section-bottom-margin review-section overall-tabs-data">

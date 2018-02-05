@@ -6,6 +6,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Bikewale.Entities.CMS.Articles;
 
 namespace Bikewale.Models
 {
@@ -90,6 +91,8 @@ namespace Bikewale.Models
         /// Summary    : To get list of news articles
         /// Modified by : Pratibha Verma on 25the January
         /// Description : Added AutoExpo2018 in news category
+        /// Modified by : Deepak Israni on 5th Feb 2018
+        /// Description : Store estimated reading time in the article list.
         /// </summary>
         public RecentNewsVM GetData()
         {
@@ -130,7 +133,12 @@ namespace Bikewale.Models
                 }
 
                 if (recentNews.ArticlesList != null)
+                {
                     recentNews.FetchedCount = recentNews.ArticlesList.Count();
+                    foreach (ArticleSummary article in recentNews.ArticlesList) {
+                        article.EstimatedReadingTime = SetEstimatedReadTime((uint)article.BasicId);
+                    }
+                }
 
                 recentNews.Title = _title;
             }
@@ -139,6 +147,17 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, string.Format("Bikewale.Models.News.RecentNews.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", _totalRecords, _makeId, _modelId));
             }
             return recentNews;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 5 Feb 2018
+        /// Summary : To set the estimated read time on every article in article list.
+        /// </summary>
+        public uint SetEstimatedReadTime(uint basicID)
+        {
+            String content = _articles.GetNewsDetails(basicID).Content;
+            uint estimatedreadingtime = ArticleHelper.GetContentReadingTime(content);
+            return estimatedreadingtime;
         }
         #endregion
     }
