@@ -3088,7 +3088,6 @@
     <Content Include="sass\modules\_review-category.sass" />
     <Content Include="sass\photos\landing.sass" />
     <Content Include="sass\mixins\_body-type-icons.sass" />
-    <Content Include="sass\mixins\_flex.sass" />
     <Content Include="sass\mixins\_foldable-content.sass" />
     <Content Include="sass\mixins\_image-card.sass" />
     <Content Include="sass\mixins\_image-grid.sass" />
@@ -3113,13 +3112,11 @@
     <Content Include="sass\utils\_color.sass" />
     <Content Include="sass\utils\_index.sass" />
     <Content Include="sass\modules\_related-make-card.sass" />
-    <Content Include="sass\mixins\_animation.sass" />
     <Content Include="sass\mixins\_electric-scooter-widget.sass" />
     <Content Include="sass\modules\_m-brand-logo.sass" />
     <Content Include="sass\m\make\make.sass" />
     <Content Include="sass\mixins\_flex.sass" />
     <Content Include="sass\utils\_color.sass" />
-    <Content Include="sass\mixins\_index.sass" />
     <Content Include="sass\utils\_index.sass" />
     <Content Include="sass\partials\_all-bikes-list.sass" />
     <Content Include="sass\mixins\_model-card.sass" />
@@ -3129,8 +3126,6 @@
     <Content Include="sass\mixins\_text.sass" />
     <Content Include="sass\partials\_upcoming-bikes-carousel.sass" />
     <Content Include="sass\partials\_popular-bikes-carousel.sass" />
-    <Content Include="sass\mixins\_image-grid.sass" />
-    <Content Include="sass\mixins\_image-card.sass" />
     <Content Include="sass\partials\_bike-images-carousel.sass" />
     <Content Include="sass\mixins\_animation.sass" />
     <Content Include="sass\partials\_editorial-carousel.sass" />
@@ -3143,7 +3138,7 @@
     <Content Include="sass\partials\_related-make-card.sass" />
     <Content Include="sass\partials\_related-make-carousel.sass" />
     <Content Include="sass\partials\_other-bikes-list.sass" />
-    <Content Include="sass\mixins\_scrollbar.sass" />
+    <Content Include="sass\partials\_carousel-arrow.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
