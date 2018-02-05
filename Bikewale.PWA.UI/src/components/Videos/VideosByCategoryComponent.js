@@ -6,7 +6,7 @@ import {isServer} from '../../utils/commonUtils'
 import CategoryHeader from '../Shared/CategoryHeader'
 import Spinner from '../Shared/Spinner'
 import Breadcrumb from '../Shared/Breadcrumb'
-import {Status} from '../../utils/constants'
+import {Status,GA_PAGE_MAPPING} from '../../utils/constants'
 import {formVideoUrl,formVideoImageUrl} from './VideosCommonFunc'
 
 import {pushVideoDetailUrl} from './VideosCommonFunc'
@@ -15,6 +15,11 @@ class VideosByCategoryComponent extends React.Component{
 		super(props);
 		
 		this.onClickVideoUrl = this.onClickVideoUrl.bind(this);
+
+		if(typeof(gaObj)!="undefined")
+		{
+		    gaObj = GA_PAGE_MAPPING["VideoCategoryPage"];
+		}
 	}
 	componentDidMount() {
 		if(this.props.VideosByCategory.Status !== Status.Fetched && this.props.VideosByCategory.Status !== Status.IsFetching) {

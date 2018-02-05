@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 }
-                @if (Model.Bikes != null && Model.Bikes.Count() > 0)
+                @if (Model.Bikes != null && Model.Bikes.Any())
                 {
                     <div id="bikeMakeList" class="search-bike-container bw-model-tabs-data padding-top15 bg-white position-rel pos-top3 box-shadow">
                         <h2 class="text-bold padding-left20">@string.Format("{0} Bikes Prices in  India", Model.MakeName)</h2>
@@ -97,25 +97,17 @@
                                                         </span>
                                                     </div>
                                                 }
-                                                <div class="margin-bottom5">
-                                                    @if (bike.VersionPrice > 0)
-                                                    {
-                                                        @Html.Raw("<span class='font18' style='display: inline-block;'> &#x20B9;</span>")}
-
-                                                    else
-                                                    {
-                                                        @Html.Raw("<span class='font18' style='display: none;'> &#x20B9;</span>")
-                                                    }
+                                                <div class="margin-bottom5">                                                    
                                                     @if (bike.AvgPrice > 0)
                                                     {
-                                                        <span class="text-bold font18">@Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) : Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice))))</span>
+                                                        <span class="text-bold font18">@Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))))</span>
                                                     }
                                                     else
                                                     {
                                                         <span class="text-bold font18">Price unavailable</span>
                                                     }
                                                 </div>
-                                                @if (bike.VersionPrice > 0 && Model.ShowCheckOnRoadpriceBtn)
+                                                @if (bike.VersionPrice > 0)
                                                 {
                                                     <a href="javascript:void(0)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage)" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
                                                 }

@@ -5,15 +5,15 @@ const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
 var cssChunksPublicPath = '/';
 
-var extractVideoSass = new ExtractCssChunks( {filename : "css/videos/videosBundle.css" , publicPath : cssChunksPublicPath } );
-var extractAppSass = new ExtractCssChunks( {filename : "css/app.css" , publicPath : cssChunksPublicPath } );
-var extractNewsSass = new ExtractCssChunks( {filename : "css/news/newsBundle.css" , publicPath : cssChunksPublicPath } );
+var extractVideoSass = new ExtractCssChunks({ filename: "css/videos/videosBundle.[chunkhash].css", publicPath: cssChunksPublicPath });
+var extractAppSass = new ExtractCssChunks({ filename: "css/app.[chunkhash].css", publicPath: cssChunksPublicPath });
+var extractNewsSass = new ExtractCssChunks({ filename: "css/news/newsBundle.[chunkhash].css", publicPath: cssChunksPublicPath });
 
 
 const config = merge(commonConfig, {
 	output : {
-		filename: 'js/[name].bundle.js',
-        chunkFilename : 'js/[name].bundle.js',
+	    filename: 'js/[name].bundle.[chunkhash].js',
+	    chunkFilename: 'js/[name].bundle.[chunkhash].js',
         publicPath : '/pwa/'
 	},
     module: {

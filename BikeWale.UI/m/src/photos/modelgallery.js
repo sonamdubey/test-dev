@@ -307,6 +307,14 @@ function filterColorImagesArray(responseArray) {
     });
 }
 
+function getImageDownloadUrl() {
+    var activeImageIndex = vmModelGallery.activePhotoIndex() - 1;
+    if (activeImageIndex == -1)
+        activeImageIndex++;
+    var currImage = modelImages[activeImageIndex];
+    return currImage.HostUrl + "0x0" + currImage.OriginalImgPath;
+}
+
 function resizePortraitImage(element) {
     element.hide();
 
@@ -378,6 +386,7 @@ function logBhrighuForImage(item) {
 
             label = 'modelId=' + bikeModelId + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
             cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
+            triggerVirtualPageView(window.location.host + window.location.pathname, lb);
         }
     }
 

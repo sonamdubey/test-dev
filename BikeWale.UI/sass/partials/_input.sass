@@ -1,0 +1,35 @@
+// TODO: convert to mixin
+.form-field__content
+	position: relative
+	overflow: hidden
+
+	.form-field__input
+		font-size: 14px
+		background: #f5f5f5 // TODO: Add in color map
+		padding: 8px 15px
+
+	.form-field__submit-btn
+		@include vendor-prefix('transition', all .2s cubic-bezier(0, 0, .3, 1))
+		position: absolute
+		top: 0
+		right: 98%
+
+.field__error-message
+	min-height: 18px
+	padding-top: 2px
+	font-size: 10px
+	color: color('mona-lisa')
+
+/* button active state */
+.btn--active
+	.form-field__submit-btn
+		right: 0
+
+.field--invalid
+	.form-field__input
+		border-color: #fd8d81
+
+.field--success
+	.form-field__submit-btn
+		width: 100%
+		background: #4acea8

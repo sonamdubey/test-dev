@@ -1,0 +1,78 @@
+@mixin overall-tabs($height: 50)
+	$_backgroundColor: color('border-light')
+	$_bottomBorderHeight: 4px
+	$_bottomBorderColor: color('gainsboro')
+	$_bottomBorderActiveColor: color('cinnabar')
+
+	@if unitless($height)
+		$height: $height * 1px
+
+		.overall-tabs__placeholder
+			height: $height
+			background: $_backgroundColor
+
+		.overall-tabs__content
+			width: 100%
+			height: $height
+			overflow-x: auto
+			background: $_backgroundColor
+
+		.overall-tabs__list
+			display: table
+			@include flexbox
+			@include flex-wrap
+			height: $height
+			white-space: nowrap
+			position: relative
+
+			&:after
+				content: ''
+				position: absolute
+				bottom: 0
+				left: 0
+				right: 0
+				border-bottom: $_bottomBorderHeight solid $_bottomBorderColor
+				z-index: 1
+
+		.overall-tabs-list__item
+			position: relative
+			height: $height
+			display: table-cell
+			font-size: 14px
+			color: color('aluminium')
+			padding: 13px 16px 15px
+			border-bottom: $_bottomBorderHeight solid $_bottomBorderColor
+			cursor: pointer
+
+		// active state
+		.tab--active
+			&.overall-tabs-list__item
+				color: color('nero')
+				font-weight: $font-semibold
+
+				&:after
+					content: ''
+					position: absolute
+					bottom: -$_bottomBorderHeight
+					left: 16px
+					right: 16px
+					border-bottom: $_bottomBorderHeight solid $_bottomBorderActiveColor
+					z-index: 2
+
+		.fixed-tab-nav
+			position: fixed
+			top: 0
+			left: 0
+			right: 0
+			z-index: 3
+
+		// fallback
+		.overall-tabs--fallback
+			.overall-tabs__list
+				display: table
+			
+			.overall-tabs-list__item
+				width: 1%
+
+	@else
+		@warn "Please provide unitless value for overall tabs `$height` parameter"

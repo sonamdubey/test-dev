@@ -1,0 +1,196 @@
+﻿$_interesting-fact-gradient2: #c84438 // TODO: Add in color map array
+$_interesting-fact-gradient1: #ffaaa1 // TODO: Add in color map array
+$_readmore-button: color('pacific-blue')
+$_color-transparent: rgba(255,255,255,0.001)
+@mixin interesting-fact-section($color1: $_interesting-fact-gradient1, $color2: $_interesting-fact-gradient2)
+	.interesting-fact-section
+		padding: 25px 20px
+		background: -webkit-linear-gradient(120deg, $color2, $color1)
+		background: linear-gradient(120deg, $color1, $color2)
+
+
+@mixin interesting-fact__white-overlay
+	.fact-container__block
+		&[data-overlay= 'bottom']
+			&:after
+				content: ''
+				position: absolute
+				height: 20%
+				bottom: 0
+				left: 0
+				right: 0
+				display: block
+				background: -webkit-linear-gradient(270deg, $_color-transparent, color('white'))
+				background: linear-gradient(180deg, $_color-transparent, color('white'))
+
+	.fact-container__block
+		&[data-overlay= 'top']
+			&:after
+				content: ''
+				position: absolute
+				height: 20%
+				top: 0
+				left: 0
+				right: 0
+				z-index: 1
+				display: block
+				background: -webkit-linear-gradient(270deg, color('white') 30%, $_color-transparent 90%)
+				background: linear-gradient(180deg, color('white') 30%, $_color-transparent 90%)
+
+	.fact-container__block
+		&[data-overlay= 'both']
+			&:before
+				content: ''
+				position: absolute
+				height: 20%
+				top: 0
+				left: 0
+				right: 0
+				z-index: 1
+				display: block
+				background: -webkit-linear-gradient(270deg, color('white') 30%, $_color-transparent 90%)
+				background: linear-gradient(180deg, color('white') 30%, $_color-transparent 90%)
+
+			&:after
+				content: ''
+				position: absolute
+				height: 20%
+				bottom: 0
+				left: 0
+				right: 0
+				display: block
+				background: -webkit-linear-gradient(270deg, $_color-transparent, color('white'))
+				background: linear-gradient(180deg, $_color-transparent, color('white'))
+
+.interesting-fact__whiteout-window
+	@include vendor-prefix('transition', all .3s cubic-bezier(0, 0, .3, 1))
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	will-change: opacity
+	background: rgba(0, 0, 0, .3)
+	opacity: 0
+	cursor: pointer
+	pointer-events: none
+
+@mixin interesting-fact-popup
+	.interesting-fact-popup
+		@include vendor-prefix('transform', translate(0, 110%))
+		@include vendor-prefix('transition', all .3s cubic-bezier(0, 0, .3, 1))
+		z-index: 2
+		position: fixed
+		height: 80%
+		bottom: 0
+		left: 0
+		right: 0
+		height: 80%
+
+		.interesting-fact-container
+			height: 88%
+			position: relative
+			border-radius: 3px
+			padding: 0
+
+			&:before
+				z-index: 2
+
+		.interesting-fact__content
+			max-height: 100%
+			overflow: auto
+			line-height: 2
+			position: relative
+			right: -6px
+			margin-bottom: 0
+			padding: 20px
+
+		.page__heading-h2
+			padding-right: 30px
+
+
+	@include interesting-fact__white-overlay
+
+	.interesting-popup--active
+		.interesting-fact__whiteout-window
+			opacity: 1
+			pointer-events: auto
+			z-index: 4
+
+		.interesting-fact-popup
+			@include vendor-prefix('transform', translate(0, 0))
+			z-index: 5
+
+	.fact-container__block
+		position: relative
+		height: 100%
+
+.interesting-fact-section
+	.page__heading-h2
+		@include text-truncate
+		color: color('white')
+		margin-bottom: 30px
+		text-transform: capitalize
+
+
+#interestingFactCloseBtn
+	position: absolute
+	right: 15px
+	top: 20px
+	width: 30px
+	height: 30px
+	@include cross-fff-icon
+	background-size: 14px
+
+.interesting-fact-container
+	background: color('white')
+	padding: 30px 20px 20px
+	position: relative
+
+	&:before
+		@include quote-icon
+		content: ''
+		display: block
+		height: 30px
+		width: 49px
+		background-repeat: space
+		position: absolute
+		top: -10px
+
+	&:before		
+		left: 0
+
+.interesting-fact__content
+	font-size: 14px
+	line-height: 1.57
+	max-height: 63px
+	overflow: hidden
+	margin-bottom: 12px
+
+.interesting-fact__read-more
+	@include right-arrow-0288d1-icon
+	font-size: 14px
+	font-weight: $font-semibold
+	color: $_readmore-button
+	position: relative
+	display: inline-block
+	padding-right: 15px
+	background-position: 100% center
+	background-size: 7px
+
+.interesting-fact__link-block
+	text-align: right	
+
+@mixin interesting-fact__container-scrollbar
+	.interesting-fact__content
+		&::-webkit-scrollbar
+			width: 6px
+
+		&::-webkit-scrollbar-track
+			box-shadow: inset 0 0 5px grey
+			border-radius: 3px
+			background: rgba(255, 255, 255, .42)
+
+		&::-webkit-scrollbar-thumb
+			background: rgba(255, 255, 255, .54)
+			border-radius: 3px

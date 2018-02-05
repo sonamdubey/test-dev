@@ -802,7 +802,9 @@ namespace Bikewale.DAL.BikeData
 
         /// <summary>
         /// Created by : Snehal Dange on 18th Jan 2018
-        /// Description : Created as a common method to get 'research more about make' details when city is present or not. 
+        /// Description : Created as a common method to get 'research more about make' details when city is present or not.
+        /// Modified by : Sanskar Gupta on 31st Jan 2018
+        /// Description : Added logic to fetch 'ScootersCount' from the SP.
         /// </summary>
         /// <param name="spName"></param>
         /// <param name="makeId"></param>
@@ -839,6 +841,7 @@ namespace Bikewale.DAL.BikeData
                                         MakeName = Convert.ToString(dr["MakeName"]),
                                         MaskingName = Convert.ToString(dr["MakeMaskingName"])
                                     };
+                                    obj.ScootersCount = SqlReaderConvertor.ToInt32(dr["totalscooterscount"]);
                                     obj.IsScooterOnlyMake = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]);
                                     if (cityId > 0)
                                     {
@@ -898,7 +901,7 @@ namespace Bikewale.DAL.BikeData
             {
                 if (makeId > 0)
                 {
-                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmake", makeId);
+                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmake_01022018", makeId);
                 }
 
             }
@@ -923,7 +926,7 @@ namespace Bikewale.DAL.BikeData
             {
                 if (makeId > 0 && cityId > 0)
                 {
-                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmakebycity", makeId, cityId);
+                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmakebycity_01022018", makeId, cityId);
                 }
             }
             catch (Exception ex)

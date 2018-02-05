@@ -32,10 +32,14 @@ namespace Bikewale.Models
 
     /// Modified by : Snehal Dange on 16th Jan 2018
     /// Description: Added ResearchMoreMakeWidget
+    /// 
+
+    /// Modified by: Deepak Israni on 30th Jan 2018
+    /// Description: Removed ShowCheckOnRoadpriceBtn property
 
     /// Modified by  : Rajan Chauhan on 3 Jan 2017
     /// Description  : Added MakeId Field
-
+    /// 
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -45,6 +49,7 @@ namespace Bikewale.Models
         public string LocationMasking { get; set; }
         public string Location { get; set; }
         public IEnumerable<MostPopularBikesBase> Bikes { get; set; }
+        public IEnumerable<MostPopularBikesBase> TopPopularBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public PopularComparisonsVM CompareSimilarBikes { get; set; }
         public BikeDescriptionEntity BikeDescription { get; set; }
@@ -69,8 +74,6 @@ namespace Bikewale.Models
         public bool IsMakeTabsDataAvailable { get; set; }
         public bool IsFooterDescriptionAvailable { get; set; }
         public bool IsPriceListingAvailable { get; set; }
-
-        public bool ShowCheckOnRoadpriceBtn { get; set; }
 
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public DealerCardVM Dealers { get; set; }
