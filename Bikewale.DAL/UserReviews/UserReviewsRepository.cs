@@ -2091,8 +2091,6 @@ namespace Bikewale.DAL.UserReviews
                                     dr.Close();
                                 }
                             }
-
-
                         }
                     }
                 }
