@@ -1,7 +1,12 @@
 ﻿using System.Collections.Generic;
 
 namespace BikewaleAutoSuggest
-{
+{   
+    /// <summary>
+    /// Modified by : Rajan Chauhan on 10 Jan 2017
+    /// Description : Added PhotosCount to Payload and TempList
+    /// </summary>
+    /// <returns></returns>
     public class BikeList
     {
         public string Id { get; set; }
@@ -32,6 +37,7 @@ namespace BikewaleAutoSuggest
         public string IsNew { get; set; }
         public string UserRatingsCount { get; set; }
         public string ExpertReviewsCount { get; set; }
+        public string PhotosCount { get; set; }
     }
 
     public class TempList
@@ -46,6 +52,7 @@ namespace BikewaleAutoSuggest
         public bool Futuristic { get; set; }
 
         public int UserRatingsCount { get; set; }
-        public uint ExpertReviewsCount { get; set; }      
+        public uint ExpertReviewsCount { get; set; }
+        public uint PhotosCount { get; set; }
   }
 }

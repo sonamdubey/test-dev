@@ -494,7 +494,7 @@ docReady(function () {
             $('.model-preview-more-content').hide();
             self.text(self.text() === 'Read more' ? 'Collapse' : 'Read more');
             self.removeClass('open');
-			$('html, body').animate({ scrollTop: $('#aboutContent').offset().top - 44 }, 500)
+            $('html, body').animate({ scrollTop: $('#aboutContent').offset().top - 44 }, 500)
         }
     });
 
@@ -786,15 +786,14 @@ docReady(function () {
         }
     }
 
-	$("#expertReviewsContent").on('click', function () {
-		triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
-	});
+    $("#expertReviewsContent").on('click', function () {
+        triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);
+    });
     // For saving page in recently viewed models/make
-	if (typeof pageData != "undefined" && pageData != null)
-	    recentSearches.saveRecentSearches(pageData);
+    if (typeof pageData != "undefined" && pageData != null)
+				recentSearches.saveRecentSearches(pageData); 
 
-}
-);
+});
 
 function upVoteListReview(e) {
     try {

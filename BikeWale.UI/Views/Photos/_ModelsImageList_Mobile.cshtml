@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Bikewale.Entities.CMS.Photos.ModelImages>
+@using Bikewale.Utility
+@if (Model != null)
+{
+    <ul class="explore-model-image__list image-card--list" data-bind="visible: $root.FirstPageLoad">
+        @Html.Partial("~/Views/Photos/_ModelsImageListBase_Mobile.cshtml", Model)
+    </ul>
+    <ul id="moreBikeModels" class="explore-model-image__list image-card--list" data-bind="template: { name: 'loadMoreModels', foreach: $root.modelList}"></ul>
+}
+<script type="text/html" id="loadMoreModels">
+    <li class="explore-model-image-list__item">
+        <a href="" title="" class="model-image__card" data-bind="attr:{ 'href': modelImagePageUrl, 'title': modelTitle }">
+            <ul class="image-grid__list" data-bind='foreach: showcasedModelImages, attr:{"data-grid": gridSize}'>
+                <li class="image-grid-list__item">
+                    <img class="lazy" data-bind="attr: { 'alt': alt,'src': src,'title':title }" style="display: block">
+                </li>
+            </ul>
+            <div class="card-image__details">
+                <h3 class="card-details__left-col">
+                    <span class="card-details__make" data-bind="text: makeName"></span>
+                    <span class="card-details__model" data-bind="text: modelName"></span>
+                </h3>
+                <div class="card-details__right-col">
+                    <span class="card-details__image-count" data-bind="text: recordCount"></span>
+                </div>
+            </div>
+        </a>
+    </li>
+</script>

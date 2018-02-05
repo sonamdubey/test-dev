@@ -81,6 +81,8 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
         BikeMileageEntity GetMileageDetails();
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
+        IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages();
+        ICollection<Entities.BikeData.BikeModelColorImageEntity> GetModelImages(string modelIds);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters);
 
