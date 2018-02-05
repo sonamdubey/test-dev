@@ -21,6 +21,9 @@ namespace Bikewale.DTO.Upcoming
         [JsonProperty("modelId")]
         public int ModelId { get; set; }
 
+        [JsonProperty("bikeName")]
+        public string BikeName { get; set; }
+
         [JsonProperty("entryDate")]
         public DateTime EntryDate { get; set; }
         

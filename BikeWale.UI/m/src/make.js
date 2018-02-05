@@ -54,6 +54,7 @@
 
 	$('.upcoming-card__notify-btn').on('click', function () {
 	    $('.notify-details__model').text($(this).attr('data-bikeName'));
+	    $('.form-field__submit-btn').attr('data-bikename', $(this).attr('data-bikename'));
 	    $('.form-field__submit-btn').attr('data-makeid', $(this).attr('data-makeid'));
 	    $('.form-field__submit-btn').attr('data-modelid', $(this).attr('data-modelid'));
 		notifyPopup.open();
@@ -186,7 +187,7 @@ function executeNotification() {
         "emailId": $("#notifyEmailField").val(),
         "makeId": $('.form-field__submit-btn').attr("data-makeid"),
         "modelId": $('.form-field__submit-btn').attr("data-modelid"),
-
+        "bikeName": $('.form-field__submit-btn').attr("data-bikename"),
     };
     $.ajax({
         type: "POST",

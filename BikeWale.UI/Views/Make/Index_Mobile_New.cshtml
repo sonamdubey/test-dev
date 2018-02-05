@@ -454,7 +454,7 @@
             <div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
                 <h2 class="upcoming-carousel__title page__heading-h2">Upcoming @Model.MakeName bikes</h2>
 
-                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile_V2.cshtml", Model.UpcomingBikes)
+                @Html.Partial("~/Views/Upcoming/_UpcomingBikesWithNotify_Mobile.cshtml", Model.UpcomingBikes)
             </div>
         </section>
 }
@@ -475,7 +475,7 @@
                 </div>
                 <div class="form-field__content">
                     <input type="text" id="notifyEmailField" class="form-control form-field__input" placeholder="Enter your email id">
-                    <button type="button" id="notifySubmitBtn" class="btn btn-orange form-field__submit-btn" data-makeid="" data-modelid="">Submit</button>
+                    <button type="button" id="notifySubmitBtn" class="btn btn-orange form-field__submit-btn" data-bikename="" data-makeid="" data-modelid="">Submit</button>
                     <p class="field__error-message"></p>
                 </div>
             </div>

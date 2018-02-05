@@ -3990,7 +3990,7 @@
     <Content Include="Views\BikeSeries\_PopularSeriesBikes_Mobile.cshtml" />
     <Content Include="Views\Shared\_EditorialBestBikesSideBar.cshtml" />
     <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
-    <Content Include="Views\Upcoming\_UpcomingBikes_Mobile_V2.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikesWithNotify_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UpcomingNotification;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
+using Bikewale.Notifications.MailTemplates;
 using Bikewale.Service.AutoMappers.Make;
 using Bikewale.Service.AutoMappers.UpcomingNotification;
 using Bikewale.Service.Utilities;
@@ -91,6 +92,10 @@ namespace Bikewale.Service.Controllers.Make
                     if (entitiyNotif != null)
                     {
                         _makesRepository.ProcessNotification(entitiyNotif);
+
+                        ComposeEmailBase objNotify = new UpcomingBikesSubscription(entitiyNotif.BikeName);
+                        objNotify.Send(entitiyNotif.EmailId, string.Format("You have subscribed to notifications for upcoming bike {0}", entitiyNotif.BikeName));
+
                         return Ok();
                     }
                     else
