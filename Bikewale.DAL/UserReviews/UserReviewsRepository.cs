@@ -2084,8 +2084,12 @@ namespace Bikewale.DAL.UserReviews
                                     {
                                         while (dr.Read())
                                         {
-                                            objBikesWithUserReviews.FirstOrDefault().MakeReviewCount = SqlReaderConvertor.ToUInt32(dr["makereviewcount"]);
-                                            objBikesWithUserReviews.FirstOrDefault().ModelCountWithUserReviews = SqlReaderConvertor.ToUInt32(dr["modelcountwithreviews"]);
+                                            if (objBikesWithUserReviews.Any())
+                                            {
+                                                objBikesWithUserReviews.FirstOrDefault().MakeReviewCount = SqlReaderConvertor.ToUInt32(dr["makereviewcount"]);
+                                                objBikesWithUserReviews.FirstOrDefault().ModelCountWithUserReviews = SqlReaderConvertor.ToUInt32(dr["modelcountwithreviews"]);
+                                            }
+
                                         }
                                     }
                                     dr.Close();
