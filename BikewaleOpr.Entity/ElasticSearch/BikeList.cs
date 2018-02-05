@@ -36,5 +36,6 @@ namespace BikewaleOpr.Entity.ElasticSearch
         public string IsNew { get; set; }
         public string UserRatingsCount { get; set; }
         public string ExpertReviewsCount { get; set; }
+        public string PhotosCount { get; set; }
     }
 }
