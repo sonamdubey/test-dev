@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text.RegularExpressions;
 
 namespace Bikewale.BAL.UserReviews
 {
@@ -360,28 +359,27 @@ namespace Bikewale.BAL.UserReviews
                 {
 
                     objResponse = new WriteReviewPageSubmitResponse();
-                    if (!objReviewData.fromParamterRatingPage.Value) { 
-                        //The request is through Write Review Page
-                        string jsRemovedReview = StringHtmlHelpers.removeMaliciousCode(objReviewData.ReviewDescription);
-                        string trimmedReview = null;
-                        if(jsRemovedReview != null)
-                            trimmedReview = (StringHtmlHelpers.StripHtml(jsRemovedReview)).Trim();
 
-                        if (string.IsNullOrEmpty(trimmedReview) || trimmedReview.Length < 300)
-                        {
-                            //Invalid Review_Description
-                            objResponse.IsSuccess = false;
-                            objResponse.ReviewErrorText = "Your review should contain at least 300 characters.";
-                            return objResponse;
-                        }
-                        objReviewData.ReviewDescription = jsRemovedReview;
+                    //The request is through Write Review Page
+                    string jsRemovedReview = StringHtmlHelpers.removeMaliciousCode(objReviewData.ReviewDescription);
+                    string trimmedReview = null;
+                    if (jsRemovedReview != null)
+                        trimmedReview = (StringHtmlHelpers.StripHtml(jsRemovedReview)).Trim();
+
+                    if (string.IsNullOrEmpty(trimmedReview) || trimmedReview.Length < 300)
+                    {
+                        //Invalid Review_Description
+                        objResponse.IsSuccess = false;
+                        objResponse.ReviewErrorText = "Your review should contain at least 300 characters.";
+                        return objResponse;
                     }
-                    
-                   objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
+                    objReviewData.ReviewDescription = jsRemovedReview;
 
-                   if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
+                    objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
+
+                    if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
                         UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
-                    
+
 
 
                 }

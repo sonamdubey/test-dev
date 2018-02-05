@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
@@ -32,6 +33,9 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added GetSeriesByModelId to get series details for given model id
     /// Modified by : Sanskar Gupta on 22 Jan 2018
     /// Description : Added boolean 'isCityLogicPresent' in function 'GetAdPromotedBike' to separate Newly Launched logic of HomePage and Editorial Pages
+    /// Modified By : Rajan Chauhan on 29 Jan 2018
+    /// Description : overload function GetModelIdsForImages to get all models 
+    ///               Added method GetModelsWithBodyStyleLookupArray for getting Dictionary mapping bodyStyle with modelIds
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -65,5 +69,12 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData, bool isCityLogicPresent);
         IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> PromotedBikes, IEnumerable<MostPopularBikesBase> PopularBikes);
 
+        IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle);
+        IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, uint startIndex, uint endIndex);
+        IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages(uint makeId, EnumBikeBodyStyles bodyStyle, ref ImagePager pager);
+        IEnumerable<ModelImages> GetBikeModelsPhotoGallery(string modelIds, int requiredImageCount);
+        IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount);
+        ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount, ImagePager pager);
+        IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> GetModelsWithBodyStyleLookupArray(uint makeId);
     }
 }

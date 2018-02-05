@@ -8,6 +8,11 @@ using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
+using Bikewale.Entities.CMS.Photos;
+using System.Collections.Generic;
+using Grpc.CMS;
+using Bikewale.BAL.GrpcFiles;
+
 namespace Bikewale.BAL.Images
 {
     /// <summary>
@@ -21,6 +26,10 @@ namespace Bikewale.BAL.Images
 
         private readonly IImageRepository<Entities.Images.Image, ulong> _objDAL = null;
         private readonly ISecurity _security = null;
+        public ImageBL()
+        {
+
+        }
         public ImageBL(IImageRepository<Entities.Images.Image, ulong> objDAL, ISecurity security)
         {
             _objDAL = objDAL;
@@ -106,5 +115,7 @@ namespace Bikewale.BAL.Images
             }
             return token;
         }
+
+        
     }
 }

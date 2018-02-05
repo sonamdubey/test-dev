@@ -1,5 +1,7 @@
-﻿using Bikewale.Entities.Images;
-
+﻿using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.Images;
+using System.Collections.Generic;
+using Bikewale.DTO.CMS.Photos;
 namespace Bikewale.Interfaces.Images
 {
     /// <summary>

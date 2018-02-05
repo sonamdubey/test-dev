@@ -1,10 +1,12 @@
-﻿using Bikewale.Entities;
+﻿using System.Web.Mvc;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models;
+using Bikewale.BAL.Images;
 using Bikewale.Models.Photos;
-using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
@@ -21,8 +23,9 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _objGenericBike = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         private readonly IVideos _objVideos = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
 
-        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos)
+        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos, IBikeMakesCacheRepository objMakeCache)
         {
 
             _objModelCache = objModelCache;
@@ -32,6 +35,83 @@ namespace Bikewale.Controllers
             _objGenericBike = objGenericBike;
             _objVersionCache = objVersionCache;
             _objVideos = objVideos;
+            _objMakeCache = objMakeCache;
+        }
+
+        /// <summary>
+        /// Description : Image landing page for Desktop
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <returns></returns>
+        [Route("photos/"), Filters.DeviceDetection]
+        public ActionResult Index(uint? pageNo)
+        {
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, pageNo);
+            objModel.PageSize = 30;
+            Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
+            return View(objData);
+        }
+
+        /// <summary>
+        /// Description : Image landing page for mobile
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <returns></returns>
+        [Route("m/photos/")]
+        public ActionResult Index_Mobile(uint? pageNo)
+        {
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache, pageNo);
+            objModel.PageSize = 30;
+            Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
+            return View(objData);
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Jan 2018
+        /// Description : Make images landing page for Desktop 
+        /// </summary>
+        /// <returns></returns>
+        [Route("photos/{makeMasking}-bikes/"), Filters.DeviceDetection]
+        public ActionResult Make(string makeMasking)
+        {
+            MakePhotosPage obj = new MakePhotosPage(false, makeMasking, _objModelEntity, _objMakeCache);
+            if (obj.Status.Equals(StatusCodes.ContentFound))
+            {
+                MakePhotosPageVM objData = obj.GetData();
+                return View(objData);
+            }
+            else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
+            {
+                return RedirectPermanent(obj.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Jan 2018
+        /// Description : Make images landing page for mobile 
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/photos/{makeMasking}-bikes/")]
+        public ActionResult Make_Mobile(string makeMasking)
+        {
+            MakePhotosPage obj = new MakePhotosPage(true, makeMasking, _objModelEntity, _objMakeCache);
+            if (obj.Status.Equals(StatusCodes.ContentFound))
+            {
+                MakePhotosPageVM objData = obj.GetData();
+                return View(objData);
+            }
+            else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
+            {
+                return RedirectPermanent(obj.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
         }
 
         /// <summary>
@@ -43,7 +123,7 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("photos/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
-        public ActionResult Index(string makeMasking, string modelMasking, string q)
+		public ActionResult Model(string makeMasking, string modelMasking, string q)
         {
             PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersionCache, _objVideos);
 
@@ -72,7 +152,7 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("m/photos/{makeMasking}-bikes/{modelMasking}/")]
-        public ActionResult Index_Mobile(string makeMasking, string modelMasking, string q)
+        public ActionResult Model_Mobile(string makeMasking, string modelMasking, string q)
         {
             PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersionCache, _objVideos);
 

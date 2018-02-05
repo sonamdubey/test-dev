@@ -297,22 +297,13 @@ function setPriceQuoteFlag() {
 
 function MakeModelRedirection(items) {
     if (!IsPriceQuoteLinkClicked) {
-        var make = new Object();
-        make.maskingName = items.payload.makeMaskingName;
-        make.id = items.payload.makeId;
-        var model = null;
-        if (items.payload.modelId > 0) {
-            model = new Object();
-            model.maskingName = items.payload.modelMaskingName;
-            model.id = items.payload.modelId;
-            model.futuristic = items.payload.futuristic;
-        }
-
-        if (model != null && model != undefined) {
-            window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+        var makeMaskingName = items.payload.makeMaskingName;
+        var modelMaskingName = items.payload.modelMaskingName;
+        if (items.payload.modelId > 0 && makeMaskingName != null && makeMaskingName != "" && modelMaskingName != null && modelMaskingName != "") {
+            window.location.href = "/" + makeMaskingName + "-bikes/" + modelMaskingName + "/";
             return true;
-        } else if (make != null && make != undefined) {
-            window.location.href = "/" + make.maskingName + "-bikes/";
+        } else if (makeMaskingName != null && makeMaskingName != "") {
+            window.location.href = "/" + makeMaskingName + "-bikes/";
             return true;
         }
     }
@@ -691,6 +682,10 @@ var bwAutoComplete = function (options) {
                 ulItem.closest('li').addClass('event-none');
                 ulItem.append(' <span class="rightfloat margin-left10 font14 text-grey">Not reviewed yet</span>')
             }
+            if (options.source == '8') {
+                var suffixText = (parseInt(item.payload.photosCount) > 1) ? ' Photos' : ' Photo';
+                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.photosCount.toString() + suffixText + ')</span>')
+            }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {
                     if (item.payload.futuristic == 'True') {
@@ -776,21 +771,39 @@ docReady(function () {
 
     $('.jcarousel').each(function () {
         var dataSwipe = $(this).attr('data-swipe');
-        var carouselWrapper = $(this).closest('.jcarousel-wrapper');
-        carouselWrapper.find('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
-            $(this).removeClass('inactive');
+		var carouselWrapper = $(this).closest('.jcarousel-wrapper');
+		var isFullWidth = false;
+
+		if(carouselWrapper.hasClass('carousel--full-width')) {
+			isFullWidth = true;
+		}
+
+        carouselWrapper.find('.jcarousel-control-next, .jcarousel-arrow-next').on('jcarouselcontrol:active', function () {
+			$(this).removeClass('inactive');
+			if (isFullWidth) {
+				carouselWrapper.find('.jcarousel-control-right').removeClass('control--inactive');
+			}
         }).on('jcarouselcontrol:inactive', function () {
-            $(this).addClass('inactive');
+			$(this).addClass('inactive');
+			if (isFullWidth) {
+				carouselWrapper.find('.jcarousel-control-right').addClass('control--inactive');
+			}
         }).jcarouselControl(
             {
                 target: (dataSwipe ? '+=' + dataSwipe : '+=' + _target)
 
             });
 
-        carouselWrapper.find('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
-            $(this).removeClass('inactive');
+        carouselWrapper.find('.jcarousel-control-prev, .jcarousel-arrow-prev').on('jcarouselcontrol:active', function () {
+			$(this).removeClass('inactive');
+			if (isFullWidth) {
+				carouselWrapper.find('.jcarousel-control-left').removeClass('control--inactive');
+			}
         }).on('jcarouselcontrol:inactive', function () {
-            $(this).addClass('inactive');
+			$(this).addClass('inactive');
+			if (isFullWidth) {
+				carouselWrapper.find('.jcarousel-control-left').addClass('control--inactive');
+			}
         }).jcarouselControl(
     {
         target: (dataSwipe ? '-=' + dataSwipe : '-=' + _target)
@@ -814,10 +827,10 @@ docReady(function () {
     $(".jcarousel").swipe({ fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto" });
     function swipe1(event, direction, distance, duration, fingerCount) {
         if (direction == "left") {
-            $(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-next").click();
+            $(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-next, .jcarousel-arrow-next").click();
         }
         else if (direction == "right") {
-            $(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-prev").click();
+            $(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-prev, .jcarousel-arrow-prev").click();
         }
     }
     $(".jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
