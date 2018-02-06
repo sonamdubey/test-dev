@@ -1878,7 +1878,7 @@ docReady(function () {
                 if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
                 objSearches.searches.unshift(obj);
                 bwcache.set(recentSearches.searchKey, objSearches);
-                triggerGA(pageName, ' Recently_View_Search_Bar_Clicked', this.textContent);
+                triggerGA(pageName, 'Recently_View_Search_Bar_Clicked', this.textContent);
                 window.location.href = $(this).find('a').first().attr('data-href');
             }
 
