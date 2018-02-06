@@ -27,6 +27,8 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
         /// Description :   updates page mets status
         /// Modified by : Ashutosh Sharma on 04 Oct 2017
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="activecontract"></param>
@@ -40,7 +42,7 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
                 if (result)
                 {
                     if (modelId > 0)
-                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", modelId));
+                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", modelId));
 
                     MemCachedUtil.Remove("BW_MakeDetails_" + makeId);
 
