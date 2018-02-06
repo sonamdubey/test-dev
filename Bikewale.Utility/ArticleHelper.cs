@@ -26,46 +26,37 @@ namespace Bikewale.Utility
             while (index < content.Length)
             {
                 while (index < content.Length && !char.IsWhiteSpace(content[index]))
+                {
                     index++;
+                }
 
                 wordCount++;
 
                 while (index < content.Length && char.IsWhiteSpace(content[index]))
+                {
                     index++;
+                }
             }
 
             return wordCount;
         }
 
         /// <summary>
-        /// Created By : Deepak Israni
-        /// Description : To remove all HTML tags from text.
+        /// Created By : Deepak Israni on 5 Feb 2018
+        /// Description : To get the estimated reading time of an article
         /// </summary>
         /// <param name="content"></param>
         /// <returns></returns>
-        public static string RemoveHtml(string content)
-        {
-            content = Regex.Replace(content, @"<[^>]+>|&nbsp;", "").Trim();
-            content = Regex.Replace(content, @"\s{2,}", " ");
-
-            return content;
-        }
-
-        public static uint GetContentReadingTime(string content)
+        public static uint GetContentReadingTime(uint wordcount)
         {
             uint readingtime = 0;
-            if (content != null)
+
+            if (wordcount > 0)
             {
-                content = RemoveHtml(content);
-                uint wordcount = GetWordCount(content);
-                if (wordcount > 0)
-                {
-                    readingtime = (uint) Math.Ceiling(((double) wordcount) / ((double) _wordsperminute));
-                }
+                readingtime = (uint) Math.Ceiling(((double) wordcount) / ((double) _wordsperminute));
             }
             
             return readingtime;
-            
         }
     }
 }

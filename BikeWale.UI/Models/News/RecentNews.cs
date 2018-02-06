@@ -136,7 +136,7 @@ namespace Bikewale.Models
                 {
                     recentNews.FetchedCount = recentNews.ArticlesList.Count();
                     foreach (ArticleSummary article in recentNews.ArticlesList) {
-                        article.EstimatedReadingTime = SetEstimatedReadTime((uint)article.BasicId);
+                        article.EstimatedReadingTime = ArticleHelper.GetContentReadingTime(article.ArticleWordCount);
                     }
                 }
 
@@ -149,16 +149,6 @@ namespace Bikewale.Models
             return recentNews;
         }
 
-        /// <summary>
-        /// Created By : Deepak Israni on 5 Feb 2018
-        /// Summary : To set the estimated read time on every article in article list.
-        /// </summary>
-        public uint SetEstimatedReadTime(uint basicID)
-        {
-            String content = _articles.GetNewsDetails(basicID).Content;
-            uint estimatedreadingtime = ArticleHelper.GetContentReadingTime(content);
-            return estimatedreadingtime;
-        }
         #endregion
     }
 }
