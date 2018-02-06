@@ -31,10 +31,13 @@ INDEX_NAME = "11bwsrckeywordsv1"	#Local
 ELASTIC_SEARCH_IP = '172.16.0.11'	#Local
 ELASTIC_SEARCH_PORT = 9201			#Local
 #BW_HOSTURL = "https://www.bikewale.com"	#Live
-#BW_HOSTURL = "https://staging.bikewale.com"	#Staging
-BW_HOSTURL = "http://webserver:9011"	#Local
+#BW_HOSTURL = "https://staging.bikewale.com:10007"	#Staging
+BW_HOSTURL = "http://localhost:9011"	#Local
 key_file_location = 'GoogleKey.p12' # + '/GoogleDFPProductionKey.p12'
 DOC_TYPE = 'bikelist'
+BWOPR_HOSTURL = "http://localhost:9010" # Local
+#BWOPR_HOSTURL = "http://bwoprst.bikewale.com" # Staging
+#BWOPR_HOSTURL = "https://opr.bikewale.com" # Production
 
 def get_Logger(loggerName,fileName): 
 	logger = logging.getLogger(loggerName)
@@ -69,6 +72,12 @@ def get_service(api_name, api_version, scope, key_file_location,
 
 def getMakeModels(URL):
 	response = requests.get(URL)
+	data_json = response.text
+	data = json.loads(data_json)
+	return data
+
+def saveModelsPageviews(URL, data):
+	response = requests.post(url = URL, data = data)
 	data_json = response.text
 	data = json.loads(data_json)
 	return data
@@ -129,7 +138,7 @@ def main():
 
 	# Get make and model URLS
 	makeModelUrl = BW_HOSTURL + "/api/model/all/new/"
-	makeModelUrlUpcoming = BW_HOSTURL + "/api/model/all/upcoming"
+	makeModelUrlUpcoming = BW_HOSTURL + "/api/model/all/upcoming/"
 	
 	MakeModels = getMakeModels(makeModelUrl) + getMakeModels(makeModelUrlUpcoming)
 
@@ -140,6 +149,7 @@ def main():
 	Makes =[]
 	MakeId =[]
 	roundrobinflag = 0
+	modelPageViews = "" # Variable to store model pageviews
 	for makeModel in MakeModels:
 		
 		# Create page URL 
@@ -157,6 +167,9 @@ def main():
 		
 		# compute total 
 		data = int(desktopData['ga:pageviews']) + int(mobileData['ga:pageviews'])
+
+		# Save pageviews with respective model id in a string which will pass on to api to save in database
+		modelPageViews = modelPageViews + str(makeModel['ModelBase']['modelId']) + ":" + str(data) + ","
 		
 		# Fetch from ES
 		Id = str(makeModel['MakeBase']['makeId']) +"_" + str(makeModel['ModelBase']['modelId'])
@@ -246,9 +259,6 @@ def main():
 
 			# Update the document from the script itself
 
-
-
-
 			# Push it into Queue
 			#fields = {}
 			#fields['content'] = 'json'
@@ -259,6 +269,19 @@ def main():
 			logger.info("Processed  ID " + Id)
 		except:
 			logger.error(Id + "Document Not Found in Index")
+
+	# Modified By : Ashish Kamble on 1 Feb 2018	
+	modelPageViews = modelPageViews[:-1] # Remove trailing comma
+
+	# Send to model page views to api which will save data to database
+	# print modelPageViews
+	logger.info("modelPageViews updation started")
+	
+	modelsPageviewsURL = BWOPR_HOSTURL + "/api/models/pageviews/"	
+	saveModelsPageviews(modelsPageviewsURL, modelPageViews)	
+	#print modelPageViews
+	
+	logger.info("modelPageViews updation finished")
 
 	logger.info("Completed at " + str(datetime.date.today()))
 	# print doc1
