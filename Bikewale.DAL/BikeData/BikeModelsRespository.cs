@@ -395,7 +395,7 @@ namespace Bikewale.DAL.BikeData
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
                                 t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
                                 t.ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"]);
-                                t.NewsCount = Convert.ToUInt32(dr["NewsCount"]);
+                                t.NewsCount = SqlReaderConvertor.ToUInt32(dr["NewsCount"]);
                             }
 
                             if (dr.NextResult())
