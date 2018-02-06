@@ -170,9 +170,11 @@
     <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakePageEntity.cs" />
     <Compile Include="BikeData\BikeModelColorImage.cs" />
+    <Compile Include="BikeData\BikeModelColorImageEntity.cs" />
     <Compile Include="BikeData\BikeModelContent.cs" />
     <Compile Include="BikeData\BikeModelEntity.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
+    <Compile Include="BikeData\BikeModelImageEntityBase.cs" />
     <Compile Include="BikeData\BikeModelPageEntity.cs" />
     <Compile Include="BikeData\BikeModelsListEntity.cs" />
     <Compile Include="BikeData\BikeModelVersionsDetails.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="BikeData\MakeSubFooterEntity.cs" />
     <Compile Include="BikeData\MileageInfoByBodyStyle.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
+    <Compile Include="BikeData\ModelIdWithBodyStyle.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
     <Compile Include="BikeData\MostPopularBikesBase.cs" />
     <Compile Include="BikeData\NewBikeEntityBase.cs" />

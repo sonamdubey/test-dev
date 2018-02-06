@@ -6,6 +6,8 @@ namespace Bikewale.Models
     /// Summary : Class have properties related to ad tags
     /// Modified By : Rajan Chauhan on 18 Jan 2018
     /// Description : Added Ad_Model_Bottom_970x90 and Ad_Model_Comparo_976x400 fields
+    /// Modified By : Pratibha Verma on 30th Jan 2018
+    /// Description : Added Ad_320x50BTF field
     /// Modified by : Snehal Dange on 16th Jan 2017
     /// Description: Added ad tags for make page 
     /// </summary>
@@ -51,6 +53,7 @@ namespace Bikewale.Models
         #region Ad sizes for mobile site
         public bool Ad_300x250 { get; set; }
         public bool Ad_300x250BTF { get; set; }
+        public bool Ad_320x50BTF { get; set; }
 
         public bool Ad_Mid_320x50 { get; set; }
         public bool Ad_320x50 { get; set; }

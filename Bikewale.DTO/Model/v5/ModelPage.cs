@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.DTO.Model.v5
 {
+    /// <summary>
+    /// Modified By : Rajan Chauhan on 22 Jan 2017
+    /// Description : changed ModelColors from NewModelColorWithPhoto to ModelColorPhoto
+    /// </summary>
     public class ModelPage
     {
         [JsonProperty("makeId")]
@@ -51,7 +55,7 @@ namespace Bikewale.DTO.Model.v5
         public IEnumerable<VersionDetail> ModelVersions { get; set; }
 
         [JsonProperty("modelColors", NullValueHandling = NullValueHandling.Ignore)]
-        public IEnumerable<NewModelColorWithPhoto> ModelColors { get; set; }
+        public IEnumerable<ModelColorPhoto> ModelColors { get; set; }
 
         [JsonProperty("capacity")]
         public string Capacity { get; set; }

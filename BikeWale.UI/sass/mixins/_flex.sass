@@ -1,4 +1,9 @@
-﻿$gulp-sass-temporary-variable: 0
+@mixin flexbox
+	display: -webkit-box // OLD - iOS 6-, Safari 3.1-6
+	display: -moz-box // OLD - Firefox 19- (buggy but mostly works)
+	display: -ms-flexbox // TWEENER - IE 10
+	display: -webkit-flex // NEW - Chrome
+	display: flex // NEW, Spec - Opera 12.1, Firefox 20+
 
 /*
  * https: //developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Advanced_layouts_with_flexbox
@@ -8,12 +13,6 @@
  * Flexbox Containers
  * The 'flex' value causes an element to generate a block-level flex container box.
  */
-@mixin flexbox
-	display: -webkit-box // OLD - iOS 6-, Safari 3.1-6
-	display: -moz-box // OLD - Firefox 19- (buggy but mostly works)
-	display: -ms-flexbox // TWEENER - IE 10
-	display: -webkit-flex // NEW - Chrome
-	display: flex // NEW, Spec - Opera 12.1, Firefox 20+
 
 /*
  * Flexbox Wrap

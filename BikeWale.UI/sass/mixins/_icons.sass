@@ -75,26 +75,45 @@ $star-icon-map: (1: 'https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1
 
 @mixin send-to-phone
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/0288d1/send-to-mobile.svg') no-repeat
+// body style type
+@mixin scooter-style-line
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/scooter-line.png') no-repeat center
+	background-size: contain
 
+@mixin scooter-style-filled
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/scooter-filled.png') no-repeat center
+	background-size: contain
+
+@mixin street-style-line
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/street-line.png') no-repeat center
+	background-size: contain
+
+@mixin street-style-filled
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/street-filled.png') no-repeat center
+	background-size: contain
+
+@mixin cruiser-style-line
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/cruiser-line.png') no-repeat center
+	background-size: contain
 @mixin like-icon
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/82888b/like.svg') no-repeat
 
-/* like icon */
-@mixin like-82888b-icon
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/82888b/like.svg') no-repeat
 
-@mixin like-acacac-icon
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/acacac/like.svg?19Jan2016') no-repeat
+@mixin cruiser-style-filled
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/cruiser-filled.png') no-repeat center
+	background-size: contain
 
-/* dislike icon */
-@mixin dislike-82888b-icon
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/82888b/dislike.svg') no-repeat
+@mixin sports-style-line
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/sports-line.png') no-repeat center
+	background-size: contain
 
-@mixin dislike-acacac-icon
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/acacac/dislike.svg') no-repeat
+@mixin sports-style-filled
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/sports-filled.png') no-repeat center
+	background-size: contain
 
-@mixin bell-0288d1-icon
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/0288d1/bell.svg') no-repeat
+// search
+@mixin search-icon
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/6f6f6f/search.svg') no-repeat center
 
 @mixin image-icon
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/4d5057/image.svg') no-repeat center
@@ -152,3 +171,20 @@ $star-icon-map: (1: 'https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1
 
 @mixin dealer-locator-line-icon
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/line/dealer-locator.svg') no-repeat
+
+/* like icon */
+@mixin like-82888b-icon
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/82888b/like.svg') no-repeat
+
+@mixin like-acacac-icon
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/acacac/like.svg?19Jan2016') no-repeat
+
+/* dislike icon */
+@mixin dislike-82888b-icon
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/82888b/dislike.svg') no-repeat
+
+@mixin dislike-acacac-icon
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/acacac/dislike.svg') no-repeat
+
+@mixin bell-0288d1-icon
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/0288d1/bell.svg') no-repeat

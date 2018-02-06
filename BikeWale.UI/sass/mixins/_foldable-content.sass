@@ -1,0 +1,39 @@
+@mixin foldable-content($defaultHeight: 90)
+	.foldable-content
+		position: relative
+
+	.truncatable-content
+		font-size: 13px
+		position: relative 
+		max-height: $defaultHeight * 1px
+		color: color('slate-grey')
+		overflow: hidden
+
+		&:before
+			content: '...'
+			position: absolute
+			right: 0
+			bottom: 0
+			display: block
+			width: 100px
+			background-color: color('white')
+			padding-left: 3px
+
+		&:after
+			content: ''
+			position: absolute
+			right: 0
+			width: 100px
+			height: 14px
+			background-color: color('white')
+
+		&[data-readtextflag='0']
+			max-height: initial
+			
+		&[data-readtextflag='1']
+			max-height: $defaultHeight * 1px
+
+	.read-more-button
+		position: absolute
+		bottom: 0
+		right: 0

@@ -16,7 +16,7 @@
 .custSelect { background: none; -webkit-appearance: none; padding: 8px; width: 100%; }
 .newcars-banner-div { background: #161209 url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/m/insurance-banner.jpg) no-repeat center center; background-size: cover; height: 130px; }
 .accordion h3 .icon { position: absolute; right: 8px; top: 10px; width: 12px; height: 18px; text-align: center; color: #565a5c; }
-.accordion h3 .icon.edit-icon { background: url(../images/edit-icon.png) no-repeat right top; }
+.accordion h3 .icon.edit-icon { background: url(../image/edit-icon.png) no-repeat right top; }
 .accordion h3 .icon.plus-minus { display: block; }
 .accordion h3 .icon.plus-minus .fa-plus, .accordion h3 .icon.plus-minus .fa-minus { font-size: 10px; position: absolute; top: 50%; left: 0; right: 0; margin-top: -4px; }
 .stepStrip { color: #82888b; font-size: 15px; font-weight: 500; padding: 10px 30px 10px 4px; cursor: pointer; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; position: relative; }

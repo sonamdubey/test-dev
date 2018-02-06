@@ -101,7 +101,7 @@
                                                         @if (bike.AvgPrice > 0)
                                                         {
                                                             @*<span class="text--semibold">@Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) : Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice))))</span>*@
-                                                            
+
                                                             <span class="text--semibold">@Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))))</span>
                                                         }
                                                         else
@@ -141,12 +141,12 @@
                                             <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bikeName" alt="@bike.objModel.ModelName">
                                         </div>
                                         <div class="model-card__detail">
-                                            <span class="rating-badge" data-rate-bg="@Math.Round(Convert.ToDouble(bike.ModelRating))">
+                                            <span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
                                                 <span class="rating-badge__star"></span>
-                                                <span>@Math.Round(Convert.ToDouble(bike.ModelRating), 1)</span>
+                                                <span>@bike.ModelRating.ToString("0.0")</span>
                                             </span>
 
-                                            <h3 class="card-detail__name">@bike.objModel.ModelName</h3>
+                                            <h3 class="card-detail__name">@string.Format("{0} {1}",Model.MakeName ,bike.objModel.ModelName) </h3>
                                             <ul class="card-detail__specs-list">
                                                 @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
                                             </ul>
@@ -510,43 +510,26 @@
                     </div>
                 </section>
 
-                <section>
-                    <div class="bg-white user-review-section">
-                        <div class="carousel__title">
-                            <h2 class="carousel-title__label">User Reviews</h2>
-                            <a href="" class="view-all-btn">
-                                View all
-                            </a>
+                @if (Model.IsUserReviewsAvailable && Model.PopularBikesUserReviews != null)
+                {
+                    @*if (Model.IsExpertReviewsAvailable && Model.ExpertReviews != null)
+                        {
+                            <div class="padding-top20 border-solid-bottom margin-bottom20"></div>
+                        }*@
+                    <section>
+                        <div class="bg-white user-review-section">
+                            <div class="carousel__title">
+                                <h2 class="carousel-title__label">User Reviews</h2>
+                                <a href="" class="view-all-btn">
+                                    View all
+                                </a>
+                            </div>
+                            @Html.Partial("~/Views/UserReview/BikesWithReviewsByMake_Mobile_New.cshtml", Model.PopularBikesUserReviews)
                         </div>
-                        <div class="article-section__count">
-                            <span class="article-count__number">32</span>&nbsp;User Reviews for <span class="article-count__number">14</span>&nbsp;Models
-                        </div>
-                        <div class="swiper-container carousel__user-review" data-spacebetween="0">
-                            <ul class="swiper-wrapper">
-                                @for (var i = 0; i <= 5; i++)
-                                {
-                                    <li class="swiper-slide carousel-slide">
-                                        <div class="review-card carousel-card">
-                                            <a href="" title="" class="review-card__target-link">
-                                                <div class="review-card__image">
-                                                    <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                                </div>
-                                                <h3 class="review-card__title">
-                                                    TVS Apache RR 310
-                                                </h3>
-                                                <span class="review-card__read-more">
-                                                    40 Reviews
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </li>
-                                }
+                    </section>
 
+                }
 
-                            </ul>
-                        </div>
-                    </div>
-                </section>
             </div>
         </section>
 

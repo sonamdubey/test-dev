@@ -9,6 +9,7 @@ namespace Bikewale.Entities.AutoComplete
         AreaPinCodes = 4,
         UserReviews=5,
         PinCodeCapitalFirst=6,
-        NonUpcomingBikes = 7
+        NonUpcomingBikes = 7,
+        BikeImages = 8
     }
 }

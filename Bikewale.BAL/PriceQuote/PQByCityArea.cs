@@ -599,6 +599,14 @@ namespace Bikewale.BAL.PriceQuote
                 {
                     pqEntity.ManufacturerCampaign = _objManufacturerCampaign.GetCampaigns((uint)modelId, (uint)cityId, Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
 
+                    if ((cityId == null || cityId.Value == 0)
+                        && pqEntity.ManufacturerCampaign != null
+                        && pqEntity.ManufacturerCampaign.LeadCampaign != null
+                        && !pqEntity.ManufacturerCampaign.LeadCampaign.ShowOnExshowroom)
+                    {
+                        pqEntity.ManufacturerCampaign = null;
+                    }
+
                     if (pqEntity.PqId == 0 && cityId > 0)
                     {
                         PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();

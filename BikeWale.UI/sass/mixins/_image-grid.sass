@@ -18,6 +18,18 @@
 		background-color: #f9f9f9
 		border: 4px solid #{$backgroundColor}
 
+		img
+			&:before
+				content: ''
+				position: absolute
+				top: 0
+				left: 0
+				right: 0
+				width: 100%
+				height: 100%
+				display: block
+				background: #f9f9f9
+
 // image sizes
 // 100%
 @mixin image-size-100
@@ -185,3 +197,4 @@
 						width: 170%
 						top: 0
 						left: -40%
+

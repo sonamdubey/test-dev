@@ -280,6 +280,10 @@ var bwAutoComplete = function (options) {
                 ulItem.closest('li').addClass('event-none');
                 ulItem.append(' <span class="rightfloat margin-left10 font14 text-grey">Not reviewed yet</span>')
             }
+            if (options.source == '8') {
+                var suffixText = (parseInt(item.payload.photosCount) > 1) ? ' Photos' : ' Photo';
+                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.photosCount.toString() + suffixText + ')</span>')
+            }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {
                     if (item.payload.futuristic == 'True') {
@@ -939,23 +943,22 @@ docReady(function () {
     	}
 
     	currentSwiper.addClass('sw-' + index).swiper({
-            effect: 'slide',
-            speed: 300,
-            nextButton: $(this).find('.swiper-button-next'),
-            prevButton: $(this).find('.swiper-button-prev'),
-            pagination: $(this).find('.swiper-pagination'),
-            slidesPerView: 'auto',
-            paginationClickable: true,
-            spaceBetween: spaceBetweenValue,
-            preloadImages: false,
-            lazyLoading: true,
-            lazyLoadingInPrevNext: true,
-            watchSlidesProgress: true,
-            watchSlidesVisibility: true,
-            onSlideChangeStart: slideChangeStart,
-            onSlideChangeEnd: slideCount
-        });
-
+    		effect: 'slide',
+    		speed: 300,
+    		nextButton: currentSwiper.find('.swiper-button-next'),
+    		prevButton: currentSwiper.find('.swiper-button-prev'),
+    		pagination: currentSwiper.find('.swiper-pagination'),
+    		slidesPerView: 'auto',
+    		paginationClickable: true,
+    		spaceBetween: spaceBetweenValue,
+    		preloadImages: false,
+    		lazyLoading: true,
+    		lazyLoadingInPrevNext: true,
+    		watchSlidesProgress: true,
+    		watchSlidesVisibility: true,
+    		onSlideChangeStart: slideChangeStart,
+    		onSlideChangeEnd: slideCount
+    	});
     });
 
     //Load the visible images
@@ -1753,7 +1756,7 @@ docReady(function () {
         if ($('#nav').is(':visible')) {
             navDrawer.close();
         }
-        if ($('#leadCapturePopup').is(':visible')) {
+        if ($('#leadCapturePopup').is(':visible') && window.history.state !== "leadCapture") {
             $('#leadCapturePopup').find('.leadCapture-close-btn').trigger('click');
         }
     });

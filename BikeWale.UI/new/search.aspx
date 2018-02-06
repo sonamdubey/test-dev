@@ -315,7 +315,7 @@
                             <div class="clear"></div>
                             <div style="text-align: center;">
                                 <div id="NoBikeResults" class="hide">
-                                    <img src="/images/no_result_d.png" />
+                                    <img src="/image/no_result_d.png" />
                                 </div>
                                 <div id="loading" class="hide">
                                     <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />

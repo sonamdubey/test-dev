@@ -1977,6 +1977,8 @@ namespace Bikewale.DAL.UserReviews
         /// <summary>
         /// Created By:Snehal Dange on 17th Nov 2017
         /// Description: Get most helpful and recent reviews of popular models by make
+        /// Modified by : Snehal Dange on 5th Feb 2017
+        /// Description : Modified sp from 'getreviewsofpopularbikesbymake' to 'getreviewsofpopularbikesbymake_05022018'. Added modelcout with reviews and total make reviews.
         /// </summary>
         /// <param name="makeId"></param>
         public IEnumerable<BikesWithReviewByMake> GetBikesWithReviewsByMake(uint makeId)
@@ -1989,7 +1991,7 @@ namespace Bikewale.DAL.UserReviews
                     objBikesWithUserReviews = new List<BikesWithReviewByMake>();
                     IList<PopularBikesWithUserReviews> objPopularModels = null;
 
-                    using (DbCommand cmd = DbFactory.GetDBCommand("getreviewsofpopularbikesbymake"))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getreviewsofpopularbikesbymake_05022018"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
@@ -2078,11 +2080,21 @@ namespace Bikewale.DAL.UserReviews
 
                                         }
                                     }
+                                    if (dr.NextResult())
+                                    {
+                                        while (dr.Read())
+                                        {
+                                            if (objBikesWithUserReviews.Any())
+                                            {
+                                                objBikesWithUserReviews.FirstOrDefault().MakeReviewCount = SqlReaderConvertor.ToUInt32(dr["makereviewcount"]);
+                                                objBikesWithUserReviews.FirstOrDefault().ModelCountWithUserReviews = SqlReaderConvertor.ToUInt32(dr["modelcountwithreviews"]);
+                                            }
+
+                                        }
+                                    }
                                     dr.Close();
                                 }
                             }
-
-
                         }
                     }
                 }

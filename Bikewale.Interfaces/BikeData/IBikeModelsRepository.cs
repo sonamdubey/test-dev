@@ -52,7 +52,9 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added 'GetMostPopularBikesByMakeWithCityPrice' to get most popular bikes by make wity city price if city is selected.
     /// Modified By:Snehal Dange on 03 Nov 2017
     /// Description: Added GetMileageForModel to get mileage information on model page
-
+    /// 
+    /// Modified by :   Sumit Kate on 15 Jan 2018
+    /// Description :   Added new method to fetch model image + color photos by model ids
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -126,6 +128,8 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotosInCity(U modelId, ushort totalRecords, uint cityId);
         BikeMileageEntity GetMileageForModel();
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
+        IEnumerable<ModelIdWithBodyStyle> GetModelIdsForImages();
+        ICollection<Entities.BikeData.BikeModelColorImageEntity> GetModelImages(string modelIds);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters ObjData);
     }

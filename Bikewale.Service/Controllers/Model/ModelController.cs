@@ -279,6 +279,8 @@ namespace Bikewale.Service.Controllers.Model
         /// <summary>
         /// Created by : Vivek Singh Tomar on 5th Oct 2017
         /// Summary : Get color photos for modelid
+        /// Modified by : Rajan Chauhan on 23 Jan 2017
+        /// Description : Added filter for no color image
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -298,6 +300,10 @@ namespace Bikewale.Service.Controllers.Model
                     if (platformId != null && platformId.ToString().Equals("3"))
                     {
                         IEnumerable<ModelColorImage> objAllPhotosEntity = _modelsContent.GetModelColorPhotos(modelId);
+                        if (objAllPhotosEntity != null)
+                        {
+                            objAllPhotosEntity = objAllPhotosEntity.Where(modelColorPhoto => modelColorPhoto.IsImageExists == true);
+                        }
                         objAllPhotos = ModelMapper.Convert(objAllPhotosEntity);
                         return Ok(objAllPhotos);
                     }
