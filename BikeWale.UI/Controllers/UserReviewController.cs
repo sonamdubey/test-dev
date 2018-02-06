@@ -393,7 +393,7 @@ namespace Bikewale.Controllers
                 objReviewData.CustomerId = decodedCustomerId;
 
                 objReviewData.fromParamterRatingPage = fromParametersRatingScreen;
-                
+
                 objResponse = _userReviews.SaveUserReviews(objReviewData);
 
                 if (objResponse != null)
