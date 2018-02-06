@@ -23,7 +23,7 @@ class GlobalSearchList extends React.Component {
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Trending_Searches_Search_Bar_Clicked', 'lab': item.payload.name });
         else if(value === 3)
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'AutoExpo_2018_Link Clicked', 'lab': 'Trending_Searches_Search_Bar_Clicked' });
-        MakeModelRedirection("",item.payload); 
+        MakeModelRedirection(item); 
     }
     renderListItem(item, index, value) {
         var rightItem = null;
@@ -49,7 +49,7 @@ class GlobalSearchList extends React.Component {
             }
                 
         }
-        if(item.payload.modelId === "0" && item.payload.makeId === "0") {
+        if(item.payload.modelId === 0 && item.payload.makeId === 0) {
             return (
                 <li data-makeid={item.payload.makeId} data-modelid={item.payload.modelId} className="autocomplete-menu--item" onClick={function(){this.onSelect(item, 3)}.bind(this)}>
                     {icon}

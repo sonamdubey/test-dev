@@ -32,11 +32,17 @@ class GlobalSearchPopup extends React.Component {
 		this.onChange = this.onChange.bind(this);
 		this.onSelect = this.onSelect.bind(this);
 		this.focusInput = this.focusInput.bind(this);
+		this.afterTrending = this.afterTrending.bind(this);
+	}
+	componentWillMount() {
+	    try{
+	        this.resetListOnEmptyInput();
+	    }
+        catch(err){}
 	}
 	componentDidMount() {
 		try{
-			this.focusInput();
-			
+		    this.focusInput();
 		}catch(err){}
 	}
 	focusInput() {
@@ -96,12 +102,12 @@ class GlobalSearchPopup extends React.Component {
             });
             this.setState({ recentSearchesLoaded: true, value: ""});
 	    }
-	    var trendingSearchList = recentSearches.getTrendingSearches();
+	    var trendingSearchList = recentSearches.getTrendingSearches(this.afterTrending);
 	    if(trendingSearchList !=null) {
 	        trendingSearchList = trendingSearchList.filter((item) => { return (item != null && typeof item != "undefined")}).map(function (item) {
-                return { label: item.BikeName, payload: {'expertReviewsCount':"0", 'modelId': item.objModel.modelId, 'modelMaskingName': item.objModel.maskingName, 'makeId': item.objMake.makeId, 'makeMaskingName' : item.objMake.maskingName, 'isNew' : "True", 'name' : item.BikeName} }
+                return { label: item.BikeName, payload: {'expertReviewsCount':0, 'modelId': item.objModel.modelId, 'modelMaskingName': item.objModel.maskingName, 'makeId': item.objMake.makeId, 'makeMaskingName' : item.objMake.maskingName, 'isNew' : "True", 'name' : item.BikeName} }
 	        });
-	        trendingSearchList.unshift({ label: "Auto Expo 2018", payload: {'expertReviewsCount':"0", 'modelId': "0", 'modelMaskingName': "", 'makeId': "0", 'makeMaskingName' : "", 'isNew' : "False", 'name' : "Auto Expo 2018", "href" : "autoexpo2018"} })
+	        trendingSearchList.unshift({ label: "Auto Expo 2018", payload: {'expertReviewsCount':0, 'modelId': 0, 'modelMaskingName': "", 'makeId': 0, 'makeMaskingName' : "", 'isNew' : "False", 'name' : "Auto Expo 2018", "href" : "autoexpo2018"} })
 	    }
 	    if(recentSearchList === null || recentSearchList.length === 0) {
 	        recentSearchList = [];
@@ -119,7 +125,7 @@ class GlobalSearchPopup extends React.Component {
 		}
 		else {
             this.setState({
-                status: globalSearchStatus.RESET, value: "0"
+                status: globalSearchStatus.RESET, value: ""
 			});
 			
 		}
@@ -148,7 +154,7 @@ class GlobalSearchPopup extends React.Component {
       		value : state.label,
 			strippedValue : getStrippedTerm(state.label)
 		})
-        MakeModelRedirection(this.state.value,state); 
+        MakeModelRedirection(state); 
 	}
 
 	afterfetch(result,searchtext) {
@@ -168,6 +174,11 @@ class GlobalSearchPopup extends React.Component {
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Not_Present_in_Autosuggest', 'lab': keywrd });
         }
 	}
+
+	afterTrending() {
+	    this.resetListOnEmptyInput();
+	}
+
 	checkOnRoadLinkClick (item,event) {
 		event.preventDefault();
 		setDataForPriceQuotePopup(event,item);

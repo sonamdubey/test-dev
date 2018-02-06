@@ -189,7 +189,7 @@ var recentSearches =
             objSearches.searches.unshift(opt.payload);
 
             objSearches["lastModified"] = new Date().getTime();
-            if (objSearches.searches.length > 5)
+            if (objSearches.searches.length > 3)
                 objSearches.searches.pop();
             objSearches["noOfSearches"] = objSearches.searches.length;
             bwcache.set(this.searchKey, objSearches);
@@ -227,6 +227,7 @@ var recentSearches =
                         if (response != null) {
                             trendingSearches = response;
                             localStorage.setItem("bwc_trendingbikes", JSON.stringify(trendingSearches));
+                            showTrendingSearchList()
                         }
                     }
                 }
@@ -486,48 +487,27 @@ function gtmCodeAppender(pageId, action, label) {
 
 }
 
-function MakeModelRedirection(searchText , item ) {
-	if(searchText == undefined || searchText == null || searchText.trim() == '') {
-		if (!IsPriceQuoteLinkClicked) {
-
-                var objSearches = bwcache.get(recentSearches.searchKey) || {}, 
-                	mkId = item.makeId, 
-                	moId = item.modelId,
-                    eleIndex = recentSearches.objectIndexOf(objSearches.searches, { makeId: mkId, modelId: moId }),
-                    obj = objSearches.searches[eleIndex];
-                if (objSearches.searches != null && eleIndex > -1)
-                {
-                    objSearches.searches.splice(eleIndex, 1);
-                    objSearches.searches.unshift(obj);
-                    bwcache.set(recentSearches.searchKey, objSearches);
-                }
-                closeGlobalSearchPopUp();
-                window.location.href = '/m/'+item.makeMaskingName+'-bikes/'+item.modelMaskingName;
+function MakeModelRedirection(item ) {
+    if (!IsPriceQuoteLinkClicked) {
+        if(item.payload != null) {
+            var make = new Object();
+            make.maskingName = item.payload.makeMaskingName;
+            make.id = item.payload.makeId;
+            var model = null;
+            if (item.payload.modelId > 0) {
+                model = new Object();
+                model.maskingName = item.payload.modelMaskingName;
             }
-	}
-	else {
-		if (!IsPriceQuoteLinkClicked) { 
-	    	var make = new Object();
-	        make.maskingName = item.payload.makeMaskingName;
-	        make.id = item.payload.makeId;
-	        var model = null;
-	        if (item.payload.modelId > 0) {
-	            model = new Object();
-	            model.maskingName = item.payload.modelMaskingName;
-	            model.id = item.payload.modelId;
-	            model.futuristic = item.payload.futuristic;
-	        }
-
-	        recentSearches.saveRecentSearches(item);
+            recentSearches.saveRecentSearches(item);
             closeGlobalSearchPopUp();
-	        if (model != null && model != undefined) {
-	            window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
-	            return true;
-	        } else if (make != null && make != undefined) {
-	            window.location.href = "/m/" + make.maskingName + "-bikes/";
-	            return true;
-	        }
-	    }	
+            if (model != null && model != undefined) {
+                window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+                return true;
+            } else if (make != null && make != undefined) {
+                window.location.href = "/m/" + make.maskingName + "-bikes/";
+                return true;
+            }
+        }
 	}
     if(IsPriceQuoteLinkClicked) {
         IsPriceQuoteLinkClicked = false;
