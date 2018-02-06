@@ -10,7 +10,7 @@
 
 <section id="overallContainer">
     <div class="container section-bottom-margin">
-        <h1 class="page__heading">Royal Enfield Bikes</h1>
+        <h1 class="page__heading">@Model.MakeName Bikes</h1>
 
         <div class="overall-tabs__placeholder">
             <div class="overall-tabs__content">
@@ -47,14 +47,15 @@
                 <div class="swiper-container carousel__newly-lauched" data-spacebetween="0">
                     <ul class="swiper-wrapper">
                         @for (var i = 0; i < Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays.Models.Count(); i++)
-                            {
-                                var bike = Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays.Models.ElementAt(i);
+                        {
+                            var bike = Model.NewLaunchedMakeWidgetNDays.NewLaunchedMakeBikesNDays.Models.ElementAt(i);
+                            var bikeUrl = UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.MaskingName);
 
                                 <li class="swiper-slide carousel-slide model-list__item">
                                 <div class="model__card">
-                                    <a href="" title="" class="model-card__target">
+                                    <a href="@bikeUrl" title="" class="model-card__target">
                                         <div class="model-card__image">
-                                            <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
+                                            <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bike.ModelName" alt="@bike.ModelName">
                                         </div>
                                         <div class="model-card__detail">
                                             <h3 class="card-detail__name">@bike.ModelName</h3>
@@ -87,10 +88,12 @@
                                     <div class="model-card__exshowroom-content">
                                         <div class="model-card__exshowroom">
                                             <div class="card-exshowroom__col">
-                                                <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-                                                <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></span>
+                                                <p class="card-exshowroom__label">Ex-showroom, @(Model.City.CityId == 0 ? BWConfiguration.Instance.DefaultName : Model.City.City)</p>
+
+                                                <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">@Format.FormatPrice(Convert.ToString(bike.MinPrice))</span></span>
                                             </div>
-                                            <a href="" title="" class="model-card__explore">
+             
+                                            <a href="@bikeUrl" title="@bike.ModelName" class="model-card__explore">
                                                 Explore
                                             </a>
                                         </div>
