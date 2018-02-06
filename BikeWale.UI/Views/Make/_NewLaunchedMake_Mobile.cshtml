@@ -12,7 +12,7 @@
                         @for (var i = 0; i < Model.NewLaunchedMakeBikesNDays.Models.Count(); i++)
                         {
                             var bike = Model.NewLaunchedMakeBikesNDays.Models.ElementAt(i);
-                            var bikeUrl = string.Format("m/{0}", UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.MaskingName));
+                            var bikeUrl = UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.MaskingName);
 
                             <li class="swiper-slide carousel-slide model-list__item">
                                 <div class="model__card">
