@@ -14,6 +14,17 @@ var bikeRating = {
 var ratingQuestion = [];
 var ratingError = false, questionError = false, userNameError = false, emailError = false;
 var reviewFlag = false;
+
+function removeMaliciousCode(text) {
+    if (!text)
+        return text;
+    var regex = /<script[^>]*>[\s\S]*?<\/script\s*>/gi;
+    while (regex.test(text)) {
+        text = text.replace(regex, "");
+    }
+    return text;
+}
+
 docReady(function () {
     
     bwcache.setScope('ReviewPage');
@@ -496,8 +507,8 @@ docReady(function () {
 
         self.validate = {
             detailedReview: function () {
+                self.detailedReview(removeMaliciousCode(self.detailedReview().trim()));
                 if (self.descLength() < 300) {
-                    self.detailedReview(self.detailedReview().trim());
                     self.detailedReviewFlag(true);
                     self.detailedReviewError('Your review should contain at least 300 characters.');
                     self.focusFormActive(true);

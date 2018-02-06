@@ -360,7 +360,6 @@ namespace Bikewale.BAL.UserReviews
 
                     objResponse = new WriteReviewPageSubmitResponse();
 
-                    //The request is through Write Review Page
                     string jsRemovedReview = StringHtmlHelpers.removeMaliciousCode(objReviewData.ReviewDescription);
                     string trimmedReview = null;
                     if (jsRemovedReview != null)
@@ -371,17 +370,15 @@ namespace Bikewale.BAL.UserReviews
                         //Invalid Review_Description
                         objResponse.IsSuccess = false;
                         objResponse.ReviewErrorText = "Your review should contain at least 300 characters.";
-                        return objResponse;
                     }
-                    objReviewData.ReviewDescription = jsRemovedReview;
+
+                    objReviewData.ReviewDescription = trimmedReview;
 
                     objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
 
+
                     if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
                         UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
-
-
-
                 }
             }
             catch (Exception ex)
@@ -390,6 +387,7 @@ namespace Bikewale.BAL.UserReviews
             }
             return objResponse;
         }
+
 
         /// <summary>
         /// Created by  :   Sumit Kate on 26 Apr 2017
