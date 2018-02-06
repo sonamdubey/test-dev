@@ -344,6 +344,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Changed Sp from 'getmodeldetails_new_30082017' to 'getmodeldetails_new_12102017' added IsScooterOnly flag
         /// Modified by : Ashutosh Sharma on 23 Oct 2017 
         /// Description : Changed SP from 'getmodeldetails_new_12102017' to 'getmodeldetails_new_23102017'
+        /// Modified by : Rajan Chauhan on 06 Feb 2018 
+        /// Description : Changed SP from 'getmodeldetails_new_23102017' to 'getmodeldetails_new_06022018' added Field NewsCount
         /// </summary>
         /// <param name="id">Model Id should be a positive number.</param>
         /// <returns>Returns object containing the particular model's all details.</returns>
@@ -352,7 +354,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_20112017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_06022018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -393,6 +395,7 @@ namespace Bikewale.DAL.BikeData
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
                                 t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
                                 t.ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"]);
+                                t.NewsCount = Convert.ToUInt32(dr["NewsCount"]);
                             }
 
                             if (dr.NextResult())

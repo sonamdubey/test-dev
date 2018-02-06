@@ -9,5 +9,8 @@ namespace Bikewale.DTO.Model.v5
 
         [JsonProperty("expertReviewCount")]
         public uint ExpertReviewCount { get; set; }
+
+        [JsonProperty("ratingCount")]
+        public uint RatingCount { get; set; }
     }
 }

@@ -79,6 +79,8 @@ namespace BikeWaleOpr.Content
         /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -108,7 +110,7 @@ namespace BikeWaleOpr.Content
 
             //Refresh memcache object for ModelDescription change for desktop site
             MemCachedUtility.Remove(string.Format("BW_ModelDetails_{0}", Request.QueryString["model"]));
-            MemCachedUtility.Remove(string.Format("BW_ModelDetail_V1_{0}", Request.QueryString["model"]));
+            MemCachedUtility.Remove(string.Format("BW_ModelDetail_{0}", Request.QueryString["model"]));
         }
 
         void FillRatings(DropDownList drpName)
