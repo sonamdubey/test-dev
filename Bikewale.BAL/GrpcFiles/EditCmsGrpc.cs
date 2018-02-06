@@ -4,1473 +4,1651 @@
 
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Grpc.Core;
 
-namespace EditCMSWindowsService.Messages
-{
-    public static partial class EditCMSGrpcService
+namespace EditCMSWindowsService.Messages {
+  public static partial class EditCMSGrpcService
+  {
+    static readonly string __ServiceName = "EditCMSWindowsService.EditCMSGrpcService";
+
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI> __Marshaller_GrpcArticleRecentURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleRecentURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Marshaller_GrpcArticleSummaryList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleSummaryList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleByCatURI> __Marshaller_GrpcArticleByCatURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleByCatURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCMSContent> __Marshaller_GrpcCMSContent = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCMSContent.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleContentURI> __Marshaller_GrpcArticleContentURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleContentURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleDetails> __Marshaller_GrpcArticleDetails = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleDetails.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticlePageDetails> __Marshaller_GrpcArticlePageDetails = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticlePageDetails.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcModelPhotoURI> __Marshaller_GrpcModelPhotoURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcModelPhotoURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcModelImageList> __Marshaller_GrpcModelImageList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcModelImageList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI> __Marshaller_GrpcVideosBySubCategoryURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosList> __Marshaller_GrpcVideosList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI> __Marshaller_GrpcVideosBySubCategoriesURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideoListEntity> __Marshaller_GrpcVideoListEntity = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideoListEntity.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI> __Marshaller_GrpcVideosByIdURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosByIdURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideo> __Marshaller_GrpcVideo = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideo.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcInt> __Marshaller_GrpcInt = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcInt.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.EditCMSCategory> __Marshaller_EditCMSCategory = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.EditCMSCategory.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcBool> __Marshaller_GrpcBool = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcBool.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID> __Marshaller_GrpcMakeModelApplicationID = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> __Marshaller_GrpcCMSSubCategoryList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcSmallInt> __Marshaller_GrpcSmallInt = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcSmallInt.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GetRelatedContentURI> __Marshaller_GetRelatedContentURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GetRelatedContentURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> __Marshaller_GrpcRelatedArticlesList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI> __Marshaller_GrpcRelatedArticlesURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.RelatedModelVideosURI> __Marshaller_RelatedModelVideosURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.RelatedModelVideosURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> __Marshaller_GrpcVideosEntityList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosEntityList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GetSponsoredArticleURI> __Marshaller_GetSponsoredArticleURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GetSponsoredArticleURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleSummary> __Marshaller_GrpcArticleSummary = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleSummary.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData> __Marshaller_GrpcPopularModelPhotosData = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData> __Marshaller_GrpcPopularModelVideoData = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI> __Marshaller_GrpcArticleBySubCatURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcAuthorList> __Marshaller_GrpcAuthorList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcAuthorList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcAuthor> __Marshaller_GrpcAuthor = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcAuthor.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI> __Marshaller_GrpcContentByAuthorURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcAuthorContentList> __Marshaller_GrpcAuthorContentList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcAuthorContentList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcContentFeedURI> __Marshaller_GrpcContentFeedURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcContentFeedURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> __Marshaller_GrpcContentFeedSummaryList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI> __Marshaller_GrpcCarSynopsisURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCarSynopsis> __Marshaller_GrpcCarSynopsis = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCarSynopsis.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcModelDetailURI> __Marshaller_GrpcModelDetailURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcModelDetailURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> __Marshaller_GrpcMakeAndModelDetailList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcMakeDetailURI> __Marshaller_GrpcMakeDetailURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcMakeDetailURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcRoadTestURI> __Marshaller_GrpcRoadTestURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcRoadTestURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI> __Marshaller_GrpcRelatedPhotoURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCMSImage> __Marshaller_GrpcCMSImage = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCMSImage.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI> __Marshaller_GrpcModelListPhotoURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcModelsImageList> __Marshaller_GrpcModelsImageList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcModelsImageList.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryListing> __Marshaller_GrpcAutoExpoGalleryListing = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryListing.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryURI> __Marshaller_GrpcAutoExpoGalleryURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryURI.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryDetails> __Marshaller_GrpcAutoExpoGalleryDetails = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryDetails.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcAutoExpoNewsURI> __Marshaller_GrpcAutoExpoNewsURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcAutoExpoNewsURI.Parser.ParseFrom);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetMostRecentArticles = new Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetMostRecentArticles",
+        __Marshaller_GrpcArticleRecentURI,
+        __Marshaller_GrpcArticleSummaryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleByCatURI, global::EditCMSWindowsService.Messages.GrpcCMSContent> __Method_GetContentListByCategory = new Method<global::EditCMSWindowsService.Messages.GrpcArticleByCatURI, global::EditCMSWindowsService.Messages.GrpcCMSContent>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetContentListByCategory",
+        __Marshaller_GrpcArticleByCatURI,
+        __Marshaller_GrpcCMSContent);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticleDetails> __Method_GetContentDetails = new Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticleDetails>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetContentDetails",
+        __Marshaller_GrpcArticleContentURI,
+        __Marshaller_GrpcArticleDetails);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticlePageDetails> __Method_GetContentPages = new Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticlePageDetails>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetContentPages",
+        __Marshaller_GrpcArticleContentURI,
+        __Marshaller_GrpcArticlePageDetails);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcModelPhotoURI, global::EditCMSWindowsService.Messages.GrpcModelImageList> __Method_GetModelPhotosList = new Method<global::EditCMSWindowsService.Messages.GrpcModelPhotoURI, global::EditCMSWindowsService.Messages.GrpcModelImageList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetModelPhotosList",
+        __Marshaller_GrpcModelPhotoURI,
+        __Marshaller_GrpcModelImageList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcModelImageList> __Method_GetArticlePhotos = new Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcModelImageList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetArticlePhotos",
+        __Marshaller_GrpcArticleContentURI,
+        __Marshaller_GrpcModelImageList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetVideosBySubCategory = new Method<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI, global::EditCMSWindowsService.Messages.GrpcVideosList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetVideosBySubCategory",
+        __Marshaller_GrpcVideosBySubCategoryURI,
+        __Marshaller_GrpcVideosList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI, global::EditCMSWindowsService.Messages.GrpcVideoListEntity> __Method_GetVideosBySubCategories = new Method<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI, global::EditCMSWindowsService.Messages.GrpcVideoListEntity>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetVideosBySubCategories",
+        __Marshaller_GrpcVideosBySubCategoriesURI,
+        __Marshaller_GrpcVideoListEntity);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetVideosByModelId = new Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetVideosByModelId",
+        __Marshaller_GrpcVideosByIdURI,
+        __Marshaller_GrpcVideosList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetVideosByMakeId = new Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetVideosByMakeId",
+        __Marshaller_GrpcVideosByIdURI,
+        __Marshaller_GrpcVideosList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetSimilarVideos = new Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetSimilarVideos",
+        __Marshaller_GrpcVideosByIdURI,
+        __Marshaller_GrpcVideosList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideo> __Method_GetVideoByBasicId = new Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideo>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetVideoByBasicId",
+        __Marshaller_GrpcVideosByIdURI,
+        __Marshaller_GrpcVideo);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt> __Method_CheckHeartBit = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt>(
+        MethodType.Unary,
+        __ServiceName,
+        "CheckHeartBit",
+        __Marshaller_GrpcInt,
+        __Marshaller_GrpcInt);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.EditCMSCategory, global::EditCMSWindowsService.Messages.GrpcBool> __Method_ClearMemcachedKeys = new Method<global::EditCMSWindowsService.Messages.EditCMSCategory, global::EditCMSWindowsService.Messages.GrpcBool>(
+        MethodType.Unary,
+        __ServiceName,
+        "ClearMemcachedKeys",
+        __Marshaller_EditCMSCategory,
+        __Marshaller_GrpcBool);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.EditCMSCategory, global::EditCMSWindowsService.Messages.GrpcBool> __Method_ClearCarwaleKeys = new Method<global::EditCMSWindowsService.Messages.EditCMSCategory, global::EditCMSWindowsService.Messages.GrpcBool>(
+        MethodType.Unary,
+        __ServiceName,
+        "ClearCarwaleKeys",
+        __Marshaller_EditCMSCategory,
+        __Marshaller_GrpcBool);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> __Method_GetContentSegmentCount = new Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetContentSegmentCount",
+        __Marshaller_GrpcMakeModelApplicationID,
+        __Marshaller_GrpcCMSSubCategoryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcSmallInt, global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> __Method_GetCMSSubcategories = new Method<global::EditCMSWindowsService.Messages.GrpcSmallInt, global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetCMSSubcategories",
+        __Marshaller_GrpcSmallInt,
+        __Marshaller_GrpcCMSSubCategoryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GetRelatedContentURI, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> __Method_GetRelatedContent = new Method<global::EditCMSWindowsService.Messages.GetRelatedContentURI, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetRelatedContent",
+        __Marshaller_GetRelatedContentURI,
+        __Marshaller_GrpcRelatedArticlesList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> __Method_GetRelatedVideoContent = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetRelatedVideoContent",
+        __Marshaller_GrpcInt,
+        __Marshaller_GrpcRelatedArticlesList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetRelatedArticles = new Method<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetRelatedArticles",
+        __Marshaller_GrpcRelatedArticlesURI,
+        __Marshaller_GrpcArticleSummaryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.RelatedModelVideosURI, global::EditCMSWindowsService.Messages.GrpcVideosEntityList> __Method_GetRelatedModelVideos = new Method<global::EditCMSWindowsService.Messages.RelatedModelVideosURI, global::EditCMSWindowsService.Messages.GrpcVideosEntityList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetRelatedModelVideos",
+        __Marshaller_RelatedModelVideosURI,
+        __Marshaller_GrpcVideosEntityList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> __Method_GetTopArticlesByBasicId = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetTopArticlesByBasicId",
+        __Marshaller_GrpcInt,
+        __Marshaller_GrpcRelatedArticlesList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GetSponsoredArticleURI, global::EditCMSWindowsService.Messages.GrpcArticleSummary> __Method_GetSponsoredArticle = new Method<global::EditCMSWindowsService.Messages.GetSponsoredArticleURI, global::EditCMSWindowsService.Messages.GrpcArticleSummary>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetSponsoredArticle",
+        __Marshaller_GetSponsoredArticleURI,
+        __Marshaller_GrpcArticleSummary);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GetSponsoredArticleURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetSponsoredArticlesByCategory = new Method<global::EditCMSWindowsService.Messages.GetSponsoredArticleURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetSponsoredArticlesByCategory",
+        __Marshaller_GetSponsoredArticleURI,
+        __Marshaller_GrpcArticleSummaryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt> __Method_GetArticleViewsCount = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetArticleViewsCount",
+        __Marshaller_GrpcInt,
+        __Marshaller_GrpcInt);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData> __Method_GetPopularModelPhotosCount = new Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetPopularModelPhotosCount",
+        __Marshaller_GrpcMakeModelApplicationID,
+        __Marshaller_GrpcPopularModelPhotosData);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData> __Method_GetPopularModelVideoCount = new Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetPopularModelVideoCount",
+        __Marshaller_GrpcMakeModelApplicationID,
+        __Marshaller_GrpcPopularModelVideoData);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI, global::EditCMSWindowsService.Messages.GrpcCMSContent> __Method_GetContentListBySubCategoryId = new Method<global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI, global::EditCMSWindowsService.Messages.GrpcCMSContent>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetContentListBySubCategoryId",
+        __Marshaller_GrpcArticleBySubCatURI,
+        __Marshaller_GrpcCMSContent);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcAuthorList> __Method_GetAuthorsList = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcAuthorList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetAuthorsList",
+        __Marshaller_GrpcInt,
+        __Marshaller_GrpcAuthorList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcAuthor> __Method_GetAuthorDetails = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcAuthor>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetAuthorDetails",
+        __Marshaller_GrpcInt,
+        __Marshaller_GrpcAuthor);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI, global::EditCMSWindowsService.Messages.GrpcAuthorContentList> __Method_GetContentByAuthor = new Method<global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI, global::EditCMSWindowsService.Messages.GrpcAuthorContentList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetContentByAuthor",
+        __Marshaller_GrpcContentByAuthorURI,
+        __Marshaller_GrpcAuthorContentList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI, global::EditCMSWindowsService.Messages.GrpcAuthorList> __Method_GetAllOtherAuthors = new Method<global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI, global::EditCMSWindowsService.Messages.GrpcAuthorList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetAllOtherAuthors",
+        __Marshaller_GrpcContentByAuthorURI,
+        __Marshaller_GrpcAuthorList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> __Method_GetNewsFeedBySlug = new Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetNewsFeedBySlug",
+        __Marshaller_GrpcContentFeedURI,
+        __Marshaller_GrpcContentFeedSummaryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> __Method_GetNewsFeedBySubCategory = new Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetNewsFeedBySubCategory",
+        __Marshaller_GrpcContentFeedURI,
+        __Marshaller_GrpcContentFeedSummaryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> __Method_GetAllNewsFeed = new Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetAllNewsFeed",
+        __Marshaller_GrpcContentFeedURI,
+        __Marshaller_GrpcContentFeedSummaryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI, global::EditCMSWindowsService.Messages.GrpcCarSynopsis> __Method_GetCarSynopsis = new Method<global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI, global::EditCMSWindowsService.Messages.GrpcCarSynopsis>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetCarSynopsis",
+        __Marshaller_GrpcCarSynopsisURI,
+        __Marshaller_GrpcCarSynopsis);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcModelDetailURI, global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> __Method_GetModelDetails = new Method<global::EditCMSWindowsService.Messages.GrpcModelDetailURI, global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetModelDetails",
+        __Marshaller_GrpcModelDetailURI,
+        __Marshaller_GrpcMakeAndModelDetailList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcMakeDetailURI, global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> __Method_GetMakeDetails = new Method<global::EditCMSWindowsService.Messages.GrpcMakeDetailURI, global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetMakeDetails",
+        __Marshaller_GrpcMakeDetailURI,
+        __Marshaller_GrpcMakeAndModelDetailList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcRoadTestURI, global::EditCMSWindowsService.Messages.GrpcInt> __Method_GetCMSRoadTestCount = new Method<global::EditCMSWindowsService.Messages.GrpcRoadTestURI, global::EditCMSWindowsService.Messages.GrpcInt>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetCMSRoadTestCount",
+        __Marshaller_GrpcRoadTestURI,
+        __Marshaller_GrpcInt);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt> __Method_GetTaggedModelId = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetTaggedModelId",
+        __Marshaller_GrpcInt,
+        __Marshaller_GrpcInt);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleByCatURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetRelatedListByCategory = new Method<global::EditCMSWindowsService.Messages.GrpcArticleByCatURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetRelatedListByCategory",
+        __Marshaller_GrpcArticleByCatURI,
+        __Marshaller_GrpcArticleSummaryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetFeaturedArticles = new Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetFeaturedArticles",
+        __Marshaller_GrpcArticleRecentURI,
+        __Marshaller_GrpcArticleSummaryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI, global::EditCMSWindowsService.Messages.GrpcCMSImage> __Method_GetOtherModelPhotosList = new Method<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI, global::EditCMSWindowsService.Messages.GrpcCMSImage>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetOtherModelPhotosList",
+        __Marshaller_GrpcRelatedPhotoURI,
+        __Marshaller_GrpcCMSImage);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI, global::EditCMSWindowsService.Messages.GrpcCMSImage> __Method_GetSimilarModelPhotosList = new Method<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI, global::EditCMSWindowsService.Messages.GrpcCMSImage>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetSimilarModelPhotosList",
+        __Marshaller_GrpcRelatedPhotoURI,
+        __Marshaller_GrpcCMSImage);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideo, global::EditCMSWindowsService.Messages.GrpcBool> __Method_UpdateVideo = new Method<global::EditCMSWindowsService.Messages.GrpcVideo, global::EditCMSWindowsService.Messages.GrpcBool>(
+        MethodType.Unary,
+        __ServiceName,
+        "UpdateVideo",
+        __Marshaller_GrpcVideo,
+        __Marshaller_GrpcBool);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GoogleSiteMapDetails = new Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GoogleSiteMapDetails",
+        __Marshaller_GrpcArticleContentURI,
+        __Marshaller_GrpcArticleSummaryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetArticleVideos = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcVideosList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetArticleVideos",
+        __Marshaller_GrpcInt,
+        __Marshaller_GrpcVideosList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI, global::EditCMSWindowsService.Messages.GrpcModelsImageList> __Method_GetModelsImages = new Method<global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI, global::EditCMSWindowsService.Messages.GrpcModelsImageList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetModelsImages",
+        __Marshaller_GrpcModelListPhotoURI,
+        __Marshaller_GrpcModelsImageList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryListing> __Method_GetAutoExpoGalleryListing = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryListing>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetAutoExpoGalleryListing",
+        __Marshaller_GrpcInt,
+        __Marshaller_GrpcAutoExpoGalleryListing);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryURI, global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryDetails> __Method_GetAutoExpoGalleryDetails = new Method<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryURI, global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryDetails>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetAutoExpoGalleryDetails",
+        __Marshaller_GrpcAutoExpoGalleryURI,
+        __Marshaller_GrpcAutoExpoGalleryDetails);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcAutoExpoNewsURI, global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> __Method_GetCMSSubCategoriesByCategory = new Method<global::EditCMSWindowsService.Messages.GrpcAutoExpoNewsURI, global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetCMSSubCategoriesByCategory",
+        __Marshaller_GrpcAutoExpoNewsURI,
+        __Marshaller_GrpcCMSSubCategoryList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcVideosEntityList> __Method_GetRelatedModelVideosByBasicId = new Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcVideosEntityList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetRelatedModelVideosByBasicId",
+        __Marshaller_GrpcArticleContentURI,
+        __Marshaller_GrpcVideosEntityList);
+
+    static readonly Method<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetRelatedArticlesByBasicId = new Method<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
+        MethodType.Unary,
+        __ServiceName,
+        "GetRelatedArticlesByBasicId",
+        __Marshaller_GrpcRelatedArticlesURI,
+        __Marshaller_GrpcArticleSummaryList);
+
+    /// <summary>Service descriptor</summary>
+    public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
-        static readonly string __ServiceName = "EditCMSWindowsService.EditCMSGrpcService";
-
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI> __Marshaller_GrpcArticleRecentURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleRecentURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Marshaller_GrpcArticleSummaryList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleSummaryList.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleByCatURI> __Marshaller_GrpcArticleByCatURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleByCatURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCMSContent> __Marshaller_GrpcCMSContent = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCMSContent.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleContentURI> __Marshaller_GrpcArticleContentURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleContentURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleDetails> __Marshaller_GrpcArticleDetails = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleDetails.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticlePageDetails> __Marshaller_GrpcArticlePageDetails = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticlePageDetails.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcModelPhotoURI> __Marshaller_GrpcModelPhotoURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcModelPhotoURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcModelImageList> __Marshaller_GrpcModelImageList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcModelImageList.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI> __Marshaller_GrpcVideosBySubCategoryURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosList> __Marshaller_GrpcVideosList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosList.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI> __Marshaller_GrpcVideosBySubCategoriesURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideoListEntity> __Marshaller_GrpcVideoListEntity = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideoListEntity.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI> __Marshaller_GrpcVideosByIdURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosByIdURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideo> __Marshaller_GrpcVideo = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideo.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcInt> __Marshaller_GrpcInt = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcInt.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.EditCMSCategory> __Marshaller_EditCMSCategory = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.EditCMSCategory.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcBool> __Marshaller_GrpcBool = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcBool.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID> __Marshaller_GrpcMakeModelApplicationID = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> __Marshaller_GrpcCMSSubCategoryList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcSmallInt> __Marshaller_GrpcSmallInt = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcSmallInt.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GetRelatedContentURI> __Marshaller_GetRelatedContentURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GetRelatedContentURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> __Marshaller_GrpcRelatedArticlesList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI> __Marshaller_GrpcRelatedArticlesURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.RelatedModelVideosURI> __Marshaller_RelatedModelVideosURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.RelatedModelVideosURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> __Marshaller_GrpcVideosEntityList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosEntityList.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GetSponsoredArticleURI> __Marshaller_GetSponsoredArticleURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GetSponsoredArticleURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleSummary> __Marshaller_GrpcArticleSummary = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleSummary.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData> __Marshaller_GrpcPopularModelPhotosData = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData> __Marshaller_GrpcPopularModelVideoData = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI> __Marshaller_GrpcArticleBySubCatURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcAuthorList> __Marshaller_GrpcAuthorList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcAuthorList.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcAuthor> __Marshaller_GrpcAuthor = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcAuthor.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI> __Marshaller_GrpcContentByAuthorURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcAuthorContentList> __Marshaller_GrpcAuthorContentList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcAuthorContentList.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcContentFeedURI> __Marshaller_GrpcContentFeedURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcContentFeedURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> __Marshaller_GrpcContentFeedSummaryList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI> __Marshaller_GrpcCarSynopsisURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCarSynopsis> __Marshaller_GrpcCarSynopsis = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCarSynopsis.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcModelDetailURI> __Marshaller_GrpcModelDetailURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcModelDetailURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> __Marshaller_GrpcMakeAndModelDetailList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcMakeDetailURI> __Marshaller_GrpcMakeDetailURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcMakeDetailURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcRoadTestURI> __Marshaller_GrpcRoadTestURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcRoadTestURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI> __Marshaller_GrpcRelatedPhotoURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcCMSImage> __Marshaller_GrpcCMSImage = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcCMSImage.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI> __Marshaller_GrpcModelListPhotoURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI.Parser.ParseFrom);
-        static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcModelsImageList> __Marshaller_GrpcModelsImageList = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcModelsImageList.Parser.ParseFrom);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetMostRecentArticles = new Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetMostRecentArticles",
-            __Marshaller_GrpcArticleRecentURI,
-            __Marshaller_GrpcArticleSummaryList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleByCatURI, global::EditCMSWindowsService.Messages.GrpcCMSContent> __Method_GetContentListByCategory = new Method<global::EditCMSWindowsService.Messages.GrpcArticleByCatURI, global::EditCMSWindowsService.Messages.GrpcCMSContent>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetContentListByCategory",
-            __Marshaller_GrpcArticleByCatURI,
-            __Marshaller_GrpcCMSContent);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticleDetails> __Method_GetContentDetails = new Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticleDetails>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetContentDetails",
-            __Marshaller_GrpcArticleContentURI,
-            __Marshaller_GrpcArticleDetails);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticlePageDetails> __Method_GetContentPages = new Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticlePageDetails>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetContentPages",
-            __Marshaller_GrpcArticleContentURI,
-            __Marshaller_GrpcArticlePageDetails);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcModelPhotoURI, global::EditCMSWindowsService.Messages.GrpcModelImageList> __Method_GetModelPhotosList = new Method<global::EditCMSWindowsService.Messages.GrpcModelPhotoURI, global::EditCMSWindowsService.Messages.GrpcModelImageList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetModelPhotosList",
-            __Marshaller_GrpcModelPhotoURI,
-            __Marshaller_GrpcModelImageList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcModelImageList> __Method_GetArticlePhotos = new Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcModelImageList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetArticlePhotos",
-            __Marshaller_GrpcArticleContentURI,
-            __Marshaller_GrpcModelImageList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetVideosBySubCategory = new Method<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI, global::EditCMSWindowsService.Messages.GrpcVideosList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetVideosBySubCategory",
-            __Marshaller_GrpcVideosBySubCategoryURI,
-            __Marshaller_GrpcVideosList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI, global::EditCMSWindowsService.Messages.GrpcVideoListEntity> __Method_GetVideosBySubCategories = new Method<global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI, global::EditCMSWindowsService.Messages.GrpcVideoListEntity>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetVideosBySubCategories",
-            __Marshaller_GrpcVideosBySubCategoriesURI,
-            __Marshaller_GrpcVideoListEntity);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetVideosByModelId = new Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetVideosByModelId",
-            __Marshaller_GrpcVideosByIdURI,
-            __Marshaller_GrpcVideosList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetVideosByMakeId = new Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetVideosByMakeId",
-            __Marshaller_GrpcVideosByIdURI,
-            __Marshaller_GrpcVideosList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetSimilarVideos = new Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideosList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetSimilarVideos",
-            __Marshaller_GrpcVideosByIdURI,
-            __Marshaller_GrpcVideosList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideo> __Method_GetVideoByBasicId = new Method<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI, global::EditCMSWindowsService.Messages.GrpcVideo>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetVideoByBasicId",
-            __Marshaller_GrpcVideosByIdURI,
-            __Marshaller_GrpcVideo);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt> __Method_CheckHeartBit = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt>(
-            MethodType.Unary,
-            __ServiceName,
-            "CheckHeartBit",
-            __Marshaller_GrpcInt,
-            __Marshaller_GrpcInt);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.EditCMSCategory, global::EditCMSWindowsService.Messages.GrpcBool> __Method_ClearMemcachedKeys = new Method<global::EditCMSWindowsService.Messages.EditCMSCategory, global::EditCMSWindowsService.Messages.GrpcBool>(
-            MethodType.Unary,
-            __ServiceName,
-            "ClearMemcachedKeys",
-            __Marshaller_EditCMSCategory,
-            __Marshaller_GrpcBool);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.EditCMSCategory, global::EditCMSWindowsService.Messages.GrpcBool> __Method_ClearCarwaleKeys = new Method<global::EditCMSWindowsService.Messages.EditCMSCategory, global::EditCMSWindowsService.Messages.GrpcBool>(
-            MethodType.Unary,
-            __ServiceName,
-            "ClearCarwaleKeys",
-            __Marshaller_EditCMSCategory,
-            __Marshaller_GrpcBool);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> __Method_GetContentSegmentCount = new Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetContentSegmentCount",
-            __Marshaller_GrpcMakeModelApplicationID,
-            __Marshaller_GrpcCMSSubCategoryList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcSmallInt, global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> __Method_GetCMSSubcategories = new Method<global::EditCMSWindowsService.Messages.GrpcSmallInt, global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetCMSSubcategories",
-            __Marshaller_GrpcSmallInt,
-            __Marshaller_GrpcCMSSubCategoryList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GetRelatedContentURI, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> __Method_GetRelatedContent = new Method<global::EditCMSWindowsService.Messages.GetRelatedContentURI, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetRelatedContent",
-            __Marshaller_GetRelatedContentURI,
-            __Marshaller_GrpcRelatedArticlesList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> __Method_GetRelatedVideoContent = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetRelatedVideoContent",
-            __Marshaller_GrpcInt,
-            __Marshaller_GrpcRelatedArticlesList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetRelatedArticles = new Method<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetRelatedArticles",
-            __Marshaller_GrpcRelatedArticlesURI,
-            __Marshaller_GrpcArticleSummaryList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.RelatedModelVideosURI, global::EditCMSWindowsService.Messages.GrpcVideosEntityList> __Method_GetRelatedModelVideos = new Method<global::EditCMSWindowsService.Messages.RelatedModelVideosURI, global::EditCMSWindowsService.Messages.GrpcVideosEntityList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetRelatedModelVideos",
-            __Marshaller_RelatedModelVideosURI,
-            __Marshaller_GrpcVideosEntityList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> __Method_GetTopArticlesByBasicId = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetTopArticlesByBasicId",
-            __Marshaller_GrpcInt,
-            __Marshaller_GrpcRelatedArticlesList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GetSponsoredArticleURI, global::EditCMSWindowsService.Messages.GrpcArticleSummary> __Method_GetSponsoredArticle = new Method<global::EditCMSWindowsService.Messages.GetSponsoredArticleURI, global::EditCMSWindowsService.Messages.GrpcArticleSummary>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetSponsoredArticle",
-            __Marshaller_GetSponsoredArticleURI,
-            __Marshaller_GrpcArticleSummary);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt> __Method_GetArticleViewsCount = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetArticleViewsCount",
-            __Marshaller_GrpcInt,
-            __Marshaller_GrpcInt);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData> __Method_GetPopularModelPhotosCount = new Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetPopularModelPhotosCount",
-            __Marshaller_GrpcMakeModelApplicationID,
-            __Marshaller_GrpcPopularModelPhotosData);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData> __Method_GetPopularModelVideoCount = new Method<global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID, global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetPopularModelVideoCount",
-            __Marshaller_GrpcMakeModelApplicationID,
-            __Marshaller_GrpcPopularModelVideoData);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI, global::EditCMSWindowsService.Messages.GrpcCMSContent> __Method_GetContentListBySubCategoryId = new Method<global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI, global::EditCMSWindowsService.Messages.GrpcCMSContent>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetContentListBySubCategoryId",
-            __Marshaller_GrpcArticleBySubCatURI,
-            __Marshaller_GrpcCMSContent);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcAuthorList> __Method_GetAuthorsList = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcAuthorList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetAuthorsList",
-            __Marshaller_GrpcInt,
-            __Marshaller_GrpcAuthorList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcAuthor> __Method_GetAuthorDetails = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcAuthor>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetAuthorDetails",
-            __Marshaller_GrpcInt,
-            __Marshaller_GrpcAuthor);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI, global::EditCMSWindowsService.Messages.GrpcAuthorContentList> __Method_GetContentByAuthor = new Method<global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI, global::EditCMSWindowsService.Messages.GrpcAuthorContentList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetContentByAuthor",
-            __Marshaller_GrpcContentByAuthorURI,
-            __Marshaller_GrpcAuthorContentList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI, global::EditCMSWindowsService.Messages.GrpcAuthorList> __Method_GetAllOtherAuthors = new Method<global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI, global::EditCMSWindowsService.Messages.GrpcAuthorList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetAllOtherAuthors",
-            __Marshaller_GrpcContentByAuthorURI,
-            __Marshaller_GrpcAuthorList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> __Method_GetNewsFeedBySlug = new Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetNewsFeedBySlug",
-            __Marshaller_GrpcContentFeedURI,
-            __Marshaller_GrpcContentFeedSummaryList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> __Method_GetNewsFeedBySubCategory = new Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetNewsFeedBySubCategory",
-            __Marshaller_GrpcContentFeedURI,
-            __Marshaller_GrpcContentFeedSummaryList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> __Method_GetAllNewsFeed = new Method<global::EditCMSWindowsService.Messages.GrpcContentFeedURI, global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetAllNewsFeed",
-            __Marshaller_GrpcContentFeedURI,
-            __Marshaller_GrpcContentFeedSummaryList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI, global::EditCMSWindowsService.Messages.GrpcCarSynopsis> __Method_GetCarSynopsis = new Method<global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI, global::EditCMSWindowsService.Messages.GrpcCarSynopsis>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetCarSynopsis",
-            __Marshaller_GrpcCarSynopsisURI,
-            __Marshaller_GrpcCarSynopsis);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcModelDetailURI, global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> __Method_GetModelDetails = new Method<global::EditCMSWindowsService.Messages.GrpcModelDetailURI, global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetModelDetails",
-            __Marshaller_GrpcModelDetailURI,
-            __Marshaller_GrpcMakeAndModelDetailList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcMakeDetailURI, global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> __Method_GetMakeDetails = new Method<global::EditCMSWindowsService.Messages.GrpcMakeDetailURI, global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetMakeDetails",
-            __Marshaller_GrpcMakeDetailURI,
-            __Marshaller_GrpcMakeAndModelDetailList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcRoadTestURI, global::EditCMSWindowsService.Messages.GrpcInt> __Method_GetCMSRoadTestCount = new Method<global::EditCMSWindowsService.Messages.GrpcRoadTestURI, global::EditCMSWindowsService.Messages.GrpcInt>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetCMSRoadTestCount",
-            __Marshaller_GrpcRoadTestURI,
-            __Marshaller_GrpcInt);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt> __Method_GetTaggedModelId = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcInt>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetTaggedModelId",
-            __Marshaller_GrpcInt,
-            __Marshaller_GrpcInt);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleByCatURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetRelatedListByCategory = new Method<global::EditCMSWindowsService.Messages.GrpcArticleByCatURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetRelatedListByCategory",
-            __Marshaller_GrpcArticleByCatURI,
-            __Marshaller_GrpcArticleSummaryList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetFeaturedArticles = new Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetFeaturedArticles",
-            __Marshaller_GrpcArticleRecentURI,
-            __Marshaller_GrpcArticleSummaryList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI, global::EditCMSWindowsService.Messages.GrpcCMSImage> __Method_GetOtherModelPhotosList = new Method<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI, global::EditCMSWindowsService.Messages.GrpcCMSImage>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetOtherModelPhotosList",
-            __Marshaller_GrpcRelatedPhotoURI,
-            __Marshaller_GrpcCMSImage);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI, global::EditCMSWindowsService.Messages.GrpcCMSImage> __Method_GetSimilarModelPhotosList = new Method<global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI, global::EditCMSWindowsService.Messages.GrpcCMSImage>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetSimilarModelPhotosList",
-            __Marshaller_GrpcRelatedPhotoURI,
-            __Marshaller_GrpcCMSImage);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcVideo, global::EditCMSWindowsService.Messages.GrpcBool> __Method_UpdateVideo = new Method<global::EditCMSWindowsService.Messages.GrpcVideo, global::EditCMSWindowsService.Messages.GrpcBool>(
-            MethodType.Unary,
-            __ServiceName,
-            "UpdateVideo",
-            __Marshaller_GrpcVideo,
-            __Marshaller_GrpcBool);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GoogleSiteMapDetails = new Method<global::EditCMSWindowsService.Messages.GrpcArticleContentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GoogleSiteMapDetails",
-            __Marshaller_GrpcArticleContentURI,
-            __Marshaller_GrpcArticleSummaryList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcVideosList> __Method_GetArticleVideos = new Method<global::EditCMSWindowsService.Messages.GrpcInt, global::EditCMSWindowsService.Messages.GrpcVideosList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetArticleVideos",
-            __Marshaller_GrpcInt,
-            __Marshaller_GrpcVideosList);
-
-        static readonly Method<global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI, global::EditCMSWindowsService.Messages.GrpcModelsImageList> __Method_GetModelsImages = new Method<global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI, global::EditCMSWindowsService.Messages.GrpcModelsImageList>(
-            MethodType.Unary,
-            __ServiceName,
-            "GetModelsImages",
-            __Marshaller_GrpcModelListPhotoURI,
-            __Marshaller_GrpcModelsImageList);
-
-        /// <summary>Service descriptor</summary>
-        public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
-        {
-            get { return global::EditCMSWindowsService.Messages.EditCmsReflection.Descriptor.Services[0]; }
-        }
-
-        /// <summary>Base class for server-side implementations of EditCMSGrpcService</summary>
-        public abstract partial class EditCMSGrpcServiceBase
-        {
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetMostRecentArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleDetails> GetContentDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticlePageDetails> GetContentPages(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetModelPhotosList(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetArticlePhotos(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosBySubCategory(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideoListEntity> GetVideosBySubCategories(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByModelId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByMakeId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetSimilarVideos(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideo> GetVideoByBasicId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcInt> CheckHeartBit(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcBool> ClearMemcachedKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcBool> ClearCarwaleKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetContentSegmentCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetCMSSubcategories(global::EditCMSWindowsService.Messages.GrpcSmallInt request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedContent(global::EditCMSWindowsService.Messages.GetRelatedContentURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedVideoContent(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedArticles(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> GetRelatedModelVideos(global::EditCMSWindowsService.Messages.RelatedModelVideosURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetTopArticlesByBasicId(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummary> GetSponsoredArticle(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcInt> GetArticleViewsCount(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData> GetPopularModelPhotosCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData> GetPopularModelVideoCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListBySubCategoryId(global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAuthorsList(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcAuthor> GetAuthorDetails(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcAuthorContentList> GetContentByAuthor(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAllOtherAuthors(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySlug(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySubCategory(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetAllNewsFeed(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCarSynopsis> GetCarSynopsis(global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetModelDetails(global::EditCMSWindowsService.Messages.GrpcModelDetailURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetMakeDetails(global::EditCMSWindowsService.Messages.GrpcMakeDetailURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcInt> GetCMSRoadTestCount(global::EditCMSWindowsService.Messages.GrpcRoadTestURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcInt> GetTaggedModelId(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetFeaturedArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetOtherModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetSimilarModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcBool> UpdateVideo(global::EditCMSWindowsService.Messages.GrpcVideo request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GoogleSiteMapDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetArticleVideos(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-            public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcModelsImageList> GetModelsImages(global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI request, ServerCallContext context)
-            {
-                throw new RpcException(new Status(StatusCode.Unimplemented, ""));
-            }
-
-        }
-
-        /// <summary>Client for EditCMSGrpcService</summary>
-        public partial class EditCMSGrpcServiceClient : ClientBase<EditCMSGrpcServiceClient>
-        {
-            /// <summary>Creates a new client for EditCMSGrpcService</summary>
-            /// <param name="channel">The channel to use to make remote calls.</param>
-            public EditCMSGrpcServiceClient(Channel channel) : base(channel)
-            {
-            }
-            /// <summary>Creates a new client for EditCMSGrpcService that uses a custom <c>CallInvoker</c>.</summary>
-            /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
-            public EditCMSGrpcServiceClient(CallInvoker callInvoker) : base(callInvoker)
-            {
-            }
-            /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
-            protected EditCMSGrpcServiceClient() : base()
-            {
-            }
-            /// <summary>Protected constructor to allow creation of configured clients.</summary>
-            /// <param name="configuration">The client configuration.</param>
-            protected EditCMSGrpcServiceClient(ClientBaseConfiguration configuration) : base(configuration)
-            {
-            }
-
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetMostRecentArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetMostRecentArticles(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetMostRecentArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetMostRecentArticles, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetMostRecentArticlesAsync(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetMostRecentArticlesAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetMostRecentArticlesAsync(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetMostRecentArticles, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSContent GetContentListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentListByCategory(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSContent GetContentListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetContentListByCategory, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListByCategoryAsync(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentListByCategoryAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListByCategoryAsync(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetContentListByCategory, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleDetails GetContentDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentDetails(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleDetails GetContentDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetContentDetails, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleDetails> GetContentDetailsAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleDetails> GetContentDetailsAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetContentDetails, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticlePageDetails GetContentPages(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentPages(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticlePageDetails GetContentPages(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetContentPages, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticlePageDetails> GetContentPagesAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentPagesAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticlePageDetails> GetContentPagesAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetContentPages, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcModelImageList GetModelPhotosList(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetModelPhotosList(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcModelImageList GetModelPhotosList(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetModelPhotosList, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetModelPhotosListAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetModelPhotosList, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcModelImageList GetArticlePhotos(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetArticlePhotos(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcModelImageList GetArticlePhotos(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetArticlePhotos, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetArticlePhotosAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetArticlePhotosAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetArticlePhotosAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetArticlePhotos, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosBySubCategory(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetVideosBySubCategory(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosBySubCategory(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetVideosBySubCategory, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosBySubCategoryAsync(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetVideosBySubCategoryAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosBySubCategoryAsync(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetVideosBySubCategory, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideoListEntity GetVideosBySubCategories(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetVideosBySubCategories(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideoListEntity GetVideosBySubCategories(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetVideosBySubCategories, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideoListEntity> GetVideosBySubCategoriesAsync(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetVideosBySubCategoriesAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideoListEntity> GetVideosBySubCategoriesAsync(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetVideosBySubCategories, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosByModelId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetVideosByModelId(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosByModelId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetVideosByModelId, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByModelIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetVideosByModelIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByModelIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetVideosByModelId, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosByMakeId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetVideosByMakeId(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosByMakeId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetVideosByMakeId, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByMakeIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetVideosByMakeIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByMakeIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetVideosByMakeId, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetSimilarVideos(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetSimilarVideos(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetSimilarVideos(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetSimilarVideos, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetSimilarVideosAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetSimilarVideosAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetSimilarVideosAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetSimilarVideos, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideo GetVideoByBasicId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetVideoByBasicId(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideo GetVideoByBasicId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetVideoByBasicId, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideo> GetVideoByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetVideoByBasicIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideo> GetVideoByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetVideoByBasicId, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcInt CheckHeartBit(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return CheckHeartBit(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcInt CheckHeartBit(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_CheckHeartBit, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> CheckHeartBitAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return CheckHeartBitAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> CheckHeartBitAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_CheckHeartBit, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcBool ClearMemcachedKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return ClearMemcachedKeys(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcBool ClearMemcachedKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_ClearMemcachedKeys, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> ClearMemcachedKeysAsync(global::EditCMSWindowsService.Messages.EditCMSCategory request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return ClearMemcachedKeysAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> ClearMemcachedKeysAsync(global::EditCMSWindowsService.Messages.EditCMSCategory request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_ClearMemcachedKeys, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcBool ClearCarwaleKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return ClearCarwaleKeys(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcBool ClearCarwaleKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_ClearCarwaleKeys, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> ClearCarwaleKeysAsync(global::EditCMSWindowsService.Messages.EditCMSCategory request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return ClearCarwaleKeysAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> ClearCarwaleKeysAsync(global::EditCMSWindowsService.Messages.EditCMSCategory request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_ClearCarwaleKeys, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList GetContentSegmentCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentSegmentCount(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList GetContentSegmentCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetContentSegmentCount, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetContentSegmentCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentSegmentCountAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetContentSegmentCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetContentSegmentCount, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList GetCMSSubcategories(global::EditCMSWindowsService.Messages.GrpcSmallInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetCMSSubcategories(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList GetCMSSubcategories(global::EditCMSWindowsService.Messages.GrpcSmallInt request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetCMSSubcategories, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetCMSSubcategoriesAsync(global::EditCMSWindowsService.Messages.GrpcSmallInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetCMSSubcategoriesAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetCMSSubcategoriesAsync(global::EditCMSWindowsService.Messages.GrpcSmallInt request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetCMSSubcategories, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetRelatedContent(global::EditCMSWindowsService.Messages.GetRelatedContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetRelatedContent(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetRelatedContent(global::EditCMSWindowsService.Messages.GetRelatedContentURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetRelatedContent, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedContentAsync(global::EditCMSWindowsService.Messages.GetRelatedContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetRelatedContentAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedContentAsync(global::EditCMSWindowsService.Messages.GetRelatedContentURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetRelatedContent, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetRelatedVideoContent(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetRelatedVideoContent(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetRelatedVideoContent(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetRelatedVideoContent, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedVideoContentAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetRelatedVideoContentAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedVideoContentAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetRelatedVideoContent, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetRelatedArticles(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetRelatedArticles(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetRelatedArticles(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetRelatedArticles, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedArticlesAsync(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetRelatedArticlesAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedArticlesAsync(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetRelatedArticles, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosEntityList GetRelatedModelVideos(global::EditCMSWindowsService.Messages.RelatedModelVideosURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetRelatedModelVideos(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosEntityList GetRelatedModelVideos(global::EditCMSWindowsService.Messages.RelatedModelVideosURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetRelatedModelVideos, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> GetRelatedModelVideosAsync(global::EditCMSWindowsService.Messages.RelatedModelVideosURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetRelatedModelVideosAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> GetRelatedModelVideosAsync(global::EditCMSWindowsService.Messages.RelatedModelVideosURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetRelatedModelVideos, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetTopArticlesByBasicId(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetTopArticlesByBasicId(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetTopArticlesByBasicId(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetTopArticlesByBasicId, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetTopArticlesByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetTopArticlesByBasicIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetTopArticlesByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetTopArticlesByBasicId, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummary GetSponsoredArticle(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetSponsoredArticle(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummary GetSponsoredArticle(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetSponsoredArticle, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummary> GetSponsoredArticleAsync(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetSponsoredArticleAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummary> GetSponsoredArticleAsync(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetSponsoredArticle, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcInt GetArticleViewsCount(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetArticleViewsCount(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcInt GetArticleViewsCount(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetArticleViewsCount, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetArticleViewsCountAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetArticleViewsCountAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetArticleViewsCountAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetArticleViewsCount, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData GetPopularModelPhotosCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetPopularModelPhotosCount(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData GetPopularModelPhotosCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetPopularModelPhotosCount, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData> GetPopularModelPhotosCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetPopularModelPhotosCountAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData> GetPopularModelPhotosCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetPopularModelPhotosCount, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData GetPopularModelVideoCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetPopularModelVideoCount(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData GetPopularModelVideoCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetPopularModelVideoCount, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData> GetPopularModelVideoCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetPopularModelVideoCountAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData> GetPopularModelVideoCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetPopularModelVideoCount, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSContent GetContentListBySubCategoryId(global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentListBySubCategoryId(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSContent GetContentListBySubCategoryId(global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetContentListBySubCategoryId, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListBySubCategoryIdAsync(global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentListBySubCategoryIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListBySubCategoryIdAsync(global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetContentListBySubCategoryId, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcAuthorList GetAuthorsList(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetAuthorsList(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcAuthorList GetAuthorsList(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetAuthorsList, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAuthorsListAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetAuthorsListAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAuthorsListAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetAuthorsList, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcAuthor GetAuthorDetails(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetAuthorDetails(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcAuthor GetAuthorDetails(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetAuthorDetails, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthor> GetAuthorDetailsAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetAuthorDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthor> GetAuthorDetailsAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetAuthorDetails, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcAuthorContentList GetContentByAuthor(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentByAuthor(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcAuthorContentList GetContentByAuthor(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetContentByAuthor, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorContentList> GetContentByAuthorAsync(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetContentByAuthorAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorContentList> GetContentByAuthorAsync(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetContentByAuthor, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcAuthorList GetAllOtherAuthors(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetAllOtherAuthors(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcAuthorList GetAllOtherAuthors(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetAllOtherAuthors, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAllOtherAuthorsAsync(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetAllOtherAuthorsAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAllOtherAuthorsAsync(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetAllOtherAuthors, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetNewsFeedBySlug(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetNewsFeedBySlug(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetNewsFeedBySlug(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetNewsFeedBySlug, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySlugAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetNewsFeedBySlugAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySlugAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetNewsFeedBySlug, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetNewsFeedBySubCategory(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetNewsFeedBySubCategory(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetNewsFeedBySubCategory(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetNewsFeedBySubCategory, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySubCategoryAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetNewsFeedBySubCategoryAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySubCategoryAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetNewsFeedBySubCategory, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetAllNewsFeed(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetAllNewsFeed(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetAllNewsFeed(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetAllNewsFeed, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetAllNewsFeedAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetAllNewsFeedAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetAllNewsFeedAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetAllNewsFeed, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCarSynopsis GetCarSynopsis(global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetCarSynopsis(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCarSynopsis GetCarSynopsis(global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetCarSynopsis, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCarSynopsis> GetCarSynopsisAsync(global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetCarSynopsisAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCarSynopsis> GetCarSynopsisAsync(global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetCarSynopsis, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList GetModelDetails(global::EditCMSWindowsService.Messages.GrpcModelDetailURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetModelDetails(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList GetModelDetails(global::EditCMSWindowsService.Messages.GrpcModelDetailURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetModelDetails, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetModelDetailsAsync(global::EditCMSWindowsService.Messages.GrpcModelDetailURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetModelDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetModelDetailsAsync(global::EditCMSWindowsService.Messages.GrpcModelDetailURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetModelDetails, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList GetMakeDetails(global::EditCMSWindowsService.Messages.GrpcMakeDetailURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetMakeDetails(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList GetMakeDetails(global::EditCMSWindowsService.Messages.GrpcMakeDetailURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetMakeDetails, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetMakeDetailsAsync(global::EditCMSWindowsService.Messages.GrpcMakeDetailURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetMakeDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetMakeDetailsAsync(global::EditCMSWindowsService.Messages.GrpcMakeDetailURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetMakeDetails, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcInt GetCMSRoadTestCount(global::EditCMSWindowsService.Messages.GrpcRoadTestURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetCMSRoadTestCount(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcInt GetCMSRoadTestCount(global::EditCMSWindowsService.Messages.GrpcRoadTestURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetCMSRoadTestCount, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetCMSRoadTestCountAsync(global::EditCMSWindowsService.Messages.GrpcRoadTestURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetCMSRoadTestCountAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetCMSRoadTestCountAsync(global::EditCMSWindowsService.Messages.GrpcRoadTestURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetCMSRoadTestCount, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcInt GetTaggedModelId(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetTaggedModelId(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcInt GetTaggedModelId(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetTaggedModelId, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetTaggedModelIdAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetTaggedModelIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetTaggedModelIdAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetTaggedModelId, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetRelatedListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetRelatedListByCategory(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetRelatedListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetRelatedListByCategory, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedListByCategoryAsync(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetRelatedListByCategoryAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedListByCategoryAsync(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetRelatedListByCategory, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetFeaturedArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetFeaturedArticles(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetFeaturedArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetFeaturedArticles, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetFeaturedArticlesAsync(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetFeaturedArticlesAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetFeaturedArticlesAsync(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetFeaturedArticles, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSImage GetOtherModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetOtherModelPhotosList(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSImage GetOtherModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetOtherModelPhotosList, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetOtherModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetOtherModelPhotosListAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetOtherModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetOtherModelPhotosList, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSImage GetSimilarModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetSimilarModelPhotosList(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcCMSImage GetSimilarModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetSimilarModelPhotosList, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetSimilarModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetSimilarModelPhotosListAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetSimilarModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetSimilarModelPhotosList, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcBool UpdateVideo(global::EditCMSWindowsService.Messages.GrpcVideo request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return UpdateVideo(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcBool UpdateVideo(global::EditCMSWindowsService.Messages.GrpcVideo request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_UpdateVideo, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> UpdateVideoAsync(global::EditCMSWindowsService.Messages.GrpcVideo request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return UpdateVideoAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> UpdateVideoAsync(global::EditCMSWindowsService.Messages.GrpcVideo request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_UpdateVideo, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GoogleSiteMapDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GoogleSiteMapDetails(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GoogleSiteMapDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GoogleSiteMapDetails, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GoogleSiteMapDetailsAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GoogleSiteMapDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GoogleSiteMapDetailsAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GoogleSiteMapDetails, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetArticleVideos(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetArticleVideos(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetArticleVideos(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetArticleVideos, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetArticleVideosAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetArticleVideosAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetArticleVideosAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetArticleVideos, null, options, request);
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcModelsImageList GetModelsImages(global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetModelsImages(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual global::EditCMSWindowsService.Messages.GrpcModelsImageList GetModelsImages(global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI request, CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetModelsImages, null, options, request);
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelsImageList> GetModelsImagesAsync(global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                return GetModelsImagesAsync(request, new CallOptions(headers, deadline, cancellationToken));
-            }
-            public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelsImageList> GetModelsImagesAsync(global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI request, CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetModelsImages, null, options, request);
-            }
-            /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
-            protected override EditCMSGrpcServiceClient NewInstance(ClientBaseConfiguration configuration)
-            {
-                return new EditCMSGrpcServiceClient(configuration);
-            }
-        }
-
-        /// <summary>Creates service definition that can be registered with a server</summary>
-        /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-        public static ServerServiceDefinition BindService(EditCMSGrpcServiceBase serviceImpl)
-        {
-            return ServerServiceDefinition.CreateBuilder()
-                .AddMethod(__Method_GetMostRecentArticles, serviceImpl.GetMostRecentArticles)
-                .AddMethod(__Method_GetContentListByCategory, serviceImpl.GetContentListByCategory)
-                .AddMethod(__Method_GetContentDetails, serviceImpl.GetContentDetails)
-                .AddMethod(__Method_GetContentPages, serviceImpl.GetContentPages)
-                .AddMethod(__Method_GetModelPhotosList, serviceImpl.GetModelPhotosList)
-                .AddMethod(__Method_GetArticlePhotos, serviceImpl.GetArticlePhotos)
-                .AddMethod(__Method_GetVideosBySubCategory, serviceImpl.GetVideosBySubCategory)
-                .AddMethod(__Method_GetVideosBySubCategories, serviceImpl.GetVideosBySubCategories)
-                .AddMethod(__Method_GetVideosByModelId, serviceImpl.GetVideosByModelId)
-                .AddMethod(__Method_GetVideosByMakeId, serviceImpl.GetVideosByMakeId)
-                .AddMethod(__Method_GetSimilarVideos, serviceImpl.GetSimilarVideos)
-                .AddMethod(__Method_GetVideoByBasicId, serviceImpl.GetVideoByBasicId)
-                .AddMethod(__Method_CheckHeartBit, serviceImpl.CheckHeartBit)
-                .AddMethod(__Method_ClearMemcachedKeys, serviceImpl.ClearMemcachedKeys)
-                .AddMethod(__Method_ClearCarwaleKeys, serviceImpl.ClearCarwaleKeys)
-                .AddMethod(__Method_GetContentSegmentCount, serviceImpl.GetContentSegmentCount)
-                .AddMethod(__Method_GetCMSSubcategories, serviceImpl.GetCMSSubcategories)
-                .AddMethod(__Method_GetRelatedContent, serviceImpl.GetRelatedContent)
-                .AddMethod(__Method_GetRelatedVideoContent, serviceImpl.GetRelatedVideoContent)
-                .AddMethod(__Method_GetRelatedArticles, serviceImpl.GetRelatedArticles)
-                .AddMethod(__Method_GetRelatedModelVideos, serviceImpl.GetRelatedModelVideos)
-                .AddMethod(__Method_GetTopArticlesByBasicId, serviceImpl.GetTopArticlesByBasicId)
-                .AddMethod(__Method_GetSponsoredArticle, serviceImpl.GetSponsoredArticle)
-                .AddMethod(__Method_GetArticleViewsCount, serviceImpl.GetArticleViewsCount)
-                .AddMethod(__Method_GetPopularModelPhotosCount, serviceImpl.GetPopularModelPhotosCount)
-                .AddMethod(__Method_GetPopularModelVideoCount, serviceImpl.GetPopularModelVideoCount)
-                .AddMethod(__Method_GetContentListBySubCategoryId, serviceImpl.GetContentListBySubCategoryId)
-                .AddMethod(__Method_GetAuthorsList, serviceImpl.GetAuthorsList)
-                .AddMethod(__Method_GetAuthorDetails, serviceImpl.GetAuthorDetails)
-                .AddMethod(__Method_GetContentByAuthor, serviceImpl.GetContentByAuthor)
-                .AddMethod(__Method_GetAllOtherAuthors, serviceImpl.GetAllOtherAuthors)
-                .AddMethod(__Method_GetNewsFeedBySlug, serviceImpl.GetNewsFeedBySlug)
-                .AddMethod(__Method_GetNewsFeedBySubCategory, serviceImpl.GetNewsFeedBySubCategory)
-                .AddMethod(__Method_GetAllNewsFeed, serviceImpl.GetAllNewsFeed)
-                .AddMethod(__Method_GetCarSynopsis, serviceImpl.GetCarSynopsis)
-                .AddMethod(__Method_GetModelDetails, serviceImpl.GetModelDetails)
-                .AddMethod(__Method_GetMakeDetails, serviceImpl.GetMakeDetails)
-                .AddMethod(__Method_GetCMSRoadTestCount, serviceImpl.GetCMSRoadTestCount)
-                .AddMethod(__Method_GetTaggedModelId, serviceImpl.GetTaggedModelId)
-                .AddMethod(__Method_GetRelatedListByCategory, serviceImpl.GetRelatedListByCategory)
-                .AddMethod(__Method_GetFeaturedArticles, serviceImpl.GetFeaturedArticles)
-                .AddMethod(__Method_GetOtherModelPhotosList, serviceImpl.GetOtherModelPhotosList)
-                .AddMethod(__Method_GetSimilarModelPhotosList, serviceImpl.GetSimilarModelPhotosList)
-                .AddMethod(__Method_UpdateVideo, serviceImpl.UpdateVideo)
-                .AddMethod(__Method_GoogleSiteMapDetails, serviceImpl.GoogleSiteMapDetails)
-                .AddMethod(__Method_GetArticleVideos, serviceImpl.GetArticleVideos)
-                .AddMethod(__Method_GetModelsImages, serviceImpl.GetModelsImages).Build();
-        }
+      get { return global::EditCMSWindowsService.Messages.EditCmsReflection.Descriptor.Services[0]; }
+    }
+
+    /// <summary>Base class for server-side implementations of EditCMSGrpcService</summary>
+    public abstract partial class EditCMSGrpcServiceBase
+    {
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetMostRecentArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleDetails> GetContentDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticlePageDetails> GetContentPages(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetModelPhotosList(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetArticlePhotos(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosBySubCategory(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideoListEntity> GetVideosBySubCategories(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByModelId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByMakeId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetSimilarVideos(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideo> GetVideoByBasicId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcInt> CheckHeartBit(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcBool> ClearMemcachedKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcBool> ClearCarwaleKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetContentSegmentCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetCMSSubcategories(global::EditCMSWindowsService.Messages.GrpcSmallInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedContent(global::EditCMSWindowsService.Messages.GetRelatedContentURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedVideoContent(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedArticles(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> GetRelatedModelVideos(global::EditCMSWindowsService.Messages.RelatedModelVideosURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetTopArticlesByBasicId(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummary> GetSponsoredArticle(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetSponsoredArticlesByCategory(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcInt> GetArticleViewsCount(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData> GetPopularModelPhotosCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData> GetPopularModelVideoCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListBySubCategoryId(global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAuthorsList(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcAuthor> GetAuthorDetails(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcAuthorContentList> GetContentByAuthor(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAllOtherAuthors(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySlug(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySubCategory(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetAllNewsFeed(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCarSynopsis> GetCarSynopsis(global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetModelDetails(global::EditCMSWindowsService.Messages.GrpcModelDetailURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetMakeDetails(global::EditCMSWindowsService.Messages.GrpcMakeDetailURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcInt> GetCMSRoadTestCount(global::EditCMSWindowsService.Messages.GrpcRoadTestURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcInt> GetTaggedModelId(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetFeaturedArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetOtherModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetSimilarModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcBool> UpdateVideo(global::EditCMSWindowsService.Messages.GrpcVideo request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GoogleSiteMapDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosList> GetArticleVideos(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcModelsImageList> GetModelsImages(global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryListing> GetAutoExpoGalleryListing(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryDetails> GetAutoExpoGalleryDetails(global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetCMSSubCategoriesByCategory(global::EditCMSWindowsService.Messages.GrpcAutoExpoNewsURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> GetRelatedModelVideosByBasicId(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedArticlesByBasicId(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
 
     }
+
+    /// <summary>Client for EditCMSGrpcService</summary>
+    public partial class EditCMSGrpcServiceClient : ClientBase<EditCMSGrpcServiceClient>
+    {
+      /// <summary>Creates a new client for EditCMSGrpcService</summary>
+      /// <param name="channel">The channel to use to make remote calls.</param>
+      public EditCMSGrpcServiceClient(Channel channel) : base(channel)
+      {
+      }
+      /// <summary>Creates a new client for EditCMSGrpcService that uses a custom <c>CallInvoker</c>.</summary>
+      /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
+      public EditCMSGrpcServiceClient(CallInvoker callInvoker) : base(callInvoker)
+      {
+      }
+      /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
+      protected EditCMSGrpcServiceClient() : base()
+      {
+      }
+      /// <summary>Protected constructor to allow creation of configured clients.</summary>
+      /// <param name="configuration">The client configuration.</param>
+      protected EditCMSGrpcServiceClient(ClientBaseConfiguration configuration) : base(configuration)
+      {
+      }
+
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetMostRecentArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetMostRecentArticles(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetMostRecentArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetMostRecentArticles, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetMostRecentArticlesAsync(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetMostRecentArticlesAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetMostRecentArticlesAsync(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetMostRecentArticles, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSContent GetContentListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentListByCategory(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSContent GetContentListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetContentListByCategory, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListByCategoryAsync(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentListByCategoryAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListByCategoryAsync(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetContentListByCategory, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleDetails GetContentDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentDetails(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleDetails GetContentDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetContentDetails, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleDetails> GetContentDetailsAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleDetails> GetContentDetailsAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetContentDetails, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticlePageDetails GetContentPages(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentPages(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticlePageDetails GetContentPages(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetContentPages, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticlePageDetails> GetContentPagesAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentPagesAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticlePageDetails> GetContentPagesAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetContentPages, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcModelImageList GetModelPhotosList(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetModelPhotosList(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcModelImageList GetModelPhotosList(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetModelPhotosList, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetModelPhotosListAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetModelPhotosList, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcModelImageList GetArticlePhotos(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetArticlePhotos(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcModelImageList GetArticlePhotos(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetArticlePhotos, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetArticlePhotosAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetArticlePhotosAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelImageList> GetArticlePhotosAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetArticlePhotos, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosBySubCategory(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetVideosBySubCategory(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosBySubCategory(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetVideosBySubCategory, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosBySubCategoryAsync(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetVideosBySubCategoryAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosBySubCategoryAsync(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetVideosBySubCategory, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideoListEntity GetVideosBySubCategories(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetVideosBySubCategories(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideoListEntity GetVideosBySubCategories(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetVideosBySubCategories, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideoListEntity> GetVideosBySubCategoriesAsync(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetVideosBySubCategoriesAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideoListEntity> GetVideosBySubCategoriesAsync(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetVideosBySubCategories, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosByModelId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetVideosByModelId(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosByModelId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetVideosByModelId, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByModelIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetVideosByModelIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByModelIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetVideosByModelId, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosByMakeId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetVideosByMakeId(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetVideosByMakeId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetVideosByMakeId, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByMakeIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetVideosByMakeIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetVideosByMakeIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetVideosByMakeId, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetSimilarVideos(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetSimilarVideos(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetSimilarVideos(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetSimilarVideos, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetSimilarVideosAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetSimilarVideosAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetSimilarVideosAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetSimilarVideos, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideo GetVideoByBasicId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetVideoByBasicId(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideo GetVideoByBasicId(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetVideoByBasicId, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideo> GetVideoByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetVideoByBasicIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideo> GetVideoByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetVideoByBasicId, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcInt CheckHeartBit(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return CheckHeartBit(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcInt CheckHeartBit(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_CheckHeartBit, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> CheckHeartBitAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return CheckHeartBitAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> CheckHeartBitAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_CheckHeartBit, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcBool ClearMemcachedKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return ClearMemcachedKeys(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcBool ClearMemcachedKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ClearMemcachedKeys, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> ClearMemcachedKeysAsync(global::EditCMSWindowsService.Messages.EditCMSCategory request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return ClearMemcachedKeysAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> ClearMemcachedKeysAsync(global::EditCMSWindowsService.Messages.EditCMSCategory request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ClearMemcachedKeys, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcBool ClearCarwaleKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return ClearCarwaleKeys(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcBool ClearCarwaleKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ClearCarwaleKeys, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> ClearCarwaleKeysAsync(global::EditCMSWindowsService.Messages.EditCMSCategory request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return ClearCarwaleKeysAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> ClearCarwaleKeysAsync(global::EditCMSWindowsService.Messages.EditCMSCategory request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ClearCarwaleKeys, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList GetContentSegmentCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentSegmentCount(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList GetContentSegmentCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetContentSegmentCount, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetContentSegmentCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentSegmentCountAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetContentSegmentCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetContentSegmentCount, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList GetCMSSubcategories(global::EditCMSWindowsService.Messages.GrpcSmallInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetCMSSubcategories(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList GetCMSSubcategories(global::EditCMSWindowsService.Messages.GrpcSmallInt request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetCMSSubcategories, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetCMSSubcategoriesAsync(global::EditCMSWindowsService.Messages.GrpcSmallInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetCMSSubcategoriesAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetCMSSubcategoriesAsync(global::EditCMSWindowsService.Messages.GrpcSmallInt request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetCMSSubcategories, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetRelatedContent(global::EditCMSWindowsService.Messages.GetRelatedContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedContent(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetRelatedContent(global::EditCMSWindowsService.Messages.GetRelatedContentURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetRelatedContent, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedContentAsync(global::EditCMSWindowsService.Messages.GetRelatedContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedContentAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedContentAsync(global::EditCMSWindowsService.Messages.GetRelatedContentURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetRelatedContent, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetRelatedVideoContent(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedVideoContent(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetRelatedVideoContent(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetRelatedVideoContent, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedVideoContentAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedVideoContentAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetRelatedVideoContentAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetRelatedVideoContent, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetRelatedArticles(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedArticles(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetRelatedArticles(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetRelatedArticles, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedArticlesAsync(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedArticlesAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedArticlesAsync(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetRelatedArticles, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosEntityList GetRelatedModelVideos(global::EditCMSWindowsService.Messages.RelatedModelVideosURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedModelVideos(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosEntityList GetRelatedModelVideos(global::EditCMSWindowsService.Messages.RelatedModelVideosURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetRelatedModelVideos, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> GetRelatedModelVideosAsync(global::EditCMSWindowsService.Messages.RelatedModelVideosURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedModelVideosAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> GetRelatedModelVideosAsync(global::EditCMSWindowsService.Messages.RelatedModelVideosURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetRelatedModelVideos, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetTopArticlesByBasicId(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetTopArticlesByBasicId(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList GetTopArticlesByBasicId(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetTopArticlesByBasicId, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetTopArticlesByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetTopArticlesByBasicIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcRelatedArticlesList> GetTopArticlesByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetTopArticlesByBasicId, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummary GetSponsoredArticle(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetSponsoredArticle(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummary GetSponsoredArticle(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetSponsoredArticle, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummary> GetSponsoredArticleAsync(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetSponsoredArticleAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummary> GetSponsoredArticleAsync(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetSponsoredArticle, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetSponsoredArticlesByCategory(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetSponsoredArticlesByCategory(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetSponsoredArticlesByCategory(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetSponsoredArticlesByCategory, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetSponsoredArticlesByCategoryAsync(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetSponsoredArticlesByCategoryAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetSponsoredArticlesByCategoryAsync(global::EditCMSWindowsService.Messages.GetSponsoredArticleURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetSponsoredArticlesByCategory, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcInt GetArticleViewsCount(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetArticleViewsCount(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcInt GetArticleViewsCount(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetArticleViewsCount, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetArticleViewsCountAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetArticleViewsCountAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetArticleViewsCountAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetArticleViewsCount, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData GetPopularModelPhotosCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetPopularModelPhotosCount(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData GetPopularModelPhotosCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetPopularModelPhotosCount, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData> GetPopularModelPhotosCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetPopularModelPhotosCountAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcPopularModelPhotosData> GetPopularModelPhotosCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetPopularModelPhotosCount, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData GetPopularModelVideoCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetPopularModelVideoCount(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData GetPopularModelVideoCount(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetPopularModelVideoCount, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData> GetPopularModelVideoCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetPopularModelVideoCountAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcPopularModelVideoData> GetPopularModelVideoCountAsync(global::EditCMSWindowsService.Messages.GrpcMakeModelApplicationID request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetPopularModelVideoCount, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSContent GetContentListBySubCategoryId(global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentListBySubCategoryId(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSContent GetContentListBySubCategoryId(global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetContentListBySubCategoryId, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListBySubCategoryIdAsync(global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentListBySubCategoryIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSContent> GetContentListBySubCategoryIdAsync(global::EditCMSWindowsService.Messages.GrpcArticleBySubCatURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetContentListBySubCategoryId, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAuthorList GetAuthorsList(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAuthorsList(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAuthorList GetAuthorsList(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetAuthorsList, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAuthorsListAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAuthorsListAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAuthorsListAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetAuthorsList, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAuthor GetAuthorDetails(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAuthorDetails(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAuthor GetAuthorDetails(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetAuthorDetails, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthor> GetAuthorDetailsAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAuthorDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthor> GetAuthorDetailsAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetAuthorDetails, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAuthorContentList GetContentByAuthor(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentByAuthor(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAuthorContentList GetContentByAuthor(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetContentByAuthor, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorContentList> GetContentByAuthorAsync(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetContentByAuthorAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorContentList> GetContentByAuthorAsync(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetContentByAuthor, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAuthorList GetAllOtherAuthors(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAllOtherAuthors(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAuthorList GetAllOtherAuthors(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetAllOtherAuthors, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAllOtherAuthorsAsync(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAllOtherAuthorsAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAuthorList> GetAllOtherAuthorsAsync(global::EditCMSWindowsService.Messages.GrpcContentByAuthorURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetAllOtherAuthors, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetNewsFeedBySlug(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetNewsFeedBySlug(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetNewsFeedBySlug(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetNewsFeedBySlug, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySlugAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetNewsFeedBySlugAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySlugAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetNewsFeedBySlug, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetNewsFeedBySubCategory(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetNewsFeedBySubCategory(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetNewsFeedBySubCategory(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetNewsFeedBySubCategory, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySubCategoryAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetNewsFeedBySubCategoryAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetNewsFeedBySubCategoryAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetNewsFeedBySubCategory, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetAllNewsFeed(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAllNewsFeed(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList GetAllNewsFeed(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetAllNewsFeed, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetAllNewsFeedAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAllNewsFeedAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcContentFeedSummaryList> GetAllNewsFeedAsync(global::EditCMSWindowsService.Messages.GrpcContentFeedURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetAllNewsFeed, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCarSynopsis GetCarSynopsis(global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetCarSynopsis(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCarSynopsis GetCarSynopsis(global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetCarSynopsis, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCarSynopsis> GetCarSynopsisAsync(global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetCarSynopsisAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCarSynopsis> GetCarSynopsisAsync(global::EditCMSWindowsService.Messages.GrpcCarSynopsisURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetCarSynopsis, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList GetModelDetails(global::EditCMSWindowsService.Messages.GrpcModelDetailURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetModelDetails(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList GetModelDetails(global::EditCMSWindowsService.Messages.GrpcModelDetailURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetModelDetails, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetModelDetailsAsync(global::EditCMSWindowsService.Messages.GrpcModelDetailURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetModelDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetModelDetailsAsync(global::EditCMSWindowsService.Messages.GrpcModelDetailURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetModelDetails, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList GetMakeDetails(global::EditCMSWindowsService.Messages.GrpcMakeDetailURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetMakeDetails(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList GetMakeDetails(global::EditCMSWindowsService.Messages.GrpcMakeDetailURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetMakeDetails, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetMakeDetailsAsync(global::EditCMSWindowsService.Messages.GrpcMakeDetailURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetMakeDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcMakeAndModelDetailList> GetMakeDetailsAsync(global::EditCMSWindowsService.Messages.GrpcMakeDetailURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetMakeDetails, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcInt GetCMSRoadTestCount(global::EditCMSWindowsService.Messages.GrpcRoadTestURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetCMSRoadTestCount(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcInt GetCMSRoadTestCount(global::EditCMSWindowsService.Messages.GrpcRoadTestURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetCMSRoadTestCount, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetCMSRoadTestCountAsync(global::EditCMSWindowsService.Messages.GrpcRoadTestURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetCMSRoadTestCountAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetCMSRoadTestCountAsync(global::EditCMSWindowsService.Messages.GrpcRoadTestURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetCMSRoadTestCount, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcInt GetTaggedModelId(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetTaggedModelId(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcInt GetTaggedModelId(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetTaggedModelId, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetTaggedModelIdAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetTaggedModelIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcInt> GetTaggedModelIdAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetTaggedModelId, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetRelatedListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedListByCategory(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetRelatedListByCategory(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetRelatedListByCategory, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedListByCategoryAsync(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedListByCategoryAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedListByCategoryAsync(global::EditCMSWindowsService.Messages.GrpcArticleByCatURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetRelatedListByCategory, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetFeaturedArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetFeaturedArticles(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetFeaturedArticles(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetFeaturedArticles, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetFeaturedArticlesAsync(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetFeaturedArticlesAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetFeaturedArticlesAsync(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetFeaturedArticles, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSImage GetOtherModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetOtherModelPhotosList(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSImage GetOtherModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetOtherModelPhotosList, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetOtherModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetOtherModelPhotosListAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetOtherModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetOtherModelPhotosList, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSImage GetSimilarModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetSimilarModelPhotosList(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSImage GetSimilarModelPhotosList(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetSimilarModelPhotosList, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetSimilarModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetSimilarModelPhotosListAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSImage> GetSimilarModelPhotosListAsync(global::EditCMSWindowsService.Messages.GrpcRelatedPhotoURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetSimilarModelPhotosList, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcBool UpdateVideo(global::EditCMSWindowsService.Messages.GrpcVideo request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return UpdateVideo(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcBool UpdateVideo(global::EditCMSWindowsService.Messages.GrpcVideo request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_UpdateVideo, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> UpdateVideoAsync(global::EditCMSWindowsService.Messages.GrpcVideo request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return UpdateVideoAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> UpdateVideoAsync(global::EditCMSWindowsService.Messages.GrpcVideo request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_UpdateVideo, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GoogleSiteMapDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GoogleSiteMapDetails(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GoogleSiteMapDetails(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GoogleSiteMapDetails, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GoogleSiteMapDetailsAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GoogleSiteMapDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GoogleSiteMapDetailsAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GoogleSiteMapDetails, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetArticleVideos(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetArticleVideos(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosList GetArticleVideos(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetArticleVideos, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetArticleVideosAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetArticleVideosAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosList> GetArticleVideosAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetArticleVideos, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcModelsImageList GetModelsImages(global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetModelsImages(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcModelsImageList GetModelsImages(global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetModelsImages, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelsImageList> GetModelsImagesAsync(global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetModelsImagesAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcModelsImageList> GetModelsImagesAsync(global::EditCMSWindowsService.Messages.GrpcModelListPhotoURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetModelsImages, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryListing GetAutoExpoGalleryListing(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAutoExpoGalleryListing(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryListing GetAutoExpoGalleryListing(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetAutoExpoGalleryListing, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryListing> GetAutoExpoGalleryListingAsync(global::EditCMSWindowsService.Messages.GrpcInt request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAutoExpoGalleryListingAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryListing> GetAutoExpoGalleryListingAsync(global::EditCMSWindowsService.Messages.GrpcInt request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetAutoExpoGalleryListing, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryDetails GetAutoExpoGalleryDetails(global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAutoExpoGalleryDetails(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryDetails GetAutoExpoGalleryDetails(global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetAutoExpoGalleryDetails, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryDetails> GetAutoExpoGalleryDetailsAsync(global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAutoExpoGalleryDetailsAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryDetails> GetAutoExpoGalleryDetailsAsync(global::EditCMSWindowsService.Messages.GrpcAutoExpoGalleryURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetAutoExpoGalleryDetails, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList GetCMSSubCategoriesByCategory(global::EditCMSWindowsService.Messages.GrpcAutoExpoNewsURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetCMSSubCategoriesByCategory(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList GetCMSSubCategoriesByCategory(global::EditCMSWindowsService.Messages.GrpcAutoExpoNewsURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetCMSSubCategoriesByCategory, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetCMSSubCategoriesByCategoryAsync(global::EditCMSWindowsService.Messages.GrpcAutoExpoNewsURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetCMSSubCategoriesByCategoryAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcCMSSubCategoryList> GetCMSSubCategoriesByCategoryAsync(global::EditCMSWindowsService.Messages.GrpcAutoExpoNewsURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetCMSSubCategoriesByCategory, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosEntityList GetRelatedModelVideosByBasicId(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedModelVideosByBasicId(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcVideosEntityList GetRelatedModelVideosByBasicId(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetRelatedModelVideosByBasicId, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> GetRelatedModelVideosByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedModelVideosByBasicIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcVideosEntityList> GetRelatedModelVideosByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcArticleContentURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetRelatedModelVideosByBasicId, null, options, request);
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetRelatedArticlesByBasicId(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedArticlesByBasicId(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcArticleSummaryList GetRelatedArticlesByBasicId(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetRelatedArticlesByBasicId, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedArticlesByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetRelatedArticlesByBasicIdAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> GetRelatedArticlesByBasicIdAsync(global::EditCMSWindowsService.Messages.GrpcRelatedArticlesURI request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetRelatedArticlesByBasicId, null, options, request);
+      }
+      /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
+      protected override EditCMSGrpcServiceClient NewInstance(ClientBaseConfiguration configuration)
+      {
+        return new EditCMSGrpcServiceClient(configuration);
+      }
+    }
+
+    /// <summary>Creates service definition that can be registered with a server</summary>
+    /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+    public static ServerServiceDefinition BindService(EditCMSGrpcServiceBase serviceImpl)
+    {
+      return ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_GetMostRecentArticles, serviceImpl.GetMostRecentArticles)
+          .AddMethod(__Method_GetContentListByCategory, serviceImpl.GetContentListByCategory)
+          .AddMethod(__Method_GetContentDetails, serviceImpl.GetContentDetails)
+          .AddMethod(__Method_GetContentPages, serviceImpl.GetContentPages)
+          .AddMethod(__Method_GetModelPhotosList, serviceImpl.GetModelPhotosList)
+          .AddMethod(__Method_GetArticlePhotos, serviceImpl.GetArticlePhotos)
+          .AddMethod(__Method_GetVideosBySubCategory, serviceImpl.GetVideosBySubCategory)
+          .AddMethod(__Method_GetVideosBySubCategories, serviceImpl.GetVideosBySubCategories)
+          .AddMethod(__Method_GetVideosByModelId, serviceImpl.GetVideosByModelId)
+          .AddMethod(__Method_GetVideosByMakeId, serviceImpl.GetVideosByMakeId)
+          .AddMethod(__Method_GetSimilarVideos, serviceImpl.GetSimilarVideos)
+          .AddMethod(__Method_GetVideoByBasicId, serviceImpl.GetVideoByBasicId)
+          .AddMethod(__Method_CheckHeartBit, serviceImpl.CheckHeartBit)
+          .AddMethod(__Method_ClearMemcachedKeys, serviceImpl.ClearMemcachedKeys)
+          .AddMethod(__Method_ClearCarwaleKeys, serviceImpl.ClearCarwaleKeys)
+          .AddMethod(__Method_GetContentSegmentCount, serviceImpl.GetContentSegmentCount)
+          .AddMethod(__Method_GetCMSSubcategories, serviceImpl.GetCMSSubcategories)
+          .AddMethod(__Method_GetRelatedContent, serviceImpl.GetRelatedContent)
+          .AddMethod(__Method_GetRelatedVideoContent, serviceImpl.GetRelatedVideoContent)
+          .AddMethod(__Method_GetRelatedArticles, serviceImpl.GetRelatedArticles)
+          .AddMethod(__Method_GetRelatedModelVideos, serviceImpl.GetRelatedModelVideos)
+          .AddMethod(__Method_GetTopArticlesByBasicId, serviceImpl.GetTopArticlesByBasicId)
+          .AddMethod(__Method_GetSponsoredArticle, serviceImpl.GetSponsoredArticle)
+          .AddMethod(__Method_GetSponsoredArticlesByCategory, serviceImpl.GetSponsoredArticlesByCategory)
+          .AddMethod(__Method_GetArticleViewsCount, serviceImpl.GetArticleViewsCount)
+          .AddMethod(__Method_GetPopularModelPhotosCount, serviceImpl.GetPopularModelPhotosCount)
+          .AddMethod(__Method_GetPopularModelVideoCount, serviceImpl.GetPopularModelVideoCount)
+          .AddMethod(__Method_GetContentListBySubCategoryId, serviceImpl.GetContentListBySubCategoryId)
+          .AddMethod(__Method_GetAuthorsList, serviceImpl.GetAuthorsList)
+          .AddMethod(__Method_GetAuthorDetails, serviceImpl.GetAuthorDetails)
+          .AddMethod(__Method_GetContentByAuthor, serviceImpl.GetContentByAuthor)
+          .AddMethod(__Method_GetAllOtherAuthors, serviceImpl.GetAllOtherAuthors)
+          .AddMethod(__Method_GetNewsFeedBySlug, serviceImpl.GetNewsFeedBySlug)
+          .AddMethod(__Method_GetNewsFeedBySubCategory, serviceImpl.GetNewsFeedBySubCategory)
+          .AddMethod(__Method_GetAllNewsFeed, serviceImpl.GetAllNewsFeed)
+          .AddMethod(__Method_GetCarSynopsis, serviceImpl.GetCarSynopsis)
+          .AddMethod(__Method_GetModelDetails, serviceImpl.GetModelDetails)
+          .AddMethod(__Method_GetMakeDetails, serviceImpl.GetMakeDetails)
+          .AddMethod(__Method_GetCMSRoadTestCount, serviceImpl.GetCMSRoadTestCount)
+          .AddMethod(__Method_GetTaggedModelId, serviceImpl.GetTaggedModelId)
+          .AddMethod(__Method_GetRelatedListByCategory, serviceImpl.GetRelatedListByCategory)
+          .AddMethod(__Method_GetFeaturedArticles, serviceImpl.GetFeaturedArticles)
+          .AddMethod(__Method_GetOtherModelPhotosList, serviceImpl.GetOtherModelPhotosList)
+          .AddMethod(__Method_GetSimilarModelPhotosList, serviceImpl.GetSimilarModelPhotosList)
+          .AddMethod(__Method_UpdateVideo, serviceImpl.UpdateVideo)
+          .AddMethod(__Method_GoogleSiteMapDetails, serviceImpl.GoogleSiteMapDetails)
+          .AddMethod(__Method_GetArticleVideos, serviceImpl.GetArticleVideos)
+          .AddMethod(__Method_GetModelsImages, serviceImpl.GetModelsImages)
+          .AddMethod(__Method_GetAutoExpoGalleryListing, serviceImpl.GetAutoExpoGalleryListing)
+          .AddMethod(__Method_GetAutoExpoGalleryDetails, serviceImpl.GetAutoExpoGalleryDetails)
+          .AddMethod(__Method_GetCMSSubCategoriesByCategory, serviceImpl.GetCMSSubCategoriesByCategory)
+          .AddMethod(__Method_GetRelatedModelVideosByBasicId, serviceImpl.GetRelatedModelVideosByBasicId)
+          .AddMethod(__Method_GetRelatedArticlesByBasicId, serviceImpl.GetRelatedArticlesByBasicId).Build();
+    }
+
+  }
 }
 #endregion
