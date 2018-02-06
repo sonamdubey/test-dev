@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Location;
 using Bikewale.Models.Make;
 using Bikewale.Models.PopUp;
@@ -59,7 +60,7 @@ namespace Bikewale.Models
         public RecentExpertReviewsVM ExpertReviews { get; set; }
         public RecentVideosVM Videos { get; set; }
         public IEnumerable<BikeVersionEntity> DiscontinuedBikes { get; set; }
-
+        public IEnumerable<ModelImages> BikeModelsPhotos { get; set; }
         public bool IsUpComingBikesAvailable { get; set; }
         public bool IsCompareBikesAvailable { get; set; }
         public bool IsNewsAvailable { get; set; }

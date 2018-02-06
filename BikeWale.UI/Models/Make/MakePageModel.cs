@@ -1,7 +1,9 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.Compare;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
@@ -45,6 +47,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _expertReviews = null;
         private readonly IVideos _videos = null;
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails = null;
+        private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         private readonly IDealerCacheRepository _cacheDealers = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompare _compareBikes = null;
@@ -58,7 +61,7 @@ namespace Bikewale.Models
         public bool IsAmpPage { get; set; }
         private CityEntityBase cityBase = null;
 
-        public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews)
+        public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews)
         {
             this._makeMaskingName = makeMaskingName;
             this._bikeModelsCache = bikeModelsCache;
@@ -72,6 +75,7 @@ namespace Bikewale.Models
             this._compareBikes = compareBikes;
             this._objSC = objSC;
             this._cacheUserReviews = cacheUserReviews;
+            _objModelEntity = objModelEntity;
             ProcessQuery(this._makeMaskingName);
         }
 
@@ -184,7 +188,7 @@ namespace Bikewale.Models
                     RedirectUrl = string.Format("/dealer-showrooms/{0}/", _makeMaskingName),
                     IsCityWrapperPresent = 1
                 };
-
+                BindModelPhotos(objData);
                 BindShowroomPopularCityWidget(objData);
                 BindResearchMoreMakeWidget(objData);
                 GetEMIDetails(objData);
@@ -224,6 +228,31 @@ namespace Bikewale.Models
             }
 
             return objData;
+        }
+
+        private void BindModelPhotos(MakePageVM objData)
+        {
+            try
+            {
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(_makeId, EnumBikeBodyStyles.AllBikes);
+                if (objModelIds != null && objModelIds.Any())
+                {
+                    string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
+                    int requiredImageCount = 4;
+                    string categoryIds = CommonApiOpn.GetContentTypesString(
+                        new List<EnumCMSContentType>()
+                    {
+                        EnumCMSContentType.PhotoGalleries,
+                        EnumCMSContentType.RoadTest
+                    }
+                    );
+                    objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.MakePhotosPage.BindModelPhotos : BindModelPhotos({0})", objData));
+            }
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 27 Oct 2017
