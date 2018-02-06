@@ -781,37 +781,21 @@ namespace Bikewale.Models
             {
                 if (objData != null)
                 {
-                    if (cityBase != null && cityBase.CityId > 0) // when city is selected
+                    foreach (var bike in objData.Bikes)
                     {
-                        foreach (var bike in objData.Bikes)
+                        if (bike != null)
                         {
-                            if (bike != null)
+                            if (bike.OnRoadPrice > 0)
                             {
-                                if (bike.ExShowroomPrice > 0)
-                                {
-                                    bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.ExShowroomPrice);
-                                }
-                                else if (bike.AvgPrice > 0)
-                                {
-                                    bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.AvgPrice);
-                                }
+                                bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.OnRoadPrice);
                             }
-
-
-                        }
-
-                    }
-                    else // when city is not selected
-                    {
-                        foreach (var bike in objData.Bikes)
-                        {
-                            if (bike != null)
+                            else
                             {
-                                bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.ExShowroomPrice);
+                                bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.OnRoadPriceMumbai);
                             }
-
                         }
                     }
+
                 }
 
             }
