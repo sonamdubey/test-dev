@@ -3968,6 +3968,7 @@
     <Content Include="Views\Make\Index_Mobile_New.cshtml" />
     <Content Include="Views\DealerShowroom\_NewDealerShowroomWithCount.cshtml" />
     <Content Include="Views\PopularCityWidget\_DealerInPopularCity_Mobile.cshtml" />
+    <Content Include="Views\Make\_NewLaunchedMake_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

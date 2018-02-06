@@ -217,14 +217,13 @@ namespace Bikewale.Models
 
                 if (IsMobile)
                 {
-                    RecentNewLaunchedWidgetVM NewLaunchedWidgetVMNDays = new RecentNewLaunchedWidgetVM();
 
                     InputFilter inputFilter = new InputFilter();
                     inputFilter.Days = 10;
                     inputFilter.Make = _makeId;
 
-                    NewLaunchedWidgetVMNDays.NewLaunchedMakeBikesNDays = _bikeModelsCache.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
-                    objData.NewLaunchedMakeWidgetNDays = NewLaunchedWidgetVMNDays;
+                    NewLaunchedBikesBase NewLaunchedMakeBikesNDays = _bikeModelsCache.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
+                    objData.NewLaunchedMakeBikesNDays = NewLaunchedMakeBikesNDays;
                 }
 
                 if (IsAmpPage)
