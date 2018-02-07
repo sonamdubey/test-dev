@@ -631,7 +631,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 if (objModelPage.colorPhotos != null && objModelPage.colorPhotos.Any())
                 {
                     objDTOModelPage.ModelColors = ModelMapper.Convert(objModelPage.colorPhotos);
-                    objDTOModelPage.ModelColors = objDTOModelPage.ModelColors.OrderByDescending(m=> m.BikeModelColorId);
+                    objDTOModelPage.ModelColors = objDTOModelPage.ModelColors.OrderByDescending(m=> m.IsImageExists);
                 }
                 if (pqEntity != null)
                 {
