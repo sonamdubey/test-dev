@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Bikewale.Interfaces.Videos;
 
 namespace Bikewale.Models.Photos
 {
@@ -23,6 +24,7 @@ namespace Bikewale.Models.Photos
     {
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
+        private readonly IVideos _videos = null;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse ObjResponse { get; set; }
         public string RedirectUrl { get; set; }
@@ -31,45 +33,69 @@ namespace Bikewale.Models.Photos
         private string MakeName = string.Empty;
         private int ModelsCount;
         private string MakeMaskingName = string.Empty;
-        
+        /// <summary>
+        /// Number of videos to be fetched for videos widget.
+        /// </summary>
+        public ushort VideosCount { get; set; }
 
 
-        public MakePhotosPage(bool isMobile, string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository objMakeCache)
+
+        public MakePhotosPage(bool isMobile, string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository objMakeCache, IVideos videos)
         {
             IsMobile = isMobile;
             _objModelEntity = objModelEntity;
             _objMakeCache = objMakeCache;
+            _videos = videos;
             ProcessQuery(makeMaskingName);
         }
 
         public MakePhotosPageVM GetData()
         {
-            MakePhotosPageVM _objData = null;
+            MakePhotosPageVM objData = null;
             try
             {
-                _objData = new MakePhotosPageVM();
-                BindModelPhotos(_objData);
-                BindModelBodyStyleLookupArray(_objData);
-                BindOtherMakesWidget(_objData);
-                if (_objData.BikeModelsPhotos != null && _objData.BikeModelsPhotos.Any())
+                objData = new MakePhotosPageVM();
+                BindModelPhotos(objData);
+                BindModelBodyStyleLookupArray(objData);
+                BindOtherMakesWidget(objData);
+                if (objData.BikeModelsPhotos != null && objData.BikeModelsPhotos.Any())
                 {
-                    MakeName = _objData.BikeModelsPhotos.First().MakeBase.MakeName;
-                    ModelsCount = _objData.BikeModelsPhotos.Count();
-                    _objData.Make = _objData.BikeModelsPhotos.First().MakeBase;
+                    MakeName = objData.BikeModelsPhotos.First().MakeBase.MakeName;
+                    ModelsCount = objData.BikeModelsPhotos.Count();
+                    objData.Make = objData.BikeModelsPhotos.First().MakeBase;
                 }
-                BindImageSynopsis(_objData);
-                SetBreadcrumList(_objData);
-                SetPageMetas(_objData);
-                SetPageJSONLDSchema(_objData);
+                BindImageSynopsis(objData);
+                BindVideosWidget(objData);
+                SetBreadcrumList(objData);
+                SetPageMetas(objData);
+                SetPageJSONLDSchema(objData);
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.Photos.MakePhotosPage.GetData()");
             }
-            return _objData;
+            return objData;
             
         }
 
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 06 Feb 2017
+        /// Description : Method to bind recent videos.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindVideosWidget(MakePhotosPageVM objData)
+        {
+            try
+            {
+                objData.Videos = new RecentVideos(1, VideosCount, _makeId, MakeName, MakeMaskingName, _videos).GetData();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage : BindVideosWidget");
+
+            }
+        }
         /// <summary>
         /// Created by : Ashutosh Sharma on 29 Jan 2018
         /// Description : Method to bind synopsis of make images page.
