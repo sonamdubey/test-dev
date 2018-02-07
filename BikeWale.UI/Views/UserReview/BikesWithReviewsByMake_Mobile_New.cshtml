@@ -8,8 +8,8 @@
     if (firstCard != null)
     {
         <div class="article-section__count">
-            <span class="article-count__number">@firstCard.MakeReviewCount</span>&nbsp;User Reviews for
-            <span class="article-count__number">@firstCard.ModelCountWithUserReviews</span>&nbsp;Models
+            <span class="article-count__number">@firstCard.MakeReviewCount</span>&nbsp;@string.Format("User Review{0} for", (firstCard.MakeReviewCount > 1 ? "s" : "")) 
+            <span class="article-count__number">@firstCard.ModelCountWithUserReviews</span>&nbsp; @(firstCard.ModelCountWithUserReviews > 1 ? "Models" : "Model")
         </div>
     }
 
