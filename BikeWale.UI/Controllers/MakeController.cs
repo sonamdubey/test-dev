@@ -27,6 +27,8 @@ namespace Bikewale.Controllers
     /// Summary     : Added BL instance for comparison list
     /// Modified By : Snehal Dange on 21st Nov 2017
     /// Description : Added IUserReviewsCache
+    /// Modified by : Sanskar Gupta on 07 Feb 2018
+    /// Description : Added INewBikeLaunchesBL
     /// </author>
     public class MakeController : Controller
     {

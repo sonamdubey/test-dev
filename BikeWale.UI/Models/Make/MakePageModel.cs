@@ -40,6 +40,8 @@ namespace Bikewale.Models
     /// Description: Added IUserReviewsCache _cacheUserReviews
     /// Modified By : Deepak Israni on 6th Feb 2018
     /// Description : Added TopCountNews property
+    /// Modified by : Sanskar Gupta on 07 Feb 2018
+    /// Description : Added INewBikeLaunchesBL
     /// </summary>
     public class MakePageModel
     {
