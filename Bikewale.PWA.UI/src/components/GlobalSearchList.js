@@ -49,7 +49,7 @@ class GlobalSearchList extends React.Component {
             }
                 
         }
-        if(item.payload.modelId === 0 && item.payload.makeId === 0) {
+        if(item.payload.modelId === "0" && item.payload.makeId === "0") {
             return (
                 <li data-makeid={item.payload.makeId} data-modelid={item.payload.modelId} className="autocomplete-menu--item" onClick={function(){this.onSelect(item, 3)}.bind(this)}>
                     {icon}
