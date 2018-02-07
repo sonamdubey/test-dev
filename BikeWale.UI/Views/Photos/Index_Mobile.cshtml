@@ -93,4 +93,19 @@
             </div>
         </section>
     }
+
+    if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+    {
+        <div class="container bg-white ">
+            <div id="videosContent" class="margin-right20 margin-left20 padding-top15 padding-bottom20 font14">
+                <h2 class="font18">Videos</h2>
+                @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+                <div class="margin-top10">
+                    <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
+                        View all videos <span class="bwmsprite teal-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
 }

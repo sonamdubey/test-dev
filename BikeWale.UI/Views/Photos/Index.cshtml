@@ -91,11 +91,36 @@
                 <div class="grid-12">
                     <div class="content-box-shadow padding-bottom5">
                         <h2 class="related-bikes__title">Browse Images by Brands</h2>
-                    @Html.Partial("~/Views/Photos/_OtherPopularMakes.cshtml", Model.OtherPopularMakes)
+                        @Html.Partial("~/Views/Photos/_OtherPopularMakes.cshtml", Model.OtherPopularMakes)
+                    </div>
                 </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-        </div>
-    </section>
+        </section>
+    }
+
+    if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+    {
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div id="videosContent" class="content-box-shadow padding-top20 padding-bottom20 font14">
+                        <div class="carousel-heading-content">
+                            <h2 class="font22">Videos</h2>
+                        </div>
+
+                        @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
+                        <div class="margin-top10 padding-left20">
+                            <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
+                                View all videos <span class="bwsprite teal-right"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+
+            </div>
+        </section>
     }
 }
