@@ -47,7 +47,7 @@ namespace Bikewale.Interfaces.BikeData
     /// Modified by : Sanskar Gupta on 12 Jan 2018
     /// Description : Added IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters)
     /// Modified by : Sanskar Gupta on 31st Jan 2018
-    /// Description : Added IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMakeAndDays();
+    /// Description : Added IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMake();
     /// <typeparam name="U"></typeparam>
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
@@ -88,7 +88,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters);
 
-        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMakeAndDays(InputFilter inputFilter);
+        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMake(InputFilter inputFilter);
 
 
     }

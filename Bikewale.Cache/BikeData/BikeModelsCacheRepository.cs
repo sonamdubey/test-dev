@@ -1628,18 +1628,18 @@ namespace Bikewale.Cache.BikeData
         /// Description : Function to fetch Newly Launched bikes of a particular make within a span of particular number of days.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMakeAndDays(InputFilter inputFilter)
+        public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMake(InputFilter inputFilter)
         {
             IEnumerable<NewLaunchedBikeEntityBase> objBikes = null;
-            string key = String.Format("BW_NewLaunchedBikesByMakeAndDays_MKID_{0}", inputFilter.Make);
+            string key = String.Format("BW_NewLaunchedBikesByMake_MakeId_{0}", inputFilter.Make);
 
             try
             {
-                objBikes = _cache.GetFromCache<IEnumerable<NewLaunchedBikeEntityBase>>(key, new TimeSpan(1, 0, 0), () => FilterNewLaunchedBikesListByMake(inputFilter.Make));
+                objBikes = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => FilterNewLaunchedBikesListByMake(inputFilter.Make));
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetNewLaunchedBikesListByMakeAndDays");
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetNewLaunchedBikesListByMake");
 
             }
 
@@ -1662,7 +1662,7 @@ namespace Bikewale.Cache.BikeData
 
                 if (bikes != null)
                 {
-                    bikes = bikes.Where(x => x.Make.MakeId == makeId);
+                    bikes = bikes.Where(x => x.Make.MakeId == makeId).ToList();
                 }
             }
             catch(Exception ex)
