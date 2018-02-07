@@ -26,7 +26,6 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Models;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Grpc.CMS;
@@ -61,7 +60,7 @@ namespace Bikewale.BAL.BikeData
         private readonly IUserReviews _userReviews = null;
         private readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
         private readonly uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
-        private static readonly IEnumerable<EnumBikeBodyStyles> _bodyStyles = new List<EnumBikeBodyStyles> { EnumBikeBodyStyles.Scooter, EnumBikeBodyStyles.Street, EnumBikeBodyStyles.Cruiser, EnumBikeBodyStyles.Sports};
+        private static readonly IEnumerable<EnumBikeBodyStyles> _bodyStyles = new List<EnumBikeBodyStyles> { EnumBikeBodyStyles.Scooter, EnumBikeBodyStyles.Street, EnumBikeBodyStyles.Cruiser, EnumBikeBodyStyles.Sports };
         private string _newsContentType;
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
@@ -259,11 +258,12 @@ namespace Bikewale.BAL.BikeData
                         bikes.Insert(1, results.ElementAt(1));
                     }
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetAdPromoteBikeFilters");
                 }
                 MostPopularBikes = bikes;
-               
+
             }
             return MostPopularBikes;
         }
@@ -740,9 +740,12 @@ namespace Bikewale.BAL.BikeData
                     PS = 3,
                     Reviews = true
                 };
-
+                List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>();
+                categoryList.Add(EnumCMSContentType.News);
+                categoryList.Add(EnumCMSContentType.AutoExpo2018);
+                string newsContentType = CommonApiOpn.GetContentTypesString(categoryList);
                 var reviewTask = Task.Factory.StartNew(() => userReviews = _userReviewsSearch.GetUserReviewsList(filters));
-                var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), 2, 0, Convert.ToUInt32(modelId)));
+                var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesByIdList(newsContentType, 2, 0, Convert.ToUInt32(modelId)));
                 var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.RoadTest), 2, 0, Convert.ToUInt32(modelId)));
                 var videosTask = Task.Factory.StartNew(() => objVideos = GetVideosByModelIdViaGrpc(Convert.ToInt32(modelId)));
 
@@ -1364,7 +1367,7 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> GetModelsWithBodyStyleLookupArray(uint makeId)
         {
-            IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> LookupArray = new Dictionary<EnumBikeBodyStyles,IEnumerable<uint>>();
+            IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> LookupArray = new Dictionary<EnumBikeBodyStyles, IEnumerable<uint>>();
             try
             {
                 var objData = GetModelIdsForImages(makeId, EnumBikeBodyStyles.AllBikes);
@@ -1375,7 +1378,7 @@ namespace Bikewale.BAL.BikeData
                     foreach (EnumBikeBodyStyles bodyStyle in _bodyStyles)
                     {
                         modelIdWithBodyStyle = objData.Where(g => (bodyStyle.Equals(g.BodyStyle)));
-                        if(modelIdWithBodyStyle != null && modelIdWithBodyStyle.Any())
+                        if (modelIdWithBodyStyle != null && modelIdWithBodyStyle.Any())
                         {
                             modelIds = modelIdWithBodyStyle.Select(g => g.ModelId);
                             LookupArray.Add(bodyStyle, modelIds);
