@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Location;
 using Bikewale.Models.Make;
@@ -40,7 +41,9 @@ namespace Bikewale.Models
 
     /// Modified by  : Rajan Chauhan on 3 Jan 2017
     /// Description  : Added MakeId Field
-    /// 
+
+    /// Modified by : Sanskar Gupta on 02 Feb 2018
+    /// Description : Added NewLaunchedMakeBikesNDays
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -95,6 +98,6 @@ namespace Bikewale.Models
         public MakeFooterCategoriesandPriceVM SubFooter { get; set; }
         public ResearchMoreAboutMakeVM ResearchMoreMakeWidget { get; set; }
 
-
+        public IEnumerable<NewLaunchedBikeEntityBase> NewLaunchedMakeBikesNDays { get; set; }
     }
 }

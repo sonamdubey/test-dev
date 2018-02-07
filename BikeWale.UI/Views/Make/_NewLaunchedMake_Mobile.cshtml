@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeEntityBase>
+@using Bikewale.Utility;
+
+@if(Model != null){
+    <div data-id="popularModel" class="bg-white section-bottom-margin newly-lauched-section overall-tabs-data">
+            <div class="newly-launched__title">
+                <h2 class="page__heading-h2">
+                    Newly launched
+                </h2>
+            </div>
+
+                    <div class="swiper-container carousel__newly-lauched" data-spacebetween="0">
+                        <ul class="swiper-wrapper">
+                            @foreach (var bike in Model)
+                            {
+                                if (bike != null && bike.Make != null && bike.Model != null)
+                                {
+                                    var bikeUrl = UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName);
+                                    var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+
+                                    <li class="swiper-slide carousel-slide model-list__item">
+                                        <div class="model__card">
+                                            <a href="@string.Format("/m{0}", bikeUrl)" title="" class="model-card__target">
+                                                <div class="model-card__image">
+                                                    <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bikeName" alt="@bikeName">
+                                                </div>
+                                                <div class="model-card__detail">
+                                                    <h3 class="card-detail__name">@bike.Model.ModelName</h3>
+                                                    <p class="card-detail__launch-date">Launch Date: @string.Format("{0}", FormatDate.GetFormatDate(bike.LaunchedOn.ToString(), "dd MMM yyyy"))</p>
+                                                    <ul class="card-detail__specs-list">
+                                                        @if (bike.MinSpecs.Displacement != 0)
+                                                        {
+                                                            <li>
+                                                                <span class="bwsprite capacity-sm"></span>
+                                                                <span>@FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc") </span>
+                                                            </li>
+                                                        }
+                                                        @if (bike.MinSpecs.FuelEfficiencyOverall != 0)
+                                                        {
+                                                            <li>
+                                                                <span class="bwsprite mileage-sm"></span>
+                                                                <span>@FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl") </span>
+                                                            </li>
+                                                        }
+                                                        @if (bike.MinSpecs.MaxPower != 0)
+                                                        {
+                                                            <li>
+                                                                <span class="bwsprite power-sm"></span>
+                                                                <span>@FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(), "bhp") </span>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </a>
+                                            <div class="model-card__exshowroom-content">
+                                                <div class="model-card__exshowroom">
+                                                    @if (bike.Price != 0)
+                                                    {
+                                                        <div class="card-exshowroom__col">
+                                                            <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                                            <span class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">@Format.FormatPrice(Convert.ToString(bike.Price))</span></span>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>
+                                                            <span class="text-light-grey margin-bottom5 margin-right5">Ex-showroom price</span><span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+                                                                <span class="bw-tooltip info-tooltip">
+                                                                    <span class="bw-tooltip-text">Price is not available</span>
+                                                                </span>
+                                                            </span>
+                                                        </p>
+                                                    }
+
+                                                    <a href="@string.Format("/m{0}", bikeUrl)" title="@bikeName" class="model-card__explore">
+                                                        Explore
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+
+    </div>
+}
