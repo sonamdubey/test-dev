@@ -115,6 +115,8 @@ namespace Bikewale.Models
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// Modified by : Rajan Chauhan on 3 Jan 2017
         /// Description : Bind MakeId to objData
+        /// Modified by : Sanskar Gupta on 07 Feb 2018
+        /// Descritpion : Added logic to fetch Newly Launched Bikes (within a period of 10 days) for Mobile Make page.
         /// </returns>
         public MakePageVM GetData()
         {
