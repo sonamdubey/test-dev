@@ -83,6 +83,7 @@ namespace Bikewale.BAL.CMS
             {
                 case EnumCMSContentType.News:
                 case EnumCMSContentType.AutoExpo2016:
+                case EnumCMSContentType.AutoExpo2018:
                     articleSummary.ShareUrl = string.Format("{0}/news/{1}-{2}.html", _bwHostUrl, articleSummary.BasicId, articleSummary.ArticleUrl);
                     break;
                 case EnumCMSContentType.Features:
