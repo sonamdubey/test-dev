@@ -222,7 +222,7 @@
      }
         <div id="videosAndServiceCenterContent" data-id="videosAndServiceCenterContent" class="bw-model-tabs-data">
             @if (Model.IsVideosAvailable)
-        {
+            {
                 <div id="modelVideosContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
                     <!-- Video start -->
                     <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Videos</h2>
@@ -232,9 +232,9 @@
                     </div>
                     <!-- Video ends -->
                 </div>
-        }
+             }
             @if (Model.IsOtherDealersAvailable || Model.IsDealersServiceCenterAvailable)
-        {
+            {
                 <div id="dealerAndServiceContent" class="content-box-shadow card-bottom-margin padding-top20 carousel-heading-10">
                     @if (Model.CityId > 0 && Model.IsOtherDealersAvailable)
                 {
@@ -262,8 +262,29 @@
                     }
                 }
                 </div>
-        }
+            }
+            @if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Any())
+            {
+                <div class="content-box-shadow card-bottom-margin padding-bottom15">
+                    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
+                    {
+                        <div class="carousel-heading-content padding-top20">
+
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2 class="h2-heading">@string.Format("Upcoming {0} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@string.Format("/{0}-bikes/upcoming/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName)" title="@string.Format("Upcoming {0} bikes in India", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)" class="btn view-all-target-btn">View all</a>
+                            </div>
+                        </div>
+                    }
+                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
+                </div>
+                <div class="clear"></div>
+            }
         </div>
+
+        
         <!-- Used bikes widget -->
         @if (Model.IsUsedBikesAvailable)
     {

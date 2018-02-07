@@ -207,6 +207,24 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
             }
         </div>
     }
+    @if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Any())
+     {
+        <div class="container bg-white box-shadow padding-top10 padding-bottom20 card-bottom-margin">
+            @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
+            {
+                <div class="carousel-heading-content padding-top15">
+                    <div class="swiper-heading-left-grid-50 inline-block">
+                        <h2>@string.Format("Upcoming {0} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid-50 inline-block text-right">
+                        <a href="@string.Format("/m/{0}-bikes/upcoming/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName)" title="@string.Format("Upcoming {0} bikes in India", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)" class="btn view-all-target-btn">View all</a>
+                    </div>
+                </div>
+            }
+            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.objUpcomingBikes)
+            <div class="clear"></div>
+        </div>
+    }
 </div>
 @if (!Model.IsUpcomingBike && Model.IsUsedBikesAvailable)
 {

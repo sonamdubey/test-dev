@@ -624,6 +624,8 @@ namespace Bikewale.Models.BikeModels
         /// Summary : Removed initialisation of service centers
         /// Modified by : Ashutosh Sharma on 03 Nov 2017
         /// Description : Changed order of bind upcoming bikes wiget to get bodystyle.
+        /// Modified by : Ashutosh Sharma on 07 Feb 2018
+        /// Description : Fetching upcoming bikes for new and discontined bikes also.
         /// </summary>
         private void BindControls()
         {
@@ -739,10 +741,7 @@ namespace Bikewale.Models.BikeModels
                             _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
                         }
                     }
-                    if (_objData.IsUpcomingBike)
-                    {
-                        _objData.objUpcomingBikes = BindUpCompingBikesWidget();
-                    }
+                    _objData.objUpcomingBikes = BindUpCompingBikesWidget();
                     BindSimilarBikes(_objData);
                     BindModelsBySeriesId(_objData);
                 }
@@ -938,6 +937,8 @@ namespace Bikewale.Models.BikeModels
         /// Summary:- Binding data for upcoming bike widget
         /// Modified by : Ashutosh Sharma on 03 Nov 2017
         /// Description : Removed filters and and added conditions for bodystyle and deviated price.
+        /// Modified by : Ashutosh Sharma on 07 Feb 2018
+        /// Description : Fetching upcoming bikes for new and discontined bikes also, at front of bike list will be having same bodystyle as requested bike model.
         /// </summary>
         /// <returns></returns>
         private UpcomingBikesWidgetVM BindUpCompingBikesWidget()
@@ -953,26 +954,47 @@ namespace Bikewale.Models.BikeModels
 
 
                 objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+                if ((_objData.IsNewBike || _objData.IsDiscontinuedBike) && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelDetails != null &&  _objData.ModelPageEntity.ModelDetails.MakeBase != null)
+                {
+                    objUpcoming.Filters = new UpcomingBikesListInputEntity()
+                    {
+                        MakeId = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeId,
+                        PageNo = 1,
+                        PageSize = 9
+                    };
+                }
                 objUpcomingBikes = objUpcoming.GetData();
 
                 if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
                 {
-                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes
-                        .OrderByDescending(
-                            m => m.BodyStyleId == (uint)_objData.BodyStyle &&
-                            ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax)
-                            || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax))
-                        )
-                        .ThenByDescending(
-                            m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) ||
-                            (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
-                        )
-                        .Where(x => x.ModelBase.ModelId != _modelId)
-                        .Take(9)
-                        .TakeWhile(m =>
-                            (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)).Take(10).TakeWhile(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax)
-                            || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
-                        );
+                    if (_objData.IsUpcomingBike)
+                    {
+                        objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes
+                                        .OrderByDescending(
+                                            m => m.BodyStyleId == (uint)_objData.BodyStyle &&
+                                            ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax)
+                                            || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax))
+                                        )
+                                        .ThenByDescending(
+                                            m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) ||
+                                            (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
+                                        )
+                                        .Where(x => x.ModelBase.ModelId != _modelId)
+                                        .Take(9)
+                                        .TakeWhile(m =>
+                                            (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)).Take(10).TakeWhile(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax)
+                                            || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
+                                        ); 
+                    }
+                    else
+                    {
+                        
+                        IEnumerable<UpcomingBikeEntity> upcomingBikesBodyStyle = objUpcomingBikes.UpcomingBikes.Where(m => m.BodyStyleId == (uint)_objData.BodyStyle);
+                        if (upcomingBikesBodyStyle != null)
+                        {
+                            objUpcomingBikes.UpcomingBikes = upcomingBikesBodyStyle.Concat(objUpcomingBikes.UpcomingBikes.Where(m => m.BodyStyleId != (uint)_objData.BodyStyle)).Take(9);
+                        }
+                    }
                 }
 
 
