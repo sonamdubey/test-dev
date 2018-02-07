@@ -3128,6 +3128,11 @@
     <Content Include="sass\mixins\_scrollbar.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
@@ -3968,6 +3973,7 @@
     <Content Include="Views\Make\Index_Mobile_New.cshtml" />
     <Content Include="Views\DealerShowroom\_NewDealerShowroomWithCount.cshtml" />
     <Content Include="Views\PopularCityWidget\_DealerInPopularCity_Mobile.cshtml" />
+    <Content Include="Views\News\_RecentNews_Mobile_New.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

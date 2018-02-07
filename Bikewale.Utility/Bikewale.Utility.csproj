@@ -150,6 +150,7 @@
     <Compile Include="Amp\AmpCacheRefresh.cs" />
     <Compile Include="AndroidAppAlert\SubscriptionTypes.cs" />
     <Compile Include="APIHost.cs" />
+    <Compile Include="ArticleHelper.cs" />
     <Compile Include="BikeBookingCookie.cs" />
     <Compile Include="BikeFilter.cs" />
     <Compile Include="BikewaleSecurity.cs" />
