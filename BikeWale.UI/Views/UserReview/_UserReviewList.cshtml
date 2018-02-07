@@ -30,7 +30,7 @@
 						<span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
 							<span class="bwsprite star-white"></span>&nbsp;<span>@review.OverallRating.Value</span>
 						</span>
-						<a onclick="logBhrighu(@i,'TitleClick')" href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-id="@i" class="list-item-title inline-block margin-right5">@review.Title.Truncate(65) </a>
+                        <a rel="nofollow" class="bw-anchor-link" onclick="logBhrighu(@i,'TitleClick')" href="javascript:void(0)" data-href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-id="@i" class="list-item-title inline-block margin-right5">@review.Title.Truncate(65) </a>
 						<span class="font12 inline-block text-light-grey">@review.ReviewAge ago by @review.CustomerName.Truncate(25) </span>
 					</div>
 					<div class="collapsible-content toggle-off main-content-off font14 text-slate-grey">
