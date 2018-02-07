@@ -12,7 +12,7 @@ var fetchNewsArticleList = function(pageNo) {
 			pageNo = extractPageNoFromURL(window.location.href);
 		}
 		var method = 'GET';
-		var url = '/api/pwa/cms/cat/1,19,6,8,2,18,5/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
+		var url = '/api/pwa/cms/cat/1,19,6,8,2,18,5,26/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
 	
 		
 		var xhr = new XMLHttpRequest();
