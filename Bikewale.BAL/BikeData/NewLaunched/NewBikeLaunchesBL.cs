@@ -172,12 +172,16 @@ namespace Bikewale.BAL.BikeData.NewLaunched
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>
-        public NewLaunchedBikesBase GetNewLaunchedBikesListByMakeAndDays(InputFilter filters)
+        public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMakeAndDays(InputFilter filters)
         {
-            NewLaunchedBikesBase bikes = null;
+            IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
             try
             {
                 bikes = _modelCache.GetNewLaunchedBikesListByMakeAndDays(filters);
+                if(bikes != null)
+                {
+                    bikes = bikes.Where(x => DateTime.Now >= x.LaunchedOn && DateTime.Now <= x.LaunchedOn.AddDays(10));
+                }
 
             }
             catch (Exception ex)
