@@ -1,0 +1,104 @@
+﻿@model Bikewale.Models.RecentExpertReviewsVM
+@using  Bikewale.Utility
+@*<div class="article-section__count">
+    <span class="article-count__number">32</span>&nbsp;Expert Reviews for <span class="article-count__number">14</span>&nbsp;Models
+</div>*@
+
+<div class="swiper-container carousel__expert-review" data-spacebetween="0">
+
+    <ul class="swiper-wrapper">
+        @foreach (var review in Model.ArticlesList)
+        {
+           
+            <li class="swiper-sli
+                de carousel-slide">
+                <div class="review-card carousel-card" data-review-category="@((review.SubCategoryId == 0) ? "23" : (review.SubCategoryId == 1) ? "24" : "40")">
+                    <span class="card-category__tag">
+                @review.SubCategory Review
+            </span>
+                    <h3 class="review-card__title">
+                    @*//    @string.Format("{0} {1}",)*@
+                    </h3>
+                    <p class="review-card__desc">
+                        @Bikewale.Utility.FormatDescription.TruncateDescription(review.Description, 180)
+                    </p>
+                    <div class="review-card__about">
+                        <div class="review-card__author">
+
+
+                            <span class="review-author_defult-img"></span>
+
+
+                        </div>
+                        <p class="review-card__author-name">@review.AuthorName</p>
+                        <p class="review-card__date">
+                            @FormatDate.GetDaysAgo(review.DisplayDate)
+                        </p>
+                    </div>
+
+                    <a class="review-card__read-more" data-url="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title">
+                        Read full review
+                    </a>
+                </div>
+            </li>
+        }
+    </ul>
+
+
+
+   
+</div>
+
+
+
+
+@*<ul class="swiper-wrapper">
+    @for (var i = 0; i <= 5; i++)
+    {
+        <li class="swiper-slide carousel-slide">
+            <div class="review-card carousel-card" data-review-category="@((i==0)?"23": (i==1)?"24":"40")">
+                <span class="card-category__tag">
+                    First Ride Review
+                </span>
+                <h3 class="review-card__title">
+                    TVS Apache RR 310
+                </h3>
+                <p class="review-card__desc">
+                    “Style is very good in terms offering and sporty look. Engine per...”
+                </p>
+                <div class="review-card__about">
+                    <div class="review-card__author">
+                        @{
+        if (i == 0)
+        {
+            <span class="review-author_defult-img"></span>
+        }
+        else
+        {
+            if (i % 2 == 0)
+            {
+                <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
+            }
+            else
+            {
+                <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
+
+            }
+        }
+                        }
+                    </div>
+                    <p class="review-card__author-name">Ranjan B.</p>
+                    <p class="review-card__date">
+                        3 days ago
+                    </p>
+                </div>
+
+                <a class="review-card__read-more" href="" title="">
+                    Read full reivew
+                </a>
+            </div>
+        </li>
+    }
+
+
+</ul>*@
