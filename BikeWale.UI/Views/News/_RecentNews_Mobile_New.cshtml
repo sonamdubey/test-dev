@@ -1,0 +1,51 @@
+﻿@model Bikewale.Models.RecentNewsVM
+@using Bikewale.Utility
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
+{
+
+    <ul class="swiper-wrapper">
+        @foreach (var news in Model.ArticlesList)
+        {
+            <li class="swiper-slide carousel-slide">
+                <div class="editorial-card">
+                    <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" class="editorial-card__target">
+                        <div class="editorial-card__image">
+                            <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._310x174, QualityFactor._75)" src ="" title="@news.Title" alt="@news.Title">
+                        </div>
+                        <div class="editorial-card__detail">
+                            <h3 class="editorial-card__name">@FormatDescription.TruncateDescription(news.Title, 44)</h3>
+                            <p class="editorial-card__description">@FormatDescription.TruncateDescription(@news.Description, 180)</p>
+                        </div>
+                    </a>
+                    <div class="editorial-card__footer">
+                        <div class="editorial-footer__author-img">
+                            @{var author = 0;
+                            if (author == 0)
+                            {
+                                <span class="editorial-author_defult-img"></span>
+                            }
+                            else
+                            {
+                                <img class="swiper-lazy editorial-author-img" src="" data-src="" title="" alt="" />
+                            }
+
+
+
+                            }
+                        </div>
+                        <div class="editorial-card__about">
+                            <span class="editorial-card__author-name">@news.AuthorName</span>
+                            <p class="editorial-card__date-section">
+                                <span>@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate), "dd MMM yyyy")</span> -
+                                <span>@news.EstimatedReadingTime min read</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+        }
+
+
+    </ul>
+}

@@ -38,6 +38,8 @@ namespace Bikewale.Models
     /// Description : Added property IsAmpPage.
     /// Modified By :Snehal Dange on 21st Nov 2017
     /// Description: Added IUserReviewsCache _cacheUserReviews
+    /// Modified By : Deepak Israni on 6th Feb 2018
+    /// Description : Added TopCountNews property
     /// </summary>
     public class MakePageModel
     {
@@ -63,6 +65,7 @@ namespace Bikewale.Models
         public bool IsMobile { get; set; }
         public bool IsAmpPage { get; set; }
         private CityEntityBase cityBase = null;
+        public uint TopCountNews { get; set; }
 
         public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL)
         {
@@ -256,7 +259,7 @@ namespace Bikewale.Models
                 if (objModelIds != null && objModelIds.Any())
                 {
                     string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                    int requiredImageCount = 4;
+                    int requiredImageCount = 9;
                     string categoryIds = CommonApiOpn.GetContentTypesString(
                         new List<EnumCMSContentType>()
                     {
@@ -445,9 +448,16 @@ namespace Bikewale.Models
             }
         }
 
+        /// <summary>
+        /// Modified By: Deepak Israni on 5th Feb 2018
+        /// Description: Bind more news articles on mobile page.
+        /// </summary>
+        /// <param name="objData"></param>
         private void BindCMSContent(MakePageVM objData)
         {
-            objData.News = new RecentNews(2, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
+
+            objData.News = new RecentNews(TopCountNews, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
+            
             objData.ExpertReviews = new RecentExpertReviews(2, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName)).GetData();
             if (IsMobile)
             {
@@ -455,7 +465,6 @@ namespace Bikewale.Models
             }
             else
             {
-
                 objData.Videos = new RecentVideos(1, 4, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
             }
 
@@ -799,37 +808,21 @@ namespace Bikewale.Models
             {
                 if (objData != null)
                 {
-                    if (cityBase != null && cityBase.CityId > 0) // when city is selected
+                    foreach (var bike in objData.Bikes)
                     {
-                        foreach (var bike in objData.Bikes)
+                        if (bike != null)
                         {
-                            if (bike != null)
+                            if (bike.OnRoadPrice > 0)
                             {
-                                if (bike.ExShowroomPrice > 0)
-                                {
-                                    bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.ExShowroomPrice);
-                                }
-                                else if (bike.AvgPrice > 0)
-                                {
-                                    bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.AvgPrice);
-                                }
+                                bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.OnRoadPrice);
                             }
-
-
-                        }
-
-                    }
-                    else // when city is not selected
-                    {
-                        foreach (var bike in objData.Bikes)
-                        {
-                            if (bike != null)
+                            else
                             {
-                                bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.ExShowroomPrice);
+                                bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.OnRoadPriceMumbai);
                             }
-
                         }
                     }
+
                 }
 
             }

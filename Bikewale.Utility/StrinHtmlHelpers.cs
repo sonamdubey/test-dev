@@ -216,6 +216,20 @@ namespace System
         }
 
         /// <summary>
+        /// Created By : Deepak Israni
+        /// Description : To remove all HTML tags from text.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        public static string RemoveHtmlWithSpaces(string content)
+        {
+            content = Regex.Replace(content, @"<[^>]+>|&nbsp;", "").Trim();
+            content = Regex.Replace(content, @"\s{2,}", " ");
+
+            return content;
+        }
+
+        /// <summary>
         /// Truncates text to a number of characters
         /// </summary>
         /// <param name="text"></param>

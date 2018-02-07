@@ -70,7 +70,7 @@
                                                         <span>@bike.ModelRating.ToString("0.0")</span>
                                                     </span>
 
-                                                    <h3 class="card-detail__name">@bike.objModel.ModelName</h3>
+                                                    <h3 class="card-detail__name" title="@bikeName">@bike.objModel.ModelName</h3>
 
                                                     <ul class="card-detail__specs-list">
                                                         @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
@@ -135,9 +135,9 @@
 
                             <li class="model-list__item">
                                 <div class="model__card">
-                                    <a href="@string.Format("/m{0}", modelUrl)" class="model-card__target">
+                                    <a href="@string.Format("/m{0}", modelUrl)" class="model-card__target" title="@bikeName">
                                         <div class="model-card__image">
-                                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bikeName" alt="@bike.objModel.ModelName">
+                                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt="@bike.objModel.ModelName">
                                         </div>
                                         <div class="model-card__detail">
                                             <span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
@@ -145,7 +145,7 @@
                                                 <span>@bike.ModelRating.ToString("0.0")</span>
                                             </span>
 
-                                            <h3 class="card-detail__name">@string.Format("{0} {1}",Model.MakeName ,bike.objModel.ModelName) </h3>
+                                            <h3 class="card-detail__name">@string.Format("{0} {1}", Model.MakeName, bike.objModel.ModelName) </h3>
                                             <ul class="card-detail__specs-list">
                                                 @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
                                             </ul>
@@ -336,7 +336,7 @@
                     {
                         <div class="carousel__title">
                             <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName showrooms @string.Format("in {0}", Model.Dealers.CityName) </h2>
-                            <a href="/m/dealer-showrooms/@Model.MakeMaskingName/@Model.Dealers.CityMaskingName" class="view-all-btn">
+                            <a href="/m/dealer-showrooms/@Model.MakeMaskingName/@Model.Dealers.CityMaskingName/" class="view-all-btn">
                                 View all
                             </a>
                         </div>
@@ -375,70 +375,24 @@
             </section>
         }
 
-        <section>
-            <div data-id="news" class="bg-white section-bottom-margin latest-news-section overall-tabs-data">
-                <div class="carousel__title">
-                    <h2 class="page__heading-h2 carousel-title__label">Royal Enfield News</h2>
-                    <a href="" class="view-all-btn">
-                        View all
-                    </a>
+
+        @if (Model.IsNewsAvailable)
+        {
+            <section>
+                <div data-id="news" class="bg-white section-bottom-margin latest-news-section overall-tabs-data">
+                    <div class="carousel__title">
+                        <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName News</h2>
+                        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" class="view-all-btn">
+                            View all
+                        </a>
+                    </div>
+
+                    <div class="swiper-container carousel__editorial" data-spacebetween="0">
+                        @Html.Partial("~/Views/News/_RecentNews_Mobile_New.cshtml", Model.News)
+                    </div>
                 </div>
-
-                <div class="swiper-container carousel__editorial" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (var i = 0; i <= 5; i++)
-                        {
-                            <li class="swiper-slide carousel-slide">
-                                <div class="editorial-card">
-                                    <a href="" title="" class="editorial-card__target">
-                                        <div class="editorial-card__image">
-                                            <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                        </div>
-                                        <div class="editorial-card__detail">
-                                            <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
-                                            <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
-                                        </div>
-                                    </a>
-                                    <div class="editorial-card__footer">
-                                        <div class="editorial-footer__author-img">
-                                            @{var author = 1;
-                                            if (author == 0)
-                                            {
-                                                <span class="editorial-author_defult-img"></span>
-                                            }
-                                            else
-                                            {
-                                                if (i % 2 == 0)
-                                                {
-                                                    <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
-                                                }
-                                                else
-                                                {
-                                                    <img class="swiper-lazy editorial-author-img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
-
-                                                }
-                                            }
-                                            }
-                                        </div>
-                                        <div class="editorial-card__about">
-                                            <span class="editorial-card__author-name">Ranjan B.</span>
-                                            <p class="editorial-card__date-section">
-                                                <span>24 Jan 2019</span> -
-                                                <span>4 min read</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </li>
-                        }
-
-
-                    </ul>
-                </div>
-            </div>
-        </section>
-
+            </section>
+        }
 
         <section>
             <div data-id="reviews" class="bg-white section-bottom-margin review-section overall-tabs-data">
@@ -519,7 +473,7 @@
                         <div class="bg-white user-review-section">
                             <div class="carousel__title">
                                 <h2 class="carousel-title__label">User Reviews</h2>
-                                <a href="" class="view-all-btn">
+                                <a href="@string.Format("/m/{0}-bikes/reviews/",Model.MakeMaskingName)" class="view-all-btn">
                                     View all
                                 </a>
                             </div>
@@ -531,92 +485,44 @@
 
             </div>
         </section>
-
-        <section>
-            <div data-id="images" class="bg-white section-bottom-margin overall-tabs-data model-image-section">
-                <div class="carousel__title">
-                    <h2 class="page__heading-h2 carousel-title__label">Royal Enfield Images</h2>
-                    <a href="" class="view-all-btn">
-                        View all
-                    </a>
+        @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.Any())
+        {
+            <section>
+                <div data-id="images" class="bg-white section-bottom-margin overall-tabs-data model-image-section">
+                    <div class="carousel__title">
+                        <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Images</h2>
+                        <a href="/m/@Model.MakeMaskingName-bikes/images/" class="view-all-btn">
+                            View all
+                        </a>
+                    </div>
+                    @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.BikeModelsPhotos)
                 </div>
-                @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.BikeModelsPhotos)
-            </div>
-        </section>
+            </section>
 
+        }
+        
+@if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+                {
         <section>
             <div data-id="videos" class="bg-white section-bottom-margin video-section overall-tabs-data">
                 <div class="carousel__title">
-                    <h2 class="page__heading-h2 carousel-title__label">Royal Enfield Videos</h2>
-                    <a href="" class="view-all-btn">
+                    <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Videos</h2>
+                    <a href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" title="@Model.Videos.LinkTitle" class="view-all-btn">
                         View all
                     </a>
                 </div>
-                <ul class="video-list">
-                    @for (var i = 0; i <= 3; i++)
-                    {
-                        <li class="video-card-container">
-                            <h4 class="swiper-card__label">Pulsar SS400 New look the new FZ Series in India. Featuring a host of mechanical </h4>
-                            <div class="model-card__list__video-card">
-                                <div class="video-card__video-preview">
-                                    <iframe width="330" height="186" src="https://www.youtube.com/embed/WDSI_AyYCtA" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                                <div class="video-card__desc clearfix">
-                                    <div class="grid-4">
-                                        <p class="font11 text-light-grey">24 Jan 2019</p>
-                                    </div>
-                                    <div class="grid-8 text-right">
-                                        <span class="model-card__sub-title">3.6k Views</span>
-                                        <span class="model-card__sub-title margin-left20">
-                                            <span class="thumbsup-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">
-                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <g id="review-copy-6" transform="translate(-290.000000, -4233.000000)" stroke="#82888B">
-                                                            <g id="Group-24" transform="translate(16.000000, 3959.000000)">
-                                                                <g id="Group-20">
-                                                                    <g id="Group-23" transform="translate(0.000000, 32.000000)">
-                                                                        <g id="Group-21">
-                                                                            <g id="Group-33" transform="translate(4.000000, 242.000000)">
-                                                                                <g id="Group-32" transform="translate(271.000000, 0.000000)">
-                                                                                    <g id="Group-31" transform="translate(0.000000, 1.000000)">
-                                                                                        <g id="Page-1">
-                                                                                            <path d="M2.48373667,11.1808992 C2.48373667,11.1808992 3.527745,12.5305158 5.44156167,12.3880575 C6.99343667,12.3881658 10.402795,12.3637908 10.402795,12.3637908 C10.60722,12.3336742 10.8030867,12.2302158 10.9477117,12.0530908 C11.1981783,11.7465075 11.2040283,11.2929158 10.96082,10.9804825 C10.8247533,10.8057408 10.6398283,10.6991408 10.4439617,10.6604658 L9.13323667,10.6595992" id="Stroke-1" stroke-linejoin="round" />
-                                                                                            <path d="M11.1990667,8.97784333 C11.3656833,9.00882667 11.5249333,9.06732667 11.6533083,9.196785 C11.9899,9.535435 11.959675,10.2320183 11.5408583,10.5167183 C11.3516,10.6972017 10.582325,10.622235 10.4439833,10.6604767" id="Stroke-3" stroke-linejoin="round" />
-                                                                                            <path d="M11.1606625,7.20007167 C11.1606625,7.20007167 11.8672125,7.19606333 12.0274375,7.32974667 C12.4877458,7.71422167 12.5576208,8.34786333 12.2188625,8.68434667 C12.0656792,8.83644667 11.8157542,8.97359667 11.6159875,8.98757167 L9.17144583,8.98952167" id="Stroke-5" stroke-linejoin="round" />
-                                                                                            <path d="M9.17755583,7.18822 L11.8533892,7.20002833 C12.1614892,7.16785333 12.4136892,6.96657 12.5825808,6.79876167 C12.9213392,6.46238667 12.8042308,5.83752 12.4677475,5.49887 C12.2995058,5.32943667 12.0785058,5.244395 11.8572892,5.24352833 L7.27381417,5.22825333 C7.27381417,5.22825333 7.94233917,3.060395 7.77073917,2.51872833" id="Stroke-7" stroke-linejoin="round" />
-                                                                                            <path d="M7.7982125,2.71752 C7.7982125,2.71752 8.08962917,-0.806563333 5.70337083,0.252828333 C6.28587917,2.51872833 4.76227917,5.17517 4.76227917,5.17517" id="Stroke-9" stroke-linejoin="round" />
-                                                                                            <path d="M2.50637833,5.7642325 L4.90097833,5.0498825" id="Stroke-11" />
-                                                                                            <path d="M2.0464925,12.9921025 L0.486059167,12.9867942 C0.246750833,12.9860358 0.0533758333,12.7913608 0.0541341667,12.5520525 L0.0802425,4.7933275 C0.0810008333,4.55401917 0.275675833,4.36064417 0.514984167,4.36151083 L2.07552583,4.36671083 C2.31483417,4.3675775 2.50810083,4.5622525 2.5073425,4.80156083 L2.4813425,12.5602858 C2.48047583,12.7995942 2.28580083,12.9928608 2.0464925,12.9921025 Z" id="Stroke-13" />
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </g>
-                                                            </g>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            </span>
-                                            9,904
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    }
-                </ul>
+               @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
                 <div class="video-list__more-btn-content">
                     <input type="button" class="btn btn-inv-blue" value="Load More">
                 </div>
             </div>
 
         </section>
+}
     </div>
 </section>
 
-<section>
+@*<section>
     <div class="content--inner-padding bg-white section-bottom-margin">
         <h2 class="page__heading-h2">Used Royal Enfield Bikes</h2>
         <div class="other-model-list__content">
@@ -666,60 +572,19 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
+@if (Model.OtherMakes != null)
+{
+    <section>
+        <div class="bg-white section-bottom-margin video-section overall-tabs-data">
+            <div class="carousel__title">
+                <h2 class="page__heading-h2">Other Brands</h2>
+            </div>
+            <div class="swiper-container carousel__related-makes" data-spacebetween="0">
+                @Html.Partial("~/Views/Make/_OtherBrand_New.cshtml", Model.OtherMakes)
 
-<section>
-    <div class="bg-white section-bottom-margin video-section overall-tabs-data">
-        <div class="carousel__title">
-            <h2 class="page__heading-h2">Other Brands</h2>
+            </div>
         </div>
-        <div class="swiper-container carousel__related-makes" data-spacebetween="0">
-            <ul class="swiper-wrapper image-card--list">
-                <li class="swiper-slide carousel-slide">
-                    <a href="" title="" class="related-make-card">
-                        <div class="make-icon__content">
-                            <span class="brandlogosprite brand-2"></span>
-                        </div>
-                        <div class="make-details__content">
-                            <h3 class="make-details__title">Royal Enfield Bikes</h3>
-                            <p class="make-details__subtitle">156 Bikes</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="swiper-slide carousel-slide">
-                    <a href="" title="" class="related-make-card">
-                        <div class="make-icon__content">
-                            <span class="brandlogosprite brand-7"></span>
-                        </div>
-                        <div class="make-details__content">
-                            <h3 class="make-details__title">Royal Enfield Bikes</h3>
-                            <p class="make-details__subtitle">156 Bikes</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="swiper-slide carousel-slide">
-                    <a href="" title="" class="related-make-card">
-                        <div class="make-icon__content">
-                            <span class="brandlogosprite brand-13"></span>
-                        </div>
-                        <div class="make-details__content">
-                            <h3 class="make-details__title">Yamaha Bikes</h3>
-                            <p class="make-details__subtitle">156 Bikes</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="swiper-slide carousel-slide">
-                    <a href="" title="" class="related-make-card">
-                        <div class="make-icon__content">
-                            <span class="brandlogosprite brand-23"></span>
-                        </div>
-                        <div class="make-details__content">
-                            <h3 class="make-details__title">Husqvarna Bikes</h3>
-                            <p class="make-details__subtitle">156 Bikes</p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</section>
+    </section>
+}
+

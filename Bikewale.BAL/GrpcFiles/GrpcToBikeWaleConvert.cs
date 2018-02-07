@@ -70,6 +70,8 @@ namespace Bikewale.BAL.GrpcFiles
 
         /// Modified by :   Sangram Nandkhile on 01 Dec 2017
         /// Description :   logic to bind Formatted Date and shareurl
+        /// Modified By : Deepak Israni on 6 Feb 2018
+        /// Description : Added ArticleWordCount
         public static List<ArticleSummary> ConvertFromGrpcToBikeWale(GrpcArticleSummaryList data)
         {
             if (data == null)
@@ -99,7 +101,8 @@ namespace Bikewale.BAL.GrpcFiles
                         OriginalImgUrl = curGrpcArticleSummary.OriginalImgUrl,
                         SmallPicUrl = curGrpcArticleSummary.SmallPicUrl,
                         Title = curGrpcArticleSummary.ArticleBase.Title.Replace("&#x20B9;", "₹"),
-                        Views = curGrpcArticleSummary.Views
+                        Views = curGrpcArticleSummary.Views,
+                        ArticleWordCount = curGrpcArticleSummary.ArticleWordCount,
                     };
 
 
@@ -816,6 +819,7 @@ namespace Bikewale.BAL.GrpcFiles
                 {
                     case EnumCMSContentType.News:
                     case EnumCMSContentType.AutoExpo2016:
+                    case EnumCMSContentType.AutoExpo2018:
                         shareUrl = string.Format("{0}/news/{1}-{2}.html", _bwHostUrl, artBase.BasicId, artBase.ArticleUrl);
                         break;
                     case EnumCMSContentType.Features:
@@ -856,6 +860,9 @@ namespace Bikewale.BAL.GrpcFiles
                 case EnumCMSContentType.TipsAndAdvices:
                     _category = "Bike Care";
                     break;
+                case EnumCMSContentType.AutoExpo2018:
+                    _category = "AutoExpo 2018";
+                    break;
                 default:
                     break;
             }
@@ -871,6 +878,7 @@ namespace Bikewale.BAL.GrpcFiles
             {
                 case EnumCMSContentType.AutoExpo2016:
                 case EnumCMSContentType.News:
+                case EnumCMSContentType.AutoExpo2018:
                     articleUrl = string.Format("/m/news/{0}-{1}.html", basicid, url);
                     break;
                 case EnumCMSContentType.Features:
