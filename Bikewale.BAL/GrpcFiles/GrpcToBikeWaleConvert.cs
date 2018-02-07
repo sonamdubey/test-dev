@@ -70,6 +70,8 @@ namespace Bikewale.BAL.GrpcFiles
 
         /// Modified by :   Sangram Nandkhile on 01 Dec 2017
         /// Description :   logic to bind Formatted Date and shareurl
+        /// Modified By : Deepak Israni on 6 Feb 2018
+        /// Description : Added ArticleWordCount
         public static List<ArticleSummary> ConvertFromGrpcToBikeWale(GrpcArticleSummaryList data)
         {
             if (data == null)
@@ -99,7 +101,8 @@ namespace Bikewale.BAL.GrpcFiles
                         OriginalImgUrl = curGrpcArticleSummary.OriginalImgUrl,
                         SmallPicUrl = curGrpcArticleSummary.SmallPicUrl,
                         Title = curGrpcArticleSummary.ArticleBase.Title.Replace("&#x20B9;", "₹"),
-                        Views = curGrpcArticleSummary.Views
+                        Views = curGrpcArticleSummary.Views,
+                        ArticleWordCount = curGrpcArticleSummary.ArticleWordCount,
                     };
 
 

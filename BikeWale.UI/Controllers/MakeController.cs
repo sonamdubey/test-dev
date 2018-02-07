@@ -64,6 +64,7 @@ namespace Bikewale.Controllers
         public ActionResult Index(string makeMaskingName)
         {
             MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews);
+            obj.TopCountNews = 2;
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             MakePageVM objData = null;
 
@@ -121,6 +122,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile_New(string makeMaskingName)
         {
             MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews);
+            obj.TopCountNews = 6;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             MakePageVM objData = null;
 
@@ -157,6 +159,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile_AMP(string makeMaskingName)
         {
             MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews);
+            obj.TopCountNews = 2;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             MakePageVM objData = null;
 

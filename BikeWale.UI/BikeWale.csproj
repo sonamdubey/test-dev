@@ -3139,7 +3139,6 @@
     <Content Include="sass\partials\_related-make-carousel.sass" />
     <Content Include="sass\partials\_other-bikes-list.sass" />
     <Content Include="sass\partials\_carousel-arrow.sass" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
@@ -3997,6 +3996,7 @@
     <Content Include="Views\DealerShowroom\_NewDealerShowroomWithCount.cshtml" />
     <Content Include="Views\PopularCityWidget\_DealerInPopularCity_Mobile.cshtml" />
     <Content Include="Views\Shared\_PrivacyPolicy.cshtml" />
+    <Content Include="Views\News\_RecentNews_Mobile_New.cshtml" />
     <Content Include="Views\Shared\_VisitorAgreement.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50BTF.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_Bottom_970x90.cshtml" />
