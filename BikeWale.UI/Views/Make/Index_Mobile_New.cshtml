@@ -220,10 +220,10 @@
                                                     }
                                                     else
                                                     {
-                                                        <p class="card-exshowroom__label">Avg. Ex-showroom price</p>
-                                                        <span class="bw-tooltip info-tooltip">
-                                                            <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.City.City)</span>
-                                                        </span>
+                                                        <p class="card-exshowroom__label">Avg. Ex-showroom price
+                                                            <span class="bwsprite info-icon tooltip-icon-target tooltip-top"><span class="bw-tooltip info-tooltip"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}",Model.City.City) </span></span></span></p>
+                                                        
+                                                        
                                                     }
                                                     @if (bike.VersionPrice > 0)
                                                     {
@@ -235,7 +235,8 @@
                                                     }
                                                     @if (bike.AvgPrice > 0)
                                                     {
-                                                        <span class="card-exshowroom__value text--semibold">@Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) : Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice))))</span>
+                                                        <span class="card-exshowroom__value text--semibold">@Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) :
+                                                     string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice)))))</span>
                                                     }
                                                     else
                                                     {
