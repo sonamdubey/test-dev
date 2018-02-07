@@ -238,7 +238,7 @@ namespace Bikewale.Models
                 if (objModelIds != null && objModelIds.Any())
                 {
                     string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                    int requiredImageCount = 4;
+                    int requiredImageCount = 9;
                     string categoryIds = CommonApiOpn.GetContentTypesString(
                         new List<EnumCMSContentType>()
                     {
