@@ -2896,7 +2896,6 @@
     <Content Include="m\src\bwm-home.js" />
     <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
-    <Content Include="m\src\bwm-notificationmail.js" />
     <Content Include="m\src\chosen-jquery-min-mobile.js" />
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />

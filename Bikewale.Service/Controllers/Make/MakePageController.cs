@@ -23,8 +23,6 @@ namespace Bikewale.Service.Controllers.Make
     /// Created :   03 Sept 2015
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController 
-    /// Modified by: Dhruv Joshi on 6 Feb 2018 
-    /// Description:  UpcomingNotification (post api) method
     /// </summary>
     public class MakePageController : CompressionApiController//ApiController
     {
@@ -81,6 +79,13 @@ namespace Bikewale.Service.Controllers.Make
             }
             return NotFound();
         }
+
+        /// <summary>
+        /// Created by: Dhruv Joshi on 7th Feb 2018
+        /// Description: Post api method to insert data into tables usernotifications and notificationusers
+        /// </summary>
+        /// <param name="dtoNotif"></param>
+        /// <returns></returns>
         [Route("api/notifyuser/")]
         public IHttpActionResult UpcomingNotification([FromBody]UpcomingNotificationDTO dtoNotif)
         {
@@ -88,15 +93,12 @@ namespace Bikewale.Service.Controllers.Make
             {
                 if (ModelState.IsValid)
                 {
-                    dtoNotif.NotificationTypeId = (int)EnumNotifTypeId.Upcoming;
+                    dtoNotif.NotificationTypeId = (ushort)EnumNotifTypeId.Upcoming;
                     UpcomingNotificationEntity entitiyNotif = NotificationMapper.Convert(dtoNotif);
-                    if (entitiyNotif != null)
+                    if (entitiyNotif != null && _makesRepository.ProcessNotification(entitiyNotif) >= 0)
                     {
-                        _makesRepository.ProcessNotification(entitiyNotif);
-
                         ComposeEmailBase objNotify = new UpcomingBikesSubscription(entitiyNotif.BikeName);
                         objNotify.Send(entitiyNotif.EmailId, string.Format("You have subscribed to notifications for upcoming bike {0}", entitiyNotif.BikeName));
-
                         return Ok();
                     }
                     else

@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UpcomingNotification;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -173,10 +174,23 @@ namespace Bikewale.BAL.BikeData
             return makesRepository.ResearchMoreAboutMakeByCity(makeId, cityId);
         }
 
-        public void ProcessNotification(UpcomingNotificationEntity entityNotif)
+        /// <summary>
+        /// Created by: Dhruv Joshi on 7th Feb 2018
+        /// Description: Calling ProcessNotifications in DAL layer to add user data to the notificationusers and usernotifications table
+        /// </summary>
+        /// <param name="entityNotif"></param>
+        /// <returns></returns>
+        public int ProcessNotification(UpcomingNotificationEntity entityNotif)
         {
-            makesRepository.ProcessNotification(entityNotif);
-
+            try
+            {
+                return makesRepository.ProcessNotification(entityNotif);
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.BikeMakes");
+                return -1;
+            }
         }
 
     }   // Class

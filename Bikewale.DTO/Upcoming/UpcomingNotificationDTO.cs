@@ -7,19 +7,23 @@ using System.Threading.Tasks;
 
 namespace Bikewale.DTO.Upcoming
 {
+    /// <summary>
+    /// Created by: Dhruv Joshi on 7th Feb 2018
+    /// Description: DTO for Upcoming Bikes Notification 
+    /// </summary>
     public class UpcomingNotificationDTO
     {
         [JsonProperty("emailId")]
         public string EmailId { get; set; }
 
         [JsonProperty("notificationId")]
-        public int NotificationId { get; set; }
+        public ushort NotificationId { get; set; }
 
         [JsonProperty("makeId")]
-        public int MakeId { get; set; }
+        public ushort MakeId { get; set; }
 
         [JsonProperty("modelId")]
-        public int ModelId { get; set; }
+        public ushort ModelId { get; set; }
 
         [JsonProperty("bikeName")]
         public string BikeName { get; set; }
@@ -31,7 +35,7 @@ namespace Bikewale.DTO.Upcoming
         public bool IsActive { get; set; }
 
         [JsonProperty("notificationTypeId")]
-        public int NotificationTypeId { get; set; }
+        public ushort NotificationTypeId { get; set; }
 
     }
 }

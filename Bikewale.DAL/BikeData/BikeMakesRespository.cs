@@ -932,7 +932,12 @@ namespace Bikewale.DAL.BikeData
             }
             return obj;
         }
-        public void ProcessNotification(UpcomingNotificationEntity entityNotif)
+        /// <summary>
+        /// Created by: Dhruv Joshi on 7th Feb 2018
+        /// Description: To add user data to the notificationusers and usernotifications table
+        /// </summary>
+        /// <param name="entityNotif"></param>
+        public int ProcessNotification(UpcomingNotificationEntity entityNotif)
         {
 
             try
@@ -948,12 +953,16 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_notificationtype", DbType.Int32, entityNotif.NotificationTypeId));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    int rows_returned = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    return rows_returned;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.ProcessNotification: MakeId:{0} ModelId:{1} EmailId:{2} NotificationId:{3}", entityNotif.MakeId, entityNotif.ModelId, entityNotif.EmailId, entityNotif.NotificationId));
+                return -1;
+                
             }
 
 

@@ -1,13 +1,15 @@
-﻿docReady(function() {
+﻿var validate;
+
+docReady(function () {
 	$('.model-card__pros-cons').on('click', '.pros-cons__more-btn', function(event) {
 		$(this).hide();
 		$(this).closest('.pros-cons__content').find('li').show();
 	});
 	$("#notifySubmitBtn").on("click", function () {
 	  
-	    flag = validateEmailId($("#notifyEmailField"));
-	    if (flag == true) {
-	        executeNotification();
+	    flag = validateForm.emailField($("#notifyEmailField"));
+	    if (flag) {
+	        executeNotification($(this));
 	    }
 
 	});
@@ -51,6 +53,7 @@
 
 	// upcoming card: notify
 	notifyPopup.registerEvents();
+	
 
 	$('.upcoming-card__notify-btn').on('click', function () {
 	    $('.notify-details__model').text($(this).attr('data-bikeName'));
@@ -68,21 +71,8 @@
   //floating navbar
 	floatingNav.registerEvents();
 });
-function validateEmailId(inputEmail) {
-    var isValid = true,
-        emailVal = $(inputEmail).val(),
-        reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
-    if (emailVal == "") {
-        validate.setError($(inputEmail), 'Please enter Email Id');
-        isValid = false;
-    }
-    else if (!reEmail.test(emailVal)) {
-        validate.setError($(inputEmail), 'Please enter valid Email Id');
-        isValid = false;
-    }
-    return isValid;
-}
+
 var floatingNav = (function () {
 	var overallTabsContainer, overallContainer;
 
@@ -182,7 +172,7 @@ var floatingNav = (function () {
 	}
 })();
 
-function executeNotification() {
+function executeNotification(buttonElement) {
     var userData = {
         "emailId": $("#notifyEmailField").val(),
         "makeId": $('.form-field__submit-btn').attr("data-makeid"),
@@ -194,15 +184,11 @@ function executeNotification() {
         url: "/api/notifyuser/",
         contentType: "application/json",
         data: ko.toJSON(userData),
-        sucess: function (response) {
-            if (response)
-            {
-                alert(response);
-            }
-
+        success: function (response) {
+            notifyPopup.setSuccessState(buttonElement);
         },
         error: function (response) {
-
+            validateForm.setError($('#notifyEmailField'), "Some error has occured");
         }
 
     });
@@ -225,17 +211,6 @@ var notifyPopup = (function() {
 
 	function registerEvents() {
 		_setSelectors();
-
-		formSubmitBtn.on('click', function() {
-			var isValid = validateForm.emailField(emailField);
-
-			if(isValid) {
-				formField.setSuccessState($(this), 'Thank You!');
-				setTimeout(function() {
-					$('#notifyCloseBtn').trigger('click');
-				}, 1000);
-			}
-		});
 
 		emailField.on('focus', function() {
 			validateForm.onFocus($(this));
@@ -265,10 +240,18 @@ var notifyPopup = (function() {
 		documentBody.unlock();
 	}
 
+	function setSuccessState(buttonElement) {
+	    formField.setSuccessState(buttonElement, 'Thank You!');
+	    setTimeout(function () {
+	        $('#notifyCloseBtn').trigger('click');
+	    }, 1000);
+	}
+
 	return {
 		registerEvents: registerEvents,
 		open: open,
-		close: close
+		close: close,
+		setSuccessState: setSuccessState
 	}
 })();
 
