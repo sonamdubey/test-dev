@@ -19,11 +19,11 @@ function removeMaliciousCode(text) {
     if (!text)
         return text;
     var regex = /<script[^>]*>[\s\S]*?<\/script\s*>/gi;
-    while(regex.test(text)) {
+    while (regex.test(text)) {
         text = text.replace(regex, "");
-        }
+    }
     return text;
-        }
+}
 
 docReady(function () {
     

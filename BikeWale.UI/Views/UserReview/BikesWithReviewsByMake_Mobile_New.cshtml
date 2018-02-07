@@ -29,7 +29,7 @@
                                         <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(obj.BikeModel.OriginalImagePath, obj.BikeModel.HostUrl, ImageSize._310x174, QualityFactor._75)" src="" alt="@bikeName">
                                     </div>
                                     <h3 class="review-card__title">
-                                        @bikeName
+                                        @obj.BikeModel.Model.ModelName
                                     </h3>
                                     @if (obj.BikeModel.ReviewCount > 0)
                                     {

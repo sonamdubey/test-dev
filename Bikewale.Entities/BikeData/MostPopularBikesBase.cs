@@ -14,6 +14,8 @@ namespace Bikewale.Entities.BikeData
     /// Description : Added AvgPrice and ExShowroomPrice.
     /// Modified by : Snehal Dange on 1st Feb 2018
     /// Description :  added EMIDetails
+    /// Modified by : Snehal Dange on 6th Feb 2018
+    /// Description : Added onroad price
 
     /// </summary>
     [Serializable, DataContract]
@@ -69,6 +71,12 @@ namespace Bikewale.Entities.BikeData
 
         [DataMember]
         public EMI EMIDetails { get; set; }
+
+        [DataMember]
+        public Int64 OnRoadPrice { get; set; }
+
+        [DataMember]
+        public Int64 OnRoadPriceMumbai { get; set; }
 
     }
 }

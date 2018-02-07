@@ -27,7 +27,12 @@ namespace Bikewale.Utility
             {
                 if (makeId > 0 && makes != null && makes.Any())
                 {
-                    ushort categoryId = makes.First(x => x.MakeId == makeId).MakeCategoryId;
+                    ushort categoryId = 0;
+                    BikeMakeEntityBase make = makes.FirstOrDefault(x => x.MakeId == makeId);
+                    if (make != null)
+                    {
+                        categoryId = make.MakeCategoryId;
+                    }
                     ushort[] arr;
 
                     switch (categoryId)

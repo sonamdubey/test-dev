@@ -131,7 +131,7 @@
                                                         <span>@bike.ModelRating.ToString("0.0")</span>
                                                     </span>
 
-                                                    <h3 class="card-detail__name">@bike.objModel.ModelName</h3>
+                                                    <h3 class="card-detail__name" title="@bikeName">@bike.objModel.ModelName</h3>
 
                                                     <ul class="card-detail__specs-list">
                                                         @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
@@ -196,9 +196,9 @@
 
                             <li class="model-list__item">
                                 <div class="model__card">
-                                    <a href="@string.Format("/m{0}", modelUrl)" class="model-card__target">
+                                    <a href="@string.Format("/m{0}", modelUrl)" class="model-card__target" title="@bikeName">
                                         <div class="model-card__image">
-                                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bikeName" alt="@bike.objModel.ModelName">
+                                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt="@bike.objModel.ModelName">
                                         </div>
                                         <div class="model-card__detail">
                                             <span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
@@ -206,7 +206,7 @@
                                                 <span>@bike.ModelRating.ToString("0.0")</span>
                                             </span>
 
-                                            <h3 class="card-detail__name">@string.Format("{0} {1}",Model.MakeName ,bike.objModel.ModelName) </h3>
+                                            <h3 class="card-detail__name">@string.Format("{0} {1}", Model.MakeName, bike.objModel.ModelName) </h3>
                                             <ul class="card-detail__specs-list">
                                                 @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
                                             </ul>
@@ -580,7 +580,7 @@
                         <div class="bg-white user-review-section">
                             <div class="carousel__title">
                                 <h2 class="carousel-title__label">User Reviews</h2>
-                                <a href="" class="view-all-btn">
+                                <a href="@string.Format("/m/{0}-bikes/reviews/",Model.MakeMaskingName)" class="view-all-btn">
                                     View all
                                 </a>
                             </div>
