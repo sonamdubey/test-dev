@@ -964,7 +964,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
-            string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V1_{0}_{1}", makeId, cityId);
+            string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V2_{0}_{1}", makeId, cityId);
 
             try
             {

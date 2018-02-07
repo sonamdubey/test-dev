@@ -18,7 +18,7 @@ namespace BikewaleOpr.Cache
         {
             try
             {
-                string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V1_{0}_", makeId);
+                string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V2_{0}_", makeId);
                 string temp = string.Empty;
                 for (int i = 0; i < 1500; i++)
                 {
