@@ -23,6 +23,8 @@ namespace Bikewale.Service.Controllers.Make
     /// Created :   03 Sept 2015
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// Modified by: Dhruv Joshi on 6 Feb 2018 
+    /// Description:  UpcomingNotification (post api) method
     /// </summary>
     public class MakePageController : CompressionApiController//ApiController
     {
@@ -75,7 +77,6 @@ namespace Bikewale.Service.Controllers.Make
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Make.MakePageController");
-
                 return InternalServerError();
             }
             return NotFound();
