@@ -25,8 +25,11 @@
             {
                 <li class="overall-tabs-list__item" data-tabs="reviews">Reviews</li>
             }
-
-            <li class="overall-tabs-list__item" data-tabs="images">Images</li>
+            @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.Any())
+            {
+                <li class="overall-tabs-list__item" data-tabs="images">Images</li>
+            }
+            
             @if (Model.IsVideosAvailable)
             {
                 <li class="overall-tabs-list__item" data-tabs="videos">Videos</li>

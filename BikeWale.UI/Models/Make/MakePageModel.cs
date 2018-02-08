@@ -1,6 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.GenericBikes;
@@ -8,6 +9,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
@@ -36,6 +38,10 @@ namespace Bikewale.Models
     /// Description : Added property IsAmpPage.
     /// Modified By :Snehal Dange on 21st Nov 2017
     /// Description: Added IUserReviewsCache _cacheUserReviews
+    /// Modified By : Deepak Israni on 6th Feb 2018
+    /// Description : Added TopCountNews property
+    /// Modified by : Sanskar Gupta on 07 Feb 2018
+    /// Description : Added INewBikeLaunchesBL
     /// </summary>
     public class MakePageModel
     {
@@ -53,6 +59,7 @@ namespace Bikewale.Models
         private readonly IBikeCompare _compareBikes = null;
         private readonly IServiceCenter _objSC;
         private readonly IUserReviewsCache _cacheUserReviews;
+        private readonly INewBikeLaunchesBL _newLaunchesBL;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
@@ -60,8 +67,9 @@ namespace Bikewale.Models
         public bool IsMobile { get; set; }
         public bool IsAmpPage { get; set; }
         private CityEntityBase cityBase = null;
+        public uint TopCountNews { get; set; }
 
-        public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews)
+        public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL)
         {
             this._makeMaskingName = makeMaskingName;
             this._bikeModelsCache = bikeModelsCache;
@@ -75,6 +83,7 @@ namespace Bikewale.Models
             this._compareBikes = compareBikes;
             this._objSC = objSC;
             this._cacheUserReviews = cacheUserReviews;
+            this._newLaunchesBL = newLaunchesBL;
             _objModelEntity = objModelEntity;
             ProcessQuery(this._makeMaskingName);
         }
@@ -106,6 +115,8 @@ namespace Bikewale.Models
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// Modified by : Rajan Chauhan on 3 Jan 2017
         /// Description : Bind MakeId to objData
+        /// Modified by : Sanskar Gupta on 07 Feb 2018
+        /// Descritpion : Added logic to fetch Newly Launched Bikes (within a period of 10 days) for Mobile Make page.
         /// </returns>
         public MakePageVM GetData()
         {
@@ -216,6 +227,20 @@ namespace Bikewale.Models
 
                 }
 
+                if (IsMobile)
+                {
+
+                    InputFilter inputFilter = new InputFilter();
+                    inputFilter.Days = 10;
+                    inputFilter.Make = _makeId;
+
+                    IEnumerable<NewLaunchedBikeEntityBase> NewLaunchedMakeBikesNDays = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
+                    if (NewLaunchedMakeBikesNDays != null)
+                    {
+                        objData.NewLaunchedMakeBikesNDays = NewLaunchedMakeBikesNDays;
+                    }
+                }
+
                 if (IsAmpPage)
                 {
                     BindAmpJsTags(objData);
@@ -238,7 +263,7 @@ namespace Bikewale.Models
                 if (objModelIds != null && objModelIds.Any())
                 {
                     string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                    int requiredImageCount = 4;
+                    int requiredImageCount = 9;
                     string categoryIds = CommonApiOpn.GetContentTypesString(
                         new List<EnumCMSContentType>()
                     {
@@ -434,6 +459,7 @@ namespace Bikewale.Models
         /// <param name="objData"></param>
         private void BindCMSContent(MakePageVM objData)
         {
+
             objData.News = new RecentNews(2, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
             BindRecentExpertReviews(objData);
             
@@ -443,7 +469,6 @@ namespace Bikewale.Models
             }
             else
             {
-
                 objData.Videos = new RecentVideos(1, 4, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
             }
 

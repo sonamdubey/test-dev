@@ -36,11 +36,19 @@ body
 
 @import ../../partials/all-bikes-list
 
+.rating-badge__star
+	margin-right: 3px
+
 /* upcoming bikes carousel */
 @import ../../partials/upcoming-bikes-carousel
 @import ../../partials/notify-update-popup
 
-@import ../../partials/bike-images-carousel
+// image carousel
+@include model-image-carousel(277, 354)
+@include image-card(354, '#fff9f9')
+@include image-grid-7
+@include image-grid-3
+@include image-grid-1
 
 .model-image-section
 	.carousel__title
@@ -51,6 +59,16 @@ body
 		background-size: 20px
 		background-position: 0 center
 		padding-left: 30px
+
+	.carousel__recently-added
+		padding-bottom: 25px
+
+		.model-image__card
+			background-color: color('white')
+			border-color: #e6e6e6 // Add color in color map array
+
+	.image-grid-list__item
+		border-color: color('white')
 
 @import ../../partials/related-make-carousel
 

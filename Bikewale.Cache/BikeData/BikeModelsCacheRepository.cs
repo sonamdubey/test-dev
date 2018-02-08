@@ -964,7 +964,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
-            string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V1_{0}_{1}", makeId, cityId);
+            string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V2_{0}_{1}", makeId, cityId);
 
             try
             {
@@ -1623,5 +1623,55 @@ namespace Bikewale.Cache.BikeData
             }
             return mostPopularBikes;
         }
+        /// <summary>
+        /// Created by : Sanskar Gupta on 31st Jan 2018
+        /// Description : Function to fetch Newly Launched bikes of a particular make within a span of particular number of days.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMake(InputFilter inputFilter)
+        {
+            IEnumerable<NewLaunchedBikeEntityBase> objBikes = null;
+            string key = String.Format("BW_NewLaunchedBikesByMake_MakeId_{0}", inputFilter.Make);
+
+            try
+            {
+                objBikes = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => FilterNewLaunchedBikesListByMake(inputFilter.Make));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetNewLaunchedBikesListByMake");
+
+            }
+
+            return objBikes;
+        }
+
+        /// <summary>
+        /// Created by : Sanskar Gupta on 07 Feb 2018
+        /// Description : Filter existing Newly Launched Bikes cache by Make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<NewLaunchedBikeEntityBase> FilterNewLaunchedBikesListByMake(uint makeId)
+        {
+            IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
+
+            try
+            {
+                bikes = GetNewLaunchedBikesList();
+
+                if (bikes != null)
+                {
+                    bikes = bikes.Where(x => x.Make.MakeId == makeId).ToList();
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.FilterNewLaunchedBikesListByMake");
+            }
+            return bikes;
+        }
+
+
     }
 }
