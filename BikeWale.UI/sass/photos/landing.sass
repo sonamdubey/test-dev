@@ -413,12 +413,6 @@ body
 
 .jcarousel
 	li
-		&:last-child
-			margin-right: 20px
-
-			.carousel-card
-				margin-right: 20px
-
 		> .carousel-card
 			border: 1px solid #e2e2e2
 			@include border-radius(3px)
@@ -456,3 +450,9 @@ body
     color: #4d5057
     font-weight: 600
     margin-bottom: 10px
+
+.card-target
+	&:hover
+		text-decoration: none
+		h4
+			text-decoration: underline
