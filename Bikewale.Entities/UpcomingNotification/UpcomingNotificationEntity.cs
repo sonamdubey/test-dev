@@ -8,19 +8,14 @@ namespace Bikewale.Entities.UpcomingNotification
 {
     
     /// <summary>
-    /// Created by: Dhruv Joshi on 7th Feb 2018
+    /// Created by: Dhruv Joshi
+    /// Dated: 8th Feb 2018
     /// Description: Entity for Upcoming Bikes Notification
     /// </summary>
-    public class UpcomingNotificationEntity
+    public class UpcomingBikeEntity
     {
-        public string EmailId { get; set; }
-        public ushort NotificationId { get; set; }
         public ushort MakeId { get; set; }
         public ushort ModelId { get; set; }
         public string BikeName { get; set; }
-        public DateTime EntryDate { get; set; }
-        public bool IsActive { get; set; }
-        public ushort NotificationTypeId { get; set; }
-
     }
 }

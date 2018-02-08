@@ -80,43 +80,5 @@ namespace Bikewale.Service.Controllers.Make
             return NotFound();
         }
 
-        /// <summary>
-        /// Created by: Dhruv Joshi on 7th Feb 2018
-        /// Description: Post api method to insert data into tables usernotifications and notificationusers
-        /// </summary>
-        /// <param name="dtoNotif"></param>
-        /// <returns></returns>
-        [Route("api/notifyuser/")]
-        public IHttpActionResult UpcomingNotification([FromBody]UpcomingNotificationDTO dtoNotif)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    dtoNotif.NotificationTypeId = (ushort)EnumNotifTypeId.Upcoming;
-                    UpcomingNotificationEntity entitiyNotif = NotificationMapper.Convert(dtoNotif);
-                    if (entitiyNotif != null && _makesRepository.ProcessNotification(entitiyNotif) >= 0)
-                    {
-                        ComposeEmailBase objNotify = new UpcomingBikesSubscription(entitiyNotif.BikeName);
-                        objNotify.Send(entitiyNotif.EmailId, string.Format("You have subscribed to notifications for upcoming bike {0}", entitiyNotif.BikeName));
-                        return Ok();
-                    }
-                    else
-                    {
-                        return InternalServerError();
-                    }
-                    
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch(Exception ex)
-            {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Make.MakePageController");
-                return InternalServerError();
-            }
-        }
     }
 }

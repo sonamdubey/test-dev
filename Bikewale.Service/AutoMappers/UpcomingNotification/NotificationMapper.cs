@@ -8,12 +8,12 @@ namespace Bikewale.Service.AutoMappers.UpcomingNotification
 {
     public class NotificationMapper
     {
-        internal static Entities.UpcomingNotification.UpcomingNotificationEntity Convert(DTO.Upcoming.UpcomingNotificationDTO entityNotif)
+        internal static Entities.UpcomingNotification.UpcomingBikeEntity Convert(DTO.Upcoming.UpcomingNotificationDTO entityNotif)
         {
             try
             {
-                AutoMapper.Mapper.CreateMap<DTO.Upcoming.UpcomingNotificationDTO, Entities.UpcomingNotification.UpcomingNotificationEntity>();
-                return AutoMapper.Mapper.Map<DTO.Upcoming.UpcomingNotificationDTO, Entities.UpcomingNotification.UpcomingNotificationEntity>(entityNotif);
+                AutoMapper.Mapper.CreateMap<DTO.Upcoming.UpcomingNotificationDTO, Entities.UpcomingNotification.UpcomingBikeEntity>();
+                return AutoMapper.Mapper.Map<DTO.Upcoming.UpcomingNotificationDTO, Entities.UpcomingNotification.UpcomingBikeEntity>(entityNotif);
             }
             catch(Exception ex)
             {

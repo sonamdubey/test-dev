@@ -324,6 +324,7 @@
     <Compile Include="Controllers\Model\ModelSpecsController.cs" />
     <Compile Include="Controllers\NewBikeSearch\NewBikeSearchController.cs" />
     <Compile Include="Controllers\Customer\AuthenticateController.cs" />
+    <Compile Include="Controllers\Notifications\UpcomingController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />
     <Compile Include="Controllers\PriceQuote\BikePQController.cs" />
     <Compile Include="Controllers\PriceQuote\City\PQCityListController.cs" />

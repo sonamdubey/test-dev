@@ -2,6 +2,6 @@
 {
     public enum EnumNotifTypeId
     {
-        Upcoming = 1
+        UpcomingSubscription = 1
     }
 }

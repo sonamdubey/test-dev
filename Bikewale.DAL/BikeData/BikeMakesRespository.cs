@@ -932,41 +932,7 @@ namespace Bikewale.DAL.BikeData
             }
             return obj;
         }
-        /// <summary>
-        /// Created by: Dhruv Joshi on 7th Feb 2018
-        /// Description: To add user data to the notificationusers and usernotifications table
-        /// </summary>
-        /// <param name="entityNotif"></param>
-        public int ProcessNotification(UpcomingNotificationEntity entityNotif)
-        {
-
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("addusernotifcation"))
-                {
-
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, entityNotif.EmailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, entityNotif.MakeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, entityNotif.ModelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_notificationtype", DbType.Int32, entityNotif.NotificationTypeId));
-
-
-                    int rows_returned = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-
-                    return rows_returned;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.ProcessNotification: MakeId:{0} ModelId:{1} EmailId:{2} NotificationId:{3}", entityNotif.MakeId, entityNotif.ModelId, entityNotif.EmailId, entityNotif.NotificationId));
-                return -1;
-                
-            }
-
-
-        }
+       
     }
 
 }

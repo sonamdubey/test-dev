@@ -45,6 +45,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId);
         ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId);
         ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId);
-        int ProcessNotification(UpcomingNotificationEntity entityNotif);
+        
     }
 }
