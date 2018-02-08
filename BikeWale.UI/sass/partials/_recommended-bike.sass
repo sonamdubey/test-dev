@@ -15,20 +15,22 @@
 		z-index: 5
 
 #recommendedBikeCloseBtn
-	@include cross-fff-icon
+	@include cross-4d5057-icon
 	position: absolute
-	right: 3px
-	top: 3px
-	width: 30px
-	height: 30px
+	right: 7px
+	top: 0
+	width: 40px
+	height: 40px
 	background-size: 13px
+	cursor: pointer
 
 .recommended-bike__found-result
+	@include text-truncate
 	color: color('aluminium')
 	font-size: 13px
 	font-weight: 600
 	text-align: left
-	padding: 13px 16px 11px
+	padding: 13px 50px 11px 16px
 
 @mixin recommended-bike__filter-section
 	.recommended-bike__filter-section
@@ -57,12 +59,15 @@
 			padding-right: 80px
 
 	.filter-item
-		background: color('white')
+		@include cross-4d5057-icon
+		background-position: 90%
+		background-size: 8px
+		background-color: color('white')
 		font-weight: $font_semibold
 		font-size: 12px
 		position: relative
 		display: table-cell
-		padding: 5px 32px 7px 8px
+		padding: 6px 25px 6px 13px
 		cursor: pointer	
 
 	.filter__edit
@@ -71,10 +76,10 @@
 		right: 0
 		font-size: 13px
 		font-weight: 700
-		line-height: 48px
+		line-height: 51px
 		color: color('summer-sky')
 		padding-left: 20px
-		padding-right: 30px
+		padding-right: 20px
 		background: color('white')
 		background: linear-gradient(90deg,hsla(0,0%,100%,.1) 0,color('border-light') 20%)
 		cursor: pointer

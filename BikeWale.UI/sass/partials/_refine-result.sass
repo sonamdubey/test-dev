@@ -59,7 +59,9 @@
 				font-weight: $font_bold
 
 				&:before
-					background: color('puerto-rico')
+					@include tick-icon
+					background-color: color('puerto-rico')
+					border-color: color('puerto-rico')
 		
 	.refine-result__checkbox-label
 		font-size: 14px

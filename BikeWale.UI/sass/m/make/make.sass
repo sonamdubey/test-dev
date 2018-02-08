@@ -136,12 +136,8 @@ body
 		vertical-align: middle
 		margin-left: 16px
 
-
 		&:first-child
 			margin-left: 0
-
-	input[type=checkbox] 
-		display: none
 
 		&:checked
 			+ .bodytype-scooter
@@ -157,8 +153,20 @@ body
 				background-image: url('/images/sports_hover.png')
 
 	.bodytype-box__label
-		font-size: 11px
-		color: color('light-grey')
+		padding-left: 0
+
+.check-box--active
+	.bodytype-scooter
+		background-image: url('/images/scooter_hover.png')
+
+	.bodytype-cruiser
+		background-image: url('/images/cruiser_hover.png')
+
+	.bodytype-street
+		background-image: url('/images/street_hover.png')
+
+	.bodytype-sports
+		background-image: url('/images/sports_hover.png')
 
 .bodytype-box__icon
 	width: 52px
@@ -184,5 +192,4 @@ body
 
 .bodytype-sports
 	background-image: url('/images/sports.png') 
-
 

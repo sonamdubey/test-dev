@@ -22,6 +22,11 @@
 					.check-box__icon
 						@include vendor-prefix('opacity', .4)
 
+	.check-box--active
+		.check-box__icon
+			@include tick-icon
+			border-color: color('sunset-orange')
+			background-color: color('sunset-orange')
 
 	.check-box__label
 		color: $base-color
@@ -29,7 +34,6 @@
 		display: inline-block
 		padding-#{$alignment}: ($size + 10) * 1px
 		line-height: $size * 1px
-
 
 	.check-box__icon
 		@include vendor-prefix('border-radius', 3px)
