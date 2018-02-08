@@ -68,6 +68,7 @@ namespace Bikewale.Models
         public bool IsAmpPage { get; set; }
         private CityEntityBase cityBase = null;
         public uint TopCountNews { get; set; }
+        public uint TopCountExpertReviews { get; set; }
 
         public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL)
         {
@@ -460,7 +461,7 @@ namespace Bikewale.Models
         private void BindCMSContent(MakePageVM objData)
         {
 
-            objData.News = new RecentNews(2, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
+            objData.News = new RecentNews(TopCountNews, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
             BindRecentExpertReviews(objData);
             
             if (IsMobile)
@@ -481,9 +482,21 @@ namespace Bikewale.Models
         /// <param name="objData"></param>
         private void BindRecentExpertReviews(MakePageVM objData)
         {
-            RecentExpertReviews objExpertReviews = new RecentExpertReviews(2, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName));
-            objData.ExpertReviews = objExpertReviews.GetData();
+            RecentExpertReviews objExpertReviews = new RecentExpertReviews(TopCountExpertReviews, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName));
+
+            List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>
+					{
+						EnumCMSContentType.RoadTest
+					};
+            List<EnumCMSContentSubCategoryType> subCategoryList = new List<EnumCMSContentSubCategoryType>
+					{
+						EnumCMSContentSubCategoryType.Road_Test,
+						EnumCMSContentSubCategoryType.First_Drive,
+						EnumCMSContentSubCategoryType.Long_Term_Report
+					};
+            objData.ExpertReviews = objExpertReviews.GetData(categoryList, subCategoryList);
         }
+
 
         private void BindDiscontinuedBikes(MakePageVM objData)
         {
