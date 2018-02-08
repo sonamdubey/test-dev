@@ -427,10 +427,16 @@ namespace Bikewale.Models
             }
         }
 
+        /// <summary>
+        /// Modified By : Deepak Israni on 8th Feb 2018
+        /// Description : Moved binding of Recent Expert Reviews to another function
+        /// </summary>
+        /// <param name="objData"></param>
         private void BindCMSContent(MakePageVM objData)
         {
             objData.News = new RecentNews(2, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
-            objData.ExpertReviews = new RecentExpertReviews(2, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName)).GetData();
+            BindRecentExpertReviews(objData);
+            
             if (IsMobile)
             {
                 objData.Videos = new RecentVideos(1, 2, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
@@ -441,6 +447,17 @@ namespace Bikewale.Models
                 objData.Videos = new RecentVideos(1, 4, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
             }
 
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 8th Feb 2018
+        /// Description : To bind the Recent Expert Reviews along with the type of reviews.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindRecentExpertReviews(MakePageVM objData)
+        {
+            RecentExpertReviews objExpertReviews = new RecentExpertReviews(2, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName));
+            objData.ExpertReviews = objExpertReviews.GetData();
         }
 
         private void BindDiscontinuedBikes(MakePageVM objData)
