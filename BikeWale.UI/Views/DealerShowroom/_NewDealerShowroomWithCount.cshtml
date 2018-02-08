@@ -11,7 +11,7 @@
                 @if (!String.IsNullOrEmpty(dealers.Address))
                 {
                     <p class="dealer-in-city__state">@dealers.objArea.AreaName</p>
-                    <p class="dealer-in-city__address">@Bikewale.Utility.FormatDescription.TruncateDescription((dealers.Address), 95)</p>
+                    <p class="dealer-in-city__address">@Bikewale.Utility.FormatDescription.TruncateDescription((dealers.Address), 80)</p>
                 }
                 <div class="dealer-in-city__know-more">
                     @if (!String.IsNullOrEmpty(dealers.MaskingNumber))
