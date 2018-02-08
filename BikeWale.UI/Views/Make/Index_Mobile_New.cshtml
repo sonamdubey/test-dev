@@ -201,8 +201,92 @@
                             }
                         </ul>
                     </div>
-                </section>
-            }
+                </div>
+            </section>
+        }
+
+        @if (Model.Bikes != null && Model.Bikes.Count() > 0)
+        {
+            <section>
+                <div data-id="bikeModel" class="content--inner-padding bg-white section-bottom-margin overall-tabs-data">
+                    <h2 class="page__heading-h2">@string.Format("All {0} Bikes", Model.MakeName)</h2>
+                    <p class="page-heading__disclaimer">*Prices are indicative Ex-Showroom, Navi Mumbai</p>
+
+                    <ul class="all-model__list">
+                        @foreach (var bike in Model.Bikes)
+                        {
+                            var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+                            var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+
+                            <li class="model-list__item">
+                                <div class="model__card">
+                                    <a href="@string.Format("/m{0}", modelUrl)" class="model-card__target" title="@bikeName">
+                                        <div class="model-card__image">
+                                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt="@bike.objModel.ModelName">
+                                        </div>
+                                        <div class="model-card__detail">
+                                            <span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
+                                                <span class="rating-badge__star"></span>
+                                                <span>@bike.ModelRating.ToString("0.0")</span>
+                                            </span>
+
+                                            <h3 class="card-detail__name">@string.Format("{0} {1}", Model.MakeName, bike.objModel.ModelName) </h3>
+                                            <ul class="card-detail__specs-list">
+                                                @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                            </ul>
+                                        </div>
+                                        <div class="model-card__exshowroom-content">
+                                            <div class="model-card__exshowroom">
+                                                <div class="card-exshowroom__col">
+                                                    @if (bike.ExShowroomPrice > 0)
+                                                    {
+                                                        <p class="card-exshowroom__label">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="card-exshowroom__label">Avg. Ex-showroom price
+                                                            <span class="bwsprite info-icon tooltip-icon-target tooltip-top"><span class="bw-tooltip info-tooltip"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}",Model.City.City) </span></span></span></p>
+                                                        
+                                                        
+                                                    }
+                                                    @if (bike.VersionPrice > 0)
+                                                    {
+                                                        @Html.Raw("<span class='card-exshowroom__value'>&#x20b9;&nbsp;</span>")
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.Raw("<span class='font18' style='display: none;'> &#x20B9;</span>")
+                                                    }
+                                                    @if (bike.AvgPrice > 0)
+                                                    {
+                                                        <span class="card-exshowroom__value text--semibold">@Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) :
+                                                     string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice)))))</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="font18 text--semibold">Price unavailable</span>
+                                                    }
+
+                                                </div>
+                                                @if (bike.EMIDetails != null)
+                                                {
+                                                    <div class="card-emi__col">
+                                                        <p class="card-emi__label">EMI starting at</p>
+                                                        <span class="card-emi__value">@Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(bike.EMIDetails.EMIAmount.ToString())</span>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </section>
+        }
+
 
 
             @if (Model.IsUpComingBikesAvailable)

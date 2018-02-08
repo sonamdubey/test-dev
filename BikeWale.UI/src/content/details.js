@@ -233,3 +233,28 @@ $(document).keyup(function (e) {
         window.history.back();
     }
 });
+
+
+var relClassName = 'position-rel';
+var articleContentEles = document.querySelectorAll('.article-content');
+Array.prototype.forEach.call(articleContentEles, function (el) {
+    var articleImgs = $(el.querySelectorAll('img')).not('.no-zoom');
+    Array.prototype.forEach.call(articleImgs, function (imgEl) {
+        var ptNode = imgEl.parentNode;
+        if (!$(ptNode).parents().hasClass('.image__zoom-btn'))
+        {
+            var imgSpan = document.createElement('span');
+                imgSpan.setAttribute('class', 'image__zoom-btn');
+                if (ptNode.classList)
+                    ptNode.classList.add(relClassName);
+                else
+                    ptNode.relClassName += ' ' + relClassName;
+
+                ptNode.appendChild(imgSpan);
+            
+        }
+       
+       
+     
+    });
+});
