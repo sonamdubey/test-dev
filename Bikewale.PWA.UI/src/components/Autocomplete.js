@@ -18,6 +18,7 @@ class Autocomplete extends React.Component {
 							placeholder={inputProps.placeholder ? inputProps.placeholder:''} 
 							className = {inputProps.className ? inputProps.className:''} 
 							value = {this.props.value ? this.props.value : ''}
+							onfocus = {()=>{typeof this.props.onClick == 'function'? this.props.onClick() : null}}
 							onchange = {()=>{typeof this.props.onChange == 'function' ? this.props.onChange() : null}} />
 					{typeof this.props.renderMenu == 'function' ? this.props.renderMenu(this.props.items,this.props.value) : null}
 				</div>

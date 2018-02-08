@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import {setDataForPriceQuotePopup , closeGlobalSearchPopUp, recentSearches, setPriceQuoteFlag, getStrippedTerm, MakeModelRedirection} from '../utils/popUpUtils'
 import SearchList from '../components/SearchList'
-import {GetCatForNav} from '../utils/analyticsUtils'
+import {triggerGA, GetCatForNav} from '../utils/analyticsUtils'
 class GlobalSearchList extends React.Component {
     constructor(props) {
 		super(props);
@@ -18,11 +18,11 @@ class GlobalSearchList extends React.Component {
     onSelect(item, value) {
         var category = GetCatForNav();
         if(value === 1)
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Recently_View_Search_Bar_Clicked', 'lab': item.payload.name });
+            triggerGA(category,  'Recently_View_Search_Bar_Clicked', item.payload.name);
         else if(value === 2)
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Trending_Searches_Search_Bar_Clicked', 'lab': item.payload.name });
+            triggerGA(category, 'Trending_Searches_Search_Bar_Clicked', item.payload.name);
         else if(value === 3)
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'AutoExpo_2018_Link Clicked', 'lab': 'Trending_Searches_Search_Bar_Clicked' });
+            triggerGA(category, 'AutoExpo_2018_Link Clicked', 'Trending_Searches_Search_Bar_Clicked');
         MakeModelRedirection(item); 
     }
     renderListItem(item, index, value) {

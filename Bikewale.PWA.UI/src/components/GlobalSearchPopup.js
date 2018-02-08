@@ -3,7 +3,7 @@ import Autocomplete from '../components/Autocomplete'
 import GlobalSearchList from '../components/GlobalSearchList'
 import {setDataForPriceQuotePopup , closeGlobalSearchPopUp, recentSearches,autocomplete,showElement, hideElement,getStrippedTerm ,highlightText, globalSearchCache,MakeModelRedirection, setPriceQuoteFlag , pqSourceId , globalSearchStatus} from '../utils/popUpUtils'
 import { isServer } from '../utils/commonUtils'
-import {GetCatForNav} from '../utils/analyticsUtils'
+import { triggerGA, GetCatForNav } from '../utils/analyticsUtils'
 class GlobalSearchPopup extends React.Component {
 
 	constructor(props) {
@@ -33,6 +33,7 @@ class GlobalSearchPopup extends React.Component {
 		this.onSelect = this.onSelect.bind(this);
 		this.focusInput = this.focusInput.bind(this);
 		this.afterTrending = this.afterTrending.bind(this);
+		this.onSearchIconClick = this.onSearchIconClick.bind(this);
 	}
 	componentWillMount() {
 	    try{
@@ -46,14 +47,17 @@ class GlobalSearchPopup extends React.Component {
 		}catch(err){}
 	}
 	focusInput() {
-		document.getElementById('globalSearch').focus();	
-		var value = this.state.value;
-		var category = GetCatForNav();
-		var label = "Recently_Viewed_Bikes_" + (this.state.recentSearchesLoaded ? "Present" : "Not_Present");
-		if(value.trim() == '') {
-		    this.resetListOnEmptyInput();
-		    dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': "Search_Bar_Clicked", 'lab': label });
-		}	
+		document.getElementById('globalSearch').focus();
+	}
+
+	onSearchIconClick() {
+	    var value = this.state.value;
+	    var category = GetCatForNav();
+	    var label = "Recently_Viewed_Bikes_" + (this.state.recentSearchesLoaded ? "Present" : "Not_Present");
+	    if(value.trim() == '') {
+	        this.resetListOnEmptyInput();
+	        triggerGA(category, "Search_Bar_Clicked", label);
+	    }
 	}
 	
 	showAutocompleteList(autocompleteList) {
@@ -149,7 +153,7 @@ class GlobalSearchPopup extends React.Component {
 	onSelect(state) {
 		var keywrd = state.label + '_' + this.state.value;
 		var category = GetCatForNav();
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+        triggerGA(category, 'Search_Keyword_Present_in_Autosuggest', keywrd);
       	this.setState({
       		value : state.label,
 			strippedValue : getStrippedTerm(state.label)
@@ -171,7 +175,7 @@ class GlobalSearchPopup extends React.Component {
             }
             var keywrd = this.state.value;
             var category = GetCatForNav();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Not_Present_in_Autosuggest', 'lab': keywrd });
+            triggerGA( category, 'Search_Keyword_Not_Present_in_Autosuggest', keywrd);
         }
 	}
 
@@ -309,6 +313,7 @@ class GlobalSearchPopup extends React.Component {
 			        			id:'globalSearch' ,
 			        			className:'form-control padding-right30'
 			        		}}
+					  onClick = {this.onSearchIconClick}
 			          onChange = {this.onChange}
 					  renderMenu = {this.renderMenu}
 						wrapperStyle = {{
