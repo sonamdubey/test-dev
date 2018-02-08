@@ -152,6 +152,25 @@
     {
         @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.MiscellaneousWidgetData)
     }
-
-    <div class="margin-bottom25"></div>
+    <section>
+        <div class="container">
+            <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Bike Images</h2>
+            <div class="jcarousel-wrapper firstride-jcarousel">
+                <div class="jcarousel">
+                    @if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Count() > 0)
+                    {
+                        @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
+                    }
+                    <div class="margin-bottom25"></div>
+                    <div class="view-all-btn-container">
+                        <a title="Bike Images" href="@UrlFormatter.FormatPhotoPageUrl("","")" class="btn view-all-target-btn">View more Images<span class="bwsprite teal-right"></span></a>
+                    </div>
+                </div>
+                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                <div class="margin-bottom25"></div>
+            </div>
+        </div>
+    </section>
 }
+

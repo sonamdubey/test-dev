@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Pager;
+using Bikewale.Models.Images;
 /// <summary>
 /// Created By  : Rajan Chauhan on 09 Jan 2017
 /// Description : Added OtherPopularMakes
@@ -19,7 +20,7 @@ namespace Bikewale.Models.Photos.v1
         public IEnumerable<ModelImages> BikeModelsPhotos { get; set; }
         public int TotalBikeModels { get; set; }
         public OtherMakesVM OtherPopularMakes { get; set; }
-        public IEnumerable<ModelImages> PopularSportsModelsImages { get; set; }
+        public ImageWidgetVM PopularSportsBikesWidget { get; set; }
         public PagerEntity Pager { get; set; }
         public string ImagesSynopsis { get; set; }
     }

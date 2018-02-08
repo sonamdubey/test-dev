@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Videos;
+using Bikewale.Models.Images;
 using System.Collections.Generic;
 using System.Web;
 
@@ -26,5 +27,6 @@ namespace Bikewale.Models.Videos
         public PwaReduxStore Store { get; set; }
         public IHtmlString ServerRouterWrapper { get; set; }
         public string WindowState { get; set; }
+        public ImageWidgetVM PopularSportsBikesWidget { get; set; }
     }
 }

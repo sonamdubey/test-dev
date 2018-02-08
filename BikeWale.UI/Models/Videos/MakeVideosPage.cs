@@ -1,8 +1,11 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Schema;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.Images;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -19,6 +22,8 @@ namespace Bikewale.Models
         private readonly IVideosCacheRepository _videosCache = null;
         private readonly string _makeMaskingName;
         private uint _makeId;
+        private IBikeModels<BikeModelEntity, int> _objModelEntity;
+
         public StatusCodes Status { get; private set; }
         public String RedirectUrl { get; private set; }
         public bool IsMobile { get; set; }
@@ -28,10 +33,11 @@ namespace Bikewale.Models
         /// </summary>
         /// <param name="makeMaskingName"></param>
         /// <param name="videosCache"></param>
-        public MakeVideosPage(string makeMaskingName, IVideosCacheRepository videosCache)
+        public MakeVideosPage(string makeMaskingName, IVideosCacheRepository videosCache, IBikeModels<BikeModelEntity, int> objModelEntity)
         {
             _makeMaskingName = makeMaskingName;
             _videosCache = videosCache;
+            _objModelEntity = objModelEntity;
             ProcessQueryString();
         }
 
@@ -57,7 +63,8 @@ namespace Bikewale.Models
                     BindPageMetas(objVM);
                     objVM.Page = Entities.Pages.GAPages.Videos_MakeWise_Page;
                 }
-
+                ImageCarausel imageCarausel = new ImageCarausel(_makeId, 9, 7, EnumBikeBodyStyles.AllBikes, _objModelEntity);
+                objVM.PopularSportsBikesWidget = imageCarausel.GetData(); 
             }
             catch (Exception ex)
             {

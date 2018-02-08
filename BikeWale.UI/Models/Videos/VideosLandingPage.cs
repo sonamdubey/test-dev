@@ -1,9 +1,11 @@
 ﻿using ApiGatewayLibrary;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.Images;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -37,13 +39,15 @@ namespace Bikewale.Models.Videos
         public bool IsMobile { get; set; }
 
         private ushort _pageNo = 1;
+        private IBikeModels<BikeModelEntity, int> _objModelEntity = null;
 
-        public VideosLandingPage(IVideos videos, IVideosCacheRepository videosCache, IBikeMakesCacheRepository bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
+        public VideosLandingPage(IVideos videos, IVideosCacheRepository videosCache, IBikeMakesCacheRepository bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache, IBikeModels<BikeModelEntity, int> objModelEntity)
         {
             _videos = videos;
             _videosCache = videosCache;
             _bikeMakes = bikeMakes;
             _objModelCache = objModelCache;
+            _objModelEntity = objModelEntity;
         }
 
         /// Modified by : Snehal Dange on 29th Nov 2017
@@ -81,6 +85,8 @@ namespace Bikewale.Models.Videos
                 objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes, _objModelCache).GetData(Entities.BikeData.EnumBikeType.Videos);
                 BindPageMetas(objVM);
                 objVM.Page = Entities.Pages.GAPages.Videos_Landing_Page;
+                ImageCarausel imageCarausel = new ImageCarausel(0, 9, 7, EnumBikeBodyStyles.AllBikes, _objModelEntity);
+                objVM.PopularSportsBikesWidget = imageCarausel.GetData();
             }
             catch (Exception ex)
             {

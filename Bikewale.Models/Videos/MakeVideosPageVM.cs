@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
+using Bikewale.Models.Images;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {
@@ -13,5 +14,6 @@ namespace Bikewale.Models
         public uint CityId { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public IEnumerable<BikeVideoModelEntity> Videos { get; set; }
+        public ImageWidgetVM PopularSportsBikesWidget { get; set; }
     }
 }

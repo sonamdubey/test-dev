@@ -4,6 +4,7 @@ using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Models.Images;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -48,7 +49,7 @@ namespace Bikewale.Models.Photos.v1
             try
             {
                 _objData = new PhotosPageVM();
-                _objData.PopularSportsModelsImages = BindPopularSportsBikeWidget();
+                _objData.PopularSportsBikesWidget = GetPopularSportsBikeWidget();
                 BindBikeModelsPhotos(_objData);
                 BindMakesWidget(_objData);
                 SetBreadcrumList(ref _objData);
@@ -209,23 +210,19 @@ namespace Bikewale.Models.Photos.v1
         /// Description : Bind sports bike image widget
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<ModelImages> BindPopularSportsBikeWidget()
+        private ImageWidgetVM GetPopularSportsBikeWidget()
         {
-            IEnumerable<ModelImages> modelsImages = null;
+            ImageWidgetVM imageWidget = null;
             try
             {
-                IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, 1, 9);
-                var modelIds = string.Join(",", modelIdsWithBodyStyle.Select(m => m.ModelId.ToString()));
-                if (!string.IsNullOrEmpty(modelIds))
-                {
-                    modelsImages = _objModelEntity.GetBikeModelsPhotoGallery(modelIds, 7);
-                }
+                ImageCarausel imageCarausel = new ImageCarausel(0,9,7, EnumBikeBodyStyles.Sports, _objModelEntity);
+                imageWidget = imageCarausel.GetData();               
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage");
             }
-            return modelsImages;
+            return imageWidget;
         }
         private void SetPageJSONLDSchema(PhotosPageVM objData)
         {

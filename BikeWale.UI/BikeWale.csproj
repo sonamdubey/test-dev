@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISUrl>http://localhost:9011</IISUrl>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
@@ -957,6 +957,7 @@
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
     <Compile Include="Models\Gallery\ModelGalleryWidget.cs" />
     <Compile Include="Models\GenericBestBikes\IndexGenericBestBikes.cs" />
+    <Compile Include="Models\Images\ImageCarausel.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
     <Compile Include="Models\DealerPriceQuotePage.cs" />

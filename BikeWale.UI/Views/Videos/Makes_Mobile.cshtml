@@ -9,19 +9,19 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/videos/", Model.Make.MaskingName);
 }
-@if (Model != null && Model.Videos!=null && Model.Videos.Count() > 0)
+@if (Model != null && Model.Videos != null && Model.Videos.Count() > 0)
 {
     <section>
         <div class="container bg-white box-shadow margin-bottom10">
-@if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(Model.Make.MakeId.ToString()))
-{
-    <h1 class="padding-15-20 box-shadow">Videos of @Model.Make.MakeName Bikes</h1>
-}
-else
-{
-    <h1 class="padding-15-20 box-shadow">@Model.Make.MakeName Videos</h1>
-}
-           
+            @if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(Model.Make.MakeId.ToString()))
+            {
+                <h1 class="padding-15-20 box-shadow">Videos of @Model.Make.MakeName Bikes</h1>
+            }
+            else
+            {
+                <h1 class="padding-15-20 box-shadow">@Model.Make.MakeName Videos</h1>
+            }
+
             <ul class="bike-listing">
                 @foreach (var bike in Model.Videos)
                 {
@@ -43,4 +43,21 @@ else
         </div>
     </section>
 }
-@{Html.RenderAction("PopularBikesMobile", "PopularBikes", new { topCount = 9,makeId=Model.Make.MakeId,cityId=Model.CityId });}
+    <section>
+        <div class="container bg-white box-shadow padding-top15 padding-bottom15 margin-bottom10">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>/@Model.Make.MakeName bike Images</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="/m//@Model.Make.MakeName-bikes/Images/" title="/@Model.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Count() > 0)
+         {
+        @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.PopularSportsBikesWidget)
+         }
+        </div>
+    </section>
+            @{Html.RenderAction("PopularBikesMobile", "PopularBikes", new { topCount = 9, makeId = Model.Make.MakeId, cityId = Model.CityId });}

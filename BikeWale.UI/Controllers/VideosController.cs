@@ -70,7 +70,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         {
             try
             {
-                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache);
+                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache,_models);
                 modelObj.LandingVideosTopCount = 5;
                 modelObj.ExpertReviewsTopCount = 2;
                 modelObj.FirstRideWidgetTopCount = 6;
@@ -89,7 +89,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             catch (System.Exception ex)
             {
-                ErrorClass.LogError(ex, "ServiceCentersController.Index");
+                ErrorClass.LogError(ex, "VideosController.Index");
                 return Redirect("/pagenotfound.aspx");
             }
         }
@@ -104,7 +104,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         {
             try
             {
-                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache);
+                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache,_models);
                 modelObj.LandingVideosTopCount = 5;
                 modelObj.ExpertReviewsTopCount = 2;
                 modelObj.FirstRideWidgetTopCount = 6;
@@ -373,7 +373,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("videos/make/{makeMaskingName}/")]
         public ActionResult Makes(string makeMaskingName)
         {
-            MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos);
+            MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos, _models);
             if (objModel.Status == Entities.StatusCodes.ContentFound)
             {
                 return View(objModel.GetData());
@@ -399,7 +399,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("m/videos/make/{makeMaskingname}/")]
         public ActionResult Makes_Mobile(string makeMaskingName)
         {
-            MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos);
+            MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos, _models);
 
             if (objModel.Status == Entities.StatusCodes.ContentFound)
             {
