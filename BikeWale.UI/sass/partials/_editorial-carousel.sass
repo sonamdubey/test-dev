@@ -16,12 +16,15 @@ $_editorial-about-block-border: #d5d5d5 // TODO: Add in color map array
 
 .editorial-card__name
 	font-size: 16px
-	padding-bottom: 10px
+	margin-bottom: 7px
+	height: 47px
+	overflow: hidden
 
 .editorial-card__description
 	color: color('default')
 	font-size: 14px
-	min-height: 100px
+	height: 100px
+	overflow: hidden
 
 .editorial-card__target
 	color: color('default')
@@ -42,14 +45,14 @@ $_editorial-about-block-border: #d5d5d5 // TODO: Add in color map array
 
 		&:after
 			content: ''
-			margin-left: 20px
-			margin-right: 20px
+			margin-left: 16px
+			margin-right: 16px
 			border-top: 2px solid $border-color
 			opacity: .5
 			position: absolute
 			top: 0
 			left: 0
-			width: 87%
+			right: 0
 
 @mixin editorial-author($width: 30px, $height: 30px)
 	.editorial-author_defult-img
@@ -95,13 +98,14 @@ $_editorial-about-block-border: #d5d5d5 // TODO: Add in color map array
 
 	.carousel-slide
 		width: 304px
-		min-height: 419px
+		height: 419px
 		padding-left: 10px
 
 		&:first-child
 			margin-left: 6px
+
 	.editorial-card
-		min-height: 419px
+		height: 419px
 
 .editorial-card__author-name
 	font-size: 13px
