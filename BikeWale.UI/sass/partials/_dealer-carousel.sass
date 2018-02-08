@@ -25,7 +25,7 @@ $_count-color: #fa8d81
 
 		.carousel-slide
 			width: 318px
-			min-height: 174px
+			height: 164px
 			padding-left: 10px
 
 			&:first-child
@@ -42,6 +42,8 @@ $_count-color: #fa8d81
 		margin-bottom: 7px
 	
 	.dealer-in-city__state
+		@include text-truncate
+		height: 17px
 		margin-bottom: 14px
 		font-size: 12px
 		color: color('light-grey')
@@ -50,7 +52,7 @@ $_count-color: #fa8d81
 		font-size: 12px
 		line-height: 1.17
 		margin-bottom: 10px
-		height: 42px
+		height: 30px
 		overflow: hidden
 		color: color('light-grey')
 
@@ -64,29 +66,31 @@ $_count-color: #fa8d81
 
 .dealer-in-city__contact
 	@include flex-grow
-	@include text-truncate
+	max-width: 58%
 	padding-bottom: 16px
 	padding-top: 11px
 	
 	.dealer-in-city__contact-link
+		@include text-truncate(100%)
 		@include phone-icon
 		color: $_dealer-contact
+		padding-right: 10px
 		padding-left: 20px
 		background-size: 14px
 		background-position: 0 center
 		font-size: 13px
+		display: inline-block
 
 		&:hover
 			text-decoration: none
 
 .dealer-in-city__direction
-	@include text-truncate
-	@include flex-grow
 	padding-top: 11px
 	padding-bottom: 16px
 	text-align: right
 	
 	.dealer-in-city__direction-link
+		@include text-truncate
 		@include direction-icon
 		color: $_dealer-direction	
 		background-size: 14px
@@ -144,7 +148,7 @@ $_count-color: #fa8d81
 		@include justify-content(center)
 		align-content: space-around
 		@include align-items(center)
-		padding: 7px 10px 13px
+		padding: 7px 7px 13px
 
 	.dealer-city__count
 		font-size: 38px

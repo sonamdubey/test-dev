@@ -376,8 +376,7 @@ namespace Bikewale.BAL.UserReviews
 
                     objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
                    
-
-
+                    
                     if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
                         UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
                 }
@@ -388,7 +387,6 @@ namespace Bikewale.BAL.UserReviews
             }
             return objResponse;
         }
-
 
         /// <summary>
         /// Created by  :   Sumit Kate on 26 Apr 2017

@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData.NewLaunched;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Notifications;
@@ -140,6 +141,7 @@ namespace Bikewale.BAL.BikeData.NewLaunched
 
             return result;
         }
+       
 
         /// <summary>
         /// Created by  :   Sumit Kate on 10 Feb 2017
@@ -164,6 +166,32 @@ namespace Bikewale.BAL.BikeData.NewLaunched
             }
             return makes;
         }
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 01st Feb 2018
+        /// Description : Get Newly Launched bike list for a make and within a span of particular number of days.
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMakeAndDays(InputFilter filters)
+        {
+            IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
+            try
+            {
+                bikes = _modelCache.GetNewLaunchedBikesListByMake(filters);
+                if(bikes != null)
+                {
+                    bikes = bikes.Where(x => DateTime.Now >= x.LaunchedOn && DateTime.Now <= x.LaunchedOn.AddDays(10));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("NewBikeLaunchesBL.GetNewLaunchedBikesListByMakeAndDays({0})", Newtonsoft.Json.JsonConvert.SerializeObject(filters)));
+            }
+
+            return bikes;
+        }
+
 
         #region Linq Predicates
         /// <summary>
