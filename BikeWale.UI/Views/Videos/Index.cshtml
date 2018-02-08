@@ -81,10 +81,14 @@
                                 <div class="font12 text-light-grey margin-top10 margin-bottom10">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMMM yyyy")</div>
                                 <div class="font14 text-light-grey margin-bottom15">@FormatDescription.TruncateDescription(video.Description, 125)</div>
                                 <div class="grid-4 alpha omega border-light-right font14">
-                                    <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+                                    <span class="bwsprite video-views-icon margin-right5"></span>
+                                    <span class="text-light-grey margin-right5">Views:</span>
+                                    <span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>
                                 </div>
                                 <div class="grid-8 omega padding-left20 font14">
-                                    <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                                    <span class="bwsprite video-likes-icon margin-right5"></span>
+                                    <span class="text-light-grey margin-right5">Likes:</span>
+                                    <span class="text-default">@Format.FormatPrice(Convert.ToString(video.Likes))</span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -155,22 +159,15 @@
     <section>
         <div class="container">
             <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Bike Images</h2>
-			<div class="jcarousel-wrapper carousel--arrow-sm">
-				<div class="jcarousel">
-					@if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Count() > 0)
-					{
-						@Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
-					}
-					<div class="margin-bottom25"></div>
-					<div class="view-all-btn-container">
-						<a title="Bike Images" href="@UrlFormatter.FormatPhotoPageUrl("","")" class="btn view-all-target-btn">View more Images<span class="bwsprite teal-right"></span></a>
-					</div>
-				</div>
-				<span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-				<span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
-				<div class="margin-bottom25"></div>
-			</div>
-
+            @if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Count() > 0)
+            {
+                @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
+            }
+            <div class="margin-bottom25"></div>
+            <div class="view-all-btn-container">
+                <a title="Bike Images" href="@UrlFormatter.FormatPhotoPageUrl("","")" class="btn view-all-target-btn">View more Images<span class="bwsprite teal-right"></span></a>
+            </div>
+            <div class="margin-bottom25"></div>
         </div>
     </section>
 }

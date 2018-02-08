@@ -50,7 +50,7 @@ namespace Bikewale.Models.Images
             IEnumerable<ModelImages> modelList = null;
             try
             {  
-                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(MakeId, BodyStyle, ImageCount, RecordCount);
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(MakeId, BodyStyle, 1, RecordCount);
                 string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
                 string categoryIds = CommonApiOpn.GetContentTypesString(ContentType);
                 modelList = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, (int)ImageCount);
