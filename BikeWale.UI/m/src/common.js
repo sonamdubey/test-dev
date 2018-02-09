@@ -1801,7 +1801,7 @@ docReady(function () {
                         item = objSearches.searches[item];
                         bikename = item.name || '';
                         if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0 && i < 3) {
-                            html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="ui-menu-item" tabindex="' + i++ + '"><span class="bwmsprite history-icon"></span><a href="javascript:void(0)" data-href="/m/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
+                            html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="ui-menu-item" tabindex="' + i++ + '"><span class="recent-clock"></span><a href="javascript:void(0)" data-href="/m/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
                             if (item.modelId > 0) {
                                 if (item.futuristic == 'True') {
                                     html += '<span class="upcoming-link">coming soon</span>';
