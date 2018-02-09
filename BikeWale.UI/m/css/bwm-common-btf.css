@@ -80,7 +80,6 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
     -moz-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
-    opacity: .5;
     width: 15px;
     height: 15px;
 }
