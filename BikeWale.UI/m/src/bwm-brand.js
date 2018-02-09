@@ -1,16 +1,6 @@
 ﻿ga_pg_id = '3';
 
-
-
-
-
-
-
 docReady(function () {
-
-  
-
-
     $("img.lazy").lazyload();
 
     $('.jcarousel-wrapper.upComingBikes .jcarousel').on('jcarousel:targetin', 'li', function () {
