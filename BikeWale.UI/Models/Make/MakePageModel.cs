@@ -204,6 +204,7 @@ namespace Bikewale.Models
                 BindShowroomPopularCityWidget(objData);
                 BindResearchMoreMakeWidget(objData);
                 GetEMIDetails(objData);
+                BindExpertReviewCount(objData);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -860,5 +861,18 @@ namespace Bikewale.Models
             }
 
         }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9th Feb 2018
+        /// Description : To bind the number of models with expert reviews and total number of expert reviews on VM
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindExpertReviewCount(MakePageVM objData)
+        {
+            ExpertReviewCountEntity ercEntity = _bikeMakesCache.GetExpertReviewCountByMake(_makeId);
+            objData.ModelCount = ercEntity.ModelCount;
+            objData.ExpertReviewCount = ercEntity.ExpertReviewCount;
+        }
+
     }
 }

@@ -199,6 +199,7 @@
     <Compile Include="BikeData\CompareMakeModelEntity.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
+    <Compile Include="BikeData\ExpertReviewCountEntity.cs" />
     <Compile Include="BikeData\FeaturedBikeEntity.cs" />
     <Compile Include="BikeData\Features.cs" />
     <Compile Include="BikeData\MakeFooterCategory.cs" />

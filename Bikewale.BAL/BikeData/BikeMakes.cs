@@ -171,5 +171,10 @@ namespace Bikewale.BAL.BikeData
             return makesRepository.ResearchMoreAboutMakeByCity(makeId, cityId);
         }
 
+        public ExpertReviewCountEntity GetExpertReviewCountByMake(uint makeId)
+        {
+            return makesRepository.GetExpertReviewCountByMake(makeId);
+        }
+
     }   // Class
 }   //Namespace

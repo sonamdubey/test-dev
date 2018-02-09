@@ -935,5 +935,51 @@ namespace Bikewale.DAL.BikeData
             }
             return obj;
         }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9th Feb 2018
+        /// Description : To get the total expert review count and number of models with expert reviews
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ExpertReviewCountEntity GetExpertReviewCountByMake(uint makeId)
+        {
+            ExpertReviewCountEntity obj = null;
+            String spName = "getexpertreviewcountbymake";
+
+            try
+            {
+                if (makeId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand(spName))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemakeid", DbType.Int32, makeId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            if (dr != null && dr.Read())
+                            {
+                                obj = new ExpertReviewCountEntity()
+                                {
+                                    MakeId = makeId,
+                                    ModelCount = (uint)SqlReaderConvertor.ToInt32(dr["ModelCount"]),
+                                    ExpertReviewCount = (uint)SqlReaderConvertor.ToInt32(dr["ExpertReviewCount"])
+                                };
+
+                                dr.Close();
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.GetExpertReviewCountByMake: Makeid- {0}", makeId));
+            }
+
+            return obj;
+        }
     }
 }
