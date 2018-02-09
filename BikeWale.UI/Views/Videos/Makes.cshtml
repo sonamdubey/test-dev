@@ -1,6 +1,7 @@
 ﻿@model Bikewale.Models.MakeVideosPageVM
 @using Bikewale.Utility;
-@{
+@if (Model != null)
+{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/videos-by-make.css' inline />";
     Model.AdTags.AdId = "1395995626568";
@@ -9,69 +10,71 @@
     Model.AdTags.Ad_970x90Bottom = true;
     Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/videos/", Model.Make.MaskingName);
     Model.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/videos/", Model.Make.MaskingName);
-}
-
-@if (Model.Videos != null && Model.Videos.Count() > 0)
-{
-    <section>
-        <div class="container section-bottom-margin">
-            <div class="grid-12">
-                <div class="content-box-shadow">
-                    @if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(Model.Make.MakeId.ToString()))
-                    {
-                        <h1 class="content-box-shadow padding-15-20">Videos of @Model.Make.MakeName Bikes</h1>
-                    }
-                    else
-                    {
-                        <h1 class="content-box-shadow padding-15-20">@Model.Make.MakeName bike videos</h1>
-                    }
-
-                    <ul class="bike-listing">
-                        @foreach (var bike in Model.Videos)
+    if (Model != null && Model.Make != null && Model.Videos != null && Model.Videos.Any())
+    {
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        @if (BWConfiguration.Instance.MetasMakeId.Split(',').Contains(Model.Make.MakeId.ToString()))
                         {
-                            string bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.ModelName);
-                            <li class="list-item">
-                                <a href="@UrlFormatter.FormatVideoPageUrl(bike.objMake.MaskingName, bike.MaskingName)" title="@string.Format("{0} Videos",bikeName)" class="block">
-                                    <div class="model-jcarousel-image-preview">
-                                        <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._310x174, Bikewale.Utility.QualityFactor._60)" alt="@bikeName" src="" />
-                                        <span class="play-icon-wrapper">
-                                            <span class="bwsprite video-play-icon"></span>
-                                        </span>
-                                    </div>
-                                    <div class="card-desc-block">
-                                        <h2 class="bikeTitle">@bikeName</h2>
-                                        <p class="font14 text-light-grey">@bike.VideoCount Video@(bike.VideoCount > 1 ? "s" : "")</p>
-                                    </div>
-                                </a>
-                            </li>
+                            <h1 class="content-box-shadow padding-15-20">Videos of @Model.Make.MakeName Bikes</h1>
                         }
-                    </ul>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-}
-<section>
-    <div class="container section-bottom-margin">
-        <div class="grid-12 carousel--inner-card carousel--arrow-sm">
-            <div class="content-box-shadow">
-                <div class="padding-top20 font14">
-                    <div class="carousel-heading-content">
-                        <div class="swiper-heading-left-grid inline-block">
-                            <h2>@Model.Make.MakeName bike Images</h2>
-                        </div><div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="/@Model.Make.MaskingName-bikes/Images/" title="@Model.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
-                        </div>
-                        <div class="clear"></div>
+                        else
+                        {
+                            <h1 class="content-box-shadow padding-15-20">@Model.Make.MakeName bike videos</h1>
+                        }
+
+                        <ul class="bike-listing">
+                            @foreach (var bike in Model.Videos)
+                            {
+                                string bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.ModelName);
+                                <li class="list-item">
+                                    <a href="@UrlFormatter.FormatVideoPageUrl(bike.objMake.MaskingName, bike.MaskingName)" title="@string.Format("{0} Videos", bikeName)" class="block">
+                                        <div class="model-jcarousel-image-preview">
+                                            <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._310x174, Bikewale.Utility.QualityFactor._60)" alt="@bikeName" src="" />
+                                            <span class="play-icon-wrapper">
+                                                <span class="bwsprite video-play-icon"></span>
+                                            </span>
+                                        </div>
+                                        <div class="card-desc-block">
+                                            <h2 class="bikeTitle">@bikeName</h2>
+                                            <p class="font14 text-light-grey">@bike.VideoCount Video@(bike.VideoCount > 1 ? "s" : "")</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
                     </div>
-                    @if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Any())
-                    {
-                        @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
-                    }               
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+    if (Model != null && Model.Make != null)
+    {
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12 carousel--inner-card carousel--arrow-sm">
+                    <div class="content-box-shadow">
+                        <div class="padding-top20 font14">
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h2>@Model.Make.MakeName bike Images</h2>
+                                </div><div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="/@Model.Make.MaskingName-bikes/Images/" title="@Model.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            @if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Any())
+                            {
+                                @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-@{Html.RenderAction("PopularBikesDesktop", "PopularBikes", new { topCount = 9, makeId = Model.Make.MakeId, cityId = Model.CityId });}
+        </section>
+        {Html.RenderAction("PopularBikesDesktop", "PopularBikes", new { topCount = 9, makeId = Model.Make.MakeId, cityId = Model.CityId });}
+    }
+}
