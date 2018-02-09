@@ -49,7 +49,7 @@ docReady(function () {
     var articleContent = $('.article-content');
 
     articleContent.each(function () {
-    	var imageParent = $(this).find('img').parent();
+    	var imageParent = $(this).find('img').not('.no-zoom').parent();
 
     	if (!imageParent.find('.image__zoom-btn').length) {
     		imageParent.addClass('position-rel').append('<span class="image__zoom-btn"></span>');
