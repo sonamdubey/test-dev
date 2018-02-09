@@ -43,7 +43,7 @@ namespace Bikewale.DAL.Notifications
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_notificationtype", DbType.Int32, notificationTypeId));
 
 
-                    bool success = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) >= 0 ? true : false;
+                    bool success = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0 ? true : false;
 
                     return success;
                 }
@@ -51,10 +51,8 @@ namespace Bikewale.DAL.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.ProcessNotification: MakeId:{0} ModelId:{1} EmailId:{2} NotificationTypeId:{3}", entityNotif.MakeId, entityNotif.ModelId, emailId, notificationTypeId));
-                return false;
-
             }
-
+            return false;
         }
     }
 }

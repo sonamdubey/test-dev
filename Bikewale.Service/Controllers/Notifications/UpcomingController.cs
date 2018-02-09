@@ -48,10 +48,6 @@ namespace Bikewale.Service.Controllers.Notifications
                     {
                         return true;
                     }
-                    else
-                    {
-                        throw new HttpResponseException(HttpStatusCode.BadRequest);
-                    }
                 }
                 else
                 {
@@ -61,8 +57,8 @@ namespace Bikewale.Service.Controllers.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Make.MakePageController");
-                return false;
             }
+            return false;
         }
     }
 }

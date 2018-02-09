@@ -30,8 +30,8 @@ namespace Bikewale.Service.AutoMappers.UpcomingNotification
             catch(Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.AutoMappers.UpcomingNotification.NotificationMapper");
-                return null;
             }
+            return null;
         }
     }
 }

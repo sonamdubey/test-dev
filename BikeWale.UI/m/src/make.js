@@ -189,11 +189,11 @@ function executeNotification(buttonElement) {
                 notifyPopup.setSuccessState(buttonElement);
             }
             else {
-                validateForm.setError($('#notifyEmailField'), "An error has occured - please enter valid Email and select a Bike");
+                validateForm.setError($('#notifyEmailField'), "An error has occured");
             }
         },
         error: function (response) {
-            validateForm.setError($('#notifyEmailField'), "Some error has occured");
+            validateForm.setError($('#notifyEmailField'), "An error has occured");
         }
 
     });

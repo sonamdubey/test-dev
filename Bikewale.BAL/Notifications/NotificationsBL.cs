@@ -46,17 +46,12 @@ namespace Bikewale.BAL.Notifications
                         objNotify.Send(emailId, string.Format("You have subscribed to notifications for upcoming bike {0}", entityNotif.BikeName));
                         return true;
                 }
-                else
-                {
-                    return false;
-                }
-                
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.BikeMakes");
-                return false;
             }
+            return false;
         }
     }
 }
