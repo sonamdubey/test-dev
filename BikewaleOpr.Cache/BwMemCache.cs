@@ -210,6 +210,8 @@ namespace BikewaleOpr.Cache
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Feb 2017
         /// Description :   ClearNewLaunchesBikes
+        /// Modified by : Sanskar Gupta on 08 Feb 2018
+        /// Description : Cacehe Key versioning
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
@@ -218,7 +220,7 @@ namespace BikewaleOpr.Cache
             bool cacheKeyClearStatus = false;
             try
             {
-                string key = String.Format("BW_NewLaunchedBikes_Cid_{0}", cityId);
+                string key = String.Format("BW_NewLaunchedBikes_Cid_{0}_V1", cityId);
                 MemCachedUtil.Remove(key);
             }
             catch (Exception ex)
