@@ -931,7 +931,5 @@ namespace Bikewale.DAL.BikeData
             }
             return obj;
         }
-       
     }
-
 }
