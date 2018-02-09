@@ -448,3 +448,11 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 #global-search-section a {
     text-decoration: none !important;
 }
+#global-search-popup .form-control:not(select):focus {
+    border-color: #66afe9;
+    z-index: 5;
+  outline: 0;
+-webkit-box-shadow:0px .05px 5px #66afe9;
+ -moz-box-shadow:0px .05px 5px #66afe9;
+ box-shadow:0px .05px 5px #66afe9;
+}
