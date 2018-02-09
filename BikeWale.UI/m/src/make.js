@@ -346,8 +346,8 @@ var recommendedBikePopup = (function () {
 			vmRecommendedBikes.SetPageFilters();
 		});
 
-		$(document).on('change', 'input[name="inpageMileageFilter"]', function () {
-			var checkedBoxList = $('input[name="inpageMileageFilter"]:checked');
+		$(document).on('change', '.refine-result__list input[type="checkbox"]', function () {
+			var checkedBoxList = $(this).closest('.refine-result__list').find('input[type="checkbox"]:checked');
 
 			if (checkedBoxList.length) {
 				applyBtn.prop('disabled', false);
@@ -381,10 +381,11 @@ var recommendedBikePopup = (function () {
 		/* filter element click */
 		$('.recommended-bike-popup').on('click', '.filter-item', function () {
 			var targetElement = $(this).closest('.filter-list__item');
-			if (appliedFilterList.find('.filter-list__item').length === 1) { //if last item is clicked
-				close();
-			}
+
 			$('#' + targetElement.attr('data-id')).trigger('click');
+			if (appliedFilterList.find('.filter-list__item').length === 1) { //if last item is clicked
+				closeBtn.trigger('click');
+			}
 			targetElement.remove();
 		});
 
