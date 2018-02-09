@@ -46,8 +46,6 @@ namespace Bikewale.Interfaces.BikeData
     /// Description: Added GetMileageDetails to get mileage info for model
     /// Modified by : Sanskar Gupta on 12 Jan 2018
     /// Description : Added IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters)
-    /// Modified by : Sanskar Gupta on 31st Jan 2018
-    /// Description : Added IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMake();
     /// <typeparam name="U"></typeparam>
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
@@ -87,8 +85,7 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<Entities.BikeData.BikeModelColorImageEntity> GetModelImages(string modelIds);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters);
-
-        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMake(InputFilter inputFilter);
+        
 
 
     }
