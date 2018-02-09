@@ -37,7 +37,6 @@ namespace Bikewale.DAL.Notifications
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    // entity vs parameters ??
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, emailId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, entityNotif.MakeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, entityNotif.ModelId));

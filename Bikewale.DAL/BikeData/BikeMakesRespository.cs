@@ -12,7 +12,6 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using Bikewale.Entities.UpcomingNotification;
 namespace Bikewale.DAL.BikeData
 {
     /// <summary>

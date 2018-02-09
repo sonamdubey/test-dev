@@ -1,14 +1,9 @@
 ﻿using Bikewale.DTO.Make;
-using Bikewale.DTO.Upcoming;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.UpcomingNotification;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
-using Bikewale.Notifications.MailTemplates;
 using Bikewale.Service.AutoMappers.Make;
-using Bikewale.Service.AutoMappers.UpcomingNotification;
 using Bikewale.Service.Utilities;
-using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -119,6 +119,9 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register INewBikeLaunchesBL interface
         /// Modified by :   Sumit Kate on 05 Jan 2018
         /// Description :   Register IBikeSearchCacheRepository
+        /// Modified by: Dhruv Joshi
+        /// Dated: 8th Feb 2018
+        /// Description: Register INotification and INotificationRepository
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
