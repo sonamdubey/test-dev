@@ -267,7 +267,7 @@
 	</div>
 </div>
 
-<div class="container content-box-shadow terms-condition-container padding-15-20 margin-bottom20 collapsible-content">
+<div class="container content-box-shadow terms-condition-container padding-15-20 margin-bottom20  @(Model.PlatformId == 3 ? "" : "collapsible-content")">
     <p class="text-xt-light-grey font18 text-bold">Terms & Conditions</p>
     <ol class="terms-condition-container__ol text-slate-grey font14 main-content" type="1">
         <li>Sanction for a higher loan amount shall be subject to documents furnished by you and the same meeting Capital First Norms.</li>
@@ -288,7 +288,10 @@
         <li>That the Customer/Borrower has agreed/consented to know through telephonic calls/SMSs on Customer's/Borrower's mobile number mentioned in the application form by the Customer/Borrower or through any other communication mode, various loan schemes, promotional offers of Capital First and the Customer/Borrower authorizes Capital First, its employees or its agents to act accordingly.</li>
         <li>That the Customer/Borrower agrees/consents that the laws in relations to the unsolicited communications referred in 'National Do Not Call Registry' as laid down by Telecom Regulatory Development Authority shall not be applicable to such communications/ telephonic calls/SMSs received from Capital First, its employees or its agents.</li>
 </ol>
-    <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+    @if (Model.PlatformId != 3)
+    {
+        <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+    }
 </div>
 <input type="hidden" id="objLead" value="@(Model.objLeadJson)" />
 <input type="hidden" id="hdnBikeName" value="@(Model.BikeName)" />
@@ -300,3 +303,12 @@
 <input type="hidden" id="loanAmount" value="@Model.LoanAmount" />
 @Html.Partial("~/Views/Shared/_otpScreen_Mobile.cshtml")
 <script defer src="/src/zebra-datepicker.js"></script>
+@if (Model.PlatformId == 3)
+{
+    <script type="text/javascript">
+        docReady(function () {
+            $("header").hide();
+            $("footer").hide();
+        });   
+    </script>
+}
