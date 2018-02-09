@@ -41,7 +41,7 @@
 
     @if (Model.IsPriceInTopCitiesAvailable)
     {
-        <div id="nearby-prices-grid" class="grid-12 omega alpha padding-top20">
+        <div id="nearby-prices-grid" class="grid-@(Model.AdTags.Ad_Model_BTF_300x250?"8":"12") omega alpha padding-top20">
 
             @if (Model.LocationCookie != null && Model.LocationCookie.City != null)
             {
@@ -52,13 +52,21 @@
                 <h3 class="margin-bottom20">Price by cities&nbsp;<span class="text-light-grey text-unbold">(@(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : "Ex-showroom price"))</span></h3>
             }
 
-            <ul id="prices-top-cities">
+            <ul id="prices-top-cities" class="@(Model.AdTags.Ad_Model_BTF_300x250?"ul-grid-3":"ul-grid-4")">
                 @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.PriceInTopCities)
             </ul>
+            <div class="clear"></div>
+            <div class="font12 text-slate-grey line-height17 margin-top10">
+                @Html.Raw(Model.VersionPriceListSummary)
+            </div>
         </div>
+        if (Model.AdTags.Ad_Model_BTF_300x250)
+        {
+            <div class="grid-4 omega alpha padding-top20">
+                 @Html.Partial("~/Views/Shared/Ads/Desktop/Model_BTF_300x250.cshtml",Model.AdTags)
+            </div>
+        
+        }
     }
     <div class="clear"></div>
-    <div class="font12 text-slate-grey line-height17 margin-top10">
-        @Html.Raw(Model.VersionPriceListSummary)
-    </div>
 </div>

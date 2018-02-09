@@ -626,6 +626,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Changed order of bind upcoming bikes wiget to get bodystyle.
         /// Modified by : Ashutosh Sharma on 07 Feb 2018
         /// Description : Fetching upcoming bikes for new and discontined bikes also.
+        /// Modified by : Rajan Chauhan on 08 Feb 2018
+        /// Description : PriceInTopCities now have 9 cities instead of 8 for modelPage Ad_Model_BTF_300x250 logic
         /// </summary>
         private void BindControls()
         {
@@ -663,9 +665,9 @@ namespace Bikewale.Models.BikeModels
                         _objData.UsedModels = BindUsedBikeByModel((uint)objMake.MakeId, _cityId);
 
                         if (_cityId > 0)
-                            _objData.PriceInTopCities = new ModelPriceInNearestCities(_objPQCache, _modelId, _cityId, 8).GetData();
+                            _objData.PriceInTopCities = new ModelPriceInNearestCities(_objPQCache, _modelId, _cityId, 9).GetData();
                         else
-                            _objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 8).GetData();
+                            _objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 9).GetData();
 
                         if ((_objData.PriceInTopCities != null && _objData.PriceInTopCities.PriceQuoteList != null && _objData.PriceInTopCities.PriceQuoteList.Any()) || (_objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0))
                         {
