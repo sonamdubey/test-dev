@@ -232,6 +232,7 @@
     <Compile Include="MobileAppAlert\MobileFCMNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerification.cs" />
     <Compile Include="MVC.UI\Scooters.cs" />
+    <Compile Include="Notifications\NotificationsBL.cs" />
     <Compile Include="Pager\Pager.cs" />
     <Compile Include="PriceQuote\DealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\LeadNotificationBL.cs" />

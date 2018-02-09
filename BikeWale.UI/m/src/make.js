@@ -5,6 +5,13 @@
 		$(this).hide();
 		$(this).closest('.pros-cons__content').find('li').show();
 	});
+	$("#notifySubmitBtn").on("click", function () {
+	  
+	    flag = validateForm.emailField($("#notifyEmailField"));
+	    if (flag) {
+	        executeNotification($(this));
+	    }
+	});
 
 	$('#allIndiaUrl').on('click',function()
 	{
@@ -52,8 +59,13 @@
 
 	// upcoming card: notify
 	notifyPopup.registerEvents();
+	
 
-	$('.upcoming-card__notify-btn').on('click', function() {
+	$('.upcoming-card__notify-btn').on('click', function () {
+	    $('.notify-details__model').text($(this).attr('data-bikeName'));
+	    $('.form-field__submit-btn').attr('data-bikename', $(this).attr('data-bikename'));
+	    $('.form-field__submit-btn').attr('data-makeid', $(this).attr('data-makeid'));
+	    $('.form-field__submit-btn').attr('data-modelid', $(this).attr('data-modelid'));
 		notifyPopup.open();
 	});
 
@@ -65,6 +77,7 @@
   //floating navbar
 	floatingNav.registerEvents();
 });
+
 
 
 
@@ -167,6 +180,32 @@ var floatingNav = (function () {
 	}
 })();
 
+function executeNotification(buttonElement) {
+    var userData = {
+        "emailId": $("#notifyEmailField").val(),
+        "makeId": $('.form-field__submit-btn').attr("data-makeid"),
+        "modelId": $('.form-field__submit-btn').attr("data-modelid"),
+        "bikeName": $('.form-field__submit-btn').attr("data-bikename"),
+    };
+    $.ajax({
+        type: "POST",
+        url: "/api/notifyuser/",
+        contentType: "application/json",
+        data: ko.toJSON(userData),
+        success: function (response) {
+            if (response) {
+                notifyPopup.setSuccessState(buttonElement);
+            }
+            else {
+                validateForm.setError($('#notifyEmailField'), "An error has occured");
+            }
+        },
+        error: function (response) {
+            validateForm.setError($('#notifyEmailField'), "An error has occured");
+        }
+
+    });
+}
 /* upcoming bikes set notification popup */
 var notifyPopup = (function() {
 	var container, emailField, formSubmitBtn;
@@ -185,17 +224,6 @@ var notifyPopup = (function() {
 
 	function registerEvents() {
 		_setSelectors();
-
-		formSubmitBtn.on('click', function() {
-			var isValid = validateForm.emailField(emailField);
-
-			if(isValid) {
-				formField.setSuccessState($(this), 'Thank You!');
-				setTimeout(function() {
-					$('#notifyCloseBtn').trigger('click');
-				}, 1000);
-			}
-		});
 
 		emailField.on('focus', function() {
 			validateForm.onFocus($(this));
@@ -225,10 +253,18 @@ var notifyPopup = (function() {
 		documentBody.unlock();
 	}
 
+	function setSuccessState(buttonElement) {
+	    formField.setSuccessState(buttonElement, 'Thank You!');
+	    setTimeout(function () {
+	        $('#notifyCloseBtn').trigger('click');
+	    }, 1000);
+	}
+
 	return {
 		registerEvents: registerEvents,
 		open: open,
-		close: close
+		close: close,
+		setSuccessState: setSuccessState
 	}
 })();
 

@@ -7,6 +7,7 @@ using System;
 using System.Web.Http;
 using System.Web.Http.Description;
 
+
 namespace Bikewale.Service.Controllers.Make
 {
     /// <summary>
@@ -17,13 +18,15 @@ namespace Bikewale.Service.Controllers.Make
     public class MakeController : ApiController
     {
 
-        private readonly IBikeMakesCacheRepository _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
 
-        public MakeController(IBikeMakesCacheRepository bikeMakes)
+        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        public MakeController(IBikeMakesCacheRepository bikeMakesCache, IBikeMakes<BikeMakeEntity, int> bikeMakes)
         {
+            _bikeMakesCache = bikeMakesCache;
             _bikeMakes = bikeMakes;
         }
-        
+
         /// <summary>
         ///  To get make Details based on MakeId  for DropDown
         /// </summary>
@@ -38,13 +41,13 @@ namespace Bikewale.Service.Controllers.Make
             {
                 if (makeId > 0)
                 {
-                    objMake = _bikeMakes.GetMakeDetails(makeId);
+                    objMake = _bikeMakesCache.GetMakeDetails(makeId);
 
                     if (objMake != null)
-                    { 
+                    {
                         objDTOMakeBase = MakeListMapper.Convert(objMake);
                         return Ok(objDTOMakeBase);
-                    } 
+                    }
                 }
                 else
                 {
@@ -54,11 +57,13 @@ namespace Bikewale.Service.Controllers.Make
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Make.MakeController");
-               
+
                 return InternalServerError();
             }
             return NotFound();
         }//get make details
-        
+
+
+
     }
 }
