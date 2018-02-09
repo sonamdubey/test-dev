@@ -16,6 +16,8 @@ namespace Bikewale.Models.Photos.v1
     /// Created by : Ashutosh Sharma on 11th Jan 2018
     /// Modified by : Ashutosh Sharma on 6th Feb 2018
     /// Description : Added 'Videos' for videos widget.
+    /// Modified by : Pratibha Verma on 8 Feb 2018
+	/// Description : Added property to get data from ImageWidgetVM 
     /// </summary>
     public class PhotosPageVM : ModelBase
     {
