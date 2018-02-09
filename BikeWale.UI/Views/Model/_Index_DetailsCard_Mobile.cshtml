@@ -213,10 +213,10 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
             @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
             {
                 <div class="carousel-heading-content padding-top15">
-                    <div class="swiper-heading-left-grid-50 inline-block">
+                    <div class="swiper-heading-left-grid inline-block">
                         <h2>@string.Format("Upcoming {0} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)</h2>
                     </div>
-                    <div class="swiper-heading-right-grid-50 inline-block text-right">
+                    <div class="swiper-heading-right-grid inline-block text-right">
                         <a href="@string.Format("/m/{0}-bikes/upcoming/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName)" title="@string.Format("Upcoming {0} bikes in India", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)" class="btn view-all-target-btn">View all</a>
                     </div>
                 </div>
