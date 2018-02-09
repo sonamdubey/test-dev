@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.BikeData;
-using Bikewale.Entities.UpcomingNotification;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -24,8 +23,6 @@ namespace Bikewale.Interfaces.BikeData
     /// Descritpion: Method to get list of  makes in which service center is present for city
     /// Modified by : Snehal Dange on 16th Jan 2017
     /// Description: Method to get ResearchMoreAboutMake widget data (with and without city)
-    /// Modified by: Dhruv Joshi on 7th Feb 2018
-    /// Description: Method ProcessNotification to add user data to usernotifications and notificationusers table
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
@@ -45,6 +42,5 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId);
         ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId);
         ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId);
-        
     }
 }

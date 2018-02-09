@@ -49,7 +49,7 @@ namespace Bikewale.BAL.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.BikeMakes");
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.Notifications.NotificationsBL.UpcomingSubscription");
             }
             return false;
         }

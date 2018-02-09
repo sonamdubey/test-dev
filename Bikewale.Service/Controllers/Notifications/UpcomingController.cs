@@ -56,7 +56,7 @@ namespace Bikewale.Service.Controllers.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Make.MakePageController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Notifications.UpcomingController.UpcomingSubscriptionNotification");
             }
             return false;
         }

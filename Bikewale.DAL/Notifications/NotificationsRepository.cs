@@ -50,7 +50,7 @@ namespace Bikewale.DAL.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.ProcessNotification: MakeId:{0} ModelId:{1} EmailId:{2} NotificationTypeId:{3}", entityNotif.MakeId, entityNotif.ModelId, emailId, notificationTypeId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Notifications.NotificationsRepository.UpcomingSubscription: MakeId:{0} ModelId:{1} EmailId:{2} NotificationTypeId:{3}", entityNotif.MakeId, entityNotif.ModelId, emailId, notificationTypeId));
             }
             return false;
         }
