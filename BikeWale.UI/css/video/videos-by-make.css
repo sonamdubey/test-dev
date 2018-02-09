@@ -135,32 +135,42 @@
 	margin-right: 0;
 }
 
-.carousel--arrow-sm .jcarousel .carousel-slide {
-	background-color: transparent;
+.carousel--arrow-sm .jcarousel-arrow-next,
+.carousel--arrow-sm .jcarousel-arrow-prev {
+	width: 34px;
+    height: 64px;
+    text-indent: -9999px;
+    border: 1px solid #eee;
+    background-color: #fff;
+    padding: 10px 5px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -o-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/arrow-right.svg) 55% no-repeat #fff;
+    display: inline-block;
 }
 
-.carousel--arrow-sm .jcarousel-control-next {
-	background-position: -66px -81px;
+.carousel--arrow-sm .jcarousel-arrow-next.inactive,
+.carousel--arrow-sm .jcarousel-arrow-prev.inactive {
+    opacity: .7;
+	cursor: not-allowed;
 }
 
-.carousel--arrow-sm .jcarousel-control-prev {
-	background-position: -34px -81px;
+.carousel--arrow-sm .jcarousel-arrow-prev {
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    transform: rotate(-180deg);
 }
 
-.carousel--arrow-sm .jcarousel-control-next:hover {
-	background-position: -66px -136px;
+.carousel--inner-card .jcarousel-control-left {
+	left: 0;
 }
 
-.carousel--arrow-sm .jcarousel-control-prev:hover {
-	background-position: -34px -136px;
-}
-
-.carousel--arrow-sm .jcarousel-control-next.inactive {
-	background-position: -66px -25px
-}
-
-.carousel--arrow-sm .jcarousel-control-prev.inactive {
-	background-position: -34px -25px;
+.carousel--inner-card .jcarousel-control-right {
+	right: 0;
 }
 
 /* override jcarousel end */
@@ -269,30 +279,4 @@
 	width: 200%;
 	top: 0;
 	left: -50%;
-}
-
-.carousel--full-width .jcarousel-arrow-prev {
-    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/arrow-left.svg) 55% no-repeat #fff;
-    width: 40px;
-    height: 93px;
-    display: block;
-    position: relative;
-    top: 36%;
-    z-index: 2;
-    border: 1px solid #e2e2e2;
-    box-shadow: 0 0 10px rgba(213,213,213,.5);
-    border-radius: 2px;
-}
-
-.carousel--full-width .jcarousel-arrow-next {
-    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/arrow-right.svg) 55% no-repeat #fff;
-    width: 40px;
-    height: 93px;
-    display: block;
-    position: relative;
-    top: 36%;
-    z-index: 2;
-    border: 1px solid #e2e2e2;
-    box-shadow: 0 0 10px rgba(213,213,213,.5);
-    border-radius: 2px;
 }
