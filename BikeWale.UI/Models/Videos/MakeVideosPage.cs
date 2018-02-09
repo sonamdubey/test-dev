@@ -30,6 +30,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Mar 2017
         /// Description :   Constructor to initialize the member variables
+        /// Modified by :   Pratibha Verma on 8 Feb 2018
+        /// Description :   Added parameter in constructor for Linkage of Image Page from Video
         /// </summary>
         /// <param name="makeMaskingName"></param>
         /// <param name="videosCache"></param>

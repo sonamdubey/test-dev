@@ -11,6 +11,10 @@ using Bikewale.Utility;
 
 namespace Bikewale.Models.Images
 {
+    /// <summary>
+    /// Created by  :   Pratibha Verma on 8 Feb 2018
+    /// Description :   to bind Image Page
+    /// </summary>
     public class ImageCarausel
     {
         public uint MakeId { get; set; }
@@ -29,6 +33,10 @@ namespace Bikewale.Models.Images
             BodyStyle = bodyStyle;
             _objModelEntity = objModelEntity;
         }
+        /// <summary>
+        /// Created by  :  Pratibha Verma on 8 Feb 2018
+        /// Descritpion :  To Get ImagePageVM Data
+        /// </summary>
         public ImageWidgetVM GetData()
         {           
             ImageWidgetVM _objData = null;

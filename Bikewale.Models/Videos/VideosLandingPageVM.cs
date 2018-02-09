@@ -9,6 +9,8 @@ namespace Bikewale.Models.Videos
     /// <summary>
     /// Created By Sajal Gupta on 23-03-2017
     /// Description : This View model has videos landing page.
+    /// Modified by : Pratibha Verma on 8 Feb 2018
+	/// Description : Added Property ImageWidgetVM to bind Image Page from Videos
     /// </summary>
     public class VideosLandingPageVM : ModelBase
     {

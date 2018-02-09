@@ -368,6 +368,8 @@ namespace Bikewale.Controllers.Desktop.Videos
         /// Summary     :   Fetch videos page by masking name
         /// Modified by :   Sumit Kate on 29 Mar 2017
         /// Description :   Make wise video page desktop action method
+        /// Modified by :   Pratibha Verma on 8 Feb 2018
+        /// Description :   Added parameter in MakeVideosPage constructor for Linkage of Image Page from Video
         /// </summary>
         [Filters.DeviceDetection()]
         [Route("videos/make/{makeMaskingName}/")]
@@ -393,6 +395,8 @@ namespace Bikewale.Controllers.Desktop.Videos
         /// Summary    : ActionResult method for make wise videos page
         /// Modified by :   Sumit Kate on 29 Mar 2017
         /// Description :   Make wise video page mobile action method
+        /// Modified by :   Pratibha Verma on 8 Feb 2018
+        /// Description :   Added parameter in MakeVideosPage constructor for Linkage of Image Page from Video
         /// </summary>
         /// <param name="makeMaskingName"></param>
         /// <returns></returns>
