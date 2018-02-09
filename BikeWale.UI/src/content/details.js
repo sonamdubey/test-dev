@@ -241,7 +241,8 @@ Array.prototype.forEach.call(articleContentEles, function (el) {
     var articleImgs = $(el.querySelectorAll('img')).not('.no-zoom');
     Array.prototype.forEach.call(articleImgs, function (imgEl) {
         var ptNode = imgEl.parentNode;
-        if (!$(ptNode).parents().hasClass('.image__zoom-btn'))
+
+        if (!$(document.getElementsByName('span')).hasClass('image__zoom-btn'))
         {
             var imgSpan = document.createElement('span');
                 imgSpan.setAttribute('class', 'image__zoom-btn');
