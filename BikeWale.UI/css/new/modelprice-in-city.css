@@ -424,7 +424,6 @@
 
 #prices-top-cities li {
     display: inline-block;
-    width: 25%;
     padding-bottom: 20px;
 }
 
@@ -437,10 +436,6 @@
 .city-name.right {
     text-align: center;
     font-size: 13px;
-}
-
-#prices-top-cities li:nth-of-type(4n) .city-name.right{
-  text-align: right;
 }
 
 .version-price-table td {
@@ -1637,4 +1632,12 @@ width: 100%;
   margin: 0 auto;
   background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/electric-scooter.svg") no-repeat center;
   background-size: contain; }
+
+.ul-grid-3 li {
+  width: 33.33%;
+}
+
+.ul-grid-4 li {
+  width: 25%;
+}
 
