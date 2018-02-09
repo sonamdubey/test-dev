@@ -91,13 +91,8 @@ var appendState = function (state) {
     window.history.pushState(state, '', '');
 };
 
-
-
-
 docReady(function () {
     // ad blocker active than fallback method
-
-
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
     }
