@@ -21,7 +21,7 @@
             foreach (var bike in Model.RecentUsedBikesList)
             {
                 <li class="grid-4 margin-bottom20">
-                    <a class="bw-anchor-link" href="javascript:void(0)" data-href="@UrlFormatter.UsedBikesUrl( bike.CityMaskingName, bike.MakeMaskingName, bike.ModelMaskingName, Convert.ToString(bike.ProfileId))"
+                    <a class="bw-anchor-link" ref="nofollow" href="javascript:void(0)" data-href="@UrlFormatter.UsedBikesUrl( bike.CityMaskingName, bike.MakeMaskingName, bike.ModelMaskingName, Convert.ToString(bike.ProfileId))"
                        title="@String.Format("{0}, {1} {2} {3}",Convert.ToString(@bike.MakeYear), bike.MakeName, bike.ModelName, bike.VersionName)">
                         @String.Format("{0}, {1} {2} {3}", Convert.ToString(bike.MakeYear), bike.MakeName, bike.ModelName, bike.VersionName)
                     </a>
