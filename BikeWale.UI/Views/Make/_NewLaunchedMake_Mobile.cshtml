@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeEntityBase>
 @using Bikewale.Utility;
 
-@if (Model != null) {
+@if (Model != null)
+{
+    var city = Model.FirstOrDefault().City;
     <div data-id="popularModel" class="bg-white section-bottom-margin newly-lauched-section overall-tabs-data">
             <div class="newly-launched__title">
                 <h2 class="page__heading-h2">
@@ -9,8 +11,7 @@
                 </h2>
             </div>
                     <div class="swiper-container carousel__newly-lauched" data-spacebetween="0">
-                        <ul class="swiper-wrapper">                            
-                            @{var city = Model.FirstOrDefault().City; }
+                        <ul class="swiper-wrapper">
                             @foreach (var bike in Model)
                             {
                                 if (bike != null && bike.Make != null && bike.Model != null)
@@ -37,7 +38,7 @@
                                                     <div class="card-exshowroom__col">
                                                             @if (bike.Price > 0)
                                                             {
-                                                                <p class="card-exshowroom__label">Ex-showroom, @(city == null || city.CityId == 0 ? BWConfiguration.Instance.DefaultName : city.CityName)</p>
+                                                                <p class="card-exshowroom__label">@string.Format("Ex-showroom, {0}", (city == null || city.CityId == 0 ? BWConfiguration.Instance.DefaultName : city.CityName))</p>
                                                             }
                                                             else
                                                             {
@@ -53,7 +54,6 @@
 
                                                                 @if (bike.AvgPrice > 0)
                                                                 {
-                                                                    @*<span class="text--semibold">@Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) : Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice))))</span>*@
 
                                                                     <span class="text--semibold">@Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price > 0 ? bike.Price : bike.AvgPrice))))</span>
                                                                 }
