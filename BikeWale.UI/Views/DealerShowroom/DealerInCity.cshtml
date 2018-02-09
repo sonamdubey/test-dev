@@ -86,9 +86,9 @@
                                     <p class="@string.Format("{0}",String.IsNullOrEmpty(Details.MaskingNumber)?"hide":"dealer-details__number")">
                                         <span>@Details.MaskingNumber</span>
                                     </p>
-                                    @if (Details.objArea != null && (Details.objArea.Latitude > 0 || Details.objArea.Longitude>0))
+                                    @if (Details.objArea != null && (Details.objArea.Latitude > 0 || Details.objArea.Longitude > 0))
                                     {
-                                        <a href="https://maps.google.com/?saddr=&amp;daddr=@Details.objArea.Latitude,@Details.objArea.Longitude" class="dealer-details__direction" target="_blank" rel="noopener">Get Directions</a>
+                                        <a href="javascript:void(0)" class="dealer-details__direction" rel="noopener" onclick="getLocationUrl(@Details.objArea.Latitude,@Details.objArea.Longitude)">Get Directions</a>
                                     }
                                 </div>
 
