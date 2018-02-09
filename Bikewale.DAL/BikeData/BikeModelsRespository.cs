@@ -2673,6 +2673,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   Returns New Bikes launched with Exshowroom of given city
         /// Modified by:- Subodh jain 09 march 2017
         ///summary :-  Added body type filter
+        /// Modified by : Sanskar Gupta on 09 Feb 2018
+        /// Description : Changed SP to `getnewlaunchedbikesbycity_09022018`
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
@@ -2684,7 +2686,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikesbycity_09032017";
+                    cmd.CommandText = "getnewlaunchedbikesbycity_09022018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
