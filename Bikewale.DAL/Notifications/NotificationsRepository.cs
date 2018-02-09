@@ -43,9 +43,9 @@ namespace Bikewale.DAL.Notifications
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_notificationtype", DbType.Int32, notificationTypeId));
 
 
-                    int rows_returned = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    bool success = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) >= 0 ? true : false;
 
-                    return rows_returned < 0 ? false : true;
+                    return success;
                 }
             }
             catch (Exception ex)

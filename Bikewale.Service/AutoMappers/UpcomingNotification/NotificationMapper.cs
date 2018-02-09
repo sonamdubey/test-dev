@@ -18,14 +18,14 @@ namespace Bikewale.Service.AutoMappers.UpcomingNotification
         /// Dated: 8th Feb 2018
         /// Description: Mapper for upcoming bikes notification subscription
         /// </summary>
-        /// <param name="entityNotif"></param>
+        /// <param name="dtonotif"></param>
         /// <returns></returns>
-        internal static Entities.UpcomingNotification.UpcomingBikeEntity Convert(DTO.Upcoming.UpcomingNotificationDTO entityNotif)
+        internal static Entities.UpcomingNotification.UpcomingBikeEntity Convert(DTO.Upcoming.UpcomingNotificationDTO dtonotif)
         {
             try
             {
                 AutoMapper.Mapper.CreateMap<DTO.Upcoming.UpcomingNotificationDTO, Entities.UpcomingNotification.UpcomingBikeEntity>();
-                return AutoMapper.Mapper.Map<DTO.Upcoming.UpcomingNotificationDTO, Entities.UpcomingNotification.UpcomingBikeEntity>(entityNotif);
+                return AutoMapper.Mapper.Map<DTO.Upcoming.UpcomingNotificationDTO, Entities.UpcomingNotification.UpcomingBikeEntity>(dtonotif);
             }
             catch(Exception ex)
             {

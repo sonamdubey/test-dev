@@ -185,7 +185,12 @@ function executeNotification(buttonElement) {
         contentType: "application/json",
         data: ko.toJSON(userData),
         success: function (response) {
-            notifyPopup.setSuccessState(buttonElement);
+            if (response) {
+                notifyPopup.setSuccessState(buttonElement);
+            }
+            else {
+                validateForm.setError($('#notifyEmailField'), "An error has occured - please enter valid Email and select a Bike");
+            }
         },
         error: function (response) {
             validateForm.setError($('#notifyEmailField'), "Some error has occured");

@@ -35,7 +35,7 @@ namespace Bikewale.Service.Controllers.Notifications
         /// <param name="dtoNotif"></param>
         /// <returns></returns>
         [Route("api/notifyuser/")]
-        public IHttpActionResult UpcomingSubscriptionNotification([FromBody]UpcomingNotificationDTO dtoNotif)
+        public bool UpcomingSubscriptionNotification([FromBody]UpcomingNotificationDTO dtoNotif)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace Bikewale.Service.Controllers.Notifications
                     UpcomingBikeEntity entitiyNotif = NotificationMapper.Convert(dtoNotif);
                     if (entitiyNotif != null && _notifications.UpcomingSubscription(emailId, entitiyNotif, notificationTypeId))
                     {
-                        return Ok();
+                        return true;
                     }
                     else
                     {
@@ -61,7 +61,7 @@ namespace Bikewale.Service.Controllers.Notifications
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Make.MakePageController");
-                return BadRequest("An error has occured - Please enter a valid Email and Select a bike");
+                return false;
             }
         }
     }
