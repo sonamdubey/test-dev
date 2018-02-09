@@ -2673,6 +2673,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   Returns New Bikes launched with Exshowroom of given city
         /// Modified by:- Subodh jain 09 march 2017
         ///summary :-  Added body type filter
+        /// Modified by : Sanskar Gupta on 09 Feb 2018
+        /// Description : Changed SP to `getnewlaunchedbikesbycity_09022018`
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
