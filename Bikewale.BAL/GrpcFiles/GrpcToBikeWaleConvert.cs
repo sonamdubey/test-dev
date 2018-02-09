@@ -19,6 +19,8 @@ namespace Bikewale.BAL.GrpcFiles
     /// <summary>
     /// Author: Prasad Gawde
     /// Summary: This class is responsible for converting the GRPC Object into the Format Bikewale needs it to be in for further processing
+    /// Modified By : Deepak Israni on 9th Feb 2018
+    /// Description : Added extraction of MakeName and ModelName
     /// </summary>
     public static class GrpcToBikeWaleConvert
     {
@@ -56,6 +58,8 @@ namespace Bikewale.BAL.GrpcFiles
                     curArt.Views = item.Views;
                     curArt.SubCategory = item.SubCategory;
                     curArt.SubCategoryId = item.SubCategoryId;
+                    curArt.MakeName = item.MakeName;
+                    curArt.ModelName = item.ModelName;
                     dataNew.Articles.Add(curArt);
                 }
                 return dataNew;
