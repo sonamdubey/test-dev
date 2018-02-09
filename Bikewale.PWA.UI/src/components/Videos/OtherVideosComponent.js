@@ -6,7 +6,6 @@ import Breadcrumb from '../Shared/Breadcrumb'
 import {isServer} from '../../utils/commonUtils'
 import ModelBrandsList from './ModelBrandsList'
 import VideoCarouselByCategory from './VideoCarouselByCategory'
-import ImageCard from '../Shared/ImageCard'
 import {toJS} from '../../immutableWrapperContainer'
 import {formMoreVideosUrl,pushVideoDetailUrl,pushVideosByCategoryUrl} from './VideosCommonFunc'
 
@@ -53,7 +52,6 @@ class OtherVideosComponent extends React.Component{
 			<div>
 				<VideoCarouselByCategory VideoListData={this.props.OtherVideos.FirstRide} onClickVideoUrl={this.onClickVideoUrl} onClickMoreVideoUrl={this.onClickMoreVideoUrl}/>
 				<VideoCarouselByCategory VideoListData={this.props.OtherVideos.LaunchAlert} onClickVideoUrl={this.onClickVideoUrl} onClickMoreVideoUrl={this.onClickMoreVideoUrl}/>
-				<ImageCard />
 				<VideoCarouselByCategory VideoListData={this.props.OtherVideos.FirstLook} onClickVideoUrl={this.onClickVideoUrl} onClickMoreVideoUrl={this.onClickMoreVideoUrl}/>
 				<ModelBrandsList Brands={this.props.OtherVideos.Brands} />
 				<VideoCarouselByCategory VideoListData={this.props.OtherVideos.PowerDriftBlockbuster} onClickVideoUrl={this.onClickVideoUrl} onClickMoreVideoUrl={this.onClickMoreVideoUrl}/>
