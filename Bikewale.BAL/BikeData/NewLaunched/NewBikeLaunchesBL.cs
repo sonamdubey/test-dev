@@ -177,10 +177,10 @@ namespace Bikewale.BAL.BikeData.NewLaunched
             IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
             try
             {
-                bikes = _modelCache.GetNewLaunchedBikesListByMake(filters);
+                bikes = _modelCache.GetNewLaunchedBikesList(filters.CityId);
                 if(bikes != null)
                 {
-                    bikes = bikes.Where(x => DateTime.Now >= x.LaunchedOn && DateTime.Now <= x.LaunchedOn.AddDays(10));
+                    bikes = bikes.Where(x => x.Make.MakeId == filters.Make && DateTime.Now >= x.LaunchedOn && DateTime.Now <= x.LaunchedOn.AddDays(10));
                 }
 
             }

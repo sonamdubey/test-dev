@@ -2734,6 +2734,7 @@ namespace Bikewale.DAL.BikeData
                                             CityMaskingName = Convert.ToString(dr["citymaskingname"])
                                         } : null),
                                         Price = SqlReaderConvertor.ToUInt32(dr["price"]),
+                                        AvgPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]),
                                         BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
                                     }
                                 );

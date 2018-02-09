@@ -116,7 +116,7 @@ namespace Bikewale.Models
         /// Modified by : Rajan Chauhan on 3 Jan 2017
         /// Description : Bind MakeId to objData
         /// Modified by : Sanskar Gupta on 07 Feb 2018
-        /// Descritpion : Added logic to fetch Newly Launched Bikes (within a period of 10 days) for Mobile Make page.
+        /// Descritpion : Added BindNewLaunchedWidget() method.
         /// </returns>
         public MakePageVM GetData()
         {
@@ -224,21 +224,13 @@ namespace Bikewale.Models
                     objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
 
                     objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
-
+               
                 }
+
 
                 if (IsMobile)
                 {
-
-                    InputFilter inputFilter = new InputFilter();
-                    inputFilter.Days = 10;
-                    inputFilter.Make = _makeId;
-
-                    IEnumerable<NewLaunchedBikeEntityBase> NewLaunchedMakeBikesNDays = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
-                    if (NewLaunchedMakeBikesNDays != null)
-                    {
-                        objData.NewLaunchedMakeBikesNDays = NewLaunchedMakeBikesNDays;
-                    }
+                    BindNewLaunchedWidget(objData);
                 }
 
                 if (IsAmpPage)
@@ -835,6 +827,39 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, string.Format("MakePageModel.GetEMIDetails: Make : {0} , City : {1}", _makeId, cityBase.CityId));
             }
 
+        }
+        /// <summary>
+        /// Created by : Sanskar Gupta on 09 Feb 2018
+        /// Description : Method to bind NewLaunchedWidget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindNewLaunchedWidget(MakePageVM objData)
+        {
+            try
+            {
+                if (objData != null)
+                {
+                    InputFilter inputFilter = new InputFilter();
+                    inputFilter.Days = 10;
+                    inputFilter.Make = _makeId;
+                    inputFilter.CityId = 0;
+
+                    if (cityBase != null)
+                    {
+                        inputFilter.CityId = cityBase.CityId;
+                    }
+
+                    objData.NewLaunchedMakeBikesNDays = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
+                    if (objData.NewLaunchedMakeBikesNDays != null)
+                    {
+                        objData.NewLaunchedMakeBikesNDays.FirstOrDefault().City = cityBase;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BindNewLaunchedWidget_MakeId_{0}_CityId_{1}", _makeId, cityBase.CityId));
+            }
         }
     }
 }
