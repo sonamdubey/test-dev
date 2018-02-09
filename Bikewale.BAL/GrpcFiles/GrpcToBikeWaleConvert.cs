@@ -816,6 +816,7 @@ namespace Bikewale.BAL.GrpcFiles
                 {
                     case EnumCMSContentType.News:
                     case EnumCMSContentType.AutoExpo2016:
+                    case EnumCMSContentType.AutoExpo2018:
                         shareUrl = string.Format("{0}/news/{1}-{2}.html", _bwHostUrl, artBase.BasicId, artBase.ArticleUrl);
                         break;
                     case EnumCMSContentType.Features:
@@ -856,6 +857,9 @@ namespace Bikewale.BAL.GrpcFiles
                 case EnumCMSContentType.TipsAndAdvices:
                     _category = "Bike Care";
                     break;
+                case EnumCMSContentType.AutoExpo2018:
+                    _category = "AutoExpo 2018";
+                    break;
                 default:
                     break;
             }
@@ -871,6 +875,7 @@ namespace Bikewale.BAL.GrpcFiles
             {
                 case EnumCMSContentType.AutoExpo2016:
                 case EnumCMSContentType.News:
+                case EnumCMSContentType.AutoExpo2018:
                     articleUrl = string.Format("/m/news/{0}-{1}.html", basicid, url);
                     break;
                 case EnumCMSContentType.Features:

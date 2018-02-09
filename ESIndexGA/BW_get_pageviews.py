@@ -16,49 +16,34 @@ import sys
 import os
 from array import array
 import subprocess
-import logging
 import elasticsearch.exceptions
 
-LOGGER_NAME = 'BWUpdatePageViewsLogger'
 PROFILE_ID = "110715270"
-#INDEX_NAME = "bikewalekeywords"	#Live
-#ELASTIC_SEARCH_IP = '10.10.3.70'	#Live
-#ELASTIC_SEARCH_PORT = 9212			#Live
+INDEX_NAME = "bikewalekeywords"	#Live
+ELASTIC_SEARCH_IP = '10.10.3.70'	#Live
+ELASTIC_SEARCH_PORT = 9212			#Live
 #INDEX_NAME = "bikewalekeywordsstgv1"	#Staging
 #ELASTIC_SEARCH_IP = '10.10.3.70'		#Staging
 #ELASTIC_SEARCH_PORT = 9211				#Staging
-INDEX_NAME = "11bwsrckeywordsv1"	#Local
-ELASTIC_SEARCH_IP = '172.16.0.11'	#Local
-ELASTIC_SEARCH_PORT = 9201			#Local
-#BW_HOSTURL = "https://www.bikewale.com"	#Live
+#INDEX_NAME = "11bwsrckeywordsv1"	#Local
+#ELASTIC_SEARCH_IP = '172.16.0.11'	#Local
+#ELASTIC_SEARCH_PORT = 9201			#Local
+BW_HOSTURL = "https://www.bikewale.com"	#Live
 #BW_HOSTURL = "https://staging.bikewale.com"	#Staging
-BW_HOSTURL = "http://webserver:9011"	#Local
-key_file_location = 'GoogleKey.p12' # + '/GoogleDFPProductionKey.p12'
-DOC_TYPE = 'bikelist'
-
-def get_Logger(loggerName,fileName): 
-	logger = logging.getLogger(loggerName)
-	logger.setLevel(logging.INFO)
-	fh = logging.FileHandler(fileName)
-	formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-	fh.setFormatter(formatter)
-	logger.addHandler(fh)
-	return logger
-
-# logger = get_Logger(LOGGER_NAME,LOG_FILE) #'/home/cassuser/PageViewUpdatePythonScript/UpdatePageViewsScript.log')
+#BW_HOSTURL = "http://webserver:9011"	#Local
 current_directory = sys.path[0] + "/"
-logger = get_Logger(LOGGER_NAME,current_directory+"BWUpdatePageViewsScript.log")
+key_file_location = current_directory + 'GoogleKey.json' # + '/GoogleDFPProductionKey.p12'
+DOC_TYPE = 'bikelist'
+#BWOPR_HOSTURL = "http://localhost:9010" # Local
+#BWOPR_HOSTURL = "http://bwoprst.bikewale.com" # Staging
+BWOPR_HOSTURL = "https://opr.bikewale.com" # Production
 
+def logf(msg):
+	print "{} : {}".format(datetime.datetime.now(), msg)
 
-def get_service(api_name, api_version, scope, key_file_location,
-				service_account_email):
+def get_service(api_name, api_version, scope, key_file_location):
 
-  f = open(key_file_location, 'rb')
-  key = f.read()
-  f.close()
-
-  credentials = ServiceAccountCredentials._from_p12_keyfile_contents(service_account_email, key,
-	scopes=scope)
+  credentials = ServiceAccountCredentials.from_json_keyfile_name(key_file_location,	scopes=scope)
 
   http = credentials.authorize(httplib2.Http())
 
@@ -73,10 +58,17 @@ def getMakeModels(URL):
 	data = json.loads(data_json)
 	return data
 
+def saveModelsPageviews(URL, data, headers):
+	response = requests.post(url = URL, data = data, headers=headers)
+	data_json = response.text
+	logf("{} > ({})".format(URL, response.status_code))
+	data = json.loads(data_json)
+	return data
 
-def getDesktopData(service, profile_id, start_date, end_date, url):
+
+def getGAData(service, profile_id, start_date, end_date, url):
 	'''
-		Function to get Desktop PageViews Data from GA
+		Function to get PageViews Data from GA
 		@params
 			service : service Object
 			profile_id: the Profile_id for which data has to be fetched
@@ -87,29 +79,16 @@ def getDesktopData(service, profile_id, start_date, end_date, url):
  	'''
 	ids = "ga:" + profile_id
 	metrics = "ga:pageviews"
-	filters = 'ga:pagePath==/'+url #/m/marutisuzuki-cars/default.aspx'
+	filters = 'ga:pagePath=='+url
 	data = service.data().ga().get(
 		ids=ids, start_date=start_date, end_date=end_date, metrics=metrics
 		,filters=filters).execute()
 	return data["totalsForAllResults"]
-
-
-def getMobileData(service, profile_id, start_date, end_date, url):
-	# Function to get Mobile PageViews Data from GA
-	ids = "ga:" + profile_id
-	metrics = "ga:pageviews"
-	filters = 'ga:pagePath==/m/'+url #/m/marutisuzuki-cars/default.aspx'
-	data = service.data().ga().get(
-		ids=ids, start_date=start_date, end_date=end_date, metrics=metrics
-		,filters=filters).execute()
-	return data["totalsForAllResults"]
-
 
 
 def main():
-	logger.info("started at " + str(datetime.date.today()))
-	# Queue Name
-	#Queue_name = "RabbitMq-BWAUTOSUGGEST-Queue"
+	logf("Script execution started")
+	
 	# Define the Time Period 
 	startdate = str(datetime.date.today()-datetime.timedelta(7))
 	enddate = str(datetime.date.today()-datetime.timedelta(1))
@@ -120,16 +99,14 @@ def main():
     port=ELASTIC_SEARCH_PORT,
 	)
 
-	service_account_email = '701834893970-6864575bc9csg290qv0142kt5e2n6asd@developer.gserviceaccount.com'
-	application_name = 'New Srevice Account'
 	scope='https://www.googleapis.com/auth/analytics.readonly'
 
 	# Get Services
-	service = get_service('analytics', 'v3', scope, key_file_location,service_account_email)
+	service = get_service('analytics', 'v3', scope, key_file_location)
 
 	# Get make and model URLS
 	makeModelUrl = BW_HOSTURL + "/api/model/all/new/"
-	makeModelUrlUpcoming = BW_HOSTURL + "/api/model/all/upcoming"
+	makeModelUrlUpcoming = BW_HOSTURL + "/api/model/all/upcoming/"
 	
 	MakeModels = getMakeModels(makeModelUrl) + getMakeModels(makeModelUrlUpcoming)
 
@@ -140,6 +117,7 @@ def main():
 	Makes =[]
 	MakeId =[]
 	roundrobinflag = 0
+	modelPageViews = "" # Variable to store model pageviews
 	for makeModel in MakeModels:
 		
 		# Create page URL 
@@ -149,35 +127,25 @@ def main():
 		if Makes.count(makeurl) == 0:
 			Makes.append(makeurl)
 			MakeId.append(makeModel['MakeBase']['makeId'])
-			print makeurl
 
 		# Get Data From GA
-		desktopData = getDesktopData(service,PROFILE_ID, startdate, enddate, url)
-		mobileData = getMobileData(service,PROFILE_ID, startdate, enddate, url)
+		desktopData = getGAData(service,PROFILE_ID, startdate, enddate, "/"+url)
+		mobileData = getGAData(service,PROFILE_ID, startdate, enddate, "/m/"+url)
 		
 		# compute total 
 		data = int(desktopData['ga:pageviews']) + int(mobileData['ga:pageviews'])
+
+		# Save pageviews with respective model id in a string which will pass on to api to save in database
+		modelPageViews = modelPageViews + str(makeModel['ModelBase']['modelId']) + ":" + str(data) + ","
 		
 		# Fetch from ES
 		Id = str(makeModel['MakeBase']['makeId']) +"_" + str(makeModel['ModelBase']['modelId'])
-		print Id
-		print url
-		print 
+
 		try:			
 			document = es.get(index=INDEX_NAME, doc_type=DOC_TYPE, id= Id)['_source']
-			print "Before Update Weight " , document['id'] , document['mm_suggest']['weight']
-		# Update Document Weight
-			document['mm_suggest']['weight'] = data
-			print "After Update Weight " , document['id'] , document['mm_suggest']['weight']
-			#doc = '{"OperationType" : "Create","docs" :' + str(document) + '}'
+			logf("Document ID {} , Before Update Weight {} , After Update Weight {}".format(document['id'] , document['mm_suggest']['weight'], data))
 
-			#print document
-
-			#doc1 = str(document).replace("u'","\"").replace("'","\"")
-
-			#print doc1
-			
-			#doc1 = "\"doc\" : \{\"mm_suggest\" : \{\"weight\" : 2001\}\}"
+			# Update Document Weight
 			doc1 = {
 					    "doc" : {
 					        "mm_suggest" : {
@@ -186,7 +154,6 @@ def main():
 					    }
 					}
 
-			print doc1
 
 			es.update(index=INDEX_NAME, doc_type=DOC_TYPE, id= Id, body = doc1)
 
@@ -205,15 +172,13 @@ def main():
 		    #                  body=doc1,
 		    #                  properties = pika.BasicProperties(headers = fields))
 			#	roundrobinflag = 0
-			# print doc1
-			logger.info("Processed  ID " + Id)
 		except:
-			logger.error(Id + "Document Not Found in Index")
+			logf("Document {} not found in index ".format(Id))
 
 	for i in range(len(Makes)):
 		# Get Data From GA
-		desktopData = getDesktopData(service,PROFILE_ID, startdate, enddate, Makes[i])
-		mobileData = getMobileData(service,PROFILE_ID, startdate, enddate, Makes[i])
+		desktopData = getGAData(service,PROFILE_ID, startdate, enddate, "/"+Makes[i])
+		mobileData = getGAData(service,PROFILE_ID, startdate, enddate, "/m/"+Makes[i])
 		
 		# compute total 
 		data = int(desktopData['ga:pageviews']) + int(mobileData['ga:pageviews'])
@@ -222,15 +187,10 @@ def main():
 		Id = str(MakeId[i]) +"_0"
 		try:			
 			document = es.get(index=INDEX_NAME, doc_type=DOC_TYPE, id= Id)['_source']
-		# Update Document Weight
+			logf("Document ID {} , Before Update Weight {} , After Update Weight {}".format(document['id'] , document['mm_suggest']['weight'], data))
+			
+			# Update Document Weight
 			document['mm_suggest']['weight'] = data
-
-			#print document
-		
-			#doc = '{"OperationType" : "Create","docs" :' + str(document) + '}'
-			#doc1 = str(document).replace("u'","\"").replace("'","\"")
-
-			#print doc1
 
 			doc1 = {
 					    "doc" : {
@@ -240,30 +200,27 @@ def main():
 					    }
 					}
 
-			print doc1
-			
 			es.update(index=INDEX_NAME, doc_type=DOC_TYPE, id= Id, body = doc1)
 
-			# Update the document from the script itself
-
-
-
-
-			# Push it into Queue
-			#fields = {}
-			#fields['content'] = 'json'
-			#channel.basic_publish(exchange='',
-	        #              routing_key=QUEUE_NAME,
-	        #              body=doc1,
-	        #              properties = pika.BasicProperties(headers = fields))
-			logger.info("Processed  ID " + Id)
 		except:
-			logger.error(Id + "Document Not Found in Index")
+			logf("Document {} not found in index ".format(Id))
 
-	logger.info("Completed at " + str(datetime.date.today()))
-	# print doc1
+	# Modified By : Ashish Kamble on 1 Feb 2018	
+	modelPageViews = modelPageViews[:-1] # Remove trailing comma
 
+	# Send to model page views to api which will save data to database
+	logf("ModelPageViews updation started")
+	
+	modelsPageviewsURL = BWOPR_HOSTURL + "/api/models/pageviews/"
+	headers = {
+		'Content-Type': "application/json",
+		'Cache-Control': "no-cache"
+	}
+	saveModelsPageviews(modelsPageviewsURL, "'{}'".format(modelPageViews), headers)
+	logf("API called using Model List: {}".format(modelPageViews))
+	logf("ModelPageViews updation finished")
+
+	logf("Script execution completed")
 
 if __name__ =='__main__':
 	main()
-

@@ -96,5 +96,38 @@ namespace BikewaleOpr.Service.Controllers.Content
             }
             return Ok(objBikeVersionBaseList);
         }
-    }   // class
+
+		/// <summary>
+		/// Written By : Ashish G. Kamble on 2 Feb 2018
+		/// Summary : API to save the model page views from google analytics
+		/// </summary>
+		/// <param name="modelsList">Send data from body. Value should be ModelId1:Views1, ModelId2:Views2 (22:352,686:1265) only</param>
+		/// <returns>Returns Ok if data inserted successfully</returns>
+		[HttpPost, Route("api/models/pageviews/")]
+		public IHttpActionResult SavePageViews([FromBody]string modelsList)
+		{
+			try
+			{
+				if (String.IsNullOrEmpty(modelsList))
+				{
+					return BadRequest("modelsList is null or empty");
+				}
+				else
+				{
+					bool isSuccess = _modelsRepo.SavePageViews(modelsList);
+
+					if (isSuccess)
+						return Ok("Data Inserted Successfully");
+					else
+						return InternalServerError();
+				}
+			}
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.Content.SavePageViews");
+				return InternalServerError();
+			}
+		}
+
+	}   // class
 }   // namespace

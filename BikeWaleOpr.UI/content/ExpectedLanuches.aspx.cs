@@ -94,6 +94,8 @@ namespace BikeWaleOpr.Content
         /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
         /// Modified by : Ashutosh Sharma on 28 Nov 2017
         /// Description : Added call to ClearSeriesCache.
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -127,7 +129,7 @@ namespace BikeWaleOpr.Content
                         {
                             selModelId += modelId + ",";
                             MemCachedUtility.Remove(String.Format("BW_ModelDetails_{0}", modelId));
-                            MemCachedUtility.Remove(String.Format("BW_ModelDetail_V1_{0}", modelId));
+                            MemCachedUtility.Remove(String.Format("BW_ModelDetail_{0}", modelId));
                             MemCachedUtility.Remove(String.Format("BW_GenericBikeInfo_MO_{0}_V1", modelId));
                         }
                         if (makeId > 0)

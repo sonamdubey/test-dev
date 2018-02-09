@@ -551,7 +551,38 @@ namespace BikewaleOpr.DALs.Bikedata
             return newLaunchesToBePromoted;
         }
 
-    }
+		#region SavePageViews method to update the models page views from google analytics into database
+		/// <summary>		
+		/// Written By : Ashish G. Kamble on 2 Feb 2018
+		/// Summary : Function to update the models page views from google analytics into database		
+		/// </summary>
+		/// <param name="modelsList">value should be ModelId1:Views1, ModelId2:Views2 (22:352,686:1265) only</param>
+		/// <returns>Number of rows affected</returns>
+		public bool SavePageViews(string modelsList)
+		{
+			bool isSuccess = false;
+
+			try
+			{
+				using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+				{
+					var param = new DynamicParameters();
+					param.Add("par_modelsList", modelsList);
+
+					connection.Execute("savemodelpageviews", param: param, commandType: CommandType.StoredProcedure);
+					isSuccess = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.SavePageViews Input Data -> {0}", modelsList));
+			}
+
+			return isSuccess;
+		} 
+		#endregion
+
+	}
 }
 
 

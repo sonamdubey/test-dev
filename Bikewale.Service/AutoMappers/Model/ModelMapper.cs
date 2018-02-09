@@ -574,6 +574,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.ModelName = objModelPage.ModelDetails.ModelName;
                 objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
                 objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
+                objDTOModelPage.NewsCount = objModelPage.ModelDetails.NewsCount;
                 objDTOModelPage.IsUpcoming = objModelPage.ModelDetails.Futuristic;
                 objDTOModelPage.IsSpecsAvailable = (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null && objModelPage.objOverview.OverviewList.Any());
 
@@ -581,6 +582,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.Review = new DTO.Model.v5.Review();
                 objDTOModelPage.Review.UserReviewCount = (uint)objModelPage.ModelDetails.ReviewCount;
                 objDTOModelPage.Review.ExpertReviewCount = objModelPage.ModelDetails.ExpertReviewsCount;
+                objDTOModelPage.Review.RatingCount = (uint)objModelPage.ModelDetails.RatingCount;
 
                 if (!objDTOModelPage.IsUpcoming)
                 {
