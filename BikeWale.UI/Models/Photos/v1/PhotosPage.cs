@@ -234,6 +234,8 @@ namespace Bikewale.Models.Photos.v1
         /// <summary>
         /// Created by  : Vivek Singh Tomar on 12th Jan 2018
         /// Description : Bind sports bike image widget
+        /// Modified by : Pratibha Verma on 8 Feb 2018
+        /// Description : Get data from imageCarausel class
         /// </summary>
         /// <returns></returns>
         private ImageWidgetVM GetPopularSportsBikeWidget()
