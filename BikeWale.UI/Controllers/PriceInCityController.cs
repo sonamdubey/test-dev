@@ -82,6 +82,8 @@ namespace Bikewale.Controllers
 		/// Description : Added _objModelEntity parameter in PriceInCityPage object creation.
 		/// Modifed by : Ashutosh Sharma on 13 Nov 2017
 		/// Description : Added _adSlot parameter in PriceInCityPage object creation.
+        /// Modified by : Rajan Chauhan on 09 Feb 2017
+        /// Description : Changed NearestCityCount to 9
 		/// </summary>
 		/// <param name="modelName"></param>
 		/// <param name="cityName"></param>
@@ -95,7 +97,7 @@ namespace Bikewale.Controllers
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
                 model.BikeInfoTabCount = 4;
-                model.NearestCityCount = 8;
+                model.NearestCityCount = 9;
                 model.TopCount = 3;
                 model.PQSource = PQSourceEnum.Desktop_PriceInCity_Dealer_Detail_Click;
                 model.Platform = DTO.PriceQuote.PQSources.Desktop;
