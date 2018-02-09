@@ -105,9 +105,9 @@
 
 
 
-@if (Model.AdTags.Ad320x100BTF)
+@if (Model.AdTags.Ad300x250_Bottom)
 {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Bottom.cshtml",Model.AdTags);}
     </div>
 }
