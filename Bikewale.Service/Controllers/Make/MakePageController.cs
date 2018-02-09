@@ -70,10 +70,10 @@ namespace Bikewale.Service.Controllers.Make
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Make.MakePageController");
+                
                 return InternalServerError();
             }
             return NotFound();
         }
-
     }
 }
