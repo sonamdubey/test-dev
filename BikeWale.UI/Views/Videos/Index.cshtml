@@ -158,16 +158,19 @@
     }
     <section>
         <div class="container">
-            <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Bike Images</h2>
-            @if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Count() > 0)
-            {
-                @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
-            }
-            <div class="margin-bottom25"></div>
-            <div class="view-all-btn-container">
-                <a title="Bike Images" href="@UrlFormatter.FormatPhotoPageUrl("","")" class="btn view-all-target-btn">View more Images<span class="bwsprite teal-right"></span></a>
-            </div>
-            <div class="margin-bottom25"></div>
+			<div class="grid-12 carousel--arrow-sm">
+				<h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Bike Images</h2>
+				@if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Count() > 0)
+				{
+					@Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
+				}
+				<div class="margin-bottom25"></div>
+				<div class="view-all-btn-container">
+					<a title="Bike Images" href="@UrlFormatter.FormatPhotoPageUrl("","")" class="btn view-all-target-btn">View more Images<span class="bwsprite teal-right"></span></a>
+				</div>
+				<div class="margin-bottom25"></div>
+			</div>
+			<div class="clear"></div>
         </div>
     </section>
 }
