@@ -9,33 +9,11 @@
 
 @if (Model != null)
 {
-
     <section id="overallContainer">
         <div class="container section-bottom-margin">
             <h1 class="page__heading">@Model.MakeName Bikes</h1>
-
-            <div class="overall-tabs__placeholder">
-                <div class="overall-tabs__content">
-                    <ul class="overall-tabs__list">
-                        @if (Model.NewLaunchedMakeBikesNDays != null && Model.NewLaunchedMakeBikesNDays.Count() > 0)
-                        {
-                            <li class="overall-tabs-list__item tab--active" data-tabs="newlyLaunched">Newly Launched</li>
-                        }
-                        @if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
-                        {
-                            <li class="overall-tabs-list__item" data-tabs="popularModel">Popular Models</li>
-                        }
-                        <li class="overall-tabs-list__item" data-tabs="bikeModel">Bike Models</li>
-                        <li class="overall-tabs-list__item" data-tabs="upcomingBikes">Upcoming Bikes</li>
-                        <li class="overall-tabs-list__item" data-tabs="latestUpdate">Latest Updates</li>
-                        <li class="overall-tabs-list__item" data-tabs="dealer">Dealer / Stores</li>
-                        <li class="overall-tabs-list__item" data-tabs="news">News</li>
-                        <li class="overall-tabs-list__item" data-tabs="reviews">Reviews</li>
-                        <li class="overall-tabs-list__item" data-tabs="images">Images</li>
-                        <li class="overall-tabs-list__item" data-tabs="videos">Videos</li>
-                    </ul>
-                </div>
-            </div>
+            @Html.Partial("~/Views/Make/_Index_Tabs_Mobile_New.cshtml", Model)
+          
             @if (Model.NewLaunchedMakeBikesNDays != null && Model.NewLaunchedMakeBikesNDays.Count() > 0)
             {
                 <section>
@@ -304,6 +282,7 @@
                     </div>
                 </section>
             }
+            
             <div id="notifyPopup">
                 <div class="notify-popup__content">
                     <span id="notifyCloseBtn"></span>
@@ -328,98 +307,42 @@
                 <div id="notifyWhiteoutWindow"></div>
             </div>
 
-            <div id="interestingFact">
-                <div class="interesting-fact-popup interesting-fact-section">
-                    <span id="interestingFactCloseBtn"></span>
-                    <div class="interesting-fact__title">
-                        <h2 class="page__heading-h2">Interesting Fact</h2>
-                    </div>
-                    <div class="interesting-fact-container">
-                        <div class="fact-container__block" data-overlay="none">
-                            <p class="interesting-fact__content"></p>
+            @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription != null)
+            {
+                <div id="interestingFact">
+                    <div class="interesting-fact-popup interesting-fact-section">
+                        <span id="interestingFactCloseBtn"></span>
+                        <div class="interesting-fact__title">
+                            <h2 class="page__heading-h2">Interesting Fact</h2>
                         </div>
-                    </div>
-
-                </div>
-                <div class="interesting-fact__whiteout-window"></div>
-            </div>
-
-            <section>
-                <div data-id="upcomingBikes" class="section-bottom-margin interesting-fact-section  overall-tabs-data">
-                    <h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
-                    <div class="interesting-fact-container">
-                        <p class="interesting-fact__content">
-                            @Html.Raw(Model.BikeDescription.FullDescription)
-                        </p>
-                        <div class="interesting-fact__link-block">
-                            <span class="interesting-fact__read-more">
-                                Read more about @Model.MakeName Bikes
-                            </span>
+                        <div class="interesting-fact-container">
+                            <div class="fact-container__block" data-overlay="none">
+                                <p class="interesting-fact__content"></p>
+                            </div>
                         </div>
 
                     </div>
+                    <div class="interesting-fact__whiteout-window"></div>
                 </div>
-            </section>
 
-            <section>
-                <div data-id="latestUpdate" class="bg-white section-bottom-margin latest-update-section  overall-tabs-data">
-                    <div class="carousel__title">
-                        <h2 class="page__heading-h2 carousel-title__label">Latest Updates</h2>
-                        <a href="" class="view-all-btn">
-                            View all
-                        </a>
+                <section>
+                    <div data-id="upcomingBikes" class="section-bottom-margin interesting-fact-section  overall-tabs-data">
+                        <h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
+                        <div class="interesting-fact-container">
+                            <p class="interesting-fact__content">
+                                @Html.Raw(Model.BikeDescription.FullDescription)
+                            </p>
+                            <div class="interesting-fact__link-block">
+                                <span class="interesting-fact__read-more">
+                                    Read more about @Model.MakeName Bikes
+                                </span>
+                            </div>
+
+                        </div>
                     </div>
-
-                    <div class="swiper-container carousel__editorial" data-spacebetween="0">
-                        <ul class="swiper-wrapper">
-                            @for (var i = 0; i <= 5; i++)
-                            {
-                            <li class="swiper-slide carousel-slide">
-                                <div class="editorial-card">
-                                    <a href="" title="" class="editorial-card__target">
-                                        <div class="editorial-card__image">
-                                            <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&q=75" src="" title="" alt="">
-                                        </div>
-                                        <div class="editorial-card__detail">
-                                            <h3 class="editorial-card__name">TVS Apache RR 310 to be launched tomorrow</h3>
-                                            <p class="editorial-card__description">The TVS Apache RR 310 is going to be launched in India tomorrow. The company’s first fully-faired motorcycle, the Apache RR 310 is the production version of the Ak…</p>
-                                        </div>
-                                    </a>
-                                    <div class="editorial-card__footer">
-                                        <div class="editorial-footer__author-img">
-                                            @{var author = 0;
-                                                    if (author == 0)
-                                                    {
-                                                <span class="editorial-author_defult-img"></span>
-                                                    }
-                                                    else
-                                                    {
-                                                <img class="swiper-lazy editorial-author-img" src="" data-src="" title="" alt="" />
-                                                    }
-
-
-
-                                            }
-                                        </div>
-                                        <div class="editorial-card__about">
-                                            <span class="editorial-card__author-name">Ranjan B.</span>
-                                            <p class="editorial-card__date-section">
-                                                <span>24 Jan 2019</span> -
-                                                <span>4 min read</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </li>
-                                                    }
-
-
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
+                </section>
+            }
+          
             @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
             {
                 <section>
@@ -630,7 +553,7 @@
                     </div>
                 </section>
     }
-            }
+            
             </div>
         </section>
 }
