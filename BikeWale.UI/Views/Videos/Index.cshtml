@@ -160,7 +160,7 @@
         <div class="container">
 			<div class="grid-12 carousel--arrow-sm">
 				<h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Bike Images</h2>
-				@if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Any())
+				@if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList != null && Model.PopularSportsBikesWidget.ModelList.Any())
 				{
 					@Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
 				}

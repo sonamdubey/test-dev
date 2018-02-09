@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.Images.ImageWidgetVM
 @using Bikewale.Utility;
 
-@if (Model != null && Model.ModelList.Any())
+@if (Model != null && Model.ModelList != null && Model.ModelList.Any())
 {
     <div class="swiper-container carousel__recently-added" data-spacebetween="0">
         <ul class="swiper-wrapper">
