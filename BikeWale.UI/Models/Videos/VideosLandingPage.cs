@@ -17,8 +17,8 @@ namespace Bikewale.Models.Videos
     /// <summary>
     /// Created by Sajal Gupta on 31-03-2017
     /// Description : This model will bind data for videos landing page (Desktop + Mobile)
-    /// Modified by :  Pratibha Verma on 8 Feb 2018
-	/// Description :  Added one more parameter in constructor
+    /// Modified by : Pratibha Verma on 8 Feb 2018
+	/// Description : Added one more parameter objModelEntity in constructor
     /// </summary>
     public class VideosLandingPage
     {

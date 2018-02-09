@@ -54,7 +54,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            @if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Count() > 0)
+            @if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList.Any())
          {
         @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.PopularSportsBikesWidget)
          }
