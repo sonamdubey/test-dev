@@ -9,7 +9,14 @@
                     <div class="dealer-name">@dealers.Name</div>
                     <p class="@string.Format("margin-bottom10 text-light-grey {0}",String.IsNullOrEmpty(dealers.Address)? "hide":"")">
                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                        <span class="dealership-address">@Bikewale.Utility.FormatDescription.TruncateDescription((dealers.Address), 95)</span>
+                        @if (string.IsNullOrEmpty(dealers.objArea.PinCode))
+                        {
+                            <span class="dealership-address">@string.Format("{0}, {1}", dealers.Address, dealers.City)</span>
+                        }
+                        else
+                        {
+                            <span class="dealership-address">@string.Format("{0}, {1}, {2}", dealers.Address, dealers.objArea.PinCode, dealers.City)</span>
+                        }
                     </p>
                 </div>
                 <span class="@string.Format("dealer-contact {0}", String.IsNullOrEmpty(dealers.MaskingNumber) ? "hide" : "block")"><span class="bwmsprite tel-sm-grey-icon"></span>@dealers.MaskingNumber</span>

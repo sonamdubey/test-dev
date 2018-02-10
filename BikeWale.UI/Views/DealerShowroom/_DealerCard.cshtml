@@ -2,7 +2,7 @@
 
 @if (Model != null && Model.Dealers != null)
 {
-    <ul id="city-dealer-list" class="bw-horizontal-cards">
+    <ul id="city-dealer-list" class="bw-horizontal-cards dealer-horizontal-swiper">
         @foreach (var dealerDetails in Model.Dealers)
         {
             <li class="card">
@@ -11,7 +11,14 @@
                     <p class="text-black text-bold text-truncate margin-bottom10 font15">@dealerDetails.Name</p>
                     <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.Address) ? "hide" : "margin-bottom10")">
                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                        <span class="text-light-grey vertical-top details-column">@Bikewale.Utility.FormatDescription.TruncateDescription((dealerDetails.Address), 95)</span>
+                        @if (string.IsNullOrEmpty(dealerDetails.objArea.PinCode))
+                        {
+                            <span class="text-light-grey vertical-top details-column">@string.Format("{0}, {1}", dealerDetails.Address, dealerDetails.City)</span>
+                        }
+                        else
+                        {
+                            <span class="text-light-grey vertical-top details-column">@string.Format("{0}, {1}, {2}", dealerDetails.Address, dealerDetails.objArea.PinCode, dealerDetails.City)</span>
+                        }
                     </p>
                     <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.MaskingNumber) ? "hide" : "")">
                         <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>

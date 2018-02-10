@@ -556,7 +556,13 @@
 .card .text-truncate {
     width: 100%;
 }
-
+.dealer-horizontal-swiper .card-target {
+    min-height: 165px;
+}
+.dealer-horizontal-swiper .details-column {
+    max-height: 74px;
+    overflow: hidden;
+}
 #makeUsedBikeContent h2 {
     margin-bottom: 20px;
 }
