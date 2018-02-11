@@ -38,14 +38,14 @@
                                                     <div class="card-exshowroom__col">
                                                             @if (bike.Price > 0)
                                                             {
-                                                                <p class="card-exshowroom__label">@string.Format("Ex-showroom, {0}", (city == null || city.CityId == 0 ? BWConfiguration.Instance.DefaultName : city.CityName))</p>
+                                                                <p class="card-exshowroom__label">@string.Format("Ex-showroom, {0}", (bike.City == null || bike.City.CityId == 0 ? BWConfiguration.Instance.DefaultName : bike.City.CityName))</p>
                                                             }
-                                                            else
+                                                            else if(bike.City != null)
                                                             {
                                                                 <p class="card-exshowroom__label">
                                                                     <span>Avg. Ex-showroom price</span><span class="info-icon tooltip-icon-target tooltip-top">
                                                                         <span class="bw-tooltip info-tooltip">
-                                                                            <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", city.CityName)</span>
+                                                                            <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bike.City.CityName)</span>
                                                                         </span>
                                                                     </span>
                                                                 </p>

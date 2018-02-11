@@ -842,7 +842,6 @@ namespace Bikewale.Models
                     InputFilter inputFilter = new InputFilter();
                     inputFilter.Days = 10;
                     inputFilter.Make = _makeId;
-                    inputFilter.CityId = 0;
 
                     if (cityBase != null)
                     {
@@ -850,10 +849,10 @@ namespace Bikewale.Models
                     }
 
                     objData.NewLaunchedMakeBikesNDays = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
-                    if (objData.NewLaunchedMakeBikesNDays != null)
-                    {
-                        objData.NewLaunchedMakeBikesNDays.FirstOrDefault().City = cityBase;
-                    }
+                    //if (objData.NewLaunchedMakeBikesNDays != null && objData.NewLaunchedMakeBikesNDays.Count() > 0)
+                    //{
+                    //    objData.NewLaunchedMakeBikesNDays.FirstOrDefault().City = cityBase;
+                    //}
                 }
             }
             catch (Exception ex)
