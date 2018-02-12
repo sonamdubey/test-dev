@@ -269,6 +269,13 @@
     display: block;
     padding: 15px 20px;
 }
+.dealer-horizontal-swiper .card-target {
+    min-height: 165px;
+}
+.dealer-horizontal-swiper .details-column {
+    max-height: 74px;
+    overflow: hidden;
+}
 .card .card-target:hover {
     text-decoration: none;
 }
