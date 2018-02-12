@@ -104,7 +104,7 @@
 
 
 .overlay--inactive
-	opacity: 0.7
+	opacity: .3
 
 @include model-card
 
@@ -161,6 +161,7 @@
 		font-size: 14px
 
 	.model-card__detail
+		height: 118px
 		padding-left: 11px
 		padding-right: 11px
 
@@ -168,6 +169,9 @@
 		li
 			font-size: 10px
 			margin-right: 16px
+
+	.card-exshowroom__col
+		min-width: 0 // https://css-tricks.com/flexbox-truncated-text/
 
 	.model-card__exshowroom
 		padding: 6px 11px 7px
@@ -177,6 +181,7 @@
 		font-size: 11px
 
 	.card-exshowroom__value
+		@include text-truncate
 		font-size: 16px
 
 @media only screen and (max-width: 320px)
@@ -186,11 +191,15 @@
 			margin-right: 7px
 
 		.model-card__image
-			height: 78px
+			width: auto
+			height: 66px
 			margin: 0
 		
 			img
-				height: 77px
+				height: 66px
+
+		.model-card__detail
+			height: 125px
 
 		.card-detail__specs-list
 			li

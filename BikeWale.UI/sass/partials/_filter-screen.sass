@@ -150,42 +150,43 @@ $_filter-head-line-height: 44px
     width: 100%
 
 	.ui-slider-range
-    border: none
-    display: block
-    position: absolute
-    z-index: 1
-    border-radius: 0
-    height: 3px
+		@include vendor-prefix('transition', all .2s ease)
+		border: none
+		display: block
+		position: absolute
+		z-index: 1
+		border-radius: 0
+		height: 3px
 
 	.ui-widget-header
     background: #f45944
     height: 3px
 
-	.ui-slider
-		.ui-slider-handle
-			background-color: transparent
-			cursor: pointer
-			height: 30px
-			width: 30px
-			display: block
-			margin-left: -15px
-			position: absolute
-			outline: none
-			top: -13px
-			z-index: 2
-			background-position: 3px 3px
+	.ui-slider-handle
+		@include vendor-prefix('transition', all .2s ease)
+		background-color: transparent
+		cursor: pointer
+		height: 30px
+		width: 30px
+		display: block
+		margin-left: -15px
+		position: absolute
+		outline: none
+		top: -13px
+		z-index: 2
+		background-position: 3px 3px
 
-			&:after
-				content: ''
-				display: block
-				height: 28px
-				width: 28px
-				margin: 1px
-				background-color: #f45944
-				border: 2px solid #fff
-				-webkit-border-radius: 35px
-				-moz-border-radius: 35px
-				border-radius: 35px
+		&:after
+			content: ''
+			display: block
+			height: 28px
+			width: 28px
+			margin: 1px
+			background-color: #f45944
+			border: 2px solid #fff
+			-webkit-border-radius: 35px
+			-moz-border-radius: 35px
+			border-radius: 35px
 
 
 .budget__slider

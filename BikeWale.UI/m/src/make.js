@@ -397,14 +397,14 @@ var recommendedBikePopup = (function () {
 	}
 
 	function recommendedBikeOverlay() {
-		var containerHeading = ($('.recommended-bike__found-result').outerHeight() + $('.recommended-bike__filter-section').outerHeight()),
-			otherBikeContainer = $('.other-recommended-bike'),
+		var otherBikeContainer = $('.other-recommended-bike'),
 			recommendedBikeElement = otherBikeContainer.find('.recommended-bike__list-card:first-child');
-		if (!popup.find('.not-found-container').length) {
-			if (recommendedBikeElement.length && (recommendedBikeElement.offset().top + (recommendedBikeElement.outerHeight() + containerHeading)) < container.scrollTop() + $(window).height() - containerHeading) {
+
+		if(recommendedBikeElement.length) {
+			if ((recommendedBikeElement.offset().top + recommendedBikeElement.outerHeight() + container.scrollTop()) < container.scrollTop() + $(window).height()) {
 				otherBikeContainer.removeClass('overlay--inactive');
 			}
-			else if (recommendedBikeElement.length) {
+			else {
 				otherBikeContainer.addClass('overlay--inactive');
 			}
 		}
@@ -802,13 +802,13 @@ var RecommendedBikes = function () {
 		var minBudget = values[0];
 		var maxBudget = values[1];
 
-		if (minBudget == 0 && maxBudget == self.budgetStepPoints().length - 1) {
+		if (minBudget === 0 && maxBudget === self.budgetStepPoints().length - 1) {
 			amount = 'All Range'
 		}
-		else if (maxBudget == self.budgetStepPoints().length - 1) {
+		else if (maxBudget === self.budgetStepPoints().length - 1) {
 			amount = 'Above ' + convertAmount(self.budgetStepPoints()[minBudget], true);
 		}
-		else if (minBudget == 0) {
+		else if (minBudget === 0) {
 			amount = 'Below ' + convertAmount(self.budgetStepPoints()[maxBudget], true);
 		}
 		else {
@@ -836,18 +836,18 @@ var RecommendedBikes = function () {
 		}
 
 		var activeElements = filterTypeContainer.find('.check-box--active');
-		var activeElementlist = '';
+		var activeElementList = '';
 		var selectionPreview = '';
 
 		activeElements.each(function (index) {
-			activeElementlist += '+' + $(this).attr('data-value');
+			activeElementList += '+' + $(this).attr('data-value');
 			if (index) {
 				selectionPreview += ', ';
 			}
 			selectionPreview += $(this).find('.check-box__label').text();
 		});
 
-		self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementlist.substr(1);
+		self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
 		filterTypeContainer.find('.accordion-head__preview').text(selectionPreview);
 	}
 
@@ -903,13 +903,13 @@ var RecommendedBikes = function () {
 
 	self.UpdateFilters = function (filterTypeContainer) {
 		var activeElements = filterTypeContainer.find('input[type="checkbox"]:checked');
-		var activeElementlist = '';
+		var activeElementList = '';
 
 		activeElements.each(function (index) {
-			activeElementlist += '+' + $(this).val();
+			activeElementList += '+' + $(this).val();
 		});
 
-		self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementlist.substr(1);
+		self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
 	};
 
 	self.ApplyFilters = function () {

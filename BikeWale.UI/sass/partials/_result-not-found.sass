@@ -7,10 +7,7 @@
 	text-align: center
 	background: color('white')
 	height: 100%
-
-.not-found-section
-	margin-top: 15px
-	margin-bottom: 15px
+	padding-bottom: 15px
 
 @mixin not-found__image($width: 133px, $height: 80px, $background-url: $_not-found__image)
 	.not-found__image
@@ -18,17 +15,17 @@
 		height: $height
 		width: $width
 		background: url($background-url) no-repeat center
-		margin: 0 auto 13%
+		margin: 0 auto
 
 @mixin not-found-description($max-width: 168px)
 	.not-found-description
 		max-width: $max-width
 
 	.not-found__title
-		font-size: 28px
+		font-size: 22px
 		font-weight: $font_semibold
 		margin-bottom: 10px
 
-	.not-found__text
+	.not-found__subtitle
 		font-size: 14px
 		color: color('light-grey')
