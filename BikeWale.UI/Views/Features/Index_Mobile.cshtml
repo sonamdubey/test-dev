@@ -13,7 +13,7 @@
     <div class="container box-shadow bg-white section-bottom-margin">
 
         <h1 class="box-shadow padding-15-20">Latest Bike Features</h1>
-        @if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
+        @if (Model.ArticlesList != null && Model.ArticlesList.Any())
         {
             <ul id="divListing" class="article-list">
                 @{ushort i = 0;}
@@ -89,7 +89,7 @@
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
     </div>
 }
-@if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+@if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Any())
 {
     <section>
         <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
@@ -107,7 +107,7 @@
     </section>
 }
 
-@if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+@if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Any())
 {
     <section>
         <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
