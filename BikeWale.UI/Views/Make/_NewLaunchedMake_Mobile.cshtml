@@ -36,7 +36,7 @@
                                             <div class="model-card__exshowroom-content">
                                                 <div class="model-card__exshowroom">
                                                     <div class="card-exshowroom__col">
-                                                            @if (bike.Price > 0)
+                                                            @if (bike.ExshowroomPrice > 0)
                                                             {
                                                                 <p class="card-exshowroom__label">@string.Format("Ex-showroom, {0}", (bike.City == null || bike.City.CityId == 0 ? BWConfiguration.Instance.DefaultName : city.CityName))</p>
                                                             }
@@ -55,7 +55,7 @@
                                                                 @if (bike.AvgPrice > 0)
                                                                 {
 
-                                                                    <span class="text--semibold">@Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price > 0 ? bike.Price : bike.AvgPrice))))</span>
+                                                                    <span class="text--semibold">@Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExshowroomPrice > 0 ? bike.ExshowroomPrice : bike.AvgPrice))))</span>
                                                                 }
                                                                 else
                                                                 {

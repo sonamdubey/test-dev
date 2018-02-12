@@ -10,6 +10,8 @@ namespace Bikewale.Entities.BikeData.NewLaunched
     /// summary:- added BodyStyleId
     /// Modified by : Sanskar Gupta on 08 Feb 2018
     /// Descritpion : Added AvgPrice
+    /// Modified by : Sanskar Gupta on 12 Feb 2018
+    /// Description : Added ExshowroomPrice
     /// </summary>
     [Serializable]
     public class NewLaunchedBikeEntityBase //: BasicBikeEntityBase
@@ -32,5 +34,7 @@ namespace Bikewale.Entities.BikeData.NewLaunched
         public bool IsUpcoming { get; set; }
 
         public uint AvgPrice { get; set; }
+
+        public uint ExshowroomPrice { get; set; }
     }
 }

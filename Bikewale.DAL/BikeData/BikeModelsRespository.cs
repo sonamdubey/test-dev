@@ -2686,7 +2686,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikesbycity_09022018";
+                    cmd.CommandText = "getnewlaunchedbikesbycity_12022018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -2737,6 +2737,7 @@ namespace Bikewale.DAL.BikeData
                                         } : null),
                                         Price = SqlReaderConvertor.ToUInt32(dr["price"]),
                                         AvgPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]),
+                                        ExshowroomPrice = SqlReaderConvertor.ToUInt32(dr["ExshowroomPrice"]),
                                         BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
                                     }
                                 );

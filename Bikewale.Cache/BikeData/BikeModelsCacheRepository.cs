@@ -1341,14 +1341,14 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Feb 2017
         /// Description :   GetNewLaunchedBikesList by City
-        /// Modified by : Sanskar on 08 Feb 2018
+        /// Modified by : Sanskar on 12 Feb 2018
         /// Description : Cache key versioning
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
         public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId)
         {
-            string key = String.Format("BW_NewLaunchedBikes_Cid_{0}_V1", cityId);
+            string key = String.Format("BW_NewLaunchedBikes_CityId_{0}_V1", cityId);
             IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
             try
             {
