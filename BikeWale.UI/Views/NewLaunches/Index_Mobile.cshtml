@@ -4,6 +4,10 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/new-launch/new-launch.css' inline />";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.PageMetaTags.AlternateUrl = "";
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_300x250BTF = true;
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewBikeLaunches";
+    Model.AdTags.AdId = "1517815084100";
 }
 <section>
     <div class="container new-launch-banner text-center">
@@ -24,26 +28,32 @@
         <div class="clear"></div>
     </div>
 </section>
-@if (Model.NewLaunched.Bikes!=null)
+@if (Model.NewLaunched.Bikes != null)
 {
-<section id="newlaunched-bikes" data-city="@Model.CityId">
-    <h2 class="section-heading">New bike launches in India</h2>
-    @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes_Mobile.cshtml",Model.NewLaunched)
-</section>
+    <section id="newlaunched-bikes" data-city="@Model.CityId">
+        <h2 class="section-heading">New bike launches in India</h2>
+        @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes_Mobile.cshtml", Model.NewLaunched)
+    </section>
 }
-
-@if (Model.HasUpcoming) { 
-<section>
-    <h2 class="section-heading">Upcoming bikes in India</h2>
-    <div class="content-box-shadow padding-top20 padding-bottom20">
-        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.Upcoming)
-        <div class="padding-left10 view-all-btn-container margin-top10 text-center">
-            <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
-        </div>
+@if (Model.AdTags.Ad_300x250BTF)
+{
+    <div class="margin-bottom20 text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
     </div>
-</section>
 }
-@if (Model.News!=null)
+@if (Model.HasUpcoming)
+{
+    <section>
+        <h2 class="section-heading">Upcoming bikes in India</h2>
+        <div class="content-box-shadow padding-top20 padding-bottom20">
+            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.Upcoming)
+            <div class="padding-left10 view-all-btn-container margin-top10 text-center">
+                <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+            </div>
+        </div>
+    </section>
+}
+@if (Model.News != null)
 {
     <section>
         <h2 class="section-heading">More about newly launched bikes</h2>
