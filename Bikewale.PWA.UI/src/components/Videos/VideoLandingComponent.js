@@ -44,14 +44,11 @@ class VideoLandingComponent extends React.Component {
 	render() {
 		
 		return(
-			<div>
+			<div className="page-type--landing">
 				<TopVideosContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
 				<OtherVideosContainer  logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
-
 			</div>
 		)
-		
-		
 
 	}
 }
