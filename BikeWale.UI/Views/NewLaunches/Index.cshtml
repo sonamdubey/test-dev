@@ -1,10 +1,15 @@
 ﻿@model Bikewale.Models.NewLaunchedIndexVM
-@{
-   Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/new-launch/new-launch.css' inline />";
-   Model.Page_JS_Path = "/src/new-launch.js";
-   Model.IsPageTypeLanding = true;
-   Layout = "~/Views/Shared/_Layout.cshtml";
-   Model.IsHeaderFix = true;
+@if(Model != null) {
+{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/new-launch/new-launch.css' inline />";
+    Model.Page_JS_Path = "/src/new-launch.js";
+    Model.AdTags.Ad_970x90Top = true;
+    Model.AdTags.Ad_970x90Bottom = true;
+    Model.AdTags.AdId = "1517814992282";
+    Model.AdTags.AdPath = "/1017752/Bikewale_NewBikeLaunches_";
+    Model.IsPageTypeLanding = true;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.IsHeaderFix = true;
 }
 
 <section>
@@ -30,7 +35,7 @@
     </div>
 </section>
 
-@if (Model.HasUpcoming)
+if (Model.HasUpcoming)
 {
 <section>
     <div class="container section-bottom-margin">
@@ -48,7 +53,7 @@
 </section>
 }
 
-@if (Model.News != null)
+if (Model.News != null)
 {
     <section>
         <div class="container section-bottom-margin">
@@ -61,4 +66,5 @@
             <div class="clear"></div>
         </div>
     </section>
+    }
 }
