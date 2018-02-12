@@ -130,6 +130,8 @@
     <Compile Include="EditCms\Articles\PwaAllVideos.cs" />
     <Compile Include="EditCms\Articles\PwaAllVideosWrapper.cs" />
     <Compile Include="EditCms\Articles\PwaVideosReducer.cs" />
+    <Compile Include="Photos\PwaImageBase.cs" />
+    <Compile Include="Photos\PwaModelImages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EditCms\Articles\PwaArticleSummary.cs" />
     <Compile Include="EditCms\Articles\PwaContentBase.cs" />
