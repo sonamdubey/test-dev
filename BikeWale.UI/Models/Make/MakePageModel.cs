@@ -842,18 +842,22 @@ namespace Bikewale.Models
                     InputFilter inputFilter = new InputFilter();
                     inputFilter.Days = 10;
                     inputFilter.Make = _makeId;
-                    inputFilter.CityId = 0;
 
                     if (cityBase != null)
                     {
                         inputFilter.CityId = cityBase.CityId;
                     }
 
-                    objData.NewLaunchedMakeBikesNDays = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
-                    if (objData.NewLaunchedMakeBikesNDays != null)
+                    NewLaunchedWidgetVM NewLaunchedWidget = new NewLaunchedWidgetVM();
+                    NewLaunchedWidget.Bikes = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
+
+                    objData.NewLaunchedWidget = NewLaunchedWidget;
+                    
+                    if(objData.NewLaunchedWidget != null)
                     {
-                        objData.NewLaunchedMakeBikesNDays.FirstOrDefault().City = cityBase;
+                        objData.NewLaunchedWidget.City = cityBase;
                     }
+                 
                 }
             }
             catch (Exception ex)

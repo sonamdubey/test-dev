@@ -14,10 +14,10 @@
             <h1 class="page__heading">@Model.MakeName Bikes</h1>
             @Html.Partial("~/Views/Make/_Index_Tabs_Mobile_New.cshtml", Model)
           
-            @if (Model.NewLaunchedMakeBikesNDays != null && Model.NewLaunchedMakeBikesNDays.Count() > 0)
+            @if (Model.NewLaunchedWidget.Bikes != null && Model.NewLaunchedWidget.Bikes.Count() > 0)
             {
                 <section>
-                    @Html.Partial("~/Views/Make/_NewLaunchedMake_Mobile.cshtml", Model.NewLaunchedMakeBikesNDays)
+                    @Html.Partial("~/Views/Make/_NewLaunchedMake_Mobile.cshtml", Model.NewLaunchedWidget)
                 </section>
             }
             @if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
