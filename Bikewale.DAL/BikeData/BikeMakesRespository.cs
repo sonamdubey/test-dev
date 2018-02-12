@@ -963,8 +963,8 @@ namespace Bikewale.DAL.BikeData
                                 obj = new ExpertReviewCountEntity()
                                 {
                                     MakeId = makeId,
-                                    ModelCount = (uint)SqlReaderConvertor.ToInt32(dr["ModelCount"]),
-                                    ExpertReviewCount = (uint)SqlReaderConvertor.ToInt32(dr["ExpertReviewCount"])
+                                    ModelCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"]),
+                                    ExpertReviewCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewCount"])
                                 };
 
                                 dr.Close();
