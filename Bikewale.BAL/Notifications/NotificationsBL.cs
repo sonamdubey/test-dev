@@ -41,6 +41,13 @@ namespace Bikewale.BAL.Notifications
             try
             {
                 int rows_returned = _notificationsRepository.UpcomingSubscription(emailId, entityNotif, notificationTypeId);
+                /*
+                 * rows_returned - no. of rows inserted in db (user subscribes to new notification), 
+                 * if > 0, send email to user,
+                 * if = 0, user has subscribed for that bike notification more than once, display "thank you" message but don't send email,
+                 * if <0, some error has occured, no email sent, error message displayed.
+                 * 
+                */
                 if(rows_returned > 0)
                 {
                         ComposeEmailBase objNotify = new UpcomingBikesSubscription(entityNotif.BikeName);
