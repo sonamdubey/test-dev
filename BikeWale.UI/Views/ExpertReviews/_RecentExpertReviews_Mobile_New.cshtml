@@ -1,6 +1,10 @@
 ﻿@model Bikewale.Models.RecentExpertReviewsVM
 @using  Bikewale.Utility
 
+<div class="article-section__count">
+    <span class="article-count__number">@Model.ExpertReviewCount</span>&nbsp;Expert Review@(Model.ExpertReviewCount > 1 ? "s" : "") for <span class="article-count__number">@Model.ModelCount</span>&nbsp;Model@(Model.ModelCount > 1 ? "s" : "")
+</div>
+
 <div class="swiper-container carousel__expert-review" data-spacebetween="0">
 
     <ul class="swiper-wrapper">

@@ -74,8 +74,6 @@ namespace Bikewale.Models
         public bool IsVideosAvailable { get; set; }
         public bool IsDiscontinuedBikeAvailable { get; set; }
         public bool IsUsedModelsBikeAvailable { get; set; }
-        public uint ModelCount { get; set; }
-        public uint ExpertReviewCount { get; set; }
 
         public bool IsDealerServiceDataInIndiaAvailable { get; set; }
         public bool IsDealerServiceDataAvailable { get; set; }

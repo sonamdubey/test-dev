@@ -204,7 +204,7 @@ namespace Bikewale.Models
                 BindShowroomPopularCityWidget(objData);
                 BindResearchMoreMakeWidget(objData);
                 GetEMIDetails(objData);
-                BindExpertReviewCount(objData);
+                BindExpertReviewCount(objData.ExpertReviews);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -896,11 +896,18 @@ namespace Bikewale.Models
         /// Description : To bind the number of models with expert reviews and total number of expert reviews on VM
         /// </summary>
         /// <param name="objData"></param>
-        private void BindExpertReviewCount(MakePageVM objData)
+        private void BindExpertReviewCount(RecentExpertReviewsVM expertReviews)
         {
-            ExpertReviewCountEntity ercEntity = _bikeMakesCache.GetExpertReviewCountByMake(_makeId);
-            objData.ModelCount = ercEntity.ModelCount;
-            objData.ExpertReviewCount = ercEntity.ExpertReviewCount;
+            try
+            {
+                ExpertReviewCountEntity ercEntity = _bikeMakesCache.GetExpertReviewCountByMake(_makeId);
+                expertReviews.ModelCount = ercEntity.ModelCount;
+                expertReviews.ExpertReviewCount = ercEntity.ExpertReviewCount;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BindExpertReviewCount_MakeId_{0}", _makeId));
+            }
         }
 
     }
