@@ -848,11 +848,16 @@ namespace Bikewale.Models
                         inputFilter.CityId = cityBase.CityId;
                     }
 
-                    objData.NewLaunchedMakeBikesNDays = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
-                    //if (objData.NewLaunchedMakeBikesNDays != null && objData.NewLaunchedMakeBikesNDays.Count() > 0)
-                    //{
-                    //    objData.NewLaunchedMakeBikesNDays.FirstOrDefault().City = cityBase;
-                    //}
+                    NewLaunchedWidgetVM NewLaunchedWidget = new NewLaunchedWidgetVM();
+                    NewLaunchedWidget.Bikes = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
+
+                    objData.NewLaunchedWidget = NewLaunchedWidget;
+                    
+                    if(objData.NewLaunchedWidget != null)
+                    {
+                        objData.NewLaunchedWidget.City = cityBase;
+                    }
+                 
                 }
             }
             catch (Exception ex)

@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeEntityBase>
+﻿@model Bikewale.Models.NewLaunchedWidgetVM
 @using Bikewale.Utility;
 
 @if (Model != null)
 {
-    var city = Model.FirstOrDefault().City;
+    var city = Model.City;
     <div data-id="popularModel" class="bg-white section-bottom-margin newly-lauched-section overall-tabs-data">
             <div class="newly-launched__title">
                 <h2 class="page__heading-h2">
@@ -12,7 +12,7 @@
             </div>
                     <div class="swiper-container carousel__newly-lauched" data-spacebetween="0">
                         <ul class="swiper-wrapper">
-                            @foreach (var bike in Model)
+                            @foreach (var bike in Model.Bikes)
                             {
                                 if (bike != null && bike.Make != null && bike.Model != null)
                                 {
@@ -21,7 +21,7 @@
 
                                     <li class="swiper-slide carousel-slide model-list__item">
                                         <div class="model__card">
-                                            <a href="@string.Format("/m{0}", bikeUrl)" title="" class="model-card__target">
+                                            <a href="@string.Format("/m{0}", bikeUrl)" title="@bikeName" class="model-card__target">
                                                 <div class="model-card__image">
                                                     <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bikeName" alt="@bikeName">
                                                 </div>
@@ -38,14 +38,14 @@
                                                     <div class="card-exshowroom__col">
                                                             @if (bike.Price > 0)
                                                             {
-                                                                <p class="card-exshowroom__label">@string.Format("Ex-showroom, {0}", (bike.City == null || bike.City.CityId == 0 ? BWConfiguration.Instance.DefaultName : bike.City.CityName))</p>
+                                                                <p class="card-exshowroom__label">@string.Format("Ex-showroom, {0}", (bike.City == null || bike.City.CityId == 0 ? BWConfiguration.Instance.DefaultName : city.CityName))</p>
                                                             }
-                                                            else if(bike.City != null)
+                                                            else
                                                             {
                                                                 <p class="card-exshowroom__label">
                                                                     <span>Avg. Ex-showroom price</span><span class="info-icon tooltip-icon-target tooltip-top">
                                                                         <span class="bw-tooltip info-tooltip">
-                                                                            <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bike.City.CityName)</span>
+                                                                            <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", city!=null ? city.CityName : "")</span>
                                                                         </span>
                                                                     </span>
                                                                 </p>
