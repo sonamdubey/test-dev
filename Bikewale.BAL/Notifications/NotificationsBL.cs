@@ -40,11 +40,16 @@ namespace Bikewale.BAL.Notifications
         {
             try
             {
-                if(_notificationsRepository.UpcomingSubscription(emailId, entityNotif, notificationTypeId))
+                int rows_returned = _notificationsRepository.UpcomingSubscription(emailId, entityNotif, notificationTypeId);
+                if(rows_returned > 0)
                 {
                         ComposeEmailBase objNotify = new UpcomingBikesSubscription(entityNotif.BikeName);
                         objNotify.Send(emailId, string.Format("You have subscribed to notifications for upcoming bike {0}", entityNotif.BikeName));
                         return true;
+                }
+                else if (rows_returned == 0)
+                {
+                    return true;
                 }
             }
             catch (Exception ex)
