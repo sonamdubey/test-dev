@@ -71,6 +71,7 @@ namespace Bikewale.Models
 
         public bool Ad_200x216 { get; set; }
         public bool Ad_200x211 { get; set; }
+        public bool Ad_Body_Top_320x50 { get; set; }
 
         public bool ShowInnovationBannerMobile { get; set; }
         #endregion
