@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.NewLaunchedIndexVM
-@{
+@if(Model != null) {
+{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/new-launch/new-launch.css' inline />";
     Model.Page_JS_Path = "/src/new-launch.js";
     Model.AdTags.Ad_970x90Top = true;
@@ -34,7 +35,7 @@
     </div>
 </section>
 
-@if (Model.HasUpcoming)
+if (Model.HasUpcoming)
 {
 <section>
     <div class="container section-bottom-margin">
@@ -52,7 +53,7 @@
 </section>
 }
 
-@if (Model.News != null)
+if (Model.News != null)
 {
     <section>
         <div class="container section-bottom-margin">
@@ -65,4 +66,5 @@
             <div class="clear"></div>
         </div>
     </section>
+    }
 }

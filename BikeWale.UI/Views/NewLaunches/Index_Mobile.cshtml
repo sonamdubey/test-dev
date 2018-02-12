@@ -1,5 +1,7 @@
 ﻿@model Bikewale.Models.NewLaunchedIndexVM
-@{
+@if (Model != null)
+{
+{
     Model.Page_JS_Path = "/m/src/new-launch.js";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/new-launch/new-launch.css' inline />";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
@@ -28,20 +30,20 @@
         <div class="clear"></div>
     </div>
 </section>
-@if (Model.NewLaunched.Bikes != null)
+if (Model.NewLaunched.Bikes != null)
 {
     <section id="newlaunched-bikes" data-city="@Model.CityId">
         <h2 class="section-heading">New bike launches in India</h2>
         @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes_Mobile.cshtml", Model.NewLaunched)
     </section>
 }
-@if (Model.AdTags.Ad_300x250BTF)
+if (Model.AdTags.Ad_300x250BTF)
 {
     <div class="margin-bottom20 text-center">
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
     </div>
-}
-@if (Model.HasUpcoming)
+            }
+if (Model.HasUpcoming)
 {
     <section>
         <h2 class="section-heading">Upcoming bikes in India</h2>
@@ -53,7 +55,7 @@
         </div>
     </section>
 }
-@if (Model.News != null)
+if (Model.News != null)
 {
     <section>
         <h2 class="section-heading">More about newly launched bikes</h2>
@@ -62,3 +64,4 @@
         </div>
     </section>
 }
+            }
