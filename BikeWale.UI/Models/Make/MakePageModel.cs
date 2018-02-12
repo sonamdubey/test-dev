@@ -68,6 +68,7 @@ namespace Bikewale.Models
         public bool IsAmpPage { get; set; }
         private CityEntityBase cityBase = null;
         public uint TopCountNews { get; set; }
+        public uint TopCountExpertReviews { get; set; }
 
         public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL)
         {
@@ -116,7 +117,7 @@ namespace Bikewale.Models
         /// Modified by : Rajan Chauhan on 3 Jan 2017
         /// Description : Bind MakeId to objData
         /// Modified by : Sanskar Gupta on 07 Feb 2018
-        /// Descritpion : Added BindNewLaunchedWidget() method.
+        /// Descritpion : Added logic to fetch Newly Launched Bikes (within a period of 10 days) for Mobile Make page.
         /// </returns>
         public MakePageVM GetData()
         {
@@ -203,6 +204,7 @@ namespace Bikewale.Models
                 BindShowroomPopularCityWidget(objData);
                 BindResearchMoreMakeWidget(objData);
                 GetEMIDetails(objData);
+                BindExpertReviewCount(objData);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -445,16 +447,16 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Modified By: Deepak Israni on 5th Feb 2018
-        /// Description: Bind more news articles on mobile page.
+        /// Modified By : Deepak Israni on 8th Feb 2018
+        /// Description : Moved binding of Recent Expert Reviews to another function
         /// </summary>
         /// <param name="objData"></param>
         private void BindCMSContent(MakePageVM objData)
         {
 
             objData.News = new RecentNews(TopCountNews, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
+            BindRecentExpertReviews(objData);
             
-            objData.ExpertReviews = new RecentExpertReviews(2, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName)).GetData();
             if (IsMobile)
             {
                 objData.Videos = new RecentVideos(1, 2, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
@@ -465,6 +467,29 @@ namespace Bikewale.Models
             }
 
         }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 8th Feb 2018
+        /// Description : To bind the Recent Expert Reviews along with the type of reviews.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindRecentExpertReviews(MakePageVM objData)
+        {
+            RecentExpertReviews objExpertReviews = new RecentExpertReviews(TopCountExpertReviews, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName));
+
+            List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>
+					{
+						EnumCMSContentType.RoadTest
+					};
+            List<EnumCMSContentSubCategoryType> subCategoryList = new List<EnumCMSContentSubCategoryType>
+					{
+						EnumCMSContentSubCategoryType.Road_Test,
+						EnumCMSContentSubCategoryType.First_Drive,
+						EnumCMSContentSubCategoryType.Long_Term_Report
+					};
+            objData.ExpertReviews = objExpertReviews.GetData(categoryList, subCategoryList);
+        }
+
 
         private void BindDiscontinuedBikes(MakePageVM objData)
         {
@@ -865,5 +890,18 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, String.Format("BindNewLaunchedWidget_MakeId_{0}_CityId_{1}", _makeId, cityBase.CityId));
             }
         }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9th Feb 2018
+        /// Description : To bind the number of models with expert reviews and total number of expert reviews on VM
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindExpertReviewCount(MakePageVM objData)
+        {
+            ExpertReviewCountEntity ercEntity = _bikeMakesCache.GetExpertReviewCountByMake(_makeId);
+            objData.ModelCount = ercEntity.ModelCount;
+            objData.ExpertReviewCount = ercEntity.ExpertReviewCount;
+        }
+
     }
 }

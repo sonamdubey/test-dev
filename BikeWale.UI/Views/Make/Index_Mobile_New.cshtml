@@ -256,6 +256,7 @@
                 </section>
             }
           
+
             @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
             {
                 <section>
@@ -323,81 +324,36 @@
                 </section>
             }
 
-            <section>
-                <div data-id="reviews" class="bg-white section-bottom-margin review-section overall-tabs-data">
-                    <div class="carousel__title">
-                        <h2 class="page__heading-h2">Royal Enfield Reviews</h2>
-                    </div>
-                    <section class="expert-review-section">
+            @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
+            {
+                <section>
+                    <div data-id="reviews" class="bg-white section-bottom-margin review-section overall-tabs-data">
                         <div class="carousel__title">
-                            <h3 class="carousel-title__label">Expert Reviews</h3>
-                            <a href="" class="view-all-btn">
-                                View all
-                            </a>
+                            <h2 class="page__heading-h2">@Model.MakeName Reviews</h2>
                         </div>
-                        <div class="article-section__count">
-                            <span class="article-count__number">32</span>&nbsp;Expert Reviews for <span class="article-count__number">14</span>&nbsp;Models
-                        </div>
-                        <div class="swiper-container carousel__expert-review" data-spacebetween="0">
-                            <ul class="swiper-wrapper">
-                                @for (var i = 0; i <= 5; i++)
-                                {
-                                <li class="swiper-slide carousel-slide">
-                                    <div class="review-card carousel-card" data-review-category="@((i == 0) ? "23" : (i == 1) ? "24" : "40")">
-                                        <span class="card-category__tag">
-                                            First Ride Review
-                                        </span>
-                                        <h3 class="review-card__title">
-                                            TVS Apache RR 310
-                                        </h3>
-                                        <p class="review-card__desc">
-                                            “Style is very good in terms offering and sporty look. Engine per...”
-                                        </p>
-                                        <div class="review-card__about">
-                                            <div class="review-card__author">
-                                                @{
-                                                        if (i == 0)
-                                                        {
-                                                    <span class="review-author_defult-img"></span>
-                                                        }
-                                                        else
-                                                        {
-                                                            if (i % 2 == 0)
-                                                            {
-                                                    <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
-                                                            }
-                                                            else
-                                                            {
-                                                    <img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
 
-                                                            }
-                                                        }
-                                                }
-                                            </div>
-                                            <p class="review-card__author-name">Ranjan B.</p>
-                                            <p class="review-card__date">
-                                                3 days ago
-                                            </p>
-                                        </div>
+                    @if (Model.IsExpertReviewsAvailable && Model.ExpertReviews != null)
+                    {
+                        <section class="expert-review-section">
+                            <div class="carousel__title">
+                                <h3 class="carousel-title__label">Expert Reviews</h3>
+                                <a href="@string.Format("/m/{0}-bikes/expert-reviews/",Model.MakeMaskingName)" class="view-all-btn">
+                                    View all
+                                </a>
+                            </div>
 
-                                        <a class="review-card__read-more" href="" title="">
-                                            Read full reivew
-                                        </a>
-                                    </div>
-                                </li>
-                                                        }
+                            <div class="article-section__count">
+                                <span class="article-count__number">@Model.ExpertReviewCount</span>&nbsp;Expert Reviews for <span class="article-count__number">@Model.ModelCount</span>&nbsp;Models
+                            </div>
 
+                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile_New.cshtml", Model.ExpertReviews)
 
-                            </ul>
-                        </div>
-                    </section>
+                        </section>
+                    }
+            
 
                     @if (Model.IsUserReviewsAvailable && Model.PopularBikesUserReviews != null)
                     {
-                    @*if (Model.IsExpertReviewsAvailable && Model.ExpertReviews != null)
-                        {
-                            <div class="padding-top20 border-solid-bottom margin-bottom20"></div>
-                        }*@
                     <section>
                         <div class="bg-white user-review-section">
                             <div class="carousel__title">
@@ -409,12 +365,11 @@
                             @Html.Partial("~/Views/UserReview/BikesWithReviewsByMake_Mobile_New.cshtml", Model.PopularBikesUserReviews)
                         </div>
                     </section>
-
                     }
-
-                </div>
+                    </div>
             </section>
-
+        }
+      
             @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.Any())
             {
                 <section>

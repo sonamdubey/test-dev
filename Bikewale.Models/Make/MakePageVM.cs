@@ -44,6 +44,9 @@ namespace Bikewale.Models
 
     /// Modified by : Sanskar Gupta on 12 Feb 2018
     /// Description : Added NewLaunchedWidget
+    /// 
+    /// Modified By : Deepak Israni on 9 Feb 2018
+    /// Description : Added ModelCount and ExpertReviewCount
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -71,6 +74,8 @@ namespace Bikewale.Models
         public bool IsVideosAvailable { get; set; }
         public bool IsDiscontinuedBikeAvailable { get; set; }
         public bool IsUsedModelsBikeAvailable { get; set; }
+        public uint ModelCount { get; set; }
+        public uint ExpertReviewCount { get; set; }
 
         public bool IsDealerServiceDataInIndiaAvailable { get; set; }
         public bool IsDealerServiceDataAvailable { get; set; }
