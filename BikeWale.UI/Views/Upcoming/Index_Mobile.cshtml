@@ -6,6 +6,10 @@
     Model.Page_JS_Path = "/m/src/upcoming-bikes.js";
     Model.IsTransparentHeader = true;
     Model.IsPageTypeLanding = true;
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Upcoming";
+    Model.AdTags.AdId = "1517814337429";
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_300x250BTF = true;
     
 }
 
@@ -42,7 +46,14 @@
             @Html.Partial("~/Views/Upcoming/_UpcomingBikesList_Mobile.cshtml", Model)
         </div>
     </section>
-
+    if (Model.AdTags.Ad_300x250BTF)
+    {
+        <section>
+            <div class="container">
+                @Html.Partial("~/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
+            </div>
+        </section>
+    }
     if (Model.NewLaunches != null)
     {
         <section>

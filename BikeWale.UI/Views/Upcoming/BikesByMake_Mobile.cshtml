@@ -3,9 +3,11 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/upcoming-bikes/upcoming-bikes.css' inline />";
     Model.Page_JS_Path = "/m/src/upcoming-bikes.js";
-    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
-    Model.AdTags.AdId = "1398766302464";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Upcoming";
+    Model.AdTags.AdId = "1517814337429";
     Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_300x250BTF = true;
 }
 
 @if (Model != null && Model.Make != null)
@@ -26,6 +28,14 @@
             @Html.Partial("~/Views/Upcoming/_UpcomingBikesList_Mobile.cshtml", Model)
         </div>
     </section>
+    if (Model.AdTags.Ad_300x250BTF)
+    {
+    <section>
+        <div class="container">
+            @Html.Partial("~/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
+        </div>
+    </section>
+    }
     if (Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0)
     {
         <section>
