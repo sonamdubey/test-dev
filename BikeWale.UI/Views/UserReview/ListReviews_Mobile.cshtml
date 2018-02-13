@@ -161,7 +161,7 @@
             {
                 @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
             }
-            if(Model.AdTags.Ad_300x250BTF){
+            @if(Model.AdTags.Ad_300x250BTF){
             <div class="margin-bottom20 text-center">
                 @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
             </div>

@@ -314,7 +314,13 @@
 .card .card-target:hover {
     text-decoration: none;
 }
-
+.dealer-horizontal-swiper .card-target {
+    min-height: 165px;
+}
+.dealer-horizontal-swiper .details-column {
+    max-height: 74px;
+    overflow: hidden;
+}
 /* service center */
 .margin-right-4 {
     margin-right: -4px;
