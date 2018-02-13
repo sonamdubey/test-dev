@@ -2239,6 +2239,7 @@
     <Content Include="css\PopUp\PopUpCityArea.css" />
     <Content Include="css\finance\capital-first.css" />
     <Content Include="m\css\campaign\hero-campaign.css" />
+    <Content Include="m\css\components\model-gallery.css" />
     <Content Include="m\css\electricbikes\landing.css" />
     <Content Include="m\css\finance\capital-first.css" />
     <Content Include="css\survey\bajaj-survey.css" />
