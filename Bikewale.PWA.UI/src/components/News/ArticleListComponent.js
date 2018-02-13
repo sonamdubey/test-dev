@@ -8,7 +8,7 @@ import Breadcrumb from '../Shared/Breadcrumb'
 import NewBikes from '../NewBikes'
 import Footer from '../Shared/Footer'
 import AdUnit320x50 from '../AdUnit320x50'
-import { NewsArticlesPerPage , Status , AD_PATH_NEWS_MOBILE_TOP_320_50 , AD_DIV_REVIEWS_TOP_320_50 , AD_DIV_REVIEWS_MIDDLE_320_50 , AD_PATH_NEWS_MOBILE_MIDDLE_320_50} from '../../utils/constants'
+import { NewsArticlesPerPage, Status, AD_PATH_NEWS_MOBILE_TOP_320_50, AD_DIV_REVIEWS_TOP_320_50, AD_DIV_REVIEWS_MIDDLE_300_250, AD_PATH_NEWS_MOBILE_MIDDLE_300_250, AD_PATH_NEWS_MOBILE_BOTTOM_320_50, AD_DIV_REVIEWS_BOTTOM_320_50, AD_DIMENSION_320_50, AD_DIMENSION_300_250} from '../../utils/constants'
 import { isServer, CMSUserReviewSlugPosition, CMSUserReviewSlugData } from '../../utils/commonUtils'
 
 
@@ -176,8 +176,9 @@ class ArticleListComponent extends React.Component{
             return loadingState;
            
         }
-        var adSlotTop = <AdUnit320x50 uniqueKey={componentData.PageNo} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
-        var adSlotMiddle = <AdUnit320x50 uniqueKey={componentData.PageNo} adSlot={AD_PATH_NEWS_MOBILE_MIDDLE_320_50} adContainerId={AD_DIV_REVIEWS_MIDDLE_320_50}/> ;                          
+        var adSlotTop = <AdUnit320x50 uniqueKey={componentData.PageNo} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
+        var adSlotMiddle = <AdUnit320x50 uniqueKey={componentData.PageNo} adSlot={AD_PATH_NEWS_MOBILE_MIDDLE_300_250} adDimension={AD_DIMENSION_300_250} adContainerId={AD_DIV_REVIEWS_MIDDLE_300_250} />; 
+        var adSlotBottom = <AdUnit320x50 uniqueKey={componentData.PageNo} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50} />;
         
         return (<div>
                     {adSlotTop}
@@ -197,6 +198,9 @@ class ArticleListComponent extends React.Component{
                         {adSlotMiddle}
                     </div>
                     {this.renderNewBikesList()}
+                    <div className="margin-bottom15">
+                        {adSlotBottom}
+                    </div>
                     <Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '',Title : 'News'}]}/>
                     <Footer/>
                 </div>
