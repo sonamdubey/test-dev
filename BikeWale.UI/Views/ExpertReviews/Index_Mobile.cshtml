@@ -65,14 +65,7 @@
                     i++;
                 }
             </ul>
-        }
-        if (Model.AdTags.Ad_300x250BTF)
-        {
-        <div class="margin-bottom20 text-center">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
-        </div>
-        }
-        <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
+        }        <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
             <div class="grid-5 omega text-light-grey font13">
                 <span class="text-bold text-default">@string.Format("{0}-{1}", Model.StartIndex, Model.EndIndex)</span> of <span class="text-bold text-default">@Model.Articles.RecordCount</span> articles
             </div>
@@ -85,7 +78,12 @@
         <div class="clear"></div>
     </div>
 </section>
-
+@if (Model.AdTags.Ad_300x250BTF)
+{
+    <div class="margin-bottom15" text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
+    </div>
+}
 @if (Model.ObjMoreAboutScooter != null)
 {
     <section>
@@ -99,9 +97,6 @@
     </section>
 
 }
-<div class="margin-bottom15">
-    @Html.Partial("~/Views/Shared/Ads/Mobile/Ad320x50_Middle.cshtml", Model.AdTags)
-</div>
 
 @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
 {
