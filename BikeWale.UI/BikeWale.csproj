@@ -4012,6 +4012,7 @@
     <Content Include="Views\Make\_OtherBrand_New.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile_New.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_New.cshtml" />
+    <Content Include="sass\m\photos\listing.sass" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
