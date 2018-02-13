@@ -1,14 +1,17 @@
 ﻿@model Bikewale.Models.RecentExpertReviewsVM
 @using  Bikewale.Utility
 
+<div class="article-section__count">
+    <span class="article-count__number">@Model.ExpertReviewCount</span>&nbsp;Expert Review@(Model.ExpertReviewCount > 1 ? "s" : "") for <span class="article-count__number">@Model.ModelCount</span>&nbsp;Model@(Model.ModelCount > 1 ? "s" : "")
+</div>
+
 <div class="swiper-container carousel__expert-review" data-spacebetween="0">
 
     <ul class="swiper-wrapper">
         @foreach (var review in Model.ArticlesList)
         {
            
-            <li class="swiper-sli
-                de carousel-slide">
+            <li class="swiper-slide carousel-slide">
                 <div class="review-card carousel-card" data-review-category="@review.SubCategoryId">
                     <span class="card-category__tag">
                         @review.SubCategory Review

@@ -28,7 +28,7 @@ namespace Bikewale.DAL.Notifications
         /// <param name="entityNotif"></param>
         /// <param name="notificationTypeId"></param>
         /// <returns></returns>
-        public bool UpcomingSubscription(string emailId, UpcomingBikeEntity entityNotif, uint notificationTypeId)
+        public int UpcomingSubscription(string emailId, UpcomingBikeEntity entityNotif, uint notificationTypeId)
         {
             try
             {
@@ -42,17 +42,14 @@ namespace Bikewale.DAL.Notifications
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, entityNotif.ModelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_notificationtype", DbType.Int32, notificationTypeId));
 
-
-                    bool success = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) >= 0;
-
-                    return success;
+                    return MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Notifications.NotificationsRepository.UpcomingSubscription: MakeId:{0} ModelId:{1} EmailId:{2} NotificationTypeId:{3}", entityNotif.MakeId, entityNotif.ModelId, emailId, notificationTypeId));
             }
-            return false;
+            return -1;
         }
     }
 }

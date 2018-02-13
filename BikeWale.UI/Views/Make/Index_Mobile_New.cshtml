@@ -1,14 +1,15 @@
 ﻿@model Bikewale.Models.MakePageVM
 
 @{
-    ViewBag.Title = "Bike Make page";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
-    Model.Page_JS_Path = "/m/src/make.js";
+	ViewBag.Title = "Bike Make page";
+	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
+	Model.Page_JS_Path = "/m/src/make.js";
 }
 
 @if (Model != null)
 {
+
     <section id="overallContainer">
         <div class="container section-bottom-margin">
             <h1 class="page__heading">@Model.MakeName Bikes</h1>
@@ -37,7 +38,7 @@
                                     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
                                 <li class="swiper-slide carousel-slide">
                                     <div class="model__card">
-                                        <a title="@bike.BikeName" href='@string.Format("/m{0}", modelUrl)' class="model-card__target">
+                                            <a title="@bike.BikeName" href='@string.Format("/m{0}", modelUrl)' class="model-card__target bw-ga" data-cat="MakePage" data-act="Clicked_on_ModelCard" data-lab="@string.Format("{0}_{1}", bike.objModel.ModelId, bikeName)">
                                             <div class="model-card__image">
                                                 <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bikeName" alt="@bike.objModel.ModelName">
                                             </div>
@@ -113,7 +114,7 @@
 
                                 <li class="model-list__item">
                                     <div class="model__card">
-                                        <a href="@string.Format("/m{0}", modelUrl)" class="model-card__target" title="@bikeName">
+                                    <a href="@string.Format("/m{0}", modelUrl)" class="model-card__target bw-ga" title="@bikeName" data-cat="MakePage" data-act="Clicked_on_ModelCard" data-lab="@string.Format("{0}_{1}", bike.objModel.ModelId, bikeName)">
                                             <div class="model-card__image">
                                                 <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt="@bike.objModel.ModelName">
                                             </div>
@@ -345,7 +346,6 @@
                                 <div class="article-section__count">
                                     <span class="article-count__number">@Model.ExpertReviewCount</span>&nbsp;Expert Reviews for <span class="article-count__number">@Model.ModelCount</span>&nbsp;Models
                                 </div>
-
                                 @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile_New.cshtml", Model.ExpertReviews)
 
                             </section>
@@ -424,4 +424,5 @@
 
         </div>
     </section>
+
 }

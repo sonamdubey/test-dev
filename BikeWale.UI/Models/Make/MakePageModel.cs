@@ -204,7 +204,7 @@ namespace Bikewale.Models
                 BindShowroomPopularCityWidget(objData);
                 BindResearchMoreMakeWidget(objData);
                 GetEMIDetails(objData);
-                BindExpertReviewCount(objData);
+                BindExpertReviewCount(objData.ExpertReviews);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -226,7 +226,7 @@ namespace Bikewale.Models
                     objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
 
                     objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
-               
+
                 }
 
 
@@ -265,7 +265,7 @@ namespace Bikewale.Models
                         EnumCMSContentType.RoadTest
                     }
                     );
-                    objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+                    objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount).Take(6);
                 }
             }
             catch (Exception ex)
@@ -455,8 +455,9 @@ namespace Bikewale.Models
         {
 
             objData.News = new RecentNews(TopCountNews, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
+
             BindRecentExpertReviews(objData);
-            
+
             if (IsMobile)
             {
                 objData.Videos = new RecentVideos(1, 2, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
@@ -877,12 +878,12 @@ namespace Bikewale.Models
                     NewLaunchedWidget.Bikes = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
 
                     objData.NewLaunchedWidget = NewLaunchedWidget;
-                    
-                    if(objData.NewLaunchedWidget != null)
+
+                    if (objData.NewLaunchedWidget != null)
                     {
                         objData.NewLaunchedWidget.City = cityBase;
                     }
-                 
+
                 }
             }
             catch (Exception ex)
@@ -896,11 +897,18 @@ namespace Bikewale.Models
         /// Description : To bind the number of models with expert reviews and total number of expert reviews on VM
         /// </summary>
         /// <param name="objData"></param>
-        private void BindExpertReviewCount(MakePageVM objData)
+        private void BindExpertReviewCount(RecentExpertReviewsVM expertReviews)
         {
-            ExpertReviewCountEntity ercEntity = _bikeMakesCache.GetExpertReviewCountByMake(_makeId);
-            objData.ModelCount = ercEntity.ModelCount;
-            objData.ExpertReviewCount = ercEntity.ExpertReviewCount;
+            try
+            {
+                ExpertReviewCountEntity ercEntity = _bikeMakesCache.GetExpertReviewCountByMake(_makeId);
+                expertReviews.ModelCount = ercEntity.ModelCount;
+                expertReviews.ExpertReviewCount = ercEntity.ExpertReviewCount;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BindExpertReviewCount_MakeId_{0}", _makeId));
+            }
         }
 
     }

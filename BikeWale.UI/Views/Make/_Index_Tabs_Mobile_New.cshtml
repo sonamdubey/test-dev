@@ -3,7 +3,7 @@
 <div class="overall-tabs__placeholder">
     <div class="overall-tabs__content">
         <ul class="overall-tabs__list">
-            @if (Model.NewLaunchedWidget != null && Model.NewLaunchedWidget.Bikes != null && Model.NewLaunchedWidget.Bikes.Any())
+          @if (Model.NewLaunchedWidget != null && Model.NewLaunchedWidget.Bikes != null && Model.NewLaunchedWidget.Bikes.Count() > 0)
             {
                 <li class="overall-tabs-list__item tab--active" data-tabs="newlyLaunched">Newly Launched</li>
             }
@@ -35,7 +35,7 @@
                 <li class="overall-tabs-list__item" data-tabs="reviews">Reviews</li>
             }
 
-            @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
+            @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.Any())
             {
                 <li class="overall-tabs-list__item" data-tabs="images">Images</li>
             }
