@@ -1,14 +1,15 @@
 ﻿@model Bikewale.Models.MakePageVM
 
 @{
-    ViewBag.Title = "Bike Make page";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
-    Model.Page_JS_Path = "/m/src/make.js";
+	ViewBag.Title = "Bike Make page";
+	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
+	Model.Page_JS_Path = "/m/src/make.js";
 }
 
 @if (Model != null)
 {
+
     <section id="overallContainer">
         <div class="container section-bottom-margin">
             <h1 class="page__heading">@Model.MakeName Bikes</h1>
@@ -420,4 +421,5 @@
             
             </div>
         </section>
+
 }
