@@ -17,7 +17,7 @@
                         }
                         else
                         {
-                            <span class="text-light-grey vertical-top details-column">@string.Format("{0}, {1}, {2}", dealerDetails.Address, dealerDetails.objArea.PinCode, dealerDetails.City)</span>
+                            <span class="text-light-grey vertical-top details-column">@string.Format("{0}, {1} - {2}", dealerDetails.Address, dealerDetails.City, dealerDetails.objArea.PinCode)</span>
                         }
                     </p>
                     <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.MaskingNumber) ? "hide" : "")">
