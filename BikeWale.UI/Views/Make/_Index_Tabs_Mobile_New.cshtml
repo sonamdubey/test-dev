@@ -3,7 +3,7 @@
 <div class="overall-tabs__placeholder">
     <div class="overall-tabs__content">
         <ul class="overall-tabs__list">
-            @if (Model.NewLaunchedMakeBikesNDays != null && Model.NewLaunchedMakeBikesNDays.Count() > 0)
+            @if (Model.NewLaunchedWidget != null && Model.NewLaunchedWidget.Bikes != null && Model.NewLaunchedWidget.Bikes.Any())
             {
                 <li class="overall-tabs-list__item tab--active" data-tabs="newlyLaunched">Newly Launched</li>
             }

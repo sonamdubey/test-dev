@@ -26,17 +26,16 @@ namespace Bikewale.Notifications.MailTemplates
             try
             {
                 StringBuilder message = new StringBuilder();
-                message.AppendLine("Hello,");
-                message.AppendLine("");
-                message.AppendLine("Thank you for subscribing to BikeWale.");
-                message.AppendLine("");
-                message.AppendFormat("Glad to see that you have chosen BikeWale to research about your favorite bike. You will receive all the updates about {0} directly in your inbox.", bikeName);
-                message.AppendLine("");
-                message.AppendLine("");
-                message.AppendLine("And if you like BikeWale, don't forget to download our Android App from google play store-  https://goo.gl/L9XSAu ");
-                message.AppendLine("");
-                message.AppendLine("Cheers!");
-                message.AppendLine("Team BikeWale");
+                message.AppendFormat("Hello,<br><br>");
+                
+                message.AppendFormat("Thank you for subscribing to BikeWale.<br><br>");
+                
+                message.AppendFormat("Glad to see that you have chosen BikeWale to research about your favorite bike. You will receive all the updates about {0} directly in your inbox.<br><br>", bikeName);
+
+                message.AppendFormat("And if you like BikeWale, don't forget to download our Android App from google play store-  <a href = 'https://goo.gl/L9XSAu'>https://goo.gl/L9XSAu </a><br><br>");
+                
+                message.AppendFormat("Cheers!<br>");
+                message.AppendFormat("Team BikeWale");
 
                 return message.ToString();
             }

@@ -42,8 +42,11 @@ namespace Bikewale.Models
     /// Modified by  : Rajan Chauhan on 3 Jan 2017
     /// Description  : Added MakeId Field
 
-    /// Modified by : Sanskar Gupta on 02 Feb 2018
-    /// Description : Added NewLaunchedMakeBikesNDays
+    /// Modified by : Sanskar Gupta on 12 Feb 2018
+    /// Description : Added NewLaunchedWidget
+    /// 
+    /// Modified By : Deepak Israni on 9 Feb 2018
+    /// Description : Added ModelCount and ExpertReviewCount
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -98,6 +101,7 @@ namespace Bikewale.Models
         public MakeFooterCategoriesandPriceVM SubFooter { get; set; }
         public ResearchMoreAboutMakeVM ResearchMoreMakeWidget { get; set; }
 
-        public IEnumerable<NewLaunchedBikeEntityBase> NewLaunchedMakeBikesNDays { get; set; }
+
+        public NewLaunchedWidgetVM NewLaunchedWidget { get; set; }
     }
 }
