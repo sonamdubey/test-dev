@@ -292,8 +292,8 @@ class ArticleDetail extends React.Component {
         var adSlotBottom = null;
         
         if(articleDetail) {
-            adSlotTop = <AdUnit uniqueKey={articleDetail.Title} tags={articleDetail.Tags} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
-            adSlotBottom = <AdUnit uniqueKey={articleDetail.Title} tags={articleDetail.Tags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50}/> ;
+            adSlotTop = <AdUnit uniqueKey={articleDetail.Title} tags={articleDetail.Tags} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
+            adSlotBottom = <AdUnit uniqueKey={articleDetail.Title} tags={articleDetail.Tags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50}/> ;
         }
 
         var documentTitle = (articleInitialData.Title == "") ?"BikeWale News" : (articleInitialData.Title + " - BikeWale News");
