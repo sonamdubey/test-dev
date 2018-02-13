@@ -17,7 +17,7 @@ import { scrollPosition , resetScrollPosition , isBrowserWithoutScrollSupport } 
 
 import {endTimer} from '../../utils/timing'
 import AdUnit from '../AdUnit'
-import { Status ,AD_PATH_NEWS_MOBILE_BOTTOM_320_50 , AD_DIV_REVIEWS_BOTTOM_320_50 , AD_PATH_NEWS_MOBILE_TOP_320_50 , AD_DIV_REVIEWS_TOP_320_50} from '../../utils/constants'
+import { Status, AD_PATH_NEWS_MOBILE_BOTTOM_320_50, AD_DIV_REVIEWS_BOTTOM_320_50, AD_PATH_NEWS_MOBILE_TOP_320_50, AD_DIV_REVIEWS_TOP_320_50, AD_DIMENSION_320_50} from '../../utils/constants'
 
 
 class ArticleDetail extends React.Component {
