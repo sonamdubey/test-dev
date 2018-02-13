@@ -2673,8 +2673,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   Returns New Bikes launched with Exshowroom of given city
         /// Modified by:- Subodh jain 09 march 2017
         ///summary :-  Added body type filter
-        /// Modified by : Sanskar Gupta on 09 Feb 2018
-        /// Description : Changed SP to `getnewlaunchedbikesbycity_09022018`
+        /// Modified by : Sanskar Gupta on 12 Feb 2018
+        /// Description : Changed SP to `getnewlaunchedbikesbycity_12022018`
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
@@ -2738,6 +2738,7 @@ namespace Bikewale.DAL.BikeData
                                         Price = SqlReaderConvertor.ToUInt32(dr["price"]),
                                         AvgPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]),
                                         ExshowroomPrice = SqlReaderConvertor.ToUInt32(dr["ExshowroomPrice"]),
+                                        VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
                                         BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
                                     }
                                 );
