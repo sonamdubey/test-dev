@@ -429,9 +429,7 @@
     </div>
     if (Model.AdTags.Ad_300x250BTF)
     {
-        <div class="margin-bottom20 text-center">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
-        </div>
+            {Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
     }
     if (Model.TabCount > 0)
     {
