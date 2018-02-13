@@ -15,13 +15,13 @@ namespace BikewaleOpr.DTO.PageMeta
         [JsonProperty("status")]
         public ushort Status { get; set; }
 
-        [JsonProperty("modelId")]
-        public uint? ModelId { get; set; }
-
-        [JsonProperty("makeId")]
-        public uint? MakeId { get; set; }
-
         [JsonProperty("updatedBy")]
         public uint UpdatedBy { get; set; }
+
+        [JsonProperty("makeIdList")]
+        public string MakeIdList { get; set; }
+
+        [JsonProperty("modelIdList")]
+        public string ModelIdList { get; set; }
     }
 }

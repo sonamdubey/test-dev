@@ -224,7 +224,7 @@ namespace Bikewale.Models
                     objData.IsFooterDescriptionAvailable = objData.SubFooter != null && objData.SubFooter.FooterContent != null && objData.SubFooter.FooterContent.FooterDescription != null && objData.SubFooter.FooterContent.FooterDescription.Any();
 
                     objData.IsPriceListingAvailable = objData.IsFooterDescriptionAvailable && objData.SubFooter.FooterContent.ModelPriceList != null && objData.SubFooter.FooterContent.ModelPriceList.Any();
-               
+
                 }
 
 
@@ -263,7 +263,7 @@ namespace Bikewale.Models
                         EnumCMSContentType.RoadTest
                     }
                     );
-                    objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
+                    objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount).Take(6);
                 }
             }
             catch (Exception ex)
@@ -453,7 +453,7 @@ namespace Bikewale.Models
         {
 
             objData.News = new RecentNews(TopCountNews, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
-            
+
             objData.ExpertReviews = new RecentExpertReviews(2, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName)).GetData();
             if (IsMobile)
             {
@@ -852,12 +852,12 @@ namespace Bikewale.Models
                     NewLaunchedWidget.Bikes = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
 
                     objData.NewLaunchedWidget = NewLaunchedWidget;
-                    
-                    if(objData.NewLaunchedWidget != null)
+
+                    if (objData.NewLaunchedWidget != null)
                     {
                         objData.NewLaunchedWidget.City = cityBase;
                     }
-                 
+
                 }
             }
             catch (Exception ex)

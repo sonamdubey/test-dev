@@ -93,35 +93,6 @@ namespace Bikewale.Controllers
 
         }
 
-        //// GET: Makes
-        //[Route("m/makepage/{makeMaskingName}/")]
-        //public ActionResult Index_Mobile(string makeMaskingName)
-        //{
-        //    MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews);
-        //    obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
-        //    MakePageVM objData = null;
-
-        //    if (obj.Status == StatusCodes.ContentFound)
-        //    {
-        //        obj.IsMobile = true;
-        //        objData = obj.GetData();
-        //        return View(objData);
-        //    }
-        //    else if (obj.Status == StatusCodes.RedirectPermanent)
-        //    {
-        //        return RedirectPermanent(obj.RedirectUrl);
-        //    }
-        //    else if (obj.Status == StatusCodes.RedirectTemporary)
-        //    {
-        //        return Redirect(obj.RedirectUrl);
-        //    }
-        //    else
-        //    {
-        //        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-        //    }
-
-        //}
-
         // GET: Makes
         [Route("m/makepage/{makeMaskingName}/")]
         public ActionResult Index_Mobile_New(string makeMaskingName)
