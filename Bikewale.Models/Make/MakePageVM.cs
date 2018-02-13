@@ -44,6 +44,9 @@ namespace Bikewale.Models
 
     /// Modified by : Sanskar Gupta on 12 Feb 2018
     /// Description : Added NewLaunchedWidget
+    /// 
+    /// Modified By : Deepak Israni on 9 Feb 2018
+    /// Description : Added ModelCount and ExpertReviewCount
     /// </author>
     public class MakePageVM : ModelBase
     {

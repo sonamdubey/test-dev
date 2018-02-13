@@ -1,0 +1,46 @@
+﻿@model Bikewale.Models.RecentExpertReviewsVM
+@using  Bikewale.Utility
+
+<div class="article-section__count">
+    <span class="article-count__number">@Model.ExpertReviewCount</span>&nbsp;Expert Review@(Model.ExpertReviewCount > 1 ? "s" : "") for <span class="article-count__number">@Model.ModelCount</span>&nbsp;Model@(Model.ModelCount > 1 ? "s" : "")
+</div>
+
+<div class="swiper-container carousel__expert-review" data-spacebetween="0">
+
+    <ul class="swiper-wrapper">
+        @foreach (var review in Model.ArticlesList)
+        {
+           
+            <li class="swiper-slide carousel-slide">
+                <div class="review-card carousel-card" data-review-category="@review.SubCategoryId">
+                    <span class="card-category__tag">
+                        @review.SubCategory Review
+                    </span>
+                    <h3 class="review-card__title">
+                        @string.Format("{0} {1}", review.MakeName, review.ModelName)
+                    </h3>
+                    <p class="review-card__desc">
+                        @Bikewale.Utility.FormatDescription.TruncateDescription(review.Description, 180)
+                    </p>
+                    <div class="review-card__about">
+                        <div class="review-card__author">
+
+
+                            <span class="review-author_defult-img"></span>
+
+
+                        </div>
+                        <p class="review-card__author-name">@review.AuthorName</p>
+                        <p class="review-card__date">
+                            @FormatDate.GetDaysAgo(review.DisplayDate)
+                        </p>
+                    </div>
+
+                    <a class="review-card__read-more" href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title">
+                        Read full review
+                    </a>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

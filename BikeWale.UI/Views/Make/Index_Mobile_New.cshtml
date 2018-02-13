@@ -9,458 +9,417 @@
 
 @if (Model != null)
 {
-	<section id="overallContainer">
-		<div class="container section-bottom-margin">
-			<h1 class="page__heading">@Model.MakeName Bikes</h1>
-			@Html.Partial("~/Views/Make/_Index_Tabs_Mobile_New.cshtml", Model)
-		  
-			@if (Model.NewLaunchedWidget!=null && Model.NewLaunchedWidget.Bikes != null && Model.NewLaunchedWidget.Bikes.Count() > 0)
-			{
-				<section>
-					@Html.Partial("~/Views/Make/_NewLaunchedMake_Mobile.cshtml", Model.NewLaunchedWidget)
-				</section>
-			}
-			@if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
-			{
-				<section>
-					<div data-id="popularModel" class="bg-white section-bottom-margin overall-tabs-data">
-						<div class="popular-carousel__title">
-							<h2 class="page__heading-h2">Popular @Model.MakeName Bikes</h2>
-							<p class="page-heading__disclaimer">*Based on number of searches</p>
-						</div>
 
-						<div class="swiper-container carousel__popular-bikes" data-spacebetween="0">
-							<ul class="swiper-wrapper">
-								@foreach (var bike in Model.TopPopularBikes)
-								{
-									var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
-									var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-									<li class="swiper-slide carousel-slide">
-										<div class="model__card">
-											<a title="@bike.BikeName" href='@string.Format("/m{0}", modelUrl)' class="model-card__target">
-												<div class="model-card__image">
-													<img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bikeName" alt="@bike.objModel.ModelName">
-												</div>
-											</a>
-											<div class="model-card__detail-content">
-												<div class="model-card__detail">
-													<a title="@bike.BikeName" href='@string.Format("/m{0}", modelUrl)' class="model-card__target card-detail__target">
-														<span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
-															<span class="rating-badge__star"></span>
-															<span>@bike.ModelRating.ToString("0.0")</span>
-														</span>
+    <section id="overallContainer">
+        <div class="container section-bottom-margin">
+            <h1 class="page__heading">@Model.MakeName Bikes</h1>
+            @Html.Partial("~/Views/Make/_Index_Tabs_Mobile_New.cshtml", Model)
+          
+            @if (Model.NewLaunchedWidget.Bikes != null && Model.NewLaunchedWidget.Bikes.Count() > 0)
+            {
+                <section>
+                    @Html.Partial("~/Views/Make/_NewLaunchedMake_Mobile.cshtml", Model.NewLaunchedWidget)
+                </section>
+            }
+            @if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
+            {
+                <section>
+                    <div data-id="popularModel" class="bg-white section-bottom-margin overall-tabs-data">
+                        <div class="popular-carousel__title">
+                            <h2 class="page__heading-h2">Popular @Model.MakeName Bikes</h2>
+                            <p class="page-heading__disclaimer">*Based on number of searches</p>
+                        </div>
 
-														<h3 class="card-detail__name" title="@bikeName">@bike.objModel.ModelName</h3>
+                        <div class="swiper-container carousel__popular-bikes" data-spacebetween="0">
+                            <ul class="swiper-wrapper">
+                                @foreach (var bike in Model.TopPopularBikes)
+                                {
+                                    var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+                                    var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+                                    <li class="swiper-slide carousel-slide">
+                                        <div class="model__card">
+                                            <a title="@bike.BikeName" href='@string.Format("/m{0}", modelUrl)' class="model-card__target bw-ga" data-cat="MakePage" data-act="Clicked_on_ModelCard" data-lab="@string.Format("{0}_{1}", bike.objModel.ModelId, bikeName)">
+                                                <div class="model-card__image">
+                                                    <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bikeName" alt="@bike.objModel.ModelName">
+                                                </div>
+                                            </a>
+                                            <div class="model-card__detail-content">
+                                                <div class="model-card__detail">
+                                                    <a title="@bike.BikeName" href='@string.Format("/m{0}", modelUrl)' class="model-card__target card-detail__target">
+                                                        <span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
+                                                            <span class="rating-badge__star"></span>
+                                                            <span>@bike.ModelRating.ToString("0.0")</span>
+                                                        </span>
 
-														<ul class="card-detail__specs-list">
-															@Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
-														</ul>
-													</a>
-												</div>
-											</div>
-											<div class="model-card__exshowroom-content">
-												<div class="model-card__exshowroom">
-													<div class="card-exshowroom__col">
-														@if (bike.ExShowroomPrice > 0)
-														{
-															<p class="card-exshowroom__label">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</p>
-														}
-														else
-														{
-															<p class="card-exshowroom__label">
-																<span>Avg. Ex-showroom price</span><span class="info-icon tooltip-icon-target tooltip-top">
-																	<span class="bw-tooltip info-tooltip">
-																		<span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.City.City)</span>
-																	</span>
-																</span>
-															</p>
-														}
-														<span class="card-exshowroom__value">
+                                                        <h3 class="card-detail__name" title="@bikeName">@bike.objModel.ModelName</h3>
 
-															@if (bike.AvgPrice > 0)
-															{
-																<span class="text--semibold">@Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))))</span>
-															}
-															else
-															{
-																<span class="text--semibold">Price unavailable</span>
-															}
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</li>
-								}
-							</ul>
-						</div>
-					</div>
-				</section>
-			}
+                                                        <ul class="card-detail__specs-list">
+                                                            @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                                        </ul>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="model-card__exshowroom-content">
+                                                <div class="model-card__exshowroom">
+                                                    <div class="card-exshowroom__col">
+                                                        @if (bike.ExShowroomPrice > 0)
+                                                        {
+                                                            <p class="card-exshowroom__label">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p class="card-exshowroom__label">
+                                                                <span>Avg. Ex-showroom price</span><span class="info-icon tooltip-icon-target tooltip-top">
+                                                                    <span class="bw-tooltip info-tooltip">
+                                                                        <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.City.City)</span>
+                                                                    </span>
+                                                                </span>
+                                                            </p>
+                                                        }
+                                                        <span class="card-exshowroom__value">
 
-			@if (Model.Bikes != null && Model.Bikes.Count() > 0)
-			{
-				<section>
-					<div data-id="bikeModel" class="content--inner-padding bg-white section-bottom-margin overall-tabs-data">
-						<h2 class="page__heading-h2">@string.Format("All {0} Bikes", Model.MakeName)</h2>
-						<p class="page-heading__disclaimer">*Prices are indicative Ex-Showroom, Navi Mumbai</p>
+                                                            @if (bike.AvgPrice > 0)
+                                                            {
+                                                                <span class="text--semibold">@Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))))</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="text--semibold">Price unavailable</span>
+                                                            }
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            }
 
-						<ul class="all-model__list">
-							@foreach (var bike in Model.Bikes)
-							{
-								var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
-								var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+            @if (Model.Bikes != null && Model.Bikes.Count() > 0)
+            {
+                <section>
+                    <div data-id="bikeModel" class="content--inner-padding bg-white section-bottom-margin overall-tabs-data">
+                        <h2 class="page__heading-h2">@string.Format("All {0} Bikes", Model.MakeName)</h2>
+                        <p class="page-heading__disclaimer">*Prices are indicative Ex-Showroom, Navi Mumbai</p>
 
-							<li class="model-list__item">
-								<div class="model__card">
-									<a href="@string.Format("/m{0}", modelUrl)" class="model-card__target" title="@bikeName">
-										<div class="model-card__image">
-											<img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt="@bike.objModel.ModelName">
-										</div>
-										<div class="model-card__detail">
-											<span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
-												<span class="rating-badge__star"></span>
-												<span>@bike.ModelRating.ToString("0.0")</span>
-											</span>
+                        <ul class="all-model__list">
+                            @foreach (var bike in Model.Bikes)
+                            {
+                                var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+                                var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
 
-											<h3 class="card-detail__name">@string.Format("{0} {1}", Model.MakeName, bike.objModel.ModelName) </h3>
-											<ul class="card-detail__specs-list">
-												@Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
-											</ul>
-										</div>
-										<div class="model-card__exshowroom-content">
-											<div class="model-card__exshowroom">
-												<div class="card-exshowroom__col">
-													@if (bike.ExShowroomPrice > 0)
-														{
-														<p class="card-exshowroom__label">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</p>
-														}
-														else
-														{
-														<p class="card-exshowroom__label">
-															Avg. Ex-showroom price
-															<span class="bwsprite info-icon tooltip-icon-target tooltip-top"><span class="bw-tooltip info-tooltip"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.City.City) </span></span></span>
-														</p>
+                            <li class="model-list__item">
+                                <div class="model__card">
+                                    <a href="@string.Format("/m{0}", modelUrl)" class="model-card__target bw-ga" title="@bikeName" data-cat="MakePage" data-act="Clicked_on_ModelCard" data-lab="@string.Format("{0}_{1}", bike.objModel.ModelId, bikeName)">
+                                        <div class="model-card__image">
+                                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt="@bike.objModel.ModelName">
+                                        </div>
+                                        <div class="model-card__detail">
+                                            <span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
+                                                <span class="rating-badge__star"></span>
+                                                <span>@bike.ModelRating.ToString("0.0")</span>
+                                            </span>
 
-
-														}
-													@if (bike.VersionPrice > 0)
-														{
-														@Html.Raw("<span class='card-exshowroom__value'>&#x20b9;&nbsp;</span>")
-														}
-														else
-														{
-														@Html.Raw("<span class='font18' style='display: none;'> &#x20B9;</span>")
-														}
-													@if (bike.AvgPrice > 0)
-														{
-														<span class="card-exshowroom__value text--semibold">
-															@Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) :
-	string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice)))))
-													</span>
-														}
-														else
-														{
-														<span class="font18 text--semibold">Price unavailable</span>
-														}
-
-												</div>
-												@if (bike.EMIDetails != null)
-													{
-													<div class="card-emi__col">
-														<p class="card-emi__label">EMI starting at</p>
-														<span class="card-emi__value">@Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(bike.EMIDetails.EMIAmount.ToString())</span>
-													</div>
-													}
-
-											</div>
-										</div>
-									</a>
-								</div>
-							</li>
-							}
-						</ul>
-					</div>
-				</section>
-		}
+                                            <h3 class="card-detail__name">@string.Format("{0} {1}", Model.MakeName, bike.objModel.ModelName) </h3>
+                                            <ul class="card-detail__specs-list">
+                                                @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                            </ul>
+                                        </div>
+                                        <div class="model-card__exshowroom-content">
+                                            <div class="model-card__exshowroom">
+                                                <div class="card-exshowroom__col">
+                                                    @if (bike.ExShowroomPrice > 0)
+                                                        {
+                                                        <p class="card-exshowroom__label">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</p>
+                                                        }
+                                                        else
+                                                        {
+                                                        <p class="card-exshowroom__label">
+                                                            Avg. Ex-showroom price
+                                                            <span class="bwsprite info-icon tooltip-icon-target tooltip-top"><span class="bw-tooltip info-tooltip"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.City.City) </span></span></span>
+                                                        </p>
 
 
-			@if (Model.IsUpComingBikesAvailable)
-			{
-				<section>
-					<div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
-						<h2 class="upcoming-carousel__title page__heading-h2">Upcoming @Model.MakeName bikes</h2>
+                                                        }
+                                                    @if (bike.VersionPrice > 0)
+                                                        {
+                                                        @Html.Raw("<span class='card-exshowroom__value'>&#x20b9;&nbsp;</span>")
+                                                        }
+                                                        else
+                                                        {
+                                                        @Html.Raw("<span class='font18' style='display: none;'> &#x20B9;</span>")
+                                                        }
+                                                    @if (bike.AvgPrice > 0)
+                                                        {
+                                                        <span class="card-exshowroom__value text--semibold">
+                                                            @Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) :
+    string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice)))))
+                                                    </span>
+                                                        }
+                                                        else
+                                                        {
+                                                        <span class="font18 text--semibold">Price unavailable</span>
+                                                        }
 
-						@Html.Partial("~/Views/Upcoming/_UpcomingBikesWithNotify_Mobile.cshtml", Model.UpcomingBikes)
-					</div>
-				</section>
-			}
-			
-			<div id="notifyPopup">
-				<div class="notify-popup__content">
-					<span id="notifyCloseBtn"></span>
-					<svg class="notify__bell-icon" viewBox="0 0 27 33" xmlns="http://www.w3.org/2000/svg">
-						<g fill="#fff" stroke="#fff" fill-rule="evenodd">
-							<path d="M23.48 17.62v-5.05a9.78 9.78 0 0 0-7.22-9.4 2.52 2.52 0 0 0-5.05 0A9.78 9.78 0 0 0 4 12.57v5.05L1.1 20.15v3.97h25.25v-3.97l-2.88-2.53z" stroke-linecap="round" stroke-linejoin="round" />
-							<path class="bell-clapper" d="M17.34 27.3v1.08a3.43 3.43 0 0 1-3.42 3.42h-.36a3.44 3.44 0 0 1-3.43-3.43V27.3" />
-						</g>
-					</svg>
+                                                </div>
+                                                @if (bike.EMIDetails != null)
+                                                    {
+                                                    <div class="card-emi__col">
+                                                        <p class="card-emi__label">EMI starting at</p>
+                                                        <span class="card-emi__value">@Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(bike.EMIDetails.EMIAmount.ToString())</span>
+                                                    </div>
+                                                    }
 
-					<div class="notify-popup__detail">
-						<p>To get updates about</p>
-					<span class="notify-details__model" ></span>
-						<p>Please enter your email ID</p>
-					</div>
-					<div class="form-field__content">
-						<input type="text" id="notifyEmailField" class="form-control form-field__input" placeholder="Enter your email id">
-					<button type="button" id="notifySubmitBtn" class="btn btn-orange form-field__submit-btn" data-bikename="" data-makeid="" data-modelid="">Submit</button>
-						<p class="field__error-message"></p>
-					</div>
-				</div>
-				<div id="notifyWhiteoutWindow"></div>
-			</div>
-
-			@if (Model.BikeDescription != null && Model.BikeDescription.FullDescription != null)
-			{
-				<div id="interestingFact">
-					<div class="interesting-fact-popup interesting-fact-section">
-						<span id="interestingFactCloseBtn"></span>
-						<div class="interesting-fact__title">
-							<h2 class="page__heading-h2">Interesting Fact</h2>
-						</div>
-						<div class="interesting-fact-container">
-							<div class="fact-container__block" data-overlay="none">
-								<p class="interesting-fact__content"></p>
-							</div>
-						</div>
-
-					</div>
-					<div class="interesting-fact__whiteout-window"></div>
-				</div>
-
-				<section>
-					<div data-id="@(Model.IsUpComingBikesAvailable ? "upcomingBikes" : "bikeModel")" class="section-bottom-margin interesting-fact-section  overall-tabs-data">
-						<h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
-						<div class="interesting-fact-container">
-							<p class="interesting-fact__content">
-								@Html.Raw(Model.BikeDescription.FullDescription)
-							</p>
-							<div class="interesting-fact__link-block">
-								<span class="interesting-fact__read-more">
-									Read more about @Model.MakeName Bikes
-								</span>
-							</div>
-
-						</div>
-					</div>
-				</section>
-			}
-		  
-			@if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
-			{
-				<section>
-					<div data-id="dealer" class="bg-white section-bottom-margin dealer-section overall-tabs-data">
-
-						@if (Model.IsDealerAvailable)
-						{
-						<div class="carousel__title">
-							<h2 class="page__heading-h2 carousel-title__label">@Model.MakeName showrooms @string.Format("in {0}", Model.Dealers.CityName) </h2>
-							<a href="/m/dealer-showrooms/@Model.MakeMaskingName/@Model.Dealers.CityMaskingName/" class="view-all-btn">
-								View all
-							</a>
-						</div>
-						<p class="dealer-section__note">
-							Showing Dealer/Store results from
-							<span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" class="dealer-note__link text-link">
-								All India
-							</span>
-						</p>
-						<div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
-							@Html.Partial("~/Views/DealerShowroom/_NewDealerShowroomWithCount.cshtml", Model.Dealers)
-						</div>
-						}
-						else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
-						{
-						<div class="carousel__title">
-							<h2 class="page__heading-h2 carousel-title__label">@Model.MakeName showrooms</h2>
-							<a href="/m/dealer-showrooms/@Model.MakeMaskingName/" class="view-all-btn">
-								View all
-							</a>
-						</div>
-						<p class="dealer-section__note">
-							Showing Dealer/Store results from
-							<span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" class="dealer-note__link text-link">
-								All India
-							</span>
-						</p>
-
-						<div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
-							@Html.Partial("~/Views/PopularCityWidget/_DealerInPopularCity_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
-						</div>
-						}
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            }
+                        </ul>
+                    </div>
+                </section>
+        }
 
 
-					</div>
-				</section>
-			}
+            @if (Model.IsUpComingBikesAvailable)
+            {
+                <section>
+                    <div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
+                        <h2 class="upcoming-carousel__title page__heading-h2">Upcoming @Model.MakeName bikes</h2>
+
+                        @Html.Partial("~/Views/Upcoming/_UpcomingBikesWithNotify_Mobile.cshtml", Model.UpcomingBikes)
+                    </div>
+                </section>
+            }
+            
+            <div id="notifyPopup">
+                <div class="notify-popup__content">
+                    <span id="notifyCloseBtn"></span>
+                    <svg class="notify__bell-icon" viewBox="0 0 27 33" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="#fff" stroke="#fff" fill-rule="evenodd">
+                            <path d="M23.48 17.62v-5.05a9.78 9.78 0 0 0-7.22-9.4 2.52 2.52 0 0 0-5.05 0A9.78 9.78 0 0 0 4 12.57v5.05L1.1 20.15v3.97h25.25v-3.97l-2.88-2.53z" stroke-linecap="round" stroke-linejoin="round" />
+                            <path class="bell-clapper" d="M17.34 27.3v1.08a3.43 3.43 0 0 1-3.42 3.42h-.36a3.44 3.44 0 0 1-3.43-3.43V27.3" />
+                        </g>
+                    </svg>
+
+                    <div class="notify-popup__detail">
+                        <p>To get updates about</p>
+                    <span class="notify-details__model" ></span>
+                        <p>Please enter your email ID</p>
+                    </div>
+                    <div class="form-field__content">
+                        <input type="text" id="notifyEmailField" class="form-control form-field__input" placeholder="Enter your email id">
+                    <button type="button" id="notifySubmitBtn" class="btn btn-orange form-field__submit-btn" data-bikename="" data-makeid="" data-modelid="">Submit</button>
+                        <p class="field__error-message"></p>
+                    </div>
+                </div>
+                <div id="notifyWhiteoutWindow"></div>
+            </div>
+
+            @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription != null)
+            {
+                <div id="interestingFact">
+                    <div class="interesting-fact-popup interesting-fact-section">
+                        <span id="interestingFactCloseBtn"></span>
+                        <div class="interesting-fact__title">
+                            <h2 class="page__heading-h2">Interesting Fact</h2>
+                        </div>
+                        <div class="interesting-fact-container">
+                            <div class="fact-container__block" data-overlay="none">
+                                <p class="interesting-fact__content"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="interesting-fact__whiteout-window"></div>
+                </div>
+
+                <section>
+                    <div data-id="upcomingBikes" class="section-bottom-margin interesting-fact-section  overall-tabs-data">
+                        <h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
+                        <div class="interesting-fact-container">
+                            <p class="interesting-fact__content">
+                                @Html.Raw(Model.BikeDescription.FullDescription)
+                            </p>
+                            <div class="interesting-fact__link-block">
+                                <span class="interesting-fact__read-more">
+                                    Read more about @Model.MakeName Bikes
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            }
+          
+
+            @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
+            {
+                <section>
+                    <div data-id="dealer" class="bg-white section-bottom-margin dealer-section overall-tabs-data">
+
+                        @if (Model.IsDealerAvailable)
+                        {
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName showrooms @string.Format("in {0}", Model.Dealers.CityName) </h2>
+                            <a href="/m/dealer-showrooms/@Model.MakeMaskingName/@Model.Dealers.CityMaskingName/" class="view-all-btn">
+                                View all
+                            </a>
+                        </div>
+                        <p class="dealer-section__note">
+                            Showing Dealer/Store results from
+                            <span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" class="dealer-note__link text-link">
+                                All India
+                            </span>
+                        </p>
+                        <div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
+                            @Html.Partial("~/Views/DealerShowroom/_NewDealerShowroomWithCount.cshtml", Model.Dealers)
+                        </div>
+                        }
+                        else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
+                        {
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName showrooms</h2>
+                            <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" class="view-all-btn">
+                                View all
+                            </a>
+                        </div>
+                        <p class="dealer-section__note">
+                            Showing Dealer/Store results from
+                            <span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" class="dealer-note__link text-link">
+                                All India
+                            </span>
+                        </p>
+
+                        <div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
+                            @Html.Partial("~/Views/PopularCityWidget/_DealerInPopularCity_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
+                        </div>
+                        }
 
 
-			@if (Model.IsNewsAvailable)
-			{
-				<section>
-					<div data-id="news" class="bg-white section-bottom-margin latest-news-section overall-tabs-data">
-						<div class="carousel__title">
-							<h2 class="page__heading-h2 carousel-title__label">@Model.MakeName News</h2>
-							<a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking))" class="view-all-btn">
-								View all
-							</a>
-						</div>
-
-						<div class="swiper-container carousel__editorial" data-spacebetween="0">
-							@Html.Partial("~/Views/News/_RecentNews_Mobile_New.cshtml", Model.News)
-						</div>
-					</div>
-				</section>
-			}
-
-			<section>
-				<div data-id="reviews" class="bg-white section-bottom-margin review-section overall-tabs-data">
-					<div class="carousel__title">
-						<h2 class="page__heading-h2">Royal Enfield Reviews</h2>
-					</div>
-					<section class="expert-review-section">
-						<div class="carousel__title">
-							<h3 class="carousel-title__label">Expert Reviews</h3>
-							<a href="" class="view-all-btn">
-								View all
-							</a>
-						</div>
-						<div class="article-section__count">
-							<span class="article-count__number">32</span>&nbsp;Expert Reviews for <span class="article-count__number">14</span>&nbsp;Models
-						</div>
-						<div class="swiper-container carousel__expert-review" data-spacebetween="0">
-							<ul class="swiper-wrapper">
-								@for (var i = 0; i <= 5; i++)
-								{
-								<li class="swiper-slide carousel-slide">
-									<div class="review-card carousel-card" data-review-category="@((i == 0) ? "23" : (i == 1) ? "24" : "40")">
-										<span class="card-category__tag">
-											First Ride Review
-										</span>
-										<h3 class="review-card__title">
-											TVS Apache RR 310
-										</h3>
-										<p class="review-card__desc">
-											“Style is very good in terms offering and sporty look. Engine per...”
-										</p>
-										<div class="review-card__about">
-											<div class="review-card__author">
-												@{
-														if (i == 0)
-														{
-													<span class="review-author_defult-img"></span>
-														}
-														else
-														{
-															if (i % 2 == 0)
-															{
-													<img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/abhishek.jpg?q=70" title="" />
-															}
-															else
-															{
-													<img class="swiper-lazy review-author__img" src="" data-src="https://imgd.aeplcdn.com/300x225/cw/author/vikrantsingh.jpg?q=70" title="" />
-
-															}
-														}
-												}
-											</div>
-											<p class="review-card__author-name">Ranjan B.</p>
-											<p class="review-card__date">
-												3 days ago
-											</p>
-										</div>
-
-										<a class="review-card__read-more" href="" title="">
-											Read full reivew
-										</a>
-									</div>
-								</li>
-														}
+                    </div>
+                </section>
+            }
 
 
-							</ul>
-						</div>
-					</section>
+            @if (Model.IsNewsAvailable)
+            {
+                <section>
+                    <div data-id="news" class="bg-white section-bottom-margin latest-news-section overall-tabs-data">
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName News</h2>
+                            <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking))" class="view-all-btn">
+                                View all
+                            </a>
+                        </div>
 
-					@if (Model.IsUserReviewsAvailable && Model.PopularBikesUserReviews != null)
-					{
-				
-					<section>
-						<div class="bg-white user-review-section">
-							<div class="carousel__title">
-								<h2 class="carousel-title__label">User Reviews</h2>
-								<a href="@string.Format("/m/{0}-bikes/reviews/", Model.MakeMaskingName)" class="view-all-btn">
-									View all
-								</a>
-							</div>
-							@Html.Partial("~/Views/UserReview/BikesWithReviewsByMake_Mobile_New.cshtml", Model.PopularBikesUserReviews)
-						</div>
-					</section>
+                        <div class="swiper-container carousel__editorial" data-spacebetween="0">
+                            @Html.Partial("~/Views/News/_RecentNews_Mobile_New.cshtml", Model.News)
+                        </div>
+                    </div>
+                </section>
+            }
 
-					}
+            @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
+            {
+                <section>
+                    <div data-id="reviews" class="bg-white section-bottom-margin review-section overall-tabs-data">
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2">@Model.MakeName Reviews</h2>
+                        </div>
 
-				</div>
-			</section>
+                    @if (Model.IsExpertReviewsAvailable && Model.ExpertReviews != null)
+                    {
+                        <section class="expert-review-section">
+                            <div class="carousel__title">
+                                <h3 class="carousel-title__label">Expert Reviews</h3>
+                                <a href="@string.Format("/m/{0}-bikes/expert-reviews/",Model.MakeMaskingName)" class="view-all-btn">
+                                    View all
+                                </a>
+                            </div>
 
-			@if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.Any())
-			{
-				<section>
-					<div data-id="images" class="bg-white section-bottom-margin overall-tabs-data model-image-section">
-						<div class="carousel__title">
-							<h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Images</h2>
-							<a href="/m/@Model.MakeMaskingName-bikes/images/" class="view-all-btn">
-								View all
-							</a>
-						</div>
-						@Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.BikeModelsPhotos)
-					</div>
-				</section>
+                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile_New.cshtml", Model.ExpertReviews)
 
-			}
+                        </section>
+                    }
+            
 
-			@if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
-	{
-				<section>
-					<div data-id="videos" class="bg-white section-bottom-margin video-section overall-tabs-data">
-						<div class="carousel__title">
-							<h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Videos</h2>
-						</div>
-						@Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
-						<div class="video-list__more-btn-content">
-                            <a href="@string.Format("/m{0}", Model.Videos.MoreVideoUrl)" title="@Model.Videos.LinkTitle" class="btn btn-inv-blue">View All</a>
-						</div>
-					</div>
+                    @if (Model.IsUserReviewsAvailable && Model.PopularBikesUserReviews != null)
+                    {
+                    <section>
+                        <div class="bg-white user-review-section">
+                            <div class="carousel__title">
+                                <h2 class="carousel-title__label">User Reviews</h2>
+                                <a href="@string.Format("/m/{0}-bikes/reviews/", Model.MakeMaskingName)" class="view-all-btn">
+                                    View all
+                                </a>
+                            </div>
+                            @Html.Partial("~/Views/UserReview/BikesWithReviewsByMake_Mobile_New.cshtml", Model.PopularBikesUserReviews)
+                        </div>
+                    </section>
+                    }
+                    </div>
+            </section>
+        }
+      
+            @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.Any())
+            {
+                <section>
+                    <div data-id="images" class="bg-white section-bottom-margin overall-tabs-data model-image-section">
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Images</h2>
+                            <a href="/m/@Model.MakeMaskingName-bikes/images/" class="view-all-btn">
+                                View all
+                            </a>
+                        </div>
+                        @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.BikeModelsPhotos)
+                    </div>
+                </section>
 
-				</section>
-	}
+            }
+
+            @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+    {
+                <section>
+                    <div data-id="videos" class="bg-white section-bottom-margin video-section overall-tabs-data">
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Videos</h2>
+                            <a href="@string.Format("/m{0}", Model.Videos.MoreVideoUrl)" title="@Model.Videos.LinkTitle" class="view-all-btn">
+                                View all
+                            </a>
+                        </div>
+                        @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+                        <div class="video-list__more-btn-content">
+                            <input type="button" class="btn btn-inv-blue" value="Load More">
+                        </div>
+                    </div>
+
+                </section>
+    }
 
 
 
-			@if (Model.OtherMakes != null)
-	{
-				<section>
-					<div class="bg-white section-bottom-margin video-section overall-tabs-data">
-						<div class="carousel__title">
-							<h2 class="page__heading-h2">Other Brands</h2>
-						</div>
-						<div class="swiper-container carousel__related-makes" data-spacebetween="0">
-							@Html.Partial("~/Views/Make/_OtherBrand_New.cshtml", Model.OtherMakes)
+            @if (Model.OtherMakes != null)
+    {
+                <section>
+                    <div class="bg-white section-bottom-margin video-section overall-tabs-data">
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2">Other Brands</h2>
+                        </div>
+                        <div class="swiper-container carousel__related-makes" data-spacebetween="0">
+                            @Html.Partial("~/Views/Make/_OtherBrand_New.cshtml", Model.OtherMakes)
 
-						</div>
-					</div>
-				</section>
-	}
-			
-			</div>
-		</section>
+                        </div>
+                    </div>
+                </section>
+    }
+            
+            </div>
+        </section>
+
 }

@@ -14,6 +14,6 @@ namespace Bikewale.Interfaces.Notifications
     /// </summary>
     public interface INotificationsRepository
     {
-        bool UpcomingSubscription(string emailId, UpcomingBikeEntity entityNotif, uint notificationTypeId);
+        int UpcomingSubscription(string emailId, UpcomingBikeEntity entityNotif, uint notificationTypeId);
     }
 }

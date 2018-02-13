@@ -21,7 +21,8 @@
 
                                     <li class="swiper-slide carousel-slide model-list__item">
                                         <div class="model__card">
-                                            <a href="@string.Format("/m{0}", bikeUrl)" title="@bikeName" class="model-card__target">
+                                            <a href="@string.Format("/m{0}", bikeUrl)" title="@bikeName" class="model-card__target bw-ga" data-cat="MakePage" data-act="Clicked_on_ModelCard" data-lab="@string.Format("{0}_{1}", bike.Model.ModelId, bikeName)">
+
                                                 <div class="model-card__image">
                                                     <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" title="@bikeName" alt="@bikeName">
                                                 </div>
@@ -36,11 +37,17 @@
                                             <div class="model-card__exshowroom-content">
                                                 <div class="model-card__exshowroom">
                                                     <div class="card-exshowroom__col">
-                                                            @if (bike.Price > 0)
+                                                            @{ var price = bike.ExshowroomPrice;
+                                                                var avgPrice = bike.AvgPrice;}
+                                                            @if (city == null)
+                                                            {
+                                                                price = bike.VersionPrice;
+                                                            }
+                                                            @if (price > 0)
                                                             {
                                                                 <p class="card-exshowroom__label">@string.Format("Ex-showroom, {0}", (bike.City == null || bike.City.CityId == 0 ? BWConfiguration.Instance.DefaultName : city.CityName))</p>
                                                             }
-                                                            else
+                                                            else if(avgPrice > 0)
                                                             {
                                                                 <p class="card-exshowroom__label">
                                                                     <span>Avg. Ex-showroom price</span><span class="info-icon tooltip-icon-target tooltip-top">
@@ -52,10 +59,10 @@
                                                             }
                                                             <span class="card-exshowroom__value">
 
-                                                                @if (bike.AvgPrice > 0)
+                                                                @if (avgPrice > 0)
                                                                 {
 
-                                                                    <span class="text--semibold">@Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price > 0 ? bike.Price : bike.AvgPrice))))</span>
+                                                                    <span class="text--semibold">@Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(price > 0 ? price : avgPrice))))</span>
                                                                 }
                                                                 else
                                                                 {
