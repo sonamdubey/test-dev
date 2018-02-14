@@ -88,8 +88,12 @@ namespace Bikewale.DTO.Model.v5
         public bool IsSpecsAvailable { get; set; }
         [JsonProperty("gallery")]
         public Gallery Gallery { get; set; }
+
         [JsonProperty("review")]
         public Review Review { get; set; }
+
+        [JsonProperty("newsCount")]
+        public uint NewsCount { get; set; }
 
 
 

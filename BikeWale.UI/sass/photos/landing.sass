@@ -5,6 +5,9 @@
 
 @import ../mixins/index
 @import ../utils/index
+@import ../partials/d/video-section-list
+@import ../partials/d/_article-list
+@import ../partials/video-card-container
 
 body
 	background-color: color('bg-light-grey')
@@ -383,3 +386,73 @@ body
 @media (min-width: 769px) and (max-width: 1025px)
 	.explore-model-image-list__item
 		width: 286px
+
+
+//video wrapper
+.video-section
+	@include article-image-wrapper(522, 294)
+
+.inner-content-carousel.jcarousel-wrapper
+	.jcarousel
+		width: 100%
+		left: 0
+		padding-left: 0
+		padding-right: 0
+		
+		li
+			margin-left: 20px
+			margin-right: 0
+			-webkit-box-shadow: none
+			-moz-box-shadow: none
+			box-shadow: none
+			border: none
+
+	.jcarousel-control-left,
+	.jcarousel-control-right
+		top: 43%
+
+.jcarousel
+	li
+		> .carousel-card
+			border: 1px solid #e2e2e2
+			@include border-radius(3px)
+								
+.inner-content-carousel
+	.jcarousel-control-left
+		.jcarousel-control-prev
+			&.inactive
+				display: none
+	.jcarousel-control-right
+		.jcarousel-control-next
+			&.inactive
+				display: none
+
+.overalltab__section-list
+	> li
+		padding-top: 10px
+		padding-bottom: 10px
+		border-top: 1px solid #e2e2e2
+
+		&:first-child
+			border: none
+
+.video-card__desc
+	padding-top: 5px
+	font-size: 14px
+	color: #82888b
+	display: table
+	width: 100%
+
+.swiper-card__label
+    display: block
+    font-size: 13px
+    text-align: center
+    color: #4d5057
+    font-weight: 600
+    margin-bottom: 10px
+
+.card-target
+	&:hover
+		text-decoration: none
+		h4
+			text-decoration: underline

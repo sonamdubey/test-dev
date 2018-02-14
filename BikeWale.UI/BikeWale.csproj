@@ -4007,7 +4007,6 @@
     <Content Include="Views\Photos\_OtherPopularMakes_Mobile.cshtml" />
     <Content Include="Views\Photos\_ModelsImageList_Mobile.cshtml" />
     <Content Include="Views\Photos\_ModelsImageListBase.cshtml" />
-    <Content Include="Views\Make\_Index_Tab_Mobile_New.cshtml" />
     <Content Include="Views\Make\_OtherBrand_New.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile_New.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_New.cshtml" />

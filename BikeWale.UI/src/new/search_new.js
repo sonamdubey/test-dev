@@ -140,13 +140,14 @@ docReady(function () {
 						count++;
 						node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
 					} else {
-						var values = pair[1].split('-');
-						self.setMaxAmount(values[1]);
-						self.setMinAmount(values[0]);
-						count++;
+					    if (pair[1] !== "") {
+					        var values = pair[1].split('-');
+					        self.setMaxAmount(values[1]);
+					        self.setMinAmount(values[0]);
+					        count++;
+					    }
 					}
 				}
-				$('.filter-counter').text(count);
 				self.FirstLoad(false);
 				self.getBikeSearchResult('through-filters');
 				self.init();
@@ -238,7 +239,7 @@ docReady(function () {
 							count++;
 							if (selText.length > 2)
 								node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
-						} else if (param == 'budget') {
+						} else if (param == 'budget' && self.Filters()[param] !== "") {
 							var values = self.Filters()[param].split('-');
 							self.setMaxAmount(values[1]);
 							self.setMinAmount(values[0]);
