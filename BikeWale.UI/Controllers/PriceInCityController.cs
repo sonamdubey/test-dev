@@ -196,6 +196,7 @@ namespace Bikewale.Controllers
                 model.Platform = DTO.PriceQuote.PQSources.Mobile;
                 model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_PriceInCity;
+                model.CurrentPageUrl = Request.RawUrl.Substring(0, Request.RawUrl.LastIndexOf("amp/"));
                 objVM = model.GetDataAMP();
 
 
