@@ -13,6 +13,8 @@ namespace Bikewale.Models.Photos.v1
 {
     /// <summary>
     /// Created by : Ashutosh Sharma on 11th Jan 2018
+    /// Modified by : Ashutosh Sharma on 6th Feb 2018
+    /// Description : Added 'Videos' for videos widget.
     /// </summary>
     public class PhotosPageVM : ModelBase
     {
@@ -22,5 +24,6 @@ namespace Bikewale.Models.Photos.v1
         public IEnumerable<ModelImages> PopularSportsModelsImages { get; set; }
         public PagerEntity Pager { get; set; }
         public string ImagesSynopsis { get; set; }
+        public RecentVideosVM Videos { get; set; }
     }
 }

@@ -68,11 +68,13 @@ namespace Bikewale.Cache.BikeData
         /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 29 Sep 2017.
         /// Description : Changed version of key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
         /// </summary>
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;
-            string key = string.Format("BW_ModelDetail_V1_{0}", modelId);
+            string key = string.Format("BW_ModelDetail_{0}", modelId);
             try
             {
                 objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => GetModelPageDetailsNew(modelId, versionId));
