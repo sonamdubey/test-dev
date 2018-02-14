@@ -1,6 +1,7 @@
 import React from 'react'
 import TopVideosContainer from './TopVideosContainer'
 import OtherVideosContainer from './OtherVideosContainer'
+import ImageCarouselContainer from '../Widgets/ImageCarouselContainer'
 import {startTimer , endTimer} from '../../utils/timing'
 
 import { scrollPosition , resetScrollPosition  } from '../../utils/scrollUtils'
@@ -19,8 +20,8 @@ var childComponent;
 class VideoLandingComponent extends React.Component {
 	constructor(props) {
 		super(props);
-		childComponentCount = 2;
-		childComponent = {'TopVideosComponent' : 1 , 'OtherVideosComponent' : 1 };
+		childComponentCount = 3;
+		childComponent = {'TopVideosComponent' : 1 , 'OtherVideosComponent' : 1,'ImageCarouselComponent':2};
 		startTimer(1,0); // 1 component to complete + 0 ads
 		this.handleTimingAndScrollingForChildComponents = this.handleTimingAndScrollingForChildComponents.bind(this);	
 	}
@@ -46,7 +47,8 @@ class VideoLandingComponent extends React.Component {
 		return(
 			<div className="page-type--landing">
 				<TopVideosContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
-				<OtherVideosContainer  logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
+                <ImageCarouselContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
+				<OtherVideosContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
 			</div>
 		)
 

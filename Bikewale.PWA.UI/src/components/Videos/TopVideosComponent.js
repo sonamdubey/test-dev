@@ -4,7 +4,6 @@ import {Status} from '../../utils/constants'
 import Spinner from '../Shared/Spinner'
 import JumbotronVideos from './JumbotronVideos'
 import ExpertReviewsVideoList from './ExpertReviewsVideoList'
-import ImageCarousel from './ImageCarousel'
 import {isServer} from '../../utils/commonUtils'
 
 import {formVideoUrl,pushVideoDetailUrl,pushVideosByCategoryUrl} from './VideosCommonFunc'
@@ -51,7 +50,6 @@ class TopVideosComponent extends React.Component {
 			<div>
 				<JumbotronVideos LandingFirstVideo={topVideos.LandingFirstVideos} onClickVideoUrl={this.onClickVideoUrl}/>
 				<ExpertReviewsVideoList VideoListData={topVideos.ExpertReviews} onClickVideoUrl={this.onClickVideoUrl} onClickMoreVideoUrl={this.onClickMoreVideoUrl}/>
-				<ImageCarousel />
 			</div>
 		)
 	}

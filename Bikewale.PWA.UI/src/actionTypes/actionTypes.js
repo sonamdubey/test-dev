@@ -68,6 +68,15 @@ const videosDetailAction = {
 	FETCH_RELATEDINFO_RESET : 'FETCH_RELATEDINFO_RESET'
 }
 
+const imageCarouselAction = {
+    FETCH_BIKELIST_WITH_INITIAL_DATA: 'FETCH_BIKELIST_WITH_INITIAL_DATA',
+    FETCH_BIKELIST : 'FETCH_BIKELIST',
+    FETCH_BIKELIST_SUCCESS : 'FETCH_BIKELIST_SUCCESS',
+    FETCH_BIKELIST_FAILURE : 'FETCH_BIKELIST_ERROR',
+    BIKELIST_RESET : 'BIKELIST_RESET'
+
+}
+
 module.exports = {
 	newsListAction : newsListAction,
 	newsDetailAction : newsDetailAction,
@@ -75,7 +84,8 @@ module.exports = {
 	modelObjectAction : modelObjectAction,
 	videosLandingAction : videosLandingAction,
 	videosByCategoryAction : videosByCategoryAction,
-	videosDetailAction : videosDetailAction
+	videosDetailAction : videosDetailAction,
+	imageCarouselAction : imageCarouselAction
 
 
 }

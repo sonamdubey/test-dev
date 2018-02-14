@@ -501,6 +501,8 @@ namespace Bikewale.PWA.Utils
                     {
                         pwaModelImagesList.Add(new PwaModelImages() {
                             BikeName = modelImages.BikeName,
+                            ModelName = modelImages.ModelBase.ModelName,
+                            MakeName = modelImages.MakeBase.MakeName,
                             ModelId = modelImages.ModelId,
                             ModelImagePageUrl = string.Format("/m/{0}-bikes/{1}/images/", modelImages.MakeBase.MaskingName, modelImages.ModelBase.MaskingName),
                             ModelImages = PwaConvert(modelImages.ModelImage),
