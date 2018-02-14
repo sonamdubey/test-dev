@@ -190,7 +190,7 @@
             {
                 <section>
                     <div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
-                        <h2 class="upcoming-carousel__title page__heading-h2">Upcoming @Model.MakeName bikes</h2>
+                        <h2 class="upcoming-carousel__title page__heading-h2">Upcoming @Model.MakeName Bikes</h2>
 
                         @Html.Partial("~/Views/Upcoming/_UpcomingBikesWithNotify_Mobile.cshtml", Model.UpcomingBikes)
                     </div>
@@ -266,7 +266,7 @@
                         @if (Model.IsDealerAvailable)
                         {
                             <div class="carousel__title">
-                                <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName showrooms @string.Format("in {0}", Model.Dealers.CityName) </h2>
+                                <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Showrooms @string.Format("in {0}", Model.Dealers.CityName) </h2>
                                 <a href="/m/dealer-showrooms/@Model.MakeMaskingName/@Model.Dealers.CityMaskingName/" class="view-all-btn">
                                     View all
                                 </a>
@@ -284,7 +284,7 @@
                         else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
                         {
                             <div class="carousel__title">
-                                <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName showrooms</h2>
+                                <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Showrooms</h2>
                                 <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" class="view-all-btn">
                                     View all
                                 </a>
@@ -389,13 +389,10 @@
                     <div data-id="videos" class="bg-white section-bottom-margin video-section overall-tabs-data">
                         <div class="carousel__title">
                             <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Videos</h2>
-                            <a href="@string.Format("/m{0}", Model.Videos.MoreVideoUrl)" title="@Model.Videos.LinkTitle" class="view-all-btn">
-                                View all
-                            </a>
                         </div>
                         @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
                         <div class="video-list__more-btn-content">
-                            <a href="/m/@Model.MakeMaskingName-bikes/videos/" class="btn btn-inv-blue">View all</a>
+                            <a href="@string.Format("/m{0}", Model.Videos.MoreVideoUrl)" title="@Model.Videos.LinkTitle" class="btn btn-inv-blue">View all</a>
                         </div>
                     </div>
 
