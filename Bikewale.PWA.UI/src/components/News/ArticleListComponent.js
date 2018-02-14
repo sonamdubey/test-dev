@@ -10,7 +10,7 @@ import Footer from '../Shared/Footer'
 import AdUnit from '../AdUnit'
 import { NewsArticlesPerPage, Status, AD_PATH_NEWS_MOBILE_TOP_320_50, AD_DIV_REVIEWS_TOP_320_50, AD_DIV_REVIEWS_MIDDLE_300_250, AD_PATH_NEWS_MOBILE_MIDDLE_300_250, AD_PATH_NEWS_MOBILE_BOTTOM_320_50, AD_DIV_REVIEWS_BOTTOM_320_50, AD_DIMENSION_320_50, AD_DIMENSION_300_250} from '../../utils/constants'
 import { isServer, CMSUserReviewSlugPosition, CMSUserReviewSlugData } from '../../utils/commonUtils'
-
+import { getGlobalCity } from '../../utils/popUpUtils'
 
 import { scrollPosition , resetScrollPosition , isBrowserWithoutScrollSupport } from '../../utils/scrollUtils'
 import {addAdSlot , removeAdSlot} from '../../utils/googleAdUtils'
@@ -40,9 +40,10 @@ class ArticleListComponent extends React.Component{
             }
             
         }
-      
 
-        
+        var globalCity = getGlobalCity();
+        this.globalCityName = (globalCity && globalCity.name.length > 0) ? globalCity.name : '';
+
         this.updateArticleList = this.updateArticleList.bind(this);
         this.onArticleClickEvent = this.onArticleClickEvent.bind(this);
        
@@ -173,12 +174,16 @@ class ArticleListComponent extends React.Component{
                             </div>)
         
         if(!componentData || componentData.Status == Status.Reset || componentData.Status == Status.IsFetching || componentData.Status == Status.Error) {
-            return loadingState;
-           
+            return loadingState;				
         }
-        var adSlotTop = <AdUnit uniqueKey={componentData.PageNo} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
-        var adSlotMiddle = <AdUnit uniqueKey={componentData.PageNo} adSlot={AD_PATH_NEWS_MOBILE_MIDDLE_300_250} adDimension={AD_DIMENSION_300_250} adContainerId={AD_DIV_REVIEWS_MIDDLE_300_250} />; 
-        var adSlotBottom = <AdUnit uniqueKey={componentData.PageNo} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50} />;
+
+        let targetTags = {
+        	City: this.globalCityName
+        }
+				
+        var adSlotTop = <AdUnit uniqueKey={componentData.PageNo} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
+        var adSlotMiddle = <AdUnit uniqueKey={componentData.PageNo} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_MIDDLE_300_250} adDimension={AD_DIMENSION_300_250} adContainerId={AD_DIV_REVIEWS_MIDDLE_300_250} />; 
+        var adSlotBottom = <AdUnit uniqueKey={componentData.PageNo} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50} />;
         
         return (<div>
                     {adSlotTop}
