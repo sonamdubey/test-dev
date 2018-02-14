@@ -12,11 +12,9 @@ namespace BikewaleOpr.Cache.Campaigns
     /// </summary>
     public class Dealers
     {
-        public static bool ClearDealerBikes(int dealerId)
+        public static void ClearDealerBikes(int dealerId)
         {
-            bool isDealerCacheCleared = true;
             BwMemCache.ClearDealerBikes(Convert.ToUInt32(dealerId));
-            return isDealerCacheCleared;
         }
     }
 }
