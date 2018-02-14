@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux-immutable'
-import {BikeImagesCarousel} from './imageCarouselReducer'
+import {BikeImagesCarouselReducer} from './imageCarouselReducer'
 var Widgets = combineReducers({
-    BikeImagesCarousel : BikeImagesCarousel
+    BikeImagesCarouselReducer : BikeImagesCarouselReducer
 });
 module.exports = Widgets;

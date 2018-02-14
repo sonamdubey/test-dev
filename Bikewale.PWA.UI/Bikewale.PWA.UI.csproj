@@ -67,8 +67,8 @@
     <Content Include="src\components\GlobalSearchList.js" />
     <Content Include="src\components\GlobalSearchPopup.js" />
     <Content Include="src\components\Widgets\ImageCard.js" />
-    <Content Include="src\components\Widgets\ImageCarouselComponent.js" />
-    <Content Include="src\components\Widgets\ImageCarouselContainer.js" />
+    <Content Include="src\components\Widgets\BikeImageCarouselComponent.js" />
+    <Content Include="src\components\Widgets\PopularBikeImageCarouselContainer.js" />
     <Content Include="src\components\Widgets\WidgetsCommon.js" />
     <Content Include="src\components\NewBikes.js" />
     <Content Include="src\components\News\ArticleDetailComponent.js" />

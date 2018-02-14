@@ -1,7 +1,7 @@
 import React from 'react'
 import TopVideosContainer from './TopVideosContainer'
 import OtherVideosContainer from './OtherVideosContainer'
-import ImageCarouselContainer from '../Widgets/ImageCarouselContainer'
+import PopularBikeImageCarouselContainer from '../Widgets/PopularBikeImageCarouselContainer'
 import {startTimer , endTimer} from '../../utils/timing'
 
 import { scrollPosition , resetScrollPosition  } from '../../utils/scrollUtils'
@@ -47,7 +47,7 @@ class VideoLandingComponent extends React.Component {
 		return(
 			<div className="page-type--landing">
 				<TopVideosContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
-                <ImageCarouselContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
+                <PopularBikeImageCarouselContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
 				<OtherVideosContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
 			</div>
 		)

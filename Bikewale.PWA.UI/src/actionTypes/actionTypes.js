@@ -68,12 +68,11 @@ const videosDetailAction = {
 	FETCH_RELATEDINFO_RESET : 'FETCH_RELATEDINFO_RESET'
 }
 
-const imageCarouselAction = {
-    FETCH_BIKELIST_WITH_INITIAL_DATA: 'FETCH_BIKELIST_WITH_INITIAL_DATA',
-    FETCH_BIKELIST : 'FETCH_BIKELIST',
-    FETCH_BIKELIST_SUCCESS : 'FETCH_BIKELIST_SUCCESS',
-    FETCH_BIKELIST_FAILURE : 'FETCH_BIKELIST_ERROR',
-    BIKELIST_RESET : 'BIKELIST_RESET'
+const bikeImageCarouselAction = {
+    FETCH_POPULAR_BIKELIST: 'FETCH_POPULAR_BIKELIST',
+    FETCH_POPULAR_BIKELIST_SUCCESS: 'FETCH_POPULAR_BIKELIST_SUCCESS',
+    FETCH_POPULAR_BIKELIST_FAILURE: 'FETCH_POPULAR_BIKELIST_FAILURE',
+    POPULAR_BIKELIST_RESET: 'POPULAR_BIKELIST_RESET'
 
 }
 
@@ -85,7 +84,7 @@ module.exports = {
 	videosLandingAction : videosLandingAction,
 	videosByCategoryAction : videosByCategoryAction,
 	videosDetailAction : videosDetailAction,
-	imageCarouselAction : imageCarouselAction
+	bikeImageCarouselAction : bikeImageCarouselAction
 
 
 }

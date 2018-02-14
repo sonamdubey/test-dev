@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { createImageUrl } from './WidgetsCommon'
 import LazyLoad from 'react-lazy-load'
 
 class ImageCard extends React.Component {
@@ -20,7 +20,7 @@ class ImageCard extends React.Component {
                         return (
                             <li className="image-grid-list__item">
 						        <LazyLoad>
-							        <img className="swiper-lazy" src={bikeImage} alt={title} title={title} />
+							        <img className="swiper-lazy" src={createImageUrl(bikeImage.HostUrl, bikeImage.OriginalImgPath)} alt={title} title={title} />
 						        </LazyLoad>
 					        </li>);
                     })}
