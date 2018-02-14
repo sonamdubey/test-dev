@@ -20,7 +20,7 @@ class AdUnit extends React.Component {
 		}
 	}
     addAdSlot() {
-        addAdSlot(this.props.adSlot, this.props.adDimension, this.props.adContainerId, this.props.tags);
+        addAdSlot(this.props.adSlot, this.props.adDimension ? this.props.adDimension : [320, 50], this.props.adContainerId, this.props.tags);
 	}
 	refreshAd() {
 		if(!this.props)
