@@ -244,6 +244,7 @@ var notifyPopup = (function() {
 	function open() {
 		_resetForm();
 		container.addClass('notify-popup--active');
+		emailField.focus()
 		appendState('notifyPopup');
 		documentBody.lock();
 	}
