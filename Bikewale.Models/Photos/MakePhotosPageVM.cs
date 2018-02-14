@@ -13,6 +13,8 @@ namespace Bikewale.Models.Photos
     /// <summary>
     /// Created By  : Rajan Chauhan on 30 Jan 2018
     /// Description : View Model for make photos page
+    /// Modified by : Ashutosh Sharma on 6th Feb 2018
+    /// Description : Added 'Videos' for videos widget.
     /// </summary>
     public class MakePhotosPageVM : ModelBase
     {
@@ -21,5 +23,6 @@ namespace Bikewale.Models.Photos
         public IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> ModelBodyStyleArray { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public string ImagesSynopsis { get; set; }
+        public RecentVideosVM Videos { get; set; }
     }
 }

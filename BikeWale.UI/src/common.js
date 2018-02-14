@@ -853,6 +853,10 @@ docReady(function () {
 });
 
 docReady(function () {
+    $(".bw-anchor-link").click(function () {
+        window.location = $(this).data("href");
+    });
+
     trendingBikes = JSON.parse(localStorage.getItem("bwc_trendingbikes", trendingBikes) || null);
     if (!trendingBikes) {
         $.ajax({
