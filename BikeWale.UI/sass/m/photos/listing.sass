@@ -2,6 +2,74 @@
 @import ../../components/typography
 @import ../../base/variables
 @import ../../components/mixins
+@import ../../partials/rating
 
 @import ../../mixins/index
 @import ../../utils/index
+
+
+.model-info-section
+	@include flexbox
+	margin: 10px 10px 14px
+	padding: 10px 10px 20px
+	background: color('white')
+	position: relative
+
+	.rating-badge
+		position: absolute
+		top: 10px
+		left: 10px
+
+.model-info__image
+	height: 67px
+	width: 144px
+	max-width: 100%
+	display: inline-block
+	vertical-align: middle
+	margin-top: 20px
+
+	img
+		height: 67px
+		width: auto
+
+.model-info-description
+	display: inline-block
+	vertical-align: middle
+
+.model-info__title
+	@include text-truncate
+	font-size: 16px
+	font-weight: $font_semibold
+	line-height: 22px
+	margin-bottom: 12px
+
+.model-info__ex-showroom
+	@include text-truncate
+	margin-bottom: 12px
+	font-size: 12px
+	color: color('light-grey')
+	margin-bottom: 6px
+
+.card-exshowroom__value
+	font-size: 18px
+	color: color('default')
+
+.text--semibold
+	font-weight: $font_semibold
+
+@for $i from 1 through 5
+	@include rating-badge($i)
+
+.model-info__specs-container
+	padding: 14px 16px 17px
+	border-top: 1px solid color('light-grey')	
+
+.model-info__specs-item
+	padding-right: 40px
+
+	&:last-child
+		padding-right: 0;
+
+
+
+
