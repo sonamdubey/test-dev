@@ -92,13 +92,13 @@ namespace Bikewale.Models
                     if (string.IsNullOrEmpty(_makeMasking) && string.IsNullOrEmpty(_modelMasking))
                     {
                         recentVideos.MoreVideoUrl = string.Format("/bike-videos/");
-                        recentVideos.LinkTitle = "Bikes Videos";
+                        recentVideos.LinkTitle = "Bike Videos";
                     }
 
                     else if (!String.IsNullOrEmpty(_makeMasking) && String.IsNullOrEmpty(_modelMasking))
                     {
                         recentVideos.MoreVideoUrl = string.Format("/{0}-bikes/videos/", _makeMasking);
-                        recentVideos.LinkTitle = string.Format("{0} Videos", _makeName);
+                        recentVideos.LinkTitle = string.Format("{0} Bike Videos", _makeName);
                     }
                     else if (!String.IsNullOrEmpty(_makeMasking) && !String.IsNullOrEmpty(_modelMasking))
                     {

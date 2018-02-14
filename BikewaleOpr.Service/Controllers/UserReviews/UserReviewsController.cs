@@ -42,6 +42,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// Description: Added logic for refreshing cache key "BW_BikesByMileage";
         /// Modified :Snehal Dange on 21st Nov 2017
         /// Description: Added logic for refreshing cache key "BW_PopularBikesWithRecentAndHelpfulReviews_Make_";
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
         /// </summary>
         /// <param name="reviewId">User review id for which updation will happen</param>
         /// <param name="reviewStatus">Pass 2 for Approved or 3 for Discarded</param>
@@ -81,7 +83,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_V1_{0}_CAT_7_PN_1_PS_24", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_BikeReviewsInfo_MO_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_BikeRatingsReviewsInfo_MO_V1_{0}", inputs.ModelId));
-                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_", inputs.ModelId));
                         MemCachedUtil.Remove("BW_RecentReviews");
@@ -153,6 +155,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
         /// Modified by:Snehal Dange on 6th Nov 2017
         /// Description: Added logic for refreshing cache key "BW_BikesByMileage";
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
         /// </summary>
         /// <param name="reviewIds"></param>
         /// <returns></returns>
@@ -173,7 +177,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                     {                                                
                         MemCachedUtil.Remove(string.Format("BW_BikeReviewsInfo_MO_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_BikeRatingsReviewsInfo_MO_V1_{0}", obj.ModelId));
-                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", obj.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_{0}", obj.ModelId));
 
