@@ -567,7 +567,7 @@ namespace Bikewale.BAL.BikeData
                     var modelIdsArray = Array.ConvertAll(modelIds.Split(','), int.Parse);
 
                     var missingModelIds = modelIdsArray.Except(modelsImages.Select(m => m.ModelId));
-                    if (missingModelIds != null && missingModelIds.Count() > 0)
+                    if (missingModelIds != null && missingModelIds.Any())
                     {
                         colorImages = _modelCacheRepository.GetModelImages(modelIds);
                         var images = colorImages.GroupBy(m => m.Model.ModelId);
