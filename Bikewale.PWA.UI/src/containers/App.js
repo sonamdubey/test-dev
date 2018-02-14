@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import Navigation from '../components/Shared/Navigation'
 import NavigationDrawer from '../components/Shared/NavigationDrawer'
-import AdUnit320x50 from '../components/AdUnit320x50'
+import AdUnit from '../components/AdUnit'
 
 import {isServer} from '../utils/commonUtils'
 import {addAdSlot , removeAdSlot} from '../utils/googleAdUtils'
