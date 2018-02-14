@@ -8,6 +8,7 @@ using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
 using Bikewale.Models.Videos;
+using Bikewale.PWA.Entities.Images;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using log4net;
@@ -498,6 +499,12 @@ namespace Bikewale.Controllers.Desktop.Videos
         }
 
         #region Construct PWA Redux Store
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 14 Feb 2018
+        /// Description : Added code to bind popular bike models images to redux store.
+        /// </summary>
+        /// <param name="objVM"></param>
+        /// <returns></returns>
         private PwaReduxStore ConstructStoreForListPage(VideosLandingPageVM objVM)
         {
             //construct the store for PWA
@@ -506,6 +513,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             var allVideos = store.Videos.VideosLanding;
             var topVideos = new PwaVideosLandingPageTopVideos(); ;
             var otherVideos = new PwaVideosLandingPageOtherVideos();
+            var popularBikeImages = new PwaPopularBikeImagesListData();
 
             //set top Videos
             var pwaLandingVideos = new List<PwaBikeVideoEntity>();
@@ -547,8 +555,14 @@ namespace Bikewale.Controllers.Desktop.Videos
             pwaBrands.OtherBrands = ConverterUtility.PwaConvert(objVM.Brands.OtherBrands);
             otherVideos.Brands = pwaBrands;
 
+            if (objVM.PopularSportsBikesWidget != null)
+            {
+                popularBikeImages.BikeImagesList = ConverterUtility.PwaConvert(objVM.PopularSportsBikesWidget.ModelList);
+            }
+
             allVideos.TopVideos = topVideos;
             allVideos.OtherVideos = otherVideos;
+            store.Widgets.BikeImagesCorouselReducer.PopularBikeImagesListData = popularBikeImages;
 
             return store;
         }
