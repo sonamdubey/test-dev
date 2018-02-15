@@ -95,4 +95,15 @@ docReady(function () {
             console.warn(e.message);
         }
     }
+
+    $('.model-gallery img').on('click', function (e) {
+        e.stopPropagation();
+        $(this).closest('.model-gallery-section').addClass('model-gallery--fixed');
+        //$('.photos-grid-list> li:first-child').trigger('click');
+    });
+    $(document).on('click', '.model-gallery--fixed .swiper-slide', function (e) {
+        e.stopPropagation();
+        $(this).closest('.model-gallery-section').removeClass('model-gallery--fixed');
+    });
+
 });

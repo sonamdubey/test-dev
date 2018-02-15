@@ -20,14 +20,44 @@
 
     <section>
         <div class="container box-shadow section-bottom-margin padding-bottom2">
-            <h1 class="section-header bg-white">@Model.Page_H1</h1>
+            <h1 class="page-header">@Model.Page_H1</h1>
+
+            <div class="model-gallery-section">
+            <div id="main-photo-swiper" class="swiper-container gallery-swiper noSwiper model-gallery" data-bind="visible: photosTabActive() && photoSwiperActive()">
+                <div class="swiper-wrapper">
+                    @for (i = 0; i <= 5; i++)
+                    {
+                        <div class="swiper-slide">
+                            <img class="swiper-lazy gallery-swiper-image" src="https://imgd.aeplcdn.com//476x268//bw/models/ktm-rc-200.jpg?20171702125821" alt="" title="" border="0" />
+                        </div>
+                    }
+
+                </div>
+                <div class="bwmsprite swiper-button-next gallery-type-next"></div>
+                <div class="bwmsprite swiper-button-prev gallery-type-prev"></div>
+            </div> 
+                    <div class="gallery-image__footer">
+                        <span class="gallery-image__count">
+                            1/234
+                        </span>
+                        <div class="gallery-image__feature">
+                            <a href="" title="" class="gallery__download-icon"></a>
+                            <a href="" title="" class="share-icon"></a>
+                            <a href="" title="" class="zoom-icon"></a>
+                        </div>
+
+                    </div>
+
+                
+            </div>
+
             @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
             {
-                <ul id="grid-images-noremainder" class="photos-grid-list" data-modelid="@(Model.objModel!=null ? Model.objModel.ModelId : 0)">
+                <ul id="grid-images-noremainder" class="photos-grid-list" data-modelid="@(Model.objModel != null ? Model.objModel.ModelId : 0)">
                     @for (; i < Model.GridPhotoCount && i < 6; i++)
                     {
                         <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" /> 
                         </li>
                     }
                     @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
@@ -64,44 +94,87 @@
     </section>
     <section>
         <div class="model-info-section">
-            <a href="" title="block">
-                <span class="rating-badge" data-rate-bg="4">
-                    <span class="rating-badge__star"></span>
-                    <span>3.5</span>
-                </span>
-                <div class="model-info__image">
-                    <img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70 " src="" alt="KTM1 RC200 ">
-                </div>
-                <div class="model-info-description">
-                    <h3 class="model-info__title">
-                        Bajaj Dominar 400
-                    </h3>
-                    <p class="model-info__ex-showroom">
-                        Ex-showroom, Mumbai
-                    </p>
-                    <p class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
+            <a href="" title="model-info__target-link">
+                <div class="model-info__container">
+                    <span class="rating-badge" data-rate-bg="4">
+                        <span class="rating-badge__star"></span>
+                        <span>3.5</span>
+                    </span>
+                    <div class="model-info__image">
+                        <img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70 " src="" alt="KTM1 RC200 ">
+                    </div>
+                    <div class="model-info-description">
+                        <h3 class="model-info__title">
+                            Bajaj Dominar 400
+                        </h3>
+                        <p class="model-info__ex-showroom">
+                            Ex-showroom, Mumbai
+                        </p>
+                        <p class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
+                    </div>
                 </div>
             </a>
-            <ul class="model-info__specs-container">
-                <li class="model-info__specs-item">
-                    <a href="" class="specs-icon">Specs</a>
-                </li>
-                <li class="model-info__specs-item">
-                    <a href="" class="specs-icon">Specs</a>
-                </li>
-                <li class="model-info__specs-item">
-                    <a href="" class="specs-icon">Specs</a>
-                </li>
-            </ul>
+            <div class="model-info__specs-container">
+                <a href="" class="model-info__specs-item specs-icon">
+                    Specs
+                </a>
+                <a href="" class="model-info__specs-item specs-icon">
+                    Expert Reviews
+                </a>
+                <a href="" class="model-info__specs-item specs-icon">
+                    News
+                </a>
+            </div>
 
         </div>
     </section>
-    if (Model.AdTags.Ad_300x250BTF)
-    {
+    
+        <section>
+            <div class="similar-model">
+                <h2 class="page__heading-h2">
+                    Bikes similar to Bajaj Dominar 400
+                </h2>
+                <div class="swiper-container card-container similar-model-carousel" data-spacebetween="0">
+                    <ul class="swiper-wrapper">
+                        @for (i = 0; i <= 5; i++)
+                        {
+                           <li class="swiper-slide carousel-slide">
+                            <div class="similar-model__card">
+                                <a href="" title="" class="similar-model__target">
+                                    <div class="similar-model__image">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//160x89//bw/models/bajaj-pulsar-rs200.jpg?20150710124439&q=70" alt="" src="" title="">
+                                    </div>
+                                    <div class="similar-model__detail">
+                                        <h3 class="similar-model__title">
+                                            Royal Enfield Himalaya
+                                        </h3>
+                                        <p class="similar-model__ex-showroom">
+                                            Ex-showroom, Mumbai
+                                        </p>
+                                        <p class="similar-model__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
+                                    </div>
+                                </a>
+                                <a href="" title="" class="similar-model__footer">
+                                    <div class="similar-model__image-count">
+                                        View all 64 Images
+                                    </div>
+                                </a>
+                            </div>
+                        </li>                         
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+
+    </section>
+                            if (Model.AdTags.Ad_300x250BTF)
+                            {
         <div class="margin-bottom20 text-center">
             @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
         </div>
-    }
+                            }
     <div id="photoTemplateWrapper" class="hide">
         <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
         <ul data-bind="foreach : Loadedphotos">
@@ -135,6 +208,7 @@
 
     }
 
+///////////////////////////////////
     if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
     {
         @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_Mobile.cshtml", Model.SimilarBikes)
