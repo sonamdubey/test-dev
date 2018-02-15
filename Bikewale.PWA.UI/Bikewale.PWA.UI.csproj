@@ -140,7 +140,14 @@
     <Content Include="src\utils\popUpUtils.js" />
     <Content Include="src\utils\scrollUtils.js" />
     <Content Include="src\utils\timing.js" />
+    <Content Include="webpack\common.client.config.js" />
     <Content Include="webpack\common.config.js" />
+    <Content Include="webpack\common.server.config.js" />
+    <Content Include="webpack\debug.client.config.js" />
+    <Content Include="webpack\debug.server.config.js" />
+    <Content Include="webpack\release.client.config.js" />
+    <Content Include="webpack\release.server.config.js" />
+    <Content Include="webpack\staging.client.config.js" />
     <Content Include="webpack\webpack.dev.config.js" />
     <Content Include="webpack\webpack.prod.config.js" />
     <Content Include="webpack\webpack.server.config.js" />
