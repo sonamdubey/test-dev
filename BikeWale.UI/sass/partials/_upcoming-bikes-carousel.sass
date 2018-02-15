@@ -1,0 +1,93 @@
+.upcoming-carousel__title
+	padding: 25px 16px 10px
+
+.carousel__upcoming-bikes
+	padding: 5px 16px 20px 0
+
+	.carousel-slide
+		width: 320px
+		min-height: 174px
+		padding-left: 10px
+
+		&:first-child
+			margin-left: 6px
+
+.model-upcoming__card
+	@include card
+	overflow: hidden
+
+.upcoming-card__target
+	@include flexbox
+	@include flex-wrap
+	@include align-items(center)
+	padding: 20px 10px 18px 7px
+
+	&:hover
+		text-decoration: none
+
+.upcoming-card__image
+	width: 122px
+	height: 69px
+	background: color('white-smoke')
+
+	img
+		height: 69px
+
+.upcoming-card__date
+	padding: 4px 8px 5px
+	display: inline-block
+	color: color('nero')
+	font-size: 8px
+	font-weight: $font-semibold
+	letter-spacing: .7px
+	text-transform: uppercase
+	margin-bottom: 4px
+	background: color('dandelion')
+	border-radius: 2px
+
+.upcoming-card__detail
+	@include flex-grow
+	width: 58% // add width because of model name truncation
+	padding-left: 5px
+
+.upcoming-card__name
+	@include text-truncate
+	font-size: 16px
+	font-weight: $font-semibold
+	margin-bottom: 10px
+
+.upcoming-card__price-label
+	font-size: 12px
+	color: color('aluminium')
+	margin-bottom: 4px
+
+.upcoming-card__price
+	@include text-truncate
+	font-size: 14px
+	color: color('default')
+
+.text--semibold
+	font-weight: $font-semibold
+
+// upcoming card footer
+.upcoming-card__footer
+	@include flexbox
+	@include flex-wrap
+	@include align-items(center)
+	font-size: 11px
+	border-top: 1px solid rgba(195, 198, 199, .4)
+	background: color('floral-white')
+
+.upcoming-card__notify-label
+	@include flex-grow
+	color: color('aluminium')
+	padding: 9px 5px 12px 16px
+
+.upcoming-card__notify-btn
+	@include bell-0288d1-icon
+	background-size: 14px
+	background-position: 5px 45%
+	padding: 9px 15px 12px 25px
+	font-weight: $font-semibold
+	color: color('pacific-blue')
+	cursor: pointer

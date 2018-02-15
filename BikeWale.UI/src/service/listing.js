@@ -254,3 +254,11 @@ docReady(function () {
         attemptCount++;
     });
 });
+
+
+function getLocationUrl(lat, long) {
+
+    var url = "https://maps.google.com/?saddr=&daddr=" + lat + "," + long;
+
+    window.open(url);
+};

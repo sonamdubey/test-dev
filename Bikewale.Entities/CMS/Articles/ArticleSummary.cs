@@ -44,5 +44,13 @@ namespace Bikewale.Entities.CMS.Articles
         public string FormattedDisplayDate { get; set; }
         [DataMember]
         public string ShareUrl { get; set; }
+        [DataMember]
+        public UInt32 ArticleWordCount { get; set; }
+        [DataMember]
+        public UInt32 EstimatedReadingTime { get; set; }
+        [DataMember]
+        public string MakeName { get; set; }
+        [DataMember]
+        public string ModelName { get; set; }
     }
 }

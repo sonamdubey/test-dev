@@ -1,4 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Location;
 using Bikewale.Models.Make;
 using Bikewale.Models.PopUp;
@@ -32,10 +34,19 @@ namespace Bikewale.Models
 
     /// Modified by : Snehal Dange on 16th Jan 2018
     /// Description: Added ResearchMoreMakeWidget
+    /// 
+
+    /// Modified by: Deepak Israni on 30th Jan 2018
+    /// Description: Removed ShowCheckOnRoadpriceBtn property
 
     /// Modified by  : Rajan Chauhan on 3 Jan 2017
     /// Description  : Added MakeId Field
 
+    /// Modified by : Sanskar Gupta on 12 Feb 2018
+    /// Description : Added NewLaunchedWidget
+    /// 
+    /// Modified By : Deepak Israni on 9 Feb 2018
+    /// Description : Added ModelCount and ExpertReviewCount
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -45,6 +56,7 @@ namespace Bikewale.Models
         public string LocationMasking { get; set; }
         public string Location { get; set; }
         public IEnumerable<MostPopularBikesBase> Bikes { get; set; }
+        public IEnumerable<MostPopularBikesBase> TopPopularBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public PopularComparisonsVM CompareSimilarBikes { get; set; }
         public BikeDescriptionEntity BikeDescription { get; set; }
@@ -54,7 +66,7 @@ namespace Bikewale.Models
         public RecentExpertReviewsVM ExpertReviews { get; set; }
         public RecentVideosVM Videos { get; set; }
         public IEnumerable<BikeVersionEntity> DiscontinuedBikes { get; set; }
-
+        public IEnumerable<ModelImages> BikeModelsPhotos { get; set; }
         public bool IsUpComingBikesAvailable { get; set; }
         public bool IsCompareBikesAvailable { get; set; }
         public bool IsNewsAvailable { get; set; }
@@ -69,8 +81,6 @@ namespace Bikewale.Models
         public bool IsMakeTabsDataAvailable { get; set; }
         public bool IsFooterDescriptionAvailable { get; set; }
         public bool IsPriceListingAvailable { get; set; }
-
-        public bool ShowCheckOnRoadpriceBtn { get; set; }
 
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public DealerCardVM Dealers { get; set; }
@@ -92,5 +102,6 @@ namespace Bikewale.Models
         public ResearchMoreAboutMakeVM ResearchMoreMakeWidget { get; set; }
 
 
+        public NewLaunchedWidgetVM NewLaunchedWidget { get; set; }
     }
 }

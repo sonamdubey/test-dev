@@ -1,0 +1,34 @@
+.related-make-card
+	width: 100%
+	display: block
+	text-decoration: none
+
+	&:hover
+		text-decoration: none
+
+.make-icon__content
+	@include flexbox
+	@include align-items(center)
+	@include justify-content(center)
+	height: 85px	
+	border-radius: 2px
+	border: 1px solid #e6e6e6
+	box-shadow: 0 2px 4px 0 rgba(215, 215, 215, .5)
+
+.make-details__content
+	padding-top: 8px
+	padding-bottom: 8px
+
+.make-details__title
+	@include text-truncate
+	color: color('black')
+	font-size: 12px
+	font-weight: $font-semibold
+	margin-bottom: 2px
+
+.make-details__subtitle
+	@include text-truncate
+	font-size: 10px
+	color: color('aluminium')
+
+@import ../modules/brand-logo

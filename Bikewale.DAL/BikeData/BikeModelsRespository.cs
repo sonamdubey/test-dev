@@ -914,6 +914,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : DAL method to get most popular bikes by make with city price when city is selected.
+        /// Modified by : Snehal Dange on 6th Feb 2018 
+        /// Description : Added parameter for on-road price and modified sp from 'getmostpopularbikesbymakewithcityprice' to 'getmostpopularbikesbymakewithcityprice_06022018'
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="cityId"></param>
@@ -924,7 +926,7 @@ namespace Bikewale.DAL.BikeData
             MostPopularBikesBase objData = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakewithcityprice"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakewithcityprice_06022018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
@@ -964,6 +966,8 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
                                 objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+                                objData.OnRoadPrice = SqlReaderConvertor.ToInt64(dr["OnRoad"]);
+                                objData.OnRoadPriceMumbai = SqlReaderConvertor.ToInt64(dr["OnRoadMumbai"]);
                                 objList.Add(objData);
                             }
                             dr.Close();
@@ -2672,6 +2676,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   Returns New Bikes launched with Exshowroom of given city
         /// Modified by:- Subodh jain 09 march 2017
         ///summary :-  Added body type filter
+        /// Modified by : Sanskar Gupta on 12 Feb 2018
+        /// Description : Changed SP to `getnewlaunchedbikesbycity_12022018`
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
@@ -2683,7 +2689,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikesbycity_09032017";
+                    cmd.CommandText = "getnewlaunchedbikesbycity_12022018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -2733,6 +2739,9 @@ namespace Bikewale.DAL.BikeData
                                             CityMaskingName = Convert.ToString(dr["citymaskingname"])
                                         } : null),
                                         Price = SqlReaderConvertor.ToUInt32(dr["price"]),
+                                        AvgPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]),
+                                        ExshowroomPrice = SqlReaderConvertor.ToUInt32(dr["ExshowroomPrice"]),
+                                        VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
                                         BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
                                     }
                                 );
@@ -3383,7 +3392,7 @@ namespace Bikewale.DAL.BikeData
             }
             return objList;
         }
-        
+
         /// <summary>
         /// Created by  : Vivek Singh Tomar on 11th Jan 2018
         /// Description : Get Model Ids with body style

@@ -5,7 +5,7 @@ import VideoModelSlug from './VideoModelSlug'
 import { isServer } from '../../utils/commonUtils'
 import { scrollPosition , resetScrollPosition , isBrowserWithoutScrollSupport } from '../../utils/scrollUtils'
 import {endTimer} from '../../utils/timing'
-import {Status} from '../../utils/constants'
+import {Status,GA_PAGE_MAPPING} from '../../utils/constants'
 import Spinner from '../Shared/Spinner'
 import Breadcrumb from '../Shared/Breadcrumb'
 import Footer from '../Shared/Footer'
@@ -25,6 +25,11 @@ class VideoDetailComponent extends React.Component {
 		this.logger = this.logger.bind(this);
 		this.scrollToPosition = this.scrollToPosition.bind(this);
 		this.renderCarousel = this.renderCarousel.bind(this);
+
+		if(typeof(gaObj)!="undefined")
+		{
+		    gaObj = GA_PAGE_MAPPING["VideoDetailsPage"];
+		}
 	}
 	fetchVideoDetailApi() {
 		if(this.props.VideoInfoStatus !== Status.Fetched && this.props.VideoInfoStatus !== Status.IsFetching) {

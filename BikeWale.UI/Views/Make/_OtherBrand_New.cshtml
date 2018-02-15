@@ -1,0 +1,20 @@
+﻿@model Bikewale.Models.OtherMakesVM
+@if (Model != null && Model.Makes != null && Model.Makes.Any())
+{
+<ul class="swiper-wrapper image-card--list">
+@foreach (var BrandCount in Model.Makes)
+{
+    <li class="swiper-slide carousel-slide">
+        <a href="/m@(!string.IsNullOrEmpty(Model.PageLinkFormat) ? string.Format(Model.PageLinkFormat, BrandCount.MaskingName) : Bikewale.Utility.UrlFormatter.BikeMakeUrl(BrandCount.MaskingName))" title="@(!string.IsNullOrEmpty(Model.PageTitleFormat) ? string.Format(Model.PageTitleFormat, BrandCount.MakeName) : string.Format("{0} {1}", BrandCount.MakeName, Model.CardText))" class="related-make-card">
+            <div class="make-icon__content">
+                <span class="brandlogosprite @string.Format("brand-{0}", BrandCount.MakeId)"></span>
+            </div>
+            <div class="make-details__content">
+                <h3 class="make-details__title">@BrandCount.MakeName Bikes</h3>
+                <p class="make-details__subtitle">@string.Format("{0} {1}{2}", BrandCount.TotalCount, Model.CardText, (BrandCount.TotalCount == 1 ? "" : "s"))</p>
+            </div>
+        </a>
+    </li>
+}
+</ul>
+}

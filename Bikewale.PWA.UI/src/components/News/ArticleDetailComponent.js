@@ -18,7 +18,7 @@ import { getGlobalCity } from '../../utils/popUpUtils'
 
 import {endTimer} from '../../utils/timing'
 import AdUnit from '../AdUnit'
-import { Status, AD_PATH_NEWS_MOBILE_BOTTOM_320_50, AD_DIV_REVIEWS_BOTTOM_320_50, AD_PATH_NEWS_MOBILE_TOP_320_50, AD_DIV_REVIEWS_TOP_320_50, AD_DIMENSION_320_50} from '../../utils/constants'
+import { Status, GA_PAGE_MAPPING,AD_PATH_NEWS_MOBILE_BOTTOM_320_50, AD_DIV_REVIEWS_BOTTOM_320_50, AD_PATH_NEWS_MOBILE_TOP_320_50, AD_DIV_REVIEWS_TOP_320_50, AD_DIMENSION_320_50} from '../../utils/constants'
 
 
 class ArticleDetail extends React.Component {
@@ -47,9 +47,10 @@ class ArticleDetail extends React.Component {
         this.globalCityName = (globalCity && globalCity.name.length > 0) ? globalCity.name : '';
 
         this.extractBasicIdFromArticleUrl = this.extractBasicIdFromArticleUrl.bind(this);
-       
-       
-
+        if(typeof(gaObj)!="undefined")
+        {
+            gaObj = GA_PAGE_MAPPING["DetailsPage"];
+        }  
     }
     componentDidUpdate() {
         var basicIdFromData = this.props.ArticleDetailData && this.props.ArticleDetailData.ArticleDetail ? this.props.ArticleDetailData.ArticleDetail.BasicId : null;
@@ -181,8 +182,7 @@ class ArticleDetail extends React.Component {
     renderImage(title,src) {
         return (<img alt={title} title={title} src={src}/>)
     }
-    renderArticleContent(articleDetail,initialData) {
-      
+    renderArticleContent(articleDetail,initialData) { 
         if(articleDetail) 
         {   
             var imageUrl = (!articleDetail.HostUrl || !articleDetail.LargePicUrl) ? 'https://imgd.aeplcdn.com/640x348/bikewaleimg/images/noimage.png?q=70' : articleDetail.HostUrl + articleDetail.LargePicUrl;

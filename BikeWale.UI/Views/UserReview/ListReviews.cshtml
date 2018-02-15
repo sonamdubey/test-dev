@@ -36,7 +36,7 @@
                             <p class="font12 margin-bottom10">Overall rating:</p>
                             <div class="margin-bottom10 rate-count-@Math.Round(Model.RatingsInfo.OverallRating)">
                                 <span class="bwsprite star-icon"></span>
-                                <span class="font26 text-bold inline-block">@Model.RatingsInfo.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
+                                <span class="font26 text-bold inline-block">@Model.RatingsInfo.OverallRating.ToString("0.0")</span>
                             </div>
                             <div class="font12 text-slate-grey border-grey-top padding-top10">
                                 @if (Model.IsRatingsAvailable)

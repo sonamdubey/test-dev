@@ -169,6 +169,7 @@
     <Compile Include="NewBikeSearch\ProcessFilter.cs" />
     <Compile Include="NewBikeSearch\SearchQuery.cs" />
     <Compile Include="NewBikeSearch\SearchResult.cs" />
+    <Compile Include="Notifications\NotificationsRepository.cs" />
     <Compile Include="PriceQuote\PriceQuoteRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Survey\Surveys.cs" />

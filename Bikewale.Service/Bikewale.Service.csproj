@@ -271,6 +271,7 @@
     <Compile Include="AutoMappers\PriceQuote\PriceQuoteMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Version\PQVersionListMapper.cs" />
     <Compile Include="AutoMappers\ServiceCenter\ServiceCenterMapper.cs" />
+    <Compile Include="AutoMappers\UpcomingNotification\NotificationMapper.cs" />
     <Compile Include="AutoMappers\UsedBikes\PopularUsedBikesMapper.cs" />
     <Compile Include="AutoMappers\Used\UsedBikeSearchResult.cs" />
     <Compile Include="AutoMappers\UsedBikes\UsedBikeBuyerMapper.cs" />
@@ -325,6 +326,7 @@
     <Compile Include="Controllers\NewBikeSearch\NewBikeSearchController.cs" />
     <Compile Include="Controllers\Customer\AuthenticateController.cs" />
     <Compile Include="Controllers\Photos\PwaPhotosController.cs" />
+    <Compile Include="Controllers\Notifications\UpcomingController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />
     <Compile Include="Controllers\PriceQuote\BikePQController.cs" />
     <Compile Include="Controllers\PriceQuote\City\PQCityListController.cs" />
