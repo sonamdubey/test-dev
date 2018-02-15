@@ -221,7 +221,7 @@
                 <div id="notifyWhiteoutWindow"></div>
             </div>
 
-            @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription != null)
+            @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription != null && Model.BikeDescription.FullDescription.Length > 0)
             {
                 <div id="interestingFact">
                     <div class="interesting-fact-popup interesting-fact-section">
