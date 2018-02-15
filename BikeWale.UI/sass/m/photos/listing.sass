@@ -13,6 +13,8 @@
 .model-gallery-section
 	position: relative
 	padding-bottom: 24px
+	-webkit-transition: all 10s
+    transition: all 10s
 
 .gallery-image__footer
 	@include flexbox
@@ -44,6 +46,8 @@
 			top: 43%
 			line-height: 0
 			text-indent: 999999px
+			-webkit-transition: all 2s
+			transition: all 2s
 
 .gallery-image__count
 	display: inline-block
@@ -180,6 +184,9 @@
 
 	&:last-child
 		margin-right: 0
+
+	&:hover
+		text-decoration: none
 
 .page__heading-h2
 	@include heading-h2
