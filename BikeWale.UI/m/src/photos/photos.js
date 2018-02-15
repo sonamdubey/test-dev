@@ -1,4 +1,98 @@
-﻿function morePhotosOverlay(limitCount) {
+﻿docReady(function() {
+	imageGrid.alignRemainderImage();
+});
+
+var imageGrid = (function() {
+	function alignRemainderImage() {
+		var imageList = $('.image-grid__list');
+
+		imageList.each(function() {
+			var gridSize = Number($(this).attr('data-grid'));
+			var imageListItem = $(this).find('.image-grid-list__item');
+			var imageListItemCount = imageListItem.length;
+
+			var remainder = imageListItemCount % gridSize;
+
+			switch(remainder) {
+				case 1:
+					if (gridSize === 7) {
+						var remainderImage = imageListItem.slice(imageListItemCount - 1);
+
+						_gridOne(remainderImage);
+					}
+					break;
+
+				case 2:
+					var remainderImage = imageListItem.slice(imageListItemCount - 2);
+
+					_gridTwo(remainderImage);
+					break;
+
+				case 3:
+					if (gridSize === 6) {
+						var remainderImage = imageListItem.slice(imageListItemCount - 3);
+
+						_gridThree(remainderImage);
+						remainderImage.first().css({
+							'float': 'right'
+						})
+					}
+					break;
+
+				case 5:
+					if (gridSize === 6) {
+						var remainderImage = imageListItem.slice(imageListItemCount - 1);
+
+						_gridOne(remainderImage);
+					}
+					else if (gridSize === 7) {
+						var remainderImage = imageListItem.slice(imageListItemCount - 2);
+
+						_gridTwo(remainderImage);						
+					}
+					break;
+
+				default:
+					break;
+			}
+
+		});
+	}
+
+	function _gridOne(image) {
+		image.css({
+			'width': '100%'
+		});
+	}
+
+	function _gridTwo(images) {
+		images.css({
+			'width': '50%'
+		});
+	}
+
+	function _gridThree(images) {
+		images.each(function(index) {
+			if (!index) {
+				$(this).css({
+					'width': '66.67%'
+				})
+			}
+			else {
+				$(this).css({
+					'width': '33.33%'
+				})
+			}
+		});
+	}
+
+	return {
+		alignRemainderImage: alignRemainderImage
+	}
+
+})();
+
+function morePhotosOverlay(limitCount) {
     var photosCnt = (photoCount - limitCount - 1);
     if (photosCnt && photosCnt > 0) {
         var lastPhoto = $('.photos-grid-list li').last(),

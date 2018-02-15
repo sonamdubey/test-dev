@@ -17,6 +17,46 @@
     {
         objImages = Model.ModelImages.ToList();
     }
+	
+	<section>
+		<ul class="image-grid__list" data-grid="7">
+			@for (; i < 7; i++)
+			{
+				<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+					<img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" class="" />
+				</li>
+			}
+		</ul>
+		<ul class="image-grid__list" data-grid="6">
+			@for (; i < Model.GridPhotoCount && i < 13; i++)
+				{
+					<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+						<img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+						@if (i == 8)
+						{
+							<div class="list-item__video-slug">
+								<p class="video-slug__title">Videos</p>
+								<ul class="video-slug__list">
+									<li>First Drive</li>
+									<li>Comparison test</li>
+								</ul>
+							</div>
+						}
+					</li>
+				}
+		</ul>
+		@*<ul class="image-grid__list" data-grid="5">
+			@for (; i < Model.GridPhotoCount && i < 18; i++)
+				{
+					<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+						<img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+					</li>
+				}
+		</ul>*@
+		<div class="image-grid__list-more">
+			<button type="button" class="btn btn-white">View More (153)</button>
+		</div>
+	</section>
 
     <section>
         <div class="container box-shadow section-bottom-margin padding-bottom2">
@@ -62,11 +102,7 @@
             <div class="clear"></div>
         </div>
     </section>
-    <section>
-        <div class="abc">
-
-        </div>
-    </section>
+    
     if (Model.AdTags.Ad_300x250BTF)
     {
         <div class="margin-bottom20 text-center">
