@@ -60,7 +60,8 @@
     <Content Include="src\actionTypes\actionTypes.js" />
     <Content Include="src\client.js" />
     <Content Include="src\commonFunc.js" />
-    <Content Include="src\components\AdUnit320x50.js" />
+    <Content Include="src\components\AdUnit.js" />
+    <Content Include="src\components\AdUnitMid320x50.js" />
     <Content Include="src\components\Autocomplete.js" />
     <Content Include="src\components\CityAreaAutocomplete.js" />
     <Content Include="src\components\GlobalCityPopup.js" />
