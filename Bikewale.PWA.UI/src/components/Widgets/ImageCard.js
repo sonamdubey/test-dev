@@ -13,6 +13,7 @@ class ImageCard extends React.Component {
 	    var imagesCount = this.props.bike.ModelImages.length;
 	    var gridSize = imagesCount>=7? 7 : imagesCount>=3? 3 : 1;
 	    var imagesList = this.props.bike.ModelImages.slice(0, gridSize);
+	    this.imageResolution = this.props.imageResolution?this.props.imageResolution:'174x98';
 	    return (
 			<div className="model-image__card">
 				<ul className="image-grid__list" data-grid={gridSize.toString()}>
@@ -20,7 +21,7 @@ class ImageCard extends React.Component {
                         return (
                             <li className="image-grid-list__item">
 						        <LazyLoad>
-							        <img className="swiper-lazy" src={createImageUrl(bikeImage.HostUrl, bikeImage.OriginalImgPath)} alt={title} title={title} />
+							        <img className="swiper-lazy" src={createImageUrl(bikeImage.HostUrl, bikeImage.OriginalImgPath, this.imageResolution)} alt={title} title={title} />
 						        </LazyLoad>
 					        </li>);
                     })}
