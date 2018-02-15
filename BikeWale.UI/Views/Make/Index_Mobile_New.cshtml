@@ -166,7 +166,7 @@
                                                         }
 
                                                     </div>
-                                                    @if (bike.EMIDetails != null)
+                                                    @if (bike.EMIDetails != null && bike.EMIDetails.EMIAmount > 0)
                                                     {
                                                         <div class="card-emi__col">
                                                             <p class="card-emi__label">EMI starting at</p>
