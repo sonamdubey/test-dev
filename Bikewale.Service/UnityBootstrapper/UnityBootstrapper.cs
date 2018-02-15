@@ -11,6 +11,7 @@ using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Images;
+using Bikewale.BAL.Notifications;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.BAL.Security;
@@ -42,6 +43,7 @@ using Bikewale.DAL.Feedback;
 using Bikewale.DAL.Images;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.NewBikeSearch;
+using Bikewale.DAL.Notifications;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.DAL.Used;
 using Bikewale.DAL.UsedBikes;
@@ -70,6 +72,7 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileAppAlert;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.NewBikeSearch;
+using Bikewale.Interfaces.Notifications;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.Security;
@@ -116,6 +119,9 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register INewBikeLaunchesBL interface
         /// Modified by :   Sumit Kate on 05 Jan 2018
         /// Description :   Register IBikeSearchCacheRepository
+        /// Modified by: Dhruv Joshi
+        /// Dated: 8th Feb 2018
+        /// Description: Register INotification and INotificationRepository
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -217,6 +223,10 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
             container.RegisterType<IVideoRepository, ModelVideoRepository>();
             container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
+            container.RegisterType<INotifications, NotificationsBL>();
+            container.RegisterType<INotificationsRepository, NotificationsRepository>();
+
+
             return container;
 
         }

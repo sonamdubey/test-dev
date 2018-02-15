@@ -95,6 +95,13 @@
 		.rating-badge[data-rate-bg="#{$count}"]
 			background-color: map-get($rating-colors, $count)
 
+		.rating-badge__star
+			@include star-white
+			background-size: contain
+			width: 10px
+			height: 10px
+			display: inline-block
+
 	@else
 		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
 

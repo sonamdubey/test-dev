@@ -49,7 +49,7 @@
 									{
 										<span class="rating-badge" data-rate-bg="@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)">
 											<span class="bwsprite star-white"></span>
-											<span>@firstModel.Rating.ToString("0.0").TrimEnd('0', '.')</span>
+											<span>@firstModel.Rating.ToString("0.0")</span>
 										</span>
 									}
 									
@@ -96,7 +96,7 @@
 										{
 											<span class="rating-badge" data-rate-bg="@Math.Round(bike.Rating, MidpointRounding.AwayFromZero)">
 												<span class="bwsprite star-white"></span>
-												<span>@bike.Rating.ToString("0.0").TrimEnd('0', '.')</span>
+												<span>@bike.Rating.ToString("0.0")</span>
 											</span>
 										}
 										<div class="model-card__list">

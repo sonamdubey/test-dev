@@ -354,5 +354,30 @@ namespace Bikewale.Cache.BikeData
         }
 
 
+        /// <summary>
+        /// Created By : Deepak Israni
+        /// Description : Cache method to Get Expert Review count by Make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ExpertReviewCountEntity GetExpertReviewCountByMake(uint makeId)
+        {
+            ExpertReviewCountEntity obj = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    string key = string.Format("BW_ExpertReviewCountByMake_MK_{0}", makeId);
+                    obj = _cache.GetFromCache<ExpertReviewCountEntity>(key, new TimeSpan(24, 0, 0), () => _objMakes.GetExpertReviewCountByMake(makeId));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetExpertReviewCountByMake :Make_{0}", makeId));
+            }
+            return obj;
+        }
+
     }
 }

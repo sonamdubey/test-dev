@@ -595,6 +595,29 @@
 }
 
 
+/* sidebar popular bikes list */
+.sidebar-list--overflow .sidebar-bike-list.sidebar-list__popuplar-bikes {
+	height: 400px;
+}
+
+.bike-target__price-link {
+	display: inline-block;
+	margin-left: 93px;
+	margin-bottom: 8px;
+}
+
+.bike-target__price-link.text-truncate {
+	width: 65%;
+}
+
+.sidebar-list__popuplar-bikes .bike-target-link {
+	padding-bottom: 0;
+}
+
+.sidebar-list__popuplar-bikes .bike-target-link:only-child {
+	padding-bottom: 10px;
+}
+
 /* city */
 .bwm-city-sprite {
     background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;

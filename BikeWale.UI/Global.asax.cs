@@ -21,9 +21,9 @@ namespace Bikewale
             log4net.Config.XmlConfigurator.Configure();
             UnityConfig.RegisterComponents();
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);            
-            GlobalConfiguration.Configuration.EnsureInitialized();   
-                        
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            GlobalConfiguration.Configuration.EnsureInitialized();
+
             ConfigureWurfl();
 
             if (BWConfiguration.Instance.EnablePWA)
@@ -33,6 +33,10 @@ namespace Bikewale
         protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
         {
             CurrentUser.GenerateUniqueCookie();
+            if (HttpContext.Current.Request.Cookies.Get("_bwtest") == null)
+            {
+                CurrentUser.SetBikewaleABTestingUser();
+            }
         }
 
         /// <summary>

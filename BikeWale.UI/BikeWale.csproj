@@ -2839,6 +2839,7 @@
     <Content Include="m\news\sw_installer.html" />
     <Content Include="m\news\sw.js" />
     <Content Include="m\new\photos\Default.aspx" />
+    <Content Include="m\sass\generic\listing.css" />
     <Content Include="m\sass\scooters\listing.css" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
@@ -2910,6 +2911,7 @@
     <Content Include="m\src\dealer\landing.js" />
     <Content Include="m\src\dealer\listing.js" />
     <Content Include="m\src\electricbikes\electricbikeindex.js" />
+    <Content Include="m\src\make.js" />
     <Content Include="m\src\model-series\series.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\new\search_new.js" />
@@ -3087,7 +3089,6 @@
     <Content Include="sass\modules\_review-category.sass" />
     <Content Include="sass\photos\landing.sass" />
     <Content Include="sass\mixins\_body-type-icons.sass" />
-    <Content Include="sass\mixins\_flex.sass" />
     <Content Include="sass\mixins\_foldable-content.sass" />
     <Content Include="sass\mixins\_image-card.sass" />
     <Content Include="sass\mixins\_image-grid.sass" />
@@ -3112,10 +3113,33 @@
     <Content Include="sass\utils\_color.sass" />
     <Content Include="sass\utils\_index.sass" />
     <Content Include="sass\modules\_related-make-card.sass" />
-    <Content Include="sass\mixins\_animation.sass" />
     <Content Include="sass\mixins\_electric-scooter-widget.sass" />
     <Content Include="sass\modules\_m-brand-logo.sass" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="sass\m\make\make.sass" />
+    <Content Include="sass\mixins\_flex.sass" />
+    <Content Include="sass\utils\_color.sass" />
+    <Content Include="sass\utils\_index.sass" />
+    <Content Include="sass\partials\_all-bikes-list.sass" />
+    <Content Include="sass\mixins\_model-card.sass" />
+    <Content Include="sass\mixins\_overall-tabs.sass" />
+    <Content Include="sass\mixins\_card.sass" />
+    <Content Include="sass\mixins\_heading.sass" />
+    <Content Include="sass\mixins\_text.sass" />
+    <Content Include="sass\partials\_upcoming-bikes-carousel.sass" />
+    <Content Include="sass\partials\_popular-bikes-carousel.sass" />
+    <Content Include="sass\partials\_bike-images-carousel.sass" />
+    <Content Include="sass\mixins\_animation.sass" />
+    <Content Include="sass\partials\_editorial-carousel.sass" />
+    <Content Include="sass\partials\_review-carousel.sass" />
+    <Content Include="sass\partials\_dealer-carousel.sass" />
+    <Content Include="sass\partials\_newly-lauched-carousel.sass" />
+    <Content Include="sass\partials\_interesting-fact.sass" />
+    <Content Include="sass\partials\_input.sass" />
+    <Content Include="sass\partials\_notify-update-popup.sass" />
+    <Content Include="sass\partials\_related-make-card.sass" />
+    <Content Include="sass\partials\_related-make-carousel.sass" />
+    <Content Include="sass\partials\_other-bikes-list.sass" />
+    <Content Include="sass\partials\_carousel-arrow.sass" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
@@ -3969,7 +3993,12 @@
     <Content Include="Views\Shared\Ads\Desktop\Model_Comparo_976x400.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad_BTF_300x250.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad_Comparo_976x400.cshtml" />
+    <Content Include="Views\Make\Index_Mobile_New.cshtml" />
+    <Content Include="Views\DealerShowroom\_NewDealerShowroomWithCount.cshtml" />
+    <Content Include="Views\PopularCityWidget\_DealerInPopularCity_Mobile.cshtml" />
+    <Content Include="Views\Make\_NewLaunchedMake_Mobile.cshtml" />
     <Content Include="Views\Shared\_PrivacyPolicy.cshtml" />
+    <Content Include="Views\News\_RecentNews_Mobile_New.cshtml" />
     <Content Include="Views\Shared\_VisitorAgreement.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50BTF.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_Bottom_970x90.cshtml" />
@@ -3982,6 +4011,9 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad300x250_Bottom.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_ATF_300x250.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_BTF_300x250.cshtml" />
+    <Content Include="Views\Make\_OtherBrand_New.cshtml" />
+    <Content Include="Views\Make\_Index_Tabs_Mobile_New.cshtml" />
+    <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_New.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Top.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
@@ -4006,6 +4038,8 @@
     <Content Include="Views\BikeSeries\_PopularSeriesBikes_Mobile.cshtml" />
     <Content Include="Views\Shared\_EditorialBestBikesSideBar.cshtml" />
     <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
+    <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_New.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikesWithNotify_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

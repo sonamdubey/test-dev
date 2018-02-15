@@ -120,7 +120,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
                         <div class="overall-rating-alignment">
                             <span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
                                 <span class="bwmsprite star-icon"></span>
-                                <span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span>
+                                <span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span>
                             </span>
                             @if (Model.UserReviews.UserReviews.Result != null)
                             {

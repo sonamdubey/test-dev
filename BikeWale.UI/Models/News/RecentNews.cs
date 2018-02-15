@@ -6,6 +6,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Bikewale.Entities.CMS.Articles;
 
 namespace Bikewale.Models
 {
@@ -90,6 +91,8 @@ namespace Bikewale.Models
         /// Summary    : To get list of news articles
         /// Modified by : Pratibha Verma on 25the January
         /// Description : Added AutoExpo2018 in news category
+        /// Modified by : Deepak Israni on 5th Feb 2018
+        /// Description : Store estimated reading time in the article list.
         /// </summary>
         public RecentNewsVM GetData()
         {
@@ -130,7 +133,12 @@ namespace Bikewale.Models
                 }
 
                 if (recentNews.ArticlesList != null)
+                {
                     recentNews.FetchedCount = recentNews.ArticlesList.Count();
+                    foreach (ArticleSummary article in recentNews.ArticlesList) {
+                        article.EstimatedReadingTime = ArticleHelper.GetContentReadingTime(article.ArticleWordCount);
+                    }
+                }
 
                 recentNews.Title = _title;
             }
@@ -140,6 +148,7 @@ namespace Bikewale.Models
             }
             return recentNews;
         }
+
         #endregion
     }
 }

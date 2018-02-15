@@ -171,5 +171,17 @@ namespace Bikewale.BAL.BikeData
             return makesRepository.ResearchMoreAboutMakeByCity(makeId, cityId);
         }
 
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9th Feb 2018
+        /// Description : Calls GetExpertReviewCountByMake to get the number of expert reviews for make and number of models with expert reviews. 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ExpertReviewCountEntity GetExpertReviewCountByMake(uint makeId)
+        {
+            return makesRepository.GetExpertReviewCountByMake(makeId);
+        }
+
     }   // Class
 }   //Namespace

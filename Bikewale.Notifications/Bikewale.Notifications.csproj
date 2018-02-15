@@ -153,6 +153,7 @@
     <Compile Include="MailTemplates\PreBookingConfirmationMailToDealer.cs" />
     <Compile Include="MailTemplates\PreBookingConfirmationMailToDealer_old.cs" />
     <Compile Include="MailTemplates\PreBookingConfirmationToCustomer.cs" />
+    <Compile Include="MailTemplates\UpcomingBikesSubscription.cs" />
     <Compile Include="MailTemplates\UsedBikesModelImagesMailTemplate.cs" />
     <Compile Include="MailTemplates\UsedBikes\EditedListingApprovalEmailToSeller.cs" />
     <Compile Include="MailTemplates\UsedBikes\EditedListingRejectionEmailToSeller.cs" />

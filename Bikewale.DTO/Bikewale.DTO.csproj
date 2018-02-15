@@ -346,6 +346,7 @@
     <Compile Include="PriceQuote\Version\v2\PQByCityAreaV2.cs" />
     <Compile Include="App\SplashScreen.cs" />
     <Compile Include="PriceQuote\Version\v3\PQByCityAreaDTO.cs" />
+    <Compile Include="Upcoming\UpcomingNotificationDTO.cs" />
     <Compile Include="UsedBikes\BikeInterestDetailsDTO.cs" />
     <Compile Include="UsedBikes\PhotoRequestDTO.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />

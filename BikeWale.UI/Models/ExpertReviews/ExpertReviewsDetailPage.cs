@@ -177,6 +177,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 13-12-2017
         /// Description :- Bind Similar Bikes Only for desktop
+        /// Modified by : Deepak Israni on 1st Feb 2018
+        /// Descritpion : Added a null check for Model object in onjData
         /// </summary>
         /// <param name="objData"></param>
         private void BindSimilarBikes(ExpertReviewsDetailPageVM objData)

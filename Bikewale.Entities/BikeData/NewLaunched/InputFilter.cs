@@ -6,6 +6,8 @@ namespace Bikewale.Entities.BikeData.NewLaunched
     /// Description :   New Launched bikes API InputFilter entity
     /// Modified by:- subodh jain 09 march 2017
     /// Summary :- added BodyStyleId 
+    /// Modified by : Sanskar Gupta on 31st Jan 2018
+    /// Description : Added 'Days' filter.
     /// </summary>
     public class InputFilter
     {
@@ -15,5 +17,7 @@ namespace Bikewale.Entities.BikeData.NewLaunched
         public uint YearLaunch { get; set; }
         public uint CityId { get; set; }
         public uint BodyStyle { get; set; }
+
+        public int Days { get; set; }
     }
 }
