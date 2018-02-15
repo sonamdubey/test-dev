@@ -1,0 +1,58 @@
+@mixin image-card($cardHeight: 'auto', $backgroundColor: '#fff')
+	@if type-of($cardHeight) == 'number'
+		$cardHeight: $cardHeight * 1px
+
+	.model-image__card
+		width: 100%
+		max-height: #{$cardHeight}
+		display: block
+		background-color: #{$backgroundColor}
+		border: 1px solid #e6e6e6
+		box-shadow: 0 2px 4px 0 rgba(213, 213, 213, .5)
+		border-radius: 2px
+		text-decoration: none
+
+		&:hover
+			text-decoration: none
+
+	.card-image__details
+		font-size: 0
+		padding: 8px 20px 18px
+
+	.card-details__left-col
+		width: 70%
+		padding-right: 5px
+		display: inline-block
+		vertical-align: middle
+		line-height: 1.2
+
+	.card-details__right-col
+		width: 30%
+		text-align: right
+		display: inline-block
+		vertical-align: middle
+
+	.card-details__make
+		@include text-truncate(100%)
+		font-size: 12px
+		font-weight: $font-normal
+		color: #565a5c
+		margin-bottom: 3px
+		display: block
+
+	.card-details__model
+		@include text-truncate(100%)
+		font-size: 14px
+		font-weight: $font-semibold
+		color: #2a2a2a
+		display: block
+
+	.card-details__image-count
+		@include image-icon
+		background-position: 0 3px
+		background-size: 16px
+		font-size: 14px
+		padding-left: 22px
+		color: #4d5057
+
+	@include image-grid-list($backgroundColor)
