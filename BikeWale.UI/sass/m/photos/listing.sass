@@ -2,6 +2,7 @@
 @import ../../components/typography
 @import ../../base/variables
 @import ../../components/mixins
+@import ../../partials/rating
 
 @import ../../mixins/index
 @import ../../utils/index
@@ -126,3 +127,192 @@ body
 
 	li
 		padding-left: 10px
+
+
+.page-header
+	padding: 15px 20px
+
+.model-gallery-section
+	position: relative
+	padding-bottom: 24px
+
+.gallery-image__footer
+	@include flexbox
+	@include justify-content(space-between)
+	align-items: center
+	background: color('border-light')
+	position: absolute
+	bottom: 0
+	left: 0
+	right: 0
+	padding-left: 20px
+	padding-right: 20px
+	width: 100%
+
+.model-gallery
+	.swiper-slide
+		width: 100%
+		height: 203px
+
+		img
+			width: auto
+			height: auto
+			-ms-transform: translate(-50%, -50%)
+			-webkit-transform: translate(-50%, -50%)
+			-moz-transform: translate(-50%, -50%)
+			transform: translate(-50%, -50%)
+			position: absolute
+			left: 50%
+			top: 43%
+			line-height: 0
+			text-indent: 999999px
+
+.gallery-image__count
+	display: inline-block
+	vertical-align: middle
+	font-size: 12px
+	color: color('light-grey')
+.gallery-image__feature
+	> a
+		margin-right: 28px
+		padding: 20px 10px
+		
+		&:last-child
+			margin-right: 0
+
+.gallery__download-icon
+	display: inline-block
+	vertical-align: middle
+	height: 18px
+	width: 20px
+	background: url('/image/download.svg') no-repeat center
+	background-size: 18px
+
+.share-icon
+	display: inline-block
+	vertical-align: middle
+	height: 18px
+	width: 14px
+	background: url('/image/share.svg') no-repeat center
+	background-size: 16px
+
+.zoom-icon
+	display: inline-block
+	vertical-align: middle
+	height: 16px
+	width: 16px
+	background: url('/image/fullscreen.svg') no-repeat center
+	background-size: 17px
+
+
+.model-gallery--fixed
+	z-index: 99
+	background: black
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	height: 100%
+	width: 100%
+	-webkit-transition: all 2s
+    transition: all 2s
+
+	.swiper-slide
+		height: 100%
+		width: 100%
+		-webkit-transition: all 1s
+		transition: all 1s
+
+@mixin model-info__image($width: 144px, $height: 67px)
+	.model-info__image
+		height: $height
+		width: $width
+		max-width: 100%
+		display: inline-block
+		vertical-align: middle
+		margin-top: 20px
+
+		img
+			height: $height
+			width: auto
+
+@include model-info__image()
+.model-info-section
+	margin: 10px 10px 14px
+	background: color('white')
+	@include vendor-prefix('box-shadow',  0 2px 4px 0 rgba(213, 213, 213, 0.5))
+
+.model-info__target-link
+	display: block
+
+	&:hover
+		text-decoration: none
+
+.model-info__container
+	@include flexbox
+	padding: 10px 10px 20px
+	position: relative
+
+	.rating-badge
+		position: absolute
+		top: 10px
+		left: 10px
+
+
+.model-info-description
+	display: inline-block
+	vertical-align: middle
+
+.model-info__title
+	@include text-truncate
+	font-size: 16px
+	font-weight: $font_semibold
+	line-height: 22px
+	margin-bottom: 12px
+
+.model-info__ex-showroom
+	@include text-truncate
+	margin-bottom: 12px
+	font-size: 12px
+	color: color('light-grey')
+	margin-bottom: 6px
+
+.card-exshowroom__value
+	font-size: 18px
+	color: color('default')
+
+.text--semibold
+	font-weight: $font_semibold
+
+@for $i from 1 through 5
+	@include rating-badge($i)
+
+.model-info__specs-container
+	border-top: 1px solid color('border-dark')	
+
+.model-info__specs-item
+	font-size: 11px
+	font-weight: $font-semibold
+	text-align: left
+	display: inline-block
+	vertical-align: middle
+	padding: 16px
+	margin-right: 8px
+
+	&:last-child
+		margin-right: 0
+
+.page__heading-h2
+	@include heading-h2
+
+.similar-model
+	.page__heading-h2
+		margin: 27px 16px 15px
+			
+
+@import ../../partials/similar-bike-carousel
+
+@include similar-model__card()
+@include similar-model__image()
+@include similar-model__footer
