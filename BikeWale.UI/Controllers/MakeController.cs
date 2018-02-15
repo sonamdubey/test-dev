@@ -13,6 +13,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
+using Bikewale.Utility;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -107,8 +108,14 @@ namespace Bikewale.Controllers
             if (obj.Status == StatusCodes.ContentFound)
             {
                 obj.IsMobile = true;
+
                 objData = obj.GetData();
-                return View(objData);
+                if (BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageViewShowPercentage))
+                { return View("~/views/make/Index_Mobile.cshtml", objData); }
+                else
+                {
+                    return View("~/views/make/Index_Mobile_New.cshtml", objData);
+                }
             }
             else if (obj.Status == StatusCodes.RedirectPermanent)
             {

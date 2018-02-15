@@ -1,5 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Bikewale.Entities.BikeBooking
 {
@@ -8,7 +8,7 @@ namespace Bikewale.Entities.BikeBooking
     /// Modified By : Sushil Kumar on 14th March 2016
     /// Description : Modified ENtity for new subscription model
     /// </summary>
-
+    [Serializable]
     public class EMI
     {
 
