@@ -132,6 +132,7 @@
     <Compile Include="Images\ImageDTO.cs" />
     <Compile Include="Images\ImageTokenDTO.cs" />
     <Compile Include="Location\CityNameDTO.cs" />
+    <Compile Include="PageMeta\PageMetaStatusDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceCenter\ServiceCenterBaseDTO.cs" />
     <Compile Include="UserReviews\UserReviewOverallRatingDto.cs" />

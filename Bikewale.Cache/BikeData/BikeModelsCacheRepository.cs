@@ -966,7 +966,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
-            string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V1_{0}_{1}", makeId, cityId);
+            string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V2_{0}_{1}", makeId, cityId);
 
             try
             {
@@ -1343,12 +1343,14 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Feb 2017
         /// Description :   GetNewLaunchedBikesList by City
+        /// Modified by : Sanskar on 12 Feb 2018
+        /// Description : Cache key versioning
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
         public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId)
         {
-            string key = String.Format("BW_NewLaunchedBikes_Cid_{0}", cityId);
+            string key = String.Format("BW_NewLaunchedBikes_CityId_{0}_V1", cityId);
             IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
             try
             {
@@ -1625,5 +1627,6 @@ namespace Bikewale.Cache.BikeData
             }
             return mostPopularBikes;
         }
+
     }
 }

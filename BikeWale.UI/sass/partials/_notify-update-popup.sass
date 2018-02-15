@@ -1,0 +1,94 @@
+$_notify-popup-z-index: 5
+
+#notifyWhiteoutWindow
+	@include vendor-prefix('transition', opacity .2s cubic-bezier(0, 0, .3, 1))
+	width: 100%
+	height: 100%
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	opacity: 0
+	pointer-events: none
+	cursor: pointer
+	background: color('white', .8)
+	z-index: $_notify-popup-z-index - 1
+	will-change: opacity
+
+.notify-popup__content
+	@include vendor-prefix('transform', translate(0, 110%))
+	@include vendor-prefix('transition', all .3s cubic-bezier(0, 0, .3, 1))
+	width: 100%
+	height: 270px
+	padding: 30px 40px
+	position: fixed
+	bottom: 0
+	left: 0
+	right: 0
+	background: color('dark-black', .9)
+	z-index: $_notify-popup-z-index
+	will-change: transform
+
+#notifyCloseBtn
+	@include cross-fff-icon
+	background-size: 12px
+	width: 12px
+	height: 12px
+	padding: 20px
+	position: absolute
+	top: 5px
+	right: 5px
+	display: inline-block
+	cursor: pointer
+
+.notify__bell-icon
+	@include vendor-prefix('transform-origin', 50%)
+	width: 35px
+	height: 43px
+	padding-bottom: 10px
+	margin-bottom: 20px
+
+.bell-clapper
+	@include vendor-prefix('transform-origin', 50%)
+
+@include bell-swing
+@include bell-clapper-swing
+
+.notify-popup__detail
+	color: color('white')
+	font-size: 14px
+	line-height: 24px
+	font-weight: $font-semibold
+	margin-bottom: 30px
+
+.notify-details__model
+	font-size: 16px
+	font-weight: $font-bold
+
+.notify-popup__content
+	.form-field__submit-btn
+		width: 82px
+		padding: 9px 5px 10px
+		font-size: 12px
+		font-weight: $font-semibold
+
+	.form-field__content 
+		.form-field__input
+			padding-right: 90px
+
+// active state
+.notify-popup--active
+	.notify-popup__content
+		@include vendor-prefix('transform', translate(0, 0))
+
+	#notifyWhiteoutWindow
+		opacity: 1
+		pointer-events: auto
+
+	.notify__bell-icon
+		@include vendor-prefix('animation', bell-swing 1s infinite ease-in-out alternate)
+
+	.bell-clapper
+		@include vendor-prefix('animation', bell-clapper-swing .25s infinite ease-in-out alternate)
+
+@import input

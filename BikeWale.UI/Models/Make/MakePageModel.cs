@@ -1,11 +1,15 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.Compare;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
@@ -34,6 +38,10 @@ namespace Bikewale.Models
     /// Description : Added property IsAmpPage.
     /// Modified By :Snehal Dange on 21st Nov 2017
     /// Description: Added IUserReviewsCache _cacheUserReviews
+    /// Modified By : Deepak Israni on 6th Feb 2018
+    /// Description : Added TopCountNews property
+    /// Modified by : Sanskar Gupta on 07 Feb 2018
+    /// Description : Added INewBikeLaunchesBL
     /// </summary>
     public class MakePageModel
     {
@@ -45,11 +53,13 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _expertReviews = null;
         private readonly IVideos _videos = null;
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails = null;
+        private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         private readonly IDealerCacheRepository _cacheDealers = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompare _compareBikes = null;
         private readonly IServiceCenter _objSC;
         private readonly IUserReviewsCache _cacheUserReviews;
+        private readonly INewBikeLaunchesBL _newLaunchesBL;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
@@ -57,8 +67,10 @@ namespace Bikewale.Models
         public bool IsMobile { get; set; }
         public bool IsAmpPage { get; set; }
         private CityEntityBase cityBase = null;
+        public uint TopCountNews { get; set; }
+        public uint TopCountExpertReviews { get; set; }
 
-        public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews)
+        public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL)
         {
             this._makeMaskingName = makeMaskingName;
             this._bikeModelsCache = bikeModelsCache;
@@ -72,6 +84,8 @@ namespace Bikewale.Models
             this._compareBikes = compareBikes;
             this._objSC = objSC;
             this._cacheUserReviews = cacheUserReviews;
+            this._newLaunchesBL = newLaunchesBL;
+            _objModelEntity = objModelEntity;
             ProcessQuery(this._makeMaskingName);
         }
 
@@ -95,11 +109,15 @@ namespace Bikewale.Models
         /// Description: Added IsFooterDescriptionAvailable ,IsPriceListingAvailable checks
         /// Modified by : Snehal Dange on 17th Jan 2018
         /// Description: Added BindResearchMoreMakeWidget()
+        /// Modified by: Deepak Israni on 30th Jan 2018
+        /// Description: Removed ShowCheckOnRoadpriceBtn property
         /// </summary>         
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// Modified by : Rajan Chauhan on 3 Jan 2017
         /// Description : Bind MakeId to objData
+        /// Modified by : Sanskar Gupta on 07 Feb 2018
+        /// Descritpion : Added logic to fetch Newly Launched Bikes (within a period of 10 days) for Mobile Make page.
         /// </returns>
         public MakePageVM GetData()
         {
@@ -138,6 +156,12 @@ namespace Bikewale.Models
                 #endregion
 
                 objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
+
+                if (objData.Bikes != null && objData.Bikes.Count() > 5)
+                {
+                    objData.TopPopularBikes = objData.Bikes.OrderBy(x => x.BikePopularityIndex).Take(4);
+                }
+
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription(_makeId);
                 objData.SelectedSortingId = 0;
@@ -156,7 +180,6 @@ namespace Bikewale.Models
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
                 }
-                objData.ShowCheckOnRoadpriceBtn = !BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageOnRoadPriceBtnPct);
                 BindUpcomingBikes(objData);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindCompareBikes(objData, CompareSource, cityId);
@@ -177,9 +200,11 @@ namespace Bikewale.Models
                     RedirectUrl = string.Format("/dealer-showrooms/{0}/", _makeMaskingName),
                     IsCityWrapperPresent = 1
                 };
-
+                BindModelPhotos(objData);
                 BindShowroomPopularCityWidget(objData);
                 BindResearchMoreMakeWidget(objData);
+                GetEMIDetails(objData);
+                BindExpertReviewCount(objData.ExpertReviews);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -204,6 +229,12 @@ namespace Bikewale.Models
 
                 }
 
+
+                if (IsMobile)
+                {
+                    BindNewLaunchedWidget(objData);
+                }
+
                 if (IsAmpPage)
                 {
                     BindAmpJsTags(objData);
@@ -216,6 +247,31 @@ namespace Bikewale.Models
             }
 
             return objData;
+        }
+
+        private void BindModelPhotos(MakePageVM objData)
+        {
+            try
+            {
+                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(_makeId, EnumBikeBodyStyles.AllBikes);
+                if (objModelIds != null && objModelIds.Any())
+                {
+                    string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
+                    int requiredImageCount = 9;
+                    string categoryIds = CommonApiOpn.GetContentTypesString(
+                        new List<EnumCMSContentType>()
+                    {
+                        EnumCMSContentType.PhotoGalleries,
+                        EnumCMSContentType.RoadTest
+                    }
+                    );
+                    objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount).Take(6);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.MakePhotosPage.BindModelPhotos : BindModelPhotos({0})", objData));
+            }
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 27 Oct 2017
@@ -390,21 +446,51 @@ namespace Bikewale.Models
             }
         }
 
+        /// <summary>
+        /// Modified By : Deepak Israni on 8th Feb 2018
+        /// Description : Moved binding of Recent Expert Reviews to another function
+        /// </summary>
+        /// <param name="objData"></param>
         private void BindCMSContent(MakePageVM objData)
         {
-            objData.News = new RecentNews(2, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
-            objData.ExpertReviews = new RecentExpertReviews(2, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName)).GetData();
+
+            objData.News = new RecentNews(TopCountNews, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
+
+            BindRecentExpertReviews(objData);
+
             if (IsMobile)
             {
                 objData.Videos = new RecentVideos(1, 2, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
             }
             else
             {
-
                 objData.Videos = new RecentVideos(1, 4, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
             }
 
         }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 8th Feb 2018
+        /// Description : To bind the Recent Expert Reviews along with the type of reviews.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindRecentExpertReviews(MakePageVM objData)
+        {
+            RecentExpertReviews objExpertReviews = new RecentExpertReviews(TopCountExpertReviews, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName));
+
+            List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>
+					{
+						EnumCMSContentType.RoadTest
+					};
+            List<EnumCMSContentSubCategoryType> subCategoryList = new List<EnumCMSContentSubCategoryType>
+					{
+						EnumCMSContentSubCategoryType.Road_Test,
+						EnumCMSContentSubCategoryType.First_Drive,
+						EnumCMSContentSubCategoryType.Long_Term_Report
+					};
+            objData.ExpertReviews = objExpertReviews.GetData(categoryList, subCategoryList);
+        }
+
 
         private void BindDiscontinuedBikes(MakePageVM objData)
         {
@@ -643,6 +729,10 @@ namespace Bikewale.Models
                     if (objData.PopularBikesUserReviews != null)
                     {
                         objData.PopularBikesUserReviews.BikesReviewsList = _cacheUserReviews.GetBikesWithReviewsByMake(_makeId);
+                        if (!IsMobile)
+                        {
+                            objData.PopularBikesUserReviews.BikesReviewsList = objData.PopularBikesUserReviews.BikesReviewsList.Take(4);
+                        }
                     }
                 }
 
@@ -725,5 +815,101 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("MakePageModel.BindResearchMoreMakeWidget() makeId:{0} , cityId:{1}", _makeId, (cityBase != null ? cityBase.CityId.ToString() : "0")));
             }
         }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 1st Feb 2018
+        /// Descritpion: Method created to set emi details for bikelist models
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        private void GetEMIDetails(MakePageVM objData)
+        {
+
+            try
+            {
+                if (objData != null && objData.Bikes != null && objData.Bikes.Any())
+                {
+                    foreach (var bike in objData.Bikes)
+                    {
+                        if (bike != null)
+                        {
+                            if (bike.OnRoadPrice > 0)
+                            {
+                                bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.OnRoadPrice);
+                            }
+                            else
+                            {
+                                bike.EMIDetails = EMICalculation.SetDefaultEMIDetails((uint)bike.OnRoadPriceMumbai);
+                            }
+                        }
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("MakePageModel.GetEMIDetails: Make : {0} , City : {1}", _makeId, cityBase.CityId));
+            }
+
+        }
+        /// <summary>
+        /// Created by : Sanskar Gupta on 09 Feb 2018
+        /// Description : Method to bind NewLaunchedWidget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindNewLaunchedWidget(MakePageVM objData)
+        {
+            try
+            {
+                if (objData != null)
+                {
+                    InputFilter inputFilter = new InputFilter();
+                    inputFilter.Days = 10;
+                    inputFilter.Make = _makeId;
+
+                    if (cityBase != null)
+                    {
+                        inputFilter.CityId = cityBase.CityId;
+                    }
+
+                    NewLaunchedWidgetVM NewLaunchedWidget = new NewLaunchedWidgetVM();
+                    NewLaunchedWidget.Bikes = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
+
+                    objData.NewLaunchedWidget = NewLaunchedWidget;
+
+                    if (objData.NewLaunchedWidget != null)
+                    {
+                        objData.NewLaunchedWidget.City = cityBase;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BindNewLaunchedWidget_MakeId_{0}_CityId_{1}", _makeId, cityBase.CityId));
+            }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9th Feb 2018
+        /// Description : To bind the number of models with expert reviews and total number of expert reviews on VM
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindExpertReviewCount(RecentExpertReviewsVM expertReviews)
+        {
+            try
+            {
+                ExpertReviewCountEntity ercEntity = _bikeMakesCache.GetExpertReviewCountByMake(_makeId);
+                expertReviews.ModelCount = ercEntity.ModelCount;
+                expertReviews.ExpertReviewCount = ercEntity.ExpertReviewCount;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BindExpertReviewCount_MakeId_{0}", _makeId));
+            }
+        }
+
     }
 }

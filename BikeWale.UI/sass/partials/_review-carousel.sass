@@ -1,0 +1,201 @@
+﻿$_count-color: #ff5500
+$_article-section__count: #d5d5d5
+
+.review-card
+	@include card
+	width: 100%
+	height: auto
+	display: block
+	text-decoration: none
+	text-align: center
+	padding: 18px 26px
+
+	&:hover
+		text-decoration: none
+
+.article-section__count
+	color: color('light-grey')
+	padding: 20px 38px 20px
+	font-size: 16px
+	text-align: center
+	position: relative
+
+	&:before
+		content: ''
+		display: block
+		position: absolute
+		top: 0
+		left: 0
+		margin-right: 16px
+		margin-left: 16px
+		border: 1px solid $_article-section__count
+		opacity: .5
+		width: 91%
+
+.article-count__number
+	font-size: 20px
+	font-weight: $font-semibold
+	color: $_count-color
+	opacity: .8
+
+.review-card__title
+	@include text-truncate
+	font-size: 16px
+	font-weight: $font-bold
+	padding-top: 10px
+	padding-bottom: 7px
+	text-align: center
+
+.review-card__read-more
+	color: color('pacific-blue')
+	font-size: 14px
+	display: inline-block
+	padding-top: 15px
+	font-weight: $font-semibold
+
+	&:hover
+		text-decoration: none
+
+.review-card__target-link
+	display: block
+	padding-top: 15px
+	padding-bottom: 15px
+	color: color('default')
+
+	&:hover
+		text-decoration: none
+
+.review-section
+	.page__heading-h2
+		@include review-line-icon
+		@include text-truncate
+		background-size: 27px
+		background-position: 0 center
+		padding-left: 36px		
+
+	.carousel__title
+		padding-bottom: 0
+
+@mixin expert-review
+	@include review-carousel-card()
+	@include card-category__tag-code()
+	@include review-author()
+
+	.expert-review-section
+		.carousel-title__label
+			@include text-truncate(78%)
+			padding-right: 10px
+			font-size: 16px
+			text-transform: capitalize
+
+		.carousel__title
+			padding-bottom: 16px
+
+		.review-card
+			border-bottom: 2px solid color('mona-lisa')
+
+	.carousel__expert-review
+		padding: 5px 20px 20px 0
+
+		.carousel-slide
+			width: 282px
+			height: 270px
+			padding-left: 10px
+
+			&:first-child
+				margin-left: 6px
+
+		.review-card
+			height: 270px
+			overflow: hidden
+
+	.card-category__tag
+		font-size: 12px
+		position: relative
+
+	.review-card__desc
+		color: color('light-grey')
+		font-size: 13px
+		margin-top: 7px
+		height: 42px
+		overflow: hidden
+		line-height: 1.69
+
+	.review-card__about
+		padding-top: 14px
+
+	.review-card__author-name
+		font-size: 12px
+		margin-bottom: 2px
+
+	.review-card__date
+		font-size: 10px
+		color: color('light-grey')
+
+@mixin review-author($width: 40px, $height: 40px)
+	.review-card__author
+		@include vendor-prefix('border-radius', 50%)
+		border: 1px solid color('border-dark')
+		height: $height
+		width: $width
+		overflow: hidden
+		margin: 0 auto 8px
+
+		img.review-author__img
+			max-width: 100px
+			position: relative
+			height: $height
+			left: -15%
+
+		.review-author_defult-img
+			@include vendor-prefix('border-radius', 50%)
+			display: block
+			width: 40px
+			height: 40px
+			margin: 0 auto
+			@include review-default-icon
+
+
+@mixin review-card__image($height: 96px)
+	.review-card__image
+		height: $height
+		overflow: hidden
+		text-align: center
+
+		img
+			height: $height
+
+@mixin user-review($width: 217px, $height: 192px)
+	.carousel__user-review
+		.review-card
+			padding: 0
+
+	.review-card__title
+		padding: 10px 10px 0
+
+	.carousel__user-review
+		padding: 5px 20px 20px 0
+
+		.carousel-slide
+			width: $width
+			min-height: $height
+			padding-left: 10px
+
+			&:first-child
+				margin-left: 6px
+				
+	.user-review-section
+		.carousel-title__label
+			@include text-truncate(78%)
+			padding-right: 10px
+			font-size: 16px
+			text-transform: capitalize
+			
+		.carousel__title
+			padding-bottom: 16px
+
+		.review-card__read-more
+			padding-top: 10px	
+	
+	@include review-card__image()
+

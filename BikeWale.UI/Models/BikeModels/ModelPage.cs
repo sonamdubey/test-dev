@@ -284,6 +284,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Added logic to show product schema in webpage schema for some of the models
         /// Modified By: Snehal Dange on 22nd Sep 2017
         /// Descrption  :Added logic to show similar bikes schema 
+        /// Modified By  : Sushil Kumar on 30th Jan 2018
+        /// Description : Show user review count for product if available else ratings count
         /// </summary>
         private void SetPageJSONLDSchema()
         {
@@ -311,7 +313,6 @@ namespace Bikewale.Models.BikeModels
                     {
                         product.AggregateRating = new AggregateRating
                         {
-                            RatingCount = (uint)_objData.ModelPageEntity.ModelDetails.RatingCount,
                             RatingValue = Convert.ToDouble(_objData.ModelPageEntity.ModelDetails.ReviewUIRating),
                             WorstRating = 1,
                             BestRating = 5,
@@ -320,6 +321,10 @@ namespace Bikewale.Models.BikeModels
                         if (_objData.ModelPageEntity.ModelDetails.ReviewCount > 0)
                         {
                             product.AggregateRating.ReviewCount = (uint)_objData.ModelPageEntity.ModelDetails.ReviewCount;
+                        }
+                        else
+                        {
+                            product.AggregateRating.RatingCount = (uint)_objData.ModelPageEntity.ModelDetails.RatingCount;
                         }
                     }
                     if (_objData.IsUpcomingBike)

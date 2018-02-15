@@ -225,7 +225,7 @@ var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline c
 			return styleTag;
 		}
 gulp.task('replace-js-css-reference' , function() {
-	if(Configuration != "Release") {
+	if(Configuration == "Debug") {
 				return
 			}
 	return gulp.src([
@@ -268,7 +268,7 @@ function getCdnPath() {
 
 
 gulp.task('appshell-procesing', function() {
-	if(Configuration != "Release") {
+	if(Configuration == "Debug") {
 		return
 	}
 	
@@ -296,7 +296,7 @@ gulp.task('appshell-procesing', function() {
 
 
 gulp.task("replace-filepath-in-SW" , function() {
-	if(Configuration != "Release") {
+	if(Configuration == "Debug") {
 		return
 	}
 	var revManifest = require('./'+buildFolder+'rev-manifest.json');
@@ -318,7 +318,7 @@ gulp.task("replace-filepath-in-SW" , function() {
 });
 
 gulp.task('generate-service-worker' , function() { // this task has to follow 'replace-filepath-in-SW' as it takes the file created by previous task
-	if(Configuration != "Release") {
+	if(Configuration == "Debug") {
 		return
 	}
 	

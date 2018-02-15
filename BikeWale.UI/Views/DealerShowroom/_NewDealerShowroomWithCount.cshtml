@@ -1,0 +1,41 @@
+﻿@model Bikewale.Models.DealerCardVM
+
+<ul class="swiper-wrapper">
+    @foreach (var dealers in Model.Dealers)
+    {
+        <li class="swiper-slide carousel-slide">
+            <div class="dealer-in-city-card carousel-card">
+                <h3 class="dealer-in-city__title">
+                    @dealers.Name
+                </h3>
+                @if (!String.IsNullOrEmpty(dealers.Address))
+                {
+                    <p class="dealer-in-city__state">@dealers.objArea.AreaName</p>
+                    <p class="dealer-in-city__address">@Bikewale.Utility.FormatDescription.TruncateDescription((dealers.Address), 80)</p>
+                }
+                <div class="dealer-in-city__know-more">
+                    @if (!String.IsNullOrEmpty(dealers.MaskingNumber))
+                    {
+                        <div class="dealer-in-city__contact">
+                            <a href="tel:@dealers.MaskingNumber" title="" class="dealer-in-city__contact-link">
+                                @dealers.MaskingNumber
+                            </a>
+                        </div>
+                    }
+                    @if (dealers.objArea != null && (dealers.objArea.Latitude > 0 || dealers.objArea.Longitude > 0))
+                    {
+                        <div class="dealer-in-city__direction">
+                            <a href="https://maps.google.com/?saddr=&amp;daddr=@dealers.objArea.Latitude,@dealers.objArea.Longitude" class="dealer-in-city__direction-link">
+                                Get Directions
+                            </a>
+                        </div>
+                    }
+                </div>
+
+
+            </div>
+        </li>
+    }
+
+
+</ul>

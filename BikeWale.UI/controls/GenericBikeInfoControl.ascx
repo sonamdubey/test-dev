@@ -23,7 +23,7 @@
                 <div id="reviewRatingsDiv" class="inline-block">            
                         <span class="rate-count-<%=Math.Round(Rating) %>">
                             <span class="bwsprite star-icon star-size-16"></span>
-                            <span class="font14 text-bold inline-block"><%= Rating.ToString("0.0").TrimEnd('0', '.') %></span>
+                            <span class="font14 text-bold inline-block"><%= Rating.ToString("0.0") %></span>
                         </span>
                         <span class='font11 text-xt-light-grey inline-block padding-left3'>(<%=string.Format("{0} {1}", RatingCount, RatingCount > 1 ? "ratings" : "rating") %>)</span>
                         <%if (UserReviewCount > 0)

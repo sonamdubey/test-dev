@@ -1,4 +1,4 @@
-@mixin image-grid-list($backgroundColor: '#fff')
+﻿@mixin image-grid-list($backgroundColor: '#fff')
 	.image-grid__list
 		padding: 4px
 		overflow: hidden
@@ -17,6 +17,18 @@
 		cursor: pointer
 		background-color: #f9f9f9
 		border: 4px solid #{$backgroundColor}
+
+		img
+			&:before
+				content: ''
+				position: absolute
+				top: 0
+				left: 0
+				right: 0
+				width: 100%
+				height: 100%
+				display: block
+				background: #f9f9f9
 
 // image sizes
 // 100%
