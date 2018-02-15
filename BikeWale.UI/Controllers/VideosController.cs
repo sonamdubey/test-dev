@@ -562,7 +562,7 @@ namespace Bikewale.Controllers.Desktop.Videos
 
             allVideos.TopVideos = topVideos;
             allVideos.OtherVideos = otherVideos;
-            store.Widgets.BikeImagesCorouselReducer.PopularBikeImagesListData = popularBikeImages;
+            store.Widgets.BikeImagesCarouselReducer.PopularBikeImagesListData = popularBikeImages;
 
             return store;
         }

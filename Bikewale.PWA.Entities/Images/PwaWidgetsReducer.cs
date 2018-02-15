@@ -12,10 +12,10 @@ namespace Bikewale.PWA.Entities.Images
     /// </summary>
     public class PwaWidgetsReducer
     {
-        public PwaBikeImagesCorouselReducer BikeImagesCorouselReducer { get; set; }
+        public PwaBikeImagesCarouselReducer BikeImagesCarouselReducer { get; set; }
         public PwaWidgetsReducer()
         {
-            BikeImagesCorouselReducer = new PwaBikeImagesCorouselReducer();
+            BikeImagesCarouselReducer = new PwaBikeImagesCarouselReducer();
         }
     }
 }

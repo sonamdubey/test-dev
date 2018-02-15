@@ -5,14 +5,14 @@ import { Status } from '../utils/constants'
 import { startTimer } from '../utils/timing'
 
 export function BikeImagesCarouselReducer(state,action) {
+
     try {
         const initialState = fromJS({
             PopularBikeImagesListData : {
                 Status : Status.Reset,
                 BikeImagesList : null
             }
-        })
-
+        });
 
         if(state && window._SERVER_RENDERED_DATA == true) {
             var bikesList = state.getIn(['PopularBikeImagesListData','BikeImagesList']);
