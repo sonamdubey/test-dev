@@ -1,0 +1,25 @@
+.all-model__list
+	.model-list__item
+		margin-top: 16px
+
+@include model-card
+@include model-card__image(285)
+
+/* rating badge */
+@import rating
+
+@for $i from 1 through 5
+	@include rating-badge($i)
+
+.model-card__detail
+	.rating-badge
+		margin-bottom: 8px
+
+@include model-card__detail
+@include card-details__specs
+
+@include model-card__exshowroom-content
+@include model-card__exshowroom
+@include card-emi__col
+
+@include pros-cons-collapsible

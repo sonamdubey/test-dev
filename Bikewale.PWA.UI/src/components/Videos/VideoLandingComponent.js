@@ -2,7 +2,7 @@ import React from 'react'
 import TopVideosContainer from './TopVideosContainer'
 import OtherVideosContainer from './OtherVideosContainer'
 import {startTimer , endTimer} from '../../utils/timing'
-
+import {GA_PAGE_MAPPING} from '../../utils/constants'
 import { scrollPosition , resetScrollPosition  } from '../../utils/scrollUtils'
 
 
@@ -22,7 +22,11 @@ class VideoLandingComponent extends React.Component {
 		childComponentCount = 2;
 		childComponent = {'TopVideosComponent' : 1 , 'OtherVideosComponent' : 1 };
 		startTimer(1,0); // 1 component to complete + 0 ads
-		this.handleTimingAndScrollingForChildComponents = this.handleTimingAndScrollingForChildComponents.bind(this);	
+		this.handleTimingAndScrollingForChildComponents = this.handleTimingAndScrollingForChildComponents.bind(this);
+		if(typeof(gaObj)!="undefined")
+		{
+		    gaObj = GA_PAGE_MAPPING["VideosPage"];
+		}
 	}
 	handleTimingAndScrollingForChildComponents(completedComponent) {
 		if(!childComponent[completedComponent]) return;

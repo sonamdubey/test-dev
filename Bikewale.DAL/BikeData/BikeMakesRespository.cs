@@ -802,7 +802,9 @@ namespace Bikewale.DAL.BikeData
 
         /// <summary>
         /// Created by : Snehal Dange on 18th Jan 2018
-        /// Description : Created as a common method to get 'research more about make' details when city is present or not. 
+        /// Description : Created as a common method to get 'research more about make' details when city is present or not.
+        /// Modified by : Sanskar Gupta on 31st Jan 2018
+        /// Description : Added logic to fetch 'ScootersCount' from the SP.
         /// </summary>
         /// <param name="spName"></param>
         /// <param name="makeId"></param>
@@ -839,6 +841,7 @@ namespace Bikewale.DAL.BikeData
                                         MakeName = Convert.ToString(dr["MakeName"]),
                                         MaskingName = Convert.ToString(dr["MakeMaskingName"])
                                     };
+                                    obj.ScootersCount = SqlReaderConvertor.ToInt32(dr["totalscooterscount"]);
                                     obj.IsScooterOnlyMake = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]);
                                     if (cityId > 0)
                                     {
@@ -898,7 +901,7 @@ namespace Bikewale.DAL.BikeData
             {
                 if (makeId > 0)
                 {
-                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmake", makeId);
+                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmake_01022018", makeId);
                 }
 
             }
@@ -923,13 +926,59 @@ namespace Bikewale.DAL.BikeData
             {
                 if (makeId > 0 && cityId > 0)
                 {
-                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmakebycity", makeId, cityId);
+                    obj = GetResearchMoreAboutMakeDetails("researchmoreaboutmakebycity_01022018", makeId, cityId);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.DAL.ResearchMoreAboutMakeByCity: Makeid- {0},CityId- {1}", makeId, cityId));
             }
+            return obj;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9th Feb 2018
+        /// Description : To get the total expert review count and number of models with expert reviews
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ExpertReviewCountEntity GetExpertReviewCountByMake(uint makeId)
+        {
+            ExpertReviewCountEntity obj = null;
+            String spName = "getexpertreviewcountbymake";
+
+            try
+            {
+                if (makeId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand(spName))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemakeid", DbType.Int32, makeId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            if (dr != null && dr.Read())
+                            {
+                                obj = new ExpertReviewCountEntity()
+                                {
+                                    MakeId = makeId,
+                                    ModelCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"]),
+                                    ExpertReviewCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewCount"])
+                                };
+
+                                dr.Close();
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.GetExpertReviewCountByMake: Makeid- {0}", makeId));
+            }
+
             return obj;
         }
     }

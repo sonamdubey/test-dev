@@ -22,6 +22,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary     : Created method ResearchMoreAboutMake to get 'research more about make' widget data (without city) 
     /// Modified by : Snehal Dange on 17th Jan 2018
     /// Summary     : Created Method ResearchMoreAboutMakeByCity to get 'research more about make' widget data (with city) 
+    /// Modified By : Deepak Israni on 9th Feb 2018
+    /// Summary     : Created method GetExpertReviewCountByMake to get expert review count for make and number of models with expert reviews
     /// </summary>
     public interface IBikeMakesCacheRepository
     {
@@ -38,5 +40,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId);
         ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId);
         ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId);
+        ExpertReviewCountEntity GetExpertReviewCountByMake(uint makeId);
     }
 }

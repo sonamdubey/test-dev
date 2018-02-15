@@ -157,7 +157,7 @@ namespace Bikewale.PWA.Utils
                 outBikeInfo.ImageUrl = Image.GetPathToShowImages(inpBikeInfo.OriginalImagePath, inpBikeInfo.HostUrl, ImageSize._110x61, QualityFactor._70);
 
                 var bikeRatings = new PwaBikeRating();
-                bikeRatings.Rating = inpBikeInfo.Rating.ToString("0.0").TrimEnd('0', '.');
+                bikeRatings.Rating = inpBikeInfo.Rating.ToString("0.0");
                 bikeRatings.Count = inpBikeInfo.RatingCount;
                 bikeRatings.ReviewCount = inpBikeInfo.UserReviewCount;
                 bikeRatings.ReviewUrl = string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(inpBikeInfo.Make.MaskingName, inpBikeInfo.Model.MaskingName));

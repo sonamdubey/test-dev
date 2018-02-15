@@ -18,7 +18,7 @@ namespace BikewaleOpr.Cache
         {
             try
             {
-                string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V1_{0}_", makeId);
+                string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V2_{0}_", makeId);
                 string temp = string.Empty;
                 for (int i = 0; i < 1500; i++)
                 {
@@ -210,6 +210,8 @@ namespace BikewaleOpr.Cache
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Feb 2017
         /// Description :   ClearNewLaunchesBikes
+        /// Modified by : Sanskar Gupta on 12 Feb 2018
+        /// Description : Cacehe Key versioning
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
@@ -218,7 +220,7 @@ namespace BikewaleOpr.Cache
             bool cacheKeyClearStatus = false;
             try
             {
-                string key = String.Format("BW_NewLaunchedBikes_Cid_{0}", cityId);
+                string key = String.Format("BW_NewLaunchedBikes_CityId_{0}_V1", cityId);
                 MemCachedUtil.Remove(key);
             }
             catch (Exception ex)

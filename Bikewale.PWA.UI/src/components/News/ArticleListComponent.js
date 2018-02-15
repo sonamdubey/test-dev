@@ -8,7 +8,7 @@ import Breadcrumb from '../Shared/Breadcrumb'
 import NewBikes from '../NewBikes'
 import Footer from '../Shared/Footer'
 import AdUnit320x50 from '../AdUnit320x50'
-import { NewsArticlesPerPage , Status , AD_PATH_NEWS_MOBILE_TOP_320_50 , AD_DIV_REVIEWS_TOP_320_50 , AD_DIV_REVIEWS_MIDDLE_320_50 , AD_PATH_NEWS_MOBILE_MIDDLE_320_50} from '../../utils/constants'
+import { NewsArticlesPerPage ,GA_PAGE_MAPPING, Status , AD_PATH_NEWS_MOBILE_TOP_320_50 , AD_DIV_REVIEWS_TOP_320_50 , AD_DIV_REVIEWS_MIDDLE_320_50 , AD_PATH_NEWS_MOBILE_MIDDLE_320_50} from '../../utils/constants'
 import { isServer, CMSUserReviewSlugPosition, CMSUserReviewSlugData } from '../../utils/commonUtils'
 
 
@@ -45,6 +45,11 @@ class ArticleListComponent extends React.Component{
         
         this.updateArticleList = this.updateArticleList.bind(this);
         this.onArticleClickEvent = this.onArticleClickEvent.bind(this);
+
+        if(typeof(gaObj)!="undefined")
+        {
+            gaObj = GA_PAGE_MAPPING["ListPage"];
+        }
        
     }
     componentDidUpdate() {

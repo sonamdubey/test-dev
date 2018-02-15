@@ -70,7 +70,7 @@
     @{Bikewale.Utility.BWCookies.SetBWUtmz();}
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script type="text/javascript">
-        var ga_pg_id = '0';
+        var ga_pg_id = '0', gaObj = { "id": "0", "name": "Others" };
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
@@ -109,10 +109,8 @@
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
     @{Html.RenderPartial("/Views/Shared/_CssChunksScript.cshtml");}
-    <script type="text/javascript">
-        window.state = @Html.Raw(Model.WindowState);
-    </script>
     <script>
+        window.state = @Html.Raw(Model.WindowState);
         var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl','@NewsJsUrl'];
         var numberOfJsToLoad = jsUrls.length;
         function jsLoadedCallback() {
