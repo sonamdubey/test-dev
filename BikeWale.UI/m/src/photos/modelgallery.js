@@ -526,11 +526,13 @@ docReady(function () {
         onInit: function (swiper) {
             swiper.slideTo(vmModelGallery.activePhotoIndex()-1);
             thumbnailSwiperEvents.setPhotoDetails(swiper);
+            $('.model-gallery-section .model-gallery__image-title').text($('#mainPhotoSwiper .swiper-slide-active img').attr('title'));
         },
         onSlideChangeEnd: function (swiper) {
             vmModelGallery.activePhotoIndex(swiper.activeIndex + 1);
             logBhrighuForImage($('#mainPhotoSwiper .swiper-slide-active'));
             logBhrighuForImage($('#mainPhotoSwiper .swiper-slide-active'));
+            $('.model-gallery-section .model-gallery__image-title').text($('#mainPhotoSwiper .swiper-slide-active img').attr('title'));
         }
     });
 

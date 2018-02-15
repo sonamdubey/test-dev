@@ -23,29 +23,35 @@
             <h1 class="page-header">@Model.Page_H1</h1>
 
             <div class="model-gallery-section">
-            <div id="mainPhotoSwiper" class="swiper-container gallery-swiper noSwiper model-gallery" data-bind="visible: photosTabActive() && photoSwiperActive()">
-                <div class="swiper-wrapper" data-bind="foreach: photoList">
-                    <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
-                        <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                <div class="model-gallery__container">
+                    <div id="mainPhotoSwiper" class="swiper-container noSwiper model-gallery" data-bind="visible: photosTabActive() && photoSwiperActive()">
+                        <div class="swiper-wrapper" data-bind="foreach: photoList">
+                            <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                            </div>
+                        </div>
+                        <div class="bwmsprite swiper-button-next gallery--next"></div>
+                        <div class="bwmsprite swiper-button-prev gallery--prev"></div>
+                        <div class="gallery-image__footer">
+                            <span class="gallery-image__count">
+                                <span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
+                            </span>
+                            <div class="gallery-image__feature">
+                                <a href="" title="" class="gallery__download-icon"></a>
+                                <a href="" title="" class="share-icon"></a>
+                                <a href="" title="" class="zoom-icon"></a>
+                            </div>
+
+                        </div>
                     </div>
+                    <h2 class="model-gallery__image-title"></h2>
                 </div>
-                <div class="bwmsprite swiper-button-next gallery--next"></div>
-                <div class="bwmsprite swiper-button-prev gallery--prev"></div>
-            </div> 
-            <div class="gallery-image__footer">
-                <span class="gallery-image__count">
-                    <span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
-                </span>
-                <div class="gallery-image__feature">
-                    <a href="" title="" class="gallery__download-icon"></a>
-                    <a href="" title="" class="share-icon"></a>
-                    <a href="" title="" class="zoom-icon"></a>
+
+                    
                 </div>
+            <div class="black-window">
 
             </div>
-
-                
-        </div>
 
             @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
             {

@@ -10,44 +10,61 @@
 .page-header
 	padding: 15px 20px
 
-.model-gallery-section
+
+.model-gallery__container
 	position: relative
-	padding-bottom: 24px
-	-webkit-transition: all 10s
-    transition: all 10s
+	z-index: 6
+	transition: all 1s
+
+.black-window
+	background: black
+	display: none
+	height: 100%
+	width: 100%
+	position: fixed
+	left: 0
+	top: 0
+	right: 0
+	bottom: 0
+	z-index: 5
 
 .gallery-image__footer
 	@include flexbox
 	@include justify-content(space-between)
 	align-items: center
 	background: color('border-light')
-	position: absolute
-	bottom: 0
-	left: 0
-	right: 0
 	padding-left: 20px
 	padding-right: 20px
 	width: 100%
 
 .model-gallery
 	.swiper-slide
+		@include flexbox
+		@include justify-content(center)
+		@include align-items(center)
 		width: 100%
 		height: 203px
-
+		margin: 0
 		img
 			width: auto
 			height: auto
-			-ms-transform: translate(-50%, -50%)
-			-webkit-transform: translate(-50%, -50%)
-			-moz-transform: translate(-50%, -50%)
-			transform: translate(-50%, -50%)
-			position: absolute
-			left: 50%
-			top: 43%
-			line-height: 0
-			text-indent: 999999px
-			-webkit-transition: all 2s
-			transition: all 2s
+			max-height: 203px
+
+	&
+		.gallery--next,
+		.gallery--prev
+			background-color: transparent !important
+			border: none
+			top: 44%
+
+@media only screen and (max-width: 320px)
+	.model-gallery
+		.swiper-slide
+			height: 180px
+		
+			img
+				max-height: 180px	
+
 
 .gallery-image__count
 	display: inline-block
@@ -56,8 +73,8 @@
 	color: color('light-grey')
 .gallery-image__feature
 	> a
-		margin-right: 28px
-		padding: 20px 10px
+		margin-right: 8px
+		padding: 20px
 		
 		&:last-child
 			margin-right: 0
@@ -88,25 +105,26 @@
 
 
 .model-gallery--fixed
-	z-index: 99
+	z-index: 6
 	background: black
 	position: fixed
-	top: 0
 	left: 0
-	right: 0
-	bottom: 0
-	height: 100%
-	width: 100%
-	-webkit-transition: all 2s
-    transition: all 2s
+
+	.model-gallery
+		height: 100%
 
 	.swiper-slide
-		height: 100%
+		height: auto
 		width: 100%
-		-webkit-transition: all 1s
-		transition: all 1s
 
-@mixin model-info__image($width: 144px, $height: 67px)
+
+
+.model-gallery__image-title
+	background: color('white')
+	padding: 15px 20px 25px
+	font-size: 14px
+
+@mixin model-info__image($width: 122px, $height: 69px)
 	.model-info__image
 		height: $height
 		width: $width
@@ -143,6 +161,8 @@
 
 
 .model-info-description
+	min-width: 0
+	padding-left: 10px
 	display: inline-block
 	vertical-align: middle
 
