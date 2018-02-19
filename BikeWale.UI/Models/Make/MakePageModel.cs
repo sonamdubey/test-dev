@@ -828,7 +828,7 @@ namespace Bikewale.Models
 
             try
             {
-                if (objData != null)
+                if (objData != null && objData.Bikes != null && objData.Bikes.Any())
                 {
                     foreach (var bike in objData.Bikes)
                     {

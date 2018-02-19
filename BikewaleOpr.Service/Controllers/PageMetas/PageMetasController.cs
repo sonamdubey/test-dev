@@ -66,7 +66,7 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
                     {
                         foreach (var model in modelIdList.Distinct())
                         {
-                            MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", model));
+                            MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", model));
                         }
                     }
                     return Ok(true);

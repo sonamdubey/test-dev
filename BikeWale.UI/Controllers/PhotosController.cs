@@ -46,8 +46,9 @@ namespace Bikewale.Controllers
         [Route("photos/"), Filters.DeviceDetection]
         public ActionResult Index(uint? pageNo)
         {
-            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, pageNo);
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, _objVideos, pageNo);
             objModel.PageSize = 30;
+            objModel.VideosCount = 4;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
             return View(objData);
         }
@@ -60,8 +61,9 @@ namespace Bikewale.Controllers
         [Route("m/photos/")]
         public ActionResult Index_Mobile(uint? pageNo)
         {
-            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache, pageNo);
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache, _objVideos, pageNo);
             objModel.PageSize = 30;
+            objModel.VideosCount = 2;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
             return View(objData);
         }
@@ -74,9 +76,10 @@ namespace Bikewale.Controllers
         [Route("photos/{makeMasking}-bikes/"), Filters.DeviceDetection]
         public ActionResult Make(string makeMasking)
         {
-            MakePhotosPage obj = new MakePhotosPage(false, makeMasking, _objModelEntity, _objMakeCache);
+            MakePhotosPage obj = new MakePhotosPage(false, makeMasking, _objModelEntity, _objMakeCache, _objVideos);
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
+                obj.VideosCount = 4;
                 MakePhotosPageVM objData = obj.GetData();
                 return View(objData);
             }
@@ -98,9 +101,10 @@ namespace Bikewale.Controllers
         [Route("m/photos/{makeMasking}-bikes/")]
         public ActionResult Make_Mobile(string makeMasking)
         {
-            MakePhotosPage obj = new MakePhotosPage(true, makeMasking, _objModelEntity, _objMakeCache);
+            MakePhotosPage obj = new MakePhotosPage(true, makeMasking, _objModelEntity, _objMakeCache, _objVideos);
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
+                obj.VideosCount = 2;
                 MakePhotosPageVM objData = obj.GetData();
                 return View(objData);
             }

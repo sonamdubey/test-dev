@@ -281,13 +281,15 @@ namespace BikewaleOpr.Cache
         /// Summmary : Function to clear version details for given model id
         /// Modified by : Ashutosh Sharma on 04 Oct 2017
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
         /// </summary>
         /// <param name="modelId"></param>
         public static void ClearVersionDetails(uint modelId)
         {
             try
             {
-                MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", modelId));
+                MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", modelId));
             }
             catch (Exception ex)
             {
@@ -409,6 +411,16 @@ namespace BikewaleOpr.Cache
         public static void ClearBikeVersionPrice(uint dealerId, uint versionId)
         {
             MemCachedUtil.Remove(String.Format("BW_Dealer_{0}_Version_{1}", dealerId, versionId));
+        }
+
+        /// <summary>
+        /// Created by : Sanskar Gupta on 13 Feb 2018
+        /// Description : Clear Dealer Bikes Cache key
+        /// </summary>
+        /// <param name="dealerId"></param>
+        public static void ClearDealerBikes(uint dealerId)
+        {
+            MemCachedUtil.Remove(String.Format("BW_DealerBikeModel_v1_{0}", dealerId));
         }
     }
 }

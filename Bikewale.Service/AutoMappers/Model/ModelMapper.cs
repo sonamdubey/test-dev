@@ -574,6 +574,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.ModelName = objModelPage.ModelDetails.ModelName;
                 objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
                 objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
+                objDTOModelPage.NewsCount = objModelPage.ModelDetails.NewsCount;
                 objDTOModelPage.IsUpcoming = objModelPage.ModelDetails.Futuristic;
                 objDTOModelPage.IsSpecsAvailable = (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null && objModelPage.objOverview.OverviewList.Any());
 
@@ -581,6 +582,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.Review = new DTO.Model.v5.Review();
                 objDTOModelPage.Review.UserReviewCount = (uint)objModelPage.ModelDetails.ReviewCount;
                 objDTOModelPage.Review.ExpertReviewCount = objModelPage.ModelDetails.ExpertReviewsCount;
+                objDTOModelPage.Review.RatingCount = (uint)objModelPage.ModelDetails.RatingCount;
 
                 if (!objDTOModelPage.IsUpcoming)
                 {
@@ -614,7 +616,7 @@ namespace Bikewale.Service.AutoMappers.Model
 
                     objDTOModelPage.Gallery = new DTO.Model.v5.Gallery();
                     objDTOModelPage.Gallery.ImageCount = (uint)objModelPage.AllPhotos.Count();
-                    objDTOModelPage.Gallery.ColorCount = objModelPage.colorPhotos != null && objModelPage.colorPhotos.Any() ? (uint)objModelPage.colorPhotos.Count() : 0;
+                    objDTOModelPage.Gallery.ColorCount = objModelPage.colorPhotos != null && objModelPage.colorPhotos.Any(m => m.IsImageExists) ? (uint)objModelPage.colorPhotos.Count(m => m.IsImageExists) : 0;
                     objDTOModelPage.Gallery.VideoCount = objModelPage.ModelDetails != null ? (uint)objModelPage.ModelDetails.VideosCount : 0;
 
                     var photos = new List<CMSModelImageBase>();
@@ -631,6 +633,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 if (objModelPage.colorPhotos != null && objModelPage.colorPhotos.Any())
                 {
                     objDTOModelPage.ModelColors = ModelMapper.Convert(objModelPage.colorPhotos);
+                    objDTOModelPage.ModelColors = objDTOModelPage.ModelColors.OrderByDescending(m => m.IsImageExists);
                 }
                 if (pqEntity != null)
                 {

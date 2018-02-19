@@ -11,6 +11,8 @@ namespace Bikewale.Entities.BikeData
     /// Description : Removed IsGstPrice property
     /// Modified by : Vivek Singh Tomar on 10th Nov 2017
     /// Description : Added ReviewRateStar to hold review rate
+    /// Modified by : Rajan Chauhan on 06 Feb 2018
+    /// Description : Added NewsCount property
     /// </summary>
     [Serializable, DataContract]
     public class BikeModelEntity : BikeModelEntityBase
@@ -59,7 +61,9 @@ namespace Bikewale.Entities.BikeData
         public IEnumerable<CustomPageMetas> Metas { get; set; }
         [DataMember]
         public byte ReviewRateStar { get; set; }
-
+        [DataMember]
         public uint ExpertReviewsCount { get; set; }
+        [DataMember]
+        public uint NewsCount { get; set; }
     }
 }
