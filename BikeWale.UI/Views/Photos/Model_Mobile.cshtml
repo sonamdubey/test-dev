@@ -17,81 +17,106 @@
     {
         objImages = Model.ModelImages.ToList();
     }
-	
-	<section>
-		<ul class="image-grid__list" data-grid="7">
-			@for (; i < 7; i++)
-			{
-				<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-					<img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" class="" />
-				</li>
-			}
-		</ul>
-		<ul class="image-grid__list" data-grid="6">
-			@for (; i < Model.GridPhotoCount && i < 13; i++)
-				{
-					<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-						<img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-						@if (i == 8)
-						{
-							<div class="list-item__video-slug">
-								<p class="video-slug__title">Videos</p>
-								<ul class="video-slug__list">
-									<li>First Drive</li>
-									<li>Comparison test</li>
-								</ul>
-							</div>
-						}
-					</li>
-				}
-		</ul>
-		@*<ul class="image-grid__list" data-grid="5">
-			@for (; i < Model.GridPhotoCount && i < 18; i++)
-				{
-					<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-						<img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-					</li>
-				}
-		</ul>*@
-		<div class="image-grid__list-more">
-			<button type="button" class="btn btn-white">View More (153)</button>
-		</div>
-	</section>
 
     <section>
         <div class="container box-shadow section-bottom-margin padding-bottom2">
             <h1 class="page-header">@Model.Page_H1</h1>
 
             <div class="model-gallery-section">
-            <div id="main-photo-swiper" class="swiper-container gallery-swiper noSwiper model-gallery" data-bind="visible: photosTabActive() && photoSwiperActive()">
-                <div class="swiper-wrapper">
-                    @for (i = 0; i <= 5; i++)
-                    {
-                        <div class="swiper-slide">
-                            <img class="swiper-lazy gallery-swiper-image" src="https://imgd.aeplcdn.com//476x268//bw/models/ktm-rc-200.jpg?20171702125821" alt="" title="" border="0" />
-                        </div>
-                    }
+				<div id="main-photo-swiper" class="swiper-container gallery-swiper noSwiper model-gallery" data-bind="visible: photosTabActive() && photoSwiperActive()">
+					<div class="swiper-wrapper">
+						@for (i = 0; i <= 5; i++)
+						{
+							<div class="swiper-slide">
+								<img class="swiper-lazy gallery-swiper-image" src="https://imgd.aeplcdn.com//476x268//bw/models/ktm-rc-200.jpg?20171702125821" alt="" title="" border="0" />
+							</div>
+						}
+					</div>
+					<div class="bwmsprite swiper-button-next gallery-type-next"></div>
+					<div class="bwmsprite swiper-button-prev gallery-type-prev"></div>
+				</div>
+				<div class="gallery-image__footer">
+					<span class="gallery-image__count">
+						1/234
+					</span>
+					<div class="gallery-image__feature">
+						<a href="" title="" class="gallery__download-icon"></a>
+						<a href="" title="" class="share-icon"></a>
+						<a href="" title="" class="zoom-icon"></a>
+					</div>
 
-                </div>
-                <div class="bwmsprite swiper-button-next gallery-type-next"></div>
-                <div class="bwmsprite swiper-button-prev gallery-type-prev"></div>
-            </div> 
-                    <div class="gallery-image__footer">
-                        <span class="gallery-image__count">
-                            1/234
-                        </span>
-                        <div class="gallery-image__feature">
-                            <a href="" title="" class="gallery__download-icon"></a>
-                            <a href="" title="" class="share-icon"></a>
-                            <a href="" title="" class="zoom-icon"></a>
-                        </div>
-
-                    </div>
-
-                
+				</div>    
             </div>
 
-            @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
+			<section>
+				<ul id="imageGridTop" class="image-grid__list" data-grid="7">
+					@for (i = 0; i < 7; i++)
+					{
+						<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+							<img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" class="" />
+						</li>
+					}
+				</ul>
+
+				<div class="model-info-section">
+					<a href="" title="model-info__target-link">
+						<div class="model-info__container">
+							<span class="rating-badge" data-rate-bg="4">
+								<span class="rating-badge__star"></span>
+								<span>3.5</span>
+							</span>
+							<div class="model-info__image">
+								<img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70 " src="" alt="KTM1 RC200 ">
+							</div>
+							<div class="model-info-description">
+								<h3 class="model-info__title">
+									Bajaj Dominar 400
+								</h3>
+								<p class="model-info__ex-showroom">
+									Ex-showroom, Mumbai
+								</p>
+								<p class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
+							</div>
+						</div>
+					</a>
+					<div class="model-info__specs-container">
+						<a href="" class="model-info__specs-item specs-icon">
+							Specs
+						</a>
+						<a href="" class="model-info__specs-item specs-icon">
+							Expert Reviews
+						</a>
+						<a href="" class="model-info__specs-item specs-icon">
+							News
+						</a>
+					</div>
+				</div>
+
+				<ul id="imageGridBottom" class="image-grid__list image-grid--bottom" data-grid="6">
+					@for (; i < Model.GridPhotoCount && i < 19; i++)
+					{
+						<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+							<img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+						</li>
+					}
+				</ul>
+				<div class="image-grid__list-more">
+					<button id="viewMoreImageBtn" type="button" class="btn btn-inv-blue image-grid__more-btn">View More (<span id="moreImageCount">@( Model.GridPhotoCount - i)</span>)</button>
+				</div>
+			</section>
+
+			<div id="videoSlug" class="hide">
+				<div class="video-slug__content">
+					<p class="video-slug__title">Videos</p>
+					<ul class="video-slug__list">
+						<li>First Drive</li>
+						<li>Comparison test</li>
+					</ul>
+					<a href="#" class="btn btn-inv-blue video-slug__more-btn">View All Videos</a>
+				</div>
+			</div>
+
+            @*@if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
             {
                 <ul id="grid-images-noremainder" class="photos-grid-list" data-modelid="@(Model.objModel != null ? Model.objModel.ModelId : 0)">
                     @for (; i < Model.GridPhotoCount && i < 6; i++)
@@ -126,47 +151,12 @@
                         </li>
                     }
                 </ul>
-
-
-            }
+            }*@
             <div class="clear"></div>
         </div>
     </section>
-        <div class="model-info-section">
-            <a href="" title="model-info__target-link">
-                <div class="model-info__container">
-                    <span class="rating-badge" data-rate-bg="4">
-                        <span class="rating-badge__star"></span>
-                        <span>3.5</span>
-                    </span>
-                    <div class="model-info__image">
-                        <img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70 " src="" alt="KTM1 RC200 ">
-                    </div>
-                    <div class="model-info-description">
-                        <h3 class="model-info__title">
-                            Bajaj Dominar 400
-                        </h3>
-                        <p class="model-info__ex-showroom">
-                            Ex-showroom, Mumbai
-                        </p>
-                        <p class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
-                    </div>
-                </div>
-            </a>
-            <div class="model-info__specs-container">
-                <a href="" class="model-info__specs-item specs-icon">
-                    Specs
-                </a>
-                <a href="" class="model-info__specs-item specs-icon">
-                    Expert Reviews
-                </a>
-                <a href="" class="model-info__specs-item specs-icon">
-                    News
-                </a>
-            </div>
-    
-    
-        <section>
+	
+	<section>
             <div class="similar-model">
                 <h2 class="page__heading-h2">
                     Bikes similar to Bajaj Dominar 400
@@ -206,22 +196,25 @@
             </div>
 
     </section>
-                            if (Model.AdTags.Ad_300x250BTF)
-                            {
+	
+    if (Model.AdTags.Ad_300x250BTF)
+    {
         <div class="margin-bottom20 text-center">
             @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
         </div>
-                            }
+	}
+	
     <div id="photoTemplateWrapper" class="hide">
         <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
         <ul data-bind="foreach : Loadedphotos">
-            <li data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}">
-                <img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" @*alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)"*@ />
-            </li>
+			<li class="image-grid-list__item" data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}">
+				<img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" @*alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)"*@ />
+			</li>
         </ul>
         <!-- /ko -->
     </div>
-    if (Model.BikeInfo != null)
+
+    @*if (Model.BikeInfo != null)
     { <section>
             <div class="container bg-white box-shadow section-bottom-margin">
                 @Html.Partial("~/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
@@ -245,18 +238,17 @@
 
     }
 
-///////////////////////////////////
     if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
     {
         @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_Mobile.cshtml", Model.SimilarBikes)
-    }
+    }*@
 
     if (Model.ModelGallery != null)
     {
         @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
     }
 
-    if (Model.objMoreAboutScooter != null)
+    @*if (Model.objMoreAboutScooter != null)
     {
         <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
             <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
@@ -265,7 +257,7 @@
                 </div>
             </div>
         </div>
-    }
+    }*@
 
 }
  @if (Model.AdTags.Ad_320x50BTF)
