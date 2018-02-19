@@ -137,6 +137,7 @@
     <Compile Include="Finance\CapitalFirstVM.cs" />
     <Compile Include="Gallery\ModelGalleryVM.cs" />
     <Compile Include="GenericBestBikes\IndexBestBikesVM.cs" />
+    <Compile Include="Images\ImageWidgetVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
     <Compile Include="Make\MakeFooterCategoriesandPriceVM.cs" />

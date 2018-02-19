@@ -1,10 +1,13 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Videos;
 using Bikewale.Models;
+using Bikewale.Notifications;
+using Bikewale.PWA.Entities.Photos;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -480,5 +483,70 @@ namespace Bikewale.PWA.Utils
             return outEntity;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharam on 12 Feb 2018.
+        /// Description : Method to convert `IEnumerable<ModelImages>` to `IEnumerable<PwaModelImages>`.
+        /// </summary>
+        /// <param name="modelImagesList">List of Models with list of their image list.</param>
+        /// <returns>PWA entity which contains list of models with their image list.</returns>
+        public static IEnumerable<PwaModelImages> PwaConvert(IEnumerable<ModelImages> modelImagesList)
+        {
+            IList<PwaModelImages> pwaModelImagesList = null;
+            try
+            {
+                if (modelImagesList != null)
+                {
+                    pwaModelImagesList = new List<PwaModelImages>();
+                    foreach (var modelImages in modelImagesList)
+                    {
+                        pwaModelImagesList.Add(new PwaModelImages() {
+                            BikeName = modelImages.BikeName,
+                            ModelName = modelImages.ModelBase.ModelName,
+                            MakeName = modelImages.MakeBase.MakeName,
+                            ModelId = modelImages.ModelId,
+                            ModelImagePageUrl = string.Format("/m/{0}-bikes/{1}/images/", modelImages.MakeBase.MaskingName, modelImages.ModelBase.MaskingName),
+                            ModelImages = PwaConvert(modelImages.ModelImage),
+                            RecordCount = modelImages.RecordCount
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.PwaConvert_modelImagesList_{0}", modelImagesList));
+            }
+            return pwaModelImagesList;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharam on 12 Feb 2018.
+        /// Description : Method to convert `IEnumerable<ModelImage>` to `IEnumerable<PwaImageBase>`.
+        /// </summary>
+        /// <param name="modelImageList">List of images.</param>
+        /// <returns>PWA entity which contains list of images.</returns>
+        public static IEnumerable<PwaImageBase> PwaConvert(IEnumerable<ModelImage> modelImageList)
+        {
+            IList<PwaImageBase> pwaImageBaseList = null;
+            try
+            {
+                if (modelImageList != null)
+                {
+                    pwaImageBaseList = new List<PwaImageBase>();
+                    foreach (var modelImage in modelImageList)
+                    {
+                        pwaImageBaseList.Add(new PwaImageBase()
+                        {
+                            HostUrl = modelImage.HostUrl,
+                            OriginalImgPath = modelImage.OriginalImgPath
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.PwaConvert_modelImageList_{0}", modelImageList));
+            }
+            return pwaImageBaseList;
+        }
     }
 }

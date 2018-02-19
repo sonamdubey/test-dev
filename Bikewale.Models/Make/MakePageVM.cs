@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Location;
+using Bikewale.Models.Images;
 using Bikewale.Models.Make;
 using Bikewale.Models.PopUp;
 using Bikewale.Models.UserReviews;
@@ -47,6 +48,9 @@ namespace Bikewale.Models
     /// 
     /// Modified By : Deepak Israni on 9 Feb 2018
     /// Description : Added ModelCount and ExpertReviewCount
+    /// 
+    /// Modified By : Rajan Chauhan on 19 Feb 2018
+    /// Description : Replaced BikeModelsPhotos with BikeModelsPhotos
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -66,7 +70,7 @@ namespace Bikewale.Models
         public RecentExpertReviewsVM ExpertReviews { get; set; }
         public RecentVideosVM Videos { get; set; }
         public IEnumerable<BikeVersionEntity> DiscontinuedBikes { get; set; }
-        public IEnumerable<ModelImages> BikeModelsPhotos { get; set; }
+        public ImageWidgetVM BikeModelsPhotos { get; set; }
         public bool IsUpComingBikesAvailable { get; set; }
         public bool IsCompareBikesAvailable { get; set; }
         public bool IsNewsAvailable { get; set; }

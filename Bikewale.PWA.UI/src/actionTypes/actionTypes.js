@@ -68,6 +68,14 @@ const videosDetailAction = {
 	FETCH_RELATEDINFO_RESET : 'FETCH_RELATEDINFO_RESET'
 }
 
+const bikeImageCarouselAction = {
+    FETCH_POPULAR_BIKELIST: 'FETCH_POPULAR_BIKELIST',
+    FETCH_POPULAR_BIKELIST_SUCCESS: 'FETCH_POPULAR_BIKELIST_SUCCESS',
+    FETCH_POPULAR_BIKELIST_FAILURE: 'FETCH_POPULAR_BIKELIST_FAILURE',
+    POPULAR_BIKELIST_RESET: 'POPULAR_BIKELIST_RESET'
+
+}
+
 module.exports = {
 	newsListAction : newsListAction,
 	newsDetailAction : newsDetailAction,
@@ -75,7 +83,8 @@ module.exports = {
 	modelObjectAction : modelObjectAction,
 	videosLandingAction : videosLandingAction,
 	videosByCategoryAction : videosByCategoryAction,
-	videosDetailAction : videosDetailAction
+	videosDetailAction : videosDetailAction,
+	bikeImageCarouselAction : bikeImageCarouselAction
 
 
 }
