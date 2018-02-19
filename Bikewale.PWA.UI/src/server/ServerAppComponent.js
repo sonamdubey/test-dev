@@ -2,8 +2,8 @@ import React from 'react'
 import { StaticRouter, Switch ,  Route } from 'react-router-dom'
 import Navigation from '../components/Shared/Navigation'
 import NavigationDrawer from '../components/Shared/NavigationDrawer'
-import AdUnit320x50 from '../components/AdUnit320x50'
-import {AD_DIV_REVIEWS_TOP_320_50 , AD_PATH_REVIEWS_TOP_320_50} from '../utils/constants'
+import AdUnit from '../components/AdUnit'
+import { AD_DIV_REVIEWS_TOP_320_50, AD_PATH_REVIEWS_TOP_320_50, AD_DIMENSION_320_50} from '../utils/constants'
 import ArticleListComponent from '../components/News/ArticleListComponent'
 import ArticleDetailComponent from '../components/News/ArticleDetailComponent'
 import VideoLandingComponent_Server from './Videos/VideoLandingComponent_Server'
@@ -17,7 +17,7 @@ class ServerAppComponent extends React.Component {
 		return (
 				<div>
 					<Navigation/>
-					<AdUnit320x50 adSlot={AD_PATH_REVIEWS_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/>        
+                    <AdUnit adSlot={AD_PATH_REVIEWS_TOP_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/>        
 					<div className="body-content">
 						<Switch>
 	                        <Route exact path='/m/news/' component={() => (<ArticleListComponent {...this.props.childComponentProps}/>)}/>

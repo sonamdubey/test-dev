@@ -3,6 +3,8 @@
 @import "base/typography"
 @import "base/mixin"
 
+@import "mixins/index"
+
 // Components
 @import "components/button"
 @import "components/common"
@@ -343,3 +345,19 @@
 @include grid(7)
 
 @include padding("top", 20)
+
+// image carousel
+@include model-image-carousel(277, 354)
+@include image-card(354, '#fff9f9')
+@include image-grid-7
+@include image-grid-3
+@include image-grid-1
+
+.carousel__recently-added
+	.model-image__card
+		background: #fff
+		border-color: transparent
+
+.page-type--landing
+	.image-carousel__title
+		text-align: center

@@ -957,6 +957,7 @@
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
     <Compile Include="Models\Gallery\ModelGalleryWidget.cs" />
     <Compile Include="Models\GenericBestBikes\IndexGenericBestBikes.cs" />
+    <Compile Include="Models\Images\ImageCarausel.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
     <Compile Include="Models\DealerPriceQuotePage.cs" />
@@ -4007,9 +4008,13 @@
     <Content Include="Views\Photos\_OtherPopularMakes_Mobile.cshtml" />
     <Content Include="Views\Photos\_ModelsImageList_Mobile.cshtml" />
     <Content Include="Views\Photos\_ModelsImageListBase.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x250_Bottom.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Model_ATF_300x250.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Model_BTF_300x250.cshtml" />
     <Content Include="Views\Make\_OtherBrand_New.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile_New.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_New.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Top.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
