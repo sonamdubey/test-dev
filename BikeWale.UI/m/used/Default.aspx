@@ -11,7 +11,8 @@
     canonical="https://www.bikewale.com/used/";
 %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/used/landing.css" />
+	<link href="<%= staticUrl  %>/m/css/used/landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+	<link href="<%= staticUrl  %>/css/components/m-brand-logo.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>

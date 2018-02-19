@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Bikewale.Entities.CMS.Photos.ModelImages>
+﻿@model Bikewale.Models.Images.ImageWidgetVM
 @using Bikewale.Utility;
 
-@if (Model != null && Model.Count() > 0)
+@if (Model != null && Model.ModelList != null && Model.ModelList.Any())
 {
     <div class="swiper-container carousel__recently-added" data-spacebetween="0">
         <ul class="swiper-wrapper">
-            @foreach (var bike in Model)
+            @foreach (var bike in Model.ModelList)
             {
                 <li class="swiper-slide carousel-slide">
                     <a href="@string.Format("{0}/m/{1}-bikes/{2}/images/", BWConfiguration.Instance.BwHostUrl, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@string.Format("{0} Images", bike.BikeName)" class="model-image__card">

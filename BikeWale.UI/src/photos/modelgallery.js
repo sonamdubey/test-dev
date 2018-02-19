@@ -291,7 +291,7 @@ function logBhrighuForImage(item) {
 
             label = 'modelId=' + bikeModelId + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
             cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
-            triggerVirtualPageView(window.location.host + window.location.pathname, lb);
+            triggerVirtualPageView(window.location.host, window.location.pathname, lb);
         }
     }
 

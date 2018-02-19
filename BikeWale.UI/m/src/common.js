@@ -43,11 +43,12 @@ function triggerGA(cat, act, lab) {
     }
 }
 
-function triggerVirtualPageView(url, title) {
+function triggerVirtualPageView(host, path, title) {
     try {
         dataLayer.push({
             'event': 'VirtualPageview',
-            'virtualPageURL': url,
+            'virtualPageHost': host,
+            'virtualPagePath': path,
             'virtualPageTitle': title
         })
     } catch (e) {

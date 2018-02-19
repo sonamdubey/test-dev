@@ -35,7 +35,7 @@
                 <li class="overall-tabs-list__item" data-tabs="reviews">Reviews</li>
             }
 
-            @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.Any())
+            @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.ModelList != null && Model.BikeModelsPhotos.ModelList.Any())
             {
                 <li class="overall-tabs-list__item" data-tabs="images">Images</li>
             }

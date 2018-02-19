@@ -37,12 +37,13 @@
 .brand-73,
 .brand-74,
 .brand-75,
-.brand-76 {
+.brand-76,
+.brand-77 {
     height: 50px;
 }
 
 .brandlogosprite {
-    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?30Jan20181517282547756') no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?13Feb20181518498503688') no-repeat;
     display: inline-block;
 }
 .brand-73 {
@@ -184,4 +185,8 @@
 .brand-76 {
 	width: 124px;
 	background-position: -3530px 0;
+}
+.brand-77 {
+	width: 122px;
+	background-position: -3663px 0;
 }

@@ -4,6 +4,7 @@ using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Models.Images;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -55,7 +56,7 @@ namespace Bikewale.Models.Photos.v1
             try
             {
                 objData = new PhotosPageVM();
-                objData.PopularSportsModelsImages = BindPopularSportsBikeWidget();
+                objData.PopularSportsBikesWidget = GetPopularSportsBikeWidget();
                 BindBikeModelsPhotos(objData);
                 BindMakesWidget(objData);
                 BindVideosWidget(objData);
@@ -233,25 +234,23 @@ namespace Bikewale.Models.Photos.v1
         /// <summary>
         /// Created by  : Vivek Singh Tomar on 12th Jan 2018
         /// Description : Bind sports bike image widget
+        /// Modified by : Pratibha Verma on 8 Feb 2018
+        /// Description : Get data from imageCarausel class
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<ModelImages> BindPopularSportsBikeWidget()
+        private ImageWidgetVM GetPopularSportsBikeWidget()
         {
-            IEnumerable<ModelImages> modelsImages = null;
+            ImageWidgetVM imageWidget = null;
             try
             {
-                IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, 1, 9);
-                var modelIds = string.Join(",", modelIdsWithBodyStyle.Select(m => m.ModelId.ToString()));
-                if (!string.IsNullOrEmpty(modelIds))
-                {
-                    modelsImages = _objModelEntity.GetBikeModelsPhotoGallery(modelIds, 7);
-                }
+                ImageCarausel imageCarausel = new ImageCarausel(0,9,7, EnumBikeBodyStyles.Sports, _objModelEntity);
+                imageWidget = imageCarausel.GetData();               
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage");
             }
-            return modelsImages;
+            return imageWidget;
         }
         private void SetPageJSONLDSchema(PhotosPageVM objData)
         {

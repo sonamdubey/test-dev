@@ -1,21 +1,25 @@
-function addAdToGTcmd(adUnitPath , adDimension , adDivId , tags ) {
-  googletag.cmd.push(function () {
-              if(tags)
-                googletag.pubads().setTargeting("Tags", tags);
-              else
-                googletag.pubads().clearTargeting("Tags");
-             
-              var slot = googletag.defineSlot(adUnitPath, adDimension, adDivId);
-              if(!slot) return;
-              slot.addService(googletag.pubads());
-              googletag.pubads().enableAsyncRendering();
-              googletag.pubads().updateCorrelator();
-              googletag.pubads().enableSingleRequest(false);
+function addAdToGTcmd(adUnitPath, adDimension, adDivId, adTarget) {
+	googletag.cmd.push(function () {
+		for (var tagKey in adTarget) {
+			if (adTarget[tagKey]) {
+				googletag.pubads().setTargeting(tagKey, adTarget[tagKey]);
+			}
+			else {
+				googletag.pubads().clearTargeting(tagKey);
+			}
+		}
 
-              googletag.pubads().collapseEmptyDivs();
-              googletag.enableServices();
-              
-          });
+		var slot = googletag.defineSlot(adUnitPath, adDimension, adDivId);
+		if (!slot) return;
+		slot.addService(googletag.pubads());
+		googletag.pubads().enableAsyncRendering();
+		googletag.pubads().updateCorrelator();
+		googletag.pubads().enableSingleRequest(false);
+
+		googletag.pubads().collapseEmptyDivs();
+		googletag.enableServices();
+
+	});
 }
 
 function addAdSlot(adUnitPath , adDimension , adDivId , tags) {
@@ -36,9 +40,20 @@ function addAdSlot(adUnitPath , adDimension , adDivId , tags) {
             break;
         }
       }
-    }  
+		}
+		
     if(!adExists) {
-        addAdToGTcmd(adUnitPath , adDimension , adDivId , tags);
+    	let adTarget = {
+    		Model: '',
+    		Make: '',
+    		City: '',
+    		Series: '',
+    		Tags: ''
+    	}
+
+    	adTarget = Object.assign(adTarget, tags)
+
+    	addAdToGTcmd(adUnitPath, adDimension, adDivId, adTarget);
     }    
     
   }

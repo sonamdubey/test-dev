@@ -1,6 +1,7 @@
 import React from 'react'
 import TopVideosContainer from './TopVideosContainer'
 import OtherVideosContainer from './OtherVideosContainer'
+import PopularBikeImageCarouselContainer from '../Widgets/PopularBikeImageCarouselContainer'
 import {startTimer , endTimer} from '../../utils/timing'
 import {GA_PAGE_MAPPING} from '../../utils/constants'
 import { scrollPosition , resetScrollPosition  } from '../../utils/scrollUtils'
@@ -19,8 +20,8 @@ var childComponent;
 class VideoLandingComponent extends React.Component {
 	constructor(props) {
 		super(props);
-		childComponentCount = 2;
-		childComponent = {'TopVideosComponent' : 1 , 'OtherVideosComponent' : 1 };
+		childComponent = {'TopVideosComponent' : 1 , 'OtherVideosComponent' : 1, 'BikeImageCarouselComponent': 1};
+		childComponentCount = Object.keys(childComponent).length;
 		startTimer(1,0); // 1 component to complete + 0 ads
 		this.handleTimingAndScrollingForChildComponents = this.handleTimingAndScrollingForChildComponents.bind(this);
 		if(typeof(gaObj)!="undefined")
@@ -28,11 +29,11 @@ class VideoLandingComponent extends React.Component {
 		    gaObj = GA_PAGE_MAPPING["VideosPage"];
 		}
 	}
+
 	handleTimingAndScrollingForChildComponents(completedComponent) {
 		if(!childComponent[completedComponent]) return;
-		
 		if(childComponent[completedComponent] == 1) {
-			childComponent[completedComponent] = 0;
+		    childComponent[completedComponent] = 0;
 			childComponentCount--;
 			if(childComponentCount == 0) {
 				//trigger scroll
@@ -45,17 +46,15 @@ class VideoLandingComponent extends React.Component {
 			}
 		}
 	}
-	render() {
-		
-		return(
-			<div>
-				<TopVideosContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
-				<OtherVideosContainer  logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
 
+	render() {
+		return (
+			<div className="page-type--landing">
+				<TopVideosContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
+				<OtherVideosContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
+                <PopularBikeImageCarouselContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents} />
 			</div>
 		)
-		
-		
 
 	}
 }
