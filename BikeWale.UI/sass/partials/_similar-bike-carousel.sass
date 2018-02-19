@@ -20,7 +20,7 @@
 			&:last-child
 				margin-right: 16px
 
-@mixin similar-model__image($width: 110px, $height: 62px)
+@mixin similar-model__image($width: 110px, $height: 61px)
 	.similar-model__image
 		height: $height
 		width: $width
@@ -34,6 +34,7 @@
 	padding: 10px 10px 14px
 
 .similar-model__detail
+	min-width: 0
 	padding-left: 10px
 
 .similar-model__title
@@ -64,8 +65,10 @@
 
 	.similar-model__image-count
 		font-size: 12px
-		padding-left: 20px
+		padding-left: 25px
 		position: relative
+		background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/image.svg) 0 center no-repeat
+		background-size: 16px
 
 		&:after
 			@include right-arrow-0288d1-icon
