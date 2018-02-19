@@ -330,6 +330,8 @@ namespace Bikewale.Models
         /// Description : Added call to BindAdSlotTags.
         /// Modified by : Ashutosh Sharma on 08 Dec 2017
         /// Description : Removed Images load with Ajax for honda and hero.
+        /// Modified By : Deepak Israni on 19 Feb 2018
+        /// Description : Sending isNew flag with GetVersionMinSpecs instead of the hardcoded true value.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageVM GetData()
