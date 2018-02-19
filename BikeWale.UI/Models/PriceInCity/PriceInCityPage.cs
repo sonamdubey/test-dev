@@ -353,7 +353,7 @@ namespace Bikewale.Models
                             objVM.BikeVersionPrices = newVersions;
                         }
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
-                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
+                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, objVM.IsNew);
                         if (objVM.VersionSpecs != null)
                         {
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
