@@ -906,6 +906,13 @@ li.offertxt:hover span {display:inline}
 .card .card-target:hover {
     text-decoration: none;
 }
+.dealer-horizontal-swiper .card-target {
+    min-height: 165px;
+}
+.dealer-horizontal-swiper .details-column {
+    max-height:74px;
+    overflow:hidden;
+}
 .card .text-truncate {
     width: 100%;
 }

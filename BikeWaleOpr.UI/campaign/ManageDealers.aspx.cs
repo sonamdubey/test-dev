@@ -1,4 +1,5 @@
 ﻿using BikewaleOpr.BAL.ContractCampaign;
+using BikewaleOpr.Cache.Campaigns;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
 using BikewaleOpr.DALs.ContractCampaign;
@@ -147,6 +148,7 @@ namespace BikewaleOpr.Campaign
 
                 }
 
+                Dealers.ClearDealerBikes(dealerId);
                 InsertUpdateContractCampaign();
 
                 ClearForm(Page.Form.Controls, true);

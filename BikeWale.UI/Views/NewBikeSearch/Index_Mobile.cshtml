@@ -6,15 +6,16 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-search.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/chosen.min.css";
     Model.Page_JS_Path = "/m/src/new/search_new.js";
-    Model.AdTags.AdId = "1398766000399";
-    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Homepage";
-    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.AdId = "1517810637194";
+    Model.AdTags.AdPath = "/1017752/Bikewale_NewBikeSearch";
+    Model.AdTags.Ad_Body_Top_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_300x250BTF = true;
     Model.IsHeaderRequired = false;
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 
     <div class="blackOut-window"></div>
-	<!-- global-search-popup code starts here -->
+    <!-- global-search-popup code starts here -->
 
     <div id="global-search-popup" class="global-search-popup" style="display: none">
         <div class="form-control-box">
@@ -34,7 +35,7 @@
             </ul>
         </div>
     </div>
-	<!-- global-search-popup code ends here -->
+    <!-- global-search-popup code ends here -->
     <header>
         <div class="header-fixed">
             <!-- Fixed Header code starts here -->
@@ -60,7 +61,12 @@
         <div class="clear"></div>
 
     </header>
-
+    if (Model.AdTags.Ad_Body_Top_320x50)
+    {
+        <div class="margin-bottom20 text-center">
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50_Top.cshtml", Model.AdTags);}
+        </div>
+    }
     <section>
         <!--  Used Search code starts here -->
         <div class="container">
@@ -95,7 +101,7 @@
                             <ul>
                                 @foreach (var bike in Model.BikeSearch.SearchResult)
                                 {
-							        <!-- ko if: models()[@i]-->
+                                    <!-- ko if: models()[@i]-->
                                     <li class="search-bike-item">
                                         <div class="front">
                                             <div class="contentWrapper">
@@ -136,13 +142,13 @@
                                         </div>
                                     </li>
 
-							        <!-- /ko -->
+                                    <!-- /ko -->
                                     i++;
                                 }
                                 @while (i < 30)
                                 {
-								<!-- ko if: models()[@i] && models()[@i].bikemodel -->
-                                     <li class="search-bike-item" style="display:none" data-bind="
+                                    <!-- ko if: models()[@i] && models()[@i].bikemodel -->
+                                    <li class="search-bike-item" style="display:none" data-bind="
                                     <li class="search-bike-item" style="display:none" data-bind="visible: models()[@i]">
                                         <div class="front">
                                             <div class="contentWrapper">
@@ -182,7 +188,7 @@
                                             </div>
                                         </div>
                                     </li>
-								    <!-- /ko -->
+                                    <!-- /ko -->
                                     i++;
                                 }
                             </ul>
@@ -260,8 +266,8 @@
         </div>
 
     </section>
-	<!-- Used Search code  Ends here -->
-	<!--Filters starts here-->
+    <!-- Used Search code  Ends here -->
+    <!--Filters starts here-->
     <div id="filter-div" class="popup_layer hide">
         <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete">
             <div id="hidePopup" class="filterBackArrow" popupname="filterpopup" @*onclick="CloseWindow(this)"*@>
@@ -421,7 +427,10 @@
         <!--Filters ends here-->
         <div class="clear"></div>
     </div>
-    
+    if (Model.AdTags.Ad_300x250BTF)
+    {
+        Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
+    }
     if (Model.TabCount > 0)
     {
         <section>
@@ -436,38 +445,38 @@
                                     <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
                                         <ul>
                                             @if (Model.News.FetchedCount > 0)
-											{
-                                                        <li data-tabs="ctrlNews" class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")">News</li>
-											}
+                                            {
+                                                <li data-tabs="ctrlNews" class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")">News</li>
+                                            }
                                             @if (Model.ExpertReviews.FetchedCount > 0)
-											{
-                                                        <li data-tabs="ctrlExpertReviews" class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")">Expert Reviews</li>
-											}
+                                            {
+                                                <li data-tabs="ctrlExpertReviews" class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")">Expert Reviews</li>
+                                            }
                                             @if (Model.Videos.FetchedCount > 0)
-											{
-                                                        <li data-tabs="ctrlVideos" class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")">Videos</li>
-											}
+                                            {
+                                                <li data-tabs="ctrlVideos" class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")">Videos</li>
+                                            }
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="bw-tabs-data margin-right20 margin-left20" id="ctrlNews">
                                 @if (Model.News.FetchedCount > 0)
-								{
-                                            @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
-								}
+                                {
+                                    @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                                }
                             </div>
                             <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
                                 @if (Model.ExpertReviews.FetchedCount > 0)
-								{
-                                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
-								}
+                                {
+                                    @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                                }
                             </div>
                             <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
                                 @if (Model.Videos.FetchedCount > 0)
-								{
-                                            @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
-								}
+                                {
+                                    @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                                }
                             </div>
                         </div>
                     </div>

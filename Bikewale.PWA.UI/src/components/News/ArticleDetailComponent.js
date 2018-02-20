@@ -14,10 +14,11 @@ import { isServer } from '../../utils/commonUtils'
 import {mapNewsArticleDataToInitialData} from './NewsCommon'
 import {addAdSlot , removeAdSlot} from '../../utils/googleAdUtils'
 import { scrollPosition , resetScrollPosition , isBrowserWithoutScrollSupport } from '../../utils/scrollUtils'
+import { getGlobalCity } from '../../utils/popUpUtils'
 
 import {endTimer} from '../../utils/timing'
-import AdUnit320x50 from '../AdUnit320x50'
-import { Status ,GA_PAGE_MAPPING,AD_PATH_NEWS_MOBILE_BOTTOM_320_50 , AD_DIV_REVIEWS_BOTTOM_320_50 , AD_PATH_NEWS_MOBILE_TOP_320_50 , AD_DIV_REVIEWS_TOP_320_50} from '../../utils/constants'
+import AdUnit from '../AdUnit'
+import { Status, GA_PAGE_MAPPING,AD_PATH_NEWS_MOBILE_BOTTOM_320_50, AD_DIV_REVIEWS_BOTTOM_320_50, AD_PATH_NEWS_MOBILE_TOP_320_50, AD_DIV_REVIEWS_TOP_320_50, AD_DIMENSION_320_50} from '../../utils/constants'
 
 
 class ArticleDetail extends React.Component {
@@ -41,6 +42,9 @@ class ArticleDetail extends React.Component {
                 this.props.RelatedModelObject.Status = Status.Fetched;
             }
         }
+
+        var globalCity = getGlobalCity();
+        this.globalCityName = (globalCity && globalCity.name.length > 0) ? globalCity.name : '';
 
         this.extractBasicIdFromArticleUrl = this.extractBasicIdFromArticleUrl.bind(this);
         if(typeof(gaObj)!="undefined")
@@ -292,8 +296,14 @@ class ArticleDetail extends React.Component {
         var adSlotBottom = null;
         
         if(articleDetail) {
-            adSlotTop = <AdUnit320x50 uniqueKey={articleDetail.Title} tags={articleDetail.Tags} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
-            adSlotBottom = <AdUnit320x50 uniqueKey={articleDetail.Title} tags={articleDetail.Tags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50}/> ;
+        	let targetTags = {
+        		City: this.globalCityName,
+        		Tags: articleDetail.Tags
+        	}
+
+        	adSlotTop = <AdUnit uniqueKey={articleDetail.Title} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50} />;
+
+        	adSlotBottom = <AdUnit uniqueKey={articleDetail.Title} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50} />;
         }
 
         var documentTitle = (articleInitialData.Title == "") ?"BikeWale News" : (articleInitialData.Title + " - BikeWale News");

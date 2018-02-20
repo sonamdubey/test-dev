@@ -19,6 +19,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
+using Bikewale.Models.Images;
 using Bikewale.Models.Make;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
@@ -249,24 +250,17 @@ namespace Bikewale.Models
             return objData;
         }
 
+        /// <summary>
+        /// Modified by : Rajan Chauhan on 19 Feb 2018
+        /// Description : Changed BikeModelPhotos to accept ImageWidgetVM
+        /// </summary>
+        /// <param name="objData"></param>
         private void BindModelPhotos(MakePageVM objData)
         {
             try
             {
-                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(_makeId, EnumBikeBodyStyles.AllBikes);
-                if (objModelIds != null && objModelIds.Any())
-                {
-                    string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                    int requiredImageCount = 9;
-                    string categoryIds = CommonApiOpn.GetContentTypesString(
-                        new List<EnumCMSContentType>()
-                    {
-                        EnumCMSContentType.PhotoGalleries,
-                        EnumCMSContentType.RoadTest
-                    }
-                    );
-                    objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount).Take(6);
-                }
+                ImageCarausel imageCarausel = new ImageCarausel(_makeId, 6, 7, EnumBikeBodyStyles.AllBikes, _objModelEntity);
+                objData.BikeModelsPhotos = imageCarausel.GetData();
             }
             catch (Exception ex)
             {
@@ -828,7 +822,7 @@ namespace Bikewale.Models
 
             try
             {
-                if (objData != null)
+                if (objData != null && objData.Bikes != null && objData.Bikes.Any())
                 {
                     foreach (var bike in objData.Bikes)
                     {

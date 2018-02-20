@@ -1,12 +1,12 @@
-﻿@model IEnumerable<Bikewale.Entities.CMS.Photos.ModelImages>
+﻿@model Bikewale.Models.Images.ImageWidgetVM
 @using Bikewale.Utility;
 
-@if (Model != null && Model.Count() > 0)
+@if (Model != null && Model.ModelList.Count()>0)
 {
     <div class="jcarousel-wrapper carousel--full-width carousel__recently-added">
         <div class="jcarousel">
             <ul>
-                @foreach (var bike in Model)
+                @foreach (var bike in Model.ModelList)
                 {
                     <li class="carousel-slide">
 

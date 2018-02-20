@@ -13,7 +13,14 @@
                         <h3 class="dealer-details__name">@dealerDetails.Name</h3>
 
                         <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.Address) ? "hide" : "dealer-details__address")">
-                            <span>@dealerDetails.Address</span>
+                            @if (string.IsNullOrEmpty(dealerDetails.objArea.PinCode))
+                            {
+                                <span>@string.Format("{0}, {1}", dealerDetails.Address, dealerDetails.City)</span>
+                            }
+                            else
+                            {
+                                <span>@string.Format("{0}, {1} - {2}", dealerDetails.Address, dealerDetails.City, dealerDetails.objArea.PinCode)</span>
+                            }
                         </p>
                     </a>
                     <div class="dealer-details__footer">
