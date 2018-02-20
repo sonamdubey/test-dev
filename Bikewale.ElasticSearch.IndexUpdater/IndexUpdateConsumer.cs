@@ -1,4 +1,6 @@
-﻿using Consumer;
+﻿using Bikewale.DAL.CoreDAL;
+using Consumer;
+using Nest;
 using RabbitMQ.Client;
 using RabbitMqPublishing;
 using System;
@@ -86,69 +88,17 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                     try
                     {
                         nvc = ByteArrayToObject(arg.Body);
-
-                        if (nvc != null
-                            && nvc.HasKeys()
-                            && !String.IsNullOrEmpty(nvc["ctLeadId"])
-                            && !String.IsNullOrEmpty(nvc["voucherCode"])
-                            && !String.IsNullOrEmpty(nvc["status"]))
+                        if(nvc != null && nvc.HasKeys() && !String.IsNullOrEmpty(nvc["indexName"]) && !String.IsNullOrEmpty(nvc["document"]))
                         {
-                            CarTradeVoucher voucher = new CarTradeVoucher();
-                            voucher.LeadId = nvc["ctLeadId"];
-                            voucher.VoucherCode = nvc["voucherCode"];
-                            CarTradeVoucherStatus status = Enum.TryParse(nvc["status"], out status) ? status : CarTradeVoucherStatus.Rejected;
-                            voucher.Status = status;
-                            if (voucher.Status == CarTradeVoucherStatus.Pre_Approved)
+                            string indexName = nvc["indexName"];
+
+                            ElasticClient client = ElasticSearchInstance.GetInstance();
+                            if (client != null && client.IndexExists(indexName).Exists)
                             {
-                                voucher.ExpiryDate = Convert.ToDateTime(nvc["expiryDate"]);
-                                voucher.AgentName = nvc["agentName"];
-                                voucher.AgentContactNumber = nvc["agentContactNumber"];
-                            }
-
-                            string jsonVoucher = Newtonsoft.Json.JsonConvert.SerializeObject(voucher);
-
-                            Logs.WriteInfoLog(String.Format("CarTrade Lead #{0} ", voucher.LeadId));
-
-                            if (!String.IsNullOrEmpty(jsonVoucher))
-                            {
-                                if (nvc["iteration"] == _retryCount)
-                                {
-                                    _model.BasicReject(arg.DeliveryTag, false);
-                                    Logs.WriteInfoLog(String.Format("{0} Message Rejected because iteration count is {1}", jsonVoucher, nvc["iteration"]));
-                                    continue;
-                                }
-
-                                bool success = false;
-
-                                using (LeadConsumerBL _businesslayer = new LeadConsumerBL())
-                                {
-                                    success = _businesslayer.ProcessLead(voucher);
-                                }
-                                if (success)
-                                {
-                                    //Logic
-
-                                    Logs.WriteInfoLog(String.Format("{0} processed successfully.", jsonVoucher));
-                                    _model.BasicAck(arg.DeliveryTag, false);
-                                }
-                                else
-                                {
-                                    Logs.WriteInfoLog(String.Format("{0} Message processed into dead letter queue", jsonVoucher));
-                                    DeadLetterPublish(nvc, ConfigurationManager.AppSettings["QueueName"].ToUpper());
-                                    _model.BasicReject(arg.DeliveryTag, false);
-                                }
-                            }
-                            else
-                            {
-                                _model.BasicReject(arg.DeliveryTag, false);
-                                Logs.WriteInfoLog(String.Format("jsonVoucher is null : {0}", jsonVoucher));
+                                
                             }
                         }
-                        else
-                        {
-                            _model.BasicReject(arg.DeliveryTag, false);
-                            Logs.WriteInfoLog("jsonVoucher Message is invalid");
-                        }
+                        
                     }
                     catch (Exception ex)
                     {
