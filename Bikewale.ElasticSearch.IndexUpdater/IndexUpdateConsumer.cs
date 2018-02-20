@@ -39,7 +39,9 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                 SendMail.HandleException(ex, String.Format("{0} - Closed on IndexUpdateConsumer constructor", _applicationName));
             }
         }
-
+        /// <summary>
+        /// Function to Initiate the Consumer
+        /// </summary>
         private void InitConsumer()
         {
             try
@@ -78,7 +80,9 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                 SendMail.HandleException(ex, String.Format("Error in InitConsumer - {0} - Closed", _applicationName));
             }
         }
-
+        /// <summary>
+        /// Function to process the messages received by RabbitMQ
+        /// </summary>
         public void ProcessMessages()
         {
             try
