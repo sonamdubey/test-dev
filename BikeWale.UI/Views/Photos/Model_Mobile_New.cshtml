@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/photos.css' inline /> <link rel='stylesheet' type='text/css' href='/m/css/components/model-gallery.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline/>";
-    Model.Page_JS_Paths = new string[] { "/m/src/photos/modelgallery.js", "/m/src/photos/model.js" };
+    Model.Page_JS_Paths = new string[] { "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
     Model.AdTags.Ad_300x250BTF = true;
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_320x50BTF = true;
@@ -284,3 +284,38 @@
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
 </div>
     }
+
+<!-- image slug -->
+<div id="carouselColorSlug" class="hide">
+	<div class="model-gallery__color-slide">
+		<p class="color-slide__title">Dominar 400 Colors</p>
+		<ul class="color-slide__list">
+			<li class="color-slide-list__item">
+				<div class="color-box" data-color-count="1">
+					<span style="background-color: rgb(178, 196, 14);"></span>
+				</div>
+			</li>
+			<li class="color-slide-list__item">
+				<div class="color-box" data-color-count="2">
+					<span style="background-color: rgb(26, 26, 26);"></span>
+					<span style="background-color: rgb(232, 111, 13);"></span>
+				</div>
+			</li>
+			<li class="color-slide-list__item">
+				<div class="color-box" data-color-count="3">
+					<span style="background-color: rgb(26, 26, 26);"></span>
+					<span style="background-color: rgb(232, 111, 13);"></span>
+					<span style="background-color: rgb(0, 125, 190);"></span>
+				</div>
+			</li>
+			<li class="color-slide-list__item">
+				<div class="color-box" data-color-count="2">
+					<span style="background-color: rgb(0, 125, 190);"></span>
+					<span style="background-color: rgb(249, 249, 250);"></span>
+				</div>
+			</li>
+		</ul>
+		<p class="color-slide__more-count">+3 More Colors</p>
+		<button type="button" class="btn btn-inv-blue swiper-slide__more-btn">Show All Color Images</button>
+	</div>
+</div>
