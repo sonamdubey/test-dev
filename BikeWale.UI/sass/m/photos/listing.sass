@@ -209,7 +209,6 @@ body
 .model-gallery__container
 	position: relative
 	z-index: 6
-	transition: all 1s
 
 .black-window
 	background: black
@@ -229,10 +228,12 @@ body
 	align-items: center
 	background: color('border-light')
 	padding-left: 20px
-	padding-right: 20px
 	width: 100%
+	height: 40px
 
 .model-gallery
+	padding-bottom: 60px
+
 	.swiper-slide
 		@include flexbox
 		@include justify-content(center)
@@ -260,12 +261,13 @@ body
 			img
 				max-height: 180px	
 
-
 .gallery-image__count
 	display: inline-block
 	vertical-align: middle
 	font-size: 12px
 	color: color('light-grey')
+
+
 .gallery-image__feature
 	> a
 		margin-right: 8px
@@ -298,12 +300,16 @@ body
 	@include fullscreen-2d2d2d-icon
 	background-size: 17px
 
+.screen--rotate
+	display: none
 
-.model-gallery--fixed
+.model-gallery--relative
 	z-index: 6
-	background: black
-	position: fixed
+	background: color('white')
+	position: relative
 	left: 0
+	width: 100%
+
 
 	.model-gallery
 		height: 100%
@@ -312,12 +318,170 @@ body
 		height: auto
 		width: 100%
 
+	.zoom-icon
+		display: none
+
+	.share-icon
+		margin-right: 0
+
+	.model-gallery__image-title
+		background: color('dark-black')
+		color: color('light-grey')
+		width: 100%
+		text-align: center
+		font-size: 12px
+
+	.landscape-icon
+		display: inline-block
+		vertical-align: middle
+		height: 40px
+		width: 40px
+		text-align: right
+		background: url('/image/rotate-orange.svg') no-repeat center
+			
+	.screen--rotate
+		&[data-fixed='0']
+			@include vendor-prefix('border-radius', 2px)
+			@include vendor-prefix('transform', translateX(-50%))
+			left: 50%
+			padding: 0
+			display: none
+			border: 1px solid #ffcf63
+			color: #ffcf63
+			position: fixed
+			bottom: 13%
+			width: auto
+			white-space: nowrap
+			padding-right: 15px
+
+			.landscape-text
+				display: inline-block
+				vertical-align: middle
+				padding: 9px 14px 10px
+				font-size: 12px
+
+		&[data-fixed='1']
+			position: static
+			display: inline-block
+			padding: 0
+
+			.landscape-text
+				display: none
+
+			.landscape-icon
+				background: url('/image/rotate-2d2d2d.svg') no-repeat center
+				background-size: 19px
+
+	.gallery-image__footer
+		&[data-visible='rotate']
+			.screen--rotate
+				&[data-fixed='0']
+					display: inline-block
+		&[data-visible='color']
+			.gallery-image__color
+				&[data-fixed='0']
+					display: inline-block
+			
+
+.gallery-image__color
+	display: none
+	&[data-fixed='1']
+		color: color('white')
+		font-size: 12px
+
+	&[data-fixed='0']
+		color: color('default')
+
+
+.gallery-color--fixed
+	@include vendor-prefix('border-radius', 16px)
+	@include vendor-prefix('transform', translateX(-50%))
+	background: color('white')
+	padding: 9px 14px 9px 34px
+	color: color('default')
+	font-size: 12px
+	position: fixed
+	bottom: 12%
+	left: 50%
+	text-transform: capitalize
+
+@media screen and (min-aspect-ratio: 1/1) and (orientation: landscape)
+	.model-gallery--relative
+		.model-gallery
+			padding-bottom: 0
+
+			.swiper-slide
+				height: 100vh
+				background: color('black')
+					
+				img
+					max-height: 100%
+
+		#mainPhotoSwiper
+			&:hover
+				.gallery-image__footer
+					display: flex
+
+		.gallery-image__footer
+			display: none
+			position: fixed
+			bottom: 0
+			left: 0
+			right: 0
+			width: 100%
+			z-index: 1
+			background: #1a1a1a
+
+
+			.screen--rotate[data-fixed='0']
+				position: static
+				display: inline-block
+				border: none
+				padding: 0
+
+				.landscape-text
+					display: none
+
+				.landscape-icon
+					background: url('/image/rotate.svg') no-repeat center
+					background-size: 19px
+
+			&[data-fixed='1']
+				.landscape-icon
+					background: url('/image/rotate.svg') no-repeat center
+					background-size: 19px
+
+				&[data-visible='color']
+					.gallery-image__color
+						&[data-fixed='1']
+							display: inline-block
+
+
+		.share-icon
+			background-image: url('/image/share.svg')
+			margin-right: 8px
+
+		.gallery__download-icon
+			background-image: url('/image/download.svg')
+		
+		.model-gallery__image-title
+			padding: 0 20px
+			display: inline
+			position: static
+			font-size: 12px
+			background: transparent
+			color: color('light-grey')
 
 
 .model-gallery__image-title
 	background: color('white')
 	padding: 15px 20px 25px
 	font-size: 14px
+	position: absolute
+	bottom: 0
+	left: 0
+	right: 0
+	width: 100%
 
 @mixin model-info__image($width: 122px, $height: 69px)
 	.model-info__image

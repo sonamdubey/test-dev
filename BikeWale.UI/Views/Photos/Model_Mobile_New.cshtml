@@ -32,24 +32,38 @@
                         </div>
                         <div class="bwmsprite swiper-button-next gallery--next"></div>
                         <div class="bwmsprite swiper-button-prev gallery--prev"></div>
-                        <div class="gallery-image__footer">
-                            <span class="gallery-image__count">
-                                <span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
+                        <div class="gallery-image__footer" data-visible="rotate">
+                            <div class="gallery-image__left-section">
+                                <span class="gallery-image__count">
+                                    <span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
+                                </span>
+                                <h2 class="model-gallery__image-title"></h2>
+                            </div>
+                            <span class="gallery-image__color" data-fixed="0">
+                                colors
                             </span>
                             <div class="gallery-image__feature">
                                 <a href="" title="" class="gallery__download-icon"></a>
                                 <a href="" title="" class="share-icon"></a>
                                 <a href="" title="" class="zoom-icon"></a>
+                                <a href="" title="" class="screen--rotate" data-fixed="0">
+                                    <span class="landscape-text">
+                                        Switch to Landscape for better Experience
+                                    </span>
+                                    <span class="landscape-icon"></span>
+                                </a>
                             </div>
 
                         </div>
                     </div>
-                    <h2 class="model-gallery__image-title"></h2>
+
                 </div>
                     
                 </div>
             <div class="black-window">
-
+                @*<div class="gallery-color--fixed">
+                    see colors images
+                </div>*@
             </div>
 
 			<section>
