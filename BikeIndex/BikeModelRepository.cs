@@ -145,7 +145,8 @@ namespace BikeIndex
                                         },
 
                                         BikeName = Convert.ToString(dr["MakeName"]) + " " + Convert.ToString(dr["ModelName"]),
-                                        
+                                        BodyStyleId = Convert.ToUInt32(dr["BodyStyleId"]),
+
                                         //bike media/reviews
                                         BikeImage = new ImageEntity()
                                         {

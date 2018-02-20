@@ -22,6 +22,8 @@ namespace Bikewale.ElasticSearch.Entities
 
         public string BikeName { get; set; }
 
+        public uint BodyStyleId { get; set; }
+
         // media/reviews
         public ImageEntity BikeImage { get; set; }
         public uint ImageCount { get; set; }
