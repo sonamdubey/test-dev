@@ -266,6 +266,8 @@ var mainGallerySwiper = (function () {
                 //});
                 //$('.photos-grid-list> li:first-child').trigger('click');
                 toggleGalleryFooter();
+
+               // $('.model-gallery__screen--rotate-slug').show();
             }
 
         });
@@ -281,7 +283,7 @@ var mainGallerySwiper = (function () {
             $('.model-gallery__container').removeClass('model-gallery--relative');
             //}, 500);
             bodyBackground.unlock();
-
+            //$('.model-gallery__screen--rotate-slug').hide();
             toggleGalleryFooter();
         });
 
@@ -298,6 +300,9 @@ var mainGallerySwiper = (function () {
                 $('#mainPhotoSwiper .swiper-wrapper, #mainPhotoSwiper img').on('click', function () {
                     $('.gallery-image__footer').toggle();
                 });
+            }
+            else {
+                $('.gallery-image__footer').show();
             }
 
         }
