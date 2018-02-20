@@ -13,18 +13,11 @@ namespace Bikewale.ElasticSearch.Entities
     /// </summary>
     public class BikeModelDocument: WeightedDocument
     {
-
         public MakeEntity BikeMake { get; set; }
-
         public ModelEntity BikeModel { get; set; }
-
         public VersionEntity TopVersion { get; set; }
-
         public string BikeName { get; set; }
-
         public uint BodyStyleId { get; set; }
-
-        // media/reviews
         public ImageEntity BikeImage { get; set; }
         public uint ImageCount { get; set; }
         public uint VideosCount { get; set; }
@@ -32,6 +25,5 @@ namespace Bikewale.ElasticSearch.Entities
         public uint UserReviewsCount { get; set; }
         public double ReviewRatings { get; set; }
         public uint RatingsCount { get; set; }
-        
     }
 }
