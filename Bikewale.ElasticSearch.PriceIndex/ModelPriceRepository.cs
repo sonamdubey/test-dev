@@ -64,13 +64,26 @@ namespace Bikewale.ElasticSearch.PriceIndex
                                     _lastModelId = _currentModelId;
                                     _lastCityId = _currentCityId;
 
-                                    docObj.ModelName = Convert.ToString(dr["ModelName"]);
-                                    docObj.ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                    docObj.MakeId = SqlReaderConvertor.ToUInt32(dr["BikeMakeId"]);
-                                    docObj.MakeName = Convert.ToString(dr["MakeName"]);
-                                    docObj.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                                    docObj.CityName = Convert.ToString(dr["CityName"]);
-                                    docObj.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                    docObj.BikeModel = new ModelEntity()
+                                    {
+                                        ModelId = _currentModelId,
+                                        ModelName = Convert.ToString(dr["ModelName"]),
+                                        ModelMaskingName = Convert.ToString(dr["ModelMaskingName"])
+                                    };
+
+                                    docObj.BikeMake = new MakeEntity()
+                                    {
+                                        MakeId = SqlReaderConvertor.ToUInt32(dr["BikeMakeId"]),
+                                        MakeName = Convert.ToString(dr["MakeName"]),
+                                        MakeMaskingName = Convert.ToString(dr["MakeMaskingName"])
+                                    };
+
+                                    docObj.City = new CityEntity()
+                                    {
+                                        CityId = _currentCityId,
+                                        CityName = Convert.ToString(dr["CityName"]),
+                                        CityMaskingName = Convert.ToString(dr["CityMaskingName"])
+                                    };
 
                                 }
 
@@ -102,11 +115,7 @@ namespace Bikewale.ElasticSearch.PriceIndex
         private static ModelPriceDocument InitializeDocumentObj(uint modelId, uint cityId)
         {
             ModelPriceDocument docObj = new ModelPriceDocument();
-            
             docObj.Id = modelId + "_" + cityId;
-            docObj.ModelId = modelId;
-            docObj.CityId = cityId;
-
             return docObj;
         }
 

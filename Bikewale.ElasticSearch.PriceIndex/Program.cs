@@ -26,8 +26,6 @@ namespace Bikewale.ElasticSearch.PriceIndex
             var data = ModelPriceRepository.GetData();
             Logs.WriteInfoLog("Data fetched, pricing list count: " + data.Count());
 
-            i.DeleteIndex(ConfigurationManager.AppSettings["ElasticIndexName"]);
-
             Logs.WriteInfoLog("Initialize creation of bikewalepricingindex.");
             i.CreateIndex<ModelPriceDocument>(ConfigurationManager.AppSettings["ElasticIndexName"], m => m.Map<ModelPriceDocument>(type => type.AutoMap()));
             Logs.WriteInfoLog("Index created.");

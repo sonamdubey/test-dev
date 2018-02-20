@@ -22,9 +22,9 @@ namespace BikeIndex
     {
 
         private string[] _specstypes = { "Displacement", "Weight", "Power", "Mileage" };
-        private string[] _specsunits = { " cc", " kgs", " bhp", " kmpl" }; //add space before unit to make the spec value presentable
+        private string[] _specsunits = { "cc", " kgs", " bhp", " kmpl" }; //add space before unit to make the spec value presentable
 
-        private string[] _pricestypes = { "RTO", "Insurance", "ExShowroomPrice" };
+        private string[] _pricestypes = { "RTO", "Insurance", "Exshowroom" };
 
         /// <summary>
         /// Created by: Dhruv Joshi

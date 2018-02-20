@@ -17,6 +17,5 @@ namespace Bikewale.ElasticSearch.Entities
         public string ModelName { get; set; }
         public string ModelMaskingName { get; set; }
         public BikeStatus ModelStatus { get; set; }
-
     }
 }

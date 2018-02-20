@@ -12,15 +12,9 @@ namespace Bikewale.ElasticSearch.Entities
     /// </summary>
     public class ModelPriceDocument : Document
     {
-        public uint ModelId { get; set; }
-        public string ModelName { get; set; }
-        public string ModelMaskingName { get; set; }
-        public uint MakeId { get; set; }
-        public string MakeName { get; set; }
-        public string MakeMaskingName { get; set; }
-        public uint CityId { get; set; }
-        public string CityName { get; set; }
-        public string CityMaskingName { get; set; }
+        public ModelEntity BikeModel { get; set; }
+        public MakeEntity BikeMake { get; set; }
+        public CityEntity City { get; set; }
         public IEnumerable<VersionEntity> VersionPrice { get; set; }
     }
 }

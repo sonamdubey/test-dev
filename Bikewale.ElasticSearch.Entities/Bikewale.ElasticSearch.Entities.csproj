@@ -29,7 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>    
+  <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="BikeModelDocument.cs" />
     <Compile Include="BikeStatus.cs" />
+    <Compile Include="CityEntity.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="ModelPriceDocument.cs" />
     <Compile Include="ImageEntity.cs" />
