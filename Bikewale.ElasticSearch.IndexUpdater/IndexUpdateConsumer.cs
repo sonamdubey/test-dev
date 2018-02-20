@@ -91,11 +91,26 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                         if(nvc != null && nvc.HasKeys() && !String.IsNullOrEmpty(nvc["indexName"]) && !String.IsNullOrEmpty(nvc["document"]))
                         {
                             string indexName = nvc["indexName"];
-
+                            string document = nvc["document"];
+                            string documentType = "";
+                            Newtonsoft.Json.JsonConvert.DeserializeObject(document);
+                            int docId = 1;
                             ElasticClient client = ElasticSearchInstance.GetInstance();
                             if (client != null && client.IndexExists(indexName).Exists)
                             {
-                                
+                                Logs.WriteInfoLog(String.Format("Index named {0} exists", indexName));
+                                if(client.DocumentExists(new DocumentExistsRequest(indexName, documentType, docId)).Exists)
+                                {
+                                    Logs.WriteInfoLog(String.Format("Document with ID = {0} exists => UPDATE IT", docId));
+                                }
+                                else
+                                {
+                                    Logs.WriteInfoLog(String.Format("Document named ID = {0} does not exist => INSERT IT", docId));
+                                }
+                            }
+                            else
+                            {
+                                Logs.WriteErrorLog(String.Format("Either client is null OR index named {0} does not exist.", indexName));
                             }
                         }
                         
