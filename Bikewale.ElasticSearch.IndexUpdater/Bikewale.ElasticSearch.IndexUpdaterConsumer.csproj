@@ -45,8 +45,17 @@
     <Reference Include="log4net">
       <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Nest">
+      <HintPath>..\Libs\ElasticSearch\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\Libs\BookingSMS\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMqPublishing">
+      <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -66,6 +75,12 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.DAL.CoreDAL\Bikewale.DAL.CoreDAL.csproj">
+      <Project>{D5229109-3B85-48E7-9FF8-5385BDB54C87}</Project>
+      <Name>Bikewale.DAL.CoreDAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

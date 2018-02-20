@@ -5,7 +5,6 @@ using RabbitMQ.Client;
 using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
-using System.Configuration;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -18,6 +17,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
         private IModel _model;
         private QueueingBasicConsumer consumer;
         private string _queueName, _hostName;
+        private ElasticClient client = ElasticSearchInstance.GetInstance();
 
         private NameValueCollection nvc = new NameValueCollection();
         public IndexUpdateConsumer(string queueName, string consumerName, string retryCount, string rabbitMsgTTL)
@@ -88,24 +88,29 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                     try
                     {
                         nvc = ByteArrayToObject(arg.Body);
-                        if(nvc != null && nvc.HasKeys() && !String.IsNullOrEmpty(nvc["indexName"]) && !String.IsNullOrEmpty(nvc["document"]))
+                        if(nvc != null 
+                            && nvc.HasKeys() 
+                            && !String.IsNullOrEmpty(nvc["indexName"])
+                            && !String.IsNullOrEmpty(nvc["documentType"])
+                            && !String.IsNullOrEmpty(nvc["document"])
+                            && !String.IsNullOrEmpty(nvc["documentId"]))
                         {
                             string indexName = nvc["indexName"];
-                            string document = nvc["document"];
-                            string documentType = "";
-                            Newtonsoft.Json.JsonConvert.DeserializeObject(document);
-                            int docId = 1;
-                            ElasticClient client = ElasticSearchInstance.GetInstance();
+                            string documentType = nvc["documentType"];
+                            string documentJson = nvc["documentJson"];
+                            int documentId = int.Parse(nvc["documentId"]);
+
                             if (client != null && client.IndexExists(indexName).Exists)
                             {
                                 Logs.WriteInfoLog(String.Format("Index named {0} exists", indexName));
-                                if(client.DocumentExists(new DocumentExistsRequest(indexName, documentType, docId)).Exists)
+                                bool isOperationSuccessful = InsertOrUpdateDocumentInIndex(indexName, documentId, documentType, documentJson);
+                                if (isOperationSuccessful)
                                 {
-                                    Logs.WriteInfoLog(String.Format("Document with ID = {0} exists => UPDATE IT", docId));
+                                    Logs.WriteInfoLog(String.Format("Document ID {0} successfully inserted/updated into the Index named {1}", indexName, documentId));
                                 }
                                 else
                                 {
-                                    Logs.WriteInfoLog(String.Format("Document named ID = {0} does not exist => INSERT IT", docId));
+                                    Logs.WriteErrorLog(String.Format("An Error Occured while updating/inserting Document ID {0} into the Index named {1}", indexName, documentId));
                                 }
                             }
                             else
@@ -120,7 +125,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                         _model.BasicReject(arg.DeliveryTag, false);
                         if (nvc != null)
                         {
-                            Logs.WriteInfoLog(String.Format("Error occured while processing message: CT Lead : {0}, Message: {1}", nvc["ctLeadId"], ex.Message));
+                            Logs.WriteInfoLog(String.Format("Error occured while processing message: indexName => {0}, documentId => {1}, documentType => {2}, document => {3}, ErrorMessage => {4}", nvc["indexName"], nvc["documentType"], nvc["document"], ex.Message));
                         }
                     }
                 }
@@ -189,6 +194,34 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
             NameValueCollection obj = (NameValueCollection)bf.Deserialize(memstr);
 
             return obj;
+        }
+        
+        /// <summary>
+        /// This method is used to Insert/Update a document in an Elastic Search Index
+        /// </summary>
+        /// <param name="indexName"></param>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        private bool InsertOrUpdateDocumentInIndex(string indexName, int documentId, string documentType, string documentJson)
+        {
+            bool isSuccessful = false;
+            if (client.DocumentExists(new DocumentExistsRequest(indexName, documentType, documentId)).Exists)
+            {
+                Logs.WriteInfoLog(String.Format("Document with ID = {0} exists => UPDATE IT", documentId));
+            }
+            else
+            {
+                Logs.WriteInfoLog(String.Format("Document with ID = {0} does not exist => INSERT IT", documentId));
+            }
+
+            isSuccessful = client.Index(documentJson, i => i
+                                  .Index(indexName)
+                                  .Type(documentType)
+                                  .Id(documentId)
+                                  )
+                                  .IsValid;
+
+            return isSuccessful;
         }
     }
 }

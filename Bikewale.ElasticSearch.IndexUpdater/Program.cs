@@ -15,9 +15,9 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
             log4net.Config.XmlConfigurator.Configure();
             try
             {
-                IndexUpdateConsumer consumer = new IndexUpdateConsumer(queueName, consumerName, retryCount, rabbitMsgTTL);
-                consumer.ProcessMessages();
                 Logs.WriteInfoLog("Started at : " + DateTime.Now);
+                IndexUpdateConsumer consumer = new IndexUpdateConsumer(queueName, consumerName, retryCount, rabbitMsgTTL);
+                consumer.ProcessMessages();                
             }
             catch (Exception ex)
             {
