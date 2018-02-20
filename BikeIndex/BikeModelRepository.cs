@@ -57,10 +57,10 @@ namespace BikeIndex
         /// Description: Fetching data for bikeindex from db
         /// </summary>
         /// <returns></returns>
-        public List<BikeModelDocument> GetBikeModelList()
+        public IEnumerable<BikeModelDocument> GetBikeModelList()
         {
         
-            List<BikeModelDocument> objList = null;
+            IList<BikeModelDocument> objList = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getdataforbikeindex"))

@@ -26,13 +26,13 @@ namespace BikeIndex
             Logs.WriteInfoLog("Start");
 
             BikeModelRepository objDAL = new BikeModelRepository();
-            List<BikeModelDocument> data = objDAL.GetBikeModelList();
+            IEnumerable<BikeModelDocument> data = objDAL.GetBikeModelList();
             
             bikeIndex.CreateIndex<BikeModelDocument>(indexName, m => m.Map<BikeModelDocument>(type => type.AutoMap()));
 
             Logs.WriteInfoLog("Index Created");
 
-            ElasticClientOperations.AddDocument<BikeModelDocument>(data, indexName, m => m.Id);
+            ElasticClientOperations.AddDocument<BikeModelDocument>(data.ToList(), indexName, m => m.Id);
 
             Logs.WriteInfoLog("Document Added");
 
