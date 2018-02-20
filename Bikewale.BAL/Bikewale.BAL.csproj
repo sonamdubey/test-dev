@@ -220,6 +220,7 @@
     <Compile Include="Dealer\Dealer.cs" />
     <Compile Include="EditCMS\Articles.cs" />
     <Compile Include="Feedback\Feedback.cs" />
+    <Compile Include="Filters\PageFilters.cs" />
     <Compile Include="Finance\CapitalFirst.cs" />
     <Compile Include="GrpcFiles\CustomGRPCLoadBalancer.cs" />
     <Compile Include="GrpcFiles\EditCms.cs" />

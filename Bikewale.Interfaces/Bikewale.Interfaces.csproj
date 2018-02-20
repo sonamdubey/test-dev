@@ -167,6 +167,7 @@
     <Compile Include="Dealer\IOffer.cs" />
     <Compile Include="EditCMS\IArticles.cs" />
     <Compile Include="Feedback\IFeedback.cs" />
+    <Compile Include="Filters\IPageFilters.cs" />
     <Compile Include="Finance\ICapitalFirst.cs" />
     <Compile Include="Finance\IFinanceRepository.cs" />
     <Compile Include="GenericBikes\IBestBikesCacheRepository.cs" />

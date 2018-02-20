@@ -173,6 +173,7 @@
     <Compile Include="Distance.cs" />
     <Compile Include="EMICalculation.cs" />
     <Compile Include="EncodingDecodingHelper.cs" />
+    <Compile Include="FilterRange.cs" />
     <Compile Include="Format.cs" />
     <Compile Include="FormatDate.cs" />
     <Compile Include="FormatMinSpecs.cs" />

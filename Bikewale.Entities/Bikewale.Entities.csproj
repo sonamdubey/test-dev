@@ -162,6 +162,7 @@
     <Compile Include="BikeData\BikeFilters.cs" />
     <Compile Include="BikeData\BikeInfoPageSource.cs" />
     <Compile Include="BikeData\BikeMakeBase.cs" />
+    <Compile Include="BikeData\BikeMakeCategoriesEnum.cs" />
     <Compile Include="BikeData\BikeMakeModelBase.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
@@ -333,6 +334,9 @@
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="EMISliderAMP.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
+    <Compile Include="Filters\FilterBase.cs" />
+    <Compile Include="Filters\FilterPageEntity.cs" />
+    <Compile Include="Filters\InPageFilterEnum.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstEmailDetailsEntity.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstMakeEntityBase.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstVoucherEntityBase.cs" />
