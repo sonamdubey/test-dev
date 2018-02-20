@@ -1,10 +1,12 @@
 ﻿using Bikewale.DAL.CoreDAL;
 using Consumer;
 using Nest;
+using Newtonsoft.Json.Linq;
 using RabbitMQ.Client;
 using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -84,7 +86,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                 while (true)
                 {
                     Logs.WriteInfoLog("RabbitMQ Execution: Waiting for job");
-                    RabbitMQ.Client.Events.BasicDeliverEventArgs arg = (RabbitMQ.Client.Events.BasicDeliverEventArgs)consumer.Queue.Dequeue();
+                    RabbitMQ.Client.Events.BasicDeliverEventArgs arg = consumer.Queue.Dequeue();
                     try
                     {
                         nvc = ByteArrayToObject(arg.Body);
@@ -92,13 +94,22 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                             && nvc.HasKeys() 
                             && !String.IsNullOrEmpty(nvc["indexName"])
                             && !String.IsNullOrEmpty(nvc["documentType"])
-                            && !String.IsNullOrEmpty(nvc["document"])
+                            && !String.IsNullOrEmpty(nvc["documentJson"])
                             && !String.IsNullOrEmpty(nvc["documentId"]))
                         {
                             string indexName = nvc["indexName"];
                             string documentType = nvc["documentType"];
                             string documentJson = nvc["documentJson"];
-                            int documentId = int.Parse(nvc["documentId"]);
+                            string documentId = nvc["documentId"];
+
+                            if (nvc["iteration"] == _retryCount)
+                            {
+                                _model.BasicReject(arg.DeliveryTag, false);
+                                Logs.WriteInfoLog(String.Format("{0} Message Rejected because iteration count is {1}", Newtonsoft.Json.JsonConvert.SerializeObject(nvc), nvc["iteration"]));
+                                continue;
+                            }
+
+                            ushort iteration = (ushort)(nvc["iteration"] == null ? 1 : (ushort.Parse(nvc["iteration"]) + 1));
 
                             if (client != null && client.IndexExists(indexName).Exists)
                             {
@@ -107,16 +118,25 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                                 if (isOperationSuccessful)
                                 {
                                     Logs.WriteInfoLog(String.Format("Document ID {0} successfully inserted/updated into the Index named {1}", indexName, documentId));
+                                    _model.BasicAck(arg.DeliveryTag, false);
                                 }
                                 else
                                 {
                                     Logs.WriteErrorLog(String.Format("An Error Occured while updating/inserting Document ID {0} into the Index named {1}", indexName, documentId));
+                                    DeadLetterPublish(nvc, ConfigurationManager.AppSettings["QueueName"].ToUpper());
+                                    _model.BasicReject(arg.DeliveryTag, false);
                                 }
                             }
                             else
                             {
                                 Logs.WriteErrorLog(String.Format("Either client is null OR index named {0} does not exist.", indexName));
+                                 _model.BasicReject(arg.DeliveryTag, false);
                             }
+                        }
+                        else
+                        {
+                            Logs.WriteErrorLog("Invalid Data.");
+                            _model.BasicReject(arg.DeliveryTag, false);
                         }
                         
                     }
@@ -202,9 +222,10 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
         /// <param name="indexName"></param>
         /// <param name="document"></param>
         /// <returns></returns>
-        private bool InsertOrUpdateDocumentInIndex(string indexName, int documentId, string documentType, string documentJson)
+        private bool InsertOrUpdateDocumentInIndex(string indexName, string documentId, string documentType, string documentJson)
         {
             bool isSuccessful = false;
+            JObject jobject = JObject.Parse(documentJson);
             if (client.DocumentExists(new DocumentExistsRequest(indexName, documentType, documentId)).Exists)
             {
                 Logs.WriteInfoLog(String.Format("Document with ID = {0} exists => UPDATE IT", documentId));
@@ -214,7 +235,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                 Logs.WriteInfoLog(String.Format("Document with ID = {0} does not exist => INSERT IT", documentId));
             }
 
-            isSuccessful = client.Index(documentJson, i => i
+            isSuccessful = client.Index(jobject, i => i
                                   .Index(indexName)
                                   .Type(documentType)
                                   .Id(documentId)
