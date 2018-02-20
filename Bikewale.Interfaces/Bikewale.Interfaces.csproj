@@ -167,6 +167,7 @@
     <Compile Include="Dealer\IOffer.cs" />
     <Compile Include="EditCMS\IArticles.cs" />
     <Compile Include="Feedback\IFeedback.cs" />
+    <Compile Include="Filters\IPageFilters.cs" />
     <Compile Include="Finance\ICapitalFirst.cs" />
     <Compile Include="Finance\IFinanceRepository.cs" />
     <Compile Include="GenericBikes\IBestBikesCacheRepository.cs" />
@@ -185,7 +186,6 @@
     <Compile Include="Location\ICityMaskingCacheRepository.cs" />
     <Compile Include="Location\IState.cs" />
     <Compile Include="Location\IStateCacheRepository.cs" />
-    <Compile Include="MakeFilters\IMakePageFilters.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlert.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlertRepository.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />

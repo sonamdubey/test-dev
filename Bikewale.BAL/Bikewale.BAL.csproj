@@ -220,6 +220,7 @@
     <Compile Include="Dealer\Dealer.cs" />
     <Compile Include="EditCMS\Articles.cs" />
     <Compile Include="Feedback\Feedback.cs" />
+    <Compile Include="Filters\PageFilters.cs" />
     <Compile Include="Finance\CapitalFirst.cs" />
     <Compile Include="GrpcFiles\CustomGRPCLoadBalancer.cs" />
     <Compile Include="GrpcFiles\EditCms.cs" />
@@ -229,7 +230,6 @@
     <Compile Include="Images\ImageBL.cs" />
     <Compile Include="Location\Cities.cs" />
     <Compile Include="Location\States.cs" />
-    <Compile Include="MakeFilters\MakePageFilters.cs" />
     <Compile Include="MobileAppAlert\MobileFCMNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerification.cs" />
     <Compile Include="MVC.UI\Scooters.cs" />

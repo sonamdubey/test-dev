@@ -8,7 +8,7 @@ using Bikewale.BAL.BikeSearch;
 using Bikewale.BAL.CMS;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
-using Bikewale.BAL.MakeFilters;
+using Bikewale.BAL.Filters;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.BAL.PWA.CMS;
@@ -65,9 +65,9 @@ using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.Filters;
 using Bikewale.Interfaces.HomePage;
 using Bikewale.Interfaces.Location;
-using Bikewale.Interfaces.MakeFilters;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
@@ -181,7 +181,7 @@ namespace Bikewale
             container.RegisterType<IProcessFilter, DAL.NewBikeSearch.ProcessFilter>();
             container.RegisterType<IBikeSearchResult, BikeSearchResult>();
             container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
-            container.RegisterType<IMakePageFilters, MakePageFilters>();
+            container.RegisterType<IPageFilters, PageFilters>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
