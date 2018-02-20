@@ -3140,6 +3140,11 @@
     <Content Include="sass\partials\_related-make-carousel.sass" />
     <Content Include="sass\partials\_other-bikes-list.sass" />
     <Content Include="sass\partials\_carousel-arrow.sass" />
+    <Content Include="sass\partials\_recommended-bike.sass" />
+    <Content Include="sass\partials\_result-not-found.sass" />
+    <Content Include="sass\mixins\_blackout-window.sass" />
+    <Content Include="sass\mixins\_check-box.sass" />
+    <Content Include="sass\partials\_filter-screen.sass" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />

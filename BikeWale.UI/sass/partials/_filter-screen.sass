@@ -1,0 +1,199 @@
+$_filter-head-line-height: 44px
+
+.filters__screen
+	@include vendor-prefix('box-shadow', 0 0 12px 0 #d5d5d5)
+	@include vendor-prefix('transform', translate(0, 110%))
+	@include vendor-prefix('transition', transform .5s ease)
+	width: 100%
+	height: 80%
+	background: #f9f9f9 // TODO: add in color map
+	position: fixed
+	bottom: 0
+	left: 0
+	right: 0
+	z-index: $blackout-window-z-index + 1
+	will-change: transform
+
+#filtersBlackoutWindow
+	@include blackout-window(.8)
+
+// active state
+.filters-screen--active
+	.filters__screen
+		@include vendor-prefix('transform', translate(0, 0))
+
+	#filtersBlackoutWindow
+		opacity: 1
+		pointer-events: auto	
+
+// filter head
+.filters-screen__head
+	@include flexbox
+	@include flex-wrap
+	background: color('white')
+	border-bottom: 1px solid #f2f2f2 // TODO: add in color map
+	line-height: $_filter-head-line-height
+
+.filters-head__title
+	@include flex-grow(1)
+	font-size: 14px
+	font-weight: $font-semibold
+	color: $base-color
+
+.filter__close
+	@include cross-4d5057-icon
+	background-size: 14px
+	width: 40px
+	height: $_filter-head-line-height
+	margin-left: 10px
+	display: block
+	cursor: pointer
+
+.filter__apply
+	font-size: 14px
+	font-weight: $font-semibold
+	color: color('pacific-blue')
+	padding-right: 20px
+	padding-left: 20px
+	cursor: pointer
+
+
+.filters-screen__body
+	padding: 20px
+	overflow-y: auto
+
+.accordion-list__item
+	@include vendor-prefix('border-radius', 2px)
+	margin-bottom: 10px
+	background: color('white')
+	border: 1px solid color('white-smoke-2')
+	cursor: pointer
+
+// accordion head
+.accordion__head
+	padding: 12px 15px
+
+.accordion-head__content
+	position: relative
+
+	&:after
+		//@include arrow-down-icon
+		@include vendor-prefix('transition', all .2s ease)
+		opacity: .5
+		content: ''
+		width: 14px
+		height: 8px
+		display: block
+		position: absolute
+		top: 39%
+		right: 0
+		will-change: transform
+
+
+.accordion-head__title
+	font-size: 16px
+	color: $base-color
+
+.accordion-head__preview
+	@include text-truncate('85%')
+	margin-top: 4px
+	font-size: 13px
+	color: color('sunset-orange')
+
+	&:empty
+		margin-top: 0
+
+// accordion body
+.accordion__body
+	@include vendor-prefix('transition', height .2s linear)
+	height: 0
+	overflow: hidden
+
+.accordion-body__content
+	padding-bottom: 20px
+
+.accordion-item--active
+	.accordion-head__preview
+		display: none
+
+@include check-box()
+
+.filter-checkbox__list
+	font-size: 0
+	margin-right: 10px
+	margin-left: 10px
+
+	li
+		width: 50%
+		display: inline-block
+		vertical-align: top
+		padding: 5px
+
+	.check-box
+		width: 100%
+
+	.check-box__label
+		font-size: 11px
+		font-weight: $font_semibold
+		color: color('aluminium')
+
+
+.slider-box
+	.ui-slider
+    position: relative
+    text-align: left
+
+	.ui-widget-content
+    background: #e2e2e2
+    height: 3px
+    margin: 20px 0 3px
+    width: 100%
+
+	.ui-slider-range
+		@include vendor-prefix('transition', all .2s ease)
+		border: none
+		display: block
+		position: absolute
+		z-index: 1
+		border-radius: 0
+		height: 3px
+
+	.ui-widget-header
+    background: #f45944
+    height: 3px
+
+	.ui-slider-handle
+		@include vendor-prefix('transition', all .2s ease)
+		background-color: transparent
+		cursor: pointer
+		height: 30px
+		width: 30px
+		display: block
+		margin-left: -15px
+		position: absolute
+		outline: none
+		top: -13px
+		z-index: 2
+		background-position: 3px 3px
+
+		&:after
+			content: ''
+			display: block
+			height: 28px
+			width: 28px
+			margin: 1px
+			background-color: #f45944
+			border: 2px solid #fff
+			-webkit-border-radius: 35px
+			-moz-border-radius: 35px
+			border-radius: 35px
+
+
+.budget__slider
+	margin-right: 20px
+	margin-left: 20px
+	padding-bottom: 0
+	height: 50px
+
+#budgetAmountPreview
+	display: block
