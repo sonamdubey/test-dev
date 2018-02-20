@@ -34,7 +34,7 @@ namespace BikeIndex
         /// <param name="isNew"></param>
         /// <param name="isFuturistic"></param>
         /// <returns></returns>
-        private BikeStatus _getStatus(bool isNew, bool isFuturistic)
+        private BikeStatus GetStatus(bool isNew, bool isFuturistic)
         {
             if(!isNew)
             {
@@ -122,7 +122,7 @@ namespace BikeIndex
                                             MakeId = Convert.ToUInt32(dr["MakeId"]),
                                             MakeName = Convert.ToString(dr["MakeName"]),
                                             MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
-                                            MakeStatus = _getStatus(Convert.ToBoolean(dr["IsNewMake"]), Convert.ToBoolean(dr["IsFuturisticMake"]))
+                                            MakeStatus = GetStatus(Convert.ToBoolean(dr["IsNewMake"]), Convert.ToBoolean(dr["IsFuturisticMake"]))
                                         },
 
                                         //model details
@@ -131,7 +131,7 @@ namespace BikeIndex
                                             ModelId = Convert.ToUInt32(dr["ModelId"]),
                                             ModelName = Convert.ToString(dr["ModelName"]),
                                             ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
-                                            ModelStatus = _getStatus(Convert.ToBoolean(dr["IsNewModel"]), Convert.ToBoolean(dr["IsFuturisticModel"]))
+                                            ModelStatus = GetStatus(Convert.ToBoolean(dr["IsNewModel"]), Convert.ToBoolean(dr["IsFuturisticModel"]))
                                         },
 
                                         //top version
@@ -141,7 +141,7 @@ namespace BikeIndex
                                             VersionName = Convert.ToString(dr["VersionName"]),
                                             Specs = objSpecs,
                                             PriceList = objPrices,
-                                            VersionStatus = _getStatus(Convert.ToBoolean(dr["IsNewVersion"]), Convert.ToBoolean(dr["IsFuturisticVersion"]))
+                                            VersionStatus = GetStatus(Convert.ToBoolean(dr["IsNewVersion"]), Convert.ToBoolean(dr["IsFuturisticVersion"]))
                                         },
 
                                         BikeName = Convert.ToString(dr["MakeName"]) + " " + Convert.ToString(dr["ModelName"]),
@@ -168,7 +168,7 @@ namespace BikeIndex
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name, ex);
+                Logs.WriteErrorLog("Exception at Bikewale.ElasticSearch.BikeIndex.BikeModelRepository ->GetBikeList() ", ex);
                 Console.WriteLine("Exception Message  : " + ex.Message);
             }
             return objList;

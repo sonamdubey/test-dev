@@ -19,24 +19,31 @@ namespace BikeIndex
     {
         public static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
-            IIndexFactory<BikeModelDocument> bikeIndex = new IndexFactory<BikeModelDocument>();
-            string indexName = ConfigurationManager.AppSettings["BikeIndexName"];
+            try
+            {
+                log4net.Config.XmlConfigurator.Configure();
+                IIndexFactory<BikeModelDocument> bikeIndex = new IndexFactory<BikeModelDocument>();
+                string indexName = ConfigurationManager.AppSettings["BikeIndexName"];
 
-            Logs.WriteInfoLog("Bike Index Creation Started");
+                Logs.WriteInfoLog("Bike Index Creation Started");
 
-            BikeModelRepository objDAL = new BikeModelRepository();
-            IEnumerable<BikeModelDocument> data = objDAL.GetBikeModelList();
-            
-            bikeIndex.CreateIndex<BikeModelDocument>(indexName, m => m.Map<BikeModelDocument>(type => type.AutoMap()));
+                BikeModelRepository objDAL = new BikeModelRepository();
+                IEnumerable<BikeModelDocument> data = objDAL.GetBikeModelList();
 
-            Logs.WriteInfoLog("Index Created");
-            Logs.WriteInfoLog("Data Size = " + data.Count());
+                bikeIndex.CreateIndex<BikeModelDocument>(indexName, m => m.Map<BikeModelDocument>(type => type.AutoMap()));
 
-            ElasticClientOperations.AddDocument<BikeModelDocument>(data.ToList(), indexName, m => m.Id);
+                Logs.WriteInfoLog("Index Created");
+                Logs.WriteInfoLog("Data Size = " + data.Count());
 
-            Logs.WriteInfoLog("Document Added to bikeindex");
+                ElasticClientOperations.AddDocument<BikeModelDocument>(data.ToList(), indexName, m => m.Id);
 
+                Logs.WriteInfoLog("Document Added to bikeindex");
+            }
+            catch(Exception ex)
+            {
+                Logs.WriteErrorLog("Exception at Bikewale.ElasticSearch.BikeIndex.Program.cs ", ex);
+                Console.WriteLine("Exception Message  : " + ex.Message);
+            }
 
         }
     }
