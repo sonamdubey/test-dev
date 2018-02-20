@@ -8,9 +8,6 @@ namespace Bikewale.Entities.Filters
     /// </summary>
     public class FilterPageEntity
     {
-        public IList<FilterBase> FirstFilter { get; set; }
-        public IList<FilterBase> SecondFilter { get; set; }
-        public IList<FilterBase> ThirdFilter { get; set; }
-        public IList<FilterBase> FourthFilter { get; set; }
+        public IEnumerable<IEnumerable<FilterBase>> FilterResults { get; set; }
     }
 }

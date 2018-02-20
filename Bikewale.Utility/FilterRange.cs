@@ -17,9 +17,9 @@ namespace Bikewale.Utility
 
     public class RangeFactory
     {
-        public static readonly uint[] PriceRange = new uint[] { 50000, 1, 2, 4, 6, 10, 14, 18 };
-        public static readonly uint[] Mileage = new uint[] { 30, 40, 50, 60, 70 };
-        public static readonly uint[] Displacement = new uint[] { 110, 125, 150, 200, 250, 350, 450, 600, 750 };
+        private static readonly uint[] PriceRange = new uint[] { 50000, 100000, 200000, 400000, 600000, 1000000, 1400000, 1800000 };
+        private static readonly uint[] Mileage = new uint[] { 30, 40, 50, 60, 70 };
+        private static readonly uint[] Displacement = new uint[] { 110, 125, 150, 200, 250, 350, 450, 600, 750 };
 
         /// <summary>
         /// Created by : Snehal Dange on 20th Feb 2018

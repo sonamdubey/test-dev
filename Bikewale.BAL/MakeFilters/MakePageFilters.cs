@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Interfaces.MakeFilters;
+using System;
 using System.Collections.Generic;
 
 namespace Bikewale.BAL.MakeFilters
@@ -7,7 +8,7 @@ namespace Bikewale.BAL.MakeFilters
     /// Created by : Snehal Dange on 20th Feb 2018
     /// Description: Class contains the logic to give customized filters with respect to make.
     /// </summary>
-    public class MakePageFilters
+    public class MakePageFilters : IMakePageFilters
     {
         /// <summary>
         /// Following dictionary contains the filtersPriority - MakeCategories mapping  

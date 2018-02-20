@@ -334,6 +334,7 @@
     <Compile Include="EMISliderAMP.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="Filters\FilterBase.cs" />
+    <Compile Include="Filters\FilterPageEntity.cs" />
     <Compile Include="Filters\InPageFilterEnum.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstEmailDetailsEntity.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstMakeEntityBase.cs" />
