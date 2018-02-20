@@ -25,10 +25,10 @@ namespace Bikewale.ElasticSearch.PriceIndex
             ModelPriceDocument docObj = null;
             VersionEntity verObj = null;
             
-            uint LastModelId = 0;
-            uint LastCityId = 0;
-            uint CurrentModelId = 0;
-            uint CurrentCityId = 0;
+            uint _lastModelId = 0;
+            uint _lastCityId = 0;
+            uint _currentModelId = 0;
+            uint _currentCityId = 0;
 
             try
             {
@@ -47,10 +47,10 @@ namespace Bikewale.ElasticSearch.PriceIndex
 
                             while (dr.Read())
                             {
-                                CurrentModelId = SqlReaderConvertor.ToUInt32(dr["BikeModelId"]);
-                                CurrentCityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
+                                _currentModelId = SqlReaderConvertor.ToUInt32(dr["BikeModelId"]);
+                                _currentCityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
                                 
-                                if (CurrentModelId != LastModelId && CurrentCityId != LastCityId)
+                                if (_currentModelId != _lastModelId && _currentCityId != _lastCityId)
                                 {
                                     if (docObj != null)
                                     {
@@ -58,11 +58,11 @@ namespace Bikewale.ElasticSearch.PriceIndex
                                         objList.Add(docObj);
                                     }
 
-                                    docObj = InitializeDocumentObj(CurrentModelId, CurrentCityId);
+                                    docObj = InitializeDocumentObj(_currentModelId, _currentCityId);
                                     versions = new List<VersionEntity>();
 
-                                    LastModelId = CurrentModelId;
-                                    LastCityId = CurrentCityId;
+                                    _lastModelId = _currentModelId;
+                                    _lastCityId = _currentCityId;
 
                                     docObj.ModelName = Convert.ToString(dr["ModelName"]);
                                     docObj.ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]);
@@ -87,7 +87,7 @@ namespace Bikewale.ElasticSearch.PriceIndex
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name, ex);
+                Logs.WriteErrorLog("ModelPriceRepository: ", ex);
                 Console.WriteLine("Exception Message  : " + ex.Message);
             }
 
@@ -130,13 +130,13 @@ namespace Bikewale.ElasticSearch.PriceIndex
         /// Description: Sets the ExShowroom, RTO and Insurance prices in a list.
         /// </summary>
         /// <returns></returns>
-        private static List<PriceEntity> SetVersionPrice(uint exShowroom, uint rto, uint insurance)
+        private static IEnumerable<PriceEntity> SetVersionPrice(uint exShowroom, uint rto, uint insurance)
         {
-            List<PriceEntity> prices = new List<PriceEntity>();
+            IList<PriceEntity> prices = new List<PriceEntity>();
             
             prices.Add(new PriceEntity()
             {
-                PriceType = "Ex-Showroom",
+                PriceType = "Exshowroom",
                 PriceValue = exShowroom
             });
 
