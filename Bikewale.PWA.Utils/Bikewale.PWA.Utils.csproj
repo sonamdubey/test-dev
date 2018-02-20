@@ -122,6 +122,10 @@
       <Project>{ea7198a6-5347-4f8f-a25e-92b1e1ceb086}</Project>
       <Name>Bikewale.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
+      <Project>{DB695E13-ED0E-4349-A32E-A6D03D06C597}</Project>
+      <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.PWA.Entities\Bikewale.PWA.Entities.csproj">
       <Project>{891ee3d8-f296-4efc-a136-a278f0f06f61}</Project>
       <Name>Bikewale.PWA.Entities</Name>

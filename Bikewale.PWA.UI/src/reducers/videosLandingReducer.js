@@ -11,7 +11,7 @@ var initialState = fromJS({
 });
 
 export function VideosLanding(state,action) {
-	try {
+    try {
 		if(!state)
 			return initialState;
 		if(state && window._SERVER_RENDERED_DATA == true) {

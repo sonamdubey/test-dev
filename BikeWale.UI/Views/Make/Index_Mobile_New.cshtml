@@ -1,7 +1,6 @@
 ﻿@model Bikewale.Models.MakePageVM
 
 @{
-	ViewBag.Title = "Bike Make page";
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
 	Model.Page_JS_Path = "/m/src/make.js";
@@ -116,7 +115,7 @@
                                     <div class="model__card">
                                     <a href="@string.Format("/m{0}", modelUrl)" class="model-card__target bw-ga" title="@bikeName" data-cat="MakePage" data-act="Clicked_on_ModelCard" data-lab="@string.Format("{0}_{1}", bike.objModel.ModelId, bikeName)">
                                             <div class="model-card__image">
-                                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt="@bike.objModel.ModelName">
+                                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" title="@bikeName" src="" alt="@bike.objModel.ModelName">
                                             </div>
                                             <div class="model-card__detail">
                                                 <span class="rating-badge" data-rate-bg="@Math.Round(bike.ModelRating)">
@@ -166,7 +165,7 @@
                                                         }
 
                                                     </div>
-                                                    @if (bike.EMIDetails != null)
+                                                    @if (bike.EMIDetails != null && bike.EMIDetails.EMIAmount > 0)
                                                     {
                                                         <div class="card-emi__col">
                                                             <p class="card-emi__label">EMI starting at</p>
@@ -190,8 +189,12 @@
             {
                 <section>
                     <div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
-                        <h2 class="upcoming-carousel__title page__heading-h2">Upcoming @Model.MakeName Bikes</h2>
-
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2 carousel-title__label">Upcoming @Model.MakeName Bikes</h2>
+                            <a href="@string.Format("/m/{0}-bikes/upcoming/", Model.MakeMaskingName)" class="view-all-btn" title="Upcoming @Model.MakeName Bikes in India">
+                                View all
+                            </a>
+                        </div>
                         @Html.Partial("~/Views/Upcoming/_UpcomingBikesWithNotify_Mobile.cshtml", Model.UpcomingBikes)
                     </div>
                 </section>
@@ -221,7 +224,7 @@
                 <div id="notifyWhiteoutWindow"></div>
             </div>
 
-            @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription != null)
+            @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription != null && Model.BikeDescription.FullDescription.Length > 0)
             {
                 <div id="interestingFact">
                     <div class="interesting-fact-popup interesting-fact-section">
@@ -267,13 +270,13 @@
                         {
                             <div class="carousel__title">
                                 <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Showrooms @string.Format("in {0}", Model.Dealers.CityName) </h2>
-                                <a href="/m/dealer-showrooms/@Model.MakeMaskingName/@Model.Dealers.CityMaskingName/" class="view-all-btn">
+                                <a href="/m/dealer-showrooms/@Model.MakeMaskingName/@Model.Dealers.CityMaskingName/" title="@Model.MakeName Showrooms in @Model.Location" class="view-all-btn">
                                     View all
                                 </a>
                             </div>
                             <p class="dealer-section__note">
-                                Showing Dealer/Store results from
-                                <span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" class="dealer-note__link text-link">
+                                Show Dealer/Store results from
+                                <span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName showrooms in India" class="dealer-note__link text-link">
                                     All India
                                 </span>
                             </p>
@@ -285,13 +288,13 @@
                         {
                             <div class="carousel__title">
                                 <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Showrooms</h2>
-                                <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" class="view-all-btn">
+                                <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName Showrooms in @Model.Location" class="view-all-btn">
                                     View all
                                 </a>
                             </div>
                             <p class="dealer-section__note">
-                                Showing Dealer/Store results from
-                                <span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" class="dealer-note__link text-link">
+                                Show Dealer/Store results from
+                                <span id="allIndiaUrl" data-url="/m/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName showrooms in India" class="dealer-note__link text-link">
                                     All India
                                 </span>
                             </p>
@@ -313,7 +316,7 @@
                     <div data-id="news" class="bg-white section-bottom-margin latest-news-section overall-tabs-data">
                         <div class="carousel__title">
                             <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName News</h2>
-                            <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking))" class="view-all-btn">
+                            <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking))" title="@string.Format("{0} News",Model.MakeName)" class="view-all-btn">
                                 View all
                             </a>
                         </div>
@@ -338,7 +341,7 @@
                             <section class="expert-review-section">
                                 <div class="carousel__title">
                                     <h3 class="carousel-title__label">Expert Reviews</h3>
-                                    <a href="@string.Format("/m/{0}-bikes/expert-reviews/",Model.MakeMaskingName)" class="view-all-btn">
+                                    <a href="@string.Format("/m/{0}-bikes/expert-reviews/",Model.MakeMaskingName)" title="@string.Format("{0} Expert Reviews",Model.MakeName)" class="view-all-btn">
                                         View all
                                     </a>
                                 </div>
@@ -355,7 +358,7 @@
                                 <div class="bg-white user-review-section">
                                     <div class="carousel__title">
                                         <h2 class="carousel-title__label">User Reviews</h2>
-                                        <a href="@string.Format("/m/{0}-bikes/reviews/", Model.MakeMaskingName)" class="view-all-btn">
+                                        <a href="@string.Format("/m/{0}-bikes/reviews/", Model.MakeMaskingName)" title="@string.Format("{0} User Reviews",Model.MakeName)" class="view-all-btn">
                                             View all
                                         </a>
                                     </div>
@@ -367,13 +370,13 @@
                 </section>
             }
 
-            @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.Any())
+            @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.ModelList != null && Model.BikeModelsPhotos.ModelList.Any())
             {
                 <section>
                     <div data-id="images" class="bg-white section-bottom-margin overall-tabs-data model-image-section">
                         <div class="carousel__title">
                             <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Images</h2>
-                            <a href="/m/@Model.MakeMaskingName-bikes/images/" class="view-all-btn">
+                            <a href="/m/@Model.MakeMaskingName-bikes/images/" title="@string.Format("{0} Images",Model.MakeName)" class="view-all-btn">
                                 View all
                             </a>
                         </div>

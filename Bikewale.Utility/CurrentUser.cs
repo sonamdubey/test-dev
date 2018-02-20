@@ -118,5 +118,14 @@ namespace Bikewale.Utility
 
             return clientIp;
         }
+        /// <summary>
+        /// Created By : Sushil Kumar on 14th December 2017
+        /// Description : Create a random number which is assign to user for ab testing
+        /// </summary>
+        public static void SetBikewaleABTestingUser()
+        {
+            Random r = new Random((int)DateTime.Now.Ticks);
+            BWCookies.SetCookie("_bwtest", 365, Convert.ToString(r.Next(1, 101)));
+        }
     }
 }

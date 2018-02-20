@@ -3,11 +3,12 @@
 @using System.Text.RegularExpressions
 @using Bikewale.Entities.GenericBikes
 @{
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
-    Model.AdTags.AdId = "1395986297721";
-    Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
+    Model.AdTags.AdId = "1517812803381";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_EditorialList";
     Model.AdTags.Ad_320x50 = true;
-    Model.AdTags.Ad_Mid_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_300x250BTF = true;
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 <section>
@@ -53,7 +54,7 @@
                                     <p class="list-slug__heading">Bike review contest</p>
                                     <p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;@BWConfiguration.Instance.ContestPriceMoney</p>
                                     @{
-                        string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ExpertReviews));
+                                        string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ExpertReviews));
                                     }
 
                                     <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" title="Bike Review Contest" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
@@ -64,8 +65,7 @@
                     i++;
                 }
             </ul>
-        }
-        <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
+        }        <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
             <div class="grid-5 omega text-light-grey font13">
                 <span class="text-bold text-default">@string.Format("{0}-{1}", Model.StartIndex, Model.EndIndex)</span> of <span class="text-bold text-default">@Model.Articles.RecordCount</span> articles
             </div>
@@ -78,7 +78,12 @@
         <div class="clear"></div>
     </div>
 </section>
-
+@if (Model.AdTags.Ad_300x250BTF)
+{
+    <div class="margin-bottom15" text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
+    </div>
+}
 @if (Model.ObjMoreAboutScooter != null)
 {
     <section>
@@ -92,9 +97,6 @@
     </section>
 
 }
-<div class="margin-bottom15">
-    @Html.Partial("~/Views/Shared/Ads/Mobile/Ad320x50_Middle.cshtml", Model.AdTags)
-</div>
 
 @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
 {

@@ -1,8 +1,6 @@
 import React from 'react'
 
 import {Status} from '../../utils/constants'
-import Footer from '../Shared/Footer'
-import Breadcrumb from '../Shared/Breadcrumb'
 import {isServer} from '../../utils/commonUtils'
 import ModelBrandsList from './ModelBrandsList'
 import VideoCarouselByCategory from './VideoCarouselByCategory'
@@ -59,8 +57,6 @@ class OtherVideosComponent extends React.Component{
 				<VideoCarouselByCategory VideoListData={this.props.OtherVideos.PowerDriftSpecials} onClickVideoUrl={this.onClickVideoUrl} onClickMoreVideoUrl={this.onClickMoreVideoUrl}/>
 				<VideoCarouselByCategory VideoListData={this.props.OtherVideos.PowerDriftTopMusic} onClickVideoUrl={this.onClickVideoUrl} onClickMoreVideoUrl={this.onClickMoreVideoUrl}/>
 				<VideoCarouselByCategory VideoListData={this.props.OtherVideos.Miscellaneous} onClickVideoUrl={this.onClickVideoUrl} onClickMoreVideoUrl={this.onClickMoreVideoUrl}/>
-				<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '',Title : 'Videos'}]}/>
-				<Footer/>
 			</div>
 		)
 	}

@@ -298,7 +298,10 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
     min-height: 180px;
     padding: 15px 20px 10px;
 }
-
+.dealer-horizontal-swiper .details-column {
+    max-height: 80px;
+    overflow: hidden;
+}
 .vs-circle-vert { position: relative; border-radius: 50%; background: #f2f2f2; border: 1px solid #e2e2e2; padding: 20px; display: block; font-size: 25px; margin: 110px auto 0 auto; width: 72px; height: 72px; }
 .vs-circle-vert-line { width: 1px; height: 265px; background:#e4e4e4; position: absolute; top: -90px; left: 70px; }
 

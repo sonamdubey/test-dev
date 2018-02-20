@@ -2,11 +2,12 @@
 @using Bikewale.Utility
 @using System.Text.RegularExpressions
 @{
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
-    Model.AdTags.AdId = "1395986297721";
-    Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
+    Model.AdTags.AdId = "1517812803381";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_EditorialList";
     Model.AdTags.Ad_320x50 = true;
-    Model.AdTags.Ad_Mid_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_300x250BTF = true;
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 <section>
@@ -54,9 +55,12 @@
         <div class="clear"></div>
     </div>
 </section>
-<div class="margin-bottom15">
-    @Html.Partial("~/Views/Shared/Ads/Mobile/Ad320x50_Middle.cshtml", Model.AdTags)
-</div>
+@if (Model.AdTags.Ad_300x250BTF)
+{
+    <div class="margin-bottom20 text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
+    </div>
+}
 @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
 {
     <section>

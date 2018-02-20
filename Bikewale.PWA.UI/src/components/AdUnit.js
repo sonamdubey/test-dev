@@ -3,7 +3,7 @@ import {isServer} from '../utils/commonUtils'
 import {addAdSlot , removeAdSlot} from '../utils/googleAdUtils'
 
 
-class AdUnit320x50 extends React.Component {
+class AdUnit extends React.Component {
 	constructor(props) {
 		super(props);
 		this.displayAd = this.displayAd.bind(this);
@@ -19,8 +19,8 @@ class AdUnit320x50 extends React.Component {
 
 		}
 	}
-	addAdSlot(){
-		addAdSlot(this.props.adSlot,[320,50],this.props.adContainerId,this.props.tags);
+    addAdSlot() {
+        addAdSlot(this.props.adSlot, this.props.adDimension ? this.props.adDimension : [320, 50], this.props.adContainerId, this.props.tags);
 	}
 	refreshAd() {
 		if(!this.props)
@@ -68,4 +68,4 @@ class AdUnit320x50 extends React.Component {
 	}
 }
 
-module.exports = AdUnit320x50
+module.exports = AdUnit

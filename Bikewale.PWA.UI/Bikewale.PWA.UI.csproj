@@ -51,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="src\actionCreators\imageCarouselActionCreator.js" />
     <Content Include="src\actionCreators\newsArticleDetailActionCreators.js" />
     <Content Include="src\actionCreators\newsArticleListActionCreators.js" />
     <Content Include="src\actionCreators\videosByCategoryActionCreator.js" />
@@ -59,13 +60,17 @@
     <Content Include="src\actionTypes\actionTypes.js" />
     <Content Include="src\client.js" />
     <Content Include="src\commonFunc.js" />
-    <Content Include="src\components\AdUnit320x50.js" />
+    <Content Include="src\components\AdUnit.js" />
     <Content Include="src\components\AdUnitMid320x50.js" />
     <Content Include="src\components\Autocomplete.js" />
     <Content Include="src\components\CityAreaAutocomplete.js" />
     <Content Include="src\components\GlobalCityPopup.js" />
     <Content Include="src\components\GlobalSearchList.js" />
     <Content Include="src\components\GlobalSearchPopup.js" />
+    <Content Include="src\components\Widgets\ImageCard.js" />
+    <Content Include="src\components\Widgets\BikeImageCarouselComponent.js" />
+    <Content Include="src\components\Widgets\PopularBikeImageCarouselContainer.js" />
+    <Content Include="src\components\Widgets\WidgetsCommon.js" />
     <Content Include="src\components\NewBikes.js" />
     <Content Include="src\components\News\ArticleDetailComponent.js" />
     <Content Include="src\components\News\ArticleDetailContent.js" />
@@ -114,6 +119,7 @@
     <Content Include="src\containers\App.js" />
     <Content Include="src\containers\Routes.js" />
     <Content Include="src\immutableWrapperContainer.js" />
+    <Content Include="src\reducers\imageCarouselReducer.js" />
     <Content Include="src\reducers\newsDetailReducer.js" />
     <Content Include="src\reducers\newsListReducer.js" />
     <Content Include="src\reducers\newsReducer.js" />
@@ -121,6 +127,7 @@
     <Content Include="src\reducers\videoDetailReducer.js" />
     <Content Include="src\reducers\videosByCategoryReducer.js" />
     <Content Include="src\reducers\videosLandingReducer.js" />
+    <Content Include="src\reducers\widgetReducer.js" />
     <Content Include="src\reducers\videosReducer.js" />
     <Content Include="src\server.js" />
     <Content Include="src\server\ServerAppComponent.js" />
@@ -136,11 +143,16 @@
     <Content Include="src\utils\timing.js" />
     <Content Include="webpack\common.client.config.js" />
     <Content Include="webpack\common.server.config.js" />
+    <Content Include="webpack\common.config.js" />
     <Content Include="webpack\debug.client.config.js" />
     <Content Include="webpack\debug.server.config.js" />
     <Content Include="webpack\release.client.config.js" />
     <Content Include="webpack\release.server.config.js" />
     <Content Include="webpack\staging.client.config.js" />
+    <Content Include="webpack\webpack.dev.config.js" />
+    <Content Include="webpack\webpack.prod.config.js" />
+    <Content Include="webpack\webpack.server.config.js" />
+    <Content Include="webpack\webpack.staging.config.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="package.json" />
