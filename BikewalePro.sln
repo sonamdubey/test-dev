@@ -161,6 +161,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ElasticSearch.Inde
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ElasticSearch.ModelPriceIndex", "Bikewale.ElasticSearch.PriceIndex\Bikewale.ElasticSearch.ModelPriceIndex.csproj", "{73023080-89C4-402A-9E94-443AFEE648C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ElasticSearch.BikeIndex", "BikeIndex\Bikewale.ElasticSearch.BikeIndex.csproj", "{EB619D5C-78BB-4236-BE23-630995E3DCC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1680,6 +1682,22 @@ Global
 		{73023080-89C4-402A-9E94-443AFEE648C7}.Testing|Any CPU.Build.0 = Release|Any CPU
 		{73023080-89C4-402A-9E94-443AFEE648C7}.Testing|x64.ActiveCfg = Release|Any CPU
 		{73023080-89C4-402A-9E94-443AFEE648C7}.Testing|x86.ActiveCfg = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Release|x64.ActiveCfg = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Release|x86.ActiveCfg = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Staging|Any CPU.Build.0 = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Staging|x64.ActiveCfg = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Staging|x86.ActiveCfg = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Testing|x64.ActiveCfg = Release|Any CPU
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2}.Testing|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1752,5 +1770,6 @@ Global
 		{6FD85A38-07FF-42FD-8051-79B3DB902167} = {5E11D1E6-8D14-438B-AA77-883DAA63F4F2}
 		{5F5086BA-98CE-47B4-99F4-0BE65750881E} = {5E11D1E6-8D14-438B-AA77-883DAA63F4F2}
 		{73023080-89C4-402A-9E94-443AFEE648C7} = {5E11D1E6-8D14-438B-AA77-883DAA63F4F2}
+		{EB619D5C-78BB-4236-BE23-630995E3DCC2} = {5E11D1E6-8D14-438B-AA77-883DAA63F4F2}
 	EndGlobalSection
 EndGlobal
