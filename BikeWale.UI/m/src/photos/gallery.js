@@ -516,27 +516,38 @@ docReady(function () {
         }
     });
 
-    var mainGallerySwiper = new Swiper('#mainPhotoSwiper', {
-        spaceBetween: 0,
-        preloadImages: false,
-        lazyLoading: true,
-        lazyLoadingInPrevNext: true,
-        nextButton: '.gallery--next',
-        prevButton: '.gallery--prev',
-        onInit: function (swiper) {
-            swiper.slideTo(vmModelGallery.activePhotoIndex()-1);
-            thumbnailSwiperEvents.setPhotoDetails(swiper);
-						$('.model-gallery-section .model-gallery__image-title').text($('#mainPhotoSwiper .swiper-slide-active img').attr('title'));
-				},
-				onSlideChange: function(swiper) {
+    var mainGallerySwiper = new Swiper("#mainPhotoSwiper", {
+      spaceBetween: 0,
+      preloadImages: false,
+      lazyLoading: true,
+      lazyLoadingInPrevNext: true,
+      nextButton: ".gallery--next",
+      prevButton: ".gallery--prev",
+      onInit: function(swiper) {
+        swiper.slideTo(vmModelGallery.activePhotoIndex() - 1);
+        thumbnailSwiperEvents.setPhotoDetails(swiper);
+        $(".model-gallery-section .model-gallery__image-title").text(
+          $("#mainPhotoSwiper .swiper-slide-active img").attr("title")
+		);
 
-				},
-        onSlideChangeEnd: function (swiper) {
-            vmModelGallery.activePhotoIndex(swiper.activeIndex + 1);
-            logBhrighuForImage($('#mainPhotoSwiper .swiper-slide-active'));
-            logBhrighuForImage($('#mainPhotoSwiper .swiper-slide-active'));
-            $('.model-gallery-section .model-gallery__image-title').text($('#mainPhotoSwiper .swiper-slide-active img').attr('title'));
+        gallerySlug.setColor($(swiper.slides[1]));
+      },
+      onSlideChangeEnd: function(swiper) {
+        vmModelGallery.activePhotoIndex(swiper.activeIndex + 1);
+        logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
+        logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
+        $(".model-gallery-section .model-gallery__image-title").text(
+          $("#mainPhotoSwiper .swiper-slide-active img").attr("title")
+		);
+
+      	// remove embedded slug
+        var activeSlide = swiper.slides[swiper.activeIndex];
+        var sliderSlugSlide = $(activeSlide).prev('.swiper-slide__slug');
+
+        if (sliderSlugSlide.length) {
+        	sliderSlugSlide.find(".gallery__slide-slug").remove();
         }
+      }
     });
 
     colorGallerySwiper = new Swiper('#main-color-swiper', {
@@ -626,4 +637,13 @@ docReady(function () {
 		});
 });
 
+var gallerySlug = (function() {
+  function setColor(slideElement) {
+    slideElement.addClass("swiper-slide__slug");
+    slideElement.append($("#carouselColorSlug").html());
+  }
 
+  return {
+    setColor: setColor
+  };
+})();
