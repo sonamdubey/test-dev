@@ -1,5 +1,6 @@
-﻿using Bikewale.Interfaces.Filters;
-using System;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Filters;
+using Bikewale.Interfaces.Filters;
 using System.Collections.Generic;
 
 namespace Bikewale.BAL.Filters
@@ -13,13 +14,13 @@ namespace Bikewale.BAL.Filters
         /// <summary>
         /// Following dictionary contains the filtersPriority - MakeCategories mapping  
         /// </summary>
-        IDictionary<uint, IList<UInt16>> categoryFilterPriorityMap = new Dictionary<uint, IList<UInt16>>
+        private readonly IDictionary<BikeMakeCategoriesEnum, IEnumerable<InPageFilterEnum>> categoryFilterPriorityMap = new Dictionary<BikeMakeCategoriesEnum, IEnumerable<InPageFilterEnum>>
         {
-            {1,new List<UInt16> {1,3,4}},
-            {2,new List<UInt16> {1,2,3,4}},
-            {3,new List<UInt16> {1,2,3,4}},
-            {4,new List<UInt16> {1,2,4}},
-            {5,new List<UInt16> {1,2,4}}
+            {BikeMakeCategoriesEnum.OnlyScooters, new List<InPageFilterEnum> {InPageFilterEnum.Budget,InPageFilterEnum.Mileage ,InPageFilterEnum.Displacement}},
+            {BikeMakeCategoriesEnum.Commoners_1, new List<InPageFilterEnum> {InPageFilterEnum.Budget, InPageFilterEnum.BodyType, InPageFilterEnum.Mileage,InPageFilterEnum.Displacement}},
+            {BikeMakeCategoriesEnum.Commoners_2,new List<InPageFilterEnum> {InPageFilterEnum.Budget, InPageFilterEnum.BodyType, InPageFilterEnum.Mileage,InPageFilterEnum.Displacement}},
+            {BikeMakeCategoriesEnum.Premium_1, new List<InPageFilterEnum> {InPageFilterEnum.Budget, InPageFilterEnum.BodyType ,InPageFilterEnum.Displacement}},
+            {BikeMakeCategoriesEnum.Premium_2,new List<InPageFilterEnum> {InPageFilterEnum.Budget, InPageFilterEnum.BodyType,InPageFilterEnum.Displacement}}
         };
 
     }

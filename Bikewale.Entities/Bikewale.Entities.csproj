@@ -162,6 +162,7 @@
     <Compile Include="BikeData\BikeFilters.cs" />
     <Compile Include="BikeData\BikeInfoPageSource.cs" />
     <Compile Include="BikeData\BikeMakeBase.cs" />
+    <Compile Include="BikeData\BikeMakeCategoriesEnum.cs" />
     <Compile Include="BikeData\BikeMakeModelBase.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
