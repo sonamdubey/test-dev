@@ -50,7 +50,7 @@ namespace Bikewale.ElasticSearch.PriceIndex
                                 _currentModelId = SqlReaderConvertor.ToUInt32(dr["BikeModelId"]);
                                 _currentCityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
                                 
-                                if (_currentModelId != _lastModelId && _currentCityId != _lastCityId)
+                                if (_currentModelId != _lastModelId || _currentCityId != _lastCityId)
                                 {
                                     if (docObj != null)
                                     {
