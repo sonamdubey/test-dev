@@ -23,7 +23,7 @@ namespace BikeIndex
             IIndexFactory<BikeModelDocument> bikeIndex = new IndexFactory<BikeModelDocument>();
             string indexName = ConfigurationManager.AppSettings["BikeIndexName"];
 
-            Logs.WriteInfoLog("Start");
+            Logs.WriteInfoLog("Bike Index Creation Started");
 
             BikeModelRepository objDAL = new BikeModelRepository();
             IEnumerable<BikeModelDocument> data = objDAL.GetBikeModelList();
@@ -31,10 +31,11 @@ namespace BikeIndex
             bikeIndex.CreateIndex<BikeModelDocument>(indexName, m => m.Map<BikeModelDocument>(type => type.AutoMap()));
 
             Logs.WriteInfoLog("Index Created");
+            Logs.WriteInfoLog("Data Size = " + data.Count());
 
             ElasticClientOperations.AddDocument<BikeModelDocument>(data.ToList(), indexName, m => m.Id);
 
-            Logs.WriteInfoLog("Document Added");
+            Logs.WriteInfoLog("Document Added to bikeindex");
 
 
         }

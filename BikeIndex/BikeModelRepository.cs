@@ -36,19 +36,29 @@ namespace BikeIndex
         /// <returns></returns>
         private BikeStatus _getStatus(bool isNew, bool isFuturistic)
         {
-            if (!isNew && !isFuturistic)
+            if(!isNew)
             {
-                return BikeStatus.Upcoming;
+                if(!isFuturistic)
+                {
+                    return BikeStatus.Discontinued;
+                }
+                else 
+                {
+                    return BikeStatus.Upcoming;
+                }
             }
-            else if (isNew && !isFuturistic)
+            else
             {
-                return BikeStatus.New;
+                if(!isFuturistic)
+                {
+                    return BikeStatus.New;
+                }
+                else
+                {
+                    return BikeStatus.Invalid;
+                }
             }
-            else if (!isNew && isFuturistic)
-            {
-                return BikeStatus.Discontinued;
-            }
-            return BikeStatus.Invalid;
+            
         }
 
         /// <summary>
