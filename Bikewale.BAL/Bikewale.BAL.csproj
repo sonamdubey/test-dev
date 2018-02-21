@@ -206,6 +206,7 @@
     <Compile Include="BikeData\BikeVersions.cs" />
     <Compile Include="BikeData\NewLaunched\NewBikeLaunchesBL.cs" />
     <Compile Include="BikeData\Upcoming.cs" />
+    <Compile Include="BikeSearch\BikeSearch.cs" />
     <Compile Include="BikeSearch\BikeSearchResult.cs" />
     <Compile Include="BikeSearch\NewBikeSearchMapper.cs" />
     <Compile Include="CMS\CMS.cs" />
@@ -326,6 +327,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
+    <Folder Include="Elastic\" />
     <Folder Include="Insurance\" />
     <Folder Include="PhotoGallery\" />
   </ItemGroup>
