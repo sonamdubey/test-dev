@@ -35,6 +35,10 @@ namespace Bikewale.ElasticSearch.Entities
         public double Power { get; set; }
         [JsonProperty("displacement")]
         public double Displacement { get; set; }
+        [JsonProperty("exshowroom")]
+        public uint Exshowroom { get; set; }
+        [JsonProperty("onroad")]
+        public uint Onroad { get; set; }
 
     }
  

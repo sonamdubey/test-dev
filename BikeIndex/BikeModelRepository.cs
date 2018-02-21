@@ -131,6 +131,8 @@ namespace BikeIndex
                                             Displacement = Convert.ToDouble(dr["Displacement"]),
                                             Power = Convert.ToDouble(dr["Power"]),
                                             PriceList = objPrices,
+                                            Exshowroom = Convert.ToUInt32(dr["Exshowroom"]),
+                                            Onroad = Convert.ToUInt32(dr["RTO"]) + Convert.ToUInt32(dr["Insurance"]) + Convert.ToUInt32(dr["Exshowroom"]),
                                             VersionStatus = GetStatus(Convert.ToBoolean(dr["IsNewVersion"]), Convert.ToBoolean(dr["IsFuturisticVersion"]))
                                         },
 
