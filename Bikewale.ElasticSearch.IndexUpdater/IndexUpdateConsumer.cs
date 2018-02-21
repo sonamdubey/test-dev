@@ -12,6 +12,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
 {
+    /// <summary>
+    /// Created by  : Sanskar Gupta on 21 Feb 2018
+    /// Description : Consumer which can consume ANY document update/insert message for ANY Index. 
+    /// </summary>
     internal class IndexUpdateConsumer
     {
         private readonly string _applicationName, _retryCount, _RabbitMsgTTL;
