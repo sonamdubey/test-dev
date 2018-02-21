@@ -1,6 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
-using Bikewale.Entities.BikeData.NewLaunched;
-using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.Filters;
 using Bikewale.Entities.Location;
 using Bikewale.Models.Images;
 using Bikewale.Models.Make;
@@ -51,6 +50,8 @@ namespace Bikewale.Models
     /// 
     /// Modified By : Rajan Chauhan on 19 Feb 2018
     /// Description : Replaced BikeModelsPhotos with BikeModelsPhotos
+    /// Modified by : Snehal Dange on 20th Feb 2018
+    /// Description: Added PageFilters
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -107,5 +108,6 @@ namespace Bikewale.Models
 
 
         public NewLaunchedWidgetVM NewLaunchedWidget { get; set; }
+        public FilterPageEntity PageFilters { get; set; }
     }
 }

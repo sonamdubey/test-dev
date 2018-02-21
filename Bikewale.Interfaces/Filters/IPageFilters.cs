@@ -1,4 +1,6 @@
 ﻿
+using Bikewale.Entities.Filters;
+using System.Collections.Generic;
 namespace Bikewale.Interfaces.Filters
 {
     /// <summary>
@@ -7,5 +9,6 @@ namespace Bikewale.Interfaces.Filters
     /// </summary>
     public interface IPageFilters
     {
+        IEnumerable<FilterBase> GetRelevantPageFilters(CustomInputFilters inputFilters);
     }
 }

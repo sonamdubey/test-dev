@@ -1,6 +1,8 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Filters;
 using Bikewale.Interfaces.Filters;
+using Bikewale.Notifications;
+using System;
 using System.Collections.Generic;
 
 namespace Bikewale.BAL.Filters
@@ -22,6 +24,58 @@ namespace Bikewale.BAL.Filters
             {BikeMakeCategoriesEnum.Premium_1, new List<InPageFilterEnum> {InPageFilterEnum.Budget, InPageFilterEnum.BodyType ,InPageFilterEnum.Displacement}},
             {BikeMakeCategoriesEnum.Premium_2,new List<InPageFilterEnum> {InPageFilterEnum.Budget, InPageFilterEnum.BodyType,InPageFilterEnum.Displacement}}
         };
+
+        /// <summary>
+        /// Created by : Snehal Dange on 21st Feb 2018
+        /// Description: Method to get list of all the relevant filters on make page. 
+        /// </summary>
+        /// <param name="inputFilters"></param>
+        /// <returns></returns>
+        public IEnumerable<FilterBase> GetRelevantPageFilters(CustomInputFilters inputFilters)
+        {
+            IList<FilterBase> pageFilters = null;
+            IEnumerable<InPageFilterEnum> categoryFilterObj = null;
+            try
+            {
+                if (inputFilters != null)
+                {
+                    pageFilters = new List<FilterBase>();
+                    categoryFilterObj = categoryFilterPriorityMap[(BikeMakeCategoriesEnum)inputFilters.MakeCategoryId];
+
+                    if (categoryFilterObj != null && pageFilters != null)
+                    {
+                        FilterBase listObj = null;
+                        foreach (var filter in categoryFilterObj)
+                        {
+                            if (InPageFilterEnum.Mileage.Equals(filter))
+                            {
+                                listObj = Bikewale.Utility.RangeFactory.GetContextualFilters(filter, inputFilters.MinMileage);
+                            }
+                            else if (InPageFilterEnum.Budget.Equals(filter))
+                            {
+                                listObj = Bikewale.Utility.RangeFactory.GetContextualFilters(filter, inputFilters.MinPrice);
+                            }
+                            else if (InPageFilterEnum.Displacement.Equals(filter))
+                            {
+                                listObj = Bikewale.Utility.RangeFactory.GetContextualFilters(filter, inputFilters.MinDisplacement);
+                            }
+
+                            if (listObj != null)
+                            {
+                                pageFilters.Add(listObj);
+                                listObj = null;
+                            }
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.Filters.GetRelevantFilters");
+            }
+            return pageFilters;
+        }
 
     }
 }
