@@ -110,11 +110,109 @@ body
 @include interesting-fact-section
 @include interesting-fact__container-scrollbar
 
-
 @media only screen and (max-width: 320px) 
 	.carousel__popular-bikes
 		.carousel-slide
 			width: 305px
 
 
+
+/* inpage filter */
+
+@import ../../partials/refine-result
+
+@include refine-result()
+@include refine-result__checkbox
+@include refine-result__view-more
+
+
+/* recommended bike */
+@import ../../partials/recommended-bike
+@import ../../partials/_loader
+
+@include recommended-bike__filter-section
+
+// skeleton loader
+@include recommended-bike__model-loader()  // for loader list card
+@include model-loader()
+@include model-loader__image()
+@include model-card__exshowroom-loader()
+
+@import ../../partials/result-not-found
+@include not-found__image()
+@include not-found-description()
+
+.not-found__image
+	@include vendor-prefix('transform', scale(.7))
+
+@import ../../partials/filter-screen
+
+
+.body-type__list
+	text-align: center
+	padding-top: 8px
+
+	li
+		width: auto
+		height: auto
+		display: inline-block
+		vertical-align: middle
+		margin-left: 16px
+
+		&:first-child
+			margin-left: 0
+
+		&:checked
+			+ .bodytype-scooter
+				background-image: url('/images/scooter_hover.png')
+
+			+ .bodytype-cruiser
+				background-image: url('/images/cruiser_hover.png')
+
+			+ .bodytype-street
+				background-image: url('/images/street_hover.png')
+
+			+ .bodytype-sports
+				background-image: url('/images/sports_hover.png')
+
+	.bodytype-box__label
+		padding-left: 0
+
+.check-box--active
+	.bodytype-scooter
+		@include scooter-style-f45944-filled
+
+	.bodytype-cruiser
+		@include cruiser-style-f45944-filled
+
+	.bodytype-street
+		@include street-style-f45944-filled
+
+	.bodytype-sports
+		@include sports-style-f45944-filled
+
+.bodytype-box__icon
+	width: 52px
+	height: 30px
+	display: block
+	background-repeat: no-repeat
+	background-position: bottom center
+	background-size: contain
+	margin-bottom: 11px
+	
+.bodytype-box
+	display: block
+
+
+.bodytype-scooter
+	@include scooter-style-line
+	
+.bodytype-cruiser
+	@include cruiser-style-line
+
+.bodytype-street
+	@include street-style-line
+
+.bodytype-sports
+	@include sports-style-line
 
