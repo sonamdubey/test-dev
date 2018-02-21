@@ -152,7 +152,7 @@ function morePhotosOverlay(limitCount) {
 	var photosCnt = (photoCount - limitCount - 1);
 	if (photosCnt && photosCnt > 0) {
 		var lastPhoto = $('.photos-grid-list li').last(),
-			morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + photosCnt + '<br />images</span></span>');
+                   morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + photosCnt + '<br />images</span></span>');
 		lastPhoto.append(morePhotoCount);
 	}
 }
@@ -266,6 +266,8 @@ var mainGallerySwiper = (function () {
 				//});
 				//$('.photos-grid-list> li:first-child').trigger('click');
 				toggleGalleryFooter();
+
+               // $('.model-gallery__screen--rotate-slug').show();
 			}
 
 		});
@@ -281,7 +283,7 @@ var mainGallerySwiper = (function () {
 			$('.model-gallery__container').removeClass('model-gallery--relative');
 			//}, 500);
 			bodyBackground.unlock();
-
+            //$('.model-gallery__screen--rotate-slug').hide();
 			toggleGalleryFooter();
 			gallerySlug.removeSlug($('#mainPhotoSwiper').find('.swiper-slide__slug'));
 		});
@@ -299,6 +301,9 @@ var mainGallerySwiper = (function () {
 				$('#mainPhotoSwiper .swiper-wrapper, #mainPhotoSwiper img').on('click', function () {
 					$('.gallery-image__footer').toggle();
 				});
+            }
+            else {
+                $('.gallery-image__footer').show();
 			}
 
 		}
