@@ -88,8 +88,10 @@ namespace Bikewale.ElasticSearch.PriceIndex
                                 }
 
                                 verObj = InitializeVersionEntity(SqlReaderConvertor.ToUInt32(dr["VersionId"]), Convert.ToString(dr["VersionName"]));
-                                verObj.PriceList = SetVersionPrice(SqlReaderConvertor.ToUInt32(dr["Price"]), SqlReaderConvertor.ToUInt32(dr["RTO"]), SqlReaderConvertor.ToUInt32(dr["Insurance"]));
-                                
+                                verObj.Exshowroom = SqlReaderConvertor.ToUInt32(dr["Price"]);
+                                verObj.PriceList = SetVersionPrice(verObj.Exshowroom, SqlReaderConvertor.ToUInt32(dr["RTO"]), SqlReaderConvertor.ToUInt32(dr["Insurance"]));
+                                verObj.Onroad = (uint) verObj.PriceList.Sum(prc => prc.PriceValue);
+
                                 versions.Add(verObj);
                             }
 
