@@ -28,7 +28,7 @@ class UserReviewSlug extends React.Component {
 					</div>
 					<div className="list-slug__details slug-content--top-align">
 					 <p className="list-slug__heading">Bike review contest</p>
-					 <p className="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;1,000</p>
+					 <p className="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;2,000</p>
 					 <a href="/m/bike-review-contest/?csrc=13" title="Bike Review Contest" className="list-slug__target">Participate now<span className="bwmsprite target-arrow"></span></a>
 				  </div>
 				</div>
