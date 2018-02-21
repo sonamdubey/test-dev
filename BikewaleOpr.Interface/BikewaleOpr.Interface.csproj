@@ -125,6 +125,7 @@
     <Compile Include="ConfigurePageMetas\IConfigurePageMetasRepository.cs" />
     <Compile Include="ContractCampaign\IContractCampaign.cs" />
     <Compile Include="ContractCampaign\IDealerCampaignRepository.cs" />
+    <Compile Include="ElasticSearch\IESIndexRepository.cs" />
     <Compile Include="ICommuteDistance.cs" />
     <Compile Include="Dealers\IDealerPrice.cs" />
     <Compile Include="IDealerPriceQuote.cs" />

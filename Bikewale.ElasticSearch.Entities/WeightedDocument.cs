@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Bikewale.ElasticSearch.Entities
     /// </summary>
     public class WeightedDocument: Document
     {
+        [JsonProperty("weight")]
         public uint Weight { get; set; }
     }
 }
