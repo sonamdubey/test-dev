@@ -222,6 +222,9 @@ body
 	bottom: 0
 	z-index: 5
 
+.gallery-footer__content
+	height: 40px
+
 .gallery-image__footer
 	@include flexbox
 	@include justify-content(space-between)
@@ -630,6 +633,29 @@ body
 	border-radius: 20px
 	position: absolute
 	bottom: -19px
+	z-index: 1
+
+// slug in landscape mode
+.orientation--landscape
+	.color-slide__more-count
+		margin-bottom: 30px
+
+	.color-slide__list
+		margin-bottom: 25px
+
+	.color-slide-list__item		
+		margin-left: 40px
+
+		&:first-child
+			margin-left: 0
+
+	.swiper-slide__more-btn
+		position: relative
+		bottom: auto
+
+	.color-box
+		width: 48px
+		height: 48px
 
 
 // color boxes

@@ -19,12 +19,12 @@
     }
 
     <section>
-        <div class="container box-shadow section-bottom-margin padding-bottom2">
+        <div id="gallery-root" class="container box-shadow section-bottom-margin padding-bottom2 " data-bind="css: fullScreenModeActive() ? ' orientation--landscape' : ''">
             <h1 class="page-header">@Model.Page_H1</h1>
 
             <div class="model-gallery-section">
                 <div class="model-gallery__container">
-                    <div id="mainPhotoSwiper" class="swiper-container noSwiper model-gallery" data-bind="visible: photosTabActive() && photoSwiperActive()">
+                    <div id="mainPhotoSwiper" class="swiper-container noSwiper model-gallery">
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
                                 <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
@@ -32,7 +32,8 @@
                         </div>
                         <div class="bwmsprite swiper-button-next gallery--next"></div>
                         <div class="bwmsprite swiper-button-prev gallery--prev"></div>
-                        <div class="gallery-image__footer" data-visible="rotate">
+                        <div class="gallery-footer__content">
+													<div class="gallery-image__footer" data-visible="rotate">
                             <div class="gallery-image__left-section">
                                 <span class="gallery-image__count">
                                     <span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
@@ -53,8 +54,8 @@
                                     <span class="landscape-icon"></span>
                                 </a>
                             </div>
-
-                        </div>
+                        	</div>
+												</div>
                     </div>
 
                 </div>
@@ -133,43 +134,6 @@
 					<a href="#" class="btn btn-inv-blue video-slug__more-btn">View All Videos</a>
 				</div>
 			</div>
-
-            @*@if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
-            {
-                <ul id="grid-images-noremainder" class="photos-grid-list" data-modelid="@(Model.objModel != null ? Model.objModel.ModelId : 0)">
-                    @for (; i < Model.GridPhotoCount && i < 6; i++)
-                    {
-                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" /> 
-                        </li>
-                    }
-                    @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
-                    {
-                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                        </li>
-                    }
-                </ul>
-
-
-                <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images">
-                    @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 1)
-                    {
-                        for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
-                        {
-                            <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                            </li>
-                        }
-                    }
-                    else if (Model.TotalPhotos == 1)
-                    {
-                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                        </li>
-                    }
-                </ul>
-            }*@
             <div class="clear"></div>
         </div>
     </section>
@@ -232,50 +196,10 @@
         <!-- /ko -->
     </div>
 
-    @*if (Model.BikeInfo != null)
-    { <section>
-            <div class="container bg-white box-shadow section-bottom-margin">
-                @Html.Partial("~/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
-            </div>
-        </section>
-    }
-
-    if (Model.ModelVideos != null && Model.Videos != null)
-    {
-        <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
-
-            <h2 class="margin-bottom15">@Model.BikeName Videos</h2>
-            @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
-            <div class="margin-top10">
-                <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
-                    View all videos <span class="bwmsprite teal-right"></span>
-                </a>
-            </div>
-        </div>
-
-
-    }
-
-    if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
-    {
-        @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_Mobile.cshtml", Model.SimilarBikes)
-    }*@
-
     if (Model.ModelGallery != null)
     {
         @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
     }
-
-    @*if (Model.objMoreAboutScooter != null)
-    {
-        <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
-            <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
-                <div class="swiper-wrapper">
-                    @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
-                </div>
-            </div>
-        </div>
-    }*@
 
 }
  @if (Model.AdTags.Ad_320x50BTF)
