@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+
 namespace Bikewale.Entities.Filters
 {
     /// <summary>
@@ -7,8 +8,7 @@ namespace Bikewale.Entities.Filters
     /// </summary>
     public class FilterBase
     {
-        public uint MinValue { get; set; }
-        public uint MaxValue { get; set; }
+        public IList<uint> RangeList { get; set; }
         public string Unit { get; set; }
     }
 }

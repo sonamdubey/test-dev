@@ -8,6 +8,6 @@ namespace Bikewale.Entities.Filters
     /// </summary>
     public class FilterPageEntity
     {
-        public IEnumerable<IEnumerable<FilterBase>> FilterResults { get; set; }
+        public IEnumerable<FilterBase> FilterResults { get; set; }
     }
 }
