@@ -14,7 +14,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
 {
     /// <summary>
     /// Created by  : Sanskar Gupta on 21 Feb 2018
-    /// Description : Consumer which can consume ANY document update/insert message for ANY Index. 
+    /// Description : Consumer which can consume ANY document's update/insert/delete message for ANY Index. 
     /// </summary>
     internal class IndexUpdateConsumer
     {
@@ -102,13 +102,21 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                             && nvc.HasKeys() 
                             && !String.IsNullOrEmpty(nvc["indexName"])
                             && !String.IsNullOrEmpty(nvc["documentType"])
-                            && !String.IsNullOrEmpty(nvc["documentJson"])
-                            && !String.IsNullOrEmpty(nvc["documentId"]))
+                            && !String.IsNullOrEmpty(nvc["documentId"])
+                            && !String.IsNullOrEmpty(nvc["operationType"]))
                         {
                             string indexName = nvc["indexName"];
                             string documentType = nvc["documentType"];
-                            string documentJson = nvc["documentJson"];
+                            string documentJson;
+
+                            if (!string.Equals(nvc["operationType"], "delete", StringComparison.OrdinalIgnoreCase))
+                            {
+                                documentJson = nvc["documentJson"];
+                            }
+
                             string documentId = nvc["documentId"];
+
+                            string operationType = nvc["operationType"];
 
                             if (nvc["iteration"] == _retryCount)
                             {
@@ -122,15 +130,16 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                             if (client != null && client.IndexExists(indexName).Exists)
                             {
                                 Logs.WriteInfoLog(String.Format("Index named {0} exists", indexName));
-                                bool isOperationSuccessful = InsertOrUpdateDocumentInIndex(indexName, documentId, documentType, documentJson);
+
+                                bool isOperationSuccessful = InsertOrUpdateDocumentInIndex(indexName, documentId, documentType, documentJson, operationType);
                                 if (isOperationSuccessful)
                                 {
-                                    Logs.WriteInfoLog(String.Format("Document ID {0} successfully inserted/updated into the Index named {1}", indexName, documentId));
+                                    Logs.WriteInfoLog(String.Format("Document ID {0} successfully inserted/updated into the Index named {1}.", indexName, documentId));
                                     _model.BasicAck(arg.DeliveryTag, false);
                                 }
                                 else
                                 {
-                                    Logs.WriteErrorLog(String.Format("An Error Occured while updating/inserting Document ID {0} into the Index named {1}", indexName, documentId));
+                                    Logs.WriteErrorLog(String.Format("An Error Occured while updating/inserting Document ID {0} into the Index named {1}.", indexName, documentId));
                                     DeadLetterPublish(nvc, ConfigurationManager.AppSettings["QueueName"].ToUpper());
                                     _model.BasicReject(arg.DeliveryTag, false);
                                 }
@@ -230,27 +239,65 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
         /// <param name="indexName"></param>
         /// <param name="document"></param>
         /// <returns></returns>
-        private bool InsertOrUpdateDocumentInIndex(string indexName, string documentId, string documentType, string documentJson)
+        private bool InsertOrUpdateDocumentInIndex(string indexName, string documentId, string documentType, string documentJson, string operationType)
         {
-            bool isSuccessful = false;
-            JObject jobject = JObject.Parse(documentJson);
-            if (client.DocumentExists(new DocumentExistsRequest(indexName, documentType, documentId)).Exists)
+            bool doesDocumentExist = client.DocumentExists(new DocumentExistsRequest(indexName, documentType, documentId)).Exists;
+            bool isOperationSuccessful = false;
+            string esResponse = "";
+
+            if (doesDocumentExist)
             {
-                Logs.WriteInfoLog(String.Format("Document with ID = {0} exists => UPDATE IT", documentId));
+                Logs.WriteInfoLog(String.Format("Document with ID = {0} exists => UPDATE/DELETE IT", documentId));
             }
             else
             {
                 Logs.WriteInfoLog(String.Format("Document with ID = {0} does not exist => INSERT IT", documentId));
             }
 
-            isSuccessful = client.Index(jobject, i => i
+            switch (operationType)
+            {
+                case ("delete"):
+                    if (!doesDocumentExist)
+                    {
+                        Logs.WriteErrorLog(string.Format("IndexName : {0}, DocumentId = {1}, OperationType = {2}, DoesDocumentExist = {3}", indexName, documentId, operationType, doesDocumentExist));
+                    }
+                    else
+                    {
+                        var esDeleteResponse = client.Delete(new DeleteRequest(indexName, documentType, documentId));
+                        isOperationSuccessful = esDeleteResponse.IsValid;
+                        esResponse = esDeleteResponse.ToString();
+                    }
+                    break;
+
+                case ("insert"):
+
+                case ("update"):
+                    JObject documentJObject = JObject.Parse(documentJson);
+                    var esIndexResponse = client.Index(documentJObject, i => i
                                   .Index(indexName)
                                   .Type(documentType)
                                   .Id(documentId)
-                                  )
-                                  .IsValid;
+                                  );
+                    isOperationSuccessful = esIndexResponse.IsValid;
+                    esResponse = esIndexResponse.ToString();
+                    break;
 
-            return isSuccessful;
+                default:
+                    Logs.WriteErrorLog(string.Format("IndexName : {0}, DocumentId = {1}, DoesDocumentExist = {2}, Message : OperationType Not Mentioned / Invalid", indexName, documentId, doesDocumentExist));
+                    break;
+            }
+
+            if (isOperationSuccessful)
+            {
+                Logs.WriteInfoLog(string.Format("IndexName : {0}, DocumentId = {1}, DoesDocumentExist = {2}, OperationType : {3}, EsResponse : {4}", indexName, documentId, doesDocumentExist, operationType, esResponse));
+            }
+            else
+            {
+                Logs.WriteErrorLog(string.Format("IndexName : {0}, DocumentId = {1}, DoesDocumentExist = {2}, OperationType : {3}, EsResponse : {4}", indexName, documentId, doesDocumentExist, operationType, esResponse));
+            }
+
+            return isOperationSuccessful;
+
         }
     }
 }
