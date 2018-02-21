@@ -29,7 +29,7 @@ namespace BikeIndex
         /// Description: Assigns status according to the new and futuristic flags associated with it
         /// Modified by: Dhruv Joshi
         /// Dated: 21st Feb 2018
-        /// Description: Storing data in the specs individually instead of an entity
+        /// Description: Storing data in the specs individually instead of an entity, also brought out exshowroom and onroad in version entity
         /// </summary>
         /// <param name="isNew"></param>
         /// <param name="isFuturistic"></param>
