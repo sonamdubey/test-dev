@@ -935,20 +935,18 @@ namespace Bikewale.Models
                 {
                     objData.PageFilters = new FilterPageEntity();
                     objInputFilters = new CustomInputFilters();
-                    if (objInputFilters != null && objData.Bikes != null)
+                    if (objData.Bikes != null)
                     {
-                        objInputFilters.MinPrice = (int)objData.Bikes.Where(x => x.ExShowroomPrice > 0).Min(x => x.ExShowroomPrice);
-                        objInputFilters.MinDisplacement = (int)objData.Bikes.Where(x => x.Specs.Displacement > 0).Min(x => x.Specs.Displacement);
-                        objInputFilters.MinMileage = (int)objData.Bikes.Where(x => x.Specs.FuelEfficiencyOverall > 0).Min(x => x.Specs.FuelEfficiencyOverall);
+                        var bikes = objData.Bikes;
+                        objInputFilters.MinPrice = bikes.Where(x => x.ExShowroomPrice > 0).Min(x => x.ExShowroomPrice);
+                        objInputFilters.MinDisplacement = bikes.Where(x => x.Specs.Displacement > 0).Min(x => x.Specs.Displacement).Value;
+                        objInputFilters.MinMileage = bikes.Where(x => x.Specs.FuelEfficiencyOverall > 0).Min(x => x.Specs.FuelEfficiencyOverall).Value;
 
                         if (_makeCategoryId > 0)
                         {
                             objInputFilters.MakeCategoryId = _makeCategoryId;
                         }
-                        if (objData.PageFilters != null)
-                        {
-                            objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters);
-                        }
+                        objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters);
                     }
                 }
             }

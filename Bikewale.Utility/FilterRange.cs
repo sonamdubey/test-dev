@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.Filters;
-using System;
 using System.Collections.Generic;
 
 
@@ -27,30 +26,30 @@ namespace Bikewale.Utility
         public static RangeBase GetDefinedRange(InPageFilterEnum rangeType)
         {
             RangeBase rangeObj = null;
-            try
+            if (rangeType != null)
             {
                 rangeObj = new RangeBase();
+                string rangeUnit = null;
+                uint[] rangeScale = null;
                 switch (rangeType)
                 {
                     case InPageFilterEnum.Budget:
-                        rangeObj.Range = PriceRange;
-                        rangeObj.Unit = "lakhs";
+                        rangeScale = PriceRange;
+                        rangeUnit = "lakhs";
                         break;
                     case InPageFilterEnum.Displacement:
-                        rangeObj.Range = Displacement;
-                        rangeObj.Unit = "cc";
+                        rangeScale = Displacement;
+                        rangeUnit = "cc";
                         break;
                     case InPageFilterEnum.Mileage:
-                        rangeObj.Range = Mileage;
-                        rangeObj.Unit = "kmpl";
+                        rangeScale = Mileage;
+                        rangeUnit = "kmpl";
                         break;
                     default:
                         break;
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                rangeObj.Range = rangeScale;
+                rangeObj.Unit = rangeUnit;
             }
             return rangeObj;
 
@@ -63,51 +62,48 @@ namespace Bikewale.Utility
         /// <param name="rangeType"></param>
         /// <param name="minValue"></param>
         /// <returns></returns>
-        public static FilterBase GetContextualFilters(InPageFilterEnum rangeType, int minValue)
+        public static FilterBase GetContextualFilters(InPageFilterEnum rangeType, double minValue)
         {
             FilterBase filterList = null;
-            try
+            if (minValue > 0)
             {
-                if (minValue > 0)
+                RangeBase rangeObj = GetDefinedRange(rangeType);
+                if (rangeObj != null && rangeObj.Range != null)
                 {
-
-                    RangeBase rangeObj = GetDefinedRange(rangeType);
-                    filterList = new FilterBase();
-                    filterList.RangeList = new List<uint>();
                     int key = 0;
-                    if (rangeObj != null && rangeObj.Range != null && filterList != null && filterList.RangeList != null)
+                    byte endRangeIndex = 4;  //last 3 numbers on rangescale needed to get the filters
+                    byte rangeListLength = 3; // need 3 numbers from rangescale to define the filters
+                    filterList = new FilterBase();
+                    var filterRangeList = new List<uint>();
+                    var rangeList = rangeObj.Range;
+                    int len = rangeList.Length;
+
+
+                    /* Case to handle when min price is greater than last 4 filters*/
+                    if ((minValue > rangeList[len - endRangeIndex]))
                     {
-                        int len = rangeObj.Range.Length;
-
-                        /* Case to handle when min price is greater than last 4 filters*/
-                        if ((minValue > rangeObj.Range[len - 4]))
+                        key = len - (endRangeIndex - 1);
+                        while (key < len)
                         {
-                            key = len - 3;
-                            while (key < len)
-                            {
-                                filterList.RangeList.Add(rangeObj.Range[key++]);
-                            }
+                            filterRangeList.Add(rangeList[key++]);
                         }
-                        else //when minprice is in the give scale
+                    }
+                    else //when minprice is in the give scale
+                    {
+                        while ((key < len) && (minValue > rangeList[key]))
                         {
-                            while (key < len && (minValue > rangeObj.Range[key]))
-                            {
-                                key++;
-                            }
-
-                            for (int i = 0; (i < 3 && key < len); i++)
-                            {
-                                filterList.RangeList.Add(rangeObj.Range[key++]);
-                            }
+                            key++;
                         }
-                        filterList.Unit = rangeObj.Unit;
+
+                        for (int i = 0; (i < rangeListLength && (key < len)); i++)
+                        {
+                            filterRangeList.Add(rangeList[key++]);
+                        }
                     }
 
+                    filterList.RangeList = filterRangeList;
+                    filterList.Unit = rangeObj.Unit;
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
             return filterList;
         }

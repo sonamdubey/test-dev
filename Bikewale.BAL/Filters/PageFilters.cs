@@ -2,9 +2,9 @@
 using Bikewale.Entities.Filters;
 using Bikewale.Interfaces.Filters;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-
 namespace Bikewale.BAL.Filters
 {
     /// <summary>
@@ -42,23 +42,26 @@ namespace Bikewale.BAL.Filters
                     pageFilters = new List<FilterBase>();
                     categoryFilterObj = categoryFilterPriorityMap[(BikeMakeCategoriesEnum)inputFilters.MakeCategoryId];
 
-                    if (categoryFilterObj != null && pageFilters != null)
+                    if (categoryFilterObj != null)
                     {
                         FilterBase listObj = null;
+                        double filterValue = 0;
                         foreach (var filter in categoryFilterObj)
                         {
                             if (InPageFilterEnum.Mileage.Equals(filter))
                             {
-                                listObj = Bikewale.Utility.RangeFactory.GetContextualFilters(filter, inputFilters.MinMileage);
+                                filterValue = inputFilters.MinMileage;
                             }
                             else if (InPageFilterEnum.Budget.Equals(filter))
                             {
-                                listObj = Bikewale.Utility.RangeFactory.GetContextualFilters(filter, inputFilters.MinPrice);
+                                filterValue = inputFilters.MinPrice;
                             }
                             else if (InPageFilterEnum.Displacement.Equals(filter))
                             {
-                                listObj = Bikewale.Utility.RangeFactory.GetContextualFilters(filter, inputFilters.MinDisplacement);
+                                filterValue = inputFilters.MinDisplacement;
                             }
+
+                            listObj = RangeFactory.GetContextualFilters(filter, filterValue);
 
                             if (listObj != null)
                             {
