@@ -44,32 +44,35 @@ namespace Bikewale.BAL.Filters
 
                     if (categoryFilterObj != null)
                     {
-                        FilterBase listObj = null;
+
                         double filterValue = 0;
                         foreach (var filter in categoryFilterObj)
                         {
-                            if (InPageFilterEnum.Mileage.Equals(filter))
+                            FilterBase listObj = null;
+                            switch (filter)
                             {
-                                filterValue = inputFilters.MinMileage;
+                                case InPageFilterEnum.Budget:
+                                    filterValue = inputFilters.MinPrice;
+                                    break;
+                                case InPageFilterEnum.Displacement:
+                                    filterValue = inputFilters.MinDisplacement;
+                                    break;
+                                case InPageFilterEnum.Mileage:
+                                    filterValue = inputFilters.MinMileage;
+                                    break;
+                                default:
+                                    break;
                             }
-                            else if (InPageFilterEnum.Budget.Equals(filter))
+                            if (filterValue > 0)
                             {
-                                filterValue = inputFilters.MinPrice;
-                            }
-                            else if (InPageFilterEnum.Displacement.Equals(filter))
-                            {
-                                filterValue = inputFilters.MinDisplacement;
+                                listObj = RangeFactory.GetContextualFilters(filter, filterValue);
+                                if (listObj != null)
+                                {
+                                    pageFilters.Add(listObj);
+                                }
                             }
 
-                            listObj = RangeFactory.GetContextualFilters(filter, filterValue);
-
-                            if (listObj != null)
-                            {
-                                pageFilters.Add(listObj);
-                                listObj = null;
-                            }
                         }
-
                     }
                 }
             }

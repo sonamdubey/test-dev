@@ -213,7 +213,11 @@ namespace Bikewale.Models
                 BindResearchMoreMakeWidget(objData);
                 GetEMIDetails(objData);
                 BindExpertReviewCount(objData.ExpertReviews);
-                BindPageFilters(objData);
+                if (objData.Bikes != null && objData.Bikes.Count() > 6)
+                {
+                    BindPageFilters(objData);
+                }
+
                 #region Set Visible flags
 
                 if (objData != null)

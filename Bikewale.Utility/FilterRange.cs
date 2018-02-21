@@ -74,7 +74,7 @@ namespace Bikewale.Utility
                     byte endRangeIndex = 4;  //last 3 numbers on rangescale needed to get the filters
                     byte rangeListLength = 3; // need 3 numbers from rangescale to define the filters
                     filterList = new FilterBase();
-                    var filterRangeList = new List<uint>();
+                    IList<uint> filterRangeList = new List<uint>();
                     var rangeList = rangeObj.Range;
                     int len = rangeList.Length;
 
