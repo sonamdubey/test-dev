@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 namespace Bikewale.ElasticSearch.Entities
 {
     /// <summary>
@@ -8,6 +9,7 @@ namespace Bikewale.ElasticSearch.Entities
     /// </summary>
     public abstract class Document
     {
+        [JsonProperty("id")]
         public string Id { get; set; }
     }
 }

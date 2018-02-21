@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,8 +16,11 @@ namespace Bikewale.ElasticSearch.Entities
     /// </summary>
     public class SpecsEntity
     {
+        [JsonProperty("specType")]
         public string SpecType { get; set; }
+        [JsonProperty("specValue")]
         public double SpecValue { get; set; }
+        [JsonProperty("specUnit")]
         public string SpecUnit { get; set; }
     }
 }
