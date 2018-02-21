@@ -20,16 +20,16 @@ namespace BikeIndex
     /// </summary>
     public class BikeModelRepository
     {
-
-        private string[] _specstypes = { "Displacement", "Weight", "Power", "Mileage" };
-        private string[] _specsunits = { "cc", " kgs", " bhp", " kmpl" }; //add space before unit to make the spec value presentable
-
+        
         private string[] _pricestypes = { "RTO", "Insurance", "Exshowroom" };
 
         /// <summary>
         /// Created by: Dhruv Joshi
         /// Dated: 20th Feb 2018
         /// Description: Assigns status according to the new and futuristic flags associated with it
+        /// Modified by: Dhruv Joshi
+        /// Dated: 21st Feb 2018
+        /// Description: Storing data in the specs individually instead of an entity, also brought out exshowroom and onroad in version entity
         /// </summary>
         /// <param name="isNew"></param>
         /// <param name="isFuturistic"></param>
@@ -85,20 +85,7 @@ namespace BikeIndex
                             uint weight_count = 1;
                             while (dr.Read())
                             {
-                                
-                                IList<SpecsEntity> objSpecs = new List<SpecsEntity>();
                                 IList<PriceEntity> objPrices = new List<PriceEntity>();
-
-                                //minspecs
-                                for (int i = 0; i < _specsunits.Length; i++)
-                                {
-                                    objSpecs.Add(new SpecsEntity()
-                                        {
-                                            SpecType = _specstypes[i],
-                                            SpecValue = Convert.ToDouble(dr[_specstypes[i]]),
-                                            SpecUnit = _specsunits[i]
-                                        });
-                                }
 
                                 //price components
                                 for (int i = 0; i < _pricestypes.Length; i++)
@@ -139,8 +126,13 @@ namespace BikeIndex
                                         {
                                             VersionId = Convert.ToUInt32(dr["TopVersionId"]),
                                             VersionName = Convert.ToString(dr["VersionName"]),
-                                            Specs = objSpecs,
+                                            Mileage = Convert.ToUInt32(dr["Mileage"]),
+                                            KerbWeight = Convert.ToUInt32(dr["KerbWeight"]),
+                                            Displacement = Convert.ToDouble(dr["Displacement"]),
+                                            Power = Convert.ToDouble(dr["Power"]),
                                             PriceList = objPrices,
+                                            Exshowroom = Convert.ToUInt32(dr["Exshowroom"]),
+                                            Onroad = Convert.ToUInt32(dr["RTO"]) + Convert.ToUInt32(dr["Insurance"]) + Convert.ToUInt32(dr["Exshowroom"]),
                                             VersionStatus = GetStatus(Convert.ToBoolean(dr["IsNewVersion"]), Convert.ToBoolean(dr["IsFuturisticVersion"]))
                                         },
 
