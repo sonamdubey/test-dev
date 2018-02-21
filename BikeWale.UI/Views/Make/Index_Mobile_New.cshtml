@@ -289,7 +289,7 @@
                         {
                             <div class="carousel__title">
                                 <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Showrooms</h2>
-                                <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName Showrooms in @Model.Location" class="view-all-btn">
+                                <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName Showrooms in India" class="view-all-btn">
                                     View all
                                 </a>
                             </div>
@@ -410,7 +410,10 @@
                 <section>
                     <div class="bg-white section-bottom-margin video-section overall-tabs-data">
                         <div class="carousel__title">
-                            <h2 class="page__heading-h2">Other Brands</h2>
+                            <h2 class="page__heading-h2 carousel-title__label">Other Brands</h2>
+                            <a href="/m/new-bikes-in-india/" title="New Bikes in India" class="view-all-btn">
+                                View all
+                            </a>
                         </div>
                         <div class="swiper-container carousel__related-makes" data-spacebetween="0">
                             @Html.Partial("~/Views/Make/_OtherBrand_New.cshtml", Model.OtherMakes)
