@@ -88,8 +88,10 @@ namespace Bikewale.ElasticSearch.PriceIndex
                                 }
 
                                 verObj = InitializeVersionEntity(SqlReaderConvertor.ToUInt32(dr["VersionId"]), Convert.ToString(dr["VersionName"]));
-                                verObj.PriceList = SetVersionPrice(SqlReaderConvertor.ToUInt32(dr["Price"]), SqlReaderConvertor.ToUInt32(dr["RTO"]), SqlReaderConvertor.ToUInt32(dr["Insurance"]));
-                                
+                                verObj.Exshowroom = SqlReaderConvertor.ToUInt32(dr["Price"]);
+                                verObj.PriceList = SetVersionPrice(verObj.Exshowroom, SqlReaderConvertor.ToUInt32(dr["RTO"]), SqlReaderConvertor.ToUInt32(dr["Insurance"]));
+                                verObj.Onroad = CalculateOnRoadPrice(verObj.PriceList);
+
                                 versions.Add(verObj);
                             }
 
@@ -161,6 +163,24 @@ namespace Bikewale.ElasticSearch.PriceIndex
             });
 
             return prices;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 21 Feb 2018
+        /// Description: To calculate the on-road price of any version.
+        /// </summary>
+        /// <param name="priceList"></param>
+        /// <returns></returns>
+        private static uint CalculateOnRoadPrice(IEnumerable<PriceEntity> priceList)
+        {
+            uint onRoadPrice = 0;
+
+            foreach (PriceEntity item in priceList)
+            {
+                onRoadPrice += item.PriceValue;
+            }
+
+            return onRoadPrice;
         }
     }
 }
