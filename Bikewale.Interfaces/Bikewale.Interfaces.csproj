@@ -191,6 +191,7 @@
     <Compile Include="MobileVerification\IMobileVerification.cs" />
     <Compile Include="MobileVerification\IMobileVerificationCache.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
+    <Compile Include="NewBikeSearch\IBikeSearch.cs" />
     <Compile Include="NewBikeSearch\IBikeSearchCacheRepository.cs" />
     <Compile Include="NewBikeSearch\IBikeSearchResult.cs" />
     <Compile Include="NewBikeSearch\IProcessFilter.cs" />
