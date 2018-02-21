@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Entities.BikePricing;
+﻿using Bikewale.ElasticSearch.Entities;
+using BikewaleOpr.Entities.BikePricing;
 using BikewaleOpr.Entity.BikePricing;
 using System.Collections.Generic;
 
@@ -13,5 +14,6 @@ namespace BikewaleOpr.Interface.Dealers
         IEnumerable<BikePrice> GetBikePrices(uint makeId, uint cityId);
         bool SaveBikePrices(string versionPriceList, string citiesList, int updatedBy);
         PriceMonitoringEntity GetPriceMonitoringDetails(uint makeId, uint modelId, uint stateId);
+        ModelPriceDocument GetModelPriceDocument(uint makeId, uint cityId);
     }
 }
