@@ -11,6 +11,12 @@ namespace Bikewale.BAL.BikeSearch
 {
     public class BikeSearch : IBikeSearch
     {
+        private static string _displacement = "displacement";
+        private static string _exshowroom = "exshowroom";
+        private static string _bikeMakeId = "bikeMake.makeId";
+        private static string _mileage = "mileage";
+        private static string _bodyStyleId = "bodyStyleId";
+
         public IEnumerable<SuggestOption<T>> GetBikeSearch<T>(SearchFilters filters, BikeSearchEnum source, int noOfRecords = 0) where T : class
         {
             IEnumerable<SuggestOption<T>> suggestionList = null;
@@ -18,10 +24,14 @@ namespace Bikewale.BAL.BikeSearch
             try
             {
                 suggestionList = GetBikeSearchList<T>(filters, source);
-                if (suggestionList != null)
+
+
+                if (suggestionList != null && noOfRecords > 0)
                 {
                     suggestionList = suggestionList.Take(noOfRecords);
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -41,14 +51,14 @@ namespace Bikewale.BAL.BikeSearch
 
                 if (client != null)
                 {
-                    Func<SearchDescriptor<T>, SearchDescriptor<T>> productSearchDescriptor = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(
+                    Func<SearchDescriptor<T>, SearchDescriptor<T>> searchDescriptor = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(
                            sd => sd.Index(indexName).Type("bikemodeldocument")
                                     .Query(q => q
                                     .Bool(bq => bq
                                      .Filter(ff => ff
                                          .Bool(bb => bb.
                                              Must(ProcessFilters<T>(filters)))))));
-                    ISearchResponse<T> _result = client.Search<T>(productSearchDescriptor);
+                    ISearchResponse<T> _result = client.Search<T>(searchDescriptor);
 
                 }
             }
@@ -69,23 +79,23 @@ namespace Bikewale.BAL.BikeSearch
             {
                 if (filters.MinDisplacement > 0 || filters.MaxDisplacement > 0)
                 {
-                    query &= FDS.Range(RangeQuery<T>(filters.MinDisplacement, filters.MaxDisplacement, "displacement"));
+                    query &= FDS.Range(RangeQuery<T>(filters.MinDisplacement, filters.MaxDisplacement, _displacement));
                 }
                 if (filters.MaxPrice > 0 || filters.MinPrice > 0)
                 {
-                    query &= FDS.Range(RangeQuery<T>(filters.MinPrice, filters.MaxPrice, "exshowroom"));
+                    query &= FDS.Range(RangeQuery<T>(filters.MinPrice, filters.MaxPrice, _exshowroom));
                 }
                 if (filters.MakeId > 0)
                 {
-                    query &= FDS.Term("bikeMake.makeId", filters.MakeId);
+                    query &= FDS.Term(_bikeMakeId, filters.MakeId);
                 }
                 if (filters.MinMileage > 0 || filters.MaxMileage > 0)
                 {
-                    query &= FDS.Range(RangeQuery<T>(filters.MinMileage, filters.MaxMileage, "mileage"));
+                    query &= FDS.Range(RangeQuery<T>(filters.MinMileage, filters.MaxMileage, _mileage));
                 }
                 if (filters.BodyStyle > 0)
                 {
-                    query &= FDS.Term("bodyStyleId", filters.BodyStyle);
+                    query &= FDS.Term(_bodyStyleId, filters.BodyStyle);
                 }
             }
             catch (Exception)
