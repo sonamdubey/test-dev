@@ -156,6 +156,7 @@
     <Compile Include="BikewaleSecurity.cs" />
     <Compile Include="BodyStyleLinks.cs" />
     <Compile Include="BWConstants.cs" />
+    <Compile Include="BWESIndexUpdater.cs" />
     <Compile Include="BWOprConfiguration.cs" />
     <Compile Include="BWConfiguration.cs" />
     <Compile Include="BWCookies.cs" />

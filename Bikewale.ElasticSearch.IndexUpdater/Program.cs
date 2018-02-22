@@ -1,9 +1,9 @@
 ﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.Utility;
 using Consumer;
 using log4net;
 using Nest;
 using Newtonsoft.Json.Linq;
-using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -11,6 +11,10 @@ using System.Reflection;
 
 namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
 {
+    /// <summary>
+    /// Created by  : Sanskar Gupta on 21 Feb 2018
+    /// Description : Consumer to consume messages about ES document Insertion/Updation/Deletion from the `BWEsDocumentQueue`.
+    /// </summary>
     class Program
     {
 
@@ -18,34 +22,25 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
         private static ElasticClient client = ElasticSearchInstance.GetInstance();
         static void Main(string[] args)
         {
-            //string queueName = ConfigurationManager.AppSettings["QueueName"].ToUpper();
-            //string consumerName = ConfigurationManager.AppSettings["ConsumerName"].ToString();
-            //string retryCount = ConfigurationManager.AppSettings["RetryCount"];
-            //string rabbitMsgTTL = ConfigurationManager.AppSettings["RabbitMsgTTL"];
             log4net.Config.XmlConfigurator.Configure();
             try
             {
-                Logs.WriteInfoLog("Started at : " + DateTime.Now);
+                Logs.WriteInfoLog("Queue Started at : " + DateTime.Now);
 
-                RabbitMqPublish _RabbitMQPublishing = new RabbitMqPublish();
-                
+                RabbitMqPublishing.RabbitMqPublish _RabbitMQPublishing = new RabbitMqPublishing.RabbitMqPublish();
+
                 _RabbitMQPublishing.RunCousumer(RabbitMQExecution, ConfigurationManager.AppSettings["QueueName"]);
-
-                //IndexUpdateConsumer consumer = new IndexUpdateConsumer(queueName, consumerName, retryCount, rabbitMsgTTL);
-                //consumer.ProcessMessages();                
+             
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog("Exception : " + ex.Message);
-            }
-            finally
-            {
-                Logs.WriteInfoLog("End at : " + DateTime.Now);
+                logger.Error("Exception : " + ex.Message);
             }
         }
 
         /// <summary>
-        /// Function responsible for receiving the message from queue
+        /// Function responsible for receiving the message from queue.
+        /// This function should return `false` for the message to be published to DeadLetterQueue and `true` otherwise.
         /// </summary>
         /// <param name="nvc"></param>
         /// <returns></returns>
@@ -60,99 +55,114 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                             && !String.IsNullOrEmpty(nvc["documentId"])
                             && !String.IsNullOrEmpty(nvc["operationType"]))
                 {
-                    string indexName = nvc["indexName"];
-                    string documentType = nvc["documentType"];
-                    string documentJson = "";
 
-                    if (!string.Equals(nvc["operationType"], "delete", StringComparison.OrdinalIgnoreCase))
-                    {
-                        documentJson = nvc["documentJson"];
-                    }
-
-                    string documentId = nvc["documentId"];
-
-                    string operationType = nvc["operationType"];
                     logger.Info("RabbitMQExecution :Received job : " + nvc["indexName"]);
 
-                    return InsertOrUpdateDocumentInIndex(indexName, documentId, documentType, documentJson, operationType);
+                    return InsertOrUpdateDocumentInIndex(nvc);
 
                 }
-                else return true;
+                else
+                {
+                    return true;
+                }
             }//end try
             catch (Exception ex)
             {
                 logger.Error("Error while performing operation for " + nvc["indexName"], ex);
                 return false;
             }//end catch
-        }//end try
+        }
 
 
         /// <summary>
         /// This method is used to Insert/Update/Delete a document in an Elastic Search Index
         /// </summary>
-        /// <param name="indexName"></param>
-        /// <param name="document"></param>
+        /// <param name="queueMessage"></param>
+        /// <param name="c"></param>
         /// <returns></returns>
-        private static bool InsertOrUpdateDocumentInIndex(string indexName, string documentId, string documentType, string documentJson, string operationType)
+        private static bool InsertOrUpdateDocumentInIndex(NameValueCollection queueMessage, int c = 0)
         {
-            bool doesDocumentExist = client.DocumentExists(new Nest.DocumentExistsRequest(indexName, documentType, documentId)).Exists;
+            if (c >= 3) {
+                return true;
+            }
+
+            string indexName = queueMessage["indexName"];
+            string documentType = queueMessage["documentType"];
+            string documentJson = null;
+
+            if (!string.Equals(queueMessage["operationType"], "delete", StringComparison.OrdinalIgnoreCase))
+            {
+                documentJson = queueMessage["documentJson"];
+            }
+
+            string documentId = queueMessage["documentId"];
+
+            string operationType = queueMessage["operationType"];
+
+
             bool isOperationSuccessful = false;
-            string esResponse = "";
 
-            if (doesDocumentExist)
+            string esResponse = null;
+
+            try
             {
-                Logs.WriteInfoLog(String.Format("Document with ID = {0} exists => UPDATE/DELETE IT", documentId));
+                JObject documentJObject = JObject.Parse(documentJson);
+
+                switch (operationType)
+                {
+                    case ("delete"):
+                        bool doesDocumentExist = client.DocumentExists(new Nest.DocumentExistsRequest(indexName, documentType, documentId)).Exists;
+                        if (!doesDocumentExist)
+                        {
+                            logger.Error(string.Format("IndexName : {0}, DocumentId = {1}, OperationType = {2}, Document Does Not Exist", indexName, documentId, operationType));
+                        }
+                        else
+                        {
+                            var esDeleteResponse = client.Delete(new DeleteRequest(indexName, documentType, documentId));
+                            isOperationSuccessful = esDeleteResponse.IsValid;
+                            esResponse = esDeleteResponse.DebugInformation;
+                        }
+                        break;
+
+                    case ("update"):
+
+                    case ("insert"):
+                        var esIndexResponse = client.Index(documentJObject, i => i
+                                      .Index(indexName)
+                                      .Type(documentType)
+                                      .Id(documentId)
+                                      );
+                        isOperationSuccessful = esIndexResponse.IsValid;
+                        esResponse = esIndexResponse.DebugInformation;
+                        break;
+
+                    default:
+                        logger.Info(string.Format("IndexName : {0}, DocumentId = {1}, Message : Unsupported operationType", indexName, documentId));
+                        break;
+                }
+
             }
-            else
+            catch (Exception e)
             {
-                Logs.WriteInfoLog(String.Format("Document with ID = {0} does not exist => INSERT IT", documentId));
+                logger.Error("Exception occured while updating the document", e);
+                return InsertOrUpdateDocumentInIndex(queueMessage, ++c);
             }
-
-            switch (operationType)
+            finally
             {
-                case ("delete"):
-                    if (!doesDocumentExist)
-                    {
-                        Logs.WriteErrorLog(string.Format("IndexName : {0}, DocumentId = {1}, OperationType = {2}, DoesDocumentExist = {3}", indexName, documentId, operationType, doesDocumentExist));
-                    }
-                    else
-                    {
-                        var esDeleteResponse = client.Delete(new DeleteRequest(indexName, documentType, documentId));
-                        isOperationSuccessful = esDeleteResponse.IsValid;
-                        esResponse = esDeleteResponse.ToString();
-                    }
-                    break;
 
-                case ("insert"):
-
-                case ("update"):
-                    JObject documentJObject = JObject.Parse(documentJson);
-                    var esIndexResponse = client.Index(documentJObject, i => i
-                                  .Index(indexName)
-                                  .Type(documentType)
-                                  .Id(documentId)
-                                  );
-                    isOperationSuccessful = esIndexResponse.IsValid;
-                    esResponse = esIndexResponse.ToString();
-                    break;
-
-                default:
-                    Logs.WriteErrorLog(string.Format("IndexName : {0}, DocumentId = {1}, DoesDocumentExist = {2}, Message : OperationType Not Mentioned / Invalid", indexName, documentId, doesDocumentExist));
-                    break;
+                if (isOperationSuccessful)
+                {
+                    logger.Info(string.Format("IndexName : {0}, DocumentId = {1}, OperationType : {2}, EsResponse : {3}", indexName, documentId, operationType, esResponse));
+                }
+                else
+                {
+                    logger.Error(string.Format("IndexName : {0}, DocumentId = {1}, OperationType : {2}, EsResponse : {3}", indexName, documentId, operationType, esResponse));
+                }
             }
-
-            if (isOperationSuccessful)
-            {
-                Logs.WriteInfoLog(string.Format("IndexName : {0}, DocumentId = {1}, DoesDocumentExist = {2}, OperationType : {3}, EsResponse : {4}", indexName, documentId, doesDocumentExist, operationType, esResponse));
-            }
-            else
-            {
-                Logs.WriteErrorLog(string.Format("IndexName : {0}, DocumentId = {1}, DoesDocumentExist = {2}, OperationType : {3}, EsResponse : {4}", indexName, documentId, doesDocumentExist, operationType, esResponse));
-            }
-
             return isOperationSuccessful;
 
         }
+
     }
 }
 
