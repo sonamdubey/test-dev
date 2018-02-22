@@ -89,10 +89,6 @@
       <Project>{D5229109-3B85-48E7-9FF8-5385BDB54C87}</Project>
       <Name>Bikewale.DAL.CoreDAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
-      <Project>{EA0864E7-7715-4D93-80BE-3300BB542E42}</Project>
-      <Name>Bikewale.Utility</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
