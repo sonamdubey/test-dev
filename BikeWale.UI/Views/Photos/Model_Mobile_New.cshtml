@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.Photos.PhotosPageVM
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/photos.css' inline /> <link rel='stylesheet' type='text/css' href='/m/css/components/model-gallery.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline/>";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/photos.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline/>";
     Model.Page_JS_Paths = new string[] { "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
     Model.AdTags.Ad_300x250BTF = true;
     Model.AdTags.Ad_320x50 = true;
@@ -66,6 +66,50 @@
                     see colors images
                 </div>*@
             </div>
+
+						<div id="colorGalleryPopup" class="color-popup__content">
+							<div class="color-popup__head">
+								<span class="color-popup-head__back"></span>
+								<p class="color-popup-head__title">Dominar 400 Colors</p>
+							</div>
+							<div class="color-popup__body">
+								<div id="mainColorSwiper" class="swiper-container noSwiper">
+									<div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
+											<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+													<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+											</div>
+									</div>
+									<div class="bwmsprite swiper-button-next color-type-next"></div>
+									<div class="bwmsprite swiper-button-prev color-type-prev"></div>
+									<div class="gallery-footer__content">
+										<div class="gallery-image__footer">
+											<div class="gallery-image__left-section">
+													<span class="gallery-image__count">
+														<span data-bind="text: activeColorIndex()"></span>/<span data-bind="text: colorPhotoList().length"></span>
+													</span>
+											</div>
+											<div class="gallery-image__feature">
+													<a href="" title="" class="gallery__download-icon"></a>
+													<a href="" title="" class="share-icon"></a>
+													<a href="" title="" class="landscape-icon"></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="thumbnailColorSwiper" class="swiper-container noSwiper model-gallery--color">
+									<ul class="model-color__list swiper-wrapper " data-bind="foreach: colorPhotoList, css: colorPhotoList().length == 3 ? 'list-column--3' : ''">
+										<div class="swiper-slide">
+											<div class="color-box__content">
+												<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+														<span data-bind="style: { 'background-color': '#' + $data }"></span>
+												</div>
+												<p class="color-box-label" data-bind="text: ImageTitle"></p>
+											</div>
+										</div>
+									</ul>
+								</div>
+							</div>
+						</div>
 
 			<section>
 				<ul id="imageGridTop" class="image-grid__list" data-grid="7">
