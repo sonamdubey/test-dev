@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.DAL.CoreDAL;
+using Bikewale.ElasticSearch.Entities;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
@@ -11,19 +12,28 @@ namespace Bikewale.BAL.BikeSearch
 {
     public class BikeSearch : IBikeSearch
     {
-        private static string _displacement = "displacement";
-        private static string _exshowroom = "exshowroom";
-        private static string _bikeMakeId = "bikeMake.makeId";
-        private static string _mileage = "mileage";
-        private static string _bodyStyleId = "bodyStyleId";
+        private static readonly string _displacement = "displacement";
+        private static readonly string _exshowroom = "exshowroom";
+        private static readonly string _bikeMakeId = "bikeMake.makeId";
+        private static readonly string _mileage = "mileage";
+        private static readonly string _bodyStyleId = "bodyStyleId";
 
-        public IEnumerable<SuggestOption<T>> GetBikeSearch<T>(SearchFilters filters, BikeSearchEnum source, int noOfRecords = 0) where T : class
+        /// <summary>
+        /// Created By :-
+        /// Description :- GetBike search result according to filter passed,source and noofRecords
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filters"></param>
+        /// <param name="source"></param>
+        /// <param name="noOfRecords"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeModelDocument> GetBikeSearch(SearchFilters filters, BikeSearchEnum source, int noOfRecords = 0)
         {
-            IEnumerable<SuggestOption<T>> suggestionList = null;
+            IEnumerable<BikeModelDocument> suggestionList = null;
 
             try
             {
-                suggestionList = GetBikeSearchList<T>(filters, source);
+                suggestionList = GetBikeSearchList(filters, source);
 
 
                 if (suggestionList != null && noOfRecords > 0)
@@ -35,14 +45,22 @@ namespace Bikewale.BAL.BikeSearch
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.ElasticSearchManger.GetAutoSuggestResult");
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeSearch.GetBikeSearch");
             }
             return suggestionList;
 
         }
-        private IEnumerable<SuggestOption<T>> GetBikeSearchList<T>(SearchFilters filters, BikeSearchEnum source) where T : class
+        /// <summary>
+        /// Created By :-
+        /// Summary :- List of bikes accroding to search parameter and process filters
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filters"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        private IEnumerable<BikeModelDocument> GetBikeSearchList(SearchFilters filters, BikeSearchEnum source)
         {
-            IEnumerable<SuggestOption<T>> suggestionList = null;
+            IEnumerable<BikeModelDocument> suggestionList = null;
 
             try
             {
@@ -51,14 +69,14 @@ namespace Bikewale.BAL.BikeSearch
 
                 if (client != null)
                 {
-                    Func<SearchDescriptor<T>, SearchDescriptor<T>> searchDescriptor = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(
+                    Func<SearchDescriptor<BikeModelDocument>, SearchDescriptor<BikeModelDocument>> searchDescriptor = new Func<SearchDescriptor<BikeModelDocument>, SearchDescriptor<BikeModelDocument>>(
                            sd => sd.Index(indexName).Type("bikemodeldocument")
                                     .Query(q => q
                                     .Bool(bq => bq
                                      .Filter(ff => ff
                                          .Bool(bb => bb.
-                                             Must(ProcessFilters<T>(filters)))))));
-                    ISearchResponse<T> _result = client.Search<T>(searchDescriptor);
+                                             Must(ProcessFilters(filters)))))));
+                    ISearchResponse<BikeModelDocument> _result = client.Search(searchDescriptor);
 
                 }
             }
@@ -71,19 +89,27 @@ namespace Bikewale.BAL.BikeSearch
 
 
         }
-        private QueryContainer ProcessFilters<T>(SearchFilters filters) where T : class
+
+        /// <summary>
+        /// Created By :- 
+        /// Summary :- Process Filters according to req.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        private QueryContainer ProcessFilters(SearchFilters filters)
         {
             QueryContainer query = new QueryContainer();
-            QueryContainerDescriptor<T> FDS = new QueryContainerDescriptor<T>();
+            QueryContainerDescriptor<BikeModelDocument> FDS = new QueryContainerDescriptor<BikeModelDocument>();
             try
             {
                 if (filters.MinDisplacement > 0 || filters.MaxDisplacement > 0)
                 {
-                    query &= FDS.Range(RangeQuery<T>(filters.MinDisplacement, filters.MaxDisplacement, _displacement));
+                    query &= FDS.Range(RangeQuery<BikeModelDocument>(filters.MinDisplacement, filters.MaxDisplacement, _displacement));
                 }
                 if (filters.MaxPrice > 0 || filters.MinPrice > 0)
                 {
-                    query &= FDS.Range(RangeQuery<T>(filters.MinPrice, filters.MaxPrice, _exshowroom));
+                    query &= FDS.Range(RangeQuery<BikeModelDocument>(filters.MinPrice, filters.MaxPrice, _exshowroom));
                 }
                 if (filters.MakeId > 0)
                 {
@@ -91,12 +117,13 @@ namespace Bikewale.BAL.BikeSearch
                 }
                 if (filters.MinMileage > 0 || filters.MaxMileage > 0)
                 {
-                    query &= FDS.Range(RangeQuery<T>(filters.MinMileage, filters.MaxMileage, _mileage));
+                    query &= FDS.Range(RangeQuery<BikeModelDocument>(filters.MinMileage, filters.MaxMileage, _mileage));
                 }
                 if (filters.BodyStyle > 0)
                 {
                     query &= FDS.Term(_bodyStyleId, filters.BodyStyle);
                 }
+
             }
             catch (Exception)
             {
@@ -106,6 +133,15 @@ namespace Bikewale.BAL.BikeSearch
             return query;
         }
 
+
+        /// <summary>
+        /// Expression for min max and filed 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
         private Func<NumericRangeQueryDescriptor<T>, INumericRangeQuery> RangeQuery<T>(double min, double max, string fieldName) where T : class
         {
 
