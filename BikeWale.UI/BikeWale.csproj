@@ -977,6 +977,7 @@
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\NewBikeSearch\NewBikeSearchModel.cs" />
+    <Compile Include="Models\NewBikeSearch\NewBikeSearchPopupModel.cs" />
     <Compile Include="Models\NewPage\NewPageModel.cs" />
     <Compile Include="Models\News\NewsDetailPage.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedIndexModel.cs" />
@@ -3191,6 +3192,7 @@
     <Content Include="src\photos\photos.js" />
     <Content Include="src\photos\modelgallery.js" />
     <Content Include="src\popup\makemodelpopup.js" />
+    <Content Include="m\src\popup\newBikeSearchPopup.js" />
     <Content Include="src\priceincity.js" />
     <Content Include="src\review-popup.js" />
     <Content Include="src\review\landing.js" />
@@ -4020,6 +4022,7 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_New.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_New.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Top.cshtml" />
+    <Content Include="Views\NewBikeSearch\_NewBikeSearchPopup_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
