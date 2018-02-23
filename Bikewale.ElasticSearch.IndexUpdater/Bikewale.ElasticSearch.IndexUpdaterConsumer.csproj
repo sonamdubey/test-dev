@@ -43,11 +43,13 @@
     <Reference Include="Elasticsearch.Net">
       <HintPath>..\Libs\ElasticSearch\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Gelf4Net">
-      <HintPath>..\..\utils\Consumers\Libs\Gelf4Net.dll</HintPath>
+    <Reference Include="Gelf4Net, Version=2.0.3.11, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\MySqlDatabaseDLL\Gelf4Net.dll</HintPath>
     </Reference>
-    <Reference Include="Gelf4Net.UdpAppender">
-      <HintPath>..\..\utils\Consumers\Libs\Gelf4Net.UdpAppender.dll</HintPath>
+    <Reference Include="Gelf4Net.UdpAppender, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\MySqlDatabaseDLL\Gelf4Net.UdpAppender.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\Libs\log4net.dll</HintPath>
