@@ -1,7 +1,5 @@
 ﻿@model Bikewale.Entities.Filters.FilterBase
-@{
-    ViewBag.Title = "_MakePageFilters_Mobile";
-}
+
 @if (Model != null)
 {
     string[] inputId = new string[4];
@@ -20,7 +18,7 @@
 
                     <li class="refine-result__list-item">
                         <input type="checkbox" class="refine-result__list-checkbox" name="inpageFilter" id="@inputId[0]" value="1">
-                        <label class="refine-result__checkbox-label" for="inpageFilter1">
+                        <label class="refine-result__checkbox-label" for="@inputId[0]">
                             Less than
 
                             @if (Model.FilterType == "budget")
@@ -43,7 +41,7 @@
                 {
                     <li class="refine-result__list-item">
                         <input type="checkbox" name="inpageFilter" class="refine-result__list-checkbox" id="@inputId[1]" value="2">
-                        <label class="refine-result__checkbox-label" for="inpageFilter2">
+                        <label class="refine-result__checkbox-label" for="@inputId[1]">
                             @if (Model.FilterType == "budget")
                             {
                                 @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(Model.RangeList[0].ToString()) @Html.Raw("&#8722;") @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(@Model.RangeList[1].ToString());
@@ -63,7 +61,7 @@
                 {
                     <li class="refine-result__list-item">
                         <input type="checkbox" name="inpageFilter" class="refine-result__list-checkbox" id="@inputId[2]" value="3">
-                        <label class="refine-result__checkbox-label" for="inpageFilter3">
+                        <label class="refine-result__checkbox-label" for="@inputId[2]">
 
 
                             @if (Model.FilterType == "budget")
@@ -83,7 +81,7 @@
                 {
                     <li class="refine-result__list-item">
                         <input type="checkbox" name="inpageFilter" class="refine-result__list-checkbox" id="@inputId[3]" value="4">
-                        <label class="refine-result__checkbox-label" for="inpageFilter4">
+                        <label class="refine-result__checkbox-label" for="@inputId[3]">
                             More than
 
                             @if (Model.FilterType == "budget")

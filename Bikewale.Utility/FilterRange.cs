@@ -38,7 +38,7 @@ namespace Bikewale.Utility
                     case InPageFilterEnum.Budget:
                         rangeScale = PriceRange;
                         rangeUnit = "lakhs";
-                        type = "price";
+                        type = "budget";
                         break;
                     case InPageFilterEnum.Displacement:
                         rangeScale = Displacement;
