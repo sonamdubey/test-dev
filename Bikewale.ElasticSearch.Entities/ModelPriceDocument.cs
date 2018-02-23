@@ -15,7 +15,7 @@ namespace Bikewale.ElasticSearch.Entities
     {
         [JsonProperty("bikeModel")]
         public ModelEntity BikeModel { get; set; }
-        [JsonProperty("makeEntity")]
+        [JsonProperty("bikeMake")]
         public MakeEntity BikeMake { get; set; }
         [JsonProperty("city")]
         public CityEntity City { get; set; }

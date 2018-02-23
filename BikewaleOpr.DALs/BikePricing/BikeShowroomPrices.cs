@@ -191,96 +191,134 @@ namespace BikewaleOpr.DALs.BikePricing
         /// <param name="makeId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public ModelPriceDocument GetModelPriceDocument(uint makeId, uint cityId)
+        public List<ModelPriceDocument> GetModelPriceDocument(string modelIds, string cityIds)
         {
+            String spName = "getmodelpriceindexbycity";
+
+            List<ModelPriceDocument> objList = null;
             ModelPriceDocument docObj = null;
-            String spName = "getesmodelpriceindex";
+            VersionEntity verObj = null;
+
+            uint _lastModelId = 0;
+            uint _lastCityId = 0;
+            uint _currentModelId = 0;
+            uint _currentCityId = 0;
 
             try
             {
-                if (makeId > 0 && cityId > 0)
+                using (DbCommand cmd = DbFactory.GetDBCommand(spName))
                 {
-                    using (DbCommand cmd = DbFactory.GetDBCommand(spName))
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.Int32, modelIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityids", DbType.Int32, cityIds));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, makeId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
-
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        if (dr != null)
                         {
-                            if (dr != null)
-                            {
-                                docObj = new ModelPriceDocument()
-                                {
-                                    Id = SqlReaderConvertor.ToUInt32(dr["BikeModelId"]) + "_" + SqlReaderConvertor.ToUInt32(dr["CityId"]),
-                                    BikeModel = new ModelEntity()
-                                    {
-                                        ModelId = SqlReaderConvertor.ToUInt32(dr["BikeModelId"]),
-                                        ModelName = Convert.ToString(dr["ModelName"]),
-                                        ModelMaskingName = Convert.ToString(dr["ModelMaskingName"])
-                                    },
-                                    BikeMake = new MakeEntity()
-                                    {
-                                        MakeId = SqlReaderConvertor.ToUInt32(dr["BikeMakeId"]),
-                                        MakeName = Convert.ToString(dr["MakeName"]),
-                                        MakeMaskingName = Convert.ToString(dr["MakeMaskingName"])
-                                    },
-                                    City = new CityEntity()
-                                    {
-                                        CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
-                                        CityName = Convert.ToString(dr["CityName"]),
-                                        CityMaskingName = Convert.ToString(dr["CityMaskingName"])
-                                    }
-                                };
+                            objList = new List<ModelPriceDocument>();
+                            List<VersionEntity> versions = null;
 
-                                IList<VersionEntity> versions = new List<VersionEntity>();
-                                VersionEntity verObj = null;
-                                while(dr.Read())
+                            while (dr.Read())
+                            {
+                                _currentModelId = SqlReaderConvertor.ToUInt32(dr["BikeModelId"]);
+                                _currentCityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
+
+                                if (_currentModelId != _lastModelId || _currentCityId != _lastCityId)
                                 {
-                                    verObj = new VersionEntity()
+                                    if (docObj != null)
                                     {
-                                        VersionId = SqlReaderConvertor.ToUInt32(dr["VersionId"]),
-                                        VersionName = Convert.ToString(dr["VersionName"]),
-                                        Exshowroom = SqlReaderConvertor.ToUInt32(dr["Price"])
+                                        docObj.VersionPrice = versions;
+                                        objList.Add(docObj);
+                                    }
+
+                                    docObj = new ModelPriceDocument()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt32(dr["BikeModelId"]) + "_" + SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                        BikeModel = new ModelEntity()
+                                        {
+                                            ModelId = SqlReaderConvertor.ToUInt32(dr["BikeModelId"]),
+                                            ModelName = Convert.ToString(dr["ModelName"]),
+                                            ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                            ModelStatus = GetStatus(Convert.ToBoolean(dr["IsNewModel"]), Convert.ToBoolean(dr["IsFuturisticModel"]))
+                                        },
+                                        BikeMake = new MakeEntity()
+                                        {
+                                            MakeId = SqlReaderConvertor.ToUInt32(dr["BikeMakeId"]),
+                                            MakeName = Convert.ToString(dr["MakeName"]),
+                                            MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                            MakeStatus = GetStatus(Convert.ToBoolean(dr["IsNewMake"]), Convert.ToBoolean(dr["IsFuturisticMake"]))
+                                        },
+                                        City = new CityEntity()
+                                        {
+                                            CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                            CityName = Convert.ToString(dr["CityName"]),
+                                            CityMaskingName = Convert.ToString(dr["CityMaskingName"])
+                                        }
                                     };
 
-                                    IList<PriceEntity> prices = new List<PriceEntity>();
-            
-                                    prices.Add(new PriceEntity()
-                                    {
-                                        PriceType = "Exshowroom",
-                                        PriceValue = SqlReaderConvertor.ToUInt32(dr["Price"])
-                                    });
+                                    versions = new List<VersionEntity>();
 
-                                    prices.Add(new PriceEntity()
-                                    {
-                                        PriceType = "RTO",
-                                        PriceValue = SqlReaderConvertor.ToUInt32(dr["RTO"])
-                                    });
-                                    prices.Add(new PriceEntity()
-                                    {
-                                        PriceType = "Insurance",
-                                        PriceValue = SqlReaderConvertor.ToUInt32(dr["Insurance"])
-                                    });
-
-                                    verObj.PriceList = prices;
-                                    verObj.Onroad = (uint) verObj.PriceList.Sum(prc => prc.PriceValue);
-
-                                    versions.Add(verObj);
+                                    _lastModelId = _currentModelId;
+                                    _lastCityId = _currentCityId;
                                 }
 
-                                dr.Close();
+                                verObj = new VersionEntity()
+                                {
+                                    VersionId = SqlReaderConvertor.ToUInt32(dr["VersionId"]),
+                                    VersionName = Convert.ToString(dr["VersionName"]),
+                                    Exshowroom = SqlReaderConvertor.ToUInt32(dr["Price"]),
+                                    VersionStatus = GetStatus(Convert.ToBoolean(dr["IsNewVersion"]), Convert.ToBoolean(dr["IsFuturisticVersion"]))
+                                };
+
+                                IList<PriceEntity> prices = new List<PriceEntity>();
+
+                                prices.Add(new PriceEntity()
+                                {
+                                    PriceType = "Exshowroom",
+                                    PriceValue = SqlReaderConvertor.ToUInt32(dr["Price"])
+                                });
+
+                                prices.Add(new PriceEntity()
+                                {
+                                    PriceType = "RTO",
+                                    PriceValue = SqlReaderConvertor.ToUInt32(dr["RTO"])
+                                });
+                                prices.Add(new PriceEntity()
+                                {
+                                    PriceType = "Insurance",
+                                    PriceValue = SqlReaderConvertor.ToUInt32(dr["Insurance"])
+                                });
+
+                                verObj.PriceList = prices;
+                                verObj.Onroad = (uint)verObj.PriceList.Sum(prc => prc.PriceValue);
+
+                                versions.Add(verObj);
                             }
+
+                            dr.Close();
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.GetModelPriceDocument: Makeid- {0}, Cityid- {1}", makeId, cityId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.GetModelPriceDocument: Makeid- {0}, Cityid- {1}", modelIds, cityIds));
             }
 
-            return docObj;
+            return objList;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 22 Feb 2018
+        /// Description: To get the status of make/model/version depending on they are new or futuristic.
+        /// </summary>
+        /// <param name="isNew"></param>
+        /// <param name="isFuturistic"></param>
+        /// <returns></returns>
+        private static BikeStatus GetStatus(bool isNew, bool isFuturistic)
+        {
+            return !isNew ? (!isFuturistic ? BikeStatus.Discontinued : BikeStatus.Upcoming) : (!isFuturistic ? BikeStatus.New : BikeStatus.Invalid);
         }
 
     }

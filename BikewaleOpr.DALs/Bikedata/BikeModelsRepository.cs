@@ -582,7 +582,48 @@ namespace BikewaleOpr.DALs.Bikedata
 		} 
 		#endregion
 
-	}
+
+        /// <summary>
+        /// Created By : Deepak Israni on 22 Feb 2018
+        /// Description: To get the model id list respective to the version ids.
+        /// </summary>
+        /// <param name="versions"></param>
+        /// <returns></returns>
+        public string GetModelsByVersions(string versions)
+        {
+            String spName = "getmodelfromversion";
+
+            string models = "";
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand(spName))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionids", DbType.Int32, versions));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                models += string.Format("{0},", SqlReaderConvertor.ToUInt32(dr["BikeModelId"]));
+                            }
+
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.GetModelsByVersions: Versions- {0}, Cityid- {1}", versions));
+            }
+
+            return models;
+        }
+    }
 }
 
 
