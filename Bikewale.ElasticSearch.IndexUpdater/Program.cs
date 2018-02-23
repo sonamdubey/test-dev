@@ -105,7 +105,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
 
             bool isOperationSuccessful = false;
 
-            string esResponse = null;
+            string esResponse = "System didn't interact with ES.";
 
             try
             {
@@ -117,7 +117,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                         if (!doesDocumentExist)
                         {
                             logger.Error(string.Format("IndexName : {0}, DocumentId = {1}, OperationType = {2}, Document Does Not Exist", indexName, documentId, operationType));
-                            return true;
+                            isOperationSuccessful = true;
                         }
                         else
                         {
@@ -149,19 +149,21 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
             catch (Exception e)
             {
                 logger.Error("Exception occured while updating the document", e);
-                return InsertOrUpdateDocumentInIndex(queueMessage, ++c);
+                isOperationSuccessful = InsertOrUpdateDocumentInIndex(queueMessage, ++c);
             }
-
-            if (isOperationSuccessful)
+            finally
             {
-                logger.Info(string.Format("IndexName : {0}, DocumentId = {1}, OperationType : {2}, EsResponse : {3}", indexName, documentId, operationType, esResponse));
-                return true;
+                if (isOperationSuccessful)
+                {
+                    logger.Info(string.Format("IndexName : {0}, DocumentId = {1}, OperationType : {2}, EsResponse : {3}", indexName, documentId, operationType, esResponse));
+                }
+                else
+                {
+                    logger.Error(string.Format("IndexName : {0}, DocumentId = {1}, OperationType : {2}, EsResponse : {3}", indexName, documentId, operationType, esResponse));
+                    isOperationSuccessful = InsertOrUpdateDocumentInIndex(queueMessage, ++c);
+                }
             }
-            else
-            {
-                logger.Error(string.Format("IndexName : {0}, DocumentId = {1}, OperationType : {2}, EsResponse : {3}", indexName, documentId, operationType, esResponse));
-                return InsertOrUpdateDocumentInIndex(queueMessage, ++c);
-            }
+            return isOperationSuccessful;
             
 
         }
