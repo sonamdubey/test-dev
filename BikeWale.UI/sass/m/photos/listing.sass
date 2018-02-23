@@ -204,15 +204,17 @@ body
 
 .page-header
 	padding: 15px 20px
+	background-color: color('white')
 
+.model-gallery-section
+	background-color: color('white')
 
 .model-gallery__container
 	position: relative
 	z-index: 6
 
 .black-window
-	background: black
-	display: none
+	background: #000
 	height: 100%
 	width: 100%
 	position: fixed
@@ -222,7 +224,7 @@ body
 	bottom: 0
 	z-index: 5
 
-.gallery-footer__content
+.gallery-footer
 	height: 40px
 
 .gallery-image__footer
@@ -232,10 +234,12 @@ body
 	background: color('border-light')
 	padding-left: 20px
 	width: 100%
-	height: 40px
+	position: relative
 
 .model-gallery
-	padding-bottom: 60px
+	&.swiper-container
+		margin-bottom: 60px
+		overflow: visible
 
 	.swiper-slide
 		@include flexbox
@@ -249,12 +253,50 @@ body
 			height: auto
 			max-height: 203px
 
-	&
-		.gallery--next,
-		.gallery--prev
-			background-color: transparent !important
-			border: none
-			top: 44%
+.model-gallery
+	.model-gallery__color-slide
+		position: absolute
+		left: 0
+		right: 0
+		top: 0
+		z-index: 1
+
+	.gallery--next
+		@include vendor-prefix('transform', scale(1.3))
+		top: 35%
+		position: absolute
+		width: 18px
+		height: 33px
+		z-index: 1
+		display: inline-block
+		right: 0
+		background: url('/image/arrow-right.svg') no-repeat
+		background-position: 6px 10px
+		background-size: contain
+		background-color: transparent
+		right: 16px
+
+		&.swiper-button-disabled
+			opacity: .4
+
+	.gallery--prev
+		@include vendor-prefix('transform', scale(1.3))
+		top: 35%
+		position: absolute
+		width: 18px
+		height: 33px
+		z-index: 10
+		display: inline-block
+		left: 0
+		background: url('/image/arrow-left.svg') no-repeat
+		background-position: 4px 10px
+		background-size: contain
+		background-color: transparent
+		left: 16px
+
+		&.swiper-button-disabled
+			opacity: .4
+
 
 @media only screen and (max-width: 320px)
 	.model-gallery
@@ -279,44 +321,47 @@ body
 		&:last-child
 			margin-right: 0
 
+	.landscape-icon__container
+		@include vendor-prefix('transition', width 1s)
+		width: 0
+		padding: 0
+		display: inline-block
+		vertical-align: middle
+
 .gallery__download-icon
+	@include download-2d2d2d-icon
 	display: inline-block
 	vertical-align: middle
 	height: 18px
 	width: 20px
-	@include download-2d2d2d-icon
+
 	background-size: 18px
 
 .share-icon
+	@include share-2d2d2d-icon
 	display: inline-block
 	vertical-align: middle
 	height: 18px
 	width: 14px
-	@include share-2d2d2d-icon
 	background-size: 17px
 
 .zoom-icon
+	@include fullscreen-2d2d2d-icon
 	display: inline-block
 	vertical-align: middle
 	height: 16px
 	width: 16px
-	@include fullscreen-2d2d2d-icon
 	background-size: 17px
 
 .screen--rotate
 	display: none
 
-.landscape-icon
-	display: none
 .model-gallery--relative
 	z-index: 6
 	background: color('white')
 	position: relative
 	left: 0
 	width: 100%
-
-	.model-gallery__screen--rotate-slug		
-		display: block
 
 	.model-gallery
 		height: 100%
@@ -339,7 +384,7 @@ body
 		font-size: 12px
 
 	.landscape-icon
-		display: none
+		display: inline-block
 		vertical-align: middle
 		height: 40px
 		width: 40px
@@ -347,27 +392,41 @@ body
 		background: url('/image/rotate-2d2d2d.svg') no-repeat center
 		background-size: 19px
 
-	.gallery-image__footer
-		&[data-visible='rotate']
-			.screen--rotate
-				&[data-fixed='0']
-					display: inline-block
-		&[data-visible='color']
-			.gallery-image__color
-				&[data-fixed='0']
-					display: inline-block
-	
+	.landscape-icon__container
+		&[data-visible="1"]
+			width: 0
+
+		&[data-visible="0"]
+			width: 48px	
+
+	.gallery-image__feature
+		padding-right: 4px
+
+
+	.gallery--next
+		@include vendor-prefix('transform', scale(1))
+		z-index: 10
+		background-color: color('border-light')
+		right: 0
+		top: 37%
+
+	.gallery--prev
+		@include vendor-prefix('transform', scale(1))
+		z-index: 10
+		background-color: color('border-light')
+		left: 0
+		top: 37%
+
 
 .model-gallery__screen--rotate-slug
 	@include vendor-prefix('border-radius', 2px)
 	@include vendor-prefix('transform', translateX(-50%))
 	left: 50%
-	display: none
 	padding: 0
-	border: 1px solid #ffcf63
-	color: #ffcf63
+	border: 1px solid color('dandelion')
+	color: color('dandelion')
 	position: fixed
-	bottom: 13%
+	bottom: 11%
 	width: auto
 	white-space: nowrap
 	padding-right: 15px
@@ -379,6 +438,11 @@ body
 		padding: 9px 14px 10px
 		font-size: 12px
 
+	.screen--rotate-slug__landscape-container
+		height: 24px
+		width: 24px
+		display: inline-block
+
 	.screen--rotate-slug__landscape-icon
 		display: inline-block
 		vertical-align: middle
@@ -387,15 +451,45 @@ body
 		text-align: right
 		background: url(/image/rotate-orange.svg) center no-repeat
 		background-size: 19px
+		-webkit-animation: rotate-icon 1s linear infinite;
+
+	&.model-gallery__screen--rotate-slug--hide
+		border: none
+
+		.landscape-text
+			visibility: hidden
+
+	@keyframes rotate-icon
+		0%
+			transform: rotate(0deg)
+		50%
+			transform: rotate(45deg)
+		100%
+			transform: rotate(0deg)
+				
+	@-webkit-keyframess rotate-icon
+		0%
+			transform: rotate(0deg)
+		50%
+			transform: rotate(45deg)
+		100%
+			transform: rotate(0deg)			
+
+	&[data-visible = '0']
+		display: inline-block
+
+	&[data-visible= '1']
+		display: none
 
 .gallery-image__color
-	display: none
-	&[data-fixed='1']
+	&[data-visible='1']
 		color: color('white')
 		font-size: 12px
+		display: inline-block
 
-	&[data-fixed='0']
+	&[data-visible='0']
 		color: color('default')
+		display: none
 
 
 .gallery-color--fixed
@@ -409,11 +503,18 @@ body
 	bottom: 12%
 	left: 50%
 	text-transform: capitalize
+	z-index: 6
+
+	&[data-visible='0']
+		display: inline-block
+
+	&[data-visible = '1']
+		display: none
 
 @media screen and (min-aspect-ratio: 1/1) and (orientation: landscape)
 	.model-gallery--relative
 		.model-gallery
-			padding-bottom: 0
+			margin-bottom: 0
 
 			.swiper-slide
 				height: 100vh
@@ -422,21 +523,16 @@ body
 				img
 					max-height: 100%
 
-		#mainPhotoSwiper
-			&:hover
-				.gallery-image__footer
-					display: flex
-
-		.gallery-image__footer
-			display: none
+		.gallery-footer
 			position: fixed
 			bottom: 0
 			left: 0
 			right: 0
 			width: 100%
 			z-index: 1
-			background: #1a1a1a
 
+		.gallery-image__footer
+			background: color('nero')			
 
 			.landscape-icon
 				display: inline-block
@@ -459,13 +555,46 @@ body
 			background: transparent
 			color: color('light-grey')
 
+		.landscape-icon__container
+			&[data-visible="1"]
+				width: 48px
+
+		.gallery--next,
+		.gallery--prev
+			height: 43px
+			width: 24px
+			background-position: 9px 16px
+			top: 43%
+
+	.model-gallery__screen--rotate-slug
+		&[data-visible = '0']
+			display: none
+
+
+	.gallery-color--fixed
+		&[data-visible='0']
+			display: none
+
+	.gallery-image__color
+		&[data-visible='1']
+			display: none
+
+		&[data-visible='0']
+			display: inline-bl
+
+	.gallery-image__left-section
+		@include text-truncate(300px)
+		display: inline-block
+		vertical-align: middle
+
 
 .model-gallery__image-title
+	height: 60px
 	background: color('white')
 	padding: 15px 20px 25px
 	font-size: 14px
 	position: absolute
-	bottom: 0
+	top: 100%
 	left: 0
 	right: 0
 	width: 100%
@@ -486,9 +615,9 @@ body
 @include model-info__image()
 
 .model-info-section
+	@include vendor-prefix('box-shadow',  0 2px 4px 0 rgba(213, 213, 213, 0.5))
 	margin: 10px 10px 14px
 	background: color('white')
-	@include vendor-prefix('box-shadow',  0 2px 4px 0 rgba(213, 213, 213, 0.5))
 
 .model-info__target-link
 	display: block
