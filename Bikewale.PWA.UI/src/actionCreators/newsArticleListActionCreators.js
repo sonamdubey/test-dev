@@ -76,6 +76,5 @@ var resetArticleListData = function() {
 module.exports = {
 	fetchNewsArticleList : fetchNewsArticleList,
 	fetchNewBikesListDataForNewsList : fetchNewBikesListDataForNewsList,
-	resetArticleListData : resetArticleListData,
 	resetArticleListData : resetArticleListData
 }

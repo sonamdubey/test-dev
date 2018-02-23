@@ -26,7 +26,7 @@ class AdUnit extends React.Component {
 		if(!this.props)
 			return;
 		removeAdSlot(this.props.adSlot);
-		this.clearAdDiv()
+		this.clearAdDiv();
 		this.addAdSlot();
 		this.displayAd();
 		

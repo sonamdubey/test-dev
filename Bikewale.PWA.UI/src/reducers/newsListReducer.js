@@ -17,7 +17,8 @@ export function NewsArticleListReducer(state,action) {
 						} ,
 		NewBikesListData : {
 							Status : Status.Reset,
-							NewBikesList : null
+							NewBikesList : null,
+							BikeMakeList : null
 						}
 		})
 
@@ -25,7 +26,8 @@ export function NewsArticleListReducer(state,action) {
 		if(state && window._SERVER_RENDERED_DATA == true) {
 			
 			var articleList = state.getIn(['ArticleListData','ArticleList']);
-			var newBikesList = state.getIn(['NewBikesListData','NewBikesList'])
+			var newBikesList = state.getIn(['NewBikesListData','NewBikesList']);
+			var bikeMakeList = state.getIn(['NewBikesListData', 'BikeMakeList']);
 			
 			if(articleList && newBikesList) {
 				var pageNo = Math.floor(articleList.getIn(['StartIndex']) / NewsArticlesPerPage) +  1; //  corner case - last page with less than NewsArticlesPerPage articles
@@ -37,7 +39,8 @@ export function NewsArticleListReducer(state,action) {
 								} ,
 					NewBikesListData : {
 									Status : Status.Fetched, 
-									NewBikesList : newBikesList
+									NewBikesList : newBikesList,
+									BikeMakeList : bikeMakeList
 								}
 				})
 			}
@@ -94,27 +97,29 @@ export function NewsArticleListReducer(state,action) {
 
 				return state.setIn(['NewBikesListData'] , fromJS({
 							Status : Status.IsFetching,
-							NewBikesList : null
+							NewBikesList : null,
+							BikeMakeList : null
 				}))
 				
-			
 			case newBikesListAction.FETCH_NEW_BIKES_LIST_SUCCESS_FOR_NEWS_LIST:
 				return state.setIn(['NewBikesListData'] , fromJS({
 							Status : Status.Fetched,
-							NewBikesList : action.payload
+							NewBikesList : action.payload,
+							BikeMakeList : null
 				}))
 			
-
 			case newBikesListAction.FETCH_NEW_BIKES_LIST_FAILURE_FOR_NEWS_LIST:
 				return state.setIn(['NewBikesListData'] , fromJS({
 							Status : Status.Error,
-							NewBikesList : null
+							NewBikesList : null,
+							BikeMakeList : null
 				}))
 				
 			case newBikesListAction.NEW_BIKES_LIST_RESET_FOR_NEWS_LIST: 
 				return state.setIn(['NewBikesListData'] , fromJS({
 							Status : Status.Reset,
-							NewBikesList : null
+							NewBikesList : null,
+							BikeMakeList : null
 				}))
 				
 			
