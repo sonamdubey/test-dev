@@ -72,6 +72,7 @@ namespace Bikewale.Utility
             _EmailsForBikeChange = String.Empty,
             _BwHostUrl = String.Empty,
             _notificationToMailIdForPageMetas = string.Empty,
+            _BWEsIndexUpdaterQueue = string.Empty;
             _bikeModelPriceIndex = String.Empty;
 
 
@@ -144,6 +145,7 @@ namespace Bikewale.Utility
             _EmailsForBikeChange = Convert.ToString(ConfigurationManager.AppSettings["EmailsForBikeChange"]);
             _BwHostUrl = Convert.ToString(ConfigurationManager.AppSettings["BwHostUrl"]);
             _notificationToMailIdForPageMetas = Convert.ToString(ConfigurationManager.AppSettings["notificationToMailIdForPageMetas"]);
+            _BWEsIndexUpdaterQueue = Convert.ToString(ConfigurationManager.AppSettings["BWEsIndexUpdaterQueue"]);
             _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
         }
 
@@ -287,6 +289,8 @@ namespace Bikewale.Utility
         public String AWSS3Region { get { return _AWSS3Region; } }
         public string EmailsForBikeChange { get { return _EmailsForBikeChange; } }
         public string BwHostUrl { get { return _BwHostUrl; } }
+
+        public string BWEsIndexUpdaterQueue { get { return _BWEsIndexUpdaterQueue; } }
         public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
     }   // class
 }   // namespace
