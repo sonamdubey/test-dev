@@ -1,4 +1,11 @@
+using BikewaleOpr.BAL.BikePricing;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.DALs.BikePricing;
+using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.Interface.Dealers;
 using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
 using System.Data;
@@ -96,6 +103,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Modified by : Ashutosh Sharma on 30 Aug 2017 
         /// Description : Changed SP from 'insertshowroomprices_28062017' to 'insertshowroomprices_30082017', removed catch(SqlException)
+        /// Modified By : Deepak Israni on 22 Feb 2018
+        /// Description : Added call to create a new document for the bikewalepricingindex (ES Index)
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="bikeId"></param>
@@ -126,6 +135,16 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int16, -1));
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                }
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBwPrice, BwPrice>();
+                    container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
+                    container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                    IBwPrice bwPrice = container.Resolve<IBwPrice>();
+
+                    bwPrice.UpdateModelPriceDocument(bikeId, cityId);
                 }
 
             }

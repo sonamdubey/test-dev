@@ -7,5 +7,7 @@
     public interface IBwPrice
     {
         bool SaveBikePrices(string versionAndPriceList, string citiesList, uint makeId, string modelIds, int updatedBy);
+        void UpdateModelPriceDocument(string versionIds, string cityIds);
+        void CreateModelPriceDocument(string modelIds, string cityIds);
     }
 }
