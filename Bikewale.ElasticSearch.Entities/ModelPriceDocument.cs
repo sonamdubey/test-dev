@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,13 @@ namespace Bikewale.ElasticSearch.Entities
     /// </summary>
     public class ModelPriceDocument : Document
     {
+        [JsonProperty("bikeModel")]
         public ModelEntity BikeModel { get; set; }
+        [JsonProperty("bikeMake")]
         public MakeEntity BikeMake { get; set; }
+        [JsonProperty("city")]
         public CityEntity City { get; set; }
+        [JsonProperty("versionPrice")]
         public IEnumerable<VersionEntity> VersionPrice { get; set; }
     }
 }

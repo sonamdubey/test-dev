@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,9 @@ namespace Bikewale.ElasticSearch.Entities
     /// </summary>
     public class PriceEntity
     {
+        [JsonProperty("priceType")]
         public string PriceType { get; set; }
+        [JsonProperty("priceValue")]
         public uint PriceValue { get; set; }
     }
 }

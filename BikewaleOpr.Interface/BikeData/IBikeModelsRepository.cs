@@ -45,5 +45,6 @@ namespace BikewaleOpr.Interface.BikeData
 		/// <param name="modelsList">value should be ModelId1:Views1, ModelId2:Views2 (22:352,686:1265) only</param>
 		/// <returns>Number of rows affected</returns>
 		bool SavePageViews(string modelsList);
+        string GetModelsByVersions(string versions);
     }
 }

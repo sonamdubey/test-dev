@@ -334,6 +334,7 @@
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="EMISliderAMP.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
+    <Compile Include="Filters\CustomInputFilters.cs" />
     <Compile Include="Filters\FilterBase.cs" />
     <Compile Include="Filters\FilterPageEntity.cs" />
     <Compile Include="Filters\InPageFilterEnum.cs" />
@@ -379,12 +380,14 @@
     <Compile Include="Models\BreadCrumbsList.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\PageMetaTags.cs" />
+    <Compile Include="NewBikeSearch\BikeSearchEnum.cs" />
     <Compile Include="NewBikeSearch\BudgetFilterRanges.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
     <Compile Include="NewBikeSearch\FilterInput.cs" />
     <Compile Include="NewBikeSearch\InputBaseEntity.cs" />
     <Compile Include="NewBikeSearch\PagingUrl.cs" />
     <Compile Include="NewBikeSearch\RideStyleEnum.cs" />
+    <Compile Include="NewBikeSearch\SearchFilters.cs" />
     <Compile Include="NewBikeSearch\SearchOutputEntity.cs" />
     <Compile Include="NewBikeSearch\SearchOutputEntityBase.cs" />
     <Compile Include="OfferEntityBase.cs" />

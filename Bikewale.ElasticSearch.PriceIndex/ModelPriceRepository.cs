@@ -68,14 +68,16 @@ namespace Bikewale.ElasticSearch.PriceIndex
                                     {
                                         ModelId = _currentModelId,
                                         ModelName = Convert.ToString(dr["ModelName"]),
-                                        ModelMaskingName = Convert.ToString(dr["ModelMaskingName"])
+                                        ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                        ModelStatus = GetStatus(Convert.ToBoolean(dr["IsNewModel"]), Convert.ToBoolean(dr["IsFuturisticModel"]))
                                     };
 
                                     docObj.BikeMake = new MakeEntity()
                                     {
                                         MakeId = SqlReaderConvertor.ToUInt32(dr["BikeMakeId"]),
                                         MakeName = Convert.ToString(dr["MakeName"]),
-                                        MakeMaskingName = Convert.ToString(dr["MakeMaskingName"])
+                                        MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                        MakeStatus = GetStatus(Convert.ToBoolean(dr["IsNewMake"]), Convert.ToBoolean(dr["IsFuturisticMake"]))
                                     };
 
                                     docObj.City = new CityEntity()
@@ -88,8 +90,11 @@ namespace Bikewale.ElasticSearch.PriceIndex
                                 }
 
                                 verObj = InitializeVersionEntity(SqlReaderConvertor.ToUInt32(dr["VersionId"]), Convert.ToString(dr["VersionName"]));
-                                verObj.PriceList = SetVersionPrice(SqlReaderConvertor.ToUInt32(dr["Price"]), SqlReaderConvertor.ToUInt32(dr["RTO"]), SqlReaderConvertor.ToUInt32(dr["Insurance"]));
-                                
+                                verObj.Exshowroom = SqlReaderConvertor.ToUInt32(dr["Price"]);
+                                verObj.PriceList = SetVersionPrice(verObj.Exshowroom, SqlReaderConvertor.ToUInt32(dr["RTO"]), SqlReaderConvertor.ToUInt32(dr["Insurance"]));
+                                verObj.Onroad = (uint) verObj.PriceList.Sum(prc => prc.PriceValue);
+                                verObj.VersionStatus = GetStatus(Convert.ToBoolean(dr["IsNewVersion"]), Convert.ToBoolean(dr["IsFuturisticVersion"]));
+
                                 versions.Add(verObj);
                             }
 
@@ -161,6 +166,18 @@ namespace Bikewale.ElasticSearch.PriceIndex
             });
 
             return prices;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 22 Feb 2018
+        /// Description: To get the status of make/model/version depending on they are new or futuristic.
+        /// </summary>
+        /// <param name="isNew"></param>
+        /// <param name="isFuturistic"></param>
+        /// <returns></returns>
+        private static BikeStatus GetStatus(bool isNew, bool isFuturistic)
+        {
+            return !isNew ? (!isFuturistic ? BikeStatus.Discontinued : BikeStatus.Upcoming) : (!isFuturistic ? BikeStatus.New : BikeStatus.Invalid);
         }
     }
 }

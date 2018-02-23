@@ -1,0 +1,371 @@
+﻿@model Bikewale.Models.NewBikeSearch.NewBikeSearchPopupVM
+@if (Model != null)
+{
+    <div id="dvNewBikeSearchPopup">
+        <div id="recommendedBikePopup">
+            <div class="recommended-bike-popup">
+                <span id="recommendedBikeCloseBtn"></span>
+                <p class="recommended-bike__found-result">
+                    15 Bikes found based on your criteria
+                </p>
+                <div class="recommended-bike__filter-section">
+                    <div class="recommended-bike__filter-content">
+                        <ul id="appliedFilterList" class="filter-list"></ul>
+                    </div>
+                    <div class="filter__edit">Edit</div>
+                </div>                
+                    <div class="recommended-bike-container">
+                        @if (!(Model.HasFilteredBikes || Model.HasOtherRecommendedBikes))
+                {
+                <div class="not-found-container">
+                    <div class="not-found-section">
+                        <span class="not-found__image"></span>
+                        <div class="not-found-description">
+                            <p class="not-found__title">Oops!</p>
+                            <p class="not-found__subtitle">We couldn't find any bike based on your criteria.</p>
+                        </div>
+                    </div>
+                </div>
+                }
+                else
+                {
+                <section>
+                    <div class="bg-white section-bottom-margin">
+                        <h2 class="recommended-bike__title page__heading-h2">Recommended Royal Enfield Bikes</h2>
+                        @if (!Model.HasFilteredBikes)
+                            {
+                            <div class="not-found-container">
+                                <div class="not-found-section">
+                                    <span class="not-found__image">
+
+                                    </span>
+                                    <div class="not-found-description">
+                                        <p class="not-found__title">
+                                            Oops!
+                                        </p>
+                                        <p class="not-found__text">
+                                            We couldn't find any bike based on your criteria.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                            else
+                            {
+                            <div class="recommended-bike-section">
+                                <ul class="model-loader-list__content">
+                                    @for (var i = 1; i <= 2; i++)
+                                        {
+                                        <li class="model-loader-list__item">
+                                            <div class="model__card">
+                                                <div class="model-loader__box">
+                                                    <div class="model-loader__image"></div>
+                                                    <div class="model-loader__title">
+                                                    </div>
+                                                </div>
+                                                <div class="model-exshowroom__loader-box">
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        }
+                                </ul>
+                                <ul class="recommended-bike-list hide">
+                                    @for (var i = 1; i <= 3; i++)
+                                        {
+                                        <li class="recommended-bike__list-card">
+                                            <div class="model__card">
+                                                <a href="" title="" class="model-card__target">
+                                                    <div class="model-card__image">
+                                                        <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&amp;q=75" src="" title="" alt="">
+                                                    </div>
+                                                    <div class="model-card__detail">
+                                                        <span class="rating-badge" data-rate-bg="4">
+                                                            <span class="rating-badge__star"></span>
+                                                            <span>4</span>
+                                                        </span>
+                                                        <p class="model-detail__make-name">Royal Enfield</p>
+                                                        <h3 class="card-detail__name">Himalayan</h3>
+                                                        <ul class="card-detail__specs-list">
+                                                            <li>2204.8 cc</li>
+                                                            <li>381.5 kmpl</li>
+                                                            <li>21.89 bhp</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="model-card__exshowroom-content">
+                                                        <div class="model-card__exshowroom">
+                                                            <div class="card-exshowroom__col">
+                                                                <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                                                <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold">92,352</span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        }
+
+                                </ul>
+                            </div>
+                            }
+
+                    </div>
+                </section>
+                    if(Model.HasOtherRecommendedBikes){
+                <section>
+                    <div class="other-recommended-bike">
+                        <h2 class="recommended-bike__title page__heading-h2">Other Recommended Bikes (7)</h2>
+                        <ul class="model-loader-list__content">
+                            @for (var i = 1; i <= 2; i++)
+                                {
+                                <li class="model-loader-list__item">
+                                    <div class="model__card">
+                                        <div class="model-loader__box">
+                                            <div class="model-loader__image"></div>
+                                            <div class="model-loader__title">
+                                            </div>
+                                        </div>
+                                        <div class="model-exshowroom__loader-box">
+                                        </div>
+                                    </div>
+                                </li>
+
+                                }
+                        </ul>
+                        <ul class="recommended-bike-list hide">
+                            @for (var i = 1; i <= 10; i++)
+                                {
+                                <li class="recommended-bike__list-card">
+                                    <div class="model__card">
+                                        <a href="" title="" class="model-card__target">
+                                            <div class="model-card__image">
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&amp;q=75" src="" title="" alt="">
+                                            </div>
+                                            <div class="model-card__detail">
+                                                <span class="rating-badge" data-rate-bg="4">
+                                                    <span class="rating-badge__star"></span>
+                                                    <span>4</span>
+                                                </span>
+                                                <p class="model-detail__make-name">Royal Enfield</p>
+                                                <h3 class="card-detail__name">Himalayan</h3>
+                                                <ul class="card-detail__specs-list">
+                                                    <li>2204.8 cc</li>
+                                                    <li>381.5 kmpl</li>
+                                                    <li>21.89 bhp</li>
+                                                </ul>
+                                            </div>
+                                            <div class="model-card__exshowroom-content">
+                                                <div class="model-card__exshowroom">
+                                                    <div class="card-exshowroom__col">
+                                                        <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
+                                                        <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold">92,352</span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
+                                }
+
+                        </ul>
+                    </div>
+                </section>
+                    }
+                }
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="filtersPopup">
+                <div class="filters__screen">
+                    <div class="filters-screen__head">
+                        <span id="filterClose" class="filter__close"></span>
+                        <span class="filters-head__title">Filter</span>
+                        <div class="filter__apply" data-bind="click: ApplyFilters">Apply</div>
+                    </div>
+
+                    <div class="filters-screen__body">
+                        <ul class="accordion__list" data-state="one">
+                            <li class="accordion-list__item filter-type__item" data-filter-type="budget">
+                                <div class="accordion__head">
+                                    <div class="accordion-head__content">
+                                        <p class="accordion-head__title">Budget</p>
+                                        <p id="budgetAmountPreview" class="accordion-head__preview">
+                                            <span data-bind="text: budgetAmountPreview"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="accordion__body">
+                                    <div class="accordion-body__content budget__slider slider-box">
+                                        <div data-bind="KOSlider: budgetSlider, sliderOptions: { range: true, values: [0, 20], min: 0, max: 20, step: 1 }"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="accordion-list__item filter-type__item" data-filter-type="bodyType">
+                                <div class="accordion__head">
+                                    <div class="accordion-head__content">
+                                        <p class="accordion-head__title">Body Type</p>
+                                        <p class="accordion-head__preview"></p>
+                                    </div>
+                                </div>
+                                <div class="accordion__body">
+                                    <div class="accordion-body__content">
+                                        <ul id="filterTypeBody" class="body-type__list">
+                                            <li>
+                                                <div class="bodytype-box" data-value="1" id="bodytype-1" data-bind="click: checkboxSelection">
+                                                    <span class="bodytype-box__icon bodytype-scooter"></span>
+                                                    <span class="bodytype-box__label check-box__label">Scooter</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="bodytype-box" data-value="2" id="bodytype-2" data-bind="click: checkboxSelection">
+                                                    <span class="bodytype-box__icon bodytype-cruiser"></span>
+                                                    <span class="bodytype-box__label check-box__label">Cruiser</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="bodytype-box" data-value="3" id="bodytype-3" data-bind="click: checkboxSelection">
+                                                    <span class="bodytype-box__icon bodytype-street"></span>
+                                                    <span class="bodytype-box__label check-box__label">Street</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="bodytype-box" data-value="4" id="bodytype-4" data-bind="click: checkboxSelection">
+                                                    <span class="bodytype-box__icon bodytype-sports"></span>
+                                                    <span class="bodytype-box__label check-box__label">Sports</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="accordion-list__item filter-type__item" data-filter-type="mileage">
+                                <div class="accordion__head">
+                                    <div class="accordion-head__content">
+                                        <p class="accordion-head__title">Mileage</p>
+                                        <p class="accordion-head__preview"></p>
+                                    </div>
+                                </div>
+                                <div class="accordion__body">
+                                    <div class="accordion-body__content">
+                                        <ul id="filterTypeMileage" class="filter-checkbox__list">
+                                            <li>
+                                                <div class="check-box" data-value="1" id="mileage-1" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">30 - 40kmpl</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="check-box" data-value="2" id="mileage-2" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">40 - 50 kmpl</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="check-box" data-value="3" id="mileage-3" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">50 - 60 kmpl</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="check-box" data-value="4" id="mileage-4" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">60 - 65 kmpl</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="accordion-list__item filter-type__item" data-filter-type="displacement">
+                                <div class="accordion__head">
+                                    <div class="accordion-head__content">
+                                        <p class="accordion-head__title">Displacement</p>
+                                        <p class="accordion-head__preview"></p>
+                                    </div>
+                                </div>
+                                <div class="accordion__body">
+                                    <div class="accordion-body__content">
+                                        <ul id="filterTypeDisplacement" class="filter-checkbox__list">
+                                            <li>
+                                                <div class="check-box" data-value="1" id="displacement-1" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">< 100 cc</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="check-box" data-value="2" id="displacement-2" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">100 - 150 cc</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="check-box" data-value="3" id="displacement-3" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">150 - 200 cc</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="check-box" data-value="4" id="displacement-4" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">200 - 300 cc</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="check-box" data-value="5" id="displacement-5" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">> 300 cc</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="accordion-list__item filter-type__item" data-filter-type="power">
+                                <div class="accordion__head">
+                                    <div class="accordion-head__content">
+                                        <p class="accordion-head__title">Power</p>
+                                        <p class="accordion-head__preview"></p>
+                                    </div>
+                                </div>
+                                <div class="accordion__body">
+                                    <div class="accordion-body__content">
+                                        <ul id="filterTypePower" class="filter-checkbox__list">
+                                            <li>
+                                                <div class="check-box" data-value="1" id="power-1" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">< 10 bhp</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="check-box" data-value="2" id="power-2" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">10 - 30 bhp</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="check-box" data-value="3" id="power-3" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">30 - 60 bhp</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="check-box" data-value="4" id="power-4" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">> 60 bhp</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div id="filtersBlackoutWindow"></div>
+            </div>
+        </div>
+}

@@ -5,6 +5,7 @@ using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.BikeData.UpComingBike;
+using Bikewale.BAL.BikeSearch;
 using Bikewale.BAL.CMS;
 using Bikewale.BAL.Compare;
 using Bikewale.BAL.Customer;
@@ -225,6 +226,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
             container.RegisterType<INotifications, NotificationsBL>();
             container.RegisterType<INotificationsRepository, NotificationsRepository>();
+            container.RegisterType<IBikeSearch, BikeSearch>();
 
 
             return container;

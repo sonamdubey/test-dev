@@ -8,6 +8,7 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.Filters;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
@@ -46,8 +47,9 @@ namespace Bikewale.Controllers
         private readonly IServiceCenter _objService;
         private readonly IUserReviewsCache _cacheUserReviews;
         private readonly INewBikeLaunchesBL _newBikeLaunches;
+        private readonly IPageFilters _pageFilters;
 
-        public MakeController(IBikeModelsCacheRepository<int> bikeModelsCache, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newBikeLaunches)
+        public MakeController(IBikeModelsCacheRepository<int> bikeModelsCache, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newBikeLaunches, IPageFilters pageFilters)
         {
             _bikeModelsCache = bikeModelsCache;
             _bikeMakesCache = bikeMakesCache;
@@ -62,6 +64,7 @@ namespace Bikewale.Controllers
             _cacheUserReviews = cacheUserReviews;
             _objModelEntity = objModelEntity;
             _newBikeLaunches = newBikeLaunches;
+            _pageFilters = pageFilters;
         }
         // GET: Makes
 
@@ -69,7 +72,7 @@ namespace Bikewale.Controllers
         [Bikewale.Filters.DeviceDetection]
         public ActionResult Index(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches);
+            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches, _pageFilters);
             obj.TopCountNews = 2;
             obj.TopCountExpertReviews = 2;
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
@@ -99,7 +102,7 @@ namespace Bikewale.Controllers
         [Route("m/makepage/{makeMaskingName}/")]
         public ActionResult Index_Mobile_New(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches);
+            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches, _pageFilters);
             obj.TopCountNews = 6;
             obj.TopCountExpertReviews = 6;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
@@ -143,7 +146,7 @@ namespace Bikewale.Controllers
         [Route("m/makepage/{makeMaskingName}/amp/")]
         public ActionResult Index_Mobile_AMP(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches);
+            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches, _pageFilters);
             obj.TopCountNews = 2;
             obj.TopCountExpertReviews = 2;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;

@@ -45,7 +45,8 @@ workboxSW.router.registerRoute(/.*\/m\/(news|bike-videos).*/, function (input) {
 });
 
 
-workboxSW.router.registerRoute(/.*\/m\/news\/.*-\d+\/amp\/?/ , workboxSW.strategies.networkOnly(), 'GET');
+workboxSW.router.registerRoute(/.*\/m\/news\/.*-\d+\/amp\/?/, workboxSW.strategies.networkOnly(), 'GET');
+workboxSW.router.registerRoute(/https:\/\/bhrigu(stg?).bikewale.com\//, workboxSW.strategies.networkOnly(), 'GET');
 
 workboxSW.router.registerRoute(/.*\/api\/pwa\/.*$/,
     workboxSW.strategies.cacheFirst({
