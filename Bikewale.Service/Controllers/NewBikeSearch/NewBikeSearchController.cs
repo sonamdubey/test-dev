@@ -1,10 +1,16 @@
 ﻿using Bikewale.DTO.NewBikeSearch;
+using Bikewale.ElasticSearch.Entities;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.NewBikeSearch;
+using Bikewale.Service.Model.NewBikeSearch;
 using Bikewale.Service.Utilities;
+using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 namespace Bikewale.Service.Controllers.NewBikeSearch
 {
@@ -57,11 +63,59 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             }
         }
 
-        public IHttpActionResult Getv1([FromBody]SearchFilterDTO input)
+        public IHttpActionResult BikeList([FromBody]/*SearchFilterDTO*/SearchFilters input)
         {
 
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            input.CityId = currentCityArea.CityId;
 
-            return Ok();
+            IEnumerable<BikeModelDocument> objBikeList = null;
+            IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
+
+
+            if (input.CityId > 0)
+            {
+                var result1 = Task.Factory.StartNew(() => objBikeList = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.BikeList));
+                var result2 = Task.Factory.StartNew(() => objBikeListWithCityPrice = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.PriceList));
+                Task.WaitAll(result1, result2);
+                BikeSearchModel objData = new BikeSearchModel();
+                objData.GetData(objBikeList, objBikeListWithCityPrice);
+
+            }
+            else
+            {
+                objBikeList = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.BikeList);
+            }
+
+            SearchOutput searchResult = null;
+            return Ok(searchResult);
+        }
+
+        public IHttpActionResult BikeListOtherMake([FromBody]/*SearchFilterDTO*/SearchFilters input)
+        {
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            input.CityId = currentCityArea.CityId;
+
+            IEnumerable<BikeModelDocument> objBikeList = null;
+            IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
+
+
+            if (input.CityId > 0)
+            {
+                var result1 = Task.Factory.StartNew(() => objBikeList = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.BikeList));
+                var result2 = Task.Factory.StartNew(() => objBikeListWithCityPrice = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.PriceList));
+                Task.WaitAll(result1, result2);
+
+                BikeSearchModel objData = new BikeSearchModel();
+                objBikeList = objData.GetData(objBikeList, objBikeListWithCityPrice);
+
+            }
+            else
+            {
+                objBikeList = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.BikeList);
+            }
+            SearchOutput searchResult = null; ;
+            return Ok(searchResult);
         }
 
     }

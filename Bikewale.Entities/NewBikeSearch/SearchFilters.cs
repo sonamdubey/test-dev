@@ -18,5 +18,11 @@ namespace Bikewale.Entities.NewBikeSearch
         public bool SpokeWheel { get; set; }
         public bool Electric { get; set; }
         public bool Manual { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+        public bool ExcludeMake { get; set; }
+        public uint CityId { get; set; }
+        public byte ModelStatus { get; set; }
+
     }
 }

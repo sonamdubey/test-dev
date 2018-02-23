@@ -4,6 +4,7 @@ using Bikewale.ElasticSearch.Entities;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
+using Bikewale.Utility.LinqHelpers;
 using Nest;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace Bikewale.BAL.BikeSearch
         private static readonly string _bikeMakeId = "bikeMake.makeId";
         private static readonly string _mileage = "mileage";
         private static readonly string _bodyStyleId = "bodyStyleId";
+        private static readonly string _cityId = "city.cityId";
+        private static readonly string _bikeStatus = "bikeModel.modelStatus";
 
         /// <summary>
         /// Created By :-
@@ -65,18 +68,27 @@ namespace Bikewale.BAL.BikeSearch
             try
             {
                 string indexName = GetIndexName(source);
+                string typeName = GetTypeName(source);
                 ElasticClient client = ElasticSearchInstance.GetInstance();
 
                 if (client != null)
                 {
                     Func<SearchDescriptor<BikeModelDocument>, SearchDescriptor<BikeModelDocument>> searchDescriptor = new Func<SearchDescriptor<BikeModelDocument>, SearchDescriptor<BikeModelDocument>>(
-                           sd => sd.Index(indexName).Type("bikemodeldocument")
+                           sd => sd.Index(indexName).Type(typeName)
                                     .Query(q => q
                                     .Bool(bq => bq
                                      .Filter(ff => ff
                                          .Bool(bb => bb.
                                              Must(ProcessFilters(filters)))))));
                     ISearchResponse<BikeModelDocument> _result = client.Search(searchDescriptor);
+                    if (_result != null && _result.Hits != null && _result.Hits.Count > 0)
+                    {
+                        suggestionList = _result.Documents.ToList();
+                    }
+                    if (suggestionList != null && suggestionList.Any() && filters.PageNumber > 0 && filters.PageSize > 0)
+                    {
+                        suggestionList = suggestionList.Page(filters.PageNumber, filters.PageSize);
+                    }
 
                 }
             }
@@ -107,13 +119,28 @@ namespace Bikewale.BAL.BikeSearch
                 {
                     query &= FDS.Range(RangeQuery<BikeModelDocument>(filters.MinDisplacement, filters.MaxDisplacement, _displacement));
                 }
+                if (filters.ModelStatus > 0)
+                {
+                    query &= FDS.Term(_bikeStatus, filters.CityId);
+                }
+                if (filters.CityId > 0)
+                {
+                    query &= FDS.Term(_cityId, filters.CityId);
+                }
                 if (filters.MaxPrice > 0 || filters.MinPrice > 0)
                 {
                     query &= FDS.Range(RangeQuery<BikeModelDocument>(filters.MinPrice, filters.MaxPrice, _exshowroom));
                 }
                 if (filters.MakeId > 0)
                 {
-                    query &= FDS.Term(_bikeMakeId, filters.MakeId);
+                    if (filters.ExcludeMake)
+                    {
+                        query &= !FDS.Term(_bikeMakeId, filters.MakeId);
+                    }
+                    else
+                    {
+                        query &= FDS.Term(_bikeMakeId, filters.MakeId);
+                    }
                 }
                 if (filters.MinMileage > 0 || filters.MaxMileage > 0)
                 {
@@ -161,7 +188,7 @@ namespace Bikewale.BAL.BikeSearch
                         indexName = "bikeindex";
                         break;
                     case BikeSearchEnum.PriceList:
-                        indexName = "";
+                        indexName = "bikewalepricingindex";
                         break;
                     default:
                         indexName = "";
@@ -175,6 +202,31 @@ namespace Bikewale.BAL.BikeSearch
             }
             return indexName;
         }
+        private string GetTypeName(BikeSearchEnum source)
+        {
+            string typeName = string.Empty;
+            try
+            {
+                switch (source)
+                {
 
+                    case BikeSearchEnum.BikeList:
+                        typeName = "bikemodeldocument";
+                        break;
+                    case BikeSearchEnum.PriceList:
+                        typeName = "modelpricedocument";
+                        break;
+                    default:
+                        typeName = "";
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return typeName;
+        }
     }
 }
