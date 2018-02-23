@@ -950,7 +950,7 @@ namespace Bikewale.Models
                         {
                             objInputFilters.MakeCategoryId = _makeCategoryId;
                         }
-                        objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters);
+                        objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters).ToList();
                     }
                 }
             }

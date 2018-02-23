@@ -8,6 +8,7 @@ namespace Bikewale.Utility
     {
         public string Unit { get; set; }
         public uint[] Range { get; set; }
+        public string Type { get; set; }
 
     }
 
@@ -31,25 +32,30 @@ namespace Bikewale.Utility
                 rangeObj = new RangeBase();
                 string rangeUnit = null;
                 uint[] rangeScale = null;
+                string type = null;
                 switch (rangeType)
                 {
                     case InPageFilterEnum.Budget:
                         rangeScale = PriceRange;
                         rangeUnit = "lakhs";
+                        type = "budget";
                         break;
                     case InPageFilterEnum.Displacement:
                         rangeScale = Displacement;
                         rangeUnit = "cc";
+                        type = "displacement";
                         break;
                     case InPageFilterEnum.Mileage:
                         rangeScale = Mileage;
                         rangeUnit = "kmpl";
+                        type = "mileage";
                         break;
                     default:
                         break;
                 }
                 rangeObj.Range = rangeScale;
                 rangeObj.Unit = rangeUnit;
+                rangeObj.Type = type;
             }
             return rangeObj;
 
@@ -103,6 +109,7 @@ namespace Bikewale.Utility
 
                     filterList.RangeList = filterRangeList;
                     filterList.Unit = rangeObj.Unit;
+                    filterList.FilterType = rangeObj.Type;
                 }
             }
             return filterList;
