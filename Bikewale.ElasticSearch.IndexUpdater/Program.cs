@@ -18,7 +18,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
     {
 
         private static ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().Name);
-
+        private static bool isESInstanceInitialized;
         private const string ES_OPERATION_INSERT = "insert";
         private const string ES_OPERATION_UPDATE = "update";
         private const string ES_OPERATION_DELETE = "delete";
@@ -30,6 +30,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
             try
             {
                 client = ElasticSearchInstance.GetInstance();
+                isESInstanceInitialized = true;
                 NO_OF_RETRIES = Convert.ToInt32(ConfigurationManager.AppSettings["RetryCount"]);
             }
             catch (Exception e)
@@ -41,6 +42,12 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
         static void Main(string[] args)
         {
             log4net.Config.XmlConfigurator.Configure();
+
+            //If ES Instance is not initialized
+            if (!isESInstanceInitialized)
+            {
+                return;
+            }
             try
             {
                 Logs.WriteInfoLog("Consumer Started at : " + DateTime.Now);
