@@ -43,10 +43,13 @@ namespace Bikewale.Entities.PWA.Articles
 
     /// <summary>
     ///  Created By: Prasad Gawde
+    ///  Modified by : Ashutosh Sharma on 23 Feb 2018
+    ///  Description : Added BikeMakeList.
     /// </summary>
     public class PwaNewBikesListData
     {
         public List<PwaBikeNews> NewBikesList { get; set; }
+        public IEnumerable<PwaBikeMakeEntity> BikeMakeList { get; set; }
     }
 
     /// <summary>
