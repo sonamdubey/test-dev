@@ -94,7 +94,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                 else
                 {
-                    BadRequest();
+                    return BadRequest();
                 }
             }
             catch (Exception ex)
@@ -103,7 +103,6 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                 return InternalServerError();
             }
-            return NotFound();
         }  //get News Details
 
         #endregion
