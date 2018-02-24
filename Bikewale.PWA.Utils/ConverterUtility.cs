@@ -80,6 +80,52 @@ namespace Bikewale.PWA.Utils
             }
             return outDetails;
         }
+        /// <summary>
+        /// Converts ArticlePageDetails to PwaArticleDetails
+        /// Created By : Pratibha Verma on 24 Feb, 2018
+        /// </summary>
+        /// <param name="inpDet"></param>
+        /// <returns></returns>
+        public static PwaArticleDetails MapArticleDetailsToPwaExpertReviewDetails(ArticlePageDetails inpDet)
+        {
+            var outDetails = new PwaArticleDetails();
+            if (inpDet != null && inpDet.BasicId > 0)
+            {
+                outDetails.ArticleUrl = PwaCmsHelper.GetArticleUrl(inpDet.CategoryId, inpDet.ArticleUrl, (int)inpDet.BasicId);
+                outDetails.BasicId = inpDet.BasicId;
+                outDetails.Title = inpDet.Title;
+                outDetails.AuthorName = inpDet.AuthorName;
+                outDetails.AuthorMaskingName = inpDet.AuthorMaskingName;
+                outDetails.DisplayDate = inpDet.DisplayDate.ToString("MMM dd, yyyy");
+                outDetails.DisplayDateTime = inpDet.DisplayDate.ToString("MMM dd, yyyy hh:mm tt");
+                outDetails.HostUrl = inpDet.HostUrl;
+                outDetails.Content = MapPageToContent(inpDet.PageList);
+                outDetails.PrevArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.PrevArticle);
+                outDetails.NextArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.NextArticle);
+                outDetails.CategoryId = inpDet.CategoryId;
+                outDetails.CategoryName = PwaCmsHelper.GetContentCategory(inpDet.CategoryId);
+                outDetails.LargePicUrl = inpDet.LargePicUrl;
+                outDetails.SmallPicUrl = inpDet.SmallPicUrl;
+                outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpDet.BasicId);
+                outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(",", inpDet.TagsList) : string.Empty;
+                outDetails.ShareUrl = PwaCmsHelper.ReturnSharePageUrl(inpDet);
+            }
+            return outDetails;
+        }
+        /// <summary>
+        /// Converts Page to Content
+        /// Created By : Pratibha Verma on 24 Feb, 2018
+        /// </summary>
+        /// <param name="PageList"></param>
+        /// <returns></returns>
+        public static string MapPageToContent(List<Page> PageList) {
+            string content = string.Empty;
+            foreach (Page page in PageList) {
+                content += "<div class=\"margin - bottom10\">< h3 class=\"margin-bottom10\" role=\"heading\">"+ page.PageName + 
+                            "</ h3 >< div id = '@page.pageId' class=\"margin-top-10 article-content\">"+page.Content + "</ div ></ div >";
+            }
+            return content;
+        }
 
         /// <summary>
         /// Converts MostPopularBikes to PwaBikeDetails for the specified City

@@ -15,6 +15,7 @@ namespace Bikewale.PWA.Utils
     {
         static ILog _logger = LogManager.GetLogger("PwaCmsHelper");
         static readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
+        static readonly bool _logExpertReviewsUrl = BWConfiguration.Instance.LogExpertReviewsUrl;
         /// <summary>
         /// Created by Prasad Gawde
         /// </summary>
@@ -57,6 +58,49 @@ namespace Bikewale.PWA.Utils
 
             }
             return shareUrl;
+        }
+        /// <summary>
+        /// Created by : Pratibha Verma on 24 Feb 2018
+        /// </summary>
+        /// <param name="articlepageSummary"></param>
+        /// <returns></returns>
+        public static string ReturnSharePageUrl(ArticlePageDetails articlepageSummary)
+        {
+            string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
+            EnumCMSContentType contentType = (EnumCMSContentType)articlepageSummary.CategoryId;
+            string sharePageUrl = string.Empty;
+            try
+            {
+                switch (contentType)
+                {
+                    case EnumCMSContentType.News:
+                    case EnumCMSContentType.AutoExpo2016:
+                    case EnumCMSContentType.AutoExpo2018:
+                        sharePageUrl = string.Format("{0}/news/{1}-{2}.html", _bwHostUrl, articlepageSummary.BasicId, articlepageSummary.ArticleUrl);
+                        break;
+                    case EnumCMSContentType.Features:
+                        sharePageUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articlepageSummary.ArticleUrl, articlepageSummary.BasicId);
+                        break;
+                    case EnumCMSContentType.RoadTest:
+                        sharePageUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", _bwHostUrl, articlepageSummary.ArticleUrl, articlepageSummary.BasicId);
+                        break;
+                    case EnumCMSContentType.SpecialFeature:
+                        sharePageUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articlepageSummary.ArticleUrl, articlepageSummary.BasicId);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            finally
+            {
+                if (_logExpertReviewsUrl && sharePageUrl.EndsWith(@".html.html"))
+                {
+                    ThreadContext.Properties["SharePageUrl"] = sharePageUrl;
+                    _logger.Error("ConverterUtility.ReturnSharePageUrl");
+                }
+
+            }
+            return sharePageUrl;
         }
         /// <summary>
         ///  Created by Prasad Gawde

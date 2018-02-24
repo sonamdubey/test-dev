@@ -116,6 +116,54 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
         #endregion
 
+        #region Expert-Review Details Api
+        /// <summary>
+        /// Created By : Pratibha Verma on 24 Feb, 2018
+        /// Summary : API to get expert-review details of article.
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns>Expert-Review Details</returns>
+        [ResponseType(typeof(PwaArticleDetails)), Route("api/pwa/cms/id/{basicId}/pages/")]
+        public IHttpActionResult GetArticleDetailsPages(string basicId)
+        {
+            uint _basicId = default(uint);
+            PwaArticleDetails objPwaArticle = null;
+            try
+            {
+                if (!String.IsNullOrEmpty(basicId) && uint.TryParse(basicId, out _basicId))
+                {
+
+                    ArticlePageDetails objExpertReviews = _CMSCache.GetArticlesDetails(_basicId);
+
+                    if (objExpertReviews != null)
+                    {
+                        objPwaArticle = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objExpertReviews);
+
+                        if (_logNewsUrl && !string.IsNullOrEmpty(objPwaArticle.ArticleUrl) && objPwaArticle.ArticleUrl.EndsWith(@".html.html"))
+                        {
+                            ThreadContext.Properties["NewsUrl"] = objPwaArticle.ArticleUrl;
+                            ThreadContext.Properties["ShareUrl"] = objPwaArticle.ShareUrl;
+                            _logger.Error(String.Format("api/pwa/cms/id/{0}/page/", basicId));
+                        }
+                    }
+                    return Ok(objPwaArticle);
+                }
+
+                else
+                {
+                    BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+
+                return InternalServerError();
+            }
+            return NotFound();
+        }  //get Expert Review Details
+
+        #endregion
         #region BikeList based on BasicId
         /// <summary>        
         /// Created By : Prasad Gawde on 04 Apr 2017
