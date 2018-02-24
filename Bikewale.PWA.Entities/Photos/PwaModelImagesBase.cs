@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 namespace Bikewale.PWA.Entities.Photos
 {
     /// <summary>
-    /// Created by : Ashutosh Sharma on 12 Feb 2018.
-    /// Modified by : Rajan Chauhan on 24 Feb 2018
-    /// Description : Added property ImageName
+    /// Created by  : Rajan Chauhan on 24 Feb 2018
     /// </summary>
     [Serializable, DataContract]
-    public class PwaImageBase
+    public class PwaModelImagesBase
     {
         [DataMember]
-        public string HostUrl { get; set; }
+        public IEnumerable<PwaImageBase> ModelImages { get; set; }
         [DataMember]
-        public string OriginalImgPath { get; set; }
+        public int RecordCount { get; set; }
         [DataMember]
-        public string ImageName { get; set; }
+        public string BikeName { get; set; }
     }
 }

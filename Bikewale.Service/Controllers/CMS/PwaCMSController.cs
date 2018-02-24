@@ -1,14 +1,17 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
+using Bikewale.PWA.Entities.Photos;
 using Bikewale.PWA.Utils;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
@@ -27,7 +30,9 @@ namespace Bikewale.Service.Controllers.PWA.CMS
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
     /// Modified by :   Sumit Kate on 18 May 2016
-    /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// Description :   Extend from CompressionApiController instead of ApiController
+    /// Modified by :   Rajan Chauhan on 24 Feb 2018
+    /// Description :   Added IArticles in constructor
     /// </summary>
     public class PwaCMSController : CompressionApiController//ApiController
     {
@@ -40,6 +45,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         private readonly IBikeModelsCacheRepository<int> _objModelCache;
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _cityCacheRepository;
+        private readonly IArticles _articles;
         static ILog _logger = LogManager.GetLogger("PwaCMSController");
         private readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
         /// <summary>
@@ -52,7 +58,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             IUpcoming upcoming,
             IBikeMakesCacheRepository bikeMakesEntity,
             IBikeInfo bikeInfo,
-            ICityCacheRepository cityCacheRepository)
+            ICityCacheRepository cityCacheRepository, IArticles articles)
         {
             _pager = pager;
             _CMSCache = cmsCache;
@@ -62,6 +68,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             _objModelCache = objModelCache;
             _bikeInfo = bikeInfo;
             _cityCacheRepository = cityCacheRepository;
+            _articles = articles;
         }
 
 
@@ -512,6 +519,50 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             return tabs;
         }
 
+        #endregion
+
+
+        #region Article Gallery Images Api
+        /// <summary>
+        /// Created by : Rajan Chauhan on 24 Feb 2018
+        /// Description : Returns the gallery images for article
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(PwaModelImagesBase)), Route("api/pwa/cms/images/articles/id/{basicId}/")]
+        public IHttpActionResult GetArticleGalleryImages(string basicId)
+        {
+            int _basicId = default(int);
+            PwaModelImagesBase objGalleryImages = null;
+            try
+            {
+                if (int.TryParse(basicId, out _basicId))
+                {
+                    if (_basicId > 0)
+                    {
+                        IEnumerable<ModelImage> modelImages = _articles.GetArticlePhotos(_basicId);
+                        if (modelImages != null && modelImages.Any())
+                        {
+                            objGalleryImages = new PwaModelImagesBase() { 
+                                ModelImages = ConverterUtility.PwaConvert(modelImages),
+                                RecordCount = modelImages.Count(),
+                                BikeName = string.Format("{0} {1}", modelImages.First().MakeBase.MakeName, modelImages.First().ModelBase.ModelName)
+                            };
+                        }
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+                return Ok(objGalleryImages);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.PwaCMSController.GetArticleGalleryImages");
+                return InternalServerError();
+            }
+        }
         #endregion
     }   // class
 }   // namespace
