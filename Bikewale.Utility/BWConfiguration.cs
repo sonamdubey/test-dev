@@ -24,6 +24,8 @@ namespace Bikewale.Utility
     /// Description : Removed SynopsisSummaryMergedMakeIds
     /// Modified by : Snehal Dange on 22nd dec 2017
     /// Desc:         Added ContestPriceMoney
+    /// Modified by : Pratibha Verma on 24 Feb 2018
+    /// Description : Added logNewsUrl for Expert Reviews Details(PWA) page API
     /// </summary>
     public sealed class BWConfiguration
     {
