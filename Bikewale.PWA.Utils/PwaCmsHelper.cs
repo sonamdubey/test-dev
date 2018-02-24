@@ -15,7 +15,6 @@ namespace Bikewale.PWA.Utils
 {
     public static class PwaCmsHelper
     {
-        static ILog _logger = LogManager.GetLogger("PwaCmsHelper");
         /// <summary>
         /// Created by Prasad Gawde
         /// </summary>
