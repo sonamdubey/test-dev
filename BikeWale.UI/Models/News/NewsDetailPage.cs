@@ -88,7 +88,6 @@ namespace Bikewale.Models
             }
         }
 
-        public bool LogNewsUrl { get; set; }
         public bool IsAMPPage { get; set; }
         #endregion
 
@@ -108,7 +107,6 @@ namespace Bikewale.Models
             _objBikeVersionsCache = objBikeVersionsCache;
             _seriesCache = seriesCache;
             _series = series;
-            LogNewsUrl = BWConfiguration.Instance.LogNewsUrl;
             ProcessQueryString();
 
         }

@@ -27,7 +27,6 @@ namespace Bikewale.Controllers
         static bool _logPWAStats = BWConfiguration.Instance.EnablePWALogging;
         static bool _enablePWA = BWConfiguration.Instance.EnablePWA;
         static ILog _logger = LogManager.GetLogger("Pwa-Logger-NewsController");
-        private readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
 
         #region Variables for dependency injection
         private readonly ICMSCacheContent _cacheContent = null;
@@ -212,7 +211,6 @@ namespace Bikewale.Controllers
         {
             NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache, _seriesCache, _series);
             obj.IsMobile = true;
-            obj.LogNewsUrl = _logNewsUrl;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
@@ -236,12 +234,6 @@ namespace Bikewale.Controllers
                     ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
                     ThreadContext.Properties["PageName"] = "NewsController - Detail";
                     _logger.Error(sw.ElapsedMilliseconds);
-                }
-
-                if (_logNewsUrl && !string.IsNullOrEmpty(objData.ArticleDetails.ArticleUrl) && objData.ArticleDetails.ArticleUrl.EndsWith(@".html"))
-                {
-                    ThreadContext.Properties["NewsUrl"] = objData.ArticleDetails.ArticleUrl;
-                    _logger.Error(String.Format("m/news/detail/{0}/", basicid));
                 }
 
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
