@@ -135,8 +135,6 @@ namespace Bikewale.Utility
         private readonly string _StaticCSSBTFPWAVersion;
         private readonly bool _EnablePWA;
         private readonly string _AMPDomainForSW;
-        private readonly bool _logNewsUrl;
-        private readonly bool _logExpertReviewsUrl;
         private readonly string _capitalFirstConsumerQueue;
         private readonly bool _IsIPSecurityEnabled;
         private readonly uint _CapitalFirstDealerId;
@@ -245,9 +243,7 @@ namespace Bikewale.Utility
             _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
             _CapitalFirstPincodeIndex = ConfigurationManager.AppSettings["CapitalFirstPincodeIndex"];
-            _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
-            _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
-            _logExpertReviewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogExpertReviewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogExpertReviewsUrl"]);
+            _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];           
             _capitalFirstConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["CapitalFirstConsumerQueue"]);
             _IsIPSecurityEnabled = string.IsNullOrEmpty(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]);
             _OtherBikesInMakeId = ConfigurationManager.AppSettings["OtherBikesInMakeId"];
@@ -420,9 +416,6 @@ namespace Bikewale.Utility
         public string AMPDomainForSW { get { return _AMPDomainForSW; } }
 
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
-
-        public bool LogNewsUrl { get { return _logNewsUrl; } }
-        public bool LogExpertReviewsUrl { get { return _logExpertReviewsUrl; } }
 
         public string OtherBikesInMakeId { get { return _OtherBikesInMakeId; } }
         public string CapitalFirstConsumerQueue { get { return _capitalFirstConsumerQueue; } }

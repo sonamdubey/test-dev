@@ -14,8 +14,6 @@ namespace Bikewale.PWA.Utils
     public static class PwaCmsHelper
     {
         static ILog _logger = LogManager.GetLogger("PwaCmsHelper");
-        static readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
-        static readonly bool _logExpertReviewsUrl = BWConfiguration.Instance.LogExpertReviewsUrl;
         /// <summary>
         /// Created by Prasad Gawde
         /// </summary>
@@ -50,7 +48,7 @@ namespace Bikewale.PWA.Utils
             }
             finally
             {
-                if (_logNewsUrl && shareUrl.EndsWith(@".html.html"))
+                if (shareUrl.EndsWith(@".html.html"))
                 {
                     ThreadContext.Properties["ShareUrl"] = shareUrl;
                     _logger.Error("ConverterUtility.ReturnShareUrl");
@@ -93,7 +91,7 @@ namespace Bikewale.PWA.Utils
             }
             finally
             {
-                if (_logExpertReviewsUrl && sharePageUrl.EndsWith(@".html.html"))
+                if (sharePageUrl.EndsWith(@".html.html"))
                 {
                     ThreadContext.Properties["SharePageUrl"] = sharePageUrl;
                     _logger.Error("ConverterUtility.ReturnSharePageUrl");

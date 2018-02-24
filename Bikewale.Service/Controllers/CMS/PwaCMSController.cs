@@ -41,7 +41,6 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _cityCacheRepository;
         static ILog _logger = LogManager.GetLogger("PwaCMSController");
-        private readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
         /// <summary>
         /// 
         /// </summary>
@@ -90,7 +89,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     {
                         objPwaArticle = ConverterUtility.MapArticleDetailsToPwaArticleDetails(objNews);
 
-                        if (_logNewsUrl && !string.IsNullOrEmpty(objPwaArticle.ArticleUrl) && objPwaArticle.ArticleUrl.EndsWith(@".html.html"))
+                        if (!string.IsNullOrEmpty(objPwaArticle.ArticleUrl) && objPwaArticle.ArticleUrl.EndsWith(@".html.html"))
                         {
                             ThreadContext.Properties["NewsUrl"] = objPwaArticle.ArticleUrl;
                             ThreadContext.Properties["ShareUrl"] = objPwaArticle.ShareUrl;
@@ -132,14 +131,11 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             {
                 if (!String.IsNullOrEmpty(basicId) && uint.TryParse(basicId, out _basicId))
                 {
-
                     ArticlePageDetails objExpertReviews = _CMSCache.GetArticlesDetails(_basicId);
-
                     if (objExpertReviews != null)
                     {
                         objPwaArticle = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objExpertReviews);
-
-                        if (_logNewsUrl && !string.IsNullOrEmpty(objPwaArticle.ArticleUrl) && objPwaArticle.ArticleUrl.EndsWith(@".html.html"))
+                        if (!string.IsNullOrEmpty(objPwaArticle.ArticleUrl) && objPwaArticle.ArticleUrl.EndsWith(@".html.html"))
                         {
                             ThreadContext.Properties["NewsUrl"] = objPwaArticle.ArticleUrl;
                             ThreadContext.Properties["ShareUrl"] = objPwaArticle.ShareUrl;
@@ -148,19 +144,16 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     }
                     return Ok(objPwaArticle);
                 }
-
                 else
                 {
-                    BadRequest();
+                    return BadRequest();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
-
                 return InternalServerError();
             }
-            return NotFound();
         }  //get Expert Review Details
 
         #endregion
