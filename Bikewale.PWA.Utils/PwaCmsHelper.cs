@@ -2,8 +2,10 @@
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Videos;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using log4net;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
@@ -46,14 +48,9 @@ namespace Bikewale.PWA.Utils
                         break;
                 }
             }
-            finally
+            catch (Exception ex)
             {
-                if (shareUrl.EndsWith(@".html.html"))
-                {
-                    ThreadContext.Properties["ShareUrl"] = shareUrl;
-                    _logger.Error("ConverterUtility.ReturnShareUrl");
-                }
-
+                ErrorClass.LogError(ex, "Exception : Bikewale.PWA.Utils.PwaCMSHelper.ReturnShareUrl");
             }
             return shareUrl;
         }
@@ -89,14 +86,9 @@ namespace Bikewale.PWA.Utils
                         break;
                 }
             }
-            finally
+            catch (Exception ex)
             {
-                if (sharePageUrl.EndsWith(@".html.html"))
-                {
-                    ThreadContext.Properties["SharePageUrl"] = sharePageUrl;
-                    _logger.Error("ConverterUtility.ReturnSharePageUrl");
-                }
-
+                ErrorClass.LogError(ex, "Exception : Bikewale.PWA.Utils.PwaCMSHelper.ReturnSharePageUrl");
             }
             return sharePageUrl;
         }

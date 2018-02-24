@@ -135,12 +135,6 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     if (objExpertReviews != null)
                     {
                         objPwaArticle = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objExpertReviews);
-                        if (!string.IsNullOrEmpty(objPwaArticle.ArticleUrl) && objPwaArticle.ArticleUrl.EndsWith(@".html.html"))
-                        {
-                            ThreadContext.Properties["NewsUrl"] = objPwaArticle.ArticleUrl;
-                            ThreadContext.Properties["ShareUrl"] = objPwaArticle.ShareUrl;
-                            _logger.Error(String.Format("api/pwa/cms/id/{0}/page/", basicId));
-                        }
                     }
                     return Ok(objPwaArticle);
                 }

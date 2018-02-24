@@ -236,12 +236,6 @@ namespace Bikewale.Controllers
                     _logger.Error(sw.ElapsedMilliseconds);
                 }
 
-                if (!string.IsNullOrEmpty(objData.ArticleDetails.ArticleUrl) && objData.ArticleDetails.ArticleUrl.EndsWith(@".html"))
-                {
-                    ThreadContext.Properties["NewsUrl"] = objData.ArticleDetails.ArticleUrl;
-                    _logger.Error(String.Format("m/news/detail/{0}/", basicid));
-                }
-
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");
                 else
