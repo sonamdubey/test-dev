@@ -128,30 +128,29 @@ namespace Bikewale.Models
             ProcessCityArea();
         }
 
+        #endregion
+
+        #region Functions
         /// <summary>
         /// Created by : Ashutosh Sharma on 27 Dec 2017
         /// Description : Method to get global city Id and Name from cookie.
         /// </summary>
         private void ProcessCityArea()
         {
-        	try
-        	{
-        		currentCityArea = GlobalCityArea.GetGlobalCityArea();
-        		if (currentCityArea != null)
-        		{
-        			CityId = currentCityArea.CityId;
-        			CityName = currentCityArea.City;
-        		}
-        	}
-        	catch (Exception ex)
-        	{
-        		ErrorClass.LogError(ex, "Bikewale.Models.News.NewsIndexPage.ProcessCityArea");
-        	}
+            try
+            {
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                if (currentCityArea != null)
+                {
+                    CityId = currentCityArea.CityId;
+                    CityName = currentCityArea.City;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.News.NewsIndexPage.ProcessCityArea");
+            }
         }
-        #endregion
-        
-        #region Functions
-        
         /// <summary>
         /// Created By : Aditi Srivastava on 27 Mar 2017
         /// Summary    : Get page data
@@ -254,7 +253,7 @@ namespace Bikewale.Models
 
                     pwaCmsContent.StartIndex = (uint)_startIndex;
                     pwaCmsContent.EndIndex = (uint)(_endIndex > recordCount ? recordCount : _endIndex);
-                    BindLinkPager(objData, recordCount); //needs the record coutn
+                    BindLinkPager(objData, recordCount); //needs the record count
                     SetPageMetas(objData); //needs nothing
                     CreatePrevNextUrl(objData, recordCount); // needs record count
                     GetWidgetData(objData, widgetTopCount); // needs nothing

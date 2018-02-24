@@ -29,7 +29,7 @@ namespace Bikewale.Controllers
         static ILog _logger = LogManager.GetLogger("Pwa-Logger-NewsController");
         private readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
 
-        #region Variables fro dependency injection
+        #region Variables for dependency injection
         private readonly ICMSCacheContent _cacheContent = null;
         private readonly IArticles _articles = null;
         private readonly IPager _pager = null;
