@@ -122,7 +122,7 @@ namespace Bikewale.PWA.Utils
             string content = string.Empty;
             foreach (Page page in PageList) {
                 content += "<div class=\"margin - bottom10\">< h3 class=\"margin-bottom10\" role=\"heading\">"+ page.PageName + 
-                            "</ h3 >< div id = '@page.pageId' class=\"margin-top-10 article-content\">"+page.Content + "</ div ></ div >";
+                            "</h3><div id='@page.pageId' class=\"margin-top-10 article-content\">"+page.Content + "</div></div>";
             }
             return content;
         }
