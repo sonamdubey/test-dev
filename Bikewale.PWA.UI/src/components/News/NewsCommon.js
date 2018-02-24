@@ -32,7 +32,17 @@ function mapNewsArticleDataToInitialData (article) {
 
 }
 
+function extractPageCategoryFromURL() {
+	var url = typeof(window) !== 'undefined' ? window.location.pathname : "";
+	if(url.startsWith("/m/news/"))
+		return "news";
+	else if(url.startsWith("/m/expert-reviews/"))
+		return "expert-reviews";
+	else 
+		return "";
+}
 module.exports = {
 	extractPageNoFromURL,
-	mapNewsArticleDataToInitialData
+	mapNewsArticleDataToInitialData,
+	extractPageCategoryFromURL
 }

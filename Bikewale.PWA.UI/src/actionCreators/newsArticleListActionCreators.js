@@ -1,19 +1,23 @@
 import {newsListAction,newBikesListAction} from '../actionTypes/actionTypes'
 
 import { CMSUserReviewSlugData , CMSUserReviewSlugPosition , isCMSUserReviewSlugClosed } from '../utils/commonUtils.js'
-import {extractPageNoFromURL} from '../components/News/NewsCommon'
+import {extractPageNoFromURL, extractPageCategoryFromURL} from '../components/News/NewsCommon'
 import {refreshGPTAds} from '../utils/googleAdUtils'
 import {NewsArticlesPerPage} from '../utils/constants'
 
 
 var fetchNewsArticleList = function(pageNo) {
 	return function(dispatch) {
+		var page = extractPageCategoryFromURL();
 		if(pageNo == -1) {
 			pageNo = extractPageNoFromURL(window.location.href);
 		}
 		var method = 'GET';
-		var url = '/api/pwa/cms/cat/1,19,6,8,2,18,5,26/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
-	
+		var url;
+		if(page == "news")
+			url = 'api/pwa/cms/news/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
+		else
+			url = '/api/pwa/cms/expertreview/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {

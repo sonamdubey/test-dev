@@ -78,9 +78,9 @@ var NewsDetailUC = universal(props => universalImport({
 module.exports = () => {
 	var path = window.location.pathname;
 	return <Switch>
-			<Route exact path='/m/news/' render={(props) => (<NewsListUC path ={path} />)}/>
-		    <Route exact path='/m/news/page/:pageNo/' render={(props) => (<NewsListUC path ={path}/>)}/>
-		    <Route exact path='/m/news/:basicId(\d+)-:title.html' render={(props) => (<NewsDetailUC path ={path}/>)}/>
+			<Route exact path='/m/(news|expert-reviews)/' render={(props) => (<NewsListUC path ={path} />)}/>
+		    <Route exact path='/m/(news|expert-reviews)/page/:pageNo/' render={(props) => (<NewsListUC path ={path}/>)}/>
+		    <Route exact path='/m/(news|expert-reviews)/:basicId(\d+)-:title.html' render={(props) => (<NewsDetailUC path ={path}/>)}/>
 		    <Route exact path='/m/bike-videos/' render={(props) => (<VideoLandingUC path ={path}/>)}/>
 		    <Route exact path='/m/bike-videos/category/*-:categoryId(\d+)/' render={(props) => (<VideoCategoryUC path ={path}/>)}/>
 			<Route exact path='/m/bike-videos/:title-:basicId(\d+)/' render={(props) => (<VideoDetailUC path ={path}/>)}/>

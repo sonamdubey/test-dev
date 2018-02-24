@@ -15,6 +15,7 @@ import { getGlobalCity } from '../../utils/popUpUtils'
 import { scrollPosition , resetScrollPosition , isBrowserWithoutScrollSupport } from '../../utils/scrollUtils'
 import {addAdSlot , removeAdSlot} from '../../utils/googleAdUtils'
 import {endTimer} from '../../utils/timing'
+import {extractPageCategoryFromURL} from './NewsCommon'
 
 if(!process.env.SERVER) {
     require('../../../stylesheet/news.sass');
@@ -189,11 +190,12 @@ class ArticleListComponent extends React.Component{
         var adSlotTop = <AdUnit uniqueKey={componentData.PageNo} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
         var adSlotMiddle = <AdUnit uniqueKey={componentData.PageNo} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_MIDDLE_300_250} adDimension={AD_DIMENSION_300_250} adContainerId={AD_DIV_REVIEWS_MIDDLE_300_250} />; 
         var adSlotBottom = <AdUnit uniqueKey={componentData.PageNo} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50} />;
-        
+        var isNews = extractPageCategoryFromURL() == "news";
+        var pageUrl = isNews ? "news": "expert-reviews";
         return (<div>
                     {adSlotTop}
                     <div className="container bg-white box-shadow section-bottom-margin">
-                        <h1 className="box-shadow card-heading">Bike News</h1>
+                        <h1 className="box-shadow card-heading">{componentData.ArticleList.PageName}</h1>
                         <ArticleList articleList={componentData.ArticleList.Articles} 
                                      pageNo = {componentData.PageNo}
                                      onArticleClickEvent={this.onArticleClickEvent}/>
@@ -202,7 +204,8 @@ class ArticleListComponent extends React.Component{
                                         pageNo={componentData.PageNo}
                                         articleCount={componentData.ArticleList.RecordCount}
                                         articlePerPage={NewsArticlesPerPage}
-                                        updateArticleList={this.updateArticleList}/>
+                                        updateArticleList={this.updateArticleList}
+                                        pageUrl={pageUrl}/>
                     </div>
                     <div className="margin-bottom15">
                         {adSlotMiddle}

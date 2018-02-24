@@ -20,6 +20,11 @@ using Bikewale.Models.BestBikes;
 using Bikewale.Models.BikeModels;
 using Bikewale.Models.Scooters;
 using Bikewale.Utility;
+using Bikewale.Entities.PWA.Articles;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.PWA.Utils;
+using Bikewale.Interfaces.PWA.CMS;
+using Newtonsoft.Json;
 
 namespace Bikewale.Models
 {
@@ -43,6 +48,8 @@ namespace Bikewale.Models
         public EnumBikeBodyStyles BodyStyle = EnumBikeBodyStyles.AllBikes;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IBikeInfo _objGenericBike = null;
+        private readonly IArticles _articles;
+        private readonly IPWACMSCacheRepository _renderedArticles;
 
         #endregion
 
@@ -52,7 +59,7 @@ namespace Bikewale.Models
         private uint _totalPagesCount;
         string make = string.Empty, model = string.Empty, series = string.Empty;
         private uint MakeId, ModelId, CityId, SeriesId, pageCatId = 0;
-        public string redirectUrl;
+        public string redirectUrl, CityName;
         public StatusCodes status;
         private MakeHelper makeHelper = null;
         private ModelHelper modelHelper = null;
@@ -90,6 +97,49 @@ namespace Bikewale.Models
             _objCityCache = objCityCache;
             _objGenericBike = objGenericBike;
             ProcessQueryString();
+            ProcessCityArea();
+        }
+
+        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models,
+            IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache,
+            IBikeSeriesCacheRepository seriesCache, IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IArticles articles, IPWACMSCacheRepository renderedArticles)
+        {
+            _cmsCache = cmsCache;
+            _pager = pager;
+            _models = models;
+            _bikeModels = bikeModels;
+            _upcoming = upcoming;
+            _objMakeCache = objMakeCache;
+            _objBikeVersionsCache = objBikeVersionsCache;
+            _seriesCache = seriesCache;
+            _series = series;
+            _objCityCache = objCityCache;
+            _objGenericBike = objGenericBike;
+            _articles = articles;
+            _renderedArticles = renderedArticles;
+            ProcessQueryString();
+            ProcessCityArea();
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 24 Feb 2018
+        /// Description : Method to get global city Id and Name from cookie.
+        /// </summary>
+        private void ProcessCityArea()
+        {
+            try
+            {
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                if (currentCityArea != null)
+                {
+                    CityId = currentCityArea.CityId;
+                    CityName = currentCityArea.City;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.News.ExpertReviewsIndexPage.ProcessCityArea");
+            }
         }
         #endregion
 
@@ -151,7 +201,7 @@ namespace Bikewale.Models
                     objData.EndIndex = _endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex;
                     BindLinkPager(objData);
                     SetPageMetas(objData);
-                    CreatePrevNextUrl(objData);
+                    CreatePrevNextUrl(objData, (int)objData.Articles.RecordCount);
                     GetWidgetData(objData, widgetTopCount);
                     if (objData.Model != null)
                     {
@@ -175,6 +225,128 @@ namespace Bikewale.Models
             }
 
             return objData;
+        }
+
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 23 Feb 2018
+        /// Description : Method to get expert reviews index page data and bind to redux store with server rendered html for pwa.
+        /// </summary>
+        /// <param name="widgetTopCount"></param>
+        /// <returns></returns>
+        public ExpertReviewsIndexPageVM GetPwaData(int widgetTopCount)
+        {
+            ExpertReviewsIndexPageVM objData = new ExpertReviewsIndexPageVM();
+            objData.BodyStyle = this.BodyStyle;
+            objData.EditorialPageType = this.currentPageType;
+
+            try
+            {
+                if (objMake != null)
+                    objData.Make = objMake;
+
+                if (objModel != null)
+                    objData.Model = objModel;
+
+                if (objSeries != null)
+                    objData.Series = objSeries;
+
+                int _startIndex = 0, _endIndex = 0;
+                _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
+
+                objData.StartIndex = _startIndex;
+                objData.EndIndex = _endIndex;
+
+                // Added by Vivek Singh Tomar to get list of model ids for given series
+                if (objData.Series != null)
+                    ModelIds = _series.GetModelIdsBySeries(objData.Series.SeriesId);
+                else
+                    ModelIds = Convert.ToString(ModelId);
+
+                PwaContentBase pwaCmsContent = _articles.GetArticlesByCategoryListPwa(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+
+
+
+                if (pwaCmsContent != null && pwaCmsContent.RecordCount > 0)
+                {
+                    _totalPagesCount = (uint)_pager.GetTotalPages((int)pwaCmsContent.RecordCount, pageSize);
+                    status = StatusCodes.ContentFound;
+                    objData.StartIndex = _startIndex;
+                    objData.EndIndex = _endIndex > pwaCmsContent.RecordCount ? Convert.ToInt32(pwaCmsContent.RecordCount) : _endIndex;
+                    BindLinkPager(objData);
+                    SetPageMetas(objData);
+                    CreatePrevNextUrl(objData, (int)pwaCmsContent.RecordCount);
+                    GetWidgetData(objData, widgetTopCount);
+
+                    if (objData.Model != null)
+                        objData.Series = _models.GetSeriesByModelId(ModelId);
+                    SetBreadcrumList(objData);
+
+                    objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
+                    if (MakeId > 0 && ModelId > 0 && bikeType.Equals(EnumBikeType.Scooters))
+                    {
+                        BindMoreAboutScootersWidget(objData);
+                    }
+
+                    //Populate ReduxStore and Server rendered Html
+
+                    objData.ReduxStore = new PwaReduxStore();
+                    objData.ReduxStore.News.NewsArticleListReducer.ArticleListData.ArticleList = pwaCmsContent;
+                    PopulateStoreForWidgetData(objData);
+
+                    string storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
+
+                    objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
+                        "/m/expert-reviews/", "root", "ServerRouterWrapper");
+                    objData.WindowState = storeJson;
+                    objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
+                }
+                else
+                {
+                    status = StatusCodes.ContentNotFound;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviewsIndexPage.GetData");
+            }
+
+            return objData;
+        }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 23 Feb 2018
+        /// Description : Method to populate widget data.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void PopulateStoreForWidgetData(ExpertReviewsIndexPageVM objData)
+        {
+            List<PwaBikeNews> objPwaBikes = new List<PwaBikeNews>();
+            if (objData.MostPopularBikes != null && objData.MostPopularBikes.Bikes != null)
+            {
+                PwaBikeNews popularBikes = new PwaBikeNews();
+                popularBikes.Heading = "Popular Bikes";
+                popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
+                popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
+                popularBikes.CompleteListUrlLabel = "View all";
+                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objData.MostPopularBikes.Bikes, CityName);
+
+                objPwaBikes.Add(popularBikes);
+            }
+
+            if (objData.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes != null)
+            {
+                PwaBikeNews upcomingBikes = new PwaBikeNews();
+                upcomingBikes.Heading = "Upcoming bikes";
+                upcomingBikes.CompleteListUrl = "/m/upcoming-bikes/";
+                upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
+                upcomingBikes.CompleteListUrlLabel = "View all";
+                upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(objData.UpcomingBikes.UpcomingBikes, CityName);
+
+                objPwaBikes.Add(upcomingBikes);
+            }
+
+            objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.NewBikesList = objPwaBikes;
+            objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.BikeMakeList = new List<PwaBikeMakeEntity>();
         }
 
         /// <summary>
@@ -407,10 +579,6 @@ namespace Bikewale.Models
                 EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
                 try
                 {
-                    currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                    if (currentCityArea != null)
-                        CityId = currentCityArea.CityId;
-
                     List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
                     if (objVersionsList != null && objVersionsList.Count > 0)
@@ -1051,13 +1219,15 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Aditi Srivastava on 30 Mar 2017
         /// Summary    : Create previous and next page urls
+        /// Modified by : Ashutosh Sharma on 23 Feb 2018
+        /// Description : Added argument recordCount and removed use of objData.Articles.RecordCount in method.
         /// </summary>
         /// <param name="objData"></param>
-        private void CreatePrevNextUrl(ExpertReviewsIndexPageVM objData)
+        private void CreatePrevNextUrl(ExpertReviewsIndexPageVM objData, int recordCount)
         {
             string _mainUrl = String.Format("{0}{1}page/", BWConfiguration.Instance.BwHostUrl, objData.PagerEntity.BaseUrl);
             string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
-            int totalPages = _pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
+            int totalPages = _pager.GetTotalPages(recordCount, pageSize);
             if (totalPages > 1)
             {
                 if (curPageNo == 1)
@@ -1147,7 +1317,7 @@ namespace Bikewale.Models
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objBikeVersionsCache, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.ExpertReview);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objBikeVersionsCache, _objGenericBike, BikeInfoTabType.ExpertReview);
                 obj.modelId = ModelId;
                 objData.ObjMoreAboutScooter = obj.GetData();
             }
