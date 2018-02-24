@@ -540,8 +540,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                 {
                     if (_basicId > 0)
                     {
-                        IEnumerable<ModelImage> modelImages = null;
-                        modelImages = _articles.GetArticlePhotos(_basicId);
+                        IEnumerable<ModelImage> modelImages = _articles.GetArticlePhotos(_basicId);
                         if (modelImages != null && modelImages.Any())
                         {
                             objGalleryImages = new PwaModelImagesBase() { 
@@ -556,12 +555,13 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                 {
                     return BadRequest();
                 }
+                return Ok(objGalleryImages);
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.PwaCMSController.GetArticleGalleryImages");
+                return InternalServerError();
             }
-            return Ok(objGalleryImages);
         }
         #endregion
     }   // class
