@@ -13,16 +13,10 @@ namespace Bikewale.PWA.Entities.Photos
     /// Description : Added ModelName and MakeName property
     /// </summary>
     [Serializable, DataContract]
-    public class PwaModelImages
+    public class PwaModelImages : PwaModelImagesBase
     {
         [DataMember]
-        public IEnumerable<PwaImageBase> ModelImages { get; set; }
-        [DataMember]
         public int ModelId { get; set; }
-        [DataMember]
-        public int RecordCount { get; set; }
-        [DataMember]
-        public string BikeName { get; set; }
         [DataMember]
         public string ModelName { get; set; }
         [DataMember]

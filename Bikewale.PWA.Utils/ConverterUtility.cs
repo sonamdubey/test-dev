@@ -521,6 +521,8 @@ namespace Bikewale.PWA.Utils
         /// <summary>
         /// Created by : Ashutosh Sharam on 12 Feb 2018.
         /// Description : Method to convert `IEnumerable<ModelImage>` to `IEnumerable<PwaImageBase>`.
+        /// Modified by : Rajan Chauhan on 24 Feb 2018
+        /// Description : Added ImageName
         /// </summary>
         /// <param name="modelImageList">List of images.</param>
         /// <returns>PWA entity which contains list of images.</returns>
@@ -537,7 +539,8 @@ namespace Bikewale.PWA.Utils
                         pwaImageBaseList.Add(new PwaImageBase()
                         {
                             HostUrl = modelImage.HostUrl,
-                            OriginalImgPath = modelImage.OriginalImgPath
+                            OriginalImgPath = modelImage.OriginalImgPath,
+                            ImageName = modelImage.ImageName
                         });
                     }
                 }
