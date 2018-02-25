@@ -17,7 +17,24 @@ class ArticleList extends React.Component {
     }
     renderArticleContent(article,index) {
         var imageUrl = (!article.HostUrl || !article.SmallPicUrl) ? 'https://imgd.aeplcdn.com/160x89/bikewaleimg/images/noimage.png?q=70' : article.HostUrl + article.SmallPicUrl;
-
+        var articleCategoryComponent = (isCategoryNameShown) => {
+            if(isCategoryNameShown){
+                return (
+                    <div className="article-desc-wrapper">
+                        <span className="article-category">{article.CategoryName}</span>  
+                        <h2 className="font14">{article.Title}</h2>  
+                    </div>                                
+                )
+            }
+            else{
+                return (
+                    <div className="article-desc-wrapper"> 
+                        <h2 className="font14">Expert Review: {article.Title}</h2>  
+                    </div>                                
+                )
+            }
+            
+        };
         return (
                 <div className="article-item-content">
                     <div className="article-wrapper">
@@ -26,10 +43,8 @@ class ArticleList extends React.Component {
                                 <img src={imageUrl} alt={article.Title} title={article.Title} />
                             </LazyLoad>
                         </div>
-                        <div className="article-desc-wrapper">
-                            <span className="article-category">{article.CategoryName}</span>
-                            <h2 className="font14">{article.Title}</h2>
-                        </div>
+                        
+                            {articleCategoryComponent(this.props.isCategoryNameShown)}
                     </div>
                     <div className="article-stats-wrapper font12 leftfloat text-light-grey">
                         <span className="bwmsprite calender-grey-icon"></span>

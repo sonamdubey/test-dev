@@ -93,6 +93,15 @@ class ArticleListComponent extends React.Component{
         try {
             var prevUrlParam = this.props.match.params;
             var nextUrlParam = nextProps.match.params;
+            if(prevUrlParam != nextUrlParam)
+            {
+                nextProps.fetchArticleList(-1);
+                nextProps.fetchNewBikesListData();
+                if(isBrowserWithoutScrollSupport()) {
+                    window.scrollTo(0,0);
+                }
+                return;
+            }
             //componentWillRecieveProps is called on first load in UC Browser and iOS Chrome, not in other browsers
             if(prevUrlParam["pageNo"] === nextUrlParam["pageNo"]) { // condition 1 : new url has been pushed
                 return;
@@ -195,10 +204,11 @@ class ArticleListComponent extends React.Component{
         return (<div>
                     {adSlotTop}
                     <div className="container bg-white box-shadow section-bottom-margin">
-                        <h1 className="box-shadow card-heading">{componentData.ArticleList.PageName}</h1>
+                        <h1 className="box-shadow card-heading">{componentData.ArticleList.PageTitle}</h1>
                         <ArticleList articleList={componentData.ArticleList.Articles} 
                                      pageNo = {componentData.PageNo}
-                                     onArticleClickEvent={this.onArticleClickEvent}/>
+                                     onArticleClickEvent={this.onArticleClickEvent}
+                                     isCategoryNameShown = {isNews}/>
                         <NewsPagination startIndex={componentData.ArticleList.StartIndex} 
                                         endIndex={componentData.ArticleList.EndIndex}
                                         pageNo={componentData.PageNo}

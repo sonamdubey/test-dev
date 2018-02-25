@@ -68,7 +68,7 @@ export function NewsArticleListReducer(state,action) {
 				
 			case newsListAction.FETCH_NEWSLIST_SUCCESS:
 				triggerPageView(window.location.pathname,document.title);
-				var pageNo = extractPageNoFromURL(window.location.href);
+				var pageNo = extractPageNoFromURL();
 				return state.setIn(['ArticleListData'] , fromJS({
 							Status : Status.Fetched,
 							ArticleList : action.payload , 
