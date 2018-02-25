@@ -269,6 +269,7 @@ namespace Bikewale.Models
 
                 if (pwaCmsContent != null && pwaCmsContent.RecordCount > 0)
                 {
+                    pwaCmsContent.PageTitle = "Expert Reviews";
                     _totalPagesCount = (uint)_pager.GetTotalPages((int)pwaCmsContent.RecordCount, pageSize);
                     status = StatusCodes.ContentFound;
                     objData.StartIndex = _startIndex;

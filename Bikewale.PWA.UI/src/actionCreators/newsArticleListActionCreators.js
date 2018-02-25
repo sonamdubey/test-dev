@@ -10,14 +10,14 @@ var fetchNewsArticleList = function(pageNo) {
 	return function(dispatch) {
 		var page = extractPageCategoryFromURL();
 		if(pageNo == -1) {
-			pageNo = extractPageNoFromURL(window.location.href);
+			pageNo = extractPageNoFromURL();
 		}
 		var method = 'GET';
 		var url;
 		if(page == "news")
-			url = 'api/pwa/cms/news/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
+			url = '/api/pwa/cms/news/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
 		else
-			url = '/api/pwa/cms/expertreview/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
+			url = '/api/pwa/cms/expertreviews/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {

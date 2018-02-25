@@ -241,7 +241,7 @@ namespace Bikewale.Models
                     objData.Model = objModel;
 
                 //objData.Articles
-                var pwaCmsContent = _articles.GetArticlesByCategoryListPwa(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+                PwaContentBase pwaCmsContent = _articles.GetArticlesByCategoryListPwa(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
 
 
 
@@ -253,6 +253,7 @@ namespace Bikewale.Models
 
                     pwaCmsContent.StartIndex = (uint)_startIndex;
                     pwaCmsContent.EndIndex = (uint)(_endIndex > recordCount ? recordCount : _endIndex);
+                    pwaCmsContent.PageTitle = "Bike News";
                     BindLinkPager(objData, recordCount); //needs the record count
                     SetPageMetas(objData); //needs nothing
                     CreatePrevNextUrl(objData, recordCount); // needs record count
