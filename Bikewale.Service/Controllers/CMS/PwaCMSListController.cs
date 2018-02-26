@@ -91,7 +91,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     objPWAArticles.Articles = ConverterUtility.MapArticleSummaryListToPwaArticleSummaryList(objFeaturedArticles.Articles);
                     objPWAArticles.RecordCount = objFeaturedArticles.RecordCount;
                     objPWAArticles.StartIndex = (uint)startIndex;
-                    objPWAArticles.EndIndex = (uint)endIndex;
+                    objPWAArticles.EndIndex = endIndex > objPWAArticles.RecordCount ? objPWAArticles.RecordCount : Convert.ToUInt32(endIndex);
                 }
             }
             catch (Exception ex)
