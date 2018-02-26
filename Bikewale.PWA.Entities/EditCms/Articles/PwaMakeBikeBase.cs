@@ -6,9 +6,9 @@ using System.Runtime.Serialization;
 namespace Bikewale.Entities.PWA.Articles
 {
     [Serializable, DataContract]
-    public class PwaMakeScooterBase : PwaBikeCms
+    public class PwaMakeBikeBase : PwaBikeCms
     {
         [DataMember]
-        public List<PwaMakeScooterEntity> MakeList { get; set; }
+        public List<PwaMakeBikeEntity> MakeList { get; set; }
     }
 }

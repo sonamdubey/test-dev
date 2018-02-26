@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Bikewale.Entities.PWA.Articles
 {
     [Serializable, DataContract]
-    public class PwaMakeScooterEntity
+    public class PwaMakeBikeEntity
     {
         [DataMember]
         public int MakeId { get; set; }

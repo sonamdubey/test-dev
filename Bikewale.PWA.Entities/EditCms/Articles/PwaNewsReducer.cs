@@ -54,7 +54,7 @@ namespace Bikewale.Entities.PWA.Articles
         [DataMember]
         public List<PwaBikeNews> NewBikesList { get; set; }
         [DataMember]
-        public List<PwaMakeScooterBase> BikeMakeList { get; set; }
+        public List<PwaMakeBikeBase> BikeMakeList { get; set; }
     }
 
     /// <summary>

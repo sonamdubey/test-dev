@@ -158,10 +158,10 @@ namespace Bikewale.PWA.Utils
             }
             return outList;
         }
-        public static List<PwaMakeScooterEntity> MapBikeMakeEntityBaseToPwaMakeScooterEntity(IEnumerable<BikeMakeEntityBase> bikeList) {
-            List<PwaMakeScooterEntity> outList = new List<PwaMakeScooterEntity>();
+        public static List<PwaMakeBikeEntity> MapBikeMakeEntityBaseToPwaMakeScooterEntity(IEnumerable<BikeMakeEntityBase> bikeList) {
+            List<PwaMakeBikeEntity> outList = new List<PwaMakeBikeEntity>();
             foreach (var make in bikeList) {
-                outList.Add(new PwaMakeScooterEntity()
+                outList.Add(new PwaMakeBikeEntity()
                 {
                     MakeId = make.MakeId,
                     MakeName = make.MakeName,

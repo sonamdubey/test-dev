@@ -165,12 +165,12 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         {
             int _basicId;
             IEnumerable<MostPopularBikesBase> bikes;
-            PwaNewBikesListData objPwaBikeNews = new PwaNewBikesListData();
-            objPwaBikeNews.NewBikesList = new List<PwaBikeNews>();
+            PwaNewBikesListData objPwaBikeNews = new PwaNewBikesListData();            
             try
             {
                 if (int.TryParse(basicId, out _basicId))
                 {
+                    objPwaBikeNews.NewBikesList = new List<PwaBikeNews>();
                     uint cityId = 0;
                     var currentCityArea = GlobalCityArea.GetGlobalCityArea();
                     if (currentCityArea != null)
@@ -221,13 +221,13 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     if (objVersionsList.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                                     {
                                         bikeList = _bikeMakesEntity.GetScooterMakes();
-                                        PwaMakeScooterBase scooterMakeList = new PwaMakeScooterBase();
+                                        PwaMakeBikeBase scooterMakeList = new PwaMakeBikeBase();
                                         scooterMakeList.MakeList = ConverterUtility.MapBikeMakeEntityBaseToPwaMakeScooterEntity(bikeList);
                                         scooterMakeList.Heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
                                         scooterMakeList.CompleteListUrlAlternateLabel = string.Format("Popular {0} brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
                                         scooterMakeList.CompleteListUrl = "/m/scooters/";
                                         scooterMakeList.CompleteListUrlLabel = "View all";
-                                        objPwaBikeNews.BikeMakeList = new List<PwaMakeScooterBase>();
+                                        objPwaBikeNews.BikeMakeList = new List<PwaMakeBikeBase>();
                                         objPwaBikeNews.BikeMakeList.Add(scooterMakeList);
                                     }
                                 }
