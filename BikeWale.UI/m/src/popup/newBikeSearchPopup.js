@@ -22,7 +22,7 @@ var recommendedBikePopup = (function () {
 	function registerEvents() {
 	    _setSelectores();
 	    initViewModel();
-	    applyBtn.on('click', function (e) {
+	    $(document).on('click', '.refine-result__apply', function (e) {
 	        open();
 	        setTimeout(function () {
 	            $('.model-loader-list__content').hide();
@@ -51,10 +51,10 @@ var recommendedBikePopup = (function () {
 	        var checkedBoxList = $(this).closest('.refine-result__list').find('input[type="checkbox"]:checked');
 
 	        if (checkedBoxList.length) {
-	            applyBtn.prop('disabled', false);
+	            $(this).closest('.refine-result').find('.refine-result__apply').prop('disabled', false);
 	        }
 	        else {
-	            applyBtn.prop('disabled', true);
+	            $(this).closest('.refine-result').find('.refine-result__apply').prop('disabled', true);
 	        }
 	    });
 

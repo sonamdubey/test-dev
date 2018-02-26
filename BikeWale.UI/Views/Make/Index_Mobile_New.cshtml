@@ -3,7 +3,8 @@
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
-	Model.Page_JS_Paths = new [] {"/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js"};    
+    Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js" };
+    ushort index = 0, prev = 0, gap = 2, j = 0;    
 }
 
 @if (Model != null)
@@ -108,46 +109,21 @@
                         <ul class="all-model__list">
                             @foreach (var bike in Model.Bikes)
                             {
+                                if (j - prev == gap && index < Model.PageFilters.FilterResults.Count() )
+                                {
+                                    <li class="model-list__item filter-type__item" data-filter-type="@Model.PageFilters.FilterResults[index].FilterType">
+                                        @Html.Partial("~/Views/Make/_MakePageFilters_Mobile.cshtml", Model.PageFilters.FilterResults[index])
+                                    </li> 
+                                    gap++;
+                                    prev = j;
+                                    index++;
+                                    
+                                }
+                                j++;
                                 var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                 var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
 
-                                <li class="model-list__item filter-type__item" data-filter-type="mileage">
-                                    <div class="refine-result">
-                                        <h3 class="refine-result__heading">Refine Your Results</h3>
-                                        <p class="refine-result__instruction">Select a fuel economy range for your driving pattern</p>
-                                        <ul class="refine-result__list">
-                                            <li class="refine-result__list-item">
-                                                <input type="checkbox" class="refine-result__list-checkbox" name="inpageMileageFilter" id="inpageFilter1" value="1">
-                                                <label class="refine-result__checkbox-label" for="inpageFilter1">30 - 40 kmpl</label>
-                                                <span class="refine-result__text">
-                                                    Monthly running < 1200kms
-                                                </span>
-                                            </li>
-                                            <li class="refine-result__list-item">
-                                                <input type="checkbox" name="inpageMileageFilter" class="refine-result__list-checkbox" id="inpageFilter2" value="2">
-                                                <label class="refine-result__checkbox-label" for="inpageFilter2">40 - 50 kmpl</label>
-                                                <span class="refine-result__text">
-                                                    Monthly running > 1500kms
-                                                </span>
-                                            </li>
-                                            <li class="refine-result__list-item">
-                                                <input type="checkbox" name="inpageMileageFilter" class="refine-result__list-checkbox" id="inpageFilter3" value="3">
-                                                <label class="refine-result__checkbox-label" for="inpageFilter3">50 - 60 kmpl</label>
-                                                <span class="refine-result__text">
-                                                    Lowest running cost
-                                                </span>
-                                            </li>
-                                            <li class="refine-result__list-item">
-                                                <input type="checkbox" name="inpageMileageFilter" class="refine-result__list-checkbox" id="inpageFilter4" value="4">
-                                                <label class="refine-result__checkbox-label" for="inpageFilter4">60 - 65 kmpl</label>
-                                                <span class="refine-result__text">
-                                                    Lorem Ipsum
-                                                </span>
-                                            </li>
-                                        </ul>
-                                        <button type="button" id="refineResultApply" class="inv-blue--disabled btn btn-inv-blue refine-result__view-more" disabled>Apply</button>
-                                    </div>
-                                </li>
+
                                 <li class="model-list__item">
                                     <div class="model__card">
                                         <a href="@string.Format("/m{0}", modelUrl)" class="model-card__target bw-ga" title="@bikeName" data-cat="MakePage" data-act="Clicked_on_ModelCard" data-lab="@string.Format("{0}_{1}", bike.objModel.ModelId, bikeName)">
@@ -325,7 +301,7 @@
                         {
                             <div class="carousel__title">
                                 <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Showrooms</h2>
-                                <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName Showrooms in @Model.Location" class="view-all-btn">
+                                <a href="/m/dealer-showrooms/@Model.MakeMaskingName/" title="@Model.MakeName Showrooms in India" class="view-all-btn">
                                     View all
                                 </a>
                             </div>
@@ -445,7 +421,10 @@
                 <section>
                     <div class="bg-white section-bottom-margin video-section overall-tabs-data">
                         <div class="carousel__title">
-                            <h2 class="page__heading-h2">Other Brands</h2>
+                            <h2 class="page__heading-h2 carousel-title__label">Other Brands</h2>
+                            <a href="/m/new-bikes-in-india/" title="New Bikes in India" class="view-all-btn">
+                                View all
+                            </a>
                         </div>
                         <div class="swiper-container carousel__related-makes" data-spacebetween="0">
                             @Html.Partial("~/Views/Make/_OtherBrand_New.cshtml", Model.OtherMakes)
