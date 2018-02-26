@@ -47,7 +47,16 @@ var modelGallery = function () {
 	self.activePhotoTitle = ko.observable('');
 	self.activePhotoIndex = ko.observable(1);
 
-	self.activeColorIndex = ko.observable(0);
+    self.activeSwiper = ko.observable(false);
+
+    self.HideSwiperTitle = ko.observable(false);
+
+    self.galleryFooterActive = ko.observable(true);
+
+    self.activeGalleryScreenRotateSlug = ko.observable(true);
+    self.galleryColorFixedSlug = ko.observable(true);
+    self.activeGalleryColor = ko.observable(false);
+    self.ActiveLandscapeIcon = ko.observable(false);
 
 	self.photoList = ko.observableArray(modelImages);
 	self.colorPhotoList = ko.observableArray(modelColorImages);
@@ -68,6 +77,16 @@ var modelGallery = function () {
 			return ('https://imgd.aeplcdn.com/' + imageSize + '/bikewaleimg/images/noimage.png?q=70');
 		}
 	}
+    self.hideFooterTabs = function () {
+        self.galleryFooterActive(false);
+    };
+
+    self.showFooterTabs = function () {
+        self.galleryFooterActive(true);
+    };
+    self.toggleFooterTabs = function () {
+        self.galleryFooterActive() ? self.hideFooterTabs() : self.showFooterTabs();
+    };
 };
 
 var popupGallery = {
@@ -98,7 +117,7 @@ var popupGallery = {
 
 	bindGallery: function (imageIndex) {
 		triggerGA('Gallery_Page', 'Gallery_Loaded', modelName);
-		popupGallery.open();
+        //popupGallery.open();
 		//gallerySwiper.update(true);
 
 		if (returnUrl.length <= 0) {
@@ -141,10 +160,10 @@ function resizePortraitImage(element) {
 
 function resizeHandler() {
 	if (window.innerWidth > window.innerHeight) {
-		vmModelGallery.fullScreenModeActive(true);
+	    vmModelGallery.fullScreenModeActive(true);
 	}
 	else {
-		vmModelGallery.fullScreenModeActive(false);
+	    vmModelGallery.fullScreenModeActive(false);
 	}
 };
 
@@ -207,38 +226,31 @@ docReady(function () {
 		prevButton: ".gallery--prev",
 		onInit: function (swiper) {
 			swiper.slideTo(vmModelGallery.activePhotoIndex() - 1);
-			$(".model-gallery-section .model-gallery__image-title").text(
-				$("#mainPhotoSwiper .swiper-slide-active img").attr("title")
-			);
+        var activeSlide = swiper.slides[swiper.activeIndex];
+        activeSlideTitle = $(activeSlide).find('img').attr('alt');
+        vmModelGallery.activePhotoTitle(activeSlideTitle);
+
 		},
 		onClick: function (swiper) {
 			if (swiper.activeIndex < 5) {
 				gallerySlug.setColor($(swiper.slides[4]));
 			}
+				resizeHandler();
 		},
 		onTransitionStart: function (swiper) {
 			var activeSlide = swiper.slides[swiper.activeIndex];
 
 			if ($(activeSlide).hasClass('swiper-slide__slug')) {
 				$(swiper.container).find('.gallery-image__footer').hide();
-				$('.model-gallery').css({
-					'padding-bottom': 0
-				});
 			}
 			else {
 				$('.gallery-image__footer').show();
-				$('.model-gallery').css({
-					'padding-bottom': '60px'
-				});
 			}
+
 		},
 		onSlideChangeEnd: function (swiper) {
 			vmModelGallery.activePhotoIndex(swiper.activeIndex + 1);
 			logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
-			logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
-			$(".model-gallery-section .model-gallery__image-title").text(
-				$("#mainPhotoSwiper .swiper-slide-active img").attr("title")
-			);
 
 			// remove embedded slug
 			var activeSlide = swiper.slides[swiper.activeIndex];
@@ -247,6 +259,27 @@ docReady(function () {
 			if (sliderSlugSlide.length) {
 				gallerySlug.removeSlug(sliderSlugSlide);
 			}
+
+        if (swiper.activeIndex === 5) {
+            var element = $('.model-gallery__screen--rotate-slug .screen--rotate-slug__landscape-icon');
+            var elementTopPosition = ($('.gallery-image__footer').offset().top - $('.model-gallery__screen--rotate-slug').offset().top + 10);
+            var elementRightPosition = element.width() + element.offset().left - $(window).width() + $('.landscape-icon').width();
+            element.css('position', 'fixed').animate({ 'top': elementTopPosition + 'px', 'right': elementRightPosition + 'px' }, 1000, "swing");
+            $('.model-gallery__screen--rotate-slug').addClass('model-gallery__screen--rotate-slug--hide');
+            setTimeout(function () {
+                vmModelGallery.activeGalleryScreenRotateSlug(false);
+                
+
+            }, 1500);
+            vmModelGallery.ActiveLandscapeIcon(true);
+            //$('.landscape-icon__container').animate({ 'width': '40px' }, 800);
+        }
+
+        if (swiper.activeIndex === 6) {
+            vmModelGallery.activeGalleryColor(true);
+        }
+        activeSlideTitle = $(activeSlide).find('img').attr('alt');
+        vmModelGallery.activePhotoTitle(activeSlideTitle);
 		}
 	});
 
@@ -286,6 +319,16 @@ docReady(function () {
 	window.addEventListener('resize', resizeHandler, true);
 	resizeHandler();
 });
+
+function resizeHandler() {
+    if (window.innerWidth < window.innerHeight) {
+        vmModelGallery.showFooterTabs();
+    }
+    else {
+        vmModelGallery.toggleFooterTabs();
+    }
+};
+
 
 var gallerySlug = (function () {
 	function setColor(slideElement) {

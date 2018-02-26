@@ -23,48 +23,58 @@
             <h1 class="page-header">@Model.Page_H1</h1>
 
             <div class="model-gallery-section">
-                <div class="model-gallery__container">
+                <div class="model-gallery__container" data-bind="css: activeSwiper() ? 'model-gallery--relative' : ''">
                     <div id="mainPhotoSwiper" class="swiper-container noSwiper model-gallery">
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
                                 <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                             </div>
                         </div>
-                        <div class="bwmsprite swiper-button-next gallery--next"></div>
-                        <div class="bwmsprite swiper-button-prev gallery--prev"></div>
-                        <div class="gallery-footer__content">
-													<div class="gallery-image__footer" data-visible="rotate">
-                            <div class="gallery-image__left-section">
-                                <span class="gallery-image__count">
-                                    <span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
-                                </span>
-                                <h2 class="model-gallery__image-title"></h2>
+                        <div class="gallery--next"></div>
+                        <div class="gallery--prev"></div>
+                        <div class="gallery-footer" data-bind="visible: galleryFooterActive()">
+                            <div class="gallery-footer__content">
+                                <div class="gallery-image__footer" data-visible="color">
+                                    <div class="gallery-image__left-section">
+                                        <span class="gallery-image__count">
+                                            <span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
+                                        </span>
+                                        <h2 class="model-gallery__image-title" data-bind="text: activePhotoTitle(), css: (HideSwiperTitle() == false) ? 'inline': 'hide'"></h2>
+                                    </div>
+                                    <span class="gallery-image__color" data-bind="attr:{'data-visible': activeGalleryColor() && galleryColorFixedSlug() && activeSwiper()? '0': '1'}">
+                                        colors
+                                    </span>
+                                    <div class="gallery-image__feature">
+                                        <a href="" title="" class="gallery__download-icon"></a>
+                                        <a href="" title="" class="share-icon"></a>
+                                        <a href="" title="" class="zoom-icon"></a>
+                                        <a href="" title="" class="landscape-icon__container" data-bind="attr: { 'data-visible': ActiveLandscapeIcon() && activeSwiper() ? '0': '1' }">
+                                            <span class="landscape-icon" data-bind="visible: activeGalleryScreenRotateSlug()==false"></span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <span class="gallery-image__color" data-fixed="0">
-                                colors
-                            </span>
-                            <div class="gallery-image__feature">
-                                <a href="" title="" class="gallery__download-icon"></a>
-                                <a href="" title="" class="share-icon"></a>
-                                <a href="" title="" class="zoom-icon"></a>
-                                <a href="" title="" class="landscape-icon"></a>
-                            </div>
-                        	</div>
-												</div>
+
+                        </div>
+
                     </div>
 
                 </div>
-                <a href="" title="" class="model-gallery__screen--rotate-slug">
+                <div  class="model-gallery__screen--rotate-slug" data-bind="attr: { 'data-visible': activeGalleryScreenRotateSlug() && activeSwiper()? '0': '1' }">
                     <span class="landscape-text">
                         Switch to Landscape for better Experience
                     </span>
-                    <span class="screen--rotate-slug__landscape-icon"></span>
-                </a>
+                    <span class="screen--rotate-slug__landscape-container">
+                        <span class="screen--rotate-slug__landscape-icon"></span>
+                    </span>
+
                 </div>
-            <div class="black-window">
-                @*<div class="gallery-color--fixed">
+                <div class="gallery-color--fixed" data-bind="attr:{'data-visible': activeSwiper() && activeGalleryColor() && galleryColorFixedSlug()? '0': '1'}">
                     see colors images
-                </div>*@
+                </div>
+                </div>
+            <div class="black-window" data-bind="visible: activeSwiper()">
+
             </div>
 
 						<div id="colorGalleryPopup" class="color-popup__content">
