@@ -1,6 +1,8 @@
 ﻿/* Recommended bike popup */
 
 var vmRecommendedBikes;
+
+
 var recommendedBikePopup = (function () {
 	var applyBtn, popup, appliedFilterList, container, closeBtn;
 
@@ -237,6 +239,8 @@ var RecommendedBikes = function () {
     self.budgetSlider = ko.observable();
     self.budgetStepPoints = ko.observable();
 
+    self.searchFilter = { displacement: [], mileage: [], power: [], priceRange: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "" };
+
     self.budgetSlider.subscribe(function (value) {
         var minBuget = self.budgetSlider()[0];
         var maxBuget = self.budgetSlider()[1];
@@ -244,6 +248,7 @@ var RecommendedBikes = function () {
         var amountPreview = self.getBudgetAmount(self.budgetSlider());
         self.budgetAmountPreview(amountPreview);
         self.Filters()['budget'] = self.budgetStepPoints()[minBuget] + '+' + self.budgetStepPoints()[maxBuget];
+        self.FiltersValue()['budget'] = self.budgetStepPoints()[minBuget] + '+' + self.budgetStepPoints()[maxBuget];
     });
 
     self.getQueryString = function () {
@@ -265,8 +270,9 @@ var RecommendedBikes = function () {
         return query;
     };
 
-    self.Filters = ko.observable(self.getQueryString());
 
+    self.Filters = ko.observable(self.getQueryString());
+    self.FiltersValue = ko.observable(self.getQueryString());
     // generate budget step points
     self.getBudgetStepPoints = function () {
         var stepPoints = [];
@@ -327,10 +333,12 @@ var RecommendedBikes = function () {
 
         var activeElements = filterTypeContainer.find('.check-box--active');
         var activeElementList = '';
+        var activeFiltersList = '';
         var selectionPreview = '';
 
         activeElements.each(function (index) {
             activeElementList += '+' + $(this).attr('data-value');
+            activeFiltersList += '+' + $(this).attr('data-valueText');
             if (index) {
                 selectionPreview += ', ';
             }
@@ -338,6 +346,7 @@ var RecommendedBikes = function () {
         });
 
         self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
+        self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeFiltersList.substr(1);
         filterTypeContainer.find('.accordion-head__preview').text(selectionPreview);
     }
 
@@ -394,16 +403,72 @@ var RecommendedBikes = function () {
     self.UpdateFilters = function (filterTypeContainer) {
         var activeElements = filterTypeContainer.find('input[type="checkbox"]:checked');
         var activeElementList = '';
+        var activeFiltersList = '';
 
         activeElements.each(function (index) {
             activeElementList += '+' + $(this).val();
         });
 
         self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
+    //    self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
     };
+
+    self.GetFilteredData = function () {
+        try
+        {
+            if (self.FiltersValue() != null) {
+                var displacement = self.FiltersValue().displacement;
+                var budget = self.FiltersValue().budget;
+                var bodyType = self.FiltersValue().bodyType; // string of all bodytypes
+                var mileage = self.FiltersValue().mileage;
+                var power = self.FiltersValue().power;
+            }
+
+
+            if (displacement != undefined) {
+                self.searchFilter.displacement = new getMinMaxLimitsList(displacement);
+            }
+
+            if (mileage != undefined) {
+                self.searchFilter.mileage = new getMinMaxLimitsList(mileage);
+            }
+            if (power != undefined) {
+                self.searchFilter.power = new getMinMaxLimitsList(power);
+            }
+
+            if (budget != undefined) {
+                self.searchFilter.priceRange = new getMinMaxLimits(budget);
+            }
+            self.searchFilter.bodyStyle = (bodyType != undefined ? bodyType.split('+') : null)
+
+
+            $.ajax({
+                type: "POST",
+                url: "/api/newbikesearch/",
+                contentType: "application/json",
+                data: ko.toJSON(self.searchFilter),
+                success: function (response) {
+
+                },
+                error: function (request, status, error){
+
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+
+                }
+            });
+        }
+        catch (e) {
+            console.warn("GetFilteredData error : " + e.message);
+        }
+        
+
+    }
+
 
     self.ApplyFilters = function () {
         self.SetPageFilters();
+        self.GetFilteredData();
         BikeFiltersPopup.close();
         window.history.back();
     };
@@ -416,6 +481,7 @@ var RecommendedBikes = function () {
     self.SetCheckboxSelection = function (targetElement) {
         $('#appliedFilterList').append('<li data-id="' + targetElement.attr("id") + '" class="filter-list__item"><span class="filter-item">' + targetElement.find('.check-box__label').text() + '</span></li>');
     };
+
 };
 
 function convertAmount(amount, rupeeIcon) {
@@ -431,5 +497,44 @@ function convertAmount(amount, rupeeIcon) {
     }
 
     return amount;
+}
+
+function getMinMaxLimitsList(range) {
+    var filterArray = {};
+    if (range != undefined) {
+        var selectedRangeList = range.split('+');
+    }
+   
+    if (selectedRangeList != null)
+    {
+        $.each(selectedRangeList, function (i, val) {
+            var filterPair = val.split('-');
+            maxMinLimits = {
+                minValue: filterPair[0],
+                maxValue: filterPair[1]
+
+            }
+            filterArray[i] = maxMinLimits;
+        });
+
+    }
+    
+    return filterArray;
+}
+
+
+function getMinMaxLimits(range) {
+    if (range != undefined) {
+        var selectedRangeList = range.split('+').map(Number);
+    }
+    if (selectedRangeList != null)
+    {
+        maxMinLimits= {
+            minValue: selectedRangeList[0],
+            maxValue: selectedRangeList[1]
+        }
+    }
+   
+    return maxMinLimits;
 }
 

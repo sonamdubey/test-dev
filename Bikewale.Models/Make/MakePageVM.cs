@@ -3,6 +3,7 @@ using Bikewale.Entities.Filters;
 using Bikewale.Entities.Location;
 using Bikewale.Models.Images;
 using Bikewale.Models.Make;
+using Bikewale.Models.NewBikeSearch;
 using Bikewale.Models.PopUp;
 using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
@@ -52,6 +53,8 @@ namespace Bikewale.Models
     /// Description : Replaced BikeModelsPhotos with BikeModelsPhotos
     /// Modified by : Snehal Dange on 20th Feb 2018
     /// Description: Added PageFilters
+    /// Modified by : Snehal Dange on 26th Feb 2018
+    /// Description: Added NewBikeSearchPopup
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -109,5 +112,6 @@ namespace Bikewale.Models
 
         public NewLaunchedWidgetVM NewLaunchedWidget { get; set; }
         public FilterPageEntity PageFilters { get; set; }
+        public NewBikeSearchPopupVM NewBikeSearchPopup { get; set; }
     }
 }
