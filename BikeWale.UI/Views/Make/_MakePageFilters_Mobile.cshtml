@@ -16,8 +16,8 @@
                 if (Model.RangeList[0] != null)
                 {
 
-                    <li class="refine-result__list-item">
-                        <input type="checkbox" class="refine-result__list-checkbox" name="inpageFilter" id="@inputId[0]" value="1">
+                    <li class="refine-result__list-item" data-filter-type="@Model.FilterType">
+                        <input type="checkbox" class="refine-result__list-checkbox" name="inpageFilter" id="@inputId[0]" data-valuetext="@string.Format("{0}-{1}", 0, Model.RangeList[0])" value="1">
                         <label class="refine-result__checkbox-label" for="@inputId[0]">
                             Less than
 
@@ -39,8 +39,8 @@
 
                 if (Model.RangeList[0] != null && Model.RangeList[1] != null)
                 {
-                    <li class="refine-result__list-item">
-                        <input type="checkbox" name="inpageFilter" class="refine-result__list-checkbox" id="@inputId[1]" value="2">
+                    <li class="refine-result__list-item" data-filter-type="@Model.FilterType">
+                        <input type="checkbox" name="inpageFilter" class="refine-result__list-checkbox" id="@inputId[1]" data-valuetext="@string.Format("{0}-{1}", Model.RangeList[0], Model.RangeList[1])" value="2">
                         <label class="refine-result__checkbox-label" for="@inputId[1]">
                             @if (Model.FilterType == "budget")
                             {
@@ -59,8 +59,8 @@
 
                 if (Model.RangeList[1] != null && Model.RangeList[2] != null)
                 {
-                    <li class="refine-result__list-item">
-                        <input type="checkbox" name="inpageFilter" class="refine-result__list-checkbox" id="@inputId[2]" value="3">
+                    <li class="refine-result__list-item" data-filter-type="@Model.FilterType">
+                        <input type="checkbox" name="inpageFilter" class="refine-result__list-checkbox" id="@inputId[2]" value="3" data-valuetext="@string.Format("{0}-{1}", Model.RangeList[1], Model.RangeList[2])">
                         <label class="refine-result__checkbox-label" for="@inputId[2]">
 
 
@@ -79,8 +79,8 @@
 
                 if (Model.RangeList[2] != null)
                 {
-                    <li class="refine-result__list-item">
-                        <input type="checkbox" name="inpageFilter" class="refine-result__list-checkbox" id="@inputId[3]" value="4">
+                    <li class="refine-result__list-item" data-filter-type="@Model.FilterType">
+                        <input type="checkbox" name="inpageFilter" class="refine-result__list-checkbox" id="@inputId[3]" value="4" data-valuetext="@string.Format("{0}-{1}", Model.RangeList[2],0)">
                         <label class="refine-result__checkbox-label" for="@inputId[3]">
                             More than
 

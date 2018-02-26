@@ -407,10 +407,13 @@ var RecommendedBikes = function () {
 
         activeElements.each(function (index) {
             activeElementList += '+' + $(this).val();
+            activeFiltersList += '+' + $(this).data("valuetext");
+
         });
 
         self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
-    //    self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
+        self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeFiltersList.substr(1);
+        self.ApplyInPageFilters();
     };
 
     self.GetFilteredData = function () {
@@ -472,6 +475,10 @@ var RecommendedBikes = function () {
         BikeFiltersPopup.close();
         window.history.back();
     };
+
+    self.ApplyInPageFilters = function () {
+        self.GetFilteredData();
+    }
 
     self.setBudgetSelection = function () {
         var amountPreview = self.getBudgetAmount(self.budgetSlider());
