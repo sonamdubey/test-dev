@@ -6,6 +6,6 @@ namespace Bikewale.Interfaces.NewBikeSearch
 {
     public interface IBikeSearch
     {
-        IEnumerable<BikeModelDocument> GetBikeSearch(SearchFilters filters, BikeSearchEnum source, int noOfRecords = 0); 
+        IEnumerable<BikeModelDocument> GetBikeSearch(SearchFilters filters);
     }
 }

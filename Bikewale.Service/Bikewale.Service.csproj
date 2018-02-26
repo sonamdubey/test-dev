@@ -381,7 +381,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Model\NewBikeSearch\BikeSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TCAPI\AutoBizAdaptor.cs" />
     <Compile Include="TCAPI\TCApi_Inquiry.cs" />
