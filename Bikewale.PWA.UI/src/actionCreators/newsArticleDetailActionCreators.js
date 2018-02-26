@@ -1,17 +1,23 @@
 import {newsDetailAction,newBikesListAction,modelObjectAction} from  '../actionTypes/actionTypes'
 
 import {isInt } from '../utils/commonUtils'
-import {refreshGPTAds} from '../utils/googleAdUtils'
+import { refreshGPTAds } from '../utils/googleAdUtils'
+import { extractPageCategoryFromURL } from '../components/News/NewsCommon'
 
 var fetchNewsArticleDetail = function(articleInitialData) {
 	
 	return function(dispatch) {	
-		
+        var page = extractPageCategoryFromURL();
 		var url = null;
 		if(articleInitialData) {
 			if(isInt(articleInitialData)) {
-				dispatch({type:newsDetailAction.FETCH_NEWSDETAIL});
-				url = '/api/pwa/cms/id/'+articleInitialData+'/page/';
+                dispatch({ type: newsDetailAction.FETCH_NEWSDETAIL });
+                if (page == "news") {
+                    url = '/api/pwa/cms/id/' + articleInitialData + '/page/';
+                }
+                else {
+                    url = 'api/pwa/cms/id/' + articleInitialData + '/pages/';
+                }
 			}
 			else {
 				dispatch({type:newsDetailAction.FETCH_NEWSDETAIL_WITH_INITIAL_DATA,payload:articleInitialData});
