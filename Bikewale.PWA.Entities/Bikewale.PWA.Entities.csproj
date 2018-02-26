@@ -113,8 +113,9 @@
     <Compile Include="EditCms\Articles\PwaArticleDetails.cs" />
     <Compile Include="EditCms\Articles\PwaArticleBase.cs" />
     <Compile Include="EditCms\Articles\PwaBikeInfoUsedBikeDetails.cs" />
-    <Compile Include="EditCms\Articles\PwaBikeMakeEntity.cs" />
     <Compile Include="EditCms\Articles\PwaBikeRating.cs" />
+    <Compile Include="EditCms\Articles\PwaMakeScooterBase.cs" />
+    <Compile Include="EditCms\Articles\PwaMakeScooterEntity.cs" />
     <Compile Include="EditCms\Articles\PwaNewsReducer.cs" />
     <Compile Include="EditCms\Articles\PwaBikeCms.cs" />
     <Compile Include="EditCms\Articles\PwaBikeDetails.cs" />

@@ -346,7 +346,7 @@ namespace Bikewale.Models
             }
 
             objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.NewBikesList = objPwaBikes;
-            objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.BikeMakeList = new List<PwaBikeMakeEntity>();
+            objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.BikeMakeList = new List<PwaMakeScooterBase>();
         }
 
         /// <summary>

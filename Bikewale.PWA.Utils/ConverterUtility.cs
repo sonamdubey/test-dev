@@ -158,6 +158,21 @@ namespace Bikewale.PWA.Utils
             }
             return outList;
         }
+        public static List<PwaMakeScooterEntity> MapBikeMakeEntityBaseToPwaMakeScooterEntity(IEnumerable<BikeMakeEntityBase> bikeList) {
+            List<PwaMakeScooterEntity> outList = new List<PwaMakeScooterEntity>();
+            foreach (var make in bikeList) {
+                outList.Add(new PwaMakeScooterEntity()
+                {
+                    MakeId = make.MakeId,
+                    MakeName = make.MakeName,
+                    MaskingName = make.MaskingName,
+                    IsScooterOnly = make.IsScooterOnly,
+                    TotalCount = make.TotalCount
+                }
+                );
+            }
+            return outList;
+        }
         /// <summary>
         /// Converts the list of upcoming bikes to the list of PwaBikeDetails for the given city
         /// </summary>

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PWA.Articles
 {
@@ -46,10 +48,13 @@ namespace Bikewale.Entities.PWA.Articles
     ///  Modified by : Ashutosh Sharma on 23 Feb 2018
     ///  Description : Added BikeMakeList.
     /// </summary>
+    [Serializable, DataContract]
     public class PwaNewBikesListData
     {
+        [DataMember]
         public List<PwaBikeNews> NewBikesList { get; set; }
-        public IEnumerable<PwaBikeMakeEntity> BikeMakeList { get; set; }
+        [DataMember]
+        public List<PwaMakeScooterBase> BikeMakeList { get; set; }
     }
 
     /// <summary>
