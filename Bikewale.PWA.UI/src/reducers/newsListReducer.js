@@ -1,7 +1,7 @@
 import {fromJS} from 'immutable'
 import {newsListAction,newBikesListAction} from '../actionTypes/actionTypes'
 import {refreshGPTAds} from '../utils/googleAdUtils'
-import {extractPageNoFromURL} from '../components/News/NewsCommon'
+import {extractPageNoFromURL, extractPageCategoryFromURL} from '../components/News/NewsCommon'
 import { NewsArticlesPerPage , Status } from '../utils/constants'
 import {triggerPageView} from '../utils/analyticsUtils'
 import {startTimer} from '../utils/timing'
@@ -58,7 +58,11 @@ export function NewsArticleListReducer(state,action) {
 		switch(action.type) {
 			case newsListAction.FETCH_NEWSLIST:
 				// refreshGPTAds(); // trigger refresh when 1st api is called as at this point the required ads will be mounted
-				document.title = 'Bike News - Latest Indian Bike News &amp; Views | BikeWale';
+				var pageCategory = extractPageCategoryFromURL();
+				if(pageCategory == "news")
+					document.title = 'Bike News - Latest Indian Bike News & Views | BikeWale';
+				else
+					document.title = 'Expert Bike Reviews India - Bike Comparison & Road Tests - BikeWale';
 				startTimer(1,2); // 1 api (set of 2) + 2 ads
 				return state.setIn(['ArticleListData'] ,  fromJS({
 							Status : Status.IsFetching,

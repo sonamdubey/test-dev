@@ -10,6 +10,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Models;
 using Bikewale.Notifications;
 using Bikewale.PWA.Entities.Photos;
 using Bikewale.PWA.Utils;
@@ -36,7 +37,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
     /// </summary>
     public class PwaCMSController : CompressionApiController//ApiController
     {
-
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
         private readonly IPager _pager = null;
         private readonly ICMSCacheContent _CMSCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModelEntity = null;
@@ -57,7 +58,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             IUpcoming upcoming,
             IBikeMakesCacheRepository bikeMakesEntity,
             IBikeInfo bikeInfo,
-            ICityCacheRepository cityCacheRepository, IArticles articles)
+            ICityCacheRepository cityCacheRepository, IArticles articles,
+            IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
             _pager = pager;
             _CMSCache = cmsCache;
@@ -68,6 +70,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             _bikeInfo = bikeInfo;
             _cityCacheRepository = cityCacheRepository;
             _articles = articles;
+            _objBikeVersionsCache = objBikeVersionsCache;
         }
 
 
@@ -157,16 +160,17 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>Two Lists of Bikes</returns>
-        [ResponseType(typeof(List<PwaBikeNews>)), Route("api/pwa/cms/bikelists/id/{basicId}/page/")]
+        [ResponseType(typeof(PwaNewBikesListData)), Route("api/pwa/cms/bikelists/id/{basicId}/page/")]
         public IHttpActionResult GetBikeListsForEditCms(string basicId)
         {
             int _basicId;
             IEnumerable<MostPopularBikesBase> bikes;
-            List<PwaBikeNews> objPwaBikeNews = new List<PwaBikeNews>();
+            PwaNewBikesListData objPwaBikeNews = new PwaNewBikesListData();            
             try
             {
                 if (int.TryParse(basicId, out _basicId))
                 {
+                    objPwaBikeNews.NewBikesList = new List<PwaBikeNews>();
                     uint cityId = 0;
                     var currentCityArea = GlobalCityArea.GetGlobalCityArea();
                     if (currentCityArea != null)
@@ -204,27 +208,45 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
                                 }
                                 popularBikes.CompleteListUrlLabel = "View all";
-
-                                objPwaBikeNews.Add(popularBikes);
+                                objPwaBikeNews.NewBikesList.Add(popularBikes);
                             }
 
                             popularBikes = null;
                             if (modelId > 0)
-                            {
-
-                                bikes = _objModelCache.GetMostPopularBikesByModelBodyStyle((int)modelId, 9, cityId);
-
-                                if (bikes != null && bikes.Any())
+                            {                               
+                                List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(modelId, false);
+                                if (objVersionsList != null && objVersionsList.Count > 0 && objVersionsList.FirstOrDefault() != null)
                                 {
-                                    popularBikes = new PwaBikeNews();
-                                    var bodyStyle = bikes.FirstOrDefault().BodyStyle;
-                                    popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
-                                    popularBikes.Heading = string.Format("Popular {0}", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
-                                    popularBikes.CompleteListUrlAlternateLabel = string.Format("Best {0} in India", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
-                                    popularBikes.CompleteListUrl = "/m" + UrlFormatter.FormatGenericPageUrl(bodyStyle);
-                                    popularBikes.CompleteListUrlLabel = "View all";
-                                    objPwaBikeNews.Add(popularBikes);
+                                    IEnumerable<BikeMakeEntityBase> bikeList = null;
+                                    if (objVersionsList.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
+                                    {
+                                        bikeList = _bikeMakesEntity.GetScooterMakes();
+                                        PwaMakeBikeBase scooterMakeList = new PwaMakeBikeBase();
+                                        scooterMakeList.MakeList = ConverterUtility.MapBikeMakeEntityBaseToPwaMakeScooterEntity(bikeList);
+                                        scooterMakeList.Heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
+                                        scooterMakeList.CompleteListUrlAlternateLabel = string.Format("Popular {0} brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
+                                        scooterMakeList.CompleteListUrl = "/m/scooters/";
+                                        scooterMakeList.CompleteListUrlLabel = "View all";
+                                        objPwaBikeNews.BikeMakeList = new List<PwaMakeBikeBase>();
+                                        objPwaBikeNews.BikeMakeList.Add(scooterMakeList);
+                                    }
                                 }
+                                else {
+                                    bikes = _objModelCache.GetMostPopularBikesByModelBodyStyle((int)modelId, 9, cityId);
+
+                                    if (bikes != null && bikes.Any())
+                                    {
+                                        popularBikes = new PwaBikeNews();
+                                        var bodyStyle = bikes.FirstOrDefault().BodyStyle;
+                                        popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
+                                        popularBikes.Heading = string.Format("Popular {0}", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
+                                        popularBikes.CompleteListUrlAlternateLabel = string.Format("Best {0} in India", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
+                                        popularBikes.CompleteListUrl = "/m" + UrlFormatter.FormatGenericPageUrl(bodyStyle);
+                                        popularBikes.CompleteListUrlLabel = "View all";
+                                        objPwaBikeNews.NewBikesList.Add(popularBikes);
+                                    }
+                                }
+
                             }
                             else
                             {
@@ -254,7 +276,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                 upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
                                 upcomingBikes.CompleteListUrlLabel = "View all";
                                 if (upcomingBikes.BikesList != null)
-                                    objPwaBikeNews.Add(upcomingBikes);
+                                    objPwaBikeNews.NewBikesList.Add(upcomingBikes);
                             }
                         }
 
@@ -272,7 +294,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                             popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
                             popularBikes.CompleteListUrlLabel = "View all";
                             popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
-                            objPwaBikeNews.Add(popularBikes);
+                            objPwaBikeNews.NewBikesList.Add(popularBikes);
                         }
 
                         UpcomingBikesListInputEntity filters = new UpcomingBikesListInputEntity();
@@ -287,7 +309,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                             upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
                             upcomingBikes.CompleteListUrlLabel = "View all";
                             upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(tempbikes, currentCityArea.City);
-                            objPwaBikeNews.Add(upcomingBikes);
+                            objPwaBikeNews.NewBikesList.Add(upcomingBikes);
                         }
 
                     }
@@ -297,7 +319,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                 else
                 {
-                    BadRequest();
+                    return BadRequest();
                 }
             }
             catch (Exception ex)
@@ -306,9 +328,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                 return InternalServerError();
             }
-            return NotFound();
         }  //get News Details
-
         /// <summary>
         /// Created by : Aditi Srivastava on 29 Mar 2017
         /// Summary    : Get tagged make in article
@@ -421,7 +441,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     cityDetails = objCityList.FirstOrDefault(c => c.CityId == cityId);
                                 }
 
-                                objBikeInfo.Tabs = BindInfoWidgetDatas(objBikeInfo, cityDetails, 3, BikeInfoTabType.News);
+                                objBikeInfo.Tabs = BindInfoWidgetDatas(objBikeInfo, cityDetails, 3, BikeInfoTabType.News,articleDetails.CategoryId);
 
                                 outBikeInfo = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objBikeInfo, cityDetails);
                             }
@@ -431,7 +451,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                 }
                 else
                 {
-                    BadRequest();
+                    return BadRequest();
                 }
             }
             catch (Exception ex)
@@ -440,11 +460,14 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                 return InternalServerError();
             }
-            return NotFound();
         }  //get News Details
 
+        /// <summary>
+        /// Modified By : Pratibha Verma on 26 Feb, 2018
+        /// Summary : Added parameter categoryId to remove user review from Expert Review Details
+        /// </summary>
         private ICollection<BikeInfoTab> BindInfoWidgetDatas(GenericBikeInfo _genericBikeInfo, CityEntityBase cityDetails,
-            uint totalTabCount, BikeInfoTabType pageId)
+            uint totalTabCount, BikeInfoTabType pageId, uint categoryId)
         {
             ICollection<BikeInfoTab> tabs = null;
             try
@@ -510,7 +533,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         Tab = BikeInfoTabType.Specs
                     });
                 }
-                if (_genericBikeInfo.UserReview > 0)
+                if (_genericBikeInfo.UserReview > 0 && categoryId != 2)
                 {
                     tabs.Add(new BikeInfoTab()
                     {
