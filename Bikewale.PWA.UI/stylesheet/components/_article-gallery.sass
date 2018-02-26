@@ -1,0 +1,89 @@
+.article-gallery-container
+	width: 100%
+	height: 100%
+	position: fixed
+	top: 0
+	left: 110%
+	z-index: 10
+	overflow-y: scroll
+	background: #000
+
+	&.gallery--active
+		left: 0
+
+.gallery__heading
+	width: 80%
+	position: relative
+	top: 10px
+	left: 10px
+	font-size: 16px
+	color: #fff
+
+.gallery__close
+	width: 24px
+	height: 24px
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/cross.svg') no-repeat center
+	background-size: 13px
+	position: absolute
+	top: 10px
+	right: 10px
+	cursor: pointer
+
+.gallery__body
+	width: 100%
+	max-width: 476px
+	height: auto
+	margin: 0 auto
+	position: absolute
+	top: 20%
+	left: 0
+	right: 0
+
+.gallery-body__header
+	color: #fff
+	font-size: 14px
+	margin-bottom: 15px
+
+.gallery-slider__title
+	width: 75%
+	text-align: left
+	white-space: nowrap
+	overflow: hidden
+	text-overflow: ellipsis
+	padding-left: 10px
+	padding-right: 10px
+	float: left
+
+.gallery-slider__count
+	width: 25%
+	text-align: right
+	padding-right: 10px
+	float: right
+
+.clear
+	clear: both
+
+.article-gallery-container
+	.slider__main
+		margin-bottom: 15px
+
+// override slick css
+.slider__thumbnail
+	.slick-slide
+		height: 52px
+		margin-left: 10px
+
+		&:first-child
+			margin-left: 0
+
+		img
+			height: 50px
+
+.slider__main,
+.slider__thumbnail
+	.slick-prev,
+	.slick-next
+		width: 26px
+		height: 43px
+		background-color: #fff
+		border: 1px solid #e6e6e6

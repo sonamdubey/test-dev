@@ -20,6 +20,8 @@ import {endTimer} from '../../utils/timing'
 import AdUnit from '../AdUnit'
 import { Status, GA_PAGE_MAPPING,AD_PATH_NEWS_MOBILE_BOTTOM_320_50, AD_DIV_REVIEWS_BOTTOM_320_50, AD_PATH_NEWS_MOBILE_TOP_320_50, AD_DIV_REVIEWS_TOP_320_50, AD_DIMENSION_320_50} from '../../utils/constants'
 
+import ArticleDetailImageCarousel from './ArticleDetailImageCarousel'
+import CarouselBrand from '../Shared/CarouselBrand'
 
 class ArticleDetail extends React.Component {
     propTypes : {
@@ -50,17 +52,17 @@ class ArticleDetail extends React.Component {
         if(typeof(gaObj)!="undefined")
         {
             gaObj = GA_PAGE_MAPPING["DetailsPage"];
-        }  
-    }
+				}
+		}		
     componentDidUpdate() {
         var basicIdFromData = this.props.ArticleDetailData && this.props.ArticleDetailData.ArticleDetail ? this.props.ArticleDetailData.ArticleDetail.BasicId : null;
         var basicIdFromUrl = this.props.match.params["basicId"] ? this.props.match.params["basicId"] : -1  ;
         if(basicIdFromData == basicIdFromUrl) {
             this.logger();
             this.scrollToPosition();
-        }
-        
-    }
+				}
+		}
+		
     componentDidMount() {    
 
         this.logger();
@@ -93,9 +95,8 @@ class ArticleDetail extends React.Component {
         if(isBrowserWithoutScrollSupport()) {
             window.scrollTo(0, 0); 
         }
-        
+		}
 
-    }
     componentWillReceiveProps (nextProps) {
         try {
             var prevUrlParam = this.props.match.params;
@@ -198,6 +199,7 @@ class ArticleDetail extends React.Component {
                     </div>
                     {this.renderModelSlug()}
                     <SocialMediaSlug/>
+										<ArticleDetailImageCarousel />
                     <ArticleDetailPagination prevArticle={articleDetail.PrevArticle} nextArticle={articleDetail.NextArticle} onArticlePaginationClickEvent={this.onArticlePaginationClickEvent.bind(this)}/>
                 </div>                        
             )
@@ -254,7 +256,12 @@ class ArticleDetail extends React.Component {
         else {
             return false;
         }
-    }
+		}
+		renderPopularBrandList() {
+			return (
+				<CarouselBrand />
+			)
+		}
     render() {
          
         var componentData = this.props.ArticleDetailData;
@@ -306,8 +313,8 @@ class ArticleDetail extends React.Component {
         	adSlotBottom = <AdUnit uniqueKey={articleDetail.Title} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50} />;
         }
 
-        var documentTitle = (articleInitialData.Title == "") ?"BikeWale News" : (articleInitialData.Title + " - BikeWale News");
-       
+				var documentTitle = (articleInitialData.Title == "") ?"BikeWale News" : (articleInitialData.Title + " - BikeWale News");
+			 
         return (
             <div>
 
@@ -319,7 +326,8 @@ class ArticleDetail extends React.Component {
                         {this.renderArticleContent(articleDetail,articleInitialData)}
                     </div>
                 </div>
-                {this.renderNewBikesList()}
+								{this.renderPopularBrandList()}
+								{this.renderNewBikesList()}
                 <div className="margin-bottom15">
                     {adSlotBottom}
                 </div>
