@@ -1,12 +1,7 @@
-﻿using System;
+﻿using Bikewale.Common;
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Web;
-using Enyim.Caching;
-using Enyim.Caching.Memcached;
-using System.Configuration;
-using System.Data;
-using Bikewale.Common;
 
 namespace Bikewale.Memcache
 {
@@ -38,7 +33,7 @@ namespace Bikewale.Memcache
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return modelId;
@@ -53,13 +48,13 @@ namespace Bikewale.Memcache
 
                 Hashtable ht = objCache.GetHashTable("BW_TopVersionId");
 
-                versionId = Convert.ToInt32(ht[mappingName]);
+                versionId = Utility.SqlReaderConvertor.ToInt32(ht[mappingName]);
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return versionId;
         }

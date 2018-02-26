@@ -518,7 +518,7 @@ namespace Bikewale.Models
             try
             {
                 topBikeList = new List<string>();
-                if (objModelList != null)
+                if (objModelList != null && objModelList.Any())
                 {
                     if (objModelList.Any())
                     {
