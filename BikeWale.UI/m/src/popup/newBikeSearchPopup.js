@@ -2,11 +2,6 @@
 
 var vmRecommendedBikes;
 
-var searchFilter = { displacement: [], mileage: [], power: [], priceRange: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "" };
-
-var maxMinLimits = { minValue: "" , maxValue: ""};
-
-var makeId = $('#makeId').val();
 
 var recommendedBikePopup = (function () {
 	var applyBtn, popup, appliedFilterList, container, closeBtn;
@@ -244,6 +239,8 @@ var RecommendedBikes = function () {
     self.budgetSlider = ko.observable();
     self.budgetStepPoints = ko.observable();
 
+    self.searchFilter = { displacement: [], mileage: [], power: [], priceRange: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "" };
+
     self.budgetSlider.subscribe(function (value) {
         var minBuget = self.budgetSlider()[0];
         var maxBuget = self.budgetSlider()[1];
@@ -272,6 +269,7 @@ var RecommendedBikes = function () {
         }
         return query;
     };
+
 
     self.Filters = ko.observable(self.getQueryString());
     self.FiltersValue = ko.observable(self.getQueryString());
@@ -416,50 +414,54 @@ var RecommendedBikes = function () {
     };
 
     self.GetFilteredData = function () {
-        if (self.FiltersValue() != null)
+        try
         {
-            var displacement = self.FiltersValue().displacement;
-            var budget = self.FiltersValue().budget;
-            var bodyType = self.FiltersValue().bodyType; // string of all bodytypes
-            var mileage = self.FiltersValue().mileage;
-            var power = self.FiltersValue().power;
-        }
-      
-
-        if (displacement != undefined)
-        {
-            var displacementLimits = new getMinMaxLimitsList(displacement);
-        }
-      
-        if (mileage!= undefined)
-        {
-            var mileageLimits = new getMinMaxLimitsList(mileage);
-        }
-        if (power != undefined)
-        {
-            var powerLimits = new getMinMaxLimitsList(power);
-        }
-
-        if (budget != undefined)
-        {
-            var budgetLimits = new getMinMaxLimits(budget);
-        }
-        var bodyTypeList = (bodyType != undefined ? bodyType.split('+') : null)
-
-        var allSelectedFilters = setAllFilters(displacementLimits, budgetLimits, mileageLimits, powerLimits, bodyTypeList);
-
-        $.ajax({
-            type: "POST",
-            url: "/api/newbikesearch/",
-            contentType: "application/json",
-            data: ko.toJSON(allSelectedFilters),
-            success: function (response) {
-                
-            },
-            complete: function (xhr, ajaxOptions, thrownError) {
-            
+            if (self.FiltersValue() != null) {
+                var displacement = self.FiltersValue().displacement;
+                var budget = self.FiltersValue().budget;
+                var bodyType = self.FiltersValue().bodyType; // string of all bodytypes
+                var mileage = self.FiltersValue().mileage;
+                var power = self.FiltersValue().power;
             }
-        });
+
+
+            if (displacement != undefined) {
+                self.searchFilter.displacement = new getMinMaxLimitsList(displacement);
+            }
+
+            if (mileage != undefined) {
+                self.searchFilter.mileage = new getMinMaxLimitsList(mileage);
+            }
+            if (power != undefined) {
+                self.searchFilter.power = new getMinMaxLimitsList(power);
+            }
+
+            if (budget != undefined) {
+                self.searchFilter.priceRange = new getMinMaxLimits(budget);
+            }
+            self.searchFilter.bodyStyle = (bodyType != undefined ? bodyType.split('+') : null)
+
+
+            $.ajax({
+                type: "POST",
+                url: "/api/newbikesearch/",
+                contentType: "application/json",
+                data: ko.toJSON(self.searchFilter),
+                success: function (response) {
+
+                },
+                error: function (request, status, error){
+
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+
+                }
+            });
+        }
+        catch (e) {
+            console.warn("GetFilteredData error : " + e.message);
+        }
+        
 
     }
 
@@ -479,6 +481,7 @@ var RecommendedBikes = function () {
     self.SetCheckboxSelection = function (targetElement) {
         $('#appliedFilterList').append('<li data-id="' + targetElement.attr("id") + '" class="filter-list__item"><span class="filter-item">' + targetElement.find('.check-box__label').text() + '</span></li>');
     };
+
 };
 
 function convertAmount(amount, rupeeIcon) {
@@ -526,7 +529,7 @@ function getMinMaxLimits(range) {
     }
     if (selectedRangeList != null)
     {
-        maxMinLimits = {
+        maxMinLimits= {
             minValue: selectedRangeList[0],
             maxValue: selectedRangeList[1]
         }
@@ -535,15 +538,3 @@ function getMinMaxLimits(range) {
     return maxMinLimits;
 }
 
-function setAllFilters(displacementLimit, budgetLimit, mileageLimit, powerLimit, bodyStyleText) {
-
-    searchFilter = {
-        displacement: (displacementLimit!= undefined ? displacementLimit : 0),
-        mileage: (mileageLimit != undefined ? mileageLimit : 0),
-        priceRange: (budgetLimit != undefined ? budgetLimit : 0),
-        power: (powerLimit != undefined ? powerLimit : 0),
-        bodyStyle: (bodyStyleText != null ? bodyStyleText : ""),
-        makeId: makeId
-    }
-    return searchFilter;
-}

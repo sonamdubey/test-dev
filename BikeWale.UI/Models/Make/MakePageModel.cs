@@ -217,7 +217,7 @@ namespace Bikewale.Models
                 {
                     BindPageFilters(objData);
                 }
-
+                BindNewBikeSearchPopupData(objData);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -957,6 +957,25 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("MakePageModel.BindPageFilters_MakeId_{0}", _makeId));
+            }
+        }
+
+        private void BindNewBikeSearchPopupData(MakePageVM objData)
+        {
+            try
+            {
+                if (objData != null)
+                {
+                    objData.NewBikeSearchPopup = new NewBikeSearch.NewBikeSearchPopupVM();
+                    objData.NewBikeSearchPopup.HasFilteredBikes = true;
+                    objData.NewBikeSearchPopup.HasOtherRecommendedBikes = true;
+                    objData.NewBikeSearchPopup.MakeId = _makeId;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("MakePageModel.BindNewBikeSearchPopupData_MakeId_{0}", _makeId));
             }
         }
     }

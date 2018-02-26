@@ -5,6 +5,6 @@ namespace Bikewale.Models.NewBikeSearch
     {
         public bool HasFilteredBikes { get; set; }
         public bool HasOtherRecommendedBikes { get; set; }
-        public int MakeId { get; set; }
+        public uint MakeId { get; set; }
     }
 }

@@ -82,6 +82,10 @@
 
 	// filters popup
 	BikeFiltersPopup.registerEvents();
+	if (vmRecommendedBikes != null && vmRecommendedBikes.searchFilter!=null)
+	{
+	    vmRecommendedBikes.searchFilter.makeId = $('#makeId').val();
+	}
 
 	Accordion.registerEvents();
 });
@@ -541,6 +545,8 @@ var BikeFiltersPopup = (function () {
 		open: open,
 		close: close
 	}
+
+   
 
 })();
 
