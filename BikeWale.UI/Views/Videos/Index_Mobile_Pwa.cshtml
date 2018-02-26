@@ -15,6 +15,7 @@
             <meta charset="utf-8" />
             @if (Model != null && Model.PageMetaTags != null)
             {
+                Model.PageMetaTags.EnableOG = true;
                 if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
                 {
                     <title>@Model.PageMetaTags.Title</title>

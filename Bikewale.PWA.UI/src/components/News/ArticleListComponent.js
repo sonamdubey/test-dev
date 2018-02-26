@@ -201,6 +201,7 @@ class ArticleListComponent extends React.Component{
         var adSlotBottom = <AdUnit uniqueKey={componentData.PageNo} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50} />;
         var isNews = extractPageCategoryFromURL() == "news";
         var pageUrl = isNews ? "news": "expert-reviews";
+        var breadcrumbTitle =  isNews ? "News": "Reviews";
         return (<div>
                     {adSlotTop}
                     <div className="container bg-white box-shadow section-bottom-margin">
@@ -224,7 +225,7 @@ class ArticleListComponent extends React.Component{
                     <div className="margin-bottom15">
                         {adSlotBottom}
                     </div>
-                    <Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '',Title : 'News'}]}/>
+                    <Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '',Title : breadcrumbTitle}]}/>
                     <Footer/>
                 </div>
         )

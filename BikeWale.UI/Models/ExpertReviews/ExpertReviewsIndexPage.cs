@@ -149,6 +149,8 @@ namespace Bikewale.Models
         /// Summary    : Function to get the expert reviews landing page data
         /// Modified by : snehal Dange on 28th Nov 2017
         /// Descritpion : Added ga for page
+        /// Modified by : Ashutosh Sharma on 26 Feb 2018
+        /// Description : Added recordCount in call to method 'BindLinkPager'.
         /// </summary>
         public ExpertReviewsIndexPageVM GetData(int widgetTopCount)
         {
@@ -199,7 +201,7 @@ namespace Bikewale.Models
                     status = StatusCodes.ContentFound;
                     objData.StartIndex = _startIndex;
                     objData.EndIndex = _endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex;
-                    BindLinkPager(objData);
+                    BindLinkPager(objData, (int) objData.Articles.RecordCount);
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData, (int)objData.Articles.RecordCount);
                     GetWidgetData(objData, widgetTopCount);
@@ -272,9 +274,9 @@ namespace Bikewale.Models
                     pwaCmsContent.PageTitle = "Expert Reviews";
                     _totalPagesCount = (uint)_pager.GetTotalPages((int)pwaCmsContent.RecordCount, pageSize);
                     status = StatusCodes.ContentFound;
-                    objData.StartIndex = _startIndex;
-                    objData.EndIndex = _endIndex > pwaCmsContent.RecordCount ? Convert.ToInt32(pwaCmsContent.RecordCount) : _endIndex;
-                    BindLinkPager(objData);
+                    pwaCmsContent.StartIndex = (uint)_startIndex;
+                    pwaCmsContent.EndIndex = (uint)(_endIndex > pwaCmsContent.RecordCount ? Convert.ToInt32(pwaCmsContent.RecordCount) : _endIndex);
+                    BindLinkPager(objData, (int)pwaCmsContent.RecordCount);
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData, (int)pwaCmsContent.RecordCount);
                     GetWidgetData(objData, widgetTopCount);
@@ -1199,8 +1201,10 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Aditi Srivastava on 30 Mar 2017
         /// Summary    : Bind link pager
+        /// Modified by : Ashutosh Sharma on 26 Feb 2018
+        /// Description : Added recordCount in arguments.
         /// </summary>
-        private void BindLinkPager(ExpertReviewsIndexPageVM objData)
+        private void BindLinkPager(ExpertReviewsIndexPageVM objData, int recordCount)
         {
             try
             {
@@ -1209,7 +1213,7 @@ namespace Bikewale.Models
                 objData.PagerEntity.PageNo = curPageNo;
                 objData.PagerEntity.PagerSlotSize = pagerSlotSize;
                 objData.PagerEntity.PageUrlType = "page/";
-                objData.PagerEntity.TotalResults = (int)objData.Articles.RecordCount;
+                objData.PagerEntity.TotalResults = recordCount;
                 objData.PagerEntity.PageSize = pageSize;
             }
             catch (Exception ex)
