@@ -72,7 +72,7 @@ namespace BikWale.Mobile.Users
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 RedirectPath();
             }
         }
@@ -126,7 +126,7 @@ namespace BikWale.Mobile.Users
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 RedirectPath();
             }
         }
@@ -172,12 +172,12 @@ namespace BikWale.Mobile.Users
                 else
                     Response.Redirect("/", false);
 
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
             }
             else
             {
-                Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
+                Response.Redirect(CommonOpn.AppPath + "MyBikeWale/", false);
             }
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
         }
     }
 }
