@@ -72,7 +72,7 @@ namespace Bikewale.Utility
             _EmailsForBikeChange = String.Empty,
             _BwHostUrl = String.Empty,
             _notificationToMailIdForPageMetas = string.Empty,
-            _BWEsIndexUpdaterQueue = string.Empty;
+            _BWEsIndexUpdaterQueue = string.Empty,
             _bikeModelPriceIndex = String.Empty;
 
 
