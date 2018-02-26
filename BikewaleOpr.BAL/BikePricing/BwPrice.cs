@@ -99,12 +99,12 @@ namespace BikewaleOpr.BAL.BikePricing
             {
                 NameValueCollection nvc = new NameValueCollection();
                 nvc["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
-                nvc["documentType"] = "ModelPriceDocument";
+                nvc["documentType"] = "modelpricedocument";
                 nvc["documentId"] = doc.Id;
                 nvc["operationType"] = "update";
                 nvc["documentJson"] = JsonConvert.SerializeObject(doc);
 
-                //BWESIndexUpdater.PushToQueue(nvc)
+                BWESIndexUpdater.PushToQueue(nvc);
             }
 
             
@@ -125,12 +125,12 @@ namespace BikewaleOpr.BAL.BikePricing
             {
                 NameValueCollection nvc = new NameValueCollection();
                 nvc["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
-                nvc["documentType"] = "ModelPriceDocument";
+                nvc["documentType"] = "modelpricedocument";
                 nvc["documentId"] = doc.Id;
-                nvc["operationType"] = "create";
+                nvc["operationType"] = "insert";
                 nvc["documentJson"] = JsonConvert.SerializeObject(doc);
 
-                //BWESIndexUpdater.PushToQueue(nvc)
+                BWESIndexUpdater.PushToQueue(nvc);
             }
         }
 
