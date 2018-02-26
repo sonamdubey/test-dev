@@ -71,13 +71,14 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
 
             IEnumerable<BikeModelDocument> objBikeList = null;
             IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
-
+            SearchOutput searchResult = null;
 
             if (input.CityId > 0)
             {
-                var result1 = Task.Factory.StartNew(() => objBikeList = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.BikeList));
-                var result2 = Task.Factory.StartNew(() => objBikeListWithCityPrice = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.PriceList));
-                Task.WaitAll(result1, result2);
+                var bikeList = Task.Factory.StartNew(() => objBikeList = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.BikeList));
+                var bikeListWithCityPrice = Task.Factory.StartNew(() => objBikeListWithCityPrice = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.PriceList));
+                Task.WaitAll(bikeList, bikeListWithCityPrice);
+
                 BikeSearchModel objData = new BikeSearchModel();
                 objData.GetData(objBikeList, objBikeListWithCityPrice);
 
@@ -87,7 +88,8 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
                 objBikeList = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.BikeList);
             }
 
-            SearchOutput searchResult = null;
+
+            searchResult = SearchOutputMapper.Convert(objBikeList);
             return Ok(searchResult);
         }
 
@@ -98,13 +100,13 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
 
             IEnumerable<BikeModelDocument> objBikeList = null;
             IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
-
+            SearchOutput searchResult = null;
 
             if (input.CityId > 0)
             {
-                var result1 = Task.Factory.StartNew(() => objBikeList = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.BikeList));
-                var result2 = Task.Factory.StartNew(() => objBikeListWithCityPrice = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.PriceList));
-                Task.WaitAll(result1, result2);
+                var bikeList = Task.Factory.StartNew(() => objBikeList = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.BikeList));
+                var bikeListWithCityPrice = Task.Factory.StartNew(() => objBikeListWithCityPrice = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.PriceList));
+                Task.WaitAll(bikeList, bikeListWithCityPrice);
 
                 BikeSearchModel objData = new BikeSearchModel();
                 objBikeList = objData.GetData(objBikeList, objBikeListWithCityPrice);
@@ -114,7 +116,8 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             {
                 objBikeList = _bikeSearch.GetBikeSearch(input, BikeSearchEnum.BikeList);
             }
-            SearchOutput searchResult = null; ;
+
+            searchResult = SearchOutputMapper.Convert(objBikeList);
             return Ok(searchResult);
         }
 

@@ -115,9 +115,12 @@ namespace Bikewale.BAL.BikeSearch
             QueryContainerDescriptor<BikeModelDocument> FDS = new QueryContainerDescriptor<BikeModelDocument>();
             try
             {
-                if (filters.MinDisplacement > 0 || filters.MaxDisplacement > 0)
+                if (filters.Displacement != null && filters.Displacement.Any())
                 {
-                    query &= FDS.Range(RangeQuery<BikeModelDocument>(filters.MinDisplacement, filters.MaxDisplacement, _displacement));
+                    foreach (var obj in filters.Displacement)
+                    {
+                        query &= FDS.Range(RangeQuery<BikeModelDocument>(obj.Item1, obj.Item2, _displacement));
+                    }
                 }
                 if (filters.ModelStatus > 0)
                 {
@@ -127,9 +130,12 @@ namespace Bikewale.BAL.BikeSearch
                 {
                     query &= FDS.Term(_cityId, filters.CityId);
                 }
-                if (filters.MaxPrice > 0 || filters.MinPrice > 0)
+                if (filters.Mileage != null && filters.Mileage.Any())
                 {
-                    query &= FDS.Range(RangeQuery<BikeModelDocument>(filters.MinPrice, filters.MaxPrice, _exshowroom));
+                    foreach (var obj in filters.Mileage)
+                    {
+                        query &= FDS.Range(RangeQuery<BikeModelDocument>(obj.Item1, obj.Item2, _mileage));
+                    }
                 }
                 if (filters.MakeId > 0)
                 {
@@ -142,9 +148,12 @@ namespace Bikewale.BAL.BikeSearch
                         query &= FDS.Term(_bikeMakeId, filters.MakeId);
                     }
                 }
-                if (filters.MinMileage > 0 || filters.MaxMileage > 0)
+                if (filters.PriceRange != null && filters.PriceRange.Any())
                 {
-                    query &= FDS.Range(RangeQuery<BikeModelDocument>(filters.MinMileage, filters.MaxMileage, _mileage));
+                    foreach (var obj in filters.PriceRange)
+                    {
+                        query &= FDS.Range(RangeQuery<BikeModelDocument>(obj.Item1, obj.Item2, _exshowroom));
+                    }
                 }
                 if (filters.BodyStyle > 0)
                 {
