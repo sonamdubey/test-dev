@@ -1,6 +1,13 @@
 ﻿/* Recommended bike popup */
 
 var vmRecommendedBikes;
+
+var searchFilter = { displacement: [], mileage: [], power: [], priceRange: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "" };
+
+var maxMinLimits = { minValue: "" , maxValue: ""};
+
+var makeId = $('#makeId').val();
+
 var recommendedBikePopup = (function () {
 	var applyBtn, popup, appliedFilterList, container, closeBtn;
 
@@ -244,6 +251,7 @@ var RecommendedBikes = function () {
         var amountPreview = self.getBudgetAmount(self.budgetSlider());
         self.budgetAmountPreview(amountPreview);
         self.Filters()['budget'] = self.budgetStepPoints()[minBuget] + '+' + self.budgetStepPoints()[maxBuget];
+        self.FiltersValue()['budget'] = self.budgetStepPoints()[minBuget] + '+' + self.budgetStepPoints()[maxBuget];
     });
 
     self.getQueryString = function () {
@@ -266,7 +274,7 @@ var RecommendedBikes = function () {
     };
 
     self.Filters = ko.observable(self.getQueryString());
-
+    self.FiltersValue = ko.observable(self.getQueryString());
     // generate budget step points
     self.getBudgetStepPoints = function () {
         var stepPoints = [];
@@ -327,10 +335,12 @@ var RecommendedBikes = function () {
 
         var activeElements = filterTypeContainer.find('.check-box--active');
         var activeElementList = '';
+        var activeFiltersList = '';
         var selectionPreview = '';
 
         activeElements.each(function (index) {
             activeElementList += '+' + $(this).attr('data-value');
+            activeFiltersList += '+' + $(this).attr('data-valueText');
             if (index) {
                 selectionPreview += ', ';
             }
@@ -338,6 +348,7 @@ var RecommendedBikes = function () {
         });
 
         self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
+        self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeFiltersList.substr(1);
         filterTypeContainer.find('.accordion-head__preview').text(selectionPreview);
     }
 
@@ -394,16 +405,68 @@ var RecommendedBikes = function () {
     self.UpdateFilters = function (filterTypeContainer) {
         var activeElements = filterTypeContainer.find('input[type="checkbox"]:checked');
         var activeElementList = '';
+        var activeFiltersList = '';
 
         activeElements.each(function (index) {
             activeElementList += '+' + $(this).val();
         });
 
         self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
+    //    self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
     };
+
+    self.GetFilteredData = function () {
+        if (self.FiltersValue() != null)
+        {
+            var displacement = self.FiltersValue().displacement;
+            var budget = self.FiltersValue().budget;
+            var bodyType = self.FiltersValue().bodyType; // string of all bodytypes
+            var mileage = self.FiltersValue().mileage;
+            var power = self.FiltersValue().power;
+        }
+      
+
+        if (displacement != undefined)
+        {
+            var displacementLimits = new getMinMaxLimitsList(displacement);
+        }
+      
+        if (mileage!= undefined)
+        {
+            var mileageLimits = new getMinMaxLimitsList(mileage);
+        }
+        if (power != undefined)
+        {
+            var powerLimits = new getMinMaxLimitsList(power);
+        }
+
+        if (budget != undefined)
+        {
+            var budgetLimits = new getMinMaxLimits(budget);
+        }
+        var bodyTypeList = (bodyType != undefined ? bodyType.split('+') : null)
+
+        var allSelectedFilters = setAllFilters(displacementLimits, budgetLimits, mileageLimits, powerLimits, bodyTypeList);
+
+        $.ajax({
+            type: "POST",
+            url: "/api/newbikesearch/",
+            contentType: "application/json",
+            data: ko.toJSON(allSelectedFilters),
+            success: function (response) {
+                
+            },
+            complete: function (xhr, ajaxOptions, thrownError) {
+            
+            }
+        });
+
+    }
+
 
     self.ApplyFilters = function () {
         self.SetPageFilters();
+        self.GetFilteredData();
         BikeFiltersPopup.close();
         window.history.back();
     };
@@ -433,3 +496,54 @@ function convertAmount(amount, rupeeIcon) {
     return amount;
 }
 
+function getMinMaxLimitsList(range) {
+    var filterArray = {};
+    if (range != undefined) {
+        var selectedRangeList = range.split('+');
+    }
+   
+    if (selectedRangeList != null)
+    {
+        $.each(selectedRangeList, function (i, val) {
+            var filterPair = val.split('-');
+            maxMinLimits = {
+                minValue: filterPair[0],
+                maxValue: filterPair[1]
+
+            }
+            filterArray[i] = maxMinLimits;
+        });
+
+    }
+    
+    return filterArray;
+}
+
+
+function getMinMaxLimits(range) {
+    if (range != undefined) {
+        var selectedRangeList = range.split('+').map(Number);
+    }
+    if (selectedRangeList != null)
+    {
+        maxMinLimits = {
+            minValue: selectedRangeList[0],
+            maxValue: selectedRangeList[1]
+        }
+    }
+   
+    return maxMinLimits;
+}
+
+function setAllFilters(displacementLimit, budgetLimit, mileageLimit, powerLimit, bodyStyleText) {
+
+    searchFilter = {
+        displacement: (displacementLimit!= undefined ? displacementLimit : 0),
+        mileage: (mileageLimit != undefined ? mileageLimit : 0),
+        priceRange: (budgetLimit != undefined ? budgetLimit : 0),
+        power: (powerLimit != undefined ? powerLimit : 0),
+        bodyStyle: (bodyStyleText != null ? bodyStyleText : ""),
+        makeId: makeId
+    }
+    return searchFilter;
+}

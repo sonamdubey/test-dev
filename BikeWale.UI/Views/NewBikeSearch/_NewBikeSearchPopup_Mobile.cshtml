@@ -217,27 +217,27 @@
                                 <div class="accordion-body__content">
                                     <ul id="filterTypeBody" class="body-type__list">
                                         <li>
-                                            <div class="bodytype-box" data-value="@EnumBikeBodyStyles.Scooter" id="bodytype-1" data-bind="click: checkboxSelection">
+                                            <div class="bodytype-box" data-valuetext="@((uint)EnumBikeBodyStyles.Scooter)" data-value="@((uint)EnumBikeBodyStyles.Scooter)" id="bodytype-1" data-bind="click: checkboxSelection">
                                                 <span class="bodytype-box__icon bodytype-scooter"></span>
-                                                <span class="bodytype-box__label check-box__label">Scooter</span>
+                                                <span class="bodytype-box__label check-box__label">@EnumBikeBodyStyles.Scooter</span>
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="bodytype-box" data-value="@EnumBikeBodyStyles.Cruiser" id="bodytype-2" data-bind="click: checkboxSelection">
+                                            <div class="bodytype-box" data-valuetext="@((uint)EnumBikeBodyStyles.Cruiser)" data-value="@((uint)EnumBikeBodyStyles.Cruiser)" id="bodytype-2" data-bind="click: checkboxSelection">
                                                 <span class="bodytype-box__icon bodytype-cruiser"></span>
-                                                <span class="bodytype-box__label check-box__label">Cruiser</span>
+                                                <span class="bodytype-box__label check-box__label">@EnumBikeBodyStyles.Cruiser</span>
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="bodytype-box" data-value="@EnumBikeBodyStyles.Street" id="bodytype-3" data-bind="click: checkboxSelection">
+                                            <div class="bodytype-box" data-valuetext="@((uint)EnumBikeBodyStyles.Street)" data-value="@((uint)EnumBikeBodyStyles.Street)" id="bodytype-3" data-bind="click: checkboxSelection">
                                                 <span class="bodytype-box__icon bodytype-street"></span>
-                                                <span class="bodytype-box__label check-box__label">Street</span>
+                                                <span class="bodytype-box__label check-box__label">@EnumBikeBodyStyles.Street</span>
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="bodytype-box" data-value="@EnumBikeBodyStyles.Sports" id="bodytype-4" data-bind="click: checkboxSelection">
+                                            <div class="bodytype-box" data-valuetext="@((uint)EnumBikeBodyStyles.Sports)" data-value="@((uint)EnumBikeBodyStyles.Sports)" id="bodytype-4" data-bind="click: checkboxSelection">
                                                 <span class="bodytype-box__icon bodytype-sports"></span>
-                                                <span class="bodytype-box__label check-box__label">Sports</span>
+                                                <span class="bodytype-box__label check-box__label">@EnumBikeBodyStyles.Sports</span>
                                             </div>
                                         </li>
                                     </ul>
@@ -262,7 +262,7 @@
                         uint secondLimit = mileageArray[i];
 
                         <li>
-                            <div class="check-box" data-value="@i" id="mileage-@i" data-bind="click: checkboxSelection">
+                            <div class="check-box" data-value="@i" data-valueText="@string.Format("{0}-{1}", firstLimit, secondLimit)" id="mileage-@i" data-bind="click: checkboxSelection">
                                 <span class="check-box__label">@string.Format("{0} - {1} kmpl", firstLimit, secondLimit)</span>
                                 <span class="check-box__icon"></span>
                             </div>
@@ -286,38 +286,36 @@
                                         @{
                     var displacementArray = RangeFactory.Displacement;
                     var len = displacementArray.Length;
-                    for (int i = 0; i < len - 1; )
-                    {
-                        uint firstLimit = displacementArray[i];
-                        uint secondLimit = displacementArray[i + 1];
-                        string displamentText = null;
-
-                        if (i == 0)
-                        {
-                            displamentText = string.Format("< {0} cc", firstLimit);
-                        }
-                        else
-                        {
-                            displamentText = string.Format("{0} - {1} cc", firstLimit, secondLimit);
-                            i++;
-                        }
-
-
-                        <li>
-                            <div class="check-box" data-value="@i" id="displacement-@i" data-bind="click: checkboxSelection">
-                                <span class="check-box__label">@displamentText</span>
-                                <span class="check-box__icon"></span>
-                            </div>
-                        </li>
-                    }
 
                     <li>
-                        <div class="check-box" data-value="@len-1" id="displacement-@len-1" data-bind="click: checkboxSelection">
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, displacementArray[0])"  data-value="1" id="displacement-1" data-bind="click: checkboxSelection">
+                            <span class="check-box__label">@string.Format("< {0} cc", displacementArray[0])</span>
+                            <span class="check-box__icon"></span>
+                        </div>
+                    </li>
+    
+                                            for (int i = 1; i < len ; i++)
+                                {
+                                    uint firstLimit = displacementArray[i-1];
+                                    uint secondLimit = displacementArray[i];
+                                    string displamentText = string.Format("{0} - {1} cc", firstLimit, secondLimit);
+                                       
+                                                
+                                                    <li>
+                                                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", firstLimit, secondLimit)" data-value="@(i+1)" id="displacement-@(i+1)" data-bind="click: checkboxSelection">
+                                                            <span class="check-box__label">@displamentText</span>
+                                                            <span class="check-box__icon"></span>
+                                                        </div>
+                                                    </li>
+                                }
+
+                    <li>
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", displacementArray[len - 1], 0)"  data-value="@len" id="displacement-@len" data-bind="click: checkboxSelection">
                             <span class="check-box__label">@string.Format("> {0} cc", displacementArray[len - 1])</span>
                             <span class="check-box__icon"></span>
                         </div>
                     </li>
-                                        }
+                }
 
                                     </ul>
                                 </div>
@@ -333,50 +331,41 @@
                             <div class="accordion__body">
                                 <div class="accordion-body__content">
                                     <ul id="filterTypePower" class="filter-checkbox__list">
+                                       
+
                                         @{
-                    //                         var displacementArray = RangeFactory.Displacement;
-                    //var len = displacementArray.Length;
-                    //for (int i = 0; i < len - 1; )
-                    //{
-                    //    uint firstLimit = displacementArray[i];
-                    //    uint secondLimit = displacementArray[i + 1];
-                    //    string displamentText = null;
+                                            var powerArray = RangeFactory.Power;
+                                            var powerArrayLen = powerArray.Length;
 
-                    //    if (i == 0)
-                    //    {
-                    //        displamentText = string.Format("< {0} cc", firstLimit);
-                    //    }
-                    //    else
-                    //    {
-                    //        displamentText = string.Format("{0} - {1} cc", firstLimit, secondLimit);
-                    //        i++;
-                    //    }
+                                            <li>
+                                                <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, powerArray[0])"  data-value="1" id="power-1" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">@string.Format("< {0} bhp", powerArray[0])</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
 
-                                        }
+                                    for (int i = 1; i < powerArrayLen; i++)
+                                    {
+                                        uint firstLimit = powerArray[i - 1];
+                                        uint secondLimit = powerArray[i];
+
+                                        string powerText = string.Format("{0} - {1} bhp", firstLimit, secondLimit);
+
                                         <li>
-                                            <div class="check-box" data-value="1" id="power-1" data-bind="click: checkboxSelection">
-                                                <span class="check-box__label">< 10 bhp</span>
+                                            <div class="check-box" data-valuetext="@string.Format("{0}-{1}", firstLimit, secondLimit)" data-value="@(i+1)" id="power-@(i+1)" data-bind="click: checkboxSelection">
+                                                <span class="check-box__label">@string.Format("{0} - {1} bhp", firstLimit, secondLimit)</span>
                                                 <span class="check-box__icon"></span>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="check-box" data-value="2" id="power-2" data-bind="click: checkboxSelection">
-                                                <span class="check-box__label">10 - 30 bhp</span>
-                                                <span class="check-box__icon"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="check-box" data-value="3" id="power-3" data-bind="click: checkboxSelection">
-                                                <span class="check-box__label">30 - 60 bhp</span>
-                                                <span class="check-box__icon"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="check-box" data-value="4" id="power-4" data-bind="click: checkboxSelection">
-                                                <span class="check-box__label">> 60 bhp</span>
-                                                <span class="check-box__icon"></span>
-                                            </div>
-                                        </li>
+                                    }
+
+                                    <li>
+                                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", powerArray[powerArrayLen - 1], 0)"  data-value="@powerArrayLen" id="@powerArrayLen" data-bind="click: checkboxSelection">
+                                            <span class="check-box__label">@string.Format("> {0} bhp", powerArray[powerArrayLen - 1])</span>
+                                            <span class="check-box__icon"></span>
+                                        </div>
+                                    </li>
+}
                                     </ul>
                                 </div>
                             </div>
@@ -386,6 +375,7 @@
 
             </div>
             <div id="filtersBlackoutWindow"></div>
+            <input type="hidden" id="makeId" value="@(Model.MakeId > 0 ? Model.MakeId : 0)" />
         </div>
     </div>
 }

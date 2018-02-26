@@ -457,5 +457,5 @@
 
         </div>
     </section>
-    @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchPopup_Mobile.cshtml", new Bikewale.Models.NewBikeSearch.NewBikeSearchPopupVM() { HasFilteredBikes = true, HasOtherRecommendedBikes = true });
+    @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchPopup_Mobile.cshtml", new Bikewale.Models.NewBikeSearch.NewBikeSearchPopupVM() { HasFilteredBikes = true, HasOtherRecommendedBikes = true , MakeId = Model.MakeId});
 }
