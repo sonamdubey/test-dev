@@ -98,6 +98,12 @@ namespace Bikewale.ElasticSearch.PriceIndex
                                 versions.Add(verObj);
                             }
 
+                            if (docObj != null)
+                            {
+                                docObj.VersionPrice = versions;
+                                objList.Add(docObj);
+                            }
+
                             dr.Close();
                         }
                     }

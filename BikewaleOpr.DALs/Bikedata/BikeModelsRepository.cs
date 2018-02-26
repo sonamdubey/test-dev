@@ -600,15 +600,15 @@ namespace BikewaleOpr.DALs.Bikedata
                 using (DbCommand cmd = DbFactory.GetDBCommand(spName))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionids", DbType.Int32, versions));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionids", DbType.String, versions));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null)
                         {
                             while (dr.Read())
                             {
-                                models += string.Format("{0},", SqlReaderConvertor.ToUInt32(dr["BikeModelId"]));
+                                models += string.Format("{0},", SqlReaderConvertor.ToUInt32(dr["ModelId"]));
                             }
 
                             dr.Close();
@@ -618,7 +618,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.GetModelsByVersions: Versions- {0}, Cityid- {1}", versions));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.GetModelsByVersions: Versions- {0}", versions));
             }
 
             return models;

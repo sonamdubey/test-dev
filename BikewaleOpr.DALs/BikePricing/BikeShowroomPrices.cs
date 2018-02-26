@@ -209,10 +209,10 @@ namespace BikewaleOpr.DALs.BikePricing
                 using (DbCommand cmd = DbFactory.GetDBCommand(spName))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.Int32, modelIds));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityids", DbType.Int32, cityIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.String, modelIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityids", DbType.String, cityIds));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null)
                         {
@@ -294,6 +294,12 @@ namespace BikewaleOpr.DALs.BikePricing
                                 verObj.Onroad = (uint)verObj.PriceList.Sum(prc => prc.PriceValue);
 
                                 versions.Add(verObj);
+                            }
+
+                            if (docObj != null)
+                            {
+                                docObj.VersionPrice = versions;
+                                objList.Add(docObj);
                             }
 
                             dr.Close();
