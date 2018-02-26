@@ -1,0 +1,62 @@
+﻿@model Bikewale.Entities.Filters.FilterBase
+
+@if (Model != null)
+{
+    int len = Model.RangeList.Count();
+    <div class="refine-result">
+        <h3 class="refine-result__heading">Refine Your Results</h3>
+        <p class="refine-result__instruction">Select a fuel economy range for your driving pattern</p> <!-- Ask PM -->
+        <ul class="refine-result__list">
+
+            @for (int i = 0; i <= len; i++)
+            {
+                string inputId = Model.FilterType + Convert.ToString(i);
+                <li class="refine-result__list-item">
+                    <input type="checkbox" class="refine-result__list-checkbox" name="inpageFilter" id="@inputId" value="1">
+                    <label class="refine-result__checkbox-label" for="@inputId">
+                        @if(i == 0 && Model.RangeList[0] != null)
+                        {
+                            @Html.Raw("<span>Less than </span>")
+                            if (Model.FilterType == "budget")
+                            {
+                                @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(Model.RangeList[0].ToString());
+                            }
+                            else
+                            {
+                                @Bikewale.Utility.FormatMinSpecs.ShowAvailable(@Model.RangeList[0], @Model.Unit);
+                            }
+                        }
+                        else if ( i == len && Model.RangeList[len-1] != null)
+                        {
+                            @Html.Raw("<span>More than </span>")
+                            if (Model.FilterType == "budget")
+                            {
+                                @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(Model.RangeList[len-1].ToString());
+                            }
+                            else
+                            {
+                                @Bikewale.Utility.FormatMinSpecs.ShowAvailable(@Model.RangeList[len-1], @Model.Unit);
+                            }
+                        }
+                        else
+                        {
+                            if (Model.RangeList[i] != null && Model.RangeList[i - 1] != null)
+                            {
+                                if (Model.FilterType == "budget")
+                                {
+                                    @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(Model.RangeList[i - 1].ToString()) @Html.Raw("&#8722;") @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(@Model.RangeList[i].ToString());
+                                }
+                                else
+                                {
+                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(@Model.RangeList[i - 1], @Model.Unit) @Html.Raw("&#8722;") @Bikewale.Utility.FormatMinSpecs.ShowAvailable(@Model.RangeList[i], @Model.Unit) ;
+                                }
+                            }
+                        }
+                    </label>
+                </li>
+            }
+        </ul>
+
+        <button type="button" id="refineResultApply" class="inv-blue--disabled btn btn-inv-blue refine-result__view-more refine-result__apply" disabled>Apply</button>
+    </div>
+}
