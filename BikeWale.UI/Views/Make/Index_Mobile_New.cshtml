@@ -112,7 +112,7 @@
                                 if (j - prev == gap && index < Model.PageFilters.FilterResults.Count() )
                                 {
                                     <li class="model-list__item filter-type__item" data-filter-type="@Model.PageFilters.FilterResults[index].FilterType">
-                                        @Html.Partial("~/Views/Make/_MakePageFilters_Mobile.cshtml", Model.PageFilters.FilterResults[index])
+                                        @Html.Partial("~/Views/Filters/_InPageFilters_Mobile.cshtml", Model.PageFilters.FilterResults[index])
                                     </li> 
                                     gap++;
                                     prev = j;
