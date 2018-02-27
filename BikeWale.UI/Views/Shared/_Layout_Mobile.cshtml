@@ -141,6 +141,14 @@
                     return String.Format("googletag.defineSlot('{0}_Bottom_300x250', [300, 250], 'div-gpt-ad-{1}-16').addService(googletag.pubads());", adPath, adId);
                 case 17:
                     return String.Format("googletag.defineSlot('{0}_Top_320x50', [320, 50], 'div-gpt-ad-{1}-17').addService(googletag.pubads());", adPath, adId);
+                case 18:
+                    return String.Format("googletag.defineSlot('{0}_Bottom_300x250', [300, 250], 'div-gpt-ad-{1}-0').addService(googletag.pubads());", adPath, adId);
+                case 19:
+                    return String.Format("googletag.defineSlot('{0}_Top_300x250', [300, 250], 'div-gpt-ad-{1}-1').addService(googletag.pubads());", adPath, adId);
+                case 20:
+                    return String.Format("googletag.defineSlot('{0}_Middle_300x250', [300, 250], 'div-gpt-ad-{1}-2').addService(googletag.pubads());", adPath, adId);
+                case 21:
+                    return String.Format("googletag.defineSlot('{0}_Top_310x100', [[320, 100], [320, 50]], 'div-gpt-ad-{1}-3').addService(googletag.pubads());", adPath, adId);
                 default:
                     return "";
             }
@@ -187,6 +195,10 @@
         @if(Model.AdTags.Ad_320x50BTF){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if (Model.AdTags.Ad300x250_Bottom){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(Model.AdTags.Ad_Body_Top_320x50){ @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_300x250_Bottom){ @Html.Raw(GetAdSlot(18, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_300x250_Top){ @Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_300x250_Middle){ @Html.Raw(GetAdSlot(20, Model.AdTags.AdPath, Model.AdTags.AdId))}
+        @if(Model.AdTags.Ad_320x100_Top){ @Html.Raw(GetAdSlot(21, Model.AdTags.AdPath, Model.AdTags.AdId))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}

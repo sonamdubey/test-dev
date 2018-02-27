@@ -9,7 +9,9 @@ namespace Bikewale.Models
     /// Modified By : Pratibha Verma on 30th Jan 2018
     /// Description : Added Ad_320x50BTF field
     /// Modified by : Snehal Dange on 16th Jan 2017
-    /// Description: Added ad tags for make page 
+    /// Description: Added ad tags for make page
+    /// Modified By : Deepak Israni on 27 Feb 2018
+    /// Description: Added Ad_300x250_Bottom, Ad_300x250_Top, Ad_300x250_Middle and Ad_320x100_Top. Rearranged mobile properties wrt size.
     /// </summary>
     public class AdTags
     {
@@ -51,27 +53,36 @@ namespace Bikewale.Models
         #endregion
 
         #region Ad sizes for mobile site
+        public bool Ad_200x211 { get; set; }
+        public bool Ad_200x216 { get; set; }
+        public bool Ad_200x253 { get; set; }    
+
+        public bool Ad_300x100 { get; set; }
+
         public bool Ad_300x250 { get; set; }
         public bool Ad_300x250BTF { get; set; }
         public bool Ad300x250_Bottom { get; set; }
-        public bool Ad_320x50BTF { get; set; }
+        public bool Ad_300x250_Bottom { get; set; }
+        public bool Ad_300x250_Top { get; set; }
+        public bool Ad_300x250_Middle { get; set; }
+        
 
+        public bool Ad_320x50BTF { get; set; }
         public bool Ad_Mid_320x50 { get; set; }
         public bool Ad_320x50 { get; set; }
         public bool Ad_320x50Top { get; set; }
         public bool Ad_Bot_320x50 { get; set; }
-        public bool Ad320x150_Top { get; set; }
-        public bool Ad320x150_Bottom { get; set; }
+        public bool Ad_Body_Top_320x50 { get; set; }
+
         public bool Ad320x100ATF { get; set; }
         public bool Ad320x100BTF { get; set; }
-        public bool Ad_300x100 { get; set; }
+        public bool Ad_320x100_Top { get; set; }
+        
+        public bool Ad320x150_Top { get; set; }
+        public bool Ad320x150_Bottom { get; set; }
+        
         public bool Ad_320x400_Middle { get; set; }
-
-        public bool Ad_200x253 { get; set; }
-
-        public bool Ad_200x216 { get; set; }
-        public bool Ad_200x211 { get; set; }
-        public bool Ad_Body_Top_320x50 { get; set; }
+        
 
         public bool ShowInnovationBannerMobile { get; set; }
         #endregion

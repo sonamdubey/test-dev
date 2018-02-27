@@ -3,7 +3,13 @@
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
-	Model.Page_JS_Path = "/m/src/make.js";
+    Model.Page_JS_Path = "/m/src/make.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Make";
+    Model.AdTags.AdId = "1519729632700";
+    Model.AdTags.Ad_300x250_Bottom = true;
+    Model.AdTags.Ad_300x250_Top = true;
+    Model.AdTags.Ad_300x250_Middle = true;
+    Model.AdTags.Ad_320x100_Top = true;
 }
 
 @if (Model != null)
@@ -97,6 +103,10 @@
                     </div>
                 </section>
             }
+            
+            <section>
+                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
+            </section>
 
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
@@ -183,6 +193,10 @@
                     </div>
                 </section>
             }
+            
+            <section>
+                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 1 });}
+            </section>
 
 
             @if (Model.IsUpComingBikesAvailable)
@@ -327,6 +341,10 @@
                     </div>
                 </section>
             }
+            
+            <section>
+                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 2 });}
+            </section>
 
             @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
             {
@@ -425,4 +443,8 @@
         </div>
     </section>
 
+    <section>
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 3 });}
+    </section>
+    
 }
