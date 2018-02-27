@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Common;
+﻿using BikewaleOpr.Cache.Campaigns;
+using BikewaleOpr.Common;
 using BikeWaleOpr.Common;
 using System;
 using System.Data;
@@ -33,6 +34,12 @@ namespace BikewaleOpr.Campaign
             btnDelete.Click += new EventHandler(DeleteRules);
         }
 
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 13 Feb 2018
+        /// Description : Added function call to clear dealer bikes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteRules(object sender, EventArgs e)
         {
             try
@@ -41,6 +48,7 @@ namespace BikewaleOpr.Campaign
                 {
                     campaign.DeleteDealerCampaignRules(currentUserId, hdnCheckedRules.Value);
                     BindRules();
+                    Dealers.ClearDealerBikes(dealerId);
                     lblErrorSummary.Text = "Selected rules have been deleted !";
                 }
             }
@@ -60,12 +68,17 @@ namespace BikewaleOpr.Campaign
             lblErrorSummary.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 13 Feb 2018
+        /// Description : Added function call to clear dealer bikes
+        /// </summary>
         protected void SaveRules(object sender, EventArgs e)
         {
             try
             {
                 if (campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, dealerId, makeId, modelId))
                 {
+                    Dealers.ClearDealerBikes(dealerId);
                     lblGreenMessage.Text = "Rule(s) have been added !";
                 }
                 else
