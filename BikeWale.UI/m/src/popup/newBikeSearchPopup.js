@@ -407,10 +407,13 @@ var RecommendedBikes = function () {
 
         activeElements.each(function (index) {
             activeElementList += '+' + $(this).val();
+            activeFiltersList += '+' + $(this).data("valuetext");
+
         });
 
         self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
-    //    self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
+        self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeFiltersList.substr(1);
+        self.ApplyInPageFilters();
     };
 
     self.GetFilteredData = function () {
@@ -423,7 +426,7 @@ var RecommendedBikes = function () {
                 var mileage = self.FiltersValue().mileage;
                 var power = self.FiltersValue().power;
             }
-
+            
 
             if (displacement != undefined) {
                 self.searchFilter.displacement = new getMinMaxLimitsList(displacement);
@@ -437,7 +440,8 @@ var RecommendedBikes = function () {
             }
 
             if (budget != undefined) {
-                self.searchFilter.priceRange = new getMinMaxLimits(budget);
+              
+                self.searchFilter.priceRange = (budget.indexOf('+') > -1) ? new getMinMaxLimitsList(budget) : new getMinMaxLimits(budget);
             }
             self.searchFilter.bodyStyle = (bodyType != undefined ? bodyType.split('+') : null)
 
@@ -472,6 +476,10 @@ var RecommendedBikes = function () {
         BikeFiltersPopup.close();
         window.history.back();
     };
+
+    self.ApplyInPageFilters = function () {
+        self.GetFilteredData();
+    }
 
     self.setBudgetSelection = function () {
         var amountPreview = self.getBudgetAmount(self.budgetSlider());
@@ -525,7 +533,7 @@ function getMinMaxLimitsList(range) {
 
 function getMinMaxLimits(range) {
     if (range != undefined) {
-        var selectedRangeList = range.split('+').map(Number);
+        var selectedRangeList = range.split('-');
     }
     if (selectedRangeList != null)
     {
