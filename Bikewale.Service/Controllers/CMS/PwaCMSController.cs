@@ -441,7 +441,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     cityDetails = objCityList.FirstOrDefault(c => c.CityId == cityId);
                                 }
 
-                                objBikeInfo.Tabs = BindInfoWidgetDatas(objBikeInfo, cityDetails, 3, BikeInfoTabType.News,articleDetails.CategoryId);
+                                objBikeInfo.Tabs = BindInfoWidgetDatas(objBikeInfo, cityDetails, 3, BikeInfoTabType.News);
 
                                 outBikeInfo = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objBikeInfo, cityDetails);
                             }
@@ -464,10 +464,10 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
         /// <summary>
         /// Modified By : Pratibha Verma on 26 Feb, 2018
-        /// Summary : Added parameter categoryId to remove user review from Expert Review Details
+        /// Summary : Removed User Reviews to make it consistent with non PWA
         /// </summary>
         private ICollection<BikeInfoTab> BindInfoWidgetDatas(GenericBikeInfo _genericBikeInfo, CityEntityBase cityDetails,
-            uint totalTabCount, BikeInfoTabType pageId, uint categoryId)
+            uint totalTabCount, BikeInfoTabType pageId)
         {
             ICollection<BikeInfoTab> tabs = null;
             try
@@ -532,19 +532,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         IsVisible = _genericBikeInfo.IsSpecsAvailable,
                         Tab = BikeInfoTabType.Specs
                     });
-                }
-                if (_genericBikeInfo.UserReview > 0 && categoryId != 2)
-                {
-                    tabs.Add(new BikeInfoTab()
-                    {
-                        URL = Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
-                        Title = "User Reviews",
-                        TabText = "User Reviews",
-                        IconText = "user-reviews",
-                        Count = _genericBikeInfo.UserReview,
-                        Tab = BikeInfoTabType.UserReview
-                    });
-                }
+                }               
                 if (_genericBikeInfo.DealersCount > 0)
                 {
                     tabs.Add(new BikeInfoTab()
