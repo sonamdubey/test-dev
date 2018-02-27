@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
@@ -37,6 +38,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
     /// </summary>
     public class PwaCMSController : CompressionApiController//ApiController
     {
+        private readonly IBikeSeries _series;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
         private readonly IPager _pager = null;
         private readonly ICMSCacheContent _CMSCache = null;
@@ -48,10 +50,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         private readonly ICityCacheRepository _cityCacheRepository;
         private readonly IArticles _articles;
         static ILog _logger = LogManager.GetLogger("PwaCMSController");
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pager"></param>
+        
+
         public PwaCMSController(IPager pager, ICMSCacheContent cmsCache,
             IBikeModelsCacheRepository<int> objModelCache,
             IBikeModels<BikeModelEntity, int> bikeModelEntity,
@@ -59,7 +59,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             IBikeMakesCacheRepository bikeMakesEntity,
             IBikeInfo bikeInfo,
             ICityCacheRepository cityCacheRepository, IArticles articles,
-            IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
+            IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache,
+            IBikeSeries series)
         {
             _pager = pager;
             _CMSCache = cmsCache;
@@ -71,6 +72,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             _cityCacheRepository = cityCacheRepository;
             _articles = articles;
             _objBikeVersionsCache = objBikeVersionsCache;
+            _series = series;
         }
 
 
@@ -184,10 +186,31 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         {
                             var makeData = GetTaggedBikeListByMake(articleDetails);
                             var modelId = GetTaggedBikeListByModel(articleDetails.VehiclTagsList);
-
                             uint makeId = makeData == null ? 0 : (uint)makeData.MakeId;
+                            List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(modelId, false);
 
-                            bikes = _bikeModelEntity.GetMostPopularBikes(EnumBikeType.All, 9, makeId, cityId);
+                            BikeSeriesEntityBase bikeSeriesEntityBase = null;
+                            bikeSeriesEntityBase = _objModelCache.GetSeriesByModelId(modelId);
+                            if (bikeSeriesEntityBase.IsSeriesPageUrl)
+                            {
+                                bikes = _objModelCache.GetMostPopularBikesByMakeWithCityPrice((int)makeId, cityId);
+                                string modelIds = string.Empty;
+                                if (bikeSeriesEntityBase.SeriesId > 0)
+                                    modelIds = _series.GetModelIdsBySeries(bikeSeriesEntityBase.SeriesId);
+                                string[] modelArray = modelIds.Split(',');
+                                if (modelArray.Length > 0 && bikes != null)
+                                {
+                                    bikes = (from bike in bikes
+                                             where modelArray.Contains(bike.objModel.ModelId.ToString())
+                                             select bike
+                                             );
+                                }
+                            }
+                            else
+                            {                                
+                                EnumBikeType bikeType = (objVersionsList != null && objVersionsList.Count > 0 && objVersionsList.FirstOrDefault() != null && objVersionsList.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter)) ? EnumBikeType.Scooters : EnumBikeType.All;
+                                bikes = _bikeModelEntity.GetMostPopularBikes(bikeType, 9, makeId, cityId);
+                            }
 
                             PwaBikeNews popularBikes = new PwaBikeNews();
                             if (bikes != null)
@@ -213,25 +236,22 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                             popularBikes = null;
                             if (modelId > 0)
-                            {                               
-                                List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(modelId, false);
-                                if (objVersionsList != null && objVersionsList.Count > 0 && objVersionsList.FirstOrDefault() != null)
+                            {                                                              
+                                IEnumerable<BikeMakeEntityBase> bikeList = null;
+                                if (objVersionsList != null && objVersionsList.Count > 0 && objVersionsList.FirstOrDefault() != null && objVersionsList.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                                 {
-                                    IEnumerable<BikeMakeEntityBase> bikeList = null;
-                                    if (objVersionsList.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
-                                    {
-                                        bikeList = _bikeMakesEntity.GetScooterMakes();
-                                        PwaMakeBikeBase scooterMakeList = new PwaMakeBikeBase();
-                                        scooterMakeList.MakeList = ConverterUtility.MapBikeMakeEntityBaseToPwaMakeScooterEntity(bikeList);
-                                        scooterMakeList.Heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
-                                        scooterMakeList.CompleteListUrlAlternateLabel = string.Format("Popular {0} brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
-                                        scooterMakeList.CompleteListUrl = "/m/scooters/";
-                                        scooterMakeList.CompleteListUrlLabel = "View all";
-                                        objPwaBikeNews.BikeMakeList = new List<PwaMakeBikeBase>();
-                                        objPwaBikeNews.BikeMakeList.Add(scooterMakeList);
-                                    }
+                                    bikeList = _bikeMakesEntity.GetScooterMakes();
+                                    PwaMakeBikeBase scooterMakeList = new PwaMakeBikeBase();
+                                    scooterMakeList.MakeList = ConverterUtility.MapBikeMakeEntityBaseToPwaMakeScooterEntity(bikeList);
+                                    scooterMakeList.Heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
+                                    scooterMakeList.CompleteListUrlAlternateLabel = string.Format("Popular {0} brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
+                                    scooterMakeList.CompleteListUrl = "/m/scooters/";
+                                    scooterMakeList.CompleteListUrlLabel = "View all";
+                                    objPwaBikeNews.BikeMakeList = new List<PwaMakeBikeBase>();
+                                    objPwaBikeNews.BikeMakeList.Add(scooterMakeList);
                                 }
-                                else {
+                                else 
+{
                                     bikes = _objModelCache.GetMostPopularBikesByModelBodyStyle((int)modelId, 9, cityId);
 
                                     if (bikes != null && bikes.Any())
