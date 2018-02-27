@@ -426,7 +426,7 @@ var RecommendedBikes = function () {
                 var mileage = self.FiltersValue().mileage;
                 var power = self.FiltersValue().power;
             }
-
+            
 
             if (displacement != undefined) {
                 self.searchFilter.displacement = new getMinMaxLimitsList(displacement);
@@ -440,7 +440,8 @@ var RecommendedBikes = function () {
             }
 
             if (budget != undefined) {
-                self.searchFilter.priceRange = new getMinMaxLimits(budget);
+              
+                self.searchFilter.priceRange = (budget.indexOf('+') > -1) ? new getMinMaxLimitsList(budget) : new getMinMaxLimits(budget);
             }
             self.searchFilter.bodyStyle = (bodyType != undefined ? bodyType.split('+') : null)
 
@@ -532,7 +533,7 @@ function getMinMaxLimitsList(range) {
 
 function getMinMaxLimits(range) {
     if (range != undefined) {
-        var selectedRangeList = range.split('+').map(Number);
+        var selectedRangeList = range.split('-');
     }
     if (selectedRangeList != null)
     {
