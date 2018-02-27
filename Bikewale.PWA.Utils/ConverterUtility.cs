@@ -138,7 +138,7 @@ namespace Bikewale.PWA.Utils
         {
             PwaImageList imageGallery = new PwaImageList();
 
-            if (photoGalleryVM != null && photoGalleryVM.Images.Any())
+            if (photoGalleryVM != null && photoGalleryVM.Images != null && photoGalleryVM.Images.Any())
             {
                 imageGallery.ModelImages = PwaConvert(photoGalleryVM.Images);
                 imageGallery.RecordCount = photoGalleryVM.ImageCount;
