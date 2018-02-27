@@ -13,8 +13,7 @@ export function NewsDetailReducer(state,action) {
 			ArticleDetailData : {
 					Status : Status.Reset,
 					InitialDataDict : {},
-					ArticleDetail : null,
-                    ImageGallery : null
+					ArticleDetail : null
 				},
 			NewBikesListData : {
 					Status : Status.Reset,
@@ -30,7 +29,6 @@ export function NewsDetailReducer(state,action) {
 		if(state && window._SERVER_RENDERED_DATA == true) {
 
 		    var articleDetail = state.getIn(['ArticleDetailData','ArticleDetail']);
-		    var imageGallery = state.getIn(['ArticleDetailData','ImageGallery']);
 			var newBikesList = state.getIn(['NewBikesListData','NewBikesList']);
 			var newbikeMakeList = state.getIn(['NewBikesListData','BikeMakeList']);
 			var modelObject = state.getIn(['RelatedModelObject','ModelObject']);
@@ -45,8 +43,7 @@ export function NewsDetailReducer(state,action) {
 					ArticleDetailData : {
 							Status : Status.Fetched,
 							InitialDataDict : initialDataDict,
-							ArticleDetail : articleDetail,
-							ImageGallery : imageGallery
+							ArticleDetail : articleDetail
 						},
 					NewBikesListData : {
 							Status : Status.Fetched,
@@ -78,8 +75,7 @@ export function NewsDetailReducer(state,action) {
 				return state.setIn(['ArticleDetailData'] , fromJS({
 						Status : Status.IsFetching,
 						InitialDataDict : initialDataDict ,
-						ArticleDetail : null,
-						ImageGallery : null
+						ArticleDetail : null
 				}))
 				
 			case newsDetailAction.FETCH_NEWSDETAIL_WITH_INITIAL_DATA : 
@@ -93,8 +89,7 @@ export function NewsDetailReducer(state,action) {
 				return state.setIn(['ArticleDetailData'] , fromJS({
 						Status : Status.IsFetching,
 						InitialDataDict : initialDataDict,
-						ArticleDetail : null,
-						ImageGallery : null
+						ArticleDetail : null
 				}))
 				
 			case newsDetailAction.FETCH_NEWSDETAIL_SUCCESS :
