@@ -118,6 +118,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// <summary>
         /// Created By : Pratibha Verma on 24 Feb, 2018
         /// Summary : API to get expert-review details of article.
+        /// Modified By : Rajan Chauhan on 27 Feb 2018
+        /// Description : Added ImageGallery to objPwaArticle
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>Expert-Review Details</returns>
@@ -134,6 +136,15 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     if (objExpertReviews != null)
                     {
                         objPwaArticle = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objExpertReviews);
+                    }
+                    IEnumerable<ModelImage> modelImages = _articles.GetArticlePhotos((int)_basicId);
+                    if (modelImages != null && modelImages.Any())
+                    {
+                        objPwaArticle.ImageGallery = new PwaImageList()
+                        {
+                            ModelImages = ConverterUtility.PwaConvert(modelImages),
+                            RecordCount = modelImages.Count()
+                        };
                     }
                     return Ok(objPwaArticle);
                 }
