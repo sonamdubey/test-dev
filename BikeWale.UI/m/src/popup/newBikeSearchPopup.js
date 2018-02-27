@@ -429,14 +429,14 @@ var RecommendedBikes = function () {
             
 
             if (displacement != undefined) {
-                self.searchFilter.displacement = new getMinMaxLimitsList(displacement);
+                self.searchFilter.displacement = (displacement.indexOf('+') > -1) ? new getMinMaxLimitsList(displacement) : new getMinMaxLimits(displacement);
             }
 
             if (mileage != undefined) {
-                self.searchFilter.mileage = new getMinMaxLimitsList(mileage);
+                self.searchFilter.mileage = (mileage.indexOf('+') > -1) ? new getMinMaxLimitsList(mileage) : new getMinMaxLimits(mileage);
             }
             if (power != undefined) {
-                self.searchFilter.power = new getMinMaxLimitsList(power);
+                self.searchFilter.power = (power.indexOf('+') > -1) ? new getMinMaxLimitsList(power) : new getMinMaxLimits(power);
             }
 
             if (budget != undefined) {
