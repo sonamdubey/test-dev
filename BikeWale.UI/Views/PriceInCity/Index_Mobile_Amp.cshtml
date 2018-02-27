@@ -174,12 +174,12 @@
 									</tr>
 									<tr class="show" [class]="versions[currentVersion.versionId].FormatedInsurance ? 'show': 'hide'">
 										<td align="left" valign="top">
-											Insurance (Comprehensive)<br><p class="position-rel">
+											Insurance (Comprehensive)@*<br><p class="position-rel">
 												@if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
 												{
 													<a target="_blank" href="@BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold coverfox-link-clicked" rel="nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
 												}
-											</p>
+											</p>*@
 										</td>
 										<td align="right" valign="top">
 											<span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedInsurance">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.Insurance))</p>
@@ -193,6 +193,10 @@
 									</tr>
 								</tbody>
 							</table>
+							if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
+							{
+								<div class="position-rel text-right margin-right15"><a target="_blank" href="@BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold coverfox-link-clicked" rel="nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a></div>
+							}
 							<!-- Price break up link property starts -->
 							if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
 							{
@@ -354,7 +358,7 @@
 													<p class="price-label-size-12 text-truncate">@String.Format("On-road price, {0}", cityDetails.CityName)</p>
 													<div>
 														@Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price" [text]="versions[currentVersion.versionId].FormatedOnRoadPrice">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.FirstVersion.OnRoadPrice))</span>
-													</div>
+													</div>																										
 												}
 												else
 												{
@@ -364,7 +368,8 @@
 													</div>
 												}
 											}
-										</div>
+										</div>										
+											
 									</div>
 									@if (!Model.BikeInfo.IsSmallSlug)
 									{

@@ -93,8 +93,8 @@
                 </tr>
                 <tr>
                     <td class="text-light-grey padding-bottom15" align="left">
-                        Insurance @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerEMIAdShown)
-                        {<br><p class='position-rel'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}
+                        Insurance @*@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerEMIAdShown)
+                        {<br><p class='position-rel'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}*@
                     </td>
                     <td class="padding-bottom10 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.Insurance.ToString())</td>
                 </tr>
@@ -105,7 +105,7 @@
                 <tr>
                     <td class="font16 position-rel" align="left">On-road price</td>
                     <td valign="top" class="font18 text-bold" align="right">
-                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
+                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())						
                     </td>
                 </tr>
                 @if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
@@ -131,8 +131,11 @@
                         </td>
                     </tr>
                 }
-            </table>if (Model.IsPrimaryDealerAvailable)
-            {
+            </table>
+			if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerEMIAdShown)
+            {<p class='position-rel text-right margin-right15'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}
+			if (Model.IsPrimaryDealerAvailable)
+			{
                 <div class="padding-bottom10"></div>}
         <!-- Bikewale PQ ends -->
         }
