@@ -15,6 +15,7 @@ var recommendedBikePopup = (function () {
 	};
 
 	function registerEvents() {
+	    debugger;
 	    _setSelectores();
 	    initViewModel();
 	    $(document).on('click', '.refine-result__apply', function (e) {
@@ -400,22 +401,7 @@ var RecommendedBikes = function () {
         }
     };
 
-    self.UpdateFilters = function (filterTypeContainer) {
-        var activeElements = filterTypeContainer.find('input[type="checkbox"]:checked');
-        var activeElementList = '';
-        var activeFiltersList = '';
-
-        activeElements.each(function (index) {
-            activeElementList += '+' + $(this).val();
-            activeFiltersList += '+' + $(this).data("valuetext");
-
-        });
-
-        self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
-        self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeFiltersList.substr(1);
-        self.ApplyInPageFilters();
-    };
-
+    
     self.GetFilteredData = function () {
         try
         {
@@ -444,17 +430,30 @@ var RecommendedBikes = function () {
                 self.searchFilter.priceRange = (budget.indexOf('+') > -1) ? new getMinMaxLimitsList(budget) : new getMinMaxLimits(budget);
             }
             self.searchFilter.bodyStyle = (bodyType != undefined ? bodyType.split('+') : null)
+            
+        }
+        catch (e) {
+            console.warn("GetFilteredData error : " + e.message);
+        }
+        
+    }
 
-
-            $.ajax({
+    self.CallAPI = function (searchFilterObj) {
+        try {
+            return $.ajax({
                 type: "POST",
-                url: "/api/newbikesearch/",
+                url: "api/v2/bikesearch/",
                 contentType: "application/json",
-                data: ko.toJSON(self.searchFilter),
+                data: ko.toJSON(searchFilterObj),
                 success: function (response) {
+                    if(response.length > 0) {
 
+                    }
+                    else {
+
+                    }
                 },
-                error: function (request, status, error){
+                error: function (request, status, error) {
 
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
@@ -463,23 +462,72 @@ var RecommendedBikes = function () {
             });
         }
         catch (e) {
-            console.warn("GetFilteredData error : " + e.message);
+            console.warn("CallAPI error : " + e.message);
         }
-        
-
     }
 
+    self.MakeRecommmendations = function () {
+        try {
+            var searchFilterObj = {
+                filterList: self.searchFilter,
+                excludeMake: false,
 
+            };
+            return self.CallAPI(searchFilterObj);
+        }
+        catch (e) {
+            console.warn("MakeRecommendations error : " + e.message);
+        }
+    }
+
+    self.OtherMakeRecommendations = function () {
+        try {
+            var searchFilterObj = {
+                filterList: self.searchFilter,
+                excludeMake: true,
+                //pageSize: ,
+                //pageCount: 
+            }
+            return self.CallAPI(searchFilterObj);
+        }
+        catch (e) {
+            console.warn("OtherMakeRecommendations error : " + e.message);
+        }
+    }
+
+    self.SequenceAPI = function() {
+         self.MakeRecommmendations().then(self.OtherMakeRecommendations());
+    }
+
+    
     self.ApplyFilters = function () {
         self.SetPageFilters();
         self.GetFilteredData();
+        self.SequenceAPI();
         BikeFiltersPopup.close();
         window.history.back();
     };
 
     self.ApplyInPageFilters = function () {
         self.GetFilteredData();
+        self.SequenceAPI();
     }
+
+    self.UpdateFilters = function (filterTypeContainer) {
+        var activeElements = filterTypeContainer.find('input[type="checkbox"]:checked');
+        var activeElementList = '';
+        var activeFiltersList = '';
+
+        activeElements.each(function (index) {
+            activeElementList += '+' + $(this).val();
+            activeFiltersList += '+' + $(this).data("valuetext");
+
+        });
+
+        self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
+        self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeFiltersList.substr(1);
+        self.ApplyInPageFilters();
+    };
 
     self.setBudgetSelection = function () {
         var amountPreview = self.getBudgetAmount(self.budgetSlider());
@@ -545,4 +593,6 @@ function getMinMaxLimits(range) {
    
     return maxMinLimits;
 }
+
+
 
