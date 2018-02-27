@@ -11,9 +11,11 @@ namespace Bikewale.PWA.Entities.Photos
     /// Created by : Ashutosh Sharma on 12 Feb 2018.
     /// Modified by : Rajan Chauhan on 14th Feb 2018
     /// Description : Added ModelName and MakeName property
+    /// Modified by : Rajan Chauhan on 26 Feb 2018
+    /// Description : Moved BikeName from PwaImageList to PwaModelImages
     /// </summary>
     [Serializable, DataContract]
-    public class PwaModelImages : PwaModelImagesBase
+    public class PwaModelImages : PwaImageList
     {
         [DataMember]
         public int ModelId { get; set; }
@@ -23,5 +25,7 @@ namespace Bikewale.PWA.Entities.Photos
         public string MakeName { get; set; }
         [DataMember]
         public string ModelImagePageUrl { get; set; }
+        [DataMember]
+        public string BikeName { get; set; }
     }
 }

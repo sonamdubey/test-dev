@@ -17,7 +17,8 @@ export function NewsDetailReducer(state,action) {
 				},
 			NewBikesListData : {
 					Status : Status.Reset,
-					NewBikesList : null
+					NewBikesList : null,
+			        BikeMakeList : null
 				},
 			RelatedModelObject : {
 					Status : Status.Reset,
@@ -27,8 +28,9 @@ export function NewsDetailReducer(state,action) {
 
 		if(state && window._SERVER_RENDERED_DATA == true) {
 
-			var articleDetail = state.getIn(['ArticleDetailData','ArticleDetail']);
+		    var articleDetail = state.getIn(['ArticleDetailData','ArticleDetail']);
 			var newBikesList = state.getIn(['NewBikesListData','NewBikesList']);
+			var newbikeMakeList = state.getIn(['NewBikesListData','BikeMakeList']);
 			var modelObject = state.getIn(['RelatedModelObject','ModelObject']);
 			
 
@@ -45,7 +47,8 @@ export function NewsDetailReducer(state,action) {
 						},
 					NewBikesListData : {
 							Status : Status.Fetched,
-							NewBikesList : newBikesList
+							NewBikesList : newBikesList,
+							BikeMakeList : newbikeMakeList
 						},
 					RelatedModelObject : {
 							Status : Status.Fetched,

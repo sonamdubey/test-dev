@@ -1,4 +1,4 @@
-function extractPageNoFromURL(url) {
+function extractPageNoFromURL() {
 	var url = window.location.pathname;
 	//var matches =  url.match(/page\/(\d+)\/$/);
 	var regex = /\d+(?=\D*$)/;

@@ -412,5 +412,15 @@ namespace BikewaleOpr.Cache
         {
             MemCachedUtil.Remove(String.Format("BW_Dealer_{0}_Version_{1}", dealerId, versionId));
         }
+
+        /// <summary>
+        /// Created by : Sanskar Gupta on 13 Feb 2018
+        /// Description : Clear Dealer Bikes Cache key
+        /// </summary>
+        /// <param name="dealerId"></param>
+        public static void ClearDealerBikes(uint dealerId)
+        {
+            MemCachedUtil.Remove(String.Format("BW_DealerBikeModel_v1_{0}", dealerId));
+        }
     }
 }

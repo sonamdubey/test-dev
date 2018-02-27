@@ -179,10 +179,10 @@
                                         </tr>
                                         <tr class="row-with-padding">
                                             <td class="font14">
-                                                Insurance (Comprehensive)@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
+                                                Insurance (Comprehensive)@*@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerEMIAdShown)
                                                 {
-                                                    <br><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="CoverFox_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName)" rel=" nofollow">Buy Policy Now</a></p>
-                                                }
+                                                    <br><p class="position-rel"><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName)" rel=" nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey text-unbold font10">Ad</span></a></p>
+                                                }*@
                                             </td>
                                             <td align="right">
                                                 @Html.Raw("<span class='font16'>&#x20B9;</span>")&nbsp;<span class="font16 text-bold">@CommonOpn.FormatNumeric(@Model.Quotation.Insurance.ToString())</span>
@@ -199,6 +199,10 @@
                                             </td>
                                             <td align="right">
                                                 @Html.Raw("<span class='font22'>&#x20B9;</span>")&nbsp;<span class="font22 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.OnRoadPrice.ToString())</span>
+												@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
+                                                {
+                                                    <br><p class="position-rel"><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName)" rel=" nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a></p>
+                                                }
                                             </td>
                                         </tr>
                                         @if (Model.LeadCampaign!= null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextDesktop))
@@ -491,9 +495,9 @@
              <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
          }
 
-            @if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
+            @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
         {
-            <text>triggerNonInteractiveGA('Dealer_PQ', 'CoverFox_Link_Shown', bikeVerLocation);</text>
+            <text>triggerNonInteractiveGA('Dealer_PQ', 'ICICIBank_Link_Shown', bikeVerLocation);</text>
         }
         }
         catch (e) {

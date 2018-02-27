@@ -169,7 +169,7 @@ namespace Bikewale.Controllers
         [Route("m/expertreviews/details/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _seriesCache, _series);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
@@ -191,6 +191,49 @@ namespace Bikewale.Controllers
         }
 
         /// <summary>
+        /// Created by  : Rajan Chauhan on 24 Feb 2018
+        /// Summary     : Action method for mobile expert review detail page for PWA
+        /// </summary>
+        /// <param name="basicid"></param>
+        /// <returns></returns>
+        [Route("m/expertreviews/details/{basicid}/pwa/")]
+        public ActionResult Detail_Mobile_Pwa(string basicid)
+        {
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
+            obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+            }
+            else
+            {
+                Stopwatch sw = null;
+                if (_logPWAStats)
+                    sw = Stopwatch.StartNew();
+                ExpertReviewsDetailPageVM objData = obj.GetPwaData(9);
+
+                if (_logPWAStats)
+                {
+                    sw.Stop();
+                    ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                    ThreadContext.Properties["PageName"] = "ExpertReviewsController - Detail";
+                    _logger.Error(sw.ElapsedMilliseconds);
+                }
+
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
+                else
+                {
+                    return View(objData);
+                }
+            }
+        }
+
+        /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Action method for expert review details page - Desktop
         /// </summary>
@@ -198,7 +241,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _seriesCache, _series);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -230,7 +273,7 @@ namespace Bikewale.Controllers
         {
             ExpertReviewsDetailPageVM objData = null;
 
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _seriesCache, _series);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
             if (obj.status == StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");

@@ -330,6 +330,8 @@ namespace Bikewale.Models
         /// Description : Added call to BindAdSlotTags.
         /// Modified by : Ashutosh Sharma on 08 Dec 2017
         /// Description : Removed Images load with Ajax for honda and hero.
+        /// Modified By : Deepak Israni on 19 Feb 2018
+        /// Description : Sending isNew flag with GetVersionMinSpecs instead of the hardcoded true value.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageVM GetData()
@@ -353,7 +355,7 @@ namespace Bikewale.Models
                             objVM.BikeVersionPrices = newVersions;
                         }
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
-                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
+                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, objVM.IsNew);
                         if (objVM.VersionSpecs != null)
                         {
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
@@ -519,6 +521,8 @@ namespace Bikewale.Models
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : Ashutosh Sharma on 11 Dec 2017
         /// Description : Added IsNew check for GetManufacturerCampaign and BindManufacturerLeadAdAMP
+        /// Modified by : Deepak Israni on 20 Dec 2018
+        /// Description : Fixed call to GetVersionMinSpecs.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageAMPVM GetDataAMP()
@@ -557,7 +561,7 @@ namespace Bikewale.Models
                             objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         }
                         versionCount = (uint)objVM.FormatedBikeVersionPrices.Count();
-                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
+                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, objVM.IsNew);
 
                         ICollection<KeyValuePair<uint, BikeQuotationAMPEntity>> values = new Dictionary<uint, BikeQuotationAMPEntity>();
                         foreach (var item in objVM.FormatedBikeVersionPrices)

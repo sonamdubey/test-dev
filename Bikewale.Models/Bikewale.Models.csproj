@@ -197,6 +197,7 @@
     <Compile Include="ServiceCenters\ServiceCentersNearByCityWidgetVM.cs" />
     <Compile Include="Shared\BikeInfo.cs" />
     <Compile Include="Shared\Brands.cs" />
+    <Compile Include="Shared\CMSArticleDetailPageVM.cs" />
     <Compile Include="Shared\CMSArticlesListIndexPageVM.cs" />
     <Compile Include="Shared\EditCMSPhotoGalleryVM.cs" />
     <Compile Include="Shared\EMICalculatorVM.cs" />

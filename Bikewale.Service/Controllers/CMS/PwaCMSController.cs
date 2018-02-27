@@ -34,7 +34,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController
     /// Modified by :   Rajan Chauhan on 24 Feb 2018
-    /// Description :   Added IArticles in constructor
+    /// Description :   Added IArticles in constructor and removed _logger
     /// </summary>
     public class PwaCMSController : CompressionApiController//ApiController
     {
@@ -49,7 +49,6 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _cityCacheRepository;
         private readonly IArticles _articles;
-        static ILog _logger = LogManager.GetLogger("PwaCMSController");
         
 
         public PwaCMSController(IPager pager, ICMSCacheContent cmsCache,
@@ -242,9 +241,9 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                 {
                                     bikeList = _bikeMakesEntity.GetScooterMakes();
                                     PwaMakeBikeBase scooterMakeList = new PwaMakeBikeBase();
-                                    scooterMakeList.MakeList = ConverterUtility.MapBikeMakeEntityBaseToPwaMakeScooterEntity(bikeList);
+                                        scooterMakeList.MakeList = ConverterUtility.MapBikeMakeEntityBaseToPwaMakeBikeEntity(bikeList);
                                     scooterMakeList.Heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
-                                    scooterMakeList.CompleteListUrlAlternateLabel = string.Format("Popular {0} brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
+                                        scooterMakeList.CompleteListUrlAlternateLabel = string.Format("{0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
                                     scooterMakeList.CompleteListUrl = "/m/scooters/";
                                     scooterMakeList.CompleteListUrlLabel = "View all";
                                     objPwaBikeNews.BikeMakeList = new List<PwaMakeBikeBase>();
@@ -582,16 +581,18 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
         #region Article Gallery Images Api
         /// <summary>
-        /// Created by : Rajan Chauhan on 24 Feb 2018
+        /// Created by  : Rajan Chauhan on 24 Feb 2018
         /// Description : Returns the gallery images for article
+        /// Modified by : Rajan Chauhan on 26 Feb 2018
+        /// Description : Removed BikeName from PwaImageList
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
-        [ResponseType(typeof(PwaModelImagesBase)), Route("api/pwa/cms/images/articles/id/{basicId}/")]
+        [ResponseType(typeof(PwaImageList)), Route("api/pwa/cms/images/articles/id/{basicId}/")]
         public IHttpActionResult GetArticleGalleryImages(string basicId)
         {
             int _basicId = default(int);
-            PwaModelImagesBase objGalleryImages = null;
+            PwaImageList objGalleryImages = null;
             try
             {
                 if (int.TryParse(basicId, out _basicId))
@@ -601,10 +602,9 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         IEnumerable<ModelImage> modelImages = _articles.GetArticlePhotos(_basicId);
                         if (modelImages != null && modelImages.Any())
                         {
-                            objGalleryImages = new PwaModelImagesBase() { 
+                            objGalleryImages = new PwaImageList() { 
                                 ModelImages = ConverterUtility.PwaConvert(modelImages),
-                                RecordCount = modelImages.Count(),
-                                BikeName = string.Format("{0} {1}", modelImages.First().MakeBase.MakeName, modelImages.First().ModelBase.ModelName)
+                                RecordCount = modelImages.Count()
                             };
                         }
                     }
