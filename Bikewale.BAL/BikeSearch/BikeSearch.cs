@@ -24,7 +24,7 @@ namespace Bikewale.BAL.BikeSearch
         private static readonly byte _ModelStatus = 2;// by defaut all new bikes status
 
         /// <summary>
-        /// Created By :-
+        /// Created By :-Subodh Jain on 21 feb 2018
         /// Description :- GetBike search result according to filter passed,source and noofRecords
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -37,9 +37,10 @@ namespace Bikewale.BAL.BikeSearch
             IEnumerable<BikeModelDocument> objBikeList = null;
             try
             {
+                // if global city is selected call city pricing data also.
                 if (filters.CityId > 0)
                 {
-                 IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
+                    IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
 
                     var bikeList = Task.Factory.StartNew(() => objBikeList = GetBikeSearchList(filters, BikeSearchEnum.BikeList));
                     var bikeListWithCityPrice = Task.Factory.StartNew(() => objBikeListWithCityPrice = GetBikeSearchList(filters, BikeSearchEnum.PriceList));
@@ -57,7 +58,7 @@ namespace Bikewale.BAL.BikeSearch
                     objBikeList = GetBikeSearchList(filters, BikeSearchEnum.BikeList);
                 }
 
-            
+
             }
             catch (Exception ex)
             {
@@ -66,7 +67,7 @@ namespace Bikewale.BAL.BikeSearch
             return objBikeList;
         }
         /// <summary>
-        /// Created By :-
+        /// Created By :-Subodh Jain on 21 feb 2018
         /// Summary :- List of bikes accroding to search parameter and process filters
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -84,6 +85,7 @@ namespace Bikewale.BAL.BikeSearch
 
                 if (client != null)
                 {
+                    // func descriptor for searching data in ES index
                     Func<SearchDescriptor<BikeModelDocument>, SearchDescriptor<BikeModelDocument>> searchDescriptor = new Func<SearchDescriptor<BikeModelDocument>, SearchDescriptor<BikeModelDocument>>(
                            sd => sd.Index(indexName).Type(typeName)
                                     .Query(q => q
@@ -112,7 +114,7 @@ namespace Bikewale.BAL.BikeSearch
         }
 
         /// <summary>
-        /// Created By :- 
+        /// Created By :- Subodh Jain on 21 feb 2018
         /// Summary :- Process Filters according to req.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -181,7 +183,12 @@ namespace Bikewale.BAL.BikeSearch
             return v => v.Field(new Field(fieldName)).GreaterThanOrEquals(min).LessThanOrEquals(max);
         }
 
-
+        /// <summary>
+        /// Ranging the list of data type double from min to max
+        /// </summary>
+        /// <param name="List"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
         private QueryContainer Range(IEnumerable<Tuple<double, double>> List, string fieldName)
         {
             QueryContainer query = new QueryContainer();
@@ -193,14 +200,25 @@ namespace Bikewale.BAL.BikeSearch
 
             return query;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
         private Func<NumericRangeQueryDescriptor<BikeModelDocument>, INumericRangeQuery> RangeQuery(int min, int max, string fieldName)
         {
 
             return v => v.Field(new Field(fieldName)).GreaterThanOrEquals(min).LessThanOrEquals(max);
         }
 
-
+        /// <summary>
+        ///  Ranging the list of data type int from min to max
+        /// </summary>
+        /// <param name="List"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
         private QueryContainer Range(IEnumerable<Tuple<int, int>> List, string fieldName)
         {
             QueryContainer query = new QueryContainer();
@@ -212,7 +230,11 @@ namespace Bikewale.BAL.BikeSearch
 
             return query;
         }
-
+        /// <summary>
+        /// Get index name
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         private string GetIndexName(BikeSearchEnum source)
         {
             string indexName = string.Empty;
@@ -239,6 +261,11 @@ namespace Bikewale.BAL.BikeSearch
             }
             return indexName;
         }
+        /// <summary>
+        /// get type of the document
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         private string GetTypeName(BikeSearchEnum source)
         {
             string typeName = string.Empty;
