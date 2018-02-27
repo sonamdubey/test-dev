@@ -105,7 +105,7 @@
 									</tr>
 								</tbody>
 							</table>
-							if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
+							if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown && !Model.HasCampaignDealer)
 							{
 								<div class="text-right margin-right15"><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="position-rel font12 bw-ga text-bold" data-cat="Price_in_City_Page" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a></div>
 							}
@@ -557,5 +557,5 @@
 		@Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 	}
 	<script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
-	<script type="text/javascript">isCoverfoxShown = @(!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown ? "true" : "false")</script>
+	<script type="text/javascript">isCoverfoxShown = @(!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.HasCampaignDealer && !Model.IsManufacturerLeadAdShown ? "true" : "false")</script>
 }
