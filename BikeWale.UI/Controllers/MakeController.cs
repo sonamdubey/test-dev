@@ -111,10 +111,12 @@ namespace Bikewale.Controllers
 
                 objData = obj.GetData();
                 if (BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageViewShowPercentage))
-                { return View("~/views/make/Index_Mobile.cshtml", objData); }
-                else
                 {
                     return View("~/views/make/Index_Mobile_New.cshtml", objData);
+                }
+                else
+                {
+                    return View("~/views/make/Index_Mobile.cshtml", objData);
                 }
             }
             else if (obj.Status == StatusCodes.RedirectPermanent)
