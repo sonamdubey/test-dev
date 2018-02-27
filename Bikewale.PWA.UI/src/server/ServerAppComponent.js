@@ -22,8 +22,9 @@ class ServerAppComponent extends React.Component {
 						<Switch>
 	                        <Route exact path='/m/(news|expert-reviews)/' component={() => (<ArticleListComponent {...this.props.childComponentProps}/>)}/>
 	                        <Route exact path='/m/(news|expert-reviews)/page/:pageNo/' component={() => (<ArticleListComponent {...this.props.childComponentProps}/>)}/>
-	                        <Route exact path='/m/(news|expert-reviews)/:basicId(\d+)-:title.html' component={() => (<ArticleDetailComponent {...this.props.childComponentProps}/>)}/>
-	                        <Route exact path='/m/bike-videos/' component={() => (<VideoLandingComponent_Server {...this.props.childComponentProps}/>)}/>
+	                        <Route exact path='/m/news/:basicId(\d+)-:title.html' component={() => (<ArticleDetailComponent {...this.props.childComponentProps}/>)}/>
+	                        <Route exact path='/m/expert-reviews/:title-:basicId(\d+).html' component={() => (<ArticleDetailComponent {...this.props.childComponentProps}/>)}/>
+                            <Route exact path='/m/bike-videos/' component={() => (<VideoLandingComponent_Server {...this.props.childComponentProps}/>)}/>
 						    <Route exact path='/m/bike-videos/category/*-:categoryId(\d+)/' component={() => (<VideosByCategoryComponent {...this.props.childComponentProps}/>)}/>
 						    <Route exact path='/m/bike-videos/:title-:basicId(\d+)/' component={() => (<VideoDetailComponent {...this.props.childComponentProps}/>)}/>
 	                    </Switch>

@@ -124,13 +124,17 @@ namespace Bikewale.BAL.PWA.CMS
 
         /// <summary>
         /// Created by Prasad Gawde
+        /// Modified By : Rajan Chauhan on 26 Feb 2018
+        /// Description : Added pageName in args 
+        ///               Changed NewsURL in ThreadContext properties to CMSURL
         /// </summary>
         /// <param name="reducer"></param>
         /// <param name="url"></param>
         /// <param name="containerId"></param>
         /// <param name="componentName"></param>
+        /// <param name="pageName"></param>
         /// <returns>Returns the Rendered HTML for the News Details Page for the input BasicId for which Store us constructed in Reducer</returns>
-        public IHtmlString GetNewsDetails(PwaNewsDetailReducer reducer, string url, string containerId, string componentName)
+        public IHtmlString GetNewsDetails(PwaNewsDetailReducer reducer, string url, string containerId, string componentName, string pageName)
         {
 
             Stopwatch sw = null;
@@ -153,7 +157,7 @@ namespace Bikewale.BAL.PWA.CMS
             {
                 string newStr = string.IsNullOrEmpty(componentName) ? "Null Component" : componentName;
                 ThreadContext.Properties["ComponentName"] = newStr+" : "+containerId;
-                ThreadContext.Properties["NewsURL"] = string.IsNullOrEmpty(url) ? "Null News URL" : url;
+                ThreadContext.Properties["CMSURL"] = string.IsNullOrEmpty(url) ? "Null " + pageName + " URL" : url;
                 _logger.Error(ex);
             }
 
@@ -161,7 +165,7 @@ namespace Bikewale.BAL.PWA.CMS
             {
                 sw.Stop();
                 ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
-                ThreadContext.Properties["PageName"] = "News Detail";
+                ThreadContext.Properties["PageName"] = pageName + " Detail";
                 _logger.Error(sw.ElapsedMilliseconds);
             }
             return renderedHtml;

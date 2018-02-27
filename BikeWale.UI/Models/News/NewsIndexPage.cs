@@ -35,7 +35,9 @@ namespace Bikewale.Models
     /// Description: Added _bikeMakesCacheRepository,_objBikeVersionsCache.
     ///              Added PopularScooterBrandsWidget
     /// Modified by : Ashutosh Sharma on 27 Nov 2017
-    /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.             
+    /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
+    /// Modified by : Rajan Chauhan on 27 Feb 2017
+    /// Description : changed CityName from public to private
     /// </summary>
     public class NewsIndexPage
     {
@@ -66,7 +68,8 @@ namespace Bikewale.Models
         private MakeHelper makeHelper = null;
         private ModelHelper modelHelper = null;
         private GlobalCityAreaEntity currentCityArea = null;
-        public string redirectUrl, CityName;
+        private string CityName;
+        public string redirectUrl;
         public StatusCodes status;
         private BikeModelEntity objModel = null;
         private BikeMakeEntityBase objMake = null;

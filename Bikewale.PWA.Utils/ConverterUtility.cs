@@ -5,6 +5,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Videos;
+using Bikewale.Models.Shared;
 using Bikewale.Models;
 using Bikewale.Notifications;
 using Bikewale.PWA.Entities.Photos;
@@ -121,10 +122,28 @@ namespace Bikewale.PWA.Utils
         public static string MapPageToContent(List<Page> PageList) {
             string content = string.Empty;
             foreach (Page page in PageList) {
-                content += "<div class=\"margin - bottom10\">< h3 class=\"margin-bottom10\" role=\"heading\">"+ page.PageName + 
+                content += "<div class=\"margin - bottom10\"><h3 class=\"margin-bottom10\" role=\"heading\">"+ page.PageName + 
                             "</h3><div id='@page.pageId' class=\"margin-top-10 article-content\">"+page.Content + "</div></div>";
             }
             return content;
+        }
+
+        /// <summary>
+        /// Created by  : Rajan Chauhan on 26 Feb 2018
+        /// Description : Converts EditCMSPhotoGalleryVM to PwaImageList
+        /// </summary>
+        /// <param name="photoGalleryVM"></param>
+        /// <returns></returns>
+        public static PwaImageList MapPhotoGalleryToPwaImageList(EditCMSPhotoGalleryVM photoGalleryVM)
+        {
+            PwaImageList imageGallery = new PwaImageList();
+
+            if (photoGalleryVM != null && photoGalleryVM.Images != null && photoGalleryVM.Images.Any())
+            {
+                imageGallery.ModelImages = PwaConvert(photoGalleryVM.Images);
+                imageGallery.RecordCount = photoGalleryVM.ImageCount;
+            }
+            return imageGallery;
         }
 
         /// <summary>
@@ -158,23 +177,35 @@ namespace Bikewale.PWA.Utils
             }
             return outList;
         }
-        public static List<PwaMakeBikeEntity> MapBikeMakeEntityBaseToPwaMakeScooterEntity(IEnumerable<BikeMakeEntityBase> bikeList) {
+        /// <summary>
+        /// Modified by : Rajan Chauhan on 26 Feb 2018
+        /// Description : Added null check on bikeList
+        /// </summary>
+        /// <param name="bikeList"></param>
+        /// <returns></returns>
+        public static List<PwaMakeBikeEntity> MapBikeMakeEntityBaseToPwaMakeBikeEntity(IEnumerable<BikeMakeEntityBase> bikeList) {
             List<PwaMakeBikeEntity> outList = new List<PwaMakeBikeEntity>();
-            foreach (var make in bikeList) {
-                outList.Add(new PwaMakeBikeEntity()
+            if (bikeList != null && bikeList.Any())
+            {
+                foreach (var make in bikeList)
                 {
-                    MakeId = make.MakeId,
-                    MakeName = make.MakeName,
-                    MaskingName = make.MaskingName,
-                    IsScooterOnly = make.IsScooterOnly,
-                    TotalCount = make.TotalCount
+                    outList.Add(new PwaMakeBikeEntity()
+                    {
+                        MakeId = make.MakeId,
+                        MakeName = make.MakeName,
+                        MaskingName = make.MaskingName,
+                        IsScooterOnly = make.IsScooterOnly,
+                        TotalCount = make.TotalCount
+                    }
+                    );
                 }
-                );
             }
             return outList;
         }
         /// <summary>
         /// Converts the list of upcoming bikes to the list of PwaBikeDetails for the given city
+        /// Modified by : Rajan Chauhan on 26 Feb 2018
+        /// Description : Added null check on inpList
         /// </summary>
         /// <param name="inpList"></param>
         /// <param name="cityName"></param>
@@ -182,20 +213,29 @@ namespace Bikewale.PWA.Utils
         public static List<PwaBikeDetails> MapUpcomingBikeEntityToPwaBikeDetails(IEnumerable<UpcomingBikeEntity> inpList, string cityName)
         {
             List<PwaBikeDetails> outList = new List<PwaBikeDetails>();
-
-            string curCityName = cityName ?? _defaultCityName;
-            foreach (var item in inpList)
+            try
             {
-                outList.Add(new PwaBikeDetails()
+                string curCityName = cityName ?? _defaultCityName;
+                if (inpList != null && inpList.Any())
                 {
-                    Name = String.Format("{0} {1}", item.MakeBase.MakeName, item.ModelBase.ModelName),
-                    DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(item.MakeBase.MaskingName, item.ModelBase.MaskingName),
-                    ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostUrl, ImageSize._174x98, QualityFactor._70),
-                    Price = item.EstimatedPriceMin > 0 ? Format.FormatPrice(item.EstimatedPriceMin.ToString()) : string.Empty,
-                    PriceDescription = item.EstimatedPriceMin > 0 ? "Expected price" : string.Empty,
-                    PriceSuffix = item.EstimatedPriceMin > 0 ? "onwards" : "Price not available"
+                    foreach (var item in inpList)
+                    {
+                        outList.Add(new PwaBikeDetails()
+                        {
+                            Name = String.Format("{0} {1}", item.MakeBase.MakeName, item.ModelBase.ModelName),
+                            DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(item.MakeBase.MaskingName, item.ModelBase.MaskingName),
+                            ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostUrl, ImageSize._174x98, QualityFactor._70),
+                            Price = item.EstimatedPriceMin > 0 ? Format.FormatPrice(item.EstimatedPriceMin.ToString()) : string.Empty,
+                            PriceDescription = item.EstimatedPriceMin > 0 ? "Expected price" : string.Empty,
+                            PriceSuffix = item.EstimatedPriceMin > 0 ? "onwards" : "Price not available"
+                        }
+                        );
+                    }
                 }
-                );
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails : {0}, {1}", inpList, cityName));
             }
             return outList;
         }
@@ -291,7 +331,7 @@ namespace Bikewale.PWA.Utils
         /// <param name="objData"></param>
         /// <param name="city"></param>
         /// <returns></returns>
-        public static List<PwaBikeNews> MapNewBikeListToPwaNewBikeList(NewsDetailPageVM objData, string city)
+        public static List<PwaBikeNews> MapNewBikeListToPwaNewBikeList<T>(T objData, string city) where T: CMSArticleDetailPageVM
         {
             List<PwaBikeNews> outData = new List<PwaBikeNews>();
 
@@ -337,6 +377,40 @@ namespace Bikewale.PWA.Utils
 
             return outData;
         }
+
+        /// <summary>
+        /// Created by : Rajan Chauhan on 27 Feb 2018
+        /// Description : To convert Article page PopularScooterMakesWidget data to List<PwaMakeBikeBase>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objData"></param>
+        /// <returns></returns>
+        public static List<PwaMakeBikeBase> MapBikeMakeEntityBaseListToPwaMakeBikeBaseList<T>(T objData) where T : CMSArticleDetailPageVM
+        {
+            List<PwaMakeBikeBase> outData = null;
+            try
+            {
+                if (objData != null && objData.PopularScooterMakesWidget != null && objData.PopularScooterMakesWidget.Any())
+                {
+                    PwaMakeBikeBase makeListBase = new PwaMakeBikeBase()
+                    {
+                        MakeList = MapBikeMakeEntityBaseListToPwaMakeBikeEntityList(objData.PopularScooterMakesWidget),
+                        Heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter)),
+                        CompleteListUrlAlternateLabel = string.Format("{0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter)),
+                        CompleteListUrl = "/m/scooters/",
+                        CompleteListUrlLabel = "View all"
+                    };
+                    outData = new List<PwaMakeBikeBase>();
+                    outData.Add(makeListBase);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.MapBikeMakeEntityBaseListToPwaMakeBikeBaseList : {0}", objData));
+            }
+            return outData;
+        }
+
         /// <summary>
         /// Converts the BikeInfo to the PWABikeInfo
         /// </summary>
@@ -611,6 +685,39 @@ namespace Bikewale.PWA.Utils
                 ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.PwaConvert_modelImageList_{0}", modelImageList));
             }
             return pwaImageBaseList;
+        }
+
+        /// <summary>
+        /// Created By : Rajan Chauhan on 26 Feb 2018
+        /// Summary    : To convert IEnumerable<BikeMakeEntityBase> to List<PwaMakeBikeEntity>
+        /// </summary>
+        /// <param name="inpList"></param>
+        /// <returns></returns>
+        public static List<PwaMakeBikeEntity> MapBikeMakeEntityBaseListToPwaMakeBikeEntityList(IEnumerable<BikeMakeEntityBase> inpList)
+        {
+            List<PwaMakeBikeEntity> outList = null;
+            try {
+                if (inpList != null && inpList.Any())
+                {
+                    outList = new List<PwaMakeBikeEntity>();
+                    foreach (BikeMakeEntityBase make in inpList)
+                    {
+                        outList.Add(new PwaMakeBikeEntity()
+                        {
+                            MakeId = make.MakeId,
+                            MakeName = make.MakeName,
+                            MaskingName = make.MaskingName,
+                            IsScooterOnly = make.IsScooterOnly,
+                            TotalCount = make.TotalCount
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.MapBikeMakeEntityBaseListToPwaMakeBikeEntityList : {0}", inpList));
+            }
+            return outList;
         }
     }
 }
