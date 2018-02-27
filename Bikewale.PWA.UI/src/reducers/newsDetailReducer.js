@@ -13,11 +13,13 @@ export function NewsDetailReducer(state,action) {
 			ArticleDetailData : {
 					Status : Status.Reset,
 					InitialDataDict : {},
-					ArticleDetail : null
+					ArticleDetail : null,
+                    ImageGallery : null
 				},
 			NewBikesListData : {
 					Status : Status.Reset,
-					NewBikesList : null
+					NewBikesList : null,
+			        BikeMakeList : null
 				},
 			RelatedModelObject : {
 					Status : Status.Reset,
@@ -27,8 +29,10 @@ export function NewsDetailReducer(state,action) {
 
 		if(state && window._SERVER_RENDERED_DATA == true) {
 
-			var articleDetail = state.getIn(['ArticleDetailData','ArticleDetail']);
+		    var articleDetail = state.getIn(['ArticleDetailData','ArticleDetail']);
+		    var imageGallery = state.getIn(['ArticleDetailData','ImageGallery']);
 			var newBikesList = state.getIn(['NewBikesListData','NewBikesList']);
+			var newbikeMakeList = state.getIn(['NewBikesListData','BikeMakeList']);
 			var modelObject = state.getIn(['RelatedModelObject','ModelObject']);
 			
 
@@ -41,11 +45,13 @@ export function NewsDetailReducer(state,action) {
 					ArticleDetailData : {
 							Status : Status.Fetched,
 							InitialDataDict : initialDataDict,
-							ArticleDetail : articleDetail
+							ArticleDetail : articleDetail,
+							ImageGallery : imageGallery
 						},
 					NewBikesListData : {
 							Status : Status.Fetched,
-							NewBikesList : newBikesList
+							NewBikesList : newBikesList,
+							BikeMakeList : newbikeMakeList
 						},
 					RelatedModelObject : {
 							Status : Status.Fetched,
@@ -72,7 +78,8 @@ export function NewsDetailReducer(state,action) {
 				return state.setIn(['ArticleDetailData'] , fromJS({
 						Status : Status.IsFetching,
 						InitialDataDict : initialDataDict ,
-						ArticleDetail : null
+						ArticleDetail : null,
+						ImageGallery : null
 				}))
 				
 			case newsDetailAction.FETCH_NEWSDETAIL_WITH_INITIAL_DATA : 
@@ -86,7 +93,8 @@ export function NewsDetailReducer(state,action) {
 				return state.setIn(['ArticleDetailData'] , fromJS({
 						Status : Status.IsFetching,
 						InitialDataDict : initialDataDict,
-						ArticleDetail : null
+						ArticleDetail : null,
+						ImageGallery : null
 				}))
 				
 			case newsDetailAction.FETCH_NEWSDETAIL_SUCCESS :
