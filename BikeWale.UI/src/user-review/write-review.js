@@ -284,7 +284,7 @@ var personalDetails = function () {
                 validate.setError(userNameField, 'Please enter your name');
                 userNameError = true;
             }
-            else if (!(/^[A-Za-z\s]+$/.test(vmRateBike.userName()))) {
+            else if (!(/^[A-Za-z'-\s]+$/.test(vmRateBike.userName()))) {
                 userNameError = true;
                 validate.setError(userNameField, 'Invalid name');
             }

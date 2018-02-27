@@ -280,7 +280,7 @@ docReady(function () {
                     userNameError = true;
                     validate.setError(userNameField, 'Please enter your name');
                 }
-                else if(!(/^[A-Za-z\s]+$/.test(vmRateBike.userName()))) {
+                else if (!(/^[A-Za-z'-\s]+$/.test(vmRateBike.userName()))) {
                     userNameError = true;
                     validate.setError(userNameField, 'Invalid name');
                 }

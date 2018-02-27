@@ -88,7 +88,7 @@
 
                                         <div class="grid-6 alpha">
                                             <div class="input-box bw-ga" data-cat="Rate_Bike" data-act="Name_Field_Focus" data-lab="@gaLabel" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
-                                                <input type="text" id="txtUserName" name="userName" maxlength="45" data-bind=" textinput username" value="@(string.IsNullOrEmpty(Model.CustomerName) ? "" : Model.CustomerName)" />
+                                                <input type="text" id="txtUserName" name="userName" maxlength="45" data-bind="textInput: userName" value="@(string.IsNullOrEmpty(Model.CustomerName) ? "" : Model.CustomerName)" />
                                                 <label for="getUserName">Name<sup>*</sup></label>
                                                 <span class="boundary"></span>
                                                 <span class="error-text"></span>
