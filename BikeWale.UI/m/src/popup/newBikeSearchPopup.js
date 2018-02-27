@@ -197,6 +197,9 @@ ko.bindingHandlers.KOSlider = {
 var RecommendedBikes = function () {
     var self = this;
 
+    self.Bikes = ko.observableArray([]);
+    self.BikesOtherMakes = ko.observableArray([]);
+
     var budgetArray = [
 		{
 		    step: 0.3,
@@ -448,11 +451,15 @@ var RecommendedBikes = function () {
 
             $.ajax({
                 type: "POST",
-                url: "/api/newbikesearch/",
+                url: "/api/v2/bikesearch/",
                 contentType: "application/json",
                 data: ko.toJSON(self.searchFilter),
                 success: function (response) {
+                    if (response.length > 0) {
+                        self.Bikes(response);
+                    } else {
 
+                    }
                 },
                 error: function (request, status, error){
 
@@ -508,7 +515,7 @@ function convertAmount(amount, rupeeIcon) {
 }
 
 function getMinMaxLimitsList(range) {
-    var filterArray = {};
+    var filterArray = [];
     if (range != undefined) {
         var selectedRangeList = range.split('+');
     }
@@ -518,11 +525,11 @@ function getMinMaxLimitsList(range) {
         $.each(selectedRangeList, function (i, val) {
             var filterPair = val.split('-');
             maxMinLimits = {
-                minValue: filterPair[0],
-                maxValue: filterPair[1]
+                Item1: filterPair[0],
+                Item2: filterPair[1]
 
             }
-            filterArray[i] = maxMinLimits;
+            filterArray.push(maxMinLimits);
         });
 
     }
@@ -538,8 +545,8 @@ function getMinMaxLimits(range) {
     if (selectedRangeList != null)
     {
         maxMinLimits= {
-            minValue: selectedRangeList[0],
-            maxValue: selectedRangeList[1]
+            Item1: selectedRangeList[0],
+            Item2: selectedRangeList[1]
         }
     }
    

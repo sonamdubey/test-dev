@@ -59,14 +59,14 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             }
         }
 
-
-        public IHttpActionResult BikeList([FromBody]/*SearchFilterDTO*/SearchFilters input)
+        [Route("api/v2/bikesearch/")]
+        public IHttpActionResult BikeList([FromBody] SearchFilterDTO input)
         {
             try
             {
                 SearchOutput searchResult = null;
                 IEnumerable<BikeModelDocument> objBikeList = null;
-                objBikeList = _bikeSearch.GetBikeSearch(input);
+                //objBikeList = _bikeSearch.GetBikeSearch(input);
 
                 searchResult = SearchOutputMapper.Convert(objBikeList);
                 if (searchResult != null && searchResult.SearchResult != null && searchResult.SearchResult.Count > 0)
