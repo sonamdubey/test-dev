@@ -5,17 +5,21 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.BikeModels;
 using Bikewale.Models.Scooters;
 using Bikewale.Notifications;
+using Bikewale.PWA.Utils;
 using Bikewale.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +32,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by : Aditi Srivastava on 30 Mar 2017
     /// Summary    : Model to populate view model for expert review detail page
+    /// Modified by : Rajan Chauhan on 26 Feb 2017
+    /// Description : Added private variable CityName and IPWACMSCacheRepository _renderedArticles
     /// </summary>
     public class ExpertReviewsDetailPage
     {
@@ -39,6 +45,7 @@ namespace Bikewale.Models
         private readonly ICityCacheRepository _cityCacheRepo;
         private readonly IUpcoming _upcoming = null;
         private readonly string _basicId;
+        private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeMasking = null;
@@ -50,6 +57,7 @@ namespace Bikewale.Models
         public StatusCodes status;
         public string mappedCWId;
         public string redirectUrl;
+        private string CityName;
         private GlobalCityAreaEntity currentCityArea;
         private uint CityId, MakeId, ModelId, pageCatId = 0;
         private uint _totalTabCount = 3;
@@ -67,7 +75,9 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo,
+            IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId,
+            IPWACMSCacheRepository renderedArticles,IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -76,16 +86,39 @@ namespace Bikewale.Models
             _bikeInfo = bikeInfo;
             _cityCacheRepo = cityCacheRepo;
             _basicId = basicId;
+            _renderedArticles = renderedArticles;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _objBikeVersionsCache = objBikeVersionsCache;
             _bikeMasking = bikeMasking;
             _seriesCache = seriesCache;
             _series = series;
+            ProcessCityArea();
             ProcessQueryString();
         }
         #endregion
 
         #region Functions
+
+        /// <summary>
+        /// Created by  : Rajan Chauhan on 26 Feb 2018
+        /// Description : To set currentCityArea, CityName and CityId
+        /// </summary>
+        private void ProcessCityArea()
+        {
+            try
+            {
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                if (currentCityArea != null)
+                {
+                    CityId = currentCityArea.CityId;
+                    CityName = currentCityArea.City;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviews.ExpertReviewsDetailPage.ProcessCityArea");
+            }
+        }
 
         private void CheckSeriesData(ExpertReviewsDetailPageVM objdata)
         {
@@ -172,6 +205,61 @@ namespace Bikewale.Models
                 ErrorClass.LogError(err, "Bikewale.Models.ExpertReviewsDetailPage.GetData - BasicId : " + _basicId);
             }
             return objData;
+        }
+
+        /// <summary>
+        /// Created by  : Rajan Chauhan on 26 Feb 2018
+        /// Description : Function to get PWA data for expert reviews
+        /// </summary>
+        /// <param name="widgetTopCount"></param>
+        /// <returns></returns>
+        public ExpertReviewsDetailPageVM GetPwaData(int widgetTopCount)
+        {
+            ExpertReviewsDetailPageVM objData = new ExpertReviewsDetailPageVM();
+            try
+            {
+                objData.ArticleDetails = _cmsCache.GetArticlesDetails(basicId);
+                if (objData.ArticleDetails != null)
+                {
+                    status = StatusCodes.ContentFound;
+                    GetTaggedBikeListByMake(objData);
+                    GetTaggedBikeListByModel(objData);
+                    SetPageMetas(objData);
+                    CheckSeriesData(objData);
+                    GetWidgetData(objData, widgetTopCount);
+                    PopulatePhotoGallery(objData);
+                    BindSimilarBikes(objData);
+                    SetBikeTested(objData);
+                    InsertBikeInfoWidgetIntoContent(objData);
+                    objData.ReduxStore = new PwaReduxStore();
+                    var newsDetailReducer = objData.ReduxStore.News.NewsDetailReducer;
+                    newsDetailReducer.ArticleDetailData.ArticleDetail = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objData.ArticleDetails);
+                    newsDetailReducer.ArticleDetailData.ImageGallery = ConverterUtility.MapPhotoGalleryToPwaImageList(objData.PhotoGallery);
+                    newsDetailReducer.RelatedModelObject.ModelObject = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objData.BikeInfo);
+                    newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData, CityName);
+                    newsDetailReducer.NewBikesListData.BikeMakeList = ConverterUtility.MapBikeMakeEntityBaseListToPwaMakeBikeBaseList(objData);
+                    var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
+                    objData.ServerRouterWrapper = _renderedArticles.GetNewsDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsDetailReducer,
+                                newsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl, "root", "ServerRouterWrapper","Expert Reviews");
+                    objData.WindowState = storeJson;
+                    objData.Page = GAPages.Editorial_Details_Page;
+                    if (IsAMPPage)
+                    {
+                        BindAmpJsTags(objData);
+                    }
+                }
+                else
+                {
+                    status = StatusCodes.ContentNotFound;
+                }
+                    
+            }
+            catch (Exception err)
+            {
+                ErrorClass.LogError(err, "Bikewale.Models.ExpertReviewsDetailPage.GetPwaData - BasicId : " + _basicId);
+            }
+            return objData;
+
         }
 
         /// <summary>

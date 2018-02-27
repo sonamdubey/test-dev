@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+﻿using Bikewale.PWA.Entities.Photos;
+using System.Collections.Generic;
 
 namespace Bikewale.Entities.PWA.Articles
 {
@@ -76,10 +78,13 @@ namespace Bikewale.Entities.PWA.Articles
 
     /// <summary>
     ///  Created By: Prasad Gawde
+    ///  Modified By : Rajan Chauhan on 26 Feb 2018
+    ///  Description : Added ImageGallery
     /// </summary>
     public class PwaArticleDetailData
     {
         public PwaArticleDetails ArticleDetail { get; set; }
+        public PwaImageList ImageGallery { get; set; }
     }
 
     /// <summary>

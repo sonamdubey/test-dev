@@ -9,15 +9,15 @@ namespace Bikewale.PWA.Entities.Photos
 {
     /// <summary>
     /// Created by  : Rajan Chauhan on 24 Feb 2018
+    /// Modified by : Rajan Chauhan on 26 Feb 2018
+    /// Description : Moved BikeName to PwaModelImages
     /// </summary>
     [Serializable, DataContract]
-    public class PwaModelImagesBase
+    public class PwaImageList
     {
         [DataMember]
         public IEnumerable<PwaImageBase> ModelImages { get; set; }
         [DataMember]
         public int RecordCount { get; set; }
-        [DataMember]
-        public string BikeName { get; set; }
     }
 }
