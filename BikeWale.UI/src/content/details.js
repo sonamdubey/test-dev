@@ -208,7 +208,7 @@ $('.article-content').on('click', '.image__zoom-btn', function () {
     if (!$(this).closest('#divPhotos').length) {
 			var image = lightBoxContainer.find('img.lazy');
 			var imageSrc = $(this).siblings('img').attr('src');
-			var fullWidthImageSrc = imageSrc.replace(/\/[0-9]+x[0-9]+\/+/g, '/0x0/')
+			var fullWidthImageSrc = imageSrc.replace(/\/[0-9]+x[0-9]+\/+/g, '/1280x720/')
 
 			image.attr('data-original', fullWidthImageSrc);
 			lightBoxContainer.fadeIn(200);

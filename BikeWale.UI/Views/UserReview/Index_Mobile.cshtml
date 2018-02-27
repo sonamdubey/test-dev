@@ -84,7 +84,7 @@
             <div class="contest-banner">
                 <span class="contest-banner__icon margin-bottom20"></span>
                 <p class="contest-banner__title">Help fellow bikers make the right choice</p>
-                <p class="contest-banner__subtitle">Stand a chance to win Amazon voucher worth &#x20b9;&nbsp;@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney</p>
+                <p class="contest-banner__subtitle">Stand a chance to win Amazon voucher worth &#x20b9;&nbsp;@Bikewale.Utility.Format.FormatPrice(Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney)</p>
                 <div id="bike-selection-form">
                     <div id="form-make-field" class="form-control-box form-input-box margin-bottom20 margin-top20" data-bind="click: function (d, e) { openBikeSelection(); }" data-make-id="1">
                         <span>Select model to participate</span>
@@ -138,7 +138,7 @@
                             <div class="cover-popup-loader-text font14" data-bind="text: LoadingText()">Loading bike models...</div>
                         </div>
                     </div>
-                    <p class="btn btn-orange btn-180-40 bw-ga" c="Bike_Reviews" l="" a="Clicked_Contest_Model_Selection" data-bind="click: function (d, e) { openBikeSelection(); }">Write and win &#x20b9; @Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney<span class="bwsprite btn-white-arrow"></span></p>
+                    <p class="btn btn-orange btn-180-40 bw-ga" c="Bike_Reviews" l="" a="Clicked_Contest_Model_Selection" data-bind="click: function (d, e) { openBikeSelection(); }">Write and win &#x20b9; @Bikewale.Utility.Format.FormatPrice(Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney)<span class="bwsprite btn-white-arrow"></span></p>
                 </div>
             </div>
             <span id="querystring" data-query="@Model.UserReviewsQueryString"></span>
