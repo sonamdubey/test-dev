@@ -13,12 +13,10 @@ export function NewsArticleListReducer(state,action) {
 							Status : Status.Reset,
 					        PageNo : -1,
 					        ArticleList : null
-
 						} ,
 		NewBikesListData : {
 							Status : Status.Reset,
-							NewBikesList : null,
-							BikeMakeList : null
+							NewBikesList : null
 						}
 		})
 
@@ -27,7 +25,6 @@ export function NewsArticleListReducer(state,action) {
 			
 			var articleList = state.getIn(['ArticleListData','ArticleList']);
 			var newBikesList = state.getIn(['NewBikesListData','NewBikesList']);
-			var bikeMakeList = state.getIn(['NewBikesListData', 'BikeMakeList']);
 			
 			if(articleList && newBikesList) {
 				var pageNo = Math.floor(articleList.getIn(['StartIndex']) / NewsArticlesPerPage) +  1; //  corner case - last page with less than NewsArticlesPerPage articles
@@ -39,8 +36,7 @@ export function NewsArticleListReducer(state,action) {
 								} ,
 					NewBikesListData : {
 									Status : Status.Fetched, 
-									NewBikesList : newBikesList,
-									BikeMakeList : bikeMakeList
+									NewBikesList : newBikesList
 								}
 				})
 			}
@@ -101,29 +97,25 @@ export function NewsArticleListReducer(state,action) {
 
 				return state.setIn(['NewBikesListData'] , fromJS({
 							Status : Status.IsFetching,
-							NewBikesList : null,
-							BikeMakeList : null
+							NewBikesList : null
 				}))
 				
 			case newBikesListAction.FETCH_NEW_BIKES_LIST_SUCCESS_FOR_NEWS_LIST:
 				return state.setIn(['NewBikesListData'] , fromJS({
 							Status : Status.Fetched,
-							NewBikesList : action.payload,
-							BikeMakeList : null
+							NewBikesList : action.payload.NewBikesList
 				}))
 			
 			case newBikesListAction.FETCH_NEW_BIKES_LIST_FAILURE_FOR_NEWS_LIST:
 				return state.setIn(['NewBikesListData'] , fromJS({
 							Status : Status.Error,
-							NewBikesList : null,
-							BikeMakeList : null
+							NewBikesList : null
 				}))
 				
 			case newBikesListAction.NEW_BIKES_LIST_RESET_FOR_NEWS_LIST: 
 				return state.setIn(['NewBikesListData'] , fromJS({
 							Status : Status.Reset,
-							NewBikesList : null,
-							BikeMakeList : null
+							NewBikesList : null
 				}))
 				
 			
