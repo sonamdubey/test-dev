@@ -193,7 +193,7 @@
 									</tr>
 								</tbody>
 							</table>
-							if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
+							if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
 							{
 								<div class="position-rel text-right margin-right15"><a target="_blank" href="@BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold coverfox-link-clicked" rel="nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a></div>
 							}
