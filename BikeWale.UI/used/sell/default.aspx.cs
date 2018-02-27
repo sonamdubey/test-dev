@@ -81,7 +81,7 @@ namespace Bikewale.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.BindUserId()");
-                
+
             }
         }
 
@@ -106,7 +106,7 @@ namespace Bikewale.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.BindMakes()");
-                
+
             }
         }
 
@@ -130,7 +130,7 @@ namespace Bikewale.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.BindCities()");
-                
+
             }
         }
 
@@ -147,7 +147,8 @@ namespace Bikewale.Used.Sell
                 {
                     if (userId == "-1") //user not logged-in
                     {
-                        Response.Redirect(String.Format("/users/login.aspx?ReturnUrl={0}", HttpContext.Current.Request.RawUrl));
+                        Response.Redirect(String.Format("/users/login.aspx?ReturnUrl={0}", HttpContext.Current.Request.RawUrl), false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
                     }
 
                     isEdit = true;
@@ -157,7 +158,7 @@ namespace Bikewale.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.CheckIsEdit()");
-                
+
             }
         }
 
@@ -202,7 +203,7 @@ namespace Bikewale.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.GetInquiryDetails()");
-                
+
             }
 
         }
