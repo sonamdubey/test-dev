@@ -234,7 +234,8 @@ gulp.task('replace-js-css-reference' , function() {
 		app + 'Views/Videos/Index_Mobile_Pwa.cshtml',
 		app + 'Views/Videos/Details_Mobile_Pwa.cshtml',
 		app + 'Views/Videos/CategoryVideos_Mobile_Pwa.cshtml',
-		app + 'Views/ExpertReviews/Index_Mobile_Pwa.cshtml'
+		app + 'Views/ExpertReviews/Index_Mobile_Pwa.cshtml',
+		app + 'Views/ExpertReviews/Detail_Mobile_Pwa.cshtml'
 		], { base: app })
 		.pipe(replace(patternJSBundle,replaceJsVersion))
 	    .pipe(replace(pattern.CSS_ATF, replaceInlineCssReferenceLink ))
