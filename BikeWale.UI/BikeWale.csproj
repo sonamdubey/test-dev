@@ -4015,6 +4015,8 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_New.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_New.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Top.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x250_Generic.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x100_Generic.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
