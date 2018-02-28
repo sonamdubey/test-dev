@@ -158,6 +158,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// <summary>        
         /// Created By : Prasad Gawde on 04 Apr 2017
         /// Summary : 
+        /// Modified By : Pratibha Verma on 27 Feb, 2018
+        /// Summary : Fetch Series Bikes and Popular Scooter Brands
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>Two Lists of Bikes</returns>
@@ -190,7 +192,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                             BikeSeriesEntityBase bikeSeriesEntityBase = null;
                             bikeSeriesEntityBase = _objModelCache.GetSeriesByModelId(modelId);
-                            if (bikeSeriesEntityBase.IsSeriesPageUrl)
+                            bool isSeries = bikeSeriesEntityBase.IsSeriesPageUrl;
+                            if (isSeries)
                             {
                                 bikes = _objModelCache.GetMostPopularBikesByMakeWithCityPrice((int)makeId, cityId);
                                 string modelIds = string.Empty;
@@ -212,24 +215,49 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                             }
 
                             PwaBikeNews popularBikes = new PwaBikeNews();
+                            bool isScooter = objVersionsList != null && objVersionsList.Count > 0 && objVersionsList.FirstOrDefault() != null && objVersionsList.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter);
                             if (bikes != null)
                             {
                                 popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
 
-
-                                if (makeId > 0)
+                                if (isSeries)
                                 {
-                                    popularBikes.Heading = string.Format("Popular {0} bikes", makeData.MakeName);
-                                    popularBikes.CompleteListUrl = string.Format("/m/{0}-bikes/", makeData.MaskingName);
-                                    popularBikes.CompleteListUrlAlternateLabel = string.Format("{0} Bikes", makeData.MakeName);
+                                    if (isScooter)
+                                    {
+                                        popularBikes.Heading = string.Format("{0} Scooters", bikeSeriesEntityBase.SeriesName);
+                                        popularBikes.CompleteListUrl = string.Format("/m/{0}-bikes/{1}/", makeData.MaskingName, bikeSeriesEntityBase.MaskingName);
+                                        popularBikes.CompleteListUrlAlternateLabel = string.Format("View all {0} Scooters", bikeSeriesEntityBase.SeriesName);
+                                    }
+                                    else
+                                    {
+                                        popularBikes.Heading = string.Format("Popular {0} Bikes", bikeSeriesEntityBase.SeriesName);
+                                        popularBikes.CompleteListUrl = string.Format("/m/{0}-bikes/{1}/", makeData.MaskingName, bikeSeriesEntityBase.MaskingName);
+                                        popularBikes.CompleteListUrlAlternateLabel = string.Format("{0} Bikes", bikeSeriesEntityBase.SeriesName);
+                                    }
+                                    popularBikes.CompleteListUrlLabel = "View all";
+                                }
+                                else if(makeId > 0)
+                                {
+                                    if (isScooter)
+                                    {
+                                        popularBikes.Heading = string.Format("{0} Scooters", makeData.MakeName);
+                                        popularBikes.CompleteListUrl = string.Format("/m/{0}-bikes/", makeData.MaskingName);
+                                        popularBikes.CompleteListUrlAlternateLabel = string.Format("View all {0} Scooters", makeData.MakeName);
+                                    }
+                                    else {
+                                        popularBikes.Heading = string.Format("Popular {0} Bikes", makeData.MakeName);
+                                        popularBikes.CompleteListUrl = string.Format("/m/{0}-bikes/", makeData.MaskingName);
+                                        popularBikes.CompleteListUrlAlternateLabel = string.Format("{0} Bikes", makeData.MakeName);
+                                    }                                                                      
+                                        popularBikes.CompleteListUrlLabel = "View all";
                                 }
                                 else
                                 {
-                                    popularBikes.Heading = "Popular bikes";
+                                    popularBikes.Heading = "Popular Bikes";
                                     popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
                                     popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
+                                    popularBikes.CompleteListUrlLabel = "View all";
                                 }
-                                popularBikes.CompleteListUrlLabel = "View all";
                                 objPwaBikeNews.NewBikesList.Add(popularBikes);
                             }
 
@@ -241,16 +269,16 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                 {
                                     bikeList = _bikeMakesEntity.GetScooterMakes();
                                     PwaMakeBikeBase scooterMakeList = new PwaMakeBikeBase();
-                                        scooterMakeList.MakeList = ConverterUtility.MapBikeMakeEntityBaseToPwaMakeBikeEntity(bikeList);
+                                    scooterMakeList.MakeList = ConverterUtility.MapBikeMakeEntityBaseToPwaMakeBikeEntity(bikeList);
                                     scooterMakeList.Heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
-                                        scooterMakeList.CompleteListUrlAlternateLabel = string.Format("{0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
+                                    scooterMakeList.CompleteListUrlAlternateLabel = string.Format("View all {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
                                     scooterMakeList.CompleteListUrl = "/m/scooters/";
                                     scooterMakeList.CompleteListUrlLabel = "View all";
                                     objPwaBikeNews.BikeMakeList = new List<PwaMakeBikeBase>();
                                     objPwaBikeNews.BikeMakeList.Add(scooterMakeList);
                                 }
                                 else 
-{
+                                {
                                     bikes = _objModelCache.GetMostPopularBikesByModelBodyStyle((int)modelId, 9, cityId);
 
                                     if (bikes != null && bikes.Any())
