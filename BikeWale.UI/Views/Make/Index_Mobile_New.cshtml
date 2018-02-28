@@ -6,10 +6,10 @@
     Model.Page_JS_Path = "/m/src/make.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Make";
     Model.AdTags.AdId = "1519729632700";
-    Model.AdTags.Ad_300x250_Bottom = true;
+    Model.AdTags.Ad_320x100_Top = true;
     Model.AdTags.Ad_300x250_Top = true;
     Model.AdTags.Ad_300x250_Middle = true;
-    Model.AdTags.Ad_320x100_Top = true;
+    Model.AdTags.Ad_300x250_Bottom = true;
 }
 
 @if (Model != null)
@@ -104,10 +104,12 @@
                 </section>
             }
             
-            <section>
-                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
-            </section>
-
+            @if (Model.AdTags.Ad_320x100_Top) { 
+                <section>
+                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 3 });}
+                </section>
+            }
+            
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
                 <section>
@@ -194,10 +196,12 @@
                 </section>
             }
             
-            <section>
-                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 1 });}
-            </section>
-
+            @if (Model.AdTags.Ad_300x250_Top)
+            { 
+                <section>
+                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 1 });}
+                </section>
+            }
 
             @if (Model.IsUpComingBikesAvailable)
             {
@@ -342,10 +346,13 @@
                 </section>
             }
             
-            <section>
-                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 2 });}
-            </section>
-
+            @if (Model.AdTags.Ad_300x250_Middle)
+            { 
+                <section>
+                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 2 });}
+                </section>
+            }
+            
             @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
             {
                 <section>
@@ -443,8 +450,10 @@
         </div>
     </section>
 
-    <section>
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 3 });}
-    </section>
-    
+    @if (Model.AdTags.Ad_300x250_Bottom)
+    { 
+        <section>
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
+        </section>
+    }
 }
