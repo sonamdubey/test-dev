@@ -198,7 +198,11 @@ var RecommendedBikes = function () {
     var self = this;
 
     self.Bikes = ko.observableArray([]);
+    self.NoOfBikes = ko.observable();
     self.BikesOtherMakes = ko.observableArray([]);
+    self.NoOfOtherBikes = ko.observable();
+
+    self.MakeName = ko.observable();
 
     var budgetArray = [
 		{
@@ -455,11 +459,7 @@ var RecommendedBikes = function () {
                 contentType: "application/json",
                 data: ko.toJSON(self.searchFilter),
                 success: function (response) {
-                    if (response.length > 0) {
-                        self.Bikes(response);
-                    } else {
-
-                    }
+                   
                 },
                 error: function (request, status, error){
 
@@ -525,8 +525,8 @@ function getMinMaxLimitsList(range) {
         $.each(selectedRangeList, function (i, val) {
             var filterPair = val.split('-');
             maxMinLimits = {
-                Item1: filterPair[0],
-                Item2: filterPair[1]
+                "min": filterPair[0],
+                "max": filterPair[1]
 
             }
             filterArray.push(maxMinLimits);
@@ -545,8 +545,8 @@ function getMinMaxLimits(range) {
     if (selectedRangeList != null)
     {
         maxMinLimits= {
-            Item1: selectedRangeList[0],
-            Item2: selectedRangeList[1]
+            min: selectedRangeList[0],
+            max: selectedRangeList[1]
         }
     }
    

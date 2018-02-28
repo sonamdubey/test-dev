@@ -1,19 +1,10 @@
-﻿
-using Newtonsoft.Json;
-using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 namespace Bikewale.DTO.NewBikeSearch
 {
     public class SearchFilterDTO
     {
-        [JsonProperty("priceRange")]
-        public IEnumerable<Tuple<int, int>> PriceRange { get; set; }
-        [JsonProperty("mileage")]
-        public IEnumerable<Tuple<double, double>> Mileage { get; set; }
-        [JsonProperty("displacement")]
-        public IEnumerable<Tuple<double, double>> Displacement { get; set; }
-        [JsonProperty("power")]
-        public IEnumerable<Tuple<double, double>> Power { get; set; }
+       
         [JsonProperty("bodyStyle")]
         public ushort BodyStyle { get; set; }
 
@@ -44,5 +35,29 @@ namespace Bikewale.DTO.NewBikeSearch
         public uint CityId { get; set; }
         [JsonProperty("modelStatus")]
         public byte ModelStatus { get; set; }
+
+        public class PriceRangeEntity
+        {
+            int min { get; set; }
+            int max { get; set; }
+        }
+
+        public class RangeEntity
+        {
+            double min { get; set; }
+            double max { get; set; }
+        }
+
+        [JsonProperty("price")]
+        public IEnumerable<PriceRangeEntity> Price { get; set; }
+
+        [JsonProperty("mileage")]
+        public IEnumerable<RangeEntity> Mileage { get; set; }
+
+        [JsonProperty("displacement")]
+        public IEnumerable<RangeEntity> Displacement { get; set; }
+
+        [JsonProperty("power")]
+        public IEnumerable<RangeEntity> Power { get; set; }
     }
 }

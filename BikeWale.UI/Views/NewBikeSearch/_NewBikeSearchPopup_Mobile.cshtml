@@ -8,7 +8,7 @@
             <div class="recommended-bike-popup">
                 <span id="recommendedBikeCloseBtn"></span>
                 <p class="recommended-bike__found-result">
-                    15 Bikes found based on your criteria
+                    <span data-bind="visible : NoOfBikes > 0"><span data-bind="text : NoOfBikes"></span></span> Bikes found based on your criteria
                 </p>
                 <div class="recommended-bike__filter-section">
                     <div class="recommended-bike__filter-content">
@@ -32,8 +32,8 @@
                     else
                     {
                         <section>
-                            <div class="bg-white section-bottom-margin">
-                                <h2 class="recommended-bike__title page__heading-h2">Recommended Royal Enfield Bikes</h2>
+                            <div class="bg-white section-bottom-margin" data-bind="visible : NoOfBikes <= 0">
+                                <h2 class="recommended-bike__title page__heading-h2">Recommended <span data-bind="text : MakeName"></span> Bikes</h2>
                                 @if (!Model.HasFilteredBikes)
                                 {
                                     <div class="not-found-container">
@@ -72,7 +72,7 @@
 
                                             }
                                         </ul>
-                                        <ul class="recommended-bike-list hide" data-bind="foreach : BikesOtherMakes">
+                                        <ul class="recommended-bike-list hide" data-bind="foreach : Bikes">
                                             
                                                 <li class="recommended-bike__list-card">
                                                     <div class="model__card">
@@ -81,7 +81,7 @@
                                                                 <img class="lazy" data-bind="attr: { href: $data.bikeImage.hostUrl + @Bikewale.Utility.ImageSize._144x81 / $data.bikeImage.imageUrl, title: details }" src="" title="" alt="">
                                                             </div>
                                                             <div class="model-card__detail">
-                                                                <span class="rating-badge" data-rate-bg="4">
+                                                                <span class="rating-badge" data-bind="attr: {data-rate-bg: $data.ratingsCount}">
                                                                     <span class="rating-badge__star"></span>
                                                                     <span data-bind="text : $data.ratingsCount"></span>
                                                                 </span>
@@ -115,7 +115,7 @@
                         {
                             <section>
                                 <div class="other-recommended-bike">
-                                    <h2 class="recommended-bike__title page__heading-h2">Other Recommended Bikes (7)</h2>
+                                    <h2 class="recommended-bike__title page__heading-h2">Other Recommended Bikes (<span data-bind="text : NoOfOtherBikes"></span>)</h2>
                                     <ul class="model-loader-list__content">
                                         @for (var i = 1; i <= 2; i++)
                                         {
@@ -141,7 +141,7 @@
                                                             <img class="lazy" data-bind="attr: { href: $data.bikeImage.hostUrl + @Bikewale.Utility.ImageSize._144x81 / $data.bikeImage.imageUrl, title: details }" src="" title="" alt="">
                                                         </div>
                                                         <div class="model-card__detail">
-                                                            <span class="rating-badge" data-rate-bg="4">
+                                                            <span class="rating-badge" data-bind="attr: {data-rate-bg: $data.ratingsCount}">
                                                                 <span class="rating-badge__star"></span>
                                                                 <span data-bind="text : $data.ratingsCount"></span>
                                                             </span>
