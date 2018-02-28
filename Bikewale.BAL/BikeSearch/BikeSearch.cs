@@ -15,7 +15,7 @@ namespace Bikewale.BAL.BikeSearch
     public class BikeSearch : IBikeSearch
     {
         private static readonly string _displacement = "displacement";
-        private static readonly string _exshowroom = "exshowroom";
+        private static readonly string _exshowroom = "topVersion.exshowroom";
         private static readonly string _bikeMakeId = "bikeMake.makeId";
         private static readonly string _mileage = "mileage";
         private static readonly string _bodyStyleId = "bodyStyleId";
@@ -182,13 +182,13 @@ namespace Bikewale.BAL.BikeSearch
         }
 
 
-        private QueryContainer Range(IEnumerable<Tuple<double, double>> List, string fieldName)
+        private QueryContainer Range(IEnumerable<RangeEntity> List, string fieldName)
         {
             QueryContainer query = new QueryContainer();
             QueryContainerDescriptor<BikeModelDocument> FDS = new QueryContainerDescriptor<BikeModelDocument>();
             foreach (var obj in List)
             {
-                query &= FDS.Range(RangeQuery(obj.Item1, obj.Item2, fieldName));
+                query |= FDS.Range(RangeQuery(obj.Min, obj.Max, fieldName));
             }
 
             return query;
@@ -201,13 +201,13 @@ namespace Bikewale.BAL.BikeSearch
         }
 
 
-        private QueryContainer Range(IEnumerable<Tuple<int, int>> List, string fieldName)
+        private QueryContainer Range(IEnumerable<PriceRangeEntity> List, string fieldName)
         {
             QueryContainer query = new QueryContainer();
             QueryContainerDescriptor<BikeModelDocument> FDS = new QueryContainerDescriptor<BikeModelDocument>();
             foreach (var obj in List)
             {
-                query &= FDS.Range(RangeQuery(obj.Item1, obj.Item2, fieldName));
+                query |= FDS.Range(RangeQuery(obj.Min, obj.Max, fieldName));
             }
 
             return query;

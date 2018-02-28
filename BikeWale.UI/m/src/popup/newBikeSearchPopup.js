@@ -15,7 +15,6 @@ var recommendedBikePopup = (function () {
 	};
 
 	function registerEvents() {
-	    debugger;
 	    _setSelectores();
 	    initViewModel();
 	    $(document).on('click', '.refine-result__apply', function (e) {

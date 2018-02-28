@@ -41,29 +41,29 @@ namespace Bikewale.DTO.NewBikeSearch
    
 
         [JsonProperty("price")]
-        public IEnumerable<PriceRangeEntity> Price { get; set; }
+        public IEnumerable<PriceRangeDTO> Price { get; set; }
 
         [JsonProperty("mileage")]
-        public IEnumerable<RangeEntity> Mileage { get; set; }
+        public IEnumerable<RangeDTO> Mileage { get; set; }
 
         [JsonProperty("displacement")]
-        public IEnumerable<RangeEntity> Displacement { get; set; }
+        public IEnumerable<RangeDTO> Displacement { get; set; }
 
         [JsonProperty("power")]
-        public IEnumerable<RangeEntity> Power { get; set; }
+        public IEnumerable<RangeDTO> Power { get; set; }
     }
-    public class RangeEntity
+    public class RangeDTO
     {
         [JsonProperty("min")]
-        public double min { get; set; }
+        public double Min { get; set; }
         [JsonProperty("max")]
-        public double max { get; set; }
+        public double Max { get; set; }
     }
-    public class PriceRangeEntity
+    public class PriceRangeDTO
     {
         [JsonProperty("min")]
-        int min { get; set; }
+      public  int Min { get; set; }
         [JsonProperty("max")]
-        int max { get; set; }
+       public int Max { get; set; }
     }
 }

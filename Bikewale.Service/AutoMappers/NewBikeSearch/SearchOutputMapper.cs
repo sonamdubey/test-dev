@@ -52,6 +52,8 @@ namespace Bikewale.Service.AutoMappers.NewBikeSearch
         {
 
             Mapper.CreateMap<SearchFilterDTO, SearchFilters>();
+            Mapper.CreateMap<PriceRangeDTO, PriceRangeEntity>();
+            Mapper.CreateMap<RangeDTO, RangeEntity>();
             return Mapper.Map<SearchFilterDTO, SearchFilters>(input);
         }
     }
