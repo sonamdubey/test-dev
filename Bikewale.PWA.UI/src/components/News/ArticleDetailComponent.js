@@ -11,7 +11,7 @@ import NewBikes from '../NewBikes'
 import ModelSlug from './ModelSlug'
 import Footer from '../Shared/Footer'
 import { isServer } from '../../utils/commonUtils'
-import {mapNewsArticleDataToInitialData} from './NewsCommon'
+import {mapNewsArticleDataToInitialData, extractPageCategoryFromURL} from './NewsCommon'
 import {addAdSlot , removeAdSlot} from '../../utils/googleAdUtils'
 import { scrollPosition , resetScrollPosition , isBrowserWithoutScrollSupport } from '../../utils/scrollUtils'
 import { getGlobalCity } from '../../utils/popUpUtils'
@@ -161,9 +161,15 @@ class ArticleDetail extends React.Component {
         }
     }
     extractBasicIdFromArticleUrl() {
-        var basicId ; 
+        var basicId, regexp ; 
         var url = window.location.pathname;
-        var regexp = /\/m\/news\/(\d+)-.*\.html/;
+        var pageCategory = extractPageCategoryFromURL();
+        if(pageCategory === "news") {
+            regexp = /\/m\/news\/(\d+)-.*\.html/;
+        }
+        else {
+            regexp = /\/m\/expert-reviews\/.*-(\d+)\.html/;
+        }
         var matches = url.match(regexp);
         if(matches) {
             return matches[1];
@@ -199,7 +205,7 @@ class ArticleDetail extends React.Component {
                     </div>
                     {this.renderModelSlug()}
                     <SocialMediaSlug/>
-										<ArticleDetailImageCarousel />
+					<ArticleDetailImageCarousel imageGallery={articleDetail.ImageGallery} title={articleDetail.Title}/>
                     <ArticleDetailPagination prevArticle={articleDetail.PrevArticle} nextArticle={articleDetail.NextArticle} onArticlePaginationClickEvent={this.onArticlePaginationClickEvent.bind(this)}/>
                 </div>                        
             )
@@ -223,7 +229,7 @@ class ArticleDetail extends React.Component {
         }
     }
     renderNewBikesList() {
-        if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched ) {
+        if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched || !this.props.NewBikesListData.NewBikesList) {
             return false;
         }
         return (
@@ -242,7 +248,13 @@ class ArticleDetail extends React.Component {
     renderBreadcrumb(title) {
         if(this.props.ArticleDetailData && this.props.ArticleDetailData.Status == Status.Fetched) 
         {
-            return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/news/',Title : 'News'},{Href : '',Title : title}]}/>);
+            var pageCategory = extractPageCategoryFromURL();
+            if(pageCategory === "news") {
+                return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/news/',Title : 'News'},{Href : '',Title : title}]}/>);
+            }
+            else {
+                return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/expert-reviews/',Title : 'Expert Reviews'},{Href : '',Title : title}]}/>);
+            }
         }
         else {
             return false;
@@ -257,9 +269,12 @@ class ArticleDetail extends React.Component {
             return false;
         }
 		}
-		renderPopularBrandList() {
-			return (
-				<CarouselBrand />
+    renderPopularBrandList() {
+        if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched || !this.props.NewBikesListData.BikeMakeList || this.props.NewBikesListData.BikeMakeList.length === 0) {
+            return false;
+        }
+        return (
+            <CarouselBrand brandList={this.props.NewBikesListData.BikeMakeList[0]}/>
 			)
 		}
     render() {
@@ -326,8 +341,8 @@ class ArticleDetail extends React.Component {
                         {this.renderArticleContent(articleDetail,articleInitialData)}
                     </div>
                 </div>
-								{this.renderPopularBrandList()}
-								{this.renderNewBikesList()}
+                {this.renderNewBikesList()}
+                {this.renderPopularBrandList()}
                 <div className="margin-bottom15">
                     {adSlotBottom}
                 </div>

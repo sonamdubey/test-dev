@@ -72,7 +72,7 @@ class ModelSlug extends React.Component {
 		
 	}
 	render() {
-		if(!this.props.modelInfo || this.props.modelInfo.Status !== Status.Fetched ) {
+		if(!this.props.modelInfo || this.props.modelInfo.Status !== Status.Fetched || !this.props.modelInfo.ModelObject) {
 			return false;
 		}
 		var modelObject = this.props.modelInfo.ModelObject;

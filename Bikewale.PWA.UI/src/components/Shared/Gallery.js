@@ -1,11 +1,12 @@
 import React from 'react'
 
 import Slider from 'react-slick'
+import {createImageUrl} from '../Widgets/WidgetsCommon'
 
 const defaultProps = {
 	heading: '',
 	isActive: false,
-	slideIndex: 0
+	slideIndex: -1
 }
 
 class Gallery extends React.Component {
@@ -39,10 +40,10 @@ class Gallery extends React.Component {
 	}
 
 	getMainCarouselSlides() {
-		let list = this.props.images.map(function (item) {
+		let list = this.props.images.map(function (image) {
 			return (
 				<div>
-					<img src={item.hostUrl + '476x268' + item.originalImagePath} />
+					<img title={image.ImageName} alt={image.ImageName} src={createImageUrl(image.HostUrl, image.OriginalImgPath, '476x268')} />
 				</div>
 			)
 		})
@@ -51,10 +52,10 @@ class Gallery extends React.Component {
 	}
 
 	getThumbnailSlides() {
-		let list = this.props.images.map(function (item) {
+		let list = this.props.images.map(function (image) {
 			return (
 				<div style={{ width: 90 }}>
-					<img src={item.hostUrl + '110x61' + item.originalImagePath} />
+					<img title={image.ImageName} alt={image.ImageName} src={createImageUrl(image.HostUrl, image.OriginalImgPath, '110x61')} />
 				</div>
 			)
 		})
@@ -88,6 +89,9 @@ class Gallery extends React.Component {
 	}
 
 	render() {
+	    if( !this.props.images && this.props.images.length === 0 ){
+	        return false;
+	    }
 		const mainSliderSettings = {
 			className: 'slider__main',
 			initialSlide: this.state.slideIndex,
@@ -111,7 +115,7 @@ class Gallery extends React.Component {
 		};
 
 		const activeClass = this.state.isActive ? 'gallery--active' : '';
-		const slideTitle = this.props.images[this.state.slideIndex].title;
+		const slideTitle = this.props.images[this.state.slideIndex].ImageName;
 
 		return (
 			<div className={"article-gallery-container " + activeClass}>
@@ -121,7 +125,7 @@ class Gallery extends React.Component {
 					<div className="gallery-body__header">
 						<span className="gallery-slider__title">{slideTitle}</span>
 						<span className="gallery-slider__count">
-							{this.state.slideIndex + 1} of {this.props.images.length}
+							{this.state.slideIndex + 1} of {this.props.totalCount}
 						</span>
 						<div className="clear"></div>
 					</div>

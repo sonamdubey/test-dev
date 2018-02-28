@@ -2,51 +2,28 @@ import React from 'react'
 
 import Slider from 'react-slick'
 import Gallery from '../Shared/Gallery'
+import {createImageUrl} from '../Widgets/WidgetsCommon'
 
 class ArticleDetailImageCarousel extends React.Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			images: [
-				{
-					hostUrl: 'https://imgd.aeplcdn.com/',
-					originalImagePath: '/bw/ec/32131/Kawasaki-Ninja-400-Action-113949.jpg',
-					title: 'Kawasaki Ninja 400 Action'
-				},
-				{
-					hostUrl: 'https://imgd.aeplcdn.com/',
-					originalImagePath: '/bw/ec/32131/Kawasaki-Ninja-400-Action-113950.jpg',
-					title: 'Kawasaki Ninja 400 Action New'
-				},
-				{
-					hostUrl: 'https://imgd.aeplcdn.com/',
-					originalImagePath: '/bw/ec/27155/Aprilia-SR-150-Race-First-Ride-Review-90928.jpg',
-					title: 'Aprilia SR 150 Race 1'
-				},
-				{
-					hostUrl: 'https://imgd.aeplcdn.com/',
-					originalImagePath: '/bw/ec/27155/Aprilia-SR-150-Race-First-Ride-Review-90943.jpg',
-					title: 'Aprilia SR 150 Race 2'
-				},
-				{
-					hostUrl: 'https://imgd.aeplcdn.com/',
-					originalImagePath: '/bw/ec/27155/Aprilia-SR-150-Race-First-Ride-Review-90933.jpg',
-					title: 'Aprilia SR 150 Race 3'
-				}
-			],
+		    images: this.props.imageGallery? this.props.imageGallery.ModelImages:[],
+		    totalCount: this.props.imageGallery? this.props.imageGallery.RecordCount:0,
+            title: this.props.title,
 			isGalleryActive: false,
-			slideIndex: 0
+			slideIndex: -1
 		}
 
 		this.handleThumbnailCarouselBeforeChange = this.handleThumbnailCarouselBeforeChange.bind(this);
 	}
 
 	getImageSlides() {
-		let list = this.state.images.map(function (item) {
+		let list = this.state.images.map(function (image) {
 			return (
 				<div style={{ width: 90 }}>
-					<img src={item.hostUrl + '110x61' + item.originalImagePath} />
+					<img title={image.ImageName} alt={image.ImageName} src={createImageUrl(image.HostUrl, image.OriginalImgPath, '110x61')} />
 				</div>
 			)
 		})
@@ -77,12 +54,15 @@ class ArticleDetailImageCarousel extends React.Component {
 		};
 
 		const gallery = {
-			heading: '2018 Triumph Tiger 800 Launch Ride Review',
+			heading: this.state.title,
 			images: this.state.images,
+            totalCount: this.state.totalCount,
 			isActive: this.state.isGalleryActive,
 			slideIndex: this.state.slideIndex
 		}
-
+		if (gallery.totalCount == 0) {
+		    return false;
+		}
 		return (
 			<div className="article-image-content">
 				<h3 className="article-image-heading">Images</h3>

@@ -16,7 +16,7 @@ var fetchNewsArticleDetail = function(articleInitialData) {
                     url = '/api/pwa/cms/id/' + articleInitialData + '/page/';
                 }
                 else {
-                    url = 'api/pwa/cms/id/' + articleInitialData + '/pages/';
+                    url = '/api/pwa/cms/id/' + articleInitialData + '/pages/';
                 }
 			}
 			else {
