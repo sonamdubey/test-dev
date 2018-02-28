@@ -59,8 +59,10 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             }
         }
 
+
         [Route("api/v2/bikesearch/")]
         public IHttpActionResult BikeList([FromBody] SearchFilterDTO input)
+
         {
             try
             {
@@ -85,6 +87,7 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             }
         }
 
+        [Route("api/v2/bikesearch/")]
         public IHttpActionResult BikeListOtherMake([FromBody]/*SearchFilterDTO*/SearchFilters input)
         {
             try
