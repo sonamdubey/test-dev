@@ -134,9 +134,9 @@ namespace Bikewale.BAL.BikeSearch
                 {
                     query &= Range(filters.Mileage, _mileage);
                 }
-                if (filters.PriceRange != null && filters.PriceRange.Any())
+                if (filters.Price != null && filters.Price.Any())
                 {
-                    query &= Range(filters.PriceRange, _exshowroom);
+                    query &= Range(filters.Price, _exshowroom);
                 }
                 if (filters.CityId > 0)
                 {

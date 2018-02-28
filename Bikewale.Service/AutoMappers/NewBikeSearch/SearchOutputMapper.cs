@@ -46,5 +46,13 @@ namespace Bikewale.Service.AutoMappers.NewBikeSearch
             return objData;
 
         }
+
+
+        internal static SearchFilters Convert(SearchFilterDTO input)
+        {
+
+            Mapper.CreateMap<SearchFilterDTO, SearchFilters>();
+            return Mapper.Map<SearchFilterDTO, SearchFilters>(input);
+        }
     }
 }

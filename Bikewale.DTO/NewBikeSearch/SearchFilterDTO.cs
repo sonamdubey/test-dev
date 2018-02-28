@@ -36,17 +36,9 @@ namespace Bikewale.DTO.NewBikeSearch
         [JsonProperty("modelStatus")]
         public byte ModelStatus { get; set; }
 
-        public class PriceRangeEntity
-        {
-            int min { get; set; }
-            int max { get; set; }
-        }
+     
 
-        public class RangeEntity
-        {
-            double min { get; set; }
-            double max { get; set; }
-        }
+   
 
         [JsonProperty("price")]
         public IEnumerable<PriceRangeEntity> Price { get; set; }
@@ -59,5 +51,19 @@ namespace Bikewale.DTO.NewBikeSearch
 
         [JsonProperty("power")]
         public IEnumerable<RangeEntity> Power { get; set; }
+    }
+    public class RangeEntity
+    {
+        [JsonProperty("min")]
+        public double min { get; set; }
+        [JsonProperty("max")]
+        public double max { get; set; }
+    }
+    public class PriceRangeEntity
+    {
+        [JsonProperty("min")]
+        int min { get; set; }
+        [JsonProperty("max")]
+        int max { get; set; }
     }
 }

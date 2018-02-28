@@ -5,7 +5,7 @@ namespace Bikewale.Entities.NewBikeSearch
 {
     public class SearchFilters
     {
-        public IEnumerable<Tuple<int, int>> PriceRange { get; set; }
+        public IEnumerable<Tuple<int, int>> Price { get; set; }
         public IEnumerable<Tuple<double, double>> Mileage { get; set; }
         public IEnumerable<Tuple<double, double>> Displacement { get; set; }
         public IEnumerable<Tuple<double, double>> Power { get; set; }

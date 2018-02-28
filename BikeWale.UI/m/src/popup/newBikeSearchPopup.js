@@ -247,7 +247,7 @@ var RecommendedBikes = function () {
     self.budgetSlider = ko.observable();
     self.budgetStepPoints = ko.observable();
 
-    self.searchFilter = { displacement: [], mileage: [], power: [], priceRange: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "" };
+    self.searchFilter = { displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "",excludeMake:"", pageSize:"", pageNumber:"" };
 
     self.budgetSlider.subscribe(function (value) {
         var minBuget = self.budgetSlider()[0];
@@ -434,7 +434,7 @@ var RecommendedBikes = function () {
 
             if (budget != undefined) {
               
-                self.searchFilter.priceRange = (budget.indexOf('+') > -1) ? new getMinMaxLimitsList(budget) : new getMinMaxLimits(budget);
+                self.searchFilter.price = (budget.indexOf('+') > -1) ? new getMinMaxLimitsList(budget) : new getMinMaxLimits(budget);
             }
             self.searchFilter.bodyStyle = (bodyType != undefined ? bodyType.split('+') : null)
             
@@ -453,18 +453,7 @@ var RecommendedBikes = function () {
                 contentType: "application/json",
                 data: ko.toJSON(searchFilterObj),
                 success: function (response) {
-                    if(response.length > 0) {
-                        if (!searchFilterObj.excludeMake) {
-                            self.Bikes(response);
-                            self.NoOfBikes(response.length);
-                        } else {
-                            self.BikesOtherMakes(response);
-                            self.NoOfOtherBikes(response.length);
-                        }
-                    }
-                    else {
-
-                    }
+                    
                 },
                 error: function (request, status, error) {
 
@@ -481,12 +470,8 @@ var RecommendedBikes = function () {
 
     self.MakeRecommmendations = function () {
         try {
-            var searchFilterObj = {
-                filterList: self.searchFilter,
-                excludeMake: false,
-
-            };
-            return self.CallAPI(searchFilterObj);
+           
+            return self.CallAPI(self.searchFilter);
         }
         catch (e) {
             console.warn("MakeRecommendations error : " + e.message);
@@ -494,14 +479,14 @@ var RecommendedBikes = function () {
     }
 
     self.OtherMakeRecommendations = function () {
+        
         try {
-            var searchFilterObj = {
-                filterList: self.searchFilter,
-                excludeMake: true,
-                //pageSize: ,
-                //pageCount: 
-            }
-            return self.CallAPI(searchFilterObj);
+            //filterList contains fields such as excludeMake, pageCount, pageSize
+            filterList = self.searchFilter;
+            filterList.excludeMake = true;
+            filterList.pageNumber = 1;
+            filterList.pageSize = 10;
+            return self.CallAPI(filterList);
         }
         catch (e) {
             console.warn("OtherMakeRecommendations error : " + e.message);
@@ -599,8 +584,8 @@ function getMinMaxLimits(range) {
     if (selectedRangeList != null)
     {
         maxMinLimits= {
-            min: selectedRangeList[0],
-            max: selectedRangeList[1]
+            "min": selectedRangeList[0],
+            "max": selectedRangeList[1]
         }
     }
    
