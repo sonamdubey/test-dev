@@ -106,7 +106,9 @@
             
             @if (Model.AdTags.Ad_320x100_Top) { 
                 <section>
-                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 3 });}
+                    <div style="margin-bottom: 20px">
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 3 });}
+                    </div>
                 </section>
             }
             
@@ -199,7 +201,9 @@
             @if (Model.AdTags.Ad_300x250_Top)
             { 
                 <section>
-                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 1 });}
+                    <div style="margin-bottom: 20px">
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 1 });}
+                    </div>
                 </section>
             }
 
@@ -349,7 +353,9 @@
             @if (Model.AdTags.Ad_300x250_Middle)
             { 
                 <section>
-                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 2 });}
+                    <div style = "margin-bottom: 20px">
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 2 });}
+                    </div>
                 </section>
             }
             
@@ -453,7 +459,9 @@
     if (Model.AdTags.Ad_300x250_Bottom)
     { 
         <section>
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
+            <div style="margin-bottom: 20px">
+                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
+            </div>
         </section>
     }
 }
