@@ -148,34 +148,15 @@ var videoSlug = (function () {
 
 })();
 
-function morePhotosOverlay(limitCount) {
-	var photosCnt = (photoCount - limitCount - 1);
-	if (photosCnt && photosCnt > 0) {
-		var lastPhoto = $('.photos-grid-list li').last(),
-                   morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + photosCnt + '<br />images</span></span>');
-		lastPhoto.append(morePhotoCount);
-	}
-}
 
-function bindPhotos(photosLimit) {
-	var photosLength = $('.photos-grid-list').first().find('li').length;
-
-	lastPhotoIndex = photosLimit - 1;
-
-	// add 'more photos count' if photo grid contains 30 images
-	if (photosLength == photosLimit) {
-		morePhotosOverlay(photosLength - 1);
-	}
-}
 var vmLoadPhotos = function () {
 	var self = this;
 	self.Loadedphotos = ko.observableArray();
 }
 
-
 docReady(function () {
 	var photosLimit = 30;
-	bindPhotos(photosLimit);
+
 	var vmPhotosMore = new vmLoadPhotos();
 	ko.applyBindings(vmPhotosMore, $("#photoTemplateWrapper")[0]);
 	if (popupGallery) {
@@ -246,46 +227,42 @@ docReady(function () {
 
 var mainGallerySwiper = (function () {
 	function registerEvents() {
-	    $('.image-grid__list').on('click', '.image-grid-list__item', function () {
-	        
-	        var imageNumber;
-	        var container = $('.model-gallery__container');
-	        ($(this).closest('#imageGridTop').length !== 0) ? imageNumber = $(this).index() : imageNumber = $(this).index() + 7;
-	        //$('#mainPhotoSwiper .swiper-slide:nth-of-type(' + (imageNumber + 1) + ') img').trigger('click');
+		$('.image-grid__list').on('click', '.image-grid-list__item', function () {
 
-	        if (!container.hasClass('model-gallery--relative')) {
-	           // container.closest('.model-gallery-section').css({ 'height': (container.outerHeight() - container.offset().top), 'width': $(this).width() });
-	            container.hide();
-	            vmModelGallery.HideSwiperTitle(true);
-	            calculateCenter();
-	            container.fadeIn(100);
-	            bodyBackground.lock();
-	            vmModelGallery.activeSwiper(true);
+			var imageNumber;
+			var container = $('.model-gallery__container');
+			($(this).closest('#imageGridTop').length !== 0) ? imageNumber = $(this).index() : imageNumber = $(this).index() + 7;
 
-	            $('#mainPhotoSwiper').data('swiper').slideTo((imageNumber));
-	            container.closest('.model-gallery-section').css('height', 'auto');
-	        }
-	    });
+			if (!container.hasClass('model-gallery--relative')) {
+				container.hide();
+				vmModelGallery.HideSwiperTitle(true);
+				calculateCenter();
+				container.fadeIn(100);
+				bodyBackground.lock();
+				vmModelGallery.activeSwiper(true);
 
-		$('.model-gallery img').on('click', function (e) {
-			e.stopPropagation();
+				$('#mainPhotoSwiper').data('swiper').slideTo((imageNumber));
+				container.closest('.model-gallery-section').css('height', 'auto');
+			}
+		});
+
+		$('.swiper__image').on('click', '.swiper-slide', function (e) {
 			var container = $(this).closest('.model-gallery__container')
 			if (!container.hasClass('model-gallery--relative')) {
-			    vmModelGallery.HideSwiperTitle(true);
+				vmModelGallery.HideSwiperTitle(true);
 				calculateCenter();
-				vmModelGallery.activeSwiper(true);
+				vmModelGallery.openGalleryPopup();
 				bodyBackground.lock();
 				resizeHandler();
 				setTimeout(function () {
-				    vmModelGallery.HideSwiperTitle(false);
+					vmModelGallery.HideSwiperTitle(false);
 				}, 300);
 
 			}
 		});
 
 		$(document).on('click', '.black-window', function (e) {
-		    vmModelGallery.HideSwiperTitle(true);
-			var auto = 'auto';
+			vmModelGallery.HideSwiperTitle(true);
 			$('.model-gallery__container').animate({
 				top: 0
 			}, 300, "swing");
@@ -293,7 +270,7 @@ var mainGallerySwiper = (function () {
 			bodyBackground.unlock();
 			gallerySlug.removeSlug($('#mainPhotoSwiper').find('.swiper-slide__slug'));
 			setTimeout(function () {
-			    vmModelGallery.HideSwiperTitle(false);
+				vmModelGallery.HideSwiperTitle(false);
 			}, 300);
 		});
 

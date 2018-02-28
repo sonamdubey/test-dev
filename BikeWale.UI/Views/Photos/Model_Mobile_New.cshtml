@@ -24,7 +24,7 @@
 
             <div class="model-gallery-section">
                 <div class="model-gallery__container" data-bind="css: activeSwiper() ? 'model-gallery--relative' : ''">
-                    <div id="mainPhotoSwiper" class="swiper-container noSwiper model-gallery">
+                    <div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
                                 <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
@@ -60,30 +60,27 @@
                     </div>
 
                 </div>
-                <div  class="model-gallery__screen--rotate-slug" data-bind="attr: { 'data-visible': activeGalleryScreenRotateSlug() && activeSwiper()? '0': '1' }">
+                <div class="model-gallery__screen--rotate-slug" data-bind="attr: { 'data-visible': activeGalleryScreenRotateSlug() && activeSwiper()? '0': '1' }, click: toggleFullScreen">
                     <span class="landscape-text">
                         Switch to Landscape for better Experience
                     </span>
                     <span class="screen--rotate-slug__landscape-container">
                         <span class="screen--rotate-slug__landscape-icon"></span>
                     </span>
-
                 </div>
                 <div class="gallery-color--fixed" data-bind="attr:{'data-visible': activeSwiper() && activeGalleryColor() && galleryColorFixedSlug()? '0': '1'}">
                     see colors images
                 </div>
-                </div>
-            <div class="black-window" data-bind="visible: activeSwiper()">
-
             </div>
+            <div class="black-window" data-bind="visible: activeSwiper()"></div>
 
-						<div id="colorGalleryPopup" class="color-popup__content">
+						<div id="colorGalleryPopup" class="color-popup__content" data-bind="css: { 'color-popup--active': activeColorPopup(), 'color-popup--landscape': fullScreenModeActive() }">
 							<div class="color-popup__head">
-								<span class="color-popup-head__back"></span>
+								<span class="color-popup-head__back" data-bind="click: closeColorPopup"></span>
 								<p class="color-popup-head__title">Dominar 400 Colors</p>
 							</div>
 							<div class="color-popup__body">
-								<div id="mainColorSwiper" class="swiper-container noSwiper">
+								<div id="mainColorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
 									<div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
 											<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
 													<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
@@ -95,28 +92,34 @@
 										<div class="gallery-image__footer">
 											<div class="gallery-image__left-section">
 													<span class="gallery-image__count">
-														<span data-bind="text: activeColorIndex()"></span>/<span data-bind="text: colorPhotoList().length"></span>
+														<span data-bind="text: activeColorIndex()"></span> / <span data-bind="text: colorPhotoList().length"></span>
 													</span>
 											</div>
 											<div class="gallery-image__feature">
 													<a href="" title="" class="gallery__download-icon"></a>
 													<a href="" title="" class="share-icon"></a>
-													<a href="" title="" class="landscape-icon"></a>
+													<a href="" title="" class="landscape-icon__container"></a>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div id="thumbnailColorSwiper" class="swiper-container noSwiper model-gallery--color">
-									<ul class="model-color__list swiper-wrapper " data-bind="foreach: colorPhotoList, css: colorPhotoList().length == 3 ? 'list-column--3' : ''">
-										<div class="swiper-slide">
-											<div class="color-box__content">
-												<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
-														<span data-bind="style: { 'background-color': '#' + $data }"></span>
+								<div class="color-popup__thumbnail-content" data-bind="css: { 'color-footer--inactive': !colorsFooterActive() }">
+									<p class="color-list__heading">Colors</p>
+									<div id="thumbnailColorSwiper" class="swiper-container noSwiper swiper__color-thumbnail" data-bind="css: { 'color-list--scrollable': !fullScreenModeActive() }">
+										<div class="model-color__list swiper-wrapper " data-bind="foreach: colorPhotoList, css: colorPhotoList().length == 3 ? 'list-column--3' : ''">
+											<div class="swiper-slide">
+												<div class="color-box--border">
+													<div class="color-box__content">
+														<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+															<span data-bind="style: { 'background-color': '#' + $data }"></span>
+														</div>
+														<p class="color-box-label" data-bind="text: ImageTitle"></p>
+													</div>
 												</div>
-												<p class="color-box-label" data-bind="text: ImageTitle"></p>
 											</div>
 										</div>
-									</ul>
+									</div>
+									<span class="color-list__back-btn" data-bind="click: closeColorPopup">Back</span>
 								</div>
 							</div>
 						</div>
@@ -264,30 +267,19 @@
     }
 
 <!-- image slug -->
-<div id="carouselColorSlug" class="hide">
+<div id="carouselColorSlug" class="hide" data-bind="template: {name: 'colorSlugTemplate', data: colorData }"></div>
+
+<script type="text/html" id="colorSlugTemplate">
 	<div class="model-gallery__color-slide gallery__slide-slug">
 		<p class="color-slide__title">Dominar 400 Colors</p>
-		<ul class="color-slide__list">
+		<ul class="color-slide__list" data-bind="foreach: colorPhotoList">
 			<li class="color-slide-list__item">
-				<div class="color-box" data-color-count="1">
-					<span style="background-color: rgb(178, 196, 14);"></span>
-				</div>
-			</li>
-			<li class="color-slide-list__item">
-				<div class="color-box" data-color-count="2">
-					<span style="background-color: rgb(26, 26, 26);"></span>
-					<span style="background-color: rgb(232, 111, 13);"></span>
-				</div>
-			</li>
-			<li class="color-slide-list__item">
-				<div class="color-box" data-color-count="3">
-					<span style="background-color: rgb(26, 26, 26);"></span>
-					<span style="background-color: rgb(232, 111, 13);"></span>
-					<span style="background-color: rgb(0, 125, 190);"></span>
+				<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+					<span data-bind="style: { 'background-color': '#' + $data }"></span>
 				</div>
 			</li>
 		</ul>
-		<p class="color-slide__more-count">+3 More Colors</p>
+		<p class="color-slide__more-count" data-bind="text: '+' + moreColorCount + ' More Color' + (moreColorCount > 1 ? 's' : '') "></p>
 		<button type="button" class="btn btn-inv-blue swiper-slide__more-btn">Show All Color Images</button>
 	</div>
-</div>
+</script>
