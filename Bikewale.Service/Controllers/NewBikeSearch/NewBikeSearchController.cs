@@ -62,7 +62,6 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
 
         [Route("api/v2/bikesearch/")]
         public IHttpActionResult BikeList([FromBody] SearchFilterDTO input)
-
         {
             try
             {
@@ -71,10 +70,10 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
                 SearchFilters Filters = SearchOutputMapper.Convert(input);
                 objBikeList = _bikeSearch.GetBikeSearch(Filters);
 
-                searchResult = SearchOutputMapper.Convert(objBikeList);
-                if (searchResult != null && searchResult.SearchResult != null && searchResult.SearchResult.Count > 0)
+                if (objBikeList != null)
                 {
-                    return Ok(searchResult);
+                    return Ok(objBikeList);
+                    //searchResult = SearchOutputMapper.Convert(objBikeList);
                 }
                 else
                     return NotFound();
@@ -87,31 +86,5 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
                 return InternalServerError();
             }
         }
-        
-        public IHttpActionResult BikeListOtherMake([FromBody]/*SearchFilterDTO*/SearchFilters input)
-        {
-            try
-            {
-                SearchOutput searchResult = null;
-                IEnumerable<BikeModelDocument> objBikeList = null;
-                objBikeList = _bikeSearch.GetBikeSearch(input);
-
-                searchResult = SearchOutputMapper.Convert(objBikeList);
-                if (searchResult != null && searchResult.SearchResult != null && searchResult.SearchResult.Count > 0)
-                {
-                    return Ok(searchResult);
-                }
-                else
-                    return NotFound();
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.NewBikeSearch.BikeList");
-
-                return InternalServerError();
-            }
-        }
-
     }
 }

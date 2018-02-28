@@ -72,13 +72,13 @@
 
                                             }
                                         </ul>
-                                        <ul class="recommended-bike-list hide" data-bind="foreach : Bikes">
+                                        <ul class="recommended-bike-list" data-bind="foreach : bikes">
                                             
                                                 <li class="recommended-bike__list-card">
                                                     <div class="model__card">
                                                         <a href="" title="" class="model-card__target">
                                                             <div class="model-card__image">
-                                                                <img class="lazy" data-bind="attr: { href: $data.bikeImage.hostUrl + @Bikewale.Utility.ImageSize._144x81 / $data.bikeImage.imageUrl, title: details }" src="" title="" alt="">
+                                                                <img class="lazy" data-bind="attr: { src: $data.bikeImage.hostURL + '/144x81/' + $data.bikeImage.imageURL}" title="" alt="">
                                                             </div>
                                                             <div class="model-card__detail">
                                                                 <span class="rating-badge" data-bind="attr: {data-rate-bg: $data.ratingsCount}">
@@ -133,12 +133,12 @@
 
                                         }
                                     </ul>
-                                    <ul class="recommended-bike-list hide" data-bind="foreach : BikesOtherMakes">
+                                    <ul class="recommended-bike-list hide" data-bind="foreach : bikesOtherMakes">
                                             <li class="recommended-bike__list-card">
                                                 <div class="model__card">
                                                     <a href="" title="" class="model-card__target">
                                                         <div class="model-card__image">
-                                                            <img class="lazy" data-bind="attr: { href: $data.bikeImage.hostUrl + @Bikewale.Utility.ImageSize._144x81 / $data.bikeImage.imageUrl, title: details }" src="" title="" alt="">
+                                                            <img class="lazy" data-bind="attr: { src: $data.bikeImage.hostURL +'/144x81/' + $data.bikeImage.imageURL}" title="" alt="">
                                                         </div>
                                                         <div class="model-card__detail">
                                                             <span class="rating-badge" data-bind="attr: {data-rate-bg: $data.ratingsCount}">

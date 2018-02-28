@@ -21,7 +21,9 @@ namespace Bikewale.BAL.BikeSearch
         private static readonly string _bodyStyleId = "bodyStyleId";
         private static readonly string _cityId = "city.cityId";
         private static readonly string _bikeStatus = "bikeModel.modelStatus";
-        private static readonly byte _ModelStatus = 2;// by defaut all new bikes status
+        private static readonly string _topVersionStatus = "topVersion.versionStatus";
+        private static readonly byte _ModelStatus = 1;// by defaut all new bikes status
+        private static readonly byte _VersionStatus = 1;
 
         /// <summary>
         /// Created By :-
@@ -125,6 +127,7 @@ namespace Bikewale.BAL.BikeSearch
             try
             {
                 query &= FDS.Term(_bikeStatus, _ModelStatus);
+                query &= FDS.Term(_topVersionStatus, _VersionStatus);
 
                 if (filters.Displacement != null && filters.Displacement.Any())
                 {
@@ -177,7 +180,10 @@ namespace Bikewale.BAL.BikeSearch
         /// <returns></returns>
         private Func<NumericRangeQueryDescriptor<BikeModelDocument>, INumericRangeQuery> RangeQuery(double min, double max, string fieldName)
         {
-
+            if(max == 0)
+            {
+                return v => v.Field(new Field(fieldName)).GreaterThanOrEquals(min);
+            }
             return v => v.Field(new Field(fieldName)).GreaterThanOrEquals(min).LessThanOrEquals(max);
         }
 
@@ -197,6 +203,10 @@ namespace Bikewale.BAL.BikeSearch
         private Func<NumericRangeQueryDescriptor<BikeModelDocument>, INumericRangeQuery> RangeQuery(int min, int max, string fieldName)
         {
 
+            if (max == 0)
+            {
+                return v => v.Field(new Field(fieldName)).GreaterThanOrEquals(min);
+            }
             return v => v.Field(new Field(fieldName)).GreaterThanOrEquals(min).LessThanOrEquals(max);
         }
 

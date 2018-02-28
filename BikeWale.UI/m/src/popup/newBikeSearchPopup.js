@@ -197,12 +197,12 @@ ko.bindingHandlers.KOSlider = {
 var RecommendedBikes = function () {
     var self = this;
 
-    self.Bikes = ko.observableArray([]);
-    self.NoOfBikes = ko.observable();
-    self.BikesOtherMakes = ko.observableArray([]);
-    self.NoOfOtherBikes = ko.observable();
+    self.bikes = ko.observableArray([]);
+    self.noOfBikes = ko.observable();
+    self.bikesOtherMakes = ko.observableArray([]);
+    self.noOfOtherBikes = ko.observable();
 
-    self.MakeName = ko.observable();
+    self.makeName = ko.observable();
 
     var budgetArray = [
 		{
@@ -452,7 +452,17 @@ var RecommendedBikes = function () {
                 contentType: "application/json",
                 data: ko.toJSON(searchFilterObj),
                 success: function (response) {
-                    
+                    if (response.length > 0) {
+                        if (!searchFilterObj.excludeMake) {
+                            self.bikes(response);
+                            self.noOfBikes(response.length);
+                        } else {
+                            self.bikesOtherMakes(response);
+                            self.noOfOtherBikes(response.length);
+                        }
+                    } else {
+
+                    }
                 },
                 error: function (request, status, error) {
 
@@ -480,12 +490,12 @@ var RecommendedBikes = function () {
     self.OtherMakeRecommendations = function () {
         
         try {
-            //filterList contains fields such as excludeMake, pageCount, pageSize
+            //filterList contains fields such as excludeMake, pageCount, pageSize (since OtherMakeRecommendations uses Paging and stuff)
             filterList = self.searchFilter;
             filterList.excludeMake = true;
             filterList.pageNumber = 1;
             filterList.pageSize = 10;
-            return self.CallAPI(filterList);
+            //return self.CallAPI(filterList);
         }
         catch (e) {
             console.warn("OtherMakeRecommendations error : " + e.message);
