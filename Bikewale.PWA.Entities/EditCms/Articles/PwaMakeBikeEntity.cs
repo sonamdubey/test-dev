@@ -19,9 +19,6 @@ namespace Bikewale.Entities.PWA.Articles
         public string MaskingName { get; set; }
 
         [DataMember]
-        public bool IsScooterOnly { get; set; }
-
-        [DataMember]
         public uint TotalCount { get; set; }
 
     }

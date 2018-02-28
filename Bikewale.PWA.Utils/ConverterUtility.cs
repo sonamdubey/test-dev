@@ -194,7 +194,6 @@ namespace Bikewale.PWA.Utils
                         MakeId = make.MakeId,
                         MakeName = make.MakeName,
                         MaskingName = make.MaskingName,
-                        IsScooterOnly = make.IsScooterOnly,
                         TotalCount = make.TotalCount
                     }
                     );
@@ -707,7 +706,6 @@ namespace Bikewale.PWA.Utils
                             MakeId = make.MakeId,
                             MakeName = make.MakeName,
                             MaskingName = make.MaskingName,
-                            IsScooterOnly = make.IsScooterOnly,
                             TotalCount = make.TotalCount
                         });
                     }
