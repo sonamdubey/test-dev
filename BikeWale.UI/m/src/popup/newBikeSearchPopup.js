@@ -453,12 +453,12 @@ var RecommendedBikes = function () {
                 data: ko.toJSON(searchFilterObj),
                 success: function (response) {
                     if (response.length > 0) {
-                        if (!searchFilterObj.excludeMake) {
-                            self.bikes(response);
-                            self.noOfBikes(response.length);
-                        } else {
+                        if (searchFilterObj.excludeMake) {
                             self.bikesOtherMakes(response);
                             self.noOfOtherBikes(response.length);
+                        } else {
+                            self.bikes(response);
+                            self.noOfBikes(response.length);
                         }
                     } else {
 
@@ -479,8 +479,9 @@ var RecommendedBikes = function () {
 
     self.MakeRecommmendations = function () {
         try {
-           
-            return self.CallAPI(self.searchFilter);
+            filterList = self.searchFilter;
+            filterList.excludeMake = false;
+            return self.CallAPI(filterList);
         }
         catch (e) {
             console.warn("MakeRecommendations error : " + e.message);
@@ -495,7 +496,7 @@ var RecommendedBikes = function () {
             filterList.excludeMake = true;
             filterList.pageNumber = 1;
             filterList.pageSize = 10;
-            //return self.CallAPI(filterList);
+            return self.CallAPI(filterList);
         }
         catch (e) {
             console.warn("OtherMakeRecommendations error : " + e.message);
@@ -503,7 +504,7 @@ var RecommendedBikes = function () {
     }
 
     self.SequenceAPI = function() {
-         self.MakeRecommmendations().then(self.OtherMakeRecommendations());
+        self.MakeRecommmendations();
     }
 
     
