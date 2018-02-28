@@ -19,6 +19,11 @@ namespace Bikewale.Utility
         public static readonly uint[] Displacement = new uint[] { 110, 125, 150, 200, 250, 350, 450, 600, 750 };
         public static readonly uint[] Power = new uint[] { 10, 30, 60 };
 
+        public static readonly string BudgetText = "Select a budget that suits your pocket.";
+        public static readonly string MileageText = "Select a fuel economy that you expect from your bike.";
+        public static readonly string DisplacementText = "Select engine capacity that suits your riding style.";
+        public static readonly string PowerText = "Select power values that suits your riding style.";
+
         /// <summary>
         /// Created by : Snehal Dange on 20th Feb 2018
         /// Description: GetDefinedRange() method created to get the range scale for a particular filter type
@@ -107,10 +112,25 @@ namespace Bikewale.Utility
                             filterRangeList.Add(rangeList[key++]);
                         }
                     }
-
+                    
                     filterList.RangeList = filterRangeList;
                     filterList.Unit = rangeObj.Unit;
                     filterList.FilterType = rangeObj.Type;
+                    
+                    switch (rangeType)
+                    {
+                        case InPageFilterEnum.Budget:
+                            filterList.FilterText = BudgetText;
+                            break;
+                        case InPageFilterEnum.Displacement:
+                            filterList.FilterText = DisplacementText;
+                            break;
+                        case InPageFilterEnum.Mileage:
+                            filterList.FilterText = MileageText;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             return filterList;

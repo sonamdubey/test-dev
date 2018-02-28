@@ -15,7 +15,6 @@ var recommendedBikePopup = (function () {
 	};
 
 	function registerEvents() {
-	    debugger;
 	    _setSelectores();
 	    initViewModel();
 	    $(document).on('click', '.refine-result__apply', function (e) {
@@ -56,6 +55,7 @@ var recommendedBikePopup = (function () {
 
 	    closeBtn.on('click', function () {
 	        close();
+            //Add Code to clear the filter list here.
 	        updateInpageFilters();
 	        window.history.back();
 	    });
@@ -383,6 +383,7 @@ var RecommendedBikes = function () {
                         var selectionPreview = '';
 
                         $.each(arr, function (index, value) {
+                            debugger;
                             if (value !== "" && value) {
                                 var element = filterTypeContainer.find('div[data-value="' + value + '"]');
                                 element.addClass("check-box--active");
