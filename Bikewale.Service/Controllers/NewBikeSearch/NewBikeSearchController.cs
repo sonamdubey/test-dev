@@ -1,12 +1,10 @@
 ﻿using Bikewale.DTO.NewBikeSearch;
-using Bikewale.ElasticSearch.Entities;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.NewBikeSearch;
 using Bikewale.Service.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Web.Http;
 namespace Bikewale.Service.Controllers.NewBikeSearch
 {
@@ -66,7 +64,7 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             try
             {
                 SearchOutput searchResult = null;
-                IEnumerable<BikeModelDocument> objBikeList = null;
+                BikeSearchOutputEntity objBikeList = null;
                 SearchFilters Filters = SearchOutputMapper.Convert(input);
                 objBikeList = _bikeSearch.GetBikeSearch(Filters);
 
