@@ -366,7 +366,7 @@ var RecommendedBikes = function () {
             $.each(self.Filters(), function (key, value) {
                 switch (key) {
                     case "budget":
-                        var arr = self.Filters()[key].split("+");
+                        var arr = self.Filters()[key];
 
                         if (arr.length > 0) {
                             self.budgetSlider([$.inArray(parseInt(arr[0], 10), self.budgetStepPoints()), self.budgetStepPoints().length - 1]);
