@@ -42,10 +42,18 @@ var recommendedBikePopup = (function () {
 	        vmRecommendedBikes.SetPageFilters();
 	    });
 
-	    $(document).on('change', '.refine-result__list input[type="checkbox"]', function () {
-	        var checkedBoxList = $(this).closest('.refine-result__list').find('input[type="checkbox"]:checked');
+	    $(document).on('change', '.refine-result__list input', function () {
+	        var inputType = $(this).attr('type');
+	        var activeElementList;
 
-	        if (checkedBoxList.length) {
+	        if (inputType === 'checkbox') {
+	            activeElementList = $(this).closest('.refine-result__list').find('input[type="checkbox"]:checked');
+	        }
+	        else if (inputType === 'radio') {
+	            activeElementList = $(this).closest('.refine-result__list').find('input[type="radio"]:checked');
+	        }
+
+	        if (activeElementList.length) {
 	            $(this).closest('.refine-result').find('.refine-result__apply').prop('disabled', false);
 	        }
 	        else {
@@ -123,9 +131,12 @@ var recommendedBikePopup = (function () {
 	        if (filterTypeContainer.length) {
 	            var arr = vmRecommendedBikes.Filters()[key].split("+");
 
-	            var checkboxList = filterTypeContainer.find('.refine-result__list input[type="checkbox"]')
+	            var activeElementList = filterTypeContainer.find('.refine-result__list input[type="checkbox"]');
+	            if (!activeElementList.length) {
+	                activeElementList = filterTypeContainer.find('.refine-result__list input[type="radio"]');
+	            }
 
-	            $.each(checkboxList, function () {
+	            $.each(activeElementList, function () {
 	                if ($.inArray($(this).val(), arr) < 0) {
 	                    if ($(this).is(':checked')) {
 	                        $(this).trigger('click');
@@ -402,6 +413,9 @@ var RecommendedBikes = function () {
 
     self.UpdateFilters = function (filterTypeContainer) {
         var activeElements = filterTypeContainer.find('input[type="checkbox"]:checked');
+        if (!activeElements.length) {
+            activeElements = filterTypeContainer.find('input[type="radio"]:checked');
+        }
         var activeElementList = '';
         var activeFiltersList = '';
 
