@@ -243,7 +243,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     {
                                         heading = string.Format("Popular {0} Bikes", makeData.MakeName);
                                         viewAllUrl = string.Format("/m/{0}-bikes/", makeData.MaskingName);
-                                        viewAllBtnLabel = string.Format("{0} Bikes", makeData.MakeName);
+                                        viewAllBtnLabel = string.Format("View all {0} Bikes", makeData.MakeName);
                                     }
                                 }
                                 else
