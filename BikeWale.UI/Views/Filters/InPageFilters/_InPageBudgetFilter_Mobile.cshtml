@@ -1,12 +1,8 @@
 ﻿@model Bikewale.Entities.Filters.FilterBase
 
-@if(Model != null)
+@if(Model != null && Model.RangeList != null)
 {
-    ushort len = 0;
-    if (Model.RangeList != null)
-    {
-        len = (ushort)Model.RangeList.Count();
-    }
+    ushort len = (ushort)Model.RangeList.Count();
     for (int i = 0; i <= len; i++)
     {
         string inputId = String.Format("{0}{1}", Model.FilterType, Convert.ToString(i));
