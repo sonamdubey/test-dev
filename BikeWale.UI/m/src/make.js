@@ -85,6 +85,7 @@
 	if (vmRecommendedBikes != null && vmRecommendedBikes.searchFilter!=null)
 	{
 	    vmRecommendedBikes.searchFilter.makeId = $('#makeId').val();
+	    vmRecommendedBikes.searchFilter.cityId = $('#cityId').val();
 	}
 
 	Accordion.registerEvents();

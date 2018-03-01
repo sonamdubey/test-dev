@@ -15,13 +15,15 @@ namespace Bikewale.BAL.BikeSearch
     public class BikeSearch : IBikeSearch
     {
         private static readonly string _displacement = "displacement";
-        private static readonly string _exshowroom = "exshowroom";
+        private static readonly string _exshowroom = "topVersion.exshowroom";
         private static readonly string _bikeMakeId = "bikeMake.makeId";
         private static readonly string _mileage = "mileage";
         private static readonly string _bodyStyleId = "bodyStyleId";
         private static readonly string _cityId = "city.cityId";
         private static readonly string _bikeStatus = "bikeModel.modelStatus";
-        private static readonly byte _ModelStatus = 2;// by defaut all new bikes status
+        private static readonly string _topVersionStatus = "topVersion.versionStatus";
+        private static readonly byte _ModelStatus = 1;// by defaut all new bikes status
+        private static readonly byte _VersionStatus = 1;
 
         /// <summary>
         /// Created By :-Subodh Jain on 21 feb 2018
@@ -32,32 +34,34 @@ namespace Bikewale.BAL.BikeSearch
         /// <param name="source"></param>
         /// <param name="noOfRecords"></param>
         /// <returns></returns>
-        public IEnumerable<BikeModelDocument> GetBikeSearch(SearchFilters filters)
+        public BikeSearchOutputEntity GetBikeSearch(SearchFilters filters)
         {
-            IEnumerable<BikeModelDocument> objBikeList = null;
+            BikeSearchOutputEntity objBikeList = new BikeSearchOutputEntity();
             try
             {
-                // if global city is selected call city pricing data also.
-                if (filters.CityId > 0)
+                if (filters.CityId > 1)
                 {
                     IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
 
-                    var bikeList = Task.Factory.StartNew(() => objBikeList = GetBikeSearchList(filters, BikeSearchEnum.BikeList));
+                    var bikeList = Task.Factory.StartNew(() => objBikeList.Bikes = GetBikeSearchList(filters, BikeSearchEnum.BikeList));
                     var bikeListWithCityPrice = Task.Factory.StartNew(() => objBikeListWithCityPrice = GetBikeSearchList(filters, BikeSearchEnum.PriceList));
 
 
                     Task.WaitAll(bikeList, bikeListWithCityPrice);
 
-                    for (int index = 0; index < objBikeList.Count(); index++)
+                    if (objBikeList.Bikes != null && objBikeList.Bikes.Any())
                     {
-                        objBikeList.ElementAt(index).TopVersion = objBikeListWithCityPrice.ElementAt(index).TopVersion;
+                        for (int index = 0; index < objBikeList.Bikes.Count(); index++)
+                        {
+                            objBikeList.Bikes.ElementAt(index).TopVersion = objBikeListWithCityPrice.ElementAt(index).TopVersion;
+                        }
                     }
                 }
                 else
                 {
-                    objBikeList = GetBikeSearchList(filters, BikeSearchEnum.BikeList);
+                    objBikeList.Bikes = GetBikeSearchList(filters, BikeSearchEnum.BikeList);
                 }
-
+                SetPrevNextFilters(filters, objBikeList);
 
             }
             catch (Exception ex)
@@ -66,6 +70,32 @@ namespace Bikewale.BAL.BikeSearch
             }
             return objBikeList;
         }
+
+        private void SetPrevNextFilters(SearchFilters filters, BikeSearchOutputEntity objBikeList)
+        {
+
+            try
+            {
+                objBikeList.NextFilters = filters;
+
+                uint _totalPageSize = (uint)(objBikeList.TotalCount / filters.PageSize);
+                if (objBikeList.NextFilters != null && _totalPageSize > objBikeList.CurrentPageNumber)
+                {
+                    objBikeList.NextFilters.PageNumber++;
+                }
+                objBikeList.PrevFilters = filters;
+                if (objBikeList.PrevFilters != null && objBikeList.CurrentPageNumber != 1)
+                {
+                    objBikeList.PrevFilters.PageNumber--;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeSearch.SetPrevNextFilters");
+            }
+        }
+
         /// <summary>
         /// Created By :-Subodh Jain on 21 feb 2018
         /// Summary :- List of bikes accroding to search parameter and process filters
@@ -127,6 +157,7 @@ namespace Bikewale.BAL.BikeSearch
             try
             {
                 query &= FDS.Term(_bikeStatus, _ModelStatus);
+                query &= FDS.Term(_topVersionStatus, _VersionStatus);
 
                 if (filters.Displacement != null && filters.Displacement.Any())
                 {
@@ -179,7 +210,10 @@ namespace Bikewale.BAL.BikeSearch
         /// <returns></returns>
         private Func<NumericRangeQueryDescriptor<BikeModelDocument>, INumericRangeQuery> RangeQuery(double min, double max, string fieldName)
         {
-
+            if (max == 0)
+            {
+                return v => v.Field(new Field(fieldName)).GreaterThanOrEquals(min);
+            }
             return v => v.Field(new Field(fieldName)).GreaterThanOrEquals(min).LessThanOrEquals(max);
         }
 
@@ -189,13 +223,21 @@ namespace Bikewale.BAL.BikeSearch
         /// <param name="List"></param>
         /// <param name="fieldName"></param>
         /// <returns></returns>
-        private QueryContainer Range(IEnumerable<Tuple<double, double>> List, string fieldName)
+        private QueryContainer Range(IEnumerable<RangeEntity> List, string fieldName)
         {
             QueryContainer query = new QueryContainer();
             QueryContainerDescriptor<BikeModelDocument> FDS = new QueryContainerDescriptor<BikeModelDocument>();
-            foreach (var obj in List)
+            try
             {
-                query &= FDS.Range(RangeQuery(obj.Item1, obj.Item2, fieldName));
+                foreach (var obj in List)
+                {
+                    query |= FDS.Range(RangeQuery(obj.Min, obj.Max, fieldName));
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.BAL.BikeSearch.Range {double} "));
             }
 
             return query;
@@ -210,6 +252,10 @@ namespace Bikewale.BAL.BikeSearch
         private Func<NumericRangeQueryDescriptor<BikeModelDocument>, INumericRangeQuery> RangeQuery(int min, int max, string fieldName)
         {
 
+            if (max == 0)
+            {
+                return v => v.Field(new Field(fieldName)).GreaterThanOrEquals(min);
+            }
             return v => v.Field(new Field(fieldName)).GreaterThanOrEquals(min).LessThanOrEquals(max);
         }
 
@@ -219,13 +265,21 @@ namespace Bikewale.BAL.BikeSearch
         /// <param name="List"></param>
         /// <param name="fieldName"></param>
         /// <returns></returns>
-        private QueryContainer Range(IEnumerable<Tuple<int, int>> List, string fieldName)
+        private QueryContainer Range(IEnumerable<PriceRangeEntity> List, string fieldName)
         {
             QueryContainer query = new QueryContainer();
             QueryContainerDescriptor<BikeModelDocument> FDS = new QueryContainerDescriptor<BikeModelDocument>();
-            foreach (var obj in List)
+            try
             {
-                query &= FDS.Range(RangeQuery(obj.Item1, obj.Item2, fieldName));
+                foreach (var obj in List)
+                {
+                    query |= FDS.Range(RangeQuery(obj.Min, obj.Max, fieldName));
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.BAL.BikeSearch.Range {int} "));
             }
 
             return query;

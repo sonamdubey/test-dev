@@ -27,30 +27,32 @@ namespace Bikewale.Service.AutoMappers.NewBikeSearch
         {
             SearchOutput objData = new SearchOutput();
 
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel, opt => opt.MapFrom(s => s.BikeModel));
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel.MakeBase, opt => opt.MapFrom(s => s.BikeMake));
-
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.Displacement, opt => opt.MapFrom(s => s.TopVersion.Displacement));
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.KerbWeight, opt => opt.MapFrom(s => s.TopVersion.KerbWeight));
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.Power, opt => opt.MapFrom(s => s.TopVersion.Power));
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.FuelEfficiency, opt => opt.MapFrom(s => s.TopVersion.Mileage));
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.FinalPrice, opt => opt.MapFrom(s => s.TopVersion.Exshowroom));
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel.ReviewCount, opt => opt.MapFrom(s => s.UserReviewsCount));
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel.RatingCount, opt => opt.MapFrom(s => s.RatingsCount));
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel.ReviewRate, opt => opt.MapFrom(s => s.ReviewRatings));
-            Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel.ReviewRate, opt => opt.MapFrom(s => s.ReviewRatings));
+            //Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel., opt => opt.MapFrom(s => s.TopVersion.Displacement));
 
 
+            //Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.Displacement, opt => opt.MapFrom(s => s.TopVersion.Displacement));
+            //Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.KerbWeight, opt => opt.MapFrom(s => s.TopVersion.KerbWeight));
+            //Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.Power, opt => opt.MapFrom(s => s.TopVersion.Power));
+            //Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.FuelEfficiency, opt => opt.MapFrom(s => s.TopVersion.Mileage));
+            //Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.FinalPrice, opt => opt.MapFrom(s => s.TopVersion.Exshowroom));
+            //Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel.ReviewCount, opt => opt.MapFrom(s => s.UserReviewsCount));
+            //Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel.RatingCount, opt => opt.MapFrom(s => s.RatingsCount));
+            //Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel.ReviewRate, opt => opt.MapFrom(s => s.ReviewRatings));
+            //Mapper.CreateMap<BikeModelDocument, SearchOutputBase>().ForMember(d => d.BikeModel.ReviewRate, opt => opt.MapFrom(s => s.ReviewRatings));
 
-            objData.SearchResult = Mapper.Map<IEnumerable<BikeModelDocument>, List<SearchOutputBase>>(obj);
+
+
+            //objData.SearchResult = Mapper.Map<IEnumerable<BikeModelDocument>, List<SearchOutputBase>>(obj);
             return objData;
 
-        }
+        }       
 
         internal static SearchFilters Convert(SearchFilterDTO input)
         {
 
             Mapper.CreateMap<SearchFilterDTO, SearchFilters>();
+            Mapper.CreateMap<PriceRangeDTO, PriceRangeEntity>();
+            Mapper.CreateMap<RangeDTO, RangeEntity>();
             return Mapper.Map<SearchFilterDTO, SearchFilters>(input);
 
 

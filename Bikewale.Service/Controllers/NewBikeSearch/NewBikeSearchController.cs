@@ -1,12 +1,10 @@
 ﻿using Bikewale.DTO.NewBikeSearch;
-using Bikewale.ElasticSearch.Entities;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.NewBikeSearch;
 using Bikewale.Service.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Web.Http;
 namespace Bikewale.Service.Controllers.NewBikeSearch
 {
@@ -64,27 +62,27 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             try
             {
                 SearchOutput searchResult = null;
-                IEnumerable<BikeModelDocument> objBikeList = null;
+                BikeSearchOutputEntity objBikeList = null;
 
                 SearchFilters Filters = SearchOutputMapper.Convert(input);
 
                 objBikeList = _bikeSearch.GetBikeSearch(Filters);
 
-                searchResult = SearchOutputMapper.Convert(objBikeList);
-                if (searchResult != null && searchResult.SearchResult != null && searchResult.SearchResult.Count > 0)
+                if (objBikeList != null)
                 {
-                    return Ok(searchResult);
+                    return Ok(objBikeList);
+                    //searchResult = SearchOutputMapper.Convert(objBikeList);
                 }
                 else
                     return NotFound();
             }
             catch (Exception ex)
             {
+
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.NewBikeSearch.BikeList");
+
                 return InternalServerError();
             }
         }
-
-
     }
 }
