@@ -194,6 +194,18 @@ ko.bindingHandlers.KOSlider = {
     }
 };
 
+ko.bindingHandlers.numericText = {
+    update: function (element, valueAccessor, allBindingsAccessor) {
+        var value = ko.utils.unwrapObservable(valueAccessor()),
+            precision = ko.utils.unwrapObservable(allBindingsAccessor().precision) || ko.bindingHandlers.numericText.defaultPrecision,
+            formattedValue = value.toFixed(precision);
+
+        ko.bindingHandlers.text.update(element, function () { return formattedValue; });
+    },
+    defaultPrecision: 1
+};
+
+
 var RecommendedBikes = function () {
     var self = this;
 
@@ -454,7 +466,7 @@ var RecommendedBikes = function () {
                 success: function (response) {
                     if (response.length > 0) {
                         response = JSON.parse(response);
-                        if (("Bikes" in response) && response.Bikes.length > 0) {
+                        if (("Bikes" in response) && response.Bikes != null && response.Bikes.length > 0) {
                             var bikeList = response.Bikes;
                             var bikeCount = bikeList.length;
                             if (searchFilterObj.excludeMake) {
@@ -488,7 +500,7 @@ var RecommendedBikes = function () {
 
     self.MakeRecommmendations = function () {
         try {
-            filterList = self.searchFilter;
+            filterList = jQuery.extend({}, self.searchFilter);
             filterList.excludeMake = false;
             return self.CallAPI(filterList);
         }
@@ -501,7 +513,7 @@ var RecommendedBikes = function () {
         
         try {
             //filterList contains fields such as excludeMake, pageCount, pageSize (since OtherMakeRecommendations uses Paging and stuff)
-            filterList = self.searchFilter;
+            filterList = jQuery.extend({}, self.searchFilter);
             filterList.excludeMake = true;
             filterList.pageNumber = 1;
             filterList.pageSize = 10;
@@ -610,6 +622,8 @@ function getMinMaxLimits(range) {
    
     return maxMinLimits;
 }
+
+
 
 
 
