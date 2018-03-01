@@ -82,7 +82,7 @@ export function NewsDetailReducer(state,action) {
 				startTimer(1,2); // 1 api (set of 3) + 2 ads
 				var initialDataDict = state.getIn(['ArticleDetailData','InitialDataDict']);
 				if(action.payload) {
-					document.title = action.payload.Title ? action.payload.Title + " - BikeWale News": "BikeWale News";
+					document.title = action.payload.Title ? action.payload.Title + " - BikeWale": "BikeWale";
 					var initialDataDictModified = initialDataDict.setIn([action.payload.ArticleUrl],action.payload);
 					initialDataDict = initialDataDictModified;
 				} 
@@ -97,7 +97,7 @@ export function NewsDetailReducer(state,action) {
 				var initialDataDict = state.getIn(['ArticleDetailData','InitialDataDict']);
 				var docTitle = "";
 				if(action.payload) {
-					docTitle = action.payload.Title ? action.payload.Title + " - BikeWale News": "BikeWale News";
+					docTitle = action.payload.Title ? action.payload.Title + " - BikeWale": "BikeWale";
 					var articleInitialData =  initialDataDict.getIn([action.payload.ArticleUrl]);	
 					if(!articleInitialData) {
 						articleInitialData = mapNewsArticleDataToInitialData(action.payload);
