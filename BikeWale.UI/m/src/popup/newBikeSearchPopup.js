@@ -452,13 +452,15 @@ var RecommendedBikes = function () {
                 contentType: "application/json",
                 data: ko.toJSON(searchFilterObj),
                 success: function (response) {
-                    if (response.length > 0) {
+                    response = JSON.parse(response);
+                    var bikeCount = response.length;
+                    if (bikeCount > 0) {
                         if (searchFilterObj.excludeMake) {
                             self.bikesOtherMakes(response);
-                            self.noOfOtherBikes(response.length);
+                            self.noOfOtherBikes(bikeCount);
                         } else {
                             self.bikes(response);
-                            self.noOfBikes(response.length);
+                            self.noOfBikes(bikeCount);
                         }
                     } else {
 
@@ -504,7 +506,7 @@ var RecommendedBikes = function () {
     }
 
     self.SequenceAPI = function() {
-        self.MakeRecommmendations();
+        self.MakeRecommmendations().then(self.OtherMakeRecommendations());
     }
 
     
