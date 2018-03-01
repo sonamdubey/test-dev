@@ -271,17 +271,12 @@ var RecommendedBikes = function () {
     self.budgetStepPoints = ko.observable();
 
     self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "",excludeMake:"", pageSize:"", pageNumber:"" };
-
     self.budgetSlider.subscribe(function (value) {
-        var minBuget = self.budgetSlider()[0];
-        var maxBuget = self.budgetSlider()[1];
-
         var amountPreview = self.getBudgetAmount(self.budgetSlider());
         self.budgetAmountPreview(amountPreview);
-        self.Filters()['budget'] = self.budgetStepPoints()[minBuget] + '+' + self.budgetStepPoints()[maxBuget];
-        self.FiltersValue()['budget'] = self.budgetStepPoints()[minBuget] + '+' + self.budgetStepPoints()[maxBuget];
+//        self.Filters()['budget'] = self.budgetStepPoints()[minBuget] + '+' + self.budgetStepPoints()[maxBuget];
+  //      self.FiltersValue()['budget'] = self.budgetStepPoints()[minBuget] + '+' + self.budgetStepPoints()[maxBuget];
     });
-
     self.getQueryString = function () {
         var query = {};
         try {
@@ -333,15 +328,15 @@ var RecommendedBikes = function () {
             amount = 'All Range'
         }
         else if (maxBudget === self.budgetStepPoints().length - 1) {
-            amount = 'Above ' + convertAmount(self.budgetStepPoints()[minBudget], true);
+            amount = 'Above ' + convertAmount(minBudget, true);
         }
         else if (minBudget === 0) {
-            amount = 'Below ' + convertAmount(self.budgetStepPoints()[maxBudget], true);
+            amount = 'Below ' + convertAmount(maxBudget, true);
         }
         else {
-            amount = convertAmount(self.budgetStepPoints()[minBudget], true);
+            amount = convertAmount(minBudget, true);
             amount += ' - ';
-            amount += convertAmount(self.budgetStepPoints()[maxBudget], true);
+            amount += convertAmount(maxBudget, true);
         }
 
         return amount;
@@ -389,15 +384,15 @@ var RecommendedBikes = function () {
             $.each(self.Filters(), function (key, value) {
                 switch (key) {
                     case "budget":
-                        var arr = self.Filters()[key];
 
-                        if (arr.length > 0) {
-                            self.budgetSlider([$.inArray(parseInt(arr[0], 10), self.budgetStepPoints()), self.budgetStepPoints().length - 1]);
-                            if (arr.length > 1) self.budgetSlider([$.inArray(parseInt(arr[0], 10), self.budgetStepPoints()), $.inArray(parseInt(arr[1], 10), self.budgetStepPoints())]);
+                        if (self.searchFilter.price != null && self.budgetStepPoints != null)
+                        {
+                            self.budgetSlider([
+                                self.budgetStepPoints()[ $.inArray(parseInt(self.searchFilter.price["min"], 10), self.budgetStepPoints()) ], 
+                                self.budgetStepPoints()[ $.inArray(parseInt(self.searchFilter.price["max"], 10), self.budgetStepPoints()) ]
+                            ]);
                         }
-
                         self.setBudgetSelection();
-
                         break;
 
                     default:
