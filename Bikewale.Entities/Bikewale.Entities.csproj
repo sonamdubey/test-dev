@@ -381,6 +381,7 @@
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\PageMetaTags.cs" />
     <Compile Include="NewBikeSearch\BikeSearchEnum.cs" />
+    <Compile Include="NewBikeSearch\BikeSearchOutputEntity.cs" />
     <Compile Include="NewBikeSearch\BudgetFilterRanges.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
     <Compile Include="NewBikeSearch\FilterInput.cs" />
@@ -550,6 +551,10 @@
     <Compile Include="Videos\VideosSortOrder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+      <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
+      <Name>Bikewale.ElasticSearch.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
       <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
