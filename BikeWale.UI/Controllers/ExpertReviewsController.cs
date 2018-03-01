@@ -211,6 +211,7 @@ namespace Bikewale.Controllers
             }
             else
             {
+                obj.RefControllerContext = ControllerContext;
                 Stopwatch sw = null;
                 if (_logPWAStats)
                     sw = Stopwatch.StartNew();

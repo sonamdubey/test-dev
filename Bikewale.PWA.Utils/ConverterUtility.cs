@@ -7,7 +7,6 @@ using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Videos;
 using Bikewale.Models.Shared;
 using Bikewale.Models;
-using Bikewale.Notifications;
 using Bikewale.PWA.Entities.Photos;
 using Bikewale.Utility;
 using System;
@@ -68,7 +67,7 @@ namespace Bikewale.PWA.Utils
                 outDetails.DisplayDate = inpDet.DisplayDate.ToString("MMM dd, yyyy");
                 outDetails.DisplayDateTime = inpDet.DisplayDate.ToString("MMM dd, yyyy hh:mm tt");
                 outDetails.HostUrl = inpDet.HostUrl;
-                outDetails.Content = inpDet.Content;
+                outDetails.TopContent = inpDet.Content;
                 outDetails.PrevArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.PrevArticle);
                 outDetails.NextArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.NextArticle);
                 outDetails.CategoryId = inpDet.CategoryId;
@@ -87,7 +86,7 @@ namespace Bikewale.PWA.Utils
         /// </summary>
         /// <param name="inpDet"></param>
         /// <returns></returns>
-        public static PwaArticleDetails MapArticleDetailsToPwaExpertReviewDetails(ArticlePageDetails inpDet)
+        public static PwaArticleDetails MapArticleDetailsToPwaExpertReviewDetails(ArticlePageDetails inpDet, int matchedPage)
         {
             var outDetails = new PwaArticleDetails();
             if (inpDet != null && inpDet.BasicId > 0)
@@ -100,7 +99,8 @@ namespace Bikewale.PWA.Utils
                 outDetails.DisplayDate = inpDet.DisplayDate.ToString("MMM dd, yyyy");
                 outDetails.DisplayDateTime = inpDet.DisplayDate.ToString("MMM dd, yyyy hh:mm tt");
                 outDetails.HostUrl = inpDet.HostUrl;
-                outDetails.Content = MapPageToContent(inpDet.PageList);
+                outDetails.TopContent = MapPageToContent(inpDet.PageList, 0, matchedPage + 1);
+                outDetails.BottomContent = MapPageToContent(inpDet.PageList, matchedPage + 1);
                 outDetails.PrevArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.PrevArticle);
                 outDetails.NextArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.NextArticle);
                 outDetails.CategoryId = inpDet.CategoryId;
@@ -116,14 +116,23 @@ namespace Bikewale.PWA.Utils
         /// <summary>
         /// Converts Page to Content
         /// Created By : Pratibha Verma on 24 Feb, 2018
+        /// Modified by : Ashutosh Sharma on 01 Mar 2018.
+        /// Description : Method to fetch html string from startIndex to endIndex of pagelist.
         /// </summary>
-        /// <param name="PageList"></param>
+        /// <param name = "PageList" ></ param >
+        /// <param name="startIndex">Index of pagelist from html to be fetched.</param>
+        /// <param name="endIndex">Upto this index of pagelist html to be fetched. If not set than html upto end of pagelist will be returned.</param>
         /// <returns></returns>
-        public static string MapPageToContent(List<Page> PageList) {
+
+        public static string MapPageToContent(List<Page> PageList, int startIndex, int endIndex = 0)
+        {
             string content = string.Empty;
-            foreach (Page page in PageList) {
-                content += "<div class=\"margin - bottom10\"><h3 class=\"margin-bottom10\" role=\"heading\">"+ page.PageName + 
-                            "</h3><div id='@page.pageId' class=\"margin-top-10 article-content\">"+page.Content + "</div></div>";
+
+            endIndex = endIndex == 0 ? PageList.Count : endIndex;
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                content += "<div class=\"margin - bottom10\"><h3 class=\"margin-bottom10\" role=\"heading\">" + PageList[i].PageName +
+                        "</h3><div id='@page.pageId' class=\"margin-top-10 article-content\">" + PageList[i].Content + "</div></div>";
             }
             return content;
         }
@@ -234,7 +243,7 @@ namespace Bikewale.PWA.Utils
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails : {0}, {1}", inpList, cityName));
+                throw ex;
             }
             return outList;
         }
@@ -405,7 +414,7 @@ namespace Bikewale.PWA.Utils
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.MapBikeMakeEntityBaseListToPwaMakeBikeBaseList : {0}", objData));
+                throw ex;
             }
             return outData;
         }
@@ -647,7 +656,7 @@ namespace Bikewale.PWA.Utils
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.PwaConvert_modelImagesList_{0}", modelImagesList));
+                throw ex;
             }
             return pwaModelImagesList;
         }
@@ -681,7 +690,7 @@ namespace Bikewale.PWA.Utils
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.PwaConvert_modelImageList_{0}", modelImageList));
+                throw ex;
             }
             return pwaImageBaseList;
         }
@@ -713,7 +722,7 @@ namespace Bikewale.PWA.Utils
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.PWA.Utils.ConverterUtility.MapBikeMakeEntityBaseListToPwaMakeBikeEntityList : {0}", inpList));
+                throw ex;
             }
             return outList;
         }
