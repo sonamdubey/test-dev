@@ -40,7 +40,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// <param name="posts">No of records per page. Should be greater than 0.</param>
         /// <param name="pageNumber">page number for which data is required.</param>
         /// <returns>Category Content List</returns>
-        [ResponseType(typeof(IEnumerable<PwaContentBase>)), Route("api/pwa/cms/cat/{categoryIds}/posts/{posts}/pn/{pageNumber}/")]
+        [ResponseType(typeof(IEnumerable<PwaContentBase>)), Route("api/pwa/cms/cat/{categoryIds}/posts/{posts:int}/pn/{pageNumber:int}/")]
         public IHttpActionResult Get(string categoryIds, int posts, int pageNumber)
         {
             Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles = null;
@@ -104,7 +104,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// Created By : Pratibha Verma on 24 February, 2018
         /// Summary : API to get recent content for news.
         /// </summary>
-        [ResponseType(typeof(IEnumerable<PwaContentBase>)), Route("api/pwa/cms/news/posts/{articlePerPage}/pn/{pageNumber}/")]
+        [ResponseType(typeof(IEnumerable<PwaContentBase>)), Route("api/pwa/cms/news/posts/{articlePerPage:int}/pn/{pageNumber:int}/")]
         public IHttpActionResult GetNews(int articlePerPage, int pageNumber) {            
             try
             {
@@ -126,7 +126,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// Created By : Pratibha Verma on 24 February, 2018
         /// Summary : API to get recent content for expert-reviews.
         /// </summary>
-        [ResponseType(typeof(IEnumerable<PwaContentBase>)), Route("api/pwa/cms/expertreviews/posts/{articlePerPage}/pn/{pageNumber}/")]
+        [ResponseType(typeof(IEnumerable<PwaContentBase>)), Route("api/pwa/cms/expertreviews/posts/{articlePerPage:int}/pn/{pageNumber:int}/")]
         public IHttpActionResult GetExpertReviews(int articlePerPage, int pageNumber)
         {
             try

@@ -3,6 +3,7 @@ import {newsDetailAction,newBikesListAction,modelObjectAction} from  '../actionT
 import {isInt } from '../utils/commonUtils'
 import { refreshGPTAds } from '../utils/googleAdUtils'
 import { extractPageCategoryFromURL } from '../components/News/NewsCommon'
+import {getGlobalCity} from '../utils/popUpUtils'
 
 var fetchNewsArticleDetail = function(articleInitialData) {
 	
@@ -46,12 +47,14 @@ var fetchNewsArticleDetail = function(articleInitialData) {
 var fetchNewBikesListDataForNewsDetail = function(basicId) {
 	
 	return function(dispatch) {
-		var url;	
+	    var url;
+	    var globalCity = getGlobalCity();
+	    var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
 		if(parseInt(basicId) > 0) {
-			url = '/api/pwa/cms/bikelists/id/'+basicId+'/page/'
+		    url = '/api/pwa/cms/bikelists/id/'+basicId+'/page/?city='+globalCityName;
 		}
 		else {
-			url = '/api/pwa/cms/bikelists/id/0/page/'
+		    url = '/api/pwa/cms/bikelists/id/0/page/?city='+globalCityName;
 		}
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {

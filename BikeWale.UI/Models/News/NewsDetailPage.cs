@@ -344,7 +344,7 @@ namespace Bikewale.Models
             try
             {
                 objData.BaseUrl = IsMobile ? "/m" : "";
-                objData.PageMetaTags.Title = string.Format("{0} - BikeWale News", objData.ArticleDetails.Title);
+                objData.PageMetaTags.Title = string.Format("{0} - BikeWale", objData.ArticleDetails.Title);
                 if (objData.Make != null)
                     objData.AdTags.TargetedMakes = objData.Make.MakeName;
                 if (objData.Model != null)

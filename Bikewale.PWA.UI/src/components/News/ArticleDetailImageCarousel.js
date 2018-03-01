@@ -13,7 +13,7 @@ class ArticleDetailImageCarousel extends React.Component {
 		    totalCount: this.props.imageGallery? this.props.imageGallery.RecordCount:0,
             title: this.props.title,
 			isGalleryActive: false,
-			slideIndex: -1
+			slideIndex: 0
 		}
 
 		this.handleThumbnailCarouselBeforeChange = this.handleThumbnailCarouselBeforeChange.bind(this);
