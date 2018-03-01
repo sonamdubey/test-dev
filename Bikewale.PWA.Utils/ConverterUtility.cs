@@ -177,7 +177,7 @@ namespace Bikewale.PWA.Utils
                     DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(makeMaskingName, item.objModel.MaskingName),
                     ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostURL, ImageSize._174x98, QualityFactor._70),
                     Price = item.VersionPrice > 0 ? Format.FormatPrice(item.VersionPrice.ToString()) : string.Empty,
-                    PriceDescription = "Ex-showroom, " + item.CityName==null? item.CityName : _defaultCityName,
+                    PriceDescription = "Ex-showroom, " + (!string.IsNullOrEmpty(item.CityName)? item.CityName : _defaultCityName),
                     PriceSuffix = item.VersionPrice > 0 ? "onwards" : "Price not available"
                 }
                 );
