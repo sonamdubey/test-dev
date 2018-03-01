@@ -124,6 +124,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// Summary : API to get expert-review details of article.
         /// Modified By : Rajan Chauhan on 27 Feb 2018
         /// Description : Added ImageGallery to objPwaArticle
+        /// Modified by : Ashutosh Sharma on 01 Mar 2018.
+        /// Description : Added logic to split article html content into two parts to insert bikeinfo card at 25% height of article content.
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>Expert-Review Details</returns>
@@ -139,7 +141,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     ArticlePageDetails objExpertReviews = _CMSCache.GetArticlesDetails(_basicId);
                     if (objExpertReviews != null)
                     {
-                        objPwaArticle = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objExpertReviews);
+                        int matchedPage = InsertBikeInfoWidgetIntoContentPwa(objExpertReviews);
+                        objPwaArticle = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objExpertReviews, matchedPage);
                     }
                     IEnumerable<ModelImage> modelImages = _articles.GetArticlePhotos((int)_basicId);
                     if (modelImages != null && modelImages.Any())
@@ -713,6 +716,77 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.PwaCMSController.GetArticleGalleryImages");
                 return InternalServerError();
             }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 01 Mar 2018.
+        /// Description : Method to split article html content into two parts to insert bikeinfo card at 25% height of article content, if there
+        ///                 is only one page in article pagelist, than one more page is added if bottomContent is not empty.
+        /// </summary>
+        /// <param name="articleDetails"></param>
+        /// <returns></returns>
+        private int InsertBikeInfoWidgetIntoContentPwa(ArticlePageDetails articleDetails)
+        {
+            int matchedPage = 0;
+            try
+            {
+                if (articleDetails != null && articleDetails.PageList != null)
+                {
+                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count; string inputString = null, viewName = null;
+                    IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
+                    Models.Shared.BikeInfo ampBikeInfo = null;
+
+
+
+                    //get length of each pages with stripped html
+                    for (int i = 0; i < totalPages; i++)
+                    {
+                        var tuple = StringHtmlHelpers.StripHtmlTagsWithLength(articleDetails.PageList[i].Content);
+                        totalStrippedHTMLLength += tuple.Item2;
+                        objPagesInfo.Add(Tuple.Create(i, tuple.Item2));
+                    }
+
+
+                    requiredLength = Convert.ToInt32(totalStrippedHTMLLength * 0.25);
+
+                    foreach (var item in objPagesInfo)
+                    {
+                        currentPageLength += item.Item2;
+                        if (currentPageLength >= requiredLength)
+                        {
+                            matchedPage = item.Item1;
+                            requiredLength = currentPageLength - requiredLength;
+                            break;
+                        }
+
+                    }
+                    
+                    string topContentInPage = string.Empty, bottomContentInPage = string.Empty;
+                    StringHtmlHelpers.InsertHTMLBetweenHTMLPwa(articleDetails.PageList[matchedPage].Content, requiredLength, out topContentInPage, out bottomContentInPage);
+
+                    articleDetails.PageList[matchedPage].Content = topContentInPage;
+                    if (matchedPage != articleDetails.PageList.Count - 1)
+                    {
+                        articleDetails.PageList[matchedPage + 1].Content = bottomContentInPage + articleDetails.PageList[matchedPage + 1].Content;
+                    }
+                    else if(string.IsNullOrEmpty(bottomContentInPage))
+                    {
+                        articleDetails.PageList.Add(new Page()
+                        {
+                            Content = bottomContentInPage,
+                            PageName = "",
+                            pageId = articleDetails.PageList[matchedPage].pageId + 1,
+                            Priority = articleDetails.PageList.Max(p => p.Priority)
+                        });
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controller.PwaCMSController.InsertBikeInfoWidgetIntoContentPwa :{0}", articleDetails));
+            }
+            return matchedPage;
         }
         #endregion
     }   // class

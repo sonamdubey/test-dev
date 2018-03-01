@@ -210,6 +210,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  : Rajan Chauhan on 26 Feb 2018
         /// Description : Function to get PWA data for expert reviews
+        /// Modified by : Ashutosh Sharma on 01 Mar 2018.
+        /// Description : Added logic to split article html content into two parts to insert bikeinfo card at 25% height of article content.
         /// </summary>
         /// <param name="widgetTopCount"></param>
         /// <returns></returns>
@@ -230,10 +232,10 @@ namespace Bikewale.Models
                     PopulatePhotoGallery(objData);
                     BindSimilarBikes(objData);
                     SetBikeTested(objData);
-                    InsertBikeInfoWidgetIntoContent(objData);
+                    int matchedPage = InsertBikeInfoWidgetIntoContentPwa(objData.ArticleDetails);
                     objData.ReduxStore = new PwaReduxStore();
                     var newsDetailReducer = objData.ReduxStore.News.NewsDetailReducer;
-                    newsDetailReducer.ArticleDetailData.ArticleDetail = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objData.ArticleDetails);
+                    newsDetailReducer.ArticleDetailData.ArticleDetail = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objData.ArticleDetails, matchedPage);
                     newsDetailReducer.ArticleDetailData.ArticleDetail.ImageGallery = ConverterUtility.MapPhotoGalleryToPwaImageList(objData.PhotoGallery);
                     newsDetailReducer.RelatedModelObject.ModelObject = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objData.BikeInfo);
                     newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData, CityName);
@@ -1244,10 +1246,7 @@ namespace Bikewale.Models
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="objData"></param>
+
         private void InsertBikeInfoWidgetIntoContent(ExpertReviewsDetailPageVM objData)
         {
             try
@@ -1322,6 +1321,79 @@ namespace Bikewale.Models
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviewsDetailPage.InsertBikeInfoWidgetIntoContent - BasicId : " + _basicId);
             }
+        }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 01 Mar 2018.
+        /// Description : Method to split article html content into two parts to insert bikeinfo card at 25% height of article content, if there
+        ///                 is only one page in article pagelist, than one more page is added if bottomContent is not empty.
+        /// </summary>
+        /// <param name="articleDetails"></param>
+        /// <returns></returns>
+        private int InsertBikeInfoWidgetIntoContentPwa(ArticlePageDetails articleDetails)
+        {
+            int matchedPage = 0;
+            try
+            {
+                if (articleDetails != null && articleDetails.PageList != null)
+                {
+                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count; string inputString = null, viewName = null;
+                    IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
+                    Shared.BikeInfo ampBikeInfo = null;
+
+                    
+
+                    //get length of each pages with stripped html
+                    for (int i = 0; i < totalPages; i++)
+                    {
+                        var tuple = StringHtmlHelpers.StripHtmlTagsWithLength(articleDetails.PageList[i].Content);
+                        totalStrippedHTMLLength += tuple.Item2;
+                        objPagesInfo.Add(Tuple.Create(i, tuple.Item2));
+                    }
+
+
+                    requiredLength = Convert.ToInt32(totalStrippedHTMLLength * 0.25);
+
+                    foreach (var item in objPagesInfo)
+                    {
+                        currentPageLength += item.Item2;
+                        if (currentPageLength >= requiredLength)
+                        {
+                            matchedPage = item.Item1;
+                            requiredLength = currentPageLength - requiredLength;
+                            break;
+                        }
+
+                    }
+
+                    
+
+                    
+                        string topContentInPage = string.Empty, bottomContentInPage = string.Empty;
+                        StringHtmlHelpers.InsertHTMLBetweenHTMLPwa(articleDetails.PageList[matchedPage].Content, requiredLength,out topContentInPage,out bottomContentInPage);
+
+                        articleDetails.PageList[matchedPage].Content = topContentInPage;
+                        if (matchedPage != articleDetails.PageList.Count - 1)
+                        {
+                            articleDetails.PageList[matchedPage + 1].Content = bottomContentInPage + articleDetails.PageList[matchedPage + 1].Content;
+                        }
+                        else
+                        {
+                            articleDetails.PageList.Add(new Page()
+                            {
+                                Content = bottomContentInPage,
+                                PageName = "",
+                                pageId = articleDetails.PageList[matchedPage].pageId + 1,
+                                Priority = articleDetails.PageList.Max(p => p.Priority)
+                            });
+                        }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviewsDetailPage.InsertBikeInfoWidgetIntoContentPwa : {0}" , articleDetails));
+            }
+            return matchedPage;
         }
         /// <summary>
         /// Created By : Snehal Dange on 8th NOV 2017
