@@ -220,7 +220,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                 {
                                     if (isScooter)
                                     {
-                                        heading = string.Format("{0} Scooters", bikeSeriesEntityBase.SeriesName);
+                                        heading = string.Format("Popular {0} Scooters", bikeSeriesEntityBase.SeriesName);
                                         viewAllUrl = string.Format("/m/{0}-bikes/{1}/", makeData.MaskingName, bikeSeriesEntityBase.MaskingName);
                                         viewAllBtnLabel = string.Format("View all {0} Scooters", bikeSeriesEntityBase.SeriesName);
                                     }
@@ -228,14 +228,14 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     {
                                         heading = string.Format("Popular {0} Bikes", bikeSeriesEntityBase.SeriesName);
                                         viewAllUrl = string.Format("/m/{0}-bikes/{1}/", makeData.MaskingName, bikeSeriesEntityBase.MaskingName);
-                                        viewAllBtnLabel = string.Format("{0} Bikes", bikeSeriesEntityBase.SeriesName);
+                                        viewAllBtnLabel = string.Format("View all {0} Bikes", bikeSeriesEntityBase.SeriesName);
                                     }
                                 }
                                 else if (makeId > 0)
                                 {
                                     if (isScooter)
                                     {
-                                        heading = string.Format("{0} Scooters", makeData.MakeName);
+                                        heading = string.Format("Popular {0} Scooters", makeData.MakeName);
                                         viewAllUrl = string.Format("/m/{0}-scooters/", makeData.MaskingName);
                                         viewAllBtnLabel = string.Format("View all {0} Scooters", makeData.MakeName);
                                     }
@@ -243,7 +243,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     {
                                         heading = string.Format("Popular {0} Bikes", makeData.MakeName);
                                         viewAllUrl = string.Format("/m/{0}-bikes/", makeData.MaskingName);
-                                        viewAllBtnLabel = string.Format("{0} Bikes", makeData.MakeName);
+                                        viewAllBtnLabel = string.Format("View all {0} Bikes", makeData.MakeName);
                                     }
                                 }
                                 else
