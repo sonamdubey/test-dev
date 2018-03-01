@@ -184,7 +184,9 @@ class ArticleDetail extends React.Component {
         } 
     }
     renderImage(title,src) {
-        return (<img alt={title} title={title} src={src}/>)
+        return (<div className="article-content-image-wrapper">
+             <img alt={title} title={title} src={src} />
+           </div>)
     }
     renderArticleContent(articleDetail,initialData) { 
         if(articleDetail) 
@@ -198,9 +200,7 @@ class ArticleDetail extends React.Component {
             return (
                 <div>
                     <div className="article-content">
-                        <div className="article-content-image-wrapper">
                             {imageTag}
-                        </div>
                         <ArticleDetailContent htmlContent={articleDetail.TopContent}/>
                         {this.renderModelSlug()}
                         {bottomContent}
