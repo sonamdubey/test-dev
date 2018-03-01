@@ -548,7 +548,7 @@ namespace Bikewale.Models
                                                             {
                                                                 Bikes = objData.SeriesWidget.PopularSeriesBikes,
                                                                 WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
-                                                                WidgetHref = "/m/" +UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
+                                                                WidgetHref = "/m" +UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
                                                                 WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.MaskingName, objData.IsScooter ? "Scooters" : "Bikes")
                                                             };
                             }

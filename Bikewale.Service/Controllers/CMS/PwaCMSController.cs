@@ -268,8 +268,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     scooterMakeList.MakeList = ConverterUtility.MapBikeMakeEntityBaseToPwaMakeBikeEntity(bikeList);
 
                                     heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
-                                    viewAllUrl = string.Format("View all {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
-                                    viewAllBtnLabel = "/m/scooters/";
+                                    viewAllUrl = "/m/scooters/";
+                                    viewAllBtnLabel = string.Format("View all {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
                                     viewAllBtnText = "View all";
                                     BindBrandsWidgetProperties(scooterMakeList, heading, viewAllUrl, viewAllBtnLabel, viewAllBtnText);
 
@@ -287,8 +287,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                         popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
 
                                         heading = string.Format("Popular {0}", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
-                                        viewAllUrl = string.Format("Best {0} in India", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
-                                        viewAllBtnLabel = "/m" + UrlFormatter.FormatGenericPageUrl(bodyStyle);
+                                        viewAllUrl = "/m" + UrlFormatter.FormatGenericPageUrl(bodyStyle); 
+                                        viewAllBtnLabel = string.Format("Best {0} in India", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
                                         viewAllBtnText = "View all";
                                         BindPopularWidgetProperties(popularBikes, heading, viewAllUrl, viewAllBtnLabel, viewAllBtnText);
 
