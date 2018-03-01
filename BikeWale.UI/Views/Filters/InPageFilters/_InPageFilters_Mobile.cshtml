@@ -2,18 +2,17 @@
 
 @if (Model != null)
 {
-    int len = Model.RangeList.Count();
     <div class="refine-result">
         <h3 class="refine-result__heading">Refine Your Results</h3>
-        <p class="refine-result__instruction">Select a fuel economy range for your driving pattern</p> <!-- Ask PM -->
+        <p class="refine-result__instruction">Select a fuel economy range for your driving pattern</p> 
         <ul class="refine-result__list">
             @if(Model.FilterType != "budget")
             { 
-                @Html.Partial("~/Views/Filters/InPageFilters/_InPageMinSpecsFilters_Mobile.cshtml",Model)
+                @Html.Partial("~/Views/Filters/InPageFilters/_InPageMinSpecsFilters_Mobile.cshtml", Model)
             }
             else
             {
-                @Html.Partial("~/Views/Filters/InPageFilters/_InPageBudgetFilter_Mobile.cshtml",Model)
+                @Html.Partial("~/Views/Filters/InPageFilters/_InPageBudgetFilter_Mobile.cshtml", Model)
             }
         </ul>
 
