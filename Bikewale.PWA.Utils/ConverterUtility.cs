@@ -161,25 +161,23 @@ namespace Bikewale.PWA.Utils
         /// <param name="inpList"></param>
         /// <param name="cityName"></param>
         /// <returns></returns>
-        public static List<PwaBikeDetails> MapMostPopularBikesBaseToPwaBikeDetails(IEnumerable<MostPopularBikesBase> inpList, string cityName)
+        public static List<PwaBikeDetails> MapMostPopularBikesBaseToPwaBikeDetails(IEnumerable<MostPopularBikesBase> inpList)
         {
             List<PwaBikeDetails> outList = new List<PwaBikeDetails>();
-
-            string curCityName = string.IsNullOrEmpty(cityName) ? _defaultCityName : cityName;
+            
             string makeName;
             string makeMaskingName;
             foreach (var item in inpList)
             {
                 makeName = item.objMake == null ? (item.MakeName ?? string.Empty) : item.objMake.MakeName;
                 makeMaskingName = item.objMake == null ? (item.MakeMaskingName ?? string.Empty) : item.objMake.MaskingName;
-
                 outList.Add(new PwaBikeDetails()
                 {
                     Name = String.Format("{0} {1}", makeName, item.objModel.ModelName),
                     DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(makeMaskingName, item.objModel.MaskingName),
                     ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostURL, ImageSize._174x98, QualityFactor._70),
                     Price = item.VersionPrice > 0 ? Format.FormatPrice(item.VersionPrice.ToString()) : string.Empty,
-                    PriceDescription = "Ex-showroom, " + item.CityName,
+                    PriceDescription = "Ex-showroom, " + (!string.IsNullOrEmpty(item.CityName)? item.CityName : _defaultCityName),
                     PriceSuffix = item.VersionPrice > 0 ? "onwards" : "Price not available"
                 }
                 );
@@ -347,7 +345,7 @@ namespace Bikewale.PWA.Utils
             {
                 PwaBikeNews popularBikes = new PwaBikeNews();
                 var orgBikes = objData.MostPopularBikes;
-                popularBikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(orgBikes.Bikes, city);
+                popularBikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(orgBikes.Bikes);
                 popularBikes.CompleteListUrl = orgBikes.WidgetHref;
                 popularBikes.CompleteListUrlAlternateLabel = orgBikes.WidgetLinkTitle;
                 popularBikes.CompleteListUrlLabel = "View all";
@@ -360,7 +358,7 @@ namespace Bikewale.PWA.Utils
                     var orgBodyStyleBikes = objData.PopularBodyStyle;
                     if (orgBodyStyleBikes != null)
                     {
-                        bodyStyleBikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(orgBodyStyleBikes.PopularBikes, city);
+                        bodyStyleBikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(orgBodyStyleBikes.PopularBikes);
                         bodyStyleBikes.CompleteListUrl = orgBodyStyleBikes.WidgetHref;
                         bodyStyleBikes.CompleteListUrlAlternateLabel = orgBodyStyleBikes.WidgetLinkTitle;
                         bodyStyleBikes.CompleteListUrlLabel = "View all";
