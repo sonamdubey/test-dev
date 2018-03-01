@@ -173,7 +173,6 @@ class ArticleDetail extends React.Component {
         var matches = url.match(regexp);
         if(matches) {
             return matches[1];
-            
         }
     }
     
@@ -194,16 +193,20 @@ class ArticleDetail extends React.Component {
         {   
             var imageUrl = (!articleDetail.HostUrl || !articleDetail.LargePicUrl) ? 'https://imgd.aeplcdn.com/640x348/bikewaleimg/images/noimage.png?q=70' : articleDetail.HostUrl + articleDetail.LargePicUrl;
             var imageTag = this.renderImage(articleDetail.Title , imageUrl);
+            var bottomContent;
+            if (articleDetail.BottomContent) {
+                bottomContent = <ArticleDetailContent htmlContent={articleDetail.BottomContent}/>;
+            }
             return (
                 <div>
                     <div className="article-content">
                         <div className="article-content-image-wrapper">
                             {imageTag}
                         </div>
-                        <ArticleDetailContent htmlContent={articleDetail.Content}/>
-
+                        <ArticleDetailContent htmlContent={articleDetail.TopContent}/>
+                        {this.renderModelSlug()}
+                        {bottomContent}
                     </div>
-                    {this.renderModelSlug()}
                     <SocialMediaSlug/>
 					<ArticleDetailImageCarousel imageGallery={articleDetail.ImageGallery} title={articleDetail.Title}/>
                     <ArticleDetailPagination prevArticle={articleDetail.PrevArticle} nextArticle={articleDetail.NextArticle} onArticlePaginationClickEvent={this.onArticlePaginationClickEvent.bind(this)}/>
@@ -328,7 +331,8 @@ class ArticleDetail extends React.Component {
         	adSlotBottom = <AdUnit uniqueKey={articleDetail.Title} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50} />;
         }
 
-				var documentTitle = (articleInitialData.Title == "") ?"BikeWale News" : (articleInitialData.Title + " - BikeWale News");
+        var documentTitle = (articleInitialData.Title == "") ?"BikeWale" : (articleInitialData.Title + " - BikeWale");
+        //To be changed
 			 
         return (
             <div>

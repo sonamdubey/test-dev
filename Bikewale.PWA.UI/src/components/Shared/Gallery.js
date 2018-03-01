@@ -6,7 +6,7 @@ import {createImageUrl} from '../Widgets/WidgetsCommon'
 const defaultProps = {
 	heading: '',
 	isActive: false,
-	slideIndex: -1
+	slideIndex: 0
 }
 
 class Gallery extends React.Component {
@@ -40,10 +40,11 @@ class Gallery extends React.Component {
 	}
 
 	getMainCarouselSlides() {
-		let list = this.props.images.map(function (image) {
+	    let list = this.props.images.map(function (image) {
+	        let title = (image.ModelName? image.ModelName:'') + ' ' + (image.ImageCategory? image.ImageCategory:'');
 			return (
 				<div>
-					<img title={image.ImageName} alt={image.ImageName} src={createImageUrl(image.HostUrl, image.OriginalImgPath, '476x268')} />
+					<img title={title} alt={image.ImageCategory} src={createImageUrl(image.HostUrl, image.OriginalImgPath, '476x268')} />
 				</div>
 			)
 		})
@@ -52,10 +53,11 @@ class Gallery extends React.Component {
 	}
 
 	getThumbnailSlides() {
-		let list = this.props.images.map(function (image) {
+	    let list = this.props.images.map(function (image) {
+	        let title = (image.ModelName? image.ModelName:'') + ' ' + (image.ImageCategory? image.ImageCategory:'');
 			return (
 				<div style={{ width: 90 }}>
-					<img title={image.ImageName} alt={image.ImageName} src={createImageUrl(image.HostUrl, image.OriginalImgPath, '110x61')} />
+					<img title={title} alt={image.ImageCategory} src={createImageUrl(image.HostUrl, image.OriginalImgPath, '110x61')} />
 				</div>
 			)
 		})
@@ -115,7 +117,9 @@ class Gallery extends React.Component {
 		};
 
 		const activeClass = this.state.isActive ? 'gallery--active' : '';
-		const slideTitle = this.props.images[this.state.slideIndex].ImageName;
+		let modelName = this.props.images[this.state.slideIndex].ModelName;
+		let imageCategory = this.props.images[this.state.slideIndex].ImageCategory;
+		let slideTitle = (modelName? modelName:'') + ' ' + (imageCategory? imageCategory:'');
 
 		return (
 			<div className={"article-gallery-container " + activeClass}>
