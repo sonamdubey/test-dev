@@ -215,7 +215,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                             string viewAllBtnText = string.Empty;
                             if (bikes != null)
                             {
-                                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
+                                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes);
                                 if (isSeries)
                                 {
                                     if (isScooter)
@@ -284,7 +284,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     {
                                         popularBikes = new PwaBikeNews();
                                         var bodyStyle = bikes.FirstOrDefault().BodyStyle;
-                                        popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
+                                        popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes);
 
                                         heading = string.Format("Popular {0}", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
                                         viewAllUrl = string.Format("Best {0} in India", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
@@ -341,7 +341,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         {
                             PwaBikeNews popularBikes = new PwaBikeNews();
                             BindPopularWidgetProperties(popularBikes,"Popular bikes","/m/best-bikes-in-india/","Best Bikes in India","View all");
-                            popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
+                            popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes);
                             objPwaBikeNews.NewBikesList.Add(popularBikes);
                         }
 

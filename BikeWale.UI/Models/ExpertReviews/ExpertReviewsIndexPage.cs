@@ -331,7 +331,7 @@ namespace Bikewale.Models
                 popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
                 popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
                 popularBikes.CompleteListUrlLabel = "View all";
-                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objData.MostPopularBikes.Bikes, CityName);
+                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objData.MostPopularBikes.Bikes);
 
                 objPwaBikes.Add(popularBikes);
             }
