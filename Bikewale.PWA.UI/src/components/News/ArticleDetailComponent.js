@@ -19,7 +19,6 @@ import { getGlobalCity } from '../../utils/popUpUtils'
 import {endTimer} from '../../utils/timing'
 import AdUnit from '../AdUnit'
 import { Status, GA_PAGE_MAPPING,AD_PATH_NEWS_MOBILE_BOTTOM_320_50, AD_DIV_REVIEWS_BOTTOM_320_50, AD_PATH_NEWS_MOBILE_TOP_320_50, AD_DIV_REVIEWS_TOP_320_50, AD_DIMENSION_320_50} from '../../utils/constants'
-
 import ArticleDetailImageCarousel from './ArticleDetailImageCarousel'
 import CarouselBrand from '../Shared/CarouselBrand'
 
@@ -47,7 +46,7 @@ class ArticleDetail extends React.Component {
 
         var globalCity = getGlobalCity();
         this.globalCityName = (globalCity && globalCity.name.length > 0) ? globalCity.name : '';
-
+        this.pageCategory = extractPageCategoryFromURL();
         this.extractBasicIdFromArticleUrl = this.extractBasicIdFromArticleUrl.bind(this);
         if(typeof(gaObj)!="undefined")
         {
@@ -163,8 +162,7 @@ class ArticleDetail extends React.Component {
     extractBasicIdFromArticleUrl() {
         var basicId, regexp ; 
         var url = window.location.pathname;
-        var pageCategory = extractPageCategoryFromURL();
-        if(pageCategory === "news") {
+        if (this.pageCategory === "news") {
             regexp = /\/m\/news\/(\d+)-.*\.html/;
         }
         else {
@@ -192,7 +190,7 @@ class ArticleDetail extends React.Component {
         if(articleDetail) 
         {   
             var imageUrl = (!articleDetail.HostUrl || !articleDetail.LargePicUrl) ? 'https://imgd.aeplcdn.com/640x348/bikewaleimg/images/noimage.png?q=70' : articleDetail.HostUrl + articleDetail.LargePicUrl;
-            var imageTag = this.renderImage(articleDetail.Title , imageUrl);
+            var imageTag = (this.pageCategory === "news") ? this.renderImage(articleDetail.Title, imageUrl) : null;
             var bottomContent;
             if (articleDetail.BottomContent) {
                 bottomContent = <ArticleDetailContent htmlContent={articleDetail.BottomContent}/>;
