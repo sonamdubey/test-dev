@@ -11,21 +11,21 @@
             {
                 <input type="radio" class="refine-result__list-checkbox" name="inPageBudegetFilter" id="@inputId" value="@i" data-valuetext="@string.Format("{0}-{1}", 0, Model.RangeList[0])">
                 <label class="refine-result__checkbox-label" for="@inputId">
-                    @Html.Raw("<span>Less than </span>") @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(Model.RangeList[0].ToString());
+                    @Html.Raw("<span>Less than &#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(Model.RangeList[0].ToString())
                 </label>
             }
             else if (i == len && Model.RangeList[len - 1] != null)
             {
                 <input type="radio" class="refine-result__list-checkbox" name="inPageBudegetFilter" id="@inputId" value="@i" data-valuetext="@string.Format("{0}-{1}", Model.RangeList[len-1],0)">
                 <label class="refine-result__checkbox-label" for="@inputId">
-                    @Html.Raw("<span>More than </span>") @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(Model.RangeList[len - 1].ToString());
+                    @Html.Raw("<span>More than &#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(Model.RangeList[len - 1].ToString())
                 </label>
             }
             else if (Model.RangeList[i] != null && Model.RangeList[i - 1] != null)
             {
                 <input type="radio" class="refine-result__list-checkbox" name="inPageBudegetFilter" id="@inputId" value="@i" data-valuetext="@string.Format("{0}-{1}", Model.RangeList[i-1],Model.RangeList[i])">
                 <label class="refine-result__checkbox-label" for="@inputId">
-                    @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(Model.RangeList[i - 1].ToString()) @Html.Raw("&#8722;") @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(@Model.RangeList[i].ToString());
+                    @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(Model.RangeList[i - 1].ToString()) @Html.Raw("&#8722;") @Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(@Model.RangeList[i].ToString())
                 </label>
             }
         </li>

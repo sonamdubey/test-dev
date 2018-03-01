@@ -109,17 +109,20 @@
                         <ul class="all-model__list">
                             @foreach (var bike in Model.Bikes)
                             {
-                                if (j - prev == gap && index < Model.PageFilters.FilterResults.Count() )
-                                {
-                                    <li class="model-list__item filter-type__item" data-filter-type="@Model.PageFilters.FilterResults[index].FilterType">
+                                if (Model.PageFilters != null)
+                                { 
+                                    if (j - prev == gap && index < Model.PageFilters.FilterResults.Count() )
+                                    {
+                                        <li class="model-list__item filter-type__item" data-filter-type="@Model.PageFilters.FilterResults[index].FilterType">
                                         @Html.Partial("~/Views/Filters/InPageFilters/_InPageFilters_Mobile.cshtml", Model.PageFilters.FilterResults[index])
-                                    </li> 
-                                    gap++;
-                                    prev = j;
-                                    index++;
+                                        </li> 
+                                        gap++;
+                                        prev = j;
+                                        index++;
                                     
+                                    }
+                                    j++;
                                 }
-                                j++;
                                 var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                 var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
 

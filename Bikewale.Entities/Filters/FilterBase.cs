@@ -14,5 +14,6 @@ namespace Bikewale.Entities.Filters
         public IList<uint> RangeList { get; set; }
         public string Unit { get; set; }
         public string FilterType { get; set; }
+        public string FilterText { get; set; }
     }
 }
