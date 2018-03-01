@@ -970,6 +970,14 @@ namespace Bikewale.Models
                     objData.NewBikeSearchPopup.HasFilteredBikes = true;
                     objData.NewBikeSearchPopup.HasOtherRecommendedBikes = true;
                     objData.NewBikeSearchPopup.MakeId = _makeId;
+                    if(cityBase != null && cityBase.CityId > 0)
+                    {
+                        objData.NewBikeSearchPopup.CityId = cityBase.CityId;
+                    }
+                    else 
+                    {
+                        objData.NewBikeSearchPopup.CityId = 1;
+                    }
                 }
 
             }
