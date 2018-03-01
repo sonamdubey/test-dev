@@ -246,7 +246,7 @@ var RecommendedBikes = function () {
     self.budgetSlider = ko.observable();
     self.budgetStepPoints = ko.observable();
 
-    self.searchFilter = { displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "",excludeMake:"", pageSize:"", pageNumber:"" };
+    self.searchFilter = { displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "",excludeMake:false, pageSize:10, pageNumber:1 };
 
     self.budgetSlider.subscribe(function (value) {
         var minBuget = self.budgetSlider()[0];
@@ -452,18 +452,25 @@ var RecommendedBikes = function () {
                 contentType: "application/json",
                 data: ko.toJSON(searchFilterObj),
                 success: function (response) {
-                    response = JSON.parse(response);
-                    var bikeCount = response.length;
-                    if (bikeCount > 0) {
-                        if (searchFilterObj.excludeMake) {
-                            self.bikesOtherMakes(response);
-                            self.noOfOtherBikes(bikeCount);
-                        } else {
-                            self.bikes(response);
-                            self.noOfBikes(bikeCount);
+                    if (response.length > 0) {
+                        response = JSON.parse(response);
+                        if (("Bikes" in response) && response.Bikes.length > 0) {
+                            var bikeList = response.Bikes;
+                            var bikeCount = bikeList.length;
+                            if (searchFilterObj.excludeMake) {
+                                self.bikesOtherMakes(bikeList);
+                                self.noOfOtherBikes(bikeCount);
+                            } else {
+                                self.bikes(bikeList);
+                                self.noOfBikes(bikeCount);
+                            }
                         }
-                    } else {
-
+                        else {
+                            //Bike List is Not Present
+                        }
+                    }
+                    else {
+                        //Response is invalid
                     }
                 },
                 error: function (request, status, error) {
@@ -603,6 +610,7 @@ function getMinMaxLimits(range) {
    
     return maxMinLimits;
 }
+
 
 
 

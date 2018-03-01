@@ -8,7 +8,8 @@
             <div class="recommended-bike-popup">
                 <span id="recommendedBikeCloseBtn"></span>
                 <p class="recommended-bike__found-result">
-                    <span data-bind="text: noOfBikes"></span> Bikes found based on your criteria<span></span>
+                    <span data-bind="visible: (noOfBikes > 0)"><span data-bind="text: noOfBikes"></span></span> 
+                    <span data-bind="visible: !(noOfBikes > 0)"><span>No</span></span> Bikes found based on your criteria<span></span>
                 </p>
                 <div class="recommended-bike__filter-section">
                     <div class="recommended-bike__filter-content">
@@ -17,9 +18,8 @@
                     <div class="filter__edit">Edit</div>
                 </div>
                 <div class="recommended-bike-container">
-                    @if (!(Model.HasFilteredBikes || Model.HasOtherRecommendedBikes))
-                    {
-                        <div class="not-found-container">
+                    
+                        <div class="not-found-container" data-bind="visible: !(noOfBikes() > 0 || noOfOtherBikes() > 0)">
                             <div class="not-found-section">
                                 <span class="not-found__image"></span>
                                 <div class="not-found-description">
@@ -28,15 +28,12 @@
                                 </div>
                             </div>
                         </div>
-                    }
-                    else
-                    {
-                        <section>
+                    
+                        <section data-bind="visible: (noOfBikes() > 0 || noOfOtherBikes() > 0)">
                             <div class="bg-white section-bottom-margin">
                                 <h2 class="recommended-bike__title page__heading-h2">Recommended <span data-bind="text: makeName"></span> Bikes</h2>
-                                @if (!Model.HasFilteredBikes)
-                                {
-                                    <div class="not-found-container">
+                              
+                                    <div class="not-found-container" data-bind="visible: !(noOfBikes() > 0)">
                                         <div class="not-found-section">
                                             <span class="not-found__image">
 
@@ -51,10 +48,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
-                                else
-                                {
-                                    <div class="recommended-bike-section">
+                               
+                                   <div class="recommended-bike-section" data-bind="visible: (noOfBikes() > 0)">
                                         <ul class="model-loader-list__content">
                                             @for (var i = 1; i <= 2; i++)
                                             {
@@ -75,24 +70,24 @@
                                         <ul class="recommended-bike-list" data-bind="foreach: bikes">
                                                 <li class="recommended-bike__list-card">
                                                     <div class="model__card">
-                                                        <a href="" title="" class="model-card__target">
+                                                        <a data-bind="attr: { href: '/m/' + $data.bikeMake.makeMaskingName + '-bikes/' + $data.bikeModel.modelMaskingName, title: $data.bikeName}" class="model-card__target">
                                                             <div class="model-card__image">
-                                                                <img class="lazy" data-bind="attr: { src: $data.bikeImage.hostURL + '/144x81/' + $data.bikeImage.imageURL}" title="" alt="">
+                                                                <img class="lazy" data-bind="attr: { src: $data.bikeImage.hostURL + '/144x81/' + $data.bikeImage.imageURL, title: $data.bikeName, alt: $data.bikeName}">
                                                             </div>
                                                             <div class="model-card__detail">
-                                                                <span class="rating-badge" data-rate-bg= "4">
+                                                                <span class="rating-badge" data-bind="visible: ($data.reviewRatings > 0)" data-rate-bg="4">
                                                                     <span class="rating-badge__star"></span>
-                                                                    <span data-bind="4"></span>
+                                                                    <span data-bind="text: $data.reviewRatings"></span>
                                                                 </span>
                                                                 <p class="model-detail__make-name" data-bind="text: $data.bikeMake.makeName"></p>
                                                                 <h3 class="card-detail__name" data-bind="text: $data.bikeModel.modelName"></h3>
                                                                 <ul class="card-detail__specs-list">
-                                                                    <li data-bind="visible: $data.topVersion.displacement > 0"><span data-bind="text: $data.topVersion.displacement"></span><span> cc</span></li>
-                                                                    <li data-bind="visible: $data.topVersion.displacement > 0"><span data-bind="text: $data.topVersion.mileage"></span><span> kmpl</span></li>
-                                                                    <li data-bind="visible: $data.topVersion.displacement > 0"><span data-bind="text: $data.topVersion.power"></span><span> bhp</span></li>
+                                                                    <li data-bind="visible: ($data.topVersion.displacement > 0)"><span data-bind="text: $data.topVersion.displacement"></span><span> cc</span></li>
+                                                                    <li data-bind="visible: ($data.topVersion.mileage > 0)"><span data-bind="text: $data.topVersion.mileage"></span><span> kmpl</span></li>
+                                                                    <li data-bind="visible: ($data.topVersion.power > 0)"><span data-bind="text: $data.topVersion.power"></span><span> bhp</span></li>
                                                                 </ul>
                                                             </div>
-                                                            <div class="model-card__exshowroom-content">
+                                                            <div class="model-card__exshowroom-content" data-bind="visible: ($data.topVersion.exshowroom > 0)">
                                                                 <div class="model-card__exshowroom">
                                                                     <div class="card-exshowroom__col">
                                                                         <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
@@ -106,14 +101,11 @@
 
                                         </ul>
                                     </div>
-                                }
 
                             </div>
                         </section>
-                        if (Model.HasOtherRecommendedBikes)
-                        {
                             <section>
-                                <div class="other-recommended-bike">
+                                <div class="other-recommended-bike" data-bind="visible: (noOfOtherBikes() > 0)">
                                     <h2 class="recommended-bike__title page__heading-h2">Other Recommended Bikes (<span data-bind="text : noOfOtherBikes"></span>)</h2>
                                     <ul class="model-loader-list__content">
                                         @for (var i = 1; i <= 2; i++)
@@ -135,24 +127,24 @@
                                     <ul class="recommended-bike-list" data-bind="foreach : bikesOtherMakes">
                                             <li class="recommended-bike__list-card">
                                                 <div class="model__card">
-                                                    <a href="" title="" class="model-card__target">
+                                                    <a data-bind="attr: { href: '/m/' + $data.bikeMake.makeMaskingName + '-bikes/' + $data.bikeModel.modelMaskingName, title: $data.bikeName}" class="model-card__target">
                                                         <div class="model-card__image">
-                                                            <img class="lazy" data-bind="attr: { src: bikeImage.hostURL +'/144x81/' + bikeImage.imageURL}" title="" alt="">
+                                                            <img class="lazy" data-bind="attr: { src: bikeImage.hostURL +'/144x81/' + bikeImage.imageURL, title: $data.bikeName, alt: $data.bikeName}">
                                                         </div>
                                                         <div class="model-card__detail">
-                                                            <span class="rating-badge" data-rate-bg="4">
+                                                            <span class="rating-badge" data-bind="visible: ($data.reviewRatings > 0), attr: { 'data-rate-bg': '4'}">
                                                                 <span class="rating-badge__star"></span>
-                                                                <span data-bind="4"></span>
+                                                                <span data-bind="text: $data.reviewRatings"></span>
                                                             </span>
                                                             <p class="model-detail__make-name" data-bind="text : $data.bikeMake.makeName"></p>
                                                             <h3 class="card-detail__name" data-bind="text : $data.bikeModel.modelName"></h3>
                                                             <ul class="card-detail__specs-list">
-                                                                <li data-bind="visible: $data.topVersion.displacement > 0"><span data-bind="text: $data.topVersion.displacement"></span><span> cc</span></li>
-                                                                <li data-bind="visible: $data.topVersion.displacement > 0"><span data-bind="text: $data.topVersion.mileage"></span><span> kmpl</span></li>
-                                                                <li data-bind="visible: $data.topVersion.displacement > 0"><span data-bind="text: $data.topVersion.power"></span><span> bhp</span></li>
+                                                                <li data-bind="visible: ($data.topVersion.displacement > 0)"><span data-bind="text: $data.topVersion.displacement"></span><span> cc</span></li>
+                                                                <li data-bind="visible: ($data.topVersion.mileage > 0)"><span data-bind="text: $data.topVersion.mileage"></span><span> kmpl</span></li>
+                                                                <li data-bind="visible: ($data.topVersion.power > 0)"><span data-bind="text: $data.topVersion.power"></span><span> bhp</span></li>
                                                             </ul>
                                                         </div>
-                                                        <div class="model-card__exshowroom-content">
+                                                        <div class="model-card__exshowroom-content" data-bind="visible: ($data.topVersion.exshowroom > 0)">
                                                             <div class="model-card__exshowroom">
                                                                 <div class="card-exshowroom__col">
                                                                     <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
@@ -166,9 +158,7 @@
                                     </ul>
                                 </div>
                             </section>
-                        }
-                    }
-
+                      
                 </div>
             </div>
         </div>
