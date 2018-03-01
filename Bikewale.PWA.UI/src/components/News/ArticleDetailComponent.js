@@ -11,7 +11,7 @@ import NewBikes from '../NewBikes'
 import ModelSlug from './ModelSlug'
 import Footer from '../Shared/Footer'
 import { isServer } from '../../utils/commonUtils'
-import {mapNewsArticleDataToInitialData} from './NewsCommon'
+import {mapNewsArticleDataToInitialData, extractPageCategoryFromURL} from './NewsCommon'
 import {addAdSlot , removeAdSlot} from '../../utils/googleAdUtils'
 import { scrollPosition , resetScrollPosition , isBrowserWithoutScrollSupport } from '../../utils/scrollUtils'
 import { getGlobalCity } from '../../utils/popUpUtils'
@@ -20,6 +20,8 @@ import {endTimer} from '../../utils/timing'
 import AdUnit from '../AdUnit'
 import { Status, GA_PAGE_MAPPING,AD_PATH_NEWS_MOBILE_BOTTOM_320_50, AD_DIV_REVIEWS_BOTTOM_320_50, AD_PATH_NEWS_MOBILE_TOP_320_50, AD_DIV_REVIEWS_TOP_320_50, AD_DIMENSION_320_50} from '../../utils/constants'
 
+import ArticleDetailImageCarousel from './ArticleDetailImageCarousel'
+import CarouselBrand from '../Shared/CarouselBrand'
 
 class ArticleDetail extends React.Component {
     propTypes : {
@@ -50,17 +52,17 @@ class ArticleDetail extends React.Component {
         if(typeof(gaObj)!="undefined")
         {
             gaObj = GA_PAGE_MAPPING["DetailsPage"];
-        }  
-    }
+				}
+		}		
     componentDidUpdate() {
         var basicIdFromData = this.props.ArticleDetailData && this.props.ArticleDetailData.ArticleDetail ? this.props.ArticleDetailData.ArticleDetail.BasicId : null;
         var basicIdFromUrl = this.props.match.params["basicId"] ? this.props.match.params["basicId"] : -1  ;
         if(basicIdFromData == basicIdFromUrl) {
             this.logger();
             this.scrollToPosition();
-        }
-        
-    }
+				}
+		}
+		
     componentDidMount() {    
 
         this.logger();
@@ -93,9 +95,8 @@ class ArticleDetail extends React.Component {
         if(isBrowserWithoutScrollSupport()) {
             window.scrollTo(0, 0); 
         }
-        
+		}
 
-    }
     componentWillReceiveProps (nextProps) {
         try {
             var prevUrlParam = this.props.match.params;
@@ -160,9 +161,15 @@ class ArticleDetail extends React.Component {
         }
     }
     extractBasicIdFromArticleUrl() {
-        var basicId ; 
+        var basicId, regexp ; 
         var url = window.location.pathname;
-        var regexp = /\/m\/news\/(\d+)-.*\.html/;
+        var pageCategory = extractPageCategoryFromURL();
+        if(pageCategory === "news") {
+            regexp = /\/m\/news\/(\d+)-.*\.html/;
+        }
+        else {
+            regexp = /\/m\/expert-reviews\/.*-(\d+)\.html/;
+        }
         var matches = url.match(regexp);
         if(matches) {
             return matches[1];
@@ -198,6 +205,7 @@ class ArticleDetail extends React.Component {
                     </div>
                     {this.renderModelSlug()}
                     <SocialMediaSlug/>
+					<ArticleDetailImageCarousel imageGallery={articleDetail.ImageGallery} title={articleDetail.Title}/>
                     <ArticleDetailPagination prevArticle={articleDetail.PrevArticle} nextArticle={articleDetail.NextArticle} onArticlePaginationClickEvent={this.onArticlePaginationClickEvent.bind(this)}/>
                 </div>                        
             )
@@ -221,7 +229,7 @@ class ArticleDetail extends React.Component {
         }
     }
     renderNewBikesList() {
-        if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched ) {
+        if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched || !this.props.NewBikesListData.NewBikesList) {
             return false;
         }
         return (
@@ -240,7 +248,13 @@ class ArticleDetail extends React.Component {
     renderBreadcrumb(title) {
         if(this.props.ArticleDetailData && this.props.ArticleDetailData.Status == Status.Fetched) 
         {
-            return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/news/',Title : 'News'},{Href : '',Title : title}]}/>);
+            var pageCategory = extractPageCategoryFromURL();
+            if(pageCategory === "news") {
+                return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/news/',Title : 'News'},{Href : '',Title : title}]}/>);
+            }
+            else {
+                return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/expert-reviews/',Title : 'Expert Reviews'},{Href : '',Title : title}]}/>);
+            }
         }
         else {
             return false;
@@ -254,7 +268,15 @@ class ArticleDetail extends React.Component {
         else {
             return false;
         }
-    }
+		}
+    renderPopularBrandList() {
+        if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched || !this.props.NewBikesListData.BikeMakeList || this.props.NewBikesListData.BikeMakeList.length === 0) {
+            return false;
+        }
+        return (
+            <CarouselBrand brandList={this.props.NewBikesListData.BikeMakeList[0]}/>
+			)
+		}
     render() {
          
         var componentData = this.props.ArticleDetailData;
@@ -306,8 +328,8 @@ class ArticleDetail extends React.Component {
         	adSlotBottom = <AdUnit uniqueKey={articleDetail.Title} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50} />;
         }
 
-        var documentTitle = (articleInitialData.Title == "") ?"BikeWale News" : (articleInitialData.Title + " - BikeWale News");
-       
+				var documentTitle = (articleInitialData.Title == "") ?"BikeWale News" : (articleInitialData.Title + " - BikeWale News");
+			 
         return (
             <div>
 
@@ -320,6 +342,7 @@ class ArticleDetail extends React.Component {
                     </div>
                 </div>
                 {this.renderNewBikesList()}
+                {this.renderPopularBrandList()}
                 <div className="margin-bottom15">
                     {adSlotBottom}
                 </div>

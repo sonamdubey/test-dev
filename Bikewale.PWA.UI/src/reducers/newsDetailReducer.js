@@ -134,13 +134,15 @@ export function NewsDetailReducer(state,action) {
 			case newBikesListAction.FETCH_NEW_BIKES_LIST_FOR_NEWS_DETAIL:
 				return state.setIn(['NewBikesListData'] , fromJS({
 						Status : Status.IsFetching,
-						NewBikesList : null
+						NewBikesList : null,
+				        BikeMakeList : null
 				}))
 
 			case newBikesListAction.FETCH_NEW_BIKES_LIST_SUCCESS_FOR_NEWS_DETAIL:
 				return state.setIn(['NewBikesListData'] , fromJS({
 						Status : Status.Fetched,
-						NewBikesList : action.payload
+						NewBikesList : action.payload.NewBikesList,
+						BikeMakeList : action.payload.BikeMakeList
 				}))
 				
 			case newBikesListAction.FETCH_NEW_BIKES_LIST_FAILURE_FOR_NEWS_DETAIL:
@@ -152,10 +154,10 @@ export function NewsDetailReducer(state,action) {
 			case newBikesListAction.NEW_BIKES_LIST_RESET_FOR_NEWS_DETAIL: 
 				return state.setIn(['NewBikesListData'] , fromJS({
 						Status : Status.Reset,
-						NewBikesList : null
+						NewBikesList : null,
+						BikeMakeList : null
 				}))
 				
-				//TODO handle reset case
 
 			case modelObjectAction.FETCH_MODEL_OBJECT_FOR_NEWS_DETAIL :
 				return state.setIn(['RelatedModelObject'] , fromJS({
@@ -180,7 +182,6 @@ export function NewsDetailReducer(state,action) {
 						Status : Status.Reset,
 						ModelObject : null
 				}))
-				//TODO handle reset 
 				
 		}
 

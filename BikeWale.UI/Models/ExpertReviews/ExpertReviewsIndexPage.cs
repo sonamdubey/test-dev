@@ -339,7 +339,7 @@ namespace Bikewale.Models
             if (objData.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes != null)
             {
                 PwaBikeNews upcomingBikes = new PwaBikeNews();
-                upcomingBikes.Heading = "Upcoming bikes";
+                upcomingBikes.Heading = "Upcoming Bikes";
                 upcomingBikes.CompleteListUrl = "/m/upcoming-bikes/";
                 upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
                 upcomingBikes.CompleteListUrlLabel = "View all";
