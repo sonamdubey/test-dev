@@ -769,7 +769,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     {
                         articleDetails.PageList[matchedPage + 1].Content = bottomContentInPage + articleDetails.PageList[matchedPage + 1].Content;
                     }
-                    else if(string.IsNullOrEmpty(bottomContentInPage))
+                    else if(!string.IsNullOrEmpty(bottomContentInPage))
                     {
                         articleDetails.PageList.Add(new Page()
                         {
