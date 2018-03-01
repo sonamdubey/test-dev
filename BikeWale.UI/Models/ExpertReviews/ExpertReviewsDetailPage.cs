@@ -515,7 +515,7 @@ namespace Bikewale.Models
                         {
                             Bikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId),
                             CityId = CityId,
-                            WidgetHeading = string.Format("Popular {0} bikes", bikeSeriesEntityBase.SeriesName),
+                            WidgetHeading = string.Format("Popular {0} Bikes", bikeSeriesEntityBase.SeriesName),
                             WidgetLinkTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName),
                             WidgetHref = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
 
@@ -545,9 +545,9 @@ namespace Bikewale.Models
                                 objData.MostPopularBikes = new MostPopularBikeWidgetVM()
                                                             {
                                                                 Bikes = objData.SeriesWidget.PopularSeriesBikes,
-                                                                WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "scooters" : "bikes"),
-                                                                WidgetHref = UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
-                                                                WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.MaskingName, objData.IsScooter ? "scooters" : "bikes")
+                                                                WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
+                                                                WidgetHref = "/m/" +UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
+                                                                WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.MaskingName, objData.IsScooter ? "Scooters" : "Bikes")
                                                             };
                             }
 
@@ -556,7 +556,7 @@ namespace Bikewale.Models
                         {
                             objData.MostPopularBikes = MostPopularMakeScooters;
                             objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} Scooters", objData.Make.MakeName);
-                            objData.MostPopularBikes.WidgetHref = string.Format("/{0}-scooters/", objData.Make.MaskingName);
+                            objData.MostPopularBikes.WidgetHref = string.Format("/m/{0}-scooters/", objData.Make.MaskingName);
                             objData.MostPopularBikes.WidgetLinkTitle = string.Format("{0} Scooters", objData.Make.MakeName);
                         }
                     }
@@ -680,12 +680,12 @@ namespace Bikewale.Models
 
                     if (objData.Make != null)
                     {
-                        objData.UpcomingBikes.WidgetHeading = string.Format("Upcoming {0} bikes", objData.Make.MakeName);
+                        objData.UpcomingBikes.WidgetHeading = string.Format("Upcoming {0} Bikes", objData.Make.MakeName);
                         objData.UpcomingBikes.WidgetHref = string.Format("/{0}-bikes/upcoming/", objData.Make.MaskingName);
                     }
                     else
                     {
-                        objData.UpcomingBikes.WidgetHeading = "Upcoming bikes";
+                        objData.UpcomingBikes.WidgetHeading = "Upcoming Bikes";
                         objData.UpcomingBikes.WidgetHref = "/upcoming-bikes/";
                     }
                     objData.UpcomingBikes.WidgetLinkTitle = "Upcoming Bikes in India";
@@ -699,7 +699,7 @@ namespace Bikewale.Models
                 }
                 else
                 {
-                    PopularBikesWidget.WidgetHeading = "Popular bikes";
+                    PopularBikesWidget.WidgetHeading = "Popular Bikes";
                     PopularBikesWidget.WidgetHref = "/best-bikes-in-india/";
                     PopularBikesWidget.WidgetLinkTitle = "Best Bikes in India";
                     PopularBikesWidget.CtaText = "View all bikes";
