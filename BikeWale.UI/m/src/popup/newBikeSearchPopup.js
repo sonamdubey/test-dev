@@ -395,8 +395,8 @@ var RecommendedBikes = function () {
                         var arr = self.Filters()[key];
 
                         self.budgetSlider([
-                            $.inArray(parseInt(self.searchFilter.price["min"], 10), self.budgetStepPoints()),
-                            $.inArray(parseInt(self.searchFilter.price["max"], 10), self.budgetStepPoints())
+                            $.inArray(parseInt(self.searchFilter.price[0]["min"], 10), self.budgetStepPoints()),
+                            $.inArray(parseInt(self.searchFilter.price[0]["max"], 10), self.budgetStepPoints())
                         ]);
                         //if (arr.length > 0) {
                         //    self.budgetSlider([
@@ -634,6 +634,7 @@ function getMinMaxLimitsList(range) {
 
 
 function getMinMaxLimits(range) {
+    var filterArray = [];
     if (range != undefined) {
         var selectedRangeList = range.split('-');
     }
@@ -642,9 +643,10 @@ function getMinMaxLimits(range) {
             "min": selectedRangeList[0],
             "max": selectedRangeList[1]
         }
+        filterArray.push(maxMinLimits);
     }
 
-    return maxMinLimits;
+    return filterArray;
 }
 
 
