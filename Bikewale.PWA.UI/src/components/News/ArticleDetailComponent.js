@@ -214,18 +214,6 @@ class ArticleDetail extends React.Component {
                 </div>                        
             )
         }
-        else if(initialData) {
-            var imageUrl = (!initialData.HostUrl || !initialData.LargePicUrl) ? 'https://imgd.aeplcdn.com/640x348/bikewaleimg/images/noimage.png?q=70' : initialData.HostUrl + initialData.LargePicUrl;
-            var imageTag = (this.pageCategory === "news") ? this.renderImage(initialData.Title, imageUrl) : null;
-            return(
-                <div>
-                    <div className="article-content">
-                        {imageTag}
-                        <SpinnerRelative/>
-                    </div>
-                </div>
-            )
-        }
         else {
             return <SpinnerRelative/>;
             
