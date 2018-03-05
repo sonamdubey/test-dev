@@ -143,7 +143,7 @@ namespace Bikewale.PWA.Utils
             }
             catch (Exception ex)
             {
-                throw ex;  
+                throw;  
             }
             return content;
         }
