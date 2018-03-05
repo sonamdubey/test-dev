@@ -94,7 +94,7 @@ class VideosByCategoryComponent extends React.Component{
 				{!this.props.VideosByCategory || !this.props.VideosByCategory.Videos || this.props.VideosByCategory.Videos.length == 0 ? 
 						null :
 						<div>
-							<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/bike-videos/',Title : 'Videos'},{Href : '' , Title : title}]}/>
+							<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/bike-videos/',Title : 'Videos', isReactLink : true},{Href : '' , Title : title}]}/>
 							<Footer/>
 						</div>}
 			</div>

@@ -779,6 +779,12 @@ namespace Bikewale.BAL.GrpcFiles
             return outDetails;
         }
 
+		/// <summary>
+		/// Modified by : Rajan Chauhan on 05 Mar 2018
+		/// Description : Added condition on ArticleApi for categoryId 8 i.e. : expert-reviews
+		/// </summary>
+		/// <param name="inpSum"></param>
+		/// <returns></returns>
         public static PwaArticleSummary ConvertFromGrpcToBikeWalePwa(GrpcArticleSummary inpSum)
         {
             PwaArticleSummary outSummary = null;
@@ -792,7 +798,7 @@ namespace Bikewale.BAL.GrpcFiles
                     outSummary = new PwaArticleSummary();
                     string catName = GetContentCategory((int)inpSum.CategoryId);
                     outSummary.ArticleUrl = GetArticleUrl((int)inpSum.CategoryId, artBase.ArticleUrl, (int)basicId);
-                    outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", basicId);
+                    outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/{1}/", basicId,(inpSum.CategoryId==8?"pages":"page"));
                     outSummary.AuthorName = inpSum.AuthorName;
                     outSummary.Description = inpSum.Description;
                     outSummary.BasicId = basicId;

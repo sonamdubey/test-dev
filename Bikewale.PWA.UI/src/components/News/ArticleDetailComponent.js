@@ -214,7 +214,7 @@ class ArticleDetail extends React.Component {
         else if(initialData) {
             var imageUrl = (!initialData.HostUrl || !initialData.LargePicUrl) ? 'https://imgd.aeplcdn.com/640x348/bikewaleimg/images/noimage.png?q=70' : initialData.HostUrl + initialData.LargePicUrl;
             
-            var imageTag = this.renderImage(initialData.Title , imageUrl);
+            var imageTag = (this.pageCategory === "news") ? this.renderImage(initialData.Title, imageUrl) : null;
             return(
                 <div>
                     <div className="article-content">
@@ -251,10 +251,10 @@ class ArticleDetail extends React.Component {
         {
             var pageCategory = extractPageCategoryFromURL();
             if(pageCategory === "news") {
-                return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/news/',Title : 'News'},{Href : '',Title : title}]}/>);
+                return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/news/',Title : 'News', isReactLink : true},{Href : '',Title : title}]}/>);
             }
             else {
-                return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/expert-reviews/',Title : 'Expert Reviews'},{Href : '',Title : title}]}/>);
+            	return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/expert-reviews/',Title : 'Expert Reviews', isReactLink : true},{Href : '',Title : title}]}/>);
             }
         }
         else {

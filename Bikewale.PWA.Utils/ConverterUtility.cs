@@ -22,6 +22,8 @@ namespace Bikewale.PWA.Utils
         /// <summary>
         /// Converts ArticleSummary to PwaArticleSummary
         /// </summary>
+        /// Modified by : Rajan Chauhan on 05 Mar 2018
+        /// Description : Added condition on ArticleApi for categoryId 8 i.e. : expert-reviews
         /// <param name="inpSum"></param>
         /// <returns></returns>
         public static PwaArticleSummary MapArticleSummaryToPwaArticleSummary(ArticleSummary inpSum)
@@ -32,7 +34,7 @@ namespace Bikewale.PWA.Utils
                 outSummary = new PwaArticleSummary();
                 string catName = PwaCmsHelper.GetContentCategory(inpSum.CategoryId);
                 outSummary.ArticleUrl = PwaCmsHelper.GetArticleUrl(inpSum.CategoryId, inpSum.ArticleUrl, (int)inpSum.BasicId);
-                outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpSum.BasicId);
+                outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/{1}/", inpSum.BasicId, (inpSum.CategoryId==8?"pages":"page"));
                 outSummary.AuthorName = inpSum.AuthorName;
                 outSummary.Description = inpSum.Description;
                 outSummary.BasicId = inpSum.BasicId;
@@ -101,13 +103,11 @@ namespace Bikewale.PWA.Utils
                 outDetails.HostUrl = inpDet.HostUrl;
                 outDetails.TopContent = MapPageToContent(inpDet.PageList, 0, matchedPage + 1);
                 outDetails.BottomContent = MapPageToContent(inpDet.PageList, matchedPage + 1);
-                outDetails.PrevArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.PrevArticle);
-                outDetails.NextArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.NextArticle);
                 outDetails.CategoryId = inpDet.CategoryId;
                 outDetails.CategoryName = PwaCmsHelper.GetContentCategory(inpDet.CategoryId);
                 outDetails.LargePicUrl = inpDet.LargePicUrl;
                 outDetails.SmallPicUrl = inpDet.SmallPicUrl;
-                outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpDet.BasicId);
+                outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/pages/", inpDet.BasicId);
                 outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(",", inpDet.TagsList) : string.Empty;
                 outDetails.ShareUrl = PwaCmsHelper.ReturnSharePageUrl(inpDet);
             }
