@@ -131,18 +131,21 @@ namespace Bikewale.PWA.Utils
             {
                 content = string.Empty;
 
-                endIndex = endIndex == 0 ? PageList.Count : endIndex;
-                for (int i = startIndex; i < endIndex; i++)
+                if (PageList != null && PageList.Any())
                 {
-                    content += "<div class=\"margin - bottom10\"><h3 class=\"margin-bottom10\" role=\"heading\">" + PageList[i].PageName +
-                            "</h3><div id='@page.pageId' class=\"margin-top-10 article-content\">" + PageList[i].Content + "</div></div>";
+                    endIndex = endIndex == 0 ? PageList.Count : endIndex;
+                    for (int i = startIndex; i < endIndex; i++)
+                    {
+                        content += "<div class=\"margin - bottom10\"><h3 class=\"margin-bottom10\" role=\"heading\">" + PageList[i].PageName +
+                                "</h3><div id='@page.pageId' class=\"margin-top-10 article-content\">" + PageList[i].Content + "</div></div>";
+                    } 
                 }
-                return content;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return content;
-            }            
+                throw ex;  
+            }
+            return content;
         }
 
         /// <summary>
