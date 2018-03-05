@@ -101,11 +101,8 @@ namespace Bikewale.PWA.Utils
                 outDetails.DisplayDate = inpDet.DisplayDate.ToString("MMM dd, yyyy");
                 outDetails.DisplayDateTime = inpDet.DisplayDate.ToString("MMM dd, yyyy hh:mm tt");
                 outDetails.HostUrl = inpDet.HostUrl;
-                if (inpDet.PageList != null && inpDet.PageList.Any())
-                {
-                    outDetails.TopContent = MapPageToContent(inpDet.PageList, 0, matchedPage + 1);
-                    outDetails.BottomContent = MapPageToContent(inpDet.PageList, matchedPage + 1);
-                }
+                outDetails.TopContent = MapPageToContent(inpDet.PageList, 0, matchedPage + 1);
+                outDetails.BottomContent = MapPageToContent(inpDet.PageList, matchedPage + 1);
                 outDetails.CategoryId = inpDet.CategoryId;
                 outDetails.CategoryName = PwaCmsHelper.GetContentCategory(inpDet.CategoryId);
                 outDetails.LargePicUrl = inpDet.LargePicUrl;
@@ -129,15 +126,23 @@ namespace Bikewale.PWA.Utils
 
         public static string MapPageToContent(List<Page> PageList, int startIndex, int endIndex = 0)
         {
-            string content = string.Empty;
-
-            endIndex = endIndex == 0 ? PageList.Count : endIndex;
-            for (int i = startIndex; i < endIndex; i++)
+            string content = null;
+            try
             {
-                content += "<div class=\"margin - bottom10\"><h3 class=\"margin-bottom10\" role=\"heading\">" + PageList[i].PageName +
-                        "</h3><div id='@page.pageId' class=\"margin-top-10 article-content\">" + PageList[i].Content + "</div></div>";
+                content = string.Empty;
+
+                endIndex = endIndex == 0 ? PageList.Count : endIndex;
+                for (int i = startIndex; i < endIndex; i++)
+                {
+                    content += "<div class=\"margin - bottom10\"><h3 class=\"margin-bottom10\" role=\"heading\">" + PageList[i].PageName +
+                            "</h3><div id='@page.pageId' class=\"margin-top-10 article-content\">" + PageList[i].Content + "</div></div>";
+                }
+                return content;
             }
-            return content;
+            catch (Exception)
+            {
+                return content;
+            }            
         }
 
         /// <summary>
