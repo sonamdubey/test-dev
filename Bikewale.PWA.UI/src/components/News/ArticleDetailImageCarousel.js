@@ -19,6 +19,18 @@ class ArticleDetailImageCarousel extends React.Component {
 		this.handleThumbnailCarouselBeforeChange = this.handleThumbnailCarouselBeforeChange.bind(this);
 	}
 
+	componentDidMount() {
+		let imageSlider = this.refs.imageSlider.innerSlider.base
+		let imageSliderSlides = imageSlider.querySelectorAll('.slick-slide')
+
+		for (let i = 0; i < imageSliderSlides.length; i++) {
+			let self = this;
+			imageSliderSlides[i].addEventListener('click', function () {
+				self.focusSlider(i);
+			});
+		}
+	}
+
 	getImageSlides() {
 		let list = this.state.images.map(function (image) {
 			return (
@@ -40,6 +52,10 @@ class ArticleDetailImageCarousel extends React.Component {
 				slideIndex: currentSlideIndex
 			})
 		}
+	}
+
+	focusSlider(slideIndex) {
+		this.handleThumbnailCarouselBeforeChange(0, slideIndex);
 	}
 
 	render() {
