@@ -68,30 +68,6 @@ function openLeadCaptureForm(dealerID) {
     event.stopPropagation();
 }
 
-function logBhrighuForImage(item) {
-    if (item)
-    {
-        var imageid = item.attr("data-imgid"), imgcat = item.attr("data-imgcat"), imgtype = item.attr("data-imgtype");
-        if (imageid)
-        {
-            var lb = "";
-            if (imgcat)
-            {
-                lb += "|category=" + imgcat;
-            }
-
-            if (imgtype)
-            {
-                lb += "|type=" + imgtype;
-            }
-
-            label = 'modelId=' + bikeModelId + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
-            cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
-        }        
-    }
-    
-}
-
 function logBhrighuForImage(imgId, imgCat, imgType) {
   
         if (imgId) {
@@ -212,7 +188,7 @@ docReady(function () {
         }
         if (imageId)
         {
-            logBhrighuForImage(imageCat, imageType, imageId);
+            logBhrighuForImage(imageId,imageCat, imageType);
         }
         
         colorElements.removeClass('active');
@@ -338,8 +314,11 @@ docReady(function () {
                 item
                     .on('jcarouselcontrol:active', function () {
                         carouselNavigation.jcarousel('scrollIntoView', this);
-                        logBhrighuForImage(item);
-                        item.addClass('active');
+                        if (item)
+                        {
+                            logBhrighuForImage(item.attr("data-imgid"), item.attr("data-imgcat"), item.attr("data-imgtype"));
+                            item.addClass('active');
+                        }
                     })
                     .on('jcarouselcontrol:inactive', function () {
                         item.removeClass('active');
