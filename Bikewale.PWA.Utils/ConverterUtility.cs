@@ -101,8 +101,11 @@ namespace Bikewale.PWA.Utils
                 outDetails.DisplayDate = inpDet.DisplayDate.ToString("MMM dd, yyyy");
                 outDetails.DisplayDateTime = inpDet.DisplayDate.ToString("MMM dd, yyyy hh:mm tt");
                 outDetails.HostUrl = inpDet.HostUrl;
-                outDetails.TopContent = MapPageToContent(inpDet.PageList, 0, matchedPage + 1);
-                outDetails.BottomContent = MapPageToContent(inpDet.PageList, matchedPage + 1);
+                if (inpDet.PageList != null && inpDet.PageList.Any())
+                {
+                    outDetails.TopContent = MapPageToContent(inpDet.PageList, 0, matchedPage + 1);
+                    outDetails.BottomContent = MapPageToContent(inpDet.PageList, matchedPage + 1);
+                }
                 outDetails.CategoryId = inpDet.CategoryId;
                 outDetails.CategoryName = PwaCmsHelper.GetContentCategory(inpDet.CategoryId);
                 outDetails.LargePicUrl = inpDet.LargePicUrl;
