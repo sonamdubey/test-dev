@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 @using Bikewale.Entities.GenericBikes
 @{
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
     Model.Page_JS_Paths = new string[] { "/src/content/details.js", "/src/sidebarsection.js" };
     Model.PageMetaTags.FBTitle = Model.ArticleDetails.Title;
@@ -75,7 +75,7 @@
                                 </div>
                             }
                         }
-                        
+
 
                         @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
                         {
@@ -112,7 +112,7 @@
                 {
                     if (Model.IsSeriesAvailable)
                     {
-                        if (Model.IsScooter && Model.SeriesBikesAndOtherBrands != null && Model.PopularScootersAndUpcomingScootersWidget!= null) 
+                        if (Model.IsScooter && Model.SeriesBikesAndOtherBrands != null && Model.PopularScootersAndUpcomingScootersWidget != null)
                         {
                             @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.SeriesBikesAndOtherBrands)
                             @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularScootersAndUpcomingScootersWidget)
@@ -141,6 +141,11 @@
                             {
                                 @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
                             }
+                        }
+                        else if (Model.SeriesBikesAndModelBodyStyleBikes != null && Model.PopularBikesAndUpcomingBikesWidget != null)
+                        {
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.SeriesBikesAndModelBodyStyleBikes)
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
                         }
                     }
                     else if (Model.PopularMakeScootersAndOtherBrandsWidget != null && Model.PopularScootersAndUpcomingScootersWidget != null)
@@ -207,11 +212,11 @@
 
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
-                </div>                
+                </div>
                 @if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null && Model.SimilarBikes.Bikes.Any() && Model.Model.ModelId != 987)
                 {
                     <div id="sidebarBikeSection" class="content-box-shadow sidebar-bike-section margin-bottom20">
-						<h2 class="sidebar-list-heading">You may also like</h2>
+                        <h2 class="sidebar-list-heading">You may also like</h2>
                         @Html.Partial("~/Views/Shared/_Sidebar-section.cshtml", Model.SimilarBikes)
                     </div>
                 }
