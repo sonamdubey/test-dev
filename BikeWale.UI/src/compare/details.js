@@ -48,7 +48,9 @@ docReady(function() {
             td.html(crossIcon);
         }
     });
-    $('#bike-comparison-container').on('click', '#btnCompare', function ()  {
+    $('#bike-comparison-container').on('click', '#btnCompare', function () {
+        if (data != null)
+            bikeDetails.push(data);
         getUrl();
     });
     
@@ -77,8 +79,7 @@ docReady(function() {
     });
     var getUrl = function ()
     {
-        if(data!=null)
-        bikeDetails.push(data);
+        
         var queryStringSponser = "";
         if (/sponsoredbike/g.test(window.location.search))
         {

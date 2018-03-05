@@ -46,7 +46,7 @@ workboxSW.router.registerRoute(/.*\/m\/(news|bike-videos|expert-reviews).*/, fun
 
 
 workboxSW.router.registerRoute(/.*\/m\/(news|expert-reviews)\/.*-\d+\/amp\/?/, workboxSW.strategies.networkOnly(), 'GET');
-workboxSW.router.registerRoute(/https:\/\/bhrigu(stg?).bikewale.com\//, workboxSW.strategies.networkOnly(), 'GET');
+workboxSW.router.registerRoute(/https:\/\/bhrigu(stg)?.bikewale.com\//, workboxSW.strategies.networkOnly(), 'GET');
 
 workboxSW.router.registerRoute(/.*\/api\/pwa\/.*$/,
     workboxSW.strategies.cacheFirst({
