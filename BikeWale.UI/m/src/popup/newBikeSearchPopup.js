@@ -205,12 +205,10 @@ var recommendedBikePopup = (function () {
 
 ko.bindingHandlers.KOSlider = {
     init: function (element, valueAccessor, allBindingsAccessor) {
-        debugger;
         var options = allBindingsAccessor().sliderOptions || {};
         var observable = valueAccessor();
 
         options.slide = function (e, ui) {
-            debugger;
             if (ui.values && ui.values.length > 0) {
                 if (ui.values[0] != ui.values[1])
                     observable(ui.values);
@@ -236,7 +234,7 @@ ko.bindingHandlers.KOSlider = {
     update: function (element, valueAccessor) {
         var value = ko.utils.unwrapObservable(valueAccessor());
         if (value) {
-            debugger;
+            
             $(element).slider(value.length ? "values" : "value", value);
             $(element).change();
 
