@@ -69,9 +69,7 @@ var recommendedBikePopup = (function () {
             vmRecommendedBikes.FiltersValue([]);
             var tmpMakeId = vmRecommendedBikes.searchFilter.makeId;
             var tmpCityId = vmRecommendedBikes.searchFilter.cityId;
-            self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
-            vmRecommendedBikes.searchFilter.makeId = tmpMakeId;
-            vmRecommendedBikes.searchFilter.cityId = tmpCityId;
+            self.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
             window.history.back();
         });
 
@@ -134,7 +132,7 @@ var recommendedBikePopup = (function () {
     };
 
     function updateInpageFilters() {
-        
+
         for (var key in vmRecommendedBikes.Filters()) {
             var filterTypeContainer = $('.all-model__list li[data-filter-type="' + key + '"]');
             if (filterTypeContainer.length) {
@@ -161,28 +159,18 @@ var recommendedBikePopup = (function () {
         
     };
     function clearPopupFilters() {
-        for (var key in vmRecommendedBikes.Filters()) {
+        $('.check-box').removeClass('check-box--active');
+        for(var key in vmRecommendedBikes.Filters())
+        {
             var filterTypeContainer = $('#filtersPopup li[data-filter-type="' + key + '"]');
-            var arr = vmRecommendedBikes.Filters()[key].split("+");
-            for (var index in arr) {
-                var value = arr[index];
-                if (value !== "" && value) {
-                    var element = filterTypeContainer.find('div[data-value="' + value + '"]');
-                    element.removeClass("check-box--active");
-                    
-                }
-            }
-
             if (key !== "budget") {
                 filterTypeContainer.find('.accordion-head__preview').text('');
             }
-            else
-            {
+            else {
                 vmRecommendedBikes.budgetAmountPreview('');
             }
-
-
         }
+        
     };
     function initViewModel() {
         vmRecommendedBikes = new RecommendedBikes()
@@ -307,7 +295,7 @@ var RecommendedBikes = function () {
     self.budgetSlider = ko.observable();
     self.budgetStepPoints = ko.observable();
 
-    self.minSpecsLen = [];
+    self.minSpecsLen = [$('#mileageLen').val(), $('#displacementLen').val(), $('#powerLen').val()];
     self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
 
     self.budgetSlider.subscribe(function (value) {

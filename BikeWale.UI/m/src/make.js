@@ -86,7 +86,7 @@
 	{
 	    vmRecommendedBikes.searchFilter.makeId = $('#makeId').val();
 	    vmRecommendedBikes.searchFilter.cityId = $('#cityId').val();
-	    vmRecommendedBikes.minSpecsLen = [ $('#mileageLen').val(), $('#displacementLen').val(), $('#powerLen').val() ]
+	    
 	}
 
 	Accordion.registerEvents();
