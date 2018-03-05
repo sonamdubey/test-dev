@@ -605,7 +605,6 @@ var RecommendedBikes = function () {
     };
 
     /* Double to Int */
-    debugger;
     self.doubleToInt = function (decimalNo) {
         return parseInt(decimalNo);
     };
