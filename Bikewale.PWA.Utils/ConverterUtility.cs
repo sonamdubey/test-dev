@@ -126,13 +126,24 @@ namespace Bikewale.PWA.Utils
 
         public static string MapPageToContent(List<Page> PageList, int startIndex, int endIndex = 0)
         {
-            string content = string.Empty;
-
-            endIndex = endIndex == 0 ? PageList.Count : endIndex;
-            for (int i = startIndex; i < endIndex; i++)
+            string content = null;
+            try
             {
-                content += "<div class=\"margin - bottom10\"><h3 class=\"margin-bottom10\" role=\"heading\">" + PageList[i].PageName +
-                        "</h3><div id='@page.pageId' class=\"margin-top-10 article-content\">" + PageList[i].Content + "</div></div>";
+                content = string.Empty;
+
+                if (PageList != null && PageList.Any())
+                {
+                    endIndex = endIndex == 0 ? PageList.Count : endIndex;
+                    for (int i = startIndex; i < endIndex; i++)
+                    {
+                        content += "<div class=\"margin - bottom10\"><h3 class=\"margin-bottom10\" role=\"heading\">" + PageList[i].PageName +
+                                "</h3><div id='@page.pageId' class=\"margin-top-10 article-content\">" + PageList[i].Content + "</div></div>";
+                    } 
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;  
             }
             return content;
         }
