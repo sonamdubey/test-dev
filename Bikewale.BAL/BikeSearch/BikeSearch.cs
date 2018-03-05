@@ -4,6 +4,7 @@ using Bikewale.ElasticSearch.Entities;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Bikewale.Utility.LinqHelpers;
 using Nest;
 using System;
@@ -14,16 +15,23 @@ namespace Bikewale.BAL.BikeSearch
 {
     public class BikeSearch : IBikeSearch
     {
-        private static readonly string _displacement = "displacement";
+        private readonly ElasticClient _client;
+
+        private static readonly string _displacement = "topVersion.displacement";
         private static readonly string _exshowroom = "topVersion.exshowroom";
         private static readonly string _bikeMakeId = "bikeMake.makeId";
-        private static readonly string _mileage = "mileage";
+        private static readonly string _mileage = "topVersion.mileage";
         private static readonly string _bodyStyleId = "bodyStyleId";
         private static readonly string _cityId = "city.cityId";
         private static readonly string _bikeStatus = "bikeModel.modelStatus";
         private static readonly string _topVersionStatus = "topVersion.versionStatus";
         private static readonly byte _ModelStatus = 1;// by defaut all new bikes status
         private static readonly byte _VersionStatus = 1;
+
+        public BikeSearch()
+        {
+            _client = ElasticSearchInstance.GetInstance();
+        }
 
         /// <summary>
         /// Created By :-Subodh Jain on 21 feb 2018
@@ -37,30 +45,60 @@ namespace Bikewale.BAL.BikeSearch
         public BikeSearchOutputEntity GetBikeSearch(SearchFilters filters)
         {
             BikeSearchOutputEntity objBikeList = new BikeSearchOutputEntity();
+
             try
             {
-                if (filters.CityId > 1)
+                IEnumerable<BikeModelDocument> bikeList = GetBikeSearchList(filters, BikeSearchEnum.BikeList);
+
+                if (filters.CityId > 0)
                 {
-                    IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
+                    //IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
 
-                    var bikeList = Task.Factory.StartNew(() => objBikeList.Bikes = GetBikeSearchList(filters, BikeSearchEnum.BikeList));
-                    var bikeListWithCityPrice = Task.Factory.StartNew(() => objBikeListWithCityPrice = GetBikeSearchList(filters, BikeSearchEnum.PriceList));
+                    //var bikeList = Task.Factory.StartNew(() => objBikeList.Bikes = GetBikeSearchList(filters, BikeSearchEnum.BikeList));
+                    //var bikeListWithCityPrice = Task.Factory.StartNew(() => objBikeListWithCityPrice = GetBikeSearchList(filters, BikeSearchEnum.PriceList));
+                    
+                    IEnumerable<ModelPriceDocument> bikeListWithCityPrice = null;
+                    IDictionary<uint, ModelPriceDocument> bikePrices = null;
 
-
-                    Task.WaitAll(bikeList, bikeListWithCityPrice);
-
-                    if (objBikeList.Bikes != null && objBikeList.Bikes.Any())
+                    if (bikeList != null && bikeList.Count() > 0)
                     {
+                        objBikeList.Bikes = bikeList;
+                        IEnumerable<String> documentIds = bikeList.Select(bike => string.Format("{0}_{1}", bike.BikeModel.ModelId, filters.CityId));
+                        
+                        bikeListWithCityPrice = GetDocuments<ModelPriceDocument>(BWConfiguration.Instance.BikeModelPriceIndex, documentIds);
+                        bikePrices = bikeListWithCityPrice.ToDictionary(x => x.BikeModel.ModelId, x => x);
+                        
+                    }
+                    
+                    //Task.WaitAll(bikeList, bikeListWithCityPrice);
+
+                    if (bikePrices != null && objBikeList.Bikes.Any())
+                    {
+
+                        for (int index = 0; index < objBikeList.Bikes.Count(); index++)
+                        {
+                            var element = objBikeList.Bikes.ElementAt(index);
+                            var modelId = element.BikeModel.ModelId;
+                            if (element.TopVersion != null)
+                            {
+                                VersionEntity topVersion = bikePrices[modelId].VersionPrice.Where(version => version.VersionId == element.TopVersion.VersionId).First();
+                                element.TopVersion.PriceList = topVersion.PriceList;
+                                element.TopVersion.Exshowroom = topVersion.Exshowroom;
+                                element.TopVersion.Onroad = topVersion.Onroad;
+                            }
+                            
+
+                        }
+
+                        /*
                         for (int index = 0; index < objBikeList.Bikes.Count(); index++)
                         {
                             objBikeList.Bikes.ElementAt(index).TopVersion = objBikeListWithCityPrice.ElementAt(index).TopVersion;
                         }
+                         */
                     }
                 }
-                else
-                {
-                    objBikeList.Bikes = GetBikeSearchList(filters, BikeSearchEnum.BikeList);
-                }
+               
                 SetPrevNextFilters(filters, objBikeList);
 
             }
@@ -171,10 +209,12 @@ namespace Bikewale.BAL.BikeSearch
                 {
                     query &= Range(filters.Price, _exshowroom);
                 }
+                /*
                 if (filters.CityId > 0)
                 {
                     query &= FDS.Term(_cityId, filters.CityId);
                 }
+                */
                 if (filters.MakeId > 0)
                 {
                     if (filters.ExcludeMake)
@@ -345,6 +385,33 @@ namespace Bikewale.BAL.BikeSearch
                 ErrorClass.LogError(ex, string.Format("Exception : Bikewale.BAL.BikeSearch.GetTypeName "));
             }
             return typeName;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 5 March 2018
+        /// Description: To get the documents from ES Index according to the list/array of IDs.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="indexName"></param>
+        /// <param name="documentIds"></param>
+        /// <returns></returns>
+        public System.Collections.Generic.IEnumerable<T> GetDocuments<T>(string indexName, System.Collections.Generic.IEnumerable<string> documentIds) where T : class
+        {
+            System.Collections.Generic.IEnumerable<T> documents = null;
+            try
+            {
+                var result = _client.MultiGet(request => request.Index(indexName).GetMany<T>(documentIds));
+
+                if (result != null && result.IsValid)
+                {
+                    documents = result.SourceMany<T>(documentIds);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("GetDocuments({0})", indexName));
+            }
+            return documents;
         }
     }
 }
