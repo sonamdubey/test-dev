@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 class Breadcrumb extends React.Component {
     renderLastItem(item) { 
@@ -9,14 +10,23 @@ class Breadcrumb extends React.Component {
 
     }
     renderLinkableItem(item) {
-        if(!item)
-            return null;
-        return (<li>
-                <a className="breadcrumb-link" href={item.Href} title={item.Title}>
-                    <span className="breadcrumb-link__label">{item.Title}</span>
-                </a>
-            </li>)
-    }
+    	if(!item) {
+    		return null;
+    	}
+
+        if(item.isReactLink) {
+        	return (<li>
+				<Link to={item.Href} title={item.Title} className="breadcrumb-link">
+					<span className="breadcrumb-link__label">{item.Title}</span>
+				</Link>
+			</li>)
+		}
+		return (<li>
+				<a className="breadcrumb-link" href={item.Href} title={item.Title}>
+					<span className="breadcrumb-link__label">{item.Title}</span>
+				</a>
+			</li>)
+		}
     render() {
         if(!this.props.breadcrumb || this.props.breadcrumb.length == 0)
             return null;
@@ -32,7 +42,7 @@ class Breadcrumb extends React.Component {
                                     return this.renderLastItem(item);
                                 }
                                 else {
-                                    return this.renderLinkableItem(item);
+                                	return this.renderLinkableItem(item);
                                 }
                             }.bind(this))
                         }

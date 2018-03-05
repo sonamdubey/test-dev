@@ -70,7 +70,7 @@ export function NewsDetailReducer(state,action) {
 		switch(action.type) {
 			case newsDetailAction.FETCH_NEWSDETAIL : 
 				
-				startTimer(1,2); // 1 api (set of 3) + 2 ads
+				startTimer(1,0); // 1 api (set of 3) + 2 ads
 				var initialDataDict = state.getIn(['ArticleDetailData','InitialDataDict'])
 				return state.setIn(['ArticleDetailData'] , fromJS({
 						Status : Status.IsFetching,
@@ -79,7 +79,7 @@ export function NewsDetailReducer(state,action) {
 				}))
 				
 			case newsDetailAction.FETCH_NEWSDETAIL_WITH_INITIAL_DATA : 
-				startTimer(1,2); // 1 api (set of 3) + 2 ads
+				startTimer(1,0); // 1 api (set of 3) + 2 ads
 				var initialDataDict = state.getIn(['ArticleDetailData','InitialDataDict']);
 				if(action.payload) {
 					document.title = action.payload.Title ? action.payload.Title + " - BikeWale": "BikeWale";

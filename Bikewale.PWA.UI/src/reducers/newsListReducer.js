@@ -59,7 +59,7 @@ export function NewsArticleListReducer(state,action) {
 					document.title = 'Bike News - Latest Indian Bike News & Views | BikeWale';
 				else
 					document.title = 'Expert Bike Reviews India - Bike Comparison & Road Tests - BikeWale';
-				startTimer(1,2); // 1 api (set of 2) + 2 ads
+				startTimer(1,0); // 1 api (set of 2) + 2 ads
 				return state.setIn(['ArticleListData'] ,  fromJS({
 							Status : Status.IsFetching,
 							ArticleList : null, 

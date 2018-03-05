@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {isServer , CMSUserReviewSlugPosition , isCMSUserReviewSlugClosed} from '../../utils/commonUtils'
-import { mapNewsArticleDataToInitialData } from './NewsCommon'
+import { mapNewsArticleDataToInitialData, isReactCategory } from './NewsCommon'
 import LazyLoad from 'react-lazy-load'
 import UserReviewSlug from './UserReviewSlug'
 
@@ -9,6 +9,7 @@ class ArticleList extends React.Component {
     propTypes : {
         'articleList' : React.PropTypes.array
     };
+    
     onArticleClickEvent (article,event) {
         event.preventDefault();
         var articleInitialData = mapNewsArticleDataToInitialData(article);
@@ -59,8 +60,11 @@ class ArticleList extends React.Component {
             )
     }
     renderArticleLinkTag(article,index) {
-        
-        if(article.CategoryName == 'NEWS') {
+        if (!article) {
+            return null;
+        }
+
+        if(isReactCategory(article.CategoryName)) {
             return (
                 <li key={article.BasicId}>
                     <Link to={article.ArticleUrl} title={article.Title} onClick={this.onArticleClickEvent.bind(this,article)}>
