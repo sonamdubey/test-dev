@@ -146,7 +146,7 @@ class NavigationDrawer extends React.Component {
                             </div>
                             <ul className="nested-nav-list">
                                 {this.renderNestedListItemWithLinkTag("/m/news/","News")}
-                                {this.renderNestedListItem("/m/expert-reviews/","Expert Reviews")}
+                                {this.renderNestedListItemWithLinkTag("/m/expert-reviews/","Expert Reviews")}
                                 {this.renderNestedListItem("/m/features/","Features")}
                                 {this.renderNestedListItem("/m/bike-care/","Bike Care")}
                                 {this.renderNestedListItemWithLinkTag("/m/bike-videos/","Videos")}

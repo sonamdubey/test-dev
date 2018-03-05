@@ -19,7 +19,7 @@ function fetchRequest(url) {
     }).catch(function(err){})
 }
 
-workboxSW.router.registerRoute(/.*\/m\/(news|bike-videos).*/, function (input) {
+workboxSW.router.registerRoute(/.*\/m\/(news|bike-videos|expert-reviews).*/, function (input) {
     if (input.event.request.method === 'GET' && input.event.request.headers.get('accept').includes('text/html')) {
         return caches.match(APPSHELL).then(function (response) {
             if (response) {
@@ -45,7 +45,7 @@ workboxSW.router.registerRoute(/.*\/m\/(news|bike-videos).*/, function (input) {
 });
 
 
-workboxSW.router.registerRoute(/.*\/m\/news\/.*-\d+\/amp\/?/, workboxSW.strategies.networkOnly(), 'GET');
+workboxSW.router.registerRoute(/.*\/m\/(news|expert-reviews)\/.*-\d+\/amp\/?/, workboxSW.strategies.networkOnly(), 'GET');
 workboxSW.router.registerRoute(/https:\/\/bhrigu(stg)?.bikewale.com\//, workboxSW.strategies.networkOnly(), 'GET');
 
 workboxSW.router.registerRoute(/.*\/api\/pwa\/.*$/,

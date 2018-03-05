@@ -15,9 +15,10 @@
             <meta charset="utf-8" />
             @if (Model != null && Model.PageMetaTags != null)
             {
+                Model.PageMetaTags.EnableOG = true;
                 if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
                 {
-                    <title>@Model.PageMetaTags.Title</title>
+                    <title>@Html.Raw(Model.PageMetaTags.Title)</title>
                 }
                 if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
                 {
@@ -29,7 +30,7 @@
                 }
                 if (Model.PageMetaTags.EnableOG)
                 {
-                    <meta property="og:title" content="@Model.PageMetaTags.Title" />
+                    <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
                     <meta property="og:type" content="website" />
                     <meta property="og:description" content="@Model.PageMetaTags.Description" />
                     <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />

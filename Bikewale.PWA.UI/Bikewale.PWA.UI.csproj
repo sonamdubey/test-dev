@@ -67,6 +67,9 @@
     <Content Include="src\components\GlobalCityPopup.js" />
     <Content Include="src\components\GlobalSearchList.js" />
     <Content Include="src\components\GlobalSearchPopup.js" />
+    <Content Include="src\components\News\ArticleDetailImageCarousel.js" />
+    <Content Include="src\components\Shared\CarouselBrand.js" />
+    <Content Include="src\components\Shared\Gallery.js" />
     <Content Include="src\components\Widgets\ImageCard.js" />
     <Content Include="src\components\Widgets\BikeImageCarouselComponent.js" />
     <Content Include="src\components\Widgets\PopularBikeImageCarouselContainer.js" />

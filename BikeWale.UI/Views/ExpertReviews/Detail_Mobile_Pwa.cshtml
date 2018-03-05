@@ -1,4 +1,4 @@
-﻿@model Bikewale.Models.NewsDetailPageVM
+﻿@model Bikewale.Models.ExpertReviewsDetailPageVM
 @using System.Web.Script.Serialization
 @using Bikewale.Utility
 @using System.Diagnostics
@@ -16,7 +16,7 @@
         var AppJsUrl = "/pwa/js/app.bundle.js";
         var NewsJsUrl = "/pwa/js/newsBundle.bundle.js";
         var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-       
+
     }
 
     @if (Model != null && Model.PageMetaTags != null)
@@ -63,8 +63,32 @@
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
     <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-    
-    <style type='text/css' rel='stylesheet'>@@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}</style>
+
+    <style type='text/css' rel='stylesheet'>
+        @@font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');
+            unicode-range: U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F;
+        }
+
+        @@font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 600;
+            src: url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');
+            unicode-range: U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F;
+        }
+
+        @@font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 700;
+            src: url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');
+            unicode-range: U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F;
+        }
+    </style>
     <script defer type="text/javascript">
         !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
     </script>
@@ -151,10 +175,10 @@
 <body>
 
 
-  
- 
-     @Html.Raw(Model.ServerRouterWrapper)
-    
+
+
+    @Html.Raw(Model.ServerRouterWrapper)
+
 
     @{Html.RenderPartial("/Views/Shared/_ServiceWorkerScript.cshtml");}
     <div class="back-to-top" id="back-to-top"></div>

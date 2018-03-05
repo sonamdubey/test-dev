@@ -5,17 +5,21 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.BikeModels;
 using Bikewale.Models.Scooters;
 using Bikewale.Notifications;
+using Bikewale.PWA.Utils;
 using Bikewale.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +32,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by : Aditi Srivastava on 30 Mar 2017
     /// Summary    : Model to populate view model for expert review detail page
+    /// Modified by : Rajan Chauhan on 26 Feb 2017
+    /// Description : Added private variable CityName and IPWACMSCacheRepository _renderedArticles
     /// </summary>
     public class ExpertReviewsDetailPage
     {
@@ -39,6 +45,7 @@ namespace Bikewale.Models
         private readonly ICityCacheRepository _cityCacheRepo;
         private readonly IUpcoming _upcoming = null;
         private readonly string _basicId;
+        private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeMasking = null;
@@ -50,6 +57,7 @@ namespace Bikewale.Models
         public StatusCodes status;
         public string mappedCWId;
         public string redirectUrl;
+        private string CityName;
         private GlobalCityAreaEntity currentCityArea;
         private uint CityId, MakeId, ModelId, pageCatId = 0;
         private uint _totalTabCount = 3;
@@ -67,7 +75,9 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo,
+            IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId,
+            IPWACMSCacheRepository renderedArticles,IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -76,16 +86,39 @@ namespace Bikewale.Models
             _bikeInfo = bikeInfo;
             _cityCacheRepo = cityCacheRepo;
             _basicId = basicId;
+            _renderedArticles = renderedArticles;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _objBikeVersionsCache = objBikeVersionsCache;
             _bikeMasking = bikeMasking;
             _seriesCache = seriesCache;
             _series = series;
+            ProcessCityArea();
             ProcessQueryString();
         }
         #endregion
 
         #region Functions
+
+        /// <summary>
+        /// Created by  : Rajan Chauhan on 26 Feb 2018
+        /// Description : To set currentCityArea, CityName and CityId
+        /// </summary>
+        private void ProcessCityArea()
+        {
+            try
+            {
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                if (currentCityArea != null)
+                {
+                    CityId = currentCityArea.CityId;
+                    CityName = currentCityArea.City;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviews.ExpertReviewsDetailPage.ProcessCityArea");
+            }
+        }
 
         private void CheckSeriesData(ExpertReviewsDetailPageVM objdata)
         {
@@ -175,6 +208,63 @@ namespace Bikewale.Models
         }
 
         /// <summary>
+        /// Created by  : Rajan Chauhan on 26 Feb 2018
+        /// Description : Function to get PWA data for expert reviews
+        /// Modified by : Ashutosh Sharma on 01 Mar 2018.
+        /// Description : Added logic to split article html content into two parts to insert bikeinfo card at 25% height of article content.
+        /// </summary>
+        /// <param name="widgetTopCount"></param>
+        /// <returns></returns>
+        public ExpertReviewsDetailPageVM GetPwaData(int widgetTopCount)
+        {
+            ExpertReviewsDetailPageVM objData = new ExpertReviewsDetailPageVM();
+            try
+            {
+                objData.ArticleDetails = _cmsCache.GetArticlesDetails(basicId);
+                if (objData.ArticleDetails != null)
+                {
+                    status = StatusCodes.ContentFound;
+                    GetTaggedBikeListByMake(objData);
+                    GetTaggedBikeListByModel(objData);
+                    SetPageMetas(objData);
+                    CheckSeriesData(objData);
+                    GetWidgetData(objData, widgetTopCount);
+                    PopulatePhotoGallery(objData);
+                    BindSimilarBikes(objData);
+                    SetBikeTested(objData);
+                    int matchedPage = InsertBikeInfoWidgetIntoContentPwa(objData.ArticleDetails);
+                    objData.ReduxStore = new PwaReduxStore();
+                    var newsDetailReducer = objData.ReduxStore.News.NewsDetailReducer;
+                    newsDetailReducer.ArticleDetailData.ArticleDetail = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objData.ArticleDetails, matchedPage);
+                    newsDetailReducer.ArticleDetailData.ArticleDetail.ImageGallery = ConverterUtility.MapPhotoGalleryToPwaImageList(objData.PhotoGallery);
+                    newsDetailReducer.RelatedModelObject.ModelObject = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objData.BikeInfo);
+                    newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData, CityName);
+                    newsDetailReducer.NewBikesListData.BikeMakeList = ConverterUtility.MapBikeMakeEntityBaseListToPwaMakeBikeBaseList(objData);
+                    var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
+                    objData.ServerRouterWrapper = _renderedArticles.GetNewsDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsDetailReducer,
+                                newsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl, "root", "ServerRouterWrapper","Expert Reviews");
+                    objData.WindowState = storeJson;
+                    objData.Page = GAPages.Editorial_Details_Page;
+                    if (IsAMPPage)
+                    {
+                        BindAmpJsTags(objData);
+                    }
+                }
+                else
+                {
+                    status = StatusCodes.ContentNotFound;
+                }
+                    
+            }
+            catch (Exception err)
+            {
+                ErrorClass.LogError(err, "Bikewale.Models.ExpertReviewsDetailPage.GetPwaData - BasicId : " + _basicId);
+            }
+            return objData;
+
+        }
+
+        /// <summary>
         /// Created By :- Subodh Jain 13-12-2017
         /// Description :- Bind Similar Bikes Only for desktop
         /// Modified by : Deepak Israni on 1st Feb 2018
@@ -247,7 +337,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.AmpUrl = string.Format("{0}/m/expert-reviews/{1}-{2}/amp/", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
-                objData.PageMetaTags.Title = string.Format("{0} - BikeWale.", objData.ArticleDetails.Title);
+                objData.PageMetaTags.Title = string.Format("{0} - BikeWale", objData.ArticleDetails.Title);
                 objData.PageMetaTags.ShareImage = Image.GetPathToShowImages(objData.ArticleDetails.OriginalImgUrl, objData.ArticleDetails.HostUrl, ImageSize._468x263);
                 if (objData.Make != null)
                     objData.AdTags.TargetedMakes = objData.Make.MakeName;
@@ -427,7 +517,7 @@ namespace Bikewale.Models
                         {
                             Bikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId),
                             CityId = CityId,
-                            WidgetHeading = string.Format("Popular {0} bikes", bikeSeriesEntityBase.SeriesName),
+                            WidgetHeading = string.Format("Popular {0} Bikes", bikeSeriesEntityBase.SeriesName),
                             WidgetLinkTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName),
                             WidgetHref = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
 
@@ -457,9 +547,9 @@ namespace Bikewale.Models
                                 objData.MostPopularBikes = new MostPopularBikeWidgetVM()
                                                             {
                                                                 Bikes = objData.SeriesWidget.PopularSeriesBikes,
-                                                                WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "scooters" : "bikes"),
-                                                                WidgetHref = UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
-                                                                WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.MaskingName, objData.IsScooter ? "scooters" : "bikes")
+                                                                WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
+                                                                WidgetHref = "/m" +UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
+                                                                WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.MaskingName, objData.IsScooter ? "Scooters" : "Bikes")
                                                             };
                             }
 
@@ -468,7 +558,7 @@ namespace Bikewale.Models
                         {
                             objData.MostPopularBikes = MostPopularMakeScooters;
                             objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} Scooters", objData.Make.MakeName);
-                            objData.MostPopularBikes.WidgetHref = string.Format("/{0}-scooters/", objData.Make.MaskingName);
+                            objData.MostPopularBikes.WidgetHref = string.Format("/m/{0}-scooters/", objData.Make.MaskingName);
                             objData.MostPopularBikes.WidgetLinkTitle = string.Format("{0} Scooters", objData.Make.MakeName);
                         }
                     }
@@ -592,12 +682,12 @@ namespace Bikewale.Models
 
                     if (objData.Make != null)
                     {
-                        objData.UpcomingBikes.WidgetHeading = string.Format("Upcoming {0} bikes", objData.Make.MakeName);
+                        objData.UpcomingBikes.WidgetHeading = string.Format("Upcoming {0} Bikes", objData.Make.MakeName);
                         objData.UpcomingBikes.WidgetHref = string.Format("/{0}-bikes/upcoming/", objData.Make.MaskingName);
                     }
                     else
                     {
-                        objData.UpcomingBikes.WidgetHeading = "Upcoming bikes";
+                        objData.UpcomingBikes.WidgetHeading = "Upcoming Bikes";
                         objData.UpcomingBikes.WidgetHref = "/upcoming-bikes/";
                     }
                     objData.UpcomingBikes.WidgetLinkTitle = "Upcoming Bikes in India";
@@ -611,7 +701,7 @@ namespace Bikewale.Models
                 }
                 else
                 {
-                    PopularBikesWidget.WidgetHeading = "Popular bikes";
+                    PopularBikesWidget.WidgetHeading = "Popular Bikes";
                     PopularBikesWidget.WidgetHref = "/best-bikes-in-india/";
                     PopularBikesWidget.WidgetLinkTitle = "Best Bikes in India";
                     PopularBikesWidget.CtaText = "View all bikes";
@@ -1156,10 +1246,7 @@ namespace Bikewale.Models
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="objData"></param>
+
         private void InsertBikeInfoWidgetIntoContent(ExpertReviewsDetailPageVM objData)
         {
             try
@@ -1234,6 +1321,79 @@ namespace Bikewale.Models
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviewsDetailPage.InsertBikeInfoWidgetIntoContent - BasicId : " + _basicId);
             }
+        }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 01 Mar 2018.
+        /// Description : Method to split article html content into two parts to insert bikeinfo card at 25% height of article content, if there
+        ///                 is only one page in article pagelist, than one more page is added if bottomContent is not empty.
+        /// </summary>
+        /// <param name="articleDetails"></param>
+        /// <returns></returns>
+        private int InsertBikeInfoWidgetIntoContentPwa(ArticlePageDetails articleDetails)
+        {
+            int matchedPage = 0;
+            try
+            {
+                if (articleDetails != null && articleDetails.PageList != null)
+                {
+                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count; string inputString = null, viewName = null;
+                    IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
+                    Shared.BikeInfo ampBikeInfo = null;
+
+                    
+
+                    //get length of each pages with stripped html
+                    for (int i = 0; i < totalPages; i++)
+                    {
+                        var tuple = StringHtmlHelpers.StripHtmlTagsWithLength(articleDetails.PageList[i].Content);
+                        totalStrippedHTMLLength += tuple.Item2;
+                        objPagesInfo.Add(Tuple.Create(i, tuple.Item2));
+                    }
+
+
+                    requiredLength = Convert.ToInt32(totalStrippedHTMLLength * 0.25);
+
+                    foreach (var item in objPagesInfo)
+                    {
+                        currentPageLength += item.Item2;
+                        if (currentPageLength >= requiredLength)
+                        {
+                            matchedPage = item.Item1;
+                            requiredLength = currentPageLength - requiredLength;
+                            break;
+                        }
+
+                    }
+
+                    
+
+                    
+                        string topContentInPage = string.Empty, bottomContentInPage = string.Empty;
+                        StringHtmlHelpers.InsertHTMLBetweenHTMLPwa(articleDetails.PageList[matchedPage].Content, requiredLength,out topContentInPage,out bottomContentInPage);
+
+                        articleDetails.PageList[matchedPage].Content = topContentInPage;
+                        if (matchedPage != articleDetails.PageList.Count - 1)
+                        {
+                            articleDetails.PageList[matchedPage + 1].Content = bottomContentInPage + articleDetails.PageList[matchedPage + 1].Content;
+                        }
+                        else
+                        {
+                            articleDetails.PageList.Add(new Page()
+                            {
+                                Content = bottomContentInPage,
+                                PageName = "",
+                                pageId = articleDetails.PageList[matchedPage].pageId + 1,
+                                Priority = articleDetails.PageList.Max(p => p.Priority)
+                            });
+                        }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviewsDetailPage.InsertBikeInfoWidgetIntoContentPwa : {0}" , articleDetails));
+            }
+            return matchedPage;
         }
         /// <summary>
         /// Created By : Snehal Dange on 8th NOV 2017

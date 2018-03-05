@@ -766,7 +766,7 @@ namespace Bikewale.BAL.GrpcFiles
                 outDetails.DisplayDate = dateObj.ToString("MMM dd, yyyy");
                 outDetails.DisplayDateTime = dateObj.ToString("MMM dd, yyyy hh:mm tt");
                 outDetails.HostUrl = artSummary.HostUrl;
-                outDetails.Content = inpDet.Content;
+                outDetails.TopContent = inpDet.Content;
                 outDetails.PrevArticle = ConvertFromGrpcToBikeWalePwa(inpDet.PrevArticle);
                 outDetails.NextArticle = ConvertFromGrpcToBikeWalePwa(inpDet.NextArticle);
                 outDetails.CategoryId = (ushort)catId;

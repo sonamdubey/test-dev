@@ -1,4 +1,4 @@
-function extractPageNoFromURL(url) {
+function extractPageNoFromURL() {
 	var url = window.location.pathname;
 	//var matches =  url.match(/page\/(\d+)\/$/);
 	var regex = /\d+(?=\D*$)/;
@@ -32,7 +32,19 @@ function mapNewsArticleDataToInitialData (article) {
 
 }
 
+function extractPageCategoryFromURL() {
+	var url = typeof(window) !== 'undefined' ? window.location.pathname : "";
+	var regex = /\/m\/([A-Za-z0-9-_.~]+)\/{0,1}/
+	var res = url.match(regex);
+	if(res != null && res.length > 1 && res[1] == "news")
+		return "news";
+	else if(res != null && res.length > 1 && res[1] == "expert-reviews")
+		return "expert-reviews";
+	else 
+		return "";
+}
 module.exports = {
 	extractPageNoFromURL,
-	mapNewsArticleDataToInitialData
+	mapNewsArticleDataToInitialData,
+	extractPageCategoryFromURL
 }

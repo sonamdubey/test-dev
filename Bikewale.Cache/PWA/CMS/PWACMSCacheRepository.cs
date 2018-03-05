@@ -45,12 +45,14 @@ namespace Bikewale.Cache.PWA.CMS
         /// <summary>
         /// Created By : Prasad Gawde on 25 May 2017
         /// Description : Caching for News Detail Rendered Data
-        public IHtmlString GetNewsDetails(string key, PwaNewsDetailReducer reducer, string url, string containerId, string componentName)
+        /// Modified By : Rajan Chauhan on 26 Feb 2018
+        /// Description : Added pageName in args for GetNewsDetails
+        public IHtmlString GetNewsDetails(string key, PwaNewsDetailReducer reducer, string url, string containerId, string componentName, string pageName)
         {
             IHtmlString outStr = null;
             try
             {
-                outStr = new HtmlString(_cache.GetFromCache<string>(key, new TimeSpan(0, 0, _minsToCacheCms, 0), () => Convert.ToString(_objPWACmsContents.GetNewsDetails(reducer, url, containerId, componentName))));
+                outStr = new HtmlString(_cache.GetFromCache<string>(key, new TimeSpan(0, 0, _minsToCacheCms, 0), () => Convert.ToString(_objPWACmsContents.GetNewsDetails(reducer, url, containerId, componentName, pageName))));
             }
             catch (Exception ex)
             {

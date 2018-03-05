@@ -219,14 +219,15 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<Bikewale.Interfaces.Finance.CapitalFirst.IFinanceRepository, Bikewale.DAL.Finance.CapitalFirst.FinanceRepository>();
             container.RegisterType<Bikewale.Interfaces.Finance.ICapitalFirst,
                 Bikewale.BAL.Finance.CapitalFirst>();
+            container.RegisterType<IBikeSeries, BikeSeries>();
             container.RegisterType<IVideosCacheRepository, VideosCacheRepository>();
             container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
             container.RegisterType<IVideoRepository, ModelVideoRepository>();
             container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
             container.RegisterType<INotifications, NotificationsBL>();
             container.RegisterType<INotificationsRepository, NotificationsRepository>();
-
-
+            container.RegisterType<IBikeSeriesCacheRepository, BikeSeriesCacheRepository>();
+            container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
             return container;
 
         }
