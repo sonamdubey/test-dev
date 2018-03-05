@@ -193,9 +193,12 @@ class ArticleDetail extends React.Component {
         {   
             var imageUrl = (!articleDetail.HostUrl || !articleDetail.LargePicUrl) ? 'https://imgd.aeplcdn.com/640x348/bikewaleimg/images/noimage.png?q=70' : articleDetail.HostUrl + articleDetail.LargePicUrl;
             var imageTag = (this.pageCategory === "news") ? this.renderImage(articleDetail.Title, imageUrl) : null;
-            var bottomContent;
+            var bottomContent, imageCarousel;
             if (articleDetail.BottomContent) {
                 bottomContent = <ArticleDetailContent htmlContent={articleDetail.BottomContent}/>;
+            }
+            if (articleDetail.ImageGallery) {
+            	imageCarousel = <ArticleDetailImageCarousel imageGallery={articleDetail.ImageGallery} title={articleDetail.Title}/>;
             }
             return (
                 <div>
@@ -206,14 +209,13 @@ class ArticleDetail extends React.Component {
                         {bottomContent}
                     </div>
                     <SocialMediaSlug/>
-					<ArticleDetailImageCarousel imageGallery={articleDetail.ImageGallery} title={articleDetail.Title}/>
+                    {imageCarousel} 
                     <ArticleDetailPagination prevArticle={articleDetail.PrevArticle} nextArticle={articleDetail.NextArticle} onArticlePaginationClickEvent={this.onArticlePaginationClickEvent.bind(this)}/>
                 </div>                        
             )
         }
         else if(initialData) {
             var imageUrl = (!initialData.HostUrl || !initialData.LargePicUrl) ? 'https://imgd.aeplcdn.com/640x348/bikewaleimg/images/noimage.png?q=70' : initialData.HostUrl + initialData.LargePicUrl;
-            
             var imageTag = (this.pageCategory === "news") ? this.renderImage(initialData.Title, imageUrl) : null;
             return(
                 <div>
