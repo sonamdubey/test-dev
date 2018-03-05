@@ -25,12 +25,24 @@ class Gallery extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.refs.mainSlider.slickGoTo(nextProps.slideIndex);
+		this.focusMainSlider(nextProps.slideIndex);
 
 		this.setState({
 			isActive: nextProps.isActive,
 			slideIndex: nextProps.slideIndex
 		})
+	}
+
+	componentDidMount() {
+		let thumbnailSlider = this.refs.thumbnailSlider.innerSlider.base;
+		let thumbnailSliderSlides = thumbnailSlider.querySelectorAll('.slick-slide');
+		
+		for (let i = 0; i < thumbnailSliderSlides.length; i++) {
+			let self = this;
+			thumbnailSliderSlides[i].addEventListener('click', function () {
+				self.focusMainSlider(i);
+			});
+		}
 	}
 
 	handleGalleryClose() {
@@ -85,9 +97,13 @@ class Gallery extends React.Component {
 				// reset click event to trigger 'before change' function loop
 				event = undefined
 
-				this.refs.mainSlider.slickGoTo(currentSlideIndex);
+				this.focusMainSlider(currentSlideIndex);
 			}
 		}
+	}
+
+	focusMainSlider(slideIndex) {
+		this.refs.mainSlider.slickGoTo(slideIndex);
 	}
 
 	render() {
