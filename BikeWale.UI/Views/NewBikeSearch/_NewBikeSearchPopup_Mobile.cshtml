@@ -239,8 +239,16 @@
                                     <ul id="filterTypeMileage" class="filter-checkbox__list">
                                         @{
                     var mileageArray = RangeFactory.Mileage;
+                    var len = mileageArray.Length;
+                    <li>
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, mileageArray[0])"  data-value="0" id="mileage-0" data-bind="click: checkboxSelection">
+                            <span class="check-box__label">@string.Format("< {0} kmpl", mileageArray[0])</span>
+                            <span class="check-box__icon"></span>
+                        </div>
+                    </li>
                     for (int i = 1; i < mileageArray.Length; i++)
                     {
+                        
                         uint firstLimit = mileageArray[i - 1];
                         uint secondLimit = mileageArray[i];
 
@@ -251,6 +259,12 @@
                             </div>
                         </li>
                     }
+                    <li>
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", mileageArray[len-1], 0)"  data-value="@(len+1)" id="mileage-@(len+1)" data-bind="click: checkboxSelection">
+                            <span class="check-box__label">@string.Format("> {0} kmpl", mileageArray[len-1])</span>
+                            <span class="check-box__icon"></span>
+                        </div>
+                    </li>
                                         }
                                     </ul>
                                 </div>
@@ -268,10 +282,10 @@
                                     <ul id="filterTypeDisplacement" class="filter-checkbox__list">
                                         @{
                     var displacementArray = RangeFactory.Displacement;
-                    var len = displacementArray.Length;
+                     len = displacementArray.Length;
 
                     <li>
-                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, displacementArray[0])"  data-value="1" id="displacement-1" data-bind="click: checkboxSelection">
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, displacementArray[0])"  data-value="0" id="displacement-0" data-bind="click: checkboxSelection">
                             <span class="check-box__label">@string.Format("< {0} cc", displacementArray[0])</span>
                             <span class="check-box__icon"></span>
                         </div>
@@ -285,7 +299,7 @@
                                        
                                                 
                                                     <li>
-                                                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", firstLimit, secondLimit)" data-value="@(i+1)" id="displacement-@(i+1)" data-bind="click: checkboxSelection">
+                                                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", firstLimit, secondLimit)" data-value="@(i)" id="displacement-@(i)" data-bind="click: checkboxSelection">
                                                             <span class="check-box__label">@displamentText</span>
                                                             <span class="check-box__icon"></span>
                                                         </div>
@@ -293,7 +307,7 @@
                                 }
 
                     <li>
-                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", displacementArray[len - 1], 0)"  data-value="@len" id="displacement-@len" data-bind="click: checkboxSelection">
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", displacementArray[len - 1], 0)"  data-value="@(len+1)" id="displacement-@(len+1)" data-bind="click: checkboxSelection">
                             <span class="check-box__label">@string.Format("> {0} cc", displacementArray[len - 1])</span>
                             <span class="check-box__icon"></span>
                         </div>
@@ -321,7 +335,7 @@
                                             var powerArrayLen = powerArray.Length;
 
                                             <li>
-                                                <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, powerArray[0])"  data-value="1" id="power-1" data-bind="click: checkboxSelection">
+                                                <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, powerArray[0])"  data-value="0" id="power-0" data-bind="click: checkboxSelection">
                                                     <span class="check-box__label">@string.Format("< {0} bhp", powerArray[0])</span>
                                                     <span class="check-box__icon"></span>
                                                 </div>
@@ -335,7 +349,7 @@
                                         string powerText = string.Format("{0} - {1} bhp", firstLimit, secondLimit);
 
                                         <li>
-                                            <div class="check-box" data-valuetext="@string.Format("{0}-{1}", firstLimit, secondLimit)" data-value="@(i+1)" id="power-@(i+1)" data-bind="click: checkboxSelection">
+                                            <div class="check-box" data-valuetext="@string.Format("{0}-{1}", firstLimit, secondLimit)" data-value="@(i)" id="power-@(i)" data-bind="click: checkboxSelection">
                                                 <span class="check-box__label">@string.Format("{0} - {1} bhp", firstLimit, secondLimit)</span>
                                                 <span class="check-box__icon"></span>
                                             </div>
@@ -343,7 +357,7 @@
                                     }
 
                                     <li>
-                                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", powerArray[powerArrayLen - 1], 0)"  data-value="@powerArrayLen" id="@powerArrayLen" data-bind="click: checkboxSelection">
+                                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", powerArray[powerArrayLen - 1], 0)"  data-value="@(powerArrayLen+1)" id="@(powerArrayLen+1)" data-bind="click: checkboxSelection">
                                             <span class="check-box__label">@string.Format("> {0} bhp", powerArray[powerArrayLen - 1])</span>
                                             <span class="check-box__icon"></span>
                                         </div>
