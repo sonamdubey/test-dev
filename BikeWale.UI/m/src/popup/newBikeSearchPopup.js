@@ -165,7 +165,7 @@ var recommendedBikePopup = (function () {
             var filterTypeContainer = $('#filtersPopup li[data-filter-type="' + key + '"]');
             var arr = vmRecommendedBikes.Filters()[key].split("+");
             for (var index in arr) {
-                value = arr[index];
+                var value = arr[index];
                 if (value !== "" && value) {
                     var element = filterTypeContainer.find('div[data-value="' + value + '"]');
                     element.removeClass("check-box--active");
@@ -173,7 +173,7 @@ var recommendedBikePopup = (function () {
                 }
             }
 
-            if (key != "budget") {
+            if (key !== "budget") {
                 filterTypeContainer.find('.accordion-head__preview').text('');
             }
             else
@@ -458,11 +458,11 @@ var RecommendedBikes = function () {
                                     }
                                     break;
                                 case "power":
-                                    break;
+                                    
                                     for (var i = 4; i <= self.minSpecsLen[2]; i++) {
                                         self.Filters()[key] += "+" + i.toString();
                                     }
-
+                                    break;
 
 
                             }
@@ -479,7 +479,7 @@ var RecommendedBikes = function () {
 
                                 
                                 selectionPreview += element.find('.check-box__label').text();
-                                if (index && index != arr.length -1) {
+                                if (index && index !== arr.length -1) {
                                     selectionPreview += ', ';
                                 }
                             }
@@ -697,7 +697,7 @@ function getMinMaxLimits(range) {
     if (selectedRangeList != null) {
         maxMinLimits = {
             "min": selectedRangeList[0],
-            "max": selectedRangeList[1] == 0 ? vmRecommendedBikes.budgetStepPoints()[vmRecommendedBikes.budgetStepPoints().length - 1] : selectedRangeList[1]
+            "max": selectedRangeList[1] === 0 ? vmRecommendedBikes.budgetStepPoints()[vmRecommendedBikes.budgetStepPoints().length - 1] : selectedRangeList[1]
         }
         filterArray.push(maxMinLimits);
     }
