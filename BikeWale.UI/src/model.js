@@ -311,22 +311,23 @@ docReady(function () {
             carouselNavigation.jcarousel('items').each(function () {
                 var item = $(this);
                 var target = connector(item, carouselStage);
-                item
-                    .on('jcarouselcontrol:active', function () {
-                        carouselNavigation.jcarousel('scrollIntoView', this);
-                        if (item)
-                        {
+                if (item) {
+                    item
+                        .on('jcarouselcontrol:active', function () {
+                            carouselNavigation.jcarousel('scrollIntoView', this);
+
                             logBhrighuForImage(item.attr("data-imgid"), item.attr("data-imgcat"), item.attr("data-imgtype"));
                             item.addClass('active');
-                        }
-                    })
-                    .on('jcarouselcontrol:inactive', function () {
-                        item.removeClass('active');
-                    })
-                    .jcarouselControl({
-                        target: target,
-                        carousel: carouselStage
-                    });
+
+                        })
+                        .on('jcarouselcontrol:inactive', function () {
+                            item.removeClass('active');
+                        })
+                        .jcarouselControl({
+                            target: target,
+                            carousel: carouselStage
+                        });
+                }
             });
 
             $('.prev-stage')
