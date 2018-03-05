@@ -8,8 +8,12 @@
             <div class="recommended-bike-popup">
                 <span id="recommendedBikeCloseBtn"></span>
                 <p class="recommended-bike__found-result">
-                    <span data-bind="visible: (noOfBikes() > 0)"><span data-bind="text: noOfBikes()"></span></span> 
-                    <span data-bind="visible: !(noOfBikes() > 0)"><span>No</span></span> Bikes found based on your criteria<span></span>
+
+                    <span data-bind="visible: isBikesLoading()">Searching for bikes...</span>
+                    <span data-bind="visible: !isBikesLoading()">
+                        <span data-bind="visible: (noOfBikes() > 0)"><span data-bind="text: noOfBikes()"></span></span> 
+                        <span data-bind="visible: !(noOfBikes() > 0)"><span>No</span></span> Bikes found based on your criteria<span></span>
+                    </span>
                 </p>
                 <div class="recommended-bike__filter-section">
                     <div class="recommended-bike__filter-content">
@@ -19,7 +23,7 @@
                 </div>
                 <div class="recommended-bike-container">
                     
-                        <div class="not-found-container" data-bind="visible: !(noOfBikes() > 0 || noOfOtherBikes() > 0)">
+                        <div class="not-found-container" data-bind="visible: !isBikesLoading() && !isOtherBikesLoading() && !(noOfBikes() > 0 || noOfOtherBikes() > 0)">
                             <div class="not-found-section">
                                 <span class="not-found__image"></span>
                                 <div class="not-found-description">
@@ -31,7 +35,7 @@
                     
                         <section data-bind="visible: (noOfBikes() > 0 || noOfOtherBikes() > 0)">
                             <div class="bg-white section-bottom-margin">
-                                <h2 class="recommended-bike__title page__heading-h2">Recommended <span data-bind="text: makeName()"></span> Bikes</h2>
+                                <h2 class="recommended-bike__title page__heading-h2">Recommended @Model.MakeName Bikes</h2>
                               
                                     <div class="not-found-container" data-bind="visible: !(noOfBikes() > 0)">
                                         <div class="not-found-section">
@@ -49,8 +53,8 @@
                                         </div>
                                     </div>
                                
-                                   <div class="recommended-bike-section" data-bind="visible: (noOfBikes() > 0)">
-                                        <ul class="model-loader-list__content">
+                                   <div class="recommended-bike-section">
+                                        <ul class="model-loader-list__content" data-bind="visible: isBikesLoading()">
                                             @for (var i = 1; i <= 2; i++)
                                             {
                                                 <li class="model-loader-list__item">
@@ -67,7 +71,7 @@
 
                                             }
                                         </ul>
-                                        <ul class="recommended-bike-list" data-bind="foreach: bikes()">
+                                        <ul class="recommended-bike-list" data-bind="visible : !isBikesLoading(), foreach: bikes()">
                                                 <li class="recommended-bike__list-card">
                                                     <div class="model__card">
                                                         <a data-bind="attr: { href: '/m/' + $data.bikeMake.makeMaskingName + '-bikes/' + $data.bikeModel.modelMaskingName, title: $data.bikeName}" class="model-card__target">
@@ -75,7 +79,7 @@
                                                                 <img class="lazy" data-bind="attr: { src: $data.bikeImage.hostURL + '/144x81/' + $data.bikeImage.imageURL, title: $data.bikeName, alt: $data.bikeName}">
                                                             </div>
                                                             <div class="model-card__detail">
-                                                                <span class="rating-badge" data-bind="visible: ($data.reviewRatings > 0), attr: { 'data-rate-bg': '4'}" >
+                                                                <span class="rating-badge" data-bind="visible: ($data.reviewRatings > 0), attr: { 'data-rate-bg': $root.doubleToInt($data.reviewRatings)}">
                                                                     <span class="rating-badge__star"></span>
                                                                     <span data-bind="numericText: $data.reviewRatings"></span>
                                                                 </span>
@@ -91,7 +95,7 @@
                                                                 <div class="model-card__exshowroom">
                                                                     <div class="card-exshowroom__col">
                                                                         <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-                                                                        <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold" data-bind="text: $data.topVersion.exshowroom"></span></span>
+                                                                        <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -105,9 +109,9 @@
                             </div>
                         </section>
                             <section>
-                                <div class="other-recommended-bike" data-bind="visible: (noOfOtherBikes() > 0)">
-                                    <h2 class="recommended-bike__title page__heading-h2">Other Recommended Bikes (<span data-bind="text : noOfOtherBikes()"></span>)</h2>
-                                    <ul class="model-loader-list__content">
+                                <div class="other-recommended-bike">
+                                    <h2 class="recommended-bike__title page__heading-h2" data-bind="visible : noOfOtherBikes() > 0">Other Recommended Bikes <span data-bind="visible: noOfOtherBikes() > 0">(<span data-bind="text : noOfOtherBikes()"></span>)</span></h2>
+                                    <ul class="model-loader-list__content" data-bind="visible: isOtherBikesLoading()">
                                         @for (var i = 1; i <= 2; i++)
                                         {
                                             <li class="model-loader-list__item">
@@ -124,7 +128,7 @@
 
                                         }
                                     </ul>
-                                    <ul class="recommended-bike-list" data-bind="foreach : bikesOtherMakes()">
+                                    <ul class="recommended-bike-list" data-bind="visible: !isOtherBikesLoading(), foreach : bikesOtherMakes()">
                                             <li class="recommended-bike__list-card">
                                                 <div class="model__card">
                                                     <a data-bind="attr: { href: '/m/' + $data.bikeMake.makeMaskingName + '-bikes/' + $data.bikeModel.modelMaskingName, title: $data.bikeName}" class="model-card__target">
@@ -132,7 +136,7 @@
                                                             <img class="lazy" data-bind="attr: { src: bikeImage.hostURL +'/144x81/' + bikeImage.imageURL, title: $data.bikeName, alt: $data.bikeName}">
                                                         </div>
                                                         <div class="model-card__detail">
-                                                            <span class="rating-badge" data-bind="visible: ($data.reviewRatings > 0), attr: { 'data-rate-bg': '4'}">
+                                                            <span class="rating-badge" data-bind="visible: ($data.reviewRatings > 0), attr: { 'data-rate-bg': $root.doubleToInt($data.reviewRatings)}">
                                                                 <span class="rating-badge__star"></span>
                                                                 <span data-bind="numericText: $data.reviewRatings"></span>
                                                             </span>
@@ -148,7 +152,7 @@
                                                             <div class="model-card__exshowroom">
                                                                 <div class="card-exshowroom__col">
                                                                     <p class="card-exshowroom__label">Ex-showroom, Mumbai</p>
-                                                                    <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold" data-bind="text : $data.topVersion.exshowroom"></span></span>
+                                                                    <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span></span>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -39,7 +39,7 @@ namespace Bikewale.BAL.BikeSearch
             BikeSearchOutputEntity objBikeList = new BikeSearchOutputEntity();
             try
             {
-                if (filters.CityId > 1)
+                if (filters.CityId > 0)
                 {
                     IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
 

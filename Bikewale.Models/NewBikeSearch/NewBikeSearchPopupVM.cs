@@ -7,5 +7,7 @@ namespace Bikewale.Models.NewBikeSearch
         public bool HasOtherRecommendedBikes { get; set; }
         public uint MakeId { get; set; }
         public uint CityId { get; set; }
+
+        public string MakeName { get; set; }
     }
 }

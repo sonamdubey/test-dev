@@ -208,7 +208,7 @@ ko.bindingHandlers.KOSlider = {
 
     }
 };
-
+//Knockout Handler to convert a float to a number with particular precision digits.
 ko.bindingHandlers.numericText = {
     update: function (element, valueAccessor, allBindingsAccessor) {
         var value = ko.utils.unwrapObservable(valueAccessor()),
@@ -229,7 +229,9 @@ var RecommendedBikes = function () {
     self.bikesOtherMakes = ko.observableArray([]);
     self.noOfOtherBikes = ko.observable();
 
-    self.makeName = ko.observable();
+    var pageNo = 0;
+    self.isBikesLoading = ko.observable(true);
+    self.isOtherBikesLoading = ko.observable(true);
 
     var budgetArray = [
 		{
@@ -273,7 +275,7 @@ var RecommendedBikes = function () {
     self.budgetSlider = ko.observable();
     self.budgetStepPoints = ko.observable();
 
-    self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
+    self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: 10, pageNumber: 0 };
 
     self.budgetSlider.subscribe(function (value) {
         var minBuget = self.budgetSlider()[0];
@@ -504,6 +506,7 @@ var RecommendedBikes = function () {
                 contentType: "application/json",
                 data: ko.toJSON(searchFilterObj),
                 success: function (response) {
+                    searchFilterObj.excludeMake ? self.isOtherBikesLoading(false) : self.isBikesLoading(false);
                     if (response.length > 0) {
                         response = JSON.parse(response);
                         if (("Bikes" in response) && response.Bikes != null && response.Bikes.length > 0) {
@@ -526,10 +529,11 @@ var RecommendedBikes = function () {
                     }
                 },
                 error: function (request, status, error) {
+                    searchFilterObj.excludeMake ? self.isOtherBikesLoading(false) : self.isBikesLoading(false);
 
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
-
+                    
                 }
             });
         }
@@ -555,8 +559,7 @@ var RecommendedBikes = function () {
             //filterList contains fields such as excludeMake, pageCount, pageSize (since OtherMakeRecommendations uses Paging and stuff)
             filterList = jQuery.extend({}, self.searchFilter);
             filterList.excludeMake = true;
-            filterList.pageNumber = 1;
-            filterList.pageSize = 10;
+            filterList.pageNumber = pageNo;
             return self.CallAPI(filterList);
         }
         catch (e) {
@@ -592,6 +595,59 @@ var RecommendedBikes = function () {
     self.SetCheckboxSelection = function (targetElement) {
         $('#appliedFilterList').append('<li data-id="' + targetElement.attr("id") + '" class="filter-list__item"><span class="filter-item">' + targetElement.find('.check-box__label').text() + '</span></li>');
     };
+
+    /* priceFormatter */
+    self.formatPrice = function (price) {
+        var thMatch = /(\d+)(\d{3})$/;
+        var thRest = thMatch.exec(price);
+        if (!thRest) return price;
+        return (thRest[1].replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + thRest[2]);
+    };
+
+    /* Double to Int */
+    debugger;
+    self.doubleToInt = function (decimalNo) {
+        return parseInt(decimalNo);
+    };
+    
+    /* Next block of other make bikes */
+    self.bindNextOtherBikesList = function () {
+
+        filterList = jQuery.extend({}, self.searchFilter);
+        filterList.excludeMake = true;
+        filterList.pageNumber = ++pageNo;
+
+        $.ajax({
+            type: "POST",
+            url: "/api/v2/bikesearch/",
+            contentType: "application/json",
+            data: ko.toJSON(filterList),
+            success: function (response) {
+                if (response.length > 0) {
+                    response = JSON.parse(response);
+                    if (("Bikes" in response) && response.Bikes != null && response.Bikes.length > 0) {
+
+                        self.bikesOtherMakes.push(response.Bikes);
+                        self.noOfOtherBikes(self.noOfOtherBikes + bikeList.length);
+                        
+                    }
+                    else {
+                        //Bike List is Not Present
+                    }
+                }
+                else {
+                    //Response is invalid
+                }
+            },
+            error: function (request, status, error) {
+
+            },
+            complete: function (xhr, ajaxOptions, thrownError) {
+
+            }
+        });
+    };
+
 
 };
 
@@ -648,6 +704,11 @@ function getMinMaxLimits(range) {
 
     return filterArray;
 }
+
+
+
+
+
 
 
 
