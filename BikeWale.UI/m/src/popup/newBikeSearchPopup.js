@@ -72,8 +72,6 @@ var recommendedBikePopup = (function () {
             self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
             vmRecommendedBikes.searchFilter.makeId = tmpMakeId;
             vmRecommendedBikes.searchFilter.cityId = tmpCityId;
-            var filterTypeContainer = $(this).closest('.filter-type__item');
-            vmRecommendedBikes.UpdateFilters(filterTypeContainer);
             window.history.back();
         });
 
@@ -160,25 +158,7 @@ var recommendedBikePopup = (function () {
             }
 
         }
-        /*$.each(vmRecommendedBikes.Filters(), function (key, value) {
-            var filterTypeContainer = $('.all-model__list li[data-filter-type="' + key + '"]');
-            if (filterTypeContainer.length) {
-                var arr = vmRecommendedBikes.Filters()[key].split("+");
-
-                var activeElementList = filterTypeContainer.find('.refine-result__list input[type="checkbox"]');
-                if (!activeElementList.length) {
-                    activeElementList = filterTypeContainer.find('.refine-result__list input[type="radio"]');
-                }
-
-                $.each(activeElementList, function () {
-                    if ($.inArray($(this).val(), arr) < 0) {
-                        if ($(this).is(':checked')) {
-                            $(this).trigger('click');
-                        }
-                    }
-                });
-            }
-        });*/
+        
     };
     function clearPopupFilters() {
         for (var key in vmRecommendedBikes.Filters()) {
