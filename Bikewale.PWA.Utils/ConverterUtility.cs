@@ -23,7 +23,7 @@ namespace Bikewale.PWA.Utils
         /// Converts ArticleSummary to PwaArticleSummary
         /// </summary>
         /// Modified by : Rajan Chauhan on 05 Mar 2018
-        /// Description : Added condition on ArticleApi for categoryId 8 i.e. : expert-reviews
+        /// Description : Added condition on ArticleApi for categoryId 8 and 2 (if RoadTest category articles are requested than BAL method also returns ComparisonTests articles)
         /// <param name="inpSum"></param>
         /// <returns></returns>
         public static PwaArticleSummary MapArticleSummaryToPwaArticleSummary(ArticleSummary inpSum)
@@ -34,7 +34,7 @@ namespace Bikewale.PWA.Utils
                 outSummary = new PwaArticleSummary();
                 string catName = PwaCmsHelper.GetContentCategory(inpSum.CategoryId);
                 outSummary.ArticleUrl = PwaCmsHelper.GetArticleUrl(inpSum.CategoryId, inpSum.ArticleUrl, (int)inpSum.BasicId);
-                outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/{1}/", inpSum.BasicId, (inpSum.CategoryId==8?"pages":"page"));
+                outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/{1}/", inpSum.BasicId, (inpSum.CategoryId==8 || inpSum.CategoryId == 2 ? "pages":"page"));
                 outSummary.AuthorName = inpSum.AuthorName;
                 outSummary.Description = inpSum.Description;
                 outSummary.BasicId = inpSum.BasicId;
