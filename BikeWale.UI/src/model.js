@@ -92,6 +92,24 @@ function logBhrighuForImage(item) {
     
 }
 
+function logBhrighuForImage(imgId, imgCat, imgType) {
+  
+        if (imgId) {
+            var lb = "";
+            if (imgCat) {
+                lb += "|category=" + imgCat;
+            }
+
+            if (imgType) {
+                lb += "|type=" + imgType;
+            }
+
+            label = 'modelId=' + bikeModelId + '|imageid=' + imgId + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
+            cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
+        }
+    }
+
+
 function bindInsuranceText() {
     icityArea = GetGlobalCityArea();
     if (!viewModel.isDealerPQAvailable()) {
@@ -182,6 +200,9 @@ docReady(function () {
             var image = $("#imageCarousel img[data-colorid=" + colorId + "]");
             if (image) {
                 var imageUrl = image.attr("data-original") || image.attr("src");
+                var imageCat = image.attr("data-imgcat");
+                var imageType = image.attr("data-imgtype");
+                var imageId = image.attr("data-imgid");
                 if (imageUrl == "") {
                     imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85";
                 }
@@ -189,6 +210,11 @@ docReady(function () {
                 $('#colourCarousel span').attr("href", imagePageUrl + '?q=' + Base64.encode('colorimageid=' + colorId + '&retUrl=' + canonical));
             }
         }
+        if (imageId)
+        {
+            logBhrighuForImage(imageCat, imageType, imageId);
+        }
+        
         colorElements.removeClass('active');
         colorElements.eq([$(this).index()]).addClass('active');
     });
