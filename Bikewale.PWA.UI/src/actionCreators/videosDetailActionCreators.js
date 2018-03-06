@@ -43,7 +43,7 @@ module.exports = {
 	fetchModelSlug : function(basicId) {
 		return function(dispatch) {
 			var globalCity = getGlobalCity();
-			var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
+			var globalCityName = ( globalCity && globalCity.name ) ? globalCity.name : '';
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
 				if(xhr.readyState == 4) {
@@ -64,7 +64,7 @@ module.exports = {
  		
 	   		if(!apiList || apiList.length==0) return;
 	   		var globalCity = getGlobalCity();
-	   		var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
+	   		var globalCityName = ( globalCity && globalCity.name ) ? globalCity.name : '';
 	   		var apiResult = {};
 	   		var returned=0;
 	   		apiList.map(function(api,index) {
