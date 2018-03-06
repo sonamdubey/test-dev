@@ -63,7 +63,7 @@ var recommendedBikePopup = (function () {
 
         closeBtn.on('click', function ()
         {
-        vmRecommendedBikes.initData();
+            vmRecommendedBikes.initData();
             updateInpageFilters();
             clearPopupFilters();
             vmRecommendedBikes.Filters([]);
@@ -97,7 +97,9 @@ var recommendedBikePopup = (function () {
             if (appliedFilterList.find('.filter-list__item').length === 1) { //if last item is clicked
                 closeBtn.trigger('click');
             }
+
             targetElement.remove();
+            vmRecommendedBikes.ApplyInPageFilters();
         });
 
         $('.filter__edit').on('click', function () {
@@ -630,6 +632,7 @@ var RecommendedBikes = function () {
     self.ApplyInPageFilters = function () {
         self.GetFilteredData();
         self.SetPageFilters();
+        self.initData();
         self.SequenceAPI();
         
     }
