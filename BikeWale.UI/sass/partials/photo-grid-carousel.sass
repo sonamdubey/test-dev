@@ -1,0 +1,40 @@
+﻿.carousel__recently-added
+	padding-right: 0
+
+	.carousel-slide
+		width: 297px // increase card by 5px, since space between card is 20px
+		padding-left: 20px
+		margin-right: 0
+
+		&:first-child
+			margin-left: 0
+
+		&:last-child
+			width: 317px // additionally increase card by 20px, since jcarousel does not allow any space at the end
+			padding-right: 20px // decrease inner content width by 20px
+	.jcarousel
+		padding: 0
+
+		.image-grid__list
+			width: 100%
+
+		li.image-grid-list__item
+			height: auto
+			margin-right: 0
+// Core variables and mixins
+@import ../base/variables
+@import ../components/typography
+@import ../components/mixins
+
+@import ../mixins/index
+@import ../utils/index
+
+
+
+
+@include model-image-carousel(277, 354)
+@include image-card(354, '#fff9f9')
+@include image-grid-7
+@include image-grid-3
+@include image-grid-1
+@import ../partials/carousel-arrow
