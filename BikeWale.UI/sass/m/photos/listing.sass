@@ -1088,3 +1088,48 @@ body
 			background-image: none !important
 			background-color: transparent
 
+// tabs
+@include overall-tabs
+
+.overall-tabs__panel
+	background: #fff
+
+// colors carousel
+#colorSwiper
+	&.swiper__colors
+		height: 206px
+
+.swiper-colors__footer
+	padding-top: 16px
+	padding-bottom: 20px
+
+.colors-footer__title
+	padding-left: 16px
+	padding-right: 16px
+	margin-bottom: 16px
+	font-size: 14px
+	font-weight: 600
+
+.text--bold
+	font-weight: 700
+
+.color-list--thumbnail
+	&.swiper-container
+		padding-right: 20px
+
+	.swiper-slide
+		margin-left: 0
+		width: 52px
+		padding-left: 16px
+		display: inline-block
+
+.model-color__list
+	.color-box
+		border: 1px solid #d5d5d5
+
+// videos
+@import ../../components/mixins
+@import ../../partials/video-card-container
+
+.video-list
+	padding-top: 16px

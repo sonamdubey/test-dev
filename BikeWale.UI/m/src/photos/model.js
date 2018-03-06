@@ -4,7 +4,100 @@
 	if (vmModelGallery.videoList().length) {
 		videoSlug.setSlug();
 	}
+
+	// set overalltabs event
+	NavigationTabs.registerEvents();
+	NavigationTabs.setTab();
+
+	var colorSwiper = new Swiper('#colorSwiper', {
+		spaceBetween: 0,
+		preloadImages: false,
+		lazyLoading: true,
+		lazyLoadingInPrevNext: true,
+		nextButton: '#colorSwiper .color-type-next',
+		prevButton: '#colorSwiper .color-type-prev',
+		onInit: function (swiper) {
+			vmModelColorSwiper.activeColorIndex(1);
+			ThumbnailSwiperEvents.setColorPhotoDetails(swiper, vmModelColorSwiper);
+		},
+		onSlideChangeStart: function (swiper) {
+			ThumbnailSwiperEvents.setColorPhotoDetails(swiper, vmModelColorSwiper);
+			ThumbnailSwiperEvents.focusThumbnail(colorThumbnailSwiper, vmModelColorSwiper.activeColorIndex(), true);
+		}
+	});
+
+	var colorThumbnailSwiper = new Swiper('#colorTSwiper', {
+		spaceBetween: 0,
+		slidesPerView: 'auto',
+		onInit: function (swiper) {
+			ThumbnailSwiperEvents.attachColorEvents(swiper);
+			ThumbnailSwiperEvents.focusThumbnail(swiper, vmModelColorSwiper.activeColorIndex(), true);
+		},
+		onTap: function (swiper, event) {
+			colorSwiper.slideTo(swiper.clickedIndex);
+		}
+	});
 });
+
+var modelColorSwiper = function() {
+	var self = this;
+
+	self.activeColorIndex = ko.observable(0);
+	self.activeColorTitle = ko.observable('Sample');
+
+	self.colorPhotoList = ko.observableArray(modelColorImages);
+	var colorList = self.colorPhotoList().concat(self.colorPhotoList());
+	self.colorPhotoList(colorList.concat(colorList));
+
+	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
+		if (originalImagePath && originalImagePath != null) {
+			return (hostUrl + '/' + imageSize + '/' + originalImagePath);
+		}
+		else {
+			return ('https://imgd.aeplcdn.com/' + imageSize + '/bikewaleimg/images/noimage.png?q=70');
+		}
+	}
+}
+
+var ThumbnailSwiperEvents = (function () {
+	function attachColorEvents(swiper) {
+		var elements = swiper.container[0].querySelectorAll('.swiper-slide');
+
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].addEventListener('click', function (event) {
+				var clickedIndex = $(event.currentTarget).index();
+
+				colorGallerySwiper.slideTo(clickedIndex);
+			});
+		}
+	}
+
+	function focusThumbnail(swiper, vmActiveIndex, slideToFlag) {
+		var activeIndex = vmActiveIndex - 1; // decrement by 1, since it was incremented by 1
+		var thumbnailIndex = swiper.slides[activeIndex];
+
+		if (slideToFlag) {
+			swiper.slideTo(activeIndex);
+		}
+
+		$(swiper.slides).removeClass('swiper-slide-active slide--focus');
+		$(thumbnailIndex).addClass('swiper-slide-active slide--focus');
+	}
+
+	function setColorPhotoDetails(swiper, viewModel) {
+		var activeSlide = swiper.slides[swiper.activeIndex];
+		var activeSlideTitle = $(activeSlide).find('img').attr('alt');
+
+		viewModel.activeColorIndex(swiper.activeIndex + 1);
+		viewModel.activeColorTitle(activeSlideTitle);
+	}
+
+	return {
+		focusThumbnail: focusThumbnail,
+		setColorPhotoDetails: setColorPhotoDetails,
+		attachColorEvents: attachColorEvents
+	}
+})();
 
 var imageGrid = (function () {
 	function alignRemainderImage() {

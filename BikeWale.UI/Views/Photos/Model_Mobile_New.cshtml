@@ -1,183 +1,328 @@
 ﻿@model Bikewale.Models.Photos.PhotosPageVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/photos.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline/>";
-    Model.Page_JS_Paths = new string[] { "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
-    Model.AdTags.Ad_300x250BTF = true;
-    Model.AdTags.Ad_320x50 = true;
-    Model.AdTags.Ad_320x50BTF = true;
-    Model.AdTags.AdId = "1516082576550";
-    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Image";
+	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/photos.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline/>";
+	Model.Page_JS_Paths = new string[] { "/src/utils/navigationTabs.js", "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
+	Model.AdTags.Ad_300x250BTF = true;
+	Model.AdTags.Ad_320x50 = true;
+	Model.AdTags.Ad_320x50BTF = true;
+	Model.AdTags.AdId = "1516082576550";
+	Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Image";
 }
 @if (Model != null)
 {
-    int i = 0; IList<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> objImages = new List<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity>();
+	int i = 0; IList<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> objImages = new List<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity>();
 
-    if (Model.ModelImages != null)
-    {
-        objImages = Model.ModelImages.ToList();
-    }
+	if (Model.ModelImages != null)
+	{
+		objImages = Model.ModelImages.ToList();
+	}
 
-    <section>
-        <div id="gallery-root" class="container box-shadow section-bottom-margin padding-bottom2 " data-bind="css: fullScreenModeActive() ? ' orientation--landscape' : ''">
-            <h1 class="page-header">@Model.Page_H1</h1>
+	<section>
+		<div class="container box-shadow section-bottom-margin">
 
-            <div class="model-gallery-section">
-                <div class="model-gallery__container" data-bind="css: activeSwiper() ? 'model-gallery--relative' : ''">
-                    <div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
-                        <div class="swiper-wrapper" data-bind="foreach: photoList">
-                            <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
-                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
-                            </div>
-                        </div>
-                        <div class="gallery--next"></div>
-                        <div class="gallery--prev"></div>
-                        <div class="gallery-footer" data-bind="visible: galleryFooterActive()">
-                            <div class="gallery-footer__content">
-                                <div class="gallery-image__footer" data-visible="color">
-                                    <div class="gallery-image__left-section">
-                                        <span class="gallery-image__count">
-                                            <span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
-                                        </span>
-                                        <h2 class="model-gallery__image-title" data-bind="text: activePhotoTitle(), css: (HideSwiperTitle() == false) ? 'inline': 'hide'"></h2>
-                                    </div>
-                                    <span class="gallery-image__color" data-bind="attr:{'data-visible': activeGalleryColor() && galleryColorFixedSlug() && activeSwiper()? '0': '1'}">
-                                        colors
-                                    </span>
-                                    <div class="gallery-image__feature">
-                                        <a href="" title="" class="gallery__download-icon"></a>
-                                        <a href="" title="" class="share-icon"></a>
-                                        <a href="" title="" class="zoom-icon"></a>
-                                        <a href="" title="" class="landscape-icon__container" data-bind="attr: { 'data-visible': ActiveLandscapeIcon() && activeSwiper() ? '0': '1' }">
-                                            <span class="landscape-icon" data-bind="visible: activeGalleryScreenRotateSlug()==false"></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="model-gallery__screen--rotate-slug" data-bind="attr: { 'data-visible': activeGalleryScreenRotateSlug() && activeSwiper()? '0': '1' }, click: toggleFullScreen">
-                    <span class="landscape-text">
-                        Switch to Landscape for better Experience
-                    </span>
-                    <span class="screen--rotate-slug__landscape-container">
-                        <span class="screen--rotate-slug__landscape-icon"></span>
-                    </span>
-                </div>
-                <div class="gallery-color--fixed" data-bind="attr:{'data-visible': activeSwiper() && activeGalleryColor() && galleryColorFixedSlug()? '0': '1'}">
-                    see colors images
-                </div>
-            </div>
-            <div class="black-window" data-bind="visible: activeSwiper()"></div>
-
-						<div id="colorGalleryPopup" class="color-popup__content" data-bind="css: { 'color-popup--active': activeColorPopup(), 'color-popup--landscape': fullScreenModeActive() }">
-							<div class="color-popup__head">
-								<span class="color-popup-head__back" data-bind="click: closeColorPopup"></span>
-								<p class="color-popup-head__title">Dominar 400 Colors</p>
+			<div id="gallery-root" data-bind="css: fullScreenModeActive() ? ' orientation--landscape' : ''">
+				<h1 class="page-header">@Model.Page_H1</h1>
+				<div class="model-gallery-section">
+					<div class="model-gallery__container" data-bind="css: activeSwiper() ? 'model-gallery--relative' : ''">
+						<div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
+							<div class="swiper-wrapper" data-bind="foreach: photoList">
+								<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+								</div>
 							</div>
-							<div class="color-popup__body">
-								<div id="mainColorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
-									<div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
-											<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
-													<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
-											</div>
-									</div>
-									<div class="bwmsprite swiper-button-next color-type-next"></div>
-									<div class="bwmsprite swiper-button-prev color-type-prev"></div>
-									<div class="gallery-footer__content">
-										<div class="gallery-image__footer">
-											<div class="gallery-image__left-section">
-													<span class="gallery-image__count">
-														<span data-bind="text: activeColorIndex()"></span> / <span data-bind="text: colorPhotoList().length"></span>
-													</span>
-											</div>
-											<div class="gallery-image__feature">
-													<a href="" title="" class="gallery__download-icon"></a>
-													<a href="" title="" class="share-icon"></a>
-													<a href="" title="" class="landscape-icon__container"></a>
-											</div>
+							<div class="gallery--next"></div>
+							<div class="gallery--prev"></div>
+							<div class="gallery-footer" data-bind="visible: galleryFooterActive()">
+								<div class="gallery-footer__content">
+									<div class="gallery-image__footer" data-visible="color">
+										<div class="gallery-image__left-section">
+											<span class="gallery-image__count">
+												<span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
+											</span>
+											<h2 class="model-gallery__image-title" data-bind="text: activePhotoTitle(), css: (HideSwiperTitle() == false) ? 'inline': 'hide'"></h2>
+										</div>
+										<span class="gallery-image__color" data-bind="attr:{'data-visible': activeGalleryColor() && galleryColorFixedSlug() && activeSwiper()? '0': '1'}">
+											colors
+										</span>
+										<div class="gallery-image__feature">
+											<a href="" title="" class="gallery__download-icon"></a>
+											<a href="" title="" class="share-icon"></a>
+											<a href="" title="" class="zoom-icon"></a>
+											<a href="" title="" class="landscape-icon__container" data-bind="attr: { 'data-visible': ActiveLandscapeIcon() && activeSwiper() ? '0': '1' }">
+												<span class="landscape-icon" data-bind="visible: activeGalleryScreenRotateSlug()==false"></span>
+											</a>
 										</div>
 									</div>
 								</div>
-								<div class="color-popup__thumbnail-content" data-bind="css: { 'color-footer--inactive': !colorsFooterActive() }">
-									<p class="color-list__heading">Colors</p>
-									<div id="thumbnailColorSwiper" class="swiper-container noSwiper swiper__color-thumbnail" data-bind="css: { 'color-list--scrollable': !fullScreenModeActive() }">
-										<div class="model-color__list swiper-wrapper " data-bind="foreach: colorPhotoList, css: colorPhotoList().length == 3 ? 'list-column--3' : ''">
-											<div class="swiper-slide">
-												<div class="color-box--border">
-													<div class="color-box__content">
-														<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
-															<span data-bind="style: { 'background-color': '#' + $data }"></span>
-														</div>
-														<p class="color-box-label" data-bind="text: ImageTitle"></p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<span class="color-list__back-btn" data-bind="click: closeColorPopup">Back</span>
-								</div>
+
 							</div>
+
 						</div>
 
-			<section>
-				<ul id="imageGridTop" class="image-grid__list" data-grid="7">
-					@for (i = 0; i < 7; i++)
-					{
-						<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-							<img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" class="" />
-						</li>
-					}
-				</ul>
-
-				<div class="model-info-section">
-            				<a href="" title="" class="model-info__target-link">
-						<div class="model-info__container">
-							<span class="rating-badge" data-rate-bg="4">
-								<span class="rating-badge__star"></span>
-								<span>3.5</span>
-							</span>
-							<div class="model-info__image">
-								<img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70 " src="" alt="KTM1 RC200 ">
-							</div>
-							<div class="model-info-description">
-								<h3 class="model-info__title">
-									Bajaj Dominar 400
-								</h3>
-								<p class="model-info__ex-showroom">
-									Ex-showroom, Mumbai
-								</p>
-								<p class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
-							</div>
-						</div>
-					</a>
-					<div class="model-info__specs-container">
-						<a href="" class="model-info__specs-item specs-icon">
-							Specs
-						</a>
-						<a href="" class="model-info__specs-item specs-icon">
-							Expert Reviews
-						</a>
-						<a href="" class="model-info__specs-item specs-icon">
-							News
-						</a>
+					</div>
+					<div class="model-gallery__screen--rotate-slug" data-bind="attr: { 'data-visible': activeGalleryScreenRotateSlug() && activeSwiper()? '0': '1' }, click: toggleFullScreen">
+						<span class="landscape-text">
+							Switch to Landscape for better Experience
+						</span>
+						<span class="screen--rotate-slug__landscape-container">
+							<span class="screen--rotate-slug__landscape-icon"></span>
+						</span>
+					</div>
+					<div class="gallery-color--fixed" data-bind="attr:{'data-visible': activeSwiper() && activeGalleryColor() && galleryColorFixedSlug()? '0': '1'}">
+						see colors images
 					</div>
 				</div>
+				<div class="black-window" data-bind="visible: activeSwiper()"></div>
 
-				<ul id="imageGridBottom" class="image-grid__list image-grid--bottom" data-grid="6">
-					@for (; i < Model.GridPhotoCount && i < 19; i++)
-					{
-						<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-							<img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-						</li>
-					}
-				</ul>
-				<div class="image-grid__list-more">
-					<button id="viewMoreImageBtn" type="button" class="btn btn-inv-blue image-grid__more-btn">View More (<span id="moreImageCount">@( Model.GridPhotoCount - i)</span>)</button>
+				<div id="colorGalleryPopup" class="color-popup__content" data-bind="css: { 'color-popup--active': activeColorPopup(), 'color-popup--landscape': fullScreenModeActive() }">
+					<div class="color-popup__head">
+						<span class="color-popup-head__back" data-bind="click: closeColorPopup"></span>
+						<p class="color-popup-head__title">Dominar 400 Colors</p>
+					</div>
+					<div class="color-popup__body">
+						<div id="mainColorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
+							<div class="swiper-wrapper" data-bind="foreach: colors().colorPhotoList">
+								<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+								</div>
+							</div>
+							<div class="bwmsprite swiper-button-next color-type-next"></div>
+							<div class="bwmsprite swiper-button-prev color-type-prev"></div>
+							<div class="gallery-footer__content">
+								<div class="gallery-image__footer">
+									<div class="gallery-image__left-section">
+										<span class="gallery-image__count">
+											<span data-bind="text: colors().activeColorIndex()"></span> / <span data-bind="text: colors().colorPhotoList().length"></span>
+										</span>
+									</div>
+									<div class="gallery-image__feature">
+										<a href="" title="" class="gallery__download-icon"></a>
+										<a href="" title="" class="share-icon"></a>
+										<a href="" title="" class="landscape-icon__container"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="color-popup__thumbnail-content" data-bind="css: { 'color-footer--inactive': !colorsFooterActive() }">
+							<p class="color-list__heading">Colors</p>
+							<div id="thumbnailColorSwiper" class="swiper-container noSwiper swiper__color-thumbnail" data-bind="css: { 'color-list--scrollable': !fullScreenModeActive() }">
+								<div class="model-color__list swiper-wrapper " data-bind="foreach: colors().colorPhotoList, css: colors().colorPhotoList().length == 3 ? 'list-column--3' : ''">
+									<div class="swiper-slide">
+										<div class="color-box--border">
+											<div class="color-box__content">
+												<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+													<span data-bind="style: { 'background-color': '#' + $data }"></span>
+												</div>
+												<p class="color-box-label" data-bind="text: ImageTitle"></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<span class="color-list__back-btn" data-bind="click: closeColorPopup">Back</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<section>
+				<div id="overallContainer" class="overall-tabs__panel" data-panel-type="toggle">
+					<div class="overall-tabs__placeholder">
+						<div class="overall-tabs__content">
+							<ul class="overall-tabs__list">
+								<li class="overall-tabs-list__item tab--active" data-tabs="allImages">All Images (109)</li>
+								<li class="overall-tabs-list__item" data-tabs="colours">Colours (12)</li>
+								<li class="overall-tabs-list__item" data-tabs="videos">Videos (02)</li>
+							</ul>
+						</div>
+					</div>
+
+					<div data-id="allImages">
+						<ul id="imageGridTop" class="image-grid__list" data-grid="7">
+							@for (i = 0; i < 7; i++)
+							{
+								<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+									<img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" class="" />
+								</li>
+							}
+						</ul>
+
+						<div class="model-info-section">
+							<a href="" title="" class="model-info__target-link">
+								<div class="model-info__container">
+									<span class="rating-badge" data-rate-bg="4">
+										<span class="rating-badge__star"></span>
+										<span>3.5</span>
+									</span>
+									<div class="model-info__image">
+										<img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70 " src="" alt="KTM1 RC200 ">
+									</div>
+									<div class="model-info-description">
+										<h3 class="model-info__title">
+											Bajaj Dominar 400
+										</h3>
+										<p class="model-info__ex-showroom">
+											Ex-showroom, Mumbai
+										</p>
+										<p class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
+									</div>
+								</div>
+							</a>
+							<div class="model-info__specs-container">
+								<a href="" class="model-info__specs-item specs-icon">
+									Specs
+								</a>
+								<a href="" class="model-info__specs-item specs-icon">
+									Expert Reviews
+								</a>
+								<a href="" class="model-info__specs-item specs-icon">
+									News
+								</a>
+							</div>
+						</div>
+
+						<ul id="imageGridBottom" class="image-grid__list image-grid--bottom" data-grid="6">
+							@for (; i < Model.GridPhotoCount && i < 19; i++)
+							{
+								<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+									<img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+								</li>
+							}
+						</ul>
+						<div class="image-grid__list-more">
+							<button id="viewMoreImageBtn" type="button" class="btn btn-inv-blue image-grid__more-btn">View More (<span id="moreImageCount">@( Model.GridPhotoCount - i)</span>)</button>
+						</div>
+					</div>
+
+					<div id="vmcolorSwiper" data-id="colours">
+						<div id="colorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
+							<div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
+								<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+								</div>
+							</div>
+							<div class="bwmsprite swiper-button-next color-type-next"></div>
+							<div class="bwmsprite swiper-button-prev color-type-prev"></div>
+						</div>
+						<div class="swiper-colors__footer">
+							<p class="colors-footer__title">Color: <span class="text--bold" data-bind="text: activeColorTitle"></span></p>
+							<div id="colorTSwiper" class="swiper-container noSwiper swiper__color-thumbnail color-list--thumbnail">
+								<div class="model-color__list swiper-wrapper" data-bind="foreach: colorPhotoList">
+									<div class="swiper-slide">
+										<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+											<span data-bind="style: { 'background-color': '#' + $data }"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div data-id="videos" class="hide">
+						<ul class="video-list overalltab__section-list">
+							<li class="video-card-container">
+								<h4 class="swiper-card__label">Honda CB Hornet 160R : Review : PowerDrift</h4>
+								<div class="model-card__list__video-card">
+									<div class="video-card__video-preview">
+										<iframe width="330" height="186" src="https://www.youtube.com/embed/WDSI_AyYCtA?rel=0&amp;showinfo=0&amp;autoplay=0" frameborder="0" allowfullscreen=""></iframe>
+									</div>
+									<div class="video-card__desc clearfix">
+										<div class="grid-4">
+											<p class="font11 text-light-grey">Apr 09, 2016</p>
+										</div>
+										<div class="grid-8 text-right">
+											<span class="model-card__sub-title">7,42,491 Views</span>
+											<span class="model-card__sub-title margin-left20">
+												<span class="thumbsup-icon">
+													<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">
+														<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="review-copy-6" transform="translate(-290.000000, -4233.000000)" stroke="#82888B">
+																<g id="Group-24" transform="translate(16.000000, 3959.000000)">
+																	<g id="Group-20">
+																		<g id="Group-23" transform="translate(0.000000, 32.000000)">
+																			<g id="Group-21">
+																				<g id="Group-33" transform="translate(4.000000, 242.000000)">
+																					<g id="Group-32" transform="translate(271.000000, 0.000000)">
+																						<g id="Group-31" transform="translate(0.000000, 1.000000)">
+																							<g id="Page-1">
+																								<path d="M2.48373667,11.1808992 C2.48373667,11.1808992 3.527745,12.5305158 5.44156167,12.3880575 C6.99343667,12.3881658 10.402795,12.3637908 10.402795,12.3637908 C10.60722,12.3336742 10.8030867,12.2302158 10.9477117,12.0530908 C11.1981783,11.7465075 11.2040283,11.2929158 10.96082,10.9804825 C10.8247533,10.8057408 10.6398283,10.6991408 10.4439617,10.6604658 L9.13323667,10.6595992" id="Stroke-1" stroke-linejoin="round"></path>
+																								<path d="M11.1990667,8.97784333 C11.3656833,9.00882667 11.5249333,9.06732667 11.6533083,9.196785 C11.9899,9.535435 11.959675,10.2320183 11.5408583,10.5167183 C11.3516,10.6972017 10.582325,10.622235 10.4439833,10.6604767" id="Stroke-3" stroke-linejoin="round"></path>
+																								<path d="M11.1606625,7.20007167 C11.1606625,7.20007167 11.8672125,7.19606333 12.0274375,7.32974667 C12.4877458,7.71422167 12.5576208,8.34786333 12.2188625,8.68434667 C12.0656792,8.83644667 11.8157542,8.97359667 11.6159875,8.98757167 L9.17144583,8.98952167" id="Stroke-5" stroke-linejoin="round"></path>
+																								<path d="M9.17755583,7.18822 L11.8533892,7.20002833 C12.1614892,7.16785333 12.4136892,6.96657 12.5825808,6.79876167 C12.9213392,6.46238667 12.8042308,5.83752 12.4677475,5.49887 C12.2995058,5.32943667 12.0785058,5.244395 11.8572892,5.24352833 L7.27381417,5.22825333 C7.27381417,5.22825333 7.94233917,3.060395 7.77073917,2.51872833" id="Stroke-7" stroke-linejoin="round"></path>
+																								<path d="M7.7982125,2.71752 C7.7982125,2.71752 8.08962917,-0.806563333 5.70337083,0.252828333 C6.28587917,2.51872833 4.76227917,5.17517 4.76227917,5.17517" id="Stroke-9" stroke-linejoin="round"></path>
+																								<path d="M2.50637833,5.7642325 L4.90097833,5.0498825" id="Stroke-11"></path>
+																								<path d="M2.0464925,12.9921025 L0.486059167,12.9867942 C0.246750833,12.9860358 0.0533758333,12.7913608 0.0541341667,12.5520525 L0.0802425,4.7933275 C0.0810008333,4.55401917 0.275675833,4.36064417 0.514984167,4.36151083 L2.07552583,4.36671083 C2.31483417,4.3675775 2.50810083,4.5622525 2.5073425,4.80156083 L2.4813425,12.5602858 C2.48047583,12.7995942 2.28580083,12.9928608 2.0464925,12.9921025 Z" id="Stroke-13"></path>
+																							</g>
+																						</g>
+																					</g>
+																				</g>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</svg>
+												</span>
+												4,147
+											</span>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="video-card-container">
+								<h4 class="swiper-card__label">Honda NAVI : First Look : PowerDrift</h4>
+								<div class="model-card__list__video-card">
+									<div class="video-card__video-preview">
+										<iframe width="330" height="186" src="https://www.youtube.com/embed/HHijQrhhPDo?rel=0&amp;showinfo=0&amp;autoplay=0" frameborder="0" allowfullscreen=""></iframe>
+									</div>
+									<div class="video-card__desc clearfix">
+										<div class="grid-4">
+											<p class="font11 text-light-grey">Apr 02, 2016</p>
+										</div>
+										<div class="grid-8 text-right">
+											<span class="model-card__sub-title">2,74,144 Views</span>
+											<span class="model-card__sub-title margin-left20">
+												<span class="thumbsup-icon">
+													<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">
+														<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="review-copy-6" transform="translate(-290.000000, -4233.000000)" stroke="#82888B">
+																<g id="Group-24" transform="translate(16.000000, 3959.000000)">
+																	<g id="Group-20">
+																		<g id="Group-23" transform="translate(0.000000, 32.000000)">
+																			<g id="Group-21">
+																				<g id="Group-33" transform="translate(4.000000, 242.000000)">
+																					<g id="Group-32" transform="translate(271.000000, 0.000000)">
+																						<g id="Group-31" transform="translate(0.000000, 1.000000)">
+																							<g id="Page-1">
+																								<path d="M2.48373667,11.1808992 C2.48373667,11.1808992 3.527745,12.5305158 5.44156167,12.3880575 C6.99343667,12.3881658 10.402795,12.3637908 10.402795,12.3637908 C10.60722,12.3336742 10.8030867,12.2302158 10.9477117,12.0530908 C11.1981783,11.7465075 11.2040283,11.2929158 10.96082,10.9804825 C10.8247533,10.8057408 10.6398283,10.6991408 10.4439617,10.6604658 L9.13323667,10.6595992" id="Stroke-1" stroke-linejoin="round"></path>
+																								<path d="M11.1990667,8.97784333 C11.3656833,9.00882667 11.5249333,9.06732667 11.6533083,9.196785 C11.9899,9.535435 11.959675,10.2320183 11.5408583,10.5167183 C11.3516,10.6972017 10.582325,10.622235 10.4439833,10.6604767" id="Stroke-3" stroke-linejoin="round"></path>
+																								<path d="M11.1606625,7.20007167 C11.1606625,7.20007167 11.8672125,7.19606333 12.0274375,7.32974667 C12.4877458,7.71422167 12.5576208,8.34786333 12.2188625,8.68434667 C12.0656792,8.83644667 11.8157542,8.97359667 11.6159875,8.98757167 L9.17144583,8.98952167" id="Stroke-5" stroke-linejoin="round"></path>
+																								<path d="M9.17755583,7.18822 L11.8533892,7.20002833 C12.1614892,7.16785333 12.4136892,6.96657 12.5825808,6.79876167 C12.9213392,6.46238667 12.8042308,5.83752 12.4677475,5.49887 C12.2995058,5.32943667 12.0785058,5.244395 11.8572892,5.24352833 L7.27381417,5.22825333 C7.27381417,5.22825333 7.94233917,3.060395 7.77073917,2.51872833" id="Stroke-7" stroke-linejoin="round"></path>
+																								<path d="M7.7982125,2.71752 C7.7982125,2.71752 8.08962917,-0.806563333 5.70337083,0.252828333 C6.28587917,2.51872833 4.76227917,5.17517 4.76227917,5.17517" id="Stroke-9" stroke-linejoin="round"></path>
+																								<path d="M2.50637833,5.7642325 L4.90097833,5.0498825" id="Stroke-11"></path>
+																								<path d="M2.0464925,12.9921025 L0.486059167,12.9867942 C0.246750833,12.9860358 0.0533758333,12.7913608 0.0541341667,12.5520525 L0.0802425,4.7933275 C0.0810008333,4.55401917 0.275675833,4.36064417 0.514984167,4.36151083 L2.07552583,4.36671083 C2.31483417,4.3675775 2.50810083,4.5622525 2.5073425,4.80156083 L2.4813425,12.5602858 C2.48047583,12.7995942 2.28580083,12.9928608 2.0464925,12.9921025 Z" id="Stroke-13"></path>
+																							</g>
+																						</g>
+																					</g>
+																				</g>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</svg>
+												</span>
+												1,139
+											</span>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</section>
 
@@ -191,80 +336,80 @@
 					<a href="#" class="btn btn-inv-blue video-slug__more-btn">View All Videos</a>
 				</div>
 			</div>
-            <div class="clear"></div>
-        </div>
-    </section>
-	
+			<div class="clear"></div>
+		</div>
+	</section>
+
 	<section>
-            <div class="similar-model">
-                <h2 class="page__heading-h2">
-                    Bikes similar to Bajaj Dominar 400
-                </h2>
-                <div class="swiper-container card-container similar-model-carousel" data-spacebetween="0">
-                    <ul class="swiper-wrapper">
-                        @for (i = 0; i <= 5; i++)
-                        {
-                           <li class="swiper-slide carousel-slide">
-                            <div class="similar-model__card">
-                                <a href="" title="" class="similar-model__target">
-                                    <div class="similar-model__image">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//160x89//bw/models/bajaj-pulsar-rs200.jpg?20150710124439&q=70" alt="" src="" title="">
-                                    </div>
-                                    <div class="similar-model__detail">
-                                        <h3 class="similar-model__title">
-                                            Royal Enfield Himalaya
-                                        </h3>
-                                        <p class="similar-model__ex-showroom">
-                                            Ex-showroom, Mumbai
-                                        </p>
-                                        <p class="similar-model__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
-                                    </div>
-                                </a>
-                                <a href="" title="" class="similar-model__footer">
-                                    <div class="similar-model__image-count">
-                                        View all 64 Images
-                                    </div>
-                                </a>
-                            </div>
-                        </li>                         
-                        }
+		<div class="similar-model">
+			<h2 class="page__heading-h2">
+				Bikes similar to Bajaj Dominar 400
+			</h2>
+			<div class="swiper-container card-container similar-model-carousel" data-spacebetween="0">
+				<ul class="swiper-wrapper">
+					@for (i = 0; i <= 5; i++)
+					{
+						<li class="swiper-slide carousel-slide">
+							<div class="similar-model__card">
+								<a href="" title="" class="similar-model__target">
+									<div class="similar-model__image">
+										<img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//160x89//bw/models/bajaj-pulsar-rs200.jpg?20150710124439&q=70" alt="" src="" title="">
+									</div>
+									<div class="similar-model__detail">
+										<h3 class="similar-model__title">
+											Royal Enfield Himalaya
+										</h3>
+										<p class="similar-model__ex-showroom">
+											Ex-showroom, Mumbai
+										</p>
+										<p class="similar-model__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
+									</div>
+								</a>
+								<a href="" title="" class="similar-model__footer">
+									<div class="similar-model__image-count">
+										View all 64 Images
+									</div>
+								</a>
+							</div>
+						</li>
+					}
 
 
-                    </ul>
-                </div>
-            </div>
+				</ul>
+			</div>
+		</div>
 
-    </section>
-	
-    if (Model.AdTags.Ad_300x250BTF)
-    {
-        <div class="margin-bottom20 text-center">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
-        </div>
+	</section>
+
+	if (Model.AdTags.Ad_300x250BTF)
+	{
+		<div class="margin-bottom20 text-center">
+			@{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+		</div>
 	}
-	
-    <div id="photoTemplateWrapper" class="hide">
-        <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
-        <ul data-bind="foreach : Loadedphotos">
+
+	<div id="photoTemplateWrapper" class="hide">
+		<!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
+		<ul data-bind="foreach : Loadedphotos">
 			<li class="image-grid-list__item" data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}">
 				<img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" @*alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)"*@ />
 			</li>
-        </ul>
-        <!-- /ko -->
-    </div>
+		</ul>
+		<!-- /ko -->
+	</div>
 
-    if (Model.ModelGallery != null)
-    {
-        @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
-    }
+	if (Model.ModelGallery != null)
+	{
+		@Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
+	}
 
 }
- @if (Model.AdTags.Ad_320x50BTF)
-    {
-<div class="margin-bottom20 text-center">
-    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
-</div>
-    }
+@if (Model.AdTags.Ad_320x50BTF)
+{
+	<div class="margin-bottom20 text-center">
+		@{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+	</div>
+}
 
 <!-- image slug -->
 <div id="carouselColorSlug" class="hide" data-bind="template: {name: 'colorSlugTemplate', data: colorData }"></div>
