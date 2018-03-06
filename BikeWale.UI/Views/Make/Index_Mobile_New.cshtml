@@ -109,7 +109,7 @@
                         <ul class="all-model__list">
                             @foreach (var bike in Model.Bikes)
                             {
-                                if (Model.PageFilters != null)
+                                if (Model.PageFilters != null && Model.PageFilters.FilterResults!=null)
                                 { 
                                     if (j - prev == gap && index < Model.PageFilters.FilterResults.Count() )
                                     {
