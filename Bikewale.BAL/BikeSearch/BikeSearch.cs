@@ -21,6 +21,7 @@ namespace Bikewale.BAL.BikeSearch
         private static readonly string _exshowroom = "topVersion.exshowroom";
         private static readonly string _bikeMakeId = "bikeMake.makeId";
         private static readonly string _mileage = "topVersion.mileage";
+        private static readonly string _power = "topVersion.power";
         private static readonly string _bodyStyleId = "bodyStyleId";
         private static readonly string _cityId = "city.cityId";
         private static readonly string _bikeStatus = "bikeModel.modelStatus";
@@ -52,11 +53,6 @@ namespace Bikewale.BAL.BikeSearch
 
                 if (filters.CityId > 0)
                 {
-                    //IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
-
-                    //var bikeList = Task.Factory.StartNew(() => objBikeList.Bikes = GetBikeSearchList(filters, BikeSearchEnum.BikeList));
-                    //var bikeListWithCityPrice = Task.Factory.StartNew(() => objBikeListWithCityPrice = GetBikeSearchList(filters, BikeSearchEnum.PriceList));
-                    
                     IEnumerable<ModelPriceDocument> bikeListWithCityPrice = null;
                     IDictionary<uint, ModelPriceDocument> bikePrices = null;
 
@@ -64,18 +60,16 @@ namespace Bikewale.BAL.BikeSearch
                     {
                         objBikeList.Bikes = bikeList;
                         IEnumerable<String> documentIds = bikeList.Select(bike => string.Format("{0}_{1}", bike.BikeModel.ModelId, filters.CityId));
-                        
+
                         bikeListWithCityPrice = GetDocuments<ModelPriceDocument>(BWConfiguration.Instance.BikeModelPriceIndex, documentIds);
                         bikePrices = bikeListWithCityPrice.ToDictionary(x => x.BikeModel.ModelId, x => x);
-                        
+
                     }
-                    
-                    //Task.WaitAll(bikeList, bikeListWithCityPrice);
 
                     if (bikePrices != null && objBikeList.Bikes.Any())
                     {
-
-                        for (int index = 0; index < objBikeList.Bikes.Count(); index++)
+                        var bikeCount = objBikeList.Bikes.Count();
+                        for (int index = 0; index < bikeCount; index++)
                         {
                             var element = objBikeList.Bikes.ElementAt(index);
                             var modelId = element.BikeModel.ModelId;
@@ -86,19 +80,10 @@ namespace Bikewale.BAL.BikeSearch
                                 element.TopVersion.Exshowroom = topVersion.Exshowroom;
                                 element.TopVersion.Onroad = topVersion.Onroad;
                             }
-                            
-
                         }
-
-                        /*
-                        for (int index = 0; index < objBikeList.Bikes.Count(); index++)
-                        {
-                            objBikeList.Bikes.ElementAt(index).TopVersion = objBikeListWithCityPrice.ElementAt(index).TopVersion;
-                        }
-                         */
                     }
                 }
-               
+
                 SetPrevNextFilters(filters, objBikeList);
 
             }
@@ -205,16 +190,14 @@ namespace Bikewale.BAL.BikeSearch
                 {
                     query &= Range(filters.Mileage, _mileage);
                 }
+                if (filters.Power != null && filters.Power.Any())
+                {
+                    query &= Range(filters.Power, _power);
+                }
                 if (filters.Price != null && filters.Price.Any())
                 {
                     query &= Range(filters.Price, _exshowroom);
                 }
-                /*
-                if (filters.CityId > 0)
-                {
-                    query &= FDS.Term(_cityId, filters.CityId);
-                }
-                */
                 if (filters.MakeId > 0)
                 {
                     if (filters.ExcludeMake)

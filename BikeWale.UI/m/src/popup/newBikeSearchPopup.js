@@ -557,7 +557,7 @@ var RecommendedBikes = function () {
             filterList.excludeMake = true;
             filterList.pageNumber = 1;
             filterList.pageSize = 10;
-            //return self.CallAPI(filterList);
+            return self.CallAPI(filterList);
         }
         catch (e) {
             console.warn("OtherMakeRecommendations error : " + e.message);
