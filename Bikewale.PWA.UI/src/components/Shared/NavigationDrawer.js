@@ -43,16 +43,6 @@ class NavigationDrawer extends React.Component {
         
     }
 
-    pushAutoExpoAnalytics(event) {
-    	let targetElement = event.currentTarget
-
-    	let category = targetElement.getAttribute("data-cat")
-    	let action = targetElement.getAttribute("data-act")
-    	let label = targetElement.getAttribute("data-lab")
-    	
-    	triggerGA(category, action, label)
-    }
-
     renderNestedListItemWithLinkTag(link,text) {
         return(
             <li>
