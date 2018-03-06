@@ -72,13 +72,6 @@ class NavigationDrawer extends React.Component {
         return (
             <div>
                 <nav id="nav-drawer" className="transition-ease">
-					<a href="https://www.bikewale.com/autoexpo2018/" title="AutoExpo 2018 - BikeWale" onClick={this.pushAutoExpoAnalytics} className="auto-expo-nav" data-cat="Editorial_List_Page" data-act="AutoExpo_2018_Link Clicked" data-lab="Navigation_Drawer_Link">
-						<div className="auto-expo-nav__title">
-							<p className="auto-expo-nav__title--sub">Explore</p>
-							<p className="auto-expo-nav__title--main">Auto Expo 2018</p>
-						</div>
-						<div className="auto-expo-nav__logo"></div>
-					</a>
                     <ul className="nav-drawer-list padding-top10">
                         <li>
                             <a href="/m/" className="nav-item" onClick={this.pushAnalytics.bind()}>
