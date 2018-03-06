@@ -378,7 +378,7 @@ namespace Bikewale.BAL.BikeSearch
         /// <param name="indexName"></param>
         /// <param name="documentIds"></param>
         /// <returns></returns>
-        public System.Collections.Generic.IEnumerable<T> GetDocuments<T>(string indexName, System.Collections.Generic.IEnumerable<string> documentIds) where T : class
+        private System.Collections.Generic.IEnumerable<T> GetDocuments<T>(string indexName, System.Collections.Generic.IEnumerable<string> documentIds) where T : class
         {
             System.Collections.Generic.IEnumerable<T> documents = null;
             try
