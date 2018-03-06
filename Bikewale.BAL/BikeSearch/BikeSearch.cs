@@ -1,33 +1,52 @@
 ﻿
+using AutoMapper;
 using Bikewale.DAL.CoreDAL;
 using Bikewale.ElasticSearch.Entities;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Bikewale.Utility.LinqHelpers;
 using Nest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 namespace Bikewale.BAL.BikeSearch
 {
+    /// <summary>
+    /// Created By : Subodh Jain on 21 feb 2018
+    /// Description: To get the search result according to filter passed, source and noofRecords.
+    /// Modified By: Deepak Israni on 5 March 2018
+    /// Description: Added GetDocuments function and modified GetBikeSearch to get price according to the city using the bikewalepricingindex.
+    /// </summary>
     public class BikeSearch : IBikeSearch
     {
-        private static readonly string _displacement = "displacement";
+        private readonly ElasticClient _client;
+
+        private static readonly string _displacement = "topVersion.displacement";
         private static readonly string _exshowroom = "topVersion.exshowroom";
         private static readonly string _bikeMakeId = "bikeMake.makeId";
-        private static readonly string _mileage = "mileage";
+        private static readonly string _mileage = "topVersion.mileage";
+        private static readonly string _power = "topVersion.power";
         private static readonly string _bodyStyleId = "bodyStyleId";
         private static readonly string _cityId = "city.cityId";
         private static readonly string _bikeStatus = "bikeModel.modelStatus";
         private static readonly string _topVersionStatus = "topVersion.versionStatus";
-        private static readonly byte _ModelStatus = 1;// by defaut all new bikes status
-        private static readonly byte _VersionStatus = 1;
+        private static readonly byte _modelStatus = 1;// by defaut all new bikes status
+        private static readonly byte _versionStatus = 1;
+
+        public BikeSearch()
+        {
+            _client = ElasticSearchInstance.GetInstance();
+        }
 
         /// <summary>
-        /// Created By :-Subodh Jain on 21 feb 2018
-        /// Description :- GetBike search result according to filter passed,source and noofRecords
+        /// Created By : Subodh Jain on 21 feb 2018
+        /// Description: GetBike search result according to filter passed,source and noofRecords
+        /// Modified By: Deepak Israni on 5 March 2018
+        /// Description: Fetched pricing of city from bikewalepricingindex and changed the flow of the function.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="filters"></param>
@@ -37,31 +56,52 @@ namespace Bikewale.BAL.BikeSearch
         public BikeSearchOutputEntity GetBikeSearch(SearchFilters filters)
         {
             BikeSearchOutputEntity objBikeList = new BikeSearchOutputEntity();
+
             try
             {
-                if (filters.CityId > 0)
+                if (filters != null)
                 {
-                    IEnumerable<BikeModelDocument> objBikeListWithCityPrice = null;
-
-                    var bikeList = Task.Factory.StartNew(() => objBikeList.Bikes = GetBikeSearchList(filters, BikeSearchEnum.BikeList));
-                    var bikeListWithCityPrice = Task.Factory.StartNew(() => objBikeListWithCityPrice = GetBikeSearchList(filters, BikeSearchEnum.PriceList));
-
-
-                    Task.WaitAll(bikeList, bikeListWithCityPrice);
-
-                    if (objBikeList.Bikes != null && objBikeList.Bikes.Any())
+                    IEnumerable<BikeModelDocument> bikeList = GetBikeSearchList(filters, BikeSearchEnum.BikeList);
+                    
+                    if (bikeList != null && bikeList.Any())
                     {
-                        for (int index = 0; index < objBikeList.Bikes.Count(); index++)
+                        objBikeList.Bikes = Convert(bikeList);
+                        if (filters.CityId > 0)
                         {
-                            objBikeList.Bikes.ElementAt(index).TopVersion = objBikeListWithCityPrice.ElementAt(index).TopVersion;
+                            IEnumerable<ModelPriceDocument> bikeListWithCityPrice = null;
+                            IDictionary<uint, ModelPriceDocument> bikePrices = null;
+
+
+                            IEnumerable<String> documentIds = bikeList.Select(bike => string.Format("{0}_{1}", bike.BikeModel.ModelId, filters.CityId));
+
+                            bikeListWithCityPrice = GetDocuments<ModelPriceDocument>(BWConfiguration.Instance.BikeModelPriceIndex, documentIds);
+                            bikePrices = bikeListWithCityPrice.ToDictionary(priceDocument => priceDocument.BikeModel.ModelId, priceDocument => priceDocument);
+
+                            if (bikePrices != null)
+                            {
+                                var bikeCount = objBikeList.Bikes.Count();
+                                for (int index = 0; index < bikeCount; index++)
+                                {
+                                    var bike = objBikeList.Bikes.ElementAt(index);
+                                    var modelId = bike.BikeModel.ModelId;
+
+                                    Bikewale.ElasticSearch.Entities.VersionEntity topVersion = bikePrices[modelId].VersionPrice.FirstOrDefault(version => version.VersionId == bike.TopVersion.VersionId);
+
+                                    if (bike.TopVersion != null && topVersion != null)
+                                    {
+                                        bike.TopVersion.PriceList = ConvertPrice(topVersion.PriceList);
+                                        bike.TopVersion.Exshowroom = topVersion.Exshowroom;
+                                        bike.TopVersion.Onroad = topVersion.Onroad;
+                                        bike.HasCityPrice = true;
+                                        bike.CityName = bikePrices[modelId].City.CityName;
+                                    }
+                                }
+                            }
                         }
+
+                        SetPrevNextFilters(filters, objBikeList);  
                     }
                 }
-                else
-                {
-                    objBikeList.Bikes = GetBikeSearchList(filters, BikeSearchEnum.BikeList);
-                }
-                SetPrevNextFilters(filters, objBikeList);
 
             }
             catch (Exception ex)
@@ -71,6 +111,12 @@ namespace Bikewale.BAL.BikeSearch
             return objBikeList;
         }
 
+        /// <summary>
+        /// Created By : Subodh Jain on 21 feb 2018
+        /// Description: To handle the pagination of results.
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <param name="objBikeList"></param>
         private void SetPrevNextFilters(SearchFilters filters, BikeSearchOutputEntity objBikeList)
         {
 
@@ -106,33 +152,29 @@ namespace Bikewale.BAL.BikeSearch
         /// <returns></returns>
         private IEnumerable<BikeModelDocument> GetBikeSearchList(SearchFilters filters, BikeSearchEnum source)
         {
-            IEnumerable<BikeModelDocument> suggestionList = null;
+            IEnumerable<BikeModelDocument> bikeModelDocs = null;
             try
             {
                 string indexName = GetIndexName(source);
                 string typeName = GetTypeName(source);
-                ElasticClient client = ElasticSearchInstance.GetInstance();
 
-                if (client != null)
+                if (_client != null)
                 {
-                    // func descriptor for searching data in ES index
-                    Func<SearchDescriptor<BikeModelDocument>, SearchDescriptor<BikeModelDocument>> searchDescriptor = new Func<SearchDescriptor<BikeModelDocument>, SearchDescriptor<BikeModelDocument>>(
-                           sd => sd.Index(indexName).Type(typeName)
-                                    .Query(q => q
-                                    .Bool(bq => bq
-                                     .Filter(ff => ff
-                                         .Bool(bb => bb.
-                                             Must(ProcessFilters(filters)))))));
-                    ISearchResponse<BikeModelDocument> _result = client.Search(searchDescriptor);
+                    Func<SearchDescriptor<BikeModelDocument>, SearchDescriptor<BikeModelDocument>> searchDescriptor = BuildSearchDescriptor<BikeModelDocument>(filters, indexName, typeName);
 
-                    if (_result != null && _result.Hits != null && _result.Hits.Count > 0)
+                    if (searchDescriptor != null)
                     {
-                        suggestionList = _result.Documents.ToList();
-                    }
+                        ISearchResponse<BikeModelDocument> _result = _client.Search(searchDescriptor);
 
-                    if (suggestionList != null && suggestionList.Any() && filters.PageNumber > 0 && filters.PageSize > 0)
-                    {
-                        suggestionList = suggestionList.Page(filters.PageNumber, filters.PageSize);
+                        if (_result != null && _result.Hits != null && _result.Hits.Count > 0)
+                        {
+                            bikeModelDocs = _result.Documents.ToList();
+                        }
+
+                        if (bikeModelDocs != null && bikeModelDocs.Any() && filters.PageNumber > 0 && filters.PageSize > 0)
+                        {
+                            bikeModelDocs = bikeModelDocs.Page(filters.PageNumber, filters.PageSize);
+                        } 
                     }
                 }
             }
@@ -140,7 +182,38 @@ namespace Bikewale.BAL.BikeSearch
             {
                 ErrorClass.LogError(ex, string.Format("Exception : Bikewale.BAL.BikeSearch.GetBikeSearchList "));
             }
-            return suggestionList;
+            return bikeModelDocs;
+        }
+
+        /// <summary>
+        /// Created By : Sumit Kate on 6 March 2018
+        /// Description: Func descriptor for searching data in ES index.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filters"></param>
+        /// <param name="indexName"></param>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
+        private Func<SearchDescriptor<T>, SearchDescriptor<T>> BuildSearchDescriptor<T>(SearchFilters filters, string indexName, string typeName) where T : class
+        {
+            Func<SearchDescriptor<T>, SearchDescriptor<T>> searchDescriptor = null;
+
+            try
+            {
+                searchDescriptor = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(
+                           sd => sd.Index(indexName).Type(typeName)
+                                    .Query(q => q
+                                    .Bool(bq => bq
+                                     .Filter(ff => ff
+                                         .Bool(bb => bb.
+                                             Must(ProcessFilters(filters)))))));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.BAL.BikeSearch.BuildSearchDescriptor "));
+            }
+
+            return searchDescriptor;
         }
 
         /// <summary>
@@ -156,8 +229,8 @@ namespace Bikewale.BAL.BikeSearch
             QueryContainerDescriptor<BikeModelDocument> FDS = new QueryContainerDescriptor<BikeModelDocument>();
             try
             {
-                query &= FDS.Term(_bikeStatus, _ModelStatus);
-                query &= FDS.Term(_topVersionStatus, _VersionStatus);
+                query &= FDS.Term(_bikeStatus, _modelStatus);
+                query &= FDS.Term(_topVersionStatus, _versionStatus);
 
                 if (filters.Displacement != null && filters.Displacement.Any())
                 {
@@ -167,13 +240,13 @@ namespace Bikewale.BAL.BikeSearch
                 {
                     query &= Range(filters.Mileage, _mileage);
                 }
+                if (filters.Power != null && filters.Power.Any())
+                {
+                    query &= Range(filters.Power, _power);
+                }
                 if (filters.Price != null && filters.Price.Any())
                 {
                     query &= Range(filters.Price, _exshowroom);
-                }
-                if (filters.CityId > 0)
-                {
-                    query &= FDS.Term(_cityId, filters.CityId);
                 }
                 if (filters.MakeId > 0)
                 {
@@ -346,5 +419,64 @@ namespace Bikewale.BAL.BikeSearch
             }
             return typeName;
         }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 5 March 2018
+        /// Description: To get the documents from ES Index according to the list/array of IDs.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="indexName"></param>
+        /// <param name="documentIds"></param>
+        /// <returns></returns>
+        private System.Collections.Generic.IEnumerable<T> GetDocuments<T>(string indexName, System.Collections.Generic.IEnumerable<string> documentIds) where T : class
+        {
+            System.Collections.Generic.IEnumerable<T> documents = null;
+            try
+            {
+                var result = _client.MultiGet(request => request.Index(indexName).GetMany<T>(documentIds));
+
+                if (result != null && result.IsValid)
+                {
+                    documents = result.SourceMany<T>(documentIds);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("GetDocuments({0})", indexName));
+            }
+            return documents;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 6 March 2018
+        /// Description: AutoMapper to map BikeModelDocument(ES) to BikeModelDocumentEntity(NewBikeSearch)
+        /// </summary>
+        /// <param name="objDocuments"></param>
+        /// <returns></returns>
+        private IEnumerable<BikeModelDocumentEntity> Convert(IEnumerable<BikeModelDocument> objDocuments)
+        {
+            Mapper.CreateMap<BikeModelDocument, BikeModelDocumentEntity>();
+            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.MakeEntity, Bikewale.Entities.NewBikeSearch.MakeEntity>();
+            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.ModelEntity, Bikewale.Entities.NewBikeSearch.ModelEntity>();
+            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.VersionEntity, Bikewale.Entities.NewBikeSearch.VersionEntity>();
+            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.ImageEntity, Bikewale.Entities.NewBikeSearch.ImageEntity>();
+            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.PriceEntity, Bikewale.Entities.NewBikeSearch.PriceEntity>();
+
+            return Mapper.Map<IEnumerable<BikeModelDocument>, IEnumerable<BikeModelDocumentEntity>>(objDocuments);
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 6 March 2018
+        /// Description: AutoMapper to map PriceEntity(ES) to PriceEntity(NewBikeSearch)
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private IEnumerable<Bikewale.Entities.NewBikeSearch.PriceEntity> ConvertPrice(IEnumerable<Bikewale.ElasticSearch.Entities.PriceEntity> obj)
+        {
+            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.PriceEntity, Bikewale.Entities.NewBikeSearch.PriceEntity>();
+
+            return Mapper.Map<IEnumerable<Bikewale.ElasticSearch.Entities.PriceEntity>, IEnumerable<Bikewale.Entities.NewBikeSearch.PriceEntity>>(obj);
+        }
+
     }
 }
