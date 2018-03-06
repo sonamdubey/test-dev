@@ -45,7 +45,7 @@ function extractPageCategoryFromURL() {
 }
 
 function isReactCategory(categoryName) {
-	var allowedCategoriesInReact = ["NEWS", "EXPERT REVIEWS"];
+	var allowedCategoriesInReact = ["NEWS", "EXPERT REVIEWS", "AutoExpo 2018"];
 	if (allowedCategoriesInReact.indexOf(categoryName) !== -1) {
 		return true;
 	}
