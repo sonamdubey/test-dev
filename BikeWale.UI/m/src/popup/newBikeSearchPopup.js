@@ -67,6 +67,7 @@ var recommendedBikePopup = (function () {
             vmRecommendedBikes.Filters([]);
             vmRecommendedBikes.FiltersValue([]);
             vmRecommendedBikes.searchFilter = [];
+            vmRecommendedBikes.initData();
             updateInpageFilters();
             window.history.back();
         });
@@ -575,6 +576,7 @@ var RecommendedBikes = function () {
     self.ApplyFilters = function () {
         self.SetPageFilters();
         self.GetFilteredData();
+        self.initData();
         self.SequenceAPI();
         BikeFiltersPopup.close();
         window.history.back();
@@ -582,14 +584,24 @@ var RecommendedBikes = function () {
 
     self.ApplyInPageFilters = function () {
         self.GetFilteredData();
-        self.SequenceAPI();
         self.SetPageFilters();
+        self.SequenceAPI();
         
     }
 
     self.setBudgetSelection = function () {
         var amountPreview = self.getBudgetAmount(self.budgetSlider());
         $('#appliedFilterList').append('<li data-id="budget" class="filter-list__item"><span class="filter-item">' + amountPreview + '</span></li>');
+    };
+
+    /* Function to Initialize all the data variables */
+    self.initData = function () {
+        self.isBikesLoading(true);
+        self.isOtherBikesLoading(true);
+        self.noOfBikes(0);
+        self.noOfOtherBikes(0);
+        self.bikes([]);
+        self.bikesOtherMakes([]);
     };
 
     self.SetCheckboxSelection = function (targetElement) {

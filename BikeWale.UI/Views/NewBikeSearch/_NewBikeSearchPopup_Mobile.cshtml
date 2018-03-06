@@ -83,6 +83,7 @@
                                                                     <span class="rating-badge__star"></span>
                                                                     <span data-bind="numericText: $data.reviewRatings"></span>
                                                                 </span>
+                                                                <span class="no-rating text-light-grey" data-bind="visible: ($data.reviewRatings == 0)">Not rated yet</span>
                                                                 <p class="model-detail__make-name" data-bind="text: $data.bikeMake.makeName"></p>
                                                                 <h3 class="card-detail__name" data-bind="text: $data.bikeModel.modelName"></h3>
                                                                 <ul class="card-detail__specs-list">
@@ -140,6 +141,8 @@
                                                                 <span class="rating-badge__star"></span>
                                                                 <span data-bind="numericText: $data.reviewRatings"></span>
                                                             </span>
+                                                            <span class="no-rating text-light-grey" data-bind="visible: ($data.reviewRatings == 0)">Not rated yet</span>
+
                                                             <p class="model-detail__make-name" data-bind="text : $data.bikeMake.makeName"></p>
                                                             <h3 class="card-detail__name" data-bind="text : $data.bikeModel.modelName"></h3>
                                                             <ul class="card-detail__specs-list">
