@@ -1,6 +1,9 @@
 ﻿@model Bikewale.Models.NewBikeSearch.NewBikeSearchPopupVM
 @using Bikewale.Entities.GenericBikes
 @using Bikewale.Utility
+@{
+    int[] minSpecsLen = new int[3];
+}
 @if (Model != null)
 {
     <div id="dvNewBikeSearchPopup">
@@ -110,7 +113,7 @@
                             </div>
                         </section>
                             <section>
-                                <div class="other-recommended-bike">
+                                <div class="other-recommended-bike" data-bind="visible: (noOfOtherBikes() > 0)">
                                     <h2 class="recommended-bike__title page__heading-h2" data-bind="visible : noOfOtherBikes() > 0">Other Recommended Bikes <span data-bind="visible: noOfOtherBikes() > 0">(<span data-bind="text : noOfOtherBikes()"></span>)</span></h2>
                                     <ul class="model-loader-list__content" data-bind="visible: isOtherBikesLoading()">
                                         @for (var i = 1; i <= 2; i++)
@@ -246,14 +249,14 @@
                                     <ul id="filterTypeMileage" class="filter-checkbox__list">
                                         @{
                     var mileageArray = RangeFactory.Mileage;
-                    var len = mileageArray.Length;
+                    minSpecsLen[0]= mileageArray.Length;
                     <li>
                         <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, mileageArray[0])"  data-value="0" id="mileage-0" data-bind="click: checkboxSelection">
                             <span class="check-box__label">@string.Format("< {0} kmpl", mileageArray[0])</span>
                             <span class="check-box__icon"></span>
                         </div>
                     </li>
-                    for (int i = 1; i < mileageArray.Length; i++)
+                    for (int i = 1; i < minSpecsLen[0]; i++)
                     {
                         
                         uint firstLimit = mileageArray[i - 1];
@@ -267,8 +270,8 @@
                         </li>
                     }
                     <li>
-                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", mileageArray[len-1], 0)"  data-value="@(len+1)" id="mileage-@(len+1)" data-bind="click: checkboxSelection">
-                            <span class="check-box__label">@string.Format("> {0} kmpl", mileageArray[len-1])</span>
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", mileageArray[minSpecsLen[0]-1], 0)"  data-value="@(minSpecsLen[0])" id="mileage-@(minSpecsLen[0])" data-bind="click: checkboxSelection">
+                            <span class="check-box__label">@string.Format("> {0} kmpl", mileageArray[minSpecsLen[0]-1])</span>
                             <span class="check-box__icon"></span>
                         </div>
                     </li>
@@ -289,7 +292,7 @@
                                     <ul id="filterTypeDisplacement" class="filter-checkbox__list">
                                         @{
                     var displacementArray = RangeFactory.Displacement;
-                     len = displacementArray.Length;
+                    minSpecsLen[1] = displacementArray.Length;
 
                     <li>
                         <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, displacementArray[0])"  data-value="0" id="displacement-0" data-bind="click: checkboxSelection">
@@ -298,7 +301,7 @@
                         </div>
                     </li>
     
-                                            for (int i = 1; i < len ; i++)
+                                            for (int i = 1; i < minSpecsLen[1] ; i++)
                                 {
                                     uint firstLimit = displacementArray[i-1];
                                     uint secondLimit = displacementArray[i];
@@ -314,8 +317,8 @@
                                 }
 
                     <li>
-                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", displacementArray[len - 1], 0)"  data-value="@(len+1)" id="displacement-@(len+1)" data-bind="click: checkboxSelection">
-                            <span class="check-box__label">@string.Format("> {0} cc", displacementArray[len - 1])</span>
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", displacementArray[minSpecsLen[1] - 1], 0)"  data-value="@(minSpecsLen[1])" id="displacement-@(minSpecsLen[1])" data-bind="click: checkboxSelection">
+                            <span class="check-box__label">@string.Format("> {0} cc", displacementArray[minSpecsLen[1] - 1])</span>
                             <span class="check-box__icon"></span>
                         </div>
                     </li>
@@ -339,7 +342,7 @@
 
                                         @{
                                             var powerArray = RangeFactory.Power;
-                                            var powerArrayLen = powerArray.Length;
+                                            minSpecsLen[2] = powerArray.Length;
 
                                             <li>
                                                 <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, powerArray[0])"  data-value="0" id="power-0" data-bind="click: checkboxSelection">
@@ -348,7 +351,7 @@
                                                 </div>
                                             </li>
 
-                                    for (int i = 1; i < powerArrayLen; i++)
+                                    for (int i = 1; i < powerArray.Length; i++)
                                     {
                                         uint firstLimit = powerArray[i - 1];
                                         uint secondLimit = powerArray[i];
@@ -364,8 +367,8 @@
                                     }
 
                                     <li>
-                                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", powerArray[powerArrayLen - 1], 0)"  data-value="@(powerArrayLen+1)" id="@(powerArrayLen+1)" data-bind="click: checkboxSelection">
-                                            <span class="check-box__label">@string.Format("> {0} bhp", powerArray[powerArrayLen - 1])</span>
+                                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", powerArray[minSpecsLen[2] - 1], 0)"  data-value="@(minSpecsLen[2])" id="@(minSpecsLen[2])" data-bind="click: checkboxSelection">
+                                            <span class="check-box__label">@string.Format("> {0} bhp", powerArray[minSpecsLen[2] - 1])</span>
                                             <span class="check-box__icon"></span>
                                         </div>
                                     </li>
@@ -379,8 +382,12 @@
 
             </div>
             <div id="filtersBlackoutWindow"></div>
-            <input type="hidden" id="makeId" value="@(Model.MakeId > 0 ? Model.MakeId : 0)" />
-            <input type="hidden" id="cityId" value="@Model.CityId" />
+            <input type="hidden" id="hdnMakeId" value="@(Model.MakeId > 0 ? Model.MakeId : 0)" />
+            <input type="hidden" id="hdnCityId" value="@(Model.CityId > 0 ? Model.CityId : 0)" />
+            <input type="hidden" id="hdnMleageLen" value="@(minSpecsLen[0])" />
+            <input type="hidden" id="hdnDisplacementLen" value="@(minSpecsLen[1])" />
+            <input type="hidden" id="hdnPowerLen" value="@(minSpecsLen[2])" />
+
         </div>
     </div>
 }

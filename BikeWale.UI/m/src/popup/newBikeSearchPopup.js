@@ -63,12 +63,14 @@ var recommendedBikePopup = (function () {
 
         closeBtn.on('click', function ()
         {
-
+        vmRecommendedBikes.initData();
+            updateInpageFilters();
+            clearPopupFilters();
             vmRecommendedBikes.Filters([]);
             vmRecommendedBikes.FiltersValue([]);
-            vmRecommendedBikes.searchFilter = [];
-            vmRecommendedBikes.initData();
-            updateInpageFilters();
+            var tmpMakeId = vmRecommendedBikes.searchFilter.makeId;
+            var tmpCityId = vmRecommendedBikes.searchFilter.cityId;
+            vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
             window.history.back();
         });
 
@@ -131,7 +133,8 @@ var recommendedBikePopup = (function () {
     };
 
     function updateInpageFilters() {
-        $.each(vmRecommendedBikes.Filters(), function (key, value) {
+
+        for (var key in vmRecommendedBikes.Filters()) {
             var filterTypeContainer = $('.all-model__list li[data-filter-type="' + key + '"]');
             if (filterTypeContainer.length) {
                 var arr = vmRecommendedBikes.Filters()[key].split("+");
@@ -142,16 +145,34 @@ var recommendedBikePopup = (function () {
                 }
 
                 $.each(activeElementList, function () {
-                    if ($.inArray($(this).val(), arr) < 0) {
+                    if ($.inArray($(this).val(), arr) >= 0) {
                         if ($(this).is(':checked')) {
                             $(this).trigger('click');
                         }
                     }
                 });
-            }
-        });
-    };
 
+                var activeElementList = filterTypeContainer.find('.refine-result__list input[type="checkbox"]');
+
+            }
+
+        }
+        
+    };
+    function clearPopupFilters() {
+        $('.check-box').removeClass('check-box--active');
+        for(var key in vmRecommendedBikes.Filters())
+        {
+            var filterTypeContainer = $('#filtersPopup li[data-filter-type="' + key + '"]');
+            if (key !== "budget") {
+                filterTypeContainer.find('.accordion-head__preview').text('');
+            }
+            else {
+                vmRecommendedBikes.budgetAmountPreview('');
+            }
+        }
+        
+    };
     function initViewModel() {
         vmRecommendedBikes = new RecommendedBikes()
         ko.applyBindings(vmRecommendedBikes, document.getElementById('dvNewBikeSearchPopup'));
@@ -202,6 +223,7 @@ ko.bindingHandlers.KOSlider = {
     update: function (element, valueAccessor) {
         var value = ko.utils.unwrapObservable(valueAccessor());
         if (value) {
+            
             $(element).slider(value.length ? "values" : "value", value);
             $(element).change();
 
@@ -209,7 +231,7 @@ ko.bindingHandlers.KOSlider = {
 
     }
 };
-//Knockout Handler to convert a float to a number with particular precision digits.
+
 ko.bindingHandlers.numericText = {
     update: function (element, valueAccessor, allBindingsAccessor) {
         var value = ko.utils.unwrapObservable(valueAccessor()),
@@ -276,6 +298,7 @@ var RecommendedBikes = function () {
     self.budgetSlider = ko.observable();
     self.budgetStepPoints = ko.observable();
 
+    self.minSpecsLen = [$('#hdnMileageLen').val(), $('#hdnDisplacementLen').val(), $('#hdnPowerLen').val()];
     self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: 10, pageNumber: 0 };
 
     self.budgetSlider.subscribe(function (value) {
@@ -283,7 +306,9 @@ var RecommendedBikes = function () {
         var maxBuget = self.budgetSlider()[1];
 
         var amountPreview = self.getBudgetAmount(self.budgetSlider());
+
         self.budgetAmountPreview(amountPreview);
+
         self.Filters()['budget'] = self.FiltersValue()['budget'] = self.budgetStepPoints()[minBuget] + '+' + self.budgetStepPoints()[maxBuget];
         
     });
@@ -396,16 +421,11 @@ var RecommendedBikes = function () {
                 switch (key) {
                     case "budget":
                         var arr = self.Filters()[key];
-
+                        
                         self.budgetSlider([
                             $.inArray(parseInt(self.searchFilter.price[0]["min"], 10), self.budgetStepPoints()),
                             $.inArray(parseInt(self.searchFilter.price[0]["max"], 10), self.budgetStepPoints())
                         ]);
-                        //if (arr.length > 0) {
-                        //    self.budgetSlider([
-                        //    $.inArray(parseInt(arr[0], 10), self.budgetStepPoints()), self.budgetStepPoints().length - 1]);
-                        //    if (arr.length > 1) self.budgetSlider([$.inArray(parseInt(arr[0], 10), self.budgetStepPoints()), $.inArray(parseInt(arr[1], 10), self.budgetStepPoints())]);
-                        //}
 
                         self.setBudgetSelection();
 
@@ -414,6 +434,31 @@ var RecommendedBikes = function () {
                     default:
                         var filterTypeContainer = $('#filtersPopup li[data-filter-type="' + key + '"]');
                         var arr = self.Filters()[key].split("+");
+                        if (arr[arr.length - 1] === "3")
+                        {
+                            switch(key)
+                            {
+                                case "mileage":
+                                    for(var i = 4; i <= self.minSpecsLen[0]; i++) {
+                                        self.Filters()[key] += "+" + i.toString();
+                                    }
+                                        break;
+                                case "displacement":
+                                    for (var i = 4; i <= self.minSpecsLen[1]; i++) {
+                                        self.Filters()[key] += "+" + i.toString();
+                                    }
+                                    break;
+                                case "power":
+                                    
+                                    for (var i = 4; i <= self.minSpecsLen[2]; i++) {
+                                        self.Filters()[key] += "+" + i.toString();
+                                    }
+                                    break;
+
+
+                            }
+                        }
+                        arr = self.Filters()[key].split("+");
                         var selectionPreview = '';
 
                         for(var index in arr) {
@@ -425,7 +470,7 @@ var RecommendedBikes = function () {
 
                                 
                                 selectionPreview += element.find('.check-box__label').text();
-                                if (index) {
+                                if (index && index !== arr.length -1) {
                                     selectionPreview += ', ';
                                 }
                             }
@@ -606,8 +651,7 @@ var RecommendedBikes = function () {
 
     self.SetCheckboxSelection = function (targetElement) {
         $('#appliedFilterList').append('<li data-id="' + targetElement.attr("id") + '" class="filter-list__item"><span class="filter-item">' + targetElement.find('.check-box__label').text() + '</span></li>');
-    };
-
+    };    
     /* priceFormatter */
     self.formatPrice = function (price) {
         var thMatch = /(\d+)(\d{3})$/;
@@ -708,18 +752,13 @@ function getMinMaxLimits(range) {
     if (selectedRangeList != null) {
         maxMinLimits = {
             "min": selectedRangeList[0],
-            "max": selectedRangeList[1]
+            "max": selectedRangeList[1] === 0 ? vmRecommendedBikes.budgetStepPoints()[vmRecommendedBikes.budgetStepPoints().length - 1] : selectedRangeList[1]
         }
         filterArray.push(maxMinLimits);
     }
 
     return filterArray;
 }
-
-
-
-
-
 
 
 
