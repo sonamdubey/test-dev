@@ -62,41 +62,45 @@ namespace Bikewale.BAL.BikeSearch
                 if (filters != null)
                 {
                     IEnumerable<BikeModelDocument> bikeList = GetBikeSearchList(filters, BikeSearchEnum.BikeList);
-
-                    if (filters.CityId > 0 && bikeList != null && bikeList.Any())
+                    
+                    if (bikeList != null && bikeList.Any())
                     {
-                        IEnumerable<ModelPriceDocument> bikeListWithCityPrice = null;
-                        IDictionary<uint, ModelPriceDocument> bikePrices = null;
-
                         objBikeList.Bikes = Convert(bikeList);
-                        IEnumerable<String> documentIds = bikeList.Select(bike => string.Format("{0}_{1}", bike.BikeModel.ModelId, filters.CityId));
-
-                        bikeListWithCityPrice = GetDocuments<ModelPriceDocument>(BWConfiguration.Instance.BikeModelPriceIndex, documentIds);
-                        bikePrices = bikeListWithCityPrice.ToDictionary(priceDocument => priceDocument.BikeModel.ModelId, priceDocument => priceDocument);
-
-                        if (bikePrices != null)
+                        if (filters.CityId > 0)
                         {
-                            var bikeCount = objBikeList.Bikes.Count();
-                            for (int index = 0; index < bikeCount; index++)
+                            IEnumerable<ModelPriceDocument> bikeListWithCityPrice = null;
+                            IDictionary<uint, ModelPriceDocument> bikePrices = null;
+
+
+                            IEnumerable<String> documentIds = bikeList.Select(bike => string.Format("{0}_{1}", bike.BikeModel.ModelId, filters.CityId));
+
+                            bikeListWithCityPrice = GetDocuments<ModelPriceDocument>(BWConfiguration.Instance.BikeModelPriceIndex, documentIds);
+                            bikePrices = bikeListWithCityPrice.ToDictionary(priceDocument => priceDocument.BikeModel.ModelId, priceDocument => priceDocument);
+
+                            if (bikePrices != null)
                             {
-                                var bike = objBikeList.Bikes.ElementAt(index);
-                                var modelId = bike.BikeModel.ModelId;
-
-                                Bikewale.ElasticSearch.Entities.VersionEntity topVersion = bikePrices[modelId].VersionPrice.FirstOrDefault(version => version.VersionId == bike.TopVersion.VersionId);
-
-                                if (bike.TopVersion != null && topVersion != null)
+                                var bikeCount = objBikeList.Bikes.Count();
+                                for (int index = 0; index < bikeCount; index++)
                                 {
-                                    bike.TopVersion.PriceList = ConvertPrice(topVersion.PriceList);
-                                    bike.TopVersion.Exshowroom = topVersion.Exshowroom;
-                                    bike.TopVersion.Onroad = topVersion.Onroad;
-                                    bike.HasCityPrice = true;
-                                    bike.CityName = bikePrices[modelId].City.CityName;
+                                    var bike = objBikeList.Bikes.ElementAt(index);
+                                    var modelId = bike.BikeModel.ModelId;
+
+                                    Bikewale.ElasticSearch.Entities.VersionEntity topVersion = bikePrices[modelId].VersionPrice.FirstOrDefault(version => version.VersionId == bike.TopVersion.VersionId);
+
+                                    if (bike.TopVersion != null && topVersion != null)
+                                    {
+                                        bike.TopVersion.PriceList = ConvertPrice(topVersion.PriceList);
+                                        bike.TopVersion.Exshowroom = topVersion.Exshowroom;
+                                        bike.TopVersion.Onroad = topVersion.Onroad;
+                                        bike.HasCityPrice = true;
+                                        bike.CityName = bikePrices[modelId].City.CityName;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    SetPrevNextFilters(filters, objBikeList); 
+                        SetPrevNextFilters(filters, objBikeList);  
+                    }
                 }
 
             }
