@@ -146,16 +146,7 @@ var recommendedBikePopup = (function () {
                     activeElementList = filterTypeContainer.find('.refine-result__list input[type="radio"]');
                 }
 
-                $.each(activeElementList, function () {
-                    if ($.inArray($(this).val(), arr) >= 0) {
-                        if ($(this).is(':checked')) {
-                            $(this).trigger('click');
-                        }
-                    }
-                });
-
-                var activeElementList = filterTypeContainer.find('.refine-result__list input[type="checkbox"]');
-
+                activeElementList.attr("checked", false);
             }
 
         }
