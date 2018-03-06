@@ -84,8 +84,8 @@
 	BikeFiltersPopup.registerEvents();
 	if (vmRecommendedBikes != null && vmRecommendedBikes.searchFilter!=null)
 	{
-	    vmRecommendedBikes.searchFilter.makeId = $('#makeId').val();
-	    vmRecommendedBikes.searchFilter.cityId = $('#cityId').val();
+	    vmRecommendedBikes.searchFilter.makeId = $('#hdnMakeId').val();
+	    vmRecommendedBikes.searchFilter.cityId = $('#hdnCityId').val();
 	    
 	}
 

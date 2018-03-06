@@ -69,7 +69,7 @@ var recommendedBikePopup = (function () {
             vmRecommendedBikes.FiltersValue([]);
             var tmpMakeId = vmRecommendedBikes.searchFilter.makeId;
             var tmpCityId = vmRecommendedBikes.searchFilter.cityId;
-            self.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
+            vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
             window.history.back();
         });
 
@@ -295,7 +295,7 @@ var RecommendedBikes = function () {
     self.budgetSlider = ko.observable();
     self.budgetStepPoints = ko.observable();
 
-    self.minSpecsLen = [$('#mileageLen').val(), $('#displacementLen').val(), $('#powerLen').val()];
+    self.minSpecsLen = [$('#hdnMileageLen').val(), $('#hdnDisplacementLen').val(), $('#hdnPowerLen').val()];
     self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
 
     self.budgetSlider.subscribe(function (value) {
