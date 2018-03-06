@@ -70,7 +70,7 @@ var recommendedBikePopup = (function () {
             vmRecommendedBikes.FiltersValue([]);
             var tmpMakeId = vmRecommendedBikes.searchFilter.makeId;
             var tmpCityId = vmRecommendedBikes.searchFilter.cityId;
-            vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
+            vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: 10, pageNumber: 0 };
             window.history.back();
         });
 
@@ -554,7 +554,6 @@ var RecommendedBikes = function () {
                 contentType: "application/json",
                 data: ko.toJSON(searchFilterObj),
                 success: function (response) {
-                    searchFilterObj.excludeMake ? self.isOtherBikesLoading(false) : self.isBikesLoading(false);
                     if (response.length > 0) {
                         response = JSON.parse(response);
                         if (("Bikes" in response) && response.Bikes != null && response.Bikes.length > 0) {
@@ -571,6 +570,7 @@ var RecommendedBikes = function () {
                         else {
                             //Bike List is Not Present
                         }
+                        searchFilterObj.excludeMake ? self.isOtherBikesLoading(false) : self.isBikesLoading(false);
                     }
                     else {
                         //Response is invalid
@@ -762,6 +762,7 @@ function getMinMaxLimits(range) {
 
     return filterArray;
 }
+
 
 
 
