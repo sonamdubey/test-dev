@@ -408,9 +408,13 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                 IEnumerable<MostPopularBikesBase> bikes = null;
                 bikeSeriesEntityBase = _objModelCache.GetSeriesByModelId(modelId);
                 isSeries = bikeSeriesEntityBase != null && bikeSeriesEntityBase.IsSeriesPageUrl;
-                List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(modelId, false);
-                BikeVersionMinSpecs firstOrDefaultVersion = objVersionsList.FirstOrDefault();
-                EnumBikeType bikeType = (objVersionsList != null && objVersionsList.Count > 0 && firstOrDefaultVersion != null && firstOrDefaultVersion.BodyStyle.Equals(EnumBikeBodyStyles.Scooter)) ? EnumBikeType.Scooters : EnumBikeType.All;
+                IEnumerable<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(modelId, false);
+                EnumBikeType bikeType = EnumBikeType.All;
+                if (objVersionsList != null)
+                {
+                    BikeVersionMinSpecs firstOrDefaultVersion = objVersionsList.FirstOrDefault();
+                    bikeType = (firstOrDefaultVersion != null && firstOrDefaultVersion.BodyStyle.Equals(EnumBikeBodyStyles.Scooter)) ? EnumBikeType.Scooters : EnumBikeType.All;                    
+                }
                 isScooter = bikeType.Equals(EnumBikeType.Scooters);
                 if (isSeries)
                 {
