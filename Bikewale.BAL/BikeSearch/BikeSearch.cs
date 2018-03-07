@@ -85,7 +85,12 @@ namespace Bikewale.BAL.BikeSearch
                                     var bike = objBikeList.Bikes.ElementAt(index);
                                     var modelId = bike.BikeModel.ModelId;
 
-                                    Bikewale.ElasticSearch.Entities.VersionEntity topVersion = bikePrices[modelId].VersionPrice.FirstOrDefault(version => version.VersionId == bike.TopVersion.VersionId);
+                                    Bikewale.ElasticSearch.Entities.VersionEntity topVersion = null;
+
+                                    if (bikePrices.ContainsKey(modelId))
+                                    {
+                                        topVersion = bikePrices[modelId].VersionPrice.FirstOrDefault(version => version.VersionId == bike.TopVersion.VersionId);
+                                    }
 
                                     if (bike.TopVersion != null && topVersion != null)
                                     {
