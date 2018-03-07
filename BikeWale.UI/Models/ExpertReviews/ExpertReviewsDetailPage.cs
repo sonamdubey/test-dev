@@ -517,8 +517,8 @@ namespace Bikewale.Models
                         {
                             Bikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId),
                             CityId = CityId,
-                            WidgetHeading = string.Format("Popular {0} Bikes", bikeSeriesEntityBase.SeriesName),
-                            WidgetLinkTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName),
+                            WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName,objData.IsScooter ? "Scooters" : "Bikes"),
+                            WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
                             WidgetHref = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
 
                         };
