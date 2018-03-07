@@ -215,7 +215,16 @@
                                 <div id="makeImagesVideosContent" class="bw-model-tabs-data">
 
                                     <div id="makeimagescontent" class="padding-top20 font14 make-image-content">
-                                        <h2 class="padding-left20 padding-right20">@Model.MakeName Images</h2>
+                                        <div class="carousel-heading-content">
+                                            <div class="swiper-heading-left-grid inline-block">
+                                                <h2 class="padding-left20 padding-right20">@Model.MakeName Images</h2>
+                                            </div>
+                                            <div class="swiper-heading-right-grid inline-block text-right">
+                                                <a href="/@Model.MakeMaskingName-bikes/images/" title="@string.Format("{0} Images",Model.MakeName)" class="btn view-all-target-btn">
+                                                    View all
+                                                </a>
+                                            </div>
+                                        </div>
                                         @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.BikeModelsPhotos)
 
 
