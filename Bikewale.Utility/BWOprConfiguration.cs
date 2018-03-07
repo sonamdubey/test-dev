@@ -73,7 +73,8 @@ namespace Bikewale.Utility
             _BwHostUrl = String.Empty,
             _notificationToMailIdForPageMetas = string.Empty,
             _BWEsIndexUpdaterQueue = string.Empty,
-            _bikeModelPriceIndex = String.Empty;
+            _bikeModelPriceIndex = String.Empty,
+            _BWEsBuilderQueue = String.Empty;
 
 
         private readonly bool _CORSEnabled = false, _IsAppTrackDayVisible = false;
@@ -147,6 +148,7 @@ namespace Bikewale.Utility
             _notificationToMailIdForPageMetas = Convert.ToString(ConfigurationManager.AppSettings["notificationToMailIdForPageMetas"]);
             _BWEsIndexUpdaterQueue = Convert.ToString(ConfigurationManager.AppSettings["BWEsIndexUpdaterQueue"]);
             _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
+            _BWEsBuilderQueue = Convert.ToString(ConfigurationManager.AppSettings["BWEsBuilderQueue"]);
         }
 
         // Static method to provide access to instance
@@ -292,5 +294,6 @@ namespace Bikewale.Utility
 
         public string BWEsIndexUpdaterQueue { get { return _BWEsIndexUpdaterQueue; } }
         public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
+        public string BWEsBuilderQueue { get { return _BWEsBuilderQueue; } }
     }   // class
 }   // namespace
