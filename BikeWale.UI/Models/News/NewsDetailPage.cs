@@ -265,6 +265,7 @@ namespace Bikewale.Models
                     status = StatusCodes.ContentFound;
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
+                    CheckSeriesData(objData);
                     GetWidgetData(objData, widgetTopCount, true);
                     SetPageMetas(objData);
 
@@ -550,8 +551,8 @@ namespace Bikewale.Models
                         {
                             Bikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId),
                             CityId = CityId,
-                            WidgetHeading = string.Format("Popular {0} bikes", bikeSeriesEntityBase.SeriesName),
-                            WidgetLinkTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName),
+                            WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
+                            WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
                             WidgetHref = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
 
                         };
@@ -570,6 +571,28 @@ namespace Bikewale.Models
                             SetPopularBikeByBodyStyleId(objData, topCount);
                         }
 
+                        if (bikeSeriesEntityBase != null)
+                        {
+                            FetchPopularBikes(objData, bikeSeriesEntityBase.SeriesId);
+                            if (objData.IsSeriesAvailable && objData.SeriesWidget != null && objData.Make != null)
+                            {
+                                objData.MostPopularBikes = new MostPopularBikeWidgetVM()
+                                {
+                                    Bikes = objData.SeriesWidget.PopularSeriesBikes,
+                                    WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
+                                    WidgetHref = "/m" + UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
+                                    WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.MaskingName, objData.IsScooter ? "Scooters" : "Bikes")
+                                };
+                            }
+
+                        }
+                        else if (objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && objData.Make != null)
+                        {
+                            objData.MostPopularBikes = MostPopularMakeScooters;
+                            objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} Scooters", objData.Make.MakeName);
+                            objData.MostPopularBikes.WidgetHref = string.Format("/m/{0}-scooters/", objData.Make.MaskingName);
+                            objData.MostPopularBikes.WidgetLinkTitle = string.Format("{0} Scooters", objData.Make.MakeName);
+                        }
                     }
                     else  // Desktop
                     {
@@ -772,7 +795,7 @@ namespace Bikewale.Models
             }
             else
             {
-                PopularBikesWidget.WidgetHeading = string.Format("Popular {0} bikes", objData.Make.MakeName);
+                PopularBikesWidget.WidgetHeading = string.Format("Popular {0} Bikes", objData.Make.MakeName);
                 PopularBikesWidget.WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName);
                 PopularBikesWidget.WidgetLinkTitle = string.Format("{0} Bikes", objData.Make.MakeName);
                 PopularBikesWidget.CtaText = "View all bikes";
@@ -1156,6 +1179,34 @@ namespace Bikewale.Models
             return popularSeriesBikes;
         }
 
+        /// <summary>
+        /// Fetches the popular bikes.
+        /// </summary>
+        private void FetchPopularBikes(NewsDetailPageVM objData, uint seriesId = 0)
+        {
+            try
+            {
+                objData.SeriesWidget = new EditorialSeriesWidgetVM();
+                IEnumerable<MostPopularBikesBase> makePopularBikes = _models.GetMostPopularBikesByMake((int)MakeId);
+                string modelIds = string.Empty;
+                modelIds = _series.GetModelIdsBySeries(seriesId);
+                string[] modelArray = modelIds.Split(',');
+                if (modelArray.Length > 0)
+                {
+                    var popularSeries = (from bike in makePopularBikes
+                                         where modelArray.Contains(bike.objModel.ModelId.ToString())
+                                         select bike
+                                         ).ToList<MostPopularBikesBase>();
+                    if (popularSeries != null && popularSeries.Any())
+                        objData.SeriesWidget.PopularSeriesBikes = popularSeries.Take(6);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Models.News.NewsIndexPage.FetchPopularBikes - BasicId : " + _basicId);
+            }
+
+        }
         #endregion
     }
 }
