@@ -174,25 +174,38 @@ namespace Bikewale.PWA.Utils
         /// <returns></returns>
         public static List<PwaBikeDetails> MapMostPopularBikesBaseToPwaBikeDetails(IEnumerable<MostPopularBikesBase> inpList)
         {
-            List<PwaBikeDetails> outList = new List<PwaBikeDetails>();
-            
-            string makeName;
-            string makeMaskingName;
-            foreach (var item in inpList)
+            List<PwaBikeDetails> outList = null;
+            try
             {
-                makeName = item.objMake == null ? (item.MakeName ?? string.Empty) : item.objMake.MakeName;
-                makeMaskingName = item.objMake == null ? (item.MakeMaskingName ?? string.Empty) : item.objMake.MaskingName;
-                outList.Add(new PwaBikeDetails()
+
+                outList = new List<PwaBikeDetails>();
+                string makeName;
+                string makeMaskingName;
+                if (inpList != null)
                 {
-                    Name = String.Format("{0} {1}", makeName, item.objModel.ModelName),
-                    DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(makeMaskingName, item.objModel.MaskingName),
-                    ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostURL, ImageSize._174x98, QualityFactor._70),
-                    Price = item.VersionPrice > 0 ? Format.FormatPrice(item.VersionPrice.ToString()) : string.Empty,
-                    PriceDescription = "Ex-showroom, " + (!string.IsNullOrEmpty(item.CityName)? item.CityName : _defaultCityName),
-                    PriceSuffix = item.VersionPrice > 0 ? "onwards" : "Price not available"
+                    foreach (var item in inpList)
+                    {
+                        makeName = item.objMake == null ? (item.MakeName ?? string.Empty) : item.objMake.MakeName;
+                        makeMaskingName = item.objMake == null ? (item.MakeMaskingName ?? string.Empty) : item.objMake.MaskingName;
+                        outList.Add(new PwaBikeDetails()
+                        {
+                            Name = String.Format("{0} {1}", makeName, item.objModel.ModelName),
+                            DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(makeMaskingName, item.objModel.MaskingName),
+                            ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostURL, ImageSize._174x98, QualityFactor._70),
+                            Price = item.VersionPrice > 0 ? Format.FormatPrice(item.VersionPrice.ToString()) : string.Empty,
+                            PriceDescription = "Ex-showroom, " + (!string.IsNullOrEmpty(item.CityName) ? item.CityName : _defaultCityName),
+                            PriceSuffix = item.VersionPrice > 0 ? "onwards" : "Price not available"
+                        }
+                        );
+                    }
                 }
-                );
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
             return outList;
         }
         /// <summary>

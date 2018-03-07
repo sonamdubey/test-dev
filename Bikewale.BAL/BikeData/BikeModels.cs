@@ -246,7 +246,7 @@ namespace Bikewale.BAL.BikeData
                 {
                     IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(MostPopularBikes.Take(5), new MostPopularBikesBaseComparer());
 
-                    if (results.Any())
+                    if (results != null && results.Any())
                     {
                         var bikes = MostPopularBikes.ToList();
 
