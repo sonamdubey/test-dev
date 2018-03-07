@@ -93,6 +93,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
                 }
                 else
                 {
+                    logger.Info("NVC missing data in certain keys.");
                     return true;
                 }
             }
