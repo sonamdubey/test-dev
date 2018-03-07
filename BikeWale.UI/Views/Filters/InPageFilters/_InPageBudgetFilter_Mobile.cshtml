@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Entities.Filters.FilterBase
 
-@if(Model != null && Model.RangeList != null)
+@if(Model != null && Model.RangeList != null && Model.FilterType != null && Model.Unit != null)
 {
     ushort len = (ushort)Model.RangeList.Count();
     for (int i = 0; i <= len; i++)
