@@ -36,25 +36,25 @@
                             </div>
                         </div>
                     
-                        <section data-bind="visible: (noOfBikes() > 0 || noOfOtherBikes() > 0)">
+                        <section data-bind="visible: isBikesLoading() || isOtherBikesLoading() || noOfBikes() > 0 || noOfOtherBikes() > 0">
                             <div class="bg-white section-bottom-margin">
                                 <h2 class="recommended-bike__title page__heading-h2">Recommended @Model.MakeName Bikes</h2>
                               
-                                    <div class="not-found-container" data-bind="visible: !isBikesLoading() && !(noOfBikes() > 0)">
-                                        <div class="not-found-section">
-                                            <span class="not-found__image">
+                                <div class="not-found-container" data-bind="visible: !isBikesLoading() && !(noOfBikes() > 0)">
+                                    <div class="not-found-section">
+                                        <span class="not-found__image">
 
-                                            </span>
-                                            <div class="not-found-description">
-                                                <p class="not-found__title">
-                                                    Oops!
-                                                </p>
-                                                <p class="not-found__text">
-                                                    We couldn't find any bike based on your criteria.
-                                                </p>
-                                            </div>
+                                        </span>
+                                        <div class="not-found-description">
+                                            <p class="not-found__title">
+                                                Oops!
+                                            </p>
+                                            <p class="not-found__text">
+                                                We couldn't find any bike based on your criteria.
+                                            </p>
                                         </div>
                                     </div>
+                                </div>
                                
                                    <div class="recommended-bike-section">
                                         <ul class="model-loader-list__content" data-bind="visible: isBikesLoading()">
@@ -86,7 +86,7 @@
                                                                     <span class="rating-badge__star"></span>
                                                                     <span data-bind="numericText: $data.reviewRatings"></span>
                                                                 </span>
-                                                                <div class="font14 inline-block">
+                                                                <div class="font8 inline-block">
                                                                     <span class="no-rating text-light-grey inline-block margin-bottom5" data-bind="visible: ($data.reviewRatings == 0)">Not rated yet</span>
                                                                 </div>                                                             
                                                                 <p class="model-detail__make-name" data-bind="text: $data.bikeMake.makeName"></p>
@@ -97,11 +97,12 @@
                                                                     <li data-bind="visible: ($data.topVersion.power > 0)"><span data-bind="text: $data.topVersion.power"></span> bhp</li>
                                                                 </ul>
                                                             </div>
-                                                            <div class="model-card__exshowroom-content" data-bind="visible: ($data.topVersion.exshowroom > 0)">
+                                                            <div class="model-card__exshowroom-content">
                                                                 <div class="model-card__exshowroom">
                                                                     <div class="card-exshowroom__col">
-                                                                        <p class="card-exshowroom__label">Ex-showroom, <span data-bind="text : $data.topVersion.hasCityPrice ? $data.topVersion.cityName : 'Mumbai'"></span></p>
-                                                                        <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span></span>
+                                                                        <p class="card-exshowroom__label">Ex-showroom, <span data-bind="text : $data.hasCityPrice ? $data.cityName : 'Mumbai'"></span></p>
+                                                                        <span class="card-exshowroom__value" data-bind="visible: $data.topVersion.exshowroom > 0">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span></span>
+                                                                        <p class="text-default" data-bind="visible: !($data.topVersion.exshowroom > 0)"><span class="font14">Price not available</span></p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -114,7 +115,7 @@
 
                             </div>
                         </section>
-                            <section>
+                        <section data-bind="visible: isBikesLoading() || isOtherBikesLoading() || noOfBikes() > 0 || noOfOtherBikes() > 0">
                                 <div class="other-recommended-bike">
                                     <h2 class="recommended-bike__title page__heading-h2" data-bind="visible : noOfOtherBikes() > 0">Other Recommended Bikes <span data-bind="visible: noOfOtherBikes() > 0">(<span data-bind="text : noOfOtherBikes()"></span>)</span></h2>
                                     <ul class="model-loader-list__content" data-bind="visible: isOtherBikesLoading()">
@@ -146,7 +147,7 @@
                                                                 <span class="rating-badge__star"></span>
                                                                 <span data-bind="numericText: $data.reviewRatings"></span>
                                                             </span>
-                                                            <div class="font14 inline-block">
+                                                            <div class="font8 inline-block">
                                                                 <span class="no-rating text-light-grey inline-block margin-bottom5" data-bind="visible: ($data.reviewRatings == 0)">Not rated yet</span>
                                                             </div>
 
@@ -158,11 +159,12 @@
                                                                 <li data-bind="visible: ($data.topVersion.power > 0)"><span data-bind="text: $data.topVersion.power"></span> bhp</li>
                                                             </ul>
                                                             </div>
-                                                        <div class="model-card__exshowroom-content" data-bind="visible: ($data.topVersion.exshowroom > 0)">
+                                                        <div class="model-card__exshowroom-content">
                                                             <div class="model-card__exshowroom">
                                                                 <div class="card-exshowroom__col">
-                                                                    <p class="card-exshowroom__label">Ex-showroom, <span data-bind="text : $data.topVersion.hasCityPrice ? $data.topVersion.cityName : 'Mumbai'"></span></p>
-                                                                    <span class="card-exshowroom__value">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span></span>
+                                                                    <p class="card-exshowroom__label">Ex-showroom, <span data-bind="text : $data.hasCityPrice ? $data.cityName : 'Mumbai'"></span></p>
+                                                                    <span class="card-exshowroom__value" data-bind="visible: $data.topVersion.exshowroom > 0">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span></span>
+                                                                    <p class="text-default" data-bind="visible: !($data.topVersion.exshowroom > 0)"><span class="font14">Price not available</span></p>
                                                                 </div>
                                                             </div>
                                                         </div>

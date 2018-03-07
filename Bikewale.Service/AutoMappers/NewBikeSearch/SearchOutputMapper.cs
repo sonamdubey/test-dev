@@ -6,6 +6,8 @@ using Bikewale.DTO.Series;
 using Bikewale.ElasticSearch.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
+using Bikewale.Notifications;
+using System;
 using System.Collections.Generic;
 namespace Bikewale.Service.AutoMappers.NewBikeSearch
 {
@@ -26,10 +28,18 @@ namespace Bikewale.Service.AutoMappers.NewBikeSearch
         internal static SearchFilters Convert(SearchFilterDTO input)
         {
 
-            Mapper.CreateMap<SearchFilterDTO, SearchFilters>();
-            Mapper.CreateMap<PriceRangeDTO, PriceRangeEntity>();
-            Mapper.CreateMap<RangeDTO, RangeEntity>();
-            return Mapper.Map<SearchFilterDTO, SearchFilters>(input);
+            try
+            {
+                Mapper.CreateMap<SearchFilterDTO, SearchFilters>();
+                Mapper.CreateMap<PriceRangeDTO, PriceRangeEntity>();
+                Mapper.CreateMap<RangeDTO, RangeEntity>();
+                return Mapper.Map<SearchFilterDTO, SearchFilters>(input);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.AutoMappers.NewBikeSearch.SearchOutputMapper");
+                return null;
+            }
 
 
 
