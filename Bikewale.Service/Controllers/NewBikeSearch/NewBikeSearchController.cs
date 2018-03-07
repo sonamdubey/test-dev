@@ -61,7 +61,6 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
         {
             try
             {
-                SearchOutput searchResult = null;
                 BikeSearchOutputEntity objBikeList = null;
 
                 SearchFilters Filters = SearchOutputMapper.Convert(input);
@@ -71,7 +70,6 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
                 if (objBikeList != null)
                 {
                     return Ok(objBikeList);
-                    //searchResult = SearchOutputMapper.Convert(objBikeList);
                 }
                 else
                     return NotFound();
