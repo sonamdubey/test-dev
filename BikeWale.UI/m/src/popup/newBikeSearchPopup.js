@@ -40,6 +40,7 @@ var recommendedBikePopup = (function () {
             //set filter list
             //vmRecommendedBikes.SetDefaultPageFilters();
             vmRecommendedBikes.SetPageFilters();
+            triggerGA('Make_Page', 'Clicked_on_ApplyFilters', (this).getAttribute('data-filter-type'));
         });
 
         $(document).on('change', '.refine-result__list input', function () {
@@ -97,13 +98,16 @@ var recommendedBikePopup = (function () {
             if (appliedFilterList.find('.filter-list__item').length === 1) { //if last item is clicked
                 closeBtn.trigger('click');
             }
-
+            else {
+                vmRecommendedBikes.ApplyInPageFilters();
+            }
             targetElement.remove();
-            vmRecommendedBikes.ApplyInPageFilters();
+            
         });
 
         $('.filter__edit').on('click', function () {
             BikeFiltersPopup.open();
+            triggerGA('Make_Page', 'Clicked_EditFilter_FilteredResults', (this).getAttribute('data-make-name'));
         });
 
         $('.other-recommended-bike').addClass('overlay--inactive');
@@ -322,6 +326,8 @@ var RecommendedBikes = function () {
         } catch (e) {
             console.warn("Unable to get query string : " + e.message);
         }
+        
+
         return query;
     };
 
@@ -463,7 +469,7 @@ var RecommendedBikes = function () {
 
                                 
                                 selectionPreview += element.find('.check-box__label').text();
-                                if (index && index !== arr.length -1) {
+                                if (index && index != arr.length -1) {
                                     selectionPreview += ', ';
                                 }
                             }
@@ -513,20 +519,32 @@ var RecommendedBikes = function () {
             }
 
 
-            if (displacement != undefined) {
+            if (displacement != undefined && displacement != "") {
                 self.searchFilter.displacement = (displacement.indexOf('+') > -1) ? new getMinMaxLimitsList(displacement) : new getMinMaxLimits(displacement);
             }
+            else {
+                self.searchFilter.displacement = [];
+            }
 
-            if (mileage != undefined) {
+            if (mileage != undefined && mileage != "") {
                 self.searchFilter.mileage = (mileage.indexOf('+') > -1) ? new getMinMaxLimitsList(mileage) : new getMinMaxLimits(mileage);
             }
-            if (power != undefined) {
+            else {
+                self.searchFilter.mileage = []
+            }
+            if (power != undefined && power != []) {
                 self.searchFilter.power = (power.indexOf('+') > -1) ? new getMinMaxLimitsList(power) : new getMinMaxLimits(power);
             }
+            else {
+                self.searchFilter.power = []
+            }
 
-            if (budget != undefined) {
+            if (budget != undefined && budget != "") {
 
                 self.searchFilter.price = (budget.indexOf('+') > -1) ? new getMinMaxLimitsList(budget) : new getMinMaxLimits(budget);
+            }
+            else {
+                self.searchFilter.price = [ 0, self.budgetStepPoints()[self.budgetStepPoints().length - 1] ]
             }
             self.searchFilter.bodyStyle = (bodyType != undefined ? bodyType.split('+') : null)
 
