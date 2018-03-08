@@ -102,7 +102,9 @@ class ArticleDetail extends React.Component {
             var nextUrlParam = nextProps.match.params;
             //componentWillRecieveProps is called on first load in UC Browser and iOS Chrome, not in other browsers
             if(prevUrlParam["basicId"] === nextUrlParam["basicId"]) { // condition 1 : new url has been pushed
-                return;
+            	if(nextProps.ArticleDetailData && nextProps.ArticleDetailData.ArticleDetail)
+            		nextProps.ArticleDetailData.InitialDataDict[window.location.pathname] = nextProps.ArticleDetailData.ArticleDetail;
+            	return;
             }
             var newHashValue = this.props.location.hash;
             var oldHashValue = nextProps.location.hash;
