@@ -75,11 +75,8 @@ var modelGallery = function () {
 	// floating slug: color
 	self.activeColorFloatingSlug = ko.observable(false);
 
-	//
-	//var colorList = self.colorPhotoList().concat(self.colorPhotoList());
-	//self.colorPhotoList(colorList.concat(colorList));
-	//self.colorPhotoList(self.colorPhotoList().slice(0, 3))
-	//
+	// video
+	self.activeVideoPopup = ko.observable(true);
 
 	var vmcolorSlugViewModel = new colorSlugViewModel(self.colors().colorPhotoList());
 	ko.applyBindings(vmcolorSlugViewModel, document.getElementById('carouselColorSlug'));
