@@ -77,7 +77,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
         }
 
 
-        /// <summary>
+        /// <summary>\
+        /// Modified by : Pratibha Verma on 8 Mar, 2018
+        /// Description : Replace sp from 'getmanufacturercampaign_25012018' to 'getmanufacturercampaign_07032018', added campaign days
         /// Modified by : Ashutosh Sharma on 25 Jan 2017
         /// Description : Replaced sp from 'getmanufacturercampaign' to 'getmanufacturercampaign_25012018', added check for daily campaign start and end time.
         /// </summary>
@@ -96,7 +98,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_campaignId", campaignId);
                     param.Add("par_dealerId", dealerId);
                     objEntity = new ConfigureCampaignEntity();
-                    using (var results = connection.QueryMultiple("getmanufacturercampaign_25012018", param: param, commandType: CommandType.StoredProcedure))
+                    using (var results = connection.QueryMultiple("getmanufacturercampaign_07032018", param: param, commandType: CommandType.StoredProcedure))
                     {
                         objEntity.DealerDetails = results.Read<ManufacturerCampaignDetails>().SingleOrDefault();
                         objEntity.CampaignPages = results.Read<ManufacturerCampaignPages>();
@@ -335,6 +337,8 @@ namespace Bikewale.ManufacturerCampaign.DAL
         }
 
         /// <summary>
+        /// Modified by : Pratibha Verma on 8 Mar, 2018
+        /// Description : Replace sp from 'savemanufacturercampaign_25012018' to 'savemanufacturercampaign_08032018' to save campain days
         /// Modified by : Ashutosh Sharma on 25 Jan 2017
         /// Description : Replaced sp from 'savemanufacturercampaign_21062017' to 'savemanufacturercampaign_25012018' to also save daily campaign start and end time.
         /// </summary>
@@ -366,9 +370,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_endDate", objCampaign.EndDate ?? null);
                     param.Add("par_dailyStartTime", objCampaign.DailyStartTime);
                     param.Add("par_dailyEndTime", objCampaign.DailyEndTime);
+                    param.Add("par_campaignDays", objCampaign.CampaignDays);
                     param.Add("par_showonexshowroomprice", objCampaign.ShowOnExShowroomPrice);
                     param.Add("par_campaignid", objCampaign.CampaignId, dbType: DbType.Int32, direction: ParameterDirection.InputOutput);
-                    connection.Query<dynamic>("savemanufacturercampaign_25012018", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Query<dynamic>("savemanufacturercampaign_08032018", param: param, commandType: CommandType.StoredProcedure);
                     campaignId = (uint)param.Get<int>("par_campaignid");
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -480,6 +485,8 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Jun 2017
         /// Description :   Returns Lead Campaign and EMI campaign by model,city and page
+        /// Modified by : Pratibha Verma on 8 Mar, 2018
+        /// Description : Replace sp 'getmanufacturercampaignbymodelcity_25012018' with 'getmanufacturercampaignbymodelcity_07032018' to add check for campaign days
         /// Modified by : Ashutosh Sharma on 25 Jan 2017
         /// Description : Replaced sp from 'getmanufacturercampaignbymodelcity_28092017' to 'getmanufacturercampaignbymodelcity_25012018' to get daily campaign start and end time.
         /// </summary>
@@ -499,7 +506,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_modelId", modelId);
                     param.Add("par_cityId", cityId);
                     param.Add("par_pageId", (int)pageId);
-                    using (var results = connection.QueryMultiple("getmanufacturercampaignbymodelcity_25012018", param: param, commandType: CommandType.StoredProcedure))
+                    using (var results = connection.QueryMultiple("getmanufacturercampaignbymodelcity_07032018", param: param, commandType: CommandType.StoredProcedure))
                     {
                         config = new Entities.ManufacturerCampaignEntity();
                         config.LeadCampaign = results.Read<ManufacturerCampaignLeadConfiguration>().FirstOrDefault();
