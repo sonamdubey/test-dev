@@ -1,0 +1,117 @@
+$_share-popup-z-index: 8
+	
+.share-popup__bg-window
+	@include vendor-prefix('transition', opacity .2s cubic-bezier(0, 0, .3, 1))
+	width: 100%
+	height: 100%
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	opacity: 0
+	pointer-events: none
+	cursor: pointer
+	background: color('white', .8)
+	z-index: $_share-popup-z-index - 1
+	will-change: opacity
+
+.share-popup__content
+	@include vendor-prefix('transform', translate(0, 110%))
+	@include vendor-prefix('transition', transform .3s cubic-bezier(0, 0, .3, 1))
+	width: 100%
+	height: 160px
+	padding: 24px
+	text-align: center
+	position: fixed
+	bottom: 0
+	left: 0
+	right: 0
+	background: color('dark-black', .9)
+	z-index: $_share-popup-z-index
+	will-change: transform
+
+.share-popup__close
+	@include cross-fff-icon
+	background-size: 12px
+	width: 12px
+	height: 12px
+	padding: 20px
+	position: absolute
+	top: 5px
+	right: 5px
+	display: inline-block
+	cursor: pointer
+
+.share-popup__title
+	color: #fff
+	font-size: 14px
+	font-weight: 600
+	margin-bottom: 25px
+
+// share icons list
+.share-list__item
+	display: inline-block
+	vertical-align: middle
+	margin: 10px 17px
+
+.share-item__icon
+	width: 32px
+	height: 32px
+	display: block
+	cursor: pointer
+
+
+.share-icon__instagram
+	background: url('/image/instagram.png') no-repeat
+	background-size: cover
+
+.share-icon__whatsapp
+	background: url('/image/whatsapp.png') no-repeat
+	background-size: cover
+
+.share-icon__facebook
+	background: url('/image/facebook.png') no-repeat
+	background-size: cover
+
+.share-icon__twitter
+	background: url('/image/twitter.png') no-repeat
+	background-size: cover
+
+
+// active state
+.share-popup--active
+	.share-popup__content
+		@include vendor-prefix('transform', translate(0, 0))
+
+	.share-popup__bg-window
+		opacity: 1
+		pointer-events: auto
+
+
+// orientation landscape
+.orientation--landscape
+	.share-popup__content
+		@include flexbox
+		@include justify-content(center)
+		@include align-items(center)
+		@include flex-direction(column)
+		height: 100%
+		background: radial-gradient(#2a2a2a, #5a5a5a)
+
+	.share-popup--active
+		.share-popup__content
+			transition-duration: 0s
+			animation: fadeInTranslate .4s forwards
+
+@keyframes fadeInTranslate
+	0%
+		display: none
+		opacity: 0
+
+	100%
+		opacity: 1
+		display: block
+		transform: translate(0, 0)
+
+
+

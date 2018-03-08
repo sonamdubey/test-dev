@@ -3279,6 +3279,7 @@
     <Content Include="src\user-review\review-contest.js" />
     <Content Include="src\user-review\write-review.js" />
     <Content Include="src\utils\navigationTabs.js" />
+    <Content Include="src\utils\scroll.js" />
     <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="src\zebra-datepicker.js" />
@@ -4018,6 +4019,7 @@
     <Content Include="sass\m\photos\listing.sass" />
     <Content Include="sass\partials\_similar-bike-carousel.sass" />
     <Content Include="Views\Photos\Model_Mobile.cshtml" />
+    <Content Include="sass\partials\_share-popup.sass" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
