@@ -1,7 +1,7 @@
 // JavaScript Document
 var focusedMakeModel = null, focusedCity = null, isMakeModelRedirected = false;
 var objBikes = new Object(), objCity = new Object(), globalCityId = 0, _makeName = '', ga_pg_id = '0', pqSourceId = "37";
-var IsPriceQuoteLinkClicked = false, _target = 3, popup, recentSearches;
+var IsPriceQuoteLinkClicked = false, _target = 2, popup, recentSearches;
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
 var bw_ObjContest;
