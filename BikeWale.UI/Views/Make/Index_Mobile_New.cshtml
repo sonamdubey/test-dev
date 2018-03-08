@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Models.MakePageVM
-
+@using Bikewale.Models;
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
@@ -178,12 +178,30 @@
                                                             <span class="font18 text--semibold">Price unavailable</span>
                                                         }
 
+                                                        <p><a href="javascript:void(0)" data-makename="@Model.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid="21" class="getquotation bw-ga" rel="nofollow">Check On Road Price</a></p>
+
+
                                                     </div>
                                                     @if (bike.EMIDetails != null && bike.EMIDetails.EMIAmount > 0)
                                                     {
                                                         <div class="card-emi__col">
                                                             <p class="card-emi__label">EMI starting at</p>
                                                             <span class="card-emi__value">@Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(bike.EMIDetails.EMIAmount.ToString())</span>
+                                                            <p>
+                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink"><span id="mobileEmiCalculator"></span>Calculate EMI</a>
+                                                            </p>
+                                                           
+                                                            @{
+                                                                Model.EMICalculator = new EMICalculatorVM();
+                                                                Model.EMICalculator.EMI = bike.EMIDetails;
+                                                                Model.EMICalculator.BikeName = bikeName;
+                                                                Model.EMICalculator.BikePrice = (uint)bike.OnRoadPriceMumbai;
+                                                                Model.EMICalculator.IsMobile = true;
+                                                                Model.EMICalculator.IsManufacturerLeadAdShown = true;
+                                                                Model.EMICalculator.IsPrimaryDealer = true;
+
+                                                            }
+                                                        
                                                         </div>
                                                     }
 
@@ -197,6 +215,9 @@
                     </div>
                 </section>
             }
+
+            @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
+            <span class="clear"></span>
             
             @if (Model.AdTags.Ad_300x250_Top)
             { 
@@ -454,6 +475,7 @@
             }
 
         </div>
+
     </section>
 
     if (Model.AdTags.Ad_300x250_Bottom)

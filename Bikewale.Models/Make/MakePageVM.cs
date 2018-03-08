@@ -51,6 +51,9 @@ namespace Bikewale.Models
     /// 
     /// Modified By : Rajan Chauhan on 19 Feb 2018
     /// Description : Replaced BikeModelsPhotos with BikeModelsPhotos
+    /// 
+    /// Modified By : Sanskar Gupta on 07 Mar 2018
+    /// Description : Added `EMICalculator`
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -107,5 +110,7 @@ namespace Bikewale.Models
 
 
         public NewLaunchedWidgetVM NewLaunchedWidget { get; set; }
+
+        public EMICalculatorVM EMICalculator { get; set; }
     }
 }
