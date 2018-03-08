@@ -3,9 +3,15 @@ using System;
 using System.Collections.Generic;
 namespace Bikewale.Entities.NewBikeSearch
 {
+
+    /// <summary>
+    /// Modified by: Dhruv Joshi
+    /// Dated: 8th March 2018
+    /// Description: BodyStyle changed to IEnumerable of strings
+    /// </summary>
     public class SearchFilters
     {
-        public ushort BodyStyle { get; set; }
+        public IEnumerable<string> BodyStyle { get; set; }
         public uint MakeId { get; set; }
         public bool ABS { get; set; }
         public bool DiscBrake { get; set; }
