@@ -92,9 +92,20 @@ var recommendedBikePopup = (function () {
 
         /* filter element click */
         $('.recommended-bike-popup').on('click', '.filter-item', function () {
-            var targetElement = $(this).closest('.filter-list__item');
+						var targetElement = $(this).closest('.filter-list__item');
+						var targetElementId = targetElement.attr('data-id');
 
-            $('#' + targetElement.attr('data-id')).trigger('click');
+						if(targetElementId === "budget") {
+							vmRecommendedBikes.budgetSlider([0, vmRecommendedBikes.budgetStepPoints().length - 1]);
+
+							var minBuget = vmRecommendedBikes.budgetSlider()[0];
+							var maxBuget = vmRecommendedBikes.budgetSlider()[1];
+
+							vmRecommendedBikes.Filters()['budget'] = vmRecommendedBikes.FiltersValue()['budget'] = ''
+						}
+						else {
+							$('#' + targetElementId).trigger('click');
+						}
             if (appliedFilterList.find('.filter-list__item').length === 1) { //if last item is clicked
                 closeBtn.trigger('click');
             }
@@ -143,8 +154,6 @@ var recommendedBikePopup = (function () {
         for (var key in vmRecommendedBikes.Filters()) {
             var filterTypeContainer = $('.all-model__list li[data-filter-type="' + key + '"]');
             if (filterTypeContainer.length) {
-                var arr = vmRecommendedBikes.Filters()[key].split("+");
-
                 var activeElementList = filterTypeContainer.find('.refine-result__list input[type="checkbox"]');
                 if (!activeElementList.length) {
                     activeElementList = filterTypeContainer.find('.refine-result__list input[type="radio"]');
@@ -541,7 +550,7 @@ var RecommendedBikes = function () {
 
             if (budget != undefined && budget != "") {
 
-                self.searchFilter.price = (budget.indexOf('+') > -1) ? new getMinMaxLimitsList(budget) : new getMinMaxLimits(budget);
+							self.searchFilter.price = new getMinMaxBudgetLimits(budget);
             }
             else {
                 self.searchFilter.price = [ 0, self.budgetStepPoints()[self.budgetStepPoints().length - 1] ]
@@ -772,6 +781,21 @@ function getMinMaxLimits(range) {
     return filterArray;
 }
 
+function getMinMaxBudgetLimits(range) {
+	var filterArray = [];
+	if (range != undefined) {
+		var selectedRangeList = range.split('+');
+	}
+	if (selectedRangeList != null) {
+		maxMinLimits = {
+			"min": selectedRangeList[0],
+			"max": selectedRangeList[1] === 0 ? vmRecommendedBikes.budgetStepPoints()[vmRecommendedBikes.budgetStepPoints().length - 1] : selectedRangeList[1]
+		}
+		filterArray.push(maxMinLimits);
+	}
+
+	return filterArray;
+}
 
 
 
