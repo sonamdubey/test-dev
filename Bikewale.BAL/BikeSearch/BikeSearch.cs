@@ -6,12 +6,10 @@ using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Bikewale.Utility.LinqHelpers;
 using Nest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Bikewale.BAL.BikeSearch
 {
@@ -61,8 +59,9 @@ namespace Bikewale.BAL.BikeSearch
             {
                 if (filters != null)
                 {
-                    IEnumerable<BikeModelDocument> bikeList = GetBikeSearchList(filters, BikeSearchEnum.BikeList);
-                    
+                    long totalResults;
+                    IEnumerable<BikeModelDocument> bikeList = GetBikeSearchList(filters, BikeSearchEnum.BikeList, out totalResults);
+
                     if (bikeList != null && bikeList.Any())
                     {
                         objBikeList.Bikes = Convert(bikeList);
@@ -103,8 +102,8 @@ namespace Bikewale.BAL.BikeSearch
                                 }
                             }
                         }
-
-                        SetPrevNextFilters(filters, objBikeList);  
+                        objBikeList.TotalCount = (int)totalResults;
+                        SetPrevNextFilters(filters, objBikeList);
                     }
                 }
 
@@ -155,11 +154,13 @@ namespace Bikewale.BAL.BikeSearch
         /// <param name="filters"></param>
         /// <param name="source"></param>
         /// <returns></returns>
-        private IEnumerable<BikeModelDocument> GetBikeSearchList(SearchFilters filters, BikeSearchEnum source)
+        private IEnumerable<BikeModelDocument> GetBikeSearchList(SearchFilters filters, BikeSearchEnum source, out long totalResults)
         {
+            totalResults = 0;
             IEnumerable<BikeModelDocument> bikeModelDocs = null;
             try
             {
+
                 string indexName = GetIndexName(source);
                 string typeName = GetTypeName(source);
 
@@ -170,23 +171,22 @@ namespace Bikewale.BAL.BikeSearch
                     if (searchDescriptor != null)
                     {
                         ISearchResponse<BikeModelDocument> _result = _client.Search(searchDescriptor);
-
+                        totalResults = _result.Total;
                         if (_result != null && _result.Hits != null && _result.Hits.Count > 0)
                         {
                             bikeModelDocs = _result.Documents.ToList();
+
                         }
 
-                        if (bikeModelDocs != null && bikeModelDocs.Any() && filters.PageNumber > 0 && filters.PageSize > 0)
-                        {
-                            bikeModelDocs = bikeModelDocs.Page(filters.PageNumber, filters.PageSize);
-                        } 
                     }
+
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Exception : Bikewale.BAL.BikeSearch.GetBikeSearchList "));
             }
+
             return bikeModelDocs;
         }
 
@@ -202,16 +202,30 @@ namespace Bikewale.BAL.BikeSearch
         private Func<SearchDescriptor<T>, SearchDescriptor<T>> BuildSearchDescriptor<T>(SearchFilters filters, string indexName, string typeName) where T : class
         {
             Func<SearchDescriptor<T>, SearchDescriptor<T>> searchDescriptor = null;
-
             try
             {
-                searchDescriptor = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(
-                           sd => sd.Index(indexName).Type(typeName)
-                                    .Query(q => q
-                                    .Bool(bq => bq
-                                     .Filter(ff => ff
-                                         .Bool(bb => bb.
-                                             Must(ProcessFilters(filters)))))));
+
+
+                if (filters.PageNumber > 0 && filters.PageSize > 0)
+                {
+                    searchDescriptor = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(
+                            sd => sd.Index(indexName).Type(typeName)
+                                     .Query(q => q
+                                     .Bool(bq => bq
+                                      .Filter(ff => ff
+                                          .Bool(bb => bb.
+                                              Must(ProcessFilters(filters)))))).From((filters.PageNumber - 1) * filters.PageSize).Take(filters.PageSize));
+                }
+                else
+                {
+                    searchDescriptor = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(
+                          sd => sd.Index(indexName).Type(typeName)
+                                   .Query(q => q
+                                   .Bool(bq => bq
+                                    .Filter(ff => ff
+                                        .Bool(bb => bb.
+                                            Must(ProcessFilters(filters)))))).Size(40));
+                }
             }
             catch (Exception ex)
             {
