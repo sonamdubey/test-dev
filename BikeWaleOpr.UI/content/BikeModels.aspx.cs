@@ -159,6 +159,8 @@ namespace BikeWaleOpr.Content
         /// Description : Added call to ClearModelsBySeriesId
         /// Modified by : Ashutosh Sharma on 23 Oct 2017
         /// Description : Replaced sp from 'insertbikemodel14092017' to 'insertbikemodel_23102017'.
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="e"></param>
@@ -202,6 +204,15 @@ namespace BikeWaleOpr.Content
 
                             //CLear popularBikes key                       
                             ClearPopularBikesCache();
+
+                            using (IUnityContainer container = new UnityContainer())
+                            {
+                                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                                IBikeModels bikeModels = container.Resolve<IBikeModels>();
+
+                                bikeModels.UpdateModelESIndex(Convert.ToString(_modelId), "insert");
+                            }
                         }
 
                         if (_mc != null)
@@ -334,6 +345,8 @@ namespace BikeWaleOpr.Content
         /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
         /// Modified by : Rajan Chauhan on 06 Feb 2018.
         /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
@@ -389,6 +402,15 @@ namespace BikeWaleOpr.Content
                     nvc.Add("v_OriginalImagePath", null);
                     nvc.Add("v_IsDeleted", null);
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
+
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                        container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                        IBikeModels bikeModels = container.Resolve<IBikeModels>();
+
+                        bikeModels.UpdateModelESIndex(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), "update");
+                    }
                 }
 
                 // Bike is discontinued
@@ -481,6 +503,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Modified by : Sajal Gupta on 9-1-2017
         /// Desc : Refresh popular bikes memcache keys.
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// </summary>
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
         {
@@ -493,6 +517,15 @@ namespace BikeWaleOpr.Content
             uint modelId;
             uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
             deleteModelMostPopularBikes(modelId, makeId);
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                IBikeModels bikeModels = container.Resolve<IBikeModels>();
+
+                bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "delete");
+            }
 
             BindGrid();
         }

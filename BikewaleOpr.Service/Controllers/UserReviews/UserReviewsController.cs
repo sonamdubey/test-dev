@@ -93,6 +93,14 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         {
                             MemCachedUtil.Remove(string.Format("BW_PopularBikesWithRecentAndHelpfulReviews_Make_{0}", inputs.MakeId));
                         }
+
+                        //Deepak code to push goes here
+                        /*
+                        if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved))
+                        {
+                            bikeModels.UpdateModelESIndex(Convert.ToString(inputs.ModelId), "update");
+                        }
+                         */
                     }
 
                 }
@@ -173,6 +181,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                 {
                     IEnumerable<BikeRatingApproveEntity> objReviewDetails = _userReviewsRepo.GetUserReviewDetails(reviewIds);
 
+                    string updatedIds = string.Empty;
+
                     foreach(var obj in objReviewDetails)
                     {                                                
                         MemCachedUtil.Remove(string.Format("BW_BikeReviewsInfo_MO_{0}", obj.ModelId));
@@ -180,10 +190,13 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_{0}", obj.ModelId));
-
+                        string.Format("{0},", obj.ModelId);
                     }
                     MemCachedUtil.Remove("BW_UserReviewIdMapping");
                     MemCachedUtil.Remove("BW_BikesByMileage");
+
+                    //Deepak code to push goes here.
+                    //bikeModels.UpdateModelESIndex(updatedIds, "update");
                 }
             }
             catch(Exception ex)

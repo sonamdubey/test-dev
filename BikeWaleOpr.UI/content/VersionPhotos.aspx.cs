@@ -1,5 +1,8 @@
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Interface.BikeData;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using RabbitMqPublishing;
 using System;
@@ -95,6 +98,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Modified By : Sadhana Upadhyay on 29th Jan 2014
         /// Summary : To Set IsReplication = 1
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -114,6 +119,15 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, qryStrModel));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                        container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                        IBikeModels bikeModels = container.Resolve<IBikeModels>();
+
+                        bikeModels.UpdateModelESIndex(qryStrModel, "update");
+                    }
 
                     BindRepeater();
                 }

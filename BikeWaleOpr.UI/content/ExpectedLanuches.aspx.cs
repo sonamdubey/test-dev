@@ -96,6 +96,8 @@ namespace BikeWaleOpr.Content
         /// Description : Added call to ClearSeriesCache.
         /// Modified by : Rajan Chauhan on 06 Feb 2018.
         /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -105,6 +107,7 @@ namespace BikeWaleOpr.Content
             {
                 string selId = string.Empty;
                 string makeIdList = string.Empty;
+                string updatedModels = string.Empty;
                 List<string> idList = new List<string>();
                 for (int i = 0; i < dtgrdLaunches.Items.Count; i++)
                 {
@@ -124,6 +127,9 @@ namespace BikeWaleOpr.Content
                         UInt32 makeId, modelId;
                         UInt32.TryParse(lblModelId.Text, out modelId);
                         UInt32.TryParse(lblMakeId.Text, out makeId);
+                        
+                        updatedModels += string.Format("{0},", modelId);
+
                         //Refresh memcache object for newbikelaunches
                         if (modelId > 0)
                         {
@@ -181,6 +187,15 @@ namespace BikeWaleOpr.Content
                 {
                     UpdateBikeESIndex(idList);
                 }
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                    container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                    IBikeModels bikeModels = container.Resolve<IBikeModels>();
+
+                    bikeModels.UpdateModelESIndex(updatedModels, "update");
+                } 
             }
             catch (Exception err)
             {
