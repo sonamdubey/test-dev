@@ -69,6 +69,25 @@
 		notifyPopup.open();
 	});
 
+
+	$('.emi-calculator__link').on('click', function () {
+	    var data = $(this).children();
+
+	    var emiDetails = JSON.parse(data.attr('data-emiDetails'));
+	    var bikePrice = data.attr('data-bikePrice');
+
+	    EMIviewModel.processingFees(emiDetails.processingFee);
+	    EMIviewModel.bikePrice(bikePrice);
+	    EMIviewModel.tenure(emiDetails.tenure);
+	    EMIviewModel.rateofinterest(emiDetails.rateOfInterest);
+	    EMIviewModel.minTenure(emiDetails.minTenure);
+	    EMIviewModel.maxTenure(emiDetails.maxTenure);
+	    EMIviewModel.totalPayable(46890);
+	    EMIviewModel.monthlyEMI(12345);
+	    EMIviewModel.loan(1212);
+
+	});
+
 	formField.registerEvents();
 	
 	//interesting fact popup
