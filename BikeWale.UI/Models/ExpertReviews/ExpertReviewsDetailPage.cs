@@ -669,6 +669,7 @@ namespace Bikewale.Models
                 }
                 else
                 {
+                    string urlPrefix = IsMobile ? "m/" : "";
                     UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                     objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
                     objUpcomingBikes.Filters.PageNo = 1;
@@ -683,12 +684,12 @@ namespace Bikewale.Models
                     if (objData.Make != null)
                     {
                         objData.UpcomingBikes.WidgetHeading = string.Format("Upcoming {0} Bikes", objData.Make.MakeName);
-                        objData.UpcomingBikes.WidgetHref = string.Format("/{0}{1}-bikes/upcoming/", IsMobile ? "m/":"", objData.Make.MaskingName);
+                        objData.UpcomingBikes.WidgetHref = string.Format("/{0}{1}-bikes/upcoming/", urlPrefix, objData.Make.MaskingName);
                     }
                     else
                     {
                         objData.UpcomingBikes.WidgetHeading = "Upcoming Bikes";
-                        objData.UpcomingBikes.WidgetHref = string.Format("/{0}upcoming-bikes/", IsMobile ? "m/" : "");
+                        objData.UpcomingBikes.WidgetHref = string.Format("/{0}upcoming-bikes/", urlPrefix);
                     }
                     objData.UpcomingBikes.WidgetLinkTitle = "Upcoming Bikes in India";
                 }
@@ -765,20 +766,21 @@ namespace Bikewale.Models
             {
                 if (objData.Make != null)
                 {
+                    string urlPrefix = IsMobile ? "m/" : "";
                     if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                     {
                         PopularBikesWidget.WidgetHeading = string.Format("Popular {0} Scooters", objData.Make.MakeName);
                         if (objData.Make.IsScooterOnly)
-                            PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-bikes/", IsMobile ? "m/":"", objData.Make.MaskingName);
+                            PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-bikes/", urlPrefix, objData.Make.MaskingName);
                         else
-                            PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-scooters/", IsMobile ? "m/":"", objData.Make.MaskingName);
+                            PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-scooters/", urlPrefix, objData.Make.MaskingName);
                         PopularBikesWidget.WidgetLinkTitle = string.Format("{0} Scooters", objData.Make.MakeName);
                         PopularBikesWidget.CtaText = "View all scooters";
                     }
                     else
                     {
                         PopularBikesWidget.WidgetHeading = string.Format("Popular {0} Bikes", objData.Make.MakeName);
-                        PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-bikes/", IsMobile ? "m/" : "", objData.Make.MaskingName);
+                        PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-bikes/", urlPrefix, objData.Make.MaskingName);
                         PopularBikesWidget.WidgetLinkTitle = string.Format("{0} Bikes", objData.Make.MakeName);
                         PopularBikesWidget.CtaText = "View all bikes";
                     }
