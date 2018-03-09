@@ -6,7 +6,7 @@ var eleGallery, vmModelGallery, colorIndex = 0, galleryRoot;
 var photoCount, videoCount, modelName, bikeModelId, imageIndex, colorImageId, returnUrl, isColorImageSet = false;
 var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
 
-var gallerySwiper, colorGallerySwiper, thumbnailSwiper, colorThumbnailSwiper, videoThumbnailSwiper, videoListEvents;
+var gallerySwiper, colorGallerySwiper, thumbnailSwiper, colorThumbnailSwiper, videoSwiper, videoThumbnailSwiper, videoListEvents;
 
 var setPageVariables = function () {
 	eleGallery = $("#pageGallery");
@@ -229,6 +229,30 @@ var modelGallery = function () {
 		}
 	}
 
+	// gallery video popup
+	self.openVideoPopup = function () {
+		self.activeVideoPopup(true);
+		self.setVideoBodyHeight();
+		//setColorGalleryFooter();
+		historyObj.addToHistory('videosPopup');
+	}
+
+	self.closeVideoPopup = function (isClickEvent) {
+		if (self.activeVideoPopup()) {
+			self.activeVideoPopup(false);
+
+			if (isClickEvent) {
+				history.back();
+			}
+		}
+	}
+
+	self.setVideoBodyHeight = function () {
+		var availableHeight = $('#videoGalleryPopup').outerHeight() - $('.video-popup__head').outerHeight();
+
+		$('.video-popup__body').css('height', availableHeight);
+	}
+
 };
 
 function colorSlugViewModel(colorPhotoList) {
@@ -328,6 +352,12 @@ function resizeHandler() {
 	vmModelGallery.resetSharePopup();
 	setColorListHeight();
 	setColorGalleryFooter();
+
+	// video
+	if(videoSwiper) {
+		vmModelGallery.setVideoBodyHeight();
+		handleVideoSwiper();
+	}
 };
 
 function toggleFullScreen(goFullScreen) {
@@ -520,7 +550,34 @@ docReady(function () {
 
 	window.addEventListener('resize', resizeHandler, true);
 	resizeHandler();
+
+	videoSwiper = new Swiper('#mainVideoSwiper', {
+		direction: 'vertical',
+		freeMode: true,
+		spaceBetween: 0,
+		slidesPerView: 'auto',
+		onSlideChangeStart: SwiperYT.slideChangeStart
+	})
+
+	SwiperYT.YouTubeApi.addApiScript();
 });
+
+function handleVideoSwiper() {
+	if (window.innerWidth > window.innerHeight) {
+		videoSwiper.params.freeMode = false;
+		videoSwiper.params.direction = 'horizontal';
+		$(videoSwiper.container[0]).removeClass('swiper-container-vertical');
+	}
+	else {
+		videoSwiper.params.freeMode = true;
+		videoSwiper.params.direction = 'vertical';
+		$(videoSwiper.container[0]).addClass('swiper-container-vertical');
+	}
+
+	videoSwiper.destroy(false);
+	videoSwiper.init();
+	videoSwiper.update(true);
+}
 
 function isInViewport(element) {
 	var rect = element.getBoundingClientRect();

@@ -52,18 +52,21 @@
 	line-height: 52px
 
 .video-popup__body
-	padding: 15px 20px
+	height: 500px
+	padding-right: 20px
+	padding-left: 20px
 	overflow-y: scroll
 
-	.swiper-slide
-		width: 100%
+@import video-card-container
 
-		&:first-child
+.video-popup__body
+	.video-list
+		.video-card-container
+			margin-right: 0
 			margin-left: 0
 
-
-
-@import video-card-container
+		.swiper-card__label
+			font-size: 12px
 
 @keyframes fadeInTranslate
 	0%
@@ -74,3 +77,55 @@
 		opacity: 1
 		display: block
 		transform: translate(0, 0)
+
+.swiper__videos
+	&.swiper-container
+		width: 100%
+		height: 100%
+
+	.swiper-wrapper
+		display: block
+
+	.swiper-slide
+		width: 100%
+		height: auto
+		min-height: 250px
+
+		&:first-child
+			margin-left: 0
+
+.swiper-container
+	.iframe-overlay
+    position: absolute
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    z-index: 8
+
+// landscape mode
+.video-popup--landscape
+	.swiper__videos
+		padding-right: 100px
+
+		.swiper-wrapper
+			display: flex
+
+		.swiper-slide
+			transform: scale(.7)
+			transition: transform .4s ease
+
+			&.swiper-slide-active
+				transform: scale(1)
+
+		.swiper-slide
+			width: 360px
+			padding-top: 0
+			padding-bottom: 0
+			border: 0
+
+	.video-popup__body
+		padding-right: 0
+		padding-left: 0
+
+

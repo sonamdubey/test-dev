@@ -3280,6 +3280,7 @@
     <Content Include="src\user-review\write-review.js" />
     <Content Include="src\utils\navigationTabs.js" />
     <Content Include="src\utils\scroll.js" />
+    <Content Include="src\utils\swiperYoutube.js" />
     <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="src\zebra-datepicker.js" />
