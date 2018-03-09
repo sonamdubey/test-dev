@@ -74,6 +74,12 @@ namespace BikeWaleOpr.Content
             pnlAdd.Visible = true;
         }
 
+        /// <summary>
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="e"></param>
         void btnSave_Click(object Sender, EventArgs e)
         {
             Trace.Warn("Uploading Photos...");
@@ -88,6 +94,15 @@ namespace BikeWaleOpr.Content
                 {
                     UpdateVersions(lt.Text, out originalImgPath);
                     SavePhoto(lt.Text, originalImgPath.Split('?')[0]);
+
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                        container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                        IBikeModels bikeModels = container.Resolve<IBikeModels>();
+
+                        bikeModels.UpdateModelESIndex(qryStrModel, "update");
+                    }
                 }
             }
 

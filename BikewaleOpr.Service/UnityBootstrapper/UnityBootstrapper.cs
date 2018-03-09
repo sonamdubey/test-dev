@@ -89,6 +89,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<ICacheManager, MemcacheManager>();
             container.RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>();
             container.RegisterType<ISponsoredComparison, SponsoredComparison>();
+            container.RegisterType<IBikeModels, BikeModels>();
 
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
             container.RegisterType<IDealerPriceRepository, DealerPriceRepository>();

@@ -5,6 +5,7 @@ using BikewaleOpr.BAL;
 using BikewaleOpr.DTO.UserReviews;
 using BikewaleOpr.Entities.UserReviews;
 using BikewaleOpr.Entity.UserReviews;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.Service.AutoMappers.UserReviews;
 using System;
@@ -20,14 +21,16 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
     public class UserReviewsController : ApiController
     {
         private readonly IUserReviewsRepository _userReviewsRepo = null;
+        private readonly IBikeModels _bikeModels = null;
 
         /// <summary>
         /// Constructor to initialize dependencies
         /// </summary>
         /// <param name="userReviewsRepo"></param>
-        public UserReviewsController(IUserReviewsRepository userReviewsRepo)
+        public UserReviewsController(IUserReviewsRepository userReviewsRepo, IBikeModels bikeModels)
         {
             _userReviewsRepo = userReviewsRepo;
+            _bikeModels = bikeModels;
         }
 
         /// <summary>
@@ -94,13 +97,10 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                             MemCachedUtil.Remove(string.Format("BW_PopularBikesWithRecentAndHelpfulReviews_Make_{0}", inputs.MakeId));
                         }
 
-                        //Deepak code to push goes here
-                        /*
                         if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved))
                         {
-                            bikeModels.UpdateModelESIndex(Convert.ToString(inputs.ModelId), "update");
+                            _bikeModels.UpdateModelESIndex(Convert.ToString(inputs.ModelId), "update");
                         }
-                         */
                     }
 
                 }
@@ -190,13 +190,13 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_{0}", obj.ModelId));
-                        string.Format("{0},", obj.ModelId);
+                        updatedIds += string.Format("{0},", obj.ModelId);
                     }
                     MemCachedUtil.Remove("BW_UserReviewIdMapping");
                     MemCachedUtil.Remove("BW_BikesByMileage");
 
-                    //Deepak code to push goes here.
-                    //bikeModels.UpdateModelESIndex(updatedIds, "update");
+
+                    _bikeModels.UpdateModelESIndex(updatedIds, "update");
                 }
             }
             catch(Exception ex)
