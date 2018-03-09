@@ -449,11 +449,11 @@ var RecommendedBikes = function () {
             for(var key in self.Filters()) {
                 switch (key) {
                     case "budget":
-                        var arr = self.Filters()[key];
-                        
+                        var arr = self.FiltersValue()[key];
+                        var budgetRange = getMinMaxBudgetLimits(arr);
                         self.budgetSlider([
-                            $.inArray(parseInt(self.searchFilter.price[0]["min"], 10), self.budgetStepPoints()),
-                            $.inArray(parseInt(self.searchFilter.price[0]["max"], 10), self.budgetStepPoints())
+                            $.inArray(parseInt(budgetRange[0]["min"], 10), self.budgetStepPoints()),
+                            $.inArray(parseInt(budgetRange[0]["max"], 10), self.budgetStepPoints())
                         ]);
 
                         self.setBudgetSelection();
@@ -574,7 +574,10 @@ var RecommendedBikes = function () {
 							self.searchFilter.price = new getMinMaxBudgetLimits(budget);
             }
             else {
+                
                 self.searchFilter.price = [ 0, self.budgetStepPoints()[self.budgetStepPoints().length - 1] ]
+                delete self.Filters()["budget"];
+                delete self.FiltersValue()["budget"];
             }
             self.searchFilter.bodyStyle = (bodyType != undefined ? bodyType.split('+') : null)
 
@@ -802,7 +805,7 @@ function getMinMaxLimits(range) {
     if (selectedRangeList != null) {
         maxMinLimits = {
             "min": selectedRangeList[0],
-            "max": selectedRangeList[1] === 0 ? vmRecommendedBikes.budgetStepPoints()[vmRecommendedBikes.budgetStepPoints().length - 1] : selectedRangeList[1]
+            "max": selectedRangeList[1]
         }
         filterArray.push(maxMinLimits);
     }
@@ -812,13 +815,17 @@ function getMinMaxLimits(range) {
 
 function getMinMaxBudgetLimits(range) {
 	var filterArray = [];
-	if (range != undefined) {
+	if (range != undefined &&  range != '') {
 		var selectedRangeList = range.split('+');
+	}
+	else {
+	    delete vmRecommendedBikes.Filters()["budget"];
+	    delete vmRecommendedBikes.FiltersValue()["budget"];
 	}
 	if (selectedRangeList != null) {
 		maxMinLimits = {
 			"min": selectedRangeList[0],
-			"max": selectedRangeList[1] === 0 ? vmRecommendedBikes.budgetStepPoints()[vmRecommendedBikes.budgetStepPoints().length - 1] : selectedRangeList[1]
+			"max": selectedRangeList[1] === "0" ? vmRecommendedBikes.budgetStepPoints()[vmRecommendedBikes.budgetStepPoints().length - 1].toString() : selectedRangeList[1]
 		}
 		filterArray.push(maxMinLimits);
 	}
