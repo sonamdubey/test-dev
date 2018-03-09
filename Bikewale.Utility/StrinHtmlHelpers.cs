@@ -334,7 +334,6 @@ namespace System
 
             return Tuple.Create(new string(arr, 0, arrayIndex), arrayIndex);
         }
-
         /// <summary>
         /// Created By : Sushil Kumar on 2nd Oct 2017
         /// Description : To insert html in between the source html 
@@ -416,6 +415,73 @@ namespace System
 
             return new string(arr);
         }
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 01 Mar 2018
+        /// Description : To split source html into two html contents according to 'truncateAt' length of content inside html tags.
+        /// </summary>
+        /// <param name="source">Source html string.</param>
+        /// <param name="truncateAt">Length of content inside html tags which will be topContent and remaining will be bottomContent.</param>
+        /// <param name="topContent">Strign containing first part of split of length upto near to truncateAt index.</param>
+        /// <param name="bottomContent">Strign containing remaining part of split.</param>
+        public static void InsertHTMLBetweenHTMLPwa(string source, int truncateAt, out string topContent, out string bottomContent)
+        {
+            var arr = new char[source.Length];
+            int truncateIndex = 0;
+            int arrayIndex = 0, endIndex = 0;
+            bool inside = false;
+
+            try
+            {
+                for (int i = 0, j = 0; i < source.Length; i++)
+                {
+                    char let = source[i];
+                    arr[j] = let;
+                    endIndex = j;
+                    if (let == '<')
+                    {
+                        inside = true;
+                    }
+                    else if (let == '>')
+                    {
+                        inside = false;
+                    }
+
+                    if (!inside)
+                    {
+                        arrayIndex++;
+                        if (arrayIndex == truncateAt)
+                        {
+                            while (i < source.Length)
+                            {
+                                if (source[i] == '<')
+                                {
+                                    i--; j--;
+                                    break;
+                                }
+                                else if (source[i] == '>')
+                                {
+                                    i++; j++;
+                                    break;
+                                }
+                                arr[j++] = source[i++];
+                            }
+                            truncateIndex = i;
+                        }
+                        else j++;
+
+                    }
+                    else j++;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            topContent = new string(arr, 0, truncateIndex);
+            bottomContent = new string(arr, truncateIndex, endIndex - truncateIndex + 1);
+        }
+
         /// <summary>
         /// Created by : Sanskar Gupta on 19 Dec 2017
         /// Summary : Strips all the Malicious strings from the text

@@ -766,7 +766,7 @@ namespace Bikewale.BAL.GrpcFiles
                 outDetails.DisplayDate = dateObj.ToString("MMM dd, yyyy");
                 outDetails.DisplayDateTime = dateObj.ToString("MMM dd, yyyy hh:mm tt");
                 outDetails.HostUrl = artSummary.HostUrl;
-                outDetails.Content = inpDet.Content;
+                outDetails.TopContent = inpDet.Content;
                 outDetails.PrevArticle = ConvertFromGrpcToBikeWalePwa(inpDet.PrevArticle);
                 outDetails.NextArticle = ConvertFromGrpcToBikeWalePwa(inpDet.NextArticle);
                 outDetails.CategoryId = (ushort)catId;
@@ -779,6 +779,12 @@ namespace Bikewale.BAL.GrpcFiles
             return outDetails;
         }
 
+        /// <summary>
+        /// Modified by : Rajan Chauhan on 05 Mar 2018
+        /// Description : Added condition on ArticleApi for categoryId 8 and 2 (if RoadTest category articles are requested than BAL method also returns ComparisonTests articles)
+        /// </summary>
+        /// <param name="inpSum"></param>
+        /// <returns></returns>
         public static PwaArticleSummary ConvertFromGrpcToBikeWalePwa(GrpcArticleSummary inpSum)
         {
             PwaArticleSummary outSummary = null;
@@ -792,7 +798,7 @@ namespace Bikewale.BAL.GrpcFiles
                     outSummary = new PwaArticleSummary();
                     string catName = GetContentCategory((int)inpSum.CategoryId);
                     outSummary.ArticleUrl = GetArticleUrl((int)inpSum.CategoryId, artBase.ArticleUrl, (int)basicId);
-                    outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", basicId);
+                    outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/{1}/", basicId,(inpSum.CategoryId==8 || inpSum.CategoryId == 2?"pages":"page"));
                     outSummary.AuthorName = inpSum.AuthorName;
                     outSummary.Description = inpSum.Description;
                     outSummary.BasicId = basicId;

@@ -257,7 +257,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                 cityId = cityId == 0 ? System.Convert.ToUInt32(BWConfiguration.Instance.DefaultCity) : cityId;
                 IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetMostPopularBikesByModelBodyStyle(modelId, 9, cityId);
                 PwaBikeNews outBikeData = new PwaBikeNews();
-                outBikeData.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objPopularBodyStyle, cityArea.City);
+                outBikeData.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objPopularBodyStyle);
                 outBikeData.Heading = "Popular bikes";
                 outBikeData.CompleteListUrl = "/m/best-bikes-in-india/";
                 outBikeData.CompleteListUrlAlternateLabel = "Best Bikes in India";

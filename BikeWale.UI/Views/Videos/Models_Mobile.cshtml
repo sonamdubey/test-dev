@@ -88,7 +88,10 @@
                                             <p class="text-truncate text-light-grey font11">
                                                 @if (BikeInfo.OnRoadPriceInCity > 0)
                                                 {
-                                                    string.Format("On-Road Price, {0}", Model.BikeInfoWidgetData.CityDetails.CityName);
+                                                    if (Model.BikeInfoWidgetData != null && Model.BikeInfoWidgetData.CityDetails != null)
+                                                    {
+                                                        string.Format("On-Road Price, {0}", Model.BikeInfoWidgetData.CityDetails.CityName);
+                                                    }
                                                 }
                                                 else
                                                 {
