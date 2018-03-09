@@ -201,7 +201,7 @@ var recommendedBikePopup = (function () {
     };
 
     $(window).on('popstate', function () {
-        if (popup.hasClass('recommended-bike-popup--active') && history.state !== "recommendedBikePopup") {
+        if (popup.hasClass('recommended-bike-popup--active') && !$("#filtersPopup").hasClass('.filters-screen--active')) {
             close();
         }
     });
