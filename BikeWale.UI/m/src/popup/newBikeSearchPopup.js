@@ -472,21 +472,24 @@ var RecommendedBikes = function () {
                     default:
                         var filterTypeContainer = $('#filtersPopup li[data-filter-type="' + key + '"]');
                         var arr = self.FiltersValue()[key].split("-");
+                        var str = self.Filters()[key].split('+');
+                        var start = parseInt(str[str.length - 1], 10) + 1;
+                        
                         if (arr[arr.length - 1] === '0') {
                             switch (key) {
                                 case "mileage":
-                                    for (var i = 4; i <= self.minSpecsLen[0]; i++) {
+                                    for (var i = start; i <= self.minSpecsLen[0]; i++) {
                                         self.Filters()[key] += "+" + i.toString();
                                     }
                                     break;
                                 case "displacement":
-                                    for (var i = 4; i <= self.minSpecsLen[1]; i++) {
+                                    for (var i = start; i <= self.minSpecsLen[1]; i++) {
                                         self.Filters()[key] += "+" + i.toString();
                                     }
                                     break;
                                 case "power":
 
-                                    for (var i = 4; i <= self.minSpecsLen[2]; i++) {
+                                    for (var i = start; i <= self.minSpecsLen[2]; i++) {
                                         self.Filters()[key] += "+" + i.toString();
                                     }
                                     break;
