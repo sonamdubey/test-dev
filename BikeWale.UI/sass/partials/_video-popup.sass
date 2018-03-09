@@ -60,13 +60,15 @@
 @import video-card-container
 
 .video-popup__body
-	.video-list
-		.video-card-container
-			margin-right: 0
-			margin-left: 0
+	position: relative
 
-		.swiper-card__label
-			font-size: 12px
+	.video-card-container
+		margin-right: 0
+		margin-left: 0
+
+	.swiper-card__label
+		font-size: 12px
+		padding-bottom: 0
 
 @keyframes fadeInTranslate
 	0%
@@ -103,29 +105,71 @@
     bottom: 0
     z-index: 8
 
+.video-list__back-btn
+	@include arrow-right
+	display: none
+	position: absolute
+	right: 15px
+	bottom: 0
+	padding-right: 20px
+	padding-left: 20px
+	font-size: 10px
+	font-weight: 600
+	line-height: 46px
+	background-size: 5px
+	background-position: 85% center
+	cursor: pointer
+	z-index: 1
+
 // landscape mode
 .video-popup--landscape
 	.swiper__videos
-		padding-right: 100px
+		padding-right: 43vw
+
+		&.swiper-container
+			height: 90%
 
 		.swiper-wrapper
 			display: flex
 
 		.swiper-slide
-			transform: scale(.7)
-			transition: transform .4s ease
-
-			&.swiper-slide-active
-				transform: scale(1)
-
-		.swiper-slide
-			width: 360px
+			width: 380px
 			padding-top: 0
 			padding-bottom: 0
+			padding-left: 20px
 			border: 0
+			opacity: .5
+			//left: -20px
+			transform: scale(.77)
+			transition: all .4s ease
+
+			&.swiper-slide-active
+				left: auto
+				opacity: 1
+				transform: scale(1)
+
+	.video-popup-head__back
+		display: none
+
+	.video-popup__head
+		border-bottom: 0
+
+	.video-popup-head__title
+		text-align: left
+		max-width: 100%
+		padding-right: 20px
+		padding-left: 20px
 
 	.video-popup__body
 		padding-right: 0
 		padding-left: 0
 
+	.video-list__back-btn
+		display: block
 
+	.video-list
+		padding-top: 0
+
+		.swiper-card__label
+			height: 34px
+			overflow: hidden

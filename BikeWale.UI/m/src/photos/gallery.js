@@ -76,7 +76,7 @@ var modelGallery = function () {
 	self.activeColorFloatingSlug = ko.observable(false);
 
 	// video
-	self.activeVideoPopup = ko.observable(true);
+	self.activeVideoPopup = ko.observable(false);
 
 	var vmcolorSlugViewModel = new colorSlugViewModel(self.colors().colorPhotoList());
 	ko.applyBindings(vmcolorSlugViewModel, document.getElementById('carouselColorSlug'));
@@ -556,7 +556,14 @@ docReady(function () {
 		freeMode: true,
 		spaceBetween: 0,
 		slidesPerView: 'auto',
-		onSlideChangeStart: SwiperYT.slideChangeStart
+		onTap: function (swiper) {
+			if(window.innerWidth > window.innerHeight) {
+				swiper.slideTo(swiper.clickedIndex);
+			}
+		},
+		onSlideChangeStart: function(swiper) {
+			SwiperYT.slideChangeStart();
+		}
 	})
 
 	SwiperYT.YouTubeApi.addApiScript();
@@ -566,17 +573,25 @@ function handleVideoSwiper() {
 	if (window.innerWidth > window.innerHeight) {
 		videoSwiper.params.freeMode = false;
 		videoSwiper.params.direction = 'horizontal';
+		videoSwiper.params.initialSlide = 4;
 		$(videoSwiper.container[0]).removeClass('swiper-container-vertical');
 	}
 	else {
 		videoSwiper.params.freeMode = true;
 		videoSwiper.params.direction = 'vertical';
+		videoSwiper.params.initialSlide = 0;
 		$(videoSwiper.container[0]).addClass('swiper-container-vertical');
 	}
 
+	$(videoSwiper.container[0]).hide();
 	videoSwiper.destroy(false);
 	videoSwiper.init();
+	$(videoSwiper.container[0]).show();
 	videoSwiper.update(true);
+
+	if(window.innerWidth > window.innerHeight) {
+		videoSwiper.slideTo(0, 500);
+	}
 }
 
 function isInViewport(element) {
