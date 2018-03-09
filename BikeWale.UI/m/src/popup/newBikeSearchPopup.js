@@ -675,14 +675,22 @@ var RecommendedBikes = function () {
 
 
     self.ApplyFilters = function () {
-        self.SetPageFilters();
-        self.GetFilteredData();
-        self.initData();
-        self.SequenceAPI();
-        BikeFiltersPopup.close();
-        window.history.back();
+        
+        if (checkFilters() == false) {
+            $('.filter__apply').attr('disabled');
+        }
+        else {
+            $('.filter__apply').removeAttr('disabled');
+            self.SetPageFilters();
+            self.GetFilteredData();
+            self.initData();
+            self.SequenceAPI();
+            BikeFiltersPopup.close();
+            window.history.back();
+        }
+        
     };
-
+    
     self.ApplyInPageFilters = function () {
         self.GetFilteredData();
         self.SetPageFilters();
@@ -841,6 +849,15 @@ function getMinMaxBudgetLimits(range) {
     }
 
     return filterArray;
+}
+
+function checkFilters() {
+    for (var key in vmRecommendedBikes.Filters()) {
+        if (vmRecommendedBikes.Filters()[key] != '') {
+            return true;
+        }
+    }
+    return false;
 }
 
 
