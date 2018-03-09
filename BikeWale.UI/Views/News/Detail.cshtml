@@ -149,7 +149,7 @@
                     }
                     else if (Model.SeriesWidget != null && Model.SeriesWidget.PopularSeriesBikes != null && (Model.MostPopularBikes != null || Model.PopularBikesAndUpcomingBikesWidget != null))
                     {
-                        if (Model.MostPopularBikes != null)
+                        if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Any())
                         {
                             <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
                                 <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
@@ -167,14 +167,13 @@
                                 </div>
                             </div>
                         }
-                        if (Model.PopularBikesAndUpcomingBikesWidget != null)
-                        {
+                       
                             @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
-                        }
+                        
                     }
                     else
                     {
-                        if (Model.MostPopularMakeBikes != null)
+                        if (Model.MostPopularMakeBikes != null && Model.MostPopularMakeBikes.Bikes != null && Model.MostPopularMakeBikes.Bikes.Any())
                         {
                             <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
                                 <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
@@ -184,6 +183,7 @@
                                         </li>
                                     </ul>
                                 </div>
+                                
                                 <div class="sidebar-list--overflow">
                                     @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularMakeBikes)
                                 </div>
@@ -193,7 +193,9 @@
                             </div>
                         }
 
-                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
+                        
+                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
+                       
                     }
                 }
                 else
