@@ -11,43 +11,42 @@ namespace BikewaleOpr.Service.AutoMappers.ManufacturerCampaign
         /// <summary>
         /// Created By  : Rajan Chauhan on 9 Mar 2018
         /// Description : Convert the numerical value to coressponding acronym form of week representation
-        ///               eg. for 127 - [SMTWTFS], 62 - [-MTWTF-] 
+        ///               eg. for 127 - All Days, 3 - Fri,Sat 
         ///               num > 127 is not valid returns [-------] 
         /// </summary>
-        /// <param name="num"></param>
+        /// <param name="number"></param>
         /// <returns></returns>
-        private static string convertToWeekAcronym(ushort? num)
+        private static string ConvertToWeekDaysName(ushort? number)
         {
             // For handling previous null stored values also not allowing all days unchecked
-            string hyphen = "-";
-            if (num == null)
+            if (number == null || number == 127)
             {
-                return "[SMTWTFS]";
-            }
-            else if (num > 127)
-            {
-                return "[-------]";
+                return "All Days";
             }
             else
             {
-                StringBuilder weekDaysAcronym = new StringBuilder();
+                StringBuilder sbWeekDays = new StringBuilder();
 
-                weekDaysAcronym.Append("[")
-                            .Append(((num >> 6) & 1) == 1 ? "S" : hyphen)
-                            .Append(((num >> 5) & 1) == 1 ? "M" : hyphen)
-                            .Append(((num >> 4) & 1) == 1 ? "T" : hyphen)
-                            .Append(((num >> 3) & 1) == 1 ? "W" : hyphen)
-                            .Append(((num >> 2) & 1) == 1 ? "T" : hyphen)
-                            .Append(((num >> 1) & 1) == 1 ? "F" : hyphen)
-                            .Append(((num & 1) == 1) ? "S" : hyphen)
-                            .Append("]");
-                return weekDaysAcronym.ToString();
+                sbWeekDays.Append(((number >> 6) & 1) == 1 ? "Sun, " : "")
+                            .Append(((number >> 5) & 1) == 1 ? "Mon, " : "")
+                            .Append(((number >> 4) & 1) == 1 ? "Tue, " : "")
+                            .Append(((number >> 3) & 1) == 1 ? "Wed, " : "")
+                            .Append(((number >> 2) & 1) == 1 ? "Thr, " : "")
+                            .Append(((number >> 1) & 1) == 1 ? "Fri, " : "")
+                            .Append(((number & 1) == 1) ? "Sat, " : "");
+
+                if (sbWeekDays.Length > 1)
+                {
+                    // To remove the last comma and space in the string builder
+                    sbWeekDays.Length -= 2;
+                }
+                return sbWeekDays.ToString();
             }
         }
 
         internal static IEnumerable<ManufacturerCampaignDetailsDTO> Convert(IEnumerable<ManufacturerCampaignDetailsList> _objMfgList)
         {
-            Mapper.CreateMap<ManufacturerCampaignDetailsList, ManufacturerCampaignDetailsDTO>().ForMember(dest => dest.CampaignDaysAcronym, opt => opt.MapFrom(src => convertToWeekAcronym(src.CampaignDays))); 
+            Mapper.CreateMap<ManufacturerCampaignDetailsList, ManufacturerCampaignDetailsDTO>().ForMember(dest => dest.CampaignDays, opt => opt.MapFrom(src => ConvertToWeekDaysName(src.CampaignDays))); 
 
             return Mapper.Map<IEnumerable<ManufacturerCampaignDetailsList>, IEnumerable<ManufacturerCampaignDetailsDTO>>(_objMfgList);
         }

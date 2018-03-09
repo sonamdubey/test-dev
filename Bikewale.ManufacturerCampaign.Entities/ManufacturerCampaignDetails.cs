@@ -5,6 +5,8 @@ namespace Bikewale.ManufacturerCampaign.Entities
     /// <summary>
     /// Modified by : Ashutosh Sharma on 25 Jan 2017
     /// Description : Added 'DailyStartTime' and 'DailyEndTime'.
+    /// Modified by : Rajan Chauhan on 09 Mar 2018
+    /// Description : Added CampaignDays
     /// </summary>
     public class ManufacturerCampaignDetails
     {
@@ -25,6 +27,6 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public string MobileNo { get; set; }
         public DateTime DailyStartTime { get; set; }
         public DateTime DailyEndTime { get; set; }
-        public ushort CampaignDays { get; set; }
+        public ushort? CampaignDays { get; set; }
     }
 }

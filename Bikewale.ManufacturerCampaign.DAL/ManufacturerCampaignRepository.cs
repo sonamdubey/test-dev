@@ -77,11 +77,11 @@ namespace Bikewale.ManufacturerCampaign.DAL
         }
 
 
-        /// <summary>\
-        /// Modified by : Pratibha Verma on 8 Mar, 2018
-        /// Description : Replace sp from 'getmanufacturercampaign_25012018' to 'getmanufacturercampaign_07032018', added campaign days
+        /// <summary>
         /// Modified by : Ashutosh Sharma on 25 Jan 2017
         /// Description : Replaced sp from 'getmanufacturercampaign' to 'getmanufacturercampaign_25012018', added check for daily campaign start and end time.
+        /// Modified by : Pratibha Verma on 8 Mar, 2018
+        /// Description : Replace sp from 'getmanufacturercampaign_25012018' to 'getmanufacturercampaign_07032018', added campaign days
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="campaignId"></param>
@@ -337,10 +337,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
         }
 
         /// <summary>
-        /// Modified by : Pratibha Verma on 8 Mar, 2018
-        /// Description : Replace sp from 'savemanufacturercampaign_25012018' to 'savemanufacturercampaign_08032018' to save campain days
         /// Modified by : Ashutosh Sharma on 25 Jan 2017
         /// Description : Replaced sp from 'savemanufacturercampaign_21062017' to 'savemanufacturercampaign_25012018' to also save daily campaign start and end time.
+        /// Modified by : Pratibha Verma on 8 Mar, 2018
+        /// Description : Replace sp from 'savemanufacturercampaign_25012018' to 'savemanufacturercampaign_08032018' to save campain days
         /// </summary>
         /// <param name="objCampaign"></param>
         /// <returns></returns>
@@ -485,10 +485,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Jun 2017
         /// Description :   Returns Lead Campaign and EMI campaign by model,city and page
-        /// Modified by : Pratibha Verma on 8 Mar, 2018
-        /// Description : Replace sp 'getmanufacturercampaignbymodelcity_25012018' with 'getmanufacturercampaignbymodelcity_07032018' to add check for campaign days
         /// Modified by : Ashutosh Sharma on 25 Jan 2017
         /// Description : Replaced sp from 'getmanufacturercampaignbymodelcity_28092017' to 'getmanufacturercampaignbymodelcity_25012018' to get daily campaign start and end time.
+        /// Modified by : Pratibha Verma on 8 Mar, 2018
+        /// Description : Replace sp 'getmanufacturercampaignbymodelcity_25012018' with 'getmanufacturercampaignbymodelcity_07032018' to add check for campaign days
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>

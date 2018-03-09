@@ -96,7 +96,9 @@
         <td data-bind="text: maskingNumber"></td>
         <td data-bind="text: campaignStartDate"></td>
         <td data-bind="text: campaignEndDate"></td>
-        <td data-bind="text: campaignDaysAcronym"></td>
+        <td>
+             <a class="tooltipped" data-position="bottom" data-delay="50" data-bind="attr: {'data-tooltip': campaignDays}"><i class="material-icons icon-blue">info</i></a>
+        </td>
         <td data-bind="text: dailyStartTime"></td>
         <td data-bind="text: dailyEndTime"></td>
         <td data-bind="text: dailyLeadLimit"></td>
