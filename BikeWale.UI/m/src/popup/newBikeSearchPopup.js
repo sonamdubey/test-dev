@@ -90,6 +90,8 @@ var recommendedBikePopup = (function () {
                 container.removeClass('recommended-bike__shadow-top');
             }
 
+
+           
             container.find('img.lazy[src=""]').lazyload();
 
 
@@ -158,6 +160,7 @@ var recommendedBikePopup = (function () {
         popup.removeClass('recommended-bike-popup--active');
         documentBody.unlock();
     };
+
 
     function updateInpageFilters() {
 
@@ -584,8 +587,7 @@ var RecommendedBikes = function () {
                 contentType: "application/json",
                 data: ko.toJSON(searchFilterObj),
                 success: function (response) {
-                    searchFilterObj.excludeMake ? self.isOtherBikesLoading(false) : self.isBikesLoading(false);
-                    if (response.length > 0) {
+                    if (response != null && response.length > 0) {
                         response = JSON.parse(response);
                         if (("Bikes" in response) && response.Bikes != null && response.Bikes.length > 0) {
                             var bikeList = response.Bikes;
@@ -601,6 +603,7 @@ var RecommendedBikes = function () {
                         else {
                             //Bike List is Not Present
                         }
+                        searchFilterObj.excludeMake ? self.isOtherBikesLoading(false) : self.isBikesLoading(false);
                     }
                     else {
                         //Response is invalid
@@ -621,7 +624,7 @@ var RecommendedBikes = function () {
         }
     }
 
-    self.MakeRecommmendations = function () {
+    self.MakeRecommendations = function () {
         try {
             filterList = jQuery.extend({}, self.searchFilter);
             filterList.excludeMake = false;
@@ -648,7 +651,7 @@ var RecommendedBikes = function () {
     }
 
     self.SequenceAPI = function () {
-        self.MakeRecommmendations().then(self.OtherMakeRecommendations());
+        self.MakeRecommendations().then(self.OtherMakeRecommendations());
     }
 
 
@@ -800,8 +803,4 @@ function getMinMaxLimits(range) {
 
     return filterArray;
 }
-
-
-
-
 
