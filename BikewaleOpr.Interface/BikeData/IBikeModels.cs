@@ -12,5 +12,6 @@ namespace BikewaleOpr.Interface.BikeData
     {
         UsedBikeImagesByMakeNotificationData GetPendingUsedBikesWithoutModelImage();
         IEnumerable<BikeModelsByMake> GetModelsWithMissingColorImage();
+        void UpdateModelESIndex(string ids, string operation);
     }
 }

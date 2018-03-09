@@ -63,8 +63,7 @@ var recommendedBikePopup = (function () {
             }
         });
 
-        closeBtn.on('click', function ()
-        {
+        closeBtn.on('click', function () {
             vmRecommendedBikes.initData();
             updateInpageFilters();
             clearPopupFilters();
@@ -100,15 +99,15 @@ var recommendedBikePopup = (function () {
             var bodyHeight = $('.recommended-bike-section').innerHeight() + otherContainer.innerHeight() + $('.recommended-bike__title').innerHeight() - windowHeight;
             var scrollPercentage = (scrollTop / bodyHeight);
 
-            if (scrollPercentage > 0.9) {
-                
+            if (scrollPercentage > 0.9) {                
                 if (vmRecommendedBikes.noOfOtherBikes() != vmRecommendedBikes.bikesOtherMakes().length) {
                     vmRecommendedBikes.bindNextOtherBikesList();
                 }
+
             }
 
 
-            
+
 
 
 
@@ -117,8 +116,24 @@ var recommendedBikePopup = (function () {
         /* filter element click */
         $('.recommended-bike-popup').on('click', '.filter-item', function () {
             var targetElement = $(this).closest('.filter-list__item');
+            var targetElementId;
+            if (targetElement != null) {
+                targetElementId = targetElement.attr('data-id');
+            }
+            if (targetElementId != null) {
+                if (targetElementId === "budget") {
+                    vmRecommendedBikes.budgetSlider([0, vmRecommendedBikes.budgetStepPoints().length - 1]);
 
-            $('#' + targetElement.attr('data-id')).trigger('click');
+                    var minBuget = vmRecommendedBikes.budgetSlider()[0];
+                    var maxBuget = vmRecommendedBikes.budgetSlider()[1];
+
+                    vmRecommendedBikes.Filters()['budget'] = vmRecommendedBikes.FiltersValue()['budget'] = ''
+                }
+                else {
+                    $('#' + targetElementId).trigger('click');
+                }
+    
+            }
             if (appliedFilterList.find('.filter-list__item').length === 1) { //if last item is clicked
                 closeBtn.trigger('click');
             }
@@ -126,7 +141,7 @@ var recommendedBikePopup = (function () {
                 vmRecommendedBikes.ApplyInPageFilters();
             }
             targetElement.remove();
-            
+
         });
 
         $('.filter__edit').on('click', function () {
@@ -168,8 +183,6 @@ var recommendedBikePopup = (function () {
         for (var key in vmRecommendedBikes.Filters()) {
             var filterTypeContainer = $('.all-model__list li[data-filter-type="' + key + '"]');
             if (filterTypeContainer.length) {
-                var arr = vmRecommendedBikes.Filters()[key].split("+");
-
                 var activeElementList = filterTypeContainer.find('.refine-result__list input[type="checkbox"]');
                 if (!activeElementList.length) {
                     activeElementList = filterTypeContainer.find('.refine-result__list input[type="radio"]');
@@ -179,12 +192,11 @@ var recommendedBikePopup = (function () {
             }
 
         }
-        
+
     };
     function clearPopupFilters() {
         $('.check-box').removeClass('check-box--active');
-        for(var key in vmRecommendedBikes.Filters())
-        {
+        for (var key in vmRecommendedBikes.Filters()) {
             var filterTypeContainer = $('#filtersPopup li[data-filter-type="' + key + '"]');
             if (key !== "budget") {
                 filterTypeContainer.find('.accordion-head__preview').text('');
@@ -193,7 +205,7 @@ var recommendedBikePopup = (function () {
                 vmRecommendedBikes.budgetAmountPreview('');
             }
         }
-        
+
     };
     function initViewModel() {
         vmRecommendedBikes = new RecommendedBikes()
@@ -245,7 +257,7 @@ ko.bindingHandlers.KOSlider = {
     update: function (element, valueAccessor) {
         var value = ko.utils.unwrapObservable(valueAccessor());
         if (value) {
-            
+
             $(element).slider(value.length ? "values" : "value", value);
             $(element).change();
 
@@ -321,7 +333,7 @@ var RecommendedBikes = function () {
     self.budgetStepPoints = ko.observable();
 
     self.minSpecsLen = [$('#hdnMileageLen').val(), $('#hdnDisplacementLen').val(), $('#hdnPowerLen').val()];
-    self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize:null, pageNumber: null };
+    self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: null, pageNumber: null };
 
     self.budgetSlider.subscribe(function (value) {
         var minBuget = self.budgetSlider()[0];
@@ -332,7 +344,7 @@ var RecommendedBikes = function () {
         self.budgetAmountPreview(amountPreview);
 
         self.Filters()['budget'] = self.FiltersValue()['budget'] = self.budgetStepPoints()[minBuget] + '+' + self.budgetStepPoints()[maxBuget];
-        
+
     });
 
     self.getQueryString = function () {
@@ -351,7 +363,7 @@ var RecommendedBikes = function () {
         } catch (e) {
             console.warn("Unable to get query string : " + e.message);
         }
-        
+
 
         return query;
     };
@@ -441,40 +453,44 @@ var RecommendedBikes = function () {
 
             $('#appliedFilterList').empty();
 
-            for(var key in self.Filters()) {
+            for (var key in self.Filters()) {
                 switch (key) {
                     case "budget":
-                        var arr = self.Filters()[key];
-                        
-                        self.budgetSlider([
-                            $.inArray(parseInt(self.searchFilter.price[0]["min"], 10), self.budgetStepPoints()),
-                            $.inArray(parseInt(self.searchFilter.price[0]["max"], 10), self.budgetStepPoints())
-                        ]);
+                        var arr = self.FiltersValue()[key];
+                        var budgetRange = getMinMaxBudgetLimits(arr);
+                        if (budgetRange != null) {
+                            self.budgetSlider([
+                            $.inArray(parseInt(budgetRange[0]["min"], 10), self.budgetStepPoints()),
+                            $.inArray(parseInt(budgetRange[0]["max"], 10), self.budgetStepPoints())
+                            ]);
 
+                        }
+                        
                         self.setBudgetSelection();
 
                         break;
 
                     default:
                         var filterTypeContainer = $('#filtersPopup li[data-filter-type="' + key + '"]');
-                        var arr = self.Filters()[key].split("+");
-                        if (arr[arr.length - 1] === "3")
-                        {
-                            switch(key)
-                            {
+                        var arr = self.FiltersValue()[key].split("-");
+                        var str = self.Filters()[key].split('+');
+                        var start = parseInt(str[str.length - 1], 10) + 1;
+                        
+                        if (arr[arr.length - 1] === '0') {
+                            switch (key) {
                                 case "mileage":
-                                    for(var i = 4; i <= self.minSpecsLen[0]; i++) {
+                                    for (var i = start; i <= self.minSpecsLen[0]; i++) {
                                         self.Filters()[key] += "+" + i.toString();
                                     }
-                                        break;
+                                    break;
                                 case "displacement":
-                                    for (var i = 4; i <= self.minSpecsLen[1]; i++) {
+                                    for (var i = start; i <= self.minSpecsLen[1]; i++) {
                                         self.Filters()[key] += "+" + i.toString();
                                     }
                                     break;
                                 case "power":
-                                    
-                                    for (var i = 4; i <= self.minSpecsLen[2]; i++) {
+
+                                    for (var i = start; i <= self.minSpecsLen[2]; i++) {
                                         self.Filters()[key] += "+" + i.toString();
                                     }
                                     break;
@@ -485,16 +501,16 @@ var RecommendedBikes = function () {
                         arr = self.Filters()[key].split("+");
                         var selectionPreview = '';
 
-                        for(var index in arr) {
+                        for (var index in arr) {
                             value = arr[index];
                             if (value !== "" && value) {
                                 var element = filterTypeContainer.find('div[data-value="' + value + '"]');
                                 element.addClass("check-box--active");
                                 self.SetCheckboxSelection(element);
 
-                                
+
                                 selectionPreview += element.find('.check-box__label').text();
-                                if (index && index != arr.length -1) {
+                                if (index && index != arr.length - 1) {
                                     selectionPreview += ', ';
                                 }
                             }
@@ -566,10 +582,13 @@ var RecommendedBikes = function () {
 
             if (budget != undefined && budget != "") {
 
-                self.searchFilter.price = (budget.indexOf('+') > -1) ? new getMinMaxLimitsList(budget) : new getMinMaxLimits(budget);
+                self.searchFilter.price = new getMinMaxBudgetLimits(budget);
             }
             else {
-                self.searchFilter.price = [ 0, self.budgetStepPoints()[self.budgetStepPoints().length - 1] ]
+
+                self.searchFilter.price = [0, self.budgetStepPoints()[self.budgetStepPoints().length - 1]]
+                delete self.Filters()["budget"];
+                delete self.FiltersValue()["budget"];
             }
             self.searchFilter.bodyStyle = (bodyType != undefined ? bodyType.split('+') : null)
 
@@ -609,14 +628,14 @@ var RecommendedBikes = function () {
                     else {
                         //Response is invalid
                     }
-                   
+
                 },
                 error: function (request, status, error) {
                     searchFilterObj.excludeMake ? self.isOtherBikesLoading(false) : self.isBikesLoading(false);
 
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
-                   
+
                 }
             });
         }
@@ -670,7 +689,7 @@ var RecommendedBikes = function () {
         self.SetPageFilters();
         self.initData();
         self.SequenceAPI();
-        
+
     }
 
     self.setBudgetSelection = function () {
@@ -691,7 +710,7 @@ var RecommendedBikes = function () {
 
     self.SetCheckboxSelection = function (targetElement) {
         $('#appliedFilterList').append('<li data-id="' + targetElement.attr("id") + '" class="filter-list__item"><span class="filter-item">' + targetElement.find('.check-box__label').text() + '</span></li>');
-    };    
+    };
     /* priceFormatter */
     self.formatPrice = function (price) {
         var thMatch = /(\d+)(\d{3})$/;
@@ -704,7 +723,7 @@ var RecommendedBikes = function () {
     self.doubleToInt = function (decimalNo) {
         return parseInt(decimalNo);
     };
-    
+
     /* Next block of other make bikes */
     self.bindNextOtherBikesList = function () {
 
@@ -712,8 +731,7 @@ var RecommendedBikes = function () {
         filterList.excludeMake = true;
         filterList.pageNumber = ++pageNo;
         filterList.pageSize = 10;
-        if (!apiCalled)
-        {
+        if (!apiCalled) {
             apiCalled = true;
             $.ajax({
                 type: "POST",
@@ -725,7 +743,7 @@ var RecommendedBikes = function () {
                         response = JSON.parse(response);
                         if (("Bikes" in response) && response.Bikes != null && response.Bikes.length > 0) {
                             var bikeList = response.Bikes;
-                            self.bikesOtherMakes.push.apply(self.bikesOtherMakes , bikeList);
+                            self.bikesOtherMakes.push.apply(self.bikesOtherMakes, bikeList);
                             self.noOfOtherBikes(response.TotalCount);
                             apiCalled = false;
                         }
@@ -745,10 +763,10 @@ var RecommendedBikes = function () {
                 }
             });
         }
-       
+
     };
 
-   
+
 
 };
 
@@ -798,11 +816,35 @@ function getMinMaxLimits(range) {
     if (selectedRangeList != null) {
         maxMinLimits = {
             "min": selectedRangeList[0],
-            "max": selectedRangeList[1] === 0 ? vmRecommendedBikes.budgetStepPoints()[vmRecommendedBikes.budgetStepPoints().length - 1] : selectedRangeList[1]
+            "max": selectedRangeList[1]
         }
         filterArray.push(maxMinLimits);
     }
 
     return filterArray;
 }
+
+
+function getMinMaxBudgetLimits(range) {
+    var filterArray = [];
+    if (range != undefined && range != '') {
+        var selectedRangeList = range.split('+');
+    }
+    else {
+        delete vmRecommendedBikes.Filters()["budget"];
+        delete vmRecommendedBikes.FiltersValue()["budget"];
+    }
+    if (selectedRangeList != null) {
+        maxMinLimits = {
+            "min": selectedRangeList[0],
+            "max": selectedRangeList[1] === "0" ? vmRecommendedBikes.budgetStepPoints()[vmRecommendedBikes.budgetStepPoints().length - 1].toString() : selectedRangeList[1]
+        }
+        filterArray.push(maxMinLimits);
+    }
+
+    return filterArray;
+}
+
+
+
 

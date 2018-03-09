@@ -113,6 +113,11 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
         /// <returns></returns>
         private static bool PerformDocumentOperations(NameValueCollection queueMessage, int c = 0)
         {
+            if (c >= NO_OF_RETRIES)
+            {
+                return true;
+            }
+
             IDocumentBuilder docBuilder = null;
             bool isOperationSuccessful = false;
 
