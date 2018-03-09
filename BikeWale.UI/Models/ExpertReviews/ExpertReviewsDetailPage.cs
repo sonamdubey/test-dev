@@ -765,9 +765,9 @@ namespace Bikewale.Models
             {
                 if (objData.Make != null)
                 {
-                    if (bodyStyle.Equals(EnumBikeType.Scooters))
+                    if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                     {
-                        PopularBikesWidget.WidgetHeading = string.Format("Popular {0} scooters", objData.Make.MakeName);
+                        PopularBikesWidget.WidgetHeading = string.Format("Popular {0} Scooters", objData.Make.MakeName);
                         if (objData.Make.IsScooterOnly)
                             PopularBikesWidget.WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName);
                         else
@@ -777,7 +777,7 @@ namespace Bikewale.Models
                     }
                     else
                     {
-                        PopularBikesWidget.WidgetHeading = string.Format("Popular {0} bikes", objData.Make.MakeName);
+                        PopularBikesWidget.WidgetHeading = string.Format("Popular {0} Bikes", objData.Make.MakeName);
                         PopularBikesWidget.WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName);
                         PopularBikesWidget.WidgetLinkTitle = string.Format("{0} Bikes", objData.Make.MakeName);
                         PopularBikesWidget.CtaText = "View all bikes";
@@ -871,7 +871,7 @@ namespace Bikewale.Models
         {
             try
             {
-                objData.PopularMakeScootersAndOtherBrandsWidget.TabHeading1 = string.Format("{0} scooters", objData.Make.MakeName);
+                objData.PopularMakeScootersAndOtherBrandsWidget.TabHeading1 = string.Format("{0} Scooters", objData.Make.MakeName);
                 objData.PopularMakeScootersAndOtherBrandsWidget.TabHeading2 = "Other Brands";
                 objData.PopularMakeScootersAndOtherBrandsWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
                 objData.PopularMakeScootersAndOtherBrandsWidget.ViewPath2 = "~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml";
