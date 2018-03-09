@@ -72,7 +72,7 @@ var recommendedBikePopup = (function () {
             vmRecommendedBikes.FiltersValue([]);
             var tmpMakeId = vmRecommendedBikes.searchFilter.makeId;
             var tmpCityId = vmRecommendedBikes.searchFilter.cityId;
-            vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: null, pageNumber: null };
+            vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: null, pageNumber: null };
             window.history.back();
         });
 
@@ -317,7 +317,7 @@ var RecommendedBikes = function () {
     self.budgetStepPoints = ko.observable();
 
     self.minSpecsLen = [$('#hdnMileageLen').val(), $('#hdnDisplacementLen').val(), $('#hdnPowerLen').val()];
-    self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize:null, pageNumber: null };
+    self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize:null, pageNumber: null };
 
     self.budgetSlider.subscribe(function (value) {
         var minBuget = self.budgetSlider()[0];

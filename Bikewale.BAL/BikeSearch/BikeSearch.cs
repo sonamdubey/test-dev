@@ -238,6 +238,9 @@ namespace Bikewale.BAL.BikeSearch
         /// <summary>
         /// Created By :- Subodh Jain on 21 feb 2018
         /// Summary :- Process Filters according to req.
+        /// Modified by: Dhruv Joshi
+        /// Dated: 8th March 2018
+        /// Description: Query for body style changed to handle string Ienumerable
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="filters"></param>
@@ -278,9 +281,14 @@ namespace Bikewale.BAL.BikeSearch
                         query &= FDS.Term(_bikeMakeId, filters.MakeId);
                     }
                 }
-                if (filters.BodyStyle > 0)
+                if (filters.BodyStyle != null && filters.BodyStyle.Any())
                 {
-                    query &= FDS.Term(_bodyStyleId, filters.BodyStyle);
+                    QueryContainer qtmp = new QueryContainer();
+                    foreach(string style in filters.BodyStyle)
+                    {
+                        qtmp |= FDS.Term(_bodyStyleId, System.Convert.ToUInt32(style));
+                    }
+                    query &= qtmp;
                 }
 
             }
