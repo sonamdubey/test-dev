@@ -77,14 +77,16 @@
 	    var bikePrice = data.attr('data-bikePrice');
 
 	    EMIviewModel.processingFees(emiDetails.processingFee);
+	    EMIviewModel.exshowroomprice(bikePrice);
 	    EMIviewModel.bikePrice(bikePrice);
-	    EMIviewModel.tenure(emiDetails.tenure);
-	    EMIviewModel.rateofinterest(emiDetails.rateOfInterest);
 	    EMIviewModel.minTenure(emiDetails.minTenure);
 	    EMIviewModel.maxTenure(emiDetails.maxTenure);
-	    EMIviewModel.totalPayable(46890);
-	    EMIviewModel.monthlyEMI(12345);
-	    EMIviewModel.loan(1212);
+	    EMIviewModel.minDnPay(emiDetails.minDownPayment);
+	    EMIviewModel.maxDnPay(emiDetails.maxDownPayment);
+	    EMIviewModel.minROI(emiDetails.minRateOfInterest);
+	    EMIviewModel.maxROI(emiDetails.maxRateOfInterest);
+
+	    EMIviewModel.downPayment((emiDetails.minDownPayment + emiDetails.maxDownPayment) / 2);
 
 	});
 
