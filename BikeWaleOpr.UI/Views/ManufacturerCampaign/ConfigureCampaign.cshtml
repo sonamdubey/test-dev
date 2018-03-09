@@ -112,7 +112,25 @@
 
             </div>
             <div class="row">
-                <div class="col s1 offset-s3">
+		 <div class="col s2 offset-s3">
+			 <div style="margin-bottom:14px;"></div>
+			 @{
+				 var CampaignDays = Model.CampaignInformation.DealerDetails.CampaignDays;
+				 // CampaignDays can't be 0 if 0 means Campaign is not set or newCampaign configuration page is opened
+				 bool isCampaignSet = (CampaignDays == null || CampaignDays == 0)? false: true;
+			 }
+			 <select multiple id="select-days">
+				 <option value="" disabled selected>Campaign Days *</option>
+				 <option value="64" @((CampaignDays & 64) !=0 || !isCampaignSet? "selected" : "")>Sun</option>
+				 <option value="32" @((CampaignDays & 32) != 0 || !isCampaignSet? "selected" : "")>Mon</option>
+				 <option value="16" @((CampaignDays & 16) != 0 || !isCampaignSet? "selected" : "")>Tue</option>
+				 <option value="8" @((CampaignDays & 8) != 0 || !isCampaignSet ? "selected" : "")>Wed</option>
+				 <option value="4" @((CampaignDays & 4) != 0 || !isCampaignSet ? "selected" : "")>Thr</option>
+				 <option value="2" @((CampaignDays & 2) != 0 || !isCampaignSet ? "selected" : "")>Fri</option>
+				 <option value="1" @((CampaignDays & 1) != 0 || !isCampaignSet ? "selected" : "")>Sat</option>
+			 </select>
+		 </div>
+                <div class="col s1">
                     <div class="input-field">
                         @{ 
                             bool IsDailyTimeAvailable = Model.CampaignInformation.DealerDetails.DailyEndTime != DateTime.MinValue;
@@ -138,6 +156,7 @@
             <input type="hidden" name="CampaignId" id="inputCampaignId" value="@Model.CampaignId" />
             <input type="hidden" name="DealerId" id="inputDealerId" value="@Model.CampaignInformation.DealerDetails.Id" />
             <input type="hidden" id="CampaignPages" name="campaignPages" />
+            <input type="hidden" id="CampaignDays" name="campaignDays" />
             <input type="hidden" id="StartDate" name="startDate" />
             <input type="hidden" id="EndDate" name="endDate" />
             <input type="hidden" id="DailyStartTime" name="dailyStartTime" />

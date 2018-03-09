@@ -78,6 +78,20 @@ var ConfigureCampaign = function () {
         }
 
         $('#CampaignPages').val(selectedPages);
+		
+        var campaignDaysValue = 0;
+        var campaignDays = $('#select-days').find("option:selected");
+        if (campaignDays.length == 1) {
+        	$('#modal-p').text("Please select atleast one campaign day.");
+        	$("#alertModal").modal('open');
+        	return false;
+        }
+
+        for (var i = 1; i < campaignDays.length; i++) {
+        	campaignDaysValue += parseInt(campaignDays[i].value);
+        }
+
+        $('#CampaignDays').val(campaignDaysValue);
 
         $('#StartDate').val($('#startDateEle').val() + ' ' + $('#startTimeEle').val());
 
