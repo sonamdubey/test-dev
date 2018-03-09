@@ -1,5 +1,7 @@
 import {videosDetailAction} from '../actionTypes/actionTypes'
 import {isInt} from '../utils/commonUtils'
+import {getGlobalCity} from '../utils/popUpUtils'
+
 module.exports = {
 	fetchVideoDetail : function(videoInitialData) {
 		return function(dispatch) {
@@ -40,6 +42,8 @@ module.exports = {
 	},
 	fetchModelSlug : function(basicId) {
 		return function(dispatch) {
+			var globalCity = getGlobalCity();
+			var globalCityName = ( globalCity && globalCity.name ) ? globalCity.name : '';
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
 				if(xhr.readyState == 4) {
@@ -50,7 +54,7 @@ module.exports = {
 						dispatch({type:videosDetailAction.FETCH_MODELINFO_ERROR})
 				}
 			}
-			xhr.open('GET','/api/pwa/cms/bikeinfo/id/'+basicId+'/page/'); //TODO api url
+			xhr.open('GET','/api/pwa/cms/bikeinfo/id/'+basicId+'/page/?city='+globalCityName);
 			xhr.send();
 			dispatch({type:videosDetailAction.FETCH_MODELINFO});
 		}
@@ -59,7 +63,8 @@ module.exports = {
 		return function(dispatch) {
  		
 	   		if(!apiList || apiList.length==0) return;
-	   		// var apiResult = new Array(apiList.length);
+	   		var globalCity = getGlobalCity();
+	   		var globalCityName = ( globalCity && globalCity.name ) ? globalCity.name : '';
 	   		var apiResult = {};
 	   		var returned=0;
 	   		apiList.map(function(api,index) {
@@ -76,7 +81,7 @@ module.exports = {
 	   					}
 	   				}
 	   			}
-	   			xhr.open('GET',window.location.origin+'/'+api.Url+'/'); 
+	   			xhr.open('GET',window.location.origin+'/'+api.Url+'/?city='+globalCityName); 
 				xhr.send();
 				
 	   		})

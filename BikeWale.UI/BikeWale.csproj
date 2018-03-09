@@ -4015,6 +4015,8 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_New.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_New.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Top.cshtml" />
+    <Content Include="Views\ExpertReviews\Index_Mobile_Pwa.cshtml" />
+    <Content Include="Views\ExpertReviews\Detail_Mobile_Pwa.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
@@ -4267,16 +4269,16 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>9011</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+	   <UseIIS>True</UseIIS>
+	   <AutoAssignPort>False</AutoAssignPort>
+	   <DevelopmentServerPort>9011</DevelopmentServerPort>
+	   <DevelopmentServerVPath>/</DevelopmentServerVPath>
+	   <IISUrl>http://localhost:9011/</IISUrl>
+	   <NTLMAuthentication>False</NTLMAuthentication>
+	   <UseCustomServer>False</UseCustomServer>
+	   <CustomServerUrl>
+	   </CustomServerUrl>
+	   <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

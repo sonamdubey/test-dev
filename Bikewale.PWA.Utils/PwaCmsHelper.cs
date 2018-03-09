@@ -2,8 +2,10 @@
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Videos;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using log4net;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,8 +15,6 @@ namespace Bikewale.PWA.Utils
 {
     public static class PwaCmsHelper
     {
-        static ILog _logger = LogManager.GetLogger("PwaCmsHelper");
-        static readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
         /// <summary>
         /// Created by Prasad Gawde
         /// </summary>
@@ -47,16 +47,49 @@ namespace Bikewale.PWA.Utils
                         break;
                 }
             }
-            finally
+            catch (Exception ex)
             {
-                if (_logNewsUrl && shareUrl.EndsWith(@".html.html"))
-                {
-                    ThreadContext.Properties["ShareUrl"] = shareUrl;
-                    _logger.Error("ConverterUtility.ReturnShareUrl");
-                }
-
+                ErrorClass.LogError(ex, "Exception : Bikewale.PWA.Utils.PwaCMSHelper.ReturnShareUrl");
             }
             return shareUrl;
+        }
+        /// <summary>
+        /// Created by : Pratibha Verma on 24 Feb 2018
+        /// </summary>
+        /// <param name="articlepageSummary"></param>
+        /// <returns></returns>
+        public static string ReturnSharePageUrl(ArticlePageDetails articlepageSummary)
+        {
+            string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
+            EnumCMSContentType contentType = (EnumCMSContentType)articlepageSummary.CategoryId;
+            string sharePageUrl = string.Empty;
+            try
+            {
+                switch (contentType)
+                {
+                    case EnumCMSContentType.News:
+                    case EnumCMSContentType.AutoExpo2016:
+                    case EnumCMSContentType.AutoExpo2018:
+                        sharePageUrl = string.Format("{0}/news/{1}-{2}.html", _bwHostUrl, articlepageSummary.BasicId, articlepageSummary.ArticleUrl);
+                        break;
+                    case EnumCMSContentType.Features:
+                        sharePageUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articlepageSummary.ArticleUrl, articlepageSummary.BasicId);
+                        break;
+                    case EnumCMSContentType.RoadTest:
+                        sharePageUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", _bwHostUrl, articlepageSummary.ArticleUrl, articlepageSummary.BasicId);
+                        break;
+                    case EnumCMSContentType.SpecialFeature:
+                        sharePageUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articlepageSummary.ArticleUrl, articlepageSummary.BasicId);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.PWA.Utils.PwaCMSHelper.ReturnSharePageUrl");
+            }
+            return sharePageUrl;
         }
         /// <summary>
         ///  Created by Prasad Gawde

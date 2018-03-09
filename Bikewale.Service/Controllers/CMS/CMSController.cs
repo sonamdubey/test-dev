@@ -332,7 +332,7 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController.GetArticlePhotos");
 
                 return InternalServerError();
             }

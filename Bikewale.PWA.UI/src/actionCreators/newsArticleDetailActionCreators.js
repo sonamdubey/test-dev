@@ -1,17 +1,24 @@
 import {newsDetailAction,newBikesListAction,modelObjectAction} from  '../actionTypes/actionTypes'
 
 import {isInt } from '../utils/commonUtils'
-import {refreshGPTAds} from '../utils/googleAdUtils'
+import { refreshGPTAds } from '../utils/googleAdUtils'
+import { extractPageCategoryFromURL } from '../components/News/NewsCommon'
+import {getGlobalCity} from '../utils/popUpUtils'
 
 var fetchNewsArticleDetail = function(articleInitialData) {
 	
 	return function(dispatch) {	
-		
+        var page = extractPageCategoryFromURL();
 		var url = null;
 		if(articleInitialData) {
 			if(isInt(articleInitialData)) {
-				dispatch({type:newsDetailAction.FETCH_NEWSDETAIL});
-				url = '/api/pwa/cms/id/'+articleInitialData+'/page/';
+                dispatch({ type: newsDetailAction.FETCH_NEWSDETAIL });
+                if (page == "news") {
+                    url = '/api/pwa/cms/id/' + articleInitialData + '/page/';
+                }
+                else {
+                    url = '/api/pwa/cms/id/' + articleInitialData + '/pages/';
+                }
 			}
 			else {
 				dispatch({type:newsDetailAction.FETCH_NEWSDETAIL_WITH_INITIAL_DATA,payload:articleInitialData});
@@ -40,12 +47,14 @@ var fetchNewsArticleDetail = function(articleInitialData) {
 var fetchNewBikesListDataForNewsDetail = function(basicId) {
 	
 	return function(dispatch) {
-		var url;	
+	    var url;
+	    var globalCity = getGlobalCity();
+	    var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
 		if(parseInt(basicId) > 0) {
-			url = '/api/pwa/cms/bikelists/id/'+basicId+'/page/'
+		    url = '/api/pwa/cms/bikelists/id/'+basicId+'/page/?city='+globalCityName;
 		}
 		else {
-			url = '/api/pwa/cms/bikelists/id/0/page/'
+		    url = '/api/pwa/cms/bikelists/id/0/page/?city='+globalCityName;
 		}
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
