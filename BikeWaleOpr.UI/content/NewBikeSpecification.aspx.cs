@@ -1,5 +1,8 @@
 using BikewaleOpr.common;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Interface.BikeData;
 using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 /*******************************************************************************************************
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
@@ -44,6 +47,22 @@ namespace BikeWaleOpr.Content
                               pillionBackrestNotSure, pillionGrabrailNotSure, standAlarmNotSure, steppedSeatNotSure, absNotSure, killswitchNotSure, clockNotSure;
 
         private string _versionId = String.Empty;
+
+        private IBikeModels _bikeModels;
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9 March 2018
+        /// Description: Constructor to initialize _bikeModels using unity resolver.
+        /// </summary>
+        public NewBikeSpecification()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                _bikeModels = container.Resolve<IBikeModels>();
+            }
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -368,6 +387,8 @@ namespace BikeWaleOpr.Content
 	/// Description: added logic to remove mileage cache "BW_BikesByMileage" key
 	/// Modified by : Ashutosh Sharma on 27 Dec 2017
 	/// Description : Added call to clear cache for 'BW_SpecsFeatures_version_{versionId}'.
+    /// Modified By : Deepak Israni on 8 March 2018
+    /// Description : Added method call to push to BWEsDocumentBuilder consumer.
 	/// </summary>
 	/// <param name="Sender"></param>
 	/// <param name="e"></param>
@@ -470,7 +491,8 @@ namespace BikeWaleOpr.Content
 
                     if (status)
                     {
-                        spnError.InnerText = "Data Saved Successfully.";
+                        spnError.InnerText = "Data Saved Successfully.";                        
+                        _bikeModels.UpdateModelESIndex(Request.QueryString["modelid"], "update");
                     }
                     else
                     {

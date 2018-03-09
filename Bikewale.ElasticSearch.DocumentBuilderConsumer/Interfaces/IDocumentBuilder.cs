@@ -11,6 +11,5 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.Interfaces
         bool InsertDocuments(NameValueCollection nvc);
         bool UpdateDocuments(NameValueCollection nvc);
         bool DeleteDocuments(NameValueCollection nvc);
-        IEnumerable<T> GetDocuments<T>(NameValueCollection inputParameters) where T : class;
     }
 }
