@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Entities.Filters.FilterBase
 
-@if (Model != null)
+@if (Model != null && Model.FilterText != null)
 {
     <div class="refine-result">
         <h3 class="refine-result__heading">Refine Your Results</h3>
@@ -16,6 +16,6 @@
             }
         </ul>
 
-        <button type="button" id="refineResultApply" class="inv-blue--disabled btn btn-inv-blue refine-result__view-more refine-result__apply" disabled>Apply</button>
+        <button type="button" id="refineResultApply" class="inv-blue--disabled btn btn-inv-blue refine-result__view-more refine-result__apply" data-filter-type ="@Model.FilterType">Apply</button>
     </div>
 }

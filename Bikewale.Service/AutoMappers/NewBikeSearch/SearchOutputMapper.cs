@@ -41,8 +41,6 @@ namespace Bikewale.Service.AutoMappers.NewBikeSearch
                 return null;
             }
 
-
-
         }
     }
 }

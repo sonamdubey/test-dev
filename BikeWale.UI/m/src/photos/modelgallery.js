@@ -312,7 +312,7 @@ function getImageDownloadUrl() {
     if (activeImageIndex == -1)
         activeImageIndex++;
     var currImage = modelImages[activeImageIndex];
-    return currImage.HostUrl + "0x0" + currImage.OriginalImgPath;
+    return currImage.HostUrl + "1056x594" + currImage.OriginalImgPath;
 }
 
 function resizePortraitImage(element) {
