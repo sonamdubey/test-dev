@@ -75,6 +75,7 @@
 
 	    var emiDetails = JSON.parse(data.attr('data-emiDetails'));
 	    var bikePrice = data.attr('data-bikePrice');
+	    var bikeExshowroomPrice = data.attr('data-bikeExshowroomPrice');
 
 	    EMIviewModel.processingFees(emiDetails.processingFee);
 	    EMIviewModel.exshowroomprice(bikePrice);
@@ -86,7 +87,7 @@
 	    EMIviewModel.minROI(emiDetails.minRateOfInterest);
 	    EMIviewModel.maxROI(emiDetails.maxRateOfInterest);
 
-	    EMIviewModel.downPayment((emiDetails.minDownPayment + emiDetails.maxDownPayment) / 2);
+	    EMIviewModel.loan(emiDetails.minLoanToValue);
 
 	});
 
