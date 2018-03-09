@@ -39,7 +39,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                     packet["operationType"] = nvc["operationType"];
                     packet["documentJson"] = JsonConvert.SerializeObject(doc);
 
-                    BWESIndexUpdater.PushToQueue(nvc);
+                    BWESIndexUpdater.PushToQueue(packet);
                 }
                 return true;
             }
@@ -73,7 +73,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                     packet["operationType"] = nvc["operationType"];
                     packet["documentJson"] = JsonConvert.SerializeObject(doc);
 
-                    BWESIndexUpdater.PushToQueue(nvc);
+                    BWESIndexUpdater.PushToQueue(packet);
                 }
                 return true;
             }
@@ -101,7 +101,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                 packet["documentId"] = model;
                 packet["operationType"] = nvc["operationType"];
 
-                BWESIndexUpdater.PushToQueue(nvc);
+                BWESIndexUpdater.PushToQueue(packet);
             }
             return true;
         }

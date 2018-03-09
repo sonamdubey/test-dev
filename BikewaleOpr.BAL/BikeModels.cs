@@ -105,8 +105,8 @@ namespace BikewaleOpr.BAL
         {
             NameValueCollection nvc = new NameValueCollection();
             nvc["ids"] = ids;
-            nvc["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
-            nvc["documentType"] = "modelpricedocument";
+            nvc["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
+            nvc["documentType"] = "bikemodeldocument";
             nvc["operationType"] = operation;
 
             BWESDocumentBuilder.PushToQueue(nvc);
