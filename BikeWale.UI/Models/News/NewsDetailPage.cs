@@ -548,7 +548,7 @@ namespace Bikewale.Models
                             CityId = CityId,
                             WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
                             WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
-                            WidgetHref = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
+                            WidgetHref = string.Format("/{0}{1}-bikes/{2}/", IsMobile ? "m/":"",objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
 
                         };
                     }
@@ -728,10 +728,10 @@ namespace Bikewale.Models
                 }
                 else
                 {
-                    PopularBikesWidget.WidgetHeading = "Popular bikes";
-                    PopularBikesWidget.WidgetHref = "/best-bikes-in-india/";
+                    PopularBikesWidget.WidgetHeading = "Popular Bikes";
+                    PopularBikesWidget.WidgetHref = string.Format("/{0}best-bikes-in-india/", IsMobile ? "m/" : "");
                     PopularBikesWidget.WidgetLinkTitle = "Best Bikes in India";
-                    PopularBikesWidget.CtaText = "View all bikes";
+                    PopularBikesWidget.CtaText = "View all Bikes";
                 }
             }
             catch (Exception ex)
@@ -761,12 +761,12 @@ namespace Bikewale.Models
             if (objData.Make != null)
             {
                 objData.UpcomingBikes.WidgetHeading = string.Format("Upcoming {0} bikes", objData.Make.MakeName);
-                objData.UpcomingBikes.WidgetHref = string.Format("/{0}-bikes/upcoming/", objData.Make.MaskingName);
+                objData.UpcomingBikes.WidgetHref = string.Format("/{0}{1}-bikes/upcoming/", IsMobile ? "m/" : "",objData.Make.MaskingName);
             }
             else
             {
                 objData.UpcomingBikes.WidgetHeading = "Upcoming bikes";
-                objData.UpcomingBikes.WidgetHref = "/upcoming-bikes/";
+                objData.UpcomingBikes.WidgetHref = string.Format("/{0}upcoming-bikes/", IsMobile ? "m/" : "");
             }
             objData.UpcomingBikes.WidgetLinkTitle = "Upcoming Bikes in India";
         }
@@ -783,16 +783,16 @@ namespace Bikewale.Models
             {
                 PopularBikesWidget.WidgetHeading = string.Format("Popular {0} Scooters", objData.Make.MakeName);
                 if (objData.Make.IsScooterOnly)
-                    PopularBikesWidget.WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName);
+                    PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-bikes/", IsMobile ? "m/" : "",objData.Make.MaskingName);
                 else
-                    PopularBikesWidget.WidgetHref = string.Format("/{0}-scooters/", objData.Make.MaskingName);
+                    PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-scooters/", IsMobile ? "m/" : "", objData.Make.MaskingName);
                 PopularBikesWidget.WidgetLinkTitle = string.Format("{0} Scooters", objData.Make.MakeName);
                 PopularBikesWidget.CtaText = "View all Scooters";
             }
             else
             {
                 PopularBikesWidget.WidgetHeading = string.Format("Popular {0} Bikes", objData.Make.MakeName);
-                PopularBikesWidget.WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName);
+                PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-bikes/", IsMobile ? "m/" : "",objData.Make.MaskingName);
                 PopularBikesWidget.WidgetLinkTitle = string.Format("{0} Bikes", objData.Make.MakeName);
                 PopularBikesWidget.CtaText = "View all Bikes";
             }
@@ -1045,7 +1045,7 @@ namespace Bikewale.Models
                 {
                     objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
                     objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
-                    objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
+                    objData.PopularBodyStyle.WidgetHref = string.Format("{0}{1}",IsMobile ? "/m":"",UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle));
                     objData.PopularBodyStyle.CityId = CityId;
                     objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
 
