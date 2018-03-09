@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.MakePageVM
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/photo-grid-carousel.css' inline />";
     Model.Page_JS_Paths = new string[] { "/src/new/bikemake.js", "/src/review-popup.js" };
 
     Model.AdTags.AdPath = "/1017752/Bikewale_Make_";
@@ -11,7 +11,7 @@
     Model.AdTags.Ad_Top_300x250 = true;
     Model.AdTags.Ad_970x90Bottom = true;
     Model.AdTags.Ad_970x90 = true;
-  
+
 }
 
 <section id="makeTabsContentWrapper">
@@ -118,7 +118,7 @@
                                                     else
                                                     { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))));
                                                     }
-                                                </div>                                                
+                                                </div>
                                                 @if (bike.VersionPrice > 0)
                                                 {
                                                     <a rel="nofollow" href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
@@ -210,26 +210,50 @@
                                 </div>
                             }
 
-                            @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+                            @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.ModelList != null && Model.BikeModelsPhotos.ModelList.Any())
                             {
-                                <section>
-                                    <div id="makeVideosContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
+                                <div id="makeImagesVideosContent" class="bw-model-tabs-data">
 
-
-                                        <h2 class="padding-left20 padding-right20">@string.Format("{0} Videos", Model.MakeName)</h2>
-
-
-                                        @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
-
-                                        <div class="margin-top10 padding-left20">
-                                            <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
-                                                View all videos <span class="bwsprite teal-right"></span>
-                                            </a>
+                                    <div id="makeimagescontent" class="padding-top20 font14 make-image-content">
+                                        <div class="carousel-heading-content">
+                                            <div class="swiper-heading-left-grid inline-block">
+                                                <h2 class="padding-left20 padding-right20">@Model.MakeName Images</h2>
+                                            </div>
+                                            <div class="swiper-heading-right-grid inline-block text-right">
+                                                <a href="@string.Format("/{0}-bikes/images/", @Model.MakeMaskingName)" title="@string.Format("{0} Images",Model.MakeName)" class="btn view-all-target-btn">
+                                                    View all
+                                                </a>
+                                            </div>
                                         </div>
+                                        @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.BikeModelsPhotos)
+
+
+                                        <div class="clear"></div>
                                     </div>
 
-                                </section>
+                                    @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+                                    {
+                                        <section>
+                                            <div id="makeVideosContent" class="padding-top20 padding-bottom20 font14">
+
+
+                                                <h2 class="padding-left20 padding-right20">@string.Format("{0} Videos", Model.MakeName)</h2>
+
+
+                                                @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
+
+                                                <div class="margin-top10 padding-left20">
+                                                    <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
+                                                        View all videos <span class="bwsprite teal-right"></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </section>
+                                    }
+                                </div>
                             }
+
                             <div id="overallMakeDetailsFooter"></div>
                         </div>
                     </div>
@@ -327,13 +351,13 @@
 
             @if (Model.ResearchMoreMakeWidget != null)
             {
-                
+
                 <div class="content-box-shadow section-bottom-margin">
                     <h2 class="sidebar-list-heading">Research More</h2>
                     @Html.Partial("~/Views/Make/ResearchMoreAboutMake.cshtml", Model.ResearchMoreMakeWidget)
                 </div>
             }
-            
+
 
         </div>
         <div class="clear"></div>
@@ -389,22 +413,22 @@
     <div id="reviewPopup" class="review-popup hide" data-csslink="@String.Format("{0}/sass/partials/review-popup.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></div>
     <!-- make review popup ends-->
 }
-    <script type="text/javascript">
-        var suggestionText = "@Model.MakeName" + " Bikes";
-        var pageData = {
-            label: suggestionText,
-            payload : {
-                makeId: "@Model.MakeId",
-                modelId : "0",
-                makeMaskingName : "@Model.MakeMaskingName",
-                modelMaskingName : "",
-                futuristic : "False",
-                isNew: "@(Model.Bikes!= null && Model.Bikes.Count() > 0)",
-                userRatingsCount: "0",
-                expertReviewsCount: "0"
-            },
-            value: suggestionText
-        };
+<script type="text/javascript">
+    var suggestionText = "@Model.MakeName" + " Bikes";
+    var pageData = {
+        label: suggestionText,
+        payload: {
+            makeId: "@Model.MakeId",
+            modelId: "0",
+            makeMaskingName: "@Model.MakeMaskingName",
+            modelMaskingName: "",
+            futuristic: "False",
+            isNew: "@(Model.Bikes!= null && Model.Bikes.Count() > 0)",
+            userRatingsCount: "0",
+            expertReviewsCount: "0"
+        },
+        value: suggestionText
+    };
 
-    </script>
+</script>
 
