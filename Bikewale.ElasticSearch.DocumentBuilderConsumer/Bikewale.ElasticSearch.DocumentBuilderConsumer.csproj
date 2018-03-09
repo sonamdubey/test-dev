@@ -48,6 +48,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MySqlDatabaseLibrary">
+      <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ElasticSearch\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\Libs\NewRabbitMQPublishing\RabbitMQ.Client.dll</HintPath>
     </Reference>
@@ -72,7 +79,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+      <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
+      <Name>Bikewale.ElasticSearch.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
+      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Name>Bikewale.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
