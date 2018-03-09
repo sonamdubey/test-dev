@@ -14,6 +14,7 @@
 
 @if (Model != null && Model.UserReviewDetailsObj != null && Model.UserReviewDetailsObj.Model != null && Model.UserReviewDetailsObj.Make != null)
 {
+    var bikeName = string.Format("{0} {1}", Model.UserReviewDetailsObj.Make.MakeName, Model.UserReviewDetailsObj.Model.ModelName);
     <section id="section-review-details" data-modelid="@Model.UserReviewDetailsObj.Model.ModelId" data-makeid="@Model.UserReviewDetailsObj.Make.MakeId">
         <div class="container content-box-shadow card-bottom-margin">
             <div class="model-card-details content-box-shadow padding-10-20">
@@ -21,7 +22,7 @@
                     <img src="@Image.GetPathToShowImages(Model.UserReviewDetailsObj.OriginalImagePath,Model.UserReviewDetailsObj.HostUrl,ImageSize._110x61,QualityFactor._65)" alt="@Model.UserReviews.BikeName">
                 </div>
                 <div class="right-grid-details inline-block">
-                    <h1 class="font16 font-bold">@Model.UserReviews.BikeName</h1>
+                    <h1 class="font16 font-bold">User Reviews of @bikeName</h1>
                     <div class="model-overall-rating">
                         <span class="rate-count-@Math.Round(Model.UserReviewDetailsObj.OverAllModelRating)">
                             <span class="star-icon"></span>
