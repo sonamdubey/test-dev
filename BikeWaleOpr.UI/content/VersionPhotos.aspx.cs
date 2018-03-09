@@ -29,8 +29,23 @@ namespace BikeWaleOpr.Content
         protected HtmlInputFile filLarge;
         protected string verId = string.Empty, isReplicated = string.Empty;
         string timeStamp = CommonOpn.GetTimeStamp();
+        private readonly IBikeModels _bikeModels;
 
         string qryStrModel = "";
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9 March 2018
+        /// Description: To initialize _bikeModels using unity resolver. 
+        /// </summary>
+        public VersionPhotos()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                _bikeModels = container.Resolve<IBikeModels>();
+            }
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -95,14 +110,7 @@ namespace BikeWaleOpr.Content
                     UpdateVersions(lt.Text, out originalImgPath);
                     SavePhoto(lt.Text, originalImgPath.Split('?')[0]);
 
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                        container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
-                        IBikeModels bikeModels = container.Resolve<IBikeModels>();
-
-                        bikeModels.UpdateModelESIndex(qryStrModel, "update");
-                    }
+                    _bikeModels.UpdateModelESIndex(qryStrModel, "update");
                 }
             }
 
@@ -135,14 +143,7 @@ namespace BikeWaleOpr.Content
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                        container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
-                        IBikeModels bikeModels = container.Resolve<IBikeModels>();
-
-                        bikeModels.UpdateModelESIndex(qryStrModel, "update");
-                    }
+                    _bikeModels.UpdateModelESIndex(qryStrModel, "update");
 
                     BindRepeater();
                 }

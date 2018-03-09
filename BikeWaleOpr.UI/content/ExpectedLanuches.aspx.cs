@@ -34,6 +34,7 @@ namespace BikeWaleOpr.Content
         private readonly IBikeMakes _makes = null;
         private readonly string _indexName;
         private readonly IBikeESRepository _bikeESRepository;
+        private readonly IBikeModels _bikeModels;
 
         public ExpectedLaunches()
         {
@@ -41,10 +42,14 @@ namespace BikeWaleOpr.Content
             {
                 container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
                     .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>()
-                    .RegisterType<IBikeESRepository, BikeESRepository>();
+                    .RegisterType<IBikeESRepository, BikeESRepository>()
+                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                    .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+
                 _makes = container.Resolve<IBikeMakes>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
+                _bikeModels = container.Resolve<IBikeModels>();
             }
         }
 
@@ -188,14 +193,7 @@ namespace BikeWaleOpr.Content
                     UpdateBikeESIndex(idList);
                 }
 
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                    container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
-                    IBikeModels bikeModels = container.Resolve<IBikeModels>();
-
-                    bikeModels.UpdateModelESIndex(updatedModels, "update");
-                } 
+                _bikeModels.UpdateModelESIndex(updatedModels, "update");
             }
             catch (Exception err)
             {

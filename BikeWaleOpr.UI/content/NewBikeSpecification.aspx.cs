@@ -48,6 +48,22 @@ namespace BikeWaleOpr.Content
 
         private string _versionId = String.Empty;
 
+        private IBikeModels _bikeModels;
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9 March 2018
+        /// Description: Constructor to initialize _bikeModels using unity resolver.
+        /// </summary>
+        public NewBikeSpecification()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                _bikeModels = container.Resolve<IBikeModels>();
+            }
+        }
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -475,16 +491,8 @@ namespace BikeWaleOpr.Content
 
                     if (status)
                     {
-                        spnError.InnerText = "Data Saved Successfully.";
-                        
-                        using (IUnityContainer container = new UnityContainer())
-                        {
-                            container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                            container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
-                            IBikeModels bikeModels = container.Resolve<IBikeModels>();
-
-                            bikeModels.UpdateModelESIndex(Request.QueryString["modelid"], "update");
-                        }
+                        spnError.InnerText = "Data Saved Successfully.";                        
+                        _bikeModels.UpdateModelESIndex(Request.QueryString["modelid"], "update");
                     }
                     else
                     {
