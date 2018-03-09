@@ -38,6 +38,8 @@ namespace BikeWaleOpr.Content
             set { ViewState["SortDirection"] = value; }
         } // SortDirection
 
+        private IBikeModels _bikeModels;
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -54,6 +56,13 @@ namespace BikeWaleOpr.Content
             dtgrdMembers.CancelCommand += new DataGridCommandEventHandler(dtgrdMembers_Cancel);
             dtgrdMembers.DeleteCommand += new DataGridCommandEventHandler(dtgrdMembers_Delete);
             btnShow.Click += new EventHandler(btnShow_Click);
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                _bikeModels = container.Resolve<IBikeModels>();
+            }
         }
 
         void Page_Load(object Sender, EventArgs e)
@@ -172,14 +181,7 @@ namespace BikeWaleOpr.Content
                         nvc.Add("v_bodystyleid", Convert.ToInt16(cmbBodyStyles.SelectedValue).ToString());
                         SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CW, nvc);
 
-                        using (IUnityContainer container = new UnityContainer())
-                        {
-                            container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                            container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
-                            IBikeModels bikeModels = container.Resolve<IBikeModels>();
-
-                            bikeModels.UpdateModelESIndex(Request["cmbmodels"].ToString(), "update");
-                        }
+                        _bikeModels.UpdateModelESIndex(Request["cmbmodels"].ToString(), "update");
                     }
                 }
                 UInt32 modelId = Convert.ToUInt32(Request["cmbModels"]);
@@ -348,14 +350,7 @@ namespace BikeWaleOpr.Content
                 //Refresh memcache object for versions by type
                 BwMemCache.ClearVersionByType(modelId);
                 //Push to BWEsDocumentBuilder
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                    container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
-                    IBikeModels bikeModels = container.Resolve<IBikeModels>();
-
-                    bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
-                }
+                _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
             }
             catch (SqlException ex)
             {
@@ -422,14 +417,8 @@ namespace BikeWaleOpr.Content
                 //Refresh memcache object for versions by type
                 BwMemCache.ClearVersionByType(modelId);
                 //Push to BWEsDocumentBuilder
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                    container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
-                    IBikeModels bikeModels = container.Resolve<IBikeModels>();
-
-                    bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
-                }
+                _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
+                
             }
             catch (SqlException ex)
             {

@@ -4,9 +4,11 @@ using Bikewale.Utility;
 using Consumer;
 using MySql.CoreDAL;
 using Newtonsoft.Json;
+using RabbitMqPublishing;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
@@ -39,7 +41,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                     packet["operationType"] = nvc["operationType"];
                     packet["documentJson"] = JsonConvert.SerializeObject(doc);
 
-                    BWESIndexUpdater.PushToQueue(packet);
+                    PushToQueue(packet);
                 }
                 return true;
             }
@@ -73,7 +75,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                     packet["operationType"] = nvc["operationType"];
                     packet["documentJson"] = JsonConvert.SerializeObject(doc);
 
-                    BWESIndexUpdater.PushToQueue(packet);
+                    PushToQueue(packet);
                 }
                 return true;
             }
@@ -101,7 +103,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                 packet["documentId"] = model;
                 packet["operationType"] = nvc["operationType"];
 
-                BWESIndexUpdater.PushToQueue(packet);
+                PushToQueue(packet);
             }
             return true;
         }
@@ -142,7 +144,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                                     objPrices.Add(new PriceEntity()
                                     {
                                         PriceType = _pricestypes[i],
-                                        PriceValue = Convert.ToUInt32(dr[_pricestypes[i]])
+                                        PriceValue = SqlReaderConvertor.ToUInt32(dr[_pricestypes[i]])
                                     });
                                 }
 
@@ -155,38 +157,38 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                                         //make details
                                         BikeMake = new MakeEntity()
                                         {
-                                            MakeId = Convert.ToUInt32(dr["MakeId"]),
+                                            MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
                                             MakeName = Convert.ToString(dr["MakeName"]),
                                             MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
-                                            MakeStatus = GetStatus(Convert.ToBoolean(dr["IsNewMake"]), Convert.ToBoolean(dr["IsFuturisticMake"]))
+                                            MakeStatus = GetStatus(SqlReaderConvertor.ToBoolean(dr["IsNewMake"]), Convert.ToBoolean(dr["IsFuturisticMake"]))
                                         },
 
                                         //model details
                                         BikeModel = new ModelEntity()
                                         {
-                                            ModelId = Convert.ToUInt32(dr["ModelId"]),
+                                            ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]),
                                             ModelName = Convert.ToString(dr["ModelName"]),
                                             ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
-                                            ModelStatus = GetStatus(Convert.ToBoolean(dr["IsNewModel"]), Convert.ToBoolean(dr["IsFuturisticModel"]))
+                                            ModelStatus = GetStatus(SqlReaderConvertor.ToBoolean(dr["IsNewModel"]), Convert.ToBoolean(dr["IsFuturisticModel"]))
                                         },
 
                                         //top version
                                         TopVersion = new VersionEntity()
                                         {
-                                            VersionId = Convert.ToUInt32(dr["TopVersionId"]),
+                                            VersionId = SqlReaderConvertor.ToUInt32(dr["TopVersionId"]),
                                             VersionName = Convert.ToString(dr["VersionName"]),
-                                            Mileage = Convert.ToUInt32(dr["Mileage"]),
-                                            KerbWeight = Convert.ToUInt32(dr["KerbWeight"]),
-                                            Displacement = Convert.ToDouble(dr["Displacement"]),
-                                            Power = Convert.ToDouble(dr["Power"]),
+                                            Mileage = SqlReaderConvertor.ToUInt32(dr["Mileage"]),
+                                            KerbWeight = SqlReaderConvertor.ToUInt32(dr["KerbWeight"]),
+                                            Displacement = SqlReaderConvertor.ParseToDouble(dr["Displacement"]),
+                                            Power = SqlReaderConvertor.ParseToDouble(dr["Power"]),
                                             PriceList = objPrices,
-                                            Exshowroom = Convert.ToUInt32(dr["Exshowroom"]),
-                                            Onroad = Convert.ToUInt32(dr["RTO"]) + Convert.ToUInt32(dr["Insurance"]) + Convert.ToUInt32(dr["Exshowroom"]),
-                                            VersionStatus = GetStatus(Convert.ToBoolean(dr["IsNewVersion"]), Convert.ToBoolean(dr["IsFuturisticVersion"]))
+                                            Exshowroom = SqlReaderConvertor.ToUInt32(dr["Exshowroom"]),
+                                            Onroad = SqlReaderConvertor.ToUInt32(dr["RTO"]) + SqlReaderConvertor.ToUInt32(dr["Insurance"]) + SqlReaderConvertor.ToUInt32(dr["Exshowroom"]),
+                                            VersionStatus = GetStatus(SqlReaderConvertor.ToBoolean(dr["IsNewVersion"]), SqlReaderConvertor.ToBoolean(dr["IsFuturisticVersion"]))
                                         },
 
                                         BikeName = Convert.ToString(dr["MakeName"]) + " " + Convert.ToString(dr["ModelName"]),
-                                        BodyStyleId = Convert.ToUInt32(dr["BodyStyleId"]),
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
 
                                         //bike media/reviews
                                         BikeImage = new ImageEntity()
@@ -194,12 +196,12 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                                             ImageURL = Convert.ToString(dr["ImageURL"]),
                                             HostURL = Convert.ToString(dr["HostURL"])
                                         },
-                                        ImageCount = Convert.ToUInt32(dr["ImageCount"]),
-                                        VideosCount = Convert.ToUInt32(dr["VideosCount"]),
-                                        ExpertReviewsCount = Convert.ToUInt32(dr["ExpertReviewsCount"]),
-                                        UserReviewsCount = Convert.ToUInt32(dr["UserReviewsCount"]),
-                                        ReviewRatings = Convert.ToDouble(dr["ReviewRatings"]),
-                                        RatingsCount = Convert.ToUInt32(dr["RatingsCount"]),
+                                        ImageCount = SqlReaderConvertor.ToUInt32(dr["ImageCount"]),
+                                        VideosCount = SqlReaderConvertor.ToUInt32(dr["VideosCount"]),
+                                        ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"]),
+                                        UserReviewsCount = SqlReaderConvertor.ToUInt32(dr["UserReviewsCount"]),
+                                        ReviewRatings = SqlReaderConvertor.ParseToDouble(dr["ReviewRatings"]),
+                                        RatingsCount = SqlReaderConvertor.ToUInt32(dr["RatingsCount"]),
                                        
                                     });
                             }
@@ -225,6 +227,17 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
         private static BikeStatus GetStatus(bool isNew, bool isFuturistic)
         {
             return !isNew ? (!isFuturistic ? BikeStatus.Discontinued : BikeStatus.Upcoming) : (!isFuturistic ? BikeStatus.New : BikeStatus.Invalid);
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9 March 2018
+        /// Description: Function to push to BWEsIndexUpdater queue.
+        /// </summary>
+        /// <param name="nvc"></param>
+        private static void PushToQueue(NameValueCollection nvc)
+        {
+            RabbitMqPublish publish = new RabbitMqPublish();
+            publish.PublishToQueue(ConfigurationManager.AppSettings["BWEsIndexUpdaterQueue"], nvc);
         }
 
     }

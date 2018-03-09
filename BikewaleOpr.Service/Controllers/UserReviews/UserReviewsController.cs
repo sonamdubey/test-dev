@@ -11,6 +11,7 @@ using BikewaleOpr.Service.AutoMappers.UserReviews;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Linq;
 
 namespace BikewaleOpr.Service.Controllers.UserReviews
 {
@@ -181,7 +182,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                 {
                     IEnumerable<BikeRatingApproveEntity> objReviewDetails = _userReviewsRepo.GetUserReviewDetails(reviewIds);
 
-                    string updatedIds = string.Empty;
+                    String updatedIds = String.Join(",", objReviewDetails.Select(obj => Convert.ToString(obj.ModelId)));
 
                     foreach(var obj in objReviewDetails)
                     {                                                
@@ -190,7 +191,6 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_{0}", obj.ModelId));
-                        updatedIds += string.Format("{0},", obj.ModelId);
                     }
                     MemCachedUtil.Remove("BW_UserReviewIdMapping");
                     MemCachedUtil.Remove("BW_BikesByMileage");

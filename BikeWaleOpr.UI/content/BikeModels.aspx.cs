@@ -39,6 +39,7 @@ namespace BikeWaleOpr.Content
         private readonly IBikeMakes _makes = null;
         private readonly IBikeESRepository _bikeESRepository;
         private readonly string _indexName;
+        private readonly IBikeModels _bikeModels;
 
         private string SortCriteria
         {
@@ -89,10 +90,12 @@ namespace BikeWaleOpr.Content
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
                 .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
-                .RegisterType<IBikeESRepository, BikeESRepository>();
+                .RegisterType<IBikeESRepository, BikeESRepository>()
+                .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
                 _series = container.Resolve<IBikeSeries>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
+                _bikeModels = container.Resolve<IBikeModels>();
             }
 
             using (IUnityContainer container = new UnityContainer())
@@ -205,14 +208,8 @@ namespace BikeWaleOpr.Content
                             //CLear popularBikes key                       
                             ClearPopularBikesCache();
 
-                            using (IUnityContainer container = new UnityContainer())
-                            {
-                                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
-                                IBikeModels bikeModels = container.Resolve<IBikeModels>();
-
-                                bikeModels.UpdateModelESIndex(Convert.ToString(_modelId), "insert");
-                            }
+                            //Send update message to BWEsDocumentBuilder
+                            _bikeModels.UpdateModelESIndex(Convert.ToString(_modelId), "insert");
                         }
 
                         if (_mc != null)
@@ -403,14 +400,7 @@ namespace BikeWaleOpr.Content
                     nvc.Add("v_IsDeleted", null);
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
 
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                        container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
-                        IBikeModels bikeModels = container.Resolve<IBikeModels>();
-
-                        bikeModels.UpdateModelESIndex(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), "update");
-                    }
+                    _bikeModels.UpdateModelESIndex(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), "update");
                 }
 
                 // Bike is discontinued
@@ -518,14 +508,7 @@ namespace BikeWaleOpr.Content
             uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
             deleteModelMostPopularBikes(modelId, makeId);
 
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
-                IBikeModels bikeModels = container.Resolve<IBikeModels>();
-
-                bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "delete");
-            }
+            _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "delete");
 
             BindGrid();
         }

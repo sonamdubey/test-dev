@@ -79,10 +79,6 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
         /// <returns></returns>
         static bool RabbitMQExecution(NameValueCollection nvc)
         {
-            String id = nvc["ids"];
-            String a = nvc["indexName"];
-            String b = nvc["documentType"];
-            String c = nvc["operationType"];
             try
             {
                 if (nvc != null
@@ -117,7 +113,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
         /// <returns></returns>
         private static bool PerformDocumentOperations(NameValueCollection queueMessage, int c = 0)
         {
-            if (c >= 3)
+            if (c >= NO_OF_RETRIES)
             {
                 return true;
             }
