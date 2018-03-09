@@ -1,7 +1,7 @@
 ﻿/* Recommended bike popup */
 
 var vmRecommendedBikes;
-
+var apiCalled = false;
 
 var recommendedBikePopup = (function () {
     var applyBtn, popup, appliedFilterList, container, closeBtn;
@@ -12,6 +12,7 @@ var recommendedBikePopup = (function () {
         closeBtn = $('#recommendedBikeCloseBtn');
         container = $('.recommended-bike-container');
         appliedFilterList = $('#appliedFilterList');
+        otherContainer = $('.other-recommended-bike');
     };
 
     function registerEvents() {
@@ -71,13 +72,15 @@ var recommendedBikePopup = (function () {
             vmRecommendedBikes.FiltersValue([]);
             var tmpMakeId = vmRecommendedBikes.searchFilter.makeId;
             var tmpCityId = vmRecommendedBikes.searchFilter.cityId;
-            vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: "", pageNumber: "" };
+            vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: null, pageNumber: null };
             window.history.back();
         });
 
         container.on('scroll', function () {
+            var paginationDone = true;
             /* other recommended overlay */
             recommendedBikeOverlay();
+
 
             /* add box shadow to container on top while scroll */
             if (container.scrollTop() !== 0) {
@@ -88,6 +91,24 @@ var recommendedBikePopup = (function () {
             }
 
             container.find('img.lazy[src=""]').lazyload();
+
+
+            var scrollTop = container.scrollTop();
+            var windowHeight = $(window).innerHeight();
+            var bodyHeight = $('.recommended-bike-section').innerHeight() + otherContainer.innerHeight() + $('.recommended-bike__title').innerHeight() - windowHeight;
+            var scrollPercentage = (scrollTop / bodyHeight);
+
+            if (scrollPercentage > 0.9) {
+                
+                if (vmRecommendedBikes.noOfOtherBikes() != vmRecommendedBikes.bikesOtherMakes().length)
+                vmRecommendedBikes.bindNextOtherBikesList();
+            }
+
+
+            
+
+
+
         });
 
         /* filter element click */
@@ -258,7 +279,7 @@ var RecommendedBikes = function () {
     self.bikesOtherMakes = ko.observableArray([]);
     self.noOfOtherBikes = ko.observable();
 
-    var pageNo = 0;
+    var pageNo = 1;
     self.isBikesLoading = ko.observable(true);
     self.isOtherBikesLoading = ko.observable(true);
 
@@ -305,7 +326,7 @@ var RecommendedBikes = function () {
     self.budgetStepPoints = ko.observable();
 
     self.minSpecsLen = [$('#hdnMileageLen').val(), $('#hdnDisplacementLen').val(), $('#hdnPowerLen').val()];
-    self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: "", makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: 10, pageNumber: 0 };
+    self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize:null, pageNumber: null };
 
     self.budgetSlider.subscribe(function (value) {
         var minBuget = self.budgetSlider()[0];
@@ -580,7 +601,7 @@ var RecommendedBikes = function () {
                             var bikeCount = bikeList.length;
                             if (searchFilterObj.excludeMake) {
                                 self.bikesOtherMakes(bikeList);
-                                self.noOfOtherBikes(bikeCount);
+                                self.noOfOtherBikes(response.TotalCount)
                             } else {
                                 self.bikes(bikeList);
                                 self.noOfBikes(bikeCount);
@@ -593,13 +614,14 @@ var RecommendedBikes = function () {
                     else {
                         //Response is invalid
                     }
+                   
                 },
                 error: function (request, status, error) {
                     searchFilterObj.excludeMake ? self.isOtherBikesLoading(false) : self.isBikesLoading(false);
 
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
-                    
+                   
                 }
             });
         }
@@ -626,6 +648,7 @@ var RecommendedBikes = function () {
             filterList = jQuery.extend({}, self.searchFilter);
             filterList.excludeMake = true;
             filterList.pageNumber = pageNo;
+            filterList.pageSize = 10;
             return self.CallAPI(filterList);
         }
         catch (e) {
@@ -692,38 +715,44 @@ var RecommendedBikes = function () {
         filterList = jQuery.extend({}, self.searchFilter);
         filterList.excludeMake = true;
         filterList.pageNumber = ++pageNo;
-
-        $.ajax({
-            type: "POST",
-            url: "/api/v2/bikesearch/",
-            contentType: "application/json",
-            data: ko.toJSON(filterList),
-            success: function (response) {
-                if (response.length > 0) {
-                    response = JSON.parse(response);
-                    if (("Bikes" in response) && response.Bikes != null && response.Bikes.length > 0) {
-
-                        self.bikesOtherMakes.push(response.Bikes);
-                        self.noOfOtherBikes(self.noOfOtherBikes + bikeList.length);
-                        
+        filterList.pageSize = 10;
+        if (!apiCalled)
+        {
+            apiCalled = true;
+            $.ajax({
+                type: "POST",
+                url: "/api/v2/bikesearch/",
+                contentType: "application/json",
+                data: ko.toJSON(filterList),
+                success: function (response) {
+                    if (response.length > 0) {
+                        response = JSON.parse(response);
+                        if (("Bikes" in response) && response.Bikes != null && response.Bikes.length > 0) {
+                            var bikeList = response.Bikes;
+                            self.bikesOtherMakes.push.apply(self.bikesOtherMakes , bikeList);
+                            self.noOfOtherBikes(response.TotalCount);
+                            apiCalled = false;
+                        }
+                        else {
+                            //Bike List is Not Present
+                        }
                     }
                     else {
-                        //Bike List is Not Present
+                        //Response is invalid
                     }
-                }
-                else {
-                    //Response is invalid
-                }
-            },
-            error: function (request, status, error) {
+                },
+                error: function () {
 
-            },
-            complete: function (xhr, ajaxOptions, thrownError) {
+                },
+                complete: function () {
 
-            }
-        });
+                }
+            });
+        }
+       
     };
 
+   
 
 };
 
@@ -796,7 +825,6 @@ function getMinMaxBudgetLimits(range) {
 
 	return filterArray;
 }
-
 
 
 

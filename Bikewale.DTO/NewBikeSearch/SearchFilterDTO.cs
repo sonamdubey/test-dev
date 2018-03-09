@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 namespace Bikewale.DTO.NewBikeSearch
 {
+    /// <summary>
+    /// Modified by: Dhruv Joshi
+    /// Dated: 8th March 2018
+    /// Description: BodyStyle changed to IEnumerable of strings, Page Numbers and size changed to ushort
+    /// </summary>
     public class SearchFilterDTO
     {
        
         [JsonProperty("bodyStyle")]
-        public ushort BodyStyle { get; set; }
+        public IEnumerable<string> BodyStyle { get; set; }
 
 
         [JsonProperty("makeId")]
@@ -26,9 +31,9 @@ namespace Bikewale.DTO.NewBikeSearch
         [JsonProperty("manual")]
         public bool Manual { get; set; }
         [JsonProperty("pageNumber")]
-        public int PageNumber { get; set; }
+        public ushort PageNumber { get; set; }
         [JsonProperty("pageSize")]
-        public int PageSize { get; set; }
+        public ushort PageSize { get; set; }
         [JsonProperty("excludeMake")]
         public bool ExcludeMake { get; set; }
         [JsonProperty("cityId")]
