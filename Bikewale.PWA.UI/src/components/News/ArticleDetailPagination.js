@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {mapNewsArticleDataToInitialData} from './NewsCommon'
+import {mapNewsArticleDataToInitialData, isReactCategory} from './NewsCommon'
 class ArticleDetailPagination extends React.Component {
 	propTypes: {
 		prevArticle : React.PropTypes.object,
@@ -40,7 +40,7 @@ class ArticleDetailPagination extends React.Component {
 		if(!article) {
 			return false;
 		}
-		if(article.CategoryName == "NEWS") {
+		if(isReactCategory(article.CategoryName)) {
 			return (
 				<Link to={article.ArticleUrl} title={article.Title} className="text-default next-prev-article-target" onClick={this.onArticlePaginationClickEvent.bind(this,article)}>
                     {this.renderLinkContent(article,articleTypeText)}    

@@ -43,16 +43,6 @@ class NavigationDrawer extends React.Component {
         
     }
 
-    pushAutoExpoAnalytics(event) {
-    	let targetElement = event.currentTarget
-
-    	let category = targetElement.getAttribute("data-cat")
-    	let action = targetElement.getAttribute("data-act")
-    	let label = targetElement.getAttribute("data-lab")
-    	
-    	triggerGA(category, action, label)
-    }
-
     renderNestedListItemWithLinkTag(link,text) {
         return(
             <li>
@@ -72,13 +62,6 @@ class NavigationDrawer extends React.Component {
         return (
             <div>
                 <nav id="nav-drawer" className="transition-ease">
-					<a href="https://www.bikewale.com/autoexpo2018/" title="AutoExpo 2018 - BikeWale" onClick={this.pushAutoExpoAnalytics} className="auto-expo-nav" data-cat="Editorial_List_Page" data-act="AutoExpo_2018_Link Clicked" data-lab="Navigation_Drawer_Link">
-						<div className="auto-expo-nav__title">
-							<p className="auto-expo-nav__title--sub">Explore</p>
-							<p className="auto-expo-nav__title--main">Auto Expo 2018</p>
-						</div>
-						<div className="auto-expo-nav__logo"></div>
-					</a>
                     <ul className="nav-drawer-list padding-top10">
                         <li>
                             <a href="/m/" className="nav-item" onClick={this.pushAnalytics.bind()}>
@@ -146,7 +129,7 @@ class NavigationDrawer extends React.Component {
                             </div>
                             <ul className="nested-nav-list">
                                 {this.renderNestedListItemWithLinkTag("/m/news/","News")}
-                                {this.renderNestedListItem("/m/expert-reviews/","Expert Reviews")}
+                                {this.renderNestedListItemWithLinkTag("/m/expert-reviews/","Expert Reviews")}
                                 {this.renderNestedListItem("/m/features/","Features")}
                                 {this.renderNestedListItem("/m/bike-care/","Bike Care")}
                                 {this.renderNestedListItemWithLinkTag("/m/bike-videos/","Videos")}

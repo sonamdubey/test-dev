@@ -240,30 +240,34 @@ namespace Bikewale.BAL.BikeData
         }
         public IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> promotedBikes, IEnumerable<MostPopularBikesBase> MostPopularBikes)
         {
-
-            IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(MostPopularBikes.Take(5), new MostPopularBikesBaseComparer());
-
-            if (results.Any())
+            try
             {
-                var bikes = MostPopularBikes.ToList();
-                try
+                if (MostPopularBikes != null)
                 {
-                    var itemToRemove = bikes.SingleOrDefault(r => r.objModel.ModelId == results.ElementAt(0).objModel.ModelId);
-                    bikes.Remove(itemToRemove);
-                    bikes.Insert(0, results.ElementAt(0));
-                    if (results.Count() >= 2)
+                    IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(MostPopularBikes.Take(5), new MostPopularBikesBaseComparer());
+
+                    if (results != null && results.Any())
                     {
-                        itemToRemove = bikes.SingleOrDefault(r => r.objModel.ModelId == results.ElementAt(1).objModel.ModelId);
+                        var bikes = MostPopularBikes.ToList();
+
+                        var itemToRemove = bikes.SingleOrDefault(r => r.objModel.ModelId == results.ElementAt(0).objModel.ModelId);
                         bikes.Remove(itemToRemove);
-                        bikes.Insert(1, results.ElementAt(1));
+                        bikes.Insert(0, results.ElementAt(0));
+                        if (results.Count() >= 2)
+                        {
+                            itemToRemove = bikes.SingleOrDefault(r => r.objModel.ModelId == results.ElementAt(1).objModel.ModelId);
+                            bikes.Remove(itemToRemove);
+                            bikes.Insert(1, results.ElementAt(1));
+                        }
+
+                        MostPopularBikes = bikes;
+
                     }
                 }
-                catch (Exception ex)
-                {
-                    ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetAdPromoteBikeFilters");
-                }
-                MostPopularBikes = bikes;
-
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetAdPromoteBikeFilters");
             }
             return MostPopularBikes;
         }

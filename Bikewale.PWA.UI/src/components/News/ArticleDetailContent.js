@@ -21,8 +21,3 @@ class ArticleDetailContent extends React.Component {
 }
 
 module.exports = ArticleDetailContent
-
-/*<div className="article-content">
-					<img alt={this.props.Title} title={this.props.title} src={this.props.hostUrl+this.props.largePicUrl}/>
-					<div dangerouslySetInnerHTML={{__html:this.props.htmlContent}}/>
-				</div>*/

@@ -1,19 +1,24 @@
 import {newsListAction,newBikesListAction} from '../actionTypes/actionTypes'
 
 import { CMSUserReviewSlugData , CMSUserReviewSlugPosition , isCMSUserReviewSlugClosed } from '../utils/commonUtils.js'
-import {extractPageNoFromURL} from '../components/News/NewsCommon'
+import {extractPageNoFromURL, extractPageCategoryFromURL} from '../components/News/NewsCommon'
 import {refreshGPTAds} from '../utils/googleAdUtils'
 import {NewsArticlesPerPage} from '../utils/constants'
+import {getGlobalCity} from '../utils/popUpUtils'
 
 
 var fetchNewsArticleList = function(pageNo) {
 	return function(dispatch) {
+		var page = extractPageCategoryFromURL();
 		if(pageNo == -1) {
-			pageNo = extractPageNoFromURL(window.location.href);
+			pageNo = extractPageNoFromURL();
 		}
 		var method = 'GET';
-		var url = '/api/pwa/cms/cat/1,19,6,8,2,18,5,26/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/'; // TODO remove hardcoded api
-	
+		var url;
+		if(page == "news")
+			url = '/api/pwa/cms/news/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/';
+		else
+			url = '/api/pwa/cms/expertreviews/posts/'+NewsArticlesPerPage+'/pn/'+pageNo+'/';
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
@@ -23,7 +28,7 @@ var fetchNewsArticleList = function(pageNo) {
 					dispatch({type:newsListAction.FETCH_NEWSLIST_SUCCESS,payload:JSON.parse(xhr.responseText)});
 				}
 				else 
-					dispatch({type:newsListAction.FETCH_NEWSLIST_FAILURE}) 
+					dispatch({type:newsListAction.FETCH_NEWSLIST_FAILURE})
 			}
 			
 		}
@@ -41,12 +46,14 @@ var fetchNewsArticleList = function(pageNo) {
 var fetchNewBikesListDataForNewsList = function(basicId) {
 	
 	return function(dispatch) {
-		var url ; 
+		var url ;
+		var globalCity = getGlobalCity();
+		var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
 		if(parseInt(basicId) > 0) {
-			url = '/api/pwa/cms/bikelists/id/'+basicId+'/page/';
+			url = '/api/pwa/cms/bikelists/id/'+basicId+'/page/?city='+globalCityName;
 		}
 		else {
-			url = '/api/pwa/cms/bikelists/id/0/page/';
+			url = '/api/pwa/cms/bikelists/id/0/page/?city='+globalCityName;
 		}
 		
 		var xhr = new XMLHttpRequest();
@@ -76,6 +83,5 @@ var resetArticleListData = function() {
 module.exports = {
 	fetchNewsArticleList : fetchNewsArticleList,
 	fetchNewBikesListDataForNewsList : fetchNewBikesListDataForNewsList,
-	resetArticleListData : resetArticleListData,
 	resetArticleListData : resetArticleListData
 }
