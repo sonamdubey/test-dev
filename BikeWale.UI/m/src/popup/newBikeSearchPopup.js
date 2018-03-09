@@ -468,8 +468,8 @@ var RecommendedBikes = function () {
 
                     default:
                         var filterTypeContainer = $('#filtersPopup li[data-filter-type="' + key + '"]');
-                        var arr = self.Filters()[key].split("+");
-                        if (arr[arr.length - 1] === "3") {
+                        var arr = self.FiltersValue()[key].split("-");
+                        if (arr[arr.length - 1] === '0') {
                             switch (key) {
                                 case "mileage":
                                     for (var i = 4; i <= self.minSpecsLen[0]; i++) {
