@@ -96,7 +96,7 @@ namespace Bikewale.Models.BikeSeries
                 BindPageMetas(objSeriesPage);
                 SetBreadcrumList(objSeriesPage);
                 SetPageJSONLDSchema(objSeriesPage);
-                BindCompareScooters(objSeriesPage, CompareSource);
+                BindTopComparisions(objSeriesPage, CompareSource);
                 objSeriesPage.Page = GAPages.Series_Page;
             }
             catch (Exception ex)
@@ -419,15 +419,20 @@ namespace Bikewale.Models.BikeSeries
             }
         }
 
-
-        private void BindCompareScooters(SeriesPageVM objViewModel, CompareSources CompareSource)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Method to fetch popular comparisions of new models of series.
+        /// </summary>
+        /// <param name="objViewModel"></param>
+        /// <param name="CompareSource"></param>
+        private void BindTopComparisions(SeriesPageVM objViewModel, CompareSources CompareSource)
         {
             try
             {
                 string versionList = string.Join(",", objViewModel.SeriesModels.NewBikes.Select(m => m.objVersion.VersionId));
                 PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareScooters, 1, objViewModel.City.CityId, versionList);
-                objViewModel.SimilarCompareScooters = objCompare.GetData();
-                objViewModel.SimilarCompareScooters.CompareSource = CompareSource;
+                objViewModel.TopComparisions = objCompare.GetData();
+                objViewModel.TopComparisions.CompareSource = CompareSource;
             }
             catch (Exception ex)
             {

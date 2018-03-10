@@ -17,7 +17,7 @@ namespace Bikewale.Models.BikeSeries
         public RecentExpertReviewsVM ExpertReviews { get; set; }
         public RecentVideosVM Videos { get; set; }
         public UsedBikeByModelCityVM objUsedBikes { get; set; }
-        public PopularComparisonsVM SimilarCompareScooters { get; set; }
+        public PopularComparisonsVM TopComparisions { get; set; }
 
     }
 }
