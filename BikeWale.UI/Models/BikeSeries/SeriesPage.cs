@@ -49,6 +49,8 @@ namespace Bikewale.Models.BikeSeries
         /// <summary>
         /// Created by : Ashutosh Sharma on 17 Nov 2017
         /// Description : Base method to get data for series page.
+        /// Modified by : Ashutosh Sharma on 10 Mar 2018
+        /// Description : Removed unnecessary call to fetch models for a series.
         /// </summary>
         /// <param name="seriesId"></param>
         /// <returns></returns>
@@ -58,7 +60,6 @@ namespace Bikewale.Models.BikeSeries
             try
             {
                 objSeriesPage = new SeriesPageVM();
-                objSeriesPage.SeriesModels = _seriesCache.GetModelsListBySeriesId(seriesId);
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 objSeriesPage.City = new CityEntityBase();
                 if (location != null && location.CityId > 0)
@@ -77,7 +78,6 @@ namespace Bikewale.Models.BikeSeries
 
                 objSeriesPage.SeriesModels = new BikeSeriesModels();
                 objSeriesPage.SeriesModels.NewBikes = _bikeSeries.GetNewModels(seriesId, objSeriesPage.City.CityId);
-
                 if (objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.NewBikes.Any())
                 {
                     var firstNewBike = objSeriesPage.SeriesModels.NewBikes.FirstOrDefault();
