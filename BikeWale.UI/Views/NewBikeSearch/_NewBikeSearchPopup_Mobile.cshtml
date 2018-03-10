@@ -15,7 +15,7 @@
                     <span data-bind="visible: isBikesLoading()">Searching for bikes...</span>
                     <span data-bind="visible: !isBikesLoading()">
                         <span data-bind="text: noOfBikes()>0 ? noOfBikes() : 'No'"></span>
-                        bikes found based on your criteria
+                        bike<span data-bind="visible: noOfBikes()>1">s</span> found based on your criteria
                     </span>
                 </p>
                 <div class="recommended-bike__filter-section">
@@ -77,7 +77,7 @@
                                         <ul class="recommended-bike-list" data-bind="visible : !isBikesLoading(), foreach: bikes()">
                                                 <li class="recommended-bike__list-card">
                                                     <div class="model__card">
-                                                        <a data-bind="attr: { href: '/m/' + $data.bikeMake.makeMaskingName + '-bikes/' + $data.bikeModel.modelMaskingName, title: $data.bikeName}" class="model-card__target">
+                                                        <a data-bind="attr: { href: '/m/' + $data.bikeMake.makeMaskingName + '-bikes/' + $data.bikeModel.modelMaskingName + '/', title: $data.bikeName}" class="model-card__target">
                                                             <div class="model-card__image">
                                                                 <img class="lazy" data-bind="attr: { src: $data.bikeImage.hostURL + '/144x81/' + $data.bikeImage.imageURL, title: $data.bikeName, alt: $data.bikeName}">
                                                             </div>
@@ -102,7 +102,7 @@
                                                                 <div class="model-card__exshowroom">
                                                                     <div class="card-exshowroom__col">
                                                                         <p class="card-exshowroom__label">Ex-showroom, <span data-bind="text : $data.hasCityPrice ? $data.cityName : 'Mumbai'"></span></p>
-                                                                        <span class="card-exshowroom__value" data-bind="visible: $data.topVersion.exshowroom > 0">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span></span>
+                                                                        <span class="card-exshowroom__value" data-bind="visible: $data.topVersion.exshowroom > 0">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span><span class="font14"> onwards</span></span>
                                                                         <p class="text-default" data-bind="visible: !($data.topVersion.exshowroom > 0)"><span class="font14">Price not available</span></p>
                                                                     </div>
                                                                 </div>
@@ -139,7 +139,7 @@
                                     <ul class="recommended-bike-list" data-bind="visible: !isOtherBikesLoading(), foreach : bikesOtherMakes()">
                                             <li class="recommended-bike__list-card">
                                                 <div class="model__card">
-                                                    <a data-bind="attr: { href: '/m/' + $data.bikeMake.makeMaskingName + '-bikes/' + $data.bikeModel.modelMaskingName, title: $data.bikeName}" class="model-card__target">
+                                                    <a data-bind="attr: { href: '/m/' + $data.bikeMake.makeMaskingName + '-bikes/' + $data.bikeModel.modelMaskingName + '/', title: $data.bikeName}" class="model-card__target">
                                                         <div class="model-card__image">
                                                             <img class="lazy" data-bind="attr: { src: bikeImage.hostURL +'/144x81/' + bikeImage.imageURL, title: $data.bikeName, alt: $data.bikeName}">
                                                         </div>
@@ -165,7 +165,7 @@
                                                             <div class="model-card__exshowroom">
                                                                 <div class="card-exshowroom__col">
                                                                     <p class="card-exshowroom__label">Ex-showroom, <span data-bind="text : $data.hasCityPrice ? $data.cityName : 'Mumbai'"></span></p>
-                                                                    <span class="card-exshowroom__value" data-bind="visible: $data.topVersion.exshowroom > 0">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span></span>
+                                                                    <span class="card-exshowroom__value" data-bind="visible: $data.topVersion.exshowroom > 0">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span><span class="font14"> onwards</span></span>
                                                                     <p class="text-default" data-bind="visible: !($data.topVersion.exshowroom > 0)"><span class="font14">Price not available</span></p>
                                                                 </div>
                                                             </div>
