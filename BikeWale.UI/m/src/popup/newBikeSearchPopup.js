@@ -546,22 +546,22 @@ var RecommendedBikes = function () {
             var filterType = $(this).data('filter-type');
             var dataRange = $(this).data('valuetext');
             var separator = '-';
-            if (filterType == "budget") {
+            if (filterType === "budget") {
                 separator = '+'
             }
             dataRange = dataRange.split(separator);
                 
             var lower = getIndex(dataRange[0], self.arrayBound[filterType]);
             var upper;
-            if (dataRange[1] == '0') {
+            if (dataRange[1] === '0') {
                 upper = self.arrayBound[filterType].length - 1;
                     
             }
             else {
                 upper = getIndex(dataRange[1], self.arrayBound[filterType]);
             }
-            if (filterType == "budget") {
-                if (dataRange[1] == '0') {
+            if (filterType === "budget") {
+                if (dataRange[1] === '0') {
                     activeFiltersList = '+' + self.arrayBound[filterType][lower].toString() + '+0';
                 }
                 else {
@@ -575,7 +575,7 @@ var RecommendedBikes = function () {
                     activeElementList += '+' + i.toString();
                     activeFiltersList += '+' + self.arrayBound[filterType][i].toString() + separator + self.arrayBound[filterType][i + 1].toString();
                 }
-                if (dataRange[1] == '0') {
+                if (dataRange[1] === '0') {
                     activeFiltersList += '+' + self.arrayBound[filterType][upper].toString() + separator + "0"
                 }
             }
