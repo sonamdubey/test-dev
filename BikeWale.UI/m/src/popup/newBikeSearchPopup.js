@@ -334,9 +334,10 @@ var RecommendedBikes = function () {
     self.minSpecsLen = [$('#hdnMileageLen').val(), $('#hdnDisplacementLen').val(), $('#hdnPowerLen').val()];
     self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: null, pageNumber: null };
     self.arrayBound = [];
-    self.arrayBound["mileage"] = [0, 30, 40, 50, 60, 70];
-    self.arrayBound["displacement"] = [0, 110, 125, 150, 200, 250, 350, 450, 600, 750];
-    self.arrayBound["budget"] = [0, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000, 150000, 200000, 250000, 300000, 350000, 500000, 750000, 1000000, 1250000, 1500000, 3000000, 6000000];
+    self.arrayBound["mileage"] = [0].concat(JSON.parse($('#hdnMileageArray').val()));
+    self.arrayBound["displacement"] = [0].concat(JSON.parse($('#hdnDisplacementArray').val()));
+    self.arrayBound["budget"] = [0].concat(JSON.parse($('#hdnBudgetArray').val()));
+    
 
 
     self.budgetSlider.subscribe(function (value) {

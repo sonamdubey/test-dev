@@ -1,6 +1,7 @@
 ﻿@model Bikewale.Models.NewBikeSearch.NewBikeSearchPopupVM
 @using Bikewale.Entities.GenericBikes
 @using Bikewale.Utility
+@using Newtonsoft.Json
 @{
     int[] minSpecsLen = new int[3];
 }
@@ -193,6 +194,9 @@
                 <div class="filters-screen__body">
                     <ul class="accordion__list" data-state="one">
                         <li class="accordion-list__item filter-type__item" data-filter-type="budget">
+                            @{
+                                var budgetArray = RangeFactory.PriceRange;
+                            }
                             <div class="accordion__head">
                                 <div class="accordion-head__content">
                                     <p class="accordion-head__title">Budget</p>
@@ -395,6 +399,9 @@
             <input type="hidden" id="hdnMileageLen" value="@(minSpecsLen[0])" />
             <input type="hidden" id="hdnDisplacementLen" value="@(minSpecsLen[1])" />
             <input type="hidden" id="hdnPowerLen" value="@(minSpecsLen[2])" />
+            <input type="hidden" id="hdnBudgetArray" value="@Html.Raw(JsonConvert.SerializeObject(budgetArray))" />
+            <input type="hidden" id="hdnMileageArray" value="@Html.Raw(JsonConvert.SerializeObject(mileageArray))" />
+            <input type="hidden" id="hdnDisplacementArray" value="@Html.Raw(JsonConvert.SerializeObject(budgetArray))" />
 
         </div>
     </div>
