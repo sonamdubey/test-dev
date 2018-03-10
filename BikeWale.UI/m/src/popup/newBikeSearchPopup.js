@@ -69,6 +69,7 @@ var recommendedBikePopup = (function () {
             clearPopupFilters();
             vmRecommendedBikes.Filters([]);
             vmRecommendedBikes.FiltersValue([]);
+            vmRecommendedBikes.budgetSlider([0, vmRecommendedBikes.budgetStepPoints().length - 1]);
             var tmpMakeId = vmRecommendedBikes.searchFilter.makeId;
             var tmpCityId = vmRecommendedBikes.searchFilter.cityId;
             vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: null, pageNumber: null };
@@ -99,11 +100,10 @@ var recommendedBikePopup = (function () {
             var bodyHeight = $('.recommended-bike-section').innerHeight() + otherContainer.innerHeight() + $('.recommended-bike__title').innerHeight() - windowHeight;
             var scrollPercentage = (scrollTop / bodyHeight);
 
-            if (scrollPercentage > 0.9) {                
-                if (vmRecommendedBikes.noOfOtherBikes() != vmRecommendedBikes.bikesOtherMakes().length) {
-                    vmRecommendedBikes.bindNextOtherBikesList();
-                }
+            if (scrollPercentage > 0.9 && !apiCalled) {
 
+                if (vmRecommendedBikes.noOfOtherBikes() > vmRecommendedBikes.bikesOtherMakes().length)
+                    vmRecommendedBikes.bindNextOtherBikesList();
             }
 
 
@@ -213,7 +213,7 @@ var recommendedBikePopup = (function () {
     };
 
     $(window).on('popstate', function () {
-        if (popup.hasClass('recommended-bike-popup--active') && !$("#filtersPopup").hasClass('.filters-screen--active')) {
+        if (popup.hasClass('recommended-bike-popup--active') && history.state !== "recommendedBikePopup") {
             close();
         }
     });
@@ -661,7 +661,7 @@ var RecommendedBikes = function () {
             //filterList contains fields such as excludeMake, pageCount, pageSize (since OtherMakeRecommendations uses Paging and stuff)
             filterList = jQuery.extend({}, self.searchFilter);
             filterList.excludeMake = true;
-            filterList.pageNumber = 1;
+            filterList.pageNumber = pageNo;
             filterList.pageSize = 10;
             return self.CallAPI(filterList);
         }
@@ -713,7 +713,6 @@ var RecommendedBikes = function () {
         self.noOfOtherBikes(0);
         self.bikes([]);
         self.bikesOtherMakes([]);
-        pageNo = 1;
     };
 
     self.SetCheckboxSelection = function (targetElement) {
