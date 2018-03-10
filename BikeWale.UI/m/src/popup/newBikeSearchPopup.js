@@ -334,6 +334,12 @@ var RecommendedBikes = function () {
 
     self.minSpecsLen = [$('#hdnMileageLen').val(), $('#hdnDisplacementLen').val(), $('#hdnPowerLen').val()];
     self.searchFilter = { cityId: "", displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: "", abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: null, pageNumber: null };
+    self.arrayBound = [];
+    self.arrayBound["mileage"] = [0].concat(JSON.parse($('#hdnMileageArray').val()));
+    self.arrayBound["displacement"] = [0].concat(JSON.parse($('#hdnDisplacementArray').val()));
+    self.arrayBound["budget"] = [0].concat(JSON.parse($('#hdnBudgetArray').val()));
+    
+
 
     self.budgetSlider.subscribe(function (value) {
         var minBuget = self.budgetSlider()[0];
@@ -537,15 +543,48 @@ var RecommendedBikes = function () {
 
         var activeElementList = '';
         var activeFiltersList = '';
-
         activeElements.each(function (index) {
-            activeElementList += '+' + $(this).val();
-            activeFiltersList += '+' + $(this).data("valuetext");
+            var filterType = $(this).data('filter-type');
+            var dataRange = $(this).data('valuetext');
+            var separator = '-';
+            if (filterType === "budget") {
+                separator = '+'
+            }
+            dataRange = dataRange.split(separator);
+                
+            var lower = getIndex(dataRange[0], self.arrayBound[filterType]);
+            var upper;
+            if (dataRange[1] === '0') {
+                upper = self.arrayBound[filterType].length - 1;
+                    
+            }
+            else {
+                upper = getIndex(dataRange[1], self.arrayBound[filterType]);
+            }
+            if (filterType === "budget") {
+                if (dataRange[1] === '0') {
+                    activeFiltersList = '+' + self.arrayBound[filterType][lower].toString() + '+0';
+                }
+                else {
+                    activeFiltersList = '+' + self.arrayBound[filterType][lower].toString() + '+' + self.arrayBound[filterType][upper].toString();
+                }
+                activeElementList = activeFiltersList;
+
+            }
+            else {
+                for (var i = lower; i < upper; i++) {
+                    activeElementList += '+' + i.toString();
+                    activeFiltersList += '+' + self.arrayBound[filterType][i].toString() + separator + self.arrayBound[filterType][i + 1].toString();
+                }
+                if (dataRange[1] === '0') {
+                    activeFiltersList += '+' + self.arrayBound[filterType][upper].toString() + separator + "0"
+                }
+            }
+            self.Filters()[filterType] = activeElementList.substr(1);
+            self.FiltersValue()[filterType] = activeFiltersList.substr(1);
 
         });
-
-        self.Filters()[filterTypeContainer.attr('data-filter-type')] = activeElementList.substr(1);
-        self.FiltersValue()[filterTypeContainer.attr('data-filter-type')] = activeFiltersList.substr(1);
+        
         self.ApplyInPageFilters();
     };
 
@@ -862,6 +901,13 @@ function checkFilters() {
     return false;
 }
 
-
+function getIndex(val, arr) {
+    for(var i = 0; i < arr.length; i++) {
+        if (arr[i] == val) {
+            return i;
+        }
+    }
+    return -1;
+}
 
 
