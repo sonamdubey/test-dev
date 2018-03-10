@@ -196,6 +196,7 @@ var recommendedBikePopup = (function () {
     };
     function clearPopupFilters() {
         $('.check-box').removeClass('check-box--active');
+        $('.bodytype-box').removeClass('check-box--active');
         for (var key in vmRecommendedBikes.Filters()) {
             var filterTypeContainer = $('#filtersPopup li[data-filter-type="' + key + '"]');
             if (key !== "budget") {
