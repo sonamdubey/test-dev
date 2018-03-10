@@ -67,9 +67,9 @@ var recommendedBikePopup = (function () {
             vmRecommendedBikes.initData();
             updateInpageFilters();
             clearPopupFilters();
+            vmRecommendedBikes.budgetSlider([0, vmRecommendedBikes.budgetStepPoints().length - 1]);
             vmRecommendedBikes.Filters([]);
             vmRecommendedBikes.FiltersValue([]);
-            vmRecommendedBikes.budgetSlider([0, vmRecommendedBikes.budgetStepPoints().length - 1]);
             var tmpMakeId = vmRecommendedBikes.searchFilter.makeId;
             var tmpCityId = vmRecommendedBikes.searchFilter.cityId;
             vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: null, pageNumber: null };
@@ -196,6 +196,7 @@ var recommendedBikePopup = (function () {
     };
     function clearPopupFilters() {
         $('.check-box').removeClass('check-box--active');
+        $('.bodytype-box').removeClass('check-box--active');
         for (var key in vmRecommendedBikes.Filters()) {
             var filterTypeContainer = $('#filtersPopup li[data-filter-type="' + key + '"]');
             if (key !== "budget") {
@@ -471,9 +472,10 @@ var RecommendedBikes = function () {
                             ]);
 
                         }
+                        if (self.Filters()["budget"] != null && self.Filters()["budget"] != "") {
+                            self.setBudgetSelection();
+                        }
                         
-                        self.setBudgetSelection();
-
                         break;
 
                     default:
@@ -577,6 +579,7 @@ var RecommendedBikes = function () {
                     activeFiltersList += '+' + self.arrayBound[filterType][i].toString() + separator + self.arrayBound[filterType][i + 1].toString();
                 }
                 if (dataRange[1] === '0') {
+                    activeElementList += '+' + upper;
                     activeFiltersList += '+' + self.arrayBound[filterType][upper].toString() + separator + "0"
                 }
             }
