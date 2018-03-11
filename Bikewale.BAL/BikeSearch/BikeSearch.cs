@@ -103,7 +103,10 @@ namespace Bikewale.BAL.BikeSearch
                             }
                         }
                         objBikeList.TotalCount = (int)totalResults;
-                        SetPrevNextFilters(filters, objBikeList);
+                        if (filters.ExcludeMake)
+                        {
+                            SetPrevNextFilters(filters, objBikeList);
+                        }
                     }
                 }
 
