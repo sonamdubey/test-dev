@@ -47,6 +47,7 @@
 	YouTubeApi: {
 		player: [],
 		id: '',
+		index: 0,
 		count: 0,
 		countArray: [],
 		playerState: '',
@@ -63,18 +64,18 @@
 
 		apiCommon: function () {
 			window.onYouTubeIframeAPIReady = function () {
-				var i = 1;
 				$('.swiper-youtube iframe').each(function () {
+					$(this).attr('data-video', SwiperYT.YouTubeApi.index);
 					SwiperYT.YouTubeApi.id = $(this).attr('id');
 					SwiperYT.YouTubeApi.videoPos = $(this).position();
-					SwiperYT.YouTubeApi.player[i] = new YT.Player(SwiperYT.YouTubeApi.id, {
+					SwiperYT.YouTubeApi.player[SwiperYT.YouTubeApi.index] = new YT.Player(SwiperYT.YouTubeApi.id, {
 						events: {
 							'onStateChange': SwiperYT.YouTubeApi.onPlayerStateChange,
 							"onReady": SwiperYT.YouTubeApi.onPlayerReady,
 							"onError": SwiperYT.YouTubeApi.onPlayerError
 						}
 					});
-					i++;
+					SwiperYT.YouTubeApi.index += 1;
 				});
 			}
 
@@ -124,10 +125,11 @@
 				SwiperYT.YouTubeApi.videoPause();
 			}
 			$('.swiper-youtube iframe').removeClass('current');
-			SwiperYT.YouTubeApi.targetOverlay.prevAll('iframe').addClass('current');
-			SwiperYT.YouTubeApi.count = SwiperYT.YouTubeApi.targetOverlay.siblings('iframe.current').attr('id').replace('video_', '');
+			var targetIframe = SwiperYT.YouTubeApi.targetOverlay.siblings('iframe');
+			targetIframe.addClass('current');
+			SwiperYT.YouTubeApi.count = targetIframe.attr('data-video');
 			SwiperYT.YouTubeApi.player[SwiperYT.YouTubeApi.count].playVideo();
-			$('#video_' + SwiperYT.YouTubeApi.count + '.current').siblings('span.iframe-overlay').hide();
+			targetIframe.siblings('.iframe-overlay').hide();
 			SwiperYT.YouTubeApi.countArray.push(SwiperYT.YouTubeApi.count);
 		},
 

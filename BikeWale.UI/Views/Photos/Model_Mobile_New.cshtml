@@ -32,6 +32,22 @@
 							</div>
 							<div class="swiper--next gallery__next"></div>
 							<div class="swiper--prev gallery__prev"></div>
+
+							<div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoPopup().videoList().length">
+								<p class="gallery-slide-slug__title" data-bind="text: modelName + ' Videos'"></p>
+								<!-- ko if : videoPopup().videoList().length == 1 -->
+								<div class="swiper-youtube" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+									<div class="youtube-iframe-preview video-card__video-preview">
+										<iframe id="videoSlugIframe" width="320" height="180" data-bind="attr: { 'src': 'https://www.youtube.com/embed/' + videoPopup().videoList()[0].VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
+									</div>
+								</div>
+								<!-- /ko -->
+								<!-- ko if : videoPopup().videoList().length > 1 -->
+									<span class="video-slide__play" data-bind="click: videoPopup().openPopup"></span>
+									<button type="button" class="btn btn-inv-blue swiper-slide__more-btn" data-bind="click: videoPopup().openPopup">Show All Videos</button>
+								<!-- /ko -->
+							</div>
+
 						</div>
 						<div class="gallery-footer" data-bind="visible: galleryFooterActive()">
 							<div class="gallery-footer__content">
@@ -171,7 +187,7 @@
 									<h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
 									<div class="model-card__list__video-card">
 										<div class="youtube-iframe-preview video-card__video-preview">
-											<iframe id="video_1" width="320" height="180" data-bind="attr: { 'src': VideoUrl + '&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
+											<iframe width="320" height="180" data-bind="attr: { 'id': 'video_' + $index(), 'src': 'https://www.youtube.com/embed/' + VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
 										</div>
 										<div class="video-card__desc clearfix">
 											<div class="grid-4">
@@ -401,11 +417,11 @@
 }
 
 <!-- image slug -->
-<div id="swiperColorSlug" class="hide" data-bind="template: {name: 'colorSlugTemplate', data: colorData }"></div>
+<div id="swiperColorSlug" class="hide" data-bind="template: { name: 'colorSlugTemplate', data: colorData }"></div>
 
 <script type="text/html" id="colorSlugTemplate">
 	<div class="model-gallery__color-slide gallery__slide-slug">
-		<p class="color-slide__title">Dominar 400 Colors</p>
+		<p class="gallery-slide-slug__title" data-bind="text: modelName + ' Colors'"></p>
 		<ul class="color-slide__list" data-bind="foreach: colorList">
 			<li class="color-slide-list__item">
 				<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">

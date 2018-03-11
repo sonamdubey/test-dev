@@ -1,10 +1,10 @@
 ﻿// gallery variables
-var modelColorImageCount = 0, modelImages = [], modelColorImages = [], videoList = null;
+var modelColorImageCount = 0, MODEL_IMAGES = [], MODEL_COLOR_IMAGES = [], MODEL_VIDEO_LIST = null;
 
 var eleGallery, vmModelGallery, colorIndex = 0;
 
 // page variables
-var photoCount, videoCount, modelName, bikeModelId, imageIndex, colorImageId, returnUrl, isColorImageSet = false;
+var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, RETURN_URL, isColorImageSet = false;
 
 // bhrighu logging
 var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
@@ -17,26 +17,24 @@ var setPageVariables = function () {
 	try {
 		if (eleGallery.length > 0 && eleGallery.data("images") != '') {
 			var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
-			modelImages = imageList;
-			modelColorImages = filterColorImagesArray(imageList);
+			MODEL_IMAGES = imageList;
+			MODEL_COLOR_IMAGES = filterColorImagesArray(imageList);
 
-			modelColorImages = modelColorImages.concat(modelColorImages.concat(modelColorImages))
-
-			if (modelColorImages)
-				modelColorImageCount = modelColorImages.length;
+			if (MODEL_COLOR_IMAGES)
+				modelColorImageCount = MODEL_COLOR_IMAGES.length;
 		}
 
 		if (eleGallery.length > 0 && eleGallery.data("videos") != '') {
-			videoList = JSON.parse(Base64.decode(eleGallery.data("videos")));
+			MODEL_VIDEO_LIST = JSON.parse(Base64.decode(eleGallery.data("videos")));
 		}
 
-		photoCount = eleGallery.data("photoscount");
-		videoCount = eleGallery.data("videoscount");
-		imageIndex = eleGallery.data("selectedimageid");
-		colorImageId = eleGallery.data("selectedcolorimageid");
-		returnUrl = eleGallery.data("returnurl");
-		modelName = eleGallery.data("modelname");
-		bikeModelId = eleGallery.data("modelid");		
+		PHOTO_COUNT = eleGallery.data("photoscount");
+		VIDEO_COUNT = eleGallery.data("videoscount");
+		IMAGE_INDEX = eleGallery.data("selectedimageid");
+		COLOR_IMAGE_ID = eleGallery.data("selectedcolorimageid");
+		RETURN_URL = eleGallery.data("returnurl");
+		MODEL_NAME = eleGallery.data("modelname");
+		BIKE_MODEL_ID = eleGallery.data("modelid");		
 	} catch (e) {
 		console.warn(e);
 	}
@@ -68,7 +66,8 @@ var ModelGallery = function () {
 	self.rotateScreenOption = ko.observable(false);
 	self.activeLandscapeIcon = ko.observable(false);
 
-	self.photoList = ko.observableArray(modelImages);
+	self.modelName = MODEL_NAME;
+	self.photoList = ko.observableArray(MODEL_IMAGES);
 
 	// share
 	self.activeSharePopup = ko.observable(false);
@@ -279,7 +278,7 @@ var ModelColorSwiper = function () {
 	self.activeIndex = ko.observable(0);
 	self.activeTitle = ko.observable('Sample');
 
-	self.colorList = ko.observableArray(modelColorImages);
+	self.colorList = ko.observableArray(MODEL_COLOR_IMAGES);
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
 		if (originalImagePath && originalImagePath != null) {
@@ -295,7 +294,7 @@ var ModelVideoPopup = function () {
 	var self = this;
 
 	self.activePopup = ko.observable(false);
-	self.videoList = ko.observableArray(videoList);
+	self.videoList = ko.observableArray(MODEL_VIDEO_LIST);
 
 	self.openPopup = function () {
 		self.activePopup(true);
@@ -382,10 +381,10 @@ var ModelVideoPopup = function () {
 var ModelVideo = function () {
 	var self = this;
 
-	self.videoList = ko.observable(videoList);
+	self.videoList = ko.observable(MODEL_VIDEO_LIST);
 }
 
-function colorSlugViewModel(colorPhotoList) {
+var ColorSlugViewModel = function (colorPhotoList) {
 	var self = this;
 
 	self.count = 3;
@@ -393,6 +392,7 @@ function colorSlugViewModel(colorPhotoList) {
 	self.remainingCount = colorPhotoList.length - self.count;
 
 	self.colorData = {
+		modelName: MODEL_NAME,	
 		colorList: self.colorList,
 		remainingCount: self.remainingCount
 	};
@@ -406,15 +406,15 @@ var popupGallery = {
 		}
 		$('body').addClass('lock-browser-scroll');
 
-		if (colorImageId > 0) {
+		if (COLOR_IMAGE_ID > 0) {
 			if (vmModelGallery.colorPopup().colorSwiper().activeIndex() == 0) vmModelGallery.colorPopup().colorSwiper().activeIndex(1);
 			vmModelGallery.toggleColorThumbnailScreen();
 		}
 	},
 
 	close: function () {
-		if (returnUrl && returnUrl.length > 0) {
-			window.location.href = returnUrl;
+		if (RETURN_URL && RETURN_URL.length > 0) {
+			window.location.href = RETURN_URL;
 		}
 		else {
 			vmModelGallery.isGalleryActive(false);
@@ -425,11 +425,11 @@ var popupGallery = {
 	},
 
 	bindGallery: function (imageIndex) {
-		triggerGA('Gallery_Page', 'Gallery_Loaded', modelName);
+		triggerGA('Gallery_Page', 'Gallery_Loaded', MODEL_NAME);
 		//popupGallery.open();
 		//gallerySwiper.update(true);
 
-		if (returnUrl.length <= 0) {
+		if (RETURN_URL.length <= 0) {
 			window.location.hash = 'photosGallery';
 		}
 	}
@@ -445,7 +445,7 @@ function getImageDownloadUrl() {
 	var activeImageIndex = vmModelGallery.activePhotoIndex() - 1;
 	if (activeImageIndex == -1)
 		activeImageIndex++;
-	var currImage = modelImages[activeImageIndex];
+	var currImage = MODEL_IMAGES[activeImageIndex];
 	return currImage.HostUrl + "0x0" + currImage.OriginalImgPath;
 }
 
@@ -516,7 +516,7 @@ function logBhrighuForImage(item) {
 				lb += "|type=" + imageTypes[imgtype];
 			}
 
-			label = 'modelId=' + bikeModelId + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
+			label = 'modelId=' + BIKE_MODEL_ID + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
 			cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
 			triggerVirtualPageView(window.location.host + window.location.pathname, lb);
 		}
@@ -543,11 +543,13 @@ docReady(function () {
 	}
 
 	// set color slug
-	var vmcolorSlugViewModel = new colorSlugViewModel(modelColorImages);
+	if (MODEL_COLOR_IMAGES.length > 1) {
+		var vmColorSlugViewModel = new ColorSlugViewModel(MODEL_COLOR_IMAGES);
 
-	ko.applyBindings(vmcolorSlugViewModel, document.getElementById('swiperColorSlug'));
+		ko.applyBindings(vmColorSlugViewModel, document.getElementById('swiperColorSlug'));
 
-	GallerySlug.setColor($('#mainPhotoSwiper'));
+		//GallerySlug.setColor($('#mainPhotoSwiper'));
+	}
 
 	// popup states
 	// TODO: update popstate logic
@@ -958,7 +960,7 @@ var GallerySlug = (function () {
 	}
 
 	function setColor(container) {
-		container.append($("#swiperColorSlug").html());
+		container.append($('#swiperColorSlug').html());
 		_registerColorSlugEvents();
 	}
 
