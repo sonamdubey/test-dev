@@ -1,0 +1,312 @@
+﻿.color-popup__content
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	width: 100%
+	height: 100%
+	background-color: #f5f5f5
+	z-index: 10
+	transform: translate(100%, 0)
+	transition: transform .4s ease
+	will-change: transform
+
+	&.color-popup--active
+		transform: translate(0, 0)
+
+		&.color-popup--landscape
+			transition-duration: 0s
+			animation: fadeInTranslate .4s forwards
+
+.color-popup__head
+	position: relative
+	text-align: center
+
+.color-popup-head__back
+	@include arrow-back-4d5057-icon
+	background-color: #f5f5f5
+	background-size: 17px
+	width: 17px
+	height: 13px
+	display: block
+	padding: 26px
+	position: absolute
+	left: 0
+	top: 0
+	cursor: pointer
+
+.color-popup-head__title
+	@include text-truncate
+	text-align: center
+	color: #2a2a2a
+	font-size: 16px
+	font-weight: 700
+	max-width: 70%
+	margin: 0 auto
+	line-height: 52px
+
+.color-popup__thumbnail-content
+	border-top: 1px solid #e2e2e2
+
+// colors carousel
+.swiper__colors
+	height: 206px
+
+	&.model-gallery
+		&.swiper-container
+			margin-bottom: 0
+			overflow: hidden
+
+	.swiper-wrapper
+		height: 206px
+
+	.swiper-slide
+		&:first-child
+			margin-left: 0
+
+	.landscape-icon__container
+		width: 40px
+
+.color-popup--landscape
+	.swiper__colors
+		height: auto
+
+		.swiper-wrapper
+			height: auto
+
+
+// landscape mode
+.color-popup--landscape
+	.color-popup__head,
+	.gallery-footer__content
+		display: none
+
+	.color-popup__thumbnail-content
+		@include flexbox
+		@include flex-wrap
+		width: 100%
+		position: fixed
+		left: 0
+		right: 0
+		bottom: 0
+		border-top: none
+		background-color: #f5f5f5	
+		transform: translate(110%, 0)
+		will-change: transform
+		z-index: 1
+
+	&.color-popup--active
+		.color-popup__thumbnail-content
+			animation: colorPopupFooter .4s .8s forwards
+
+	.swiper__color-thumbnail
+		margin: 0
+
+		.swiper-wrapper
+			height: 46px !important
+			padding: 0
+
+	.model-gallery
+		.swiper-slide
+			height: 100vh
+
+			img
+				max-height: 100%
+
+	.model-color__list
+		.color-box
+			width: 28px
+			height: 28px
+
+		.color-box-label
+			font-size: 8px
+			padding-left: 8px
+
+		.color-box__content
+			padding-top: 8px
+			padding-bottom: 8px
+
+	.swiper__color-thumbnail
+		&:before,
+		&:after
+			content: ''
+			display: block
+			height: 100%
+			position: absolute
+			top: 0
+			z-index: 2
+
+		&:before
+			width: 5px
+			left: 0
+			background: linear-gradient(to left, rgba(245, 245, 245, .1) 0, #f5f5f5 100%)
+
+		&:after
+			width: 150px
+			right: -1px
+			background: linear-gradient(to right, rgba(245, 245, 245, .1) 0, #f5f5f5 100%)
+
+		.swiper-slide
+			width: 112px
+
+			&:last-child
+				margin-right: 100px
+
+	.color-list__heading,
+	.color-list__back-btn
+		display: inline-block
+
+	.list-column--3
+		.color-box-label
+			margin-top: 0
+
+	.slide--focus
+		.color-box
+			&:before
+				width: 7px
+				height: 14px
+				border-right-width: 2px
+				border-bottom-width: 2px
+
+// color popup - landscape footer inactive state
+.color-popup--landscape
+	.color-popup__thumbnail-content
+		&.color-footer--inactive
+			bottom: -100%
+
+// animation
+@keyframes fadeInTranslate
+	0%
+		display: none
+		opacity: 0
+
+	100%
+		opacity: 1
+		display: block
+		transform: translate(0, 0)
+
+@keyframes colorPopupFooter
+	0%
+		transform: translate(110%, 0)
+
+	100%
+		transform: translate(0, 0)
+
+
+// scrollable list [portrait]
+.color-list--scrollable
+	.swiper-wrapper
+		padding: 20px 20px 0
+		height: auto
+		display: block
+		font-size: 0
+		overflow-y: scroll
+		-webkit-box-sizing: border-box
+		-moz-box-sizing: border-box
+		box-sizing: border-box
+
+	.swiper-slide
+		margin-left: 0
+		width: 50%
+		padding: 6px
+		margin-bottom: 15px
+		display: inline-block
+
+.model-color__list
+	.color-box--border
+		padding: 1px
+		border-radius: 6px
+
+	.color-box__content
+		padding: 3px
+
+	.color-box
+		border: 1px solid #d5d5d5
+
+	.color-box-label
+		width: 70%
+		max-height: 30px
+		overflow: hidden
+		color: #4d5057
+		font-size: 10px
+		font-weight: 600
+		display: inline-block
+		vertical-align: middle
+		padding-left: 10px
+
+// 3 column list
+.list-column--3
+	.swiper-slide
+		width: 33.33%
+
+	.color-box-label
+		margin-top: 10px
+		padding-left: 0
+
+
+// slide focus state
+.slide--focus
+	.color-box--border
+		background-color: #fff
+		background-origin: border-box
+		background-clip: content-box, border-box
+
+	.color-box
+		&:before
+			content: ''
+			position: absolute
+			left: 0
+			right: 0
+			width: 10px
+			height: 20px
+			display: block
+			margin: 4px auto
+			border-width: 0 3px 3px 0
+			border-color: white
+			border-style: solid
+			transform: rotate(45deg)
+			text-align: center
+			box-shadow: 2px 2px 1px -1px #444
+
+// slide focus state: landscape view
+.color-popup--landscape
+	.slide--focus
+		.color-box--border
+			background-image: none !important
+			background-color: transparent
+
+// color carousel/list
+.swiper__color-thumbnail
+	position: relative
+
+	&:before,
+	&:after
+		content: none
+
+	.swiper-wrapper
+		font-size: 0
+
+	.swiper-slide
+		height: auto
+		cursor: pointer
+
+// footer elements in landscape mode
+.color-list__heading,
+.color-list__back-btn
+	display: none
+	padding-right: 20px
+	padding-left: 20px
+	font-weight: 600
+	line-height: 46px
+
+.color-list__heading
+	font-size: 12px
+
+.color-list__back-btn
+	@include arrow-right
+	margin-left: auto
+	font-size: 10px
+	margin-right: 15px
+	background-size: 5px
+	background-position: 85% center
+	cursor: pointer

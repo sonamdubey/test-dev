@@ -4022,6 +4022,8 @@
     <Content Include="Views\Photos\Model_Mobile.cshtml" />
     <Content Include="sass\partials\_share-popup.sass" />
     <Content Include="sass\partials\_video-popup.sass" />
+    <Content Include="sass\partials\_color-popup.sass" />
+    <Content Include="sass\partials\_gallery-popup.sass" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

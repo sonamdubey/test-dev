@@ -10,10 +10,11 @@
 body
 	overflow-x: hidden
 
+// image grid
 .image-grid__list
 	margin: 0 -2px
 	overflow: hidden
-	background: #fff
+	background: color('white')
 
 	img
 		position: relative
@@ -29,7 +30,7 @@ body
 			width: 100%
 			height: 100%
 			display: block
-			background: #fff
+			background-color: color('white')
 
 .image-grid-list__item
 	float: left
@@ -38,7 +39,7 @@ body
 	position: relative
 	text-align: center
 	cursor: pointer
-	background-color: #fff
+	background-color: color('white')
 	line-height: 0
 
 	&:before
@@ -49,7 +50,7 @@ body
 		width: 100%
 		height: 100%
 		display: block
-		border: 2px solid #fff
+		border: 2px solid color('white')
 		z-index: 1
 
 .image-grid__list
@@ -69,7 +70,6 @@ body
 			&:nth-child(7n+5),
 			&:nth-child(7n+6)
 				width: 50%
-
 
 .image-grid__list
 	&[data-grid="6"]
@@ -95,18 +95,18 @@ body
 
 .image-grid__list-more
 	padding: 20px
-	background: #fff
+	backgroundcolor: color('white')
 
 .image-grid__more-btn
 	width: 100%
 	padding: 8px
 
 .btn-inv-blue
-	background: #fff
-	color: #0288d1
-	border: 1px solid #0288d1
+	background-color: color('white')
+	color: color('pacific-blue')
+	border: 1px solid color('pacific-blue')
 
-
+// image grid vide slug
 .video-slug__content
 	position: absolute
 	top: 0
@@ -118,13 +118,13 @@ body
 	text-align: left
 	line-height: 1.42857143
 	background: rgba(0, 0, 0, .6)
-	border: 2px solid #fff
+	border: 2px solid color('white')
 	z-index: 2
 
 .video-slug__title
-	color: #fff
+	color: color('white')
 	font-size: 12px
-	font-weight: 700
+	font-weight: $font-bold
 	text-transform: uppercase
 	padding-left: 32px
 	margin-bottom: 10px
@@ -133,7 +133,7 @@ body
 	line-height: 22px
 
 .video-slug__list
-	color: #fff
+	color: color('white')
 	font-size: 10px
 	margin-bottom: 10px
 	margin-left: 23px
@@ -148,7 +148,7 @@ body
 	margin-left: 9px
 
 	&.btn-inv-blue
-		border-color: #fff
+		border-color: color('white')
 
 // video slug sizes
 // 100%
@@ -206,408 +206,14 @@ body
 	padding: 15px 20px
 	background-color: color('white')
 
-.model-gallery-section
-	background-color: color('white')
+// gallery popup
+@import ../../partials/gallery-popup
 
-.model-gallery__container
-	position: relative
-	z-index: 6
-
-// gallery blackout window
-.black-window
-	display: none
-	background: #000
-	height: 100%
-	width: 100%
-	position: fixed
-	left: 0
-	top: 0
-	right: 0
-	bottom: 0
-	z-index: 5
-
-.gallery-popup--active
-	.black-window
-		display: block
-
-.gallery-footer
-	height: 40px
-	background: #f5f5f5
-
-.gallery-footer__share
-	position: relative
-	top: 40px
-	text-align: center
-
-	.share-list__item
-		margin: 10px 15px
-
-	.share-item__icon
-		width: 26px
-		height: 26px
-
-.gallery-image__footer
-	@include flexbox
-	@include justify-content(space-between)
-	align-items: center
-	background: color('border-light')
-	padding-left: 20px
-	width: 100%
-	position: relative
-
-.margin-bottom60
-	margin-bottom: 60px
-
-.model-gallery
-	&.swiper-container
-		overflow: visible
-
-	.swiper-slide
-		@include flexbox
-		@include justify-content(center)
-		@include align-items(center)
-		width: 100%
-		height: 203px
-		margin: 0
-		img
-			width: auto
-			height: auto
-			max-height: 203px
-
-	.swiper--next,
-	.swiper--prev
-		top: 42%
-		position: absolute
-		width: 24px
-		height: 43px
-		z-index: 2
-		display: inline-block
-		background-position: center
-		background-size: 8px
-		background-color: transparent
-		background-repeat: no-repeat
-
-		&.swiper-button-disabled
-			opacity: .4
-
-	.swiper--next
-		@include arrow-right
-		right: 10px
-
-	.swiper--prev
-		@include arrow-left
-		left: 10px
-
-		&.swiper-button-disabled
-			opacity: .4
-
-@media only screen and (max-width: 320px)
-	.model-gallery
-		.swiper-slide
-			height: 180px
-		
-			img
-				max-height: 180px	
-
-.gallery-image__count
-	display: inline-block
-	vertical-align: middle
-	font-size: 12px
-	color: color('light-grey')
-
-
-.gallery-image__feature
-	> a
-		padding: 20px
-		
-		&:last-child
-			margin-right: 0
-
-	.landscape-icon__container
-		@include vendor-prefix('transition', width 1s)
-		width: 0
-		padding: 0
-		display: inline-block
-		vertical-align: middle
-
-.gallery__download-icon
-	@include download-2d2d2d-icon
-	display: inline-block
-	vertical-align: middle
-	height: 18px
-	width: 20px
-
-	background-size: 18px
-
-.share-icon
-	@include share-2d2d2d-icon
-	display: inline-block
-	vertical-align: middle
-	height: 18px
-	width: 14px
-	background-size: 17px
-
-.zoom-icon
-	@include fullscreen-2d2d2d-icon
-	display: inline-block
-	vertical-align: middle
-	height: 16px
-	width: 16px
-	background-size: 17px
-
-.screen--rotate
-	display: none
-
-.landscape-icon
-	display: inline-block
-	vertical-align: middle
-	height: 40px
-	width: 40px
-	text-align: right
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/2d2d2d/rotate.svg') no-repeat center
-	background-size: 20px
-
-.model-gallery--relative
-	z-index: 8
-	background: color('white')
-	position: relative
-	left: 0
-	width: 100%
-
-	.model-gallery
-		height: 100%
-
-	.swiper-slide
-		height: auto
-		width: 100%
-
-	.zoom-icon
-		display: none
-
-	.share-icon
-		margin-right: 0
-
-	.model-gallery__image-title
-		background: color('dark-black')
-		color: color('light-grey')
-		width: 100%
-		text-align: center
-		font-size: 12px
-
-	.landscape-icon__container
-		&[data-visible="false"]
-			width: 0
-
-		&[data-visible="true"]
-			width: 40px
-
-	.gallery-image__feature
-		padding-right: 4px
-
-	.swiper--next,
-	.swiper--prev
-		background-color: color('border-light', .8)
-
-	.swiper--next
-		right: 0
-		border-top-left-radius: 4px
-		border-bottom-left-radius: 4px
-
-	.swiper--prev
-		left: 0
-		border-top-right-radius: 4px
-		border-bottom-right-radius: 4px
-
-
-.model-gallery__screen--rotate-slug
-	@include vendor-prefix('border-radius', 2px)
-	@include vendor-prefix('transform', translateX(-50%))
-	left: 50%
-	padding: 0
-	border: 1px solid color('dandelion')
-	color: color('dandelion')
-	position: fixed
-	bottom: 11%
-	width: auto
-	white-space: nowrap
-	padding-right: 15px
-	z-index: 6
-
-	.landscape-text
-		display: inline-block
-		vertical-align: middle
-		padding: 9px 14px 10px
-		font-size: 12px
-
-	.screen--rotate-slug__landscape-container
-		height: 20px
-		width: 20px
-		display: inline-block
-
-	.screen--rotate-slug__landscape-icon
-		display: inline-block
-		vertical-align: middle
-		height: 20px
-		width: 20px
-		text-align: right
-		background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ffcf63/rotate.svg') center no-repeat
-		background-size: 20px
-		-webkit-animation: rotate-icon 1.4s linear infinite
-
-	&.model-gallery__screen--rotate-slug--hide
-		border: none
-		z-index: 10
-
-		.landscape-text
-			visibility: hidden
-
-	@keyframes rotate-icon
-		0%
-			transform: rotate(0deg)
-		50%
-			transform: rotate(45deg)
-		100%
-			transform: rotate(0deg)
-				
-	@-webkit-keyframess rotate-icon
-		0%
-			transform: rotate(0deg)
-		50%
-			transform: rotate(45deg)
-		100%
-			transform: rotate(0deg)	
-
-	&[data-visible = 'true']
-		display: inline-block
-
-	&[data-visible= 'false']
-		display: none
-
-.gallery-image__color
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/color-palette.png') no-repeat
-	background-position: left center
-	padding-left: 25px
-	color: color('white')
-	font-size: 12px
-	display: inline-block
-	line-height: 40px
-	cursor: pointer
-
-.gallery-color--fixed
-	@include vendor-prefix('border-radius', 16px)
-	@include vendor-prefix('transform', translateX(-50%))
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/color-palette.png') no-repeat
-	background-color: color('white')
-	background-position: 7%
-	padding: 9px 14px 9px 34px
-	color: color('default')
-	font-size: 12px
-	position: fixed
-	bottom: 7%
-	left: 50%
-	text-transform: capitalize
-	z-index: 6
-
-	&[data-visible='true']
-		display: inline-block
-
-	&[data-visible = 'false']
-		display: none
-
-@media screen and (min-aspect-ratio: 1/1) and (orientation: landscape)
-	.model-gallery--relative
-		.model-gallery
-			margin-bottom: 0
-
-			.swiper-slide
-				height: 100vh
-				background: color('black')
-					
-				img
-					max-height: 100%
-
-		.gallery-footer
-			position: fixed
-			bottom: 0
-			left: 0
-			right: 0
-			width: 100%
-			z-index: 10
-
-		.gallery-image__footer
-			background: color('nero')
-
-		.share-icon
-			background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/share.svg')
-			margin-right: 8px
-
-		.gallery__download-icon
-			background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/download-v2.svg')
-		
-		.model-gallery__image-title
-			padding: 0 20px
-			display: inline
-			position: static
-			font-size: 12px
-			background: transparent
-			color: color('light-grey')
-
-		.landscape-icon__container
-			&[data-visible="true"]
-				width: 40px
-
-		.swiper--next,
-		.swiper--prev
-			height: 43px
-			width: 24px
-			background-position: 9px 16px
-			top: 43%
-
-	.model-gallery__screen--rotate-slug
-		&[data-visible = 'true']
-			display: none
-
-	.gallery-image__left-section
-		@include text-truncate(300px)
-		display: inline-block
-		vertical-align: middle
-
-
-.orientation--landscape
-	.model-gallery--relative
-		.gallery-image__footer
-			.landscape-icon
-				background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/rotate.svg')
-
-.model-gallery__image-title
-	@include text-truncate(100%)
-	background: color('white')
-	padding: 17px 20px
-	font-size: 14px
-	position: absolute
-	top: 100%
-	left: 0
-	right: 0
-
-@mixin model-info__image($width: 122px, $height: 69px)
-	.model-info__image
-		height: $height
-		width: $width
-		max-width: 100%
-		display: inline-block
-		vertical-align: middle
-		margin-top: 20px
-
-		img
-			height: $height
-			width: auto
-
-@include model-info__image()
-
+// model information widget
 .model-info-section
-	@include vendor-prefix('box-shadow',  0 2px 4px 0 rgba(213, 213, 213, 0.5))
+	@include vendor-prefix('box-shadow',  0 2px 4px 0 rgba(213, 213, 213, .5))
 	margin: 10px 10px 14px
-	background: color('white')
+	background-color: color('white')
 
 .model-info__target-link
 	display: block
@@ -624,7 +230,6 @@ body
 		position: absolute
 		top: 10px
 		left: 10px
-
 
 .model-info-description
 	min-width: 0
@@ -653,6 +258,21 @@ body
 .text--semibold
 	font-weight: $font_semibold
 
+@mixin model-info__image($width: 122px, $height: 69px)
+	.model-info__image
+		height: $height
+		width: $width
+		max-width: 100%
+		display: inline-block
+		vertical-align: middle
+		margin-top: 20px
+
+		img
+			height: $height
+			width: auto
+
+@include model-info__image()
+
 @for $i from 1 through 5
 	@include rating-badge($i)
 
@@ -677,104 +297,16 @@ body
 .page__heading-h2
 	@include heading-h2
 
+// similar bikes widget
+@import ../../partials/similar-bike-carousel
+
 .similar-model
 	.page__heading-h2
 		margin: 27px 16px 15px
-			
-
-@import ../../partials/similar-bike-carousel
 
 @include similar-model__card()
 @include similar-model__image()
 @include similar-model__footer
-
-
-.gallery-color-slug--active
-	.gallery__slide-slug
-		animation: fadeIn .4s forwards
-		z-index: 1
-
-	.gallery-footer__content,
-	.gallery-color--fixed
-		display: none
-
-@keyframes fadeIn
-	0%
-		opacity: 0
-
-	100%
-		opacity: 1
-
-// colors slide
-.gallery__slide-slug
-	@include flexbox
-	@include justify-content(center)
-	@include align-items(center)
-	@include flex-direction(column)
-	opacity: 0
-	width: 100%
-	height: 100%
-	padding: 10px
-	position: absolute
-	left: 0
-	right: 0
-	top: 0
-	z-index: 0
-
-.model-gallery__color-slide
-	background: radial-gradient(#82888b, #ffffff)
-
-.color-slide__title
-	color: #2a2a2a
-	font-size: 16px
-	font-weight: 700
-	margin-bottom: 30px
-
-.color-slide__more-count
-	color: #fff
-	font-size: 12px
-	font-weight: 600
-
-.color-slide__list
-	margin-bottom: 10px
-
-.color-slide-list__item
-	margin-left: 30px
-	display: inline-block
-	vertical-align: middle
-
-	&:first-child
-		margin-left: 0
-
-.swiper-slide__more-btn
-	font-size: 12px
-	padding: 9px 25px
-	border-radius: 20px
-	position: absolute
-	bottom: -19px
-	z-index: 1
-
-// slug in landscape mode
-.orientation--landscape
-	.color-slide__more-count
-		margin-bottom: 30px
-
-	.color-slide__list
-		margin-bottom: 25px
-
-	.color-slide-list__item		
-		margin-left: 40px
-
-		&:first-child
-			margin-left: 0
-
-	.swiper-slide__more-btn
-		position: relative
-		bottom: auto
-
-	.color-box
-		width: 48px
-		height: 48px
 
 
 // color boxes
@@ -806,320 +338,13 @@ body
 
 
 // colors popup
-.color-popup__content
-	position: fixed
-	top: 0
-	left: 0
-	right: 0
-	width: 100%
-	height: 100%
-	background: #f5f5f5
-	z-index: 10
-	transform: translate(100%, 0)
-	transition: transform .4s ease
-	will-change: transform
-
-	&.color-popup--active
-		transform: translate(0, 0)
-
-		&.color-popup--landscape
-			transition-duration: 0s
-			animation: fadeInTranslate .4s forwards
-
-// color popup landscape
-.color-popup--landscape
-	.color-popup__head,
-	.gallery-footer__content
-		display: none
-
-	.color-popup__thumbnail-content
-		@include flexbox
-		@include flex-wrap
-		width: 100%
-		position: fixed
-		left: 0
-		right: 0
-		bottom: 0
-		border-top: none
-		background-color: #f5f5f5	
-		transform: translate(110%, 0)
-		will-change: transform
-		z-index: 1
-
-	&.color-popup--active
-		.color-popup__thumbnail-content
-			animation: colorPopupFooter .4s .8s forwards
-
-	.swiper__color-thumbnail
-		margin: 0
-
-		.swiper-wrapper
-			height: 46px !important
-			padding: 0
-
-	.model-gallery
-		.swiper-slide
-			height: 100vh
-
-			img
-				max-height: 100%
-
-	.model-color__list
-		.color-box
-			width: 28px
-			height: 28px
-
-		.color-box-label
-			font-size: 8px
-			padding-left: 8px
-
-		.color-box__content
-			padding-top: 8px
-			padding-bottom: 8px
-
-	.swiper__color-thumbnail
-		&:before,
-		&:after
-			content: ''
-			display: block
-			height: 100%
-			position: absolute
-			top: 0
-			z-index: 2
-
-		&:before
-			width: 5px
-			left: 0
-			background: linear-gradient(to left, rgba(245, 245, 245, .1) 0, #f5f5f5 100%)
-
-		&:after
-			width: 150px
-			right: -1px
-			background: linear-gradient(to right, rgba(245, 245, 245, .1) 0, #f5f5f5 100%)
-
-		.swiper-slide
-			width: 112px
-
-			&:last-child
-				margin-right: 100px
-
-	.color-list__heading,
-	.color-list__back-btn
-		display: inline-block
-
-	.list-column--3
-		.color-box-label
-			margin-top: 0
-
-	.slide--focus
-		.color-box
-			&:before
-				width: 7px
-				height: 14px
-				border-right-width: 2px
-				border-bottom-width: 2px
-
-@keyframes fadeInTranslate
-	0%
-		display: none
-		opacity: 0
-
-	100%
-		opacity: 1
-		display: block
-		transform: translate(0, 0)
-
-@keyframes colorPopupFooter
-	0%
-		transform: translate(110%, 0)
-
-	100%
-		transform: translate(0, 0)
-
-// color popup - landscape footer inactive state
-.color-popup--landscape
-	.color-popup__thumbnail-content
-		&.color-footer--inactive
-			bottom: -100%
-
-.color-popup__head
-	position: relative
-	text-align: center
-
-.color-popup-head__back
-	@include arrow-back-4d5057-icon
-	background-color: #f5f5f5
-	background-size: 17px
-	width: 17px
-	height: 13px
-	display: block
-	padding: 26px
-	position: absolute
-	left: 0
-	top: 0
-	cursor: pointer
-
-.color-popup-head__title
-	@include text-truncate
-	text-align: center
-	color: #2a2a2a
-	font-size: 16px
-	font-weight: 700
-	max-width: 70%
-	margin: 0 auto
-	line-height: 52px
-
-.color-popup__thumbnail-content
-	border-top: 1px solid #e2e2e2
-
-// colors carousel
-.swiper__colors
-	height: 206px
-
-	&.model-gallery
-		&.swiper-container
-			margin-bottom: 0
-			overflow: hidden
-
-	.swiper-wrapper
-		height: 206px
-
-	.swiper-slide
-		&:first-child
-			margin-left: 0
-
-	.landscape-icon__container
-		width: 40px
-
-.color-popup--landscape
-	.swiper__colors
-		height: auto
-
-		.swiper-wrapper
-			height: auto
-
-// color carousel/list
-.swiper__color-thumbnail
-	position: relative
-
-	&:before,
-	&:after
-		content: none
-
-	.swiper-wrapper
-		font-size: 0
-
-	.swiper-slide
-		height: auto
-		cursor: pointer
-
-.color-list__heading,
-.color-list__back-btn
-	display: none
-	padding-right: 20px
-	padding-left: 20px
-	font-weight: 600
-	line-height: 46px
-
-.color-list__heading
-	font-size: 12px
-
-.color-list__back-btn
-	@include arrow-right
-	margin-left: auto
-	font-size: 10px
-	margin-right: 15px
-	background-size: 5px
-	background-position: 85% center
-	cursor: pointer
-
-// scrollable list [portrait]
-.color-list--scrollable
-	.swiper-wrapper
-		padding: 20px 20px 0
-		height: auto
-		display: block
-		font-size: 0
-		overflow-y: scroll
-		-webkit-box-sizing: border-box
-		-moz-box-sizing: border-box
-		box-sizing: border-box
-
-	.swiper-slide
-		margin-left: 0
-		width: 50%
-		padding: 6px
-		margin-bottom: 15px
-		display: inline-block
-
-.model-color__list
-	.color-box--border
-		padding: 1px
-		border-radius: 6px
-
-	.color-box__content
-		padding: 3px
-
-	.color-box
-		border: 1px solid #d5d5d5
-
-	.color-box-label
-		width: 70%
-		max-height: 30px
-		overflow: hidden
-		color: #4d5057
-		font-size: 10px
-		font-weight: 600
-		display: inline-block
-		vertical-align: middle
-		padding-left: 10px
-
-// 3 column list
-.list-column--3
-	.swiper-slide
-		width: 33.33%
-
-	.color-box-label
-		margin-top: 10px
-		padding-left: 0
-
-
-// slide focus state
-.slide--focus
-	.color-box--border
-		background-color: #fff
-		background-origin: border-box
-		background-clip: content-box, border-box
-
-	.color-box
-		&:before
-			content: ''
-			position: absolute
-			left: 0
-			right: 0
-			width: 10px
-			height: 20px
-			display: block
-			margin: 4px auto
-			border-width: 0 3px 3px 0
-			border-color: white
-			border-style: solid
-			transform: rotate(45deg)
-			text-align: center
-			box-shadow: 2px 2px 1px -1px #444
-
-// slide focus state: landscape view
-.color-popup--landscape
-	.slide--focus
-		.color-box--border
-			background-image: none !important
-			background-color: transparent
+@import ../../partials/color-popup
 
 // tabs
 @include overall-tabs
 
 .overall-tabs__panel
-	background: #fff
+	background: color('white')
 
 // colors carousel
 #colorSwiper
@@ -1135,10 +360,10 @@ body
 	padding-right: 16px
 	margin-bottom: 16px
 	font-size: 14px
-	font-weight: 600
+	font-weight: $font-semibold
 
 .text--bold
-	font-weight: 700
+	font-weight: $font-bold
 
 .color-list--thumbnail
 	&.swiper-container
@@ -1152,7 +377,7 @@ body
 
 .model-color__list
 	.color-box
-		border: 1px solid #d5d5d5
+		border: 1px solid color('light-gray')
 
 // videos
 @import ../../components/mixins
@@ -1166,26 +391,3 @@ body
 
 // videos popup
 @import ../../partials/video-popup
-
-// swipe to continue
-.gallery__continue-swipe-info
-	position: fixed
-	right: 0
-	bottom: 0
-	left: 0
-	width: 100%
-	line-height: 40px
-	background: #2a2a2a
-	text-align: center
-	z-index: 8
-	
-.continue-info__label
-	font-size: 12px
-	color: #fd8d81
-	padding-right: 27px
-	text-decoration: underline
-	background-image: url('/image/arrow-back-red.svg')
-	background-repeat: no-repeat
-	background-position: right
-	background-size: 17px
-

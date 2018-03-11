@@ -1,0 +1,501 @@
+﻿.black-window
+	display: none
+	background: #000
+	height: 100%
+	width: 100%
+	position: fixed
+	left: 0
+	top: 0
+	right: 0
+	bottom: 0
+	z-index: 5
+
+// gallery active state
+.gallery-popup--active
+	.black-window
+		display: block
+
+.model-gallery-section
+	background-color: color('white')
+
+.model-gallery__container
+	position: relative
+	z-index: 6
+
+.model-gallery
+	&.swiper-container
+		overflow: visible
+
+	.swiper-slide
+		@include flexbox
+		@include justify-content(center)
+		@include align-items(center)
+		width: 100%
+		height: 203px
+		margin: 0
+
+		img
+			width: auto
+			height: auto
+			max-height: 203px
+
+	.swiper--next,
+	.swiper--prev
+		top: 42%
+		position: absolute
+		width: 24px
+		height: 43px
+		z-index: 2
+		display: inline-block
+		background-position: center
+		background-size: 8px
+		background-color: transparent
+		background-repeat: no-repeat
+
+		&.swiper-button-disabled
+			opacity: .4
+
+	.swiper--next
+		@include arrow-right
+		right: 10px
+
+	.swiper--prev
+		@include arrow-left
+		left: 10px
+
+		&.swiper-button-disabled
+			opacity: .4
+
+@media only screen and (max-width: 320px)
+	.model-gallery
+		.swiper-slide
+			height: 180px
+		
+			img
+				max-height: 180px	
+
+
+// footer
+.gallery-footer
+	height: 40px
+	background: #f5f5f5
+
+.gallery-footer__share
+	position: relative
+	top: 40px
+	text-align: center
+
+	.share-list__item
+		margin: 10px 15px
+
+	.share-item__icon
+		width: 26px
+		height: 26px
+
+.gallery-image__footer
+	@include flexbox
+	@include justify-content(space-between)
+	align-items: center
+	background: color('border-light')
+	padding-left: 20px
+	width: 100%
+	position: relative
+
+.margin-bottom60
+	margin-bottom: 60px
+
+.gallery-image__count
+	display: inline-block
+	vertical-align: middle
+	font-size: 12px
+	color: color('light-grey')
+
+.gallery-image__feature
+	> a
+		padding: 20px
+		
+		&:last-child
+			margin-right: 0
+
+	.landscape-icon__container
+		@include vendor-prefix('transition', width 1s)
+		width: 0
+		padding: 0
+		display: inline-block
+		vertical-align: middle
+
+// footer icons
+.gallery__download-icon
+	@include download-2d2d2d-icon
+	display: inline-block
+	vertical-align: middle
+	height: 18px
+	width: 20px
+	background-size: 18px
+
+.gallery__share-icon
+	@include share-2d2d2d-icon
+	display: inline-block
+	vertical-align: middle
+	height: 18px
+	width: 14px
+	background-size: 17px
+
+.gallery__zoom-icon
+	@include fullscreen-2d2d2d-icon
+	display: inline-block
+	vertical-align: middle
+	height: 16px
+	width: 16px
+	background-size: 17px
+
+.screen--rotate
+	display: none
+
+.gallery__landscape-icon
+	display: inline-block
+	vertical-align: middle
+	height: 40px
+	width: 40px
+	text-align: right
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/2d2d2d/rotate.svg') no-repeat center
+	background-size: 20px
+
+
+// gallery active/popup state
+.model-gallery--relative
+	z-index: 8
+	background: color('white')
+	position: relative
+	left: 0
+	width: 100%
+
+	.model-gallery
+		height: 100%
+
+	.swiper-slide
+		height: auto
+		width: 100%
+
+	.gallery__zoom-icon
+		display: none
+
+	.gallery__share-icon
+		margin-right: 0
+
+	.model-gallery__image-title
+		background: color('dark-black')
+		color: color('light-grey')
+		width: 100%
+		text-align: center
+		font-size: 12px
+
+	.landscape-icon__container
+		&[data-visible="false"]
+			width: 0
+
+		&[data-visible="true"]
+			width: 40px
+
+	.gallery-image__feature
+		padding-right: 4px
+
+	.swiper--next,
+	.swiper--prev
+		background-color: color('border-light', .8)
+
+	.swiper--next
+		right: 0
+		border-top-left-radius: 4px
+		border-bottom-left-radius: 4px
+
+	.swiper--prev
+		left: 0
+		border-top-right-radius: 4px
+		border-bottom-right-radius: 4px
+
+
+// rotate slug
+.model-gallery__screen--rotate-slug
+	@include vendor-prefix('border-radius', 2px)
+	@include vendor-prefix('transform', translateX(-50%))
+	left: 50%
+	padding: 0
+	border: 1px solid color('dandelion')
+	color: color('dandelion')
+	position: fixed
+	bottom: 11%
+	width: auto
+	white-space: nowrap
+	padding-right: 15px
+	z-index: 6
+
+	.landscape-text
+		display: inline-block
+		vertical-align: middle
+		padding: 9px 14px 10px
+		font-size: 12px
+
+	.screen--rotate-slug__landscape-container
+		height: 20px
+		width: 20px
+		display: inline-block
+
+	.screen--rotate-slug__landscape-icon
+		display: inline-block
+		vertical-align: middle
+		height: 20px
+		width: 20px
+		text-align: right
+		background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ffcf63/rotate.svg') center no-repeat
+		background-size: 20px
+		-webkit-animation: rotate-icon 1.4s linear infinite
+
+	&.model-gallery__screen--rotate-slug--hide
+		border: none
+		z-index: 10
+
+		.landscape-text
+			visibility: hidden
+
+	@keyframes rotate-icon
+		0%
+			transform: rotate(0deg)
+		50%
+			transform: rotate(45deg)
+		100%
+			transform: rotate(0deg)
+				
+	@-webkit-keyframess rotate-icon
+		0%
+			transform: rotate(0deg)
+		50%
+			transform: rotate(45deg)
+		100%
+			transform: rotate(0deg)	
+
+	&[data-visible = 'true']
+		display: inline-block
+
+	&[data-visible= 'false']
+		display: none
+
+
+// color slug/button
+.gallery-image__color
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/color-palette.png') no-repeat
+	background-position: left center
+	padding-left: 25px
+	color: color('white')
+	font-size: 12px
+	display: inline-block
+	line-height: 40px
+	cursor: pointer
+
+.gallery-color--fixed
+	@include vendor-prefix('border-radius', 16px)
+	@include vendor-prefix('transform', translateX(-50%))
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/color-palette.png') no-repeat
+	background-color: color('white')
+	background-position: 7%
+	padding: 9px 14px 9px 34px
+	color: color('default')
+	font-size: 12px
+	position: fixed
+	bottom: 7%
+	left: 50%
+	text-transform: capitalize
+	z-index: 6
+
+	&[data-visible='true']
+		display: inline-block
+
+	&[data-visible = 'false']
+		display: none
+
+.model-gallery__image-title
+	@include text-truncate(100%)
+	background: color('white')
+	padding: 17px 20px
+	font-size: 14px
+	position: absolute
+	top: 100%
+	left: 0
+	right: 0
+
+// landscape mode
+.orientation--landscape
+	.model-gallery--relative
+		.model-gallery
+			margin-bottom: 0
+
+			.swiper-slide
+				height: 100vh
+				background: color('black')
+					
+				img
+					max-height: 100%
+
+		.gallery-footer
+			position: fixed
+			bottom: 0
+			left: 0
+			right: 0
+			width: 100%
+			z-index: 10
+
+		.gallery-image__footer
+			background: color('nero')
+
+		.gallery__share-icon
+			background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/share.svg')
+			margin-right: 8px
+
+		.gallery__download-icon
+			background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/download-v2.svg')
+		
+		.model-gallery__image-title
+			padding: 0 20px
+			display: inline
+			position: static
+			font-size: 12px
+			background: transparent
+			color: color('light-grey')
+
+		.landscape-icon__container
+			&[data-visible="true"]
+				width: 40px
+
+		.swiper--next,
+		.swiper--prev
+			height: 43px
+			width: 24px
+			background-position: 9px 16px
+			top: 43%
+
+	.model-gallery__screen--rotate-slug
+		&[data-visible = 'true']
+			display: none
+
+	.gallery-image__left-section
+		@include text-truncate(300px)
+		display: inline-block
+		vertical-align: middle
+
+	.model-gallery--relative
+		.gallery-image__footer
+			.gallery__landscape-icon
+				background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/rotate.svg')
+
+
+// color slug
+.gallery-color-slug--active
+	.gallery__slide-slug
+		animation: fadeIn .4s forwards
+		z-index: 1
+
+	.gallery-footer__content,
+	.gallery-color--fixed
+		display: none
+
+@keyframes fadeIn
+	0%
+		opacity: 0
+
+	100%
+		opacity: 1
+
+// colors slide
+.gallery__slide-slug
+	@include flexbox
+	@include justify-content(center)
+	@include align-items(center)
+	@include flex-direction(column)
+	opacity: 0
+	width: 100%
+	height: 100%
+	padding: 10px
+	position: absolute
+	left: 0
+	right: 0
+	top: 0
+	z-index: 0
+
+.model-gallery__color-slide
+	background: radial-gradient(#82888b, #ffffff)
+
+.color-slide__title
+	color: #2a2a2a
+	font-size: 16px
+	font-weight: 700
+	margin-bottom: 30px
+
+.color-slide__more-count
+	color: #fff
+	font-size: 12px
+	font-weight: 600
+
+.color-slide__list
+	margin-bottom: 10px
+
+.color-slide-list__item
+	margin-left: 30px
+	display: inline-block
+	vertical-align: middle
+
+	&:first-child
+		margin-left: 0
+
+.swiper-slide__more-btn
+	font-size: 12px
+	padding: 9px 25px
+	border-radius: 20px
+	position: absolute
+	bottom: -19px
+	z-index: 1
+
+// slug in landscape mode
+.orientation--landscape
+	.color-slide__more-count
+		margin-bottom: 30px
+
+	.color-slide__list
+		margin-bottom: 25px
+
+	.color-slide-list__item		
+		margin-left: 40px
+
+		&:first-child
+			margin-left: 0
+
+	.swiper-slide__more-btn
+		position: relative
+		bottom: auto
+
+	.color-box
+		width: 48px
+		height: 48px
+
+
+// swipe to continue
+.gallery__continue-swipe-info
+	position: fixed
+	right: 0
+	bottom: 0
+	left: 0
+	width: 100%
+	line-height: 40px
+	background: #2a2a2a
+	text-align: center
+	z-index: 8
+	
+.continue-info__label
+	font-size: 12px
+	color: #fd8d81
+	padding-right: 27px
+	text-decoration: underline
+	background-image: url('/image/arrow-back-red.svg')
+	background-repeat: no-repeat
+	background-position: right
+	background-size: 17px
+
