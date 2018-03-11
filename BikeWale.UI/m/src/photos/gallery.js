@@ -108,6 +108,7 @@ var ModelGallery = function () {
 		self.setColorOption();
 
 		historyObj.addToHistory('imagesPopup');
+		GalleryState.subscribeAction(self.closeGalleryPopup);
 	};
 
 	self.closeGalleryPopup = function (isClickEvent) {
@@ -153,6 +154,8 @@ var ModelGallery = function () {
 		if (!self.activePopup() || self.fullScreenModeActive() || self.colorPopup().activePopup()) {
 			self.activeSharePopup(true);
 			historyObj.addToHistory('sharePopup');
+
+			GalleryState.subscribeAction(self.closeSharePopup);
 		}
 		else {
 			self.activeGalleryFooterShare(true);
@@ -245,6 +248,8 @@ var ModelColorPopup = function () {
 		self.setListHeight();
 		//self.setGalleryFooter();
 		historyObj.addToHistory('colorPopup');
+
+		GalleryState.subscribeAction(self.closePopup);
 	}
 
 	self.closePopup = function (isClickEvent) {
@@ -298,6 +303,8 @@ var ModelVideoPopup = function () {
 		self.videoSwiper.update(true);
 		//setColorGalleryFooter();
 		historyObj.addToHistory('videosPopup');
+
+		GalleryState.subscribeAction(self.closePopup);
 	}
 
 	self.closePopup = function (isClickEvent) {
@@ -545,29 +552,7 @@ docReady(function () {
 	// popup states
 	// TODO: update popstate logic
 	$(window).on('popstate', function () {
-		while(true) {
-			var didFound = false;
-
-			if ($('#galleryRoot').hasClass('gallery-popup--active')) {
-				if ($('#colorGalleryPopup').hasClass('color-popup--active')) {
-					vmModelGallery.colorPopup().closePopup();
-				}
-				else {
-					vmModelGallery.closeGalleryPopup();
-				}
-				break;
-			}
-
-			if ($('#sharePopup').hasClass('share-popup--active')) {
-				vmModelGallery.closeSharePopup();
-				break;
-			}
-
-			if (!didFound) {
-				break;
-			}
-		}
-
+		GalleryState.dispatchAction();
 	});
 
 	// initialize and register main gallery swiper
@@ -685,6 +670,29 @@ var historyObj = (function () {
 
 	return {
 		addToHistory: addToHistory
+	}
+})();
+
+// handle gallery popup's browser back state
+var GalleryState = (function() {
+	var _actions = [];
+
+	function subscribeAction(action) {
+		_actions.push(action);
+	}
+
+	function dispatchAction() {
+		var action = _actions[_actions.length - 1];
+
+		if(action) {
+			action();
+			_actions.pop();
+		}
+	}
+
+	return {
+		subscribeAction: subscribeAction,
+		dispatchAction: dispatchAction
 	}
 })();
 
