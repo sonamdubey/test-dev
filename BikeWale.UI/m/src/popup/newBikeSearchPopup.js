@@ -723,7 +723,6 @@ var RecommendedBikes = function () {
     self.ApplyFilters = function () {
         
         if (checkFilters() == false) {
-            //$('.filter__apply').attr('disabled');
             showNoFilterSelectedToast();
         }
         else {
