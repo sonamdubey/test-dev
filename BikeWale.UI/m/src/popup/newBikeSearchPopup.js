@@ -179,6 +179,7 @@ var recommendedBikePopup = (function () {
     };
 
 
+
     function updateInpageFilters() {
 
         for (var key in vmRecommendedBikes.Filters()) {
@@ -215,6 +216,7 @@ var recommendedBikePopup = (function () {
     };
 
     $(window).on('popstate', function () {
+        disableApplyBtn();
         if (popup.hasClass('recommended-bike-popup--active') && history.state !== "recommendedBikePopup") {
             close();
         }
@@ -920,4 +922,11 @@ function showNoFilterSelectedToast() {
     window.setTimeout(function () {
         $('.no-filters-selected-toast').slideUp();
     }, 2000);
+}
+
+function disableApplyBtn() {
+    var appyButtons = document.getElementsByClassName("refine-result__apply");
+    for(var i=0; i<3; i++){
+        appyButtons[i].disabled = true;
+    }
 }
