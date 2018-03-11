@@ -226,12 +226,13 @@ body
 	bottom: 0
 	z-index: 5
 
-.gallery--active
+.gallery-popup--active
 	.black-window
 		display: block
 
 .gallery-footer
 	height: 40px
+	background: #f5f5f5
 
 .gallery-footer__share
 	position: relative
@@ -273,21 +274,13 @@ body
 			height: auto
 			max-height: 203px
 
-.model-gallery
-	.model-gallery__color-slide
-		position: absolute
-		left: 0
-		right: 0
-		top: 0
-		z-index: 1
-
 	.swiper--next,
 	.swiper--prev
 		top: 42%
 		position: absolute
 		width: 24px
 		height: 43px
-		z-index: 1
+		z-index: 2
 		display: inline-block
 		background-position: center
 		background-size: 8px
@@ -402,10 +395,10 @@ body
 		font-size: 12px
 
 	.landscape-icon__container
-		&[data-visible="1"]
+		&[data-visible="false"]
 			width: 0
 
-		&[data-visible="0"]
+		&[data-visible="true"]
 			width: 40px
 
 	.gallery-image__feature
@@ -482,12 +475,12 @@ body
 		50%
 			transform: rotate(45deg)
 		100%
-			transform: rotate(0deg)			
+			transform: rotate(0deg)	
 
-	&[data-visible = '0']
+	&[data-visible = 'true']
 		display: inline-block
 
-	&[data-visible= '1']
+	&[data-visible= 'false']
 		display: none
 
 .gallery-image__color
@@ -515,10 +508,10 @@ body
 	text-transform: capitalize
 	z-index: 6
 
-	&[data-visible='0']
+	&[data-visible='true']
 		display: inline-block
 
-	&[data-visible = '1']
+	&[data-visible = 'false']
 		display: none
 
 @media screen and (min-aspect-ratio: 1/1) and (orientation: landscape)
@@ -560,7 +553,7 @@ body
 			color: color('light-grey')
 
 		.landscape-icon__container
-			&[data-visible="1"]
+			&[data-visible="true"]
 				width: 40px
 
 		.swiper--next,
@@ -571,7 +564,7 @@ body
 			top: 43%
 
 	.model-gallery__screen--rotate-slug
-		&[data-visible = '0']
+		&[data-visible = 'true']
 			display: none
 
 	.gallery-image__left-section
@@ -695,25 +688,41 @@ body
 @include similar-model__image()
 @include similar-model__footer
 
-.model-gallery
-	.model-gallery__color-slide
-		position: absolute
-		left: 0
-		right: 0
-		top: 0
+
+.gallery-color-slug--active
+	.gallery__slide-slug
+		animation: fadeIn .4s forwards
 		z-index: 1
 
+	.gallery-footer__content,
+	.gallery-color--fixed
+		display: none
+
+@keyframes fadeIn
+	0%
+		opacity: 0
+
+	100%
+		opacity: 1
+
 // colors slide
-.model-gallery__color-slide
+.gallery__slide-slug
 	@include flexbox
 	@include justify-content(center)
 	@include align-items(center)
 	@include flex-direction(column)
+	opacity: 0
 	width: 100%
 	height: 100%
 	padding: 10px
+	position: absolute
+	left: 0
+	right: 0
+	top: 0
+	z-index: 0
+
+.model-gallery__color-slide
 	background: radial-gradient(#82888b, #ffffff)
-	position: relative
 
 .color-slide__title
 	color: #2a2a2a
@@ -902,6 +911,14 @@ body
 		.color-box-label
 			margin-top: 0
 
+	.slide--focus
+		.color-box
+			&:before
+				width: 7px
+				height: 14px
+				border-right-width: 2px
+				border-bottom-width: 2px
+
 @keyframes fadeInTranslate
 	0%
 		display: none
@@ -1078,10 +1095,18 @@ body
 		&:before
 			content: ''
 			position: absolute
-			background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/white-tick-lg.png') 50% no-repeat
-			width: 100%
-			height: 100%
+			left: 0
+			right: 0
+			width: 10px
+			height: 20px
 			display: block
+			margin: 4px auto
+			border-width: 0 3px 3px 0
+			border-color: white
+			border-style: solid
+			transform: rotate(45deg)
+			text-align: center
+			box-shadow: 2px 2px 1px -1px #444
 
 // slide focus state: landscape view
 .color-popup--landscape
@@ -1141,3 +1166,26 @@ body
 
 // videos popup
 @import ../../partials/video-popup
+
+// swipe to continue
+.gallery__continue-swipe-info
+	position: fixed
+	right: 0
+	bottom: 0
+	left: 0
+	width: 100%
+	line-height: 40px
+	background: #2a2a2a
+	text-align: center
+	z-index: 8
+	
+.continue-info__label
+	font-size: 12px
+	color: #fd8d81
+	padding-right: 27px
+	text-decoration: underline
+	background-image: url('/image/arrow-back-red.svg')
+	background-repeat: no-repeat
+	background-position: right
+	background-size: 17px
+
