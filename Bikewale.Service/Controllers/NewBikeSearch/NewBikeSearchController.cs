@@ -60,24 +60,31 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             try
             {
                 BikeSearchOutputEntity objBikeList = null;
-
-                SearchFilters Filters = SearchOutputMapper.Convert(input);
-
-                if (Filters != null)
+                if (input != null)
                 {
-                    objBikeList = _bikeSearch.GetBikeSearch(Filters);
-                }
-                    
+                    SearchFilters Filters = SearchOutputMapper.Convert(input);
 
-                if (objBikeList != null)
-                {
-                    return Ok(objBikeList);
+                    if (Filters != null)
+                    {
+                        objBikeList = _bikeSearch.GetBikeSearch(Filters);
+                    }
+
+
+                    if (objBikeList != null)
+                    {
+                        return Ok(objBikeList);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
                 else
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
             }
+
             catch (Exception ex)
             {
 
