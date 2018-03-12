@@ -70,12 +70,12 @@
 	});
 
 
-	$('.emi-calculator__link').on('click', function () {
-	    var data = $(this).children();
+	$('.emicalculator_link_event').on('click', function () {
+	    var data = $(this);
 
-	    var emiDetails = JSON.parse(atob(data.attr('data-emiDetails')));
-	    var bikePrice = data.attr('data-bikePrice');
-	    var bikeExshowroomPrice = data.attr('data-bikeExshowroomPrice');
+	    var emiDetails = JSON.parse(atob(data.data('emidetails')));
+	    var bikePrice = data.data('bikeprice');
+	    var bikeExshowroomPrice = data.data('bikeexshowroomprice');
 
 	    EMIviewModel.processingFees(emiDetails.processingFee);
 	    EMIviewModel.exshowroomprice(bikePrice);
@@ -87,6 +87,9 @@
 	    EMIviewModel.minROI(emiDetails.minRateOfInterest);
 	    EMIviewModel.maxROI(emiDetails.maxRateOfInterest);
 	    EMIviewModel.loan(emiDetails.minLoanToValue);
+
+	    var emiPopup = $('#emiPopup');
+	    emiCalculator.open(emiPopup);
 
 	});
 

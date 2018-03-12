@@ -1,5 +1,4 @@
 ﻿@model Bikewale.Models.MakePageVM
-@using Bikewale.Models;
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline />";
@@ -191,7 +190,9 @@
                                                                 var bikePrice = (bike.OnRoadPrice > 0) ? bike.OnRoadPrice : bike.OnRoadPriceMumbai;
                                                             }
                                                             <p class="margin-top10 text--semibold">
-                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink"><span data-bikePrice="@bikePrice" data-bikeExshowroomPrice="@bike.ExShowroomPrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))"></span>Calculate EMI</a>
+                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link emicalculator_link_event bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink-@bike.objModel.ModelId"data-bikePrice="@bikePrice" data-bikeExshowroomPrice="@bike.ExShowroomPrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))">
+                                                                    Calculate EMI
+                                                                </a>
                                                             </p>
                                                         
                                                         </div>
@@ -207,7 +208,6 @@
                     </div>
                 </section>
             }
-            @{Model.EMICalculator = new EMICalculatorVM();}
             @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
             <span class="clear"></span>
             
