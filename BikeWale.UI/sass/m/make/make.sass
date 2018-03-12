@@ -135,6 +135,11 @@ body
 @import ../../partials/recommended-bike
 @import ../../partials/_loader
 
+.recommended-bike-container
+	.model__card
+		height: 260px
+		overflow: hidden
+
 @include recommended-bike__filter-section
 
 // skeleton loader
@@ -166,19 +171,6 @@ body
 
 		&:first-child
 			margin-left: 0
-
-		&:checked
-			+ .bodytype-scooter
-				background-image: url('/images/scooter_hover.png')
-
-			+ .bodytype-cruiser
-				background-image: url('/images/cruiser_hover.png')
-
-			+ .bodytype-street
-				background-image: url('/images/street_hover.png')
-
-			+ .bodytype-sports
-				background-image: url('/images/sports_hover.png')
 
 	.bodytype-box__label
 		padding-left: 0
