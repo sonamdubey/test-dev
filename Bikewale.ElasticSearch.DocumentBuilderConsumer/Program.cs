@@ -88,7 +88,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
                             && !String.IsNullOrEmpty(nvc["documentType"])
                             && !String.IsNullOrEmpty(nvc["operationType"]))
                 {
-                    logger.Info("RabbitMQExecution :Received job : " + nvc["indexName"]);
+                    logger.Info("RabbitMQExecution :Received job : " + nvc["indexName"] + ", Document Type: " + nvc["documentType"] + ", Operation Type: " + nvc["operationType"]);
                     return PerformDocumentOperations(nvc);
                 }
                 else
