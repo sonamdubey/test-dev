@@ -670,9 +670,9 @@
 </section>
 <!-- disclaimer end -->
 <script type="text/javascript">
-    docReady(function(){
-        var city = GetGlobalCityArea();
-        bwTrackingLab = 'city={' + city + '}';
+    docReady(function () {
+        var cityObj = GetGlobalLocationObject();
+        bwTrackingLab = 'city=' + ((cityObj != undefined && cityObj.CityName != undefined) ? cityObj.CityName : "");
     });
   
  </script>

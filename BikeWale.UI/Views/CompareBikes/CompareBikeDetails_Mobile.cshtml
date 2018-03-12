@@ -596,8 +596,8 @@ else
 </section>
 <script type="text/javascript">
     docReady(function(){
-        var city = GetGlobalCityArea();
-        bwTrackingLab = 'city={' + city + '}';
+        var cityObj = GetGlobalLocationObject();
+        bwTrackingLab = 'city=' + ((cityObj != undefined && cityObj.CityName != undefined) ? cityObj.CityName : "");
     });
 
 </script>
