@@ -110,8 +110,9 @@
                             @foreach (var bike in Model.Bikes)
                             {
                                 if (Model.PageFilters != null && Model.PageFilters.FilterResults!=null)
-                                { 
-                                    if (j - prev == gap && index < Model.PageFilters.FilterResults.Count() )
+                                {
+
+                                    if (j - prev == gap && index < Model.PageFilters.FilterResults.Count() && Model.PageFilters.FilterResults[index].FilterType != null)
                                     {
                                         <li class="model-list__item filter-type__item" data-filter-type="@Model.PageFilters.FilterResults[index].FilterType">
                                         @Html.Partial("~/Views/Filters/InPageFilters/_InPageFilters_Mobile.cshtml", Model.PageFilters.FilterResults[index])
@@ -441,3 +442,25 @@
     </section>
     @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchPopup_Mobile.cshtml", Model.NewBikeSearchPopup);
 }
+<script type="text/javascript">
+    docReady(function () {
+        try {
+            @if(Model.PageFilters != null && Model.PageFilters.FilterResults != null)
+            {
+                foreach (var filters in Model.PageFilters.FilterResults)
+                {
+                    if(filters != null && filters.FilterType != null)
+                    {
+                        <text>triggerNonInteractiveGA('Make_Page', 'InPage_Filters_Shown', '@filters.FilterType');</text>
+                    }
+                }   
+            }
+            
+        }
+        catch (e) {
+            console.log(e.message);
+        }
+        
+    });
+
+</script>

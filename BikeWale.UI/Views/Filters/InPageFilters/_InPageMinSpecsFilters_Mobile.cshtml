@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Entities.Filters.FilterBase
 
-@if(Model != null && Model.RangeList != null)
+@if(Model != null && Model.RangeList != null && Model.Unit != null && Model.FilterType != null)
 {
     ushort len = (ushort)Model.RangeList.Count();
     for (int i = 0; i <= len; i++)
@@ -9,14 +9,14 @@
         <li class="refine-result__list-item" data-filter-type="@Model.FilterType">
             @if (i == 0 && Model.RangeList[0] != null)
             {
-                <input type="checkbox" class="refine-result__list-checkbox" name="inpageMinSpecsFilter" id="@inputId" value="@i" data-valuetext="@string.Format("{0}-{1}", 0, Model.RangeList[0])">
+                <input type="checkbox" class="refine-result__list-checkbox" name="inpageMinSpecsFilter" id="@inputId" value="@i" data-valuetext="@string.Format("{0}-{1}", 0, Model.RangeList[0])" data-filter-type="@Model.FilterType">
                 <label class="refine-result__checkbox-label" for="@inputId">
                     @Html.Raw("<span>Less than </span>") @Bikewale.Utility.FormatMinSpecs.ShowAvailable(@Model.RangeList[0], @Model.Unit)
                 </label>
             }
             else if (i == len && Model.RangeList[len - 1] != null)
             {
-                <input type="checkbox" class="refine-result__list-checkbox" name="inpageMinSpecsFilter" id="@inputId" value="@i" data-valuetext="@string.Format("{0}-{1}", Model.RangeList[len-1],0)">
+                <input type="checkbox" class="refine-result__list-checkbox" name="inpageMinSpecsFilter" id="@inputId" value="@i" data-valuetext="@string.Format("{0}-{1}", Model.RangeList[len-1],0)" data-filter-type="@Model.FilterType">
                 <label class="refine-result__checkbox-label" for="@inputId">
                     @Html.Raw("<span>More than </span>") @Bikewale.Utility.FormatMinSpecs.ShowAvailable(@Model.RangeList[len - 1], @Model.Unit)
                 </label>
@@ -24,7 +24,7 @@
             }
             else if (Model.RangeList[i] != null && Model.RangeList[i - 1] != null)
             {
-                <input type="checkbox" class="refine-result__list-checkbox" name="inpageMinSpecsFilter" id="@inputId" value="@i" data-valuetext="@string.Format("{0}-{1}", Model.RangeList[i-1],Model.RangeList[i])">
+                <input type="checkbox" class="refine-result__list-checkbox" name="inpageMinSpecsFilter" id="@inputId" value="@i" data-valuetext="@string.Format("{0}-{1}", Model.RangeList[i-1],Model.RangeList[i])" data-filter-type="@Model.FilterType">
                 <label class="refine-result__checkbox-label" for="@inputId">
                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(@Model.RangeList[i - 1], @Model.Unit) @Html.Raw("&#8722;") @Bikewale.Utility.FormatMinSpecs.ShowAvailable(@Model.RangeList[i], @Model.Unit)
                 </label>
