@@ -924,8 +924,10 @@ function showNoFilterSelectedToast() {
 }
 
 function disableApplyBtn() {
-    var appyButtons = document.getElementsByClassName("refine-result__apply");
-    for(var i=0; i<3; i++){
-        appyButtons[i].disabled = true;
+    var applyButtons = document.getElementsByClassName("refine-result__apply");
+    if (applyButtons != null) {
+        for (var i = 0; i < applyButtons.length; i++) {
+            applyButtons[i].disabled = true;
+        }
     }
 }
