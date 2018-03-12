@@ -191,7 +191,7 @@
                                                                 var bikePrice = (bike.OnRoadPrice > 0) ? bike.OnRoadPrice : bike.OnRoadPriceMumbai;
                                                             }
                                                             <p class="margin-top10 text--semibold">
-                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink"><span data-bikePrice="@bikePrice" data-bikeExshowroomPrice="@bike.ExShowroomPrice" data-emiDetails="@Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails)"></span>Calculate EMI</a>
+                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink"><span data-bikePrice="@bikePrice" data-bikeExshowroomPrice="@bike.ExShowroomPrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))"></span>Calculate EMI</a>
                                                             </p>
                                                         
                                                         </div>

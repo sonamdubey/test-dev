@@ -73,7 +73,7 @@
 	$('.emi-calculator__link').on('click', function () {
 	    var data = $(this).children();
 
-	    var emiDetails = JSON.parse(data.attr('data-emiDetails'));
+	    var emiDetails = JSON.parse(atob(data.attr('data-emiDetails')));
 	    var bikePrice = data.attr('data-bikePrice');
 	    var bikeExshowroomPrice = data.attr('data-bikeExshowroomPrice');
 
@@ -86,7 +86,6 @@
 	    EMIviewModel.maxDnPay(emiDetails.maxDownPayment);
 	    EMIviewModel.minROI(emiDetails.minRateOfInterest);
 	    EMIviewModel.maxROI(emiDetails.maxRateOfInterest);
-
 	    EMIviewModel.loan(emiDetails.minLoanToValue);
 
 	});
