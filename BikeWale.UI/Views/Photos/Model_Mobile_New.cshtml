@@ -27,22 +27,37 @@
 						<div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
 							<div class="swiper-wrapper" data-bind="foreach: photoList">
 								<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
-									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
 								</div>
 							</div>
 							<div class="swiper--next gallery__next"></div>
 							<div class="swiper--prev gallery__prev"></div>
 
-							<div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoPopup().videoList().length">
-								<p class="gallery-slide-slug__title" data-bind="text: modelName + ' Videos'"></p>
-								<!-- ko if : videoPopup().videoList().length == 1 -->
+							<!-- color slug -->
+							<div class="model-gallery__color-slide gallery__slide-slug" data-bind="if: colorPopup().colorSwiper().colorList().length, visible: activeColorSlug()">
+								<p class="gallery-slide-slug__title" data-bind="text: colorSlug.modelName + ' Colors'"></p>
+								<ul class="color-slide__list" data-bind="foreach: colorSlug.colorList">
+									<li class="color-slide-list__item">
+										<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+											<span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
+										</div>
+									</li>
+								</ul>
+								<p class="color-slide__more-count" data-bind="text: '+' + colorSlug.remainingCount + ' More Color' + (colorSlug.remainingCount > 1 ? 's' : '') "></p>
+								<button type="button" class="btn btn-inv-blue swiper-slide__more-btn" data-bind="click: colorPopup().openPopup">Show All Color Images</button>
+							</div>
+
+							<!-- video slug -->
+							<div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoPopup().videoList().length, visible: activeVideoSlug(), css: videoSlug.videoList.length === 1 ? 'video-slug--player' : ''">
+								<p class="gallery-slide-slug__title" data-bind="text: videoSlug.modelName + ' Videos'"></p>
+								<!-- ko if : videoSlug.videoList.length === 1 -->
 								<div class="swiper-youtube" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
 									<div class="youtube-iframe-preview video-card__video-preview">
-										<iframe id="videoSlugIframe" width="320" height="180" data-bind="attr: { 'src': 'https://www.youtube.com/embed/' + videoPopup().videoList()[0].VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
+										<iframe id="videoSlugIframe" width="320" height="180" data-bind="attr: { 'src': 'https://www.youtube.com/embed/' + videoSlug.videoList[0].VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
 									</div>
 								</div>
 								<!-- /ko -->
-								<!-- ko if : videoPopup().videoList().length > 1 -->
+								<!-- ko if : videoSlug.videoList.length > 1 -->
 									<span class="video-slide__play" data-bind="click: videoPopup().openPopup"></span>
 									<button type="button" class="btn btn-inv-blue swiper-slide__more-btn" data-bind="click: videoPopup().openPopup">Show All Videos</button>
 								<!-- /ko -->
@@ -131,7 +146,7 @@
 						<div id="mainColorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
 							<div class="swiper-wrapper" data-bind="foreach: colorPopup().colorSwiper().colorList">
 								<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
-									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
 								</div>
 							</div>
 							<div class="swiper--next color-type-next"></div>
@@ -284,7 +299,7 @@
 						<div id="colorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
 							<div class="swiper-wrapper" data-bind="foreach: colorList">
 								<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
-									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
 								</div>
 							</div>
 							<div class="swiper--next color-type-next"></div>
@@ -305,7 +320,7 @@
 					</div>
 
 					<div id="videoTab" data-id="videos" class="hide">
-						<ul class="video-list overalltab__section-list" data-bind="foreach: videoList">
+						<ul class="video-list overalltab__section-list" data-bind="foreach: MODEL_VIDEO_LIST">
 							<li class="video-card-container">
 								<h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
 								<div class="model-card__list__video-card">
@@ -416,20 +431,3 @@
 	</div>
 }
 
-<!-- image slug -->
-<div id="swiperColorSlug" class="hide" data-bind="template: { name: 'colorSlugTemplate', data: colorData }"></div>
-
-<script type="text/html" id="colorSlugTemplate">
-	<div class="model-gallery__color-slide gallery__slide-slug">
-		<p class="gallery-slide-slug__title" data-bind="text: modelName + ' Colors'"></p>
-		<ul class="color-slide__list" data-bind="foreach: colorList">
-			<li class="color-slide-list__item">
-				<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
-					<span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
-				</div>
-			</li>
-		</ul>
-		<p class="color-slide__more-count" data-bind="text: '+' + remainingCount + ' More Color' + (remainingCount > 1 ? 's' : '') "></p>
-		<button type="button" class="btn btn-inv-blue swiper-slide__more-btn">Show All Color Images</button>
-	</div>
-</script>

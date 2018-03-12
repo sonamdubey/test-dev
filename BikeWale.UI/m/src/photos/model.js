@@ -180,13 +180,13 @@ var videoSlug = (function () {
 })();
 
 
-var vmLoadPhotos = function () {
+var LoadPhotosViewModel = function () {
 	var self = this;
 	self.Loadedphotos = ko.observableArray();
 }
 
 docReady(function () {
-	var vmPhotosMore = new vmLoadPhotos();
+	var vmPhotosMore = new LoadPhotosViewModel();
 	ko.applyBindings(vmPhotosMore, $("#photoTemplateWrapper")[0]);
 
 	if (popupGallery) {
@@ -257,7 +257,7 @@ docReady(function () {
 	
 	var colorsTab = $('#colorTab');
 
-	vmModelColorSwiper = new ModelColorSwiper();
+	vmModelColorSwiper = new ModelColorSwiperViewModel();
 
 	if (colorsTab.length) {
 		ko.applyBindings(vmModelColorSwiper, colorsTab[0]);

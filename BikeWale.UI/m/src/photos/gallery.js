@@ -9,7 +9,7 @@ var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAG
 // bhrighu logging
 var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
 
-var gallerySwiper, colorGallerySwiper, thumbnailSwiper, colorThumbnailSwiper, videoSwiper, videoThumbnailSwiper, videoListEvents;
+var colorGallerySwiper, colorThumbnailSwiper;
 
 var setPageVariables = function () {
 	eleGallery = $("#pageGallery");
@@ -40,7 +40,7 @@ var setPageVariables = function () {
 	}
 }
 
-var ModelGallery = function () {
+var ModelGalleryViewModel = function () {
 	var self = this;
 
 	// model image gallery
@@ -53,8 +53,7 @@ var ModelGallery = function () {
 	self.activeFloatingColorSlug = ko.observable(false);
 
 	// model color gallery
-	self.colorPopup = ko.observable(new ModelColorPopup());
-	//self.colorsFooterActive = ko.observable(true);
+	self.colorPopup = ko.observable(new ModelColorPopupViewModel());
 
 	self.fullScreenModeActive = ko.observable(false);
 	self.floatingSlugVisibilityThreshold = 3;
@@ -77,7 +76,14 @@ var ModelGallery = function () {
 	self.activeContinueSlug = ko.observable(false);
 
 	// video
-	self.videoPopup = ko.observable(new ModelVideoPopup());
+	self.videoPopup = ko.observable(new ModelVideoPopupViewModel());
+
+	// in between slug
+	self.activeColorSlug = ko.observable(false);
+	self.colorSlug = new ColorSlugViewModel(MODEL_COLOR_IMAGES);
+
+	self.activeVideoSlug = ko.observable(true);
+	self.videoSlug = new VideoSlugViewModel(MODEL_VIDEO_LIST);
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
 		if (originalImagePath && originalImagePath != null) {
@@ -234,18 +240,18 @@ var ModelGallery = function () {
 
 };
 
-var ModelColorPopup = function () {
+var ModelColorPopupViewModel = function () {
 	var self = this;
 
 	self.activePopup = ko.observable(false);
 	self.activeLandscapeFooter = ko.observable(true);
 
-	self.colorSwiper = ko.observable(new ModelColorSwiper());
+	self.colorSwiper = ko.observable(new ModelColorSwiperViewModel());
 
 	self.openPopup = function () {
 		self.activePopup(true);
 		self.setListHeight();
-		//self.setGalleryFooter();
+		
 		historyObj.addToHistory('colorPopup');
 
 		GalleryState.subscribeAction(self.closePopup);
@@ -272,11 +278,11 @@ var ModelColorPopup = function () {
 	}
 };
 
-var ModelColorSwiper = function () {
+var ModelColorSwiperViewModel = function () {
 	var self = this;
 
 	self.activeIndex = ko.observable(0);
-	self.activeTitle = ko.observable('Sample');
+	self.activeTitle = ko.observable('');
 
 	self.colorList = ko.observableArray(MODEL_COLOR_IMAGES);
 
@@ -290,7 +296,7 @@ var ModelColorSwiper = function () {
 	}
 }
 
-var ModelVideoPopup = function () {
+var ModelVideoPopupViewModel = function () {
 	var self = this;
 
 	self.activePopup = ko.observable(false);
@@ -300,7 +306,7 @@ var ModelVideoPopup = function () {
 		self.activePopup(true);
 		self.setBodyHeight();
 		self.videoSwiper.update(true);
-		//setColorGalleryFooter();
+
 		historyObj.addToHistory('videosPopup');
 
 		GalleryState.subscribeAction(self.closePopup);
@@ -378,7 +384,7 @@ var ModelVideoPopup = function () {
 	self.registerEvents();
 }
 
-var ModelVideo = function () {
+var ModelVideoViewModel = function () {
 	var self = this;
 
 	self.videoList = ko.observable(MODEL_VIDEO_LIST);
@@ -387,15 +393,25 @@ var ModelVideo = function () {
 var ColorSlugViewModel = function (colorPhotoList) {
 	var self = this;
 
-	self.count = 3;
-	self.colorList = colorPhotoList.slice(0, self.count);
-	self.remainingCount = colorPhotoList.length - self.count;
+	self.previewCount = 3;
+	self.modelName = MODEL_NAME;
+	self.colorList = colorPhotoList.slice(0, self.previewCount);
+	self.remainingCount = colorPhotoList.length - self.previewCount;
+}
 
-	self.colorData = {
-		modelName: MODEL_NAME,	
-		colorList: self.colorList,
-		remainingCount: self.remainingCount
-	};
+var VideoSlugViewModel = function (videoList) {
+	var self = this;
+
+	self.modelName = MODEL_NAME;
+	self.videoList = videoList;
+
+	self.registerEvents = function() {
+		$(document).on('click', '.model-gallery__video-slide .iframe-overlay', function() {
+			$(this).closest('.model-gallery__video-slide').addClass('video--active');
+		});
+	}
+
+	self.registerEvents();
 }
 
 var popupGallery = {
@@ -529,26 +545,17 @@ docReady(function () {
 	setPageVariables();
 
 	var galleryRoot = $('#galleryRoot');
-	vmModelGallery = new ModelGallery();
+	vmModelGallery = new ModelGalleryViewModel();
 
 	if (galleryRoot.length) {
 		ko.applyBindings(vmModelGallery, galleryRoot[0]);
 	}
 
 	var videoTab = $('#videoTab');
-	vmModelVideo = new ModelVideo();
+	vmModelVideo = new ModelVideoViewModel();
 
 	if(videoTab.length) {
 		ko.applyBindings(vmModelGallery, videoTab[0]);
-	}
-
-	// set color slug
-	if (MODEL_COLOR_IMAGES.length > 1) {
-		var vmColorSlugViewModel = new ColorSlugViewModel(MODEL_COLOR_IMAGES);
-
-		ko.applyBindings(vmColorSlugViewModel, document.getElementById('swiperColorSlug'));
-
-		//GallerySlug.setColor($('#mainPhotoSwiper'));
 	}
 
 	// popup states
@@ -732,6 +739,10 @@ var MainGallerySwiper = (function() {
 
 				if (vmModelGallery.activeGalleryFooterShare()) {
 					vmModelGallery.closeSharePopup();
+				}
+
+				if(vmModelGallery.activeVideoSlug) {
+					SwiperYT.YouTubeApi.videoPause();
 				}
 			},
 			onSlideChangeEnd: function (swiper) {
@@ -947,10 +958,6 @@ var ColorGallerySwiper = (function () {
 // color and video
 var GallerySlug = (function () {
 	function _registerColorSlugEvents() {
-		$(document).on('click', '.model-gallery__color-slide .swiper-slide__more-btn', function () {
-			vmModelGallery.colorPopup().openPopup();
-		});
-
 		$(document).on('click', '.model-gallery__color-slide .color-slide-list__item', function () {
 			var clickedIndex = $(this).index();
 

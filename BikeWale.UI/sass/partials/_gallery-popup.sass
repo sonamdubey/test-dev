@@ -482,12 +482,27 @@
 
 	.gallery-slide-slug__title
 		color: #fff
+		z-index: 9
+
+	.iframe-overlay
+		background-color: rgba(0, 0, 0, .2)
+
+.video-slug--player
+	.gallery-slide-slug__title
+		position: relative
+		top: -50px
 
 .video-slide__play
 	width: 48px
 	height: 34px
 	display: inline-block
 	background: url('/image/youtube-play.png') no-repeat
+
+// video playing state
+.video--active
+	&.model-gallery__video-slide
+		.gallery-slide-slug__title
+			display: none
 
 
 // swipe to continue
