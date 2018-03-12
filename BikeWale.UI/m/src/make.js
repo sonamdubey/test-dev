@@ -20,7 +20,7 @@
     });
 
 	// popular bikes carousel
-	if (navigator.userAgent.match(/Firefox/gi)) {
+	if (navigator.userAgent.match(/Firefox/gi) || navigator.userAgent.match(/UCBrowser/gi)) {
 		$('.carousel__popular-bikes').addClass('popular-bikes--fallback');
 	}
 
