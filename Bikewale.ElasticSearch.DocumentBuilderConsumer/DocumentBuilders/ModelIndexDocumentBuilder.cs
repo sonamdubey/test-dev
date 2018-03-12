@@ -20,7 +20,6 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
 {
     public class ModelIndexDocumentBuilder : IDocumentBuilder
     {
-        private static ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().Name);
 
         /// <summary>
         /// Created By : Deepak Israni on 8 March 2018
@@ -47,7 +46,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
 
                     PushToQueue(packet);
 
-                    logger.Info("RabbitMQExecution :Pushed job : " + packet["indexName"] + ", Document Type: " + packet["documentType"] + ", Operation Type: " + packet["operationType"] + ", Document ID: " + packet["documentId"] + ", Document: " + packet["documentJson"]);
+                    Logs.WriteInfoLog("RabbitMQExecution :Pushed job : " + packet["indexName"] + ", Document Type: " + packet["documentType"] + ", Operation Type: " + packet["operationType"] + ", Document ID: " + packet["documentId"] + ", Document: " + packet["documentJson"]);
                 }
                 return true;
             }
@@ -83,7 +82,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
 
                     PushToQueue(packet);
 
-                    logger.Info("RabbitMQExecution :Pushed job : " + packet["indexName"] + ", Document Type: " + packet["documentType"] + ", Operation Type " + packet["operationType"] + ", Document ID: " + packet["documentId"] + ", Document: " + packet["documentJson"]);
+                    Logs.WriteInfoLog("RabbitMQExecution :Pushed job : " + packet["indexName"] + ", Document Type: " + packet["documentType"] + ", Operation Type " + packet["operationType"] + ", Document ID: " + packet["documentId"] + ", Document: " + packet["documentJson"]);
                 }
                 return true;
             }
@@ -113,7 +112,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
 
                 PushToQueue(packet);
 
-                logger.Info("RabbitMQExecution :Pushed job : " + packet["indexName"] + ", Document Type: " + packet["documentType"] + ", Operation Type: " + packet["operationType"] + ", Document ID: " + packet["documentId"]);
+                Logs.WriteInfoLog("RabbitMQExecution :Pushed job : " + packet["indexName"] + ", Document Type: " + packet["documentType"] + ", Operation Type: " + packet["operationType"] + ", Document ID: " + packet["documentId"]);
             }
             return true;
         }
