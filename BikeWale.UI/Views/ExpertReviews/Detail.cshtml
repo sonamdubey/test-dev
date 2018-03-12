@@ -198,6 +198,24 @@
                             </div>
                         </div>
                     }
+                    else if (Model.MostPopularBikes != null)
+                    {
+                        <div class="content-box-shadow margin-bottom20 @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-15-20-10" : "padding-top15 padding-bottom10")">
+                            <h2>@Model.MostPopularBikes.WidgetHeading</h2>
+                            @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
+
+                            <div class="view-all-btn-container  @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-top10 padding-bottom10" : "padding-10-20-20")">
+                                <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                        if (Model.AdTags.Ad_Model_ATF_300x250)
+                        {
+                            <div class="margin-bottom20 text-center">
+                                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", Model.AdTags);}
+                            </div>
+                        }
+                    }
+                    
                     if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
                     {
                         <div class="content-box-shadow margin-bottom20 @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-15-20-10" : "padding-top15 padding-bottom10")">
