@@ -165,9 +165,6 @@ var BikeEMI = function (bikeVersionPrice,emiObj) {
         read: function () {
             return (self.downPayment() + (self.monthlyEMI() * self.tenure()) + self.processingFees());
         },
-        write: function (value) {
-            
-        },
         owner: this
     });
 };
