@@ -30,9 +30,9 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by : Aditi Srivastava on 29 Mar 2017
     /// Summary    : Model for news details page
-    /// Modified by:Snehal Dange on 24 August,2017
-    /// Description: Added _bikeMakesCacheRepository,_objBikeVersionsCache.
-    ///              Added PopularScooterBrandsWidget
+    /// Modified by : Snehal Dange on 24 August,2017
+    /// Description : Added _bikeMakesCacheRepository,_objBikeVersionsCache.
+    ///               Added PopularScooterBrandsWidget
     /// </summary>
     public class NewsDetailPage
     {
@@ -57,6 +57,7 @@ namespace Bikewale.Models
         public StatusCodes status;
         public string mappedCWId;
         public string redirectUrl;
+        private string CityName;
         private GlobalCityAreaEntity currentCityArea;
         private uint CityId, MakeId, ModelId, pageCatId = 0;
         private readonly uint _totalTabCount = 3;
@@ -73,22 +74,6 @@ namespace Bikewale.Models
 
         static ILog _logger = LogManager.GetLogger("NewsDetailPage");
 
-        public string CityName
-        {
-            get
-            {
-                if (currentCityArea == null)
-                {
-                    currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                    if (currentCityArea != null)
-                        CityId = currentCityArea.CityId;
-                }
-
-                return string.IsNullOrEmpty(currentCityArea.City) ? string.Empty : currentCityArea.City;
-            }
-        }
-
-        public bool LogNewsUrl { get; set; }
         public bool IsAMPPage { get; set; }
         #endregion
 
@@ -108,9 +93,29 @@ namespace Bikewale.Models
             _objBikeVersionsCache = objBikeVersionsCache;
             _seriesCache = seriesCache;
             _series = series;
-            LogNewsUrl = BWConfiguration.Instance.LogNewsUrl;
+            ProcessCityArea();
             ProcessQueryString();
 
+        }
+        /// <summary>
+        /// Created by  : Rajan Chauhan on 26 Feb 2018
+        /// Description : To set currentCityArea, CityName and      
+        /// </summary>
+        private void ProcessCityArea()
+        {
+            try
+            {
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                if (currentCityArea != null)
+                {
+                    CityId = currentCityArea.CityId;
+                    CityName = currentCityArea.City;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.News.NewsDetailPage.ProcessCityArea");
+            }
         }
 
         private void CheckSeriesData(NewsDetailPageVM objdata)
@@ -281,7 +286,7 @@ namespace Bikewale.Models
                     var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
 
                     objData.ServerRouterWrapper = _renderedArticles.GetNewsDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsDetailReducer,
-                                newsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl, "root", "ServerRouterWrapper");
+                                newsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl, "root", "ServerRouterWrapper", "News");
                     objData.WindowState = storeJson;
                     objData.Page = GAPages.Editorial_Details_Page;
                 }
@@ -339,7 +344,7 @@ namespace Bikewale.Models
             try
             {
                 objData.BaseUrl = IsMobile ? "/m" : "";
-                objData.PageMetaTags.Title = string.Format("{0} - BikeWale News", objData.ArticleDetails.Title);
+                objData.PageMetaTags.Title = string.Format("{0} - BikeWale", objData.ArticleDetails.Title);
                 if (objData.Make != null)
                     objData.AdTags.TargetedMakes = objData.Make.MakeName;
                 if (objData.Model != null)
@@ -502,10 +507,6 @@ namespace Bikewale.Models
         {
             try
             {
-                currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                if (currentCityArea != null)
-                    CityId = currentCityArea.CityId;
-
                 objData.BodyStyle = EnumBikeBodyStyles.AllBikes;
 
                 List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);

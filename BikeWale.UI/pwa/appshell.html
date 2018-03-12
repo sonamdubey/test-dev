@@ -119,17 +119,7 @@
                 triggerDataToBhrigu(cat, act, lbl);
             }
         };
-        window.addEventListener('load', function () {
-            // if not called on load event listener then googletag.apiready == false when required.
-            docReady(function () {
-                try {
-                    window.FirstRenderWithAppshell = true;
-                    AppEntryPoint();
-                } catch (e) {
-                    console.warn(e.message);
-                }
-            });
-        });
+ 
         window.addEventListener('DOMContentLoaded', function () {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.getRegistration('/m/news/').then(function (reg) {

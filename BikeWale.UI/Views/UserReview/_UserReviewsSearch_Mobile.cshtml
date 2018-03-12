@@ -25,103 +25,107 @@
             <div style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")" data-bind="visible: reviewsAvailable()">
                 <ul class="user-review-list" data-bind="visible : (!noReviews() && TotalReviews() !== 0), css: IsLoading() ? 'loader-active' : ''">
                     @{ushort i = 0;}
-                    @foreach (UserReviewSummary review in Model.UserReviews.Result)
+                    @if (Model.UserReviews.Result != null && Model.UserReviews.Result.Any())
                     {
-                        if (@i == 0)
+                        foreach (UserReviewSummary review in Model.UserReviews.Result)
                         {
+                            if (@i == 0)
+                            {
                                 <!-- ko foreach: activeReviewList() -->
-                        }
-                        <li class="list-item padding-top15 padding-bottom15">
-                            <div class="padding-right20 padding-left20">
-                                <div class="margin-bottom10">
-                                    <!-- ko with: $data.overallRating -->
-                                    <span class="rating-badge" data-rate-bg="@review.OverallRating.Value" data-bind="attr: {'data-rate-bg': id }">
-                                        <span class="bwmsprite star-white"></span>
-                                        <span data-bind="text: value">@review.OverallRating.Value</span>
-                                    </span>
-                                    <!-- /ko -->
-                                    <div class="grid-10-inline font15 text-black text-bold text-truncate">
+                            }
+                            <li class="list-item padding-top15 padding-bottom15">
+                                <div class="padding-right20 padding-left20">
+                                    <div class="margin-bottom10">
+                                        <!-- ko with: $data.overallRating -->
+                                        <span class="rating-badge" data-rate-bg="@review.OverallRating.Value" data-bind="attr: {'data-rate-bg': id }">
+                                            <span class="bwmsprite star-white"></span>
+                                            <span data-bind="text: value">@review.OverallRating.Value</span>
+                                        </span>
+                                        <!-- /ko -->
+                                        <div class="grid-10-inline font15 text-black text-bold text-truncate">
 
-                                        <a onclick="logBhrighu(event, 'TitleClick')" data-id="@i" data-reviewId="@review.ReviewId" href="/m@(review.ReviewUrl)" data-bind="attr : {'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : '/m' + $data.reviewUrl}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
+                                            <a onclick="logBhrighu(event, 'TitleClick')" data-id="@i" data-reviewid="@review.ReviewId" href="/m@(review.ReviewUrl)" data-bind="attr : {'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : '/m' + $data.reviewUrl}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="margin-bottom10">
+                                        <span class="font12 text-light-grey" data-bind="text: $data.reviewAge + ' ago by ' + $data.customerName">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
                                     </div>
                                 </div>
-
-                                <div class="margin-bottom10">
-                                    <span class="font12 text-light-grey" data-bind="text: $data.reviewAge + ' ago by ' + $data.customerName">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
-                                </div>
-                            </div>
-                            <div class="collapsible-content toggle-off main-content-off" data-bind="attr: {'data-reviewId': $data.reviewId }">
-                                <div class="main-content">
-                                    <div class="font14 text-slate-grey">
-                                        <p data-bind="truncatedText: $data.sanitizedDescription" data-trimlength="150">@string.Format("{0}...", review.SanitizedDescription)</p>
-                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-bind="click: function (data, event) { return $parent.readMore(event);}, attr: {'data-reviewId': $data.reviewId }" data-reviewId="@review.ReviewId" data-id="@i">Read more</a>
+                                <div class="collapsible-content toggle-off main-content-off" data-bind="attr: {'data-reviewId': $data.reviewId }">
+                                    <div class="main-content">
+                                        <div class="font14 text-slate-grey">
+                                            <p data-bind="truncatedText: $data.sanitizedDescription" data-trimlength="150">@string.Format("{0}...", review.SanitizedDescription)</p>
+                                            <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-bind="click: function (data, event) { return $parent.readMore(event);}, attr: {'data-reviewId': $data.reviewId }" data-reviewid="@review.ReviewId" data-id="@i">Read more</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="more-content">
-                                    <div class="font14 text-slate-grey padding-right20 padding-left20 margin-bottom15" data-bind="html: $data.description">@Html.Raw(review.Description)</div>
+                                    <div class="more-content">
+                                        <div class="font14 text-slate-grey padding-right20 padding-left20 margin-bottom15" data-bind="html: $data.description">@Html.Raw(review.Description)</div>
 
-                                    @if (review.RatingQuestionsCount > 0)
-                                    {
-                                        <div class="about-reviewer-content margin-bottom15" data-bind="visible: !$root.IsInitialized()">
+                                        @if (review.RatingQuestionsCount > 0)
+                                        {
+                                            <div class="about-reviewer-content margin-bottom15" data-bind="visible: !$root.IsInitialized()">
+                                                <p class="text-grey text-bold">About the reviewer</p>
+                                                <ul class="about-reviewer-list item-count-@review.RatingQuestionsCount">
+                                                    @foreach (var q in review.Questions.Where(q => q.Type == UserReviewQuestionType.Rating))
+                                                    {
+                                                        <li>
+                                                            <span class="bwmsprite questionId-@q.Id"></span>
+                                                            <p class="item-question">@q.MinHeading</p>
+                                                            <p class="item-answer">@q.SelectedRatingText</p>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+
+                                        <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
+                                        <div class="about-reviewer-content margin-bottom15 hide" data-bind="css: ($data.ratingQuestionsCount > 0) ? 'show' : '' ">
                                             <p class="text-grey text-bold">About the reviewer</p>
-                                            <ul class="about-reviewer-list item-count-@review.RatingQuestionsCount">
-                                                @foreach (var q in review.Questions.Where(q => q.Type == UserReviewQuestionType.Rating))
-                                                {
-                                                    <li>
-                                                        <span class="bwmsprite questionId-@q.Id"></span>
-                                                        <p class="item-question">@q.MinHeading</p>
-                                                        <p class="item-answer">@q.SelectedRatingText</p>
-                                                    </li>
-                                                }
+                                            <ul data-bind="css: 'about-reviewer-list item-count-' +  $data.ratingQuestionsCount ">
+                                                <!-- ko foreach: $data.questions -->
+                                                <!-- ko if : $data.qtype == 1 -->
+                                                <li>
+                                                    <span data-bind="css: 'bwmsprite questionId-' +  $data.qId "></span>
+                                                    <p class="item-question" data-bind="text: $data.minHeading"> </p>
+                                                    <p class="item-answer" data-bind="text: $data.selectedRatingText"> </p>
+                                                </li>
+                                                <!-- /ko -->
+                                                <!-- /ko -->
                                             </ul>
                                         </div>
-                                    }
-
-                                    <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
-                                    <div class="about-reviewer-content margin-bottom15 hide" data-bind="css: ($data.ratingQuestionsCount > 0) ? 'show' : '' ">
-                                        <p class="text-grey text-bold">About the reviewer</p>
-                                        <ul data-bind="css: 'about-reviewer-list item-count-' +  $data.ratingQuestionsCount ">
-                                            <!-- ko foreach: $data.questions -->
-                                            <!-- ko if : $data.qtype == 1 -->
-                                            <li>
-                                                <span data-bind="css: 'bwmsprite questionId-' +  $data.qId "></span>
-                                                <p class="item-question" data-bind="text: $data.minHeading"> </p>
-                                                <p class="item-answer" data-bind="text: $data.selectedRatingText"> </p>
-                                            </li>
-                                            <!-- /ko -->
-                                            <!-- /ko -->
-                                        </ul>
-                                    </div>
-                                    <!-- /ko -->
+                                        <!-- /ko -->
 
 
-                                    <div class="padding-right20 padding-left20">
+                                        <div class="padding-right20 padding-left20">
 
-                                        <span class="review__question text-light-grey font12">Was this review helpful?</span>
+                                            <span class="review__question text-light-grey font12">Was this review helpful?</span>
 
-                                        <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="upVoteListReview(event)">
-                                            <span class="bwmsprite like-sm"></span>
-                                            Yes
-                                            (<span id="upvoteCount-@review.ReviewId" class="btn-count review-btn" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, formattedVotes : $data.upVotes">@Format.FormatNumbers(review.UpVotes)</span>)
-                                        </button>
+                                            <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewid="@review.ReviewId" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="upVoteListReview(event)">
+                                                <span class="bwmsprite like-sm"></span>
+                                                Yes
+                                                (<span id="upvoteCount-@review.ReviewId" class="btn-count review-btn" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, formattedVotes : $data.upVotes">@Format.FormatNumbers(review.UpVotes)</span>)
+                                            </button>
 
 
-                                        <button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="downVoteListReview(event)">
-                                            <span class="bwmsprite dislike-sm"></span>
-                                            No
-                                            (<span id="downvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, formattedVotes : $data.downVotes">@Format.FormatNumbers(review.DownVotes)</span>)
-                                        </button>
+                                            <button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewid="@review.ReviewId" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="downVoteListReview(event)">
+                                                <span class="bwmsprite dislike-sm"></span>
+                                                No
+                                                (<span id="downvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, formattedVotes : $data.downVotes">@Format.FormatNumbers(review.DownVotes)</span>)
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="clear insertWidget" data-bind="attr: {'data-reviewId': $data.reviewId }"></div>
-                        </li>
-                        if (@i == 0)
-                        {
+                                <div class="clear insertWidget" data-bind="attr: {'data-reviewId': $data.reviewId }"></div>
+                            </li>
+                            if (@i == 0)
+                            {
                                 <!-- /ko -->
+                            }
+                            i++;
                         }
-                        i++;
                     }
+                   
 
                 </ul>
 
