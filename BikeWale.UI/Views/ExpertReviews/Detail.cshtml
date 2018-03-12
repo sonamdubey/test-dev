@@ -201,7 +201,7 @@
                     else if (Model.MostPopularBikes != null)
                     {
                         <div class="content-box-shadow margin-bottom20 @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-15-20-10" : "padding-top15 padding-bottom10")">
-                            <h2>@Model.MostPopularBikes.WidgetHeading</h2>
+                            <h2 class="padding-left20">@Model.MostPopularBikes.WidgetHeading</h2>
                             @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
 
                             <div class="view-all-btn-container  @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-top10 padding-bottom10" : "padding-10-20-20")">
@@ -219,7 +219,7 @@
                     if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
                     {
                         <div class="content-box-shadow margin-bottom20 @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-15-20-10" : "padding-top15 padding-bottom10")">
-                            <h2>@Model.UpcomingBikes.WidgetHeading</h2>
+                            <h2 class="padding-left20">@Model.UpcomingBikes.WidgetHeading</h2>
                             @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
                             <div class="view-all-btn-container  @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-top10 padding-bottom10" : "padding-10-20-20")">
                                 <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
