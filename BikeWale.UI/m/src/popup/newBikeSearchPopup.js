@@ -64,16 +64,7 @@ var recommendedBikePopup = (function () {
         });
 
         closeBtn.on('click', function () {
-            vmRecommendedBikes.initData();
-            updateInpageFilters();
-            clearPopupFilters();
-            vmRecommendedBikes.budgetSlider([0, vmRecommendedBikes.budgetStepPoints().length - 1]);
-            vmRecommendedBikes.Filters([]);
-            vmRecommendedBikes.FiltersValue([]);
-            var tmpMakeId = vmRecommendedBikes.searchFilter.makeId;
-            var tmpCityId = vmRecommendedBikes.searchFilter.cityId;
-            vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: null, pageNumber: null };
-            //$(this).closest('refine-result__apply').$('#refineResultApply').attr('disabled');
+            resetFiltersAndData();
             window.history.back();
         });
 
@@ -178,6 +169,18 @@ var recommendedBikePopup = (function () {
         documentBody.unlock();
     };
 
+    function resetFiltersAndData() {
+        vmRecommendedBikes.initData();
+        updateInpageFilters();
+        clearPopupFilters();
+        vmRecommendedBikes.budgetSlider([0, vmRecommendedBikes.budgetStepPoints().length - 1]);
+        vmRecommendedBikes.Filters([]);
+        vmRecommendedBikes.FiltersValue([]);
+        var tmpMakeId = vmRecommendedBikes.searchFilter.makeId;
+        var tmpCityId = vmRecommendedBikes.searchFilter.cityId;
+        vmRecommendedBikes.searchFilter = { cityId: tmpCityId, displacement: [], mileage: [], power: [], price: [], bodyStyle: [], makeId: tmpMakeId, abs: "", discBrake: "", drumBrake: "", alloyWheel: "", spokeWheel: "", electric: "", manual: "", excludeMake: "", pageSize: null, pageNumber: null };
+        
+    };
 
 
     function updateInpageFilters() {
@@ -217,6 +220,7 @@ var recommendedBikePopup = (function () {
 
     $(window).on('popstate', function () {
         disableApplyBtn();
+        resetFiltersAndData();
         if (popup.hasClass('recommended-bike-popup--active') && history.state !== "recommendedBikePopup") {
             close();
         }
@@ -927,7 +931,10 @@ function disableApplyBtn() {
     var applyButtons = document.getElementsByClassName("refine-result__apply");
     if (applyButtons != null) {
         for (var i = 0; i < applyButtons.length; i++) {
-            applyButtons[i].disabled = true;
+            var btn = applyButtons[i];
+            if (!btn.hasAttribute("disabled")) {
+                btn.disabled = true;
+            }
         }
     }
 }

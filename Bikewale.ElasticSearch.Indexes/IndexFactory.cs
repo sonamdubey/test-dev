@@ -25,12 +25,12 @@ namespace Bikewale.ElasticSearch.Indexes
         /// <summary>
         /// Default constructor
         /// Initializes the default settings for ES Index
-        /// NumberOfReplicas : 2 and NumberOfShards : 2
+        /// NumberOfReplicas : 2 and NumberOfShards : 3
         /// </summary>
         public IndexFactory()
         {
             Initialize();
-            _DefaultIndexSettings = new IndexSettings { NumberOfReplicas = 2, NumberOfShards = 2 };
+            _DefaultIndexSettings = new IndexSettings { NumberOfReplicas = 2, NumberOfShards = 3 };
             _DefaultIndexConfig = new IndexState { Settings = _DefaultIndexSettings };
         }
 
