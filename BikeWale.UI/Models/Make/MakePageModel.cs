@@ -942,9 +942,13 @@ namespace Bikewale.Models
                     if (objData.Bikes != null)
                     {
                         var bikes = objData.Bikes;
-                        objInputFilters.MinPrice = bikes.Where(x => x.ExShowroomPrice > 0).Min(x => x.ExShowroomPrice);
-                        objInputFilters.MinDisplacement = bikes.Where(x => x.Specs.Displacement > 0).Min(x => x.Specs.Displacement).Value;
-                        objInputFilters.MinMileage = bikes.Where(x => x.Specs.FuelEfficiencyOverall > 0).Min(x => x.Specs.FuelEfficiencyOverall).Value;
+                        var nonZeroExshowroom = bikes.Where(x => x.ExShowroomPrice > 0);
+                        var nonZeroDisplacement = bikes.Where(x => x.Specs.Displacement > 0);
+                        var nonZeroMileage = bikes.Where(x => x.Specs.FuelEfficiencyOverall > 0);
+                        objInputFilters.MinPrice = nonZeroExshowroom != null && nonZeroExshowroom.Any() ? nonZeroExshowroom.Min(x => x.ExShowroomPrice) : 0;
+                        objInputFilters.MinDisplacement = nonZeroDisplacement != null && nonZeroDisplacement.Any() ? nonZeroDisplacement.Min(x => x.Specs.Displacement).Value : 0;
+                        objInputFilters.MinMileage = (ushort)(nonZeroMileage != null && nonZeroMileage.Any() ? nonZeroMileage.Min(x => x.Specs.FuelEfficiencyOverall).Value : 0);
+
 
                         if (_makeCategoryId > 0)
                         {
@@ -971,7 +975,7 @@ namespace Bikewale.Models
                     objData.NewBikeSearchPopup.HasOtherRecommendedBikes = true;
                     objData.NewBikeSearchPopup.MakeId = _makeId;
                     objData.NewBikeSearchPopup.MakeName = objData.MakeName;
-                    if(cityBase != null)
+                    if (cityBase != null)
                     {
                         objData.NewBikeSearchPopup.CityId = cityBase.CityId;
                     }
