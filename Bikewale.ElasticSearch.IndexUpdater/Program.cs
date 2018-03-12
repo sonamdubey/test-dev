@@ -16,8 +16,6 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
     /// </summary>
     class Program
     {
-
-        private static ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().Name);
         private static bool isESInstanceInitialized;
         private const string ES_OPERATION_INSERT = "insert";
         private const string ES_OPERATION_UPDATE = "update";
@@ -27,6 +25,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
         private static int NO_OF_RETRIES;
 
         static Program(){
+            log4net.Config.XmlConfigurator.Configure();
             try
             {
                 client = ElasticSearchInstance.GetInstance();
@@ -35,13 +34,12 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
             }
             catch (Exception e)
             {
-                logger.Error("An Error Occured while trying to get ES Instance / fetching NO_OF_RETRIES from AppSettings", e);
+                Logs.WriteErrorLog("An Error Occured while trying to get ES Instance / fetching NO_OF_RETRIES from AppSettings", e);
             }
         }
 
         static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
 
             //If ES Instance is not initialized
             if (!isESInstanceInitialized)
@@ -59,11 +57,11 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
             }
             catch (Exception ex)
             {
-                logger.Error("Exception : " + ex.Message);
+                Logs.WriteErrorLog("Exception : " + ex.Message);
             }
             finally
             {
-                logger.Info("Consumer Ended at : " + DateTime.Now);
+                Logs.WriteInfoLog("Consumer Ended at : " + DateTime.Now);
             }
         }
 
@@ -85,7 +83,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                             && !String.IsNullOrEmpty(nvc["operationType"]))
                 {
 
-                    logger.Info("RabbitMQExecution :Received job : " + nvc["indexName"]);
+                    Logs.WriteInfoLog("RabbitMQExecution :Received job : " + nvc["indexName"]);
 
                     return InsertOrUpdateDocumentInIndex(nvc);
 
@@ -97,7 +95,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
             }//end try
             catch (Exception ex)
             {
-                logger.Error("Error while performing operation for " + nvc["indexName"], ex);
+                Logs.WriteErrorLog("Error while performing operation for " + nvc["indexName"], ex);
                 return false;
             }//end catch
         }
@@ -123,7 +121,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
             bool isOperationSuccessful = false;
             string esResponse = string.Empty;
 
-            logger.Info(string.Format("IndexName : {0}, DocumentId = {1}, DocumentType : {2}, OperationType : {3}", indexName, documentId, documentType, operationType));
+            Logs.WriteInfoLog(string.Format("IndexName : {0}, DocumentId = {1}, DocumentType : {2}, OperationType : {3}", indexName, documentId, documentType, operationType));
 
             if (!string.Equals(operationType, ES_OPERATION_DELETE, StringComparison.OrdinalIgnoreCase))
             {
@@ -133,7 +131,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                 }
                 else
                 {
-                    logger.Error(string.Format("ERROR : Document JSON Not Passed, OperationType = {0}", operationType));
+                    Logs.WriteErrorLog(string.Format("ERROR : Document JSON Not Passed, OperationType = {0}", operationType));
                     return true;
                 }
             }
@@ -147,7 +145,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                         bool doesDocumentExist = client.DocumentExists(new Nest.DocumentExistsRequest(indexName, documentType, documentId)).Exists;
                         if (!doesDocumentExist)
                         {
-                            logger.Error(string.Format("ERROR : Document Does Not Exist, OperationType = {0}", operationType));
+                            Logs.WriteErrorLog(string.Format("ERROR : Document Does Not Exist, OperationType = {0}", operationType));
                             isOperationSuccessful = true;
                         }
                         else
@@ -177,24 +175,24 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                         break;
 
                     default:
-                        logger.Error(string.Format("ERROR. Message : Unsupported operationType_{0}", operationType));
+                        Logs.WriteErrorLog(string.Format("ERROR. Message : Unsupported operationType_{0}", operationType));
                         break;
                 }
 
             }
             catch (Exception e)
             {
-                logger.Error("Exception occured while updating the document", e);
+                Logs.WriteErrorLog("Exception occured while updating the document", e);
             }
             finally
             {
                 if (isOperationSuccessful)
                 {
-                    logger.Info(string.Format("ES Operation Successfully processed, Response : {0}", esResponse));
+                    Logs.WriteInfoLog(string.Format("ES Operation Successfully processed, Response : {0}", esResponse));
                 }
                 else
                 {
-                    logger.Error(string.Format("Error! ES Operation can't be processed, Response : {0}", esResponse));
+                    Logs.WriteErrorLog(string.Format("Error! ES Operation can't be processed, Response : {0}", esResponse));
                     isOperationSuccessful = InsertOrUpdateDocumentInIndex(queueMessage, ++c);
                 }
             }

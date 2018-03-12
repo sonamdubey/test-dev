@@ -19,7 +19,6 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
     /// </summary>
     class Program
     {
-        private static ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().Name);
         private static int NO_OF_RETRIES;
         private static IDictionary<String, IDocumentBuilder> DOCBUILDERS;
 
@@ -34,6 +33,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
         /// </summary>
         static Program()
         {
+            log4net.Config.XmlConfigurator.Configure();
             try
             {
                 NO_OF_RETRIES = Convert.ToInt32(ConfigurationManager.AppSettings["RetryCount"]);
@@ -44,7 +44,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
             }
             catch (Exception ex)
             {
-                logger.Error("An Error Occured while fetching NO_OF_RETRIES from AppSettings/Creating Dictionary", ex);
+                Logs.WriteErrorLog("An Error Occured while fetching NO_OF_RETRIES from AppSettings/Creating Dictionary", ex);
             }
 
         }
@@ -52,8 +52,6 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
 
         static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
-
             try
             {
                 Logs.WriteInfoLog("Consumer Started at : " + DateTime.Now);
@@ -62,11 +60,11 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
             }
             catch (Exception ex)
             {
-                logger.Error("Exception : " + ex.Message);
+                Logs.WriteErrorLog("Exception : " + ex.Message);
             }
             finally
             {
-                logger.Info("Consumer Ended at : " + DateTime.Now);
+                Logs.WriteErrorLog("Consumer Ended at : " + DateTime.Now);
             }
         }
 
@@ -88,18 +86,18 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
                             && !String.IsNullOrEmpty(nvc["documentType"])
                             && !String.IsNullOrEmpty(nvc["operationType"]))
                 {
-                    logger.Info("RabbitMQExecution :Received job : " + nvc["indexName"]);
+                    Logs.WriteInfoLog("RabbitMQExecution :Received job : " + nvc["indexName"] + ", Document Type: " + nvc["documentType"] + ", Operation Type: " + nvc["operationType"]);
                     return PerformDocumentOperations(nvc);
                 }
                 else
                 {
-                    logger.Info("NVC missing data in certain keys.");
+                    Logs.WriteInfoLog("NVC missing data in certain keys.");
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                logger.Error("Error while performing operation for " + nvc["indexName"], ex);
+                Logs.WriteErrorLog("Error while performing operation for " + nvc["indexName"], ex);
                 return false;
             }
         }
@@ -144,30 +142,30 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
                             isOperationSuccessful = docBuilder.DeleteDocuments(queueMessage);
                             break;
                         default:
-                            logger.Error(string.Format("ERROR. Message : Unsupported operationType_{0}", queueMessage["operationType"]));
+                            Logs.WriteErrorLog(string.Format("ERROR. Message : Unsupported operationType_{0}", queueMessage["operationType"]));
                             break;
                     }//end switch
                 }//end try
                 catch (Exception ex)
                 {
-                    logger.Error("Exception occured while pushing the document.", ex);
+                    Logs.WriteErrorLog("Exception occured while pushing the document.", ex);
                 }//end catch
                 finally
                 {
                     if (isOperationSuccessful)
                     {
-                        logger.Info(string.Format("Documents successfully sent to IndexUpdaterConsumer."));
+                        Logs.WriteInfoLog(string.Format("Documents successfully sent to IndexUpdaterConsumer."));
                     }
                     else
                     {
-                        logger.Error(string.Format("Error! Documents couldn't be sent to IndexUpdaterConsumer."));
+                        Logs.WriteErrorLog(string.Format("Error! Documents couldn't be sent to IndexUpdaterConsumer."));
                         isOperationSuccessful = PerformDocumentOperations(queueMessage, ++c);
                     }
                 }//end finally
             }//end null check
             else
             {
-                logger.Info("No refrence object found for " + queueMessage["indexName"]);
+                Logs.WriteInfoLog("No refrence object found for " + queueMessage["indexName"]);
                 return true;
             }
 

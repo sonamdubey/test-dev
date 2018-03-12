@@ -2,6 +2,7 @@
 using Bikewale.ElasticSearch.Entities;
 using Bikewale.Utility;
 using Consumer;
+using log4net;
 using MySql.CoreDAL;
 using Newtonsoft.Json;
 using RabbitMqPublishing;
@@ -12,12 +13,14 @@ using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
 {
     public class ModelIndexDocumentBuilder : IDocumentBuilder
     {
+
         /// <summary>
         /// Created By : Deepak Israni on 8 March 2018
         /// Description: Function to get newly created documents and push them to BWEsIndexUpdater's queue for insertion of new documents in ES Index.
@@ -42,6 +45,8 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                     packet["documentJson"] = JsonConvert.SerializeObject(doc);
 
                     PushToQueue(packet);
+
+                    Logs.WriteInfoLog("RabbitMQExecution :Pushed job : " + packet["indexName"] + ", Document Type: " + packet["documentType"] + ", Operation Type: " + packet["operationType"] + ", Document ID: " + packet["documentId"] + ", Document: " + packet["documentJson"]);
                 }
                 return true;
             }
@@ -76,6 +81,8 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                     packet["documentJson"] = JsonConvert.SerializeObject(doc);
 
                     PushToQueue(packet);
+
+                    Logs.WriteInfoLog("RabbitMQExecution :Pushed job : " + packet["indexName"] + ", Document Type: " + packet["documentType"] + ", Operation Type " + packet["operationType"] + ", Document ID: " + packet["documentId"] + ", Document: " + packet["documentJson"]);
                 }
                 return true;
             }
@@ -104,6 +111,8 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                 packet["operationType"] = nvc["operationType"];
 
                 PushToQueue(packet);
+
+                Logs.WriteInfoLog("RabbitMQExecution :Pushed job : " + packet["indexName"] + ", Document Type: " + packet["documentType"] + ", Operation Type: " + packet["operationType"] + ", Document ID: " + packet["documentId"]);
             }
             return true;
         }
