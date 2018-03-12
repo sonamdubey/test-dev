@@ -64,7 +64,6 @@ var recommendedBikePopup = (function () {
         });
 
         closeBtn.on('click', function () {
-            resetFiltersAndData();
             window.history.back();
         });
 
@@ -219,9 +218,9 @@ var recommendedBikePopup = (function () {
     };
 
     $(window).on('popstate', function () {
-        disableApplyBtn();
-        resetFiltersAndData();
         if (popup.hasClass('recommended-bike-popup--active') && history.state !== "recommendedBikePopup") {
+            disableApplyBtn();
+            resetFiltersAndData();
             close();
         }
     });
