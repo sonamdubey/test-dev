@@ -69,6 +69,30 @@
 		notifyPopup.open();
 	});
 
+
+	$('.emicalculator_link_event').on('click', function () {
+	    var data = $(this);
+
+	    var emiDetails = JSON.parse(atob(data.data('emidetails')));
+	    var bikePrice = data.data('bikeprice');
+	    var bikeExshowroomPrice = data.data('bikeexshowroomprice');
+
+	    EMIviewModel.processingFees(emiDetails.processingFee);
+	    EMIviewModel.exshowroomprice(bikePrice);
+	    EMIviewModel.bikePrice(bikePrice);
+	    EMIviewModel.minTenure(emiDetails.minTenure);
+	    EMIviewModel.maxTenure(emiDetails.maxTenure);
+	    EMIviewModel.minDnPay(emiDetails.minDownPayment);
+	    EMIviewModel.maxDnPay(emiDetails.maxDownPayment);
+	    EMIviewModel.minROI(emiDetails.minRateOfInterest);
+	    EMIviewModel.maxROI(emiDetails.maxRateOfInterest);
+	    EMIviewModel.loan(emiDetails.minLoanToValue);
+
+	    var emiPopup = $('#emiPopup');
+	    emiCalculator.open(emiPopup);
+
+	});
+
 	formField.registerEvents();
 	
 	//interesting fact popup

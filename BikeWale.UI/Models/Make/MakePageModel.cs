@@ -119,6 +119,8 @@ namespace Bikewale.Models
         /// Description : Bind MakeId to objData
         /// Modified by : Sanskar Gupta on 07 Feb 2018
         /// Descritpion : Added logic to fetch Newly Launched Bikes (within a period of 10 days) for Mobile Make page.
+        /// Modified by : Sanskar Gupta on 12 March 2018
+        /// Description : Added `BindEMICalculator()`
         /// </returns>
         public MakePageVM GetData()
         {
@@ -191,6 +193,7 @@ namespace Bikewale.Models
                 BindOtherMakes(objData);
                 BindUserReviews(objData);
                 BindMakeFooterCategoriesandPriceWidget(objData);
+                BindEMICalculator(objData);
                 objData.Page = GAPages.Make_Page;
                 objData.BikeCityPopup = new PopUp.BikeCityPopup()
                 {
@@ -903,6 +906,15 @@ namespace Bikewale.Models
             {
                 ErrorClass.LogError(ex, String.Format("BindExpertReviewCount_MakeId_{0}", _makeId));
             }
+        }
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 12 March 2018
+        /// Description : Function to initialize EMICalculator
+        /// </summary>
+        /// <param name="objMakePage"></param>
+        private void BindEMICalculator(MakePageVM objMakePage)
+        {
+            objMakePage.EMICalculator = new EMICalculatorVM();
         }
 
     }
