@@ -79,11 +79,11 @@ var ModelGalleryViewModel = function () {
 	self.videoPopup = ko.observable(new ModelVideoPopupViewModel());
 
 	// in between slug
-	self.activeColorSlug = ko.observable(false);
-	self.colorSlug = new ColorSlugViewModel(MODEL_COLOR_IMAGES);
+	self.colorSlug = ko.observable(new ColorSlugViewModel(MODEL_COLOR_IMAGES));
+	self.colorSlug().activeSlug(true);
 
-	self.activeVideoSlug = ko.observable(true);
-	self.videoSlug = new VideoSlugViewModel(MODEL_VIDEO_LIST);
+	self.videoSlug = ko.observable(new VideoSlugViewModel(MODEL_VIDEO_LIST));
+	self.videoSlug().activeSlug(false);
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
 		if (originalImagePath && originalImagePath != null) {
@@ -393,17 +393,31 @@ var ModelVideoViewModel = function () {
 var ColorSlugViewModel = function (colorPhotoList) {
 	var self = this;
 
+	self.activeSlug = ko.observable(true);
 	self.previewCount = 3;
 	self.modelName = MODEL_NAME;
 	self.colorList = colorPhotoList.slice(0, self.previewCount);
 	self.remainingCount = colorPhotoList.length - self.previewCount;
+
+	self.registerEvents = function() {
+		$(document).on('click', '.model-gallery__color-slide .color-slide-list__item', function () {
+			var clickedIndex = $(this).index();
+
+			vmModelGallery.colorPopup().openPopup();
+			colorGallerySwiper.slideTo(clickedIndex);
+		});
+	}
+	
+	self.registerEvents();
 }
 
 var VideoSlugViewModel = function (videoList) {
 	var self = this;
 
+	self.activeSlug = ko.observable(false);
 	self.modelName = MODEL_NAME;
 	self.videoList = videoList;
+	self.videoCount = videoList.length;
 
 	self.registerEvents = function() {
 		$(document).on('click', '.model-gallery__video-slide .iframe-overlay', function() {
@@ -953,25 +967,3 @@ var ColorGallerySwiper = (function () {
 	}
 })();
 
-
-// Gallery slugs
-// color and video
-var GallerySlug = (function () {
-	function _registerColorSlugEvents() {
-		$(document).on('click', '.model-gallery__color-slide .color-slide-list__item', function () {
-			var clickedIndex = $(this).index();
-
-			vmModelGallery.colorPopup().openPopup();
-			colorGallerySwiper.slideTo(clickedIndex);
-		});
-	}
-
-	function setColor(container) {
-		container.append($('#swiperColorSlug').html());
-		_registerColorSlugEvents();
-	}
-
-	return {
-		setColor: setColor
-	};
-})();

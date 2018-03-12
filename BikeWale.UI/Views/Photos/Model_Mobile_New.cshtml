@@ -33,34 +33,36 @@
 							<div class="swiper--next gallery__next"></div>
 							<div class="swiper--prev gallery__prev"></div>
 
-							<!-- color slug -->
-							<div class="model-gallery__color-slide gallery__slide-slug" data-bind="if: colorPopup().colorSwiper().colorList().length, visible: activeColorSlug()">
-								<p class="gallery-slide-slug__title" data-bind="text: colorSlug.modelName + ' Colors'"></p>
-								<ul class="color-slide__list" data-bind="foreach: colorSlug.colorList">
-									<li class="color-slide-list__item">
-										<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
-											<span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
-										</div>
-									</li>
-								</ul>
-								<p class="color-slide__more-count" data-bind="text: '+' + colorSlug.remainingCount + ' More Color' + (colorSlug.remainingCount > 1 ? 's' : '') "></p>
-								<button type="button" class="btn btn-inv-blue swiper-slide__more-btn" data-bind="click: colorPopup().openPopup">Show All Color Images</button>
+							<div data-bind="with: colorSlug">
+								<div class="model-gallery__color-slide gallery__slide-slug" data-bind="if: colorList.length, visible: activeSlug()">
+									<p class="gallery-slide-slug__title" data-bind="text: modelName + ' Colors'"></p>
+									<ul class="color-slide__list" data-bind="foreach: colorList">
+										<li class="color-slide-list__item">
+											<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+												<span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
+											</div>
+										</li>
+									</ul>
+									<p class="color-slide__more-count" data-bind="text: '+' + remainingCount + ' More Color' + (remainingCount > 1 ? 's' : '') "></p>
+									<button type="button" class="btn btn-inv-blue swiper-slide__more-btn" data-bind="click: $parent.colorPopup().openPopup">Show All Color Images</button>
+								</div>
 							</div>
 
-							<!-- video slug -->
-							<div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoPopup().videoList().length, visible: activeVideoSlug(), css: videoSlug.videoList.length === 1 ? 'video-slug--player' : ''">
-								<p class="gallery-slide-slug__title" data-bind="text: videoSlug.modelName + ' Videos'"></p>
-								<!-- ko if : videoSlug.videoList.length === 1 -->
-								<div class="swiper-youtube" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-									<div class="youtube-iframe-preview video-card__video-preview">
-										<iframe id="videoSlugIframe" width="320" height="180" data-bind="attr: { 'src': 'https://www.youtube.com/embed/' + videoSlug.videoList[0].VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
+							<div data-bind="with: videoSlug">
+								<div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoCount, visible: activeSlug(), css: videoCount === 1 ? 'video-slug--player' : ''">
+									<p class="gallery-slide-slug__title" data-bind="text: modelName + ' Video' + (videoCount > 1 ? 's' : '')"></p>
+									<!-- ko if : videoCount === 1 -->
+									<div class="swiper-youtube" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+										<div class="youtube-iframe-preview video-card__video-preview">
+											<iframe id="videoSlugIframe" width="320" height="180" data-bind="attr: { 'src': 'https://www.youtube.com/embed/' + videoSlug.videoList[0].VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
+										</div>
 									</div>
+									<!-- /ko -->
+									<!-- ko if : videoCount > 1 -->
+										<span class="video-slide__play" data-bind="click: $parent.videoPopup().openPopup"></span>
+										<button type="button" class="btn btn-inv-blue swiper-slide__more-btn" data-bind="click: $parent.videoPopup().openPopup">Show All Videos</button>
+									<!-- /ko -->
 								</div>
-								<!-- /ko -->
-								<!-- ko if : videoSlug.videoList.length > 1 -->
-									<span class="video-slide__play" data-bind="click: videoPopup().openPopup"></span>
-									<button type="button" class="btn btn-inv-blue swiper-slide__more-btn" data-bind="click: videoPopup().openPopup">Show All Videos</button>
-								<!-- /ko -->
 							</div>
 
 						</div>
