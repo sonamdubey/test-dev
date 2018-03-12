@@ -84,6 +84,8 @@ namespace BikewaleOpr.BAL.BikePricing
         /// <summary>
         /// Created By : Deepak Israni on 22 Feb 2018
         /// Description: BAL function to push recently updated price documents to RabbitMq.
+        /// Modified By: Deepak Israni on 12 March 2018
+        /// Description: Updated function to push to BWEsDocumentBuilder for updating bikeindex
         /// </summary>
         /// <param name="versionIds"></param>
         /// <param name="cityIds"></param>
@@ -94,6 +96,14 @@ namespace BikewaleOpr.BAL.BikePricing
             string models = _bikeModelsRepository.GetModelsByVersions(versions);
 
             IList<ModelPriceDocument> indexDocs = _showroomPricesRepository.GetModelPriceDocument(models, cities);
+
+            NameValueCollection packet = new NameValueCollection();
+            packet["ids"] = models;
+            packet["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
+            packet["documentType"] = "bikemodeldocument";
+            packet["operationType"] = "udpate";
+
+            BWESDocumentBuilder.PushToQueue(packet);
 
             foreach (ModelPriceDocument doc in indexDocs)
             {
@@ -114,12 +124,22 @@ namespace BikewaleOpr.BAL.BikePricing
         /// <summary>
         /// Created By : Deepak Israni on 22 Feb 2018
         /// Description: BAL function to push newly created price documents to RabbitMq.
+        /// Modified By: Deepak Israni on 12 March 2018
+        /// Description: Updated function to push to BWEsDocumentBuilder for updating bikeindex
         /// </summary>
         /// <param name="modelIds"></param>
         /// <param name="cityIds"></param>
         public void CreateModelPriceDocument(string modelIds, string cityIds)
         {
             IList<ModelPriceDocument> indexDocs = _showroomPricesRepository.GetModelPriceDocument(modelIds, cityIds);
+
+            NameValueCollection packet = new NameValueCollection();
+            packet["ids"] = modelIds;
+            packet["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
+            packet["documentType"] = "bikemodeldocument";
+            packet["operationType"] = "update";
+
+            BWESDocumentBuilder.PushToQueue(packet);
 
             foreach (ModelPriceDocument doc in indexDocs)
             {
