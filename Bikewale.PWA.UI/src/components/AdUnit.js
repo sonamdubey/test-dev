@@ -26,7 +26,7 @@ class AdUnit extends React.Component {
 		if(!this.props)
 			return;
 		removeAdSlot(this.props.adSlot);
-		this.clearAdDiv()
+		this.clearAdDiv();
 		this.addAdSlot();
 		this.displayAd();
 		
@@ -61,7 +61,7 @@ class AdUnit extends React.Component {
 
 	render() {
 		return (
-			<div id={this.props.adContainerId} className = "margin-top15 margin-bottom10 text-center" >
+			<div id={this.props.adContainerId} className = "margin-top15 margin-top10 margin-bottom10 text-center" >
 			
 			</div>
 		)

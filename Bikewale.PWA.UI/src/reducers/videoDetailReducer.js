@@ -58,6 +58,7 @@ export function VideoDetail(state,action) {
 											'ModelInfoStatus' : Status.Reset  , 'ModelInfo' : null , 
 										     'RelatedInfoStatus' : Status.Reset , 'RelatedInfo' : null});
 			case videosDetailAction.FETCH_VIDEODETAIL_WITH_INITIAL_DATA :
+				startTimer(1,0);
 				var initialDataDict = state.getIn(['InitialDataDict']);
 				if(action.payload) {
 					 initialDataDict = initialDataDict.setIn([action.payload.BasicId],action.payload);

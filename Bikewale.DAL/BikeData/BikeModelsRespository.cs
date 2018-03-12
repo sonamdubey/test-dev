@@ -916,6 +916,7 @@ namespace Bikewale.DAL.BikeData
         /// Description : DAL method to get most popular bikes by make with city price when city is selected.
         /// Modified by : Snehal Dange on 6th Feb 2018 
         /// Description : Added parameter for on-road price and modified sp from 'getmostpopularbikesbymakewithcityprice' to 'getmostpopularbikesbymakewithcityprice_06022018'
+        /// Description : Added parameter for 'cityname' and modified sp from 'getmostpopularbikesbymakewithcityprice_06022018' to 'getmostpopularbikesbymakewithcityprice_01032018'.
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="cityId"></param>
@@ -926,7 +927,7 @@ namespace Bikewale.DAL.BikeData
             MostPopularBikesBase objData = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakewithcityprice_06022018"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakewithcityprice_01032018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
@@ -968,6 +969,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.OnRoadPrice = SqlReaderConvertor.ToInt64(dr["OnRoad"]);
                                 objData.OnRoadPriceMumbai = SqlReaderConvertor.ToInt64(dr["OnRoadMumbai"]);
+                                objData.CityName = Convert.ToString(dr["cityname"]);
                                 objList.Add(objData);
                             }
                             dr.Close();

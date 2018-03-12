@@ -42,7 +42,7 @@ class NewsPagination extends React.Component {
                                             return (<li key={displayPageNo} className="active">{pageNo}</li>)
                                         }
                                         else {
-                                            return (<li key={displayPageNo}><Link to={'/m/news/page/'+displayPageNo+'/'} onClick={this.onClickLink.bind(this,displayPageNo)}>{displayPageNo}</Link></li>)
+                                            return (<li key={displayPageNo}><Link to={'/m/'+ this.props.pageUrl +'/page/'+displayPageNo+'/'} onClick={this.onClickLink.bind(this,displayPageNo)}>{displayPageNo}</Link></li>)
                                         }
                                     }.bind(this))
     }
@@ -58,7 +58,7 @@ class NewsPagination extends React.Component {
             var goToPageNo = parseInt(pageNo) - 1 ;
             return (
                     <span className="pagination-control-prev" >
-                         <Link to={'/m/news/page/'+goToPageNo+'/'} className="bwmsprite bwsprite prev-page-icon" onClick={this.onClickLink.bind(this,goToPageNo)}/>
+                         <Link to={'/m/'+ this.props.pageUrl +'/page/'+goToPageNo+'/'} className="bwmsprite bwsprite prev-page-icon" onClick={this.onClickLink.bind(this,goToPageNo)}/>
                     </span>
                 
             )
@@ -77,7 +77,7 @@ class NewsPagination extends React.Component {
             var goToPageNo = parseInt(pageNo) + 1;
             return (
                 <span className="pagination-control-next" >
-                    <Link to={'/m/news/page/'+goToPageNo+'/'} className="bwmsprite bwsprite next-page-icon" onClick={this.onClickLink.bind(this,goToPageNo)}/>
+                    <Link to={'/m/'+ this.props.pageUrl +'/page/'+goToPageNo+'/'} className="bwmsprite bwsprite next-page-icon" onClick={this.onClickLink.bind(this,goToPageNo)}/>
                 </span>
             )
         }

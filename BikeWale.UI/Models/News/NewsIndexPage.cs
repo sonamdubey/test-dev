@@ -35,7 +35,9 @@ namespace Bikewale.Models
     /// Description: Added _bikeMakesCacheRepository,_objBikeVersionsCache.
     ///              Added PopularScooterBrandsWidget
     /// Modified by : Ashutosh Sharma on 27 Nov 2017
-    /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.             
+    /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
+    /// Modified by : Rajan Chauhan on 27 Feb 2017
+    /// Description : changed CityName from public to private
     /// </summary>
     public class NewsIndexPage
     {
@@ -66,7 +68,8 @@ namespace Bikewale.Models
         private MakeHelper makeHelper = null;
         private ModelHelper modelHelper = null;
         private GlobalCityAreaEntity currentCityArea = null;
-        public string redirectUrl, CityName;
+        private string CityName;
+        public string redirectUrl;
         public StatusCodes status;
         private BikeModelEntity objModel = null;
         private BikeMakeEntityBase objMake = null;
@@ -128,30 +131,29 @@ namespace Bikewale.Models
             ProcessCityArea();
         }
 
+        #endregion
+
+        #region Functions
         /// <summary>
         /// Created by : Ashutosh Sharma on 27 Dec 2017
         /// Description : Method to get global city Id and Name from cookie.
         /// </summary>
         private void ProcessCityArea()
         {
-        	try
-        	{
-        		currentCityArea = GlobalCityArea.GetGlobalCityArea();
-        		if (currentCityArea != null)
-        		{
-        			CityId = currentCityArea.CityId;
-        			CityName = currentCityArea.City;
-        		}
-        	}
-        	catch (Exception ex)
-        	{
-        		ErrorClass.LogError(ex, "Bikewale.Models.News.NewsIndexPage.ProcessCityArea");
-        	}
+            try
+            {
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                if (currentCityArea != null)
+                {
+                    CityId = currentCityArea.CityId;
+                    CityName = currentCityArea.City;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.News.NewsIndexPage.ProcessCityArea");
+            }
         }
-        #endregion
-        
-        #region Functions
-        
         /// <summary>
         /// Created By : Aditi Srivastava on 27 Mar 2017
         /// Summary    : Get page data
@@ -242,7 +244,7 @@ namespace Bikewale.Models
                     objData.Model = objModel;
 
                 //objData.Articles
-                var pwaCmsContent = _articles.GetArticlesByCategoryListPwa(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+                PwaContentBase pwaCmsContent = _articles.GetArticlesByCategoryListPwa(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
 
 
 
@@ -254,7 +256,8 @@ namespace Bikewale.Models
 
                     pwaCmsContent.StartIndex = (uint)_startIndex;
                     pwaCmsContent.EndIndex = (uint)(_endIndex > recordCount ? recordCount : _endIndex);
-                    BindLinkPager(objData, recordCount); //needs the record coutn
+                    pwaCmsContent.PageTitle = "Bike News";
+                    BindLinkPager(objData, recordCount); //needs the record count
                     SetPageMetas(objData); //needs nothing
                     CreatePrevNextUrl(objData, recordCount); // needs record count
                     GetWidgetData(objData, widgetTopCount); // needs nothing
@@ -304,8 +307,7 @@ namespace Bikewale.Models
                 popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
                 popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
                 popularBikes.CompleteListUrlLabel = "View all";
-                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objData.MostPopularBikes.Bikes,
-                    cityName);
+                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objData.MostPopularBikes.Bikes);
 
                 objPwaBikeNews.Add(popularBikes);
             }

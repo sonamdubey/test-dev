@@ -24,6 +24,8 @@ namespace Bikewale.Utility
     /// Description : Removed SynopsisSummaryMergedMakeIds
     /// Modified by : Snehal Dange on 22nd dec 2017
     /// Desc:         Added ContestPriceMoney
+    /// Modified by : Pratibha Verma on 24 Feb 2018
+    /// Description : Removed logNewsUrl for News(PWA) page API
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -135,7 +137,6 @@ namespace Bikewale.Utility
         private readonly string _StaticCSSBTFPWAVersion;
         private readonly bool _EnablePWA;
         private readonly string _AMPDomainForSW;
-        private readonly bool _logNewsUrl;
         private readonly string _capitalFirstConsumerQueue;
         private readonly bool _IsIPSecurityEnabled;
         private readonly uint _CapitalFirstDealerId;
@@ -244,8 +245,7 @@ namespace Bikewale.Utility
             _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
             _CapitalFirstPincodeIndex = ConfigurationManager.AppSettings["CapitalFirstPincodeIndex"];
-            _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
-            _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
+            _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];           
             _capitalFirstConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["CapitalFirstConsumerQueue"]);
             _IsIPSecurityEnabled = string.IsNullOrEmpty(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]);
             _OtherBikesInMakeId = ConfigurationManager.AppSettings["OtherBikesInMakeId"];
@@ -420,8 +420,6 @@ namespace Bikewale.Utility
         public string AMPDomainForSW { get { return _AMPDomainForSW; } }
 
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
-
-        public bool LogNewsUrl { get { return _logNewsUrl; } }
 
         public string OtherBikesInMakeId { get { return _OtherBikesInMakeId; } }
         public string CapitalFirstConsumerQueue { get { return _capitalFirstConsumerQueue; } }

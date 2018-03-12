@@ -82,9 +82,14 @@
 														<h3 class="bikeTitle">@bikeName</h3>
 														<p class="text-light-grey margin-bottom5">
 															@if (BikeInfo.OnRoadPriceInCity > 0)
-															{
-																string.Format("On-Road Price, {0}", Model.BikeInfoWidgetData.CityDetails.CityName);
-															}
+                                                            {
+                                                                if (Model.BikeInfoWidgetData != null && Model.BikeInfoWidgetData.CityDetails != null)
+                                                                {
+                                                                    string.Format("On-Road Price, {0}", Model.BikeInfoWidgetData.CityDetails.CityName);
+                                                                }
+
+
+                                                            }
 															else
 															{
 																string.Format("Ex-showroom price, {0}", BWConfiguration.Instance.DefaultName);

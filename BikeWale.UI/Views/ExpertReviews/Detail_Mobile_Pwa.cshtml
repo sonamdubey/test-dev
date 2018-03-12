@@ -1,0 +1,187 @@
+﻿@model Bikewale.Models.ExpertReviewsDetailPageVM
+@using System.Web.Script.Serialization
+@using Bikewale.Utility
+@using System.Diagnostics
+@using Newtonsoft.Json
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    @{
+        var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+        var ManifestJsUrl = "/pwa/js/manifest.bundle.js";
+        var VendorJsUrl = "/pwa/js/vendor.bundle.js";
+        var AppJsUrl = "/pwa/js/app.bundle.js";
+        var NewsJsUrl = "/pwa/js/newsBundle.bundle.js";
+        var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
+
+    }
+
+    @if (Model != null && Model.PageMetaTags != null)
+    {
+        Model.PageMetaTags.EnableOG = true;
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
+        {
+            <title>@Model.PageMetaTags.Title</title>
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
+        {
+            <meta name="description" content="@Model.PageMetaTags.Description" />
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
+        {
+            <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
+        }
+        if (Model.PageMetaTags.EnableOG)
+        {
+            <meta property="og:title" content="@Model.PageMetaTags.Title" />
+            <meta property="og:type" content="website" />
+            <meta property="og:description" content="@Model.PageMetaTags.Description" />
+            <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+            {
+                <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
+            }
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+        {
+            <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.PreviousPageUrl))
+        {
+            <link rel="prev" href="@Model.PageMetaTags.PreviousPageUrl" /> }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+        {
+            <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
+        {
+            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> }
+    }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
+    <meta name="theme-color" content="#2a2a2a" />
+    <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+
+    <style type='text/css' rel='stylesheet'>
+        @@font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');
+            unicode-range: U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F;
+        }
+
+        @@font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 600;
+            src: url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');
+            unicode-range: U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F;
+        }
+
+        @@font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 700;
+            src: url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');
+            unicode-range: U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F;
+        }
+    </style>
+    <script defer type="text/javascript">
+        !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
+    </script>
+    @{Bikewale.Utility.BWCookies.SetBWUtmz();}
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script type="text/javascript">
+        var ga_pg_id = '0',gaObj = { "id": "0", "name": "Others" };
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5CSHD6');
+
+        setTimeout(function () {
+            var a = document.createElement("script");
+            var b = document.getElementsByTagName("script")[0];
+            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+        }, 1);
+
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+        (function () {
+            var gads = document.createElement('script');
+            gads.async = true;
+            gads.type = 'text/javascript';
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') +
+                '//www.googletagservices.com/tag/js/gpt.js';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        })();
+
+
+    </script>
+    <link rel='stylesheet' type='text/css' href='/pwa/css/app.css' atf-css />
+    <link rel='stylesheet' type='text/css' href='/pwa/css/news/newsBundle.css' atf-css />
+    <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
+    <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
+    @{Html.RenderPartial("/Views/Shared/_CssChunksScript.cshtml");}
+    <script>
+        window.state = @Html.Raw(Model.WindowState);
+        var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl','@NewsJsUrl'];
+        var numberOfJsToLoad = jsUrls.length;
+        function jsLoadedCallback() {
+            try {
+                numberOfJsToLoad--;
+                if (numberOfJsToLoad == 0) {
+                    AppEntryPoint();
+                }
+            } catch (e) {
+                console.warn(e.message);
+            }
+        };
+        function loadScripts(urls, callback) {
+            try {
+                urls.map(function (url) {
+                    var script = document.createElement("script");
+                    script.async = false;
+                    script.defer = true;
+                    script.type = "text/javascript";
+                    if (script.readyState) {
+                        script.onreadystatechange = function () {
+                            if (script.readyState == "loaded" || script.readyState == "complete") {
+                                script.onreadystatechange = null;
+                                callback();
+                            }
+                        };
+                    }
+                    else {
+                        script.onload = function () { callback(); };
+                    }
+                    script.src = url;
+                    document.getElementsByTagName("head")[0].appendChild(script);
+                })
+            } catch (err) { console.log(err) };
+        };
+        loadScripts(jsUrls, jsLoadedCallback);
+    </script>
+</head>
+<body>
+
+
+
+
+    @Html.Raw(Model.ServerRouterWrapper)
+
+
+    @{Html.RenderPartial("/Views/Shared/_ServiceWorkerScript.cshtml");}
+    <div class="back-to-top" id="back-to-top"></div>
+
+</body>
+</html>

@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { isServer } from '../../utils/commonUtils'
 import ImageCard from './ImageCard'
 import Footer from '../Shared/Footer'

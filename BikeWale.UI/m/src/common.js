@@ -1830,8 +1830,7 @@ docReady(function () {
 
             if (!this.options.trendingSearchesLoaded) {
                 if (trendingBikes) {
-                    html = '<li data-makeid="0" data-modelid="0" class="ui-menu-item bw-ga" data-cat="' + pageName + '" data-act="AutoExpo_2018_Link Clicked" data-lab="Trending_Searches_Autosuggest_Clicked">\
-                            <span class="trending-searches"></span><a href="https://www.bikewale.com/autoexpo2018/" data-href="https://www.bikewale.com/autoexpo2018/">Auto Expo 2018</a>';
+                    html = "";
                     for (var index in trendingBikes) {
                         item = trendingBikes[index];
                         html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="ui-menu-item bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName
