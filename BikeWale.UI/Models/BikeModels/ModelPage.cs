@@ -1125,9 +1125,13 @@ namespace Bikewale.Models.BikeModels
                 _objData.EMICalculator.BikeName = _objData.BikeName;
                 _objData.EMICalculator.IsPrimaryDealer = _objData.IsPrimaryDealer;
                 if (_objData.LeadCampaign != null)
+                {
                     _objData.EMICalculator.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
+                }
                 else
+                {
                     _objData.EMICalculator.IsManufacturerLeadAdShown = (_objData.EMICampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.EMICampaign.ShowOnExshowroom));
+                }
             }
             catch (Exception ex)
             {
