@@ -557,6 +557,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Created by  :   Sumit Kate on 15 Jan 2018
         /// Description :   Appends model image and model color photos to image lists
+        /// Modified by :   Rajan Chauhan on 13 Mar 2018
+        /// Description :   Corrected mislocated check of missingModelIds (models not having any photo in grpc)
         /// </summary>
         /// <param name="modelIds"></param>
         /// <param name="requiredImageCount"></param>
@@ -567,13 +569,9 @@ namespace Bikewale.BAL.BikeData
             {
                 try
                 {
-                    ICollection<BikeModelColorImageEntity> colorImages = null;
-                    var modelIdsArray = Array.ConvertAll(modelIds.Split(','), int.Parse);
-
-                    var missingModelIds = modelIdsArray.Except(modelsImages.Select(m => m.ModelId));
-                    if (missingModelIds != null && missingModelIds.Any())
+                    ICollection<BikeModelColorImageEntity> colorImages = _modelCacheRepository.GetModelImages(modelIds);
+                    if (colorImages != null && colorImages.Count > 0)
                     {
-                        colorImages = _modelCacheRepository.GetModelImages(modelIds);
                         var images = colorImages.GroupBy(m => m.Model.ModelId);
                         foreach (var img in modelsImages)
                         {
@@ -586,25 +584,30 @@ namespace Bikewale.BAL.BikeData
                                 img.ModelImage = cmsImages.Take(requiredImageCount);
                             }
                         }
-
-                        var missingModelImages = colorImages.Where(m => missingModelIds.Contains(m.Model.ModelId));
-                        var missingImages = missingModelImages.GroupBy(m => m.Model.ModelId);
-                        foreach (var image in missingImages)
+                    
+                        var modelIdsArray = Array.ConvertAll(modelIds.Split(','), int.Parse);
+                        var missingModelIds = modelIdsArray.Except(modelsImages.Select(m => m.ModelId));
+                        if (missingModelIds != null && missingModelIds.Any())
                         {
-                            var firstImg = image.First();
-                            var img = new ModelImages()
+                            var missingModelImages = colorImages.Where(m => missingModelIds.Contains(m.Model.ModelId));
+                            var missingImages = missingModelImages.GroupBy(m => m.Model.ModelId);
+                            foreach (var image in missingImages)
                             {
-                                ModelId = firstImg.Model.ModelId,
-                                ModelBase = firstImg.Model,
-                                MakeBase = new BikeMakeEntityBase() { MakeId = firstImg.Make.MakeId, MakeName = firstImg.Make.MakeName, MaskingName = firstImg.Make.MakeMaskingName },
-                                RecordCount = image.Count(),
-                                BikeName = String.Format("{0} {1}", firstImg.Make.MakeName, firstImg.Model.ModelName),
-                                ModelImage = ConvertToModelImages(image).Take(requiredImageCount)
-                            };
-                            modelsImages.Add(img);
+                                var firstImg = image.First();
+                                var img = new ModelImages()
+                                {
+                                    ModelId = firstImg.Model.ModelId,
+                                    ModelBase = firstImg.Model,
+                                    MakeBase = new BikeMakeEntityBase() { MakeId = firstImg.Make.MakeId, MakeName = firstImg.Make.MakeName, MaskingName = firstImg.Make.MakeMaskingName },
+                                    RecordCount = image.Count(),
+                                    BikeName = String.Format("{0} {1}", firstImg.Make.MakeName, firstImg.Model.ModelName),
+                                    ModelImage = ConvertToModelImages(image).Take(requiredImageCount)
+                                };
+                                modelsImages.Add(img);
+                            }
                         }
+                        modelsImages = modelsImages.OrderBy(m => Array.IndexOf(modelIdsArray, m.ModelId)).ToList();
                     }
-                    modelsImages = modelsImages.OrderBy(m => Array.IndexOf(modelIdsArray, m.ModelId)).ToList();
                 }
                 catch (Exception ex)
                 {
