@@ -106,33 +106,35 @@ var recommendedBikePopup = (function () {
 
         /* filter element click */
         $('.recommended-bike-popup').on('click', '.filter-item', function () {
-            var targetElement = $(this).closest('.filter-list__item');
-            var targetElementId;
-            if (targetElement != null) {
-                targetElementId = targetElement.attr('data-id');
-            }
-            if (targetElementId != null) {
-                if (targetElementId === "budget") {
-                    vmRecommendedBikes.budgetSlider([0, vmRecommendedBikes.budgetStepPoints().length - 1]);
-
-                    var minBuget = vmRecommendedBikes.budgetSlider()[0];
-                    var maxBuget = vmRecommendedBikes.budgetSlider()[1];
-
-                    vmRecommendedBikes.Filters()['budget'] = vmRecommendedBikes.FiltersValue()['budget'] = ''
-                }
-                else {
-                    $('#' + targetElementId).trigger('click');
-                }
-    
-            }
             if (appliedFilterList.find('.filter-list__item').length === 1) { //if last item is clicked
-                closeBtn.trigger('click');
+                showNoFilterSelectedToast("Atleast one filter needs to be selected.");
             }
             else {
-                vmRecommendedBikes.ApplyInPageFilters();
-            }
-            targetElement.remove();
+                var targetElement = $(this).closest('.filter-list__item');
+                var targetElementId;
+                if (targetElement != null) {
+                    targetElementId = targetElement.attr('data-id');
+                }
+                if (targetElementId != null) {
+                    if (targetElementId === "budget") {
+                        vmRecommendedBikes.budgetSlider([0, vmRecommendedBikes.budgetStepPoints().length - 1]);
 
+                        var minBuget = vmRecommendedBikes.budgetSlider()[0];
+                        var maxBuget = vmRecommendedBikes.budgetSlider()[1];
+
+                        vmRecommendedBikes.Filters()['budget'] = vmRecommendedBikes.FiltersValue()['budget'] = ''
+                    }
+                    else {
+                        $('#' + targetElementId).trigger('click');
+                    }
+
+                }
+                vmRecommendedBikes.ApplyInPageFilters();
+                targetElement.remove();
+
+            }
+
+            
         });
 
         $('.filter__edit').on('click', function () {
@@ -726,7 +728,7 @@ var RecommendedBikes = function () {
     self.ApplyFilters = function () {
         
         if (checkFilters() == false) {
-            showNoFilterSelectedToast();
+            showNoFilterSelectedToast("No filters selected. Please select a filter");
         }
         else {
             $('.filter__apply').removeAttr('disabled');
@@ -920,13 +922,13 @@ function getIndex(val, arr) {
 
 var filterToastId = null;
 
-function showNoFilterSelectedToast() {
+function showNoFilterSelectedToast(toastText) {
 	if (filterToastId) {
 		clearTimeout(filterToastId);
 	}
 
 	$('#filterSelectionToast').addClass('filter-toast--active');
-
+	$('#filterSelectionToast').text(toastText);
 	filterToastId = setTimeout(function () {
 		$('#filterSelectionToast').removeClass('filter-toast--active');
 	}, 2000);
