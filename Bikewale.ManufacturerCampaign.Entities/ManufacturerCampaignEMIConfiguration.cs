@@ -22,5 +22,6 @@
         public bool PincodeRequired { get; set; }
         public bool DealerRequired { get; set; }
         public bool EmailRequired { get; set; }
+        public bool ShowOnExshowroom { get; set; }
     }
 }

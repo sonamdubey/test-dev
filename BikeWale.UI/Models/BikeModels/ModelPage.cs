@@ -1122,7 +1122,10 @@ namespace Bikewale.Models.BikeModels
                 _objData.EMICalculator.PremiumDealerLeadSourceId = IsMobile ? LeadSourceEnum.EMI_Calculator_ModelPage_Mobile : LeadSourceEnum.EMI_Calculator_ModelPage_Desktop;
                 _objData.EMICalculator.BikeName = _objData.BikeName;
                 _objData.EMICalculator.IsPrimaryDealer = _objData.IsPrimaryDealer;
-                _objData.EMICalculator.IsManufacturerLeadAdShown = _objData.EMICalculator.ESEMICampaign != null;
+                if (_objData.LeadCampaign != null)
+                    _objData.EMICalculator.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
+                else
+                    _objData.EMICalculator.IsManufacturerLeadAdShown = (_objData.EMICampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.EMICampaign.ShowOnExshowroom));
             }
             catch (Exception ex)
             {
@@ -1799,7 +1802,8 @@ namespace Bikewale.Models.BikeModels
                             VersionId = _objData.VersionId,
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
-                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8)
+                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
+                            ShowOnExshowroom = campaigns.EMICampaign.ShowOnExshowroom
                         };
 
                         _objData.IsManufacturerEMIAdShown = true;
