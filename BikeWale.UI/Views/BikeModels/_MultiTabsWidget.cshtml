@@ -14,8 +14,8 @@
                 }
                 @if (!string.IsNullOrEmpty(Model.TabHeading2) && Model.ShowViewAllLink2)
                 {
-                    <li class='@(!Model.ShowViewAllLink1 && Model.ShowViewAllLink2 ? "active" : "")' data-tabs="@Model.TabId2" data-other-tabs="@Model.TabId1">
-                        <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.TabHeading2</h2>
+                    <li data-tabs="@Model.TabId2" data-other-tabs="@Model.TabId1">
+                        <h2 class='@((!Model.ShowViewAllLink1 && Model.ShowViewAllLink2) ? "bw-single-tab_multiwidget" : "bw-tabs__item bw-tabs-item--sm")'>@Model.TabHeading2</h2>
                     </li>
                 }
 
