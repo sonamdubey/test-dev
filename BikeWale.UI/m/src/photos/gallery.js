@@ -4,7 +4,7 @@ var modelColorImageCount = 0, MODEL_IMAGES = [], MODEL_COLOR_IMAGES = [], MODEL_
 var eleGallery, vmModelGallery, colorIndex = 0;
 
 // page variables
-var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, RETURN_URL, isColorImageSet = false;
+var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, RETURN_URL, isColorImageSet = false;
 
 // bhrighu logging
 var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
@@ -15,26 +15,36 @@ var setPageVariables = function () {
 	eleGallery = $("#pageGallery");
 
 	try {
-		if (eleGallery.length > 0 && eleGallery.data("images") != '') {
-			var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
-			MODEL_IMAGES = imageList;
-			MODEL_COLOR_IMAGES = filterColorImagesArray(imageList);
-
-			if (MODEL_COLOR_IMAGES)
-				modelColorImageCount = MODEL_COLOR_IMAGES.length;
-		}
-
-		if (eleGallery.length > 0 && eleGallery.data("videos") != '') {
-			MODEL_VIDEO_LIST = JSON.parse(Base64.decode(eleGallery.data("videos")));
-		}
-
 		PHOTO_COUNT = eleGallery.data("photoscount");
 		VIDEO_COUNT = eleGallery.data("videoscount");
 		IMAGE_INDEX = eleGallery.data("selectedimageid");
 		COLOR_IMAGE_ID = eleGallery.data("selectedcolorimageid");
 		RETURN_URL = eleGallery.data("returnurl");
 		MODEL_NAME = eleGallery.data("modelname");
-		BIKE_MODEL_ID = eleGallery.data("modelid");		
+		BIKE_MODEL_ID = eleGallery.data("modelid");
+
+		if (eleGallery.length > 0 && eleGallery.data("images") != '') {
+			var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
+			MODEL_IMAGES = imageList;
+			MODEL_COLOR_IMAGES = filterColorImagesArray(imageList);
+
+			if (MODEL_COLOR_IMAGES) {
+				modelColorImageCount = MODEL_COLOR_IMAGES.length;
+			}
+
+			if (COLOR_IMAGE_ID > 0) {
+				ko.utils.arrayForEach(MODEL_COLOR_IMAGES, function (item, index) {
+					if (item.ColorId === COLOR_IMAGE_ID) {
+						COLOR_INDEX = index;
+					}
+				});
+			}
+		}
+
+		if (eleGallery.length > 0 && eleGallery.data("videos") != '') {
+			MODEL_VIDEO_LIST = JSON.parse(Base64.decode(eleGallery.data("videos")));
+		}
+
 	} catch (e) {
 		console.warn(e);
 	}
@@ -44,8 +54,9 @@ var popupGallery = {
 	open: function () {
 		vmModelGallery.openGalleryPopup();
 
-		if (COLOR_IMAGE_ID) {
-			colorGallerySwiper.slideTo(COLOR_IMAGE_ID);
+		if (COLOR_INDEX) {
+			vmModelGallery.colorPopup().openPopup();
+			colorGallerySwiper.slideTo(COLOR_INDEX);
 		}
 		else if (IMAGE_INDEX) {
 			mainGallerySwiper.slideTo(IMAGE_INDEX);
@@ -189,6 +200,7 @@ docReady(function () {
 	window.addEventListener('resize', resizeHandler, true);
 	resizeHandler();
 	
+	SwiperYT.YouTubeApi.addApiScript();
 });
 
 function isInViewport(element) {
@@ -345,28 +357,8 @@ var MainGallerySwiper = (function() {
 				vmModelGallery.setColorOption();
 
 				if (vmModelGallery.activePopup()) {
-					if (swiper.activeIndex === vmModelGallery.colorSlug().visibilityThreshold()) {
-						vmModelGallery.colorSlug().activeSlug(true);
-						vmModelGallery.activeContinueSlug(true);
-					}
-					else {
-						vmModelGallery.colorSlug().activeSlug(false);
-						vmModelGallery.activeContinueSlug(false);
-
-						if (swiper.activeIndex > vmModelGallery.colorSlug().visibilityThreshold()) {
-							vmModelGallery.colorSlug().slugShown(true);
-						}
-					}
-
-					if(swiper.activeIndex === vmModelGallery.videoSlug().visibilityThreshold()) {
-						vmModelGallery.videoSlug().activeSlug(true);
-						vmModelGallery.activeContinueSlug(true);
-						vmModelGallery.activeFloatingColorSlug(false);
-					}
-					else {
-						vmModelGallery.videoSlug().activeSlug(false);
-						vmModelGallery.activeContinueSlug(false);
-					}
+					vmModelGallery.setColorSlug(swiper.activeIndex);
+					vmModelGallery.setVideoSlug(swiper.activeIndex);
 				}
 
 				SwiperEvents.setDetails(swiper, vmModelGallery);

@@ -43,9 +43,11 @@
 	// in between slug
 	self.colorSlug = ko.observable(new ColorSlugViewModel(MODEL_COLOR_IMAGES));
 	self.colorSlug().visibilityThreshold(IMAGE_INDEX + 5);
+	self.isColorSlugEligible = MODEL_COLOR_IMAGES.length > 1 ? true : false;
 	self.activeFloatingColorSlug = ko.observable(false);
 
 	self.videoSlug = ko.observable(new VideoSlugViewModel(MODEL_VIDEO_LIST));
+	self.videoSlug().visibilityThreshold(IMAGE_INDEX + 10);
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
 		if (originalImagePath && originalImagePath != null) {
@@ -237,6 +239,44 @@
 			self.activeLandscapeIcon(true);
 		}
 	}
+
+	// handle slug visibility
+	self.setColorSlug = function(activeIndex) {
+		if (self.isColorSlugEligible) {
+			if (self.colorSlug().visibilityThreshold() === activeIndex) {
+				self.colorSlug().activeSlug(true);
+				self.activeContinueSlug(true);
+			}
+			else {
+				self.colorSlug().activeSlug(false);
+				self.activeContinueSlug(false);
+
+				if (activeIndex > self.colorSlug().visibilityThreshold()) {
+					self.colorSlug().slugShown(true);
+				}
+			}
+		}
+		else {
+			if (self.colorSlug().visibilityThreshold() === activeIndex) {
+				self.colorSlug().activeSingleColorMessage(true);
+			}
+			else {
+				self.colorSlug().activeSingleColorMessage(false);
+			}
+		}
+	}
+
+	self.setVideoSlug = function (activeIndex) {
+		if (self.videoSlug().visibilityThreshold() === activeIndex) {
+			self.videoSlug().activeSlug(true);
+			self.activeContinueSlug(true);
+			self.activeFloatingColorSlug(false);
+		}
+		else {
+			self.videoSlug().activeSlug(false);
+			self.activeContinueSlug(false);
+		}
+	}
 };
 
 var ModelColorPopupViewModel = function () {
@@ -365,10 +405,6 @@ var ModelVideoPopupViewModel = function () {
 	}
 
 	self.registerEvents = function () {
-		$(document).ready(function () {
-			SwiperYT.YouTubeApi.addApiScript();
-		});
-
 		$(window).on('resize', function () {
 			if (self.activePopup()) {
 				self.setBodyHeight();
@@ -393,6 +429,7 @@ var ColorSlugViewModel = function (colorPhotoList) {
 	self.previewCount = 3;
 
 	self.activeSlug = ko.observable(false);
+	self.activeSingleColorMessage = ko.observable(false);
 	self.slugShown = ko.observable(false);
 	self.modelName = MODEL_NAME;
 	self.colorList = colorPhotoList.slice(0, self.previewCount);
@@ -414,16 +451,17 @@ var VideoSlugViewModel = function (videoList) {
 	var self = this;
 
 	self.activeSlug = ko.observable(false);
-	self.visibilityThreshold = ko.observable(0);
+	self.visibilityThreshold = ko.observable(5);
 	self.modelName = MODEL_NAME;
 	self.videoList = videoList;
 	self.videoCount = videoList.length;
+	self.isPlaying = ko.observable(false);
+	self.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-	self.registerEvents = function () {
-		$(document).on('click', '.model-gallery__video-slide .iframe-overlay', function () {
-			$(this).closest('.model-gallery__video-slide').addClass('video--active');
-		});
-	}
+	self.playVideo = function(event) {
+		var targetElement = event.currentTarget;
 
-	self.registerEvents();
+		self.isPlaying(true);
+		$(targetElement).closest('.model-gallery__video-slide').find('.iframe-overlay').trigger('click');
+	};
 }

@@ -452,6 +452,20 @@
 	bottom: -19px
 	z-index: 1
 
+.gallery__single-color-title
+	width: 100%
+	padding-right: 30px
+	padding-left: 30px
+	font-size: 13px
+	color: #e2e2e2
+	position: absolute
+	top: 100%
+	margin-top: 85px // footer height + swiper title height
+	left: 0
+	right: 0
+	text-align: center
+	background-color: rgba(0, 0, 0, .6)
+
 // slug in landscape mode
 .orientation--landscape
 	.color-slide__more-count
@@ -483,14 +497,29 @@
 		z-index: 9
 
 	.iframe-overlay
-		background-color: rgba(0, 0, 0, .2)
+		background-color: rgba(0, 0, 0, .6)
 
-.video-slug--player
-	.gallery-slide-slug__title
-		position: relative
-		top: -50px
+.video-slug--single-video
+	.video-slug__play
+		margin-bottom: 20px
 
-.video-slide__play
+	.video-slug__description
+		z-index: 9
+
+.video-slug__iframe-container
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+
+.video-slug__thumbnail
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+
+.video-slug__play
 	width: 48px
 	height: 34px
 	display: inline-block
@@ -498,7 +527,7 @@
 	z-index: 9
 	background: url('/image/youtube-play.png') no-repeat
 
-.video-slide__description
+.video-slug__description
 	max-width: 85%
 	font-size: 14px
 	color: #fff
@@ -518,11 +547,15 @@
 			bottom: -50px
 
 // video playing state
-.video--active
-	&.model-gallery__video-slide
-		.gallery-slide-slug__title
-			display: none
+.video-slug--video-playing
+	.gallery-slide-slug__title,
+	.video-slug__play,
+	.video-slug__description,
+	.video-slug__thumbnail
+		display: none
 
+	.iframe-overlay
+		background-color: transparent
 
 // swipe to continue
 .gallery__continue-swipe-info
