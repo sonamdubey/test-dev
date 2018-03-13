@@ -347,6 +347,13 @@ var MainGallerySwiper = (function() {
 				}
 			},
 
+			onSlideChangeStart: function (swiper) {
+				if (vmModelGallery.activePopup()) {
+					vmModelGallery.setColorSlug(swiper.activeIndex);
+					vmModelGallery.setVideoSlug(swiper.activeIndex);
+				}
+			},
+
 			onSlideChangeEnd: function (swiper) {
 				logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
 
@@ -355,11 +362,6 @@ var MainGallerySwiper = (function() {
 				}
 
 				vmModelGallery.setColorOption();
-
-				if (vmModelGallery.activePopup()) {
-					vmModelGallery.setColorSlug(swiper.activeIndex);
-					vmModelGallery.setVideoSlug(swiper.activeIndex);
-				}
 
 				SwiperEvents.setDetails(swiper, vmModelGallery);
 			}

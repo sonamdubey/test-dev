@@ -37,7 +37,7 @@
 
 .model-gallery
 	&.swiper-container
-		overflow: visible
+		overflow: hidden
 
 	.swiper-slide
 		@include flexbox
@@ -79,6 +79,11 @@
 		&.swiper-button-disabled
 			opacity: .4
 
+.gallery-popup--active
+	.model-gallery
+		&.swiper-container
+			overflow: visible
+
 @media only screen and (min-width: 375px) and (max-width: 412px)
 	.model-gallery-section
 		height: 266px
@@ -110,7 +115,7 @@
 	position: relative
 	top: 40px
 	text-align: center
-	background: #000
+	background: rgba(0, 0, 0, .8)
 
 	.share-list__item
 		margin: 10px 15px
@@ -124,7 +129,7 @@
 	@include justify-content(space-between)
 	align-items: center
 	background: color('border-light')
-	padding-left: 20px
+	padding-left: 15px
 	width: 100%
 	position: relative
 
@@ -223,9 +228,6 @@
 
 		&[data-visible="true"]
 			width: 40px
-
-	.gallery-image__feature
-		padding-right: 4px
 
 	.swiper--next,
 	.swiper--prev
@@ -402,7 +404,7 @@
 // color slug
 .gallery-color-slug--active
 	.gallery__slide-slug
-		animation: fadeIn .4s forwards
+		opacity: 1
 		z-index: 1
 
 	.gallery-footer__content,
@@ -548,7 +550,7 @@
 
 .gallery-video-slug--active
 	.gallery__slide-slug
-		animation: fadeIn .4s forwards
+		opacity: 1
 		z-index: 1
 
 	.gallery-footer__content

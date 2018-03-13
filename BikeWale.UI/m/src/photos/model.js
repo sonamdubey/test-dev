@@ -186,7 +186,7 @@ var LoadPhotosViewModel = function () {
 }
 
 var vmPhotosMore;
-var colorSwiper, colorThumbnailSwiper;
+var colorTabSwiper, colorTabThumbnailSwiper;
 
 docReady(function () {
 	vmPhotosMore = new LoadPhotosViewModel();
@@ -212,17 +212,18 @@ docReady(function () {
 docReady(function () {
 	
 	var colorsTab = $('#colorTab');
-	vmModelColorSwiper = new ModelColorSwiperViewModel();
 
 	if (colorsTab.length) {
+		vmModelColorSwiper = new ModelColorSwiperViewModel();
 		ko.applyBindings(vmModelColorSwiper, colorsTab[0]);
 	}
 
 	var videoTab = $('#videoTab');
-	vmModelVideo = new ModelVideoViewModel();
 
 	if (videoTab.length) {
-		ko.applyBindings(vmModelGallery, videoTab[0]);
+		vmModelVideo = new ModelVideoViewModel();
+		vmModelVideo.getVideos(); // get initial videos
+		ko.applyBindings(vmModelVideo, videoTab[0]);
 	}
 
 	ImageGrid.alignRemainderImage();
@@ -236,13 +237,13 @@ docReady(function () {
 	NavigationTabs.registerEvents();
 	NavigationTabs.setTab();
 
-	colorSwiper = new Swiper('#colorSwiper', {
+	colorTabSwiper = new Swiper('#colorTabSwiper', {
 		spaceBetween: 0,
 		preloadImages: false,
 		lazyLoading: true,
 		lazyLoadingInPrevNext: true,
-		nextButton: '#colorSwiper .color-type-next',
-		prevButton: '#colorSwiper .color-type-prev',
+		nextButton: '#colorTabSwiper .color-type-next',
+		prevButton: '#colorTabSwiper .color-type-prev',
 		onInit: function (swiper) {
 			vmModelColorSwiper.activeIndex(1);
 			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
@@ -253,7 +254,7 @@ docReady(function () {
 		}
 	});
 
-	var colorThumbnailSwiper = new Swiper('#colorTSwiper', {
+	var colorTabThumbnailSwiper = new Swiper('#colorTabThumbnailSwiper', {
 		spaceBetween: 0,
 		slidesPerView: 'auto',
 		onInit: function (swiper) {

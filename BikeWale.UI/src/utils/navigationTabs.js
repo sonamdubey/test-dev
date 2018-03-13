@@ -32,21 +32,21 @@
 		$('.overall-tabs__list li').on('click', function () {
 			var panelId = $(this).attr('data-tabs');
 			var panel = $(this).closest('.overall-tabs__panel');
-			var clickedTab = panel.find('[data-id="' + panelId + '"]');
+			var panelContent = panel.find('[data-id="' + panelId + '"]');
 
 			$(this).addClass(_activeTabClassName).siblings('.' + _activeTabClassName).removeClass(_activeTabClassName);
 
 			if (panel.attr('data-panel-type') === 'toggle') {		
 				panel.find('[data-id]').hide();
-				clickedTab.show();
+				panelContent.show();
 
 				$('html, body').animate({
 					scrollTop: panel.offset().top
 				})
 			}
 
-			if (clickedTab.find('.swiper-container').length) {
-				clickedTab.find('.swiper-container').each(function() {
+			if (panelContent.find('.swiper-container').length) {
+				panelContent.find('.swiper-container').each(function() {
 					$(this).data('swiper').update(true);
 				})
 			}

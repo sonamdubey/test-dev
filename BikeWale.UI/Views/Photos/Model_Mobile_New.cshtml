@@ -115,7 +115,7 @@
 						</span>
 					</div>
 					<div class="gallery__color-floating-slug" style="display: none" data-bind="visible: activeFloatingColorSlug(), click: colorPopup().openPopup">See colors images</div>
-					<div class="gallery__continue-swipe-info" style="display: none" data-bind="visible: activeContinueSlug()">
+					<div class="gallery__continue-swipe-info" style="display: none" data-bind="visible: activeContinueSlug(), click: handleGalleryContinueClick">
 						<span class="continue-info__label">Swipe to Continue Images</span>
 					</div>
 				</div>
@@ -205,7 +205,7 @@
 					</div>
 					<div class="video-popup__body">
 						<div id="mainVideoSwiper" class="swiper-container swiper-youtube swiper__videos noSwiper">
-							<div class="swiper-wrapper video-list" data-bind="foreach: videoPopup().videoList">
+							<div class="swiper-wrapper video-list" data-bind="foreach: videoPopup().videoData().videoList">
 								<div class="swiper-slide video-card-container">									
 									<h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
 									<div class="model-card__list__video-card">
@@ -244,7 +244,7 @@
 							<ul class="overall-tabs__list">
 								<li class="overall-tabs-list__item tab--active" data-tabs="allImages">All Images (109)</li>
 								<li class="overall-tabs-list__item" data-tabs="colours">Colours (12)</li>
-								<li class="overall-tabs-list__item" data-tabs="videos">Videos (02)</li>
+								<li class="overall-tabs-list__item" data-tabs="videos">Videos (2)</li>
 							</ul>
 						</div>
 					</div>
@@ -309,7 +309,7 @@
 					</div>
 
 					<div id="colorTab" data-id="colours">
-						<div id="colorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
+						<div id="colorTabSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
 							<div class="swiper-wrapper" data-bind="foreach: colorList">
 								<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
 									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
@@ -320,7 +320,7 @@
 						</div>
 						<div class="swiper-colors__footer">
 							<p class="colors-footer__title">Color: <span class="text--bold" data-bind="text: activeTitle"></span></p>
-							<div id="colorTSwiper" class="swiper-container noSwiper swiper__color-thumbnail color-list--thumbnail">
+							<div id="colorTabThumbnailSwiper" class="swiper-container noSwiper swiper__color-thumbnail color-list--thumbnail">
 								<div class="model-color__list swiper-wrapper" data-bind="foreach: colorList">
 									<div class="swiper-slide">
 										<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
@@ -333,28 +333,33 @@
 					</div>
 
 					<div id="videoTab" data-id="videos" class="hide">
-						<ul class="video-list overalltab__section-list" data-bind="foreach: MODEL_VIDEO_LIST">
-							<li class="video-card-container">
-								<h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
-								<div class="model-card__list__video-card">
-									<div class="video-card__video-preview">
-										<iframe width="320" height="180" data-bind="attr: { 'src': VideoUrl }" src="" frameborder="0" allowfullscreen=""></iframe>
-									</div>
-									<div class="video-card__desc clearfix">
-										<div class="grid-4">
-											<p class="font11 text-light-grey" data-bind="text: DisplayDate"></p>
+						<div class="swiper-youtube swiper__videos">
+							<div class="video-list" data-bind="foreach: videoList">
+								<div class="video-card-container">									
+									<h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
+									<div class="model-card__list__video-card">
+										<div class="youtube-iframe-preview video-card__video-preview">
+											<iframe width="320" height="180" data-bind="attr: { 'id': 'videoTab_' + $index(), 'src': 'https://www.youtube.com/embed/' + VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
 										</div>
-										<div class="grid-8 text-right">
-											<span class="model-card__sub-title"><span data-bind="text: Views"></span> Views</span>
-											<span class="model-card__sub-title margin-left20">
-												<span class="thumbsup-icon"></span>
-												<span data-bind="text: Likes"></span>
-											</span>
+										<div class="video-card__desc clearfix">
+											<div class="grid-4">
+												<p class="font11 text-light-grey" data-bind="text: DisplayDate"></p>
+											</div>
+											<div class="grid-8 text-right">
+												<span class="model-card__sub-title"><span data-bind="text: Views"></span> Views</span>
+												<span class="model-card__sub-title margin-left20">
+													<span class="thumbsup-icon"></span>
+													<span data-bind="text: Likes"></span>
+												</span>
+											</div>
 										</div>
 									</div>
 								</div>
-							</li>
-						</ul>
+							</div>
+						</div>
+						<div class="image-grid__list-more" data-bind="visible: MODEL_VIDEO_LIST.length > 10">
+							<button type="button" class="btn btn-inv-blue image-grid__more-btn">View More Videos</button>
+						</div>
 					</div>
 				</div>
 			</section>

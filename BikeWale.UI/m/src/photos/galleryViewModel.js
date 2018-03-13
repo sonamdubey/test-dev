@@ -47,6 +47,7 @@
 	self.activeFloatingColorSlug = ko.observable(false);
 
 	self.videoSlug = ko.observable(new VideoSlugViewModel(MODEL_VIDEO_LIST));
+	self.videoSlug().description('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
 	self.videoSlug().visibilityThreshold(IMAGE_INDEX + 10);
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
@@ -195,21 +196,23 @@
 
 	// gallery footer color button
 	self.setColorOption = function () {
-		if (self.activePopup()) {
-			if (self.colorSlug().slugShown()) {
-				if (!self.fullScreenModeActive()) {
-					self.activeFooterColorOption(false);
-					self.activeFloatingColorSlug(true);
-				}
-				else {
-					self.activeFooterColorOption(true);
-					self.activeFloatingColorSlug(false);
+		if (self.isColorSlugEligible) {
+			if (self.activePopup()) {
+				if (self.colorSlug().slugShown() && !self.videoSlug().activeSlug()) {
+					if (!self.fullScreenModeActive()) {
+						self.activeFooterColorOption(false);
+						self.activeFloatingColorSlug(true);
+					}
+					else {
+						self.activeFooterColorOption(true);
+						self.activeFloatingColorSlug(false);
+					}
 				}
 			}
-		}
-		else {
-			self.activeFooterColorOption(false);
-			self.activeFloatingColorSlug(false);
+			else {
+				self.activeFooterColorOption(false);
+				self.activeFloatingColorSlug(false);
+			}
 		}
 	}
 
@@ -218,7 +221,7 @@
 
 		var topPosition = $('.model-gallery__container .gallery-footer').offset().top - $('.gallery__landscape-slug').offset().top + 8;
 
-		var rightPosition = window.innerWidth - $('.model-gallery__container .landscape-icon__container').offset().left - element.width();
+		var rightPosition =  -(element.width());
 
 		if (!self.fullScreenModeActive()) {
 			element.css('position', 'fixed').animate({ 'top': topPosition + 'px', 'right': rightPosition + 'px' }, 1000, "swing");
@@ -249,7 +252,9 @@
 			}
 			else {
 				self.colorSlug().activeSlug(false);
-				self.activeContinueSlug(false);
+				if (!self.videoSlug().activeSlug()) {
+					self.activeContinueSlug(false);
+				}
 
 				if (activeIndex > self.colorSlug().visibilityThreshold()) {
 					self.colorSlug().slugShown(true);
@@ -274,8 +279,14 @@
 		}
 		else {
 			self.videoSlug().activeSlug(false);
-			self.activeContinueSlug(false);
+			if (!self.colorSlug().activeSlug()) {
+				self.activeContinueSlug(false);
+			}
 		}
+	}
+
+	self.handleGalleryContinueClick = function () {
+		$('.model-gallery__container .gallery__next').trigger('click');
 	}
 };
 
@@ -335,7 +346,8 @@ var ModelVideoPopupViewModel = function () {
 	var self = this;
 
 	self.activePopup = ko.observable(false);
-	self.videoList = ko.observableArray(MODEL_VIDEO_LIST);
+	self.videoData = ko.observable(new ModelVideoViewModel());
+	self.videoData().getVideos();
 
 	self.openPopup = function () {
 		self.activePopup(true);
@@ -372,6 +384,10 @@ var ModelVideoPopupViewModel = function () {
 		},
 		onSlideChangeStart: function (swiper) {
 			SwiperYT.slideChangeStart();
+			if((swiper.activeIndex + 1) % 4 === 0) {
+				self.videoData().getVideos();
+				self.videoSwiper.update(true);
+			}
 		}
 	})
 
@@ -381,7 +397,7 @@ var ModelVideoPopupViewModel = function () {
 		if (window.innerWidth > window.innerHeight) {
 			self.videoSwiper.params.freeMode = false;
 			self.videoSwiper.params.direction = 'horizontal';
-			self.videoSwiper.params.initialSlide = 4;
+			self.videoSwiper.params.initialSlide = self.videoSwiper.slides.length;
 			swiperElement.removeClass('swiper-container-vertical');
 		}
 		else {
@@ -419,7 +435,16 @@ var ModelVideoPopupViewModel = function () {
 var ModelVideoViewModel = function () {
 	var self = this;
 
-	self.videoList = ko.observable(MODEL_VIDEO_LIST);
+	self.defaultVideoCount = ko.observable(10);
+	self.videoList = ko.observable([]);
+
+	self.getVideos = function () {
+		if (self.videoList().length !== MODEL_VIDEO_LIST.length) {
+			var list = MODEL_VIDEO_LIST.slice(self.videoList().length, self.defaultVideoCount() + self.videoList().length);
+
+			self.videoList(self.videoList().concat(list));
+		}
+	}
 }
 
 var ColorSlugViewModel = function (colorPhotoList) {
@@ -456,7 +481,7 @@ var VideoSlugViewModel = function (videoList) {
 	self.videoList = videoList;
 	self.videoCount = videoList.length;
 	self.isPlaying = ko.observable(false);
-	self.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+	self.description = ko.observable('');
 
 	self.playVideo = function(event) {
 		var targetElement = event.currentTarget;
