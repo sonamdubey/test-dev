@@ -177,8 +177,10 @@
                                                             <span class="font18 text--semibold">Price unavailable</span>
                                                         }
 
+                                                        @if (bike.AvgPrice > 0)
+                                                        {
                                                         <p class="margin-top5 text--semibold"><a href="javascript:void(0)" data-makename="@Model.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid=@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage) class="getquotation bw-ga" rel="nofollow">Check On Road Price</a></p>
-
+                                                        }
 
                                                     </div>
                                                     @if (bike.EMIDetails != null && bike.EMIDetails.EMIAmount > 0)
@@ -188,12 +190,15 @@
                                                             <span class="card-emi__value">@Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(bike.EMIDetails.EMIAmount.ToString())</span>
                                                             @{var emiDetails = bike.EMIDetails;
                                                                 var bikePrice = (bike.OnRoadPrice > 0) ? bike.OnRoadPrice : bike.OnRoadPriceMumbai;
+                             
                                                             }
-                                                            <p class="margin-top10 text--semibold">
-                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link emicalculator_link_event bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink-@bike.objModel.ModelId"data-bikePrice="@bikePrice" data-bikeExshowroomPrice="@bike.ExShowroomPrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))">
-                                                                    Calculate EMI
-                                                                </a>
-                                                            </p>
+                                                            @if(bikePrice > 0){
+                                                                <p class="margin-top10 text--semibold">
+                                                                    <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link emicalculator_link_event bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink-@bike.objModel.ModelId"data-bikePrice="@bikePrice" data-bikeExshowroomPrice="@bike.ExShowroomPrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))">
+                                                                        Calculate EMI
+                                                                    </a>
+                                                                </p>
+                                                            }
                                                         
                                                         </div>
                                                     }
