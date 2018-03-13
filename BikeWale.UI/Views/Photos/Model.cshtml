@@ -36,7 +36,7 @@
                     @if (!Model.IsPopupOpen)
                     {
 
-                        if (Model.TotalPhotos > 1)
+                        if (Model.TotalPhotos > 0)
                         {
                             <ul id="grid-images-noremainder" class="photos-grid-list model-grid-images">
                                 @for (; i < Model.GridPhotoCount && i < 9; i++)
