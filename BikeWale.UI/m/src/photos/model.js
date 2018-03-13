@@ -116,9 +116,9 @@
 				logBhrighuForImage($(this));
 			}
 
-			//galleryRoot.find('.gallery-loader-placeholder').show();
+			$('#galleryLoader').show();
 			vmModelGallery.openGalleryPopup();
-			//galleryRoot.find('.gallery-loader-placeholder').hide();
+			$('#galleryLoader').hide();
 			mainGallerySwiper.slideTo(imageIndex);
 		});
 	}
@@ -205,6 +205,8 @@ docReady(function () {
 			console.warn(e.message);
 		}
 	}
+
+	$('#galleryLoader').hide();
 });
 
 docReady(function () {
