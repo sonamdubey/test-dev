@@ -1108,6 +1108,8 @@ namespace Bikewale.Models.BikeModels
         /// <summary>
         /// Created by      :   Sumit Kate on 30 Nov 2017
         /// Descriptiion    :   Bind EMI calculator widget on model page
+        /// Modified by     :   Pratibha Verma on 13 Mar 2018
+        /// Description     :   modified condition for IsManufacturerLeadAdShown
         /// </summary>
         private void BindEMICalculator(uint Price)
         {
@@ -1706,6 +1708,8 @@ namespace Bikewale.Models.BikeModels
         /// Description :   Store dealerid for manufacturer campaigns for impressions tracking
         /// Modified by :   Sumit Kate on 30 Nov 2017
         /// Description :   Enable EMI ES Campaign on Model Page
+        /// Modified by : Pratibha Verma on 13 Mar 2018
+        /// Description : added ShowOnExshowroom in EMICampaign
         /// </summary>
         private void GetManufacturerCampaign()
         {

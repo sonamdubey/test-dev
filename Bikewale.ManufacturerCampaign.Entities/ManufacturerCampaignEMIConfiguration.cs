@@ -3,6 +3,8 @@
     /// <summary>
     /// Created by  :   Sumit Kate on 29 Jun 2017
     /// Description :   Manufacturer Campaign EMI Configuration
+    /// Modified by : Pratibha Verma
+    /// Description : Added property ShowOnExshowroom 
     /// </summary>
     public class ManufacturerCampaignEMIConfiguration
     {
