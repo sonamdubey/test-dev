@@ -74,9 +74,16 @@
 		.swiper-wrapper
 			height: auto
 
+.color-popup__content
+	.gallery-image__feature
+		.landscape-icon__container
+			width: 40px
 
 // landscape mode
 .color-popup--landscape
+	&.color-popup__content
+		background: #000
+
 	.color-popup__head,
 	.gallery-footer__content
 		display: none
@@ -163,10 +170,10 @@
 	.slide--focus
 		.color-box
 			&:before
-				width: 7px
-				height: 14px
-				border-right-width: 2px
-				border-bottom-width: 2px
+				width: 20px
+				background-size: 20px
+				margin-top: 7px
+				margin-bottom: 0
 
 // color popup - landscape footer inactive state
 .color-popup--landscape
@@ -257,16 +264,12 @@
 			position: absolute
 			left: 0
 			right: 0
-			width: 10px
-			height: 20px
+			width: 24px
+			height: 16px
 			display: block
-			margin: 4px auto
-			border-width: 0 3px 3px 0
-			border-color: white
-			border-style: solid
-			transform: rotate(45deg)
-			text-align: center
-			box-shadow: 2px 2px 1px -1px #444
+			margin: 10px auto
+			background: url(/image/tick.svg) no-repeat
+			background-size: 24px
 
 // slide focus state: landscape view
 .color-popup--landscape

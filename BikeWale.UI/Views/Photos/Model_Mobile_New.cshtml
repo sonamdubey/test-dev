@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.Photos.PhotosPageVM
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/photos.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline/>";
-	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline/>";
+	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/m/src/photos/gallery.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/model.js" };
 	Model.AdTags.Ad_300x250BTF = true;
 	Model.AdTags.Ad_320x50 = true;
 	Model.AdTags.Ad_320x50BTF = true;
@@ -22,7 +22,7 @@
 
 			<div id="galleryRoot" class="margin-bottom60" data-bind="css: { 'orientation--landscape': fullScreenModeActive(), 'gallery-popup--active': activePopup() }">
 				<h1 class="page-header">@Model.Page_H1</h1>
-				<div class="model-gallery-section">
+				<div class="model-gallery-section" data-bind="css: {'gallery-color-slug--active': colorSlug().activeSlug(), 'gallery-video-slug--active': videoSlug().activeSlug()}">
 					<div class="model-gallery__container" data-bind="css: activePopup() ? 'model-gallery--relative' : ''">
 						<div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
 							<div class="swiper-wrapper" data-bind="foreach: photoList">
@@ -51,15 +51,17 @@
 							<div data-bind="with: videoSlug">
 								<div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoCount, visible: activeSlug(), css: videoCount === 1 ? 'video-slug--player' : ''">
 									<p class="gallery-slide-slug__title" data-bind="text: modelName + ' Video' + (videoCount > 1 ? 's' : '')"></p>
+									<span class="video-slide__play"></span>
 									<!-- ko if : videoCount === 1 -->
 									<div class="swiper-youtube" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
 										<div class="youtube-iframe-preview video-card__video-preview">
-											<iframe id="videoSlugIframe" width="320" height="180" data-bind="attr: { 'src': 'https://www.youtube.com/embed/' + videoSlug.videoList[0].VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
+											<iframe id="videoSlugIframe" width="320" height="180" data-bind="attr: { 'src': 'https://www.youtube.com/embed/' + videoList[0].VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
 										</div>
 									</div>
 									<!-- /ko -->
 									<!-- ko if : videoCount > 1 -->
-										<span class="video-slide__play" data-bind="click: $parent.videoPopup().openPopup"></span>
+										<p class="video-slide__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+										@*<span class="video-slide__play" data-bind="click: $parent.videoPopup().openPopup"></span>*@
 										<button type="button" class="btn btn-inv-blue swiper-slide__more-btn" data-bind="click: $parent.videoPopup().openPopup">Show All Videos</button>
 									<!-- /ko -->
 								</div>
@@ -71,22 +73,22 @@
 								<div class="gallery-image__footer" data-visible="color">
 									<div class="gallery-image__left-section">
 										<span class="gallery-image__count">
-											<span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
+											<span data-bind="text: activeIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
 										</span>
-										<h2 class="model-gallery__image-title" data-bind="text: activePhotoTitle(), css: (HideSwiperTitle() == false) ? 'inline': 'hide'"></h2>
+										<h2 class="model-gallery__image-title" data-bind="text: activeTitle(), visible: activeSwiperTitle()"></h2>
 									</div>
-									<span class="gallery-image__color" data-bind="visible: activeFooterColorOption(), click: colorPopup().openPopup">Colors</span>
+									<span class="gallery-image__color" data-bind="visible: activeFooterColorOption(), click: colorPopup().openPopup" style="display: none">Colors</span>
 									<div class="gallery-image__feature">
-										<a href="" title="" class="gallery__download-icon"></a>
+										<a href="javascript:void(0)" title="" class="gallery__download-icon"></a>
 										<a href="javascript:void(0)" title="" data-bind="click: toggleSharePopup" class="gallery__share-icon"></a>
-										<a href="javascript:void(0)" title="" class="gallery__zoom-icon"></a>
-										<a href="javascript:void(0)" title="" class="landscape-icon__container" data-bind="attr: { 'data-visible': activeLandscapeIcon() && activePopup() ? 'true': 'false' }, click: toggleFullScreen">
+										<a href="javascript:void(0)" title="" class="gallery__zoom-icon" data-bind="click: openGalleryPopup"></a>
+										<a href="javascript:void(0)" title="" class="landscape-icon__container" data-bind="attr: { 'data-visible': activeLandscapeIcon() && activePopup() ? 'true': 'false' }, click: toggleFullScreen, visible: fullScreenSupport()">
 											<span class="gallery__landscape-icon" data-bind="visible: !rotateScreenOption()"></span>
 										</a>
 									</div>
 								</div>
 							</div>
-							<div class="gallery-footer__share" data-bind="visible: activeGalleryFooterShare">
+							<div class="gallery-footer__share" data-bind="visible: activeGalleryFooterShare" style="display: none">
 								<ul class="share-popup__list">
 									<li class="share-list__item">
 										<a href="javascript:void(0)" class="share-item__icon share-icon__instagram"></a>
@@ -104,22 +106,30 @@
 							</div>
 						</div>
 					</div>
-					<div class="model-gallery__screen--rotate-slug" data-bind="attr: { 'data-visible': rotateScreenOption() ? 'true': 'false' }, click: videoPopup().openPopup">
+					@*<div class="gallery__landscape-slug" data-bind="visible: rotateScreenOption(), click: videoPopup().openPopup" style="display: none">
+						<span class="landscape-text">Switch to Landscape for better Experience</span>
+						<span class="screen--rotate-slug__landscape-container">
+							<span class="screen--rotate-slug__landscape-icon"></span>
+						</span>
+					</div>*@
+					<div class="gallery__landscape-slug" data-bind="visible: rotateScreenOption() && fullScreenSupport(), click: toggleFullScreen" style="display: none">
 						<span class="landscape-text">Switch to Landscape for better Experience</span>
 						<span class="screen--rotate-slug__landscape-container">
 							<span class="screen--rotate-slug__landscape-icon"></span>
 						</span>
 					</div>
-					<div class="gallery-color--fixed" style="display: none" data-bind="visible: activeFloatingColorSlug(), click: colorPopup().openPopup">See colors images</div>
+					<div class="gallery__color-floating-slug" style="display: none" data-bind="visible: activeFloatingColorSlug(), click: colorPopup().openPopup">See colors images</div>
 					<div class="gallery__continue-swipe-info" style="display: none" data-bind="visible: activeContinueSlug()">
 						<span class="continue-info__label">Swipe to Continue Images</span>
 					</div>
 				</div>
-				<div class="black-window"></div>
+
+				<span id="galleryCloseBtn" class="gallery__close-btn" data-bind="visible: activePopup() && galleryFooterActive()" onClick="history.back()" style="display: none"></span>
+				<div id="galleryBgWindow" class="black-window"></div>
 
 				<div id="sharePopup" data-bind="css: activeSharePopup() ? 'share-popup--active' : ''">
 					<div class="share-popup__content">
-						<span class="share-popup__close" data-bind="click: function(data, event) { closeSharePopup(true) }"></span>
+						<span class="share-popup__close" onClick="history.back()"></span>
 						<p class="share-popup__title">Share this image</p>
 						<ul class="share-popup__list">
 							<li class="share-list__item">
@@ -136,12 +146,12 @@
 							</li>
 						</ul>
 					</div>
-					<div class="share-popup__bg-window" data-bind="click: function(data, event) { closeSharePopup(true) }"></div>
+					<div class="share-popup__bg-window" onClick="history.back()"></div>
 				</div>
 
 				<div id="colorGalleryPopup" class="color-popup__content" data-bind="css: { 'color-popup--active': colorPopup().activePopup(), 'color-popup--landscape': fullScreenModeActive() }">
 					<div class="color-popup__head">
-						<span class="color-popup-head__back" data-bind="click: function(data, event) { colorPopup().closePopup(true) }"></span>
+						<span class="color-popup-head__back" onClick="history.back()"></span>
 						<p class="color-popup-head__title">Dominar 400 Colors</p>
 					</div>
 					<div class="color-popup__body">
@@ -164,9 +174,9 @@
 								<div class="gallery-image__feature">
 									<a href="javascript:void(0)" title="" class="gallery__download-icon"></a>
 									<a href="javascript:void(0)" title="" data-bind="click: toggleSharePopup" class="gallery__share-icon"></a>
-									<a href="javascript:void(0)" title="" class="landscape-icon__container" data-bind="click: toggleFullScreen">
+									<a href="javascript:void(0)" title="" class="landscape-icon__container" data-bind="click: toggleFullScreen, visible: fullScreenSupport()">
 										<span class="gallery__landscape-icon"></span>
-									</a>
+										</a>
 								</div>
 							</div>
 						</div>
@@ -186,7 +196,7 @@
 									</div>
 								</div>
 							</div>
-							<span class="color-list__back-btn" data-bind="click: colorPopup().closePopup(true)">Back</span>
+							<span class="color-list__back-btn" onClick="history.back()">Back</span>
 						</div>
 					</div>
 				
@@ -194,7 +204,7 @@
 
 				<div id="videoGalleryPopup" class="video-popup__content" data-bind="css: { 'video-popup--active': videoPopup().activePopup(), 'video-popup--landscape': fullScreenModeActive() }">
 					<div class="video-popup__head">
-						<span class="video-popup-head__back" data-bind="click: function(data, event) { videoPopup().closePopup(true) }"></span>
+						<span class="video-popup-head__back" onClick="history.back()"></span>
 						<p class="video-popup-head__title">Dominar 400 Videos</p>
 					</div>
 					<div class="video-popup__body">
@@ -222,10 +232,9 @@
 								</div>
 							</div>
 						</div>
-						<span class="video-list__back-btn" data-bind="click: function(data, event) { closeVideoPopup(true) }">Back</span>
+						<span class="video-list__back-btn" onClick="history.back()">Back</span>
 					</div>
 				</div>
-
 			</div>
 
 			<section>
@@ -250,37 +259,39 @@
 							}
 						</ul>
 
-						<div class="model-info-section">
-							<a href="" title="" class="model-info__target-link">
-								<div class="model-info__container">
-									<span class="rating-badge" data-rate-bg="4">
-										<span class="rating-badge__star"></span>
-										<span>3.5</span>
-									</span>
-									<div class="model-info__image">
-										<img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70 " src="" alt="KTM1 RC200 ">
+						<div class="image-list__model-widget">
+							<div class="model-info-section">
+								<a href="" title="" class="model-info__target-link">
+									<div class="model-info__container">
+										<span class="rating-badge" data-rate-bg="4">
+											<span class="rating-badge__star"></span>
+											<span>3.5</span>
+										</span>
+										<div class="model-info__image">
+											<img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70 " src="" alt="KTM1 RC200 ">
+										</div>
+										<div class="model-info-description">
+											<h3 class="model-info__title">
+												Bajaj Dominar 400
+											</h3>
+											<p class="model-info__ex-showroom">
+												Ex-showroom, Mumbai
+											</p>
+											<p class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
+										</div>
 									</div>
-									<div class="model-info-description">
-										<h3 class="model-info__title">
-											Bajaj Dominar 400
-										</h3>
-										<p class="model-info__ex-showroom">
-											Ex-showroom, Mumbai
-										</p>
-										<p class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
-									</div>
+								</a>
+								<div class="model-info__specs-container">
+									<a href="" class="model-info__specs-item specs-icon">
+										Specs
+									</a>
+									<a href="" class="model-info__specs-item specs-icon">
+										Expert Reviews
+									</a>
+									<a href="" class="model-info__specs-item specs-icon">
+										News
+									</a>
 								</div>
-							</a>
-							<div class="model-info__specs-container">
-								<a href="" class="model-info__specs-item specs-icon">
-									Specs
-								</a>
-								<a href="" class="model-info__specs-item specs-icon">
-									Expert Reviews
-								</a>
-								<a href="" class="model-info__specs-item specs-icon">
-									News
-								</a>
 							</div>
 						</div>
 

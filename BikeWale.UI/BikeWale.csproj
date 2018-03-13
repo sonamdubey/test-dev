@@ -2916,6 +2916,7 @@
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\new\search_new.js" />
     <Content Include="m\src\photos\gallery.js" />
+    <Content Include="m\src\photos\galleryViewModel.js" />
     <Content Include="m\src\photos\model.js" />
     <Content Include="m\src\photos\photos.js" />
     <Content Include="m\src\photos\modelgallery.js" />

@@ -10,12 +10,25 @@
 	bottom: 0
 	z-index: 5
 
+.gallery__close-btn
+	@include cross-fff-icon
+	background-size: 12px
+	width: 12px
+	height: 12px
+	padding: 20px
+	position: fixed
+	top: 5px
+	right: 5px
+	cursor: pointer
+	z-index: 10
+
 // gallery active state
 .gallery-popup--active
 	.black-window
 		display: block
 
 .model-gallery-section
+	height: 243px
 	background-color: color('white')
 
 .model-gallery__container
@@ -84,6 +97,7 @@
 	position: relative
 	top: 40px
 	text-align: center
+	background: #000
 
 	.share-list__item
 		margin: 10px 15px
@@ -166,7 +180,7 @@
 .model-gallery--relative
 	z-index: 8
 	background: color('white')
-	position: relative
+	position: fixed
 	left: 0
 	width: 100%
 
@@ -216,7 +230,7 @@
 
 
 // rotate slug
-.model-gallery__screen--rotate-slug
+.gallery__landscape-slug
 	@include vendor-prefix('border-radius', 2px)
 	@include vendor-prefix('transform', translateX(-50%))
 	left: 50%
@@ -229,6 +243,7 @@
 	white-space: nowrap
 	padding-right: 15px
 	z-index: 6
+	border-radius: 2px
 
 	.landscape-text
 		display: inline-block
@@ -251,7 +266,7 @@
 		background-size: 20px
 		-webkit-animation: rotate-icon 1.4s linear infinite
 
-	&.model-gallery__screen--rotate-slug--hide
+	&.landscape-slug--inactive
 		border: none
 		z-index: 10
 
@@ -272,13 +287,7 @@
 		50%
 			transform: rotate(45deg)
 		100%
-			transform: rotate(0deg)	
-
-	&[data-visible = 'true']
-		display: inline-block
-
-	&[data-visible= 'false']
-		display: none
+			transform: rotate(0deg)
 
 
 // color slug/button
@@ -292,7 +301,7 @@
 	line-height: 40px
 	cursor: pointer
 
-.gallery-color--fixed
+.gallery__color-floating-slug
 	@include vendor-prefix('border-radius', 16px)
 	@include vendor-prefix('transform', translateX(-50%))
 	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/color-palette.png') no-repeat
@@ -306,12 +315,6 @@
 	left: 50%
 	text-transform: capitalize
 	z-index: 6
-
-	&[data-visible='true']
-		display: inline-block
-
-	&[data-visible = 'false']
-		display: none
 
 .model-gallery__image-title
 	@include text-truncate(100%)
@@ -331,7 +334,7 @@
 
 			.swiper-slide
 				height: 100vh
-				background: color('black')
+				background: #000
 					
 				img
 					max-height: 100%
@@ -349,7 +352,6 @@
 
 		.gallery__share-icon
 			background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/share.svg')
-			margin-right: 8px
 
 		.gallery__download-icon
 			background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/download-v2.svg')
@@ -373,12 +375,8 @@
 			background-position: 9px 16px
 			top: 43%
 
-	.model-gallery__screen--rotate-slug
-		&[data-visible = 'true']
-			display: none
-
 	.gallery-image__left-section
-		@include text-truncate(300px)
+		@include text-truncate(40%)
 		display: inline-block
 		vertical-align: middle
 
@@ -395,7 +393,7 @@
 		z-index: 1
 
 	.gallery-footer__content,
-	.gallery-color--fixed
+	.gallery__color-floating-slug
 		display: none
 
 @keyframes fadeIn
@@ -470,7 +468,6 @@
 
 	.swiper-slide__more-btn
 		position: relative
-		bottom: auto
 
 	.color-box
 		width: 48px
@@ -481,6 +478,7 @@
 	background-color: rgba(0, 0, 0, .6)
 
 	.gallery-slide-slug__title
+		margin-bottom: 20px
 		color: #fff
 		z-index: 9
 
@@ -496,7 +494,28 @@
 	width: 48px
 	height: 34px
 	display: inline-block
+	position: relative
+	z-index: 9
 	background: url('/image/youtube-play.png') no-repeat
+
+.video-slide__description
+	max-width: 85%
+	font-size: 14px
+	color: #fff
+	text-align: center
+
+.gallery-video-slug--active
+	.gallery__slide-slug
+		animation: fadeIn .4s forwards
+		z-index: 1
+
+	.gallery-footer__content
+		display: none
+
+.orientation--landscape
+	.model-gallery__video-slide
+		.swiper-slide__more-btn
+			bottom: -50px
 
 // video playing state
 .video--active
@@ -513,7 +532,7 @@
 	left: 0
 	width: 100%
 	line-height: 40px
-	background: #2a2a2a
+	background: #000
 	text-align: center
 	z-index: 8
 	
@@ -522,7 +541,7 @@
 	color: #fd8d81
 	padding-right: 27px
 	text-decoration: underline
-	background-image: url('/image/arrow-back-red.svg')
+	background-image: url('/image/arrow-back-right-red.svg')
 	background-repeat: no-repeat
 	background-position: right
 	background-size: 17px
