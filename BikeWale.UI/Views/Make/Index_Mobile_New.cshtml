@@ -208,8 +208,10 @@
                     </div>
                 </section>
             }
-            @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
-            <span class="clear"></span>
+            <div id="mobileEmiCalculator">
+                @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
+                <span class="clear"></span>
+            </div> 
             
             @if (Model.AdTags.Ad_300x250_Top)
             { 
