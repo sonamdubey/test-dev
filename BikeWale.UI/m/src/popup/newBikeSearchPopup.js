@@ -158,7 +158,7 @@ var recommendedBikePopup = (function () {
 			recommendedBikeElement = otherBikeContainer.find('.recommended-bike__list-card:first-child');
 
         if (recommendedBikeElement.length) {
-            if ((recommendedBikeElement.offset().top + recommendedBikeElement.outerHeight() + container.scrollTop()) < container.scrollTop() + $(window).height()) {
+            if ((recommendedBikeElement.offset().top + (recommendedBikeElement.outerHeight() / 4) + container.scrollTop()) < container.scrollTop() + $(window).height()) { // remove from inactive state when the card container is 25% visible
                 otherBikeContainer.removeClass('overlay--inactive');
             }
             else {
@@ -916,12 +916,18 @@ function getIndex(val, arr) {
     return -1;
 }
 
+var filterToastId = null;
+
 function showNoFilterSelectedToast() {
-    window.clearTimeout();
-    $('.no-filters-selected-toast').slideDown();
-    window.setTimeout(function () {
-        $('.no-filters-selected-toast').slideUp();
-    }, 2000);
+	if (filterToastId) {
+		clearTimeout(filterToastId);
+	}
+
+	$('#filterSelectionToast').addClass('filter-toast--active');
+
+	filterToastId = setTimeout(function () {
+		$('#filterSelectionToast').removeClass('filter-toast--active');
+	}, 2000);
 }
 
 function disableApplyBtn() {

@@ -197,3 +197,20 @@ $_filter-head-line-height: 44px
 
 #budgetAmountPreview
 	display: block
+
+.no-filters-selected-toast
+	width: 100%
+	padding: 10px 20px
+	background-color: #333
+	font-size: 14px
+	color: white
+	position: absolute
+	bottom: 0
+	left: 0
+	z-index: 1
+	@include vendor-prefix('transform', translate(0, 110%))
+	@include vendor-prefix('transition', transform .2s ease)
+	will-change: transform
+
+	&.filter-toast--active
+		@include vendor-prefix('transform', translate(0, 0))
