@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Consumer;
+using Bikewale.Utility;
 
 
 namespace BikeIndex
@@ -93,7 +94,7 @@ namespace BikeIndex
                                     objPrices.Add(new PriceEntity()
                                     {
                                         PriceType = _pricestypes[i],
-                                        PriceValue = Convert.ToUInt32(dr[_pricestypes[i]])
+                                        PriceValue = SqlReaderConvertor.ToUInt32(dr[_pricestypes[i]])
                                     });
                                 }
 
@@ -106,38 +107,38 @@ namespace BikeIndex
                                         //make details
                                         BikeMake = new MakeEntity()
                                         {
-                                            MakeId = Convert.ToUInt32(dr["MakeId"]),
+                                            MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
                                             MakeName = Convert.ToString(dr["MakeName"]),
                                             MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
-                                            MakeStatus = GetStatus(Convert.ToBoolean(dr["IsNewMake"]), Convert.ToBoolean(dr["IsFuturisticMake"]))
+                                            MakeStatus = GetStatus(SqlReaderConvertor.ToBoolean(dr["IsNewMake"]), Bikewale.Utility.SqlReaderConvertor.ToBoolean(dr["IsFuturisticMake"]))
                                         },
 
                                         //model details
                                         BikeModel = new ModelEntity()
                                         {
-                                            ModelId = Convert.ToUInt32(dr["ModelId"]),
+                                            ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]),
                                             ModelName = Convert.ToString(dr["ModelName"]),
                                             ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
-                                            ModelStatus = GetStatus(Convert.ToBoolean(dr["IsNewModel"]), Convert.ToBoolean(dr["IsFuturisticModel"]))
+                                            ModelStatus = GetStatus(SqlReaderConvertor.ToBoolean(dr["IsNewModel"]), SqlReaderConvertor.ToBoolean(dr["IsFuturisticModel"]))
                                         },
 
                                         //top version
                                         TopVersion = new VersionEntity()
                                         {
-                                            VersionId = Convert.ToUInt32(dr["TopVersionId"]),
+                                            VersionId = SqlReaderConvertor.ToUInt32(dr["TopVersionId"]),
                                             VersionName = Convert.ToString(dr["VersionName"]),
-                                            Mileage = Convert.ToUInt32(dr["Mileage"]),
-                                            KerbWeight = Convert.ToUInt32(dr["KerbWeight"]),
-                                            Displacement = Convert.ToDouble(dr["Displacement"]),
-                                            Power = Convert.ToDouble(dr["Power"]),
+                                            Mileage = SqlReaderConvertor.ToUInt32(dr["Mileage"]),
+                                            KerbWeight = SqlReaderConvertor.ToUInt32(dr["KerbWeight"]),
+                                            Displacement = SqlReaderConvertor.ParseToDouble(dr["Displacement"]),
+                                            Power = SqlReaderConvertor.ParseToDouble(dr["Power"]),
                                             PriceList = objPrices,
-                                            Exshowroom = Convert.ToUInt32(dr["Exshowroom"]),
-                                            Onroad = Convert.ToUInt32(dr["RTO"]) + Convert.ToUInt32(dr["Insurance"]) + Convert.ToUInt32(dr["Exshowroom"]),
-                                            VersionStatus = GetStatus(Convert.ToBoolean(dr["IsNewVersion"]), Convert.ToBoolean(dr["IsFuturisticVersion"]))
+                                            Exshowroom = SqlReaderConvertor.ToUInt32(dr["Exshowroom"]),
+                                            Onroad = SqlReaderConvertor.ToUInt32(dr["RTO"]) + Bikewale.Utility.SqlReaderConvertor.ToUInt32(dr["Insurance"]) + Bikewale.Utility.SqlReaderConvertor.ToUInt32(dr["Exshowroom"]),
+                                            VersionStatus = GetStatus(SqlReaderConvertor.ToBoolean(dr["IsNewVersion"]), SqlReaderConvertor.ToBoolean(dr["IsFuturisticVersion"]))
                                         },
 
                                         BikeName = Convert.ToString(dr["MakeName"]) + " " + Convert.ToString(dr["ModelName"]),
-                                        BodyStyleId = Convert.ToUInt32(dr["BodyStyleId"]),
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
 
                                         //bike media/reviews
                                         BikeImage = new ImageEntity()
@@ -145,12 +146,12 @@ namespace BikeIndex
                                             ImageURL = Convert.ToString(dr["ImageURL"]),
                                             HostURL = Convert.ToString(dr["HostURL"])
                                         },
-                                        ImageCount = Convert.ToUInt32(dr["ImageCount"]),
-                                        VideosCount = Convert.ToUInt32(dr["VideosCount"]),
-                                        ExpertReviewsCount = Convert.ToUInt32(dr["ExpertReviewsCount"]),
-                                        UserReviewsCount = Convert.ToUInt32(dr["UserReviewsCount"]),
-                                        ReviewRatings = Convert.ToDouble(dr["ReviewRatings"]),
-                                        RatingsCount = Convert.ToUInt32(dr["RatingsCount"]),
+                                        ImageCount = SqlReaderConvertor.ToUInt32(dr["ImageCount"]),
+                                        VideosCount = SqlReaderConvertor.ToUInt32(dr["VideosCount"]),
+                                        ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"]),
+                                        UserReviewsCount = SqlReaderConvertor.ToUInt32(dr["UserReviewsCount"]),
+                                        ReviewRatings = SqlReaderConvertor.ParseToDouble(dr["ReviewRatings"]),
+                                        RatingsCount = SqlReaderConvertor.ToUInt32(dr["RatingsCount"]),
                                        
                                     });
                             }

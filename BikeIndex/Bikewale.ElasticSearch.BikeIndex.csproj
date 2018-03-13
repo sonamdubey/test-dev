@@ -96,6 +96,10 @@
       <Project>{84d03dbe-2e8d-4dcc-a65f-56a6ef6d4f16}</Project>
       <Name>Bikewale.ElasticSearch.Indexes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
+      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Name>Bikewale.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
