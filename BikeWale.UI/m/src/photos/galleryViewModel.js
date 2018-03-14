@@ -495,7 +495,12 @@ var VideoSlugViewModel = function (videoList) {
 	self.activeSlug = ko.observable(false);
 	self.visibilityThreshold = ko.observable(5);
 	self.modelName = MODEL_NAME;
-	self.videoList = videoList;
+	if (videoList) {
+		self.videoList = videoList;
+	}
+	else {
+		self.videoList = [];
+	}
 	self.videoCount = videoList.length;
 	self.isPlaying = ko.observable(false);
 	self.description = ko.observable('');
