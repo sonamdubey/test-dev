@@ -54,6 +54,9 @@ namespace Bikewale.Models
     /// Modified by : Snehal Dange on 20th Feb 2018
     /// Description: Added PageFilters
     /// Modified by : Snehal Dange on 26th Feb 2018
+    /// 
+    /// Modified By : Sanskar Gupta on 07 Mar 2018
+    /// Description : Added `EMICalculator`
     /// Description: Added NewBikeSearchPopup
     /// </author>
     public class MakePageVM : ModelBase
@@ -111,6 +114,8 @@ namespace Bikewale.Models
 
 
         public NewLaunchedWidgetVM NewLaunchedWidget { get; set; }
+
+        public EMICalculatorVM EMICalculator { get; set; }
         public FilterPageEntity PageFilters { get; set; }
         public NewBikeSearchPopupVM NewBikeSearchPopup { get; set; }
     }

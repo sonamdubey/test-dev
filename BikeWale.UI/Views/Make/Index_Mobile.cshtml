@@ -351,6 +351,10 @@
     </section>
 }
 
+<section>
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+
 @if (Model.IsFooterDescriptionAvailable)
 {
     <section>

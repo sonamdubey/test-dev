@@ -4027,6 +4027,7 @@
     <Content Include="Views\ExpertReviews\Index_Mobile_Pwa.cshtml" />
     <Content Include="Views\ExpertReviews\Detail_Mobile_Pwa.cshtml" />
     <Content Include="Views\Filters\InPageFilters\_InPageMinSpecsFilters_Mobile.cshtml" />
+    <Content Include="sass\partials\photo-grid-carousel.sass" />
     <Content Include="Views\Filters\InPageFilters\_InPageBudgetFilter_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />

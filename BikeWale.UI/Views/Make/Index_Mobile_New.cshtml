@@ -1,10 +1,14 @@
 ﻿@model Bikewale.Models.MakePageVM
-
 @{
-	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline />";
-    Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js" };
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline />";
+    Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js", "/src/emi-calculator.js" };
     ushort index = 0, prev = 0, gap = 2, j = 0;    
+    Model.AdTags.AdId = "1519729632700";
+    Model.AdTags.Ad_320x100_Top = true;
+    Model.AdTags.Ad_300x250_Top = true;
+    Model.AdTags.Ad_300x250_Middle = true;
+    Model.AdTags.Ad_300x250_Bottom = true;
 }
 
 @if (Model != null)
@@ -98,7 +102,15 @@
                     </div>
                 </section>
             }
-
+            
+            @if (Model.AdTags.Ad_320x100_Top) { 
+                <section>
+                    <div style="margin-bottom: 20px">
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 3 });}
+                    </div>
+                </section>
+            }
+            
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
                 <section>
@@ -145,54 +157,74 @@
                                                     @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
                                                 </ul>
                                             </div>
-                                            <div class="model-card__exshowroom-content">
-                                                <div class="model-card__exshowroom">
-                                                    <div class="card-exshowroom__col">
-                                                        @if (bike.ExShowroomPrice > 0)
-                                                        {
-                                                            <p class="card-exshowroom__label">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</p>
-                                                        }
-                                                        else
-                                                        {
-                                                            <p class="card-exshowroom__label">
-                                                                Avg. Ex-showroom price
-                                                                <span class="bwsprite info-icon tooltip-icon-target tooltip-top"><span class="bw-tooltip info-tooltip"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.City.City) </span></span></span>
-                                                            </p>
-
-
-                                                        }
-                                                        @if (bike.VersionPrice > 0)
-                                                        {
-                                                            @Html.Raw("<span class='card-exshowroom__value'>&#x20b9;&nbsp;</span>")
-                                                        }
-                                                        else
-                                                        {
-                                                            @Html.Raw("<span class='font18' style='display: none;'> &#x20B9;</span>")
-                                                        }
-                                                        @if (bike.AvgPrice > 0)
-                                                        {
-                                                            <span class="card-exshowroom__value text--semibold">
-                                                                @Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) :
-    string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice)))))
-                                                            </span>
-                                                        }
-                                                        else
-                                                        {
-                                                            <span class="font18 text--semibold">Price unavailable</span>
-                                                        }
-
-                                                    </div>
-                                                    @if (bike.EMIDetails != null && bike.EMIDetails.EMIAmount > 0)
+                                        </a>
+                                        <div class="model-card__exshowroom-content">
+                                            <div class="model-card__exshowroom">
+                                                <div class="card-exshowroom__col">
+                                                    @if (bike.ExShowroomPrice > 0)
                                                     {
-                                                        <div class="card-emi__col">
-                                                            <p class="card-emi__label">EMI starting at</p>
-                                                            <span class="card-emi__value">@Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(bike.EMIDetails.EMIAmount.ToString())</span>
-                                                        </div>
+                                                        <p class="card-exshowroom__label">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="card-exshowroom__label">
+                                                            Avg. Ex-showroom price
+                                                            <span class="bwsprite info-icon tooltip-icon-target tooltip-top"><span class="bw-tooltip info-tooltip"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.City.City) </span></span></span>
+                                                        </p>
+
+
+                                                    }
+                                                    @if (bike.VersionPrice > 0)
+                                                    {
+                                                        @Html.Raw("<span class='card-exshowroom__value'>&#x20b9;&nbsp;</span>")
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.Raw("<span class='font18' style='display: none;'> &#x20B9;</span>")
+                                                    }
+                                                    @if (bike.AvgPrice > 0)
+                                                    {
+                                                        <span class="card-exshowroom__value text--semibold">
+                                                            @Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) :
+string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice)))))
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="font18 text--semibold">Price unavailable</span>
+                                                    }
+
+                                                    @if (bike.AvgPrice > 0)
+                                                    {
+                                                    <p class="margin-top5 text--semibold">
+                                                        <a href="javascript:void(0)" data-makename="@Model.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid=@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage) class="getquotation bw-ga" rel="nofollow">Check On Road Price</a>
+                                                    </p>
                                                     }
 
                                                 </div>
+                                                @if (bike.EMIDetails != null && bike.EMIDetails.EMIAmount > 0)
+                                                {
+                                                    <div class="card-emi__col">
+                                                        <p class="card-emi__label">EMI starting at</p>
+                                                        <span class="card-emi__value">@Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(bike.EMIDetails.EMIAmount.ToString())</span>
+                                                        @{var emiDetails = bike.EMIDetails;
+                                                            var bikePrice = bike.OnRoadPrice>0 ? bike.OnRoadPrice : bike.OnRoadPriceMumbai;
+                             
+                                                        }
+                                                        @if(bikePrice > 0){
+                                                            <p class="margin-top10 text--semibold">
+                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link emicalculator_link_event bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink-@bike.objModel.ModelId"data-bikePrice="@bikePrice" data-bikeExshowroomPrice="@bike.ExShowroomPrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))">
+                                                                    Calculate EMI
+                                                                </a>
+                                                            </p>
+                                                        }
+                                                        
+                                                    </div>
+                                                }
+
                                             </div>
-                                        </a>
+                                        </div>
+                                        
                                     </div>
                                 </li>
                             }
@@ -200,7 +232,19 @@
                     </div>
                 </section>
             }
-
+            <div id="mobileEmiCalculator">
+                @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
+                <span class="clear"></span>
+            </div> 
+            
+            @if (Model.AdTags.Ad_300x250_Top)
+            { 
+                <section>
+                    <div style="margin-bottom: 20px">
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 1 });}
+                    </div>
+                </section>
+            }
 
             @if (Model.IsUpComingBikesAvailable)
             {
@@ -344,7 +388,16 @@
                     </div>
                 </section>
             }
-
+            
+            @if (Model.AdTags.Ad_300x250_Middle)
+            { 
+                <section>
+                    <div style = "margin-bottom: 20px">
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 2 });}
+                    </div>
+                </section>
+            }
+            
             @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
             {
                 <section>
@@ -439,7 +492,16 @@
             }
 
         </div>
+
     </section>
+    if (Model.AdTags.Ad_300x250_Bottom)
+    { 
+        <section>
+            <div style="margin-bottom: 20px">
+                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
+            </div>
+        </section>
+    }
     @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchPopup_Mobile.cshtml", Model.NewBikeSearchPopup);
 }
 <script type="text/javascript">
@@ -456,6 +518,7 @@
                 }   
             }
             
+    
         }
         catch (e) {
             console.log(e.message);
