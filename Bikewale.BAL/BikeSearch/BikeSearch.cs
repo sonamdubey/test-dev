@@ -287,9 +287,12 @@ namespace Bikewale.BAL.BikeSearch
                 if (filters.BodyStyle != null && filters.BodyStyle.Any())
                 {
                     QueryContainer qtmp = new QueryContainer();
-                    foreach(string style in filters.BodyStyle)
+                    foreach (string style in filters.BodyStyle)
                     {
-                        qtmp |= FDS.Term(_bodyStyleId, System.Convert.ToUInt32(style));
+                        if (!string.IsNullOrEmpty(style))
+                        {
+                            qtmp |= FDS.Term(_bodyStyleId, SqlReaderConvertor.ToUInt32(style));
+                        }
                     }
                     query &= qtmp;
                 }
