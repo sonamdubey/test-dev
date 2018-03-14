@@ -228,9 +228,11 @@
 	self.setLandscapeIcon = function () {
 		var element = $('.model-gallery-section .gallery__landscape-slug .screen--rotate-slug__landscape-icon');
 
-		var topPosition = $('.model-gallery__container .gallery-footer').offset().top - $('.gallery__landscape-slug').offset().top + 8;
+		var topPosition = $('.model-gallery__container .gallery-footer').offset().top - $('.model-gallery-section .gallery__landscape-slug').offset().top + 8;
 
 		var rightPosition = -(window.innerWidth - ($('.model-gallery-section .screen--rotate-slug__landscape-container').offset().left + $('.model-gallery-section .screen--rotate-slug__landscape-container').width()) - 25);
+
+		$('.model-gallery-section .gallery__landscape-slug').css('z-index', 10);
 
 		if (!self.fullScreenModeActive()) {
 			element.css('position', 'fixed').animate({ 'top': topPosition + 'px', 'right': rightPosition + 'px' }, 1000, "swing");
