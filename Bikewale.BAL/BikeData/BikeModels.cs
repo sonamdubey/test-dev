@@ -575,10 +575,10 @@ namespace Bikewale.BAL.BikeData
                         var images = colorImages.GroupBy(m => m.Model.ModelId);
                         foreach (var img in modelsImages)
                         {
-                            var cmsImages = img.ModelImage.ToList();
                             var image = images.Where(m => m.Key == img.ModelId).FirstOrDefault();
                             if (image != null && image.Any())
                             {
+                                var cmsImages = img.ModelImage.ToList();
                                 img.RecordCount += image.Count();
                                 cmsImages.AddRange(ConvertToModelImages(image));
                                 img.ModelImage = cmsImages.Take(requiredImageCount);
@@ -589,21 +589,23 @@ namespace Bikewale.BAL.BikeData
                         var missingModelIds = modelIdsArray.Except(modelsImages.Select(m => m.ModelId));
                         if (missingModelIds != null && missingModelIds.Any())
                         {
-                            var missingModelImages = colorImages.Where(m => missingModelIds.Contains(m.Model.ModelId));
-                            var missingImages = missingModelImages.GroupBy(m => m.Model.ModelId);
-                            foreach (var image in missingImages)
+                            foreach (var modelId in missingModelIds)
                             {
-                                var firstImg = image.First();
-                                var img = new ModelImages()
+                                var imgArray = images.Where(m => m.Key == modelId).FirstOrDefault();
+                                if (imgArray != null && imgArray.Any())
                                 {
-                                    ModelId = firstImg.Model.ModelId,
-                                    ModelBase = firstImg.Model,
-                                    MakeBase = new BikeMakeEntityBase() { MakeId = firstImg.Make.MakeId, MakeName = firstImg.Make.MakeName, MaskingName = firstImg.Make.MakeMaskingName },
-                                    RecordCount = image.Count(),
-                                    BikeName = String.Format("{0} {1}", firstImg.Make.MakeName, firstImg.Model.ModelName),
-                                    ModelImage = ConvertToModelImages(image).Take(requiredImageCount)
-                                };
-                                modelsImages.Add(img);
+                                    BikeModelColorImageEntity firstImg = imgArray.First();
+                                    var img = new ModelImages()
+                                    {
+                                        ModelId = firstImg.Model.ModelId,
+                                        ModelBase = firstImg.Model,
+                                        MakeBase = new BikeMakeEntityBase() { MakeId = firstImg.Make.MakeId, MakeName = firstImg.Make.MakeName, MaskingName = firstImg.Make.MakeMaskingName },
+                                        RecordCount = imgArray.Count(),
+                                        BikeName = String.Format("{0} {1}", firstImg.Make.MakeName, firstImg.Model.ModelName),
+                                        ModelImage = ConvertToModelImages(imgArray).Take(requiredImageCount)
+                                    };
+                                    modelsImages.Add(img);
+                                }
                             }
                         }
                         modelsImages = modelsImages.OrderBy(m => Array.IndexOf(modelIdsArray, m.ModelId)).ToList();
