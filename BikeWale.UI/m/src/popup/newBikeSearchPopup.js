@@ -18,6 +18,7 @@ var recommendedBikePopup = (function () {
     function registerEvents() {
         _setSelectores();
         initViewModel();
+        toggleApplyBtn();
         $(document).on('click', '.refine-result__apply', function (e) {
             open();
             setTimeout(function () {
@@ -44,24 +45,7 @@ var recommendedBikePopup = (function () {
             triggerGA('Make_Page', 'Clicked_on_ApplyFilters', (this).getAttribute('data-filter-type'));
         });
 
-        $(document).on('change', '.refine-result__list input', function () {
-            var inputType = $(this).attr('type');
-            var activeElementList;
-
-            if (inputType === 'checkbox') {
-                activeElementList = $(this).closest('.refine-result__list').find('input[type="checkbox"]:checked');
-            }
-            else if (inputType === 'radio') {
-                activeElementList = $(this).closest('.refine-result__list').find('input[type="radio"]:checked');
-            }
-
-            if (activeElementList.length) {
-                $(this).closest('.refine-result').find('.refine-result__apply').prop('disabled', false);
-            }
-            else {
-                $(this).closest('.refine-result').find('.refine-result__apply').prop('disabled', true);
-            }
-        });
+        $(document).on('change', toggleApplyBtn);
 
         closeBtn.on('click', function () {
             window.history.back();
@@ -221,7 +205,7 @@ var recommendedBikePopup = (function () {
 
     $(window).on('popstate', function () {
         if (popup.hasClass('recommended-bike-popup--active') && history.state !== "recommendedBikePopup") {
-            disableApplyBtn();
+            toggleApplyBtn();
             resetFiltersAndData();
             close();
         }
@@ -934,14 +918,26 @@ function showNoFilterSelectedToast(toastText) {
 	}, 2000);
 }
 
-function disableApplyBtn() {
-    var applyButtons = document.getElementsByClassName("refine-result__apply");
-    if (applyButtons != null) {
-        for (var i = 0; i < applyButtons.length; i++) {
-            var btn = applyButtons[i];
-            if (!btn.hasAttribute("disabled")) {
-                btn.disabled = true;
-            }
+function toggleApplyBtn() {
+
+    var inputButtons = $('.refine-result__list input');
+    inputButtons.each(function () {
+        var inputType = $(this).attr('type');
+        var activeElementList;
+
+        if (inputType === 'checkbox') {
+            activeElementList = $(this).closest('.refine-result__list').find('input[type="checkbox"]:checked');
         }
-    }
+        else if (inputType === 'radio') {
+            activeElementList = $(this).closest('.refine-result__list').find('input[type="radio"]:checked');
+        }
+
+        if (activeElementList.length) {
+            $(this).closest('.refine-result').find('.refine-result__apply').prop('disabled', false);
+        }
+        else {
+            $(this).closest('.refine-result').find('.refine-result__apply').prop('disabled', true);
+        }
+    });
+    
 }
