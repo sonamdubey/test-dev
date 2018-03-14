@@ -178,7 +178,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                                                         <span class="font18 text--semibold">Price unavailable</span>
                                                     }
 
-                                                    @if (bike.OnRoadPrice > 0)
+                                                    @if (bike.AvgPrice > 0)
                                                     {
                                                     <p class="margin-top5 text--semibold">
                                                         <a href="javascript:void(0)" data-makename="@Model.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid=@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage) class="getquotation bw-ga" rel="nofollow">Check On Road Price</a>
