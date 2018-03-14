@@ -281,7 +281,7 @@
 	}
 
 	self.setVideoSlug = function (activeIndex) {
-		if (self.videoSlug().visibilityThreshold() === activeIndex) {
+		if (self.videoSlug().visibilityThreshold() === activeIndex && self.videoSlug().videoCount) {
 			self.videoSlug().activeSlug(true);
 			self.activeContinueSlug(true);
 			self.activeFloatingColorSlug(false);
