@@ -46,5 +46,6 @@ namespace BikewaleOpr.Interface.BikeData
 		/// <returns>Number of rows affected</returns>
 		bool SavePageViews(string modelsList);
         string GetModelsByVersions(string versions);
+        IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId);
     }
 }
