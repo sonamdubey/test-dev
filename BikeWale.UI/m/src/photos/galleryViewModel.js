@@ -501,7 +501,7 @@ var VideoSlugViewModel = function (videoList) {
 	else {
 		self.videoList = [];
 	}
-	self.videoCount = videoList.length;
+	self.videoCount = self.videoList.length;
 	self.isPlaying = ko.observable(false);
 	self.description = ko.observable('');
 
