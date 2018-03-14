@@ -204,8 +204,8 @@ var recommendedBikePopup = (function () {
 
     $(window).on('popstate', function () {
         if (popup.hasClass('recommended-bike-popup--active') && history.state !== "recommendedBikePopup") {
-            toggleApplyBtn();
             resetFiltersAndData();
+            toggleApplyBtn();
             close();
         }
     });
