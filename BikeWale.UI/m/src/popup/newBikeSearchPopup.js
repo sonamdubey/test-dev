@@ -45,8 +45,7 @@ var recommendedBikePopup = (function () {
             triggerGA('Make_Page', 'Clicked_on_ApplyFilters', (this).getAttribute('data-filter-type'));
         });
 
-        $(document).on('change', toggleApplyBtn);
-
+        $(document).on('change', '.refine-result__list input', toggleApplyBtn);
         closeBtn.on('click', function () {
             window.history.back();
         });
