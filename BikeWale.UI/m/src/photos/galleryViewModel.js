@@ -448,10 +448,12 @@ var ModelVideoViewModel = function () {
 	self.videoList = ko.observable([]);
 
 	self.getVideos = function () {
-		if (self.videoList().length !== MODEL_VIDEO_LIST.length) {
-			var list = MODEL_VIDEO_LIST.slice(self.videoList().length, self.defaultVideoCount() + self.videoList().length);
+		if (MODEL_VIDEO_LIST) {
+			if (self.videoList().length !== MODEL_VIDEO_LIST.length) {
+				var list = MODEL_VIDEO_LIST.slice(self.videoList().length, self.defaultVideoCount() + self.videoList().length);
 
-			self.videoList(self.videoList().concat(list));
+				self.videoList(self.videoList().concat(list));
+			}
 		}
 	}
 }
