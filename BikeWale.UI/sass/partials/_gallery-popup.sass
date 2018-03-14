@@ -143,7 +143,8 @@
 	color: color('light-grey')
 
 .gallery-image__feature
-	> a
+	> a,
+	> span
 		padding: 20px
 		
 		&:last-child
@@ -164,6 +165,7 @@
 	height: 18px
 	width: 20px
 	background-size: 18px
+	cursor: pointer
 
 .gallery__share-icon
 	@include share-2d2d2d-icon
@@ -172,6 +174,7 @@
 	height: 18px
 	width: 14px
 	background-size: 17px
+	cursor: pointer
 
 .gallery__zoom-icon
 	@include fullscreen-2d2d2d-icon
@@ -180,18 +183,20 @@
 	height: 16px
 	width: 16px
 	background-size: 17px
+	cursor: pointer
 
 .screen--rotate
 	display: none
 
 .gallery__landscape-icon
+	@include rotate-2d2d2d-icon
 	display: inline-block
 	vertical-align: middle
 	height: 40px
 	width: 40px
 	text-align: right
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/2d2d2d/rotate.svg') no-repeat center
 	background-size: 20px
+	cursor: pointer
 
 
 // gallery active/popup state
@@ -272,14 +277,14 @@
 		display: inline-block
 
 	.screen--rotate-slug__landscape-icon
+		@include vendor-prefix('animation', rotate-icon 1.4s linear infinite)
+		@include rotate-ffcf63-icon
 		display: inline-block
 		vertical-align: middle
 		height: 20px
 		width: 20px
 		text-align: right
-		background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ffcf63/rotate.svg') center no-repeat
 		background-size: 20px
-		-webkit-animation: rotate-icon 1.4s linear infinite
 
 	&.landscape-slug--inactive
 		border: none
@@ -287,6 +292,9 @@
 
 		.landscape-text
 			visibility: hidden
+
+		.screen--rotate-slug__landscape-container
+			display: none
 
 	@keyframes rotate-icon
 		0%
@@ -307,7 +315,7 @@
 
 // color slug/button
 .gallery-image__color
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/color-palette.png') no-repeat
+	@include color-palette-fff-icon
 	background-position: left center
 	padding-left: 25px
 	color: color('white')
@@ -319,7 +327,7 @@
 .gallery__color-floating-slug
 	@include vendor-prefix('border-radius', 16px)
 	@include vendor-prefix('transform', translateX(-50%))
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/color-palette.png') no-repeat
+	@include color-palette-4d5057-icon
 	background-color: color('white')
 	background-position: 7%
 	padding: 9px 14px 9px 34px
@@ -366,10 +374,12 @@
 			background: color('nero')
 
 		.gallery__share-icon
-			background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/share.svg')
+			@include share-fff-icon
+			background-size: 17px
 
 		.gallery__download-icon
-			background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/download-v2.svg')
+			@include download-fff-icon
+			background-size: 18px
 		
 		.model-gallery__image-title
 			padding: 0 20px
@@ -398,7 +408,8 @@
 	.model-gallery--relative
 		.gallery-image__footer
 			.gallery__landscape-icon
-				background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/rotate.svg')
+				@include rotate-fff-icon
+				background-size: 20px
 
 
 // color slug
@@ -535,12 +546,12 @@
 	width: 100%
 
 .video-slug__play
+	@include youtube-play-icon
 	width: 48px
 	height: 34px
 	display: inline-block
 	position: relative
 	z-index: 9
-	background: url('/image/youtube-play.png') no-repeat
 
 .video-slug__description
 	max-width: 85%
@@ -587,12 +598,31 @@
 .continue-info__label
 	font-size: 12px
 	color: #fd8d81
-	padding-right: 27px
+	padding-right: 5px
 	text-decoration: underline
-	background-image: url('/image/arrow-back-right-red.svg')
-	background-repeat: no-repeat
-	background-position: right
+	display: inline-block
+	vertical-align: middle
+
+.continue-info__arrow
+	@include arrow-forward-fd8d81-icon
 	background-size: 17px
+	width: 17px
+	height: 15px
+	display: inline-block
+	vertical-align: middle
+	@include vendor-prefix('animation', animateRight 1s infinite alternate)
+
+@-webkit-keyframes animateRight
+	0
+		-webkit-transform: translateX(0)
+	100%
+		-webkit-transform: translateX(5px)
+
+@keyframes animateRight
+	0
+		transform: translateX(0)
+	100%
+		transform: translateX(5px)
 
 // loader
 .loader__spin

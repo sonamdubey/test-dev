@@ -250,18 +250,18 @@ docReady(function () {
 		},
 		onSlideChangeStart: function (swiper) {
 			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
-			SwiperEvents.focusThumbnail(colorThumbnailSwiper, vmModelColorSwiper.activeIndex(), true);
+			SwiperEvents.focusThumbnail(colorTabThumbnailSwiper, vmModelColorSwiper.activeIndex(), true);
 		}
 	});
 
-	var colorTabThumbnailSwiper = new Swiper('#colorTabThumbnailSwiper', {
+	colorTabThumbnailSwiper = new Swiper('#colorTabThumbnailSwiper', {
 		spaceBetween: 0,
 		slidesPerView: 'auto',
 		onInit: function (swiper) {
 			SwiperEvents.focusThumbnail(swiper, vmModelColorSwiper.activeIndex(), true);
 		},
-		onTap: function (swiper, event) {
-			colorSwiper.slideTo(swiper.clickedIndex);
+		onTap: function (swiper) {
+			colorTabSwiper.slideTo(swiper.clickedIndex);
 		}
 	});
 

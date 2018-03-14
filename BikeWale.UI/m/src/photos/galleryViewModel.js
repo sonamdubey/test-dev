@@ -103,7 +103,7 @@
 			self.setRotateScreenOption();
 			self.setColorOption();
 
-			$('.model-gallery-section').removeClass('gallery-color-slug--active');
+			self.resetSlug();
 			self.activeContinueSlug(false);
 
 			Scroll.unlock();
@@ -177,19 +177,23 @@
 	// rotate screen
 	self.setRotateScreenOption = function () {
 		if (self.activePopup()) {
-			if (self.activeFloatingRotateScreenOption()) {
+			if (self.activeFloatingRotateScreenOption() && !self.fullScreenModeActive()) {
 				self.rotateScreenOption(true);
+				self.activeLandscapeIcon(false);
 
 				if (self.activeIndex() > self.floatingLandscapeSlugVisibilityThreshold()) {
 					self.rotateScreenOption(false);
+					self.activeLandscapeIcon(true);
 					self.activeFloatingRotateScreenOption(false);
 				}
 			}
 			else {
+				self.activeLandscapeIcon(true);
 				self.rotateScreenOption(false);
 			}
 		}
 		else {
+			self.activeLandscapeIcon(false);
 			self.rotateScreenOption(false);
 		}
 	}
@@ -216,19 +220,23 @@
 		}
 	}
 
+	self.resetSlug = function() {
+		self.colorSlug().resetSlug();
+		self.videoSlug().resetSlug();
+	}
+
 	self.setLandscapeIcon = function () {
-		var element = $('.gallery__landscape-slug .screen--rotate-slug__landscape-icon');
+		var element = $('.model-gallery-section .gallery__landscape-slug .screen--rotate-slug__landscape-icon');
 
 		var topPosition = $('.model-gallery__container .gallery-footer').offset().top - $('.gallery__landscape-slug').offset().top + 8;
 
-		var rightPosition =  -(element.width());
+		var rightPosition = -(window.innerWidth - ($('.model-gallery-section .screen--rotate-slug__landscape-container').offset().left + $('.model-gallery-section .screen--rotate-slug__landscape-container').width()) - 25);
 
 		if (!self.fullScreenModeActive()) {
 			element.css('position', 'fixed').animate({ 'top': topPosition + 'px', 'right': rightPosition + 'px' }, 1000, "swing");
-			$('.gallery__landscape-slug').addClass('landscape-slug--inactive');
 			setTimeout(function () {
 				self.setRotateScreenOption();
-			}, 1400);
+			}, 1100);
 			self.activeLandscapeIcon(true);
 		}
 		else {
@@ -237,7 +245,6 @@
 				'top': topPosition + 'px',
 				'right': rightPosition + 'px'
 			});
-			$('.gallery__landscape-slug').addClass('landscape-slug--inactive');
 			self.setRotateScreenOption();
 			self.activeLandscapeIcon(true);
 		}
@@ -293,6 +300,7 @@
 var ModelColorPopupViewModel = function () {
 	var self = this;
 
+	self.modelName = MODEL_NAME;
 	self.activePopup = ko.observable(false);
 	self.activeLandscapeFooter = ko.observable(true);
 
@@ -327,6 +335,7 @@ var ModelColorPopupViewModel = function () {
 var ModelColorSwiperViewModel = function () {
 	var self = this;
 
+	self.modelName = MODEL_NAME;
 	self.activeIndex = ko.observable(0);
 	self.activeTitle = ko.observable('');
 
@@ -460,6 +469,10 @@ var ColorSlugViewModel = function (colorPhotoList) {
 	self.colorList = colorPhotoList.slice(0, self.previewCount);
 	self.remainingCount = colorPhotoList.length - self.previewCount;
 
+	self.resetSlug = function() {
+		self.activeSlug(false);
+	}
+
 	self.registerEvents = function () {
 		$(document).on('click', '.model-gallery__color-slide .color-slide-list__item', function () {
 			var clickedIndex = $(this).index();
@@ -482,6 +495,10 @@ var VideoSlugViewModel = function (videoList) {
 	self.videoCount = videoList.length;
 	self.isPlaying = ko.observable(false);
 	self.description = ko.observable('');
+
+	self.resetSlug = function () {
+		self.activeSlug(false);
+	}
 
 	self.playVideo = function(event) {
 		var targetElement = event.currentTarget;

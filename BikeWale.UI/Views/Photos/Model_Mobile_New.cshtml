@@ -35,7 +35,7 @@
 
 							<div data-bind="with: colorSlug">
 								<div class="model-gallery__color-slide gallery__slide-slug" data-bind="if: $parent.isColorSlugEligible, visible: activeSlug()">
-									<p class="gallery-slide-slug__title" data-bind="text: modelName + ' Colors'"></p>
+									<p class="gallery-slide-slug__title" data-bind="text: modelName + ' Colours'"></p>
 									<ul class="color-slide__list" data-bind="foreach: colorList">
 										<li class="color-slide-list__item">
 											<div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
@@ -44,7 +44,7 @@
 										</li>
 									</ul>
 									<p class="color-slide__more-count" data-bind="text: '+' + remainingCount + ' More Color' + (remainingCount > 1 ? 's' : '') "></p>
-									<button type="button" class="btn btn-inv-blue swiper-slide__more-btn" data-bind="click: $parent.colorPopup().openPopup">Show All Color Images</button>
+									<button type="button" class="btn btn-inv-blue swiper-slide__more-btn" data-bind="click: $parent.colorPopup().openPopup">Show All Colour Images</button>
 								</div>
 								<p class="gallery__single-color-title" data-bind="visible: activeSingleColorMessage(), text: modelName + ' is available in ' + colorList[0].ImageTitle + ' color only.'"></p>
 							</div>
@@ -82,11 +82,11 @@
 									<span class="gallery-image__color" data-bind="visible: activeFooterColorOption(), click: colorPopup().openPopup" style="display: none">Colors</span>
 									<div class="gallery-image__feature">
 										<a href="javascript:void(0)" title="" class="gallery__download-icon"></a>
-										<a href="javascript:void(0)" title="" data-bind="click: toggleSharePopup" class="gallery__share-icon"></a>
-										<a href="javascript:void(0)" title="" class="gallery__zoom-icon" data-bind="click: openGalleryPopup"></a>
-										<a href="javascript:void(0)" title="" class="landscape-icon__container" data-bind="attr: { 'data-visible': activeLandscapeIcon() && activePopup() ? 'true': 'false' }, click: toggleFullScreen, visible: fullScreenSupport()">
+										<span data-bind="click: toggleSharePopup" class="gallery__share-icon"></span>
+										<span class="gallery__zoom-icon" data-bind="click: openGalleryPopup"></span>
+										<span class="landscape-icon__container" data-bind="attr: { 'data-visible': activeLandscapeIcon() && activePopup() ? 'true': 'false' }, click: toggleFullScreen, visible: fullScreenSupport()">
 											<span class="gallery__landscape-icon" data-bind="visible: !rotateScreenOption()"></span>
-										</a>
+										</span>
 									</div>
 								</div>
 							</div>
@@ -108,7 +108,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="gallery__landscape-slug" data-bind="visible: rotateScreenOption() && fullScreenSupport(), click: toggleFullScreen" style="display: none">
+					<div class="gallery__landscape-slug" data-bind="visible: rotateScreenOption() && fullScreenSupport(), css: {'landscape-slug--inactive': fullScreenModeActive() }, click: toggleFullScreen" style="display: none">
 						<span class="landscape-text">Switch to Landscape for better Experience</span>
 						<span class="screen--rotate-slug__landscape-container">
 							<span class="screen--rotate-slug__landscape-icon"></span>
@@ -117,6 +117,7 @@
 					<div class="gallery__color-floating-slug" style="display: none" data-bind="visible: activeFloatingColorSlug(), click: colorPopup().openPopup">See colors images</div>
 					<div class="gallery__continue-swipe-info" style="display: none" data-bind="visible: activeContinueSlug(), click: handleGalleryContinueClick">
 						<span class="continue-info__label">Swipe to Continue Images</span>
+						<span class="continue-info__arrow"></span>
 					</div>
 				</div>
 
@@ -145,16 +146,16 @@
 					<div class="share-popup__bg-window" onClick="history.back()"></div>
 				</div>
 
-				<div id="colorGalleryPopup" class="color-popup__content" data-bind="css: { 'color-popup--active': colorPopup().activePopup(), 'color-popup--landscape': fullScreenModeActive() }">
+				<div id="colorGalleryPopup" class="color-popup__content" data-bind="with: colorPopup, css: { 'color-popup--active': colorPopup().activePopup(), 'color-popup--landscape': fullScreenModeActive() }">
 					<div class="color-popup__head">
 						<span class="color-popup-head__back" onClick="history.back()"></span>
-						<p class="color-popup-head__title">Dominar 400 Colors</p>
+						<p class="color-popup-head__title" data-bind="text: modelName + ' Colours'"></p>
 					</div>
 					<div class="color-popup__body">
 						<div id="mainColorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
-							<div class="swiper-wrapper" data-bind="foreach: colorPopup().colorSwiper().colorList">
+							<div class="swiper-wrapper" data-bind="foreach: colorSwiper().colorList">
 								<div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
-									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $root.renderImage(HostUrl, OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
 								</div>
 							</div>
 							<div class="swiper--next color-type-next"></div>
@@ -164,22 +165,22 @@
 							<div class="gallery-image__footer">
 								<div class="gallery-image__left-section">
 									<span class="gallery-image__count">
-										<span data-bind="text: colorPopup().colorSwiper().activeIndex()"></span> / <span data-bind="text: colorPopup().colorSwiper().colorList().length"></span>
+										<span data-bind="text: colorSwiper().activeIndex()"></span> / <span data-bind="text: colorSwiper().colorList().length"></span>
 									</span>
 								</div>
 								<div class="gallery-image__feature">
 									<a href="javascript:void(0)" title="" class="gallery__download-icon"></a>
-									<a href="javascript:void(0)" title="" data-bind="click: toggleSharePopup" class="gallery__share-icon"></a>
-									<a href="javascript:void(0)" title="" class="landscape-icon__container" data-bind="click: toggleFullScreen, visible: fullScreenSupport()">
+									<span data-bind="click: $root.toggleSharePopup" class="gallery__share-icon"></span>
+									<span class="landscape-icon__container" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
 										<span class="gallery__landscape-icon"></span>
-										</a>
+									</span>
 								</div>
 							</div>
 						</div>
-						<div class="color-popup__thumbnail-content" data-bind="css: { 'color-footer--inactive': !colorPopup().activeLandscapeFooter() }">
+						<div class="color-popup__thumbnail-content" data-bind="css: { 'color-footer--inactive': !activeLandscapeFooter() }">
 							<p class="color-list__heading">Colors</p>
-							<div id="thumbnailColorSwiper" class="swiper-container noSwiper swiper__color-thumbnail" data-bind="css: { 'color-list--scrollable': !fullScreenModeActive() }">
-								<div class="model-color__list swiper-wrapper " data-bind="foreach: colorPopup().colorSwiper().colorList, css: colorPopup().colorSwiper().colorList().length == 3 ? 'list-column--3' : ''">
+							<div id="thumbnailColorSwiper" class="swiper-container noSwiper swiper__color-thumbnail" data-bind="css: { 'color-list--scrollable': !$root.fullScreenModeActive() }">
+								<div class="model-color__list swiper-wrapper " data-bind="foreach: colorSwiper().colorList, css: colorSwiper().colorList().length == 3 ? 'list-column--3' : ''">
 									<div class="swiper-slide">
 										<div class="color-box--border">
 											<div class="color-box__content">
@@ -193,6 +194,17 @@
 								</div>
 							</div>
 							<span class="color-list__back-btn" onClick="history.back()">Back</span>
+						</div>
+
+						<div class="color-popup-body__footer">
+							<div class="color-popup__landscape-slug-content">
+								<div class="gallery__landscape-slug">
+									<span class="landscape-text">Switch to Landscape for better Experience</span>
+									<span class="screen--rotate-slug__landscape-container">
+										<span class="screen--rotate-slug__landscape-icon"></span>
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				
@@ -357,8 +369,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="image-grid__list-more" data-bind="visible: MODEL_VIDEO_LIST.length > 10">
-							<button type="button" class="btn btn-inv-blue image-grid__more-btn">View More Videos</button>
+						<div class="image-grid__list-more" data-bind="visible: videoList().length > 10">
+							<a href="" title="" class="btn btn-inv-blue image-grid__more-btn">View More Videos</a>
 						</div>
 					</div>
 				</div>

@@ -92,6 +92,10 @@ body
 			&:nth-child(12n+8)
 				float: left
 
+@media only screen and (max-width: 320px)
+	.image-grid-list__item
+		min-height: 60px
+
 
 .image-grid__list-more
 	padding: 20px
@@ -122,13 +126,14 @@ body
 	z-index: 2
 
 .video-slug__title
+	@include play-fff-icon
+	background-position: left
 	color: color('white')
 	font-size: 12px
 	font-weight: $font-bold
 	text-transform: uppercase
 	padding-left: 32px
 	margin-bottom: 10px
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/play.svg') no-repeat left
 	background-size: 22px
 	line-height: 22px
 
@@ -152,9 +157,9 @@ body
 
 // video slug sizes
 // 100%
-[data-slug-size="large"]
+[data-slug-size='large']
 	.video-slug__content
-		padding: 40px
+		padding: 34px
 
 	.video-slug__title
 		font-size: 14px
@@ -175,7 +180,7 @@ body
 		margin-left: 12px
 
 // 50%
-[data-slug-size="small"]
+[data-slug-size='small']
 	.video-slug__list
 		display: none
 
@@ -186,7 +191,7 @@ body
 		margin-left: 0
 
 // 33.33%
-[data-slug-size="extra-small"]
+[data-slug-size='extra-small']
 	.video-slug__content
 		padding: 10px
 
@@ -201,6 +206,9 @@ body
 		padding: 4px 8px
 		margin-left: 0		
 
+@media only screen and (max-width: 320px)
+	.video-slug__content
+		padding: 12px
 
 .page-header
 	padding: 15px 20px
