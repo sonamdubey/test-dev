@@ -184,7 +184,7 @@ docReady(function () {
 
 	});
 
-    //For Discontinued models at the bottom of the make page
+    //For Discontinued models at the bottom of the make page (taken from `bwm-brand.js`)
 	if ($("#discontinuedMore a").length > 4) {
 	    $('#discontinuedMore').hide();
 	}
