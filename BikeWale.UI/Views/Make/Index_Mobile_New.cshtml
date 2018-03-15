@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline />";
-    Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/bwm-brand.js", "/m/src/popup/newBikeSearchPopup.js", "/src/emi-calculator.js" };
+    Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js", "/src/emi-calculator.js" };
     ushort index = 0, prev = 0, gap = 2, j = 0;    
     Model.AdTags.AdId = "1519729632700";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Make";
@@ -214,7 +214,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                                                         }
                                                         @if(bikePrice > 0){
                                                             <p class="margin-top10 text--semibold">
-                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link emicalculator_link_event bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink-@bike.objModel.ModelId"data-bikePrice="@bikePrice" data-bikeExshowroomPrice="@bike.ExShowroomPrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))">
+                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link emicalculator_link_event bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink-@bike.objModel.ModelId"data-bikePrice="@bikePrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))">
                                                                     Calculate EMI
                                                                 </a>
                                                             </p>
