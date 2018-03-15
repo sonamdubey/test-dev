@@ -33,6 +33,7 @@ namespace BikeWaleOpr.Common
         private readonly IBikeSeries _series = null;
 
         private readonly IBikeESRepository _bikeESRepository;
+        private readonly IBikeModels _bikeModels;
 
         private readonly string _indexName;
 
@@ -48,13 +49,17 @@ namespace BikeWaleOpr.Common
             {
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
                     .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
-                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
-                .RegisterType<IBikeESRepository, BikeESRepository>()
-                .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
-            .RegisterType<IBikeBodyStyles, BikeBodyStyles>();
+                    .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
+                    .RegisterType<IBikeESRepository, BikeESRepository>()
+                    .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
+                    .RegisterType<IBikeBodyStyles, BikeBodyStyles>()
+                    .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+
                 _series = container.Resolve<IBikeSeries>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
+                
+                _bikeModels = container.Resolve<IBikeModels>();
             }
         }
         /// <summary>
@@ -248,6 +253,7 @@ namespace BikeWaleOpr.Common
                         // function to update model masking name in elastic search
 
                         UpdateBikeESIndex(makeId, modelId, maskingName);
+                        _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
                     }
                     else
                     {

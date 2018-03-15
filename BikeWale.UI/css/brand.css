@@ -1250,6 +1250,21 @@
 	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/india.png');
 	background-repeat: no-repeat;
 	opacity: .7;
-
+}
+.jcarousel-wrapper.carousel__recently-added {
+     width: 644px;
+     padding-right: 0;
+}
+.make-image-content {
+    position:relative;
+}
+.make-image-content:after {
+    content: '';
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid #e2e2e2;
+    margin: 20px 20px 0;
 
 }

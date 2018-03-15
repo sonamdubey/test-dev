@@ -55,30 +55,33 @@ namespace Bikewale.Mobile.Used
                 widgetUploadPhotoRequest.BikeName = bikeName;
                 BindUsedBikePhotos();
                 BindUserControls();
-
-                if (inquiryDetails.PhotosCount == 0)
+                if(inquiryDetails != null)
                 {
-                    using (IUnityContainer container = new UnityContainer())
+                    if (inquiryDetails.PhotosCount == 0)
                     {
-                        bool isDealer;
-                        string inquiryId = "", consumerType = "";
-                        CustomerEntityBase buyer = new CustomerEntityBase();
-
-                        BWCookies.GetBuyerDetailsFromCookie(ref buyer);
-
-                        if (buyer.CustomerId > 0)
+                        using (IUnityContainer container = new UnityContainer())
                         {
-                            container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
-                            IUsedBikeBuyerRepository _buyerRepo = container.Resolve<IUsedBikeBuyerRepository>();
-                            UsedBikeProfileId.SplitProfileId(profileId, out inquiryId, out consumerType);
-                            //set bool for dealer listing or individual
-                            isDealer = consumerType.Equals("D", StringComparison.CurrentCultureIgnoreCase);
+                            bool isDealer;
+                            string inquiryId = "", consumerType = "";
+                            CustomerEntityBase buyer = new CustomerEntityBase();
 
-                            isPhotoRequestDone = _buyerRepo.IsPhotoRequestDone(inquiryId, buyer.CustomerId, isDealer);
+                            BWCookies.GetBuyerDetailsFromCookie(ref buyer);
+
+                            if (buyer.CustomerId > 0)
+                            {
+                                container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
+                                IUsedBikeBuyerRepository _buyerRepo = container.Resolve<IUsedBikeBuyerRepository>();
+                                UsedBikeProfileId.SplitProfileId(profileId, out inquiryId, out consumerType);
+                                //set bool for dealer listing or individual
+                                isDealer = consumerType.Equals("D", StringComparison.CurrentCultureIgnoreCase);
+
+                                isPhotoRequestDone = _buyerRepo.IsPhotoRequestDone(inquiryId, buyer.CustomerId, isDealer);
+                            }
+
                         }
-
                     }
                 }
+                
             }
             else
             {
@@ -114,37 +117,79 @@ namespace Bikewale.Mobile.Used
         {
             try
             {
-                ctrlSimilarUsedBikes.InquiryId = inquiryId;
-                ctrlSimilarUsedBikes.CityId = inquiryDetails.City.CityId;
-                ctrlSimilarUsedBikes.CityMaskingName = inquiryDetails.City.CityMaskingName;
-                ctrlSimilarUsedBikes.CityName = inquiryDetails.City.CityName;
-                ctrlSimilarUsedBikes.ModelId = (uint)inquiryDetails.Model.ModelId;
-                ctrlSimilarUsedBikes.TopCount = 4;
-                ctrlSimilarUsedBikes.ModelName = inquiryDetails.Model.ModelName;
-                ctrlSimilarUsedBikes.ModelMaskingName = inquiryDetails.Model.MaskingName;
-                ctrlSimilarUsedBikes.MakeName = inquiryDetails.Make.MakeName;
-                ctrlSimilarUsedBikes.MakeMaskingName = inquiryDetails.Make.MaskingName;
-                ctrlSimilarUsedBikes.BikeName = bikeName;
-                ctrlSimilarUsedBikes.WidgetHref = string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
-                ctrlSimilarUsedBikes.WidgetTitle = string.Format("More second-hand {0} {1} Bikes in {2}", inquiryDetails.Make.MakeName, inquiryDetails.Model.ModelName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
-
-                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(inquiryDetails.Make.MakeId);
-                ctrlServiceCenterCard.makeMaskingName = inquiryDetails.Make.MaskingName;
-                ctrlServiceCenterCard.makeName = inquiryDetails.Make.MakeName;
-                ctrlServiceCenterCard.CityId = inquiryDetails.City.CityId;
-                ctrlServiceCenterCard.cityName = inquiryDetails.City.CityName;
-                ctrlServiceCenterCard.cityMaskingName = inquiryDetails.City.CityMaskingName;
-                ctrlServiceCenterCard.TopCount = 9;
-                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
-                if (ctrlusedBikeModel != null)
+                if(inquiryDetails != null)
                 {
-                    if (inquiryDetails.City.CityId > 0)
-                        ctrlusedBikeModel.CityId = inquiryDetails.City.CityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
-                    ctrlusedBikeModel.header = string.Format("More second-hand bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
-                    ctrlusedBikeModel.TopCount = 9;
+                    if(ctrlSimilarUsedBikes != null)
+                    {
+                        ctrlSimilarUsedBikes.InquiryId = inquiryId;
+                        if(inquiryDetails.City != null)
+                        {
+                            ctrlSimilarUsedBikes.CityId = inquiryDetails.City.CityId;
+                            ctrlSimilarUsedBikes.CityMaskingName = inquiryDetails.City.CityMaskingName;
+                            ctrlSimilarUsedBikes.CityName = inquiryDetails.City.CityName;
+                        }
+                        if(inquiryDetails.Model != null)
+                        {
+                            ctrlSimilarUsedBikes.ModelId = (uint)inquiryDetails.Model.ModelId;
+                            ctrlSimilarUsedBikes.ModelName = inquiryDetails.Model.ModelName;
+                            ctrlSimilarUsedBikes.ModelMaskingName = inquiryDetails.Model.MaskingName;
+                        
+                        }
+                        if(inquiryDetails.Make != null)
+                        {
+                            ctrlSimilarUsedBikes.MakeName = inquiryDetails.Make.MakeName;
+                            ctrlSimilarUsedBikes.MakeMaskingName = inquiryDetails.Make.MaskingName;
+                        }
+                        ctrlSimilarUsedBikes.TopCount = 4;
+                        ctrlSimilarUsedBikes.BikeName = bikeName;
+                        if(inquiryDetails.Make != null && inquiryDetails.Model != null && inquiryDetails.City != null)
+                        {
+                            ctrlSimilarUsedBikes.WidgetHref = string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
+                            ctrlSimilarUsedBikes.WidgetTitle = string.Format("More second-hand {0} {1} Bikes in {2}", inquiryDetails.Make.MakeName, inquiryDetails.Model.ModelName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+                        
+                        }
+                        
+                    }
+                    if(ctrlServiceCenterCard != null)
+                    {
+                        if (inquiryDetails.Make != null)
+                        {
+                            ctrlServiceCenterCard.MakeId = Convert.ToUInt32(inquiryDetails.Make.MakeId);
+                            ctrlServiceCenterCard.makeMaskingName = inquiryDetails.Make.MaskingName;
+                            ctrlServiceCenterCard.makeName = inquiryDetails.Make.MakeName;
+                        }
+                        if (inquiryDetails.City != null)
+                        {
+                            ctrlServiceCenterCard.CityId = inquiryDetails.City.CityId;
+                            ctrlServiceCenterCard.cityName = inquiryDetails.City.CityName;
+                            ctrlServiceCenterCard.cityMaskingName = inquiryDetails.City.CityMaskingName;
+                        }
+                        ctrlServiceCenterCard.TopCount = 9;
+                        if(inquiryDetails.Make != null && inquiryDetails.City != null)
+                        {
+                            ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
+                        }
+                        
+                
+                    }
+                    if (ctrlusedBikeModel != null)
+                    {
+                        if(inquiryDetails.City != null)
+                        {
+                            if (inquiryDetails.City.CityId > 0)
+                            {
+                                ctrlusedBikeModel.CityId = inquiryDetails.City.CityId;
+                            }
+                            ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+                            ctrlusedBikeModel.header = string.Format("More second-hand bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+                            ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
+                            ctrlusedBikeModel.TopCount = 9;
+                        }
+                        
+                    }
                 }
+                
+                
             }
             catch (Exception ex)
             {
