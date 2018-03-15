@@ -1,7 +1,7 @@
 ﻿docReady(function () {
 	$('.overall-tabs__list .overall-tabs-list__item').first().addClass('tab--active');
 
-	$('.model-card__pros-cons').on('click', '.pros-cons__more-btn', function(event) {
+	$('.model-card__pros-cons').on('click', '.pros-cons__more-btn', function (event) {
 		$(this).hide();
 		$(this).closest('.pros-cons__content').find('li').show();
 	});
@@ -20,11 +20,11 @@
     });
 
 	// popular bikes carousel
-	if (navigator.userAgent.match(/Firefox/gi)) {
+	if (navigator.userAgent.match(/Firefox/gi) || navigator.userAgent.match(/UCBrowser/gi)) {
 		$('.carousel__popular-bikes').addClass('popular-bikes--fallback');
 	}
 
-	$('.carousel__popular-bikes').on('click', '.view-pros-cons__target', function() {
+	$('.carousel__popular-bikes').on('click', '.view-pros-cons__target', function () {
 		var modelCard = $(this).closest('.model__card');
 
 		$(this).hide();
@@ -37,8 +37,8 @@
 		}
 	});
 
-	$('.carousel__popular-bikes').on('webkitTransitionEnd transitionend', '.model-card__detail', function() {
-		var modelCard = $(this).closest('.model__card');		
+	$('.carousel__popular-bikes').on('webkitTransitionEnd transitionend', '.model-card__detail', function () {
+		var modelCard = $(this).closest('.model__card');
 		var collpaseTargetElement = modelCard.find('.view-pros-cons__target');
 
 		var collapseCurrentText = collpaseTargetElement.html(),
@@ -51,7 +51,7 @@
 			else {
 				modelCard.addClass('collapse-btn--active');
 			}
-			
+
 			collpaseTargetElement.attr('data-text', collapseCurrentText);
 			collpaseTargetElement.html(collapseNextText).fadeIn();
 		}
@@ -69,13 +69,51 @@
 		notifyPopup.open();
 	});
 
+
+	$('.emicalculator_link_event').on('click', function () {
+	    var data = $(this);
+
+	    var emiDetails = JSON.parse(atob(data.data('emidetails')));
+	    var bikePrice = data.data('bikeprice');
+	    var bikeExshowroomPrice = data.data('bikeexshowroomprice');
+
+	    EMIviewModel.processingFees(emiDetails.processingFee);
+	    EMIviewModel.exshowroomprice(bikePrice);
+	    EMIviewModel.bikePrice(bikePrice);
+	    EMIviewModel.minTenure(emiDetails.minTenure);
+	    EMIviewModel.maxTenure(emiDetails.maxTenure);
+	    EMIviewModel.minDnPay(emiDetails.minDownPayment);
+	    EMIviewModel.maxDnPay(emiDetails.maxDownPayment);
+	    EMIviewModel.minROI(emiDetails.minRateOfInterest);
+	    EMIviewModel.maxROI(emiDetails.maxRateOfInterest);
+	    EMIviewModel.loan(emiDetails.minLoanToValue);
+
+	    var emiPopup = $('#emiPopup');
+	    emiCalculator.open(emiPopup);
+
+	});
+
 	formField.registerEvents();
-	
+
 	//interesting fact popup
 	interestingFactPopup.registerEvents();
 
-  //floating navbar
+	//floating navbar
 	floatingNav.registerEvents();
+
+	//recommended bike popup
+	recommendedBikePopup.registerEvents();
+
+	// filters popup
+	BikeFiltersPopup.registerEvents();
+	if (vmRecommendedBikes != null && vmRecommendedBikes.searchFilter!=null)
+	{
+	    vmRecommendedBikes.searchFilter.makeId = $('#hdnMakeId').val();
+	    vmRecommendedBikes.searchFilter.cityId = $('#hdnCityId').val();
+	    vmRecommendedBikes.searchFilter.makeName = $('#makeName').val();
+	}
+
+	Accordion.registerEvents();
 });
 
 
@@ -101,7 +139,7 @@ var floatingNav = (function () {
 		_setFallback();
 
 		$(window).scroll(function () {
-		    var windowScrollTop = $(window).scrollTop(),
+			var windowScrollTop = $(window).scrollTop(),
                 specsTabsOffsetTop = $('.overall-tabs__placeholder').offset().top,
 				overallContainerHeight = overallContainer.outerHeight();
 
@@ -123,30 +161,31 @@ var floatingNav = (function () {
 				var top = $(this).offset().top - topNavBarHeight,
 					bottom = top + $(this).outerHeight();
 				if (windowScrollTop >= top && windowScrollTop <= bottom) {
-				    
+
 					$(this).addClass('tab--active');
 					var currentActiveTab = overallTabsContainer.find('li[data-tabs="' + $(this).attr('data-id') + '"]');
 					if (overallTabsContainer.attr('data-clicked') != '1' && !currentActiveTab.hasClass('tab--active')) {
-					    centerNavBar($('li[data-tabs="' + $(this).attr('data-id') + '"]'), overallTabsContainer);
-					    overallTabsContainer.find('li').removeClass('tab--active');
-					    setTimeout(function () {
-					    overallTabsContainer.find('li').removeClass('tab--active');
-					    $('#overallContainer .overall-tabs-data').removeClass('tab--active');					      
-					        
-					      overallTabsContainer.find(currentActiveTab).addClass('tab--active');
-					    },10);
-					   
+						centerNavBar($('li[data-tabs="' + $(this).attr('data-id') + '"]'), overallTabsContainer);
+						overallTabsContainer.find('li').removeClass('tab--active');
+						setTimeout(function () {
+							overallTabsContainer.find('li').removeClass('tab--active');
+							$('#overallContainer .overall-tabs-data').removeClass('tab--active');
+
+							overallTabsContainer.find(currentActiveTab).addClass('tab--active');
+						}, 10);
+
 					}
 					else {
-					    overallTabsContainer.find('li').removeClass('tab--active');
-					    $('#overallContainer .overall-tabs-data').removeClass('tab--active');
-					    overallTabsContainer.find(currentActiveTab).addClass('tab--active');
+						overallTabsContainer.find('li').removeClass('tab--active');
+						$('#overallContainer .overall-tabs-data').removeClass('tab--active');
+						overallTabsContainer.find(currentActiveTab).addClass('tab--active');
 					}
 
 
 				}
 
 			});
+
 		});
 		$('.overall-tabs__list li').on('click', function () {
 			var target = $(this).attr('data-tabs'),
@@ -154,9 +193,9 @@ var floatingNav = (function () {
 			overallTabsContainer.attr('data-clicked', '1');
 			centerItVariableWidth($(this), overallTabsContainer)
 			$('html, body').animate({ scrollTop: Math.ceil($(".overall-tabs-data[data-id=" + target + "]").offset().top) - topNavBarHeight }, 1000, function () {
-			    overallTabsContainer.attr('data-clicked', '0');
+				overallTabsContainer.attr('data-clicked', '0');
 			});
-			
+
 		});
 
 		function centerNavBar(target, outer) {
@@ -207,7 +246,7 @@ function executeNotification(buttonElement) {
     });
 }
 /* upcoming bikes set notification popup */
-var notifyPopup = (function() {
+var notifyPopup = (function () {
 	var container, emailField, formSubmitBtn;
 
 	function _setSelectors() {
@@ -225,7 +264,18 @@ var notifyPopup = (function() {
 	function registerEvents() {
 		_setSelectors();
 
-		emailField.on('focus', function() {
+		formSubmitBtn.on('click', function () {
+			var isValid = validateForm.emailField(emailField);
+
+			if (isValid) {
+				formField.setSuccessState($(this), 'Thank You!');
+				setTimeout(function () {
+					$('#notifyCloseBtn').trigger('click');
+				}, 1000);
+			}
+		});
+
+		emailField.on('focus', function () {
 			validateForm.onFocus($(this));
 		});
 
@@ -235,8 +285,8 @@ var notifyPopup = (function() {
 		});
 
 		$(window).on('popstate', function () {
-			if (container.hasClass('notify-popup--active')) {
-				notifyPopup.close();
+			if (container.hasClass('filter-screen--active')) {
+				close();
 			}
 		});
 	}
@@ -270,9 +320,9 @@ var notifyPopup = (function() {
 })();
 
 /* Form fields */
-var formField = (function() {
+var formField = (function () {
 	function registerEvents() {
-		$(document).on('focus', '.form-field__input', function() {
+		$(document).on('focus', '.form-field__input', function () {
 			var fieldContainer = $(this).closest('.form-field__content');
 
 			if (!fieldContainer.hasClass('btn--active')) {
@@ -305,7 +355,7 @@ var formField = (function() {
 })();
 
 /* Form field validation */
-var validateForm = (function() {
+var validateForm = (function () {
 
 	function emailField(inputField) {
 		var isValid = true,
@@ -352,7 +402,6 @@ var validateForm = (function() {
 
 })();
 
-
 var interestingFactPopup = (function () {
 	var container, readMoreBtn, closeBtn;
 
@@ -365,22 +414,26 @@ var interestingFactPopup = (function () {
 		_setSelectores();
 
 		$('.interesting-fact__read-more').on('click', function () {
-		    var interestingFactContainer = $(this).closest('.interesting-fact-section'),
+			var interestingFactContainer = $(this).closest('.interesting-fact-section'),
 		        windowScrollTop = $(window).scrollTop(),
                 bodyShowableArea = $(window).height() * .30,
 		        shownArea = interestingFactContainer.offset().top - windowScrollTop;
 
-		    if (shownArea < bodyShowableArea) {
-		        $('html, body').animate({ scrollTop: (windowScrollTop - (bodyShowableArea-shownArea)) }, 100);
-		    }
-		    open(interestingFactContainer);
-		    if (isScrollable($('.interesting-fact__content'))) {
-		        interestingFactContainer.find('.fact-container__block').attr('data-overlay', 'bottom');
-		    }
-		    history.pushState('interestingFactPopup', '', '');
-		    setTimeout(function () {
-                documentBody.lock();
-		    }, 100);
+			if (shownArea < bodyShowableArea) { // to move interesting fact container if it is visible in background after popup open 
+				$('html, body').animate({ scrollTop: (windowScrollTop - (bodyShowableArea - shownArea)) }, 100);
+			}
+			open(interestingFactContainer);
+			history.pushState('interestingFactPopup', '', '');
+
+			/* to check content is scrollable on popup to add bottom overlay */
+			if (isScrollable($('.interesting-fact__content'))) {
+				interestingFactContainer.find('.fact-container__block').attr('data-overlay', 'bottom');
+			}
+
+			/* this timeout required for if background container scrolltop position changed on popup open */
+			setTimeout(function () {
+				documentBody.lock();
+			}, 100);
 
 		});
 
@@ -419,10 +472,10 @@ var interestingFactPopup = (function () {
 	}
 
 	function open(interestingFactContainer) {
-	    var interestingFactContent = interestingFactContainer.find('.interesting-fact__content').html();
+		var interestingFactContent = interestingFactContainer.find('.interesting-fact__content').html();
 		container.addClass('interesting-popup--active');
 		container.find('.interesting-fact__content').html(interestingFactContent);
-		
+
 	}
 
 	function close() {
@@ -431,7 +484,7 @@ var interestingFactPopup = (function () {
 	}
 
 	function isScrollable(element) {
-	    return element[0].scrollWidth > element[0].clientWidth || element[0].scrollHeight > element[0].clientHeight;
+		return element[0].scrollWidth > element[0].clientWidth || element[0].scrollHeight > element[0].clientHeight;
 	};
 
 	return {
@@ -440,7 +493,7 @@ var interestingFactPopup = (function () {
 	}
 })();
 
-var documentBody = (function() {
+var documentBody = (function () {
 	function lock() {
 		var htmlElement = $('html'), bodyElement = $('body');
 
@@ -466,4 +519,96 @@ var documentBody = (function() {
 		unlock: unlock
 	}
 
+})();
+
+var BikeFiltersPopup = (function () {
+	var container, backgroundWindow, closeBtn;
+
+	function _setSelectors() {
+		container = $('#filtersPopup');
+		backgroundWindow = $('#filtersBlackoutWindow');
+		closeBtn = $('#filterClose');
+	}
+
+	function registerEvents() {
+		_setSelectors();
+		_setBodyDimension();
+
+		$(backgroundWindow).on('click', function () {
+			if (container.hasClass('filters-screen--active')) {
+				window.history.back();
+			}
+		});
+
+		$('#filterClose').on('click', function () {
+			backgroundWindow.trigger('click');
+		});
+
+		$(window).on('popstate', function () {
+			if (container.hasClass('filters-screen--active') && history.state === "recommendedBikePopup") {
+				close();
+			}
+		});
+	}
+
+	function _setBodyDimension() {
+		var bodyHeight = container.find('.filters__screen').height() - container.find('.filters-screen__head').height();
+
+		container.find('.filters-screen__body').css('height', bodyHeight);
+	}
+
+	function open() {
+		container.addClass('filters-screen--active');
+		history.pushState('filtersPopup', '', '');
+	}
+
+	function close() {
+		container.removeClass('filters-screen--active');
+	}
+
+	return {
+		registerEvents: registerEvents,
+		open: open,
+		close: close
+	}
+
+   
+
+})();
+
+var Accordion = (function () {
+	function registerEvents() {
+		$('.accordion__list').on('click', '.accordion__head', function () {
+			handleClick($(this))
+		});
+	}
+
+	function handleClick(accordionHead) {
+		var accordionList = accordionHead.closest('.accordion__list');
+
+		if (accordionList.attr('data-state') === 'one') {
+			var accordionItem = accordionHead.closest('.accordion-list__item');
+			var accordionSiblingItems = accordionItem.siblings('.accordion-list__item');
+
+			accordionSiblingItems.find('.accordion-item--active').removeClass('accordion-item--active');
+			accordionSiblingItems.find('.accordion__body').css('height', 0);
+
+			var accordionBody = accordionHead.siblings('.accordion__body');
+			var accordionContentHeight = accordionBody.find('.accordion-body__content').outerHeight(true);
+
+			if (!accordionHead.hasClass('accordion-item--active')) {
+				accordionHead.addClass('accordion-item--active');
+				accordionBody.css('height', accordionContentHeight);
+			}
+			else {
+				accordionHead.removeClass('accordion-item--active');
+				accordionBody.css('height', 0);
+			}
+		}
+
+	}
+
+	return {
+		registerEvents: registerEvents
+	}
 })();

@@ -206,6 +206,7 @@
     <Compile Include="BikeData\BikeVersions.cs" />
     <Compile Include="BikeData\NewLaunched\NewBikeLaunchesBL.cs" />
     <Compile Include="BikeData\Upcoming.cs" />
+    <Compile Include="BikeSearch\BikeSearch.cs" />
     <Compile Include="BikeSearch\BikeSearchResult.cs" />
     <Compile Include="BikeSearch\NewBikeSearchMapper.cs" />
     <Compile Include="CMS\CMS.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="Dealer\Dealer.cs" />
     <Compile Include="EditCMS\Articles.cs" />
     <Compile Include="Feedback\Feedback.cs" />
+    <Compile Include="Filters\PageFilters.cs" />
     <Compile Include="Finance\CapitalFirst.cs" />
     <Compile Include="GrpcFiles\CustomGRPCLoadBalancer.cs" />
     <Compile Include="GrpcFiles\EditCms.cs" />
@@ -289,6 +291,10 @@
       <Project>{a6404f19-b267-4e37-b186-d8fc010ad2ce}</Project>
       <Name>Bikewale.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+      <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
+      <Name>Bikewale.ElasticSearch.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
@@ -332,6 +338,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
+    <Folder Include="Elastic\" />
     <Folder Include="Insurance\" />
     <Folder Include="PhotoGallery\" />
   </ItemGroup>

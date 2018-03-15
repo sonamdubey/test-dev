@@ -1,5 +1,8 @@
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Interface.BikeData;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using RabbitMqPublishing;
 using System;
@@ -26,8 +29,23 @@ namespace BikeWaleOpr.Content
         protected HtmlInputFile filLarge;
         protected string verId = string.Empty, isReplicated = string.Empty;
         string timeStamp = CommonOpn.GetTimeStamp();
+        private readonly IBikeModels _bikeModels;
 
         string qryStrModel = "";
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9 March 2018
+        /// Description: To initialize _bikeModels using unity resolver. 
+        /// </summary>
+        public VersionPhotos()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                _bikeModels = container.Resolve<IBikeModels>();
+            }
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -71,6 +89,12 @@ namespace BikeWaleOpr.Content
             pnlAdd.Visible = true;
         }
 
+        /// <summary>
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="e"></param>
         void btnSave_Click(object Sender, EventArgs e)
         {
             Trace.Warn("Uploading Photos...");
@@ -85,6 +109,8 @@ namespace BikeWaleOpr.Content
                 {
                     UpdateVersions(lt.Text, out originalImgPath);
                     SavePhoto(lt.Text, originalImgPath.Split('?')[0]);
+
+                    _bikeModels.UpdateModelESIndex(qryStrModel, "update");
                 }
             }
 
@@ -95,6 +121,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Modified By : Sadhana Upadhyay on 29th Jan 2014
         /// Summary : To Set IsReplication = 1
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -114,6 +142,8 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, qryStrModel));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                    _bikeModels.UpdateModelESIndex(qryStrModel, "update");
 
                     BindRepeater();
                 }
