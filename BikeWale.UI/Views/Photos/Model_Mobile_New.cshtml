@@ -268,7 +268,7 @@
 
 					<div data-id="allImages">
 						<ul id="imageGridTop" class="image-grid__list" data-grid="7">
-							@for (i = 0; i < 7; i++)
+							@for (i = 0; i < Math.Min(Model.GridPhotoCount, 7); i++)
 							{
 								<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
 									<img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" class="" />
