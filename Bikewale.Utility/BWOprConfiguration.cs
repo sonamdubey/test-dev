@@ -71,7 +71,11 @@ namespace Bikewale.Utility
             _notificationCCUserMailId = String.Empty,
             _EmailsForBikeChange = String.Empty,
             _BwHostUrl = String.Empty,
-            _notificationToMailIdForPageMetas = string.Empty;
+            _notificationToMailIdForPageMetas = string.Empty,
+            _BWEsIndexUpdaterQueue = string.Empty,
+            _bikeModelPriceIndex = String.Empty,
+            _BWEsBuilderQueue = String.Empty,
+            _bikeModelIndex = String.Empty;
 
 
         private readonly bool _CORSEnabled = false, _IsAppTrackDayVisible = false;
@@ -143,6 +147,10 @@ namespace Bikewale.Utility
             _EmailsForBikeChange = Convert.ToString(ConfigurationManager.AppSettings["EmailsForBikeChange"]);
             _BwHostUrl = Convert.ToString(ConfigurationManager.AppSettings["BwHostUrl"]);
             _notificationToMailIdForPageMetas = Convert.ToString(ConfigurationManager.AppSettings["notificationToMailIdForPageMetas"]);
+            _BWEsIndexUpdaterQueue = Convert.ToString(ConfigurationManager.AppSettings["BWEsIndexUpdaterQueue"]);
+            _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
+            _BWEsBuilderQueue = Convert.ToString(ConfigurationManager.AppSettings["BWEsBuilderQueue"]);
+            _bikeModelIndex = Convert.ToString(ConfigurationManager.AppSettings["BikeIndex"]);
         }
 
         // Static method to provide access to instance
@@ -285,5 +293,10 @@ namespace Bikewale.Utility
         public String AWSS3Region { get { return _AWSS3Region; } }
         public string EmailsForBikeChange { get { return _EmailsForBikeChange; } }
         public string BwHostUrl { get { return _BwHostUrl; } }
+
+        public string BWEsIndexUpdaterQueue { get { return _BWEsIndexUpdaterQueue; } }
+        public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
+        public string BWEsBuilderQueue { get { return _BWEsBuilderQueue; } }
+        public string BikeModelIndex { get { return _bikeModelIndex; } }
     }   // class
 }   // namespace

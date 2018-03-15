@@ -329,6 +329,48 @@ namespace BikewaleOpr.DALs.Bikedata
         }
 
         /// <summary>
+        /// Created By : Deepak Israni on 14 March 2018
+        /// Description: Returns all the models of a sepecific make.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId)
+        {
+            IList<BikeModelEntityBase> models = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelsbymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            models = new List<BikeModelEntityBase>();
+                            BikeModelEntityBase obj;
+                            while (dr.Read())
+                            {
+                                obj = new BikeModelEntityBase();
+                                obj.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                obj.ModelName = Convert.ToString(dr["ModelName"]);
+                                obj.MaskingName = Convert.ToString(dr["ModelMasking"]);
+                                models.Add(obj);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.GetModelsByMake : makeId {0}", makeId));
+            }
+            return models;
+        }
+
+        /// <summary>
         /// Created by : Aditi Srivastava on 23 May 2017
         /// Summary    : Get models information for a particular makeId
         /// </summary>
@@ -582,7 +624,48 @@ namespace BikewaleOpr.DALs.Bikedata
 		} 
 		#endregion
 
-	}
+
+        /// <summary>
+        /// Created By : Deepak Israni on 22 Feb 2018
+        /// Description: To get the model id list respective to the version ids.
+        /// </summary>
+        /// <param name="versions"></param>
+        /// <returns></returns>
+        public string GetModelsByVersions(string versions)
+        {
+            String spName = "getmodelfromversion";
+
+            string models = "";
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand(spName))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionids", DbType.String, versions));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                models += string.Format("{0},", SqlReaderConvertor.ToUInt32(dr["ModelId"]));
+                            }
+
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.GetModelsByVersions: Versions- {0}", versions));
+            }
+
+            return models;
+        }
+    }
 }
 
 

@@ -1,0 +1,416 @@
+﻿@model Bikewale.Models.NewBikeSearch.NewBikeSearchPopupVM
+@using Bikewale.Entities.GenericBikes
+@using Bikewale.Utility
+@using Newtonsoft.Json
+@{
+    int[] minSpecsLen = new int[3];
+}
+@if (Model != null)
+{
+    <div id="dvNewBikeSearchPopup">
+        
+        <div id="recommendedBikePopup">
+            
+            <div class="recommended-bike-popup">
+                <span id="recommendedBikeCloseBtn"></span>
+                <p class="recommended-bike__found-result">
+
+                    <span data-bind="visible: isBikesLoading()">Searching for bikes...</span>
+                    <span data-bind="visible: !isBikesLoading()">
+                        <span data-bind="text: noOfBikes()>0 ? noOfBikes() : 'No'"></span>
+                        bike<span data-bind="visible: noOfBikes()>1">s</span> found based on your criteria
+                    </span>
+                </p>
+                <div class="recommended-bike__filter-section">
+                    <div class="recommended-bike__filter-content">
+                        <ul id="appliedFilterList" class="filter-list"></ul>
+                    </div>
+                    <div class="filter__edit" data-make-name="@Model.MakeName">Edit</div>
+                </div>
+                <div class="recommended-bike-container">
+                    
+                        <div class="not-found-container" data-bind="visible: !isBikesLoading() && !isOtherBikesLoading() && !(noOfBikes() > 0 || noOfOtherBikes() > 0)">
+                            <div class="not-found-section">
+                                <span class="not-found__image"></span>
+                                <div class="not-found-description">
+                                    <p class="not-found__title">Oops!</p>
+                                    <p class="not-found__subtitle">We couldn't find any bike based on your criteria.</p>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <section data-bind="visible: isBikesLoading() || isOtherBikesLoading() || noOfBikes() > 0 || noOfOtherBikes() > 0">
+                            <div class="bg-white section-bottom-margin">
+                                <h2 class="recommended-bike__title page__heading-h2">Recommended @Model.MakeName Bikes</h2>
+                              
+                                <div class="not-found-container" data-bind="visible: !isBikesLoading() && !(noOfBikes() > 0)">
+                                    <div class="not-found-section">
+                                        <span class="not-found__image">
+
+                                        </span>
+                                        <div class="not-found-description">
+                                            <p class="not-found__title">
+                                                Oops!
+                                            </p>
+                                            <p class="not-found__text">
+                                                We couldn't find any bike based on your criteria.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                   <div class="recommended-bike-section">
+                                        <ul class="model-loader-list__content" data-bind="visible: isBikesLoading()">
+                                            @for (var i = 1; i <= 2; i++)
+                                            {
+                                                <li class="model-loader-list__item">
+                                                    <div class="model__card">
+                                                        <div class="model-loader__box">
+                                                            <div class="model-loader__image"></div>
+                                                            <div class="model-loader__title">
+                                                            </div>
+                                                        </div>
+                                                        <div class="model-exshowroom__loader-box">
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                            }
+                                        </ul>
+                                        <ul class="recommended-bike-list" data-bind="visible : !isBikesLoading(), foreach: bikes()">
+                                                <li class="recommended-bike__list-card">
+                                                    <div class="model__card">
+                                                        <a data-bind="attr: { href: '/m/' + $data.bikeMake.makeMaskingName + '-bikes/' + $data.bikeModel.modelMaskingName + '/', title: $data.bikeName}" class="model-card__target">
+                                                            <div class="model-card__image">
+                                                                <img class="lazy" data-bind="attr: { src: $data.bikeImage.hostURL + '/144x81/' + $data.bikeImage.imageURL, title: $data.bikeName, alt: $data.bikeName}">
+                                                            </div>
+                                                            <div class="model-card__detail">
+                                                                <span class="rating-badge" data-bind="visible: ($data.reviewRatings > 0), attr: { 'data-rate-bg': $root.doubleToInt($data.reviewRatings)}">
+                                                                    <span class="rating-badge__star"></span>
+                                                                    <span data-bind="numericText: $data.reviewRatings"></span>
+                                                                </span>
+                                                                <div class="font8 inline-block">
+                                                                    <span class="no-rating text-light-grey inline-block margin-bottom5" data-bind="visible: ($data.reviewRatings == 0)">Not rated yet</span>
+                                                                </div>                                                             
+                                                                <p class="model-detail__make-name" data-bind="text: $data.bikeMake.makeName"></p>
+                                                                <h3 class="card-detail__name" data-bind="text: $data.bikeModel.modelName"></h3>
+                                                                <ul class="card-detail__specs-list">
+                                                                    <li data-bind="visible: ($data.topVersion.displacement > 0)"><span data-bind="text: $data.topVersion.displacement"></span> cc</li>
+                                                                    <li data-bind="visible: ($data.topVersion.mileage > 0)"><span data-bind="text: $data.topVersion.mileage"></span> kmpl</li>
+                                                                    <li data-bind="visible: ($data.topVersion.power > 0)"><span data-bind="text: $data.topVersion.power"></span> bhp</li>
+                                                                    <li data-bind="visible: ($data.topVersion.kerbWeight > 0)"><span data-bind="text: $data.topVersion.kerbWeight"></span> kg</li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="model-card__exshowroom-content">
+                                                                <div class="model-card__exshowroom">
+                                                                    <div class="card-exshowroom__col">
+                                                                        <p class="card-exshowroom__label">Ex-showroom, <span data-bind="text : $data.hasCityPrice ? $data.cityName : 'Mumbai'"></span></p>
+                                                                        <span class="card-exshowroom__value" data-bind="visible: $data.topVersion.exshowroom > 0">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span><span class="font14"> onwards</span></span>
+                                                                        <p class="text-default" data-bind="visible: !($data.topVersion.exshowroom > 0)"><span class="font14">Price not available</span></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </li>
+
+                                        </ul>
+                                    </div>
+
+                            </div>
+                        </section>
+                        <section data-bind="visible: isBikesLoading() || isOtherBikesLoading() || noOfBikes() > 0 || noOfOtherBikes() > 0">
+                                <div class="other-recommended-bike">
+                                    <h2 class="recommended-bike__title page__heading-h2" data-bind="visible : noOfOtherBikes() > 0">Other Recommended Bikes <span data-bind="visible: noOfOtherBikes() > 0">(<span data-bind="text : noOfOtherBikes()"></span>)</span></h2>
+                                    <ul class="model-loader-list__content" data-bind="visible: isOtherBikesLoading()">
+                                        @for (var i = 1; i <= 2; i++)
+                                        {
+                                            <li class="model-loader-list__item">
+                                                <div class="model__card">
+                                                    <div class="model-loader__box">
+                                                        <div class="model-loader__image"></div>
+                                                        <div class="model-loader__title">
+                                                        </div>
+                                                    </div>
+                                                    <div class="model-exshowroom__loader-box">
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                        }
+                                    </ul>
+                                    <ul class="recommended-bike-list" data-bind="visible: !isOtherBikesLoading(), foreach : bikesOtherMakes()">
+                                            <li class="recommended-bike__list-card">
+                                                <div class="model__card">
+                                                    <a data-bind="attr: { href: '/m/' + $data.bikeMake.makeMaskingName + '-bikes/' + $data.bikeModel.modelMaskingName + '/', title: $data.bikeName}" class="model-card__target">
+                                                        <div class="model-card__image">
+                                                            <img class="lazy" data-bind="attr: { src: bikeImage.hostURL +'/144x81/' + bikeImage.imageURL, title: $data.bikeName, alt: $data.bikeName}">
+                                                        </div>
+                                                        <div class="model-card__detail">
+                                                            <span class="rating-badge" data-bind="visible: ($data.reviewRatings > 0), attr: { 'data-rate-bg': $root.doubleToInt($data.reviewRatings)}">
+                                                                <span class="rating-badge__star"></span>
+                                                                <span data-bind="numericText: $data.reviewRatings"></span>
+                                                            </span>
+                                                            <div class="font8 inline-block">
+                                                                <span class="no-rating text-light-grey inline-block margin-bottom5" data-bind="visible: ($data.reviewRatings == 0)">Not rated yet</span>
+                                                            </div>
+
+                                                            <p class="model-detail__make-name" data-bind="text : $data.bikeMake.makeName"></p>
+                                                            <h3 class="card-detail__name" data-bind="text : $data.bikeModel.modelName"></h3>
+                                                            <ul class="card-detail__specs-list">
+                                                                <li data-bind="visible: ($data.topVersion.displacement > 0)"><span data-bind="text: $data.topVersion.displacement"></span> cc</li>
+                                                                <li data-bind="visible: ($data.topVersion.mileage > 0)"><span data-bind="text: $data.topVersion.mileage"></span> kmpl</li>
+                                                                <li data-bind="visible: ($data.topVersion.power > 0)"><span data-bind="text: $data.topVersion.power"></span> bhp</li>
+                                                                <li data-bind="visible: ($data.topVersion.kerbWeight > 0)"><span data-bind="text: $data.topVersion.kerbWeight"></span> kg</li>
+                                                            </ul>
+                                                            </div>
+                                                        <div class="model-card__exshowroom-content">
+                                                            <div class="model-card__exshowroom">
+                                                                <div class="card-exshowroom__col">
+                                                                    <p class="card-exshowroom__label">Ex-showroom, <span data-bind="text : $data.hasCityPrice ? $data.cityName : 'Mumbai'"></span></p>
+                                                                    <span class="card-exshowroom__value" data-bind="visible: $data.topVersion.exshowroom > 0">₹&nbsp;<span class="text--semibold" data-bind="text : formatPrice($data.topVersion.exshowroom)"></span><span class="font14"> onwards</span></span>
+                                                                    <p class="text-default" data-bind="visible: !($data.topVersion.exshowroom > 0)"><span class="font14">Price not available</span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                    </ul>
+                                </div>
+                            </section>
+                      
+                </div>
+            </div>
+        </div>
+
+        <div id="filterSelectionToast" class="no-filters-selected-toast">
+        </div>
+
+        <div id="filtersPopup">
+            <div class="filters__screen">
+                <div class="filters-screen__head">
+                    <span id="filterClose" class="filter__close"></span>
+                    <span class="filters-head__title">Filter</span>
+                    <div class="filter__apply" data-bind="click: ApplyFilters">Apply</div>
+                </div>
+
+                <div class="filters-screen__body">
+                    <ul class="accordion__list" data-state="one">
+                        <li class="accordion-list__item filter-type__item" data-filter-type="budget">
+                            @{
+                                var budgetArray = RangeFactory.PriceRange;
+                            }
+                            <div class="accordion__head">
+                                <div class="accordion-head__content">
+                                    <p class="accordion-head__title">Budget</p>
+                                    <p id="budgetAmountPreview" class="accordion-head__preview">
+                                        <span data-bind="text: budgetAmountPreview"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="accordion__body">
+                                <div class="accordion-body__content budget__slider slider-box">
+                                    <div data-bind="KOSlider: budgetSlider, sliderOptions: { range: true, values: [0, 20], min: 0, max: 20, step: 1 }"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="accordion-list__item filter-type__item" data-filter-type="bodyType">
+                            <div class="accordion__head">
+                                <div class="accordion-head__content">
+                                    <p class="accordion-head__title">Body Type</p>
+                                    <p class="accordion-head__preview"></p>
+                                </div>
+                            </div>
+                            <div class="accordion__body">
+                                <div class="accordion-body__content">
+                                    <ul id="filterTypeBody" class="body-type__list">
+                                        <li>
+                                            <div class="bodytype-box" data-valuetext="@((uint)EnumBikeBodyStyles.Scooter)" data-value="@((uint)EnumBikeBodyStyles.Scooter)" id="bodytype-1" data-bind="click: checkboxSelection">
+                                                <span class="bodytype-box__icon bodytype-scooter"></span>
+                                                <span class="bodytype-box__label check-box__label">@EnumBikeBodyStyles.Scooter</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="bodytype-box" data-valuetext="@((uint)EnumBikeBodyStyles.Cruiser)" data-value="@((uint)EnumBikeBodyStyles.Cruiser)" id="bodytype-2" data-bind="click: checkboxSelection">
+                                                <span class="bodytype-box__icon bodytype-cruiser"></span>
+                                                <span class="bodytype-box__label check-box__label">@EnumBikeBodyStyles.Cruiser</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="bodytype-box" data-valuetext="@((uint)EnumBikeBodyStyles.Street)" data-value="@((uint)EnumBikeBodyStyles.Street)" id="bodytype-3" data-bind="click: checkboxSelection">
+                                                <span class="bodytype-box__icon bodytype-street"></span>
+                                                <span class="bodytype-box__label check-box__label">@EnumBikeBodyStyles.Street</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="bodytype-box" data-valuetext="@((uint)EnumBikeBodyStyles.Sports)" data-value="@((uint)EnumBikeBodyStyles.Sports)" id="bodytype-4" data-bind="click: checkboxSelection">
+                                                <span class="bodytype-box__icon bodytype-sports"></span>
+                                                <span class="bodytype-box__label check-box__label">@EnumBikeBodyStyles.Sports</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="accordion-list__item filter-type__item" data-filter-type="mileage">
+                            <div class="accordion__head">
+                                <div class="accordion-head__content">
+                                    <p class="accordion-head__title">Mileage</p>
+                                    <p class="accordion-head__preview"></p>
+                                </div>
+                            </div>
+                            <div class="accordion__body">
+                                <div class="accordion-body__content">
+                                    <ul id="filterTypeMileage" class="filter-checkbox__list">
+                                        @{
+                    var mileageArray = RangeFactory.Mileage;
+                    minSpecsLen[0]= mileageArray.Length;
+                    <li>
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, mileageArray[0])"  data-value="0" id="mileage-0" data-bind="click: checkboxSelection">
+                            <span class="check-box__label">@string.Format("< {0} kmpl", mileageArray[0])</span>
+                            <span class="check-box__icon"></span>
+                        </div>
+                    </li>
+                    for (int i = 1; i < minSpecsLen[0]; i++)
+                    {
+                        
+                        uint firstLimit = mileageArray[i - 1];
+                        uint secondLimit = mileageArray[i];
+
+                        <li>
+                            <div class="check-box" data-value="@i" data-valueText="@string.Format("{0}-{1}", firstLimit, secondLimit)" id="mileage-@i" data-bind="click: checkboxSelection">
+                                <span class="check-box__label">@string.Format("{0} - {1} kmpl", firstLimit, secondLimit)</span>
+                                <span class="check-box__icon"></span>
+                            </div>
+                        </li>
+                    }
+                    <li>
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", mileageArray[minSpecsLen[0]-1], 0)"  data-value="@(minSpecsLen[0])" id="mileage-@(minSpecsLen[0])" data-bind="click: checkboxSelection">
+                            <span class="check-box__label">@string.Format("> {0} kmpl", mileageArray[minSpecsLen[0]-1])</span>
+                            <span class="check-box__icon"></span>
+                        </div>
+                    </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="accordion-list__item filter-type__item" data-filter-type="displacement">
+                            <div class="accordion__head">
+                                <div class="accordion-head__content">
+                                    <p class="accordion-head__title">Displacement</p>
+                                    <p class="accordion-head__preview"></p>
+                                </div>
+                            </div>
+                            <div class="accordion__body">
+                                <div class="accordion-body__content">
+                                    <ul id="filterTypeDisplacement" class="filter-checkbox__list">
+                                        @{
+                    var displacementArray = RangeFactory.Displacement;
+                    minSpecsLen[1] = displacementArray.Length;
+
+                    <li>
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, displacementArray[0])"  data-value="0" id="displacement-0" data-bind="click: checkboxSelection">
+                            <span class="check-box__label">@string.Format("< {0} cc", displacementArray[0])</span>
+                            <span class="check-box__icon"></span>
+                        </div>
+                    </li>
+    
+                                            for (int i = 1; i < minSpecsLen[1] ; i++)
+                                {
+                                    uint firstLimit = displacementArray[i-1];
+                                    uint secondLimit = displacementArray[i];
+                                    string displamentText = string.Format("{0} - {1} cc", firstLimit, secondLimit);
+                                       
+                                                
+                                                    <li>
+                                                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", firstLimit, secondLimit)" data-value="@(i)" id="displacement-@(i)" data-bind="click: checkboxSelection">
+                                                            <span class="check-box__label">@displamentText</span>
+                                                            <span class="check-box__icon"></span>
+                                                        </div>
+                                                    </li>
+                                }
+
+                    <li>
+                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", displacementArray[minSpecsLen[1] - 1], 0)"  data-value="@(minSpecsLen[1])" id="displacement-@(minSpecsLen[1])" data-bind="click: checkboxSelection">
+                            <span class="check-box__label">@string.Format("> {0} cc", displacementArray[minSpecsLen[1] - 1])</span>
+                            <span class="check-box__icon"></span>
+                        </div>
+                    </li>
+                }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="accordion-list__item filter-type__item" data-filter-type="power">
+                            <div class="accordion__head">
+                                <div class="accordion-head__content">
+                                    <p class="accordion-head__title">Power</p>
+                                    <p class="accordion-head__preview"></p>
+                                </div>
+                            </div>
+                            <div class="accordion__body">
+                                <div class="accordion-body__content">
+                                    <ul id="filterTypePower" class="filter-checkbox__list">
+                                       
+
+                                        @{
+                                            var powerArray = RangeFactory.Power;
+                                            minSpecsLen[2] = powerArray.Length;
+
+                                            <li>
+                                                <div class="check-box" data-valuetext="@string.Format("{0}-{1}", 0, powerArray[0])"  data-value="0" id="power-0" data-bind="click: checkboxSelection">
+                                                    <span class="check-box__label">@string.Format("< {0} bhp", powerArray[0])</span>
+                                                    <span class="check-box__icon"></span>
+                                                </div>
+                                            </li>
+
+                                    for (int i = 1; i < powerArray.Length; i++)
+                                    {
+                                        uint firstLimit = powerArray[i - 1];
+                                        uint secondLimit = powerArray[i];
+
+                                        string powerText = string.Format("{0} - {1} bhp", firstLimit, secondLimit);
+
+                                        <li>
+                                            <div class="check-box" data-valuetext="@string.Format("{0}-{1}", firstLimit, secondLimit)" data-value="@(i)" id="power-@(i)" data-bind="click: checkboxSelection">
+                                                <span class="check-box__label">@string.Format("{0} - {1} bhp", firstLimit, secondLimit)</span>
+                                                <span class="check-box__icon"></span>
+                                            </div>
+                                        </li>
+                                    }
+
+                                    <li>
+                                        <div class="check-box" data-valuetext="@string.Format("{0}-{1}", powerArray[minSpecsLen[2] - 1], 0)"  data-value="@(minSpecsLen[2])" id="@(minSpecsLen[2])" data-bind="click: checkboxSelection">
+                                            <span class="check-box__label">@string.Format("> {0} bhp", powerArray[minSpecsLen[2] - 1])</span>
+                                            <span class="check-box__icon"></span>
+                                        </div>
+                                    </li>
+}
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="filterSelectionToast" class="no-filters-selected-toast">
+                    <p>No filters selected. Please select a filter.</p>
+                </div>
+
+            </div>
+            <div id="filtersBlackoutWindow"></div>
+            <input type="hidden" id="hdnMakeId" value="@(Model.MakeId > 0 ? Model.MakeId : 0)" />
+            <input type="hidden" id="hdnCityId" value="@(Model.CityId > 0 ? Model.CityId : 0)" />
+            <input type="hidden" id="hdnMileageLen" value="@(minSpecsLen[0])" />
+            <input type="hidden" id="hdnDisplacementLen" value="@(minSpecsLen[1])" />
+            <input type="hidden" id="hdnPowerLen" value="@(minSpecsLen[2])" />
+            <input type="hidden" id="hdnBudgetArray" value="@Html.Raw(JsonConvert.SerializeObject(budgetArray))" />
+            <input type="hidden" id="hdnMileageArray" value="@Html.Raw(JsonConvert.SerializeObject(mileageArray))" />
+            <input type="hidden" id="hdnDisplacementArray" value="@Html.Raw(JsonConvert.SerializeObject(displacementArray))" />
+
+        </div>
+    </div>
+}
