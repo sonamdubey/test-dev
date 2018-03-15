@@ -294,6 +294,7 @@
     <Compile Include="Model\v5\ModelPage.cs" />
     <Compile Include="Model\v5\Review.cs" />
     <Compile Include="NewBikeSearch\Pager.cs" />
+    <Compile Include="NewBikeSearch\SearchFilterDTO.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
     <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
     <Compile Include="PriceQuote\Area\PQAreaBase.cs" />

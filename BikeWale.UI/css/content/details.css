@@ -541,6 +541,12 @@
 	font-size: 14px;
 }
 
+.bw-single-tab_multiwidget {
+	font-size: 14px;
+    font-weight: 600;
+    text-align:left;
+}
+
 .padding-10-20-20 {
 	padding: 10px 20px 20px;
 }

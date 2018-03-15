@@ -1,6 +1,10 @@
+using BikewaleOpr.BAL.BikePricing;
 using BikewaleOpr.Cache;
+using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.Entities.BikePricing;
+using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.Interface.Dealers;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
@@ -195,6 +199,10 @@ namespace BikeWaleOpr.Content
         }
 
 
+        /// <summary>
+        /// Modified By : Deepak Israni on 21 Feb 2018
+        /// Description : Add call to update bikewalepricingindex [ES Index]
+        /// </summary>
         private void SavePrices()
         {
             string priceData = string.Empty, citiesList = string.Empty;
@@ -206,10 +214,16 @@ namespace BikeWaleOpr.Content
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
                 IShowroomPricesRepository pricesRepo = container.Resolve<IShowroomPricesRepository>();
+
+                container.RegisterType<IBwPrice, BwPrice>();
+                IBwPrice bwPrice = container.Resolve<IBwPrice>();
 
                 pricesRepo.SaveBikePrices(priceData, citiesList, Convert.ToInt32(CurrentUser.Id));
                 ClearBWCache();
+
+                bwPrice.UpdateModelPriceDocument(priceData, citiesList);
             }
 
             ShowBikePrices();

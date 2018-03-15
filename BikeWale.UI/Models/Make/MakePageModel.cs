@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.Compare;
+using Bikewale.Entities.Filters;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
@@ -14,6 +15,7 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.Filters;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
@@ -61,6 +63,8 @@ namespace Bikewale.Models
         private readonly IServiceCenter _objSC;
         private readonly IUserReviewsCache _cacheUserReviews;
         private readonly INewBikeLaunchesBL _newLaunchesBL;
+        private readonly IPageFilters _pageFilters;
+        private uint _makeCategoryId;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
@@ -71,7 +75,7 @@ namespace Bikewale.Models
         public uint TopCountNews { get; set; }
         public uint TopCountExpertReviews { get; set; }
 
-        public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL)
+        public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters)
         {
             this._makeMaskingName = makeMaskingName;
             this._bikeModelsCache = bikeModelsCache;
@@ -87,6 +91,7 @@ namespace Bikewale.Models
             this._cacheUserReviews = cacheUserReviews;
             this._newLaunchesBL = newLaunchesBL;
             _objModelEntity = objModelEntity;
+            this._pageFilters = pageFilters;
             ProcessQuery(this._makeMaskingName);
         }
 
@@ -119,6 +124,8 @@ namespace Bikewale.Models
         /// Description : Bind MakeId to objData
         /// Modified by : Sanskar Gupta on 07 Feb 2018
         /// Descritpion : Added logic to fetch Newly Launched Bikes (within a period of 10 days) for Mobile Make page.
+        /// Modified by : Snehal Dange on 20th Feb 2018
+        /// Description : Added BindPageFilters();
         /// Modified by : Sanskar Gupta on 12 March 2018
         /// Description : Added `BindEMICalculator()`
         /// </returns>
@@ -209,6 +216,11 @@ namespace Bikewale.Models
                 BindResearchMoreMakeWidget(objData);
                 GetEMIDetails(objData);
                 BindExpertReviewCount(objData.ExpertReviews);
+                if (objData.Bikes != null && objData.Bikes.Count() > 6)
+                {
+                    BindPageFilters(objData);
+                }
+                BindNewBikeSearchPopupData(objData);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -357,6 +369,14 @@ namespace Bikewale.Models
                     }
 
 
+                }
+                if (makes != null && _makeId > 0)
+                {
+                    BikeMakeEntityBase makeObj = makes.FirstOrDefault(x => x.MakeId == _makeId);
+                    if (makeObj != null)
+                    {
+                        _makeCategoryId = makeObj.MakeCategoryId;
+                    }
                 }
             }
             catch (Exception ex)
@@ -916,6 +936,68 @@ namespace Bikewale.Models
         {
             objMakePage.EMICalculator = new EMICalculatorVM();
         }
+        /// <summary>
+        /// Created by : Snehal Dange on 20th Feb 2018
+        /// Description: Method created to get relevant filters for a particular make (according to min values of budget,                           displacements and mileage)
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindPageFilters(MakePageVM objData)
+        {
+            try
+            {
+                CustomInputFilters objInputFilters = null;
 
+                if (objData != null)
+                {
+                    objData.PageFilters = new FilterPageEntity();
+                    objInputFilters = new CustomInputFilters();
+                    if (objData.Bikes != null)
+                    {
+                        var bikes = objData.Bikes;
+                        var nonZeroExshowroom = bikes.Where(x => x.ExShowroomPrice > 0);
+                        var nonZeroDisplacement = bikes.Where(x => x.Specs.Displacement > 0);
+                        var nonZeroMileage = bikes.Where(x => x.Specs.FuelEfficiencyOverall > 0);
+                        objInputFilters.MinPrice = nonZeroExshowroom != null && nonZeroExshowroom.Any() ? nonZeroExshowroom.Min(x => x.ExShowroomPrice) : 0;
+                        objInputFilters.MinDisplacement = nonZeroDisplacement != null && nonZeroDisplacement.Any() ? nonZeroDisplacement.Min(x => x.Specs.Displacement).Value : 0;
+                        objInputFilters.MinMileage = (ushort)(nonZeroMileage != null && nonZeroMileage.Any() ? nonZeroMileage.Min(x => x.Specs.FuelEfficiencyOverall).Value : 0);
+
+
+                        if (_makeCategoryId > 0)
+                        {
+                            objInputFilters.MakeCategoryId = _makeCategoryId;
+                        }
+                        objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("MakePageModel.BindPageFilters_MakeId_{0}", _makeId));
+            }
+        }
+
+        private void BindNewBikeSearchPopupData(MakePageVM objData)
+        {
+            try
+            {
+                if (objData != null)
+                {
+                    objData.NewBikeSearchPopup = new NewBikeSearch.NewBikeSearchPopupVM();
+                    objData.NewBikeSearchPopup.HasFilteredBikes = true;
+                    objData.NewBikeSearchPopup.HasOtherRecommendedBikes = true;
+                    objData.NewBikeSearchPopup.MakeId = _makeId;
+                    objData.NewBikeSearchPopup.MakeName = objData.MakeName;
+                    if (cityBase != null)
+                    {
+                        objData.NewBikeSearchPopup.CityId = cityBase.CityId;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("MakePageModel.BindNewBikeSearchPopupData_MakeId_{0}", _makeId));
+            }
+        }
     }
 }
