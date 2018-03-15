@@ -214,7 +214,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                                                         }
                                                         @if(bikePrice > 0){
                                                             <p class="margin-top10 text--semibold">
-                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link emicalculator_link_event bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink-@bike.objModel.ModelId"data-bikePrice="@bikePrice" data-bikeExshowroomPrice="@bike.ExShowroomPrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))">
+                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link emicalculator_link_event bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink-@bike.objModel.ModelId"data-bikePrice="@bikePrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))">
                                                                     Calculate EMI
                                                                 </a>
                                                             </p>
