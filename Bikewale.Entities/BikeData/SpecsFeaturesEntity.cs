@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -10,7 +6,7 @@ namespace Bikewale.Entities.BikeData
     /// Created by : Ashutosh Sharma on 15 Mar 2018.
     /// Description : Entity to specs & features data.
     /// </summary>
-    public class SpecsFeatures
+    public class SpecsFeaturesEntity
     {
         /// <summary>
         /// Features doesn't have sub categories.

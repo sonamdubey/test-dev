@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -19,7 +15,7 @@ namespace Bikewale.Entities.BikeData
         /// <summary>
         /// Id of Item.
         /// </summary>
-        public uint Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// List of values of items for multiple versions OR models, Ex. [373.30, 346] for 2 versions.
         /// </summary>

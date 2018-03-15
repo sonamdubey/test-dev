@@ -237,7 +237,7 @@
     <Compile Include="BikeData\Specifications.cs" />
     <Compile Include="BikeData\Specs.cs" />
     <Compile Include="BikeData\SpecsCategory.cs" />
-    <Compile Include="BikeData\SpecsFeatures.cs" />
+    <Compile Include="BikeData\SpecsFeaturesEntity.cs" />
     <Compile Include="BikeData\SpecsFeaturesCategory.cs" />
     <Compile Include="BikeData\SpecsFeaturesItem.cs" />
     <Compile Include="BikeData\TransposeModelSpecEntity.cs" />
