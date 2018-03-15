@@ -36,8 +36,9 @@ namespace VehicleData.Service.ProtoClass {
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.ItemValueRequest> __Marshaller_ItemValueRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.ItemValueRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.ValueDataList> __Marshaller_ValueDataList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.ValueDataList.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest> __Marshaller_CopyVehicleDataRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.SpecsSummaryRequest> __Marshaller_SpecsSummaryRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.SpecsSummaryRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.VehicleDataRequest> __Marshaller_VehicleDataRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.VehicleDataRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.VehicleDataValue> __Marshaller_VehicleDataValue = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.VehicleDataValue.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.SpecsSummaryRequest> __Marshaller_SpecsSummaryRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.SpecsSummaryRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.VersionSpecsSummaryList> __Marshaller_VersionSpecsSummaryList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.VersionSpecsSummaryList.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.ModelSpecsSummaryRequest> __Marshaller_ModelSpecsSummaryRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.ModelSpecsSummaryRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.ModelSpecsSummaryList> __Marshaller_ModelSpecsSummaryList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.ModelSpecsSummaryList.Parser.ParseFrom);
@@ -224,10 +225,10 @@ namespace VehicleData.Service.ProtoClass {
         __Marshaller_ItemValue,
         __Marshaller_GrpcBool);
 
-    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueRequest, global::VehicleData.Service.ProtoClass.ValueDataList> __Method_GetVehicleDataByVersionId = new grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueRequest, global::VehicleData.Service.ProtoClass.ValueDataList>(
+    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueRequest, global::VehicleData.Service.ProtoClass.ValueDataList> __Method_GetItemDataByVersionId = new grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueRequest, global::VehicleData.Service.ProtoClass.ValueDataList>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "GetVehicleDataByVersionId",
+        "GetItemDataByVersionId",
         __Marshaller_ItemValueRequest,
         __Marshaller_ValueDataList);
 
@@ -238,11 +239,11 @@ namespace VehicleData.Service.ProtoClass {
         __Marshaller_CopyVehicleDataRequest,
         __Marshaller_GrpcBool);
 
-    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.SpecsSummaryRequest, global::VehicleData.Service.ProtoClass.VehicleDataValue> __Method_GetVehicleDataForVersionId = new grpc::Method<global::VehicleData.Service.ProtoClass.SpecsSummaryRequest, global::VehicleData.Service.ProtoClass.VehicleDataValue>(
+    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.VehicleDataRequest, global::VehicleData.Service.ProtoClass.VehicleDataValue> __Method_GetVehicleDataForVersionId = new grpc::Method<global::VehicleData.Service.ProtoClass.VehicleDataRequest, global::VehicleData.Service.ProtoClass.VehicleDataValue>(
         grpc::MethodType.Unary,
         __ServiceName,
         "GetVehicleDataForVersionId",
-        __Marshaller_SpecsSummaryRequest,
+        __Marshaller_VehicleDataRequest,
         __Marshaller_VehicleDataValue);
 
     static readonly grpc::Method<global::VehicleData.Service.ProtoClass.SpecsSummaryRequest, global::VehicleData.Service.ProtoClass.VersionSpecsSummaryList> __Method_GetVersionSpecsSummary = new grpc::Method<global::VehicleData.Service.ProtoClass.SpecsSummaryRequest, global::VehicleData.Service.ProtoClass.VersionSpecsSummaryList>(
@@ -398,7 +399,7 @@ namespace VehicleData.Service.ProtoClass {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
-      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.ValueDataList> GetVehicleDataByVersionId(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.ValueDataList> GetItemDataByVersionId(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -408,7 +409,7 @@ namespace VehicleData.Service.ProtoClass {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
-      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.VehicleDataValue> GetVehicleDataForVersionId(global::VehicleData.Service.ProtoClass.SpecsSummaryRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.VehicleDataValue> GetVehicleDataForVersionId(global::VehicleData.Service.ProtoClass.VehicleDataRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -864,21 +865,21 @@ namespace VehicleData.Service.ProtoClass {
       {
         return CallInvoker.AsyncUnaryCall(__Method_UpdateItemValue, null, options, request);
       }
-      public virtual global::VehicleData.Service.ProtoClass.ValueDataList GetVehicleDataByVersionId(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual global::VehicleData.Service.ProtoClass.ValueDataList GetItemDataByVersionId(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return GetVehicleDataByVersionId(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return GetItemDataByVersionId(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::VehicleData.Service.ProtoClass.ValueDataList GetVehicleDataByVersionId(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::CallOptions options)
+      public virtual global::VehicleData.Service.ProtoClass.ValueDataList GetItemDataByVersionId(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_GetVehicleDataByVersionId, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_GetItemDataByVersionId, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.ValueDataList> GetVehicleDataByVersionIdAsync(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.ValueDataList> GetItemDataByVersionIdAsync(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return GetVehicleDataByVersionIdAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return GetItemDataByVersionIdAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.ValueDataList> GetVehicleDataByVersionIdAsync(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.ValueDataList> GetItemDataByVersionIdAsync(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_GetVehicleDataByVersionId, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_GetItemDataByVersionId, null, options, request);
       }
       public virtual global::VehicleData.Service.ProtoClass.GrpcBool CopyVehicleData(global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
@@ -896,19 +897,19 @@ namespace VehicleData.Service.ProtoClass {
       {
         return CallInvoker.AsyncUnaryCall(__Method_CopyVehicleData, null, options, request);
       }
-      public virtual global::VehicleData.Service.ProtoClass.VehicleDataValue GetVehicleDataForVersionId(global::VehicleData.Service.ProtoClass.SpecsSummaryRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual global::VehicleData.Service.ProtoClass.VehicleDataValue GetVehicleDataForVersionId(global::VehicleData.Service.ProtoClass.VehicleDataRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         return GetVehicleDataForVersionId(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::VehicleData.Service.ProtoClass.VehicleDataValue GetVehicleDataForVersionId(global::VehicleData.Service.ProtoClass.SpecsSummaryRequest request, grpc::CallOptions options)
+      public virtual global::VehicleData.Service.ProtoClass.VehicleDataValue GetVehicleDataForVersionId(global::VehicleData.Service.ProtoClass.VehicleDataRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_GetVehicleDataForVersionId, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.VehicleDataValue> GetVehicleDataForVersionIdAsync(global::VehicleData.Service.ProtoClass.SpecsSummaryRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.VehicleDataValue> GetVehicleDataForVersionIdAsync(global::VehicleData.Service.ProtoClass.VehicleDataRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         return GetVehicleDataForVersionIdAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.VehicleDataValue> GetVehicleDataForVersionIdAsync(global::VehicleData.Service.ProtoClass.SpecsSummaryRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.VehicleDataValue> GetVehicleDataForVersionIdAsync(global::VehicleData.Service.ProtoClass.VehicleDataRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetVehicleDataForVersionId, null, options, request);
       }
@@ -982,7 +983,7 @@ namespace VehicleData.Service.ProtoClass {
           .AddMethod(__Method_GetAllDataTypeDetails, serviceImpl.GetAllDataTypeDetails)
           .AddMethod(__Method_InsertItemValue, serviceImpl.InsertItemValue)
           .AddMethod(__Method_UpdateItemValue, serviceImpl.UpdateItemValue)
-          .AddMethod(__Method_GetVehicleDataByVersionId, serviceImpl.GetVehicleDataByVersionId)
+          .AddMethod(__Method_GetItemDataByVersionId, serviceImpl.GetItemDataByVersionId)
           .AddMethod(__Method_CopyVehicleData, serviceImpl.CopyVehicleData)
           .AddMethod(__Method_GetVehicleDataForVersionId, serviceImpl.GetVehicleDataForVersionId)
           .AddMethod(__Method_GetVersionSpecsSummary, serviceImpl.GetVersionSpecsSummary)
