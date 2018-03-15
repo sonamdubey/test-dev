@@ -979,7 +979,7 @@ docReady(function () {
         });
     }
 
-    $('#newBikeList').val('').focus();
+    //$('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
 
     $(".fa-spinner").hide();
@@ -1021,6 +1021,11 @@ docReady(function () {
         $(this).hide();
     });
 
+    $('#newBikeList').on('click', function () {
+    	$('#global-search').trigger('click');
+    });
+
+	/*
     $("#newBikeList").bw_autocomplete({
         recordCount: 5,
         source: 1,
@@ -1111,8 +1116,9 @@ docReady(function () {
             }
         }
     }).css({ 'width': '100%' });
+	*/
 
-
+	/*
     $('#newBikeList').on('keypress', function (e) {
         var id = $('#newBikeList');
         var searchVal = id.val();
@@ -1142,6 +1148,7 @@ docReady(function () {
             }
         }
     });
+	*/
 
     // global city popup autocomplete
     $("#globalCityPopUp").bw_autocomplete({

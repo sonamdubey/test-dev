@@ -89,7 +89,6 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
     display: inline-block;
     width: 27px;
     height: 16px;
-    margin-bottom: 1px;
     background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/6f6f6f/clock.svg) no-repeat;
 }
 
