@@ -119,7 +119,9 @@ namespace Bikewale.Utility
             _PopularityOrderForMake = string.Empty,
             _AmpProjectUrl = string.Empty,
             _MetasMakeId = string.Empty,
-            _ContestPriceMoney = string.Empty;
+            _ContestPriceMoney = string.Empty,
+            _bikeModelIndex = String.Empty,
+            _bikeModelPriceIndex = String.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -268,6 +270,8 @@ namespace Bikewale.Utility
             _MakePageOnRoadPriceBtnPct = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]) ? (ushort)0 : Convert.ToUInt16(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]);
             _ContestPriceMoney = Convert.ToString(ConfigurationManager.AppSettings["ContestPriceMoney"]);
             _MakePageViewShowPercentage = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]) ? (ushort)0 : Convert.ToUInt16(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]);
+            _bikeModelIndex = Convert.ToString(ConfigurationManager.AppSettings["BikeIndex"]);
+            _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
         }
 
         // Static method to provide access to instance
@@ -443,5 +447,7 @@ namespace Bikewale.Utility
         public ushort MakePageOnRoadPriceBtnPct { get { return _MakePageOnRoadPriceBtnPct; } }
         public string ContestPriceMoney { get { return _ContestPriceMoney; } }
         public ushort MakePageViewShowPercentage { get { return _MakePageViewShowPercentage; } }
+        public string BikeModelIndex { get { return _bikeModelIndex; } }
+        public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
     }   // class
 }   // namespace

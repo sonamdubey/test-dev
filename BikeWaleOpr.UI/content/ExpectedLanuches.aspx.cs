@@ -34,6 +34,7 @@ namespace BikeWaleOpr.Content
         private readonly IBikeMakes _makes = null;
         private readonly string _indexName;
         private readonly IBikeESRepository _bikeESRepository;
+        private readonly IBikeModels _bikeModels;
 
         public ExpectedLaunches()
         {
@@ -41,10 +42,14 @@ namespace BikeWaleOpr.Content
             {
                 container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
                     .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>()
-                    .RegisterType<IBikeESRepository, BikeESRepository>();
+                    .RegisterType<IBikeESRepository, BikeESRepository>()
+                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                    .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+
                 _makes = container.Resolve<IBikeMakes>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
+                _bikeModels = container.Resolve<IBikeModels>();
             }
         }
 
@@ -96,6 +101,8 @@ namespace BikeWaleOpr.Content
         /// Description : Added call to ClearSeriesCache.
         /// Modified by : Rajan Chauhan on 06 Feb 2018.
         /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -105,6 +112,7 @@ namespace BikeWaleOpr.Content
             {
                 string selId = string.Empty;
                 string makeIdList = string.Empty;
+                string updatedModels = string.Empty;
                 List<string> idList = new List<string>();
                 for (int i = 0; i < dtgrdLaunches.Items.Count; i++)
                 {
@@ -124,6 +132,9 @@ namespace BikeWaleOpr.Content
                         UInt32 makeId, modelId;
                         UInt32.TryParse(lblModelId.Text, out modelId);
                         UInt32.TryParse(lblMakeId.Text, out makeId);
+                        
+                        updatedModels += string.Format("{0},", modelId);
+
                         //Refresh memcache object for newbikelaunches
                         if (modelId > 0)
                         {
@@ -181,6 +192,8 @@ namespace BikeWaleOpr.Content
                 {
                     UpdateBikeESIndex(idList);
                 }
+
+                _bikeModels.UpdateModelESIndex(updatedModels, "update");
             }
             catch (Exception err)
             {

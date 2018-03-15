@@ -40,7 +40,7 @@ class NewBikes extends React.Component {
     }
     render() {
 
-        if(!this.props.newBikesData && !this.props.newBikesData.BikesList)
+        if(!this.props.newBikesData || !this.props.newBikesData.BikesList || this.props.newBikesData.BikesList.length === 0)
 		{
 			return false;
 		}

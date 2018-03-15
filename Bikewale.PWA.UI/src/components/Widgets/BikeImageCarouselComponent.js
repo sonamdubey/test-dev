@@ -63,7 +63,7 @@ class BikeImageCarouselComponent extends React.Component {
 	}
 
 	render() {
-	    if( this.Status !== Status.Fetched || !this.BikeImagesList) {
+		if( this.Status !== Status.Fetched || !this.BikeImagesList || this.BikeImagesList.length === 0 ) {
 	        return null;
 	    }
 	    return (

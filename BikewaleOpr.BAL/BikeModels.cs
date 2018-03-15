@@ -1,7 +1,10 @@
-﻿using BikewaleOpr.Entity.BikeData;
+﻿using Bikewale.Utility;
+using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace BikewaleOpr.BAL
@@ -90,6 +93,23 @@ namespace BikewaleOpr.BAL
                 Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetModelsWithMissingColorImage");
             }
             return objBikeModelsByMakeList;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 8 March 2018
+        /// Description: To create a NVC and push it to BWEsDocumentBuilder queue for further processing.
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="operation"></param>
+        public void UpdateModelESIndex(string ids, string operation)
+        {
+            NameValueCollection nvc = new NameValueCollection();
+            nvc["ids"] = ids;
+            nvc["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
+            nvc["documentType"] = "bikemodeldocument";
+            nvc["operationType"] = operation;
+
+            BWESDocumentBuilder.PushToQueue(nvc);
         }
     }
 }

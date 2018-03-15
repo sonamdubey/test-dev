@@ -77,7 +77,7 @@ namespace Bikewale.Models
         #region Constructor
         public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo,
             IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId,
-            IPWACMSCacheRepository renderedArticles,IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+            IPWACMSCacheRepository renderedArticles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -242,7 +242,7 @@ namespace Bikewale.Models
                     newsDetailReducer.NewBikesListData.BikeMakeList = ConverterUtility.MapBikeMakeEntityBaseListToPwaMakeBikeBaseList(objData);
                     var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
                     objData.ServerRouterWrapper = _renderedArticles.GetNewsDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsDetailReducer,
-                                newsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl, "root", "ServerRouterWrapper","Expert Reviews");
+                                newsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl, "root", "ServerRouterWrapper", "Expert Reviews");
                     objData.WindowState = storeJson;
                     objData.Page = GAPages.Editorial_Details_Page;
                     if (IsAMPPage)
@@ -254,7 +254,7 @@ namespace Bikewale.Models
                 {
                     status = StatusCodes.ContentNotFound;
                 }
-                    
+
             }
             catch (Exception err)
             {
@@ -517,7 +517,7 @@ namespace Bikewale.Models
                         {
                             Bikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId),
                             CityId = CityId,
-                            WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName,objData.IsScooter ? "Scooters" : "Bikes"),
+                            WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
                             WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
                             WidgetHref = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
 
@@ -548,7 +548,7 @@ namespace Bikewale.Models
                                                             {
                                                                 Bikes = objData.SeriesWidget.PopularSeriesBikes,
                                                                 WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
-                                                                WidgetHref = "/m" +UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
+                                                                WidgetHref = "/m" + UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
                                                                 WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.MaskingName, objData.IsScooter ? "Scooters" : "Bikes")
                                                             };
                             }
@@ -982,7 +982,7 @@ namespace Bikewale.Models
                         ViewAllHref1 = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
                         ViewAllTitle1 = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, bodyStyles == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
                         ViewAllText1 = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, bodyStyles == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
-                        ShowViewAllLink1 = true,
+                        ShowViewAllLink1 = objData.SeriesWidget.PopularSeriesBikes != null && objData.SeriesWidget.PopularSeriesBikes.Any(),
                         PopularSeriesBikes = objData.SeriesWidget.PopularSeriesBikes,
 
 
@@ -1340,7 +1340,7 @@ namespace Bikewale.Models
                     IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
                     Shared.BikeInfo ampBikeInfo = null;
 
-                    
+
 
                     //get length of each pages with stripped html
                     for (int i = 0; i < totalPages; i++)
@@ -1365,33 +1365,33 @@ namespace Bikewale.Models
 
                     }
 
-                    
 
-                    
-                        string topContentInPage = string.Empty, bottomContentInPage = string.Empty;
-                        StringHtmlHelpers.InsertHTMLBetweenHTMLPwa(articleDetails.PageList[matchedPage].Content, requiredLength,out topContentInPage,out bottomContentInPage);
 
-                        articleDetails.PageList[matchedPage].Content = topContentInPage;
-                        if (matchedPage != articleDetails.PageList.Count - 1)
+
+                    string topContentInPage = string.Empty, bottomContentInPage = string.Empty;
+                    StringHtmlHelpers.InsertHTMLBetweenHTMLPwa(articleDetails.PageList[matchedPage].Content, requiredLength, out topContentInPage, out bottomContentInPage);
+
+                    articleDetails.PageList[matchedPage].Content = topContentInPage;
+                    if (matchedPage != articleDetails.PageList.Count - 1)
+                    {
+                        articleDetails.PageList[matchedPage + 1].Content = bottomContentInPage + articleDetails.PageList[matchedPage + 1].Content;
+                    }
+                    else
+                    {
+                        articleDetails.PageList.Add(new Page()
                         {
-                            articleDetails.PageList[matchedPage + 1].Content = bottomContentInPage + articleDetails.PageList[matchedPage + 1].Content;
-                        }
-                        else
-                        {
-                            articleDetails.PageList.Add(new Page()
-                            {
-                                Content = bottomContentInPage,
-                                PageName = "",
-                                pageId = articleDetails.PageList[matchedPage].pageId + 1,
-                                Priority = articleDetails.PageList.Max(p => p.Priority)
-                            });
-                        }
-                    
+                            Content = bottomContentInPage,
+                            PageName = "",
+                            pageId = articleDetails.PageList[matchedPage].pageId + 1,
+                            Priority = articleDetails.PageList.Max(p => p.Priority)
+                        });
+                    }
+
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviewsDetailPage.InsertBikeInfoWidgetIntoContentPwa : {0}" , articleDetails));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviewsDetailPage.InsertBikeInfoWidgetIntoContentPwa : {0}", articleDetails));
             }
             return matchedPage;
         }
