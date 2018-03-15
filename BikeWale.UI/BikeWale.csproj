@@ -4025,6 +4025,9 @@
     <Content Include="sass\partials\_video-popup.sass" />
     <Content Include="sass\partials\_color-popup.sass" />
     <Content Include="sass\partials\_gallery-popup.sass" />
+    <Content Include="sass\m\photos\gallery-popup.sass" />
+    <Content Include="sass\m\photos\colours-popup.sass" />
+    <Content Include="sass\m\photos\videos-popup.sass" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

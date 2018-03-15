@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.Photos.PhotosPageVM
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' />";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/colours-popup.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/videos-popup.css' />";
 	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/m/src/photos/gallery.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/model.js" };
 	Model.AdTags.Ad_300x250BTF = true;
 	Model.AdTags.Ad_320x50 = true;
@@ -313,11 +313,12 @@
 						</div>
 
 						<ul id="imageGridBottom" class="image-grid__list image-grid--bottom" data-grid="6">
-							@for (; i < Model.GridPhotoCount && i < 19; i++)
+							@while (i < Math.Min(Model.GridPhotoCount, 19))
 							{
 								<li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
 									<img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
 								</li>
+								i++;
 							}
 						</ul>
 						<div class="image-grid__list-more">
