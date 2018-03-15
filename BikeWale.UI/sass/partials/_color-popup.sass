@@ -1,4 +1,6 @@
 ﻿.color-popup__content
+	@include vendor-prefix('transform', translate(100%, 0))
+	@include vendor-prefix('transition', transform .4s ease)
 	position: fixed
 	top: 0
 	left: 0
@@ -7,16 +9,14 @@
 	height: 100%
 	background-color: #f5f5f5
 	z-index: 10
-	transform: translate(100%, 0)
-	transition: transform .4s ease
 	will-change: transform
 
 	&.color-popup--active
-		transform: translate(0, 0)
+		@include vendor-prefix('transform', translate(0, 0))
 
 		&.color-popup--landscape
+			@include vendor-prefix('animation', fadeInTranslate .4s forwards)
 			transition-duration: 0s
-			animation: fadeInTranslate .4s forwards
 
 .color-popup__head
 	position: relative
@@ -90,15 +90,15 @@
 
 	.color-popup__thumbnail-content
 		@include flexbox
-		@include flex-wrap
+		@include flex-wrap		
+		@include vendor-prefix('transform', translate(110%, 0))
 		width: 100%
 		position: fixed
 		left: 0
 		right: 0
 		bottom: 0
 		border-top: none
-		background-color: #f5f5f5	
-		transform: translate(110%, 0)
+		background-color: #f5f5f5
 		will-change: transform
 		z-index: 1
 
@@ -127,7 +127,8 @@
 
 		.color-box-label
 			font-size: 8px
-			padding-left: 8px
+			padding-left: 8px			
+			height: 24px
 
 		.color-box__content
 			padding-top: 8px
@@ -172,7 +173,7 @@
 			&:before
 				width: 20px
 				background-size: 20px
-				margin-top: 7px
+				margin-top: 6px
 				margin-bottom: 0
 
 // color popup - landscape footer inactive state
@@ -182,6 +183,17 @@
 			bottom: -100%
 
 // animation
+@-webkit-keyframes fadeInTranslate
+	0%
+		display: none
+		opacity: 0
+
+	100%
+		opacity: 1
+		display: block
+		-webkit-transform: translate(0, 0)
+		transform: translate(0, 0)
+
 @keyframes fadeInTranslate
 	0%
 		display: none
@@ -190,6 +202,15 @@
 	100%
 		opacity: 1
 		display: block
+		transform: translate(0, 0)
+
+@-webkit-keyframes colorPopupFooter
+	0%
+		-webkit-transform: translate(110%, 0)
+		transform: translate(110%, 0)
+
+	100%
+		-webkit-transform: translate(0, 0)
 		transform: translate(0, 0)
 
 @keyframes colorPopupFooter
@@ -218,6 +239,13 @@
 		padding: 6px
 		margin-bottom: 15px
 		display: inline-block
+
+// browser fallback
+// uc
+.browser--uc
+	.color-list--scrollable
+		.swiper-slide
+			width: 49%
 
 .model-color__list
 	.color-box--border

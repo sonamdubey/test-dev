@@ -1,4 +1,6 @@
 .video-popup__content
+	@include vendor-prefix('transform', translate(100%, 0))
+	@include vendor-prefix('transition', transform .4s ease)
 	position: fixed
 	top: 0
 	left: 0
@@ -8,16 +10,14 @@
 	padding-top: 53px
 	background: #fff
 	z-index: 11
-	transform: translate(100%, 0)
-	transition: transform .4s ease
 	will-change: transform
 
 	&.video-popup--active
-		transform: translate(0, 0)
+		@include vendor-prefix('transform', translate(0, 0))
 
 		&.video-popup--landscape
+			@include vendor-prefix('animation', fadeInTranslate .4s forwards)
 			transition-duration: 0s
-			animation: fadeInTranslate .4s forwards
 
 .video-popup__head
 	position: fixed
@@ -69,6 +69,17 @@
 	.swiper-card__label
 		font-size: 12px
 
+@-webkit-keyframes fadeInTranslate
+	0%
+		display: none
+		opacity: 0
+
+	100%
+		opacity: 1
+		display: block
+		-webkit-transform: translate(0, 0)
+		transform: translate(0, 0)
+
 @keyframes fadeInTranslate
 	0%
 		display: none
@@ -97,12 +108,12 @@
 
 .youtube-iframe-preview
 	.iframe-overlay
-    position: absolute
-    left: 0
-    right: 0
-    top: 0
-    bottom: 0
-    z-index: 8
+		position: absolute
+		left: 0
+		right: 0
+		top: 0
+		bottom: 0
+		z-index: 8
 
 .video-list__back-btn
 	@include arrow-right
@@ -132,20 +143,19 @@
 			display: flex
 
 		.swiper-slide
+			@include vendor-prefix('transform', scale(.77))
+			@include vendor-prefix('transition', all .4s ease)
 			width: 380px
 			padding-top: 0
 			padding-bottom: 0
 			padding-left: 20px
 			border: 0
 			opacity: .5
-			//left: -20px
-			transform: scale(.77)
-			transition: all .4s ease
 
 			&.swiper-slide-active
+				@include vendor-prefix('transform', scale(1))
 				left: auto
 				opacity: 1
-				transform: scale(1)
 
 	.video-popup-head__back
 		display: none

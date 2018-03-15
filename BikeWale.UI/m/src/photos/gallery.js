@@ -189,6 +189,10 @@ docReady(function () {
 		}
 	});
 
+	if(navigator.userAgent.match(/UCBrowser/g)) {
+		$('body').addClass('browser--uc');
+	}
+
 	// initialize and register main gallery swiper
 	mainGallerySwiper = MainGallerySwiper.init();
 	MainGallerySwiper.registerEvents();

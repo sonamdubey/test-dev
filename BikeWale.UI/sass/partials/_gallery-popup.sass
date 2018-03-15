@@ -127,7 +127,7 @@
 .gallery-image__footer
 	@include flexbox
 	@include justify-content(space-between)
-	align-items: center
+	@include align-items(center)
 	background: color('border-light')
 	padding-left: 15px
 	width: 100%
@@ -143,12 +143,9 @@
 	color: color('light-grey')
 
 .gallery-image__feature
-	> a,
-	> span
+	a,
+	span
 		padding: 20px
-		
-		&:last-child
-			margin-right: 0
 
 	.landscape-icon__container
 		@include vendor-prefix('transition', width 1s)
@@ -200,7 +197,7 @@
 
 
 // gallery active/popup state
-.model-gallery--relative
+.gallery-popup--active
 	z-index: 8
 	background: color('white')
 	position: fixed
@@ -258,7 +255,7 @@
 	border: 1px solid color('dandelion')
 	color: color('dandelion')
 	position: fixed
-	bottom: 11%
+	bottom: 5%
 	width: auto
 	white-space: nowrap
 	padding-right: 15px
@@ -351,7 +348,7 @@
 
 // landscape mode
 .orientation--landscape
-	.model-gallery--relative
+	.gallery-popup--active
 		.model-gallery
 			margin-bottom: 0
 
@@ -400,16 +397,15 @@
 			background-position: 9px 16px
 			top: 43%
 
-	.gallery-image__left-section
-		@include text-truncate(40%)
-		display: inline-block
-		vertical-align: middle
-
-	.model-gallery--relative
 		.gallery-image__footer
 			.gallery__landscape-icon
 				@include rotate-fff-icon
 				background-size: 20px
+
+	.gallery-image__left-section
+		@include text-truncate(40%)
+		display: inline-block
+		vertical-align: middle
 
 
 // color slug
@@ -470,13 +466,22 @@
 	&:first-child
 		margin-left: 0
 
-.swiper-slide__more-btn
-	font-size: 12px
-	padding: 9px 25px
-	border-radius: 20px
+	.color-box
+		position: static
+
+.slide__more-btn-content
 	position: absolute
 	bottom: -19px
+	left: 0
+	right: 0
+	margin: 0 auto
+	text-align: center
 	z-index: 1
+
+	.slide__more-btn
+		font-size: 12px
+		padding: 9px 25px
+		border-radius: 20px
 
 .gallery__single-color-title
 	width: 100%
@@ -506,7 +511,7 @@
 		&:first-child
 			margin-left: 0
 
-	.swiper-slide__more-btn
+	.slide__more-btn-content
 		position: relative
 
 	.color-box
@@ -569,7 +574,7 @@
 
 .orientation--landscape
 	.model-gallery__video-slide
-		.swiper-slide__more-btn
+		.slide__more-btn-content
 			bottom: -50px
 
 // video playing state
