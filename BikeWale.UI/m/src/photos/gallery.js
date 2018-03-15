@@ -378,14 +378,14 @@ var MainGallerySwiper = (function() {
 		$('.swiper__image').on('click', '.swiper-slide', function (e) {
 			var container = $(this).closest('.model-gallery__container');
 
-			if (!container.hasClass('model-gallery--relative')) {
+			if (!container.hasClass('gallery-popup--active')) {
 				vmModelGallery.openGalleryPopup();
 				calculateCenter();				
 			}
 		});
 
 		$(window).on('resize', function () {
-			if ($('.model-gallery--relative').is(':visible')) {
+			if ($('.gallery-popup--active').is(':visible')) {
 				calculateCenter();
 			}
 		});
