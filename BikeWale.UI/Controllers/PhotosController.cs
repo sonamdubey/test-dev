@@ -176,5 +176,27 @@ namespace Bikewale.Controllers
                 return Redirect("/pagenotfound.aspx");
             }
         }
+
+		[Route("m/photos/{makeMasking}-bikes/{modelMasking}/new/")]
+		public ActionResult Model_Mobile_New(string makeMasking, string modelMasking, string q)
+		{
+			PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersionCache, _objVideos);
+
+			if (obj.Status.Equals(StatusCodes.ContentFound))
+			{
+				obj.IsMobile = true;
+				PhotosPageVM objData = obj.GetData(30, 6, q);
+				return View(objData);
+
+			}
+			else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
+			{
+				return RedirectPermanent(obj.RedirectUrl);
+			}
+			else
+			{
+				return Redirect("/pagenotfound.aspx");
+			}
+		}
     }
 }

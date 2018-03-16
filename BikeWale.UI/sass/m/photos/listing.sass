@@ -1,0 +1,397 @@
+﻿// Core variables and mixins
+@import ../../components/typography
+@import ../../base/variables
+@import ../../components/mixins
+@import ../../partials/rating
+
+@import ../../mixins/index
+@import ../../utils/index
+
+body
+	overflow-x: hidden
+
+// image grid
+.image-grid__list
+	margin: 0 -2px
+	overflow: hidden
+	background: color('white')
+
+	img
+		position: relative
+		width: 100%
+		line-height: 0
+
+		&:before
+			content: ''
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			width: 100%
+			height: 100%
+			display: block
+			background-color: color('white')
+
+.image-grid-list__item
+	float: left
+	min-height: 68px
+	overflow: hidden
+	position: relative
+	text-align: center
+	cursor: pointer
+	background-color: color('white')
+	line-height: 0
+
+	&:before
+		content: ''
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		display: block
+		border: 2px solid color('white')
+		z-index: 1
+
+.image-grid__list
+	&[data-grid="7"]
+		.image-grid-list__item
+			&:nth-child(7n+1)
+				width: 66.67%
+
+			&:nth-child(7n+2),
+			&:nth-child(7n+3)
+				width: 33.33%
+
+			&:nth-child(7n+4),
+			&:nth-child(7n+7)
+				width: 100%
+
+			&:nth-child(7n+5),
+			&:nth-child(7n+6)
+				width: 50%
+
+.image-grid__list
+	&[data-grid="6"]
+		.image-grid-list__item
+			&:nth-child(6n+1)
+				width: 100%
+
+			&:nth-child(6n+2)
+				float: right
+				width: 66.67%
+
+			&:nth-child(6n+3),
+			&:nth-child(6n+4)
+				width: 33.33%
+			
+			&:nth-child(6n+5),
+			&:nth-child(6n+6)
+				width: 50%
+
+			&:nth-child(12n+8)
+				float: left
+
+@media only screen and (max-width: 320px)
+	.image-grid-list__item
+		min-height: 60px
+
+
+.image-grid__list-more
+	padding: 20px
+	backgroundcolor: color('white')
+
+.image-grid__more-btn
+	width: 100%
+	padding: 8px
+
+.btn-inv-blue
+	background-color: color('white')
+	color: color('pacific-blue')
+	border: 1px solid color('pacific-blue')
+
+// image grid vide slug
+.video-slug__content
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	padding: 20px
+	display: block
+	text-align: left
+	line-height: 1.42857143
+	background: rgba(0, 0, 0, .6)
+	border: 2px solid color('white')
+	z-index: 2
+
+.video-slug__title
+	@include play-fff-icon
+	background-position: left
+	color: color('white')
+	font-size: 12px
+	font-weight: $font-bold
+	text-transform: uppercase
+	padding-left: 32px
+	margin-bottom: 10px
+	background-size: 22px
+	line-height: 22px
+
+.video-slug__list
+	color: color('white')
+	font-size: 10px
+	margin-bottom: 10px
+	margin-left: 23px
+	list-style: disc
+
+	li
+		padding-left: 10px
+
+.video-slug__more-btn
+	font-size: 10px
+	padding: 4px 14px
+	margin-left: 9px
+
+	&.btn-inv-blue
+		border-color: color('white')
+
+// video slug sizes
+// 100%
+[data-slug-size='large']
+	.video-slug__content
+		padding: 34px
+
+	.video-slug__title
+		font-size: 14px
+		padding-left: 40px
+		background-size: 30px
+		line-height: 30px
+
+	.video-slug__list
+		font-size: 12px
+		margin-left: 27px
+
+		li
+			padding-left: 13px
+
+	.video-slug__more-btn
+		font-size: 12px
+		padding: 5px 18px
+		margin-left: 12px
+
+// 50%
+[data-slug-size='small']
+	.video-slug__list
+		display: none
+
+	.video-slug__title
+		margin-bottom: 15px
+
+	.video-slug__more-btn
+		margin-left: 0
+
+// 33.33%
+[data-slug-size='extra-small']
+	.video-slug__content
+		padding: 10px
+
+	.video-slug__title
+		margin-bottom: 5px
+
+	.video-slug__list
+		display: none
+
+	.video-slug__more-btn
+		font-size: 9px
+		padding: 4px 8px
+		margin-left: 0		
+
+@media only screen and (max-width: 320px)
+	.video-slug__content
+		padding: 12px
+
+.page-header
+	padding: 15px 20px
+	background-color: color('white')
+
+// model information widget
+.image-list__model-widget
+	padding: 10px 10px 14px
+	background: #f5f5f5
+
+.model-info-section
+	@include vendor-prefix('box-shadow',  0 2px 4px 0 rgba(213, 213, 213, .5))
+	background-color: color('white')
+
+.model-info__target-link
+	display: block
+
+	&:hover
+		text-decoration: none
+
+.model-info__container
+	@include flexbox
+	padding: 10px 10px 20px
+	position: relative
+
+	.rating-badge
+		position: absolute
+		top: 10px
+		left: 10px
+
+.model-info-description
+	min-width: 0
+	padding-left: 10px
+	display: inline-block
+	vertical-align: middle
+
+.model-info__title
+	@include text-truncate
+	font-size: 16px
+	font-weight: $font_semibold
+	line-height: 22px
+	margin-bottom: 12px
+
+.model-info__ex-showroom
+	@include text-truncate
+	margin-bottom: 12px
+	font-size: 12px
+	color: color('light-grey')
+	margin-bottom: 6px
+
+.card-exshowroom__value
+	font-size: 18px
+	color: color('default')
+
+.text--semibold
+	font-weight: $font_semibold
+
+@mixin model-info__image($width: 122px, $height: 69px)
+	.model-info__image
+		height: $height
+		width: $width
+		max-width: 100%
+		display: inline-block
+		vertical-align: middle
+		margin-top: 20px
+
+		img
+			height: $height
+			width: auto
+
+@include model-info__image()
+
+@for $i from 1 through 5
+	@include rating-badge($i)
+
+.model-info__specs-container
+	border-top: 1px solid color('border-dark')	
+
+.model-info__specs-item
+	font-size: 11px
+	font-weight: $font-semibold
+	text-align: left
+	display: inline-block
+	vertical-align: middle
+	padding: 16px
+	margin-right: 8px
+
+	&:last-child
+		margin-right: 0
+
+	&:hover
+		text-decoration: none
+
+.page__heading-h2
+	@include heading-h2
+
+// similar bikes widget
+@import ../../partials/similar-bike-carousel
+
+.similar-model
+	.page__heading-h2
+		margin: 27px 16px 15px
+
+@include similar-model__card()
+@include similar-model__image()
+@include similar-model__footer
+
+
+// color boxes
+.color-box
+	width: 37px
+	height: 37px
+	background: #f1f1f1
+	border-radius: 4px
+	position: relative
+	display: inline-block
+	vertical-align: middle
+	overflow: hidden
+
+	span
+		width: 100%
+		display: block
+
+	&[data-color-count="1"]
+		span
+			height: 100%
+
+	&[data-color-count="2"]
+		span
+			height: 50%
+
+	&[data-color-count="3"]
+		span
+			height: 33.4%
+
+// tabs
+@include overall-tabs
+
+.overall-tabs__panel
+	background: color('white')
+
+// colors carousel
+#colorSwiper
+	&.swiper__colors
+		height: 206px
+
+.swiper-colors__footer
+	padding-top: 16px
+	padding-bottom: 20px
+
+.colors-footer__title
+	padding-left: 16px
+	padding-right: 16px
+	margin-bottom: 16px
+	font-size: 14px
+	font-weight: $font-semibold
+
+.text--bold
+	font-weight: $font-bold
+
+.color-list--thumbnail
+	&.swiper-container
+		padding-right: 20px
+
+	.swiper-slide
+		margin-left: 0
+		width: 52px
+		padding-left: 16px
+		display: inline-block
+
+.model-color__list
+	.color-box
+		border: 1px solid color('light-gray')
+
+// videos
+@import ../../components/mixins
+@import ../../partials/video-card-container
+
+.video-list
+	padding-top: 16px
+
+@include thumbsup-icon(12px, 12px)
+
+// share popup
+@import ../../partials/share-popup
+

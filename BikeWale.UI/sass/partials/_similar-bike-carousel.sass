@@ -1,0 +1,81 @@
+﻿@mixin similar-model__card($width: 280px, $min-height: 131px)
+	.similar-model__card
+		@include vendor-prefix('border-radius', 2px)
+		@include vendor-prefix('box-shadow', 0 2px 4px 1px rgba(204, 204, 204, 0.5))
+		background: color('white')
+		min-height: $min-height
+
+		&> a
+			text-decoration: none
+			color: color('default')
+
+	.similar-model-carousel
+		.carousel-slide
+			width: $width
+			min-height: $min-height
+			padding-left: 10px
+
+			&:first-child
+				margin-left: 6px
+			&:last-child
+				margin-right: 16px
+
+@mixin similar-model__image($width: 110px, $height: 61px)
+	.similar-model__image
+		height: $height
+		width: $width
+
+		img
+			height: $height
+			width: auto
+
+.similar-model__target
+	@include flexbox
+	padding: 10px 10px 14px
+
+.similar-model__detail
+	min-width: 0
+	padding-left: 10px
+
+.similar-model__title
+	@include text-truncate
+	font-size: 12px
+	font-weight: $font_semibold
+	line-height: 22px
+	margin-bottom: 4px
+	
+.similar-model__ex-showroom
+	@include text-truncate
+	margin-bottom: 5px
+	font-size: 10px
+	color: color('light-grey')
+	margin-bottom: 6px
+
+.similar-model__value
+	font-size: 14px
+	color: color('default')
+
+@mixin similar-model__footer
+	.similar-model__card
+		.similar-model__footer
+			display: block
+			border-top: 1px solid color('border-dark')
+			padding: 9px 15px 14px
+			color: color('pacific-blue') 
+
+	.similar-model__image-count
+		font-size: 12px
+		padding-left: 25px
+		position: relative
+		background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/image.svg) 0 center no-repeat
+		background-size: 16px
+
+		&:after
+			@include right-arrow-0288d1-icon
+			content: ''
+			display: block
+			height: 10px
+			width: 10px
+			position: absolute
+			right: 0
+			top: 5px

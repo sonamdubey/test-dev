@@ -3,13 +3,13 @@
 		text-align: left
 
 .video-card__video-preview
+	@include border-radius(3px)
 	position: relative
 	top: 0
 	padding-bottom: 56.25%
 	height: 0
 	overflow: hidden
 	margin-bottom: 10px
-	@include border-radius(3px)
 
 	iframe
 		position: absolute
@@ -53,11 +53,14 @@
 
 @mixin thumbsup-icon($width: 18px, $height: 18px)
 	.thumbsup-icon
-		@include thumbsup
+		@include thumbs-up-4d5057-icon
 		display: inline-block
+		vertical-align: middle
+		background-size: $width
 		height: $height
 		width: $width
-		top: 3px
+		position: relative
+		top: -1px
 
 .video-section
 	.carousel-title__label
