@@ -1,0 +1,87 @@
+﻿@model Bikewale.Models.ModelBase
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.AdTags.AdId = "1516076585526";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Make_";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad320x150_Top = true;
+    Model.AdTags.Ad320x150_Bottom = true;
+    Model.AdTags.Ad_Mid_320x50 = true;
+    Model.AdTags.Ad320x100ATF = true;
+    Model.AdTags.Ad320x100BTF = true;
+    Model.AdTags.Ad_300x100 = true;
+    Model.AdTags.Ad_320x400_Middle = true;
+    Model.AdTags.Ad_200x253 = true;
+    Model.AdTags.Ad_200x216  = true;
+    Model.AdTags.Ad_200x211 = true;
+    Model.AdTags.Ad_300x250BTF = true;
+    Model.AdTags.Ad300x250_Bottom = true;
+    Model.AdTags.Ad_Body_Top_320x50 = true;
+    
+}
+
+<h1>BikeWale Ad Test Page</h1>
+
+<section>
+	<h2>Ad_320x50</h2>
+	@{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad320x50.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+	<h2>Ad_Bot_320x50</h2>
+	@{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad320x50Bottom.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+	<h2>Ad320x150_Top</h2>
+	@{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad320x150_First.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+	<h2>Ad320x150_Bottom</h2>
+	@{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_Mid_320x50</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad320x50_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad320x100ATF</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad320x100BTF</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_300x100</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_970x90BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<!---->
+<section>
+    <h2>Ad_320x400_Middle</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_970x90BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_200x253</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_970x90BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_200x216</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_970x90BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_200x211</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_970x90BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_300x250BTF</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_970x90BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad300x250_Bottom</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_970x90BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_Body_Top_320x50</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_970x90BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
