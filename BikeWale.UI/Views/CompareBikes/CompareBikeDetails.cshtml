@@ -250,10 +250,10 @@
 														{
 
 															<tr class="row-type-data">
-																<td>@specItem.DisplayText</td>
+																<td>@specItem.DisplayText @(!string.IsNullOrEmpty(specItem.UnitTypeText) ? string.Format("({0})", @specItem.UnitTypeText) : "")</td>
 																@foreach (var specValue in specItem.ItemValues)
 																{
-																	<td>@specValue @specItem.UnitTypeText</td>
+																	<td>@specValue</td>
 																}
 																<td></td>
 															</tr>
