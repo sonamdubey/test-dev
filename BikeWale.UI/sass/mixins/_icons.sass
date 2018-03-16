@@ -79,32 +79,22 @@ $star-icon-map: (1: 'https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1
 
 @mixin send-to-phone
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/0288d1/send-to-mobile.svg') no-repeat
+
+@mixin like-icon
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/82888b/like.svg') no-repeat
+
+
 // body style type
-@mixin scooter-style-line
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/scooter-line.png') no-repeat center
+@mixin cruiser-style-filled
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/cruiser-filled.png') no-repeat center
 	background-size: contain
 
 @mixin scooter-style-filled
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/scooter-filled.png') no-repeat center
 	background-size: contain
 
-@mixin street-style-line
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/street-line.png') no-repeat center
-	background-size: contain
-
 @mixin street-style-filled
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/street-filled.png') no-repeat center
-	background-size: contain
-
-@mixin cruiser-style-line
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/cruiser-line.png') no-repeat center
-	background-size: contain
-@mixin like-icon
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/82888b/like.svg') no-repeat
-
-
-@mixin cruiser-style-filled
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/cruiser-filled.png') no-repeat center
 	background-size: contain
 
 @mixin sports-style-line
@@ -113,6 +103,38 @@ $star-icon-map: (1: 'https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1
 
 @mixin sports-style-filled
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/sports-filled.png') no-repeat center
+	background-size: contain
+
+@mixin scooter-style-line
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/scooter-line.png') no-repeat center
+	background-size: contain
+
+@mixin scooter-style-f45944-filled
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/f45944/scooter-filled.png') no-repeat center
+	background-size: contain
+
+@mixin street-style-line
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/street-line.png') no-repeat center
+	background-size: contain
+
+@mixin street-style-f45944-filled
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/f45944/street-filled.png') no-repeat center
+	background-size: contain
+
+@mixin cruiser-style-line
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/cruiser-line.png') no-repeat center
+	background-size: contain
+
+@mixin cruiser-style-f45944-filled
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/f45944/cruiser-filled.png') no-repeat center
+	background-size: contain
+
+@mixin sports-style-line
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/sports-line.png') no-repeat center
+	background-size: contain
+
+@mixin sports-style-f45944-filled
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/f45944/sports-filled.png') no-repeat center
 	background-size: contain
 
 // search
@@ -189,6 +211,7 @@ $star-icon-map: (1: 'https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1
 /* dislike icon */
 @mixin dislike-82888b-icon
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/82888b/dislike.svg') no-repeat
+
 @mixin bike-d5d5d5-icon
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/d5d5d5/bike-image.png') no-repeat
 
@@ -205,18 +228,15 @@ $star-icon-map: (1: 'https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1
 
 @mixin bell-0288d1-icon
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/0288d1/bell.svg') no-repeat
-// body style type
-@mixin scooter-style-line
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/scooter-line.png') no-repeat center
-	background-size: contain
 
-@mixin scooter-style-f45944-filled
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/f45944/scooter-filled.png') no-repeat center
-	background-size: contain
+@mixin download-2d2d2d-icon
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/2d2d2d/download.svg') no-repeat center
 
-@mixin street-style-line
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/street-line.png') no-repeat center
-	background-size: contain
+@mixin download-fff-icon
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/fff/download-v2.svg') no-repeat center
+
+@mixin fullscreen-2d2d2d-icon
+	background: url('#{$img-cdn-path}/0x0/bw/static/icons/2d2d2d/fullscreen.svg') no-repeat center
 
 @mixin share-2d2d2d-icon
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/2d2d2d/share.svg') no-repeat center
@@ -230,13 +250,6 @@ $star-icon-map: (1: 'https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1
 @mixin rotate-fff-icon
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/fff/rotate.svg') no-repeat center
 
-@mixin sports-style-line
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/sports-line.png') no-repeat center
-	background-size: contain
-
-@mixin sports-style-f45944-filled
-	background: url('#{$img-cdn-path}/0x0/bw/static/icons/body-type/f45944/sports-filled.png') no-repeat center
-	background-size: contain
 @mixin rotate-ffcf63-icon
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/ffcf63/rotate.svg') no-repeat center
 
@@ -263,4 +276,3 @@ $star-icon-map: (1: 'https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1
 
 @mixin color-palette-fff-icon
 	background: url('#{$img-cdn-path}/0x0/bw/static/icons/fff/color-palette.png') no-repeat center
-
