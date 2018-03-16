@@ -1,0 +1,105 @@
+﻿@model Bikewale.Models.ModelBase
+@{
+    Model.PageMetaTags.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.AdTags.AdId = "1516076585526";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Make_";
+    Model.AdTags.Ad_Model_ATF_300x250 = true;
+    Model.AdTags.Ad_Model_BTF_300x250 = true;
+    Model.AdTags.Ad_Top_300x250 = true;
+    Model.AdTags.Ad_300x250 = true;
+    Model.AdTags.Ad_300x250BTF = true;
+    Model.AdTags.Ad_970x90Bottom = true;
+    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_970x90BTF = true;
+    Model.AdTags.Ad_Model_ATF_970x90 = true;
+    Model.AdTags.Ad_Model_BTF_970x90 = true;
+    Model.AdTags.Ad_970x90Top = true;
+    Model.AdTags.Ad_Model_Bottom_970x90 = true;
+    Model.AdTags.Ad_976x400First = true;
+    Model.AdTags.Ad_976x400Second = true;
+    Model.AdTags.Ad_976x400_Middle = true;
+    Model.AdTags.Ad_Model_Comparo_976x400 = true;
+    Model.AdTags.Ad_976x204 = true;
+    Model.AdTags.Ad_292x399 = true;
+    Model.AdTags.Ad_292x359 = true;
+    Model.AdTags.Ad_292x360 = true;
+
+}
+
+<h1>BikeWale Ad Test Page</h1>
+
+<section>
+	<h2>Ad_Model_ATF_300x250</h2>
+	@{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+	<h2>Ad_Model_BTF_300x250</h2>
+	@{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_BTF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+	<h2>Ad_Top_300x250</h2>
+	@{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_Top_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+	<h2>Ad_300x250</h2>
+	@{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_300x250BTF</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_970x90BTF</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_970x90BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_Model_ATF_970x90</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_Model_BTF_970x90</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_970x90Top</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_970x90Top.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_Model_Bottom_970x90</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_Bottom_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_976x400First</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_First.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_976x400Second</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Second.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_976x400_Middle</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_Model_Comparo_976x400</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_Comparo_976x400.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_976x204</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_976x204.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_292x399</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x399.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_292x359</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x359.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_292x360</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x360.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+
+
