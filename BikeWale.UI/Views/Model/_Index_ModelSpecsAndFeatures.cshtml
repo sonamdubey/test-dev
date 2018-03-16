@@ -2,6 +2,7 @@
 @{
     var specscategories = Model.ModelPageEntity.VersionSpecsFeatures.Specs;
     var features = Model.ModelPageEntity.VersionSpecsFeatures.Features;
+    string itemValue, featureValue;
 }
 
 <h2 class="h2-heading content-inner-block-20">@Model.ModelPageEntity.ModelDetails.ModelName Specifications & Features</h2>
@@ -27,13 +28,15 @@
                     }
                     @foreach (var item in category.SpecsItemList.Take(firstGridSpecsCount))
                     {
-                        <p><span>@item.DisplayText</span><span>@item.ItemValues.FirstOrDefault()</span></p>
+                         itemValue = item.ItemValues.FirstOrDefault();
+                        <p><span>@item.DisplayText</span><span>@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</span></p>
                     }
                 </div>
                 <div class="grid-6 text-light-grey">
                     @foreach (var item in category.SpecsItemList.Skip(firstGridSpecsCount))
                     {
-                        <p><span>@item.DisplayText</span><span>@item.ItemValues.FirstOrDefault()</span></p>
+                        itemValue = item.ItemValues.FirstOrDefault();
+                        <p><span>@item.DisplayText</span><span>@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</span></p>
                     }
                 </div>
                 <div class="clear"></div>
@@ -54,13 +57,15 @@
                 }
             @foreach (var feature in leftGrid.Take(shownFeaturesHeight))
             {
-                <p><span>@feature.DisplayText</span><span>@feature.ItemValues.FirstOrDefault()</span></p>
+                featureValue = feature.ItemValues.FirstOrDefault();
+                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
             }
         </div>
         <div class="grid-6 omega text-light-grey">
             @foreach (var feature in rightGrid.Take(shownFeaturesHeight))
             {
-                <p><span>@feature.DisplayText</span><span>@feature.ItemValues.FirstOrDefault()</span></p>
+                featureValue = feature.ItemValues.FirstOrDefault();
+                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
             }
         </div>
         <div class="clear"></div>
@@ -70,13 +75,15 @@
 		<div class="grid-6 padding-left20 text-light-grey">
             @foreach (var feature in leftGrid.Skip(shownFeaturesHeight))
             {
-                <p><span>@feature.DisplayText</span><span>@feature.ItemValues.FirstOrDefault()</span></p>
+                featureValue = feature.ItemValues.FirstOrDefault();
+                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
             }
 		</div>
         <div class="grid-6 padding-left20 text-light-grey">
             @foreach (var feature in rightGrid.Skip(shownFeaturesHeight))
             {
-                <p><span>@feature.DisplayText</span><span>@feature.ItemValues.FirstOrDefault()</span></p>
+                featureValue = feature.ItemValues.FirstOrDefault();
+                <p><span>@feature.DisplayText</span><span>@feature.ItemValues.FirstOrDefault() @string.IsNullOrEmpty(feature.UnitTypeText)</span></p>
             }
         </div>
 		<div class="clear"></div>

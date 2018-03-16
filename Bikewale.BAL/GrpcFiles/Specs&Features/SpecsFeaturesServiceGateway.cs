@@ -81,6 +81,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                         itemList.Add(new SpecsFeaturesItem
                         {
                             DisplayText = item.Name,
+                            Icon = item.Icon,
                             Id = item.Id,
                             ItemValues = item.ItemValues,
                             UnitTypeText = item.UnitTypeName

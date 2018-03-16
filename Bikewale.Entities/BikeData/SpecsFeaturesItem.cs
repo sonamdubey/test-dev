@@ -13,6 +13,10 @@ namespace Bikewale.Entities.BikeData
         /// </summary>
         public string DisplayText { get; set; }
         /// <summary>
+        /// Icon html to be bound.
+        /// </summary>
+        public string Icon { get; set; }
+        /// <summary>
         /// Id of Item.
         /// </summary>
         public int Id { get; set; }
