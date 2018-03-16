@@ -247,7 +247,7 @@ var floatingNav = (function () {
     function _setSelectores() {
         overallTabsContainer = $('.overall-tabs__content');
         overallContainer = $('#overallContainer');
-        var topNavBarHeight = overallTabsContainer.height();
+        topNavBarHeight = overallTabsContainer.height();
     }
 
     function _setFallback() {
