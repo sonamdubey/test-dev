@@ -103,7 +103,7 @@ docReady(function () {
     });
     $("#notifySubmitBtn").on("click", function () {
       
-        flag = validateForm.emailField($("#notifyEmailField"));
+        var flag = validateForm.emailField($("#notifyEmailField"));
         if (flag) {
             executeNotification($(this));
         }
@@ -247,7 +247,7 @@ var floatingNav = (function () {
     function _setSelectores() {
         overallTabsContainer = $('.overall-tabs__content');
         overallContainer = $('#overallContainer');
-        topNavBarHeight = overallTabsContainer.height();
+        var topNavBarHeight = overallTabsContainer.height();
     }
 
     function _setFallback() {
@@ -319,7 +319,6 @@ var floatingNav = (function () {
             });
 
         });
-
         function centerNavBar(target, outer) {
             var out = $(outer);
             var tar = target;
@@ -328,7 +327,7 @@ var floatingNav = (function () {
             var z = tar.index();
             var q = 0;
             var m = out.find('li');
-            //Just need to add up the width of all the elements before our target. 
+            //Just need to add up the width of all the elements before our target.
             for (var i = 0; i < z; i++) {
                 q += $(m[i]).outerWidth(true);
             }
@@ -484,7 +483,7 @@ var validateForm = (function () {
             emailVal = inputField.val(),
             reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
-        if (emailVal == "") {
+        if (!emailVal) {
             setError(inputField, 'Please enter email id');
             isValid = false;
         }
@@ -497,7 +496,6 @@ var validateForm = (function () {
     };
 
     function setError(element, message) {
-        var elementLength = element.val().length;
         var errorTag = element.siblings('.field__error-message');
 
         errorTag.show().text(message);
@@ -525,7 +523,7 @@ var validateForm = (function () {
 })();
 
 var interestingFactPopup = (function () {
-    var container, readMoreBtn, closeBtn;
+    var container, closeBtn;
 
     function _setSelectores() {
         container = $('#interestingFact');
