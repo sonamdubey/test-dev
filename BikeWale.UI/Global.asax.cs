@@ -67,5 +67,17 @@ namespace Bikewale
             var manager = WURFLManagerBuilder.Build(configurer);
             HttpContext.Current.Cache[WurflManagerCacheKey] = manager;
         }
+
+        /// <summary>
+        /// Creatde by  :   Sumit Kate on 12 Mar 2018
+        /// Description :   Log exception in GreyLog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError();
+            Bikewale.Notifications.ErrorClass.LogError(ex, "Global.Application_Error");
+        }
     }
 }

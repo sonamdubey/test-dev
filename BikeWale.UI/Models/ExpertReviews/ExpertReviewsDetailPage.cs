@@ -517,7 +517,7 @@ namespace Bikewale.Models
                         {
                             Bikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId),
                             CityId = CityId,
-                            WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName,objData.IsScooter ? "Scooters" : "Bikes"),
+                            WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
                             WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
                             WidgetHref = string.Format("/{0}{1}-bikes/{2}/", IsMobile ? "m/" : "",objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
 
@@ -984,7 +984,7 @@ namespace Bikewale.Models
                         ViewAllHref1 = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
                         ViewAllTitle1 = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, bodyStyles == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
                         ViewAllText1 = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, bodyStyles == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
-                        ShowViewAllLink1 = true,
+                        ShowViewAllLink1 = objData.SeriesWidget.PopularSeriesBikes != null && objData.SeriesWidget.PopularSeriesBikes.Any(),
                         PopularSeriesBikes = objData.SeriesWidget.PopularSeriesBikes,
 
 

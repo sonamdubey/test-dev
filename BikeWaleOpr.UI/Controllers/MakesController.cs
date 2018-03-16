@@ -8,6 +8,7 @@ using BikewaleOpr.Interface.BikeData;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace BikeWaleOpr.MVC.UI.Controllers.Content
 {
@@ -17,13 +18,15 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
     [Authorize]
     public class MakesController : Controller
     {
-        private readonly IBikeMakesRepository makesRepo;
-        private readonly IBikeModelsRepository modelsRepo;
+        private readonly IBikeMakesRepository _makesRepo;
+        private readonly IBikeModelsRepository _modelsRepo;
+        private readonly IBikeModels _bikeModels;
 
-        public MakesController(IBikeMakesRepository _makesRepo, IBikeModelsRepository _modelsRepo)
+        public MakesController(IBikeMakesRepository makesRepo, IBikeModelsRepository modelsRepo, IBikeModels bikeModels)
         {
-            makesRepo = _makesRepo;
-            modelsRepo = _modelsRepo;
+            _makesRepo = makesRepo;
+            _modelsRepo = modelsRepo;
+            _bikeModels = bikeModels;
         }
 
         /// <summary>
@@ -47,7 +50,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                     ViewBag.SuccessMsg = "";
                 }
 
-                objMakes = makesRepo.GetMakesList();
+                objMakes = _makesRepo.GetMakesList();
             }
             catch (Exception ex)
             {
@@ -69,7 +72,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                 int makeId = 0;
 
                 make.UpdatedBy = BikeWaleOpr.Common.CurrentUser.Id;
-                makesRepo.AddMake(make, ref isMakeExist, ref makeId);
+                _makesRepo.AddMake(make, ref isMakeExist, ref makeId);
 
                 if (isMakeExist == 1)
                     TempData["msg"] = "Make name or make masking name already exists. Can not insert duplicate name.";
@@ -88,6 +91,8 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// Function to update the given make details
         /// Modified by : Aditi Srivastava on 24 May 2017
         /// Summary     : Send mail when make masking name is changed
+        /// Modified By : Deepak Israni on 14 March 2018
+        /// Description : Added call to update bikemodel ES Index
         /// </summary>
         /// <returns></returns>         
         public ActionResult Update(BikeMakeEntity make)
@@ -99,14 +104,30 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                     string hostUrl = BWOprConfiguration.Instance.BwHostUrl;
                     IEnumerable<BikeModelMailEntity> models = null;
                     make.UpdatedBy = BikeWaleOpr.Common.CurrentUser.Id;
-                    makesRepo.UpdateMake(make);
+                    _makesRepo.UpdateMake(make);
                     if (string.Compare(make.OldMakeMasking, make.MaskingName) != 0)
                     {
-                        models = modelsRepo.GetModelsByMake((uint)make.MakeId, hostUrl, make.OldMakeMasking, make.MaskingName);
-                        IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
-                        foreach (var mail in emails)
+                        models = _modelsRepo.GetModelsByMake((uint)make.MakeId, hostUrl, make.OldMakeMasking, make.MaskingName);
+
+                        if (models != null)
                         {
-                            SendEmailOnModelChange.SendMakeMaskingNameChangeMail(mail, make.MakeName, models);
+                            String updatedIds = String.Join(",", models.Select(obj => Convert.ToString(obj.ModelId)));
+                            _bikeModels.UpdateModelESIndex(updatedIds, "update");
+
+                            IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
+                            foreach (var mail in emails)
+                            {
+                                SendEmailOnModelChange.SendMakeMaskingNameChangeMail(mail, make.MakeName, models);
+                            } 
+                        }
+                    }
+                    else
+                    {
+                        IEnumerable<BikeModelEntityBase> updatedModels = _modelsRepo.GetModelsByMake((uint)make.MakeId);
+                        if (updatedModels != null)
+                        {
+                            String updatedIds = String.Join(",", updatedModels.Select(obj => Convert.ToString(obj.ModelId)));
+                            _bikeModels.UpdateModelESIndex(updatedIds, "update"); 
                         }
                     }
                     TempData["msg"] = make.MakeName + " Make Updated Successfully";
@@ -135,7 +156,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                 if (makeId > 0)
                 {
                     int updatedBy = Convert.ToInt32(BikeWaleOpr.Common.CurrentUser.Id);
-                    makesRepo.DeleteMake(makeId, updatedBy);
+                    _makesRepo.DeleteMake(makeId, updatedBy);
 
                     TempData["msg"] = "Make Deleted Successfully";
                 }
@@ -167,7 +188,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                 if (makeId > 0)
                 {
                     MakeFooterPageModel objMakeFooter = new MakeFooterPageModel();
-                    objMakeFooter.MakeFooterData = makesRepo.GetMakeFooterCategoryData(makeId);
+                    objMakeFooter.MakeFooterData = _makesRepo.GetMakeFooterCategoryData(makeId);
                     objMakeFooter.MakeName = makeName;
                     objMakeFooter.MakeId = makeId;
 
@@ -198,7 +219,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             {
                 if (footerData.MakeId > 0)
                 {
-                    makesRepo.SaveMakeFooterData(footerData.MakeId, footerData.CategoryId, footerData.CategoryDescription, footerData.UserId);
+                    _makesRepo.SaveMakeFooterData(footerData.MakeId, footerData.CategoryId, footerData.CategoryDescription, footerData.UserId);
                     MemCachedUtility.Remove(string.Format("BW_FooterCategoriesandPrice_MK_{0}", footerData.MakeId));
                 }
 
@@ -221,7 +242,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         {
             try
             {
-                makesRepo.DisableAllMakeFooterCategories(makeId, userId);
+                _makesRepo.DisableAllMakeFooterCategories(makeId, userId);
             }
             catch (Exception ex)
             {

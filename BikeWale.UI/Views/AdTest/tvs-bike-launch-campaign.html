@@ -1,0 +1,31 @@
+﻿<script src="https://stb.aeplcdn.com/bikewale/src/jwplayer.js"></script>
+<script>jwplayer.key = "2NAy7ngYl3vCUSfm2FGqeRw33it2GOjdC67Pt0C3IaM=";</script>
+<style>
+	body {font: 13px/18px Helvetica, Arial;width: 100%;margin: 3px auto;}
+	#container {box-shadow: 0 0 4px #ccc;}
+	p {text-align: center;color: #666;margin-top: 20px;}
+</style>
+<div class="container">	
+	<div id="bw-tvs-adcampaign">Loading the player...</div>
+	<script type="text/javascript">
+		jwplayer("bw-tvs-adcampaign").setup({
+			"playlist": [
+				{
+					"sources": [
+						{
+							"file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+							"preload": "none"
+						}
+					]
+				}
+			],
+			"width": 300,
+			"height": 250,
+			aspectratio: "16:9",
+			"hlshtml": 'true',
+			"autostart": 'true',
+			"androidhls": 'true',
+			"primary": 'html5'
+		});
+	</script>
+</div>

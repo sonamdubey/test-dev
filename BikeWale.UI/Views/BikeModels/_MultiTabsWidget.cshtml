@@ -6,16 +6,16 @@
     <div class="bw-tabs-panel content-box-shadow section-bottom-margin">
         <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
             <ul id="widgetTab">
-                @if (!string.IsNullOrEmpty(Model.TabHeading1))
+                @if (!string.IsNullOrEmpty(Model.TabHeading1) && Model.ShowViewAllLink1)
                 {
-                    <li class="active" data-tabs="@Model.TabId1" data-other-tabs="@Model.TabId2">
+                    <li class='@(Model.ShowViewAllLink1 ? "active" : "")' data-tabs="@Model.TabId1" data-other-tabs="@Model.TabId2">
                         <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.TabHeading1</h2>
                     </li>
                 }
-                @if (!string.IsNullOrEmpty(Model.TabHeading2))
+                @if (!string.IsNullOrEmpty(Model.TabHeading2) && Model.ShowViewAllLink2)
                 {
                     <li data-tabs="@Model.TabId2" data-other-tabs="@Model.TabId1">
-                        <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.TabHeading2</h2>
+                        <h2 class='@((!Model.ShowViewAllLink1 && Model.ShowViewAllLink2) ? "bw-single-tab_multiwidget" : "bw-tabs__item bw-tabs-item--sm")'>@Model.TabHeading2</h2>
                     </li>
                 }
 
@@ -64,7 +64,7 @@
             }
         </div>
         @if (!string.IsNullOrEmpty(Model.TabId2))
-        { <div id="@Model.TabId2" class="bw-tabs-data sidebar-list--overflow hide">
+        { <div id="@Model.TabId2" class='bw-tabs-data sidebar-list--overflow @(!Model.ShowViewAllLink1 && Model.ShowViewAllLink2 ? "" : "hide")'>
             @switch ((uint)Model.Pages)
             {
                 case 1:

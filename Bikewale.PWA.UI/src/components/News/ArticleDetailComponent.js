@@ -222,7 +222,7 @@ class ArticleDetail extends React.Component {
         }
     }
     renderNewBikesList() {
-        if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched || !this.props.NewBikesListData.NewBikesList) {
+    	if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched || !this.props.NewBikesListData.NewBikesList || this.props.NewBikesListData.NewBikesList.length === 0) {
             return false;
         }
         return (

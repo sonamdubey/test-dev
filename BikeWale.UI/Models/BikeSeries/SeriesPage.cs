@@ -431,8 +431,8 @@ namespace Bikewale.Models.BikeSeries
             {
                 string versionList = string.Join(",", objViewModel.SeriesModels.NewBikes.Select(m => m.objVersion.VersionId));
                 PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareScooters, 1, objViewModel.City.CityId, versionList);
-                objViewModel.TopComparisions = objCompare.GetData();
-                objViewModel.TopComparisions.CompareSource = CompareSource;
+                objViewModel.TopComparisons = objCompare.GetData();
+                objViewModel.TopComparisons.CompareSource = CompareSource;
             }
             catch (Exception ex)
             {

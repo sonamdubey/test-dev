@@ -5,6 +5,9 @@
 @import ../../mixins/index
 @import ../../utils/index
 
+html
+	-webkit-tap-highlight-color: transparent
+
 body
 	&.bg-light-grey
 		background: #e3e3e3
@@ -110,11 +113,106 @@ body
 @include interesting-fact-section
 @include interesting-fact__container-scrollbar
 
-
 @media only screen and (max-width: 320px) 
 	.carousel__popular-bikes
 		.carousel-slide
 			width: 305px
 
 
+
+/* inpage filter */
+
+@import ../../partials/refine-result
+
+@include refine-result()
+@include refine-result__checkbox
+@include refine-result__view-more
+
+.label--radio
+	&.refine-result__checkbox-label
+		&:before
+			border-radius: 50%
+
+
+/* recommended bike */
+@import ../../partials/recommended-bike
+@import ../../partials/_loader
+
+.recommended-bike-container
+	.model__card
+		height: 260px
+		overflow: hidden
+
+@include recommended-bike__filter-section
+
+// skeleton loader
+@include recommended-bike__model-loader()  // for loader list card
+@include model-loader()
+@include model-loader__image()
+@include model-card__exshowroom-loader()
+
+@import ../../partials/result-not-found
+@include not-found__image()
+@include not-found-description()
+
+.not-found__image
+	@include vendor-prefix('transform', scale(.7))
+
+@import ../../partials/filter-screen
+
+
+.body-type__list
+	text-align: center
+	padding-top: 8px
+
+	li
+		width: auto
+		height: auto
+		display: inline-block
+		vertical-align: middle
+		margin-left: 16px
+
+		&:first-child
+			margin-left: 0
+
+	.bodytype-box__label
+		padding-left: 0
+
+.check-box--active
+	.bodytype-scooter
+		@include scooter-style-f45944-filled
+
+	.bodytype-cruiser
+		@include cruiser-style-f45944-filled
+
+	.bodytype-street
+		@include street-style-f45944-filled
+
+	.bodytype-sports
+		@include sports-style-f45944-filled
+
+.bodytype-box__icon
+	width: 52px
+	height: 30px
+	display: block
+	background-repeat: no-repeat
+	background-position: bottom center
+	background-size: contain
+	margin-bottom: 11px
+	
+.bodytype-box
+	display: block
+
+
+.bodytype-scooter
+	@include scooter-style-line
+	
+.bodytype-cruiser
+	@include cruiser-style-line
+
+.bodytype-street
+	@include street-style-line
+
+.bodytype-sports
+	@include sports-style-line
 
