@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.AdTags.AdId = "1516076585526";
     Model.AdTags.AdPath = "/1017752/Bikewale_Make_";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
     Model.AdTags.Ad320x150_Top = true;
     Model.AdTags.Ad320x150_Bottom = true;
     Model.AdTags.Ad_Mid_320x50 = true;
@@ -15,9 +17,10 @@
     Model.AdTags.Ad_200x216  = true;
     Model.AdTags.Ad_200x211 = true;
     Model.AdTags.Ad_300x250BTF = true;
+    Model.AdTags.Ad_320x50BTF = true;
     Model.AdTags.Ad300x250_Bottom = true;
     Model.AdTags.Ad_Body_Top_320x50 = true;
-    
+
 }
 
 <h1>BikeWale Ad Test Page</h1>
@@ -64,6 +67,10 @@
 <section>
     <h2>Ad_300x250BTF</h2>
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <h2>Ad_320x50BTF</h2>
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
 <section>
     <h2>Ad300x250_Bottom</h2>
