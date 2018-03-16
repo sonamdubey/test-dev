@@ -138,6 +138,7 @@ namespace Bikewale.Controllers
                 CompareDetailsVM objVM = null;
                 objDetails.IsMobile = true;
                 objVM = objDetails.GetData();
+                objVM.Compare.VersionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
                 if (objDetails.status == Entities.StatusCodes.RedirectPermanent)
                 {
                     return RedirectPermanent(objDetails.redirectionUrl);
