@@ -276,41 +276,16 @@
 							}
 						</ul>
 
-						<div class="image-list__model-widget">
-							<div class="model-info-section">
-								<a href="" title="" class="model-info__target-link">
-									<div class="model-info__container">
-										<span class="rating-badge" data-rate-bg="4">
-											<span class="rating-badge__star"></span>
-											<span>3.5</span>
-										</span>
-										<div class="model-info__image">
-											<img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70 " src="" alt="KTM1 RC200 ">
-										</div>
-										<div class="model-info-description">
-											<h3 class="model-info__title">
-												Bajaj Dominar 400
-											</h3>
-											<p class="model-info__ex-showroom">
-												Ex-showroom, Mumbai
-											</p>
-											<p class="card-exshowroom__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
-										</div>
-									</div>
-								</a>
-								<div class="model-info__specs-container">
-									<a href="" class="model-info__specs-item specs-icon">
-										Specs
-									</a>
-									<a href="" class="model-info__specs-item specs-icon">
-										Expert Reviews
-									</a>
-									<a href="" class="model-info__specs-item specs-icon">
-										News
-									</a>
-								</div>
-							</div>
-						</div>
+                        @if (Model.BikeInfo != null)
+                        { <section>
+                              <div class="image-list__model-widget">
+                                  @Html.Partial("~/views/Bikemodels/_BikeInfoCard_New_Mobile.cshtml", Model.BikeInfo)
+                              </div>
+                        </section>
+                        }
+						
+						
+					
 
 						<ul id="imageGridBottom" class="image-grid__list image-grid--bottom" data-grid="6">
 							@while (i < Math.Min(Model.GridPhotoCount, 19))
@@ -396,46 +371,14 @@
 		</div>
 	</section>
 
-	<section>
-		<div class="similar-model">
-			<h2 class="page__heading-h2">
-				Bikes similar to Bajaj Dominar 400
-			</h2>
-			<div class="swiper-container card-container similar-model-carousel" data-spacebetween="0">
-				<ul class="swiper-wrapper">
-					@for (i = 0; i <= 5; i++)
-					{
-						<li class="swiper-slide carousel-slide">
-							<div class="similar-model__card">
-								<a href="" title="" class="similar-model__target">
-									<div class="similar-model__image">
-										<img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//160x89//bw/models/bajaj-pulsar-rs200.jpg?20150710124439&q=70" alt="" src="" title="">
-									</div>
-									<div class="similar-model__detail">
-										<h3 class="similar-model__title">
-											Royal Enfield Himalaya
-										</h3>
-										<p class="similar-model__ex-showroom">
-											Ex-showroom, Mumbai
-										</p>
-										<p class="similar-model__value">&#x20b9;&nbsp;<span class="text--semibold">92,352</span></p>
-									</div>
-								</a>
-								<a href="" title="" class="similar-model__footer">
-									<div class="similar-model__image-count">
-										View all 64 Images
-									</div>
-								</a>
-							</div>
-						</li>
-					}
 
+    if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
+    {
+        <section>
+            @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_Mobile.cshtml", Model.SimilarBikes)
+        </section>
+    }
 
-				</ul>
-			</div>
-		</div>
-
-	</section>
 
 	if (Model.AdTags.Ad_300x250BTF)
 	{

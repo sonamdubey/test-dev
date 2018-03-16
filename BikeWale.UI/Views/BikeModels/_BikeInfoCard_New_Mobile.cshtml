@@ -1,0 +1,87 @@
+﻿@model Bikewale.Models.BikeInfoVM
+@if (Model != null && Model.BikeInfo != null)
+{
+    var bikeInfo = Model.BikeInfo;
+    var cityDetails = Model.CityDetails;
+
+    <div class="model-info-section">
+        <div title="" class="model-info__target-link">
+            <div class="model-info__container">
+                @if (Model.BikeInfo.RatingCount > 0)
+                {
+                    <a href="@string.Format("/m{0}/reviews", Model.BikeUrl)" title="@string.Format("{0} reviews",Model.BikeName)" style="text-decoration:none">
+                        <span class="rating-badge" data-rate-bg="@Math.Round(Model.BikeInfo.Rating)">
+                            <span class="rating-badge__star"></span>
+                            <span>@Model.BikeInfo.Rating.ToString("0.0")</span>
+                        </span>
+                    </a>
+
+                }
+
+                <a class="model-info__image" href="@string.Format("/m{0}", Model.BikeUrl)" title="@Model.BikeName">
+                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath, bikeInfo.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" src="" alt="@Model.BikeName">
+                </a>
+                <div class="model-info-description">
+                    <a href="@string.Format("/m{0}", Model.BikeUrl)" class="block text-default margin-bottom5 bw-ga" title="@Model.BikeName" data-cat="@Model.Category" data-act="Clicked_Model_GenericSlug" data-lab="@Model.BikeName">
+                        <h3>@Model.BikeName</h3>
+                    </a>
+                    <div class="bike-details-block vertical-top">
+                        @if (Model.IsSmallSlug)
+                        { <a href="@Model.BikeUrl" class="block text-default margin-bottom5" title="@Model.BikeName ">
+                            <h3 class="text-truncate">@Model.BikeName </h3>
+                        </a>
+                        }
+                        @if (Model.IsDiscontinued)
+                        {
+                            <p class="price-label-size-12 text-truncate">Last known Ex-showroom price</p>
+                            <div>
+                                @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) </span>
+                            </div>
+                        }
+                        else if (Model.IsUpcoming)
+                        {
+                            <p class="price-label-size-12">Expected price</p>
+                            <div>
+                                @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price">
+                                    @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) - @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMax))
+                                </span>
+                            </div>
+                        }
+                        else
+                        {
+                            if (bikeInfo.PriceInCity > 0 && cityDetails != null)
+                            {
+                                <p class="price-label-size-12 text-truncate">@String.Format("On-road price, {0}", cityDetails.CityName)</p>
+                                <div>
+                                    @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.PriceInCity)) </span>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName)</p>
+                                <div>
+                                    @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) </span>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (bikeInfo != null)
+        {
+            <div class="model-info__specs-container">
+                @foreach (var Tabsdetails in bikeInfo.Tabs)
+                {
+
+                    <a class="model-info__specs-item specs-icon" href="@string.Format("/m{0}",Tabsdetails.URL)" title="@Model.BikeName  @Tabsdetails.Title">
+                        @Tabsdetails.TabText
+                    </a>
+
+                }
+            </div>
+        }
+    </div>
+}
+
+
