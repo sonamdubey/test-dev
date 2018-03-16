@@ -1,96 +1,100 @@
 ﻿var BikeFiltersPopup = (function () {
-    var container, backgroundWindow, closeBtn;
+	var container, backgroundWindow, closeBtn;
 
-    function _setSelectors() {
-        container = $('#filtersPopup');
-        backgroundWindow = $('#filtersBlackoutWindow');
-        closeBtn = $('#filterClose');
-    }
+	function _setSelectors() {
+		container = $('#filtersPopup');
+		backgroundWindow = $('#filtersBlackoutWindow');
+		closeBtn = $('#filterClose');
+	}
 
-    function registerEvents() {
-        _setSelectors();
-        _setBodyDimension();
+	function registerEvents() {
+		_setSelectors();
+		_setBodyDimension();
 
-        $(backgroundWindow).on('click', function () {
-            if (container.hasClass('filters-screen--active')) {
-                window.history.back();
-            }
-        });
+		$(backgroundWindow).on('click', function () {
+			if (container.hasClass('filters-screen--active')) {
+				window.history.back();
+			}
+		});
 
-        $('#filterClose').on('click', function () {
-            backgroundWindow.trigger('click');
-        });
+		$('#filterClose').on('click', function () {
+			backgroundWindow.trigger('click');
+		});
 
-        $(window).on('popstate', function () {
-            if (container.hasClass('filters-screen--active') && history.state === "recommendedBikePopup") {
-                close();
-            }
-        });
-    }
+		$(window).on('popstate', function () {
+			if (container.hasClass('filters-screen--active') && history.state === "recommendedBikePopup") {
+				close();
+			}
+		});
+	}
 
-    function _setBodyDimension() {
-        var bodyHeight = container.find('.filters__screen').height() - container.find('.filters-screen__head').height();
+	function _setBodyDimension() {
+		var bodyHeight = container.find('.filters__screen').height() - container.find('.filters-screen__head').height();
 
-        container.find('.filters-screen__body').css('height', bodyHeight);
-    }
+		container.find('.filters-screen__body').css('height', bodyHeight);
+	}
 
-    function open() {
-        container.addClass('filters-screen--active');
-        history.pushState('filtersPopup', '', '');
-    }
+	function open() {
+		container.addClass('filters-screen--active');
+		history.pushState('filtersPopup', '', '');
+	}
 
-    function close() {
-        container.removeClass('filters-screen--active');
-    }
+	function close() {
+		container.removeClass('filters-screen--active');
+	}
 
-    return {
-        registerEvents: registerEvents,
-        open: open,
-        close: close
-    }
+	return {
+		registerEvents: registerEvents,
+		open: open,
+		close: close
+	}
 
 
 
 })();
 
 var Accordion = (function () {
-    function registerEvents() {
-        $('.accordion__list').on('click', '.accordion__head', function () {
-            handleClick($(this))
-        });
-    }
+	function registerEvents() {
+		$('.accordion__list').on('click', '.accordion__head', function () {
+			handleClick($(this))
+		});
+	}
 
-    function handleClick(accordionHead) {
-        var accordionList = accordionHead.closest('.accordion__list');
+	function handleClick(accordionHead) {
+		var accordionList = accordionHead.closest('.accordion__list');
 
-        if (accordionList.attr('data-state') === 'one') {
-            var accordionItem = accordionHead.closest('.accordion-list__item');
-            var accordionSiblingItems = accordionItem.siblings('.accordion-list__item');
+		if (accordionList.attr('data-state') === 'one') {
+			var accordionItem = accordionHead.closest('.accordion-list__item');
+			var accordionSiblingItems = accordionItem.siblings('.accordion-list__item');
 
-            accordionSiblingItems.find('.accordion-item--active').removeClass('accordion-item--active');
-            accordionSiblingItems.find('.accordion__body').css('height', 0);
+			accordionSiblingItems.find('.accordion-item--active').removeClass('accordion-item--active');
+			accordionSiblingItems.find('.accordion__body').css('height', 0);
 
-            var accordionBody = accordionHead.siblings('.accordion__body');
-            var accordionContentHeight = accordionBody.find('.accordion-body__content').outerHeight(true);
+			var accordionBody = accordionHead.siblings('.accordion__body');
+			var accordionContentHeight = accordionBody.find('.accordion-body__content').outerHeight(true);
 
-            if (!accordionHead.hasClass('accordion-item--active')) {
-                accordionHead.addClass('accordion-item--active');
-                accordionBody.css('height', accordionContentHeight);
-            }
-            else {
-                accordionHead.removeClass('accordion-item--active');
-                accordionBody.css('height', 0);
-            }
-        }
+			if (!accordionHead.hasClass('accordion-item--active')) {
+				accordionHead.addClass('accordion-item--active');
+				accordionBody.css('height', accordionContentHeight);
+			}
+			else {
+				accordionHead.removeClass('accordion-item--active');
+				accordionBody.css('height', 0);
+			}
+		}
 
-    }
+	}
 
-    return {
-        registerEvents: registerEvents
-    }
+	return {
+		registerEvents: registerEvents
+	}
 })();
 
+//Adjust this value according to the number of upfront discontinued bike models (before `View All` is clicked) to be shown at the bottom.
+var discontinuedBikesToShowUpfront = 4;
+
 docReady(function () {
+
 	$('.overall-tabs__list .overall-tabs-list__item').first().addClass('tab--active');
 
 	$('.model-card__pros-cons').on('click', '.pros-cons__more-btn', function (event) {
@@ -99,17 +103,17 @@ docReady(function () {
 	});
 	$("#notifySubmitBtn").on("click", function () {
 	  
-	    flag = validateForm.emailField($("#notifyEmailField"));
-	    if (flag) {
-	        executeNotification($(this));
-	    }
+		flag = validateForm.emailField($("#notifyEmailField"));
+		if (flag) {
+			executeNotification($(this));
+		}
 	});
 
 	$('#allIndiaUrl').on('click',function()
 	{
-       $.removeCookie('location', { path: '/' });
-	    window.location = $(this).attr('data-url');
-    });
+	   $.removeCookie('location', { path: '/' });
+		window.location = $(this).attr('data-url');
+	});
 
 	// popular bikes carousel
 	if (navigator.userAgent.match(/Firefox/gi) || navigator.userAgent.match(/UCBrowser/gi)) {
@@ -154,51 +158,64 @@ docReady(function () {
 	
 
 	$('.upcoming-card__notify-btn').on('click', function () {
-	    $('.notify-details__model').text($(this).attr('data-bikeName'));
-	    $('.form-field__submit-btn').attr('data-bikename', $(this).attr('data-bikename'));
-	    $('.form-field__submit-btn').attr('data-makeid', $(this).attr('data-makeid'));
-	    $('.form-field__submit-btn').attr('data-modelid', $(this).attr('data-modelid'));
+		$('.notify-details__model').text($(this).attr('data-bikeName'));
+		$('.form-field__submit-btn').attr('data-bikename', $(this).attr('data-bikename'));
+		$('.form-field__submit-btn').attr('data-makeid', $(this).attr('data-makeid'));
+		$('.form-field__submit-btn').attr('data-modelid', $(this).attr('data-modelid'));
 		notifyPopup.open();
 	});
 
 
 	$('.emicalculator_link_event').on('click', function () {
-	    var data = $(this);
+		var data = $(this);
 
-	    var emiDetails = JSON.parse(atob(data.data('emidetails')));
-	    var bikePrice = data.data('bikeprice');
+		var emiDetails = JSON.parse(atob(data.data('emidetails')));
+		var bikePrice = data.data('bikeprice');
 
-	    EMIviewModel.processingFees(emiDetails.processingFee);
-	    EMIviewModel.exshowroomprice(bikePrice);
-	    EMIviewModel.bikePrice(bikePrice);
-	    EMIviewModel.minTenure(emiDetails.minTenure);
-	    EMIviewModel.maxTenure(emiDetails.maxTenure);
-	    EMIviewModel.minDnPay(emiDetails.minDownPayment);
-	    EMIviewModel.maxDnPay(emiDetails.maxDownPayment);
-	    EMIviewModel.minROI(emiDetails.minRateOfInterest);
-	    EMIviewModel.maxROI(emiDetails.maxRateOfInterest);
-	    EMIviewModel.loan(emiDetails.minLoanToValue);
+		EMIviewModel.processingFees(emiDetails.processingFee);
+		EMIviewModel.exshowroomprice(bikePrice);
+		EMIviewModel.bikePrice(bikePrice);
+		EMIviewModel.minTenure(emiDetails.minTenure);
+		EMIviewModel.maxTenure(emiDetails.maxTenure);
+		EMIviewModel.minDnPay(emiDetails.minDownPayment);
+		EMIviewModel.maxDnPay(emiDetails.maxDownPayment);
+		EMIviewModel.minROI(emiDetails.minRateOfInterest);
+		EMIviewModel.maxROI(emiDetails.maxRateOfInterest);
+		EMIviewModel.loan(emiDetails.minLoanToValue);
 
-	    var emiPopup = $('#emiPopup');
-	    emiCalculator.open(emiPopup);
+		var emiPopup = $('#emiPopup');
+		emiCalculator.open(emiPopup);
 
 	});
 
-    //For Discontinued models at the bottom of the make page (taken from `bwm-brand.js`)
-	if ($("#discontinuedMore a").length > 4) {
-	    $('#discontinuedMore').hide();
+	//For Discontinued models at the bottom of the make page (taken from `bwm-brand.js`)
+
+	var noOfBikes = $("#discontinuedMore a").length;
+	if (noOfBikes > discontinuedBikesToShowUpfront) {
+		$('#discontinuedMore').hide();
 	}
 	else {
-	    $('#discontinuedLess').hide();
+		$('#discontinuedLess').hide();
 	}
-	$("#spnContent").append($("#discontinuedMore a:eq(0)").clone()).append(", ").append($("#discontinuedMore a:eq(1)").clone()).append(", ").append($("#discontinuedMore a:eq(2)").clone()).append(", ").append($("#discontinuedMore a:eq(3)").clone());
-	$("#spnContent").append("... <a class='f-small' id='viewall' >View All</a>");
+
+	for (var i = 0; i < discontinuedBikesToShowUpfront; i++) {
+		$("#spnContent").append($("#discontinuedMore a:eq(" + i + ")").clone());
+		if (i == noOfBikes-1) {
+			break;
+		}
+		if (i < discontinuedBikesToShowUpfront-1) {
+			$("#spnContent").append(", ");
+		}
+	}
+	if (discontinuedBikesToShowUpfront < noOfBikes) {
+		$("#spnContent").append("... <a class='f-small' id='viewall' >View All</a>");
+	}
 
 	$("#viewall").click(function () {
-	    $("#discontinuedLess").hide();
-	    $("#discontinuedMore").show();
-	    var xContents = $('#discontinuedMore').contents();
-	    xContents[xContents.length - 1].nodeValue = "";
+		$("#discontinuedLess").hide();
+		$("#discontinuedMore").show();
+		var xContents = $('#discontinuedMore').contents();
+		xContents[xContents.length - 1].nodeValue = "";
 	});
 
 	formField.registerEvents();
@@ -216,9 +233,9 @@ docReady(function () {
 	BikeFiltersPopup.registerEvents();
 	if (vmRecommendedBikes != null && vmRecommendedBikes.searchFilter!=null)
 	{
-	    vmRecommendedBikes.searchFilter.makeId = $('#hdnMakeId').val();
-	    vmRecommendedBikes.searchFilter.cityId = $('#hdnCityId').val();
-	    vmRecommendedBikes.searchFilter.makeName = $('#makeName').val();
+		vmRecommendedBikes.searchFilter.makeId = $('#hdnMakeId').val();
+		vmRecommendedBikes.searchFilter.cityId = $('#hdnCityId').val();
+		vmRecommendedBikes.searchFilter.makeName = $('#makeName').val();
 	}
 
 	Accordion.registerEvents();
@@ -245,7 +262,7 @@ var floatingNav = (function () {
 
 		$(window).scroll(function () {
 			var windowScrollTop = $(window).scrollTop(),
-                specsTabsOffsetTop = $('.overall-tabs__placeholder').offset().top,
+				specsTabsOffsetTop = $('.overall-tabs__placeholder').offset().top,
 				overallContainerHeight = overallContainer.outerHeight();
 
 			if (windowScrollTop > specsTabsOffsetTop) {
@@ -325,30 +342,30 @@ var floatingNav = (function () {
 })();
 
 function executeNotification(buttonElement) {
-    var userData = {
-        "emailId": $("#notifyEmailField").val(),
-        "makeId": $('.form-field__submit-btn').attr("data-makeid"),
-        "modelId": $('.form-field__submit-btn').attr("data-modelid"),
-        "bikeName": $('.form-field__submit-btn').attr("data-bikename"),
-    };
-    $.ajax({
-        type: "POST",
-        url: "/api/notifyuser/",
-        contentType: "application/json",
-        data: ko.toJSON(userData),
-        success: function (response) {
-            if (response) {
-                notifyPopup.setSuccessState(buttonElement);
-            }
-            else {
-                validateForm.setError($('#notifyEmailField'), "An error has occured");
-            }
-        },
-        error: function (response) {
-            validateForm.setError($('#notifyEmailField'), "An error has occured");
-        }
+	var userData = {
+		"emailId": $("#notifyEmailField").val(),
+		"makeId": $('.form-field__submit-btn').attr("data-makeid"),
+		"modelId": $('.form-field__submit-btn').attr("data-modelid"),
+		"bikeName": $('.form-field__submit-btn').attr("data-bikename"),
+	};
+	$.ajax({
+		type: "POST",
+		url: "/api/notifyuser/",
+		contentType: "application/json",
+		data: ko.toJSON(userData),
+		success: function (response) {
+			if (response) {
+				notifyPopup.setSuccessState(buttonElement);
+			}
+			else {
+				validateForm.setError($('#notifyEmailField'), "An error has occured");
+			}
+		},
+		error: function (response) {
+			validateForm.setError($('#notifyEmailField'), "An error has occured");
+		}
 
-    });
+	});
 }
 /* upcoming bikes set notification popup */
 var notifyPopup = (function () {
@@ -410,10 +427,10 @@ var notifyPopup = (function () {
 	}
 
 	function setSuccessState(buttonElement) {
-	    formField.setSuccessState(buttonElement, 'Thank You!');
-	    setTimeout(function () {
-	        $('#notifyCloseBtn').trigger('click');
-	    }, 1000);
+		formField.setSuccessState(buttonElement, 'Thank You!');
+		setTimeout(function () {
+			$('#notifyCloseBtn').trigger('click');
+		}, 1000);
 	}
 
 	return {
@@ -520,9 +537,9 @@ var interestingFactPopup = (function () {
 
 		$('.interesting-fact__read-more').on('click', function () {
 			var interestingFactContainer = $(this).closest('.interesting-fact-section'),
-		        windowScrollTop = $(window).scrollTop(),
-                bodyShowableArea = $(window).height() * .30,
-		        shownArea = interestingFactContainer.offset().top - windowScrollTop;
+				windowScrollTop = $(window).scrollTop(),
+				bodyShowableArea = $(window).height() * .30,
+				shownArea = interestingFactContainer.offset().top - windowScrollTop;
 
 			if (shownArea < bodyShowableArea) { // to move interesting fact container if it is visible in background after popup open 
 				$('html, body').animate({ scrollTop: (windowScrollTop - (bodyShowableArea - shownArea)) }, 100);
