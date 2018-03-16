@@ -413,7 +413,7 @@ namespace Bikewale.BAL.BikeData
                     });
                 }
                 var galleryImages = GetBikeModelPhotoGallery(modelId);
-                if (galleryImages != null && galleryImages.Any())
+                if (modelImages != null && galleryImages != null && galleryImages.Any())
                 { 
                     modelImages.AddRange(galleryImages);
                 }
