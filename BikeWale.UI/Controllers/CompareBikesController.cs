@@ -1,4 +1,5 @@
-﻿using Bikewale.Comparison.Interface;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Comparison.Interface;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
@@ -86,6 +87,7 @@ namespace Bikewale.Controllers
             {
                 CompareDetailsVM objVM = null;
                 objVM = objDetails.GetData();
+                objVM.Compare.VersionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
                 if (objDetails.status == Entities.StatusCodes.RedirectPermanent)
                 {
                     return RedirectPermanent(objDetails.redirectionUrl);

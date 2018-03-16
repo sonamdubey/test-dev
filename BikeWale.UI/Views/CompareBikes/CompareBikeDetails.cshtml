@@ -159,13 +159,15 @@
 						<div class="clear"></div>
 						<div id="overallSpecsTab" class="bw-tabs-flex overall-specs-tabs-wrapper font14">
 							<ul>
-								@if (Model.Compare.CompareSpecifications != null && Model.Compare.CompareSpecifications.Spec.Any())
-								{
-									<li class="active quickAcessTab" data-tabs="specsTabContent">Specifications</li>
-								}
-								@if (Model.Compare.CompareFeatures != null)
-								{
-									<li class="quickAcessTab" data-tabs="featuresTabContent">Features</li>
+								@if (Model.Compare.VersionSpecsFeatures != null) {
+									if (Model.Compare.VersionSpecsFeatures.Specs != null && Model.Compare.VersionSpecsFeatures.Specs.Any())
+									{
+										<li class="active quickAcessTab" data-tabs="specsTabContent">Specifications</li>
+									}
+									if (Model.Compare.VersionSpecsFeatures.Features != null && Model.Compare.VersionSpecsFeatures.Features.Any())
+									{
+										<li class="quickAcessTab" data-tabs="featuresTabContent">Features</li>
+									}
 								}
 								@if (Model.Compare.CompareColors != null)
 								{
@@ -188,13 +190,16 @@
 					</div>
 					<div id="overall-tabs" class="bw-tabs-flex overall-specs-tabs-wrapper font14">
 						<ul>
-							@if (Model.Compare.CompareSpecifications != null)
+							@if (Model.Compare.VersionSpecsFeatures != null)
 							{
-								<li class="active quickAcessTab" data-tabs="specsTabContent">Specifications</li>
-							}
-							@if (Model.Compare.CompareFeatures != null)
-							{
-								<li class="quickAcessTab" data-tabs="featuresTabContent">Features</li>
+								if (Model.Compare.VersionSpecsFeatures.Specs != null && Model.Compare.VersionSpecsFeatures.Specs.Any())
+								{
+									<li class="active quickAcessTab" data-tabs="specsTabContent">Specifications</li>
+								}
+								if (Model.Compare.VersionSpecsFeatures.Features != null && Model.Compare.VersionSpecsFeatures.Features.Any())
+								{
+									<li class="quickAcessTab" data-tabs="featuresTabContent">Features</li>
+								}
 							}
 							@if (Model.Compare.CompareColors != null)
 							{
@@ -214,98 +219,87 @@
 							}
 						</ul>
 					</div>
-					@if (Model.Compare.CompareSpecifications != null)
+					@if (Model.Compare.VersionSpecsFeatures != null)
 					{
-						<div id="specsTabContent" data-id="specsTabContent" class="bw-tabs-data font14 hide-features">
-							<div class="bw-tabs_title"> Specifications</div>
-							<ul class="accordion-list">
-								@{isFirstActiveTab = true;}
-								@foreach (var spec in Model.Compare.CompareSpecifications.Spec)
-								{
-									<li>
-										<div class="model-accordion-tab">
-											<span class="model-sprite specs-@spec.Value-sm"></span>
-											<span class="accordion-tab-label">@spec.Text</span>
-										</div>
-										<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-											<tbody>
-												<tr class="row-width-grid">
-													<td width="162"></td>
-													@foreach (var specCat in spec.SpecCategory)
-													{
-
-														foreach (var compSpec in specCat.CompareSpec)
+						if (Model.Compare.VersionSpecsFeatures.Specs != null && Model.Compare.VersionSpecsFeatures.Specs.Any())
+						{
+							<div id="specsTabContent" data-id="specsTabContent" class="bw-tabs-data font14 hide-features">
+								<div class="bw-tabs_title"> Specifications</div>
+								<ul class="accordion-list">
+									@{isFirstActiveTab = true;}
+									@foreach (var specCat in Model.Compare.VersionSpecsFeatures.Specs)
+									{
+										if (specCat != null && specCat.SpecsItemList.Any())
+										{
+											<li>
+												<div class="model-accordion-tab">
+													<span class="model-sprite specs-dummy-sm"></span>
+													<span class="accordion-tab-label">@specCat.DisplayText</span>
+												</div>
+												<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+													<tbody>
+														<tr class="row-width-grid">
+															<td width="162"></td>
+															@foreach (var specValue in specCat.SpecsItemList.First().ItemValues)
+															{
+																<td></td>
+															}
+														</tr>
+														@{isFirstActiveTab = false;}
+														@foreach (var specItem in specCat.SpecsItemList)
 														{
-															<td></td>
-}
-														<td></td>
-}
-												</tr>
-												@{isFirstActiveTab = false;}
-												@foreach (var specCat in spec.SpecCategory)
-												{
 
-													<tr class="row-type-data">
-														<td>@specCat.Text</td>
-														@foreach (var compSpec in specCat.CompareSpec)
-														{
-															<td>@compSpec.Value</td>
-}
-														<td></td>
-													</tr>
+															<tr class="row-type-data">
+																<td>@specItem.DisplayText</td>
+																@foreach (var specValue in specItem.ItemValues)
+																{
+																	<td>@specValue @specItem.UnitTypeText</td>
+																}
+																<td></td>
+															</tr>
 
-
-
-
-												}
-											</tbody>
-										</table>
-									</li>				}
-							</ul>
-						</div>							}
-					@if (Model.Compare.CompareFeatures != null)
-					{
-						<div id="featuresTabContent" data-id="featuresTabContent" class="bw-tabs-data font14 hide-features">
-							<div class="bw-tabs_title"> features</div>
-							@foreach (var spec in Model.Compare.CompareFeatures.Spec)
-							{
+														}
+													</tbody>
+												</table>
+											</li>
+										}
+									}
+								</ul>
+							</div>
+						}
+						if (Model.Compare.VersionSpecsFeatures.Features != null && Model.Compare.VersionSpecsFeatures.Features.Any())
+						{
+							<div id="featuresTabContent" data-id="featuresTabContent" class="bw-tabs-data font14 hide-features">
+								<div class="bw-tabs_title"> features</div>
 								<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
 									<tbody>
 										<tr class="row-width-grid">
 											<td width="162"></td>
-											@foreach (var specCat in spec.SpecCategory)
+											@foreach (var featureValue in Model.Compare.VersionSpecsFeatures.Features.First().ItemValues)
 											{
-												foreach (var compSpec in specCat.CompareSpec)
-												{
-													<td></td>
-}
 												<td></td>
-}
+											}
 										</tr>
 										@{isFirstActiveTab = false;}
-										@foreach (var specCat in spec.SpecCategory)
+										@foreach (var feature in Model.Compare.VersionSpecsFeatures.Features)
 										{
 
 											<tr class="row-type-data">
-												<td>@specCat.Text</td>
-												@foreach (var compSpec in specCat.CompareSpec)
+												<td>@feature.DisplayText</td>
+												@foreach (var featureValue in feature.ItemValues)
 												{
-													<td>@compSpec.Value</td>
-
-
-
+													<td>@featureValue</td>
 
 												}
 												<td></td>
 											</tr>
-
-
-
-
 										}
 									</tbody>
-								</table>			}
-						</div>					}
+								</table>
+							</div>
+						}
+					}
+					
 					@if (Model.Compare.CompareColors != null)
 					{
 						<div id="coloursTabContent" data-id="coloursTabContent" class="bw-tabs-data font14 hide-features">
