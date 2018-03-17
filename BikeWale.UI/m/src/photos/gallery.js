@@ -51,7 +51,8 @@ var setPageVariables = function () {
 }
 
 var popupGallery = {
-	open: function () {
+    open: function () {
+
 		vmModelGallery.openGalleryPopup();
 
 		if (COLOR_INDEX) {
@@ -74,7 +75,6 @@ var popupGallery = {
 	},
 
 	bindGallery: function () {
-		triggerGA('Gallery_Page', 'Gallery_Loaded', MODEL_NAME);
 		popupGallery.open();
 	}
 }
@@ -355,6 +355,8 @@ var MainGallerySwiper = (function() {
 				if (vmModelGallery.activePopup()) {
 					vmModelGallery.setColorSlug(swiper.activeIndex);
 					vmModelGallery.setVideoSlug(swiper.activeIndex);
+					triggerGA('Gallery_Page', 'Image_Carousel_Clicked', MODEL_NAME);
+
 				}
 			},
 
@@ -435,8 +437,10 @@ var ColorGallerySwiper = (function () {
 			},
 
 			onSlideChangeStart: function (swiper) {
-				SwiperEvents.setDetails(swiper, vmModelGallery.colorPopup().colorSwiper());
-				if (!vmModelGallery.fullScreenModeActive()) {
+			    SwiperEvents.setDetails(swiper, vmModelGallery.colorPopup().colorSwiper());
+			    triggerGA('Gallery_Page', 'Colour_Changed', MODEL_NAME);
+			    logBhrighuForImage($('#mainColorSwiper .swiper-slide-active'));
+			    if (!vmModelGallery.fullScreenModeActive()) {
 					SwiperEvents.focusThumbnail(colorThumbnailGallerySwiper, vmModelGallery.colorPopup().colorSwiper().activeIndex(), false);
 				}
 				else {
