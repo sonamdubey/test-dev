@@ -86,7 +86,7 @@
 									</div>
 									<span class="gallery-image__color" data-bind="visible: activeFooterColorOption(), click: colorPopup().openPopup" style="display: none">Colors</span>
 									<div class="gallery-image__feature">
-										<a href="javascript:void(0)" title="" class="gallery__download-icon"></a>
+										<a href="javascript:void(0)" title="Download Image" class="gallery__download-icon"></a>
 										<span data-bind="click: toggleSharePopup" class="gallery__share-icon"></span>
 										<span class="gallery__zoom-icon" data-bind="click: openGalleryPopup"></span>
 										<span class="landscape-icon__container" data-bind="attr: { 'data-visible': activeLandscapeIcon() && activePopup() && fullScreenSupport() ? 'true': 'false' }, click: toggleFullScreen">
@@ -364,7 +364,7 @@
 						<li>First Drive</li>
 						<li>Comparison test</li>
 					</ul>
-					<a href="#" class="btn btn-inv-blue video-slug__more-btn">View All Videos</a>
+					<a href="@string.Format("/m/{0}-bikes/{1}/videos/",Model.Make.MaskingName,Model.Model.MaskingName)" title="@string.Format("{0} {1} Videos", Model.Make.MaskingName, Model.Model.MaskingName)" class="btn btn-inv-blue video-slug__more-btn">View All Videos</a>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -375,7 +375,7 @@
     if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
     {
         <section>
-            @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_Mobile.cshtml", Model.SimilarBikes)
+            @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_New_Mobile.cshtml", Model.SimilarBikes)
         </section>
     }
 
