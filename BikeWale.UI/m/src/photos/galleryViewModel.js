@@ -11,7 +11,7 @@
 
 	// model color gallery
 	self.colorPopup = ko.observable(new ModelColorPopupViewModel());
-
+	
 	self.fullScreenModeActive = ko.observable(false);
 	self.fullScreenSupport = ko.observable(true);
 
@@ -79,6 +79,7 @@
 	self.openGalleryPopup = function () {
 		self.activeSwiperTitle(false);
 		self.activePopup(true);
+		triggerGA('Gallery_Page', 'Gallery_Loaded', self.modelName);
 		self.setRotateScreenOption();
 		self.setColorOption();
 
@@ -309,9 +310,10 @@ var ModelColorPopupViewModel = function () {
 	self.colorSwiper = ko.observable(new ModelColorSwiperViewModel());
 
 	self.openPopup = function () {
-		self.activePopup(true);
+	    self.activePopup(true);
 		self.setListHeight();
 
+		triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', self.modelName);
 		historyObj.addToHistory('colorPopup');
 
 		GalleryState.subscribeAction(self.closePopup);
@@ -319,7 +321,9 @@ var ModelColorPopupViewModel = function () {
 
 	self.closePopup = function () {
 		if (self.activePopup()) {
-			self.activePopup(false);
+		    self.activePopup(false);
+		    triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Closed', self.modelName);
+		    history.back();
 		}
 	}
 
@@ -359,13 +363,14 @@ var ModelVideoPopupViewModel = function () {
 	self.activePopup = ko.observable(false);
 	self.videoData = ko.observable(new ModelVideoViewModel());
 	self.videoData().getVideos();
+	self.modelName = MODEL_NAME;
 
 	self.openPopup = function () {
 		self.activePopup(true);
 		self.setBodyHeight();
 		self.handleSwiperResize();
 		self.videoSwiper.update(true);
-
+		triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Opened', self.modelName);
 		historyObj.addToHistory('videosPopup');
 
 		GalleryState.subscribeAction(self.closePopup);
@@ -373,7 +378,10 @@ var ModelVideoPopupViewModel = function () {
 
 	self.closePopup = function () {
 		if (self.activePopup()) {
-			self.activePopup(false);
+		    self.activePopup(false);
+		    triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Closed', self.modelName);
+		    history.back();
+
 		}
 	}
 
