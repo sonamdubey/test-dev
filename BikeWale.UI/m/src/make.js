@@ -374,9 +374,6 @@ var notifyPopup = (function () {
 
 			if (isValid) {
 				formField.setSuccessState($(this), 'Thank You!');
-				setTimeout(function () {
-					$('#notifyCloseBtn').trigger('click');
-				}, 1000);
 			}
 		});
 
@@ -390,9 +387,9 @@ var notifyPopup = (function () {
 		});
 
 		$(window).on('popstate', function () {
-			if (container.hasClass('filter-screen--active')) {
-				close();
-			}
+		    if (container.hasClass('notify-popup--active')) {
+		        notifyPopup.close();
+		    }
 		});
 	}
 
