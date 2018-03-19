@@ -68,9 +68,9 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>*@
 <div id="specsFeaturesAndAboutContent" data-id="specsFeaturesAndAboutContent" class="bw-model-tabs-data">
-    @if (Model.ModelPageEntity.VersionSpecsFeatures != null)
+    @if (Model.BikeSpecsFeatures != null)
     {
-        @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures_Mobile.cshtml", Model)
+        @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures_Mobile.cshtml", Model.BikeSpecsFeatures)
     }
     @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription)
                 && Model.ModelPageEntity.ModelDetails != null && Model.IsUpcomingBike)

@@ -158,7 +158,12 @@ namespace Bikewale.Models.BikeModels
                     _objData.VersionId = versionId.HasValue ? versionId.Value : 0;
 
                     _objData.ModelPageEntity = FetchModelPageDetails(_modelId);
-                    _objData.ModelPageEntity.VersionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
+                    _objData.BikeSpecsFeatures = new BikeSpecsFeaturesVM()
+                    {
+                        BikeName = _objData.BikeName,
+                        ModelName = _objData.ModelPageEntity.ModelDetails.ModelName,
+                        VersionSpecsFeatures = SpecsFeaturesServiceGateway.Call()
+                    };
                     if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         FetchOnRoadPrice(_objData.ModelPageEntity);

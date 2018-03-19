@@ -23,6 +23,8 @@ namespace Bikewale.Models.BikeModels
     /// Summary : Removed service center property
     /// Modified by :   Sumit Kate on 30 Nov 2017
     /// Description :   Added EMICalculator
+    /// Modified by : Ashutosh Sharma on 19 Mar 2018.
+    /// Description : Added BikeSpecsFeatures for VM for bike specs & features, moved IsVersionSpecsAvailable to BikeSpecsFeatures VM.
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -99,7 +101,6 @@ namespace Bikewale.Models.BikeModels
         public bool IsPopularComparisionsAvailable { get { return (PopularComparisions != null && PopularComparisions.Any()); } }
         public bool IsPriceInTopCitiesAvailable { get { return (PriceInTopCities != null && PriceInTopCities.PriceQuoteList != null && PriceInTopCities.PriceQuoteList.Any()); } }
         public bool IsDealersServiceCenterAvailable { get { return (DealersServiceCenter != null && DealersServiceCenter.DealerServiceCenters != null && DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0); } }
-        public bool IsVersionSpecsAvailable { get { return (ModelPageEntity != null && ModelPageEntity.VersionSpecsFeatures != null); } }
         public bool IsModelDescriptionAvailable { get { return (this.IsVersionSpecsAvailable || (this.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(this.ModelPageEntity.ModelDesc.SmallDescription))); } }
         public bool IsModelColorsAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.ModelColors != null && this.ModelPageEntity.ModelColors.Any()); } }
         public bool IsUsedBikesAvailable { get { return (UsedModels != null && UsedModels.RecentUsedBikesList != null && UsedModels.RecentUsedBikesList.Any()); } }
@@ -140,6 +141,7 @@ namespace Bikewale.Models.BikeModels
 
         public EMICalculatorVM EMICalculator { get; set; }
         public bool IsElectricBike { get; set; }
+        public BikeSpecsFeaturesVM BikeSpecsFeatures { get; set; }
     }
 
 }
