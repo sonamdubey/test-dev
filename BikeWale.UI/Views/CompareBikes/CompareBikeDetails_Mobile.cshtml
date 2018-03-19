@@ -192,8 +192,7 @@
 
 									@foreach (var specCat in Model.Compare.VersionSpecsFeatures.Specs)
 									{
-										@*<div class="model-accordion-tab @(isFirstActiveTab ? "active" : "" )">*@
-										if (specCat != null && specCat.SpecsItemList.Any())
+										if (specCat.SpecsItemList.Any())
 										{
 											<div class="model-accordion-tab">
 												<span class="offers-sprite specs-dummy-sm-icon"></span>
