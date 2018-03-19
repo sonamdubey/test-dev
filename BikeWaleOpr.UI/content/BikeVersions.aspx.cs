@@ -95,7 +95,7 @@ namespace BikeWaleOpr.Content
                 {
                     Trace.Warn(ex.Message + ex.Source);
                     ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
-                    
+
                 }
 
                 SortDirection = "";
@@ -189,19 +189,19 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearVersionDetails(modelId);
                 //Refresh memcache object for versions by type
                 BwMemCache.ClearVersionByType(modelId);
-                
+
                 BwMemCache.ClearPopularBikesByBodyStyle(Convert.ToUInt16(cmbBodyStyles.SelectedValue));
             }
             catch (SqlException err)
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             } // catch SqlException
             catch (Exception err)
             {
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             } // catch Exception
             return currentId;
         }
@@ -241,7 +241,7 @@ namespace BikeWaleOpr.Content
             {
                 Trace.Warn(err.Message + err.Source);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
 
         }
@@ -351,12 +351,14 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearVersionByType(modelId);
                 //Push to BWEsDocumentBuilder
                 _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
+                //Refresh memcache object for Default PQ Version
+                BwMemCache.ClearDefaultPQVersion(modelId);
             }
             catch (SqlException ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
-                
+
             }
             dtgrdMembers.EditItemIndex = -1;
 
@@ -418,13 +420,15 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearVersionByType(modelId);
                 //Push to BWEsDocumentBuilder
                 _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
-                
+                //Refresh memcache object for Default PQ Version
+                BwMemCache.ClearDefaultPQVersion(modelId);
+
             }
             catch (SqlException ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
-                
+
             }
             BindGrid();
         }

@@ -148,7 +148,7 @@ namespace Bikewale.Service.Controllers.Model
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
-               
+
                 return InternalServerError();
             }
         }   // Get  Model Page
@@ -255,7 +255,7 @@ namespace Bikewale.Service.Controllers.Model
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
-               
+
                 return InternalServerError();
             }
         }   // Get  Model Page
@@ -315,7 +315,7 @@ namespace Bikewale.Service.Controllers.Model
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
-               
+
                 return InternalServerError();
             }
         }
@@ -392,7 +392,7 @@ namespace Bikewale.Service.Controllers.Model
                                     objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity, null);
                                 else
                                     objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,
-                                    _dealers.GetDealerQuotationV2(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId, Convert.ToUInt32(areaId.HasValue ? areaId.Value : 0)));
+                                    pqEntity.DealerEntity);
                             }
                             else
                             {
@@ -414,7 +414,7 @@ namespace Bikewale.Service.Controllers.Model
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
-               
+
                 return InternalServerError();
             }
         }
@@ -449,7 +449,7 @@ namespace Bikewale.Service.Controllers.Model
                         if (ushort.TryParse(Request.Headers.GetValues("platformId").First().ToString(), out platformId) && platformId == 3 && cityId.HasValue && cityId.Value > 0)
                         {
 
-                            #region On road pricing for versions                            
+                            #region On road pricing for versions
                             if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
                             {
                                 int versionId = 0;
@@ -462,26 +462,13 @@ namespace Bikewale.Service.Controllers.Model
                                     }
                                 }
 
-                                if (versionId <= 0)
-                                {
-                                    using (IUnityContainer container = new UnityContainer())
-                                    {
-                                        container.RegisterType<IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
-                                        IDealerPriceQuote dealerPQRepository = container.Resolve<IDealerPriceQuote>();
-
-                                        if (areaId.HasValue && areaId.Value > 0)
-                                            versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion(modelId, (uint)cityId.Value, (uint)areaId.Value);
-                                        else
-                                            versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion(modelId, Convert.ToUInt32(cityId));
-
-                                    }
-                                }
-
                                 if (pqEntity != null && pqEntity.IsExShowroomPrice)
                                     objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, platformId);
                                 else
+
                                     objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity,
-                                    _dealers.GetDealerQuotationV2(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity != null ? pqEntity.DealerId : 0, Convert.ToUInt32(areaId.HasValue ? areaId.Value : 0)), platformId);
+                                    pqEntity.DealerEntity, platformId);
+
                             }
                             else
                             {

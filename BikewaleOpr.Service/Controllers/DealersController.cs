@@ -623,7 +623,7 @@ namespace BikewaleOpr.Service
                 try
                 {
                     isSaved = dealerPrice.SaveVersionPriceQuotes(dealerPrices.DealerIds, dealerPrices.CityIds, dealerPrices.VersionIds,
-                        dealerPrices.ItemIds, dealerPrices.ItemValues, dealerPrices.EnteredBy);
+                        dealerPrices.ItemIds, dealerPrices.ItemValues, dealerPrices.EnteredBy, dealerPrices.BikeModelIds);
                 }
                 catch (Exception ex)
                 {
@@ -655,7 +655,7 @@ namespace BikewaleOpr.Service
                 try
                 {
                     isSaved = dealerPrice.CopyDealerPriceToOtherDealer(dealerPrices.DealerIds, dealerPrices.CityIds, dealerPrices.VersionIds,
-                        dealerPrices.ItemIds, dealerPrices.ItemValues, dealerPrices.EnteredBy);
+                        dealerPrices.ItemIds, dealerPrices.ItemValues, dealerPrices.EnteredBy, dealerPrices.BikeModelIds);
                 }
                 catch (Exception ex)
                 {
@@ -690,7 +690,8 @@ namespace BikewaleOpr.Service
                     apiResponse.IsPriceDeleted = dealerPrice.DeleteVersionPriceQuotes(
                         dealerCityVersions.DealerId,
                         dealerCityVersions.CityId,
-                        dealerCityVersions.BikeVersionIds
+                        dealerCityVersions.BikeVersionIds,
+                        dealerCityVersions.BikeModelIds
                     );
 
                     apiResponse.IsAvailabilityDeleted = versionAvailability.DeleteVersionAvailability(dealerCityVersions.DealerId, dealerCityVersions.BikeVersionIds);
