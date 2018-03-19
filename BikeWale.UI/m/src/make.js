@@ -90,7 +90,6 @@ var Accordion = (function () {
     }
 })();
 
-//Adjust this value according to the number of upfront discontinued bike models (before `View All` is clicked) to be shown at the bottom.
 var discontinuedBikesToShowUpfront = 4;
 
 docReady(function () {
@@ -188,8 +187,6 @@ docReady(function () {
 
     });
 
-    //For Discontinued models at the bottom of the make page (taken from `bwm-brand.js`)
-
     var noOfBikes = $("#discontinuedMore a").length;
     if (noOfBikes > discontinuedBikesToShowUpfront) {
         $('#discontinuedMore').hide();
@@ -198,17 +195,18 @@ docReady(function () {
         $('#discontinuedLess').hide();
     }
 
+    var spanContent = $("#spnContent");
     for (var i = 0; i < discontinuedBikesToShowUpfront; i++) {
-        $("#spnContent").append($("#discontinuedMore a:eq(" + i + ")").clone());
+        spanContent.append($("#discontinuedMore a:eq(" + i + ")").clone());
         if (i == noOfBikes-1) {
             break;
         }
         if (i < discontinuedBikesToShowUpfront-1) {
-            $("#spnContent").append(", ");
+            spanContent.append(", ");
         }
     }
     if (discontinuedBikesToShowUpfront < noOfBikes) {
-        $("#spnContent").append("... <a class='f-small' id='viewall' >View All</a>");
+        spanContent.append("... <a class='f-small' id='viewall' >View All</a>");
     }
 
     $("#viewall").click(function () {
