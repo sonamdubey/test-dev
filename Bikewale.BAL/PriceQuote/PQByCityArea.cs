@@ -483,15 +483,11 @@ namespace Bikewale.BAL.PriceQuote
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                             pqEntity.Area = areaList.FirstOrDefault(p => p.AreaId == areaId);
                         }
-                        if (selectedCity != null && selectedCity.HasAreas)
-                        {
-                            if (pqEntity.IsAreaSelected)
-                                pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
-                        }
-                        else
+                        if (selectedCity != null)
                         {
                             pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
                         }
+
                         if (pqOnRoad != null)
                         {
                             pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
@@ -507,9 +503,9 @@ namespace Bikewale.BAL.PriceQuote
 
                                 foreach (var version in modelVersions)
                                 {
-                                    if (pqOnRoad.DPQOutput != null)
+                                    if (pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null && pqOnRoad.DPQOutput.Varients.Any())
                                     {
-                                        var selected = pqOnRoad.DPQOutput.Varients.Where(p => p.objVersion.VersionId == version.VersionId).FirstOrDefault();
+                                        var selected = pqOnRoad.DPQOutput.Varients.FirstOrDefault(p => p.objVersion.VersionId == version.VersionId);
                                         if (selected != null)
                                         {
                                             version.Price = selected.OnRoadPrice;
@@ -518,7 +514,7 @@ namespace Bikewale.BAL.PriceQuote
                                         }
                                         else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                                         {
-                                            var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
+                                            var selectedBPQ = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == version.VersionId);
                                             if (selectedBPQ != null)
                                             {
                                                 version.Price = selectedBPQ.OnRoadPrice;
@@ -528,7 +524,7 @@ namespace Bikewale.BAL.PriceQuote
                                     }
                                     else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                                     {
-                                        var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
+                                        var selectedBPQ = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == version.VersionId);
                                         if (selectedBPQ != null)
                                         {
                                             version.Price = selectedBPQ.OnRoadPrice;
@@ -615,7 +611,7 @@ namespace Bikewale.BAL.PriceQuote
                         objPQEntity.ClientIP = "";
                         objPQEntity.SourceId = Convert.ToUInt16(sourceId ?? 0);
                         objPQEntity.ModelId = (uint)modelId;
-                        objPQEntity.VersionId = pqOnRoad != null ? pqOnRoad.BaseVersion : (uint)pqEntity.VersionList.FirstOrDefault().VersionId;
+                        objPQEntity.VersionId = versionID;
                         objPQEntity.PQLeadId = (int)PQSourceEnum.Mobile_ModelPage;
                         objPQEntity.UTMA = UTMA;
                         objPQEntity.UTMZ = UTMZ;

@@ -10,13 +10,13 @@ namespace BikewaleOpr.Interface.Dealers
     public interface IDealerPrice
     {
         IEnumerable<DealerVersionPriceEntity> GetDealerPriceQuotes(uint cityId, uint makeId, uint dealerId);
-        bool DeleteVersionPriceQuotes(uint dealerId, uint cityId, IEnumerable<uint> versionIds);
+        bool DeleteVersionPriceQuotes(uint dealerId, uint cityId, IEnumerable<uint> versionIds, IEnumerable<uint> bikeModelIds);
         bool SaveVersionPriceQuotes(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds,
-             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy);
+             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy, IEnumerable<uint> bikeModelIds);
         UpdatePricingRulesResponseEntity SaveVersionPriceQuotes(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds,
              IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, IEnumerable<uint> bikeModelIds, IEnumerable<string> bikeModelNames, uint enteredBy, uint makeId);
 
         bool CopyDealerPriceToOtherDealer(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds,
-             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy);
+             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy, IEnumerable<uint> bikeModelIds);
     }
 }
