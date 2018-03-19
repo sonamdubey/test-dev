@@ -366,76 +366,74 @@ function executeNotification(buttonElement) {
 }
 /* upcoming bikes set notification popup */
 var notifyPopup = (function () {
-    var container, emailField, formSubmitBtn;
 
-    function _setSelectors() {
-        container = $('#notifyPopup');
-        emailField = $('#notifyEmailField');
-        formSubmitBtn = $('#notifySubmitBtn');
-    }
+	var container, emailField, formSubmitBtn;
 
-    function _resetForm() {
-        formField.resetInputField(emailField);
-        emailField.val('');
-        formSubmitBtn.html('Submit');
-    }
+	function _setSelectors() {
+		container = $('#notifyPopup');
+		emailField = $('#notifyEmailField');
+		formSubmitBtn = $('#notifySubmitBtn');
+	}
 
-    function registerEvents() {
-        _setSelectors();
+	function _resetForm() {
+		formField.resetInputField(emailField);
+		emailField.val('');
+		formSubmitBtn.html('Submit');
+	}
 
-        formSubmitBtn.on('click', function () {
-            var isValid = validateForm.emailField(emailField);
+	function registerEvents() {
+		_setSelectors();
 
-            if (isValid) {
-                formField.setSuccessState($(this), 'Thank You!');
-                setTimeout(function () {
-                    $('#notifyCloseBtn').trigger('click');
-                }, 1000);
-            }
-        });
+		formSubmitBtn.on('click', function () {
+			var isValid = validateForm.emailField(emailField);
 
-        emailField.on('focus', function () {
-            validateForm.onFocus($(this));
-        });
+			if (isValid) {
+				formField.setSuccessState($(this), 'Thank You!');
+			}
+		});
 
-        $('#notifyWhiteoutWindow, #notifyCloseBtn').on('click', function () {
-            close();
-            history.back();
-        });
+		emailField.on('focus', function () {
+			validateForm.onFocus($(this));
+		});
 
-        $(window).on('popstate', function () {
-            if (container.hasClass('filter-screen--active')) {
-                close();
-            }
-        });
-    }
+		$('#notifyWhiteoutWindow, #notifyCloseBtn').on('click', function () {
+			close();
+			history.back();
+		});
 
-    function open() {
-        _resetForm();
-        container.addClass('notify-popup--active');
-        emailField.focus()
-        appendState('notifyPopup');
-        documentBody.lock();
-    }
+		$(window).on('popstate', function () {
+		    if (container.hasClass('notify-popup--active')) {
+		        notifyPopup.close();
+		    }
+		});
+	}
 
-    function close() {
-        container.removeClass('notify-popup--active');
-        documentBody.unlock();
-    }
+	function open() {
+		_resetForm();
+		container.addClass('notify-popup--active');
+		emailField.focus()
+		appendState('notifyPopup');
+		documentBody.lock();
+	}
 
-    function setSuccessState(buttonElement) {
-        formField.setSuccessState(buttonElement, 'Thank You!');
-        setTimeout(function () {
-            $('#notifyCloseBtn').trigger('click');
-        }, 1000);
-    }
+	function close() {
+		container.removeClass('notify-popup--active');
+		documentBody.unlock();
+	}
 
-    return {
-        registerEvents: registerEvents,
-        open: open,
-        close: close,
-        setSuccessState: setSuccessState
-    }
+	function setSuccessState(buttonElement) {
+	    formField.setSuccessState(buttonElement, 'Thank You!');
+	    setTimeout(function () {
+	        $('#notifyCloseBtn').trigger('click');
+	    }, 1000);
+	}
+
+	return {
+		registerEvents: registerEvents,
+		open: open,
+		close: close,
+		setSuccessState: setSuccessState
+	}
 })();
 
 /* Form fields */
