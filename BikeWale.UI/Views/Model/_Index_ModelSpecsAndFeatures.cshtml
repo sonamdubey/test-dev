@@ -1,94 +1,115 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@using Bikewale.Entities.BikeData
 @{
-    var specscategories = Model.ModelPageEntity.VersionSpecsFeatures.Specs;
-    var features = Model.ModelPageEntity.VersionSpecsFeatures.Features;
-    string itemValue, featureValue;
+    IEnumerable<SpecsFeaturesCategory> specsCategories = null;
+    IEnumerable<SpecsFeaturesItem> features = null;
+    if (Model.ModelPageEntity != null && Model.ModelPageEntity.VersionSpecsFeatures != null)
+    {
+        specsCategories = Model.ModelPageEntity.VersionSpecsFeatures.Specs;
+        features = Model.ModelPageEntity.VersionSpecsFeatures.Features;
+        string itemValue, featureValue;
+        <h2 class="h2-heading content-inner-block-20">@Model.ModelPageEntity.ModelDetails.ModelName Specifications & Features</h2>
+        if (specsCategories != null)
+        {
+            <h3 class="font-bold padding-left20 margin-bottom20">Specifications</h3>
+            <ul id="model-specs-list">
+                @{
+                    var isCategoryActive = true;
+                }        
+                @foreach (var category in specsCategories)
+                {
+                    <li>
+                        <div class="model-accordion-tab @(isCategoryActive ? "active" : "")">
+                            <span class="model-sprite engine-sm-icon margin-right10"></span>
+                            <span class="inline-block">@category.DisplayText</span>
+                            <span class="bwsprite accordion-angle-icon"></span>
+                        </div>
+                        <div class="specs-features-list">
+                            <div class="grid-6 text-light-grey">
+                                @{
+                                    isCategoryActive = false;
+                                    var firstGridSpecsCount = (category.SpecsItemList.Count() + 1) / 2;
+                                }
+                                @foreach (var item in category.SpecsItemList.Take(firstGridSpecsCount))
+                                {
+                                    itemValue = item.ItemValues.FirstOrDefault();
+                                    <p>
+                                        <span>@item.DisplayText</span>
+                                        <span>@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</span>
+                                    </p>
+                                }
+                            </div>
+                            <div class="grid-6 text-light-grey">
+                                @foreach (var item in category.SpecsItemList.Skip(firstGridSpecsCount))
+                                {
+                                    itemValue = item.ItemValues.FirstOrDefault();
+                                    <p>
+                                        <span>@item.DisplayText</span>
+                                        <span>@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</span>
+                                    </p>
+                                }
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </li>
+                }
+            </ul>  
+        }
+
+        if(features != null)
+        {
+            <div id="model-features-content" class="padding-top20 padding-bottom20">
+	            <h3 class="font-bold padding-left20 margin-bottom20">Features</h3>
+	            <div class="specs-features-list model-features-list">
+                    <div class="grid-6 padding-left20 text-light-grey">
+                        @{
+                            var firstGridFeaturesCount = (features.Count() + 1) / 2;
+                            var shownFeaturesHeight = 4;
+                            var leftGrid = features.Take(firstGridFeaturesCount);
+                            var rightGrid = features.Skip(firstGridFeaturesCount);
+                            }
+                        @foreach (var feature in leftGrid.Take(shownFeaturesHeight))
+                        {
+                            featureValue = feature.ItemValues.FirstOrDefault();
+                            <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
+                        }
+                    </div>
+                    <div class="grid-6 omega text-light-grey">
+                        @foreach (var feature in rightGrid.Take(shownFeaturesHeight))
+                        {
+                            featureValue = feature.ItemValues.FirstOrDefault();
+                            <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
+                        }
+                    </div>
+                    <div class="clear"></div>
+	            </div>
+
+	            <div id="model-more-features-list" class="specs-features-list model-features-list">
+		            <div class="grid-6 padding-left20 text-light-grey">
+                        @foreach (var feature in leftGrid.Skip(shownFeaturesHeight))
+                        {
+                            featureValue = feature.ItemValues.FirstOrDefault();
+                            <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
+                        }
+		            </div>
+                    <div class="grid-6 padding-left20 text-light-grey">
+                        @foreach (var feature in rightGrid.Skip(shownFeaturesHeight))
+                        {
+                            featureValue = feature.ItemValues.FirstOrDefault();
+                            <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
+                        }
+                    </div>
+		            <div class="clear"></div>
+	            </div>
+	            <div class="padding-right20 padding-left20">
+		            <a href="javascript:void(0)" class="view-features-link bw-ga" data-cat="Model_Page" data-act="View_all_features_link_cliked" data-var="myModel.BikeName" title="@Model.BikeName Features" rel="nofollow">View all features</a>
+	            </div>
+            </div>
+    
+        }
+   }
 }
 
-<h2 class="h2-heading content-inner-block-20">@Model.ModelPageEntity.ModelDetails.ModelName Specifications & Features</h2>
-<h3 class="font-bold padding-left20 margin-bottom20">Specifications</h3>
 
-<ul id="model-specs-list">
-    @{ 
-        var isCategoryActive = true;
-    }
-    @foreach (var category in specscategories)
-    {
-        <li>
-            <div class="model-accordion-tab @(isCategoryActive ? "active" : "")">
-                <span class="model-sprite engine-sm-icon margin-right10"></span>
-                <span class="inline-block">@category.DisplayText</span>
-                <span class="bwsprite accordion-angle-icon"></span>
-            </div>
-            <div class="specs-features-list">
-                <div class="grid-6 text-light-grey">
-                    @{
-                        isCategoryActive = false;
-                        var firstGridSpecsCount = (category.SpecsItemList.Count() + 1)/2;
-                    }
-                    @foreach (var item in category.SpecsItemList.Take(firstGridSpecsCount))
-                    {
-                         itemValue = item.ItemValues.FirstOrDefault();
-                        <p><span>@item.DisplayText</span><span>@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</span></p>
-                    }
-                </div>
-                <div class="grid-6 text-light-grey">
-                    @foreach (var item in category.SpecsItemList.Skip(firstGridSpecsCount))
-                    {
-                        itemValue = item.ItemValues.FirstOrDefault();
-                        <p><span>@item.DisplayText</span><span>@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</span></p>
-                    }
-                </div>
-                <div class="clear"></div>
-            </div>
-        </li>
-    }
-</ul>
 
-<div id="model-features-content" class="padding-top20 padding-bottom20">
-	<h3 class="font-bold padding-left20 margin-bottom20">Features</h3>
-	<div class="specs-features-list model-features-list">
-        <div class="grid-6 padding-left20 text-light-grey">
-            @{
-                var firstGridFeaturesCount = (features.Count() + 1) / 2;
-                var shownFeaturesHeight = 4;
-                var leftGrid = features.Take(firstGridFeaturesCount);
-                var rightGrid = features.Skip(firstGridFeaturesCount);
-                }
-            @foreach (var feature in leftGrid.Take(shownFeaturesHeight))
-            {
-                featureValue = feature.ItemValues.FirstOrDefault();
-                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-            }
-        </div>
-        <div class="grid-6 omega text-light-grey">
-            @foreach (var feature in rightGrid.Take(shownFeaturesHeight))
-            {
-                featureValue = feature.ItemValues.FirstOrDefault();
-                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-            }
-        </div>
-        <div class="clear"></div>
-	</div>
 
-	<div id="model-more-features-list" class="specs-features-list model-features-list">
-		<div class="grid-6 padding-left20 text-light-grey">
-            @foreach (var feature in leftGrid.Skip(shownFeaturesHeight))
-            {
-                featureValue = feature.ItemValues.FirstOrDefault();
-                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-            }
-		</div>
-        <div class="grid-6 padding-left20 text-light-grey">
-            @foreach (var feature in rightGrid.Skip(shownFeaturesHeight))
-            {
-                featureValue = feature.ItemValues.FirstOrDefault();
-                <p><span>@feature.DisplayText</span><span>@feature.ItemValues.FirstOrDefault() @string.IsNullOrEmpty(feature.UnitTypeText)</span></p>
-            }
-        </div>
-		<div class="clear"></div>
-	</div>
-	<div class="padding-right20 padding-left20">
-		<a href="javascript:void(0)" class="view-features-link bw-ga" data-cat="Model_Page" data-act="View_all_features_link_cliked" data-var="myModel.BikeName" title="@Model.BikeName Features" rel="nofollow">View all features</a>
-	</div>
-</div>
