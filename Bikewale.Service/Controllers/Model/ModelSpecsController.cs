@@ -1,4 +1,5 @@
-﻿using Bikewale.BAL.PriceQuote;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.BAL.PriceQuote;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
@@ -124,6 +125,7 @@ namespace Bikewale.Service.Controllers.Model
 
                 getPQ = new PQByCityArea();
                 objModelPage = _bikeModelEntity.GetModelPageDetails(modelId);
+                objModelPage.VersionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
 
                 if (objModelPage != null)
                 {
