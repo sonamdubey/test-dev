@@ -14,11 +14,13 @@ namespace Bikewale.Cache.PriceQuote
     {
         private readonly ICacheManager _cache = null;
         private readonly IPriceQuote _obPriceQuote = null;
+        private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _dealerPQRepository = null;
 
-        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote)
+        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote, Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository)
         {
             _cache = cache;
             _obPriceQuote = obPriceQuote;
+            _dealerPQRepository = dealerPQRepository;
         }
 
         /// <summary>
@@ -39,7 +41,7 @@ namespace Bikewale.Cache.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "PriceQuoteCache.FetchPriceQuoteOfTopCitiesCache");
-                
+
             }
             return prices;
         }
@@ -111,6 +113,28 @@ namespace Bikewale.Cache.PriceQuote
                 ErrorClass.LogError(ex, "PriceQuoteCache.GetManufacturerDealers");
             }
             return dealers;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Mar 2018
+        /// Description :   Get GetDefaultPriceQuoteVersion by calling DAL
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId)
+        {
+            uint versionId = 0;
+            string key = String.Format("BW_DefaultPQVersion_{0}_{1}", modelId, cityId);
+            try
+            {
+                versionId = _cache.GetFromCache<uint>(key, new TimeSpan(24, 0, 0), () => _dealerPQRepository.GetDefaultPriceQuoteVersion(modelId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetDefaultPriceQuoteVersion({0},{1})", modelId, cityId));
+            }
+            return versionId;
         }
     }
 }
