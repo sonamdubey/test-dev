@@ -41,9 +41,9 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             SpecsFeaturesEntity specsFeaturesEntity = null;
             try
             {
-                specsFeaturesEntity = new SpecsFeaturesEntity();
                 if (vehicleDataValue != null)
                 {
+                    specsFeaturesEntity = new SpecsFeaturesEntity();
                     var specs = new List<SpecsFeaturesCategory>();
                     foreach (var category in vehicleDataValue.Specifications)
                     {
@@ -81,6 +81,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                         itemList.Add(new SpecsFeaturesItem
                         {
                             DisplayText = item.Name,
+                            Icon = item.Icon,
                             Id = item.Id,
                             ItemValues = item.ItemValues,
                             UnitTypeText = item.UnitTypeName
