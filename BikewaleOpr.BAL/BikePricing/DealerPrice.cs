@@ -160,7 +160,7 @@ namespace BikewaleOpr.BAL.BikePricing
         /// <param name="cityId"></param>
         /// <param name="versionIds"></param>
         /// <returns></returns>
-        public bool DeleteVersionPriceQuotes(uint dealerId, uint cityId, IEnumerable<uint> versionIds)
+        public bool DeleteVersionPriceQuotes(uint dealerId, uint cityId, IEnumerable<uint> versionIds, IEnumerable<uint> bikeModelIds)
         {
             bool isDeleted = false;
             string versionIdsString = null;
@@ -170,7 +170,10 @@ namespace BikewaleOpr.BAL.BikePricing
                 versionIdsString = string.Join<uint>(",", versionIds);
                 isDeleted = _dealerPriceRepository.DeleteVersionPrices(dealerId, cityId, versionIdsString);
                 if (isDeleted)
+                {
                     ClearDealerPriceCache(dealerId, versionIds);
+                    BwMemCache.ClearDefaultPQVersionList(bikeModelIds.Distinct(), new[] { cityId });
+                }
             }
             catch (Exception ex)
             {
@@ -192,7 +195,7 @@ namespace BikewaleOpr.BAL.BikePricing
         /// <param name="enteredBy"></param>
         /// <returns></returns>
         public bool SaveVersionPriceQuotes(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds,
-             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy)
+             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy, IEnumerable<uint> bikeModelIds)
         {
             bool isSaved = false;
 
@@ -215,8 +218,10 @@ namespace BikewaleOpr.BAL.BikePricing
                     isSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
 
                     if (isSaved)
+                    {
                         ClearDealerPriceCache(dealerIds, versionIds);
-
+                        BwMemCache.ClearDefaultPQVersionList(bikeModelIds.Distinct(), cityIds.Distinct());
+                    }
                 }
             }
             catch (Exception ex)
@@ -264,14 +269,16 @@ namespace BikewaleOpr.BAL.BikePricing
                     modelIdNamesString = string.Join<string>(",", bikeModelIds.Zip(bikeModelNames, (modelId, modelName) => string.Format("{0}:{1}", modelId, modelName)));
 
                     response.IsPriceSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
-                    if (response.IsPriceSaved)
-                    {
-                        ClearDealerPriceCache(dealerIds, versionIds);
-                    }
                 }
 
                 if (dealerIds.Count() == 1)
                     response.RulesUpdatedModelNames = _dealerPriceQuoteRepository.AddRulesOnPriceUpdation(modelIdNamesString, dealerIds.First(), makeId, enteredBy);
+
+                if (response.IsPriceSaved)
+                {
+                    ClearDealerPriceCache(dealerIds, versionIds);
+                    BwMemCache.ClearDefaultPQVersionList(bikeModelIds.Distinct(), cityIds.Distinct());
+                }
             }
             catch (Exception ex)
             {
@@ -293,7 +300,7 @@ namespace BikewaleOpr.BAL.BikePricing
         /// <param name="itemValues"></param>
         /// <param name="enteredBy"></param>
         /// <returns></returns>
-        public bool CopyDealerPriceToOtherDealer(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds, IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy)
+        public bool CopyDealerPriceToOtherDealer(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds, IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy, IEnumerable<uint> bikeModelIds)
         {
             bool isSaved = false;
 
@@ -327,6 +334,7 @@ namespace BikewaleOpr.BAL.BikePricing
                     if (isSaved)
                     {
                         ClearDealerPriceCache(dealerIds, versionIds.Distinct());
+                        BwMemCache.ClearDefaultPQVersionList(bikeModelIds.Distinct(), cityIds.Distinct());
                     }
                 }
             }
