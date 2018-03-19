@@ -1,4 +1,5 @@
-﻿using Bikewale.BindViewModels.Controls;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.common;
 using Bikewale.DTO.PriceQuote;
@@ -157,7 +158,12 @@ namespace Bikewale.Models.BikeModels
                     _objData.VersionId = versionId.HasValue ? versionId.Value : 0;
 
                     _objData.ModelPageEntity = FetchModelPageDetails(_modelId);
-
+                    _objData.BikeSpecsFeatures = new BikeSpecsFeaturesVM()
+                    {
+                        BikeName = _objData.BikeName,
+                        ModelName = _objData.ModelPageEntity.ModelDetails.ModelName,
+                        VersionSpecsFeatures = SpecsFeaturesServiceGateway.Call()
+                    };
                     if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         FetchOnRoadPrice(_objData.ModelPageEntity);

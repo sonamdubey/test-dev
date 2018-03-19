@@ -22,24 +22,25 @@ namespace VehicleData.Service.ProtoClass {
     static ItemReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgppdGVtLnByb3RvEgtWZWhpY2xlRGF0YSKFAwoESXRlbRIKCgJJZBgBIAEo",
-            "BRISCgpDYXRlZ29yeUlkGAIgASgFEgwKBE5hbWUYAyABKAkSEgoKRGF0YVR5",
-            "cGVJZBgEIAEoBRISCgpVbml0VHlwZUlkGAUgASgFEhQKDFVuaXRUeXBlTmFt",
-            "ZRgGIAEoCRIRCglTb3J0T3JkZXIYByABKAUSEwoLRGVzY3JpcHRpb24YCCAB",
-            "KAkSEAoISXNBY3RpdmUYCSABKAgSFAoMQWJicmV2aWF0aW9uGAogASgJEg4K",
-            "Bk1pblZhbBgLIAEoBRIOCgZNYXhWYWwYDCABKAUSEwoLSXNQdWJsaXNoZWQY",
-            "DSABKAgSDAoESWNvbhgOIAEoCRIVCg1Qcmlvcml0eU9yZGVyGA8gASgFEhYK",
-            "Dkl0ZW1JbXBvcnRhbmNlGBAgASgFEhEKCVVwZGF0ZWRPbhgRIAEoCRIRCglV",
-            "cGRhdGVkQnkYEiABKAUSFQoNQXBwbGljYXRpb25JZBgTIAEoBRISCgpJdGVt",
-            "VmFsdWVzGBQgAygJIlUKFUl0ZW1CeUNhdGVnb3J5UmVxdWVzdBISCgpDYXRl",
-            "Z29yeUlkGAEgASgFEhEKCVZlcnNpb25JZBgCIAEoBRIVCg1BcHBsaWNhdGlv",
-            "bklkGAMgASgFIiwKCEl0ZW1MaXN0EiAKBUl0ZW1zGAEgAygLMhEuVmVoaWNs",
-            "ZURhdGEuSXRlbUIhqgIeVmVoaWNsZURhdGEuU2VydmljZS5Qcm90b0NsYXNz",
-            "YgZwcm90bzM="));
+            "CgppdGVtLnByb3RvEgtWZWhpY2xlRGF0YRoUY3VzdG9tRGF0YVR5cGUucHJv",
+            "dG8iuwMKBEl0ZW0SCgoCSWQYASABKAUSEgoKQ2F0ZWdvcnlJZBgCIAEoBRIM",
+            "CgROYW1lGAMgASgJEhIKCkRhdGFUeXBlSWQYBCABKAUSEgoKVW5pdFR5cGVJ",
+            "ZBgFIAEoBRIUCgxVbml0VHlwZU5hbWUYBiABKAkSEQoJU29ydE9yZGVyGAcg",
+            "ASgFEhMKC0Rlc2NyaXB0aW9uGAggASgJEhAKCElzQWN0aXZlGAkgASgIEhQK",
+            "DEFiYnJldmlhdGlvbhgKIAEoCRIOCgZNaW5WYWwYCyABKAUSDgoGTWF4VmFs",
+            "GAwgASgFEhMKC0lzUHVibGlzaGVkGA0gASgIEgwKBEljb24YDiABKAkSFQoN",
+            "UHJpb3JpdHlPcmRlchgPIAEoBRIWCg5JdGVtSW1wb3J0YW5jZRgQIAEoBRIR",
+            "CglVcGRhdGVkT24YESABKAkSEQoJVXBkYXRlZEJ5GBIgASgFEhUKDUFwcGxp",
+            "Y2F0aW9uSWQYEyABKAUSEgoKSXRlbVZhbHVlcxgUIAMoCRI0Cg9DdXN0b21E",
+            "YXRhVHlwZXMYFSADKAsyGy5WZWhpY2xlRGF0YS5DdXN0b21EYXRhVHlwZSJV",
+            "ChVJdGVtQnlDYXRlZ29yeVJlcXVlc3QSEgoKQ2F0ZWdvcnlJZBgBIAEoBRIR",
+            "CglWZXJzaW9uSWQYAiABKAUSFQoNQXBwbGljYXRpb25JZBgDIAEoBSIsCghJ",
+            "dGVtTGlzdBIgCgVJdGVtcxgBIAMoCzIRLlZlaGljbGVEYXRhLkl0ZW1CIaoC",
+            "HlZlaGljbGVEYXRhLlNlcnZpY2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.CustomDataTypeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Item), global::VehicleData.Service.ProtoClass.Item.Parser, new[]{ "Id", "CategoryId", "Name", "DataTypeId", "UnitTypeId", "UnitTypeName", "SortOrder", "Description", "IsActive", "Abbreviation", "MinVal", "MaxVal", "IsPublished", "Icon", "PriorityOrder", "ItemImportance", "UpdatedOn", "UpdatedBy", "ApplicationId", "ItemValues" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Item), global::VehicleData.Service.ProtoClass.Item.Parser, new[]{ "Id", "CategoryId", "Name", "DataTypeId", "UnitTypeId", "UnitTypeName", "SortOrder", "Description", "IsActive", "Abbreviation", "MinVal", "MaxVal", "IsPublished", "Icon", "PriorityOrder", "ItemImportance", "UpdatedOn", "UpdatedBy", "ApplicationId", "ItemValues", "CustomDataTypes" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemByCategoryRequest), global::VehicleData.Service.ProtoClass.ItemByCategoryRequest.Parser, new[]{ "CategoryId", "VersionId", "ApplicationId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemList), global::VehicleData.Service.ProtoClass.ItemList.Parser, new[]{ "Items" }, null, null, null)
           }));
@@ -92,6 +93,7 @@ namespace VehicleData.Service.ProtoClass {
       updatedBy_ = other.updatedBy_;
       applicationId_ = other.applicationId_;
       itemValues_ = other.itemValues_.Clone();
+      customDataTypes_ = other.customDataTypes_.Clone();
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -318,6 +320,16 @@ namespace VehicleData.Service.ProtoClass {
       get { return itemValues_; }
     }
 
+    /// <summary>Field number for the "CustomDataTypes" field.</summary>
+    public const int CustomDataTypesFieldNumber = 21;
+    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.CustomDataType> _repeated_customDataTypes_codec
+        = pb::FieldCodec.ForMessage(170, global::VehicleData.Service.ProtoClass.CustomDataType.Parser);
+    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.CustomDataType> customDataTypes_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.CustomDataType>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.CustomDataType> CustomDataTypes {
+      get { return customDataTypes_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Item);
@@ -351,6 +363,7 @@ namespace VehicleData.Service.ProtoClass {
       if (UpdatedBy != other.UpdatedBy) return false;
       if (ApplicationId != other.ApplicationId) return false;
       if(!itemValues_.Equals(other.itemValues_)) return false;
+      if(!customDataTypes_.Equals(other.customDataTypes_)) return false;
       return true;
     }
 
@@ -377,6 +390,7 @@ namespace VehicleData.Service.ProtoClass {
       if (UpdatedBy != 0) hash ^= UpdatedBy.GetHashCode();
       if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
       hash ^= itemValues_.GetHashCode();
+      hash ^= customDataTypes_.GetHashCode();
       return hash;
     }
 
@@ -464,6 +478,7 @@ namespace VehicleData.Service.ProtoClass {
         output.WriteInt32(ApplicationId);
       }
       itemValues_.WriteTo(output, _repeated_itemValues_codec);
+      customDataTypes_.WriteTo(output, _repeated_customDataTypes_codec);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -527,6 +542,7 @@ namespace VehicleData.Service.ProtoClass {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
       }
       size += itemValues_.CalculateSize(_repeated_itemValues_codec);
+      size += customDataTypes_.CalculateSize(_repeated_customDataTypes_codec);
       return size;
     }
 
@@ -593,6 +609,7 @@ namespace VehicleData.Service.ProtoClass {
         ApplicationId = other.ApplicationId;
       }
       itemValues_.Add(other.itemValues_);
+      customDataTypes_.Add(other.customDataTypes_);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -681,6 +698,10 @@ namespace VehicleData.Service.ProtoClass {
           }
           case 162: {
             itemValues_.AddEntriesFrom(input, _repeated_itemValues_codec);
+            break;
+          }
+          case 170: {
+            customDataTypes_.AddEntriesFrom(input, _repeated_customDataTypes_codec);
             break;
           }
         }

@@ -1,15 +1,14 @@
 ﻿@model Bikewale.Models.CompareDetailsVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/compare/details.css' />";
-    Model.Page_JS_Path = "/m/src/compare/details.js";
-    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_CompareBikes";
-    Model.AdTags.AdId = "1516080462255";
-    Model.AdTags.Ad_300x250BTF = true;
-    Model.AdTags.Ad_Bot_320x50 = true;
-    Model.AdTags.Ad_320x50 = true;
-    bool isFirstActiveTab = true;
-    int i = 0;
+	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/compare/details.css' />";
+	Model.Page_JS_Path = "/m/src/compare/details.js";
+	Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_CompareBikes";
+	Model.AdTags.AdId = "1516080462255";
+	Model.AdTags.Ad_300x250BTF = true;
+	Model.AdTags.Ad_Bot_320x50 = true;
+	Model.AdTags.Ad_320x50 = true;
+	int i = 0;
 }
 <section id="overallSpecsTabContainer">
 	@if (Model != null)
@@ -17,477 +16,480 @@
 		<section id="compare-detailspage" data-comparesource="@((int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page)">
 			@if (Model.Compare != null && Model.Compare.BasicInfo != null)
 			{
-            <div @(Model.sponsoredVersionId > 0 ? "id=sponsored-column-active" : "")>
-                <div class="container box-shadow bg-white card-bottom-margin bw-tabs-panel">
-                    <h1 class="box-shadow padding-15-20 margin-bottom3 text-bold">@Model.Page_H1</h1>
-                    <div class="comparison-main-card">
-                        @foreach (var bike in Model.Compare.BasicInfo)
-            {
-                string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
-                <div class="bike-details-block @(bike.VersionId != Model.sponsoredVersionId ? "" : "sponsored-bike-details-block")" data-masking="@string.Format("{0}-{1}", bike.MakeMaskingName, bike.ModelMaskingName)" data-changed="" data-modelid="@bike.ModelId " data-versionid="@bike.VersionId " data-bikename="@String.Format("{0}_{1}_{2}", bike.Make, bike.Model, bike.Version)">
-                    @if (bike.VersionId == Model.sponsoredVersionId)
-        {
-            <span class="position-abt pos-top5 label-text">Sponsored</span>
-}
-                    <span @(bike.VersionId != Model.sponsoredVersionId ? "" : "id=close-sponsored-bike") class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
-                    <a href="@string.Format("{0}/m/{1}-bikes/{2}/",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="block margin-top10 @(Model.sponsoredVersionId > 0 && Model.SponsoredBike != null && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? "bw-ga" : "")" @(Model.sponsoredVersionId > 0 && Model.SponsoredBike != null && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? Model.SponsoredBike.BikeImpressionTracker : "")>
-                        <span class="font10 text-light-grey text-truncate">@bike.Make  </span>
-                        <h2 class="font12 text-truncate margin-bottom5">@bike.Model  </h2>
-                        <img class="bike-image-block" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80) " alt="@bikeName " />
-                    </a>
-                    <p class="label-text">Version:</p>
+				<div @(Model.sponsoredVersionId > 0 ? "id=sponsored-column-active" : "")>
+					<div class="container box-shadow bg-white card-bottom-margin bw-tabs-panel">
+						<h1 class="box-shadow padding-15-20 margin-bottom3 text-bold">@Model.Page_H1</h1>
+						<div class="comparison-main-card">
+							@foreach (var bike in Model.Compare.BasicInfo)
+							{
+								string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
+								<div class="bike-details-block @(bike.VersionId != Model.sponsoredVersionId ? "" : "sponsored-bike-details-block")" data-masking="@string.Format("{0}-{1}", bike.MakeMaskingName, bike.ModelMaskingName)" data-changed="" data-modelid="@bike.ModelId " data-versionid="@bike.VersionId " data-bikename="@String.Format("{0}_{1}_{2}", bike.Make, bike.Model, bike.Version)">
+									@if (bike.VersionId == Model.sponsoredVersionId)
+									{
+										<span class="position-abt pos-top5 label-text">Sponsored</span>
+									}
+									<span @(bike.VersionId != Model.sponsoredVersionId ? "" : "id=close-sponsored-bike") class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
+									<a href="@string.Format("{0}/m/{1}-bikes/{2}/",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="block margin-top10 @(Model.sponsoredVersionId > 0 && Model.SponsoredBike != null && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? "bw-ga" : "")" @(Model.sponsoredVersionId > 0 && Model.SponsoredBike != null && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? Model.SponsoredBike.BikeImpressionTracker : "")>
+										<span class="font10 text-light-grey text-truncate">@bike.Make  </span>
+										<h2 class="font12 text-truncate margin-bottom5">@bike.Model  </h2>
+										<img class="bike-image-block" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80) " alt="@bikeName " />
+									</a>
+									<p class="label-text">Version:</p>
 
-                    @if (bike.Versions.Count() > 1 && bike.IsNew)
-        {
-            <div class="dropdown-select-wrapper">
-                <select class="dropdown-select" data-title="Version">
-                    @foreach (var v in bike.Versions)
-        {
-            <option value="@v.VersionId" @(bike.VersionId != v.VersionId ? "" : " selected")>@v.VersionName </option>
-}
-                </select>
-            </div>
-}
-else
-{
-            <p class="dropdown-selected-item option-count-one dropdown-width">@bike.Version </p>
-}
-                    <p class="font-12 text-light-grey margin-bottom2">@(bike.IsNew ? string.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName) : "Last known ex-showroom price")</p>
-                    <p class="margin-bottom10">
-                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font16 text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
-                    </p>
-                    @if (((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl)) && bike.IsNew)
-        {
-            <div>
-                <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" rel="nofollow">On-road price</a>
-            </div>
-}
-else
-{
-if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
-{
-            <div class="padding-top5 padding-bottom5">
-                <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@String.Format("{0}_Top Card", bikeName)" class="font14 bw-ga text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
-            </div>
-}
-else
-{
-            <p class="label-text">@string.Format("{0} has been discontinued.", bike.Model)</p>
-}
-}
-                </div>
-}
-                        <div class="clear"></div>
-                    </div>
-                    <div id="comparison-floating-card" class="box-shadow slideIn-transition">
-                        @foreach (var bike in Model.Compare.BasicInfo)
-            {
-                string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
-                i = 0;
-                <div class="bike-details-block @(bike.VersionId != Model.sponsoredVersionId ? "" :"sponsored-bike-details-block")">
-                    @if (bike.VersionId == Model.sponsoredVersionId)
-        {
-            <span class="position-abt pos-top5 label-text">Sponsored</span>
-}
-                    <span class="font10 text-light-grey text-truncate">@bike.Make  </span>
-                    <a href="@string.Format("/m/{0}-bikes/{1}/", bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="font12 text-truncate bike-title-target">@bike.Model</a>
-                    @if (((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl)) && bike.IsNew)
-        {
-            <div>
-                <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" rel="nofollow">On-road price</a>
-            </div>
-}
-else if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
-{
+									@if (bike.Versions.Count() > 1 && bike.IsNew)
+									{
+										<div class="dropdown-select-wrapper">
+											<select class="dropdown-select" data-title="Version">
+												@foreach (var v in bike.Versions)
+												{
+													<option value="@v.VersionId" @(bike.VersionId != v.VersionId ? "" : " selected")>@v.VersionName </option>
+												}
+											</select>
+										</div>
+									}
+									else
+									{
+										<p class="dropdown-selected-item option-count-one dropdown-width">@bike.Version </p>
+									}
+									<p class="font-12 text-light-grey margin-bottom2">@(bike.IsNew ? string.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName) : "Last known ex-showroom price")</p>
+									<p class="margin-bottom10">
+										@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font16 text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
+									</p>
+									@if (((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl)) && bike.IsNew)
+									{
+										<div>
+											<a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" rel="nofollow">On-road price</a>
+										</div>
+									}
+									else
+									{
+										if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+										{
+											<div class="padding-top5 padding-bottom5">
+												<span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@String.Format("{0}_Top Card", bikeName)" class="font14 bw-ga text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
+											</div>
+										}
+										else
+										{
+											<p class="label-text">@string.Format("{0} has been discontinued.", bike.Model)</p>
+										}
+									}
+								</div>
+							}
+							<div class="clear"></div>
+						</div>
+						<div id="comparison-floating-card" class="box-shadow slideIn-transition">
+							@foreach (var bike in Model.Compare.BasicInfo)
+							{
+								string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
+								i = 0;
+								<div class="bike-details-block @(bike.VersionId != Model.sponsoredVersionId ? "" :"sponsored-bike-details-block")">
+									@if (bike.VersionId == Model.sponsoredVersionId)
+									{
+										<span class="position-abt pos-top5 label-text">Sponsored</span>
+									}
+									<span class="font10 text-light-grey text-truncate">@bike.Make  </span>
+									<a href="@string.Format("/m/{0}-bikes/{1}/", bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="font12 text-truncate bike-title-target">@bike.Model</a>
+									@if (((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl)) && bike.IsNew)
+									{
+										<div>
+											<a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" rel="nofollow">On-road price</a>
+										</div>
+									}
+									else if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+									{
 
-            <div class="padding-top5 padding-bottom5">
-                <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@string.Format("{0}_Floating Card", bikeName)" class="font14 bw-ga  text-link">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
-            </div>
-}
-else
-{
-            <p class="label-text">@string.Format("{0} has been discontinued.", bike.Model)</p>
-}
-                </div>
-}
-                        <div class="clear"></div>
-                        <div id="overallSpecsTab" class="overall-specs-tabs-container">
-                            <ul class="overall-specs-tabs-wrapper">
-                                @if (Model.Compare.CompareSpecifications != null && Model.Compare.CompareSpecifications.Spec.Any())
-                    {
-                        <li data-tabs="specsTabContent" class="active quickAcessTab">Specifications</li>
-        }
-                                @if (Model.Compare.CompareFeatures != null)
-                    {
-                        <li data-tabs="featuresTabContent" class="quickAcessTab">Features</li>
-        }
-                                @if (Model.Compare.CompareColors != null)
-                    {
-                        <li data-tabs="coloursTabContent" class="quickAcessTab">Colours</li>
-        }
-                                @if (Model.Compare.UserReviewData != null)
-                    {
-                        <li data-tabs="reviewTabContent" class="bw-ga reviewTab" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
-        }
-                                @if (Model.SimilarBikeWidget != null)
-                    {
-                        <li data-tabs="similarBikeTabContent">Similar Comparisons</li>
-        }
-                                @if (Model.ArticlesList != null && Model.ArticlesList.ArticlesList != null && Model.ArticlesList.ArticlesList.Any())
-                    {
-                        <li data-tabs="expertComparisonTabContent">Expert Comparisons</li>
-        }
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                    <div id="overall-specs-tabs" class="overall-specs-tabs-container">
-                        <ul class="overall-specs-tabs-wrapper">
-                            @if (Model.Compare.CompareSpecifications != null)
-                {
-                    <li data-tabs="specsTabContent" class="active quickAcessTab">
-                        <h3>Specifications</h3>
-                    </li>
-    }
-                            @if (Model.Compare.CompareFeatures != null)
-                {
+										<div class="padding-top5 padding-bottom5">
+											<span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@string.Format("{0}_Floating Card", bikeName)" class="font14 bw-ga  text-link">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
+										</div>
+									}
+									else
+									{
+										<p class="label-text">@string.Format("{0} has been discontinued.", bike.Model)</p>
+									}
+								</div>
+							}
+							<div class="clear"></div>
+							<div id="overallSpecsTab" class="overall-specs-tabs-container">
+								<ul class="overall-specs-tabs-wrapper">
+									@if (Model.Compare.VersionSpecsFeatures != null)
+									{
+										if (Model.Compare.VersionSpecsFeatures.Specs != null && Model.Compare.VersionSpecsFeatures.Specs.Any())
+										{
+											<li data-tabs="specsTabContent" class="active quickAcessTab">Specifications</li>
+										}
 
-                    <li data-tabs="featuresTabContent" class="quickAcessTab">
-                        <h3>Features</h3>
-                    </li>
-    }
-                            @if (Model.Compare.CompareColors != null)
-                {
-                    <li data-tabs="coloursTabContent" class="quickAcessTab">
-                        <h3>Colours</h3>
-                    </li>
-    }
-                            @if (Model.Compare.UserReviewData != null)
-                {
-                    <li data-tabs="reviewTabContent" class="bw-ga reviewTab" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
-    }
-                            @if (Model.SimilarBikeWidget != null)
-                {
-                    <li data-tabs="similarBikeTabContent">Similar Comparison</li>
-    }
-                            @if (Model.ArticlesList != null && Model.ArticlesList.ArticlesList != null && Model.ArticlesList.ArticlesList.Any())
-                {
-                    <li data-tabs="expertComparisonTabContent">Expert Comparison</li>
-    }
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
-                    <div id="specsTabContent" data-id="specsTabContent" class="bw-tabs-data active hide-features">
-                        <div class="bw-tabs_title"> Specification</div>
-                        @if (Model.Compare.CompareSpecifications != null)
-            {
-                isFirstActiveTab = true;
-                foreach (var spec in Model.Compare.CompareSpecifications.Spec)
-                {
-                    @*<div class="model-accordion-tab @(isFirstActiveTab ? "active" : "" )">*@
+										if (Model.Compare.VersionSpecsFeatures.Features != null && Model.Compare.VersionSpecsFeatures.Features.Any())
+										{
+											<li data-tabs="featuresTabContent" class="quickAcessTab">Features</li>
+										}
+									}
+									@if (Model.Compare.CompareColors != null)
+									{
+										<li data-tabs="coloursTabContent" class="quickAcessTab">Colours</li>
+									}
+									@if (Model.Compare.UserReviewData != null)
+									{
+										<li data-tabs="reviewTabContent" class="bw-ga reviewTab" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
+									}
+									@if (Model.SimilarBikeWidget != null)
+									{
+										<li data-tabs="similarBikeTabContent">Similar Comparisons</li>
+									}
+									@if (Model.ArticlesList != null && Model.ArticlesList.ArticlesList != null && Model.ArticlesList.ArticlesList.Any())
+									{
+										<li data-tabs="expertComparisonTabContent">Expert Comparisons</li>
+									}
+								</ul>
+								<div class="clear"></div>
+							</div>
+						</div>
+						<div id="overall-specs-tabs" class="overall-specs-tabs-container">
+							<ul class="overall-specs-tabs-wrapper">
+								@if (Model.Compare.VersionSpecsFeatures != null)
+								{
+									if (Model.Compare.VersionSpecsFeatures.Specs != null && Model.Compare.VersionSpecsFeatures.Specs.Any())
+									{
+										<li data-tabs="specsTabContent" class="active quickAcessTab">
+											<h3>Specifications</h3>
+										</li>
+									}
+									if (Model.Compare.VersionSpecsFeatures.Features != null && Model.Compare.VersionSpecsFeatures.Features.Any())
+									{
 
+										<li data-tabs="featuresTabContent" class="quickAcessTab">
+											<h3>Features</h3>
+										</li>
+									}
+								}
+								@if (Model.Compare.CompareColors != null)
+								{
+									<li data-tabs="coloursTabContent" class="quickAcessTab">
+										<h3>Colours</h3>
+									</li>
+								}
+								@if (Model.Compare.UserReviewData != null)
+								{
+									<li data-tabs="reviewTabContent" class="bw-ga reviewTab" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
+								}
+								@if (Model.SimilarBikeWidget != null)
+								{
+									<li data-tabs="similarBikeTabContent">Similar Comparison</li>
+								}
+								@if (Model.ArticlesList != null && Model.ArticlesList.ArticlesList != null && Model.ArticlesList.ArticlesList.Any())
+								{
+									<li data-tabs="expertComparisonTabContent">Expert Comparison</li>
+								}
+							</ul>
+							<div class="clear"></div>
+						</div>
+						@if (Model.Compare.VersionSpecsFeatures != null)
+						{
+							if (Model.Compare.VersionSpecsFeatures.Specs != null && Model.Compare.VersionSpecsFeatures.Specs.Any())
+							{
+								<div id="specsTabContent" data-id="specsTabContent" class="bw-tabs-data active hide-features">
+									<div class="bw-tabs_title"> Specification</div>
 
-                    <div class="model-accordion-tab">
-                        <span class="offers-sprite specs-@spec.Value-sm-icon"></span>
-                        <span class="accordion-tab-label">@spec.Text</span>
-                    </div>
-
-
-                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                        <tbody>
-                            @{isFirstActiveTab = false; }
-                            @foreach (var specCat in spec.SpecCategory)
-                {
-                    <tr class="row-type-heading">
-                        <td colspan="2">@specCat.Text</td>
-                        <td></td>
-                    </tr>
+									@foreach (var specCat in Model.Compare.VersionSpecsFeatures.Specs)
+									{
+										if (specCat.SpecsItemList.Any())
+										{
+											<div class="model-accordion-tab">
+												<span class="offers-sprite specs-dummy-sm-icon"></span>
+												<span class="accordion-tab-label">@specCat.DisplayText</span>
+											</div>
 
 
-                    <tr class="row-type-data">
-                        @foreach (var compSpec in specCat.CompareSpec)
-            {
-                <td>@compSpec.Value</td>
-}
-                        @if (Model.isSponsoredBike)
-            {
-                <td></td>
-}
-                    </tr>
-    }
-                        </tbody>
-                    </table>
+											<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+												<tbody>
+													@foreach (var specItem in specCat.SpecsItemList)
+													{
+														<tr class="row-type-heading">
+															<td colspan="2">@specItem.DisplayText @(!string.IsNullOrEmpty(specItem.UnitTypeText) ? string.Format("({0})", @specItem.UnitTypeText) : "")</td>
+															<td></td>
+														</tr>
+
+														<tr class="row-type-data">
+															@foreach (var specValue in specItem.ItemValues)
+															{
+																<td>@specValue</td>
+															}
+															@if (Model.isSponsoredBike)
+															{
+																<td></td>
+															}
+														</tr>
+													}
+												</tbody>
+											</table>
+										}
+
+									}
+								</div>
+							}
+							if (Model.Compare.VersionSpecsFeatures.Features != null && Model.Compare.VersionSpecsFeatures.Features.Any())
+							{
+								<div id="featuresTabContent" data-id="featuresTabContent" class="bw-tabs-data hide-features">
+									<div class="bw-tabs_title"> features</div>
+									<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+										<tbody>
+											@foreach (var feature in Model.Compare.VersionSpecsFeatures.Features)
+											{
+												<tr class="row-type-heading">
+													<td colspan="2">@feature.DisplayText</td>
+													<td></td>
+												</tr>
 
 
-    }
-
-}
-                    </div>
-                    <div id="featuresTabContent" data-id="featuresTabContent" class="bw-tabs-data hide-features">
-                        <div class="bw-tabs_title"> features</div>
-                        @if (Model.Compare.CompareFeatures != null)
-            {
-                foreach (var spec in Model.Compare.CompareFeatures.Spec)
-                {
-                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                        <tbody>
-                            @foreach (var specCat in spec.SpecCategory)
-                {
-                    <tr class="row-type-heading">
-                        <td colspan="2">@specCat.Text </td>
-                        <td></td>
-                    </tr>
-
-
-                    <tr class="row-type-data">
-                        @foreach (var compSpec in specCat.CompareSpec)
-            {
-                <td>@compSpec.Value </td>
-}
-                        @if (!Model.isSponsoredBike)
-            {
-                <td></td>
-}
-                    </tr>
-    }
-                        </tbody>
-                    </table>
-    }
-}
-                    </div>
-                    <div id="coloursTabContent" data-id="coloursTabContent" class="bw-tabs-data hide-features">
-                        <div class="bw-tabs_title"> colors</div>
-                        @if (Model.Compare.CompareColors != null)
-            {
-                <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                    <tbody>
-                        <tr class="row-type-heading">
-                            <td colspan="2"></td>
-                            <td></td>
-                        </tr>
-                        <tr class="row-type-data">
-                            @foreach (var bike in Model.Compare.CompareColors.bikes)
-                {
-                    <td>
-                        @foreach (var color in bike.bikeColors)
-            {
-                if (color.HexCodes != null)
-                {
-                    <div class="color-box color-count-@color.HexCodes.Count()">
-                        @foreach (var hexCode in color.HexCodes)
-            {
-                <span style="background-color: #@hexCode"></span>
-}
-                    </div>
+												<tr class="row-type-data">
+													@foreach (var featureValue in feature.ItemValues)
+													{
+														<td>@featureValue </td>
+													}
+													@if (!Model.isSponsoredBike)
+													{
+														<td></td>
+													}
+												</tr>
+											}
+										</tbody>
+									</table>
+								</div>
+							}
+						}
+						<div id="coloursTabContent" data-id="coloursTabContent" class="bw-tabs-data hide-features">
+							<div class="bw-tabs_title"> colors</div>
+							@if (Model.Compare.CompareColors != null)
+							{
+								<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+									<tbody>
+										<tr class="row-type-heading">
+											<td colspan="2"></td>
+											<td></td>
+										</tr>
+										<tr class="row-type-data">
+											@foreach (var bike in Model.Compare.CompareColors.bikes)
+											{
+												<td>
+													@foreach (var color in bike.bikeColors)
+													{
+														if (color.HexCodes != null)
+														{
+															<div class="color-box color-count-@color.HexCodes.Count()">
+																@foreach (var hexCode in color.HexCodes)
+																{
+																	<span style="background-color: #@hexCode"></span>
+																}
+															</div>
 
 
-                    <p>@color.Color</p>
-    }
-}
-                    </td>
-    }
-                        </tr>
-                    </tbody>
-                </table>
-}
-                    </div>
-                    @if (Model.Compare.UserReviewData != null)
-        {
-            <div id="reviewTabContent" data-id="reviewTabContent" class="review-tab bw-tabs-data">
-                <div class="bw-tabs_title">Reviews</div>
-                <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                    <tbody>
-                        <tr class="row-type-heading">
-                            <td colspan="2">Overall rating</td>
-                            <td></td>
-                        </tr>
-                        <tr class="row-type-data">
-                            @foreach (var compSpec in Model.Compare.UserReviewData.OverallRating)
-                {
-                    <td>
-                        @if (!compSpec.ReviewRate.Equals("--"))
-            {
+															<p>@color.Color</p>
+														}
+													}
+												</td>
+											}
+										</tr>
+									</tbody>
+								</table>
+							}
+						</div>
+						@if (Model.Compare.UserReviewData != null)
+						{
+							<div id="reviewTabContent" data-id="reviewTabContent" class="review-tab bw-tabs-data">
+								<div class="bw-tabs_title">Reviews</div>
+								<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+									<tbody>
+										<tr class="row-type-heading">
+											<td colspan="2">Overall rating</td>
+											<td></td>
+										</tr>
+										<tr class="row-type-data">
+											@foreach (var compSpec in Model.Compare.UserReviewData.OverallRating)
+											{
+												<td>
+													@if (!compSpec.ReviewRate.Equals("--"))
+													{
 
-                <div class="rate-count-@Math.Floor(Convert.ToDouble(compSpec.ReviewRate)) rating">
-                    <span class="bwmsprite star-icon"></span>
-                    <span class="font18 text-bold">@compSpec.ReviewRate</span>
-                </div>
-
-
-                <div class="rating-count">(@compSpec.RatingCount&nbsp;ratings)</div>
+														<div class="rate-count-@Math.Floor(Convert.ToDouble(compSpec.ReviewRate)) rating">
+															<span class="bwmsprite star-icon"></span>
+															<span class="font18 text-bold">@compSpec.ReviewRate</span>
+														</div>
 
 
-                <a href=@string.Format("/m{0}",compSpec.ReviewListUrl) class="font12">@compSpec.ReviewCount&nbsp;reviews</a>
-}
-else
-{
-            <span class="text-bold">--</span>
-}
-                    </td>
-    }
-                            <td></td>
-                        </tr>
-                        @{ var spec1 = Model.Compare.UserReviewData.CompareReviews.Spec.FirstOrDefault().SpecCategory.FirstOrDefault(); }
-                        @if (spec1 != null)
-            {
-                <tr class="row-type-heading">
-                    <td colspan="2">@spec1.Text</td>
-                    <td></td>
-                </tr>
+														<div class="rating-count">(@compSpec.RatingCount&nbsp;ratings)</div>
 
 
-                <tr class="row-type-data">
-                    @foreach (var compSpec in spec1.CompareSpec)
-        {
-            <td>
-                <span>@compSpec.Value</span>&nbsp;
-                @if (!compSpec.Value.Equals("--"))
-    {
-            <span class="font12 text-xt-light">kmpl</span>
-}
-            </td>
-}
-                    <td></td>
-                </tr>
-}
-                        @if (Model.Compare.UserReviewData.CompareReviews != null && Model.Compare.UserReviewData.CompareReviews.Spec != null && Model.Compare.UserReviewData.CompareReviews.Spec.Count() > 1)
-            {
-                foreach (var spec in Model.Compare.UserReviewData.CompareReviews.Spec.Skip(1))
-                {
-
-                    <tr class="row-type-heading">
-                        <td colspan="2">@spec.Text</td>
-                        <td></td>
-                    </tr>foreach (var specCat in spec.SpecCategory)
-        {
-
-            <tr class="data-head">
-                <td colspan="2">@specCat.Text</td>
-                <td></td>
-            </tr>
+														<a href=@string.Format("/m{0}",compSpec.ReviewListUrl) class="font12">@compSpec.ReviewCount&nbsp;reviews</a>
+													}
+													else
+													{
+														<span class="text-bold">--</span>
+													}
+												</td>
+											}
+											<td></td>
+										</tr>
+										@{ var spec1 = Model.Compare.UserReviewData.CompareReviews.Spec.FirstOrDefault().SpecCategory.FirstOrDefault(); }
+										@if (spec1 != null)
+										{
+											<tr class="row-type-heading">
+												<td colspan="2">@spec1.Text</td>
+												<td></td>
+											</tr>
 
 
-            <tr class="row-type-data">
-                @foreach (var compSpec in specCat.CompareSpec)
-    {
-            <td class="border-bottom-grey margin-bottom5">
-                @if (!compSpec.Value.Equals("--"))
-    {
-            <div class='rating-bar margin-top5'>
-                <span class='rate-@Math.Floor(Convert.ToDouble(compSpec.Value))'></span>
-            </div>
+											<tr class="row-type-data">
+												@foreach (var compSpec in spec1.CompareSpec)
+												{
+													<td>
+														<span>@compSpec.Value</span>&nbsp;
+														@if (!compSpec.Value.Equals("--"))
+														{
+															<span class="font12 text-xt-light">kmpl</span>
+														}
+													</td>
+												}
+												<td></td>
+											</tr>
+										}
+										@if (Model.Compare.UserReviewData.CompareReviews != null && Model.Compare.UserReviewData.CompareReviews.Spec != null && Model.Compare.UserReviewData.CompareReviews.Spec.Count() > 1)
+										{
+											foreach (var spec in Model.Compare.UserReviewData.CompareReviews.Spec.Skip(1))
+											{
+
+												<tr class="row-type-heading">
+													<td colspan="2">@spec.Text</td>
+													<td></td>
+												</tr>foreach (var specCat in spec.SpecCategory)
+												{
+
+													<tr class="data-head">
+														<td colspan="2">@specCat.Text</td>
+														<td></td>
+													</tr>
 
 
-            @Math.Floor(Convert.ToDouble(compSpec.Value))
-}
-else
-{
-            @compSpec.Value
-}
-            </td>
-}
-                <td></td>
-            </tr>
-}
-}
-}
-                        @if (Model.Compare.UserReviewData.MostRecentReviews != null)
-            {
-                <tr class="row-type-heading ">
-                    <td colspan="2">Reviews</td>
-                    <td></td>
-                </tr>
+													<tr class="row-type-data">
+														@foreach (var compSpec in specCat.CompareSpec)
+														{
+															<td class="border-bottom-grey margin-bottom5">
+																@if (!compSpec.Value.Equals("--"))
+																{
+																	<div class='rating-bar margin-top5'>
+																		<span class='rate-@Math.Floor(Convert.ToDouble(compSpec.Value))'></span>
+																	</div>
 
 
-                <tr class="row-type-data font14">
-                    @foreach (var review in Model.Compare.UserReviewData.MostRecentReviews)
-        {
-            <td>
-                @if (review.RatingValue > 0)
-    {
-            <span class="rating-badge margin-bottom10" data-rate-bg="@review.RatingValue">
-                <span class="bwmsprite star-white"></span>@review.RatingValue
-            </span>
+																	@Math.Floor(Convert.ToDouble(compSpec.Value))
+																}
+																else
+																{
+																	@compSpec.Value
+																}
+															</td>
+														}
+														<td></td>
+													</tr>
+												}
+											}
+										}
+										@if (Model.Compare.UserReviewData.MostRecentReviews != null)
+										{
+											<tr class="row-type-heading ">
+												<td colspan="2">Reviews</td>
+												<td></td>
+											</tr>
 
 
-            <p class="font14 text-default margin-bottom10">
-                <a href=@string.Format("/m{0}",@review.ReviewDetailUrl) class="text-default">@review.ReviewTitle</a>
-            </p>
+											<tr class="row-type-data font14">
+												@foreach (var review in Model.Compare.UserReviewData.MostRecentReviews)
+												{
+													<td>
+														@if (review.RatingValue > 0)
+														{
+															<span class="rating-badge margin-bottom10" data-rate-bg="@review.RatingValue">
+																<span class="bwmsprite star-white"></span>@review.RatingValue
+															</span>
 
 
-            <p class="review-decription">
-                @review.ReviewDescription
-            </p>
+															<p class="font14 text-default margin-bottom10">
+																<a href=@string.Format("/m{0}",@review.ReviewDetailUrl) class="text-default">@review.ReviewTitle</a>
+															</p>
 
 
-            <a href=@string.Format("/m{0}",@review.ReviewListUrl) class="review-title review-link bw-ga" data-cat="Compare_Bikes" data-act="Read_Reviews_Clicked" data-lab="@Model.targetModels.Replace(",", "_")">All reviews</a>
-}
-else
-{
-            <span class="text-bold">--</span>
-}
-            </td>
-}
-                    <td></td>
-                </tr>
-}
-                    </tbody>
-                </table>
-            </div>}
-                    <div id="toggle-float-button" class="grid-12 float-button float-fixed clearfix slideIn-transition hideCheckbox">
-                        <button type="button" id="toggle-features-btn" class="btn btn-teal btn-full-width">Hide common features</button>
-                    </div>
-                    <div class="clear"></div>
-                    <div id="comparison-footer"></div>
-                </div>
-                <section>
-                    <div class="container bg-white box-shadow margin-bottom15 content-inner-block-20">
-                        <p class="text-bold font16 line-height17 inline">Bike Comparison - @Model.templateSummaryTitle</p>
-                        <span class="model-preview-main-content">
-                            <p class="font14 text-light-grey line-height17 inline padding-top10">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 200))   ... </p>
-                        </span>
-                        <span class="model-preview-more-content hide">
-                            <p class="font14 text-light-grey line-height17 inline padding-top10">@Html.Raw(Model.compareSummaryText)</p>
-                        </span>
-                        <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
-                    </div>
-                </section>
-                @if (Model.AdTags.Ad_300x250BTF)
-         {
-            Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
-         }
-                @if (Model.isUsedBikePresent)
-    {
-            <div id="used-bikes-container" class="container box-shadow bg-white card-bottom-margin">
-                <h2 class="content-inner-block-15">Used bikes you may like</h2>
-                <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                    <tbody>
-                        <tr class="row-type-heading">
-                            <td colspan="2"></td>
-                            <td></td>
-                        </tr>
-                        <tr class="row-type-data">
-                            @foreach (var bike in Model.Compare.BasicInfo)
-                {
-                    <td>
-                        @if (bike.UsedBikeCount.BikeCount > 0)
-            {
-                <a href="/m@(Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName, bike.ModelMaskingName, !string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName) ? bike.UsedBikeCount.CityMaskingName : "india"))" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><p class="text-light-grey text-unbold">
-                    Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
-                </p>
-}
-else
-{
-            <div class="font14 text-bold text-center">--</div>
-}
-                    </td>
-    }
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-}
-            </div>
+															<p class="review-decription">
+																@review.ReviewDescription
+															</p>
+
+
+															<a href=@string.Format("/m{0}",@review.ReviewListUrl) class="review-title review-link bw-ga" data-cat="Compare_Bikes" data-act="Read_Reviews_Clicked" data-lab="@Model.targetModels.Replace(",", "_")">All reviews</a>
+														}
+														else
+														{
+															<span class="text-bold">--</span>
+														}
+													</td>
+												}
+												<td></td>
+											</tr>
+										}
+									</tbody>
+								</table>
+							</div>}
+						<div id="toggle-float-button" class="grid-12 float-button float-fixed clearfix slideIn-transition hideCheckbox">
+							<button type="button" id="toggle-features-btn" class="btn btn-teal btn-full-width">Hide common features</button>
+						</div>
+						<div class="clear"></div>
+						<div id="comparison-footer"></div>
+					</div>
+					<section>
+						<div class="container bg-white box-shadow margin-bottom15 content-inner-block-20">
+							<p class="text-bold font16 line-height17 inline">Bike Comparison - @Model.templateSummaryTitle</p>
+							<span class="model-preview-main-content">
+								<p class="font14 text-light-grey line-height17 inline padding-top10">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 200))   ... </p>
+							</span>
+							<span class="model-preview-more-content hide">
+								<p class="font14 text-light-grey line-height17 inline padding-top10">@Html.Raw(Model.compareSummaryText)</p>
+							</span>
+							<a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
+						</div>
+					</section>					
+					@if (Model.AdTags.Ad_300x250BTF)
+					{
+						Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
+					}
+					@if (Model.isUsedBikePresent)
+					{
+						<div id="used-bikes-container" class="container box-shadow bg-white card-bottom-margin">
+							<h2 class="content-inner-block-15">Used bikes you may like</h2>
+							<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+								<tbody>
+									<tr class="row-type-heading">
+										<td colspan="2"></td>
+										<td></td>
+									</tr>
+									<tr class="row-type-data">
+										@foreach (var bike in Model.Compare.BasicInfo)
+										{
+											<td>
+												@if (bike.UsedBikeCount.BikeCount > 0)
+												{
+													<a href="/m@(Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName, bike.ModelMaskingName, !string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName) ? bike.UsedBikeCount.CityMaskingName : "india"))" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><p class="text-light-grey text-unbold">
+														Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
+													</p>
+												}
+												else
+												{
+													<div class="font14 text-bold text-center">--</div>
+												}
+											</td>
+										}
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+				</div>
 
 
 
@@ -549,9 +551,9 @@ else
 				</div>
 
 
-											}
+			}
 		</section>
-											}
+	}
 	@if (Model.SimilarBikeWidget != null)
 	{
                     <!-- Similar bikes comparison start-->
@@ -586,11 +588,11 @@ else
 	}
 </section>
 <section>
-    <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
-        <p class="text-default text-bold">Disclaimer:</p>
-        <p>
-            @Model.DisclaimerText
-        </p>
-    </div>
-    
+	<div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
+		<p class="text-default text-bold">Disclaimer:</p>
+		<p>
+			@Model.DisclaimerText
+		</p>
+	</div>
+
 </section>
