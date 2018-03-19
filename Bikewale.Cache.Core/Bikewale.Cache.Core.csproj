@@ -123,6 +123,7 @@
     <Compile Include="LocalcacheManager.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MemcacheClientExtension.cs" />
     <Compile Include="MemcacheLog.cs" />
     <Compile Include="MemcacheLogFactory.cs" />
     <Compile Include="MemcacheManager.cs">

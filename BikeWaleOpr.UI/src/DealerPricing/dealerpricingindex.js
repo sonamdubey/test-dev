@@ -49,7 +49,7 @@
 
         self.copyPricingToDealers = function (data, event) {
             var selectedDealersLength = self.selectedDealers().length;
-
+            var bikeModelIds = [];
             if (selectedDealersLength > 0) {
                 var selectedDealerNames = "";
                 selectedDealerNames = ddlDealersByCity.find('option[value=' + self.selectedDealers()[0] + ']').text();
@@ -76,15 +76,17 @@
                         }
 
                     });
+                    bikeModelIds.push(parseInt(this.dataset.modelid));
                 });
-
+                
                 var dealerVersionPriceDto = {
                     dealerIds: dealerIds,
                     cityIds: cityIds,
                     enteredBy: enteredBy,
                     versionIds: versionIds,
                     itemIds: itemIds,
-                    itemValues: itemValues
+                    itemValues: itemValues,
+                    bikeModelIds: bikeModelIds
 
                 };
                 var selectAll = !($("#allRowsSelect").val() == "true");
@@ -151,6 +153,7 @@
                 var itemIds = [];
                 var itemValues = [];
                 var dealerIds = [];
+                var bikeModelIds = [];
                 dealerIds.push(parseInt(event.target.dataset.dealerId));
                 var cityIds = self.selectedCities();
                 var enteredBy = parseInt(event.target.dataset.enteredBy);
@@ -167,15 +170,16 @@
                         }
 
                     });
-                });
-
+                    bikeModelIds.push(parseInt(this.dataset.modelid));
+                });                
                 var dealerVersionPriceDto = {
                     dealerIds: dealerIds,
                     cityIds: cityIds,
                     enteredBy: enteredBy,
                     versionIds: versionIds,
                     itemIds: itemIds,
-                    itemValues: itemValues
+                    itemValues: itemValues,
+                    bikeModelIds: bikeModelIds
                 };
 
                 $.ajax({
