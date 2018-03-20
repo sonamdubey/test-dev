@@ -211,27 +211,38 @@ docReady(function () {
 
 docReady(function () {
 	
-	var colorsTab = $('#colorTab');
+    if (MODEL_COLOR_IMAGES)
+    {
+        var colorsTab = $('#colorTab');
 
-	if (colorsTab.length) {
-		vmModelColorSwiper = new ModelColorSwiperViewModel();
-		ko.applyBindings(vmModelColorSwiper, colorsTab[0]);
+        if (colorsTab.length) {
+            vmModelColorSwiper = new ModelColorSwiperViewModel();
+            ko.applyBindings(vmModelColorSwiper, colorsTab[0]);
+        }
+    }
+	
+	if (MODEL_VIDEO_LIST)
+	{
+            var videoTab = $('#videoTab');
+
+	    if (videoTab.length) {
+		        vmModelVideo = new ModelVideoViewModel();
+		        vmModelVideo.getVideos(); // get initial videos
+		        ko.applyBindings(vmModelVideo, videoTab[0]);
+
+		        if (vmModelVideo.videoList()) {
+		            ImageGridVideoSlug.setSlug();
+		        }
+	    }
+	   
+
 	}
-
-	var videoTab = $('#videoTab');
-
-	if (videoTab.length) {
-		vmModelVideo = new ModelVideoViewModel();
-		vmModelVideo.getVideos(); // get initial videos
-		ko.applyBindings(vmModelVideo, videoTab[0]);
-	}
+	
 
 	ImageGrid.alignRemainderImage();
 	ImageGrid.registerEvents();
 
-	if (vmModelVideo.videoList()) {
-		ImageGridVideoSlug.setSlug();
-	}
+	
 
 	// set overalltabs event
 	NavigationTabs.registerEvents();
