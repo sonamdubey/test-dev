@@ -251,6 +251,11 @@ docReady(function () {
 		onSlideChangeStart: function (swiper) {
 			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
 			SwiperEvents.focusThumbnail(colorTabThumbnailSwiper, vmModelColorSwiper.activeIndex(), true);
+		},
+		onSlideChangeEnd: function (swiper) {
+		    var currentColour = MODEL_COLOR_IMAGES[swiper.activeIndex].ImageTitle;
+		    triggerGA('Model_Images_Page', 'Colour_Image_Carousel_Clicked', MAKE_NAME + "_" + MODEL_NAME + "_" + currentColour);
+		    logBhrighuForImage($('#colorTabSwiper .swiper-slide-active'));
 		}
 	});
 
