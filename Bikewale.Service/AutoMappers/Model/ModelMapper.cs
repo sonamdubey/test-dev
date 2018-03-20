@@ -205,10 +205,9 @@ namespace Bikewale.Service.AutoMappers.Model
                         features.FeaturesList = new List<DTO.Model.Specs>();
                         foreach (var feature in objModelPage.VersionSpecsFeatures.Features)
                         {
-                            features.DisplayName = feature.DisplayText;
                             var itemValue = feature.ItemValues.FirstOrDefault();
                             DTO.Model.Specs specs = new DTO.Model.Specs();
-                            specs.DisplayText = itemValue;
+                            specs.DisplayText = feature.DisplayText;
                             specs.DisplayValue = itemValue;
                             features.FeaturesList.Add(specs);
                         }
