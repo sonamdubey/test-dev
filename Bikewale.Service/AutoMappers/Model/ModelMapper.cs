@@ -168,6 +168,39 @@ namespace Bikewale.Service.AutoMappers.Model
         }
 
         /// <summary>
+        /// Created by  : Pratibha Verma on 20 Mar 2018
+        /// Description : Mapping SpecsFeaturesItem List to Bikewale.DTO.ModelSpecs
+        /// </summary>
+        /// <param name="specFeatureItemList"></param>
+        /// <returns></returns>
+        internal static List<Bikewale.DTO.Model.Specs> Convert(IEnumerable<SpecsFeaturesItem> specFeatureItemList)
+        {
+            List<Bikewale.DTO.Model.Specs> specsList = new List<Bikewale.DTO.Model.Specs>();
+            try
+            {
+                if (specFeatureItemList != null)
+                {
+                    foreach (SpecsFeaturesItem featureItem in specFeatureItemList)
+                    {
+                        string itemValue = featureItem.ItemValues.FirstOrDefault();
+                        itemValue = String.IsNullOrEmpty(itemValue) || itemValue.Equals("-") ?
+                            "--" : itemValue + (String.IsNullOrEmpty(featureItem.UnitTypeText) ? "" : " " + featureItem.UnitTypeText);
+                        specsList.Add(new Bikewale.DTO.Model.Specs()
+                        {
+                            DisplayText = featureItem.DisplayText,
+                            DisplayValue = itemValue
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.AutoMappers.Model.Convert( IEnumerable<SpecsFeaturesItem> {0})", specFeatureItemList));
+            }
+            return specsList;
+        }
+
+        /// <summary>
         /// Created By : Lucky Rathore on 15 Apr 2016
         /// Description : Mapper for BikeSpecs DTO and BikeModelPageEntity Entity
         /// Modified by : Pratibha Verma on 19 Mar 2018
@@ -201,37 +234,29 @@ namespace Bikewale.Service.AutoMappers.Model
                 DTO.Model.v2.Specifications specifications = null;
                 if (objModelPage != null && objModelPage.VersionSpecsFeatures != null && objModelPage.VersionSpecsFeatures.Features != null)
                 {
-                    features = new DTO.Model.Features();
-                    features.FeaturesList = new List<DTO.Model.Specs>();
-                    foreach (var feature in objModelPage.VersionSpecsFeatures.Features)
-                    {
-                        var itemValue = feature.ItemValues.FirstOrDefault();
-                        DTO.Model.Specs specs = new DTO.Model.Specs();
-                        specs.DisplayText = feature.DisplayText;
-                        specs.DisplayValue = itemValue;
-                        features.FeaturesList.Add(specs);
-                    }
+                    features = new DTO.Model.Features() {
+                        DisplayName = "featuresList",
+                        FeaturesList = Convert(objModelPage.VersionSpecsFeatures.Features)
+                    };
                 }
                 if (objModelPage != null && objModelPage.VersionSpecsFeatures != null && objModelPage.VersionSpecsFeatures.Specs != null)
                 {
-                    specifications = new DTO.Model.v2.Specifications();
-                    specifications.SpecsCategory = new List<DTO.Model.v2.SpecsCategory>();
+                    List<DTO.Model.v2.SpecsCategory> specCategoryList = new List<DTO.Model.v2.SpecsCategory>();
                     foreach (var specsCat in objModelPage.VersionSpecsFeatures.Specs)
-                    {  
-                        specifications.DisplayName = specsCat.DisplayText;
-                        DTO.Model.v2.SpecsCategory cat = new DTO.Model.v2.SpecsCategory();
-                        cat.DisplayName = specsCat.DisplayText;
-                        cat.Specs = new List<DTO.Model.Specs>();
-                        foreach (var specItem in specsCat.SpecsItemList)
+                    {
+                        specCategoryList.Add(new DTO.Model.v2.SpecsCategory()
                         {
-                            var item = specItem.ItemValues.FirstOrDefault();
-                            DTO.Model.Specs dtoSpecs = new DTO.Model.Specs();
-                            dtoSpecs.DisplayText = specItem.DisplayText;
-                            dtoSpecs.DisplayValue = item + " " + specItem.UnitTypeText;
-                            cat.Specs.Add(dtoSpecs);
-                        }
-                        specifications.SpecsCategory.Add(cat);
+                            DisplayName = specsCat.DisplayText,
+                            CategoryName = specsCat.DisplayText,
+                            Specs = Convert(specsCat.SpecsItemList)
+
+                        });
                     }
+                    specifications = new DTO.Model.v2.Specifications()
+                    {
+                        DisplayName = "specsCategory",
+                        SpecsCategory = specCategoryList
+                    };
                 }
                 var bikespecs = Mapper.Map<BikeSpecs>(objModelPage);
                 bikespecs.IsAreaExists = pqEntity.IsAreaExists;
