@@ -4,12 +4,14 @@ var downloadImageResolution = "1056x594";
 var eleGallery, vmModelGallery, colorIndex = 0;
 
 // page variables
-var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, RETURN_URL, isColorImageSet = false;
+var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, MAKE_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, RETURN_URL, isColorImageSet = false;
 
 // bhrighu logging
 var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
 
 var mainGallerySwiper, colorGallerySwiper, colorThumbnailGallerySwiper;
+
+var buttonClicked = false, lastSlide = 0, currentSlide = 0;
 
 var setPageVariables = function () {
 	eleGallery = $("#pageGallery");
@@ -22,6 +24,7 @@ var setPageVariables = function () {
 		RETURN_URL = eleGallery.data("returnurl");
 		MODEL_NAME = eleGallery.data("modelname");
 		BIKE_MODEL_ID = eleGallery.data("modelid");
+		MAKE_NAME = eleGallery.data("makename");
 
 		if (eleGallery.length > 0 && eleGallery.data("images") != '') {
 			var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
@@ -51,7 +54,8 @@ var setPageVariables = function () {
 }
 
 var popupGallery = {
-	open: function () {
+    open: function () {
+
 		vmModelGallery.openGalleryPopup();
 
 		if (COLOR_INDEX) {
@@ -74,7 +78,6 @@ var popupGallery = {
 	},
 
 	bindGallery: function () {
-		triggerGA('Gallery_Page', 'Gallery_Loaded', MODEL_NAME);
 		popupGallery.open();
 	}
 }
@@ -355,11 +358,13 @@ var MainGallerySwiper = (function() {
 				if (vmModelGallery.activePopup()) {
 					vmModelGallery.setColorSlug(swiper.activeIndex);
 					vmModelGallery.setVideoSlug(swiper.activeIndex);
+					triggerGA('Gallery_Page', 'Image_Carousel_Clicked', MODEL_NAME);
+
 				}
+				lastSlide = vmModelGallery.activeIndex();
 			},
 
 			onSlideChangeEnd: function (swiper) {
-				logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
 
 				if (swiper.activeIndex === vmModelGallery.floatingLandscapeSlugVisibilityThreshold()) {
 					vmModelGallery.setLandscapeIcon();
@@ -368,6 +373,26 @@ var MainGallerySwiper = (function() {
 				vmModelGallery.setColorOption();
 
 				SwiperEvents.setDetails(swiper, vmModelGallery);
+
+				currentSlide = vmModelGallery.activeIndex();
+				
+				if (!vmModelGallery.activePopup()) {
+				    if (!buttonClicked) {
+				        if (currentSlide > lastSlide) {
+				            triggerGA('Model_Images_Page', 'Swipe_Right', MAKE_NAME + "_" + MODEL_NAME);
+				        }
+				        else if (lastSlide > currentSlide) {
+				            triggerGA('Model_Images_Page', 'Swipe_Left', MAKE_NAME + "_" + MODEL_NAME);
+				        }
+				    }
+				    else {
+				        triggerGA('Model_Images_Page', 'Image_Carousel_Clicked', MAKE_NAME + "_" + MODEL_NAME);
+				    }
+
+				    logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
+				}
+
+				buttonClicked = false;
 			}
 		})
 
@@ -388,6 +413,14 @@ var MainGallerySwiper = (function() {
 			if ($('.gallery-popup--active').is(':visible')) {
 				calculateCenter();
 			}
+		});
+
+		$('.gallery__next').on('click', function (e) {
+		    buttonClicked = true;
+		});
+
+		$('.gallery__prev').on('click', function (e) {
+		    buttonClicked = true;
 		});
 	};
 
@@ -422,8 +455,8 @@ var ColorGallerySwiper = (function () {
 			preloadImages: false,
 			lazyLoading: true,
 			lazyLoadingInPrevNext: true,
-			nextButton: '.color-type-next',
-			prevButton: '.color-type-prev',
+			nextButton: '#mainColorSwiper .color-type-next',
+			prevButton: '#mainColorSwiper .color-type-prev',
 			onInit: function (swiper) {
 				SwiperEvents.setDetails(swiper, vmModelGallery.colorPopup().colorSwiper());
 			},
@@ -435,8 +468,10 @@ var ColorGallerySwiper = (function () {
 			},
 
 			onSlideChangeStart: function (swiper) {
-				SwiperEvents.setDetails(swiper, vmModelGallery.colorPopup().colorSwiper());
-				if (!vmModelGallery.fullScreenModeActive()) {
+			    SwiperEvents.setDetails(swiper, vmModelGallery.colorPopup().colorSwiper());
+			    triggerGA('Gallery_Page', 'Colour_Changed', MODEL_NAME);
+			    logBhrighuForImage($('#mainColorSwiper .swiper-slide-active'));
+			    if (!vmModelGallery.fullScreenModeActive()) {
 					SwiperEvents.focusThumbnail(colorThumbnailGallerySwiper, vmModelGallery.colorPopup().colorSwiper().activeIndex(), false);
 				}
 				else {
@@ -446,7 +481,9 @@ var ColorGallerySwiper = (function () {
 				var activeElement = $(colorThumbnailGallerySwiper.slides[swiper.activeIndex]);
 				colorBox.scrollIntoView(activeElement);
 				colorBox.setColorCode(activeElement);
+
 			}
+
 		});
 
 		return swiper;

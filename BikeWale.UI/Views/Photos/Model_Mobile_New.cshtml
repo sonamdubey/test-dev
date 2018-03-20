@@ -3,14 +3,15 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/colours-popup.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/videos-popup.css' />";
     Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/m/src/photos/gallery.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/model.js" };
+    Model.AdTags.Ad_320x50Top = true;
     Model.AdTags.Ad_300x250BTF = true;
-    Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_320x50BTF = true;
     Model.AdTags.AdId = "1516082576550";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Image";
 }
 @if (Model != null)
 {
+
     int i = 0; IList<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> objImages = new List<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity>();
 
     if (Model.ModelImages != null)
@@ -396,6 +397,12 @@
         </div>
     </section>
 
+    if (Model.AdTags.Ad_300x250BTF)
+    {
+        <div class="margin-bottom20 margin-top20 text-center">
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+        </div>
+     }
 
     if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
     {
@@ -403,6 +410,7 @@
             @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_New_Mobile.cshtml", Model.SimilarBikes)
         </section>
     }
+
 
 
     if (Model.AdTags.Ad_300x250BTF)
@@ -427,6 +435,7 @@
         @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
     }
 
+
     if (Model.objMoreAboutScooter != null)
     {
         <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
@@ -440,8 +449,10 @@
 }
 @if (Model.AdTags.Ad_320x50BTF)
 {
+
     <div class="margin-bottom20 text-center">
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>
+
 }
 
