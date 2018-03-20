@@ -6,6 +6,7 @@ using VehicleData.Service.ProtoClass;
 using Bikewale.Entities.BikeData;
 using Bikewale.Notifications;
 using Google.Protobuf.Collections;
+using Bikewale.Utility;
 
 namespace Bikewale.BAL.GrpcFiles.Specs_Features
 {
@@ -16,7 +17,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             try
             {
                 CallAggregator ca = new CallAggregator();
-                ca.AddCall("vehicledata_local", "GetVehicleDataForVersionId", new VehicleDataRequest
+                ca.AddCall(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetVehicleDataForVersionId", new VehicleDataRequest
                 {
                     VersionIds = { new List<int> { 5242, 5150 } },
                     ApplicationId = 1
