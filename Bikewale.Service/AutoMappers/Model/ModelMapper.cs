@@ -196,7 +196,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.v2.SpecsCategory>();
 
                 DTO.Model.Features features = null;
-                Bikewale.DTO.Model.v2.Specifications specifications = null;
+                DTO.Model.v2.Specifications specifications = null;
                 if (objModelPage != null && objModelPage.VersionSpecsFeatures != null)
                 {
                     if (objModelPage.VersionSpecsFeatures.Features != null)
@@ -228,7 +228,7 @@ namespace Bikewale.Service.AutoMappers.Model
                                 var item = specItem.ItemValues.FirstOrDefault();
                                 DTO.Model.Specs dtoSpecs = new DTO.Model.Specs();
                                 dtoSpecs.DisplayText = specItem.DisplayText;
-                                dtoSpecs.DisplayValue = item + " " + specItem.DisplayText;
+                                dtoSpecs.DisplayValue = item + " " + specItem.UnitTypeText;
                                 cat.Specs.Add(dtoSpecs);
                             }
                             specifications.SpecsCategory.Add(cat);
