@@ -1128,7 +1128,7 @@ namespace Bikewale.Models.BikeModels
                 {
                     _objData.EMICalculator.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
                 }
-                else
+                else if(_objData.EMICampaign != null)
                 {
                     _objData.EMICalculator.IsManufacturerLeadAdShown = (_objData.EMICampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.EMICampaign.ShowOnExshowroom));
                 }
