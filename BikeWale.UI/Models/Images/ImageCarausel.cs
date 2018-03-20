@@ -14,6 +14,8 @@ namespace Bikewale.Models.Images
     /// <summary>
     /// Created by  :   Pratibha Verma on 8 Feb 2018
     /// Description :   to bind Image Page
+    /// Modified by : Rajan Chauhan on 12 Mar 2018
+    /// Description : Added ComparisonTests in Content type
     /// </summary>
     public class ImageCarausel
     {
@@ -26,7 +28,7 @@ namespace Bikewale.Models.Images
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         public ImageCarausel(uint makeId, uint recordCount, uint imageCount, EnumBikeBodyStyles bodyStyle, IBikeModels<BikeModelEntity, int> objModelEntity)
         {
-            ContentType = new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest };
+            ContentType = new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest, EnumCMSContentType.ComparisonTests };
             MakeId = makeId;
             RecordCount = recordCount;
             ImageCount = imageCount;

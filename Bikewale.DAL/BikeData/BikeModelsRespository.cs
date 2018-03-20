@@ -1867,6 +1867,9 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Retrieves the Model Colors and Images
         /// Created by: Sangram Nandkhile on 30th Jan 2017
+        /// Modified by : Rajan Chauhan on 13 Mar 2017
+        /// Description : changed sp from getbikemodelcolor_09012017 to getbikemodelcolor_12032018
+        ///               having extra check of isActive on bikemodelcolorPhotos
         /// </summary>
         /// <param name="modelId">Bike Model Id</param>
         /// <returns>Model colorwise Image List</returns>
@@ -1877,7 +1880,7 @@ namespace Bikewale.DAL.BikeData
             IList<ColorCodeBase> colorCodes = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemodelcolor_09012017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemodelcolor_12032018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));

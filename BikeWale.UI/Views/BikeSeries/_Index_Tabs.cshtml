@@ -16,7 +16,7 @@
                 {
                     <span class="navtab" data-href="#modelUpcomingBikesContent" data-lab="@string.Format("{0}_UpcomingBikes", Model.SeriesBase.SeriesName)">Upcoming</span>
                 }
-                @if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
+                @if (Model.TopComparisons != null && Model.TopComparisons.CompareBikes != null && Model.TopComparisons.CompareBikes.Any())
                 {
                     <span class="navtab" data-href="#popularComparison" data-lab="@string.Format("{0}_TopComparisons", Model.SeriesBase.SeriesName)">Top Comparisons</span>
                 }

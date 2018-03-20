@@ -1305,6 +1305,8 @@ namespace Bikewale.Models
         /// Description :   Fetches Manufacturer Campaigns
         /// Modified by  :  Sushil Kumar on 11th Aug 2017
         /// Description :   Store dealerid for manufacturer campaigns for impressions tracking
+        /// Modified by : Ashutosh Sharma on 13 Mar 2018
+        /// Description : Registering price quote before binding lead and emi campaign.
         /// </summary>
         private void GetManufacturerCampaign(PriceInCityPageVM objData)
         {
@@ -1312,6 +1314,22 @@ namespace Bikewale.Models
             {
                 if (_objManufacturerCampaign != null && !(objData.HasCampaignDealer))
                 {
+                    if (objData.PQId == 0)
+                    {
+                        PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
+                        objPQEntity.CityId = Convert.ToUInt16(cityId);
+                        objPQEntity.AreaId = Convert.ToUInt32(areaId);
+                        objPQEntity.ClientIP = "";
+                        objPQEntity.SourceId = Convert.ToUInt16(Platform);
+                        objPQEntity.ModelId = modelId;
+                        objPQEntity.VersionId = objData.VersionId;
+                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
+                        objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
+                        objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
+                        objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
+                        objData.PQId = (uint)_objPQ.RegisterPriceQuote(objPQEntity);
+                    }
+
                     ManufacturerCampaignEntity campaigns = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaignPageId);
                     if (campaigns.LeadCampaign != null)
                     {
@@ -1390,21 +1408,7 @@ namespace Bikewale.Models
                         objData.IsManufacturerEMIAdShown = true;
                     }
 
-                    if (objData.PQId == 0)
-                    {
-                        PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
-                        objPQEntity.CityId = Convert.ToUInt16(cityId);
-                        objPQEntity.AreaId = Convert.ToUInt32(areaId);
-                        objPQEntity.ClientIP = "";
-                        objPQEntity.SourceId = Convert.ToUInt16(Platform);
-                        objPQEntity.ModelId = modelId;
-                        objPQEntity.VersionId = objData.VersionId;
-                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
-                        objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
-                        objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
-                        objData.PQId = (uint)_objPQ.RegisterPriceQuote(objPQEntity);
-                    }
+                    
 
                     if (objData.IsManufacturerLeadAdShown)
                     {

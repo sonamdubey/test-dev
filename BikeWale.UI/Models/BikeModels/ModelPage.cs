@@ -1114,6 +1114,8 @@ namespace Bikewale.Models.BikeModels
         /// <summary>
         /// Created by      :   Sumit Kate on 30 Nov 2017
         /// Descriptiion    :   Bind EMI calculator widget on model page
+        /// Modified by     :   Pratibha Verma on 13 Mar 2018
+        /// Description     :   modified condition for IsManufacturerLeadAdShown
         /// </summary>
         private void BindEMICalculator(uint Price)
         {
@@ -1128,7 +1130,14 @@ namespace Bikewale.Models.BikeModels
                 _objData.EMICalculator.PremiumDealerLeadSourceId = IsMobile ? LeadSourceEnum.EMI_Calculator_ModelPage_Mobile : LeadSourceEnum.EMI_Calculator_ModelPage_Desktop;
                 _objData.EMICalculator.BikeName = _objData.BikeName;
                 _objData.EMICalculator.IsPrimaryDealer = _objData.IsPrimaryDealer;
-                _objData.EMICalculator.IsManufacturerLeadAdShown = _objData.EMICalculator.ESEMICampaign != null;
+                if (_objData.LeadCampaign != null)
+                {
+                    _objData.EMICalculator.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
+                }
+                else if(_objData.EMICampaign != null)
+                {
+                    _objData.EMICalculator.IsManufacturerLeadAdShown = (_objData.EMICampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.EMICampaign.ShowOnExshowroom));
+                }
             }
             catch (Exception ex)
             {
@@ -1709,6 +1718,8 @@ namespace Bikewale.Models.BikeModels
         /// Description :   Store dealerid for manufacturer campaigns for impressions tracking
         /// Modified by :   Sumit Kate on 30 Nov 2017
         /// Description :   Enable EMI ES Campaign on Model Page
+        /// Modified by : Pratibha Verma on 13 Mar 2018
+        /// Description : added ShowOnExshowroom in EMICampaign
         /// </summary>
         private void GetManufacturerCampaign()
         {
@@ -1805,7 +1816,8 @@ namespace Bikewale.Models.BikeModels
                             VersionId = _objData.VersionId,
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
-                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8)
+                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
+                            ShowOnExshowroom = campaigns.EMICampaign.ShowOnExshowroom
                         };
 
                         _objData.IsManufacturerEMIAdShown = true;

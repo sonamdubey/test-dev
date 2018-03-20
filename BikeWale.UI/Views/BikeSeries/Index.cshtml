@@ -69,7 +69,7 @@
         
             <section>
                 <div id="popularComparison" data-id="#popularComparison" class="bw-model-tabs-data container margin-bottom20 active">
-                    @if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
+                    @if (Model.TopComparisons != null && Model.TopComparisons.CompareBikes != null && Model.TopComparisons.CompareBikes.Any())
                     {
 
                         <div class="grid-12">
@@ -87,7 +87,7 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_V1.cshtml", Model.SimilarCompareScooters)
+                                @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_V1.cshtml", Model.TopComparisons)
 
                             </div>
 
