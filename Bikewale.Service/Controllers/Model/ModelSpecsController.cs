@@ -1,4 +1,5 @@
-﻿using Bikewale.BAL.PriceQuote;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.BAL.PriceQuote;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
@@ -143,37 +144,38 @@ namespace Bikewale.Service.Controllers.Model
                 return InternalServerError();
             }
         }
-		/// <summary>
-		/// Created by : Ashutosh Sharma on 26 Dec 2017
-		/// Description : API to get specs and features of a version.
-		/// </summary>
-		/// <param name="versionId"></param>
-		/// <returns></returns>
-		[HttpGet, ResponseType(typeof(VersionSpecs)), Route("api/version/{versionId}/specs/")]
-		public IHttpActionResult GetBikeVersionSpecs(uint versionId)
-		{
-			try
-			{
-				if (versionId <= 0)
-				{
-					return BadRequest();
-				}
-				TransposeModelSpecEntity transposeModelSpecEntity = _versionCacheRepository.GetSpecifications(versionId);
-				if (transposeModelSpecEntity != null)
-				{
-					VersionSpecs versionSpecs = VersionListMapper.Convert(transposeModelSpecEntity);
-					if (versionSpecs != null)
-					{
-						return Ok(versionSpecs);
-					}
-				}
-				return NotFound();
-			}
-			catch (Exception ex)
-			{
-				ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Model.ModelSpecsController.GetBikeVersionSpecs");
-				return InternalServerError();
-			}
-		}
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 26 Dec 2017
+        /// Description : API to get specs and features of a version.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        [HttpGet, ResponseType(typeof(VersionSpecs)), Route("api/version/{versionId}/specs/")]
+        public IHttpActionResult GetBikeVersionSpecs(uint versionId)
+        {
+            try
+            {
+                if (versionId <= 0)
+                {
+                    return BadRequest();
+                }
+                SpecsFeaturesEntity versionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
+        
+                if (versionSpecsFeatures != null)
+                {
+                    VersionSpecs versionSpecs = VersionListMapper.Convert(versionSpecsFeatures);
+                    if (versionSpecs != null)
+                    {
+                        return Ok(versionSpecs);
+                    }
+                }
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Model.ModelSpecsController.GetBikeVersionSpecs");
+                return InternalServerError();
+            }
+        }
 	}
 }
