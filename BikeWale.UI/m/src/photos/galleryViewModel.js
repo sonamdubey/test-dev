@@ -79,6 +79,7 @@
 	self.openGalleryPopup = function () {
 		self.activeSwiperTitle(false);
 		self.activePopup(true);
+		gaObj.id = galleryId;
 		triggerGA('Gallery_Page', 'Gallery_Loaded', self.modelName);
 		logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
 		self.setRotateScreenOption();
@@ -99,7 +100,7 @@
 			$('.model-gallery__container').animate({
 				top: 0
 			}, 300, 'swing');
-
+			gaObj.id = lastPageId;
 			self.activeSwiperTitle(false);
 			self.activePopup(false);
 			self.setRotateScreenOption();

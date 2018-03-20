@@ -154,7 +154,7 @@
 
                 <div id="colorGalleryPopup" class="color-popup__content" data-bind="with: colorPopup, css: { 'color-popup--active': colorPopup().activePopup(), 'color-popup--landscape': fullScreenModeActive() }">
                     <div class="color-popup__head">
-                        <span class="color-popup-head__back" onclick="history.back()"></span>
+                        <span class="color-popup-head__back" data-bind="click: closePopup()"></span>
                         <p class="color-popup-head__title" data-bind="text: modelName + ' Colours'"></p>
                     </div>
                     <div class="color-popup__body">
@@ -218,7 +218,7 @@
 
                 <div id="videoGalleryPopup" class="video-popup__content" data-bind="css: { 'video-popup--active': videoPopup().activePopup(), 'video-popup--landscape': fullScreenModeActive() }">
                     <div class="video-popup__head">
-                        <span class="video-popup-head__back" onclick="history.back()"></span>
+                        <span class="video-popup-head__back" data-bind="click: videoPopup().closePopup()"></span>
                         <p class="video-popup-head__title">Dominar 400 Videos</p>
                     </div>
                     <div class="video-popup__body">
