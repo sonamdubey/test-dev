@@ -458,6 +458,41 @@ var ModelVideoViewModel = function () {
 			}
 		}
 	}
+
+	self.formatDate = function (dateString) {
+	    var date = new Date(dateString);
+	    var monthNames = [
+    "January", "February", "March", "April", "May", "June", "July","August", "September", "October","November", "December"
+	    ];
+
+	    var dd = date.getDate();
+	    var mm = date.getMonth() + 1;
+	    var yyyy = date.getFullYear();
+
+	    if (dd < 10) {
+	        dd = '0' + dd
+	    }
+
+	    var formattedDate = dd + ' ' + monthNames[mm] + ' ' + yyyy;
+	    return formattedDate;
+	}
+
+	self.formatNumeric = function (numberToFormat) {
+
+	    numberToFormat = numberToFormat.toString();
+	    var formatted = '';
+	    var breakPoint = 3, noOfCommas = 3;
+	    for (var i = numberToFormat.length - 1; i >= 0; i--)
+	    {
+	        formatted = numberToFormat[i] + formatted;
+	        if ((numberToFormat.length - i) == breakPoint && numberToFormat.length > breakPoint && noOfCommas > 0) {
+	            formatted = "," + formatted;
+	            breakPoint += 2;
+	            noOfCommas--;
+	        }
+	    }
+	    return formatted;
+	}
 }
 
 var ColorSlugViewModel = function (colorPhotoList) {
@@ -516,3 +551,6 @@ var VideoSlugViewModel = function (videoList) {
 		$(targetElement).closest('.model-gallery__video-slide').find('.iframe-overlay').trigger('click');
 	};
 }
+
+
+

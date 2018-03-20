@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -75,6 +76,8 @@ namespace Bikewale.Models.Photos
         /// Description: Added BindMoreAboutScootersWidget
         /// Modified by : Snehal Dange on 29th Nov 2017
         /// Descritpion : Added ga for page
+        /// Modified by : Snehal Dange on 20th March 2018
+        /// Description: Added BindVideosAndColourImages()
         /// </summary>
         /// <param name="gridSize"></param>
         /// <param name="noOfGrid"></param>
@@ -97,6 +100,7 @@ namespace Bikewale.Models.Photos
                 BindPhotos();
                 BindPageWidgets();
                 SetPageMetas();
+                BindVideosAndColourImages(_objData);
                 if (_objData.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter))
                 {
                     BindMoreAboutScootersWidget(_objData);
@@ -522,6 +526,33 @@ namespace Bikewale.Models.Photos
             }
 
             return "";
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 19th March 2018
+        /// Description: Bind Videos and Colour tabs data
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindVideosAndColourImages(PhotosPageVM objData)
+        {
+            try
+            {
+                if (objData != null && objData.ModelImages != null && objData.ModelImages.Any())
+                {
+                    IEnumerable<ColorImageBaseEntity> colorImages = null;
+                    colorImages = objData.ModelImages.Where(m => m.ImageType.Equals(ImageBaseType.ModelColorImage));
+                    if (colorImages != null && colorImages.Any())
+                    {
+                        objData.ColorImagesCount = colorImages.Count();
+                    }
+                    objData.IsColorAvailable = (objData.ColorImagesCount > 0);
+                    objData.IsVideosAvailable = (objData.ModelVideos != null && objData.ModelVideos.Any());
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindVideosAndColourImages : ModelId {0}", _modelId));
+            }
         }
 
     }

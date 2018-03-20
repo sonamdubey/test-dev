@@ -1,6 +1,6 @@
 ﻿// gallery variables
 var modelColorImageCount = 0, MODEL_IMAGES = [], MODEL_COLOR_IMAGES = [], MODEL_VIDEO_LIST = null;
-
+var downloadImageResolution = "1056x594";
 var eleGallery, vmModelGallery, colorIndex = 0;
 
 // page variables
@@ -90,7 +90,7 @@ function getImageDownloadUrl() {
 	if (activeImageIndex == -1)
 		activeImageIndex++;
 	var currImage = MODEL_IMAGES[activeImageIndex];
-	return currImage.HostUrl + "0x0" + currImage.OriginalImgPath;
+	return currImage.HostUrl + downloadImageResolution + currImage.OriginalImgPath;
 }
 
 function resizePortraitImage(element) {
