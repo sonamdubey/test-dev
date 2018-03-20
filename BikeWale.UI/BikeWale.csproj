@@ -2237,9 +2237,28 @@
     <Content Include="css\components\select-box.css" />
     <Content Include="css\electric-bikes\landing.css" />
     <Content Include="css\emicalculator.css" />
+    <Content Include="css\fonts\fontawesome-webfont.svg" />
+    <Content Include="css\fonts\open-sans-v15-latin-600.svg" />
+    <Content Include="css\fonts\open-sans-v15-latin-700.svg" />
+    <Content Include="css\fonts\open-sans-v15-latin-800.svg" />
+    <Content Include="css\fonts\open-sans-v15-latin-regular.svg" />
+    <Content Include="css\fonts\WebRupee.V2.0.svg" />
     <Content Include="css\threesixty-slider.css" />
     <Content Include="css\PopUp\PopUpCityArea.css" />
     <Content Include="css\finance\capital-first.css" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\open-sans-v15-latin-600.svg" />
+    <Content Include="fonts\open-sans-v15-latin-700.svg" />
+    <Content Include="fonts\open-sans-v15-latin-800.svg" />
+    <Content Include="fonts\open-sans-v15-latin-regular.svg" />
+    <Content Include="fonts\WebRupee.V2.0.eot" />
+    <Content Include="fonts\WebRupee.V2.0.svg" />
+    <Content Include="fonts\WebRupee.V2.0.ttf" />
+    <Content Include="fonts\WebRupee.V2.0.woff" />
     <Content Include="m\css\campaign\hero-campaign.css" />
     <Content Include="m\css\electricbikes\landing.css" />
     <Content Include="m\css\finance\capital-first.css" />
@@ -2572,8 +2591,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Feedback\Feedback.aspx" />
     <Content Include="Finance\EMICalculator.aspx" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\WebRupee.V2.0.svg" />
     <Content Include="Generic\BikeListing.aspx" />
     <Content Include="Global.asax" />
     <Content Include="google863c8bc3ae47cfff.html" />
@@ -2804,6 +2821,12 @@
     <Content Include="m\css\dealer\listing.css" />
     <Content Include="m\css\dealer\location.css" />
     <Content Include="m\css\design.css" />
+    <Content Include="m\css\fonts\fontawesome-webfont.svg" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-600.svg" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-700.svg" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-800.svg" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-regular.svg" />
+    <Content Include="m\css\fonts\WebRupee.V2.0.svg" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
@@ -3362,17 +3385,10 @@
     <!--     <Content Include="test\fonts\WebRupee.V2.0.eot" />
     <Content Include="test\fonts\WebRupee.V2.0.ttf" />
     <Content Include="test\fonts\WebRupee.V2.0.woff" /> -->
-    <Content Include="fonts\WebRupee.V2.0.eot" />
-    <Content Include="fonts\WebRupee.V2.0.ttf" />
-    <Content Include="fonts\WebRupee.V2.0.woff" />
     <!--     <Content Include="m\fonts\WebRupee.V2.0.woff" />
     <Content Include="m\fonts\WebRupee.V2.0.ttf" />
     <Content Include="m\fonts\WebRupee.V2.0.eot" /> -->
     <Content Include="Absure Bike RSA.pdf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\FontAwesome.otf" />
     <Content Include="m\fonts\fontawesome-webfont.eot" />
     <Content Include="m\fonts\fontawesome-webfont.ttf" />
     <Content Include="m\fonts\fontawesome-webfont.woff" />
@@ -3462,6 +3478,68 @@
     <Content Include="m\sass\generic\listing.sass" />
     <Content Include="m\sass\generic\_listing-style.sass" />
     <Content Include="m\sass\generic\_media-query.sass" />
+    <Content Include="m\css\fonts\fontawesome-webfont.eot" />
+    <Content Include="m\css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="m\css\fonts\fontawesome-webfont.woff" />
+    <Content Include="m\css\fonts\FontAwesome.otf" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-600.eot" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-600.ttf" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-600.woff" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-600.woff2" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-700.eot" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-700.ttf" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-700.woff" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-700.woff2" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-800.eot" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-800.ttf" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-800.woff" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-800.woff2" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-regular.eot" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-regular.ttf" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-regular.woff" />
+    <Content Include="m\css\fonts\open-sans-v15-latin-regular.woff2" />
+    <Content Include="m\css\fonts\WebRupee.V2.0.eot" />
+    <Content Include="m\css\fonts\WebRupee.V2.0.ttf" />
+    <Content Include="m\css\fonts\WebRupee.V2.0.woff" />
+    <Content Include="css\fonts\fontawesome-webfont.eot" />
+    <Content Include="css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="css\fonts\fontawesome-webfont.woff" />
+    <Content Include="css\fonts\FontAwesome.otf" />
+    <Content Include="css\fonts\open-sans-v15-latin-600.eot" />
+    <Content Include="css\fonts\open-sans-v15-latin-600.ttf" />
+    <Content Include="css\fonts\open-sans-v15-latin-600.woff" />
+    <Content Include="css\fonts\open-sans-v15-latin-600.woff2" />
+    <Content Include="css\fonts\open-sans-v15-latin-700.eot" />
+    <Content Include="css\fonts\open-sans-v15-latin-700.ttf" />
+    <Content Include="css\fonts\open-sans-v15-latin-700.woff" />
+    <Content Include="css\fonts\open-sans-v15-latin-700.woff2" />
+    <Content Include="css\fonts\open-sans-v15-latin-800.eot" />
+    <Content Include="css\fonts\open-sans-v15-latin-800.ttf" />
+    <Content Include="css\fonts\open-sans-v15-latin-800.woff" />
+    <Content Include="css\fonts\open-sans-v15-latin-800.woff2" />
+    <Content Include="css\fonts\open-sans-v15-latin-regular.eot" />
+    <Content Include="css\fonts\open-sans-v15-latin-regular.ttf" />
+    <Content Include="css\fonts\open-sans-v15-latin-regular.woff" />
+    <Content Include="css\fonts\open-sans-v15-latin-regular.woff2" />
+    <Content Include="css\fonts\WebRupee.V2.0.eot" />
+    <Content Include="css\fonts\WebRupee.V2.0.ttf" />
+    <Content Include="css\fonts\WebRupee.V2.0.woff" />
+    <Content Include="fonts\open-sans-v15-latin-600.eot" />
+    <Content Include="fonts\open-sans-v15-latin-600.ttf" />
+    <Content Include="fonts\open-sans-v15-latin-600.woff" />
+    <Content Include="fonts\open-sans-v15-latin-600.woff2" />
+    <Content Include="fonts\open-sans-v15-latin-700.eot" />
+    <Content Include="fonts\open-sans-v15-latin-700.ttf" />
+    <Content Include="fonts\open-sans-v15-latin-700.woff" />
+    <Content Include="fonts\open-sans-v15-latin-700.woff2" />
+    <Content Include="fonts\open-sans-v15-latin-800.eot" />
+    <Content Include="fonts\open-sans-v15-latin-800.ttf" />
+    <Content Include="fonts\open-sans-v15-latin-800.woff" />
+    <Content Include="fonts\open-sans-v15-latin-800.woff2" />
+    <Content Include="fonts\open-sans-v15-latin-regular.eot" />
+    <Content Include="fonts\open-sans-v15-latin-regular.ttf" />
+    <Content Include="fonts\open-sans-v15-latin-regular.woff" />
+    <Content Include="fonts\open-sans-v15-latin-regular.woff2" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />
@@ -4281,16 +4359,16 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-	   <UseIIS>True</UseIIS>
-	   <AutoAssignPort>False</AutoAssignPort>
-	   <DevelopmentServerPort>9011</DevelopmentServerPort>
-	   <DevelopmentServerVPath>/</DevelopmentServerVPath>
-	   <IISUrl>http://localhost:9011/</IISUrl>
-	   <NTLMAuthentication>False</NTLMAuthentication>
-	   <UseCustomServer>False</UseCustomServer>
-	   <CustomServerUrl>
-	   </CustomServerUrl>
-	   <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>9011</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:9011/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
