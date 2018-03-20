@@ -26,6 +26,8 @@ namespace Bikewale.Utility
     /// Desc:         Added ContestPriceMoney
     /// Modified by : Pratibha Verma on 24 Feb 2018
     /// Description : Removed logNewsUrl for News(PWA) page API
+    /// Modified by : Ashutosh Sharma on 20 Mar 2018
+    /// Description : Added SpecsFeaturesServiceModuleName for specs & features service module name.
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -142,7 +144,7 @@ namespace Bikewale.Utility
         private readonly uint _CapitalFirstDealerId;
         private readonly ushort _MakePageOnRoadPriceBtnPct;
         private readonly string _CarTradeLeadUrl, _CarTradeLeadApiAction, _CarTradeLeadApiCode;
-        private readonly string _EditCMSModuleName;
+        private readonly string _EditCMSModuleName, _SpecsFeaturesServiceModuleName;
         private readonly int _minEnginePoolSize, _maxEnginePoolSize;
         private readonly bool _useV8Engine;
         private readonly int _pwaRenderedHtmlCacheLimitMins;
@@ -272,6 +274,7 @@ namespace Bikewale.Utility
             _MakePageViewShowPercentage = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]) ? (ushort)0 : Convert.ToUInt16(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]);
             _bikeModelIndex = Convert.ToString(ConfigurationManager.AppSettings["BikeIndex"]);
             _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
+            _SpecsFeaturesServiceModuleName = Convert.ToString(ConfigurationManager.AppSettings["SpecsFeaturesServiceModuleName"]);
         }
 
         // Static method to provide access to instance
@@ -449,5 +452,6 @@ namespace Bikewale.Utility
         public ushort MakePageViewShowPercentage { get { return _MakePageViewShowPercentage; } }
         public string BikeModelIndex { get { return _bikeModelIndex; } }
         public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
+        public string SpecsFeaturesServiceModuleName { get { return _SpecsFeaturesServiceModuleName; } }
     }   // class
 }   // namespace
