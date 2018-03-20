@@ -376,16 +376,21 @@ var MainGallerySwiper = (function() {
 
 				currentSlide = vmModelGallery.activeIndex();
 				
-				if (!buttonClicked) {
-				    if (currentSlide > lastSlide) {
-				        triggerGA('Model_Images_Page', 'Swipe_Right', MAKE_NAME + "_" + MODEL_NAME);
+				if (!vmModelGallery.activePopup()) {
+				    if (!buttonClicked) {
+				        if (currentSlide > lastSlide) {
+				            triggerGA('Model_Images_Page', 'Swipe_Right', MAKE_NAME + "_" + MODEL_NAME);
+				        }
+				        else if (lastSlide > currentSlide) {
+				            triggerGA('Model_Images_Page', 'Swipe_Left', MAKE_NAME + "_" + MODEL_NAME);
+				        }
 				    }
-				    else if (lastSlide > currentSlide) {
-				        triggerGA('Model_Images_Page', 'Swipe_Left', MAKE_NAME + "_" + MODEL_NAME);
+				    else {
+				        triggerGA('Model_Images_Page', 'Image_Carousel_Clicked', MAKE_NAME + "_" + MODEL_NAME);
 				    }
-				}
 
-				logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
+				    logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
+				}
 
 				buttonClicked = false;
 			}

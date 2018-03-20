@@ -30,8 +30,8 @@
 									<img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
 								</div>
 							</div>
-                            <div class="swiper--next gallery__next bw-ga" data-cat="Model_Images_Page" data-act="Image_Carousel_Clicked" data-lab="@string.Format("{0}_{1}", Model.Make.MakeName, Model.Model.ModelName)"></div>
-                            <div class="swiper--prev gallery__prev bw-ga" data-cat="Model_Images_Page" data-act="Image_Carousel_Clicked" data-lab="@string.Format("{0}_{1}", Model.Make.MakeName, Model.Model.ModelName)"></div>
+                            <div class="swiper--next gallery__next"></div>
+                            <div class="swiper--prev gallery__prev"></div>
 
 							<div data-bind="with: colorSlug">
 								<div class="model-gallery__color-slide gallery__slide-slug" data-bind="if: $parent.isColorSlugEligible, visible: activeSlug()">
