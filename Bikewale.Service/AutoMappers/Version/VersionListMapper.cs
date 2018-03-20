@@ -4,6 +4,7 @@ using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
+using Bikewale.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -86,9 +87,8 @@ namespace Bikewale.Service.AutoMappers.Version
                     foreach (SpecsFeaturesItem featureItem in specFeatureItemList)
                     {
                         string itemValue = featureItem.ItemValues.FirstOrDefault();
-                        int numericItemValue;
-                        itemValue = int.TryParse(itemValue, out numericItemValue) ? Bikewale.Utility.FormatMinSpecs.ShowAvailable(numericItemValue, featureItem.UnitTypeText) :
-                            Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, featureItem.UnitTypeText);
+                        itemValue = String.IsNullOrEmpty(itemValue) || itemValue.Equals(FormatMinSpecs.notAvaliableText) ?
+                            FormatMinSpecs.notAvaliableDisplayText : itemValue + (String.IsNullOrEmpty(featureItem.UnitTypeText) ? "" : " " + featureItem.UnitTypeText);
                         specsList.Add(new Bikewale.DTO.Model.Specs()
                         {
                             DisplayText = featureItem.DisplayText,
