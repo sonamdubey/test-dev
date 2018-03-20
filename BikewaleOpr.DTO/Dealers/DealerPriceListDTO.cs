@@ -21,5 +21,7 @@ namespace BikewaleOpr.DTO.Dealers
         public IEnumerable<uint> ItemValues { get; set; }
         [JsonProperty("enteredBy")]
         public uint EnteredBy { get; set; }
+        [JsonProperty("bikeModelIds")]
+        public IEnumerable<uint> BikeModelIds { get; set; }
     }
 }

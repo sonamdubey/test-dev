@@ -1,7 +1,7 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Notifications;
 using Enyim.Caching;
 using System;
-
 namespace BikewaleOpr.Cache
 {
     /// <summary>
@@ -32,6 +32,21 @@ namespace BikewaleOpr.Cache
             try
             {
                 _mc.Remove(key);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikewaleOpr.Cache.MemCachedUtil.Remove");
+            }
+        }
+
+        public static void Remove(System.Collections.Generic.IEnumerable<String> keys)
+        {
+            try
+            {
+                if (keys != null)
+                {
+                    _mc.Remove(keys);
+                }
             }
             catch (Exception ex)
             {

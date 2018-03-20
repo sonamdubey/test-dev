@@ -7,9 +7,11 @@ using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ManufacturerCampaign;
 using BikewaleOpr.Models.ManufacturerCampaign;
 using Dapper;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 
 namespace Bikewale.ManufacturerCampaign.DAL
@@ -213,7 +215,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_PriceBreakUpLinkMobile", objCampaign.PriceBreakUpLinkMobile);
                     param.Add("par_priceBreakUpLinkTextDesktop", objCampaign.PriceBreakUpLinkTextDesktop);
                     param.Add("par_priceBreakUpLinkDesktop", objCampaign.PriceBreakUpLinkDesktop);
-                    
+
 
                     connection.Query<dynamic>("savemanufacturercampaignproperties_28092017", param: param, commandType: CommandType.StoredProcedure);
 
@@ -499,22 +501,70 @@ namespace Bikewale.ManufacturerCampaign.DAL
             Entities.ManufacturerCampaignEntity config = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    connection.Open();
-                    var param = new DynamicParameters();
-                    param.Add("par_modelId", modelId);
-                    param.Add("par_cityId", cityId);
-                    param.Add("par_pageId", (int)pageId);
-                    using (var results = connection.QueryMultiple("getmanufacturercampaignbymodelcity_07032018", param: param, commandType: CommandType.StoredProcedure))
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmanufacturercampaignbymodelcity_07032018";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pageId", DbType.Int32, pageId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        config = new Entities.ManufacturerCampaignEntity();
-                        config.LeadCampaign = results.Read<ManufacturerCampaignLeadConfiguration>().FirstOrDefault();
-                        config.EMICampaign = results.Read<ManufacturerCampaignEMIConfiguration>().FirstOrDefault();
+                        if (dr != null)
+                        {
+                            config = new Entities.ManufacturerCampaignEntity();
+                            if (dr.Read())
+                            {
+                                config.LeadCampaign = new ManufacturerCampaignLeadConfiguration();
+                                config.LeadCampaign.CampaignId = Utility.SqlReaderConvertor.ParseToUInt32(dr["CampaignId"]);
+                                config.LeadCampaign.DealerId = Utility.SqlReaderConvertor.ParseToUInt32(dr["DealerId"]);
+                                config.LeadCampaign.DealerRequired = Utility.SqlReaderConvertor.ToBoolean(dr["DealerRequired"]);
+                                config.LeadCampaign.EmailRequired = Utility.SqlReaderConvertor.ToBoolean(dr["EmailRequired"]);
+                                config.LeadCampaign.LeadsButtonTextDesktop = Convert.ToString(dr["LeadsButtonTextDesktop"]);
+                                config.LeadCampaign.LeadsButtonTextMobile = Convert.ToString(dr["LeadsButtonTextMobile"]);
+                                config.LeadCampaign.LeadsHtmlDesktop = Convert.ToString(dr["LeadsHtmlDesktop"]);
+                                config.LeadCampaign.LeadsHtmlMobile = Convert.ToString(dr["LeadsHtmlMobile"]);
+                                config.LeadCampaign.LeadsPropertyTextDesktop = Convert.ToString(dr["LeadsPropertyTextDesktop"]);
+                                config.LeadCampaign.LeadsPropertyTextMobile = Convert.ToString(dr["LeadsPropertyTextMobile"]);
+                                config.LeadCampaign.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
+                                config.LeadCampaign.Organization = Convert.ToString(dr["Organization"]);
+                                config.LeadCampaign.PincodeRequired = Utility.SqlReaderConvertor.ToBoolean(dr["PincodeRequired"]);
+                                config.LeadCampaign.PopupDescription = Convert.ToString(dr["PopupDescription"]);
+                                config.LeadCampaign.PopupHeading = Convert.ToString(dr["PopupHeading"]);
+                                config.LeadCampaign.PopupSuccessMessage = Convert.ToString(dr["PopupSuccessMessage"]);
+                                config.LeadCampaign.PriceBreakUpLinkDesktop = Convert.ToString(dr["PriceBreakUpLinkDesktop"]);
+                                config.LeadCampaign.PriceBreakUpLinkMobile = Convert.ToString(dr["PriceBreakUpLinkMobile"]);
+                                config.LeadCampaign.PriceBreakUpLinkTextDesktop = Convert.ToString(dr["PriceBreakUpLinkTextDesktop"]);
+                                config.LeadCampaign.PriceBreakUpLinkTextMobile = Convert.ToString(dr["PriceBreakUpLinkTextMobile"]);
+                                config.LeadCampaign.ShowOnExshowroom = Utility.SqlReaderConvertor.ToBoolean(dr["ShowOnExshowroom"]);
+                            }
+
+
+                            if (dr.NextResult() && dr.Read())
+                            {
+                                config.EMICampaign = new ManufacturerCampaignEMIConfiguration();
+                                config.EMICampaign.CampaignId = Utility.SqlReaderConvertor.ParseToUInt32(dr["CampaignId"]);
+                                config.EMICampaign.DealerId = Utility.SqlReaderConvertor.ParseToUInt32(dr["DealerId"]);
+                                config.EMICampaign.PincodeRequired = Utility.SqlReaderConvertor.ToBoolean(dr["PincodeRequired"]);
+                                config.EMICampaign.DealerRequired = Utility.SqlReaderConvertor.ToBoolean(dr["DealerRequired"]);
+                                config.EMICampaign.EmailRequired = Utility.SqlReaderConvertor.ToBoolean(dr["EmailRequired"]);
+                                config.EMICampaign.EMIButtonTextDesktop = Convert.ToString(dr["EMIButtonTextDesktop"]);
+                                config.EMICampaign.EMIButtonTextMobile = Convert.ToString(dr["EMIButtonTextMobile"]);
+                                config.EMICampaign.EMIPropertyTextDesktop = Convert.ToString(dr["EMIPropertyTextDesktop"]);
+                                config.EMICampaign.EMIPropertyTextMobile = Convert.ToString(dr["EMIPropertyTextMobile"]);
+                                config.EMICampaign.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
+                                config.EMICampaign.Organization = Convert.ToString(dr["Organization"]);
+                                config.EMICampaign.PopupDescription = Convert.ToString(dr["PopupDescription"]);
+                                config.EMICampaign.PopupHeading = Convert.ToString(dr["PopupHeading"]);
+                                config.EMICampaign.PopupSuccessMessage = Convert.ToString(dr["PopupSuccessMessage"]);
+                                config.EMICampaign.ShowOnExshowroom = Utility.SqlReaderConvertor.ToBoolean(dr["ShowOnExshowroom"]);
+                            }
+
+                        }
                     }
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
+
             }
             catch (Exception ex)
             {
