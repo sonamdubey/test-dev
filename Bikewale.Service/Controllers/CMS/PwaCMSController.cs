@@ -236,7 +236,10 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     if (isScooter)
                                     {
                                         heading = string.Format("Popular {0} Scooters", makeData.MakeName);
-                                        viewAllUrl = string.Format("/m/{0}-scooters/", makeData.MaskingName);
+                                        if (makeData.IsScooterOnly)
+                                            viewAllUrl = string.Format("/m/{0}-bikes/", makeData.MaskingName);
+                                        else
+                                            viewAllUrl = string.Format("/m/{0}-scooters/", makeData.MaskingName);
                                         viewAllBtnLabel = string.Format("View all {0} Scooters", makeData.MakeName);
                                     }
                                     else

@@ -1,8 +1,11 @@
-﻿namespace Bikewale.ManufacturerCampaign.Entities.SearchCampaign
+﻿using System;
+namespace Bikewale.ManufacturerCampaign.Entities.SearchCampaign
 {
     /// <summary>
     /// Modified by : Ashutosh Sharma on 25 Jan 2017
     /// Description : Added 'DailyStartTime' and 'DailyEndTime'.
+    /// Modified by : Rajan Chauhan on 08 Mar 2017
+    /// Description : Added 'CampaignDays'
     /// </summary>
     public class ManufacturerCampaignDetailsList
     {
@@ -20,5 +23,6 @@
         public bool ShowCampaignOnExshowroom { get; set; }
         public string DailyStartTime { get; set; }
         public string DailyEndTime { get; set; }
+        public ushort? CampaignDays { get; set; }
     }
 }
