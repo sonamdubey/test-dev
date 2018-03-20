@@ -24,7 +24,7 @@ namespace BikewaleAutoSuggest
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist_09012018"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist_12032018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 

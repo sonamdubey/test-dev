@@ -1,4 +1,4 @@
-﻿﻿@model Bikewale.Models.Photos.PhotosPageVM
+﻿@model Bikewale.Models.Photos.PhotosPageVM
 
 @if (Model != null)
 {
@@ -34,14 +34,11 @@
                         }
                         
                     </ul>
-                    @if (!Model.IsPopupOpen)
+                    @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
                     {
-
-                        if (Model.TotalPhotos > 1)
-                        {
-                            <ul id="grid-images-noremainder" class="photos-grid-list model-grid-images">
-                                @for (; i < Model.GridPhotoCount && i < 9; i++)
-                                {
+                        <ul id="grid-images-noremainder" class="photos-grid-list model-grid-images">
+                            @for (; i < Model.GridPhotoCount && i < 9; i++)
+                            {
                                     if(objImages != null && objImages[i] != null)
                                     {
                                         <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
@@ -50,8 +47,8 @@
                                     }
                                     
                                 }
-                                @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
-                                {
+                            @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
+                            {
                                     if(objImages != null && objImages[i] != null)
                                     {
                                         <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
@@ -61,13 +58,13 @@
                                     
                                 }
 
-                            </ul>
+                        </ul>
 
-                            <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images @Model.TotalPhotos @Model.GridSize">
-                                @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 0)
+                        <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images @Model.TotalPhotos @Model.GridSize">
+                            @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 0)
+                            {
+                                for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
                                 {
-                                    for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
-                                    {
                                         if(objImages != null && objImages[i] != null)
                                         {
                                             <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
@@ -75,10 +72,9 @@
                                             </li>    
                                         }
                                         
-                                    }
                                 }
-                            </ul>
-                        }
+                            }
+                        </ul>
                     }
                 </div>
             </div>

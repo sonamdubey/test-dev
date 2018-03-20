@@ -22,7 +22,7 @@
 						Upcoming
 					</li>
 				}
-				@if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
+				@if (Model.TopComparisons != null && Model.TopComparisons.CompareBikes != null && Model.TopComparisons.CompareBikes.Any())
 				{
 					<li data-tabs="#popularComparison" class="navtab" data-lab="@string.Format("{0}_TopComparisons", Model.SeriesBase.SeriesName)">
 						Top Comparisons

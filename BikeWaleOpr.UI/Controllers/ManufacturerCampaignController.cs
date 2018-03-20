@@ -59,29 +59,32 @@ namespace BikewaleOpr.Controllers
         [HttpPost, Route("manufacturercampaign/save/campaign/")]
         public ActionResult saveCampaign([System.Web.Http.FromBody] ConfigureCampaignSave objData)
         {
-            uint campaignId = _manufacurerCampaignRepo.saveManufacturerCampaign(objData);
-
-            if (objData != null && objData.OldMaskingNumber != null && (objData.MaskingNumber != objData.OldMaskingNumber))
+            if (objData.CampaignDays > 0 && objData.CampaignDays < 128)
             {
-                CwWebserviceAPI CWWebservice = new CwWebserviceAPI();
-                CWWebservice.ReleaseMaskingNumber(objData.DealerId, Convert.ToInt32(objData.UserId), objData.OldMaskingNumber);
+                uint campaignId = _manufacurerCampaignRepo.saveManufacturerCampaign(objData);
 
-                ContractCampaignInputEntity ccInputs = new ContractCampaignInputEntity();
-                ccInputs.ConsumerId = (int)objData.DealerId;
-                ccInputs.DealerType = 2;
-                ccInputs.LeadCampaignId = (int)campaignId;
-                ccInputs.LastUpdatedBy = Convert.ToInt32(objData.UserId);
-                ccInputs.OldMaskingNumber = objData.OldMaskingNumber;
-                ccInputs.MaskingNumber = objData.MaskingNumber;
-                ccInputs.NCDBranchId = -1;
-                ccInputs.ProductTypeId = 3;
-                ccInputs.Mobile = objData.MobileNumber;
-                ccInputs.SellerMobileMaskingId = -1;
+                if (objData != null && objData.OldMaskingNumber != null && (objData.MaskingNumber != objData.OldMaskingNumber))
+                {
+                    CwWebserviceAPI CWWebservice = new CwWebserviceAPI();
+                    CWWebservice.ReleaseMaskingNumber(objData.DealerId, Convert.ToInt32(objData.UserId), objData.OldMaskingNumber);
 
-                CWWebservice.AddCampaignContractData(ccInputs);
+                    ContractCampaignInputEntity ccInputs = new ContractCampaignInputEntity();
+                    ccInputs.ConsumerId = (int)objData.DealerId;
+                    ccInputs.DealerType = 2;
+                    ccInputs.LeadCampaignId = (int)campaignId;
+                    ccInputs.LastUpdatedBy = Convert.ToInt32(objData.UserId);
+                    ccInputs.OldMaskingNumber = objData.OldMaskingNumber;
+                    ccInputs.MaskingNumber = objData.MaskingNumber;
+                    ccInputs.NCDBranchId = -1;
+                    ccInputs.ProductTypeId = 3;
+                    ccInputs.Mobile = objData.MobileNumber;
+                    ccInputs.SellerMobileMaskingId = -1;
+
+                    CWWebservice.AddCampaignContractData(ccInputs);
+                }
+                return Redirect(string.Format("/manufacturercampaign/properties/{0}/?campaignId={1}", objData.DealerId, campaignId));
             }
-
-            return Redirect(string.Format("/manufacturercampaign/properties/{0}/?campaignId={1}", objData.DealerId, campaignId));
+            return RedirectToAction("ConfigureCampaign", routeValues: new { dealerId = objData.DealerId });
         }
 
         /// <summary>

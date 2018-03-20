@@ -132,7 +132,7 @@
                     <div class="margin-bottom20 text-center">
                         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
                     </div>
-                }
+                            }
 
                 @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
 || (Model.ModelPageEntity.ModelVersionSpecs != null)))
@@ -200,7 +200,7 @@
             <div class="view-all-btn-container">
                 @if (!Model.OtherBestBikes.IsMakePresentInConfig)
                 {
-                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                    <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
                 }
                 else
                 {
@@ -218,7 +218,7 @@
     </div>
 }
 
-@if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown))
+@if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
 {
     @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 }
