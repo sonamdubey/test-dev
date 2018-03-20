@@ -120,7 +120,9 @@ namespace Bikewale.Models.Photos.v1
 
         /// <summary>
         /// Created by : Ashutosh Sharma on 13 Jan 2018
-        /// Description : Method to get photos of bike models, method retrieves model ids based on current page no. and bind photos of those models. 
+        /// Description : Method to get photos of bike models, method retrieves model ids based on current page no. and bind photos of those models.
+        /// Modified by : Rajan Chauhan on 12 Mar 2018
+        /// Description : Added ComparisonTests in categoryIds
         /// </summary>
         /// <param name="objData">View Model of photos page.</param>
         private void BindBikeModelsPhotos(PhotosPageVM objData)
@@ -144,7 +146,8 @@ namespace Bikewale.Models.Photos.v1
                     new List<EnumCMSContentType>()
                     {
                         EnumCMSContentType.PhotoGalleries,
-                        EnumCMSContentType.RoadTest
+                        EnumCMSContentType.RoadTest,
+                        EnumCMSContentType.ComparisonTests
                     }
                 );
                 objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);

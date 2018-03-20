@@ -391,7 +391,7 @@ namespace Bikewale.Models
                 bikeNames = bikeNames.Remove(bikeNames.Length - 5);
                 bikePrice = bikePrice.Remove(bikePrice.Length - 6);
                 variants = variants.Remove(variants.Length - 5);
-                obj.compareSummaryText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more paramete  &#x20B9; Comparison between these bikes have been carried out to help users make correct buying decison between {0}.", bikeNames, bikePrice, variants);
+                obj.compareSummaryText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more parameter  &#x20B9; Comparison between these bikes have been carried out to help users make correct buying decison between {0}.", bikeNames, bikePrice, variants);
 
             }
             catch (Exception ex)
