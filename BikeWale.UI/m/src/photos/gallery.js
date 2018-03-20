@@ -389,8 +389,8 @@ var MainGallerySwiper = (function() {
 				        triggerGA('Model_Images_Page', 'Image_Carousel_Clicked', MAKE_NAME + "_" + MODEL_NAME);
 				    }
 
-				    logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
 				}
+				logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
 
 				buttonClicked = false;
 			}

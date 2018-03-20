@@ -80,6 +80,7 @@
 		self.activeSwiperTitle(false);
 		self.activePopup(true);
 		triggerGA('Gallery_Page', 'Gallery_Loaded', self.modelName);
+		logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
 		self.setRotateScreenOption();
 		self.setColorOption();
 
