@@ -100,7 +100,7 @@
 			$('.model-gallery__container').animate({
 				top: 0
 			}, 300, 'swing');
-			gaObj.id = 31;
+			gaObj.id = lastPageId;
 			self.activeSwiperTitle(false);
 			self.activePopup(false);
 			self.setRotateScreenOption();
