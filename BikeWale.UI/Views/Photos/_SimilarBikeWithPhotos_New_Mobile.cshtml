@@ -24,11 +24,12 @@
                                     <p class="similar-model__ex-showroom">
                                         @if (bike.OnRoadPriceInCity > 0)
                                         {
-                                            string.Format("On-Road Price, {0}", Model.City);
+
+                                            @Html.Raw(string.Format("On-Road Price, {0}", Model.City));
                                         }
                                         else
                                         {
-                                            string.Format("Ex-showroom price, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName);
+                                   @Html.Raw(string.Format("Ex-showroom price, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName));
                                         }
                                     </p>
                                     <p class="similar-model__value">&#x20b9;&nbsp;<span class="text--semibold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.OnRoadPriceInCity > 0 ? bike.OnRoadPriceInCity : bike.ExShowroomPriceMumbai))</span>
@@ -39,7 +40,7 @@
                                         </p>
                                 </div>
                             </a>
-                            <a href="@string.Format("/m{0}images",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName images" class="similar-model__footer">
+                            <a href="@string.Format("/m{0}images/",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName images" class="similar-model__footer">
                                 <div class="similar-model__image-count">
                                     View all&nbsp;@bike.PhotosCount &nbsp;@(bike.PhotosCount > 1 ? "images" : "image")
                                 </div>
