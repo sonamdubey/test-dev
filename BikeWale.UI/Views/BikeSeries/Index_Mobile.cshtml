@@ -46,11 +46,11 @@
 						@Html.Partial("~/Views/Upcoming/_UpcomingBikes_v1_Mobile.cshtml", Model.SeriesModels.UpcomingBikes)
 					</div>
 				</div>
-			}
-			@if ((Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any()) || (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Count() > 1))
+            }
+			@if ((Model.TopComparisons != null && Model.TopComparisons.CompareBikes != null && Model.TopComparisons.CompareBikes.Any()) || (Model.ObjModel != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs != null && Model.ObjModel.BikeSeriesCompareBikeWithSpecs.Count() > 1))
 			{
 				<div id="popularComparison" class="bw-model-tabs-data">
-					@if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
+					@if (Model.TopComparisons != null && Model.TopComparisons.CompareBikes != null && Model.TopComparisons.CompareBikes.Any())
 					{
 						<div class="container bg-white">
 							<div class="padding-top20 padding-bottom15">
@@ -68,7 +68,7 @@
 								</div>
 								<div class="swiper-container comparison-swiper card-container">
 									<div class="swiper-wrapper">
-										@Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.SimilarCompareScooters)
+										@Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.TopComparisons)
 									</div>
 								</div>
 							</div>

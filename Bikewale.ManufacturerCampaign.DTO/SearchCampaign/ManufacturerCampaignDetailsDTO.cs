@@ -5,6 +5,8 @@ namespace Bikewale.ManufacturerCampaign.DTO.SearchCampaign
     /// <summary>
     /// Modified by : Ashutosh Sharma on 25 Jan 2017
     /// Description : Added 'DailyStartTime' and 'DailyEndTime'.
+    /// Modified By : Rajan Chauhan on 08 Mar 2018
+    /// Description : Added CampaignDays
     /// </summary>
     public class ManufacturerCampaignDetailsDTO
     {
@@ -34,5 +36,7 @@ namespace Bikewale.ManufacturerCampaign.DTO.SearchCampaign
         public string DailyStartTime { get; set; }
         [JsonProperty("dailyEndTime")]
         public string DailyEndTime { get; set; }
+        [JsonProperty("campaignDays")]
+        public string CampaignDays { get; set; }
     }
 }

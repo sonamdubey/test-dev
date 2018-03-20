@@ -23,5 +23,6 @@ namespace BikewaleOpr.Entity.ManufacturerCampaign
         public string MobileNumber { get; set; }
         public DateTime? DailyStartTime { get; set; }
         public DateTime? DailyEndTime { get; set; }
+        public ushort CampaignDays { get; set; }
     }
 }

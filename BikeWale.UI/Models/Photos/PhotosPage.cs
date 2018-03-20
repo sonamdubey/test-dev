@@ -151,6 +151,7 @@ namespace Bikewale.Models.Photos
 
                         if (!IsMobile)
                         {
+                            // Skipped first image to remove modelImage from ImagesList
                             _objData.ModelImages = _objData.ModelImages.Skip(1);
                         }
 
