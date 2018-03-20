@@ -170,6 +170,8 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <summary>
         /// Created By : Lucky Rathore on 15 Apr 2016
         /// Description : Mapper for BikeSpecs DTO and BikeModelPageEntity Entity
+        /// Modified by : Pratibha Verma on 19 Mar 2018
+        /// Description : Added logic to integrate CW specs and features to BW
         /// </summary>
         /// <param name="objModelPage">object of BikeModelPageEntity</param>
         /// <returns>BikeSpecs DTO</returns>
@@ -197,44 +199,40 @@ namespace Bikewale.Service.AutoMappers.Model
 
                 DTO.Model.Features features = null;
                 DTO.Model.v2.Specifications specifications = null;
-                if (objModelPage != null && objModelPage.VersionSpecsFeatures != null)
+                if (objModelPage != null && objModelPage.VersionSpecsFeatures != null && objModelPage.VersionSpecsFeatures.Features != null)
                 {
-                    if (objModelPage.VersionSpecsFeatures.Features != null)
+                    features = new DTO.Model.Features();
+                    features.FeaturesList = new List<DTO.Model.Specs>();
+                    foreach (var feature in objModelPage.VersionSpecsFeatures.Features)
                     {
-                        features = new DTO.Model.Features();
-                        features.FeaturesList = new List<DTO.Model.Specs>();
-                        foreach (var feature in objModelPage.VersionSpecsFeatures.Features)
-                        {
-                            var itemValue = feature.ItemValues.FirstOrDefault();
-                            DTO.Model.Specs specs = new DTO.Model.Specs();
-                            specs.DisplayText = feature.DisplayText;
-                            specs.DisplayValue = itemValue;
-                            features.FeaturesList.Add(specs);
-                        }
-                    }
-                    if (objModelPage.VersionSpecsFeatures.Specs != null)
-                    {
-                        specifications = new DTO.Model.v2.Specifications();
-                        specifications.SpecsCategory = new List<DTO.Model.v2.SpecsCategory>();
-                        foreach (var specsCat in objModelPage.VersionSpecsFeatures.Specs)
-                        {  
-                            specifications.DisplayName = specsCat.DisplayText;
-                            DTO.Model.v2.SpecsCategory cat = new DTO.Model.v2.SpecsCategory();
-                            cat.DisplayName = specsCat.DisplayText;
-                            cat.Specs = new List<DTO.Model.Specs>();
-                            foreach (var specItem in specsCat.SpecsItemList)
-                            {
-                                var item = specItem.ItemValues.FirstOrDefault();
-                                DTO.Model.Specs dtoSpecs = new DTO.Model.Specs();
-                                dtoSpecs.DisplayText = specItem.DisplayText;
-                                dtoSpecs.DisplayValue = item + " " + specItem.UnitTypeText;
-                                cat.Specs.Add(dtoSpecs);
-                            }
-                            specifications.SpecsCategory.Add(cat);
-                        }
+                        var itemValue = feature.ItemValues.FirstOrDefault();
+                        DTO.Model.Specs specs = new DTO.Model.Specs();
+                        specs.DisplayText = feature.DisplayText;
+                        specs.DisplayValue = itemValue;
+                        features.FeaturesList.Add(specs);
                     }
                 }
-
+                if (objModelPage != null && objModelPage.VersionSpecsFeatures != null && objModelPage.VersionSpecsFeatures.Specs != null)
+                {
+                    specifications = new DTO.Model.v2.Specifications();
+                    specifications.SpecsCategory = new List<DTO.Model.v2.SpecsCategory>();
+                    foreach (var specsCat in objModelPage.VersionSpecsFeatures.Specs)
+                    {  
+                        specifications.DisplayName = specsCat.DisplayText;
+                        DTO.Model.v2.SpecsCategory cat = new DTO.Model.v2.SpecsCategory();
+                        cat.DisplayName = specsCat.DisplayText;
+                        cat.Specs = new List<DTO.Model.Specs>();
+                        foreach (var specItem in specsCat.SpecsItemList)
+                        {
+                            var item = specItem.ItemValues.FirstOrDefault();
+                            DTO.Model.Specs dtoSpecs = new DTO.Model.Specs();
+                            dtoSpecs.DisplayText = specItem.DisplayText;
+                            dtoSpecs.DisplayValue = item + " " + specItem.UnitTypeText;
+                            cat.Specs.Add(dtoSpecs);
+                        }
+                        specifications.SpecsCategory.Add(cat);
+                    }
+                }
                 var bikespecs = Mapper.Map<BikeSpecs>(objModelPage);
                 bikespecs.IsAreaExists = pqEntity.IsAreaExists;
                 bikespecs.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
