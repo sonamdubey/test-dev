@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -35,6 +36,7 @@ namespace Bikewale.Mobile
         protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage, pgTitle;
         protected bool isDiscontinued, IsExShowroomPrice = true;
         protected BikeSpecificationEntity specs;
+        protected SpecsFeaturesEntity versionSpecsFeatures;
         protected BikeModelPageEntity modelDetail;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected bool IsScooter = false;
@@ -67,6 +69,7 @@ namespace Bikewale.Mobile
                 if (versionId > 0)
                 {
                     specs = FetchVariantDetails(versionId);
+                    versionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
                 }
                 BindWidget();
                 BindSimilarBikes();
