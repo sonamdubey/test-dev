@@ -21,6 +21,8 @@ class GlobalSearchList extends React.Component {
             triggerGA(category,  'Recently_View_Search_Bar_Clicked', item.payload.name);
         else if(value === 2)
             triggerGA(category, 'Trending_Searches_Search_Bar_Clicked', item.payload.name);
+        else if(value === 3)
+            triggerGA(category, 'TrackDay_2018_Link Clicked', 'Trending_Searches_Search_Bar_Clicked');
         MakeModelRedirection(item); 
     }
     renderListItem(item, index, value) {
