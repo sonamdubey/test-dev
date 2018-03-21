@@ -1,4 +1,5 @@
-﻿namespace Bikewale.ManufacturerCampaign.Entities
+﻿using System;
+namespace Bikewale.ManufacturerCampaign.Entities
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 29 Jun 2017
@@ -6,6 +7,7 @@
     /// Modified by : Pratibha Verma
     /// Description : Added property ShowOnExshowroom 
     /// </summary>
+    [Serializable]
     public class ManufacturerCampaignEMIConfiguration
     {
         public uint CampaignId { get; set; }

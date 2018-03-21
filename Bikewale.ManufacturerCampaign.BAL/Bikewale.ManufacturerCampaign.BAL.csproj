@@ -73,6 +73,10 @@
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Cache\BikewaleOpr.Cache.csproj">
+      <Project>{23d53f9a-3b4e-4c7e-8843-5279d74542af}</Project>
+      <Name>BikewaleOpr.Cache</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
