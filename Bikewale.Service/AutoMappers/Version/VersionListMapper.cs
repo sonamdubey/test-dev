@@ -77,14 +77,14 @@ namespace Bikewale.Service.AutoMappers.Version
         /// </summary>
         /// <param name="specFeatureItemList"></param>
         /// <returns></returns>
-        internal static List<Bikewale.DTO.Model.Specs> Convert(IEnumerable<SpecsFeaturesItem> specFeatureItemList)
+        internal static IEnumerable<Bikewale.DTO.Model.Specs> Convert(IEnumerable<SpecsFeaturesItem> specFeatureItemList)
         {
             
             try
             {
                 if (specFeatureItemList != null)
                 {
-                    List<Bikewale.DTO.Model.Specs> specsList = new List<Bikewale.DTO.Model.Specs>();
+                    IList<Bikewale.DTO.Model.Specs> specsList = new List<Bikewale.DTO.Model.Specs>();
                     foreach (SpecsFeaturesItem specFeatureItem in specFeatureItemList)
                     {
                         string itemValue = specFeatureItem.ItemValues.FirstOrDefault();
@@ -131,7 +131,7 @@ namespace Bikewale.Service.AutoMappers.Version
 
                     if (modelSpecEntity.Specs != null)
                     {
-                        List<Bikewale.DTO.Model.SpecsCategory> specCategoryList = new List<Bikewale.DTO.Model.SpecsCategory>();
+                        IList<Bikewale.DTO.Model.SpecsCategory> specCategoryList = new List<Bikewale.DTO.Model.SpecsCategory>();
                         foreach (SpecsFeaturesCategory specCategory in modelSpecEntity.Specs)
                         {
                             specCategoryList.Add(new Bikewale.DTO.Model.SpecsCategory()

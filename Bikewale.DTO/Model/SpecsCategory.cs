@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.DTO.Model
 {
+    /// <summary>
+    /// Modified by : Rajan Chauhan on 21 Mar 2017
+    /// Description : Changed Specs List to IEnumerable
+    /// </summary>
     public class SpecsCategory
     {
         [JsonProperty("categoryName")]
@@ -12,6 +16,6 @@ namespace Bikewale.DTO.Model
         public string DisplayName { get; set; }
 
         [JsonProperty("specs")]
-        public List<Specs> Specs { get; set; }
+        public IEnumerable<Specs> Specs { get; set; }
     }
 }
