@@ -254,7 +254,12 @@
                     <span class="loader__spin loader--fixed"></span>
                 </div>
             </div>
-
+            @if (Model.AdTags.Ad_320x50Top)
+            {
+                <div class="margin-bottom20 margin-top20 text-center">
+                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
+                </div>
+            }
             <section>
                 <div id="overallContainer" class="overall-tabs__panel" data-panel-type="toggle">
                     <div class="overall-tabs__placeholder">
