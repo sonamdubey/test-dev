@@ -165,7 +165,7 @@
                                            <p>
                                                 <span><%=specItem.DisplayText%></span>
                                                 <span><%=itemValue %></span>
-                                                <span><%=itemValue.Equals("-") ? "" : specItem.UnitTypeText%></span>
+                                                <span><%=itemValue.Equals("-") ? "--" : specItem.UnitTypeText%></span>
                                             </p>
                                         <% } %>
                                 <% } %>
@@ -180,7 +180,7 @@
                                          <p>
                                             <span><%=specItem.DisplayText %></span>
                                             <span><%=itemValue %></span>
-                                            <span><%=itemValue.Equals("-") ? "" : specItem.UnitTypeText%></span>
+                                            <span><%=itemValue.Equals("-") ? "--" : specItem.UnitTypeText%></span>
                                          </p>
                                     <% } %>
                                 <% } %>
@@ -206,7 +206,7 @@
                                         <p>
                                             <span><%=feature.DisplayText %></span>
                                             <span><%=featureValue %></span>
-                                            <span><%=featureValue.Equals("-") ? "" : feature.UnitTypeText%></span>
+                                            <span><%=featureValue.Equals("-") ? "--" : feature.UnitTypeText%></span>
                                          </p>
                             </div>
                             <% } %>
@@ -216,12 +216,12 @@
                                 featureValue = feature.ItemValues.FirstOrDefault();
                                 %>
                             <div class="grid-6 padding-left30 text-light-grey">
-                                <% if(feature != null)
+                                <% if(featureValue != null)
                                     {%>
                                         <p>
                                             <span><%=feature.DisplayText %></span>
                                             <span><%=featureValue %></span>
-                                            <span><%=featureValue.Equals("-") ? "" : feature.UnitTypeText%></span>
+                                            <span><%=featureValue.Equals("-") ? "--" : feature.UnitTypeText%></span>
                                          </p>
                             </div>
                             <% } %>
