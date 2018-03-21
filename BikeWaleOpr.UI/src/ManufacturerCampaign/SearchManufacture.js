@@ -68,7 +68,7 @@ var mfgCamp = function () {
         if (confirm("Are you Sure you want to " + $(event.currentTarget).data("tooltip"))) {
             $.ajax({
                 type: "POST",
-                url: "/api/v2/campaigns/manufacturer/updatecampaignstatus/campaignId/" + data.id + '/status/' + $(event.currentTarget).data("status"),
+                url: "/api/v2/campaigns/manufacturer/updatecampaignstatus/campaignId/" + data.id + '/status/' + $(event.currentTarget).data("status") + '/',
                 datatype: "json",
                 success: function (response) {
                     self.searchCampaigns();                    

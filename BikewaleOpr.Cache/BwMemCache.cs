@@ -243,6 +243,19 @@ namespace BikewaleOpr.Cache
             }
         }
 
+        public static void ClearVersionPrice(IEnumerable<string> modelIds, IEnumerable<string> cityIdList)
+        {
+            ICollection<String> keys = new List<String>();
+            foreach (var modelId in modelIds)
+            {
+                foreach (var cityId in cityIdList)
+                {
+                    keys.Add(String.Format("BW_VersionPrices_{0}_C_{1}", modelId, cityId));
+                }
+            }
+            MemCachedUtil.Remove(keys);
+        }
+
         /// <summary>
         /// Created by  :   Sumit Kate on 26 Mar 2017
         /// Description :   Clear User Reviews Cache
@@ -451,5 +464,12 @@ namespace BikewaleOpr.Cache
             string key = String.Format("BW_DefaultPQVersion_{0}_{1}", modelId, cityId);
             MemCachedUtil.Remove(key);
         }
+
+
+        public static void ClearManufacturerCampaign(IEnumerable<string> keys)
+        {
+            MemCachedUtil.Remove(keys);
+        }
+
     }
 }

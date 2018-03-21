@@ -1,9 +1,11 @@
-﻿namespace Bikewale.ManufacturerCampaign.Entities
+﻿using System;
+namespace Bikewale.ManufacturerCampaign.Entities
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 29 Jun 2017
     /// Description :   Manufacturer Campaign Lead Configuration
     /// </summary>
+    [Serializable]
     public class ManufacturerCampaignLeadConfiguration
     {
         public uint DealerId { get; set; }
@@ -25,7 +27,7 @@
         public string PriceBreakUpLinkMobile { get; set; }
         public string PriceBreakUpLinkTextDesktop { get; set; }
         public string PriceBreakUpLinkDesktop { get; set; }
-        
+
         public bool ShowOnExshowroom { get; set; }
         public bool PincodeRequired { get; set; }
         public bool DealerRequired { get; set; }
