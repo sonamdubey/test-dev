@@ -2,8 +2,21 @@
     string staticUrlPath = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFilesVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
 </script>
-<link href="<%String.Format("{0}/m/css/fontcss/OpenSans/latin400.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)%>" rel="stylesheet" type="text/css"  />
-<link href="<%String.Format("{0}/m/css/fontcss/OpenSans/latin700.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)%>" rel="stylesheet" type="text/css"  />
+<style>
+    @@font-face {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Open Sans Regular'), local('OpenSans-Regular'), url('/css/fonts/OpenSans/open-sans-v15-latin-regular.woff') format('woff');
+    }
+    @@font-face {
+	    font-family: 'Open Sans';
+	    font-style: normal;
+	    font-weight: 700;
+	    src: local('Open Sans Bold'), local('OpenSans-Bold'), url('/css/fonts/OpenSans/open-sans-v15-latin-700.woff') format('woff');
+	}
+</style>
+
 <link rel="stylesheet" href="<%=  staticUrlPath%>/m/css/jquery.mobile-1.4.2.min.css?v=2.0" />
 <link rel="stylesheet" href="/m/css/style.css?<%= staticFilesVersion%>" />
 <link rel="stylesheet"  href="/m/css/design.css?<%= staticFilesVersion%>" />

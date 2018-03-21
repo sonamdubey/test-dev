@@ -5,10 +5,13 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 
-<link href="@String.Format("{0}/m/css/fontcss/Oxygen/latin300.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
-<link href="@String.Format("{0}/m/css/fontcss/Oxygen/latin400.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
-<link href="@String.Format("{0}/m/css/fontcss/Oxygen/latin700.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
+@Html.Partial("~/Views/Shared/fontcss/Oxygen/_Latin300.cshtml");
+@Html.Partial("~/Views/Shared/fontcss/Oxygen/_Latin400.cshtml");
+@Html.Partial("~/Views/Shared/fontcss/Oxygen/_Latin700.cshtml");
 
+@*<link href="@String.Format("{0}/m/css/fontcss/Oxygen/latin300.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
+<link href="@String.Format("{0}/m/css/fontcss/Oxygen/latin400.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
+<link href="@String.Format("{0}/m/css/fontcss/Oxygen/latin700.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />*@
 
 <section class="font-oxygen">
     <div class="container contest-banner-container card-bottom-margin">

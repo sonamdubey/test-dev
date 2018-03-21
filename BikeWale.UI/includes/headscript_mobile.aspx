@@ -23,8 +23,21 @@
  <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %>
 <link rel="next" href="<%= relNextPageUrl %>" /><% }%>
 <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
-<link href="<%String.Format("{0}/m/css/fontcss/OpenSans/latin400.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)%>" rel="stylesheet" type="text/css"  />
-<link href="<%String.Format("{0}/m/css/fontcss/OpenSans/latin700.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)%>" rel="stylesheet" type="text/css"  />
+<style>
+    @@font-face {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Open Sans Regular'), local('OpenSans-Regular'), url('/css/fonts/OpenSans/open-sans-v15-latin-regular.woff') format('woff');
+    }
+    @@font-face {
+	    font-family: 'Open Sans';
+	    font-style: normal;
+	    font-weight: 700;
+	    src: local('Open Sans Bold'), local('OpenSans-Bold'), url('/css/fonts/OpenSans/open-sans-v15-latin-700.woff') format('woff');
+	}
+</style>
+
 
 <link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 

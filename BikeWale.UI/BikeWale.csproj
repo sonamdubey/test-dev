@@ -2814,13 +2814,6 @@
     <Content Include="m\css\dealer\listing.css" />
     <Content Include="m\css\dealer\location.css" />
     <Content Include="m\css\design.css" />
-    <Content Include="m\css\fontcss\OpenSans\latin400.css" />
-    <Content Include="m\css\fontcss\OpenSans\latin600.css" />
-    <Content Include="m\css\fontcss\OpenSans\latin700.css" />
-    <Content Include="m\css\fontcss\OpenSans\latin800.css" />
-    <Content Include="m\css\fontcss\Oxygen\latin300.css" />
-    <Content Include="m\css\fontcss\Oxygen\latin400.css" />
-    <Content Include="m\css\fontcss\Oxygen\latin700.css" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
@@ -4062,6 +4055,13 @@
     <Content Include="Views\Filters\InPageFilters\_InPageMinSpecsFilters_Mobile.cshtml" />
     <Content Include="sass\partials\photo-grid-carousel.sass" />
     <Content Include="Views\Filters\InPageFilters\_InPageBudgetFilter_Mobile.cshtml" />
+    <Content Include="Views\Shared\fontcss\OpenSans\_Latin400.cshtml" />
+    <Content Include="Views\Shared\fontcss\OpenSans\_Latin600.cshtml" />
+    <Content Include="Views\Shared\fontcss\OpenSans\_Latin700.cshtml" />
+    <Content Include="Views\Shared\fontcss\OpenSans\_Latin800.cshtml" />
+    <Content Include="Views\Shared\fontcss\Oxygen\_Latin300.cshtml" />
+    <Content Include="Views\Shared\fontcss\Oxygen\_Latin400.cshtml" />
+    <Content Include="Views\Shared\fontcss\Oxygen\_Latin700.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
