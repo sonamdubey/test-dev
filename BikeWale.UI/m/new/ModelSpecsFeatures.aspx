@@ -92,11 +92,8 @@
                                     %>
                                    <ul class="specs-features-list margin-bottom5">
                                       <li>
-                                        <% if (itemValue != null)
-                                          {%>
                                            <p class="specs-features-label"><%=specItem.DisplayText%></p>
                                            <p class="specs-features-value"><span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue,specItem.UnitTypeText) %></span></p>
-                                        <% } %>
                                         </li>
                                     </ul>
                                 <% } %>
@@ -117,12 +114,9 @@
                             %>
                     <ul class="specs-features-list">
                         <li>
-                            <% if(featureValue != null)
-                                    {%>
                                      <p class="specs-features-label"><%=feature.DisplayText %></p>
                                      <p class="specs-features-value"><span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue,feature.UnitTypeText) %></span></p>
                                      <div class="clear"></div>
-                             <% } %>
                         </li>
                     </ul>
                     <% } %>

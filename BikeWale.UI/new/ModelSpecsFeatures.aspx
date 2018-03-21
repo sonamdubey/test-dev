@@ -160,13 +160,11 @@
                                 <% foreach (var specItem in specCat.SpecsItemList.Take(firstGridSpecsCount))
                                     {
                                         itemValue = specItem.ItemValues.FirstOrDefault();
-                                        if (itemValue != null)
-                                          {%>
+                                          %>
                                            <p>
                                                 <span><%=specItem.DisplayText%></span>
                                                 <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue,specItem.UnitTypeText)%></span>
                                             </p>
-                                        <% } %>
                                 <% } %>
                             </div>
                        
@@ -174,13 +172,11 @@
                                 <% foreach (var specItem in specCat.SpecsItemList.Skip(firstGridSpecsCount))
                                     {
                                         itemValue = specItem.ItemValues.FirstOrDefault();
-                                        if (itemValue != null)
-                                        {%>
+                                        %>
                                          <p>
                                             <span><%=specItem.DisplayText %></span>
                                             <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue,specItem.UnitTypeText)%></span>
                                          </p>
-                                    <% } %>
                                 <% } %>
                             </div>
                             <div class="clear"></div>
@@ -199,28 +195,22 @@
                                 featureValue = feature.ItemValues.FirstOrDefault();
                                 %>
                             <div class="grid-6 padding-left20 text-light-grey">
-                                <% if(feature != null)
-                                    {%>
                                         <p>
                                             <span><%=feature.DisplayText %></span>
                                             <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue,feature.UnitTypeText) %></span>
                                          </p>
                             </div>
-                            <% } %>
                         <% } %>
                         <% foreach (var feature in versionSpecsFeatures.Features.Skip(firstGridFeaturesCount))
                             {
                                 featureValue = feature.ItemValues.FirstOrDefault();
                                 %>
                             <div class="grid-6 padding-left30 text-light-grey">
-                                <% if(featureValue != null)
-                                    {%>
                                         <p>
                                             <span><%=feature.DisplayText %></span>
                                             <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue,feature.UnitTypeText) %></span>
                                          </p>
                             </div>
-                            <% } %>
                         <% } %>
                         <div class="clear"></div>
                         <% } %>
