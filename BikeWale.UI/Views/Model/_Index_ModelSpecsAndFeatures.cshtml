@@ -29,26 +29,34 @@
                                 @foreach (var item in category.SpecsItemList.Take(firstGridSpecsCount))
                                 {
                                     itemValue = item.ItemValues.FirstOrDefault();
-                                    if (itemValue != null)
-                                    {
-                                        <p>
-                                            <span>@item.DisplayText</span>
-                                            <span>@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</span>
-                                        </p>
-                                    }
+                                    <p>
+                                        <span>@item.DisplayText</span>
+                                        @if (string.IsNullOrEmpty(itemValue))
+                                        {
+                                            <span>--</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@itemValue @item.UnitTypeText</span>
+                                        }
+                                    </p>
                                 }
                             </div>
                             <div class="grid-6 text-light-grey">
                                 @foreach (var item in category.SpecsItemList.Skip(firstGridSpecsCount))
                                 {
                                     itemValue = item.ItemValues.FirstOrDefault();
-                                    if (itemValue != null)
-                                    {
-                                        <p>
-                                            <span>@item.DisplayText</span>
-                                            <span>@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</span>
-                                        </p>
-                                    }
+                                    <p>
+                                        <span>@item.DisplayText</span>
+                                        @if (string.IsNullOrEmpty(itemValue))
+                                        {
+                                            <span>--</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@itemValue @item.UnitTypeText</span>
+                                        }
+                                    </p>
                                 }
                             </div>
                             <div class="clear"></div>
@@ -69,14 +77,22 @@
                             var shownFeaturesHeight = 4;
                             var leftGrid = features.Take(firstGridFeaturesCount);
                             var rightGrid = features.Skip(firstGridFeaturesCount);
-                            }
+                        }
                         @foreach (var feature in leftGrid.Take(shownFeaturesHeight))
                         {
                             featureValue = feature.ItemValues.FirstOrDefault();
-                            if (featureValue != null)
-                            {
-                                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-                            }
+                            <p>
+                                <span>@feature.DisplayText</span>
+                                @if (string.IsNullOrEmpty(featureValue))
+                                {
+                                    <span>--</span>
+                                }
+                                else
+                                {
+                                    <span>@featureValue @feature.UnitTypeText</span>
+                                }
+                            </p>
+
 
                         }
                     </div>
@@ -84,10 +100,18 @@
                         @foreach (var feature in rightGrid.Take(shownFeaturesHeight))
                         {
                             featureValue = feature.ItemValues.FirstOrDefault();
-                            if (featureValue != null)
-                            {
-                                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-                            }
+                            <p>
+                                <span>@feature.DisplayText</span>
+                                @if (string.IsNullOrEmpty(featureValue))
+                                {
+                                    <span>--</span>
+                                }
+                                else
+                                {
+                                    <span>@featureValue @feature.UnitTypeText</span>
+                                }
+                            </p>
+
                         }
                     </div>
                     <div class="clear"></div>
@@ -98,20 +122,35 @@
                         @foreach (var feature in leftGrid.Skip(shownFeaturesHeight))
                         {
                             featureValue = feature.ItemValues.FirstOrDefault();
-                            if (featureValue != null)
-                            {
-                                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-                            }
+                            <p>
+                                <span>@feature.DisplayText</span>
+                                @if (string.IsNullOrEmpty(featureValue))
+                                {
+                                    <span>--</span>
+                                }
+                                else
+                                {
+                                    <span>@featureValue @feature.UnitTypeText</span>
+                                }
+                            </p>
+
                         }
 		            </div>
                     <div class="grid-6 padding-left20 text-light-grey">
                         @foreach (var feature in rightGrid.Skip(shownFeaturesHeight))
                         {
                             featureValue = feature.ItemValues.FirstOrDefault();
-                            if (featureValue != null)
-                            {
-                                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-                            }
+                            <p>
+                                <span>@feature.DisplayText</span>
+                                @if (string.IsNullOrEmpty(featureValue))
+                                {
+                                    <span>--</span>
+                                }
+                                else
+                                {
+                                    <span>@featureValue @feature.UnitTypeText</span>
+                                }
+                            </p>
                         }
                     </div>
 		            <div class="clear"></div>
