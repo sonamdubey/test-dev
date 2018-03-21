@@ -111,7 +111,7 @@ namespace Bikewale.BAL.PriceQuote
                     if (objPQOutput != null && objPQOutput.PQId > 0)
                     {
                         bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
-                        bpqOutput.Varients = objPq.GetOtherVersionsPrices(objPQOutput.PQId);
+                        bpqOutput.Varients = _objPQCache.GetOtherVersionsPrices(objPQEntity.ModelId, objPQEntity.CityId);
                         if (bpqOutput != null)
                         {
                             pqOnRoad.BPQOutput = bpqOutput;
