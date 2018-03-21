@@ -75,6 +75,9 @@ namespace Bikewale.Models
         public uint TopCountNews { get; set; }
         public uint TopCountExpertReviews { get; set; }
 
+        private readonly String AdPath_Old = "/1017752/Bikewale_Mobile_Make";
+        private readonly String AdId_Old = "1444028878952";
+
         public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters)
         {
             this._makeMaskingName = makeMaskingName;
@@ -997,6 +1000,61 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("MakePageModel.BindNewBikeSearchPopupData_MakeId_{0}", _makeId));
+            }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 20 March 2018
+        /// Description: Overload of GetData function to Bind different ad slots with old and new Make page.
+        /// </summary>
+        /// <param name="isNew"></param>
+        /// <returns></returns>
+        public MakePageVM GetData(bool isNew)
+        {
+            MakePageVM objData = GetData();
+            BindAdSlots(objData, isNew);
+            
+            return objData;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 20 March 2018
+        /// Description: Method to bind ad slots to page.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindAdSlots(MakePageVM objData, bool isNewPage)
+        {
+            if (!isNewPage)
+            {
+                objData.AdTags.AdPath = AdPath_Old;
+                objData.AdTags.AdId = AdId_Old;
+                objData.AdTags.Ad_320x50 = true;
+                objData.AdTags.Ad_300x250 = true;
+
+                IList<AdSlotModel> ads = new List<AdSlotModel>();
+                ads.Add(new AdSlotModel("[320, 50]")
+                {
+                    AdId = AdId_Old,
+                    AdPath = AdPath_Old,
+                    DivId = 0,
+                    Width = 320,
+                    LoadImmediate = true,
+                    Position = "Top",
+                    Size = AdSlotSize._320x50
+                });
+
+
+                ads.Add(new AdSlotModel("[300, 250]")
+                {
+                    AdId = AdId_Old,
+                    AdPath = AdPath_Old,
+                    DivId = 2,
+                    Width = 300,
+                    LoadImmediate = false,
+                    Size = AdSlotSize._300x250
+                });
+
+                objData.AdSlots = ads;
             }
         }
     }
