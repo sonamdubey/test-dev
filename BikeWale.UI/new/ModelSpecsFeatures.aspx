@@ -164,8 +164,7 @@
                                           {%>
                                            <p>
                                                 <span><%=specItem.DisplayText%></span>
-                                                <span><%=itemValue %></span>
-                                                <span><%=itemValue.Equals("-") ? "--" : specItem.UnitTypeText%></span>
+                                                <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue,specItem.UnitTypeText)%></span>
                                             </p>
                                         <% } %>
                                 <% } %>
@@ -179,8 +178,7 @@
                                         {%>
                                          <p>
                                             <span><%=specItem.DisplayText %></span>
-                                            <span><%=itemValue %></span>
-                                            <span><%=itemValue.Equals("-") ? "--" : specItem.UnitTypeText%></span>
+                                            <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue,specItem.UnitTypeText)%></span>
                                          </p>
                                     <% } %>
                                 <% } %>
@@ -205,8 +203,7 @@
                                     {%>
                                         <p>
                                             <span><%=feature.DisplayText %></span>
-                                            <span><%=featureValue %></span>
-                                            <span><%=featureValue.Equals("-") ? "--" : feature.UnitTypeText%></span>
+                                            <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue,feature.UnitTypeText) %></span>
                                          </p>
                             </div>
                             <% } %>
@@ -220,8 +217,7 @@
                                     {%>
                                         <p>
                                             <span><%=feature.DisplayText %></span>
-                                            <span><%=featureValue %></span>
-                                            <span><%=featureValue.Equals("-") ? "--" : feature.UnitTypeText%></span>
+                                            <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue,feature.UnitTypeText) %></span>
                                          </p>
                             </div>
                             <% } %>
