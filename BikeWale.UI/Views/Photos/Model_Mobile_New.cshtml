@@ -18,7 +18,7 @@
     {
         objImages = Model.ModelImages.ToList();
     }
-    <section>
+    <section class="margin-bottom20">
         <div class="container box-shadow section-bottom-margin">
 
             <div id="galleryRoot" class="margin-bottom60" data-bind="css: { 'orientation--landscape': fullScreenModeActive(), 'gallery-popup--active': activePopup() }">
@@ -428,7 +428,9 @@
 
     if (Model.ModelGallery != null)
     {
-        @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
+        <section class="margin-bottom20">
+            @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
+        </section>
     }
 
 
