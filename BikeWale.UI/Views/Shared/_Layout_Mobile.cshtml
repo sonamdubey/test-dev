@@ -189,7 +189,7 @@
                 foreach (Bikewale.Models.AdSlotModel ad in Model.AdSlots)
                 {
                     var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, ad.DivId);
-                    if (String.IsNullOrEmpty(ad.ViewSize)) { 
+                    if (!String.IsNullOrEmpty(ad.ViewSize)) { 
                         if (ad.Position != null)
                         {
                             <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize, ad.Position)); </text>
