@@ -5,6 +5,8 @@ namespace Bikewale.Utility
 	public static class FormatMinSpecs
 	{
 
+        private static const string _notAvaliableText = "--";
+
 		public static string GetMinSpecsAsLiElement(string displacement, string fuelEffecient, string maxpower, string weight)
 		{
 			string str = String.Empty;
@@ -242,32 +244,20 @@ namespace Bikewale.Utility
 		/// <summary>
 		/// Written By : Lucky Rathore On 23 Sept 2015
 		/// Summary : Function to format the availability and append respective unit.
+        /// Modified By : Rajan Chauhan on 21 Mar 2018
+        /// Description : Removed Boolean TryParse for Specs Microservice integration
 		/// </summary>
 		/// <param name="value">Value to be checked whether available or not.</param>
 		/// <param name="unit">unit of respective value e.g. cc, kg.</param>
 		/// <returns>If value is null function will return --</returns>
 		public static string ShowAvailable(string value, string unit)
 		{
-			string showValue = string.Empty;
 
-			if (String.IsNullOrEmpty(value))
+			if (!String.IsNullOrEmpty(value))
 			{
-				showValue = "--";
+                return value + " " + unit;
 			}
-			else
-			{
-				bool isBoolValue = false;
-
-				if (Boolean.TryParse(value, out isBoolValue))
-				{
-					showValue = isBoolValue ? "Yes" : "No";
-				}
-				else
-				{
-					showValue = value + " " + unit;
-				}
-			}
-			return showValue;
+            return _notAvaliableText;
 		}
 
 		/// <summary>
