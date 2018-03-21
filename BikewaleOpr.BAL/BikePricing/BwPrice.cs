@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 namespace BikewaleOpr.BAL.BikePricing
 {
     /// <summary>
@@ -70,7 +71,8 @@ namespace BikewaleOpr.BAL.BikePricing
                                 BwMemCache.ClearSimilarBikesList(Convert.ToUInt32(versionId), 9, Convert.ToUInt32(cityId));
                             }
                         }
-                        BwMemCache.ClearDefaultPQVersionList(modelIdList, citiesList);
+                        BwMemCache.ClearDefaultPQVersionList(modelIdList, cityIdList);
+                        BwMemCache.ClearVersionPrice(modelIdList, cityIdList);
                     }
                 }
             }
@@ -117,7 +119,10 @@ namespace BikewaleOpr.BAL.BikePricing
                 BWESIndexUpdater.PushToQueue(nvc);
             }
 
-            BwMemCache.ClearDefaultPQVersionList(models.Split(','), cities.Split(','));
+            var modelIds = models.Split(',').Distinct();
+            var cityIdList = cities.Split(',').Distinct();
+            BwMemCache.ClearDefaultPQVersionList(modelIds, cityIdList);
+            BwMemCache.ClearVersionPrice(modelIds, cityIdList);
         }
 
 

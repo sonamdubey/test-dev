@@ -27,11 +27,14 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
         private readonly Interface.ManufacturerCampaign.IManufacturerCampaignRepository _objManufacturerCampaign = null;
         private readonly IManufacturerReleaseMaskingNumber _objManufacturerReleaseMaskingNumber = null;
         private readonly Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository _objMfgCampaign = null;
-        public ManufacturerCampaignController(Interface.ManufacturerCampaign.IManufacturerCampaignRepository objManufacturerCampaign, IManufacturerReleaseMaskingNumber objManufacturerReleaseMaskingNumber, Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository objMfgCampaign)
+        private readonly Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaign _manufacturerCampaign;
+
+        public ManufacturerCampaignController(Interface.ManufacturerCampaign.IManufacturerCampaignRepository objManufacturerCampaign, IManufacturerReleaseMaskingNumber objManufacturerReleaseMaskingNumber, Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository objMfgCampaign, Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaign manufacturerCampaign)
         {
             _objManufacturerCampaign = objManufacturerCampaign;
             _objManufacturerReleaseMaskingNumber = objManufacturerReleaseMaskingNumber;
             _objMfgCampaign = objMfgCampaign;
+            _manufacturerCampaign = manufacturerCampaign;
         }
 
         /// <summary>
@@ -60,7 +63,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "ManufacturerCampaignController.GetCampaigns");
-                
+
                 return InternalServerError();
             }
         }
@@ -106,11 +109,12 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             try
             {
                 isSuccess = _objManufacturerCampaign.UpdateCampaignStatus(campaignId, isactive);
+                _manufacturerCampaign.ClearCampaignCache(campaignId);
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "ManufacturerCampaignController.UpdateCampaignStatus");
-                
+
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -123,6 +127,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             try
             {
                 isSuccess = _objManufacturerCampaign.UpdateCampaignStatus(campaignId, status);
+                _manufacturerCampaign.ClearCampaignCache(campaignId);
             }
             catch (Exception ex)
             {
@@ -163,7 +168,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.GetDealerMaskingNumbers");
-                
+
             }
             return null;
 
@@ -177,18 +182,19 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
         /// <param name="maskingNumber"></param>
         /// <returns></returns>
         [HttpPost]
-        public IHttpActionResult ReleaseNumber(uint dealerId, int campaignId, string maskingNumber, int userId)
+        public IHttpActionResult ReleaseNumber(uint dealerId, uint campaignId, string maskingNumber, int userId)
         {
             bool isSuccess = false;
             try
             {
-                isSuccess = _objManufacturerReleaseMaskingNumber.ReleaseNumber(dealerId, campaignId, maskingNumber, userId);
+                isSuccess = _objManufacturerReleaseMaskingNumber.ReleaseNumber(dealerId, (int)campaignId, maskingNumber, userId);
+                _manufacturerCampaign.ClearCampaignCache(campaignId);
             }
             catch (Exception ex)
             {
                 isSuccess = false;
                 ErrorClass.LogError(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
-                
+
             }
             return Ok(isSuccess);
         }
@@ -271,7 +277,11 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             try
             {
                 if (ruleEntity != null)
+                {
                     isSuccess = _objMfgCampaign.DeleteManufacturerCampaignRules(ruleEntity.CampaignId, ruleEntity.ModelId, ruleEntity.StateId, ruleEntity.CityId, ruleEntity.UserId, ruleEntity.IsAllIndia);
+
+                    _manufacturerCampaign.ClearCampaignCache(ruleEntity.CampaignId);
+                }
             }
             catch (Exception ex)
             {
@@ -297,6 +307,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
                 if (campaignId > 0 && userId > 0)
                 {
                     isSuccess = _objMfgCampaign.ResetTotalLeadDelivered(campaignId, userId);
+                    _manufacturerCampaign.ClearCampaignCache(campaignId);
                 }
                 else
                 {
