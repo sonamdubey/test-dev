@@ -125,6 +125,7 @@ namespace Bikewale.Service.Controllers.Model
 
                 getPQ = new PQByCityArea();
                 objModelPage = _bikeModelEntity.GetModelPageDetails(modelId);
+                objModelPage.VersionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
 
                 if (objModelPage != null)
                 {

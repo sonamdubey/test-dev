@@ -168,12 +168,46 @@ namespace Bikewale.Service.AutoMappers.Model
         }
 
         /// <summary>
+        /// Created by  : Pratibha Verma on 20 Mar 2018
+        /// Description : Mapping SpecsFeaturesItem List to Bikewale.DTO.ModelSpecs
+        /// </summary>
+        /// <param name="specFeatureItemList"></param>
+        /// <returns></returns>
+        internal static IEnumerable<DTO.Model.Specs> Convert(IEnumerable<SpecsFeaturesItem> specFeatureItemList)
+        {
+            IList<DTO.Model.Specs> specsList = null;
+            try
+            {
+                if (specFeatureItemList != null)
+                {
+                    specsList = new List<DTO.Model.Specs>();
+                    foreach (SpecsFeaturesItem specsFeaturesItem in specFeatureItemList)
+                    {
+                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.ItemValues.FirstOrDefault(), specsFeaturesItem.UnitTypeText);
+                        specsList.Add(new DTO.Model.Specs()
+                        {
+                            DisplayText = specsFeaturesItem.DisplayText,
+                            DisplayValue = itemValue
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.Convert( IEnumerable<SpecsFeaturesItem> {0})", specFeatureItemList));
+            }
+            return specsList;
+        }
+
+        /// <summary>
         /// Created By : Lucky Rathore on 15 Apr 2016
         /// Description : Mapper for BikeSpecs DTO and BikeModelPageEntity Entity
+        /// Modified by : Pratibha Verma on 19 Mar 2018
+        /// Description : Added logic to integrate CW specs and features to BW
         /// </summary>
         /// <param name="objModelPage">object of BikeModelPageEntity</param>
         /// <returns>BikeSpecs DTO</returns>
-        internal static BikeSpecs ConvertToBikeSpecs(BikeModelPageEntity objModelPage, Entities.PriceQuote.PQByCityAreaEntity pqEntity)
+        internal static BikeSpecs ConvertToBikeSpecs(BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity)
         {
             try
             {
@@ -181,23 +215,46 @@ namespace Bikewale.Service.AutoMappers.Model
                 Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
                 Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
                 Mapper.CreateMap<BikeDescriptionEntity, ModelDescription>();
-                Mapper.CreateMap<Bikewale.Entities.BikeData.BikeModelEntity, ModelDetails>();
+                Mapper.CreateMap<BikeModelEntity, ModelDetails>();
                 Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
                 Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
-                Mapper.CreateMap<BikeVersionMinSpecs, Bikewale.DTO.Model.v3.VersionDetail>();
+                Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
                 Mapper.CreateMap<BikeModelPageEntity, BikeSpecs>();
                 Mapper.CreateMap<NewBikeModelColor, NewModelColor>();
                 Mapper.CreateMap<BikeDescriptionEntity, BikeDiscription>();
                 Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
-                Mapper.CreateMap<Bikewale.Entities.BikeData.Overview, Bikewale.DTO.Model.Overview>();
-                Mapper.CreateMap<Bikewale.Entities.BikeData.Features, Bikewale.DTO.Model.Features>();
-                Mapper.CreateMap<Bikewale.Entities.BikeData.Specifications, Bikewale.DTO.Model.v2.Specifications>();
-                Mapper.CreateMap<Bikewale.Entities.BikeData.Specs, Bikewale.DTO.Model.Specs>();
-                Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.v2.SpecsCategory>();
+                Mapper.CreateMap<Entities.BikeData.Specs, DTO.Model.Specs>();
+                Mapper.CreateMap<Entities.BikeData.SpecsCategory, DTO.Model.v2.SpecsCategory>();
+
+                IEnumerable<DTO.Model.Specs> featuresList = null;
+                IList<DTO.Model.v2.SpecsCategory> specsCategory = null;
+                if (objModelPage != null && objModelPage.VersionSpecsFeatures != null)
+                {
+                    if (objModelPage.VersionSpecsFeatures.Features != null)
+                    {
+                        featuresList = Convert(objModelPage.VersionSpecsFeatures.Features);
+                    }
+                    if (objModelPage.VersionSpecsFeatures.Specs != null)
+                    {
+                        specsCategory = new List<DTO.Model.v2.SpecsCategory>();
+                        foreach (var specsCat in objModelPage.VersionSpecsFeatures.Specs)
+                        {
+                            specsCategory.Add(new DTO.Model.v2.SpecsCategory()
+                            {
+                                DisplayName = specsCat.DisplayText,
+                                CategoryName = specsCat.DisplayText,
+                                Specs = Convert(specsCat.SpecsItemList)
+                            });
+                        }
+                    }
+                }
+               
                 var bikespecs = Mapper.Map<BikeSpecs>(objModelPage);
                 bikespecs.IsAreaExists = pqEntity.IsAreaExists;
                 bikespecs.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
                 bikespecs.ModelVersions = Convert(pqEntity.VersionList);
+                bikespecs.FeaturesList = featuresList;
+                bikespecs.SpecsCategory = specsCategory;
                 return bikespecs;
             }
             catch (Exception ex)

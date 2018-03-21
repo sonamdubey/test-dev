@@ -6,6 +6,8 @@ namespace Bikewale.DTO.Model
     /// <summary>
     /// Created By : Lucky Rathore on 14 Apr 2016
     /// Description  : DTO for specification, color, models version and Feature of bike version.
+    /// Modified by : Pratibha Verma on 21 Mar 2018
+    /// Description : Removed Specification and Features Property
     /// </summary>
     public class BikeSpecs
     {
@@ -14,18 +16,12 @@ namespace Bikewale.DTO.Model
 
         [JsonProperty("modelColors")]
         public IEnumerable<NewModelColor> ModelColors { get; set; }
-
-        [JsonIgnore, JsonProperty("features")]
-        public Features objFeatures { get; set; }
-
+      
         [JsonProperty("featuresList")]
-        public IEnumerable<Specs> FeaturesList { get { return objFeatures != null ? objFeatures.FeaturesList : null; } }
-
-        [JsonIgnore, JsonProperty("specs")]
-        public Bikewale.DTO.Model.v2.Specifications objSpecs { get; set; }
+        public IEnumerable<Specs> FeaturesList { get; set; }
 
         [JsonProperty("specsCategory")]
-        public IEnumerable<Bikewale.DTO.Model.v2.SpecsCategory> SpecsCategory { get { return objSpecs != null ? objSpecs.SpecsCategory : null; } }
+        public IEnumerable<Bikewale.DTO.Model.v2.SpecsCategory> SpecsCategory { get; set; }
 
         [JsonProperty("isExShowroomPrice")]
         public bool IsExShowroomPrice { get; set; }
