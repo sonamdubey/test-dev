@@ -74,9 +74,9 @@
             </ul>
         </li>
         <li>
-            <a href="/m/trackday2016/">
+            <a href="/featured/trackday-2018/">
                 <span class="bwmsprite track-day"></span>
-                <span class="navbarTitle">Track Day 2016</span>
+                <span class="navbarTitle">Track Day 2018</span>
             </a>
         </li>
         <BW:Login ID="ctrlLogin" runat="server" />
