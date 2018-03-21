@@ -83,4 +83,27 @@ namespace Bikewale.Models
         }
         
     }
+
+    /// <summary>
+    /// Created By : Deepak Israni on 21 March 2018
+    /// Description: Class to store all the ad slot sizes.
+    /// </summary>
+    public static class AdSlotSize
+    {
+        public const string _200x211 = "200x211";
+        public const string _200x216 = "200x216";
+        public const string _200x253 = "200x253";
+        public const string _292x399 = "292x399";
+        public const string _292x359 = "292x359";
+        public const string _292x360 = "292x360";
+        public const string _300x100 = "300x100";
+        public const string _300x250 = "300x250";
+        public const string _320x50 = "320x50";
+        public const string _320x100 = "320x100";
+        public const string _320x150 = "320x150";
+        public const string _320x400 = "320x400";
+        public const string _970x90 = "970x90";
+        public const string _976x204 = "976x204";
+        public const string _976x400 = "976x400";
+    }
 }

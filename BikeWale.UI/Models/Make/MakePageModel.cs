@@ -75,6 +75,9 @@ namespace Bikewale.Models
         public uint TopCountNews { get; set; }
         public uint TopCountExpertReviews { get; set; }
 
+        private readonly String AdPath_Old = "/1017752/Bikewale_Mobile_Make";
+        private readonly String AdId_Old = "1444028878952";
+
         public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters)
         {
             this._makeMaskingName = makeMaskingName;
@@ -1023,33 +1026,32 @@ namespace Bikewale.Models
         {
             if (!isNewPage)
             {
-                objData.AdTags.AdPath = "/1017752/Bikewale_Mobile_Make";
-                objData.AdTags.AdId = "1444028878952";
+                objData.AdTags.AdPath = AdPath_Old;
+                objData.AdTags.AdId = AdId_Old;
                 objData.AdTags.Ad_320x50 = true;
                 objData.AdTags.Ad_300x250 = true;
 
                 IList<AdSlotModel> ads = new List<AdSlotModel>();
                 ads.Add(new AdSlotModel("[320, 50]")
                 {
-                    AdId = objData.AdTags.AdId,
-                    AdPath = objData.AdTags.AdPath,
+                    AdId = AdId_Old,
+                    AdPath = AdPath_Old,
                     DivId = 0,
                     Width = 320,
                     LoadImmediate = true,
                     Position = "Top",
-                    Size = "320x50"                    
-
+                    Size = AdSlotSize._320x50
                 });
 
 
                 ads.Add(new AdSlotModel("[300, 250]")
                 {
-                    AdId = objData.AdTags.AdId,
-                    AdPath = objData.AdTags.AdPath,
+                    AdId = AdId_Old,
+                    AdPath = AdPath_Old,
                     DivId = 2,
                     Width = 300,
                     LoadImmediate = false,
-                    Size = "300x250"
+                    Size = AdSlotSize._300x250
                 });
 
                 objData.AdSlots = ads;
