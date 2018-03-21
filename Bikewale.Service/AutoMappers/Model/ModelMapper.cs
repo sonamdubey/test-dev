@@ -195,7 +195,7 @@ namespace Bikewale.Service.AutoMappers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.AutoMappers.Model.Convert( IEnumerable<SpecsFeaturesItem> {0})", specFeatureItemList));
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.Convert( IEnumerable<SpecsFeaturesItem> {0})", specFeatureItemList));
             }
             return specsList;
         }
@@ -232,31 +232,35 @@ namespace Bikewale.Service.AutoMappers.Model
 
                 DTO.Model.Features features = null;
                 DTO.Model.v2.Specifications specifications = null;
-                if (objModelPage != null && objModelPage.VersionSpecsFeatures != null && objModelPage.VersionSpecsFeatures.Features != null)
+                if (objModelPage != null && objModelPage.VersionSpecsFeatures != null)
                 {
-                    features = new DTO.Model.Features() {
-                        DisplayName = "featuresList",
-                        FeaturesList = Convert(objModelPage.VersionSpecsFeatures.Features)
-                    };
-                }
-                if (objModelPage != null && objModelPage.VersionSpecsFeatures != null && objModelPage.VersionSpecsFeatures.Specs != null)
-                {
-                    List<DTO.Model.v2.SpecsCategory> specCategoryList = new List<DTO.Model.v2.SpecsCategory>();
-                    foreach (var specsCat in objModelPage.VersionSpecsFeatures.Specs)
+                    if (objModelPage.VersionSpecsFeatures.Features != null)
                     {
-                        specCategoryList.Add(new DTO.Model.v2.SpecsCategory()
+                        features = new DTO.Model.Features()
                         {
-                            DisplayName = specsCat.DisplayText,
-                            CategoryName = specsCat.DisplayText,
-                            Specs = Convert(specsCat.SpecsItemList)
-
-                        });
+                            DisplayName = "featuresList",
+                            FeaturesList = Convert(objModelPage.VersionSpecsFeatures.Features)
+                        };
                     }
-                    specifications = new DTO.Model.v2.Specifications()
+                    if (objModelPage.VersionSpecsFeatures.Specs != null)
                     {
-                        DisplayName = "specsCategory",
-                        SpecsCategory = specCategoryList
-                    };
+                        List<DTO.Model.v2.SpecsCategory> specCategoryList = new List<DTO.Model.v2.SpecsCategory>();
+                        foreach (var specsCat in objModelPage.VersionSpecsFeatures.Specs)
+                        {
+                            specCategoryList.Add(new DTO.Model.v2.SpecsCategory()
+                            {
+                                DisplayName = specsCat.DisplayText,
+                                CategoryName = specsCat.DisplayText,
+                                Specs = Convert(specsCat.SpecsItemList)
+
+                            });
+                        }
+                        specifications = new DTO.Model.v2.Specifications()
+                        {
+                            DisplayName = "specsCategory",
+                            SpecsCategory = specCategoryList
+                        };
+                    }
                 }
                 var bikespecs = Mapper.Map<BikeSpecs>(objModelPage);
                 bikespecs.IsAreaExists = pqEntity.IsAreaExists;
