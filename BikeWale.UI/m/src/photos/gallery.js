@@ -4,7 +4,7 @@ var downloadImageResolution = "1056x594";
 var eleGallery, vmModelGallery, colorIndex = 0;
 
 // page variables
-var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, MAKE_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, RETURN_URL, isColorImageSet = false;
+var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, MAKE_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, RETURN_URL, isColorImageSet = false, logBhrighu;
 
 // bhrighu logging
 var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
@@ -25,7 +25,7 @@ var setPageVariables = function () {
 		MODEL_NAME = eleGallery.data("modelname");
 		BIKE_MODEL_ID = eleGallery.data("modelid");
 		MAKE_NAME = eleGallery.data("makename");
-
+		logBhrighu = true;
 		if (eleGallery.length > 0 && eleGallery.data("images") != '') {
 			var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
 			MODEL_IMAGES = imageList;
