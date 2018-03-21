@@ -416,15 +416,6 @@
         </section>
     }
 
-
-
-    if (Model.AdTags.Ad_300x250BTF)
-    {
-        <div class="margin-bottom20 text-center">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
-        </div>
-    }
-
     <div id="photoTemplateWrapper" class="hide">
         <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
         <ul data-bind="foreach : Loadedphotos">
@@ -455,7 +446,7 @@
 @if (Model.AdTags.Ad_320x50BTF)
 {
 
-    <div class="margin-bottom20 text-center">
+    <div class="margin-bottom20 margin-top20 text-center">
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>
 
