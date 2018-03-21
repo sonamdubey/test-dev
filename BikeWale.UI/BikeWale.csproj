@@ -3184,6 +3184,7 @@
     <Content Include="src\dealer\details.js" />
     <Content Include="src\dealer\landing.js" />
     <Content Include="src\electricbikes\electricbikeindex.js" />
+    <Content Include="src\lazyloadad.js" />
     <Content Include="src\model-series\series.js" />
     <Content Include="src\emi-calculator.js" />
     <Content Include="src\new-launch.js" />
@@ -4032,6 +4033,11 @@
     <Content Include="Views\Filters\InPageFilters\_InPageMinSpecsFilters_Mobile.cshtml" />
     <Content Include="sass\partials\photo-grid-carousel.sass" />
     <Content Include="Views\Filters\InPageFilters\_InPageBudgetFilter_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x250_Generic.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x100_Generic.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\AdSlotGeneric.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

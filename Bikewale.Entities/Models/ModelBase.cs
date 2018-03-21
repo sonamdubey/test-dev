@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.Models;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
+using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -17,6 +18,8 @@ namespace Bikewale.Models
     /// Summary: Added page property to hold page id and name for GA
     /// Modified By : Ashutosh Sharma on 27 Oct 2017
     /// Description : Added AmpJsTags.
+    /// Modified By : Deepak Israni on 20 March 2018
+    /// Description : Added AdSlots list.
     /// </summary>
     public class ModelBase
     {
@@ -54,6 +57,6 @@ namespace Bikewale.Models
         public GAPages Page { get; set; }
         public AmpJsTags AmpJsTags { get; set; }
         public string Amp_Page_CSS { get; set; }
-        
+        public IList<AdSlotModel> AdSlots { get; set; }
     }
 }
