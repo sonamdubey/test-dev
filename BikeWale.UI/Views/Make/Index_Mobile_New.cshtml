@@ -4,12 +4,6 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline />";
     Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js", "/src/emi-calculator.js" };
     ushort index = 0, prev = 0, gap = 2, j = 0;    
-    Model.AdTags.AdId = "1519729632700";
-    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Make";
-    Model.AdTags.Ad_320x100_Top = true;
-    Model.AdTags.Ad_300x250_Top = true;
-    Model.AdTags.Ad_300x250_Middle = true;
-    Model.AdTags.Ad_300x250_Bottom = true;
 }
 
 @if (Model != null)
@@ -107,7 +101,7 @@
             @if (Model.AdTags.Ad_320x100_Top) { 
                 <section>
                     <div style="margin-bottom: 20px">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 3 });}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[0]);}
                     </div>
                 </section>
             }
@@ -242,7 +236,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
             { 
                 <section>
                     <div style="margin-bottom: 20px">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 1 });}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[1]);}
                     </div>
                 </section>
             }
@@ -394,7 +388,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
             { 
                 <section>
                     <div style = "margin-bottom: 20px">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 2 });}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[2]);}
                     </div>
                 </section>
             }
@@ -499,7 +493,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
     { 
         <section>
             <div style="margin-bottom: 20px">
-                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
+                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[3]);}
             </div>
         </section>
     }

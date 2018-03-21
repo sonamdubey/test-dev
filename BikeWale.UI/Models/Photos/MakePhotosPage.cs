@@ -203,7 +203,8 @@ namespace Bikewale.Models.Photos
                         new List<EnumCMSContentType>()
                     {
                         EnumCMSContentType.PhotoGalleries,
-                        EnumCMSContentType.RoadTest
+                        EnumCMSContentType.RoadTest,
+                        EnumCMSContentType.ComparisonTests
                     }
                     );
                     objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
