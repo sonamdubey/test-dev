@@ -28,7 +28,7 @@ var manufacturerRulesViewModel = function () {
         if (self.selectedMake() != undefined && self.selectedMake() > 0) {
             $.ajax({
                 type: "GET",
-                url: bwHostUrl + "/api/campaigns/manufacturer/models/makeId/" + self.selectedMake() + "/",
+                url: "/api/campaigns/manufacturer/models/makeId/" + self.selectedMake() + "/",
                 datatype: "json",
                 success: function (response) {
                     var models = ko.toJS(response);
@@ -68,7 +68,7 @@ var manufacturerRulesViewModel = function () {
         if (self.selectedState() != undefined && self.selectedState() > 0) {
             $.ajax({
                 type: "GET",
-                url: bwHostUrl + "/api/campaigns/manufacturer/cities/stateId/" + self.selectedState() + "/",
+                url: "/api/campaigns/manufacturer/cities/stateId/" + self.selectedState() + "/",
                 datatype: "json",
                 success: function (response) {
                     var cities = ko.toJS(response);
@@ -131,7 +131,7 @@ $(document).ready(function () {
         if (confirmDel) {
             $.ajax({
                 type: "POST",
-                url: bwHostUrl + "/api/campaigns/manufacturer/deleterule/",
+                url: "/api/campaigns/manufacturer/deleterule/",
                 data: obj,
                 datatype: "json",
                 complete: function (xhr) {
