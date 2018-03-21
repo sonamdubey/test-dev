@@ -347,12 +347,14 @@
     </section>
 }
 
-<section>
-    <div style="margin-bottom: 15px">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[0]);}
-    </div>
-
-</section>
+@if (Model.AdTags.Ad_300x250)
+{ 
+    <section>
+        <div style="margin-bottom: 15px">
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[1]);}
+        </div>
+    </section>
+}
 
 @if (Model.IsFooterDescriptionAvailable)
 {

@@ -1001,8 +1001,8 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created By :
-        /// Description:
+        /// Created By : Deepak Israni on 20 March 2018
+        /// Description: Overload of GetData function to Bind different ad slots with old and new Make page.
         /// </summary>
         /// <param name="isNew"></param>
         /// <returns></returns>
@@ -1029,12 +1029,27 @@ namespace Bikewale.Models
                 objData.AdTags.Ad_300x250 = true;
 
                 IList<AdSlotModel> ads = new List<AdSlotModel>();
-                ads.Add(new AdSlotModel()
+                ads.Add(new AdSlotModel("[320, 50]")
                 {
                     AdId = objData.AdTags.AdId,
+                    AdPath = objData.AdTags.AdPath,
+                    DivId = 0,
+                    Width = 320,
+                    LoadImmediate = true,
+                    Position = "Top",
+                    Size = "320x50"                    
+
+                });
+
+
+                ads.Add(new AdSlotModel("[300, 250]")
+                {
+                    AdId = objData.AdTags.AdId,
+                    AdPath = objData.AdTags.AdPath,
                     DivId = 2,
                     Width = 300,
-                    LoadImmediate = false
+                    LoadImmediate = false,
+                    Size = "300x250"
                 });
 
                 objData.AdSlots = ads;

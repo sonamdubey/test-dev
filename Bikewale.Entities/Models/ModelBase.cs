@@ -18,6 +18,8 @@ namespace Bikewale.Models
     /// Summary: Added page property to hold page id and name for GA
     /// Modified By : Ashutosh Sharma on 27 Oct 2017
     /// Description : Added AmpJsTags.
+    /// Modified By : Deepak Israni on 20 March 2018
+    /// Description : Added AdSlots list.
     /// </summary>
     public class ModelBase
     {

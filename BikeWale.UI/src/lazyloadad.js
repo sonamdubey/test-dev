@@ -14,15 +14,15 @@ function processAdSlots() {
             }
         });
     });
-    if (typeof AdSlots != "undefined") {
+    if (typeof adSlot != "undefined") {
         var adElements = document.querySelectorAll('div[id^=div-gpt-ad]');
         googletag.cmd.push(function () {
             googletag.display();
             for (var i = 0; i < adElements.length; i++) {
                 if (adElements[i].getAttribute('data-load-immediate') == "true") {
-                    immediateAds.push(AdSlots[adElements[i].id]);
+                    immediateAds.push(adSlot[adElements[i].id]);
                 } else {
-                    deferredAds.push(AdSlots[adElements[i].id]);
+                    deferredAds.push(adSlot[adElements[i].id]);
                 }
             }
             if (immediateAds.length > 0) {
@@ -40,9 +40,4 @@ function processAdSlots() {
         window.addEventListener('scroll', loadAdsOnScroll, false);
     }
 }
-if (window.location.pathname.slice(0, 3) === "/m/") {
-    window.addEventListener("load", processAdSlots, false);
-}
-else {
-    $(document).ready(processAdSlots);
-}
+    docReady(processAdSlots);

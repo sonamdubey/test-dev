@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.ModelBase
+
 <!doctype html>
 <html lang="en">
 <head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#":"")>
@@ -185,12 +186,19 @@
 
             @if (Model.AdSlots != null)
 	        {
-                foreach (var ad in Model.AdSlots)
+                foreach (Bikewale.Models.AdSlotModel ad in Model.AdSlots)
                 {
                     var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, ad.DivId);
-                   <text> 
-                        adSlot['@id']  = "x";
-                   </text>
+                    if (String.IsNullOrEmpty(ad.ViewSize)) { 
+                        if (ad.Position != null)
+                        {
+                            <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize, ad.Position)); </text>
+                        }
+                        else
+                        {
+                            <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize)); </text>
+                        }
+                    }
                 }
             }
 
@@ -285,17 +293,17 @@
             <!-- Call Home Page Banner partial view -->
     }
     @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
-    {
-        <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
-            <script type='text/javascript'>
-                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-0'); });
-            </script>
-        </div>
-    }
-    else if (Model.AdTags.ShowInnovationBannerMobile)
-    {
-        Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad320x50_InnovationBanner.cshtml", Model.AdTags);
-    }
+{
+    <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;' data-load-immediate="true">
+        <script type='text/javascript'>
+            googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-0'); });
+        </script>
+    </div>
+}
+else if (Model.AdTags.ShowInnovationBannerMobile)
+{
+    Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad320x50_InnovationBanner.cshtml", Model.AdTags);
+}
     @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
     @RenderBody()
     @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
