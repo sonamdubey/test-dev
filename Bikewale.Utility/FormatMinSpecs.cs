@@ -5,7 +5,7 @@ namespace Bikewale.Utility
 	public static class FormatMinSpecs
 	{
 
-        private static const string _notAvaliableText = "--";
+        private static readonly string _notAvaliableText = "--";
 
 		public static string GetMinSpecsAsLiElement(string displacement, string fuelEffecient, string maxpower, string weight)
 		{
