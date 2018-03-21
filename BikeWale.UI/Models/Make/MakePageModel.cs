@@ -999,5 +999,46 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, String.Format("MakePageModel.BindNewBikeSearchPopupData_MakeId_{0}", _makeId));
             }
         }
+
+        /// <summary>
+        /// Created By :
+        /// Description:
+        /// </summary>
+        /// <param name="isNew"></param>
+        /// <returns></returns>
+        public MakePageVM GetData(bool isNew)
+        {
+            MakePageVM objData = GetData();
+            BindAdSlots(objData, isNew);
+            
+            return objData;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 20 March 2018
+        /// Description: Method to bind ad slots to page.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindAdSlots(MakePageVM objData, bool isNewPage)
+        {
+            if (!isNewPage)
+            {
+                objData.AdTags.AdPath = "/1017752/Bikewale_Mobile_Make";
+                objData.AdTags.AdId = "1444028878952";
+                objData.AdTags.Ad_320x50 = true;
+                objData.AdTags.Ad_300x250 = true;
+
+                IList<AdSlotModel> ads = new List<AdSlotModel>();
+                ads.Add(new AdSlotModel()
+                {
+                    AdId = objData.AdTags.AdId,
+                    DivId = 2,
+                    Width = 300,
+                    LoadImmediate = false
+                });
+
+                objData.AdSlots = ads;
+            }
+        }
     }
 }

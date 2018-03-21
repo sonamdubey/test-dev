@@ -67,8 +67,8 @@
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     @Html.Raw(Model.Page_ATF_CSS)
     <script type="text/javascript">
-    var ga_pg_id = '0', gaObj;
-
+        var ga_pg_id = '0', gaObj;
+        var adSlot = {};
     @if(Model.Page !=null)
     {
         <text>gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};</text>
@@ -102,7 +102,7 @@
         node.parentNode.insertBefore(gads, node);
     })();
 
-    @functions{
+        @functions{
         string GetAdSlot(int slotId, string adPath, string adId)
         {
             switch (slotId)
@@ -176,40 +176,62 @@
         }
     }
 
-    googletag.cmd.push(function () {
+        
 
-        @if(Model.AdTags.Ad_320x50){@Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_Bot_320x50){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250){@Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad320x150_Top){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad320x150_Bottom){@Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_Mid_320x50){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad320x100ATF){@Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad320x100BTF){@Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x100){@Html.Raw(GetAdSlot(9, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_320x400_Middle) { @Html.Raw(GetAdSlot(10, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_200x253){ @Html.Raw(GetAdSlot(11, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_200x216){ @Html.Raw(GetAdSlot(12, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_200x211){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_320x50BTF){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if (Model.AdTags.Ad300x250_Bottom){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_Body_Top_320x50){ @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_320x100_Top){ @Html.Raw(GetAdSlot(18, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250_Top){ @Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250_Middle){ @Html.Raw(GetAdSlot(20, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250_Bottom){ @Html.Raw(GetAdSlot(21, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))}
+        googletag.cmd.push(function () {
 
-        googletag.pubads().enableSingleRequest();
-        googletag.pubads().collapseEmptyDivs();
-        googletag.enableServices();
-    });
+            googletag.pubads().disableInitialLoad();
+            googletag.pubads().setCentering(true);
+
+            @if (Model.AdSlots != null)
+	        {
+                foreach (var ad in Model.AdSlots)
+                {
+                    var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, ad.DivId);
+                   <text> 
+                        adSlot['@id']  = "x";
+                   </text>
+                }
+            }
+
+            else
+            {
+                if(Model.AdTags.Ad_320x50){@Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_Bot_320x50){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x250){@Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad320x150_Top){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad320x150_Bottom){@Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_Mid_320x50){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad320x100ATF){@Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad320x100BTF){@Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x100){@Html.Raw(GetAdSlot(9, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_320x400_Middle) { @Html.Raw(GetAdSlot(10, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_200x253){ @Html.Raw(GetAdSlot(11, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_200x216){ @Html.Raw(GetAdSlot(12, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_200x211){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_320x50BTF){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if (Model.AdTags.Ad300x250_Bottom){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_Body_Top_320x50){ @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_320x100_Top){ @Html.Raw(GetAdSlot(18, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x250_Top){ @Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x250_Middle){ @Html.Raw(GetAdSlot(20, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x250_Bottom){ @Html.Raw(GetAdSlot(21, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            }
+                
+
+                
+                @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
+                @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
+                @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
+                @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
+                @if(!String.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
+                @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))} 
+
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.enableServices();
+        });
     </script>
     @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
     {
@@ -521,6 +543,7 @@
     </script>
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/Plugins.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/src/lazyloadad.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
         <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
