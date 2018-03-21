@@ -32,43 +32,23 @@ var ConfigureCampaign = function () {
         var dailyEndTime = $("#dailyEndTimeEle").val();
         if (!self.description() || self.description() == "")
         {
-            $('#modal-p').text("Campaign Description is Mandatory. Please fill it. ");
-            $("#alertModal").modal('open');
+        	Materialize.toast("Campaign Description is Mandatory. Please fill it.", 5000);
             return false;
         }
         
-        if (!self.startDate() || self.startDate() == "") {
-            $('#modal-p').text("Campaign Start Date is Mandatory. Please fill it. ");
-            $("#alertModal").modal('open');
-            return false;
-        }
-
-        if ((dailyStartTime != "" && dailyEndTime == "") || (dailyStartTime == "" && dailyEndTime != "") ) {
-            $('#modal-p').text("Either set both start and end time OR none.");
-            $("#alertModal").modal('open');
-            return false;
-        }
-        if (dailyStartTime != "" && dailyEndTime != "" && dailyStartTime.localeCompare(dailyEndTime) != -1)
-        {
-            $('#modal-p').text("Daily Campaign Start time must be less than Daily Campaign End time.");
-            $("#alertModal").modal('open');
-            return false;
-        }
         if (($('#txtDailyLeadLimit').val() && ($('#txtDailyLeadLimit').val() < 0)) || ($('#txtTotalLeadLimit').val() && ($('#txtTotalLeadLimit').val() < 0)))
         {
-            $('#modal-p').text("Lead Limits should be positive");
-            $("#alertModal").modal('open');
+            Materialize.toast("Lead Limits should be positive", 5000);
             return false;
         }       
 
         var selectedPages = '';
         
-        var selectedOptions = $('#select-pages').find("option:selected");
+        var selectedOptions = $('#select-pages option:selected');
        
         if (selectedOptions.length == 1)
         {
-            $('#modal-p').text("Please select atleast one page.");
-            $("#alertModal").modal('open');
+            Materialize.toast("Please select atleast one page.", 5000);
             return false;
         }
 
@@ -77,7 +57,34 @@ var ConfigureCampaign = function () {
             selectedPages = selectedPages + ',' + selectedOptions[i].value;
         }
 
+        if (!self.startDate() || self.startDate() == "") {
+        	Materialize.toast("Campaign Start Date is Mandatory. Please fill it.", 5000);
+        	return false;
+        }
+
+        if ((dailyStartTime != "" && dailyEndTime == "") || (dailyStartTime == "" && dailyEndTime != "")) {
+        	Materialize.toast("Either set both start and end time OR none.", 5000);
+        	return false;
+        }
+        if (dailyStartTime != "" && dailyEndTime != "" && dailyStartTime.localeCompare(dailyEndTime) != -1) {
+        	Materialize.toast("Daily Campaign Start time must be less than Daily Campaign End time.", 5000);
+        	return false;
+        }
+
         $('#CampaignPages').val(selectedPages);
+		
+        var campaignDaysValue = 0;
+        var campaignDays = $('#select-days option:selected');
+        if (campaignDays.length == 1) {
+        	Materialize.toast("Please select atleast one campaign day.", 5000);
+        	return false;
+        }
+
+        for (var i = 1; i < campaignDays.length; i++) {
+        	campaignDaysValue += parseInt(campaignDays[i].value);
+        }
+
+        $('#campaignDays').val(campaignDaysValue);
 
         $('#StartDate').val($('#startDateEle').val() + ' ' + $('#startTimeEle').val());
 

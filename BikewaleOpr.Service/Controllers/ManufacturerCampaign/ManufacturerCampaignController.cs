@@ -1,4 +1,5 @@
-﻿using Bikewale.ManufacturerCampaign.Entities;
+﻿using Bikewale.ManufacturerCampaign.DTO.SearchCampaign;
+using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Entities.SearchCampaign;
 using Bikewale.Notifications;
 using BikewaleOpr.BAL.ContractCampaign;
@@ -69,7 +70,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        [ResponseType(typeof(IEnumerable<ManufacturerCampaignDetailsList>)), Route("api/v2/campaigns/manufacturer/search/dealerId/{dealerId}/allActiveCampaign/{allActiveCampaign}")]
+        [ResponseType(typeof(IEnumerable<ManufacturerCampaignDetailsDTO>)), Route("api/v2/campaigns/manufacturer/search/dealerId/{dealerId}/allActiveCampaign/{allActiveCampaign}")]
         public IHttpActionResult GetCampaignsV2(uint dealerId, uint allActiveCampaign)
         {
             IEnumerable<ManufacturerCampaignDetailsList> _objMfgList = null;
@@ -78,7 +79,6 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
                 if (dealerId > 0)
                 {
                     _objMfgList = _objManufacturerCampaign.GetManufactureCampaigns(dealerId, allActiveCampaign);
-
                     return Ok(SearchMapper.Convert(_objMfgList));
                 }
                 else
