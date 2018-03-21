@@ -2,7 +2,8 @@
     string staticUrlPath = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFilesVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
 </script>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<link href="<%String.Format("{0}/m/css/fontcss/OpenSans/latin400.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)%>"rel="stylesheet" type="text/css" " />
+<link href="<%String.Format("{0}/m/css/fontcss/OpenSans/latin700.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)%>"rel="stylesheet" type="text/css" " />
 <link rel="stylesheet" href="<%=  staticUrlPath%>/m/css/jquery.mobile-1.4.2.min.css?v=2.0" />
 <link rel="stylesheet" href="/m/css/style.css?<%= staticFilesVersion%>" />
 <link rel="stylesheet"  href="/m/css/design.css?<%= staticFilesVersion%>" />

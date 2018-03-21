@@ -5,7 +5,10 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 
-<link href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700" rel="stylesheet">
+<link href="@String.Format("{0}/m/css/fontcss/Oxygen/latin300.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
+<link href="@String.Format("{0}/m/css/fontcss/Oxygen/latin400.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
+<link href="@String.Format("{0}/m/css/fontcss/Oxygen/latin700.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
+
 
 <section class="font-oxygen">
     <div class="container contest-banner-container card-bottom-margin">
