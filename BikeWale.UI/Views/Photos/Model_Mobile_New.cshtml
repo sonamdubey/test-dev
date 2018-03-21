@@ -1,4 +1,4 @@
-﻿@model Bikewale.Models.Photos.PhotosPageVM
+﻿    @model Bikewale.Models.Photos.PhotosPageVM
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/colours-popup.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/videos-popup.css' />";
@@ -28,7 +28,7 @@
                         <div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
-                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageCategory, title: MODEL_NAME + ' ' + ImageCategory, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                                 </div>
                             </div>
                             <div class="swiper--next gallery__next"></div>
