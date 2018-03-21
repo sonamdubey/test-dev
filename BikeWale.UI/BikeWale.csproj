@@ -2827,6 +2827,10 @@
     <Content Include="m\css\fonts\open-sans-v15-latin-700.svg" />
     <Content Include="m\css\fonts\open-sans-v15-latin-800.svg" />
     <Content Include="m\css\fonts\open-sans-v15-latin-regular.svg" />
+    <Content Include="m\css\fonts\OpenSans\latin400.css" />
+    <Content Include="m\css\fonts\OpenSans\latin600.css" />
+    <Content Include="m\css\fonts\OpenSans\latin700.css" />
+    <Content Include="m\css\fonts\OpenSans\latin800.css" />
     <Content Include="m\css\fonts\WebRupee.V2.0.svg" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\insurance.css" />
@@ -3486,7 +3490,7 @@
     <Content Include="m\css\fonts\open-sans-v15-latin-600.eot" />
     <Content Include="m\css\fonts\open-sans-v15-latin-600.ttf" />
     <Content Include="m\css\fonts\open-sans-v15-latin-600.woff" />
-    <Content Include="m\css\fonts\open-sans-v15-latin-600.woff2" />
+    <None Include="m\css\fonts\open-sans-v15-latin-600.woff2" />
     <Content Include="m\css\fonts\open-sans-v15-latin-700.eot" />
     <Content Include="m\css\fonts\open-sans-v15-latin-700.ttf" />
     <Content Include="m\css\fonts\open-sans-v15-latin-700.woff" />
@@ -4106,7 +4110,7 @@
     <Content Include="Views\ExpertReviews\Index_Mobile_Pwa.cshtml" />
     <Content Include="Views\ExpertReviews\Detail_Mobile_Pwa.cshtml" />
     <Content Include="Views\AdTest\Index.cshtml" />
-	<Content Include="Views\AdTest\Index_Mobile.cshtml" />
+    <Content Include="Views\AdTest\Index_Mobile.cshtml" />
     <Content Include="Views\Filters\InPageFilters\_InPageMinSpecsFilters_Mobile.cshtml" />
     <Content Include="sass\partials\photo-grid-carousel.sass" />
     <Content Include="Views\Filters\InPageFilters\_InPageBudgetFilter_Mobile.cshtml" />
