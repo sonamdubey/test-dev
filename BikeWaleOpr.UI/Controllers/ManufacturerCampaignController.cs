@@ -20,11 +20,13 @@ namespace BikewaleOpr.Controllers
 
         private IManufacturerCampaignRepository _manufacurerCampaignRepo;
         private IContractCampaign _contractCampaign;
+        private readonly IManufacturerCampaign _manufacturerCampaign;
 
-        public ManufacturerCampaignController(IManufacturerCampaignRepository manufacurerCampaignRepo, IContractCampaign contractCampaign)
+        public ManufacturerCampaignController(IManufacturerCampaignRepository manufacurerCampaignRepo, IContractCampaign contractCampaign, IManufacturerCampaign manufacturerCampaign)
         {
             _manufacurerCampaignRepo = manufacurerCampaignRepo;
             _contractCampaign = contractCampaign;
+            _manufacturerCampaign = manufacturerCampaign;
         }
 
         /// <summary>
@@ -82,6 +84,8 @@ namespace BikewaleOpr.Controllers
 
                     CWWebservice.AddCampaignContractData(ccInputs);
                 }
+
+                _manufacturerCampaign.ClearCampaignCache(campaignId);
                 return Redirect(string.Format("/manufacturercampaign/properties/{0}/?campaignId={1}", objData.DealerId, campaignId));
             }
             return RedirectToAction("ConfigureCampaign", routeValues: new { dealerId = objData.DealerId });
@@ -111,6 +115,7 @@ namespace BikewaleOpr.Controllers
         {
             ConfigurePropertiesModel objvm = new ConfigurePropertiesModel(campaignId, model, _manufacurerCampaignRepo);
             objvm.SaveData(model);
+            _manufacturerCampaign.ClearCampaignCache(campaignId);
             return Redirect("/manufacturercampaign/popup/" + dealerId + "/?campaignId=" + campaignId);
         }
 
@@ -132,6 +137,7 @@ namespace BikewaleOpr.Controllers
             if (objData != null)
             {
                 _manufacurerCampaignRepo.saveManufacturerCampaignPopup(objData);
+                _manufacturerCampaign.ClearCampaignCache(objData.CampaignId);
             }
             return Redirect("/manufacturercampaign/rules/campaignId/" + objData.CampaignId + "?dealerId=" + objData.DealerId);
         }
@@ -165,7 +171,10 @@ namespace BikewaleOpr.Controllers
             bool isSuccess = false;
             isSuccess = _manufacurerCampaignRepo.SaveManufacturerCampaignRules(campaignId, modelIds, stateIds, cityIds, isAllIndia, userId);
             if (isSuccess)
+            {
                 TempData["msg"] = "Rules added successfully!";
+                _manufacturerCampaign.ClearCampaignCache(campaignId, modelIds.Split(','), cityIds.Split(','));
+            }
             else
                 TempData["msg"] = "Could not add rules.";
             return RedirectToAction("ManufacturerCampaignRules", routeValues: new { campaignId = campaignId, dealerId = dealerId });

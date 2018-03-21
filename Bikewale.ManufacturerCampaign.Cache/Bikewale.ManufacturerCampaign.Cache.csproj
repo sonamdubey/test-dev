@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FD9B192F-137E-40CF-8AC8-623AB79C6C53}</ProjectGuid>
+    <ProjectGuid>{A00B0A07-EB13-4B08-8089-6ED33B9896FE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bikewale.ManufacturerCampaign.Interface</RootNamespace>
-    <AssemblyName>Bikewale.ManufacturerCampaign.Interface</AssemblyName>
+    <RootNamespace>Bikewale.ManufacturerCampaign.Cache</RootNamespace>
+    <AssemblyName>Bikewale.ManufacturerCampaign.Cache</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,15 +29,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
-    <OutputPath>bin\Staging\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,28 +36,32 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IManufacturerCampaign.cs" />
-    <Compile Include="IManufacturerCampaignCache.cs" />
-    <Compile Include="IManufacturerCampaignRepository.cs" />
+    <Compile Include="ManufacturerCampaignCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
+      <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
+      <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
+      <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>
+      <Name>Bikewale.ManufacturerCampaign.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
       <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
-      <Project>{CAF758ED-4954-4BE3-BE15-345DBC891970}</Project>
-      <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
-      <Name>BikewaleOpr.Entity</Name>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Interface\Bikewale.ManufacturerCampaign.Interface.csproj">
+      <Project>{fd9b192f-137e-40cf-8ac8-623ab79c6c53}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BikewaleOpr.Models\BikewaleOpr.Models.csproj">
-      <Project>{D41DA250-C329-4956-ABAC-17B9B1E53880}</Project>
-      <Name>BikewaleOpr.Models</Name>
+    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
+      <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
+      <Name>Bikewale.Notifications</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

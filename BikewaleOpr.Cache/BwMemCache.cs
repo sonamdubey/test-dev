@@ -466,5 +466,10 @@ namespace BikewaleOpr.Cache
         }
 
 
+        public static void ClearManufacturerCampaign(IEnumerable<string> keys)
+        {
+            MemCachedUtil.Remove(keys);
+        }
+
     }
 }

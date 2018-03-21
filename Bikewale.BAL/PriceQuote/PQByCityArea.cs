@@ -59,6 +59,7 @@ namespace Bikewale.BAL.PriceQuote
                 container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
                 container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaignRepository>();
                 container.RegisterType<IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
+                container.RegisterType<IManufacturerCampaignCache, Bikewale.ManufacturerCampaign.Cache.ManufacturerCampaignCache>();
                 container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
 
                 objcity = container.Resolve<ICityCacheRepository>();
