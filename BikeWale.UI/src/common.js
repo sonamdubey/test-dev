@@ -1231,7 +1231,7 @@ docReady(function () {
             if (!this.options.trendingSearchesLoaded) {
                 if (trendingBikes) {
                     html = '<li data-makeid="0" data-modelid="0" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="Trending_Searches_TrackDay_Clicked">\
-                            <span class="trending-searches"></span><a href="https://staging.bikewale.com/featured/trackday-2018/" data-href="https://staging.bikewale.com/featured/trackday-2018/">Track Day 2018</a>';
+                            <span class="trending-searches"></span><a href="javascript:void(0)" data-href="/featured/trackday-2018/">Track Day 2018</a>';
                     for (var index in trendingBikes) {
                         item = trendingBikes[index];
                         html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName + '"><span class="trending-searches"></span><a href="javascript:void(0)" data-href="/'
