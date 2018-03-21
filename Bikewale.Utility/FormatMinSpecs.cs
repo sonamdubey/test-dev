@@ -4,8 +4,7 @@ namespace Bikewale.Utility
 {
 	public static class FormatMinSpecs
 	{
-        public static string notAvaliableText = "-";
-        public static string notAvaliableDisplayText = "--"; 
+
 		public static string GetMinSpecsAsLiElement(string displacement, string fuelEffecient, string maxpower, string weight)
 		{
 			string str = String.Empty;
@@ -243,8 +242,6 @@ namespace Bikewale.Utility
 		/// <summary>
 		/// Written By : Lucky Rathore On 23 Sept 2015
 		/// Summary : Function to format the availability and append respective unit.
-        /// Modified By : Rajan Chauhan on 20 Mar 2018
-        /// Description : Added notAvaliableText check for present microservice
 		/// </summary>
 		/// <param name="value">Value to be checked whether available or not.</param>
 		/// <param name="unit">unit of respective value e.g. cc, kg.</param>
@@ -253,9 +250,9 @@ namespace Bikewale.Utility
 		{
 			string showValue = string.Empty;
 
-			if (String.IsNullOrEmpty(value) || value.Equals(notAvaliableText))
+			if (String.IsNullOrEmpty(value))
 			{
-				showValue = notAvaliableDisplayText;
+				showValue = "--";
 			}
 			else
 			{

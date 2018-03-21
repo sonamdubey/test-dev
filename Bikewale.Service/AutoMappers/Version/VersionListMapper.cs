@@ -79,35 +79,37 @@ namespace Bikewale.Service.AutoMappers.Version
         /// <returns></returns>
         internal static List<Bikewale.DTO.Model.Specs> Convert(IEnumerable<SpecsFeaturesItem> specFeatureItemList)
         {
-            List<Bikewale.DTO.Model.Specs> specsList = new List<Bikewale.DTO.Model.Specs>();
+            
             try
             {
                 if (specFeatureItemList != null)
                 {
-                    foreach (SpecsFeaturesItem featureItem in specFeatureItemList)
+                    List<Bikewale.DTO.Model.Specs> specsList = new List<Bikewale.DTO.Model.Specs>();
+                    foreach (SpecsFeaturesItem specFeatureItem in specFeatureItemList)
                     {
-                        string itemValue = featureItem.ItemValues.FirstOrDefault();
-                        itemValue = String.IsNullOrEmpty(itemValue) || itemValue.Equals(FormatMinSpecs.notAvaliableText) ?
-                            FormatMinSpecs.notAvaliableDisplayText : itemValue + (String.IsNullOrEmpty(featureItem.UnitTypeText) ? "" : " " + featureItem.UnitTypeText);
+                        string itemValue = specFeatureItem.ItemValues.FirstOrDefault();
+                        itemValue = String.IsNullOrEmpty(itemValue) ? "--" : itemValue + " " + specFeatureItem.UnitTypeText;
                         specsList.Add(new Bikewale.DTO.Model.Specs()
                         {
-                            DisplayText = featureItem.DisplayText,
+                            DisplayText = specFeatureItem.DisplayText,
                             DisplayValue = itemValue
                         });
                     }
+                    return specsList;
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.AutoMappers.Version.VersionListMapper.Convert( IEnumerable<SpecsFeaturesItem> {0})", specFeatureItemList));
+                ErrorClass.LogError(ex, String.Format("Bikewale.Service.AutoMappers.Version.VersionListMapper.Convert( IEnumerable<SpecsFeaturesItem> {0})", specFeatureItemList));
             }
-            return specsList;
+            return null;
         }
 
         /// <summary>
         /// Created by : Ashutosh Sharma on 26 Dec 2017
         /// Description : Method to map specs and features of a version.
-        /// Modified by : Rajan Chauhan on 20 Mar 2018 
+        /// Modified by : Rajan Chauhan on 20 Mar 2018
+        /// Description : Convert SpecsFeaturesEntity to VersionSpecs
         /// </summary>
         /// <param name="modelSpecEntity">Entity with specs and features of a version.</param>
         /// <returns>DTO with specs and features of a version.</returns>
@@ -150,7 +152,7 @@ namespace Bikewale.Service.AutoMappers.Version
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.AutoMappers.Version.VersionListMapper.Convert( SpecsFeaturesEntity {0})", modelSpecEntity));
+                ErrorClass.LogError(ex, String.Format("Bikewale.Service.AutoMappers.Version.VersionListMapper.Convert( SpecsFeaturesEntity {0})", modelSpecEntity));
             }
             
             return verisonSpecs;
