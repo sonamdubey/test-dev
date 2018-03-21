@@ -31,6 +31,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by  :   Sumit Kate on 28 Mar 2017
     /// Description :   PriceInCityPage model
+    /// Modified by :   Sanskar Gupta on 21 Mar 2018
+    /// Description :   Added `AdPath_Mobile` and `AdId_Mobile`
     /// </summary>
     public class PriceInCityPage
     {
@@ -70,6 +72,9 @@ namespace Bikewale.Models
         private GlobalCityAreaEntity locationCookie = null;
         private readonly IAdSlot _adSlot = null;
         private BikeSeriesEntityBase Series;
+
+        private readonly String AdPath_Mobile = "/1017752/Bikewale_CityPrice_Mobile";
+        private readonly String AdId_Mobile = "1516080888816";
 
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
@@ -473,6 +478,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Ashutosh Sharma on 13 Nov 2017
         /// Description : Bind ad slot to adtags.
+        /// Modified by : Sanskar Gupta on 21 Mar 2018
+        /// Description : Added New way of loading the Ads for Mobile.
         /// </summary>
         private void BindAdSlotTags(PriceInCityPageVM objVM)
         {
@@ -482,7 +489,76 @@ namespace Bikewale.Models
                 {
                     objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399"); //For similar bikes widget desktop
                     objVM.AdTags.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
+
+                    if (IsMobile)
+                    {
+                        AdTags AdTagsMobile = new AdTags
+                        {
+                            AdPath = AdPath_Mobile,
+                            AdId = AdId_Mobile,
+                            Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile,
+                            Ad_300x250 = true,
+                            Ad_Bot_320x50 = true
+                        };
+
+                        objVM.AdTags.AdPath = AdPath_Mobile;
+                        objVM.AdTags.AdId = AdId_Mobile;
+                        objVM.AdTags.Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile;
+                        objVM.AdTags.Ad_300x250 = true;
+                        objVM.AdTags.Ad_Bot_320x50 = true;
+
+
+                        IList<AdSlotModel> ads = new List<AdSlotModel>();
+
+                        ads.Add(new AdSlotModel("[320, 50]")
+                        {
+                            AdId = AdId_Mobile,
+                            AdPath = AdPath_Mobile,
+                            DivId = 0,
+                            Width = 320,
+                            LoadImmediate = true,
+                            Position = "Top",
+                            Size = AdSlotSize._320x50
+
+                        });
+                        ads.Add(new AdSlotModel("[300, 250]")
+                        {
+                            AdId = AdId_Mobile,
+                            AdPath = AdPath_Mobile,
+                            DivId = 2,
+                            Width = 300,
+                            LoadImmediate = false,
+                            Size = AdSlotSize._300x250
+
+                        });
+                        ads.Add(new AdSlotModel("[320, 50]")
+                        {
+                            AdId = AdId_Mobile,
+                            AdPath = AdPath_Mobile,
+                            DivId = 1,
+                            Width = 320,
+                            LoadImmediate = false,
+                            Position = "Bottom",
+                            Size = AdSlotSize._320x50
+
+                        });
+                        ads.Add(new AdSlotModel("[200, 253]")
+                        {
+                            AdId = "1505919734321",
+                            AdPath = AdPath_Mobile,
+                            DivId = 11,
+                            Width = 200,
+                            LoadImmediate = false,
+                            Size = AdSlotSize._200x253
+
+                        });
+
+                        objVM.AdSlots = ads;
+                       
+                    }
+
                 }
+
             }
             catch (Exception ex)
             {
