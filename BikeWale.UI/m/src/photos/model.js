@@ -117,6 +117,7 @@
 			}
 
 			$('#galleryLoader').show();
+			logBhrighu = false;
 			vmModelGallery.openGalleryPopup();
 			$('#galleryLoader').hide();
 			mainGallerySwiper.slideTo(imageIndex);
