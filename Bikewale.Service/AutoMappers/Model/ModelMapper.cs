@@ -173,9 +173,9 @@ namespace Bikewale.Service.AutoMappers.Model
         /// </summary>
         /// <param name="specFeatureItemList"></param>
         /// <returns></returns>
-        internal static List<Bikewale.DTO.Model.Specs> Convert(IEnumerable<SpecsFeaturesItem> specFeatureItemList)
+        internal static IEnumerable<DTO.Model.Specs> Convert(IEnumerable<SpecsFeaturesItem> specFeatureItemList)
         {
-            List<Bikewale.DTO.Model.Specs> specsList = null;
+            IList<DTO.Model.Specs> specsList = null;
             try
             {
                 if (specFeatureItemList != null)
@@ -184,7 +184,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     foreach (SpecsFeaturesItem specsFeaturesItem in specFeatureItemList)
                     {
                         string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.ItemValues.FirstOrDefault(), specsFeaturesItem.UnitTypeText);
-                        specsList.Add(new Bikewale.DTO.Model.Specs()
+                        specsList.Add(new DTO.Model.Specs()
                         {
                             DisplayText = specsFeaturesItem.DisplayText,
                             DisplayValue = itemValue
@@ -207,7 +207,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// </summary>
         /// <param name="objModelPage">object of BikeModelPageEntity</param>
         /// <returns>BikeSpecs DTO</returns>
-        internal static BikeSpecs ConvertToBikeSpecs(BikeModelPageEntity objModelPage, Entities.PriceQuote.PQByCityAreaEntity pqEntity)
+        internal static BikeSpecs ConvertToBikeSpecs(BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity)
         {
             try
             {
@@ -215,24 +215,24 @@ namespace Bikewale.Service.AutoMappers.Model
                 Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
                 Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
                 Mapper.CreateMap<BikeDescriptionEntity, ModelDescription>();
-                Mapper.CreateMap<Bikewale.Entities.BikeData.BikeModelEntity, ModelDetails>();
+                Mapper.CreateMap<BikeModelEntity, ModelDetails>();
                 Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
                 Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
-                Mapper.CreateMap<BikeVersionMinSpecs, Bikewale.DTO.Model.v3.VersionDetail>();
+                Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
                 Mapper.CreateMap<BikeModelPageEntity, BikeSpecs>();
                 Mapper.CreateMap<NewBikeModelColor, NewModelColor>();
                 Mapper.CreateMap<BikeDescriptionEntity, BikeDiscription>();
                 Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
-                Mapper.CreateMap<Bikewale.Entities.BikeData.Specs, Bikewale.DTO.Model.Specs>();
-                Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.v2.SpecsCategory>();
+                Mapper.CreateMap<Entities.BikeData.Specs, DTO.Model.Specs>();
+                Mapper.CreateMap<Entities.BikeData.SpecsCategory, DTO.Model.v2.SpecsCategory>();
 
-                List<DTO.Model.Specs> featuresList = null;
-                List<DTO.Model.v2.SpecsCategory> specsCategory = null;
+                IEnumerable<DTO.Model.Specs> featuresList = null;
+                IList<DTO.Model.v2.SpecsCategory> specsCategory = null;
                 if (objModelPage != null && objModelPage.VersionSpecsFeatures != null)
                 {
                     if (objModelPage.VersionSpecsFeatures.Features != null)
                     {
-                        featuresList = new List<DTO.Model.Specs>(Convert(objModelPage.VersionSpecsFeatures.Features));
+                        featuresList = Convert(objModelPage.VersionSpecsFeatures.Features);
                     }
                     if (objModelPage.VersionSpecsFeatures.Specs != null)
                     {
