@@ -1830,7 +1830,7 @@ docReady(function () {
 
             if (!this.options.trendingSearchesLoaded) {
                 if (trendingBikes) {
-                    html = '<li data-makeid="0" data-modelid="0" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="Trending_Searches_TrackDay_Clicked">\
+                    html = '<li data-makeid="0" data-modelid="0" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="Track Day 2018">\
                             <span class="trending-searches"></span><a href="/featured/trackday-2018/" data-href="/featured/trackday-2018/">Track Day 2018</a>';
                     for (var index in trendingBikes) {
                         item = trendingBikes[index];
