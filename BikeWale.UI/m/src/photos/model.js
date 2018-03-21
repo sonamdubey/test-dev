@@ -107,17 +107,17 @@
 
 			var imageIndex = $(this).index();
 
+			
 			if(!$(this).closest('#imageGridTop').length) {
 				imageIndex += $('#imageGridTop .image-grid-list__item').length;
 			}
-
-			if (typeof (logBhrighuForImage) != "undefined" && imageIndex <= 0) {
-				//included in gallery js
-				logBhrighuForImage($(this));
+			var activeIndex = vmModelGallery.activeIndex() - 1;
+			if (activeIndex != imageIndex) {
+			    logBhrighu = false;
 			}
 
 			$('#galleryLoader').show();
-			logBhrighu = false;
+			
 			vmModelGallery.openGalleryPopup();
 			$('#galleryLoader').hide();
 			mainGallerySwiper.slideTo(imageIndex);
