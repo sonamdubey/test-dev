@@ -2099,6 +2099,14 @@
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.BAL\Bikewale.ManufacturerCampaign.BAL.csproj">
+      <Project>{5d58150b-55aa-4220-be98-5aca515ced8c}</Project>
+      <Name>Bikewale.ManufacturerCampaign.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Cache\Bikewale.ManufacturerCampaign.Cache.csproj">
+      <Project>{a00b0a07-eb13-4b08-8089-6ed33b9896fe}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
       <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>
       <Name>Bikewale.ManufacturerCampaign.DAL</Name>

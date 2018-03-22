@@ -1,4 +1,5 @@
 ﻿using Bikewale.ManufacturerCampaign.Entities;
+using System.Collections.Generic;
 
 namespace Bikewale.ManufacturerCampaign.Interface
 {
@@ -9,6 +10,8 @@ namespace Bikewale.ManufacturerCampaign.Interface
     public interface IManufacturerCampaign
     {
         ManufacturerCampaignEntity GetCampaigns(uint modelId, uint cityId, ManufacturerCampaignServingPages pageId);
-        bool SaveManufacturerIdInPricequotes(uint pqId,uint dealerId);
+        bool SaveManufacturerIdInPricequotes(uint pqId, uint dealerId);
+        bool ClearCampaignCache(uint campaignId);
+        bool ClearCampaignCache(uint campaignId, IEnumerable<string> modelIds, IEnumerable<string> cityIds);
     }
 }

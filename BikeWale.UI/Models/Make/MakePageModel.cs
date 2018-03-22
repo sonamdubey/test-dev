@@ -75,8 +75,11 @@ namespace Bikewale.Models
         public uint TopCountNews { get; set; }
         public uint TopCountExpertReviews { get; set; }
 
-        private readonly String AdPath_Old = "/1017752/Bikewale_Mobile_Make";
-        private readonly String AdId_Old = "1444028878952";
+        private readonly String AdPath_Mobile_Old = "/1017752/Bikewale_Mobile_Make";
+        private readonly String AdId_Mobile_Old = "1444028878952";
+        private readonly String AdPath_Mobile_New = "/1017752/Bikewale_Mobile_Make";
+        private readonly String AdId_Mobile_New = "1519729632700";
+        
 
         public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters)
         {
@@ -1024,37 +1027,95 @@ namespace Bikewale.Models
         /// <param name="objData"></param>
         private void BindAdSlots(MakePageVM objData, bool isNewPage)
         {
-            if (!isNewPage)
+            if (IsMobile)
             {
-                objData.AdTags.AdPath = AdPath_Old;
-                objData.AdTags.AdId = AdId_Old;
-                objData.AdTags.Ad_320x50 = true;
-                objData.AdTags.Ad_300x250 = true;
-
-                IList<AdSlotModel> ads = new List<AdSlotModel>();
-                ads.Add(new AdSlotModel("[320, 50]")
+                if (!isNewPage)
                 {
-                    AdId = AdId_Old,
-                    AdPath = AdPath_Old,
-                    DivId = 0,
-                    Width = 320,
-                    LoadImmediate = true,
-                    Position = "Top",
-                    Size = AdSlotSize._320x50
-                });
+                    objData.AdTags.AdPath = AdPath_Mobile_Old;
+                    objData.AdTags.AdId = AdId_Mobile_Old;
+                    objData.AdTags.Ad_320x50 = true;
+                    objData.AdTags.Ad_300x250 = true;
 
+                    IList<AdSlotModel> ads = new List<AdSlotModel>();
+                    ads.Add(new AdSlotModel("[320, 50]")
+                    {
+                        AdId = AdId_Mobile_Old,
+                        AdPath = AdPath_Mobile_Old,
+                        DivId = 0,
+                        Width = 320,
+                        LoadImmediate = true,
+                        Position = "Top",
+                        Size = AdSlotSize._320x50
+                    });
 
-                ads.Add(new AdSlotModel("[300, 250]")
+                    ads.Add(new AdSlotModel("[300, 250]")
+                    {
+                        AdId = AdId_Mobile_Old,
+                        AdPath = AdPath_Mobile_Old,
+                        DivId = 2,
+                        Width = 300,
+                        LoadImmediate = false,
+                        Size = AdSlotSize._300x250
+                    });
+
+                    objData.AdSlots = ads;
+                }
+                else
                 {
-                    AdId = AdId_Old,
-                    AdPath = AdPath_Old,
-                    DivId = 2,
-                    Width = 300,
-                    LoadImmediate = false,
-                    Size = AdSlotSize._300x250
-                });
+                    objData.AdTags.AdId = AdId_Mobile_New;
+                    objData.AdTags.AdPath = AdPath_Mobile_New;
+                    objData.AdTags.Ad_320x100_Top = true;
+                    objData.AdTags.Ad_300x250_Top = true;
+                    objData.AdTags.Ad_300x250_Middle = true;
+                    objData.AdTags.Ad_300x250_Bottom = true;
 
-                objData.AdSlots = ads;
+                    IList<AdSlotModel> ads = new List<AdSlotModel>();
+                    ads.Add(new AdSlotModel(new String[] { "[320, 100]", "[320, 50]" })
+                    {
+                        AdId = AdId_Mobile_New,
+                        AdPath = AdPath_Mobile_New,
+                        DivId = 3,
+                        Width = 320,
+                        LoadImmediate = true,
+                        Position = "Top",
+                        Size = AdSlotSize._320x100
+                    });
+
+                    ads.Add(new AdSlotModel("[300, 250]")
+                    {
+                        AdId = AdId_Mobile_New,
+                        AdPath = AdPath_Mobile_New,
+                        DivId = 1,
+                        Width = 300,
+                        LoadImmediate = false,
+                        Position = "Top",
+                        Size = AdSlotSize._300x250
+                    });
+
+                    ads.Add(new AdSlotModel("[300, 250]")
+                    {
+                        AdId = AdId_Mobile_New,
+                        AdPath = AdPath_Mobile_New,
+                        DivId = 2,
+                        Width = 300,
+                        LoadImmediate = false,
+                        Position = "Middle",
+                        Size = AdSlotSize._300x250
+                    });
+
+                    ads.Add(new AdSlotModel("[300, 250]")
+                    {
+                        AdId = AdId_Mobile_New,
+                        AdPath = AdPath_Mobile_New,
+                        DivId = 0,
+                        Width = 300,
+                        LoadImmediate = false,
+                        Position = "Bottom",
+                        Size = AdSlotSize._300x250
+                    });
+
+                    objData.AdSlots = ads;
+                } 
             }
         }
     }
