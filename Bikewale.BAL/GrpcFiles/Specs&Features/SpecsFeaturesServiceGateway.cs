@@ -97,5 +97,89 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             }
             return null;
         }
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 22 Mar 2018
+        /// Summary     : To get List of versionMinSpecs when given input 
+        /// </summary>
+        /// <param name="numberOfVersions"></param>
+        /// <returns></returns>
+        public static IEnumerable<VersionMinSpecsEntity> GetVersionMinSpecs(int numberOfVersions)
+        {
+            try
+            {
+                
+                CallAggregator ca = new CallAggregator();
+                ca.AddCall(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "VersionsDataByItemIds", new VersionsDataByItemIdsRequest
+                {
+                    ItemIds = { new List<int> { 6, 14, 12, 249, 250 } },
+                    VersionIds = { Enumerable.Range(5000, numberOfVersions).ToList() },
+                    ApplicationId = 1
+                });
+                var apiData = ca.GetResultsFromGateway();
+                if (apiData != null && apiData.OutputMessages != null && apiData.OutputMessages.Count > 0)
+                {
+                    return ConvertToBWVersionMinSpecsList(Utilities.ConvertBytesToMsg<VersionItemsDataResponse>(apiData.OutputMessages[0].Payload));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.GetMinSpecs");
+            }
+            return null;
+        }
+
+        private static IEnumerable<VersionMinSpecsEntity> ConvertToBWVersionMinSpecsList(VersionItemsDataResponse vehicleItemsDataResponse)
+        {
+            try
+            {
+                if (vehicleItemsDataResponse != null)
+                {
+                    IList<VersionMinSpecsEntity>  versionMinSpecsList = new List<VersionMinSpecsEntity>();
+                    foreach (var versionItemsData in vehicleItemsDataResponse.VersionItemsDataList)
+                    {
+                        versionMinSpecsList.Add(new VersionMinSpecsEntity
+                        {
+                            VersionId = versionItemsData.Id,
+                            MinSpecsList = ConvertToBWMinSpecsList(versionItemsData.ItemList)
+                        });
+                    }
+
+                    return versionMinSpecsList;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.ConvertToBWVersionMinSpecsList");
+            }
+            return null;
+        }
+
+        private static IEnumerable<SpecsItem> ConvertToBWMinSpecsList(RepeatedField<ItemData> itemDataList)
+        {
+            IList<SpecsItem> specItemList = null;
+            try
+            {
+                if (itemDataList != null)
+                {
+                    specItemList = new List<SpecsItem>();
+                    foreach (var itemData in itemDataList)
+                    {
+                        specItemList.Add(new SpecsItem
+                        {
+                            Id = itemData.ItemId,
+                            Icon = itemData.Icon,
+                            Name = itemData.ItemName,
+                            Value = itemData.Value,
+                            UnitType = itemData.UnitType
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.ConvertToBWMinSpecsList");
+            }
+            return specItemList;
+        }
     }
 }

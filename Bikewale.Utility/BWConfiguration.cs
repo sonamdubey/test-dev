@@ -144,7 +144,7 @@ namespace Bikewale.Utility
         private readonly uint _CapitalFirstDealerId;
         private readonly ushort _MakePageOnRoadPriceBtnPct;
         private readonly string _CarTradeLeadUrl, _CarTradeLeadApiAction, _CarTradeLeadApiCode;
-        private readonly string _EditCMSModuleName, _SpecsFeaturesServiceModuleName;
+        private readonly string _EditCMSModuleName, _SpecsFeaturesServiceModuleName = String.Empty;
         private readonly int _minEnginePoolSize, _maxEnginePoolSize;
         private readonly bool _useV8Engine;
         private readonly int _pwaRenderedHtmlCacheLimitMins;

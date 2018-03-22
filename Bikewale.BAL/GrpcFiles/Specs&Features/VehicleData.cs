@@ -53,65 +53,75 @@ namespace VehicleData.Service.ProtoClass {
             "BRIVCg1BcHBsaWNhdGlvbklkGAMgASgFIlEKDFNwZWNzU3VtbWFyeRIOCgZJ",
             "dGVtSWQYASABKAUSEAoISXRlbU5hbWUYAiABKAkSDQoFVmFsdWUYAyABKAkS",
             "EAoIVW5pdFR5cGUYBCABKAkiQgoVTW9kZWxTcGVjc1N1bW1hcnlMaXN0EikK",
-            "BlZhbHVlcxgBIAMoCzIZLlZlaGljbGVEYXRhLlNwZWNzU3VtbWFyeSKPAQoQ",
-            "VmVoaWNsZURhdGFWYWx1ZRItCg5TcGVjaWZpY2F0aW9ucxgBIAMoCzIVLlZl",
-            "aGljbGVEYXRhLkNhdGVnb3J5EicKCEZlYXR1cmVzGAIgAygLMhUuVmVoaWNs",
-            "ZURhdGEuQ2F0ZWdvcnkSIwoIT3ZlcnZpZXcYAyADKAsyES5WZWhpY2xlRGF0",
-            "YS5JdGVtIj8KElZlaGljbGVEYXRhUmVxdWVzdBISCgpWZXJzaW9uSWRzGAEg",
-            "AygFEhUKDUFwcGxpY2F0aW9uSWQYAiABKAUypxIKElZlaGljbGVEYXRhU2Vy",
-            "dmljZRI/Cg5DcmVhdGVDYXRlZ29yeRIVLlZlaGljbGVEYXRhLkNhdGVnb3J5",
-            "GhQuVmVoaWNsZURhdGEuR3JwY0ludCIAEkAKDlVwZGF0ZUNhdGVnb3J5EhUu",
-            "VmVoaWNsZURhdGEuQ2F0ZWdvcnkaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIA",
-            "EkUKDkRlbGV0ZUNhdGVnb3J5EhouVmVoaWNsZURhdGEuRGVsZXRlUmVxdWVz",
-            "dBoVLlZlaGljbGVEYXRhLkdycGNCb29sIgASTAoWR2V0Q2F0ZWdvcnlEZXRh",
-            "aWxzQnlJZBIZLlZlaGljbGVEYXRhLklucHV0UmVxdWVzdBoVLlZlaGljbGVE",
-            "YXRhLkNhdGVnb3J5IgASVAoXR2V0QWxsQ2F0ZWdvcmllc0RldGFpbHMSHC5W",
-            "ZWhpY2xlRGF0YS5DYXRlZ29yeVJlcXVlc3QaGS5WZWhpY2xlRGF0YS5DYXRl",
-            "Z29yeUxpc3QiABI3CgpDcmVhdGVJdGVtEhEuVmVoaWNsZURhdGEuSXRlbRoU",
-            "LlZlaGljbGVEYXRhLkdycGNJbnQiABI4CgpVcGRhdGVJdGVtEhEuVmVoaWNs",
-            "ZURhdGEuSXRlbRoVLlZlaGljbGVEYXRhLkdycGNCb29sIgASQQoKRGVsZXRl",
-            "SXRlbRIaLlZlaGljbGVEYXRhLkRlbGV0ZVJlcXVlc3QaFS5WZWhpY2xlRGF0",
-            "YS5HcnBjQm9vbCIAEkQKEkdldEl0ZW1EZXRhaWxzQnlJZBIZLlZlaGljbGVE",
-            "YXRhLklucHV0UmVxdWVzdBoRLlZlaGljbGVEYXRhLkl0ZW0iABJTChRHZXRJ",
-            "dGVtc0J5Q2F0ZWdvcnlJZBIiLlZlaGljbGVEYXRhLkl0ZW1CeUNhdGVnb3J5",
-            "UmVxdWVzdBoVLlZlaGljbGVEYXRhLkl0ZW1MaXN0IgASSwoaR2V0QWxsSXRl",
-            "bXNCeUFwcGxpY2F0aW9uSWQSFC5WZWhpY2xlRGF0YS5HcnBjSW50GhUuVmVo",
-            "aWNsZURhdGEuSXRlbUxpc3QiABI/Cg5DcmVhdGVVbml0VHlwZRIVLlZlaGlj",
-            "bGVEYXRhLlVuaXRUeXBlGhQuVmVoaWNsZURhdGEuR3JwY0ludCIAEkAKDlVw",
-            "ZGF0ZVVuaXRUeXBlEhUuVmVoaWNsZURhdGEuVW5pdFR5cGUaFS5WZWhpY2xl",
-            "RGF0YS5HcnBjQm9vbCIAEj8KDkRlbGV0ZVVuaXRUeXBlEhQuVmVoaWNsZURh",
-            "dGEuR3JwY0ludBoVLlZlaGljbGVEYXRhLkdycGNCb29sIgASTgoWR2V0QWxs",
-            "VW5pdFR5cGVzRGV0YWlscxIXLlZlaGljbGVEYXRhLkVtcHR5UGFyYW0aGS5W",
-            "ZWhpY2xlRGF0YS5Vbml0VHlwZUxpc3QiABJLChRDcmVhdGVDdXN0b21EYXRh",
-            "VHlwZRIbLlZlaGljbGVEYXRhLkN1c3RvbURhdGFUeXBlGhQuVmVoaWNsZURh",
-            "dGEuR3JwY0ludCIAEkwKFFVwZGF0ZUN1c3RvbURhdGFUeXBlEhsuVmVoaWNs",
-            "ZURhdGEuQ3VzdG9tRGF0YVR5cGUaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIA",
-            "EkUKFERlbGV0ZUN1c3RvbURhdGFUeXBlEhQuVmVoaWNsZURhdGEuR3JwY0lu",
-            "dBoVLlZlaGljbGVEYXRhLkdycGNCb29sIgASWgocR2V0QWxsQ3VzdG9tRGF0",
-            "YVR5cGVzRGV0YWlscxIXLlZlaGljbGVEYXRhLkVtcHR5UGFyYW0aHy5WZWhp",
-            "Y2xlRGF0YS5DdXN0b21EYXRhVHlwZUxpc3QiABI/Cg5DcmVhdGVEYXRhVHlw",
-            "ZRIVLlZlaGljbGVEYXRhLkRhdGFUeXBlGhQuVmVoaWNsZURhdGEuR3JwY0lu",
-            "dCIAEkEKD1VwZGF0ZWREYXRhVHlwZRIVLlZlaGljbGVEYXRhLkRhdGFUeXBl",
-            "GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABI/Cg5EZWxldGVEYXRhVHlwZRIU",
-            "LlZlaGljbGVEYXRhLkdycGNJbnQaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIA",
-            "EkcKFkdldERhdGFUeXBlRGV0YWlsc0J5SWQSFC5WZWhpY2xlRGF0YS5HcnBj",
-            "SW50GhUuVmVoaWNsZURhdGEuRGF0YVR5cGUiABJNChVHZXRBbGxEYXRhVHlw",
-            "ZURldGFpbHMSFy5WZWhpY2xlRGF0YS5FbXB0eVBhcmFtGhkuVmVoaWNsZURh",
-            "dGEuRGF0YVR5cGVMaXN0IgASQQoPSW5zZXJ0SXRlbVZhbHVlEhYuVmVoaWNs",
-            "ZURhdGEuSXRlbVZhbHVlGhQuVmVoaWNsZURhdGEuR3JwY0ludCIAEkIKD1Vw",
-            "ZGF0ZUl0ZW1WYWx1ZRIWLlZlaGljbGVEYXRhLkl0ZW1WYWx1ZRoVLlZlaGlj",
-            "bGVEYXRhLkdycGNCb29sIgASVQoWR2V0SXRlbURhdGFCeVZlcnNpb25JZBId",
-            "LlZlaGljbGVEYXRhLkl0ZW1WYWx1ZVJlcXVlc3QaGi5WZWhpY2xlRGF0YS5W",
-            "YWx1ZURhdGFMaXN0IgASTwoPQ29weVZlaGljbGVEYXRhEiMuVmVoaWNsZURh",
-            "dGEuQ29weVZlaGljbGVEYXRhUmVxdWVzdBoVLlZlaGljbGVEYXRhLkdycGNC",
-            "b29sIgASXgoaR2V0VmVoaWNsZURhdGFGb3JWZXJzaW9uSWQSHy5WZWhpY2xl",
-            "RGF0YS5WZWhpY2xlRGF0YVJlcXVlc3QaHS5WZWhpY2xlRGF0YS5WZWhpY2xl",
-            "RGF0YVZhbHVlIgASYgoWR2V0VmVyc2lvblNwZWNzU3VtbWFyeRIgLlZlaGlj",
-            "bGVEYXRhLlNwZWNzU3VtbWFyeVJlcXVlc3QaJC5WZWhpY2xlRGF0YS5WZXJz",
-            "aW9uU3BlY3NTdW1tYXJ5TGlzdCIAEmMKFEdldE1vZGVsU3BlY3NTdW1tYXJ5",
-            "EiUuVmVoaWNsZURhdGEuTW9kZWxTcGVjc1N1bW1hcnlSZXF1ZXN0GiIuVmVo",
-            "aWNsZURhdGEuTW9kZWxTcGVjc1N1bW1hcnlMaXN0IgBCIaoCHlZlaGljbGVE",
-            "YXRhLlNlcnZpY2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
+            "BlZhbHVlcxgBIAMoCzIZLlZlaGljbGVEYXRhLlNwZWNzU3VtbWFyeSJaChxW",
+            "ZXJzaW9uc0RhdGFCeUl0ZW1JZHNSZXF1ZXN0EhUKDUFwcGxpY2F0aW9uSWQY",
+            "ASABKAUSEgoKVmVyc2lvbklkcxgCIAMoBRIPCgdJdGVtSWRzGAMgAygFIlsK",
+            "CEl0ZW1EYXRhEg4KBkl0ZW1JZBgBIAEoBRIQCghJdGVtTmFtZRgCIAEoCRIN",
+            "CgVWYWx1ZRgDIAEoCRIQCghVbml0VHlwZRgEIAEoCRIMCgRJY29uGAUgASgJ",
+            "IkcKEFZlcnNpb25JdGVtc0RhdGESCgoCSWQYASABKAUSJwoISXRlbUxpc3QY",
+            "AiADKAsyFS5WZWhpY2xlRGF0YS5JdGVtRGF0YSJXChhWZXJzaW9uSXRlbXNE",
+            "YXRhUmVzcG9uc2USOwoUVmVyc2lvbkl0ZW1zRGF0YUxpc3QYASADKAsyHS5W",
+            "ZWhpY2xlRGF0YS5WZXJzaW9uSXRlbXNEYXRhIo8BChBWZWhpY2xlRGF0YVZh",
+            "bHVlEi0KDlNwZWNpZmljYXRpb25zGAEgAygLMhUuVmVoaWNsZURhdGEuQ2F0",
+            "ZWdvcnkSJwoIRmVhdHVyZXMYAiADKAsyFS5WZWhpY2xlRGF0YS5DYXRlZ29y",
+            "eRIjCghPdmVydmlldxgDIAMoCzIRLlZlaGljbGVEYXRhLkl0ZW0iPwoSVmVo",
+            "aWNsZURhdGFSZXF1ZXN0EhIKClZlcnNpb25JZHMYASADKAUSFQoNQXBwbGlj",
+            "YXRpb25JZBgCIAEoBTKUEwoSVmVoaWNsZURhdGFTZXJ2aWNlEj8KDkNyZWF0",
+            "ZUNhdGVnb3J5EhUuVmVoaWNsZURhdGEuQ2F0ZWdvcnkaFC5WZWhpY2xlRGF0",
+            "YS5HcnBjSW50IgASQAoOVXBkYXRlQ2F0ZWdvcnkSFS5WZWhpY2xlRGF0YS5D",
+            "YXRlZ29yeRoVLlZlaGljbGVEYXRhLkdycGNCb29sIgASRQoORGVsZXRlQ2F0",
+            "ZWdvcnkSGi5WZWhpY2xlRGF0YS5EZWxldGVSZXF1ZXN0GhUuVmVoaWNsZURh",
+            "dGEuR3JwY0Jvb2wiABJMChZHZXRDYXRlZ29yeURldGFpbHNCeUlkEhkuVmVo",
+            "aWNsZURhdGEuSW5wdXRSZXF1ZXN0GhUuVmVoaWNsZURhdGEuQ2F0ZWdvcnki",
+            "ABJUChdHZXRBbGxDYXRlZ29yaWVzRGV0YWlscxIcLlZlaGljbGVEYXRhLkNh",
+            "dGVnb3J5UmVxdWVzdBoZLlZlaGljbGVEYXRhLkNhdGVnb3J5TGlzdCIAEjcK",
+            "CkNyZWF0ZUl0ZW0SES5WZWhpY2xlRGF0YS5JdGVtGhQuVmVoaWNsZURhdGEu",
+            "R3JwY0ludCIAEjgKClVwZGF0ZUl0ZW0SES5WZWhpY2xlRGF0YS5JdGVtGhUu",
+            "VmVoaWNsZURhdGEuR3JwY0Jvb2wiABJBCgpEZWxldGVJdGVtEhouVmVoaWNs",
+            "ZURhdGEuRGVsZXRlUmVxdWVzdBoVLlZlaGljbGVEYXRhLkdycGNCb29sIgAS",
+            "RAoSR2V0SXRlbURldGFpbHNCeUlkEhkuVmVoaWNsZURhdGEuSW5wdXRSZXF1",
+            "ZXN0GhEuVmVoaWNsZURhdGEuSXRlbSIAElMKFEdldEl0ZW1zQnlDYXRlZ29y",
+            "eUlkEiIuVmVoaWNsZURhdGEuSXRlbUJ5Q2F0ZWdvcnlSZXF1ZXN0GhUuVmVo",
+            "aWNsZURhdGEuSXRlbUxpc3QiABJLChpHZXRBbGxJdGVtc0J5QXBwbGljYXRp",
+            "b25JZBIULlZlaGljbGVEYXRhLkdycGNJbnQaFS5WZWhpY2xlRGF0YS5JdGVt",
+            "TGlzdCIAEj8KDkNyZWF0ZVVuaXRUeXBlEhUuVmVoaWNsZURhdGEuVW5pdFR5",
+            "cGUaFC5WZWhpY2xlRGF0YS5HcnBjSW50IgASQAoOVXBkYXRlVW5pdFR5cGUS",
+            "FS5WZWhpY2xlRGF0YS5Vbml0VHlwZRoVLlZlaGljbGVEYXRhLkdycGNCb29s",
+            "IgASPwoORGVsZXRlVW5pdFR5cGUSFC5WZWhpY2xlRGF0YS5HcnBjSW50GhUu",
+            "VmVoaWNsZURhdGEuR3JwY0Jvb2wiABJOChZHZXRBbGxVbml0VHlwZXNEZXRh",
+            "aWxzEhcuVmVoaWNsZURhdGEuRW1wdHlQYXJhbRoZLlZlaGljbGVEYXRhLlVu",
+            "aXRUeXBlTGlzdCIAEksKFENyZWF0ZUN1c3RvbURhdGFUeXBlEhsuVmVoaWNs",
+            "ZURhdGEuQ3VzdG9tRGF0YVR5cGUaFC5WZWhpY2xlRGF0YS5HcnBjSW50IgAS",
+            "TAoUVXBkYXRlQ3VzdG9tRGF0YVR5cGUSGy5WZWhpY2xlRGF0YS5DdXN0b21E",
+            "YXRhVHlwZRoVLlZlaGljbGVEYXRhLkdycGNCb29sIgASRQoURGVsZXRlQ3Vz",
+            "dG9tRGF0YVR5cGUSFC5WZWhpY2xlRGF0YS5HcnBjSW50GhUuVmVoaWNsZURh",
+            "dGEuR3JwY0Jvb2wiABJaChxHZXRBbGxDdXN0b21EYXRhVHlwZXNEZXRhaWxz",
+            "EhcuVmVoaWNsZURhdGEuRW1wdHlQYXJhbRofLlZlaGljbGVEYXRhLkN1c3Rv",
+            "bURhdGFUeXBlTGlzdCIAEj8KDkNyZWF0ZURhdGFUeXBlEhUuVmVoaWNsZURh",
+            "dGEuRGF0YVR5cGUaFC5WZWhpY2xlRGF0YS5HcnBjSW50IgASQQoPVXBkYXRl",
+            "ZERhdGFUeXBlEhUuVmVoaWNsZURhdGEuRGF0YVR5cGUaFS5WZWhpY2xlRGF0",
+            "YS5HcnBjQm9vbCIAEj8KDkRlbGV0ZURhdGFUeXBlEhQuVmVoaWNsZURhdGEu",
+            "R3JwY0ludBoVLlZlaGljbGVEYXRhLkdycGNCb29sIgASRwoWR2V0RGF0YVR5",
+            "cGVEZXRhaWxzQnlJZBIULlZlaGljbGVEYXRhLkdycGNJbnQaFS5WZWhpY2xl",
+            "RGF0YS5EYXRhVHlwZSIAEk0KFUdldEFsbERhdGFUeXBlRGV0YWlscxIXLlZl",
+            "aGljbGVEYXRhLkVtcHR5UGFyYW0aGS5WZWhpY2xlRGF0YS5EYXRhVHlwZUxp",
+            "c3QiABJBCg9JbnNlcnRJdGVtVmFsdWUSFi5WZWhpY2xlRGF0YS5JdGVtVmFs",
+            "dWUaFC5WZWhpY2xlRGF0YS5HcnBjSW50IgASQgoPVXBkYXRlSXRlbVZhbHVl",
+            "EhYuVmVoaWNsZURhdGEuSXRlbVZhbHVlGhUuVmVoaWNsZURhdGEuR3JwY0Jv",
+            "b2wiABJVChZHZXRJdGVtRGF0YUJ5VmVyc2lvbklkEh0uVmVoaWNsZURhdGEu",
+            "SXRlbVZhbHVlUmVxdWVzdBoaLlZlaGljbGVEYXRhLlZhbHVlRGF0YUxpc3Qi",
+            "ABJPCg9Db3B5VmVoaWNsZURhdGESIy5WZWhpY2xlRGF0YS5Db3B5VmVoaWNs",
+            "ZURhdGFSZXF1ZXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJeChpHZXRW",
+            "ZWhpY2xlRGF0YUZvclZlcnNpb25JZBIfLlZlaGljbGVEYXRhLlZlaGljbGVE",
+            "YXRhUmVxdWVzdBodLlZlaGljbGVEYXRhLlZlaGljbGVEYXRhVmFsdWUiABJr",
+            "ChVWZXJzaW9uc0RhdGFCeUl0ZW1JZHMSKS5WZWhpY2xlRGF0YS5WZXJzaW9u",
+            "c0RhdGFCeUl0ZW1JZHNSZXF1ZXN0GiUuVmVoaWNsZURhdGEuVmVyc2lvbkl0",
+            "ZW1zRGF0YVJlc3BvbnNlIgASYgoWR2V0VmVyc2lvblNwZWNzU3VtbWFyeRIg",
+            "LlZlaGljbGVEYXRhLlNwZWNzU3VtbWFyeVJlcXVlc3QaJC5WZWhpY2xlRGF0",
+            "YS5WZXJzaW9uU3BlY3NTdW1tYXJ5TGlzdCIAEmMKFEdldE1vZGVsU3BlY3NT",
+            "dW1tYXJ5EiUuVmVoaWNsZURhdGEuTW9kZWxTcGVjc1N1bW1hcnlSZXF1ZXN0",
+            "GiIuVmVoaWNsZURhdGEuTW9kZWxTcGVjc1N1bW1hcnlMaXN0IgBCIaoCHlZl",
+            "aGljbGVEYXRhLlNlcnZpY2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor, global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor, global::VehicleData.Service.ProtoClass.UnitTypeReflection.Descriptor, global::VehicleData.Service.ProtoClass.CustomDataTypeReflection.Descriptor, global::VehicleData.Service.ProtoClass.DataTypeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -133,6 +143,10 @@ namespace VehicleData.Service.ProtoClass {
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ModelSpecsSummaryRequest), global::VehicleData.Service.ProtoClass.ModelSpecsSummaryRequest.Parser, new[]{ "VersionIds", "ModelId", "ApplicationId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.SpecsSummary), global::VehicleData.Service.ProtoClass.SpecsSummary.Parser, new[]{ "ItemId", "ItemName", "Value", "UnitType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ModelSpecsSummaryList), global::VehicleData.Service.ProtoClass.ModelSpecsSummaryList.Parser, new[]{ "Values" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VersionsDataByItemIdsRequest), global::VehicleData.Service.ProtoClass.VersionsDataByItemIdsRequest.Parser, new[]{ "ApplicationId", "VersionIds", "ItemIds" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemData), global::VehicleData.Service.ProtoClass.ItemData.Parser, new[]{ "ItemId", "ItemName", "Value", "UnitType", "Icon" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VersionItemsData), global::VehicleData.Service.ProtoClass.VersionItemsData.Parser, new[]{ "Id", "ItemList" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VersionItemsDataResponse), global::VehicleData.Service.ProtoClass.VersionItemsDataResponse.Parser, new[]{ "VersionItemsDataList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VehicleDataValue), global::VehicleData.Service.ProtoClass.VehicleDataValue.Parser, new[]{ "Specifications", "Features", "Overview" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VehicleDataRequest), global::VehicleData.Service.ProtoClass.VehicleDataRequest.Parser, new[]{ "VersionIds", "ApplicationId" }, null, null, null)
           }));
@@ -3013,6 +3027,640 @@ namespace VehicleData.Service.ProtoClass {
 
   }
 
+  public sealed partial class VersionsDataByItemIdsRequest : pb::IMessage<VersionsDataByItemIdsRequest> {
+    private static readonly pb::MessageParser<VersionsDataByItemIdsRequest> _parser = new pb::MessageParser<VersionsDataByItemIdsRequest>(() => new VersionsDataByItemIdsRequest());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<VersionsDataByItemIdsRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[18]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public VersionsDataByItemIdsRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public VersionsDataByItemIdsRequest(VersionsDataByItemIdsRequest other) : this() {
+      applicationId_ = other.applicationId_;
+      versionIds_ = other.versionIds_.Clone();
+      itemIds_ = other.itemIds_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public VersionsDataByItemIdsRequest Clone() {
+      return new VersionsDataByItemIdsRequest(this);
+    }
+
+    /// <summary>Field number for the "ApplicationId" field.</summary>
+    public const int ApplicationIdFieldNumber = 1;
+    private int applicationId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ApplicationId {
+      get { return applicationId_; }
+      set {
+        applicationId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "VersionIds" field.</summary>
+    public const int VersionIdsFieldNumber = 2;
+    private static readonly pb::FieldCodec<int> _repeated_versionIds_codec
+        = pb::FieldCodec.ForInt32(18);
+    private readonly pbc::RepeatedField<int> versionIds_ = new pbc::RepeatedField<int>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<int> VersionIds {
+      get { return versionIds_; }
+    }
+
+    /// <summary>Field number for the "ItemIds" field.</summary>
+    public const int ItemIdsFieldNumber = 3;
+    private static readonly pb::FieldCodec<int> _repeated_itemIds_codec
+        = pb::FieldCodec.ForInt32(26);
+    private readonly pbc::RepeatedField<int> itemIds_ = new pbc::RepeatedField<int>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<int> ItemIds {
+      get { return itemIds_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as VersionsDataByItemIdsRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(VersionsDataByItemIdsRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ApplicationId != other.ApplicationId) return false;
+      if(!versionIds_.Equals(other.versionIds_)) return false;
+      if(!itemIds_.Equals(other.itemIds_)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+      hash ^= versionIds_.GetHashCode();
+      hash ^= itemIds_.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (ApplicationId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ApplicationId);
+      }
+      versionIds_.WriteTo(output, _repeated_versionIds_codec);
+      itemIds_.WriteTo(output, _repeated_itemIds_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (ApplicationId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+      }
+      size += versionIds_.CalculateSize(_repeated_versionIds_codec);
+      size += itemIds_.CalculateSize(_repeated_itemIds_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(VersionsDataByItemIdsRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ApplicationId != 0) {
+        ApplicationId = other.ApplicationId;
+      }
+      versionIds_.Add(other.versionIds_);
+      itemIds_.Add(other.itemIds_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            ApplicationId = input.ReadInt32();
+            break;
+          }
+          case 18:
+          case 16: {
+            versionIds_.AddEntriesFrom(input, _repeated_versionIds_codec);
+            break;
+          }
+          case 26:
+          case 24: {
+            itemIds_.AddEntriesFrom(input, _repeated_itemIds_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class ItemData : pb::IMessage<ItemData> {
+    private static readonly pb::MessageParser<ItemData> _parser = new pb::MessageParser<ItemData>(() => new ItemData());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ItemData> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[19]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ItemData() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ItemData(ItemData other) : this() {
+      itemId_ = other.itemId_;
+      itemName_ = other.itemName_;
+      value_ = other.value_;
+      unitType_ = other.unitType_;
+      icon_ = other.icon_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ItemData Clone() {
+      return new ItemData(this);
+    }
+
+    /// <summary>Field number for the "ItemId" field.</summary>
+    public const int ItemIdFieldNumber = 1;
+    private int itemId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ItemId {
+      get { return itemId_; }
+      set {
+        itemId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ItemName" field.</summary>
+    public const int ItemNameFieldNumber = 2;
+    private string itemName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string ItemName {
+      get { return itemName_; }
+      set {
+        itemName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Value" field.</summary>
+    public const int ValueFieldNumber = 3;
+    private string value_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Value {
+      get { return value_; }
+      set {
+        value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "UnitType" field.</summary>
+    public const int UnitTypeFieldNumber = 4;
+    private string unitType_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string UnitType {
+      get { return unitType_; }
+      set {
+        unitType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Icon" field.</summary>
+    public const int IconFieldNumber = 5;
+    private string icon_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Icon {
+      get { return icon_; }
+      set {
+        icon_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ItemData);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ItemData other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ItemId != other.ItemId) return false;
+      if (ItemName != other.ItemName) return false;
+      if (Value != other.Value) return false;
+      if (UnitType != other.UnitType) return false;
+      if (Icon != other.Icon) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ItemId != 0) hash ^= ItemId.GetHashCode();
+      if (ItemName.Length != 0) hash ^= ItemName.GetHashCode();
+      if (Value.Length != 0) hash ^= Value.GetHashCode();
+      if (UnitType.Length != 0) hash ^= UnitType.GetHashCode();
+      if (Icon.Length != 0) hash ^= Icon.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (ItemId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ItemId);
+      }
+      if (ItemName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(ItemName);
+      }
+      if (Value.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Value);
+      }
+      if (UnitType.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(UnitType);
+      }
+      if (Icon.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(Icon);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (ItemId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
+      }
+      if (ItemName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemName);
+      }
+      if (Value.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
+      }
+      if (UnitType.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(UnitType);
+      }
+      if (Icon.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Icon);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ItemData other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ItemId != 0) {
+        ItemId = other.ItemId;
+      }
+      if (other.ItemName.Length != 0) {
+        ItemName = other.ItemName;
+      }
+      if (other.Value.Length != 0) {
+        Value = other.Value;
+      }
+      if (other.UnitType.Length != 0) {
+        UnitType = other.UnitType;
+      }
+      if (other.Icon.Length != 0) {
+        Icon = other.Icon;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            ItemId = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            ItemName = input.ReadString();
+            break;
+          }
+          case 26: {
+            Value = input.ReadString();
+            break;
+          }
+          case 34: {
+            UnitType = input.ReadString();
+            break;
+          }
+          case 42: {
+            Icon = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class VersionItemsData : pb::IMessage<VersionItemsData> {
+    private static readonly pb::MessageParser<VersionItemsData> _parser = new pb::MessageParser<VersionItemsData>(() => new VersionItemsData());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<VersionItemsData> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[20]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public VersionItemsData() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public VersionItemsData(VersionItemsData other) : this() {
+      id_ = other.id_;
+      itemList_ = other.itemList_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public VersionItemsData Clone() {
+      return new VersionItemsData(this);
+    }
+
+    /// <summary>Field number for the "Id" field.</summary>
+    public const int IdFieldNumber = 1;
+    private int id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Id {
+      get { return id_; }
+      set {
+        id_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ItemList" field.</summary>
+    public const int ItemListFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.ItemData> _repeated_itemList_codec
+        = pb::FieldCodec.ForMessage(18, global::VehicleData.Service.ProtoClass.ItemData.Parser);
+    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemData> itemList_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemData>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemData> ItemList {
+      get { return itemList_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as VersionItemsData);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(VersionItemsData other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Id != other.Id) return false;
+      if(!itemList_.Equals(other.itemList_)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Id != 0) hash ^= Id.GetHashCode();
+      hash ^= itemList_.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
+      }
+      itemList_.WriteTo(output, _repeated_itemList_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+      }
+      size += itemList_.CalculateSize(_repeated_itemList_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(VersionItemsData other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Id != 0) {
+        Id = other.Id;
+      }
+      itemList_.Add(other.itemList_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Id = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            itemList_.AddEntriesFrom(input, _repeated_itemList_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class VersionItemsDataResponse : pb::IMessage<VersionItemsDataResponse> {
+    private static readonly pb::MessageParser<VersionItemsDataResponse> _parser = new pb::MessageParser<VersionItemsDataResponse>(() => new VersionItemsDataResponse());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<VersionItemsDataResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[21]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public VersionItemsDataResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public VersionItemsDataResponse(VersionItemsDataResponse other) : this() {
+      versionItemsDataList_ = other.versionItemsDataList_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public VersionItemsDataResponse Clone() {
+      return new VersionItemsDataResponse(this);
+    }
+
+    /// <summary>Field number for the "VersionItemsDataList" field.</summary>
+    public const int VersionItemsDataListFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.VersionItemsData> _repeated_versionItemsDataList_codec
+        = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.VersionItemsData.Parser);
+    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionItemsData> versionItemsDataList_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionItemsData>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionItemsData> VersionItemsDataList {
+      get { return versionItemsDataList_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as VersionItemsDataResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(VersionItemsDataResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!versionItemsDataList_.Equals(other.versionItemsDataList_)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= versionItemsDataList_.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      versionItemsDataList_.WriteTo(output, _repeated_versionItemsDataList_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += versionItemsDataList_.CalculateSize(_repeated_versionItemsDataList_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(VersionItemsDataResponse other) {
+      if (other == null) {
+        return;
+      }
+      versionItemsDataList_.Add(other.versionItemsDataList_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            versionItemsDataList_.AddEntriesFrom(input, _repeated_versionItemsDataList_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class VehicleDataValue : pb::IMessage<VehicleDataValue> {
     private static readonly pb::MessageParser<VehicleDataValue> _parser = new pb::MessageParser<VehicleDataValue>(() => new VehicleDataValue());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3020,7 +3668,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[18]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[22]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3169,7 +3817,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[19]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[23]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
