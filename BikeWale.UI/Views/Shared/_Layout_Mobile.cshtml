@@ -57,7 +57,6 @@
     <link href="//www.bikewale.com" rel="dns-prefetch" />
     <link href="//imgd.aeplcdn.com" rel="dns-prefetch" />
     <link href="//stb.aeplcdn.com" rel="dns-prefetch" />
-    <link href="//fonts.googleapis.com" rel="dns-prefetch" />
     <link href="//www.google-analytics.com" rel="dns-prefetch" />
     <link href="//bhrigu.bikewale.com" rel="dns-prefetch" />
     <link href="//tpc.googlesyndication.com" rel="dns-prefetch" />
@@ -544,7 +543,10 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
         {
             <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_BTF_CSS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
         }
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css' />
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin400.cshtml");
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin600.cshtml");
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin700.cshtml");
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin800.cshtml");
     </noscript>
     <script type="text/javascript">
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
