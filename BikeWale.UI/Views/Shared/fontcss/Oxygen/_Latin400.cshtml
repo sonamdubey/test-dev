@@ -1,8 +1,12 @@
+@{
+    string fontFile = "/css/fonts/Oxygen/oxygen-v7-latin-regular.woff";
+    string fontUrl = @String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
+}
 <style>
 	@@font-face {
 	    font-family: 'Oxygen';
 	    font-style: normal;
 	    font-weight: 400;
-	    src: local('Oxygen Regular'), local('Oxygen-Regular'), url('/css/fonts/Oxygen/oxygen-v7-latin-regular.woff?{1}') format('woff');
+	    src: local('Oxygen Regular'), local('Oxygen-Regular'), url('@fontUrl') format('woff');
 	}
 </style>

@@ -1,8 +1,12 @@
+@{
+    string fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-600.woff";
+    string fontUrl = @String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
+}
 <style>
-	@@font-face {
-	    font-family: 'Open Sans';
-	    font-style: normal;
-	    font-weight: 600;
-	    src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'), url('/css/fonts/OpenSans/open-sans-v15-latin-600.woff') format('woff');
-	}
+    @@font-face {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 600;
+        src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'), url('@fontUrl') format('woff');
+    }
 </style>
