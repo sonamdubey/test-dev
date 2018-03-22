@@ -10,6 +10,10 @@
 body
 	overflow-x: hidden
 
+.gallery__sponsored-top-slot
+	div[id^="div-gpt-"]
+		padding-bottom: 20px
+
 // image grid
 .image-grid__list
 	margin: 0 -2px
@@ -34,7 +38,6 @@ body
 
 .image-grid-list__item
 	float: left
-	min-height: 68px
 	overflow: hidden
 	position: relative
 	text-align: center
@@ -76,18 +79,22 @@ body
 		.image-grid-list__item
 			&:nth-child(6n+1)
 				width: 100%
+				min-height: 204px
 
 			&:nth-child(6n+2)
 				float: right
 				width: 66.67%
+				min-height: 136px
 
 			&:nth-child(6n+3),
 			&:nth-child(6n+4)
 				width: 33.33%
+				min-height: 68px
 			
 			&:nth-child(6n+5),
 			&:nth-child(6n+6)
 				width: 50%
+				min-height: 102px
 
 			&:nth-child(12n+8)
 				float: left
@@ -96,10 +103,26 @@ body
 	.image-grid-list__item
 		min-height: 60px
 
+	.image-grid__list
+		&[data-grid="6"]
+			.image-grid-list__item
+				&:nth-child(6n+1)
+					min-height: 182px
+
+				&:nth-child(6n+2)
+					min-height: 121px
+
+				&:nth-child(6n+3),
+				&:nth-child(6n+4)
+					min-height: 60px
+				
+				&:nth-child(6n+5),
+				&:nth-child(6n+6)
+					min-height: 91px
 
 .image-grid__list-more
 	padding: 20px
-	backgroundcolor: color('white')
+	background-color: color('white')
 
 .image-grid__more-btn
 	width: 100%
@@ -216,8 +239,8 @@ body
 
 // model information widget
 .image-list__model-widget
-	padding: 10px 10px 14px
-	background: #f5f5f5
+	padding: 14px 10px
+	background-color: color('white-smoke-2')
 
 .model-info-section
 	@include vendor-prefix('box-shadow',  0 2px 4px 0 rgba(213, 213, 213, .5))

@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.Photos.PhotosPageVM
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/colours-popup.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/videos-popup.css' />";
-    Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/m/src/photos/gallery.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/model.js" };
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/colours-popup.css' /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/videos-popup.css' />";
+	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/src/utils/viewport.js", "/m/src/photos/gallery.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/model.js" };
     Model.AdTags.Ad_320x50Top = true;
     Model.AdTags.Ad_300x250BTF = true;
     Model.AdTags.Ad_320x50BTF = true;
@@ -21,6 +21,7 @@
     <section class="margin-bottom20">
         <div class="container box-shadow section-bottom-margin">
 
+			<div class="bg-white">
             <div id="galleryRoot" class="margin-bottom60" data-bind="css: { 'orientation--landscape': fullScreenModeActive(), 'gallery-popup--active': activePopup() }">
                 <h1 class="page-header">@Model.Page_H1</h1>
                 <div class="model-gallery-section" data-bind="css: {'gallery-color-slug--active': colorSlug().activeSlug(), 'gallery-video-slug--active': videoSlug().activeSlug()}">
@@ -44,7 +45,9 @@
                                             </div>
                                         </li>
                                     </ul>
+									<!-- ko if : remainingCount > 0 -->
                                     <p class="color-slide__more-count" data-bind="text: '+' + remainingCount + ' More Color' + (remainingCount > 1 ? 's' : '') "></p>
+									<!-- /ko -->
                                     <div class="slide__more-btn-content">
                                         <button type="button" class="btn btn-inv-blue slide__more-btn" data-bind="click: $parent.colorPopup().openPopup">Show All Colour Images</button>
                                     </div>
@@ -256,10 +259,11 @@
             </div>
             @if (Model.AdTags.Ad_320x50Top)
             {
-                <div class="margin-bottom20 text-center">
+                <div class="bg-white text-center gallery__sponsored-top-slot">
                     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
                 </div>
             }
+			</div>
             <section>
                 <div id="overallContainer" class="overall-tabs__panel" data-panel-type="toggle">
                     <div class="overall-tabs__placeholder">

@@ -231,7 +231,7 @@ docReady(function () {
 		        vmModelVideo.getVideos(); // get initial videos
 		        ko.applyBindings(vmModelVideo, videoTab[0]);
 
-		        if (vmModelVideo.videoList()) {
+		        if (MODEL_IMAGES.length > 10 && vmModelVideo.videoList()) {
 		            ImageGridVideoSlug.setSlug();
 		        }
 	    }
