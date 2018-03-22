@@ -189,7 +189,7 @@
                 foreach (Bikewale.Models.AdSlotModel ad in Model.AdSlots)
                 {
                     var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, ad.DivId);
-                    if (String.IsNullOrEmpty(ad.ViewSize)) { 
+                    if (!String.IsNullOrEmpty(ad.ViewSize)) { 
                         if (ad.Position != null)
                         {
                             <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize, ad.Position)); </text>
@@ -311,7 +311,7 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
         <section>
             <div class="container">
                 <div>
-                    <div id="div-gpt-ad-@Model.AdTags.AdId-1" style="width:320px; text-align:center;margin:10px auto;">
+                    <div id="div-gpt-ad-@Model.AdTags.AdId-1" style="width:320px; text-align:center;margin:10px auto;" data-load-immediate="false">
                         <script type="text/javascript">
                             googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-1'); });
                         </script>

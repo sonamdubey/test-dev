@@ -59,6 +59,7 @@ namespace Bikewale.BAL.PriceQuote
                 container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
                 container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaignRepository>();
                 container.RegisterType<IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
+                container.RegisterType<IManufacturerCampaignCache, Bikewale.ManufacturerCampaign.Cache.ManufacturerCampaignCache>();
                 container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
 
                 objcity = container.Resolve<ICityCacheRepository>();
@@ -111,7 +112,7 @@ namespace Bikewale.BAL.PriceQuote
                     if (objPQOutput != null && objPQOutput.PQId > 0)
                     {
                         bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
-                        bpqOutput.Varients = objPq.GetOtherVersionsPrices(objPQOutput.PQId);
+                        bpqOutput.Varients = _objPQCache.GetOtherVersionsPrices(objPQEntity.ModelId, objPQEntity.CityId);
                         if (bpqOutput != null)
                         {
                             pqOnRoad.BPQOutput = bpqOutput;

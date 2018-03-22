@@ -36,21 +36,21 @@ namespace Bikewale.Service.Controllers.PriceQuote
         private readonly IBikeModels<BikeModelEntity, int> _modelsRepository = null;
         private readonly IDealerPriceQuoteDetail _objDPQ = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
-        private readonly IPriceQuote _objPQ = null;
+        private readonly IPriceQuoteCache _objPriceQuoteCache = null;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="objIPQ"></param>
         /// <param name="objPriceQuote"></param>
         /// <param name="modelsRepository"></param>
-        public OnRoadPriceController(IDealerPriceQuote objIPQ, IPriceQuote objPriceQuote, IBikeModels<BikeModelEntity, int> modelsRepository, IDealerPriceQuoteDetail objDPQ, IManufacturerCampaign objManufacturerCampaign, IPriceQuote objPq)
+        public OnRoadPriceController(IDealerPriceQuote objIPQ, IPriceQuote objPriceQuote, IBikeModels<BikeModelEntity, int> modelsRepository, IDealerPriceQuoteDetail objDPQ, IManufacturerCampaign objManufacturerCampaign, IPriceQuoteCache objPriceQuoteCache)
         {
             _objIPQ = objIPQ;
             _objPriceQuote = objPriceQuote;
             _modelsRepository = modelsRepository;
             _objDPQ = objDPQ;
             _objManufacturerCampaign = objManufacturerCampaign;
-            _objPQ = objPq;
+            _objPriceQuoteCache = objPriceQuoteCache;
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     if (objPQ != null && objPQ.PQId > 0)
                     {
                         bpqOutput = _objPriceQuote.GetPriceQuoteById(objPQ.PQId);
-                        bpqOutput.Varients = _objPriceQuote.GetOtherVersionsPrices(objPQ.PQId);
+                        bpqOutput.Varients = _objPriceQuoteCache.GetOtherVersionsPrices(objPQEntity.ModelId, objPQEntity.CityId);
                         if (bpqOutput != null)
                         {
                             bwPriceQuote = PQBikePriceQuoteOutputMapper.Convert(bpqOutput);
@@ -242,7 +242,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         objPQ.MakeName = bpqOutput.MakeName;
                         objPQ.ModelName = bpqOutput.ModelName;
 
-                        bpqOutput.Varients = _objPriceQuote.GetOtherVersionsPrices(objPQ.PQId);
+                        bpqOutput.Varients = _objPriceQuoteCache.GetOtherVersionsPrices(modelId, cityId);
 
                         if ((objPQ.DealerId != 0) || objPQ.IsDealerAvailable)
                         {
@@ -378,7 +378,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         objPQ.MakeName = bpqOutput.MakeName;
                         objPQ.ModelName = bpqOutput.ModelName;
 
-                        bpqOutput.Varients = _objPriceQuote.GetOtherVersionsPrices(objPQ.PQId);
+                        bpqOutput.Varients = _objPriceQuoteCache.GetOtherVersionsPrices(modelId, cityId);
 
                         if ((objPQ.DealerId != 0) || objPQ.IsDealerAvailable)
                         {
@@ -513,7 +513,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         objPQ.MakeName = bpqOutput.MakeName;
                         objPQ.ModelName = bpqOutput.ModelName;
 
-                        bpqOutput.Varients = _objPriceQuote.GetOtherVersionsPrices(objPQ.PQId);
+                        bpqOutput.Varients = _objPriceQuoteCache.GetOtherVersionsPrices(modelId, cityId);
 
                         if (objPQ.DealerId > 0)
                         {
@@ -570,7 +570,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         else
                         {
                             bool isArea = false;
-                            var bikePriceQuotationList = _objPQ.GetVersionPricesByModelId(modelId, cityId, out isArea);
+                            var bikePriceQuotationList = _objPriceQuote.GetVersionPricesByModelId(modelId, cityId, out isArea);
                             if (bikePriceQuotationList != null && bikePriceQuotationList.Any())
                             {
                                 var selversion = bikePriceQuotationList.FirstOrDefault(x => x.VersionId == objPQOutput.VersionId);

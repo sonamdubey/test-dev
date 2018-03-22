@@ -22,6 +22,8 @@ namespace Bikewale.Models.BikeSeries
     /// <summary>
     /// Created by : Ashutosh Sharma on 17 Nov 2017
     /// Description : Provide methods to get data for series page.
+    /// Modified by : Sanskar Gupta on 22 Mar 2018
+    /// Description : Added `AdPath_Mobile` and `AdId_Mobile
     /// </summary>
     public class SeriesPage
     {
@@ -35,6 +37,9 @@ namespace Bikewale.Models.BikeSeries
         private readonly IVideos _videos = null;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeCompare _compareScooters = null;
+        private readonly String AdPath_Mobile = "/1017752/Bikewale_Model_";
+        private readonly String AdId_Mobile = "1442913773076";
+
 
         public SeriesPage(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache, IBikeSeries bikeSeries, ICMSCacheContent articles, IVideos videos, IBikeCompare compareScooters)
         {
@@ -98,6 +103,7 @@ namespace Bikewale.Models.BikeSeries
                 SetPageJSONLDSchema(objSeriesPage);
                 BindTopComparisions(objSeriesPage, CompareSource);
                 objSeriesPage.Page = GAPages.Series_Page;
+                BindAdSlots(objSeriesPage);
             }
             catch (Exception ex)
             {
@@ -437,6 +443,47 @@ namespace Bikewale.Models.BikeSeries
             catch (Exception ex)
             {
                 ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 22 March 2018
+        /// Description : Function to Bind AdSlots dynamically.
+        /// </summary>
+        /// <param name="objViewModel"></param>
+        private void BindAdSlots(SeriesPageVM objViewModel)
+        {
+            if (IsMobile)
+            {
+                objViewModel.AdTags.AdPath = AdPath_Mobile;
+                objViewModel.AdTags.AdId = AdId_Mobile;
+                objViewModel.AdTags.Ad_320x50 = true;
+                objViewModel.AdTags.Ad_Bot_320x50 = true;
+
+                IList<AdSlotModel> ads = new List<AdSlotModel>();
+
+                ads.Add(new AdSlotModel("[320, 50]") {
+                    AdId = AdId_Mobile,
+                    AdPath = AdPath_Mobile,
+                    DivId = 0,
+                    Width = 320,
+                    LoadImmediate = true,
+                    Position = "Top",
+                    Size = AdSlotSize._320x50
+                });
+                ads.Add(new AdSlotModel("[320, 50]")
+                {
+                    AdId = AdId_Mobile,
+                    AdPath = AdPath_Mobile,
+                    DivId = 1,
+                    Width = 320,
+                    LoadImmediate = false,
+                    Position = "Bottom",
+                    Size = AdSlotSize._320x50
+                });
+
+                objViewModel.AdSlots = ads;
+
             }
         }
 
