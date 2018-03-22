@@ -24,7 +24,7 @@ namespace Bikewale.Models
     public class ModelBase
     {
         public PageMetaTags PageMetaTags { get; private set; }
-        public AdTags AdTags { get; private set; }
+        public AdTags AdTags { get; set; }
         public BreadcrumbList BreadcrumbList { get; private set; }
         public bool IsTransparentHeader { get; set; }
         public bool IsHomePage { get; set; }

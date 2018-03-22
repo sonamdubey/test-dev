@@ -37,6 +37,7 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -2149,72 +2150,34 @@ namespace Bikewale.Models.BikeModels
             {
                 if (objData != null)
                 {
-                    objData.AdTags.AdPath = adPath_ModelPage;
-                    objData.AdTags.AdId = adId_ModelPage;
+                    AdTags adTagsObj = new AdTags();
 
-                    objData.AdTags.Ad_300x250 = objData.IsSimilarBikesAvailable;
-                    objData.AdTags.Ad320x100ATF = true;
-                    objData.AdTags.Ad300x250_Bottom = true;
-                    objData.AdTags.Ad_300x250BTF = !objData.IsUpcomingBike;
-                    objData.AdTags.Ad_320x400_Middle = true;
+                    adTagsObj.AdPath = adPath_ModelPage;
+                    adTagsObj.AdId = adId_ModelPage;
+                    adTagsObj.Ad_300x250 = objData.IsSimilarBikesAvailable;
+                    adTagsObj.Ad320x100ATF = true;
+                    adTagsObj.Ad300x250_Bottom = true;
+                    adTagsObj.Ad_300x250BTF = !objData.IsUpcomingBike;
+                    adTagsObj.Ad_320x400_Middle = true;
 
+                    objData.AdTags = adTagsObj;
                     IList<AdSlotModel> ads = new List<AdSlotModel>();
+                    NameValueCollection adInfo = new NameValueCollection();
+                    adInfo["adId"] = adId_ModelPage;
+                    adInfo["adPath"] = adPath_ModelPage;
 
-                    ads.Add(new AdSlotModel("[300, 250]")
-                    {
-                        AdId = adId_ModelPage,
-                        AdPath = adPath_ModelPage,
-                        DivId = 2,
-                        Width = 300,
-                        LoadImmediate = false,
-                        Size = AdSlotSize._300x250
-                    });
+                    ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250));
 
+                    ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50, ViewSlotSize._320x100 }, 6, 320, AdSlotSize._320x100, "ATF", true));
 
-                    ads.Add(new AdSlotModel("[[320, 50], [320, 100]]")
-                    {
-                        AdId = adId_ModelPage,
-                        AdPath = adPath_ModelPage,
-                        DivId = 6,
-                        Width = 320,
-                        LoadImmediate = true,
-                        Position = "ATF",
-                        Size = AdSlotSize._320x100
-                    });
+                    ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 16, 300, AdSlotSize._300x250, "Bottom"));
 
-                    ads.Add(new AdSlotModel("[300, 250]")
-                    {
-                        AdId = adId_ModelPage,
-                        AdPath = adPath_ModelPage,
-                        DivId = 16,
-                        Width = 300,
-                        LoadImmediate = false,
-                        Position = "Bottom",
-                        Size = AdSlotSize._300x250
-                    });
+                    ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 14, 300, AdSlotSize._300x250, "BTF"));
 
-                    ads.Add(new AdSlotModel("[300, 250]")
-                    {
-                        AdId = adId_ModelPage,
-                        AdPath = adPath_ModelPage,
-                        DivId = 14,
-                        Width = 300,
-                        LoadImmediate = false,
-                        Position = "BTF",
-                        Size = AdSlotSize._300x250
-                    });
+                    ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x300, ViewSlotSize._320x350, ViewSlotSize._320x400, ViewSlotSize._320x450, ViewSlotSize._320x425 }, 10, 320, AdSlotSize._320x400, "Comparo"));
 
-                    ads.Add(new AdSlotModel("[[320, 300], [320, 350], [320, 400], [320, 450], [320, 425]]")
-                    {
-                        AdId = adId_ModelPage,
-                        AdPath = adPath_ModelPage,
-                        DivId = 10,
-                        Width = 320,
-                        LoadImmediate = false,
-                        Position = "Comparo",
-                        Size = AdSlotSize._320x400
-                    });
                     objData.AdSlots = ads;
+
                 }
 
             }
