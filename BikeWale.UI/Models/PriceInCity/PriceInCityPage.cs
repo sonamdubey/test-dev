@@ -492,14 +492,6 @@ namespace Bikewale.Models
 
                     if (IsMobile)
                     {
-                        AdTags AdTagsMobile = new AdTags
-                        {
-                            AdPath = AdPath_Mobile,
-                            AdId = AdId_Mobile,
-                            Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile,
-                            Ad_300x250 = true,
-                            Ad_Bot_320x50 = true
-                        };
 
                         objVM.AdTags.AdPath = AdPath_Mobile;
                         objVM.AdTags.AdId = AdId_Mobile;
