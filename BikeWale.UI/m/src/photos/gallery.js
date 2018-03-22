@@ -381,11 +381,8 @@ var MainGallerySwiper = (function() {
 				currentSlide = vmModelGallery.activeIndex();
 				if (triggerGalleryImageChangeGA) {
 				    if (!buttonClicked) {
-				        if (currentSlide > lastSlide) {
-				            triggerGA(currentPage, 'Swipe_Right', MAKE_NAME + "_" + MODEL_NAME);
-				        }
-				        else if (lastSlide > currentSlide) {
-				            triggerGA(currentPage, 'Swipe_Left', MAKE_NAME + "_" + MODEL_NAME);
+				        if (currentSlide != lastSlide) {
+				            currentSlide > lastSlide ? triggerGA(currentPage, 'Swipe_Right', MAKE_NAME + "_" + MODEL_NAME) : triggerGA(currentPage, 'Swipe_Left', MAKE_NAME + "_" + MODEL_NAME);
 				        }
 				    }
 				    else {
@@ -490,11 +487,8 @@ var ColorGallerySwiper = (function () {
 			    currentColorSlide = vmModelGallery.colorPopup().colorSwiper().activeIndex();
 			    if (triggerColorImageChangeGA) {
 			        if (!buttonClicked) {
-			            if (currentColorSlide > lastColorSlide) {
-			                triggerGA(currentPage, 'Swipe_Right_Colours_Tab', MAKE_NAME + "_" + MODEL_NAME);
-			            }
-			            else if (lastColorSlide > currentColorSlide) {
-			                triggerGA(currentPage, 'Swipe_Left_Colours_Tab', MAKE_NAME + "_" + MODEL_NAME);
+			            if (currentColorSlide != lastColorSlide) {
+			                currentColorSlide > lastColorSlide ? triggerGA(currentPage, 'Swipe_Right_Colours_Tab', MAKE_NAME + "_" + MODEL_NAME) : triggerGA(currentPage, 'Swipe_Left_Colours_Tab', MAKE_NAME + "_" + MODEL_NAME);
 			            }
 			        }
 			        else {
