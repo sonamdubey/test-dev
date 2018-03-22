@@ -4,14 +4,14 @@ var downloadImageResolution = "1056x594";
 var eleGallery, vmModelGallery, colorIndex = 0;
 
 // page variables
-var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, MAKE_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, RETURN_URL, isColorImageSet = false, logBhrighu;
+var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, MAKE_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, RETURN_URL, isColorImageSet = false, logBhrighu, currentPage, triggerColorImageChangeGA, triggerGalleryImageChangeGA;
 
 // bhrighu logging
 var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
 
 var mainGallerySwiper, colorGallerySwiper, colorThumbnailGallerySwiper;
 
-var buttonClicked = false, lastSlide = 0, currentSlide = 0;
+var buttonClicked = false, lastSlide = 0, currentSlide = 0, lastColorSlide = 0, currentColorSlide = 0;
 
 var setPageVariables = function () {
 	eleGallery = $("#pageGallery");
@@ -26,6 +26,9 @@ var setPageVariables = function () {
 		BIKE_MODEL_ID = eleGallery.data("modelid");
 		MAKE_NAME = eleGallery.data("makename");
 		logBhrighu = true;
+		triggerColorImageChangeGA = true;
+		triggerGalleryImageChangeGA = true;
+		currentPage = 'Model_Images_Page';
 		if (eleGallery.length > 0 && eleGallery.data("images") != '') {
 			var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
 			MODEL_IMAGES = imageList;
@@ -203,6 +206,7 @@ docReady(function () {
 	// initialize color gallery swiper
 	colorGallerySwiper = ColorGallerySwiper.initSwiper();
 	colorThumbnailGallerySwiper = ColorGallerySwiper.initThumbnailSwiper();
+	ColorGallerySwiper.registerEvents();
 
 	window.addEventListener('resize', resizeHandler, true);
 	resizeHandler();
@@ -316,7 +320,7 @@ var GalleryState = (function() {
 
 // main gallery swiper
 var MainGallerySwiper = (function() {
-	function init() {
+    function init() {
 		var swiper = new Swiper("#mainPhotoSwiper", {
 			initialSlide: vmModelGallery.activeIndex(),
 			spaceBetween: 0,
@@ -358,7 +362,7 @@ var MainGallerySwiper = (function() {
 				if (vmModelGallery.activePopup()) {
 					vmModelGallery.setColorSlug(swiper.activeIndex);
 					vmModelGallery.setVideoSlug(swiper.activeIndex);
-					triggerGA('Gallery_Page', 'Image_Carousel_Clicked', MODEL_NAME);
+					
 
 				}
 				lastSlide = vmModelGallery.activeIndex();
@@ -375,23 +379,18 @@ var MainGallerySwiper = (function() {
 				SwiperEvents.setDetails(swiper, vmModelGallery);
 
 				currentSlide = vmModelGallery.activeIndex();
-				
-				if (!vmModelGallery.activePopup()) {
+				if (triggerGalleryImageChangeGA) {
 				    if (!buttonClicked) {
-				        if (currentSlide > lastSlide) {
-				            triggerGA('Model_Images_Page', 'Swipe_Right', MAKE_NAME + "_" + MODEL_NAME);
-				        }
-				        else if (lastSlide > currentSlide) {
-				            triggerGA('Model_Images_Page', 'Swipe_Left', MAKE_NAME + "_" + MODEL_NAME);
+				        if (currentSlide != lastSlide) {
+				            currentSlide > lastSlide ? triggerGA(currentPage, 'Swipe_Right', MAKE_NAME + "_" + MODEL_NAME) : triggerGA(currentPage, 'Swipe_Left', MAKE_NAME + "_" + MODEL_NAME);
 				        }
 				    }
 				    else {
-				        triggerGA('Model_Images_Page', 'Image_Carousel_Clicked', MAKE_NAME + "_" + MODEL_NAME);
+				        triggerGA(currentPage, 'Image_Carousel_Clicked', MAKE_NAME + "_" + MODEL_NAME);
 				    }
-
 				}
+				triggerGalleryImageChangeGA = true;
 				logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
-
 				buttonClicked = false;
 			}
 		})
@@ -415,11 +414,11 @@ var MainGallerySwiper = (function() {
 			}
 		});
 
-		$('.gallery__next').on('click', function (e) {
+		$('.swiper--next').on('click', function (e) {
 		    buttonClicked = true;
 		});
 
-		$('.gallery__prev').on('click', function (e) {
+		$('.swiper--prev').on('click', function (e) {
 		    buttonClicked = true;
 		});
 	};
@@ -468,9 +467,8 @@ var ColorGallerySwiper = (function () {
 			},
 
 			onSlideChangeStart: function (swiper) {
+			    lastColorSlide = vmModelGallery.colorPopup().colorSwiper().activeIndex();
 			    SwiperEvents.setDetails(swiper, vmModelGallery.colorPopup().colorSwiper());
-			    triggerGA('Gallery_Page', 'Colour_Changed', MODEL_NAME);
-			    logBhrighuForImage($('#mainColorSwiper .swiper-slide-active'));
 			    if (!vmModelGallery.fullScreenModeActive()) {
 					SwiperEvents.focusThumbnail(colorThumbnailGallerySwiper, vmModelGallery.colorPopup().colorSwiper().activeIndex(), false);
 				}
@@ -481,8 +479,26 @@ var ColorGallerySwiper = (function () {
 				var activeElement = $(colorThumbnailGallerySwiper.slides[swiper.activeIndex]);
 				colorBox.scrollIntoView(activeElement);
 				colorBox.setColorCode(activeElement);
+				
+			},
 
-			}
+			onSlideChangeEnd: function (swiper) {
+
+			    currentColorSlide = vmModelGallery.colorPopup().colorSwiper().activeIndex();
+			    if (triggerColorImageChangeGA) {
+			        if (!buttonClicked) {
+			            if (currentColorSlide != lastColorSlide) {
+			                currentColorSlide > lastColorSlide ? triggerGA(currentPage, 'Swipe_Right_Colours_Tab', MAKE_NAME + "_" + MODEL_NAME) : triggerGA(currentPage, 'Swipe_Left_Colours_Tab', MAKE_NAME + "_" + MODEL_NAME);
+			            }
+			        }
+			        else {
+			            triggerGA(currentPage, 'Image_Carousel_Clicked_Colours_Tab', MAKE_NAME + "_" + MODEL_NAME);
+			        }
+			    }
+			    logBhrighuForImage($('#mainColorSwiper .swiper-slide-active'));
+			    triggerColorImageChangeGA = true;
+			    buttonClicked = false;
+		    }
 
 		});
 
@@ -531,10 +547,18 @@ var ColorGallerySwiper = (function () {
 		}
 	}
 
+	function registerEvents() {
+	    $('.color-box__content').on('click', function () {
+	        triggerGA(currentPage, 'Colour_Changed', MAKE_NAME + ' ' + MODEL_NAME);
+	        logBhrighuForImage($('#mainColorSwiper .swiper-slide-active'));
+	    })
+	}
+
 	return {
-		initSwiper: initSwiper,
-		initThumbnailSwiper: initThumbnailSwiper,
-		handleThumbnailSwiper: handleThumbnailSwiper
+	    initSwiper: initSwiper,
+	    initThumbnailSwiper: initThumbnailSwiper,
+	    handleThumbnailSwiper: handleThumbnailSwiper,
+	    registerEvents: registerEvents
 	}
 })();
 
