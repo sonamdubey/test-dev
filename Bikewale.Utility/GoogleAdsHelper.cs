@@ -53,9 +53,8 @@ namespace Bikewale.Utility
         /// <param name="position"></param>
         /// <param name="loadImmediate"></param>
         /// <returns></returns>
-        public static AdSlotModel SetAdSlotProperties(NameValueCollection adInfo, string[] viewSizes, uint divId, uint width, string size, string position = null, bool loadImmediate = false)
+        public static AdSlotModel SetAdSlotProperties(NameValueCollection adInfo, string[] viewSizes, uint divId, uint width, string size, string position, bool loadImmediate = false)
         {
-
             AdSlotModel adSlotObj = new AdSlotModel(viewSizes)
                 {
                     AdId = adInfo["adId"],
@@ -65,8 +64,32 @@ namespace Bikewale.Utility
                     LoadImmediate = loadImmediate,
                     Position = position,
                     Size = size
-
                 };
+            return adSlotObj;
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 22nd March 2018
+        /// Description: Overloaded method to set all the ad slot properties when position property is not applicable.
+        /// </summary>
+        /// <param name="adInfo"></param>
+        /// <param name="viewSizes"></param>
+        /// <param name="divId"></param>
+        /// <param name="width"></param>
+        /// <param name="size"></param>
+        /// <param name="loadImmediate"></param>
+        /// <returns></returns>
+        public static AdSlotModel SetAdSlotProperties(NameValueCollection adInfo, string[] viewSizes, uint divId, uint width, string size, bool loadImmediate = false)
+        {
+            AdSlotModel adSlotObj = new AdSlotModel(viewSizes)
+            {
+                AdId = adInfo["adId"],
+                AdPath = adInfo["adPath"],
+                DivId = divId,
+                Width = width,
+                LoadImmediate = loadImmediate,
+                Size = size
+            };
             return adSlotObj;
         }
     }
