@@ -37,6 +37,7 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -87,6 +88,9 @@ namespace Bikewale.Models.BikeModels
         private PQOnRoadPrice _pqOnRoad;
         private readonly StringBuilder _colorStr = new StringBuilder();
 
+        private readonly String adPath_ModelPage = "/1017752/BikeWale_Mobile_Model";
+        private readonly String adId_ModelPage = "1517999129847";
+
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public uint OtherDealersTopCount { get; set; }
@@ -136,6 +140,8 @@ namespace Bikewale.Models.BikeModels
         /// <summary>
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added call to BindAdSlotTags.
+        /// Modified by : Snehal Dange on 21st March 2018
+        /// Description: Added BindAdSlots.
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>
@@ -193,10 +199,17 @@ namespace Bikewale.Models.BikeModels
                     SetPageJSONLDSchema();
                     ShowInnovationBanner(_modelId);
                     BindAdSlotTags();
+
                     if (_objData != null && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionSpecs != null)
                     {
                         _objData.IsElectricBike = _objData.ModelPageEntity.ModelVersionSpecs.FuelType.Equals("Electric");
                     }
+                    if (IsMobile && _objData.AdTags != null)
+                    {
+                        BindAdSlots(_objData);
+                    }
+
+
                     #endregion Do Not change the sequence
                 }
             }
@@ -961,7 +974,7 @@ namespace Bikewale.Models.BikeModels
 
 
                 objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-                if ((_objData.IsNewBike || _objData.IsDiscontinuedBike) && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelDetails != null &&  _objData.ModelPageEntity.ModelDetails.MakeBase != null)
+                if ((_objData.IsNewBike || _objData.IsDiscontinuedBike) && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelDetails != null && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
                 {
                     objUpcoming.Filters = new UpcomingBikesListInputEntity()
                     {
@@ -991,11 +1004,11 @@ namespace Bikewale.Models.BikeModels
                                         .TakeWhile(m =>
                                             (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)).Take(10).TakeWhile(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax)
                                             || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
-                                        ); 
+                                        );
                     }
                     else
                     {
-                        
+
                         IEnumerable<UpcomingBikeEntity> upcomingBikesBodyStyle = objUpcomingBikes.UpcomingBikes.Where(m => m.BodyStyleId == (uint)_objData.BodyStyle);
                         if (upcomingBikesBodyStyle != null)
                         {
@@ -1128,7 +1141,7 @@ namespace Bikewale.Models.BikeModels
                 {
                     _objData.EMICalculator.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
                 }
-                else if(_objData.EMICampaign != null)
+                else if (_objData.EMICampaign != null)
                 {
                     _objData.EMICalculator.IsManufacturerLeadAdShown = (_objData.EMICampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.EMICampaign.ShowOnExshowroom));
                 }
@@ -2120,6 +2133,57 @@ namespace Bikewale.Models.BikeModels
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.BindMileageWidget ModelId: {0}", _modelId));
+            }
+
+        }
+
+
+        /// <summary>
+        /// Created by : Snehal Dange on 21st March 2018
+        /// Description : Bind page ads for model page
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <param name="isNewPage"></param>
+        private void BindAdSlots(ModelPageVM objData)
+        {
+            try
+            {
+                if (objData != null)
+                {
+                    AdTags adTagsObj = new AdTags();
+
+                    adTagsObj.AdPath = adPath_ModelPage;
+                    adTagsObj.AdId = adId_ModelPage;
+                    adTagsObj.Ad_300x250 = objData.IsSimilarBikesAvailable;
+                    adTagsObj.Ad320x100ATF = true;
+                    adTagsObj.Ad300x250_Bottom = true;
+                    adTagsObj.Ad_300x250BTF = !objData.IsUpcomingBike;
+                    adTagsObj.Ad_320x400_Middle = true;
+
+                    objData.AdTags = adTagsObj;
+                    IList<AdSlotModel> ads = new List<AdSlotModel>();
+                    NameValueCollection adInfo = new NameValueCollection();
+                    adInfo["adId"] = adId_ModelPage;
+                    adInfo["adPath"] = adPath_ModelPage;
+
+                    ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250));
+
+                    ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50, ViewSlotSize._320x100 }, 6, 320, AdSlotSize._320x100, "ATF", true));
+
+                    ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 16, 300, AdSlotSize._300x250, "Bottom"));
+
+                    ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 14, 300, AdSlotSize._300x250, "BTF"));
+
+                    ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x300, ViewSlotSize._320x350, ViewSlotSize._320x400, ViewSlotSize._320x450, ViewSlotSize._320x425 }, 10, 320, AdSlotSize._320x400, "Comparo"));
+
+                    objData.AdSlots = ads;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.BindAdSlots Model: {0}", _modelId));
             }
 
         }

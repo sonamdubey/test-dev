@@ -130,7 +130,7 @@
                 @if (Model.AdTags.Ad320x100ATF)
                 {
                     <div class="margin-bottom20 text-center">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[1]);}
                     </div>
                             }
 
@@ -214,7 +214,7 @@
 @if (Model.AdTags.Ad300x250_Bottom)
 {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Bottom.cshtml", Model.AdTags);}
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[2]);}
     </div>
 }
 
