@@ -12,26 +12,29 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
 {
     public static class SpecsFeaturesServiceGateway
     {
-        public static SpecsFeaturesEntity Call()
+        public static SpecsFeaturesEntity GetVersionsSpecsFeatures(IEnumerable<uint> versionIds)
         {
             try
             {
-                CallAggregator ca = new CallAggregator();
-                ca.AddCall(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetVehicleDataForVersionId", new VehicleDataRequest
+                if (versionIds != null)
                 {
-                    VersionIds = { new List<int> { 5242, 5150 } },
-                    ApplicationId = 1
-                });
-                var apiData = ca.GetResultsFromGateway();
+                    CallAggregator ca = new CallAggregator();
+                    ca.AddCall(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetVehicleDataForVersionId", new VehicleDataRequest
+                    {
+                        VersionIds = { versionIds.Select(versionId => (int)versionId) },
+                        ApplicationId = 2
+                    });
+                    var apiData = ca.GetResultsFromGateway();
 
-                if (apiData != null && apiData.OutputMessages != null && apiData.OutputMessages.Count > 0)
-                {
-                    return ConvertToBwSpecsFeaturesEntity(Utilities.ConvertBytesToMsg<VehicleDataValue>(apiData.OutputMessages[0].Payload));
+                    if (apiData != null && apiData.OutputMessages != null && apiData.OutputMessages.Count > 0)
+                    {
+                        return ConvertToBwSpecsFeaturesEntity(Utilities.ConvertBytesToMsg<VehicleDataValue>(apiData.OutputMessages[0].Payload));
+                    }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.Call");
+                ErrorClass.LogError(ex, String.Format("SpecsFeaturesServiceMethods.GetVersionSpecsFeatures(IEnumerable<int> {0})", versionIds));
             }
             return null;
 
@@ -99,31 +102,54 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
         }
         /// <summary>
         /// Created By  : Rajan Chauhan on 22 Mar 2018
-        /// Summary     : To get List of versionMinSpecs when given input 
+        /// Summary     : To get List of versionMinSpecs when given input versionIds and minSpecsIds
         /// </summary>
-        /// <param name="numberOfVersions"></param>
+        /// <param name="versionIds"></param>
+        /// <param name="minSpecsIds"></param>
         /// <returns></returns>
-        public static IEnumerable<VersionMinSpecsEntity> GetVersionMinSpecs(int numberOfVersions)
+        public static IEnumerable<VersionMinSpecsEntity> GetVersionsMinSpecs(IEnumerable<int> versionIds, IEnumerable<EnumMinSpecs> minSpecsIds)
         {
             try
             {
-                
-                CallAggregator ca = new CallAggregator();
-                ca.AddCall(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "VersionsDataByItemIds", new VersionsDataByItemIdsRequest
+                if (versionIds != null && minSpecsIds != null)
                 {
-                    ItemIds = { new List<int> { 6, 14, 12, 249, 250 } },
-                    VersionIds = { Enumerable.Range(5000, numberOfVersions).ToList() },
-                    ApplicationId = 1
-                });
-                var apiData = ca.GetResultsFromGateway();
-                if (apiData != null && apiData.OutputMessages != null && apiData.OutputMessages.Count > 0)
-                {
-                    return ConvertToBWVersionMinSpecsList(Utilities.ConvertBytesToMsg<VersionItemsDataResponse>(apiData.OutputMessages[0].Payload));
+                    CallAggregator ca = new CallAggregator();
+                    ca.AddCall(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "VersionsDataByItemIds", new VersionsDataByItemIdsRequest
+                    {
+                        ItemIds = { minSpecsIds.Select(minSpecId => (int)minSpecId) },
+                        VersionIds = { versionIds },
+                        ApplicationId = 2
+                    });
+                    var apiData = ca.GetResultsFromGateway();
+                    if (apiData != null && apiData.OutputMessages != null && apiData.OutputMessages.Count > 0)
+                    {
+                        return ConvertToBWVersionMinSpecsList(Utilities.ConvertBytesToMsg<VersionItemsDataResponse>(apiData.OutputMessages[0].Payload));
+                    }
                 }
+                
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.GetMinSpecs");
+                ErrorClass.LogError(ex, String.Format("SpecsFeaturesServiceMethods.GetVersionsMinSpecs(IEnumerable<int> {0}, IEnumerable<EnumMinSpecs> {1})", versionIds, minSpecsIds));
+            }
+            return null;
+        }
+
+        public static IEnumerable<VersionMinSpecsEntity> GetVersionsMinSpecs(IEnumerable<int> versionIds)
+        {
+            try
+            {
+                if (versionIds != null)
+                {
+                    IEnumerable<EnumMinSpecs> minSpecsIds = new List<EnumMinSpecs> { EnumMinSpecs.Displacement, EnumMinSpecs.FuelEfficiencyOverall, EnumMinSpecs.MaxPower, EnumMinSpecs.KerbWeight };
+
+                    return GetVersionsMinSpecs(versionIds, minSpecsIds);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("SpecsFeaturesServiceMethods.GetVersionsMinSpecs(IEnumerable<int> {0})", versionIds));
             }
             return null;
         }

@@ -10,6 +10,7 @@ using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.AutoMappers.Version;
 using Bikewale.Service.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Http;
@@ -125,7 +126,7 @@ namespace Bikewale.Service.Controllers.Model
 
                 getPQ = new PQByCityArea();
                 objModelPage = _bikeModelEntity.GetModelPageDetails(modelId);
-                objModelPage.VersionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
+                objModelPage.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint>{ 1 });
 
                 if (objModelPage != null)
                 {
@@ -160,7 +161,7 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     return BadRequest();
                 }
-                SpecsFeaturesEntity versionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
+                SpecsFeaturesEntity versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint>() { versionId});
         
                 if (versionSpecsFeatures != null)
                 {

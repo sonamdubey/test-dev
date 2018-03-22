@@ -69,7 +69,7 @@ namespace Bikewale.Mobile
                 if (versionId > 0)
                 {
                     specs = FetchVariantDetails(versionId);
-                    versionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
+                    versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint>() { versionId });
                 }
                 BindWidget();
                 BindSimilarBikes();

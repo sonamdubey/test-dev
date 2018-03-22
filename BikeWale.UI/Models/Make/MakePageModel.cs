@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -221,6 +222,7 @@ namespace Bikewale.Models
                     BindPageFilters(objData);
                 }
                 BindNewBikeSearchPopupData(objData);
+                IEnumerable<VersionMinSpecsEntity> versionSpecsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int>() { 1, 2, 3});
                 #region Set Visible flags
 
                 if (objData != null)

@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -44,6 +45,7 @@ namespace Bikewale.Models
         private string _originalUrl, _compareUrl, _modelNameList;
         private readonly uint _maxComparisons;
         private string _bikeQueryString = string.Empty, _versionsList = string.Empty;
+        private IList<uint> _versionIdsList = null;
         private uint _sponsoredBikeVersionId, _cityId;
         private ushort bikeComparisions;
 
@@ -147,6 +149,7 @@ namespace Bikewale.Models
                     }
 
                     obj.Compare = _objCompareCache.DoCompare(_versionsList, _cityId);
+                    obj.Compare.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(_versionIdsList);
 
                     if (obj.Compare != null && obj.Compare.BasicInfo != null)
                     {
@@ -460,7 +463,7 @@ namespace Bikewale.Models
                         _sponsoredBikeVersionId = vId;
                     }
                 }
-
+                _versionIdsList = new List<uint>();
                 if (_bikeQueryString.Contains("bike"))
                 {
                     for (ushort i = 1; i <= _maxComparisons; i++)
@@ -469,6 +472,7 @@ namespace Bikewale.Models
                         if (uint.TryParse(request["bike" + i], out vId) && vId > 0)
                         {
                             _versionsList = string.Format("{0},{1}", _versionsList, vId);
+                            _versionIdsList.Add(vId);
                             bikeComparisions = i;
                         }
                     }
