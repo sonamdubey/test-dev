@@ -77,6 +77,7 @@
 
 	// images popup events
 	self.openGalleryPopup = function () {
+	    currentPage = 'Gallery_Page';
 		self.activeSwiperTitle(false);
 		self.activePopup(true);
 		gaObj.id = galleryId;
@@ -103,6 +104,7 @@
 			$('.model-gallery__container').animate({
 				top: 0
 			}, 300, 'swing');
+			currentPage = 'Model_Images_Page';
 			gaObj.id = lastPageId;
 			self.activeSwiperTitle(false);
 			self.activePopup(false);
@@ -316,9 +318,10 @@ var ModelColorPopupViewModel = function () {
 
 	self.openPopup = function () {
 	    self.activePopup(true);
-		self.setListHeight();
+	    self.setListHeight();
 
 		triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', self.modelName);
+		
 		historyObj.addToHistory('colorPopup');
 
 		GalleryState.subscribeAction(self.closePopup);
@@ -530,6 +533,7 @@ var ColorSlugViewModel = function (colorPhotoList) {
 			var clickedIndex = $(this).index();
 
 			vmModelGallery.colorPopup().openPopup();
+			triggerColorImageChangeGA = false;
 			colorGallerySwiper.slideTo(clickedIndex);
 		});
 	}
