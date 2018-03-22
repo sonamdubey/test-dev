@@ -88,8 +88,8 @@ namespace Bikewale.Models.BikeModels
         private PQOnRoadPrice _pqOnRoad;
         private readonly StringBuilder _colorStr = new StringBuilder();
 
-        private readonly String adPath_ModelPage = "/1017752/BikeWale_Mobile_Model";
-        private readonly String adId_ModelPage = "1517999129847";
+        private readonly String _adPath_Mobile = "/1017752/BikeWale_Mobile_Model";
+        private readonly String _adId_Mobile = "1517999129847";
 
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
@@ -2152,8 +2152,8 @@ namespace Bikewale.Models.BikeModels
                 {
                     AdTags adTagsObj = new AdTags();
 
-                    adTagsObj.AdPath = adPath_ModelPage;
-                    adTagsObj.AdId = adId_ModelPage;
+                    adTagsObj.AdPath = _adPath_Mobile;
+                    adTagsObj.AdId = _adId_Mobile;
                     adTagsObj.Ad_300x250 = objData.IsSimilarBikesAvailable;
                     adTagsObj.Ad320x100ATF = true;
                     adTagsObj.Ad300x250_Bottom = true;
@@ -2163,8 +2163,8 @@ namespace Bikewale.Models.BikeModels
                     objData.AdTags = adTagsObj;
                     IList<AdSlotModel> ads = new List<AdSlotModel>();
                     NameValueCollection adInfo = new NameValueCollection();
-                    adInfo["adId"] = adId_ModelPage;
-                    adInfo["adPath"] = adPath_ModelPage;
+                    adInfo["adId"] = _adId_Mobile;
+                    adInfo["adPath"] = _adPath_Mobile;
 
                     ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250));
 

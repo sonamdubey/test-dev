@@ -15,6 +15,7 @@ using Bikewale.Models.Used;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeSeries
@@ -37,8 +38,8 @@ namespace Bikewale.Models.BikeSeries
         private readonly IVideos _videos = null;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeCompare _compareScooters = null;
-        private readonly String AdPath_Mobile = "/1017752/Bikewale_Model_";
-        private readonly String AdId_Mobile = "1442913773076";
+        private readonly String _adPath_Mobile = "/1017752/Bikewale_Model_";
+        private readonly String _adId_Mobile = "1442913773076";
 
 
         public SeriesPage(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache, IBikeSeries bikeSeries, ICMSCacheContent articles, IVideos videos, IBikeCompare compareScooters)
@@ -455,32 +456,23 @@ namespace Bikewale.Models.BikeSeries
         {
             if (IsMobile)
             {
-                objViewModel.AdTags.AdPath = AdPath_Mobile;
-                objViewModel.AdTags.AdId = AdId_Mobile;
-                objViewModel.AdTags.Ad_320x50 = true;
-                objViewModel.AdTags.Ad_Bot_320x50 = true;
+                AdTags adTagsObj = new AdTags();
+
+                adTagsObj.AdPath = _adPath_Mobile;
+                adTagsObj.AdId = _adId_Mobile;
+                adTagsObj.Ad_320x50 = true;
+                adTagsObj.Ad_Bot_320x50 = true;
+
+                objViewModel.AdTags = adTagsObj;
 
                 IList<AdSlotModel> ads = new List<AdSlotModel>();
 
-                ads.Add(new AdSlotModel("[320, 50]") {
-                    AdId = AdId_Mobile,
-                    AdPath = AdPath_Mobile,
-                    DivId = 0,
-                    Width = 320,
-                    LoadImmediate = true,
-                    Position = "Top",
-                    Size = AdSlotSize._320x50
-                });
-                ads.Add(new AdSlotModel("[320, 50]")
-                {
-                    AdId = AdId_Mobile,
-                    AdPath = AdPath_Mobile,
-                    DivId = 1,
-                    Width = 320,
-                    LoadImmediate = false,
-                    Position = "Bottom",
-                    Size = AdSlotSize._320x50
-                });
+                NameValueCollection adInfo = new NameValueCollection();
+                adInfo["adId"] = _adId_Mobile;
+                adInfo["adPath"] = _adPath_Mobile;
+
+                ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 0, 320, AdSlotSize._320x50, "Top", true));
+                ads.Add(GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 1, 320, AdSlotSize._320x50, "Bottom"));
 
                 objViewModel.AdSlots = ads;
 
