@@ -313,7 +313,7 @@
 			background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/new-flag.png') no-repeat;
 			display: inline-block;
 			position: relative;
-			top: 5px;
+			top: 2px;
 			margin-left: 5px;
 		}
 
@@ -545,9 +545,10 @@
             </li>
             <li>
                 <h2>
-                    <a href="https://www.bikewale.com/featured/trackday-2018/" target="_top">
+                    <a href="https://www.bikewale.com/featured/trackday-2018/" target="_top" class ="track-day-nav-ga">
                         <span class="bwmsprite track-day"></span>
                         <span class="vertical-middle">Track Day 2018</span>
+						<span class="new-flag"></span>
                     </a>
                 </h2>
             </li>
@@ -566,12 +567,13 @@
             },
             "triggers": {
             "trackEvent": {
-            "selector": ".auto-expo-nav-ga",
+            "selector": ".track-day-nav-ga",
             "on": "click",
             "request": "event",
             "vars": {
             "eventCategory": "@(Model.Page)_AMP",
-            "eventAction": "AutoExpo_2018_Link Clicked"
+            "eventAction": "Hamburger_Menu_Item_Click",
+            "eventLabel":"Track Day 2018"
             }
             }
             }
