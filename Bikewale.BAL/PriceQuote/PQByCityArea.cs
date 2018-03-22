@@ -481,13 +481,10 @@ namespace Bikewale.BAL.PriceQuote
                         // If area is provided, check if area exists in list
                         if (areaId > 0 && pqEntity.IsAreaExists)
                         {
-                            pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                             pqEntity.Area = areaList.FirstOrDefault(p => p.AreaId == areaId);
+                            pqEntity.IsAreaSelected = pqEntity.Area != null;
                         }
-                        if (selectedCity != null)
-                        {
-                            pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
-                        }
+                        pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
 
                         if (pqOnRoad != null)
                         {
@@ -581,11 +578,7 @@ namespace Bikewale.BAL.PriceQuote
                     {
                         pqEntity.PrimaryDealer = detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null ? detailedDealer.PrimaryDealer : null;
                         pqEntity.SecondaryDealerCount = detailedDealer.SecondaryDealerCount;
-
-                        if (detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null)
-                        {
-                            pqEntity.IsPremium = detailedDealer.PrimaryDealer.IsPremiumDealer;
-                        }
+                        pqEntity.IsPremium = pqEntity.PrimaryDealer != null && detailedDealer.PrimaryDealer.IsPremiumDealer;
                     }
                 }
 
