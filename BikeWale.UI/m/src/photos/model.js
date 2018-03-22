@@ -1,4 +1,6 @@
-﻿var ImageGrid = (function () {
+﻿var colourButtonClicked = false, lastColourSlide = 0, currentColourSlide = 0;
+
+var ImageGrid = (function () {
 	function alignRemainderImage() {
 		var imageList = $('.image-grid__list');
 
@@ -122,6 +124,17 @@
 			$('#galleryLoader').hide();
 			triggerGalleryImageChangeGA = false;
 			mainGallerySwiper.slideTo(imageIndex);
+		});
+
+		$('.color-type-prev').on('click', function (e) {
+		    colourButtonClicked = true;
+		});
+
+		$('.color-type-next').on('click', function (e) {
+		    colourButtonClicked = true;
+		});
+		$('.color-box__item').on('click', function (e) {
+		    colourButtonClicked = true;
 		});
 	}
 
@@ -261,14 +274,32 @@ docReady(function () {
 			vmModelColorSwiper.activeIndex(1);
 			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
 		},
+		onTransitionStart: function (swiper) {
+		    lastColourSlide = vmModelColorSwiper.activeIndex();
+		},
 		onSlideChangeStart: function (swiper) {
 			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
 			SwiperEvents.focusThumbnail(colorTabThumbnailSwiper, vmModelColorSwiper.activeIndex(), true);
 		},
 		onSlideChangeEnd: function (swiper) {
 		    var currentColour = MODEL_COLOR_IMAGES[swiper.activeIndex].ImageTitle;
-		    triggerGA('Model_Images_Page', 'Colour_Image_Carousel_Clicked', MAKE_NAME + "_" + MODEL_NAME + "_" + currentColour);
+		    currentColourSlide = vmModelColorSwiper.activeIndex();
+
+		    if (!colourButtonClicked) {
+		        if (currentColourSlide > lastColourSlide) {
+		            triggerGA('Model_Images_Page', 'Swiped Right_Colour Tab', MAKE_NAME + "_" + MODEL_NAME + "_" + currentColour);
+		        }
+		        else if (currentColourSlide < lastColourSlide) {
+		            triggerGA('Model_Images_Page', 'Swiped Left_Colour Tab', MAKE_NAME + "_" + MODEL_NAME + "_" + currentColour);
+		        }
+		    }
+		    else {
+		        triggerGA('Model_Images_Page', 'Colour_Image_Carousel_Clicked', MAKE_NAME + "_" + MODEL_NAME + "_" + currentColour);
+		    }
+
 		    logBhrighuForImage($('#colorTabSwiper .swiper-slide-active'));
+
+		    colourButtonClicked = false;
 		}
 	});
 
