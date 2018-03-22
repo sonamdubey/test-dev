@@ -120,6 +120,7 @@
 			
 			vmModelGallery.openGalleryPopup();
 			$('#galleryLoader').hide();
+			triggerGalleryImageChangeGA = false;
 			mainGallerySwiper.slideTo(imageIndex);
 		});
 	}

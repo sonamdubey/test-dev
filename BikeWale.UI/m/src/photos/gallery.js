@@ -4,7 +4,7 @@ var downloadImageResolution = "1056x594";
 var eleGallery, vmModelGallery, colorIndex = 0;
 
 // page variables
-var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, MAKE_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, RETURN_URL, isColorImageSet = false, logBhrighu, currentPage, triggerColorImageChangeGA;
+var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, MAKE_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, RETURN_URL, isColorImageSet = false, logBhrighu, currentPage, triggerColorImageChangeGA, triggerGalleryImageChangeGA;
 
 // bhrighu logging
 var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
@@ -27,6 +27,7 @@ var setPageVariables = function () {
 		MAKE_NAME = eleGallery.data("makename");
 		logBhrighu = true;
 		triggerColorImageChangeGA = true;
+		triggerGalleryImageChangeGA = true;
 		currentPage = 'Model_Images_Page';
 		if (eleGallery.length > 0 && eleGallery.data("images") != '') {
 			var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
@@ -378,20 +379,21 @@ var MainGallerySwiper = (function() {
 				SwiperEvents.setDetails(swiper, vmModelGallery);
 
 				currentSlide = vmModelGallery.activeIndex();
-				
-				if (!buttonClicked) {
-				    if (currentSlide > lastSlide) {
-				        triggerGA(currentPage, 'Swipe_Right', MAKE_NAME + "_" + MODEL_NAME);
+				if (triggerGalleryImageChangeGA) {
+				    if (!buttonClicked) {
+				        if (currentSlide > lastSlide) {
+				            triggerGA(currentPage, 'Swipe_Right', MAKE_NAME + "_" + MODEL_NAME);
+				        }
+				        else if (lastSlide > currentSlide) {
+				            triggerGA(currentPage, 'Swipe_Left', MAKE_NAME + "_" + MODEL_NAME);
+				        }
 				    }
-				    else if (lastSlide > currentSlide) {
-				        triggerGA(currentPage, 'Swipe_Left', MAKE_NAME + "_" + MODEL_NAME);
+				    else {
+				        triggerGA(currentPage, 'Image_Carousel_Clicked', MAKE_NAME + "_" + MODEL_NAME);
 				    }
 				}
-				else {
-				    triggerGA(currentPage, 'Image_Carousel_Clicked', MAKE_NAME + "_" + MODEL_NAME);
-				}
+				triggerGalleryImageChangeGA = true;
 				logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
-
 				buttonClicked = false;
 			}
 		})
