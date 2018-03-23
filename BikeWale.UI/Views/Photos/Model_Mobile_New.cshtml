@@ -268,7 +268,7 @@
                                 @{
                                         if (objImages != null && objImages.Any())
                                         {
-                                            <li class="overall-tabs-list__item tab--active" data-tabs="allImages">@Html.Raw(string.Format("All Images ({0})", objImages.Count()))</li>
+                                            <li class="overall-tabs-list__item tab--active" data-tabs="allImages">@Html.Raw(string.Format("All Images ({0})", Model.TotalPhotos))</li>
                                         }
                                         if (Model.IsColorAvailable)
                                         {
@@ -287,7 +287,7 @@
 
                     <div data-id="allImages">
                         <ul id="imageGridTop" class="image-grid__list" data-grid="7">
-                            @for (i = 0; i < Math.Min(Model.GridPhotoCount, 7); i++)
+                            @for (i = 0; i < Math.Min(Model.TotalPhotos, 7); i++)
                             {
                                 <li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                                     <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" class="" />
@@ -307,7 +307,7 @@
 
 
                         <ul id="imageGridBottom" class="image-grid__list image-grid--bottom" data-grid="6">
-                            @while (i < Math.Min(Model.GridPhotoCount, 19))
+                            @while (i < Math.Min(Model.TotalPhotos, 19))
                             {
                                 <li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                                     <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
@@ -315,9 +315,13 @@
                                 i++;
                             }
                         </ul>
-                        <div class="image-grid__list-more">
-                            <button id="viewMoreImageBtn" type="button" class="btn btn-inv-blue image-grid__more-btn">View More (<span id="moreImageCount">@( Model.TotalPhotos - i-1)</span>)</button>
-                        </div>
+                        @if (i < Model.TotalPhotos)
+                        {
+                            <div class="image-grid__list-more">
+                                <button id="viewMoreImageBtn" type="button" class="btn btn-inv-blue image-grid__more-btn">View More (<span id="moreImageCount">@( Model.TotalPhotos - i - 1)</span>)</button>
+                            </div>
+                        }
+                       
                     </div>
 
                     
