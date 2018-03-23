@@ -34,6 +34,8 @@
 			var panel = $(this).closest('.overall-tabs__panel');
 			var panelContent = panel.find('[data-id="' + panelId + '"]');
 
+			_pauseYoutubeVideo();
+
 			$(this).addClass(_activeTabClassName).siblings('.' + _activeTabClassName).removeClass(_activeTabClassName);
 
 			if (panel.attr('data-panel-type') === 'toggle') {		
@@ -74,6 +76,12 @@
 				}
 			}
 		});
+	}
+
+	function _pauseYoutubeVideo() {
+		if (typeof SwiperYT !== 'undefined') {
+			SwiperYT.YouTubeApi.videoPause();
+		}
 	}
 
 	function registerEvents() {

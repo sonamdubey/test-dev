@@ -89,6 +89,23 @@
 					SwiperYT.YouTubeApi.videoPlay();
 				}
 			});
+
+			var handleScroll = function () {
+				try {
+					if ($('.youtube-iframe-preview').find('iframe.current').length) {
+						var videoFrame = $('.youtube-iframe-preview').find('iframe.current');
+						var inViewPortTopBottom = ViewPort.isElementInViewportTopBottom(videoFrame);
+
+						if (!inViewPortTopBottom) {
+							SwiperYT.YouTubeApi.videoPause();
+						}
+					}
+				} catch (e) {
+					console.log(e);
+				}
+			}
+
+			$(window).on('scroll', handleScroll);
 		},
 
 		//youtube player state change event

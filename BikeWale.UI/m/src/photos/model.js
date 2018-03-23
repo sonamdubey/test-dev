@@ -245,7 +245,7 @@ docReady(function () {
 		        vmModelVideo.getVideos(); // get initial videos
 		        ko.applyBindings(vmModelVideo, videoTab[0]);
 
-		        if (vmModelVideo.videoList()) {
+		        if (MODEL_IMAGES.length > 10 && vmModelVideo.videoList()) {
 		            ImageGridVideoSlug.setSlug();
 		        }
 	    }
@@ -276,6 +276,12 @@ docReady(function () {
 		},
 		onTransitionStart: function (swiper) {
 		    lastColourSlide = vmModelColorSwiper.activeIndex();
+		},
+		onTap: function (swiper) {
+			var activeIndex = swiper.activeIndex;
+
+			vmModelGallery.colorPopup().openPopup();
+			colorGallerySwiper.slideTo(activeIndex);
 		},
 		onSlideChangeStart: function (swiper) {
 			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
@@ -310,7 +316,11 @@ docReady(function () {
 			SwiperEvents.focusThumbnail(swiper, vmModelColorSwiper.activeIndex(), true);
 		},
 		onTap: function (swiper) {
-			colorTabSwiper.slideTo(swiper.clickedIndex);
+			var clickedIndex = swiper.clickedIndex;
+
+			if(typeof clickedIndex !== 'undefined') {
+				colorTabSwiper.slideTo(clickedIndex);
+			}
 		}
 	});
 

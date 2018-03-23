@@ -62,7 +62,7 @@
 		display: inline-block
 		background-position: center
 		background-size: 8px
-		background-color: transparent
+		background-color: color('border-light', .8)
 		background-repeat: no-repeat
 
 		&.swiper-button-disabled
@@ -231,10 +231,6 @@
 		&[data-visible="true"]
 			width: 40px
 
-	.swiper--next,
-	.swiper--prev
-		background-color: color('border-light', .8)
-
 	.swiper--next
 		right: 0
 		border-top-left-radius: 4px
@@ -340,7 +336,7 @@
 .model-gallery__image-title
 	@include text-truncate(100%)
 	background: color('white')
-	padding: 17px 20px
+	padding: 17px 15px
 	font-size: 14px
 	position: absolute
 	top: 100%
@@ -455,6 +451,7 @@
 	color: #fff
 	font-size: 12px
 	font-weight: 600
+	user-select: none
 
 .color-slide__list
 	margin-bottom: 10px
