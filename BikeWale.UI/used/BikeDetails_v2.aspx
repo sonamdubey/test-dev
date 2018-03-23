@@ -727,7 +727,33 @@
         <script type="text/javascript" >
             var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>' };
             </script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        
+        
+        <%
+            string fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
+            fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
+        %>
+        <style>
+            @font-face { 
+                font-family: 'Open Sans';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Open Sans Regular'), local('OpenSans-Regular'), url('<%= fontUrl%>') format('woff');
+             }
+        </style>
+        
+        <%  
+            fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
+            fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); 
+        %>
+        <style>
+             @font-face { 
+	            font-family: 'Open Sans';
+	            font-style: normal;
+	            font-weight: 700;
+	            src: local('Open Sans Bold'), local('OpenSans-Bold'), url('<% =fontUrl %>') format('woff');
+             }
+        </style>
              
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>

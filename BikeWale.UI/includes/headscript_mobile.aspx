@@ -23,20 +23,31 @@
  <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %>
 <link rel="next" href="<%= relNextPageUrl %>" /><% }%>
 <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
-<style>
-    @@font-face {
-        font-family: 'Open Sans';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Open Sans Regular'), local('OpenSans-Regular'), url('/css/fonts/OpenSans/open-sans-v15-latin-regular.woff') format('woff');
-    }
-    @@font-face {
-	    font-family: 'Open Sans';
-	    font-style: normal;
-	    font-weight: 700;
-	    src: local('Open Sans Bold'), local('OpenSans-Bold'), url('/css/fonts/OpenSans/open-sans-v15-latin-700.woff') format('woff');
-	}
-</style>
+<%
+            string fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
+            fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
+        %>
+        <style>
+            @font-face { 
+                font-family: 'Open Sans';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Open Sans Regular'), local('OpenSans-Regular'), url('<%= fontUrl%>') format('woff');
+             }
+        </style>
+        
+        <%  
+            fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
+            fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); 
+        %>
+        <style>
+             @font-face { 
+	            font-family: 'Open Sans';
+	            font-style: normal;
+	            font-weight: 700;
+	            src: local('Open Sans Bold'), local('OpenSans-Bold'), url('<% =fontUrl %>') format('woff');
+             }
+        </style>
 
 
 <link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
