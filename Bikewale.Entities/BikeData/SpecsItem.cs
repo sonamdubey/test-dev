@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -10,6 +6,7 @@ namespace Bikewale.Entities.BikeData
     /// Created By  : Rajan Chauhan on 21 Mar 2018
     /// Description : Entity for MinSpecs
     /// </summary>
+    [Serializable]
     public class SpecsItem
     {
         public int Id { get; set; }

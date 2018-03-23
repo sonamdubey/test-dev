@@ -45,7 +45,7 @@ namespace Bikewale.Models
         private string _originalUrl, _compareUrl, _modelNameList;
         private readonly uint _maxComparisons;
         private string _bikeQueryString = string.Empty, _versionsList = string.Empty;
-        private IList<uint> _versionIdsList = null;
+        private IList<uint> _versionIdsList;
         private uint _sponsoredBikeVersionId, _cityId;
         private ushort bikeComparisions;
 

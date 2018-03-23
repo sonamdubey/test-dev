@@ -28,7 +28,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
 
                     if (apiData != null && apiData.OutputMessages != null && apiData.OutputMessages.Count > 0)
                     {
-                        return ConvertToBwSpecsFeaturesEntity(Utilities.ConvertBytesToMsg<VehicleDataValue>(apiData.OutputMessages[0].Payload));
+                        return ConvertToSpecsFeaturesEntity(Utilities.ConvertBytesToMsg<VehicleDataValue>(apiData.OutputMessages[0].Payload));
                     }
                 }
             }
@@ -40,7 +40,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
 
         }
 
-        private static SpecsFeaturesEntity ConvertToBwSpecsFeaturesEntity(VehicleDataValue vehicleDataValue)
+        private static SpecsFeaturesEntity ConvertToSpecsFeaturesEntity(VehicleDataValue vehicleDataValue)
         {
             SpecsFeaturesEntity specsFeaturesEntity = null;
             try
@@ -54,26 +54,26 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                         specs.Add(new SpecsFeaturesCategory
                         {
                             DisplayText = category.Name,
-                            SpecsItemList = ConvertToBwSpecsFeaturesEntity(category.Items)
+                            SpecsItemList = ConvertToSpecFeaturesItemList(category.Items)
                         });
                     }
                     specsFeaturesEntity.Specs = specs;
                     var specsCategory = vehicleDataValue.Features.FirstOrDefault();
                     if (specsCategory != null)
                     {
-                        var features = ConvertToBwSpecsFeaturesEntity(specsCategory.Items);
+                        var features = ConvertToSpecFeaturesItemList(specsCategory.Items);
                         specsFeaturesEntity.Features = features;
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.ConvertToBWSpecsFeaturesEntity");
+                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.ConvertToSpecsFeaturesEntity");
             }
             return specsFeaturesEntity;
         }
 
-        private static IEnumerable<SpecsFeaturesItem> ConvertToBwSpecsFeaturesEntity(RepeatedField<Item> items)
+        private static IEnumerable<SpecsFeaturesItem> ConvertToSpecFeaturesItemList(RepeatedField<Item> items)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.ConvertToBWSpecFeaturesItemList");
+                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.ConvertToSpecFeaturesItemList");
             }
             return null;
         }
@@ -123,7 +123,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                     var apiData = ca.GetResultsFromGateway();
                     if (apiData != null && apiData.OutputMessages != null && apiData.OutputMessages.Count > 0)
                     {
-                        return ConvertToBWVersionMinSpecsList(Utilities.ConvertBytesToMsg<VersionItemsDataResponse>(apiData.OutputMessages[0].Payload));
+                        return ConvertToVersionMinSpecsList(Utilities.ConvertBytesToMsg<VersionItemsDataResponse>(apiData.OutputMessages[0].Payload));
                     }
                 }
                 
@@ -154,7 +154,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             return null;
         }
 
-        private static IEnumerable<VersionMinSpecsEntity> ConvertToBWVersionMinSpecsList(VersionItemsDataResponse vehicleItemsDataResponse)
+        private static IEnumerable<VersionMinSpecsEntity> ConvertToVersionMinSpecsList(VersionItemsDataResponse vehicleItemsDataResponse)
         {
             try
             {
@@ -166,7 +166,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                         versionMinSpecsList.Add(new VersionMinSpecsEntity
                         {
                             VersionId = versionItemsData.Id,
-                            MinSpecsList = ConvertToBWMinSpecsList(versionItemsData.ItemList)
+                            MinSpecsList = ConvertToMinSpecsList(versionItemsData.ItemList)
                         });
                     }
 
@@ -175,12 +175,12 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.ConvertToBWVersionMinSpecsList");
+                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.ConvertToVersionMinSpecsList");
             }
             return null;
         }
 
-        private static IEnumerable<SpecsItem> ConvertToBWMinSpecsList(RepeatedField<ItemData> itemDataList)
+        private static IEnumerable<SpecsItem> ConvertToMinSpecsList(RepeatedField<ItemData> itemDataList)
         {
             IList<SpecsItem> specItemList = null;
             try
@@ -203,7 +203,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.ConvertToBWMinSpecsList");
+                ErrorClass.LogError(ex, "SpecsFeaturesServiceMethods.ConvertToMinSpecsList");
             }
             return specItemList;
         }

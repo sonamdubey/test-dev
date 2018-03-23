@@ -63,13 +63,13 @@ namespace Bikewale.Mobile
         {
             ProcessQueryString();
             modelDetail = FetchModelPageDetails(modelId);
-            if(modelDetail != null && modelDetail.ModelDetails != null)
+            if (modelDetail != null && modelDetail.ModelDetails != null)
             {
                 IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
                 if (versionId > 0)
                 {
                     specs = FetchVariantDetails(versionId);
-                    versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint>() { versionId });
+                    versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { versionId });
                 }
                 BindWidget();
                 BindSimilarBikes();
@@ -272,7 +272,7 @@ namespace Bikewale.Mobile
             }
             finally
             {
-                if(objResponse != null && (isRedirect || isMakeRedirection))
+                if (objResponse != null && (isRedirect || isMakeRedirection))
                 {
                     redirectUrl = Request.RawUrl.Replace(makeMaskingName, newMakeMasking).Replace(modelMaskingName, objResponse.MaskingName);
                     CommonOpn.RedirectPermanent(redirectUrl);

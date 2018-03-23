@@ -161,7 +161,7 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     return BadRequest();
                 }
-                SpecsFeaturesEntity versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint>() { versionId});
+                SpecsFeaturesEntity versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { versionId});
         
                 if (versionSpecsFeatures != null)
                 {

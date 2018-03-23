@@ -222,7 +222,6 @@ namespace Bikewale.Models
                     BindPageFilters(objData);
                 }
                 BindNewBikeSearchPopupData(objData);
-                IEnumerable<VersionMinSpecsEntity> versionSpecsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int>() { 1, 2, 3});
                 #region Set Visible flags
 
                 if (objData != null)
