@@ -624,6 +624,7 @@
                             }
                             setPQUserCookie();
                             self.triggerABTestGA(gaLabel);
+                            fbq('track', 'Lead');
                         }
                     }
 
@@ -857,6 +858,7 @@
                             if (self.cityRequired() && self.selectedCity()) {
                                 SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
                             }
+                            fbq('track', 'Lead');
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             $('#processing').hide();

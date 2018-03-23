@@ -108,7 +108,8 @@
 </div>
 <!-- scripts goes here -->
 
-<script type="text/javascript">    
+<script type="text/javascript">
+
     var gaLabel = "";
     var eventAction = "Lead_Submitted";
     var leadBtnBookNow, leadCapturePopup, leadBike;
@@ -311,7 +312,7 @@
             if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
                 var dealerKey = "dealerDetails_" + self.dealerId() + "_camp_" + self.campaignId();
                 var dealerInfo = lscache.get(dealerKey);
-                
+
                 if (!dealerInfo) {
 
                     startLoading(leadBike.parent());
@@ -557,6 +558,7 @@
                         if (self.cityRequired() && self.selectedCity()) {
                             SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
                         }
+                        fbq('track', 'Lead');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $("#leadCapturePopup").show();
@@ -626,7 +628,9 @@
                         }
                         setPQUserCookie();
                         self.triggerABTestGA(gaLabel);
+                        fbq('track', 'Lead');
                     }
+                    
                 }
 
 
@@ -1011,7 +1015,7 @@
         fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile");
         assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile');
         detailsSubmitBtn = $("#user-details-submit-btn");
-       
+
         /* form validation */
         validate = {
             setError: function (element, message) {
