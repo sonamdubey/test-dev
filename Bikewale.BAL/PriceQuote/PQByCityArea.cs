@@ -1,23 +1,13 @@
-﻿using Bikewale.BAL.BikeBooking;
-using Bikewale.BAL.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.Location;
-using Bikewale.Cache.PriceQuote;
-using Bikewale.DAL.AutoBiz;
-using Bikewale.DAL.Location;
-using Bikewale.Entities.BikeBooking;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.ManufacturerCampaign.DAL;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +17,7 @@ namespace Bikewale.BAL.PriceQuote
     /// Created By: Sangram Nandkhile on 13 Apr 2016
     /// summary   : Class to have a common logic to get pq by Model, city and area
     /// </summary>
-    public class PQByCityArea
+    public class PQByCityArea : IPQByCityArea
     {
 
         private readonly ICityCacheRepository objcity = null;
@@ -40,38 +30,25 @@ namespace Bikewale.BAL.PriceQuote
         private readonly IPriceQuoteCache _objPQCache = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public PQByCityArea()
+        public PQByCityArea(ICityCacheRepository objcity,
+            IBikeModels<BikeModelEntity, int> objClient,
+            IPriceQuote objPq,
+            IDealerPriceQuote objDealer,
+            Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote,
+            IAreaCacheRepository objArea,
+            IDealerPriceQuoteDetail objIPQ,
+            IPriceQuoteCache _objPQCache,
+            IManufacturerCampaign _objManufacturerCampaign)
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-                container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
-                container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-                container.RegisterType<ICity, CityRepository>();
-                container.RegisterType<ICacheManager, MemcacheManager>();
-                container.RegisterType<ICityCacheRepository, CityCacheRepository>();
-                container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
-                container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
-                container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
-                container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaignRepository>();
-                container.RegisterType<IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
-                container.RegisterType<IManufacturerCampaignCache, Bikewale.ManufacturerCampaign.Cache.ManufacturerCampaignCache>();
-                container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
-
-                objcity = container.Resolve<ICityCacheRepository>();
-                objClient = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-                objPq = container.Resolve<IPriceQuote>();
-                objDealer = container.Resolve<IDealerPriceQuote>();
-                objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
-                objArea = container.Resolve<IAreaCacheRepository>();
-                objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
-                _objPQCache = container.Resolve<IPriceQuoteCache>();
-                _objManufacturerCampaign = container.Resolve<IManufacturerCampaign>();
-            }
+            this.objcity = objcity;
+            this.objClient = objClient;
+            this.objPq = objPq;
+            this.objDealer = objDealer;
+            this.objPriceQuote = objPriceQuote;
+            this.objArea = objArea;
+            this.objIPQ = objIPQ;
+            this._objPQCache = _objPQCache;
+            this._objManufacturerCampaign = _objManufacturerCampaign;
         }
 
         /// <summary>
@@ -481,13 +458,10 @@ namespace Bikewale.BAL.PriceQuote
                         // If area is provided, check if area exists in list
                         if (areaId > 0 && pqEntity.IsAreaExists)
                         {
-                            pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                             pqEntity.Area = areaList.FirstOrDefault(p => p.AreaId == areaId);
+                            pqEntity.IsAreaSelected = pqEntity.Area != null;
                         }
-                        if (selectedCity != null)
-                        {
-                            pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
-                        }
+                        pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
 
                         if (pqOnRoad != null)
                         {
@@ -581,11 +555,7 @@ namespace Bikewale.BAL.PriceQuote
                     {
                         pqEntity.PrimaryDealer = detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null ? detailedDealer.PrimaryDealer : null;
                         pqEntity.SecondaryDealerCount = detailedDealer.SecondaryDealerCount;
-
-                        if (detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null)
-                        {
-                            pqEntity.IsPremium = detailedDealer.PrimaryDealer.IsPremiumDealer;
-                        }
+                        pqEntity.IsPremium = pqEntity.PrimaryDealer != null && detailedDealer.PrimaryDealer.IsPremiumDealer;
                     }
                 }
 
