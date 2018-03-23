@@ -1,10 +1,12 @@
 ﻿<script runat="server">	
     string staticUrlPath = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFilesVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+    string fontFile="";
+    string fontUrl =="";
 </script>
 
-<% Dim fontFile As string = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
-       fontUrl As string = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)
+<%     fontFile  = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff";
+       fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)
 %>
 <style>
     @font-face { 

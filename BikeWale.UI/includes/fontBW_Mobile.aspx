@@ -1,6 +1,9 @@
-﻿
-<% Dim fontFile As string = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
-       fontUrl As string = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)
+﻿<script language="c#" runat="server">
+    string fontFile = "";
+    string fontUrl = "";	
+</script>
+<%     fontFile  = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
+       fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)
 %>
 <style>
     @font-face { 
