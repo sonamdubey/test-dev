@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -6,6 +7,7 @@ namespace Bikewale.Entities.BikeData
     /// Created by : Ashutosh Sharma on 15 Mar 2018.
     /// Description : Entity to hold data related of a item for multiple versions OR models.
     /// </summary>
+    [Serializable]
     public class SpecsFeaturesItem
     {
         /// <summary>
