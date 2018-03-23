@@ -12,7 +12,25 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
 {
     public static class SpecsFeaturesServiceGateway
     {
-        public static SpecsFeaturesEntity GetVersionsSpecsFeatures(IEnumerable<uint> versionIds)
+        private static readonly IEnumerable<EnumSpecsFeaturesItem> _specsFeaturesItemIds;
+
+        static SpecsFeaturesServiceGateway()
+        {
+            _specsFeaturesItemIds = new List<EnumSpecsFeaturesItem>
+            {
+                EnumSpecsFeaturesItem.Displacement,
+                EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                EnumSpecsFeaturesItem.MaxPower,
+                EnumSpecsFeaturesItem.KerbWeight
+            };
+        }
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 23 Mar 2018
+        /// Summary     : private method to get SpecsFeatures data of specified verisonIds
+        /// </summary>
+        /// <param name="versionIds"></param>
+        /// <returns></returns>
+        private static SpecsFeaturesEntity GetVersionSpecsFeatures(IEnumerable<int> versionIds)
         {
             try
             {
@@ -21,7 +39,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                     CallAggregator ca = new CallAggregator();
                     ca.AddCall(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetVehicleDataForVersionId", new VehicleDataRequest
                     {
-                        VersionIds = { versionIds.Select(versionId => (int)versionId) },
+                        VersionIds = { versionIds },
                         ApplicationId = 2
                     });
                     var apiData = ca.GetResultsFromGateway();
@@ -30,6 +48,39 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                     {
                         return ConvertToSpecsFeaturesEntity(Utilities.ConvertBytesToMsg<VehicleDataValue>(apiData.OutputMessages[0].Payload));
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("SpecsFeaturesServiceMethods.GetVersionSpecsFeatures(IEnumerable<int> {0})", versionIds));
+            }
+            return null;
+        }
+
+        public static SpecsFeaturesEntity GetVersionsSpecsFeatures(IEnumerable<uint> versionIds)
+        {
+            try
+            {
+                if (versionIds != null)
+                {
+                    return GetVersionSpecsFeatures(versionIds.Select(versionId => (int)versionId));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("SpecsFeaturesServiceMethods.GetVersionsSpecsFeatures(IEnumerable<uint> {0})", versionIds));
+            }
+            return null;
+
+        }
+
+        public static SpecsFeaturesEntity GetVersionsSpecsFeatures(IEnumerable<int> versionIds)
+        {
+            try
+            {
+                if (versionIds != null)
+                {
+                    return GetVersionSpecsFeatures(versionIds.Select(versionId => versionId));
                 }
             }
             catch (Exception ex)
@@ -100,6 +151,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             }
             return null;
         }
+
         /// <summary>
         /// Created By  : Rajan Chauhan on 22 Mar 2018
         /// Summary     : To get List of versionMinSpecs when given input versionIds and minSpecsIds
@@ -107,16 +159,16 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
         /// <param name="versionIds"></param>
         /// <param name="minSpecsIds"></param>
         /// <returns></returns>
-        public static IEnumerable<VersionMinSpecsEntity> GetVersionsMinSpecs(IEnumerable<int> versionIds, IEnumerable<EnumSpecsFeaturesItem> minSpecsIds)
+        public static IEnumerable<VersionMinSpecsEntity> GetVersionsMinSpecs(IEnumerable<int> versionIds, IEnumerable<EnumSpecsFeaturesItem> specsIds)
         {
             try
             {
-                if (versionIds != null && minSpecsIds != null)
+                if (versionIds != null && specsIds != null)
                 {
                     CallAggregator ca = new CallAggregator();
                     ca.AddCall(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "VersionsDataByItemIds", new VersionsDataByItemIdsRequest
                     {
-                        ItemIds = { minSpecsIds.Select(minSpecId => (int)minSpecId) },
+                        ItemIds = { specsIds.Select(specId => (int)specId) },
                         VersionIds = { versionIds },
                         ApplicationId = 2
                     });
@@ -126,7 +178,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                         return ConvertToVersionMinSpecsList(Utilities.ConvertBytesToMsg<VersionItemsDataResponse>(apiData.OutputMessages[0].Payload));
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -141,9 +193,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             {
                 if (versionIds != null)
                 {
-                    IEnumerable<EnumSpecsFeaturesItem> minSpecsIds = new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.Displacement, EnumSpecsFeaturesItem.FuelEfficiencyOverall, EnumSpecsFeaturesItem.MaxPower, EnumSpecsFeaturesItem.KerbWeight };
-
-                    return GetVersionsMinSpecs(versionIds, minSpecsIds);
+                    return GetVersionsMinSpecs(versionIds, _specsFeaturesItemIds);
                 }
 
             }
@@ -160,7 +210,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             {
                 if (vehicleItemsDataResponse != null)
                 {
-                    IList<VersionMinSpecsEntity>  versionMinSpecsList = new List<VersionMinSpecsEntity>();
+                    IList<VersionMinSpecsEntity> versionMinSpecsList = new List<VersionMinSpecsEntity>();
                     foreach (var versionItemsData in vehicleItemsDataResponse.VersionItemsDataList)
                     {
                         versionMinSpecsList.Add(new VersionMinSpecsEntity
