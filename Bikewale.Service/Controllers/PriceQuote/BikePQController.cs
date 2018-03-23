@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.PriceQuote;
-using Bikewale.DTO.PriceQuote;
+﻿using Bikewale.DTO.PriceQuote;
 using Bikewale.DTO.PriceQuote.BikeQuotation;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
@@ -22,9 +21,11 @@ namespace Bikewale.Service.Controllers.PriceQuote
     public class BikePQController : CompressionApiController
     {
         private readonly IPriceQuote _objPriceQuote = null;
-        public BikePQController(IPriceQuote objPriceQuote)
+        private readonly IPQByCityArea _objPQByCityArea = null;
+        public BikePQController(IPriceQuote objPriceQuote, IPQByCityArea objPQByCityArea)
         {
             _objPriceQuote = objPriceQuote;
+            _objPQByCityArea = objPQByCityArea;
         }
         /// <summary>
         /// Gets the BikeWale Price Quote from the Price Quote Id
@@ -55,7 +56,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.BikePQController.Get");
-               
+
                 return InternalServerError();
             }
         }
@@ -87,20 +88,19 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     objPQEntity.DeviceId = input.DeviceId;
                     objPQEntity.PQLeadId = input.PQLeadId;
                     objPQEntity.RefPQId = input.RefPQId;
-                    PQByCityArea pqbyCityArea = new PQByCityArea();
 
                     if (input.IsPersistance)
                     {
                         pqOut = new Bikewale.Entities.PriceQuote.v2.PQByCityAreaEntity();
-                        pqOut.PQCitites = pqbyCityArea.FetchCityByModelId(Convert.ToInt32(objPQEntity.ModelId));
+                        pqOut.PQCitites = _objPQByCityArea.FetchCityByModelId(Convert.ToInt32(objPQEntity.ModelId));
 
                         var selectedCity = pqOut.PQCitites.FirstOrDefault(p => p.CityId == objPQEntity.CityId);
                         if (selectedCity != null && selectedCity.HasAreas)
-                            pqOut.PQAreas = pqbyCityArea.GetAreaForCityAndModel(Convert.ToInt32(objPQEntity.ModelId), Convert.ToInt32(objPQEntity.CityId));
+                            pqOut.PQAreas = _objPQByCityArea.GetAreaForCityAndModel(Convert.ToInt32(objPQEntity.ModelId), Convert.ToInt32(objPQEntity.CityId));
                     }
                     else
                     {
-                        pqOut = pqbyCityArea.GetPriceQuoteByCityArea(objPQEntity, input.IsReload);
+                        pqOut = _objPQByCityArea.GetPriceQuoteByCityArea(objPQEntity, input.IsReload);
                     }
 
 
@@ -134,7 +134,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.BikePQController.Get");
-               
+
                 return InternalServerError();
             }
         }
