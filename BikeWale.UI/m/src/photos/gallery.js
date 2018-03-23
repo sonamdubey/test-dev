@@ -115,21 +115,23 @@ function resizePortraitImage(element) {
 }
 
 function resizeHandler() {
-	if (window.innerWidth > window.innerHeight) {
-		vmModelGallery.fullScreenModeActive(true);
-		vmModelGallery.hideFooterTabs();
-	}
-	else {
-		vmModelGallery.fullScreenModeActive(false);
-		vmModelGallery.showFooterTabs();
-	}
+	if(vmModelGallery.activePopup()) {
+		if (window.innerWidth > window.innerHeight) {
+			vmModelGallery.fullScreenModeActive(true);
+			vmModelGallery.hideFooterTabs();
+		}
+		else {
+			vmModelGallery.fullScreenModeActive(false);
+			vmModelGallery.showFooterTabs();
+		}
 
-	vmModelGallery.setRotateScreenOption();
-	vmModelGallery.setColorOption();
-	vmModelGallery.resetSharePopup();
+		vmModelGallery.setRotateScreenOption();
+		vmModelGallery.setColorOption();
+		vmModelGallery.resetSharePopup();
 
-	if(colorThumbnailGallerySwiper) {
-		ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
+		if(colorThumbnailGallerySwiper) {
+			ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
+		}
 	}
 };
 
@@ -183,7 +185,6 @@ docReady(function () {
 	}
 
 	// popup states
-	// TODO: update popstate logic
 	$(window).on('popstate', function () {
 		GalleryState.dispatchAction();
 
@@ -329,9 +330,11 @@ var MainGallerySwiper = (function() {
 				SwiperEvents.setDetails(swiper, vmModelGallery);
 			},
 
-			onTap: function (swiper) {
-				if (vmModelGallery.fullScreenModeActive()) {
-					vmModelGallery.toggleFooterTabs();
+			onTap: function (swiper, event) {
+				if (!$(event.target).hasClass('gallery__arrow-btn')) {
+					if (vmModelGallery.fullScreenModeActive()) {
+						vmModelGallery.toggleFooterTabs();
+					}
 				}
 			},
 
@@ -366,7 +369,7 @@ var MainGallerySwiper = (function() {
 
 			onSlideChangeEnd: function (swiper) {
 
-				if (swiper.activeIndex === vmModelGallery.floatingLandscapeSlugVisibilityThreshold()) {
+				if (swiper.activeIndex >= vmModelGallery.floatingLandscapeSlugVisibilityThreshold()) {
 					vmModelGallery.setLandscapeIcon();
 				}
 
@@ -462,8 +465,10 @@ var ColorGallerySwiper = (function () {
 			},
 
 			onTap: function (swiper, event) {
-				if (vmModelGallery.fullScreenModeActive()) {
-					vmModelGallery.colorPopup().activeLandscapeFooter(!vmModelGallery.colorPopup().activeLandscapeFooter());
+				if (!$(event.target).hasClass('color__arrow-btn')) {
+					if (vmModelGallery.fullScreenModeActive()) {
+						vmModelGallery.colorPopup().activeLandscapeFooter(!vmModelGallery.colorPopup().activeLandscapeFooter());
+					}
 				}
 			},
 

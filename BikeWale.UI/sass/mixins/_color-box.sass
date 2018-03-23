@@ -1,0 +1,32 @@
+@mixin color-box($size)
+	@if unitless($size)
+		$size: $size * 1px
+
+		.color-box
+			width: $size
+			height: $size
+			background: #f1f1f1
+			border-radius: 4px
+			position: relative
+			display: inline-block
+			vertical-align: middle
+			overflow: hidden
+
+			span
+				width: 100%
+				display: block
+
+			&[data-color-count="1"]
+				span
+					height: 100%
+
+			&[data-color-count="2"]
+				span
+					height: 50%
+
+			&[data-color-count="3"]
+				span
+					height: 33.4%
+
+	@else
+		@warn 'Please provide unitless value for `$size` property of color-box mixin'

@@ -260,6 +260,12 @@ docReady(function () {
 			vmModelColorSwiper.activeIndex(1);
 			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
 		},
+		onTap: function (swiper) {
+			var activeIndex = swiper.activeIndex;
+
+			vmModelGallery.colorPopup().openPopup();
+			colorGallerySwiper.slideTo(activeIndex);
+		},
 		onSlideChangeStart: function (swiper) {
 			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
 			SwiperEvents.focusThumbnail(colorTabThumbnailSwiper, vmModelColorSwiper.activeIndex(), true);
@@ -278,7 +284,11 @@ docReady(function () {
 			SwiperEvents.focusThumbnail(swiper, vmModelColorSwiper.activeIndex(), true);
 		},
 		onTap: function (swiper) {
-			colorTabSwiper.slideTo(swiper.clickedIndex);
+			var clickedIndex = swiper.clickedIndex;
+
+			if(typeof clickedIndex !== 'undefined') {
+				colorTabSwiper.slideTo(clickedIndex);
+			}
 		}
 	});
 

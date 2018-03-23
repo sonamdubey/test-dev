@@ -47,7 +47,7 @@
 	self.activeFloatingColorSlug = ko.observable(false);
 
 	self.videoSlug = ko.observable(new VideoSlugViewModel(MODEL_VIDEO_LIST));
-	self.videoSlug().description('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+	self.videoSlug().description('');
 	self.videoSlug().visibilityThreshold(IMAGE_INDEX + 10);
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
@@ -105,6 +105,7 @@
 			}, 300, 'swing');
 			gaObj.id = lastPageId;
 			self.activeSwiperTitle(false);
+			self.showFooterTabs();
 			self.activePopup(false);
 			self.setRotateScreenOption();
 			self.setColorOption();
@@ -150,6 +151,8 @@
 		}
 		else {
 			self.activeGalleryFooterShare(true);
+			self.activeFloatingColorSlug(false);
+			self.rotateScreenOption(false);
 		}
 
 		Scroll.lock();
@@ -161,6 +164,8 @@
 		}
 		else {
 			self.activeGalleryFooterShare(false);
+			self.setColorOption();
+			self.setRotateScreenOption();
 		}
 
 		Scroll.unlock();
@@ -232,29 +237,31 @@
 	}
 
 	self.setLandscapeIcon = function () {
-		var element = $('.model-gallery-section .gallery__landscape-slug .screen--rotate-slug__landscape-icon');
+		if (!self.activeLandscapeIcon()) {
+			var element = $('.model-gallery-section .gallery__landscape-slug .screen--rotate-slug__landscape-icon');
 
-		var topPosition = $('.model-gallery__container .gallery-footer').offset().top - $('.model-gallery-section .gallery__landscape-slug').offset().top + 8;
+			var topPosition = $('.model-gallery__container .gallery-footer').offset().top - $('.model-gallery-section .gallery__landscape-slug').offset().top + 8;
 
-		var rightPosition = -(window.innerWidth - ($('.model-gallery-section .screen--rotate-slug__landscape-container').offset().left + $('.model-gallery-section .screen--rotate-slug__landscape-container').width()) - 25);
+			var rightPosition = -(window.innerWidth - ($('.model-gallery-section .screen--rotate-slug__landscape-container').offset().left + $('.model-gallery-section .screen--rotate-slug__landscape-container').width()) - 25);
 
-		$('.model-gallery-section .gallery__landscape-slug').css('z-index', 10);
+			$('.model-gallery-section .gallery__landscape-slug').css('z-index', 10);
 
-		if (!self.fullScreenModeActive()) {
-			element.css('position', 'fixed').animate({ 'top': topPosition + 'px', 'right': rightPosition + 'px' }, 1000, "swing");
-			setTimeout(function () {
+			if (!self.fullScreenModeActive()) {
+				element.css('position', 'fixed').animate({ 'top': topPosition + 'px', 'right': rightPosition + 'px' }, 1000, "swing");
+				setTimeout(function () {
+					self.setRotateScreenOption();
+				}, 1100);
+				self.activeLandscapeIcon(true);
+			}
+			else {
+				element.css({
+					'position': 'fixed',
+					'top': topPosition + 'px',
+					'right': rightPosition + 'px'
+				});
 				self.setRotateScreenOption();
-			}, 1100);
-			self.activeLandscapeIcon(true);
-		}
-		else {
-			element.css({
-				'position': 'fixed',
-				'top': topPosition + 'px',
-				'right': rightPosition + 'px'
-			});
-			self.setRotateScreenOption();
-			self.activeLandscapeIcon(true);
+				self.activeLandscapeIcon(true);
+			}
 		}
 	}
 
@@ -315,7 +322,7 @@ var ModelColorPopupViewModel = function () {
 	self.colorSwiper = ko.observable(new ModelColorSwiperViewModel());
 
 	self.openPopup = function () {
-	    self.activePopup(true);
+	  self.activePopup(true);
 		self.setListHeight();
 
 		triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', self.modelName);
@@ -324,11 +331,14 @@ var ModelColorPopupViewModel = function () {
 		GalleryState.subscribeAction(self.closePopup);
 	}
 
-	self.closePopup = function () {
+	self.closePopup = function (isClickEvent) {
 		if (self.activePopup()) {
-		    self.activePopup(false);
-		    triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Closed', self.modelName);
-		    history.back();
+			self.activePopup(false);
+			triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Closed', self.modelName);
+				
+			if (isClickEvent) {
+				history.back();
+			}
 		}
 	}
 
@@ -381,12 +391,15 @@ var ModelVideoPopupViewModel = function () {
 		GalleryState.subscribeAction(self.closePopup);
 	}
 
-	self.closePopup = function () {
+	self.closePopup = function (isClickEvent) {
 		if (self.activePopup()) {
-		    self.activePopup(false);
-		    triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Closed', self.modelName);
-		    history.back();
+			self.activePopup(false);
+			triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Closed', self.modelName);
+			SwiperYT.YouTubeApi.videoPause();
 
+			if (isClickEvent) {
+				history.back();
+			}
 		}
 	}
 

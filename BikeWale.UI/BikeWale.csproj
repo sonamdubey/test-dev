@@ -4055,6 +4055,8 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad320x100_Generic.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad300x250_Generic.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Generic.cshtml" />
+    <Content Include="sass\mixins\_color-box.sass" />
+    <Content Include="sass\m\photos\listing-btf.sass" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
