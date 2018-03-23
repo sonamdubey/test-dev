@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
-    public enum EnumMinSpecs
+    public enum EnumSpecsFeaturesItem
     {
         Displacement = 14,
         FuelEfficiencyOverall = 12,

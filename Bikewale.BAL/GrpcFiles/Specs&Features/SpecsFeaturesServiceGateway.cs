@@ -107,7 +107,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
         /// <param name="versionIds"></param>
         /// <param name="minSpecsIds"></param>
         /// <returns></returns>
-        public static IEnumerable<VersionMinSpecsEntity> GetVersionsMinSpecs(IEnumerable<int> versionIds, IEnumerable<EnumMinSpecs> minSpecsIds)
+        public static IEnumerable<VersionMinSpecsEntity> GetVersionsMinSpecs(IEnumerable<int> versionIds, IEnumerable<EnumSpecsFeaturesItem> minSpecsIds)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             {
                 if (versionIds != null)
                 {
-                    IEnumerable<EnumMinSpecs> minSpecsIds = new List<EnumMinSpecs> { EnumMinSpecs.Displacement, EnumMinSpecs.FuelEfficiencyOverall, EnumMinSpecs.MaxPower, EnumMinSpecs.KerbWeight };
+                    IEnumerable<EnumSpecsFeaturesItem> minSpecsIds = new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.Displacement, EnumSpecsFeaturesItem.FuelEfficiencyOverall, EnumSpecsFeaturesItem.MaxPower, EnumSpecsFeaturesItem.KerbWeight };
 
                     return GetVersionsMinSpecs(versionIds, minSpecsIds);
                 }
