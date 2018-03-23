@@ -182,7 +182,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("SpecsFeaturesServiceMethods.GetVersionsMinSpecs(IEnumerable<int> {0}, IEnumerable<EnumMinSpecs> {1})", versionIds, minSpecsIds));
+                ErrorClass.LogError(ex, String.Format("SpecsFeaturesServiceMethods.GetVersionsMinSpecs(IEnumerable<int> {0}, IEnumerable<EnumMinSpecs> {1})", versionIds, specsIds));
             }
             return null;
         }
