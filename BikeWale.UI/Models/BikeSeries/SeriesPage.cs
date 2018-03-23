@@ -15,6 +15,7 @@ using Bikewale.Models.Used;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeSeries
@@ -22,6 +23,8 @@ namespace Bikewale.Models.BikeSeries
     /// <summary>
     /// Created by : Ashutosh Sharma on 17 Nov 2017
     /// Description : Provide methods to get data for series page.
+    /// Modified by : Sanskar Gupta on 22 Mar 2018
+    /// Description : Added `AdPath_Mobile` and `AdId_Mobile
     /// </summary>
     public class SeriesPage
     {
@@ -35,6 +38,9 @@ namespace Bikewale.Models.BikeSeries
         private readonly IVideos _videos = null;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeCompare _compareScooters = null;
+        private readonly String _adPath_Mobile = "/1017752/Bikewale_Model_";
+        private readonly String _adId_Mobile = "1442913773076";
+
 
         public SeriesPage(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache, IBikeSeries bikeSeries, ICMSCacheContent articles, IVideos videos, IBikeCompare compareScooters)
         {
@@ -98,6 +104,7 @@ namespace Bikewale.Models.BikeSeries
                 SetPageJSONLDSchema(objSeriesPage);
                 BindTopComparisions(objSeriesPage, CompareSource);
                 objSeriesPage.Page = GAPages.Series_Page;
+                BindAdSlots(objSeriesPage);
             }
             catch (Exception ex)
             {
@@ -437,6 +444,44 @@ namespace Bikewale.Models.BikeSeries
             catch (Exception ex)
             {
                 ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 22 March 2018
+        /// Description : Function to Bind AdSlots dynamically.
+        /// </summary>
+        /// <param name="objViewModel"></param>
+        private void BindAdSlots(SeriesPageVM objViewModel)
+        {
+            if (IsMobile)
+            {
+                AdTags adTagsObj = new AdTags();
+
+                adTagsObj.AdPath = _adPath_Mobile;
+                adTagsObj.AdId = _adId_Mobile;
+                adTagsObj.Ad_320x50 = true;
+                adTagsObj.Ad_Bot_320x50 = true;
+
+                objViewModel.AdTags = adTagsObj;
+
+                IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+
+                NameValueCollection adInfo = new NameValueCollection();
+                adInfo["adId"] = _adId_Mobile;
+                adInfo["adPath"] = _adPath_Mobile;
+
+                if (adTagsObj.Ad_320x50)
+                {
+                    ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 0, 320, AdSlotSize._320x50, "Top", true)); 
+                }
+                if (adTagsObj.Ad_Bot_320x50)
+                {
+                    ads.Add(String.Format("{0}-1", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 1, 320, AdSlotSize._320x50, "Bottom")); 
+                }
+
+                objViewModel.AdSlots = ads;
+
             }
         }
 

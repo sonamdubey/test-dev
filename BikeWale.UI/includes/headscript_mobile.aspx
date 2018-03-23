@@ -23,7 +23,22 @@
  <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %>
 <link rel="next" href="<%= relNextPageUrl %>" /><% }%>
 <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+<style>
+    @@font-face {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Open Sans Regular'), local('OpenSans-Regular'), url('/css/fonts/OpenSans/open-sans-v15-latin-regular.woff') format('woff');
+    }
+    @@font-face {
+	    font-family: 'Open Sans';
+	    font-style: normal;
+	    font-weight: 700;
+	    src: local('Open Sans Bold'), local('OpenSans-Bold'), url('/css/fonts/OpenSans/open-sans-v15-latin-700.woff') format('woff');
+	}
+</style>
+
+
 <link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 <%if (EnableOG)

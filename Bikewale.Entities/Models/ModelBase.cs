@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.Models;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
+using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -17,11 +18,15 @@ namespace Bikewale.Models
     /// Summary: Added page property to hold page id and name for GA
     /// Modified By : Ashutosh Sharma on 27 Oct 2017
     /// Description : Added AmpJsTags.
+    /// Modified By : Deepak Israni on 20 March 2018
+    /// Description : Added AdSlots list.
+    /// Modified by : Sanskar Gupta on 23 March 2018
+    /// Description : Changed type of `AdSlots` to dictionary
     /// </summary>
     public class ModelBase
     {
         public PageMetaTags PageMetaTags { get; private set; }
-        public AdTags AdTags { get; private set; }
+        public AdTags AdTags { get; set; }
         public BreadcrumbList BreadcrumbList { get; private set; }
         public bool IsTransparentHeader { get; set; }
         public bool IsHomePage { get; set; }
@@ -54,6 +59,6 @@ namespace Bikewale.Models
         public GAPages Page { get; set; }
         public AmpJsTags AmpJsTags { get; set; }
         public string Amp_Page_CSS { get; set; }
-        
+        public IDictionary<string, AdSlotModel> AdSlots { get; set; }
     }
 }
