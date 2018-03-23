@@ -351,7 +351,7 @@
 { 
     <section>
         <div style="margin-bottom: 15px">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[1]);}
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-2", Model.AdTags.AdId)]);}
         </div>
     </section>
 }
