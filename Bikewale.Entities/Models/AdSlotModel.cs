@@ -117,6 +117,9 @@ namespace Bikewale.Models
         public const string _200x211 = "[200, 211]";
         public const string _200x216 = "[200, 216]";
         public const string _200x253 = "[200, 253]";
+        public const string _292x359 = "[292, 359]";
+        public const string _292x360 = "[292, 360]";
+        public const string _292x399 = "[292, 399]";
         public const string _300x100 = "[300, 100]";
         public const string _300x250 = "[300, 250]";
         public const string _320x50 = "[320, 50]";
@@ -127,6 +130,26 @@ namespace Bikewale.Models
         public const string _320x400 = "[320, 400]";
         public const string _320x425 = "[320, 425]";
         public const string _320x450 = "[320, 450]";
+        public const string _728x90 = "[728, 90]";
+        public const string _950x90 = "[950, 90]";
+        public const string _960x60 = "[960, 60]";
+        public const string _960x66 = "[960, 66]";
+        public const string _960x90 = "[960, 90]";
+        public const string _970x60 = "[970, 60]";
+        public const string _970x66 = "[970, 66]";
+        public const string _970x90 = "[970, 90]";
+        public const string _970x150 = "[970, 150]";
+        public const string _970x200 = "[970, 200]";
+        public const string _976x100 = "[976, 100]";
+        public const string _976x150 = "[976, 150]";
+        public const string _976x200 = "[976, 200]";
+        public const string _976x204 = "[976, 204]";
+        public const string _976x250 = "[976, 250]";
+        public const string _976x300 = "[976, 300]";
+        public const string _976x350 = "[976, 350]";
+        public const string _976x400 = "[976, 400]";
+        public const string _976x450 = "[976, 450]";
+        public const string _976x460 = "[976, 460]";
     }
 
 }
