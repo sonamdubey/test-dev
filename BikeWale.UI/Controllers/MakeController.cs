@@ -112,13 +112,14 @@ namespace Bikewale.Controllers
             {
                 obj.IsMobile = true;
 
-                objData = obj.GetData();
                 if (BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageViewShowPercentage))
                 {
+                    objData = obj.GetData(true);
                     return View("~/views/make/Index_Mobile_New.cshtml", objData);
                 }
                 else
                 {
+                    objData = obj.GetData(false);
                     return View("~/views/make/Index_Mobile.cshtml", objData);
                 }
             }
