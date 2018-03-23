@@ -488,17 +488,19 @@ namespace Bikewale.Models
             {
                 if (objVM.AdTags != null)
                 {
-                    objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399"); //For similar bikes widget desktop
-                    objVM.AdTags.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
-
                     if (IsMobile)
                     {
+                        objVM.AdTags = new AdTags
+                        {
+                            AdPath = _adPath_Mobile,
+                            AdId = _adId_Mobile,
+                            Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile,
+                            Ad_300x250 = true,
+                            Ad_Bot_320x50 = true,
+                            Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253")  //For similar bikes widget mobile
 
-                        objVM.AdTags.AdPath = _adPath_Mobile;
-                        objVM.AdTags.AdId = _adId_Mobile;
-                        objVM.AdTags.Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile;
-                        objVM.AdTags.Ad_300x250 = true;
-                        objVM.AdTags.Ad_Bot_320x50 = true;
+                        };
+
 
                         IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
 
@@ -507,23 +509,27 @@ namespace Bikewale.Models
                         adInfo["adPath"] = _adPath_Mobile;
 
                         if (objVM.AdTags.Ad_320x50)
-                            ads.Add("0", GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 0, 320, AdSlotSize._320x50, "Top", true));
+                            ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 0, 320, AdSlotSize._320x50, "Top", true));
 
                         if (objVM.AdTags.Ad_300x250)
-                            ads.Add("2", GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250));
+                            ads.Add(String.Format("{0}-2", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250));
 
                         if (objVM.AdTags.Ad_Bot_320x50)
-                            ads.Add("1", GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 1, 320, AdSlotSize._320x50, "Bottom"));
+                            ads.Add(String.Format("{0}-1", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 1, 320, AdSlotSize._320x50, "Bottom"));
 
                         if (objVM.AdTags.Ad_200x253)
                         {
                             NameValueCollection adInfo_OldAd = new NameValueCollection();
                             adInfo_OldAd["adId"] = "1505919734321";
                             adInfo_OldAd["adPath"] = _adPath_Mobile;
-                            ads.Add("11", GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, new String[] { ViewSlotSize._200x253 }, 11, 200, AdSlotSize._200x253));
+                            ads.Add(String.Format("{0}-11", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, new String[] { ViewSlotSize._200x253 }, 11, 200, AdSlotSize._200x253));
                         }
                         objVM.AdSlots = ads;
 
+                    }
+                    else
+                    {
+                        objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399");   //For similar bikes widget desktop
                     }
 
                 }
