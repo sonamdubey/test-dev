@@ -101,7 +101,7 @@
             @if (Model.AdTags.Ad_320x100_Top) { 
                 <section>
                     <div style="margin-bottom: 20px">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[0]);}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-3", Model.AdTags.AdId)]);}
                     </div>
                 </section>
             }
@@ -236,7 +236,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
             { 
                 <section>
                     <div style="margin-bottom: 20px">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[1]);}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-1", Model.AdTags.AdId)]);}
                     </div>
                 </section>
             }
@@ -388,7 +388,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
             { 
                 <section>
                     <div style = "margin-bottom: 20px">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[2]);}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-2", Model.AdTags.AdId)]);}
                     </div>
                 </section>
             }
@@ -493,7 +493,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
     { 
         <section>
             <div style="margin-bottom: 20px">
-                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[3]);}
+                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-0", Model.AdTags.AdId)]);}
             </div>
         </section>
     }

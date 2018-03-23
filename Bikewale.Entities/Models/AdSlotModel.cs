@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Models
 {
@@ -25,7 +24,8 @@ namespace Bikewale.Models
         /// Created By : Deepak Israni on 21 March 2018
         /// Description: Constructor for when only one view size is applicable for an ad.
         /// </summary>
-        public AdSlotModel(string viewSize) : this()
+        public AdSlotModel(string viewSize)
+            : this()
         {
             ViewSizes.Add(viewSize);
         }
@@ -34,7 +34,8 @@ namespace Bikewale.Models
         /// Created By : Deepak Israni on 21 March 2018
         /// Description: Constructor for when there are multiple view sizes for an ad slot.
         /// </summary>
-        public AdSlotModel(IEnumerable<string> viewSizes) : this()
+        public AdSlotModel(IEnumerable<string> viewSizes)
+            : this()
         {
             foreach (var viewSize in viewSizes)
             {
@@ -50,7 +51,7 @@ namespace Bikewale.Models
         public string Position { get; set; }
         public string Size { get; set; }
         public string ViewSize { get { return GetViewSize(); } }
-        public ICollection<string> ViewSizes{ get; private set; }
+        public ICollection<string> ViewSizes { get; private set; }
 
 
         /// <summary>
@@ -79,9 +80,9 @@ namespace Bikewale.Models
                     return sizeString.ToString();
                 }
             }
-            return "";
+            return string.Empty;
         }
-        
+
     }
 
     /// <summary>
@@ -106,4 +107,26 @@ namespace Bikewale.Models
         public const string _976x204 = "976x204";
         public const string _976x400 = "976x400";
     }
+
+    /// <summary>
+    /// Created By : Deepak Israni on 22 March 2018
+    /// Description: Class to store all the ad view slot sizes.
+    /// </summary>
+    public static class ViewSlotSize
+    {
+        public const string _200x211 = "[200, 211]";
+        public const string _200x216 = "[200, 216]";
+        public const string _200x253 = "[200, 253]";
+        public const string _300x100 = "[300, 100]";
+        public const string _300x250 = "[300, 250]";
+        public const string _320x50 = "[320, 50]";
+        public const string _320x100 = "[320, 100]";
+        public const string _320x150 = "[320, 150]";
+        public const string _320x300 = "[320, 300]";
+        public const string _320x350 = "[320, 350]";
+        public const string _320x400 = "[320, 400]";
+        public const string _320x425 = "[320, 425]";
+        public const string _320x450 = "[320, 450]";
+    }
+
 }

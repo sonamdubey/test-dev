@@ -23,6 +23,7 @@ using Bikewale.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 
@@ -73,8 +74,8 @@ namespace Bikewale.Models
         private readonly IAdSlot _adSlot = null;
         private BikeSeriesEntityBase Series;
 
-        private readonly String AdPath_Mobile = "/1017752/Bikewale_CityPrice_Mobile";
-        private readonly String AdId_Mobile = "1516080888816";
+        private readonly String _adPath_Mobile = "/1017752/Bikewale_CityPrice_Mobile";
+        private readonly String _adId_Mobile = "1516080888816";
 
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
@@ -487,66 +488,48 @@ namespace Bikewale.Models
             {
                 if (objVM.AdTags != null)
                 {
-                    objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399"); //For similar bikes widget desktop
-                    objVM.AdTags.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
-
                     if (IsMobile)
                     {
-
-                        objVM.AdTags.AdPath = AdPath_Mobile;
-                        objVM.AdTags.AdId = AdId_Mobile;
-                        objVM.AdTags.Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile;
-                        objVM.AdTags.Ad_300x250 = true;
-                        objVM.AdTags.Ad_Bot_320x50 = true;
-
-
-                        IList<AdSlotModel> ads = new List<AdSlotModel>();
-
-                        ads.Add(new AdSlotModel("[320, 50]")
+                        objVM.AdTags = new AdTags
                         {
-                            AdId = AdId_Mobile,
-                            AdPath = AdPath_Mobile,
-                            DivId = 0,
-                            Width = 320,
-                            LoadImmediate = true,
-                            Position = "Top",
-                            Size = AdSlotSize._320x50
+                            AdPath = _adPath_Mobile,
+                            AdId = _adId_Mobile,
+                            Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile,
+                            Ad_300x250 = true,
+                            Ad_Bot_320x50 = true,
+                            Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253")  //For similar bikes widget mobile
 
-                        });
-                        ads.Add(new AdSlotModel("[300, 250]")
+                        };
+
+
+                        IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+
+                        NameValueCollection adInfo = new NameValueCollection();
+                        adInfo["adId"] = _adId_Mobile;
+                        adInfo["adPath"] = _adPath_Mobile;
+
+                        if (objVM.AdTags.Ad_320x50)
+                            ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 0, 320, AdSlotSize._320x50, "Top", true));
+
+                        if (objVM.AdTags.Ad_300x250)
+                            ads.Add(String.Format("{0}-2", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250));
+
+                        if (objVM.AdTags.Ad_Bot_320x50)
+                            ads.Add(String.Format("{0}-1", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 1, 320, AdSlotSize._320x50, "Bottom"));
+
+                        if (objVM.AdTags.Ad_200x253)
                         {
-                            AdId = AdId_Mobile,
-                            AdPath = AdPath_Mobile,
-                            DivId = 2,
-                            Width = 300,
-                            LoadImmediate = false,
-                            Size = AdSlotSize._300x250
-
-                        });
-                        ads.Add(new AdSlotModel("[320, 50]")
-                        {
-                            AdId = AdId_Mobile,
-                            AdPath = AdPath_Mobile,
-                            DivId = 1,
-                            Width = 320,
-                            LoadImmediate = false,
-                            Position = "Bottom",
-                            Size = AdSlotSize._320x50
-
-                        });
-                        ads.Add(new AdSlotModel("[200, 253]")
-                        {
-                            AdId = "1505919734321",
-                            AdPath = AdPath_Mobile,
-                            DivId = 11,
-                            Width = 200,
-                            LoadImmediate = false,
-                            Size = AdSlotSize._200x253
-
-                        });
-
+                            NameValueCollection adInfo_OldAd = new NameValueCollection();
+                            adInfo_OldAd["adId"] = "1505919734321";
+                            adInfo_OldAd["adPath"] = _adPath_Mobile;
+                            ads.Add(String.Format("{0}-11", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, new String[] { ViewSlotSize._200x253 }, 11, 200, AdSlotSize._200x253));
+                        }
                         objVM.AdSlots = ads;
-                       
+
+                    }
+                    else
+                    {
+                        objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399");   //For similar bikes widget desktop
                     }
 
                 }
