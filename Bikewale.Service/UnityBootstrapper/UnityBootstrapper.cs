@@ -231,6 +231,8 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeSearch, BikeSearch>();
             container.RegisterType<IBikeSeriesCacheRepository, BikeSeriesCacheRepository>();
             container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
+            container.RegisterType<IPQByCityArea, PQByCityArea>();
+            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
             return container;
 
         }
