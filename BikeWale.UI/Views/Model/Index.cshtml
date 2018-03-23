@@ -64,7 +64,9 @@
 	};
 	</text>
 	}
-    fbq('track', 'ViewContent');
+    docReady(function () {
+        fbq('track', FbPixelEvent[1]);
+    });
 	</script>
 	
 	<script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

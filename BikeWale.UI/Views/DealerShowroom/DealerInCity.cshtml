@@ -262,5 +262,7 @@
 
 <script type="text/javascript">
     eventCategory = "Dealer_Locator";
-    fbq('track','ViewContent');
+    docReady(function () {
+        fbq('track',FbPixelEvent[1]);
+    });
 </script>

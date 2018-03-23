@@ -11,7 +11,7 @@ var popupHeading, popupContent, brandcitypopupContent;
 var trendingBikes, objSearches;
 var topCount = 5;
 var pageName = typeof (gaObj) === 'undefined' ? 'Others' : gaObj.name;
-
+var FbPixelEvent = ['PageView', 'ViewContent', 'Lead'];
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt) {

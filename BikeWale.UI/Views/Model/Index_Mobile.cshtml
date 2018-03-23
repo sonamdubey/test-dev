@@ -70,7 +70,9 @@
     };
     </text>
     }
-    fbq('track', 'ViewContent');
+    docReady(function () {
+        fbq('track',FbPixelEvent[1]);
+    });
     </script>
     
 
