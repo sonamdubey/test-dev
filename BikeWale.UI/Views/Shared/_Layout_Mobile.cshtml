@@ -66,6 +66,14 @@
     @{Bikewale.Utility.BWCookies.SetBWUtmz();}
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     @Html.Raw(Model.Page_ATF_CSS)
+
+    @if(Model.Page_ATF_CSS_Paths!=null && Model.Page_ATF_CSS_Paths.Any())
+    {
+        foreach(var cssFile in Model.Page_ATF_CSS_Paths)
+        {
+            @Html.Raw(cssFile);
+        }
+    }
     <script type="text/javascript">
     var ga_pg_id = '0', gaObj, galleryId, lastPageId;
 
@@ -537,6 +545,8 @@
             <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, scriptLink.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
         }
     }
+    
+   
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" defer>
     </script>
     <script type="text/javascript">
