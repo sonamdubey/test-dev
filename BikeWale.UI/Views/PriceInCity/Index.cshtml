@@ -8,6 +8,7 @@
 	Model.IsPageTypeLanding = false;
 	Model.IsHeaderFix = false;
 	var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
+    var AdIdSimilarBikes = "1505919734321";
 }
 @if (Model != null && Model.BikeModel != null && Model.CityEntity != null)
 {
@@ -195,7 +196,7 @@
 
 										else
 										{
-											@Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
+											@Html.Partial("~/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-1", Model.AdTags.AdId)]);
 											<div id="adBlocker" class="adBlocker-grid grid-4 text-left alpha omega  hide">
 												<a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_PriceInCityPage_AdPlaceholder)" target="_blank" rel="noopener" title="Write a review" style="width: 300px; height: 250px;display:block">
 													<img src="https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/review-contest-300x250.jpg" alt="write a review" class="inline-block margin" />
@@ -432,7 +433,7 @@
 										if (Model.AdTags.Ad_Model_BTF_300x250)
 										{
 											<div class="grid-4 omega alpha padding-top20">
-												@{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_300x250.cshtml", new { AdId = Model.AdTags.AdId, loadImmediate = Model.AdSlots[String.Format("{0}-11", Model.AdTags.AdId)].LoadImmediate ? "true" : "false" });}
+												@{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-11", Model.AdTags.AdId)]);}
 											</div>
 										}
 									}
@@ -456,7 +457,9 @@
 												<ul>
 													@if (Model.AdTags.Ad_292x399)
                                                     {
-                                                        { Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x399.cshtml", new { AdId = Model.AdTags.AdId, loadImmediate = Model.AdSlots[String.Format("{0}-14", Model.AdTags.AdId)].LoadImmediate ? "true" : "false" }); }
+                                                        <li class="sponsored-card">
+                                                            { Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", AdIdSimilarBikes)]); }
+                                                        </li>
 
                                                     }
 													@Html.Partial("~/views/Bikemodels/_SimilarBikes.cshtml", Model.AlternateBikes)
