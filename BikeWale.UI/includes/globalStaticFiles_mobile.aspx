@@ -2,7 +2,7 @@
     string staticUrlPath = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFilesVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     string fontFile="";
-    string fontUrl =="";
+    string fontUrl = "";
 </script>
 
 <%     fontFile  = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff";
