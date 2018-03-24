@@ -44,5 +44,5 @@ if (window.location.pathname.slice(0, 3) === "/m/") {
     window.addEventListener("load", processAdSlots, false);
 }
 else {
-    docready(processAdSlots);
+    docReady(processAdSlots);
 }
