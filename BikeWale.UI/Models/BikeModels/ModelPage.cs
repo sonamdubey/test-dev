@@ -2150,7 +2150,7 @@ namespace Bikewale.Models.BikeModels
             {
                 if (objData != null)
                 {
-                    AdTags adTagsObj = new AdTags();
+                    AdTags adTagsObj = objData.AdTags;
 
                     adTagsObj.AdPath = _adPath_Mobile;
                     adTagsObj.AdId = _adId_Mobile;
@@ -2160,7 +2160,6 @@ namespace Bikewale.Models.BikeModels
                     adTagsObj.Ad_300x250BTF = !objData.IsUpcomingBike;
                     adTagsObj.Ad_320x400_Middle = true;
 
-                    objData.AdTags = adTagsObj;
                     IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
                     NameValueCollection adInfo = new NameValueCollection();
                     adInfo["adId"] = _adId_Mobile;
