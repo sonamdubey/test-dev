@@ -40,4 +40,9 @@ function processAdSlots() {
         window.addEventListener('scroll', loadAdsOnScroll, false);
     }
 }
-    docReady(processAdSlots);
+if (window.location.pathname.slice(0, 3) === "/m/") {
+    window.addEventListener("load", processAdSlots, false);
+}
+else {
+    docready(processAdSlots);
+}
