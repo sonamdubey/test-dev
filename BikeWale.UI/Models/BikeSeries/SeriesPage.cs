@@ -456,14 +456,13 @@ namespace Bikewale.Models.BikeSeries
         {
             if (IsMobile)
             {
-                AdTags adTagsObj = new AdTags();
+                AdTags adTagsObj = objViewModel.AdTags;
 
                 adTagsObj.AdPath = _adPath_Mobile;
                 adTagsObj.AdId = _adId_Mobile;
                 adTagsObj.Ad_320x50 = true;
                 adTagsObj.Ad_Bot_320x50 = true;
 
-                objViewModel.AdTags = adTagsObj;
 
                 IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
 
