@@ -46,9 +46,9 @@ namespace Bikewale.Utility
                     StayOnDesktopSite(httpContextBase);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                StayOnDesktopSite(httpContextBase);
             }
 
             return _redirectToMobile;

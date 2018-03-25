@@ -490,19 +490,15 @@ namespace Bikewale.Models
                 {
                     if (IsMobile)
                     {
-                        objVM.AdTags = new AdTags
-                        {
-                            AdPath = _adPath_Mobile,
-                            AdId = _adId_Mobile,
-                            Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile,
-                            Ad_300x250 = true,
-                            Ad_Bot_320x50 = true,
-                            Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253")  //For similar bikes widget mobile
-
-                        };
-
-
-                        IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+                        var adTag = objVM.AdTags;
+                        adTag.AdPath = _adPath_Mobile;
+                        adTag.AdId = _adId_Mobile;
+                        adTag.Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile;
+                        adTag.Ad_300x250 = true;
+                        adTag.Ad_Bot_320x50 = true;
+                        adTag.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
+                       
+                        IDictionary < string, AdSlotModel > ads = new Dictionary<string, AdSlotModel>();
 
                         NameValueCollection adInfo = new NameValueCollection();
                         adInfo["adId"] = _adId_Mobile;
