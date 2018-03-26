@@ -16,7 +16,7 @@ var transparentHeader = document.querySelectorAll('.header-transparent')[0];
 if (transparentHeader) {
     attachListener('scroll', window, changeHeaderBackground);
 }
-var FbPixelEvent = { pageView: 'PageView', viewContent: 'ViewContent', lead: 'Lead' };
+FbPixelEvent = { pageView: 'PageView', viewContent: 'ViewContent', lead: 'Lead' };
 
 
 //fallback for indexOf for IE7
