@@ -496,10 +496,10 @@ namespace Bikewale.Models
                 if (objVM.AdTags != null)
                 {
                     IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+                    var adTag = objVM.AdTags;
 
                     if (IsMobile)
                     {
-                        var adTag = objVM.AdTags;
                         adTag.AdPath = _adPath_Mobile;
                         adTag.AdId = _adId_Mobile;
                         adTag.Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile;
@@ -507,7 +507,6 @@ namespace Bikewale.Models
                         adTag.Ad_Bot_320x50 = true;
                         adTag.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
                        
-                        IDictionary < string, AdSlotModel > ads = new Dictionary<string, AdSlotModel>();
                         NameValueCollection adInfo = new NameValueCollection();
                         adInfo["adId"] = _adId_Mobile;
                         adInfo["adPath"] = _adPath_Mobile;
@@ -528,22 +527,17 @@ namespace Bikewale.Models
                             adInfo_OldAd["adPath"] = _adPath_SimilarBikes;
                             ads.Add(String.Format("{0}-11", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, new String[] { ViewSlotSize._200x253 }, 11, 200, AdSlotSize._200x253));
                         }
-                        objVM.AdSlots = ads;
-
                     }
                     else
                     {
-                        objVM.AdTags = new AdTags
-                        {
-                            AdPath = _adPath_Desktop,
-                            AdId = _adId_Desktop,
-                            Ad_300x250 = objVM.IsNew,
-                            Ad_Model_BTF_300x250 = (objVM.NearestPriceCities != null && objVM.NearestPriceCities.PriceQuoteList != null && objVM.NearestPriceCities.PriceQuoteList.Count() > 8) ? true : false,
-                            Ad_970x90 = !objVM.AdTags.ShowInnovationBannerDesktop,
-                            Ad_970x90Bottom = true,
-                            Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399")  //For similar bikes widget desktop
+                        adTag.AdPath = _adPath_Desktop;
+                        adTag.AdId = _adId_Desktop;
+                        adTag.Ad_300x250 = objVM.IsNew;
+                        adTag.Ad_Model_BTF_300x250 = (objVM.NearestPriceCities != null && objVM.NearestPriceCities.PriceQuoteList != null && objVM.NearestPriceCities.PriceQuoteList.Count() > 8) ? true : false;
+                        adTag.Ad_970x90 = !objVM.AdTags.ShowInnovationBannerDesktop;
+                        adTag.Ad_970x90Bottom = true;
+                        adTag.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399");  //For similar bikes widget desktop
 
-                        };
                         NameValueCollection adInfo = new NameValueCollection();
                         adInfo["adId"] = _adId_Desktop;
                         adInfo["adPath"] = _adPath_Desktop;
@@ -573,10 +567,7 @@ namespace Bikewale.Models
                             adInfo_OldAd["adId"] = _adId_SimilarBikes;
                             adInfo_OldAd["adPath"] = _adPath_SimilarBikes;
                             ads.Add(String.Format("{0}-14", adInfo_OldAd), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._292x399 }, 14, 300, AdSlotSize._292x399));
-
                         }
-
-
                     }
 
                     objVM.AdSlots = ads;
