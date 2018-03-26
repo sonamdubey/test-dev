@@ -148,3 +148,14 @@ body
 
 .overall-tabs__panel
 	background: color('white')
+
+// below the fold css
+.share-popup__bg-window
+	opacity: 0
+
+.share-popup__content
+	@include vendor-prefix('transform', translate(0, 110%))
+
+.color-popup__content,
+.video-popup__content
+	@include vendor-prefix('transform', translate(100%, 0))
