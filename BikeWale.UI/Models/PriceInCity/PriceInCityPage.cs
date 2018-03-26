@@ -23,6 +23,7 @@ using Bikewale.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 
@@ -31,6 +32,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by  :   Sumit Kate on 28 Mar 2017
     /// Description :   PriceInCityPage model
+    /// Modified by :   Sanskar Gupta on 21 Mar 2018
+    /// Description :   Added `AdPath_Mobile` and `AdId_Mobile`
     /// </summary>
     public class PriceInCityPage
     {
@@ -70,6 +73,9 @@ namespace Bikewale.Models
         private GlobalCityAreaEntity locationCookie = null;
         private readonly IAdSlot _adSlot = null;
         private BikeSeriesEntityBase Series;
+
+        private readonly String _adPath_Mobile = "/1017752/Bikewale_CityPrice_Mobile";
+        private readonly String _adId_Mobile = "1516080888816";
 
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
@@ -473,6 +479,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Ashutosh Sharma on 13 Nov 2017
         /// Description : Bind ad slot to adtags.
+        /// Modified by : Sanskar Gupta on 21 Mar 2018
+        /// Description : Added New way of loading the Ads for Mobile.
         /// </summary>
         private void BindAdSlotTags(PriceInCityPageVM objVM)
         {
@@ -480,9 +488,48 @@ namespace Bikewale.Models
             {
                 if (objVM.AdTags != null)
                 {
-                    objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399"); //For similar bikes widget desktop
-                    objVM.AdTags.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
+                    if (IsMobile)
+                    {
+                        var adTag = objVM.AdTags;
+                        adTag.AdPath = _adPath_Mobile;
+                        adTag.AdId = _adId_Mobile;
+                        adTag.Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile;
+                        adTag.Ad_300x250 = true;
+                        adTag.Ad_Bot_320x50 = true;
+                        adTag.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
+                       
+                        IDictionary < string, AdSlotModel > ads = new Dictionary<string, AdSlotModel>();
+
+                        NameValueCollection adInfo = new NameValueCollection();
+                        adInfo["adId"] = _adId_Mobile;
+                        adInfo["adPath"] = _adPath_Mobile;
+
+                        if (objVM.AdTags.Ad_320x50)
+                            ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 0, 320, AdSlotSize._320x50, "Top", true));
+
+                        if (objVM.AdTags.Ad_300x250)
+                            ads.Add(String.Format("{0}-2", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250));
+
+                        if (objVM.AdTags.Ad_Bot_320x50)
+                            ads.Add(String.Format("{0}-1", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 1, 320, AdSlotSize._320x50, "Bottom"));
+
+                        if (objVM.AdTags.Ad_200x253)
+                        {
+                            NameValueCollection adInfo_OldAd = new NameValueCollection();
+                            adInfo_OldAd["adId"] = "1505919734321";
+                            adInfo_OldAd["adPath"] = _adPath_Mobile;
+                            ads.Add(String.Format("{0}-11", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, new String[] { ViewSlotSize._200x253 }, 11, 200, AdSlotSize._200x253));
+                        }
+                        objVM.AdSlots = ads;
+
+                    }
+                    else
+                    {
+                        objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399");   //For similar bikes widget desktop
+                    }
+
                 }
+
             }
             catch (Exception ex)
             {
