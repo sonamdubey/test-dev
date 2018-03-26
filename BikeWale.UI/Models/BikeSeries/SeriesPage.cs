@@ -38,9 +38,9 @@ namespace Bikewale.Models.BikeSeries
         private readonly IVideos _videos = null;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeCompare _compareScooters = null;
-        private readonly String _adPath_Mobile = "/1017752/Bikewale_Model_";
+        private readonly String _adPath_Mobile = "/1017752/Bikewale_Model";
         private readonly String _adId_Mobile = "1442913773076";
-        private readonly String _adPath_Desktop = "/1017752/Bikewale_Model_";
+        private readonly String _adPath_Desktop = "/1017752/Bikewale_Model";
         private readonly String _adId_Desktop = "1442913773076";
 
         public SeriesPage(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache, IBikeSeries bikeSeries, ICMSCacheContent articles, IVideos videos, IBikeCompare compareScooters)
