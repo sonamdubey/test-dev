@@ -106,7 +106,7 @@ namespace Bikewale.Utility
                 }
                 if (builder.Length > 0)
                 {
-                    builder.Remove(builder.Length - 1, 2);
+                    builder.Remove(builder.Length - 2,2);
                 }
                 return builder.ToString();
             }

@@ -1,9 +1,13 @@
 ﻿
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Bikewale.Models
 {
     /// <summary>
@@ -100,9 +104,18 @@ namespace Bikewale.Models
                 objVM.ShowCheckOnRoadCTA = _showCheckOnRoadCTA;
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 if (!_similarBikesByModel)
+                {
                     objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.Bikes.Select(m => m.VersionBase.VersionId));
+                    foreach (var bike in objVM.Bikes)
+                    {
+                        bike.MinSpecsList = versionMinSpecs.Where(x => x.VersionId.Equals(bike.VersionBase.VersionId)).FirstOrDefault().MinSpecsList;
+                    }
+                }
                 else
+                {
                     objVM.Bikes = _versionCache.GetSimilarBikesByModel(_modelId, TopCount, CityId);
+                }
                 objVM.PQSourceId = _pqSource;
                 objVM.IsNew = IsNew;
                 objVM.IsUpcoming = IsUpcoming;
