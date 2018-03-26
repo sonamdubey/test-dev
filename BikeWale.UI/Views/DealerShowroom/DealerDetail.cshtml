@@ -309,4 +309,7 @@
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
 <script type="text/javascript">
     cityArea = "@Model.CityDetails.CityName" + "@(Model.DealerDetails.DealerDetails.objArea!=null ? ("_"+Model.DealerDetails.DealerDetails.objArea.AreaName) : "")";
+    docReady(function () {
+        fbq('track', FbPixelEvent.viewContent);
+    });
 </script>
