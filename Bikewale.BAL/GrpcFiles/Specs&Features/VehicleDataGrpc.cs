@@ -28,11 +28,10 @@ namespace VehicleData.Service.ProtoClass {
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.UnitType> __Marshaller_UnitType = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.UnitType.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.EmptyParam> __Marshaller_EmptyParam = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.EmptyParam.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.UnitTypeList> __Marshaller_UnitTypeList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.UnitTypeList.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.CustomDataType> __Marshaller_CustomDataType = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.CustomDataType.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.CustomDataTypeList> __Marshaller_CustomDataTypeList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.CustomDataTypeList.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.DataType> __Marshaller_DataType = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.DataType.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.DataTypeList> __Marshaller_DataTypeList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.DataTypeList.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.ItemValue> __Marshaller_ItemValue = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.ItemValue.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.ItemValueWriteRequest> __Marshaller_ItemValueWriteRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.ItemValueWriteRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.ItemValueRequest> __Marshaller_ItemValueRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.ItemValueRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.ValueDataList> __Marshaller_ValueDataList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.ValueDataList.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest> __Marshaller_CopyVehicleDataRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest.Parser.ParseFrom);
@@ -150,25 +149,11 @@ namespace VehicleData.Service.ProtoClass {
         __Marshaller_EmptyParam,
         __Marshaller_UnitTypeList);
 
-    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.CustomDataType, global::VehicleData.Service.ProtoClass.GrpcInt> __Method_CreateCustomDataType = new grpc::Method<global::VehicleData.Service.ProtoClass.CustomDataType, global::VehicleData.Service.ProtoClass.GrpcInt>(
+    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.CustomDataTypeList, global::VehicleData.Service.ProtoClass.GrpcBool> __Method_CustomDataTypeOperations = new grpc::Method<global::VehicleData.Service.ProtoClass.CustomDataTypeList, global::VehicleData.Service.ProtoClass.GrpcBool>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "CreateCustomDataType",
-        __Marshaller_CustomDataType,
-        __Marshaller_GrpcInt);
-
-    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.CustomDataType, global::VehicleData.Service.ProtoClass.GrpcBool> __Method_UpdateCustomDataType = new grpc::Method<global::VehicleData.Service.ProtoClass.CustomDataType, global::VehicleData.Service.ProtoClass.GrpcBool>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "UpdateCustomDataType",
-        __Marshaller_CustomDataType,
-        __Marshaller_GrpcBool);
-
-    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.GrpcInt, global::VehicleData.Service.ProtoClass.GrpcBool> __Method_DeleteCustomDataType = new grpc::Method<global::VehicleData.Service.ProtoClass.GrpcInt, global::VehicleData.Service.ProtoClass.GrpcBool>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "DeleteCustomDataType",
-        __Marshaller_GrpcInt,
+        "CustomDataTypeOperations",
+        __Marshaller_CustomDataTypeList,
         __Marshaller_GrpcBool);
 
     static readonly grpc::Method<global::VehicleData.Service.ProtoClass.EmptyParam, global::VehicleData.Service.ProtoClass.CustomDataTypeList> __Method_GetAllCustomDataTypesDetails = new grpc::Method<global::VehicleData.Service.ProtoClass.EmptyParam, global::VehicleData.Service.ProtoClass.CustomDataTypeList>(
@@ -213,18 +198,25 @@ namespace VehicleData.Service.ProtoClass {
         __Marshaller_EmptyParam,
         __Marshaller_DataTypeList);
 
-    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.ItemValue, global::VehicleData.Service.ProtoClass.GrpcInt> __Method_InsertItemValue = new grpc::Method<global::VehicleData.Service.ProtoClass.ItemValue, global::VehicleData.Service.ProtoClass.GrpcInt>(
+    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueWriteRequest, global::VehicleData.Service.ProtoClass.GrpcBool> __Method_CreateItemValue = new grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueWriteRequest, global::VehicleData.Service.ProtoClass.GrpcBool>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "InsertItemValue",
-        __Marshaller_ItemValue,
-        __Marshaller_GrpcInt);
+        "CreateItemValue",
+        __Marshaller_ItemValueWriteRequest,
+        __Marshaller_GrpcBool);
 
-    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.ItemValue, global::VehicleData.Service.ProtoClass.GrpcBool> __Method_UpdateItemValue = new grpc::Method<global::VehicleData.Service.ProtoClass.ItemValue, global::VehicleData.Service.ProtoClass.GrpcBool>(
+    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueWriteRequest, global::VehicleData.Service.ProtoClass.GrpcBool> __Method_UpdateItemValue = new grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueWriteRequest, global::VehicleData.Service.ProtoClass.GrpcBool>(
         grpc::MethodType.Unary,
         __ServiceName,
         "UpdateItemValue",
-        __Marshaller_ItemValue,
+        __Marshaller_ItemValueWriteRequest,
+        __Marshaller_GrpcBool);
+
+    static readonly grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueWriteRequest, global::VehicleData.Service.ProtoClass.GrpcBool> __Method_DeleteItemValue = new grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueWriteRequest, global::VehicleData.Service.ProtoClass.GrpcBool>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "DeleteItemValue",
+        __Marshaller_ItemValueWriteRequest,
         __Marshaller_GrpcBool);
 
     static readonly grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueRequest, global::VehicleData.Service.ProtoClass.ValueDataList> __Method_GetItemDataByVersionId = new grpc::Method<global::VehicleData.Service.ProtoClass.ItemValueRequest, global::VehicleData.Service.ProtoClass.ValueDataList>(
@@ -353,17 +345,7 @@ namespace VehicleData.Service.ProtoClass {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
-      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.GrpcInt> CreateCustomDataType(global::VehicleData.Service.ProtoClass.CustomDataType request, grpc::ServerCallContext context)
-      {
-        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-      }
-
-      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.GrpcBool> UpdateCustomDataType(global::VehicleData.Service.ProtoClass.CustomDataType request, grpc::ServerCallContext context)
-      {
-        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-      }
-
-      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.GrpcBool> DeleteCustomDataType(global::VehicleData.Service.ProtoClass.GrpcInt request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.GrpcBool> CustomDataTypeOperations(global::VehicleData.Service.ProtoClass.CustomDataTypeList request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -398,12 +380,17 @@ namespace VehicleData.Service.ProtoClass {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
-      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.GrpcInt> InsertItemValue(global::VehicleData.Service.ProtoClass.ItemValue request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.GrpcBool> CreateItemValue(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
-      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.GrpcBool> UpdateItemValue(global::VehicleData.Service.ProtoClass.ItemValue request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.GrpcBool> UpdateItemValue(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::VehicleData.Service.ProtoClass.GrpcBool> DeleteItemValue(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -703,53 +690,21 @@ namespace VehicleData.Service.ProtoClass {
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetAllUnitTypesDetails, null, options, request);
       }
-      public virtual global::VehicleData.Service.ProtoClass.GrpcInt CreateCustomDataType(global::VehicleData.Service.ProtoClass.CustomDataType request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual global::VehicleData.Service.ProtoClass.GrpcBool CustomDataTypeOperations(global::VehicleData.Service.ProtoClass.CustomDataTypeList request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return CreateCustomDataType(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return CustomDataTypeOperations(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::VehicleData.Service.ProtoClass.GrpcInt CreateCustomDataType(global::VehicleData.Service.ProtoClass.CustomDataType request, grpc::CallOptions options)
+      public virtual global::VehicleData.Service.ProtoClass.GrpcBool CustomDataTypeOperations(global::VehicleData.Service.ProtoClass.CustomDataTypeList request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_CreateCustomDataType, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_CustomDataTypeOperations, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcInt> CreateCustomDataTypeAsync(global::VehicleData.Service.ProtoClass.CustomDataType request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> CustomDataTypeOperationsAsync(global::VehicleData.Service.ProtoClass.CustomDataTypeList request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return CreateCustomDataTypeAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return CustomDataTypeOperationsAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcInt> CreateCustomDataTypeAsync(global::VehicleData.Service.ProtoClass.CustomDataType request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> CustomDataTypeOperationsAsync(global::VehicleData.Service.ProtoClass.CustomDataTypeList request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_CreateCustomDataType, null, options, request);
-      }
-      public virtual global::VehicleData.Service.ProtoClass.GrpcBool UpdateCustomDataType(global::VehicleData.Service.ProtoClass.CustomDataType request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-      {
-        return UpdateCustomDataType(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      public virtual global::VehicleData.Service.ProtoClass.GrpcBool UpdateCustomDataType(global::VehicleData.Service.ProtoClass.CustomDataType request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_UpdateCustomDataType, null, options, request);
-      }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> UpdateCustomDataTypeAsync(global::VehicleData.Service.ProtoClass.CustomDataType request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-      {
-        return UpdateCustomDataTypeAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> UpdateCustomDataTypeAsync(global::VehicleData.Service.ProtoClass.CustomDataType request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_UpdateCustomDataType, null, options, request);
-      }
-      public virtual global::VehicleData.Service.ProtoClass.GrpcBool DeleteCustomDataType(global::VehicleData.Service.ProtoClass.GrpcInt request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-      {
-        return DeleteCustomDataType(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      public virtual global::VehicleData.Service.ProtoClass.GrpcBool DeleteCustomDataType(global::VehicleData.Service.ProtoClass.GrpcInt request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_DeleteCustomDataType, null, options, request);
-      }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> DeleteCustomDataTypeAsync(global::VehicleData.Service.ProtoClass.GrpcInt request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
-      {
-        return DeleteCustomDataTypeAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> DeleteCustomDataTypeAsync(global::VehicleData.Service.ProtoClass.GrpcInt request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_DeleteCustomDataType, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_CustomDataTypeOperations, null, options, request);
       }
       public virtual global::VehicleData.Service.ProtoClass.CustomDataTypeList GetAllCustomDataTypesDetails(global::VehicleData.Service.ProtoClass.EmptyParam request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
@@ -847,37 +802,53 @@ namespace VehicleData.Service.ProtoClass {
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetAllDataTypeDetails, null, options, request);
       }
-      public virtual global::VehicleData.Service.ProtoClass.GrpcInt InsertItemValue(global::VehicleData.Service.ProtoClass.ItemValue request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual global::VehicleData.Service.ProtoClass.GrpcBool CreateItemValue(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return InsertItemValue(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return CreateItemValue(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::VehicleData.Service.ProtoClass.GrpcInt InsertItemValue(global::VehicleData.Service.ProtoClass.ItemValue request, grpc::CallOptions options)
+      public virtual global::VehicleData.Service.ProtoClass.GrpcBool CreateItemValue(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_InsertItemValue, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_CreateItemValue, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcInt> InsertItemValueAsync(global::VehicleData.Service.ProtoClass.ItemValue request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> CreateItemValueAsync(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return InsertItemValueAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return CreateItemValueAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcInt> InsertItemValueAsync(global::VehicleData.Service.ProtoClass.ItemValue request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> CreateItemValueAsync(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_InsertItemValue, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_CreateItemValue, null, options, request);
       }
-      public virtual global::VehicleData.Service.ProtoClass.GrpcBool UpdateItemValue(global::VehicleData.Service.ProtoClass.ItemValue request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual global::VehicleData.Service.ProtoClass.GrpcBool UpdateItemValue(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         return UpdateItemValue(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::VehicleData.Service.ProtoClass.GrpcBool UpdateItemValue(global::VehicleData.Service.ProtoClass.ItemValue request, grpc::CallOptions options)
+      public virtual global::VehicleData.Service.ProtoClass.GrpcBool UpdateItemValue(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_UpdateItemValue, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> UpdateItemValueAsync(global::VehicleData.Service.ProtoClass.ItemValue request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> UpdateItemValueAsync(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         return UpdateItemValueAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> UpdateItemValueAsync(global::VehicleData.Service.ProtoClass.ItemValue request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> UpdateItemValueAsync(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_UpdateItemValue, null, options, request);
+      }
+      public virtual global::VehicleData.Service.ProtoClass.GrpcBool DeleteItemValue(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return DeleteItemValue(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::VehicleData.Service.ProtoClass.GrpcBool DeleteItemValue(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_DeleteItemValue, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> DeleteItemValueAsync(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return DeleteItemValueAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::VehicleData.Service.ProtoClass.GrpcBool> DeleteItemValueAsync(global::VehicleData.Service.ProtoClass.ItemValueWriteRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_DeleteItemValue, null, options, request);
       }
       public virtual global::VehicleData.Service.ProtoClass.ValueDataList GetItemDataByVersionId(global::VehicleData.Service.ProtoClass.ItemValueRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
@@ -1002,17 +973,16 @@ namespace VehicleData.Service.ProtoClass {
           .AddMethod(__Method_UpdateUnitType, serviceImpl.UpdateUnitType)
           .AddMethod(__Method_DeleteUnitType, serviceImpl.DeleteUnitType)
           .AddMethod(__Method_GetAllUnitTypesDetails, serviceImpl.GetAllUnitTypesDetails)
-          .AddMethod(__Method_CreateCustomDataType, serviceImpl.CreateCustomDataType)
-          .AddMethod(__Method_UpdateCustomDataType, serviceImpl.UpdateCustomDataType)
-          .AddMethod(__Method_DeleteCustomDataType, serviceImpl.DeleteCustomDataType)
+          .AddMethod(__Method_CustomDataTypeOperations, serviceImpl.CustomDataTypeOperations)
           .AddMethod(__Method_GetAllCustomDataTypesDetails, serviceImpl.GetAllCustomDataTypesDetails)
           .AddMethod(__Method_CreateDataType, serviceImpl.CreateDataType)
           .AddMethod(__Method_UpdatedDataType, serviceImpl.UpdatedDataType)
           .AddMethod(__Method_DeleteDataType, serviceImpl.DeleteDataType)
           .AddMethod(__Method_GetDataTypeDetailsById, serviceImpl.GetDataTypeDetailsById)
           .AddMethod(__Method_GetAllDataTypeDetails, serviceImpl.GetAllDataTypeDetails)
-          .AddMethod(__Method_InsertItemValue, serviceImpl.InsertItemValue)
+          .AddMethod(__Method_CreateItemValue, serviceImpl.CreateItemValue)
           .AddMethod(__Method_UpdateItemValue, serviceImpl.UpdateItemValue)
+          .AddMethod(__Method_DeleteItemValue, serviceImpl.DeleteItemValue)
           .AddMethod(__Method_GetItemDataByVersionId, serviceImpl.GetItemDataByVersionId)
           .AddMethod(__Method_CopyVehicleData, serviceImpl.CopyVehicleData)
           .AddMethod(__Method_GetVehicleDataForVersionId, serviceImpl.GetVehicleDataForVersionId)
