@@ -57,24 +57,8 @@ namespace Bikewale.Utility
             string imgUrl = String.Empty;
             if (!String.IsNullOrEmpty(originalImagePath) && !String.IsNullOrEmpty(hostUrl))
             {
-                StringBuilder urlSb = new StringBuilder();
-                if (hostUrl.EndsWith("/"))
-                {
-                    urlSb.Append(string.Format("{0}{1}", hostUrl, size));
-                }
-                else
-                {
-                    urlSb.Append(string.Format("{0}/{1}", hostUrl, size));
-                }
-
-                if (originalImagePath.StartsWith("/"))
-                {
-                    urlSb.Append(string.Format("{0}", originalImagePath));
-                }
-                else
-                {
-                    urlSb.Append(string.Format("/{0}", originalImagePath));
-                }
+                StringBuilder urlSb = new StringBuilder(GetPathToShowImages(originalImagePath, hostUrl, size));
+                
                 if (!String.IsNullOrEmpty(quality))
                 {
                     if (originalImagePath.IndexOf("?") > -1)
