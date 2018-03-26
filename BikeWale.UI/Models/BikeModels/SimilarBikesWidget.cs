@@ -93,6 +93,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Mar 2017
         /// Description :   GetData returns SimilarBikesWidget Viewmodel
+        /// Modified by : Pratibha Verma on 26 Mar 2018
+        /// Description : grpc method call to fetch minSpecs data
         /// </summary>
         /// <returns></returns>
         public SimilarBikesWidgetVM GetData()
