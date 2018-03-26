@@ -21,7 +21,7 @@
                             <span class="bwsprite accordion-angle-icon"></span>
                         </div>
                         <div class="specs-features-list">
-                            <div class="grid-6 text-light-grey">
+                            <div class="grid-6">
                                 @{
                                     isCategoryActive = false;
                                     var firstGridSpecsCount = (category.SpecsItemList.Count() + 1) / 2;
@@ -29,17 +29,17 @@
                                 @foreach (var item in category.SpecsItemList.Take(firstGridSpecsCount))
                                 {
                                     <p>
-                                        <span>@item.DisplayText</span>
-                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
+										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
                                     </p>
                                 }
                             </div>
-                            <div class="grid-6 text-light-grey">
+                            <div class="grid-6">
                                 @foreach (var item in category.SpecsItemList.Skip(firstGridSpecsCount))
                                 {
                                     <p>
-                                        <span>@item.DisplayText</span>
-                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
+										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
                                     </p>
                                 }
                             </div>
