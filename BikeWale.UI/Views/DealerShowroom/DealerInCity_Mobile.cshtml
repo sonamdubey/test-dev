@@ -235,6 +235,6 @@
 @{Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityDetails.CityId, cityName = Model.CityDetails.CityName });}
 <script>
     docReady(function () {
-        fbq('track', FbPixelEvent[1]);
+        fbq('track', FbPixelEvent.viewContent);
     });
 </script>

@@ -310,6 +310,6 @@
 <script type="text/javascript">
     cityArea = "@Model.CityDetails.CityName" + "@(Model.DealerDetails.DealerDetails.objArea!=null ? ("_"+Model.DealerDetails.DealerDetails.objArea.AreaName) : "")";
     docReady(function () {
-        fbq('track', FbPixelEvent[1]);
+        fbq('track', FbPixelEvent.viewContent);
     });
 </script>

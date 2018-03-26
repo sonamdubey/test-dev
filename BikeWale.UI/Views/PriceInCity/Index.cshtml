@@ -641,5 +641,7 @@
 	<script type="text/javascript">isCoverfoxShown = @(!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.HasCampaignDealer && !Model.IsManufacturerLeadAdShown ? "true" : "false")</script>
 }
 <script>
-  fbq('track', 'ViewContent');
+    docReady(function () {
+        fbq('track',FbPixelEvent.viewContent);
+    });
  </script>
