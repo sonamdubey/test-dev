@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Bikewale.Utility
 {
@@ -83,13 +86,43 @@ namespace Bikewale.Utility
 			}
 		}
 
-		/// <summary>
-		/// Written By : Ashish G. Kamble On 10 Sept 2015
-		/// Summary : Function to format the availability
-		/// </summary>
-		/// <param name="value">Value to be checked whether available or not.</param>
-		/// <returns>If value is null function will return --</returns>
-		public static string ShowAvailable(string value)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 26 Mar 2018
+        /// Description : Method to format specs items in span elements.
+        /// </summary>
+        /// <param name="specsItemList">List of Specs Items.</param>
+        /// <returns>String containing comma separated specs items in span elements.</returns>
+        public static string GetMinSpecsSpanElements(IEnumerable<SpecsItem> specsItemList)
+        {
+            StringBuilder builder = new StringBuilder();
+            try
+            {
+                foreach (var specItem in specsItemList)
+                {
+                    if (!string.IsNullOrEmpty(specItem.Value))
+                    {
+                        builder.AppendFormat("<span>{0} {1}</span>, ", specItem.Value, specItem.UnitType);
+                    }
+                }
+                if (builder.Length > 0)
+                {
+                    builder.Remove(builder.Length - 1, 2);
+                }
+                return builder.ToString();
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble On 10 Sept 2015
+        /// Summary : Function to format the availability
+        /// </summary>
+        /// <param name="value">Value to be checked whether available or not.</param>
+        /// <returns>If value is null function will return --</returns>
+        public static string ShowAvailable(string value)
 		{
 			string showValue = string.Empty;
 
