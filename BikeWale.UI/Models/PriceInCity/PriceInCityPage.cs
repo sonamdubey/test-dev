@@ -553,12 +553,31 @@ namespace Bikewale.Models
                         }
                         if (objVM.AdTags.Ad_970x90)
                         {
-                            ads.Add(String.Format("{0}-3", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._970x66, ViewSlotSize._970x60, ViewSlotSize._960x90, ViewSlotSize._950x90, ViewSlotSize._960x66, ViewSlotSize._728x90, ViewSlotSize._960x60, ViewSlotSize._970x90 }, 3, 300, AdSlotSize._300x250, true));
-
+                            ads.Add(String.Format("{0}-3", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[]
+                            { 
+                                ViewSlotSize._970x66,
+                                ViewSlotSize._970x60,
+                                ViewSlotSize._960x90,
+                                ViewSlotSize._950x90,
+                                ViewSlotSize._960x66,
+                                ViewSlotSize._728x90,
+                                ViewSlotSize._960x60,
+                                ViewSlotSize._970x90 
+                            }, 3, 970, AdSlotSize._970x90, true));
                         }
                         if (objVM.AdTags.Ad_970x90Bottom)
                         {
-                            ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] {ViewSlotSize._970x60, ViewSlotSize._960x90, ViewSlotSize._970x66, ViewSlotSize._960x66, ViewSlotSize._728x90, ViewSlotSize._970x90, ViewSlotSize._950x90, ViewSlotSize._960x60 }, 5, 300, AdSlotSize._300x250, "Bottom"));
+                            ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[]
+                            { 
+                                ViewSlotSize._970x60,
+                                ViewSlotSize._960x90,
+                                ViewSlotSize._970x66,
+                                ViewSlotSize._960x66,
+                                ViewSlotSize._728x90,
+                                ViewSlotSize._970x90,
+                                ViewSlotSize._950x90,
+                                ViewSlotSize._960x60
+                            }, 5, 970, AdSlotSize._970x90, "Bottom"));
 
                         }
                         if (objVM.AdTags.Ad_292x399)

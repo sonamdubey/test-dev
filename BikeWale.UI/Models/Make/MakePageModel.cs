@@ -80,6 +80,8 @@ namespace Bikewale.Models
         private readonly String _adId_Mobile_Old = "1444028878952";
         private readonly String _adPath_Mobile_New = "/1017752/Bikewale_Mobile_Make";
         private readonly String _adId_Mobile_New = "1519729632700";
+        private readonly String _adPath_Desktop = "/1017752/Bikewale_Make";
+        private readonly String _adId_Desktop = "1516179232964";
         
 
         public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters)
@@ -223,6 +225,12 @@ namespace Bikewale.Models
                 BindResearchMoreMakeWidget(objData);
                 GetEMIDetails(objData);
                 BindExpertReviewCount(objData.ExpertReviews);
+
+                if (!IsMobile)
+                {
+                    BindAdSlots(objData);
+                }
+
                 if (objData.Bikes != null && objData.Bikes.Count() > 6)
                 {
                     BindPageFilters(objData);
@@ -1023,7 +1031,7 @@ namespace Bikewale.Models
 
         /// <summary>
         /// Created By : Deepak Israni on 20 March 2018
-        /// Description: Method to bind ad slots to page.
+        /// Description: Method to bind ad slots to mobile make page.
         /// </summary>
         /// <param name="objData"></param>
         private void BindAdSlots(MakePageVM objData, bool isNewPage)
@@ -1096,6 +1104,72 @@ namespace Bikewale.Models
                     objData.AdSlots = ads;
                 } 
             }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 26 March 2018
+        /// Description: Method to bind ad slots to desktop make page.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindAdSlots(MakePageVM objData)
+        {
+            AdTags adTagsObj = objData.AdTags;
+            adTagsObj.AdPath = _adPath_Desktop;
+            adTagsObj.AdId = _adId_Desktop;
+            adTagsObj.Ad_Model_ATF_300x250 = true;
+            adTagsObj.Ad_Model_BTF_300x250 = true;
+            adTagsObj.Ad_Top_300x250 = true;
+            adTagsObj.Ad_970x90Bottom = true;
+            adTagsObj.Ad_970x90 = true;
+
+            IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+
+            NameValueCollection adInfo = new NameValueCollection();
+            adInfo["adId"] = _adId_Desktop;
+            adInfo["adPath"] = _adPath_Desktop;
+
+            if (adTagsObj.Ad_Model_ATF_300x250)
+            {
+                ads.Add(String.Format("{0}-9", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 9, 300, AdSlotSize._300x250, "ATF", true));
+            }
+            if (adTagsObj.Ad_Model_BTF_300x250)
+            {
+                ads.Add(String.Format("{0}-11", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 11, 300, AdSlotSize._300x250, "BTF"));
+            }
+            if (adTagsObj.Ad_Top_300x250)
+            {
+                ads.Add(String.Format("{0}-17", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 17, 300, AdSlotSize._300x250, "Top", true));
+            }
+            if (adTagsObj.Ad_970x90Bottom)
+            {
+                ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[]
+                { 
+                    ViewSlotSize._970x60,
+                    ViewSlotSize._960x90,
+                    ViewSlotSize._970x66,
+                    ViewSlotSize._960x66,
+                    ViewSlotSize._728x90,
+                    ViewSlotSize._970x90,
+                    ViewSlotSize._950x90,
+                    ViewSlotSize._960x60
+                }, 5, 970, AdSlotSize._970x90, "Bottom"));
+            }
+            if (adTagsObj.Ad_970x90)
+            {
+                ads.Add(String.Format("{0}-3", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[]
+                { 
+                    ViewSlotSize._970x66,
+                    ViewSlotSize._970x60,
+                    ViewSlotSize._960x90,
+                    ViewSlotSize._950x90,
+                    ViewSlotSize._960x66,
+                    ViewSlotSize._728x90,
+                    ViewSlotSize._960x60,
+                    ViewSlotSize._970x90 
+                }, 3, 970, AdSlotSize._970x90, true));
+            }
+
+            objData.AdSlots = ads;
         }
     }
 }
