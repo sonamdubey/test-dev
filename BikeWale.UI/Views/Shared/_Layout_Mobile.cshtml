@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.ModelBase
+@using System.Linq;
 <!doctype html>
 <html lang="en">
 <head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#":"")>
@@ -56,7 +57,6 @@
     <link href="//www.bikewale.com" rel="dns-prefetch" />
     <link href="//imgd.aeplcdn.com" rel="dns-prefetch" />
     <link href="//stb.aeplcdn.com" rel="dns-prefetch" />
-    <link href="//fonts.googleapis.com" rel="dns-prefetch" />
     <link href="//www.google-analytics.com" rel="dns-prefetch" />
     <link href="//bhrigu.bikewale.com" rel="dns-prefetch" />
     <link href="//tpc.googlesyndication.com" rel="dns-prefetch" />
@@ -69,7 +69,7 @@
 
     <script type="text/javascript">
     var ga_pg_id = '0', gaObj, galleryId, lastPageId;
-
+        var adSlot = {};
     @if(Model.Page !=null)
     {
         <text>
@@ -107,7 +107,7 @@
         node.parentNode.insertBefore(gads, node);
     })();
 
-    @functions{
+        @functions{
         string GetAdSlot(int slotId, string adPath, string adId)
         {
             switch (slotId)
@@ -181,41 +181,70 @@
         }
     }
 
-    googletag.cmd.push(function () {
+        
 
-        @if(Model.AdTags.Ad_320x50){@Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_Bot_320x50){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250){@Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad320x150_Top){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad320x150_Bottom){@Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_Mid_320x50){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad320x100ATF){@Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad320x100BTF){@Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x100){@Html.Raw(GetAdSlot(9, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_320x400_Middle) { @Html.Raw(GetAdSlot(10, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_200x253){ @Html.Raw(GetAdSlot(11, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_200x216){ @Html.Raw(GetAdSlot(12, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_200x211){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_320x50BTF){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if (Model.AdTags.Ad300x250_Bottom){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_Body_Top_320x50){ @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_320x100_Top){ @Html.Raw(GetAdSlot(18, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250_Top){ @Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250_Middle){ @Html.Raw(GetAdSlot(20, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250_Bottom){ @Html.Raw(GetAdSlot(21, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_320x50Top) { @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))}
+        googletag.cmd.push(function () {
 
-        googletag.pubads().enableSingleRequest();
-        googletag.pubads().collapseEmptyDivs();
-        googletag.enableServices();
-    });
+            googletag.pubads().disableInitialLoad();
+            googletag.pubads().setCentering(true);
+
+            @if (Model.AdSlots != null)
+	        {
+                foreach (KeyValuePair<string, Bikewale.Models.AdSlotModel> adentry in Model.AdSlots)
+                {
+                    Bikewale.Models.AdSlotModel ad = adentry.Value;
+                    var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, ad.DivId);
+                    if (!String.IsNullOrEmpty(ad.ViewSize)) { 
+                        if (ad.Position != null)
+                        {
+                            <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize, ad.Position)); </text>
+                        }
+                        else
+                        {
+                            <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize)); </text>
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+                if(Model.AdTags.Ad_320x50){@Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_Bot_320x50){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x250){@Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad320x150_Top){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad320x150_Bottom){@Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_Mid_320x50){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad320x100ATF){@Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad320x100BTF){@Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x100){@Html.Raw(GetAdSlot(9, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_320x400_Middle) { @Html.Raw(GetAdSlot(10, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_200x253){ @Html.Raw(GetAdSlot(11, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_200x216){ @Html.Raw(GetAdSlot(12, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_200x211){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_320x50BTF){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if (Model.AdTags.Ad300x250_Bottom){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_Body_Top_320x50){ @Html.Raw(GetAdSlot(17, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_320x100_Top){ @Html.Raw(GetAdSlot(18, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x250_Top){ @Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x250_Middle){ @Html.Raw(GetAdSlot(20, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if(Model.AdTags.Ad_300x250_Bottom){ @Html.Raw(GetAdSlot(21, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            }
+                
+
+                
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))} 
+
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.enableServices();
+        });
     </script>
     @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
     {
@@ -269,17 +298,17 @@
             <!-- Call Home Page Banner partial view -->
     }
     @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
-    {
-        <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
-            <script type='text/javascript'>
-                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-0'); });
-            </script>
-        </div>
-    }
-    else if (Model.AdTags.ShowInnovationBannerMobile)
-    {
-        Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad320x50_InnovationBanner.cshtml", Model.AdTags);
-    }
+{
+    <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;' data-load-immediate="true">
+        <script type='text/javascript'>
+            googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-0'); });
+        </script>
+    </div>
+}
+else if (Model.AdTags.ShowInnovationBannerMobile)
+{
+    Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad320x50_InnovationBanner.cshtml", Model.AdTags);
+}
     @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
     @RenderBody()
     @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
@@ -287,7 +316,7 @@
         <section>
             <div class="container">
                 <div>
-                    <div id="div-gpt-ad-@Model.AdTags.AdId-1" style="width:320px; text-align:center;margin:10px auto;">
+                    <div id="div-gpt-ad-@Model.AdTags.AdId-1" style="width:320px; text-align:center;margin:10px auto;" data-load-immediate="false">
                         <script type="text/javascript">
                             googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-1'); });
                         </script>
@@ -520,20 +549,27 @@
         {
             <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_BTF_CSS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
         }
-		@if (Model.Page_BTF_CSS_Paths != null && Model.Page_BTF_CSS_Paths.Any())
-		{
-			foreach (var cssFile in Model.Page_BTF_CSS_Paths)
-			{
-				<link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, cssFile.Trim(), Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
-			}
-		}
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css' />
+
+        @if (Model.Page_BTF_CSS_Paths != null && Model.Page_BTF_CSS_Paths.Any())
+        {
+          foreach (var cssFile in Model.Page_BTF_CSS_Paths)
+          {
+            <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, cssFile.Trim(), Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
+          }
+        }
+
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin400.cshtml");
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin600.cshtml");
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin700.cshtml");
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin800.cshtml");
+
     </noscript>
     <script type="text/javascript">
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
     </script>
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/Plugins.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/src/lazyloadad.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
         <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
