@@ -1032,13 +1032,12 @@ namespace Bikewale.Models
             {
                 if (!isNewPage)
                 {
-                    AdTags adTagsObj = new AdTags();
+                    AdTags adTagsObj = objData.AdTags;
                     adTagsObj.AdPath = _adPath_Mobile_Old;
                     adTagsObj.AdId = _adId_Mobile_Old;
                     adTagsObj.Ad_320x50 = true;
                     adTagsObj.Ad_300x250 = true;
 
-                    objData.AdTags = adTagsObj;
 
                     IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
 
@@ -1059,7 +1058,7 @@ namespace Bikewale.Models
                 }
                 else
                 {
-                    AdTags adTagsObj = new AdTags();
+                    AdTags adTagsObj = objData.AdTags;
                     adTagsObj.AdId = _adId_Mobile_New;
                     adTagsObj.AdPath = _adPath_Mobile_New;
                     adTagsObj.Ad_320x100_Top = true;
