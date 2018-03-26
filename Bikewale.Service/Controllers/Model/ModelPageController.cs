@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.PriceQuote;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
@@ -30,7 +29,7 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> _modelBL = null;
         private readonly IUserReviews _userReviews = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
-
+        private readonly IPQByCityArea _objPQByCityArea = null;
         /// <summary>
         /// 
         /// </summary>
@@ -39,13 +38,15 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="dealers"></param>
         /// <param name="modelBL"></param>
         /// <param name="userReviews"></param>
-        public ModelPageController(IManufacturerCampaign objManufacturerCampaign, IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> modelBL, IUserReviews userReviews)
+        public ModelPageController(IManufacturerCampaign objManufacturerCampaign, IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> modelBL, IUserReviews userReviews, IPQByCityArea objPQByCityArea)
         {
 
             _dealers = dealers;
             _modelBL = modelBL;
             _userReviews = userReviews;
             _objManufacturerCampaign = objManufacturerCampaign;
+            _objPQByCityArea = objPQByCityArea;
+
         }
 
         #region Model Page Complete
@@ -293,13 +294,10 @@ namespace Bikewale.Service.Controllers.Model
                         {
                             objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                             #region On road pricing for versions
-                            PQOnRoadPrice pqOnRoad; PQByCityArea getPQ;
                             PQByCityAreaEntity pqEntity = null;
                             if (!objModelPage.ModelDetails.Futuristic)
                             {
-                                pqOnRoad = new PQOnRoadPrice();
-                                getPQ = new PQByCityArea();
-                                pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
+                                pqEntity = _objPQByCityArea.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
                             }
                             objDTOModelPage = ModelMapper.ConvertV3(objModelPage, pqEntity);
                             #endregion
@@ -352,14 +350,10 @@ namespace Bikewale.Service.Controllers.Model
                         {
                             objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                             #region On road pricing for versions
-                            PQOnRoadPrice pqOnRoad;
-                            PQByCityArea getPQ;
                             PQByCityAreaEntity pqEntity = null;
                             if (!objModelPage.ModelDetails.Futuristic)
                             {
-                                pqOnRoad = new PQOnRoadPrice();
-                                getPQ = new PQByCityArea();
-                                pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
+                                pqEntity = _objPQByCityArea.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
                             }
 
                             if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
@@ -437,13 +431,12 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     if (Request.Headers.Contains("platformId"))
                     {
-                        PQByCityArea getPQ = new PQByCityArea();
                         PQByCityAreaEntity pqEntity = null;
                         ushort platformId;
 
                         if (!objModelPage.ModelDetails.Futuristic)
                         {
-                            pqEntity = getPQ.GetVersionListV2((int)modelId, objModelPage.ModelVersions, (int)(cityId.HasValue ? cityId.Value : 0), areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
+                            pqEntity = _objPQByCityArea.GetVersionListV2((int)modelId, objModelPage.ModelVersions, (int)(cityId.HasValue ? cityId.Value : 0), areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
                         }
 
                         if (ushort.TryParse(Request.Headers.GetValues("platformId").First().ToString(), out platformId) && platformId == 3 && cityId.HasValue && cityId.Value > 0)

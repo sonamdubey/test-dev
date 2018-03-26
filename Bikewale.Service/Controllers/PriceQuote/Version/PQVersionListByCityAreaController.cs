@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.PriceQuote;
-using Bikewale.DTO.PriceQuote.Version;
+﻿using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DTO.PriceQuote.Version.v2;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
@@ -28,18 +27,19 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         private readonly IBikeModelsRepository<BikeModelEntity, int> _objModel = null;
         private readonly IPriceQuote _objPQ = null;
-
+        private readonly IPQByCityArea _objPQByCityArea = null;
         /// <summary>
         /// To Fetch PQ versionList, PQID and dealerId
         /// </summary>
         /// <param name="objVersion"></param>
         /// <param name="objModel"></param>
-        public PQVersionListByCityAreaController(IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModelsRepository<BikeModelEntity, int> objModel, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IPriceQuote objPq)
+        public PQVersionListByCityAreaController(IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModelsRepository<BikeModelEntity, int> objModel, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IPriceQuote objPq, IPQByCityArea objPQByCityArea)
         {
             _objVersion = objVersion;
             _objModel = objModel;
             _objVersionCache = objVersionCache;
             _objPQ = objPq;
+            _objPQByCityArea = objPQByCityArea;
         }
 
         /// <summary>
@@ -67,7 +67,6 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
 
                 if (objVersionsList != null && objVersionsList.Any())
                 {
-                    PQByCityArea pqByCityArea = new PQByCityArea();
                     string platformId = string.Empty;
                     UInt16 platform = default(UInt16);
                     if (Request.Headers.Contains("platformId"))
@@ -75,7 +74,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                         platformId = Request.Headers.GetValues("platformId").First().ToString();
                     }
                     UInt16.TryParse(platformId, out platform);
-                    pqEntity = pqByCityArea.GetVersionList(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
+                    pqEntity = _objPQByCityArea.GetVersionList(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
                     objPQDTO = ModelMapper.Convert(pqEntity);
                     objVersionsList = null;
                     return Ok(objPQDTO);
@@ -119,7 +118,6 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             {
                 if (objVersionsList != null && objVersionsList.Any())
                 {
-                    PQByCityArea pqByCityArea = new PQByCityArea();
                     string platformId = string.Empty;
                     ushort platform = default(ushort);
                     if (Request.Headers.Contains("platformId"))
@@ -127,7 +125,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                         platformId = Request.Headers.GetValues("platformId").First().ToString();
                     }
                     ushort.TryParse(platformId, out platform);
-                    pqEntity = pqByCityArea.GetVersionListV2(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
+                    pqEntity = _objPQByCityArea.GetVersionListV2(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
                     objPQDTO = ModelMapper.ConvertV2(pqEntity);
                     objVersionsList = null;
                     return Ok(objPQDTO);
@@ -171,7 +169,6 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                 objVersionsList = _objVersionCache.GetVersionMinSpecs(Convert.ToUInt32(modelId), true);
                 if (objVersionsList != null && objVersionsList.Any())
                 {
-                    PQByCityArea pqByCityArea = new PQByCityArea();
                     string platformId = string.Empty;
                     ushort platform;
                     if (Request.Headers.Contains("platformId"))
@@ -179,7 +176,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                         platformId = Request.Headers.GetValues("platformId").First().ToString();
                     }
                     ushort.TryParse(platformId, out platform);
-                    pqEntity = pqByCityArea.GetVersionListV2((int)modelId, objVersionsList, (int)cityId, areaId, platform, null, null, deviceId);
+                    pqEntity = _objPQByCityArea.GetVersionListV2((int)modelId, objVersionsList, (int)cityId, areaId, platform, null, null, deviceId);
                     objPQDTO = ModelMapper.ConvertV3(pqEntity);
 
                     bool isArea = false;
