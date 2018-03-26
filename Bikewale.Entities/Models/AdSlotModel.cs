@@ -150,6 +150,47 @@ namespace Bikewale.Models
         public const string _976x400 = "[976, 400]";
         public const string _976x450 = "[976, 450]";
         public const string _976x460 = "[976, 460]";
+
+
+
+        public readonly IDictionary<string, string[]> ViewSlotSizes = new Dictionary<string, string[]>()
+        {
+            {AdSlotSize._200x211, new String[] { ViewSlotSize._200x211 }},
+
+            {AdSlotSize._200x216, new String[] { ViewSlotSize._200x216 }},
+
+            {AdSlotSize._200x253, new String[] { ViewSlotSize._200x253 }},
+
+            {AdSlotSize._292x359, new String[] { ViewSlotSize._292x359 }},
+
+            {AdSlotSize._292x360,new String[] { ViewSlotSize._292x360 }},
+
+            {AdSlotSize._292x399, new String[] { ViewSlotSize._292x399 }},
+
+            {AdSlotSize._300x100,  new String[] { ViewSlotSize._300x100 }},
+
+            {AdSlotSize._300x250, new String[] { ViewSlotSize._300x250 }},
+
+            {AdSlotSize._320x50, new String[] { ViewSlotSize._320x50 }},
+
+            {AdSlotSize._320x100, new String[] { ViewSlotSize._320x100, ViewSlotSize._320x50 }},
+
+            {AdSlotSize._320x150, new String[] { ViewSlotSize._320x150, ViewSlotSize._320x50, ViewSlotSize._320x100, ViewSlotSize._320x425 }},
+
+            {AdSlotSize._320x400,  new String[] { ViewSlotSize._320x300, ViewSlotSize._320x350, ViewSlotSize._320x400, ViewSlotSize._320x425, ViewSlotSize._320x450 }},
+
+            {AdSlotSize._970x90 + "_A", new String[] { ViewSlotSize._970x200,ViewSlotSize._970x150,ViewSlotSize._960x60, ViewSlotSize._970x66, ViewSlotSize._960x90, ViewSlotSize._970x60, ViewSlotSize._728x90, ViewSlotSize._970x90, ViewSlotSize._960x66 }},
+
+            {AdSlotSize._970x90 + "_B", new String[] { ViewSlotSize._950x90, ViewSlotSize._728x90, ViewSlotSize._960x60, ViewSlotSize._970x60, ViewSlotSize._970x90, ViewSlotSize._960x90 }},
+
+            {AdSlotSize._970x90 + "_C", new String[] { ViewSlotSize._970x66, ViewSlotSize._970x60, ViewSlotSize._960x90, ViewSlotSize._950x90, ViewSlotSize._960x66, ViewSlotSize._728x90, ViewSlotSize._960x60, ViewSlotSize._970x90 }},
+
+            {AdSlotSize._976x204, new String[] { ViewSlotSize._976x200, ViewSlotSize._976x250, ViewSlotSize._976x204 }},
+
+            {AdSlotSize._976x400, new String[] { ViewSlotSize._976x450, ViewSlotSize._976x300, ViewSlotSize._976x460, ViewSlotSize._976x250, ViewSlotSize._976x400 }},
+
+            {AdSlotSize._976x400, new String[] { ViewSlotSize._976x150, ViewSlotSize._976x100, ViewSlotSize._976x250, ViewSlotSize._976x300, ViewSlotSize._976x350, ViewSlotSize._976x400, ViewSlotSize._970x90, ViewSlotSize._976x200 }},
+        };
     }
 
 }
