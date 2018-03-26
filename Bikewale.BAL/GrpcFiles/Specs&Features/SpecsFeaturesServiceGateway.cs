@@ -40,7 +40,8 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                     ca.AddCall(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetVehicleDataForVersionId", new VehicleDataRequest
                     {
                         VersionIds = { versionIds },
-                        ApplicationId = 2
+                        ApplicationId = 2,
+                        ItemGroupTypes = string.Format("{0},{1}",(int)ItemGroupTypes.Individual, (int)ItemGroupTypes.IndividuallyShown)
                     });
                     var apiData = ca.GetResultsFromGateway();
 

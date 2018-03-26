@@ -22,25 +22,26 @@ namespace VehicleData.Service.ProtoClass {
     static ItemReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgppdGVtLnByb3RvEgtWZWhpY2xlRGF0YRoUY3VzdG9tRGF0YVR5cGUucHJv",
-            "dG8iuwMKBEl0ZW0SCgoCSWQYASABKAUSEgoKQ2F0ZWdvcnlJZBgCIAEoBRIM",
-            "CgROYW1lGAMgASgJEhIKCkRhdGFUeXBlSWQYBCABKAUSEgoKVW5pdFR5cGVJ",
-            "ZBgFIAEoBRIUCgxVbml0VHlwZU5hbWUYBiABKAkSEQoJU29ydE9yZGVyGAcg",
-            "ASgFEhMKC0Rlc2NyaXB0aW9uGAggASgJEhAKCElzQWN0aXZlGAkgASgIEhQK",
-            "DEFiYnJldmlhdGlvbhgKIAEoCRIOCgZNaW5WYWwYCyABKAUSDgoGTWF4VmFs",
-            "GAwgASgFEhMKC0lzUHVibGlzaGVkGA0gASgIEgwKBEljb24YDiABKAkSFQoN",
-            "UHJpb3JpdHlPcmRlchgPIAEoBRIWCg5JdGVtSW1wb3J0YW5jZRgQIAEoBRIR",
-            "CglVcGRhdGVkT24YESABKAkSEQoJVXBkYXRlZEJ5GBIgASgFEhUKDUFwcGxp",
-            "Y2F0aW9uSWQYEyABKAUSEgoKSXRlbVZhbHVlcxgUIAMoCRI0Cg9DdXN0b21E",
-            "YXRhVHlwZXMYFSADKAsyGy5WZWhpY2xlRGF0YS5DdXN0b21EYXRhVHlwZSJV",
-            "ChVJdGVtQnlDYXRlZ29yeVJlcXVlc3QSEgoKQ2F0ZWdvcnlJZBgBIAEoBRIR",
-            "CglWZXJzaW9uSWQYAiABKAUSFQoNQXBwbGljYXRpb25JZBgDIAEoBSIsCghJ",
-            "dGVtTGlzdBIgCgVJdGVtcxgBIAMoCzIRLlZlaGljbGVEYXRhLkl0ZW1CIaoC",
-            "HlZlaGljbGVEYXRhLlNlcnZpY2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
+            "CgppdGVtLnByb3RvEgtWZWhpY2xlRGF0YSKcAwoESXRlbRIKCgJJZBgBIAEo",
+            "BRISCgpDYXRlZ29yeUlkGAIgASgFEgwKBE5hbWUYAyABKAkSEgoKRGF0YVR5",
+            "cGVJZBgEIAEoBRISCgpVbml0VHlwZUlkGAUgASgFEhQKDFVuaXRUeXBlTmFt",
+            "ZRgGIAEoCRIRCglTb3J0T3JkZXIYByABKAUSEwoLRGVzY3JpcHRpb24YCCAB",
+            "KAkSEAoISXNBY3RpdmUYCSABKAgSFAoMQWJicmV2aWF0aW9uGAogASgJEg4K",
+            "Bk1pblZhbBgLIAEoBRIOCgZNYXhWYWwYDCABKAUSEwoLSXNQdWJsaXNoZWQY",
+            "DSABKAgSDAoESWNvbhgOIAEoCRIVCg1Qcmlvcml0eU9yZGVyGA8gASgFEhYK",
+            "Dkl0ZW1JbXBvcnRhbmNlGBAgASgFEhEKCVVwZGF0ZWRPbhgRIAEoCRIRCglV",
+            "cGRhdGVkQnkYEiABKAUSFQoNQXBwbGljYXRpb25JZBgTIAEoBRISCgpJdGVt",
+            "VmFsdWVzGBQgAygJEhUKDUl0ZW1Hcm91cFR5cGUYFSABKAUiVQoVSXRlbUJ5",
+            "Q2F0ZWdvcnlSZXF1ZXN0EhIKCkNhdGVnb3J5SWQYASABKAUSEQoJVmVyc2lv",
+            "bklkGAIgASgFEhUKDUFwcGxpY2F0aW9uSWQYAyABKAUiLAoISXRlbUxpc3QS",
+            "IAoFSXRlbXMYASADKAsyES5WZWhpY2xlRGF0YS5JdGVtKloKDkl0ZW1Hcm91",
+            "cFR5cGVzEggKBE5vbmUQABIOCgpJbmRpdmlkdWFsEAESFwoTSW5kaXZpZHVh",
+            "bGx5Q3JlYXRlZBACEhUKEUluZGl2aWR1YWxseVNob3duEANCIaoCHlZlaGlj",
+            "bGVEYXRhLlNlcnZpY2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.CustomDataTypeReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Item), global::VehicleData.Service.ProtoClass.Item.Parser, new[]{ "Id", "CategoryId", "Name", "DataTypeId", "UnitTypeId", "UnitTypeName", "SortOrder", "Description", "IsActive", "Abbreviation", "MinVal", "MaxVal", "IsPublished", "Icon", "PriorityOrder", "ItemImportance", "UpdatedOn", "UpdatedBy", "ApplicationId", "ItemValues", "CustomDataTypes" }, null, null, null),
+          new pbr::FileDescriptor[] { },
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VehicleData.Service.ProtoClass.ItemGroupTypes), }, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Item), global::VehicleData.Service.ProtoClass.Item.Parser, new[]{ "Id", "CategoryId", "Name", "DataTypeId", "UnitTypeId", "UnitTypeName", "SortOrder", "Description", "IsActive", "Abbreviation", "MinVal", "MaxVal", "IsPublished", "Icon", "PriorityOrder", "ItemImportance", "UpdatedOn", "UpdatedBy", "ApplicationId", "ItemValues", "ItemGroupType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemByCategoryRequest), global::VehicleData.Service.ProtoClass.ItemByCategoryRequest.Parser, new[]{ "CategoryId", "VersionId", "ApplicationId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemList), global::VehicleData.Service.ProtoClass.ItemList.Parser, new[]{ "Items" }, null, null, null)
           }));
@@ -48,6 +49,16 @@ namespace VehicleData.Service.ProtoClass {
     #endregion
 
   }
+  #region Enums
+  public enum ItemGroupTypes {
+    [pbr::OriginalName("None")] None = 0,
+    [pbr::OriginalName("Individual")] Individual = 1,
+    [pbr::OriginalName("IndividuallyCreated")] IndividuallyCreated = 2,
+    [pbr::OriginalName("IndividuallyShown")] IndividuallyShown = 3,
+  }
+
+  #endregion
+
   #region Messages
   public sealed partial class Item : pb::IMessage<Item> {
     private static readonly pb::MessageParser<Item> _parser = new pb::MessageParser<Item>(() => new Item());
@@ -93,7 +104,7 @@ namespace VehicleData.Service.ProtoClass {
       updatedBy_ = other.updatedBy_;
       applicationId_ = other.applicationId_;
       itemValues_ = other.itemValues_.Clone();
-      customDataTypes_ = other.customDataTypes_.Clone();
+      itemGroupType_ = other.itemGroupType_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -320,14 +331,15 @@ namespace VehicleData.Service.ProtoClass {
       get { return itemValues_; }
     }
 
-    /// <summary>Field number for the "CustomDataTypes" field.</summary>
-    public const int CustomDataTypesFieldNumber = 21;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.CustomDataType> _repeated_customDataTypes_codec
-        = pb::FieldCodec.ForMessage(170, global::VehicleData.Service.ProtoClass.CustomDataType.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.CustomDataType> customDataTypes_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.CustomDataType>();
+    /// <summary>Field number for the "ItemGroupType" field.</summary>
+    public const int ItemGroupTypeFieldNumber = 21;
+    private int itemGroupType_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.CustomDataType> CustomDataTypes {
-      get { return customDataTypes_; }
+    public int ItemGroupType {
+      get { return itemGroupType_; }
+      set {
+        itemGroupType_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -363,7 +375,7 @@ namespace VehicleData.Service.ProtoClass {
       if (UpdatedBy != other.UpdatedBy) return false;
       if (ApplicationId != other.ApplicationId) return false;
       if(!itemValues_.Equals(other.itemValues_)) return false;
-      if(!customDataTypes_.Equals(other.customDataTypes_)) return false;
+      if (ItemGroupType != other.ItemGroupType) return false;
       return true;
     }
 
@@ -390,7 +402,7 @@ namespace VehicleData.Service.ProtoClass {
       if (UpdatedBy != 0) hash ^= UpdatedBy.GetHashCode();
       if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
       hash ^= itemValues_.GetHashCode();
-      hash ^= customDataTypes_.GetHashCode();
+      if (ItemGroupType != 0) hash ^= ItemGroupType.GetHashCode();
       return hash;
     }
 
@@ -478,7 +490,10 @@ namespace VehicleData.Service.ProtoClass {
         output.WriteInt32(ApplicationId);
       }
       itemValues_.WriteTo(output, _repeated_itemValues_codec);
-      customDataTypes_.WriteTo(output, _repeated_customDataTypes_codec);
+      if (ItemGroupType != 0) {
+        output.WriteRawTag(168, 1);
+        output.WriteInt32(ItemGroupType);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -542,7 +557,9 @@ namespace VehicleData.Service.ProtoClass {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
       }
       size += itemValues_.CalculateSize(_repeated_itemValues_codec);
-      size += customDataTypes_.CalculateSize(_repeated_customDataTypes_codec);
+      if (ItemGroupType != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(ItemGroupType);
+      }
       return size;
     }
 
@@ -609,7 +626,9 @@ namespace VehicleData.Service.ProtoClass {
         ApplicationId = other.ApplicationId;
       }
       itemValues_.Add(other.itemValues_);
-      customDataTypes_.Add(other.customDataTypes_);
+      if (other.ItemGroupType != 0) {
+        ItemGroupType = other.ItemGroupType;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -700,8 +719,8 @@ namespace VehicleData.Service.ProtoClass {
             itemValues_.AddEntriesFrom(input, _repeated_itemValues_codec);
             break;
           }
-          case 170: {
-            customDataTypes_.AddEntriesFrom(input, _repeated_customDataTypes_codec);
+          case 168: {
+            ItemGroupType = input.ReadInt32();
             break;
           }
         }

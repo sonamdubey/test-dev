@@ -22,35 +22,24 @@ namespace VehicleData.Service.ProtoClass {
     static CustomDataTypeReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChRjdXN0b21EYXRhVHlwZS5wcm90bxILVmVoaWNsZURhdGEi3gEKDkN1c3Rv",
+            "ChRjdXN0b21EYXRhVHlwZS5wcm90bxILVmVoaWNsZURhdGEiswEKDkN1c3Rv",
             "bURhdGFUeXBlEgoKAklkGAEgASgFEg4KBkl0ZW1JZBgCIAEoBRIMCgROYW1l",
             "GAMgASgJEhMKC0Rlc2NyaXB0aW9uGAQgASgJEhAKCElzQWN0aXZlGAUgASgI",
             "EhEKCVNvcnRPcmRlchgGIAEoBRIXCg9WYWx1ZUltcG9ydGFuY2UYByABKAES",
-            "EQoJVXBkYXRlZE9uGAggASgJEhEKCVVwZGF0ZWRCeRgJIAEoBRIpCglPcGVy",
-            "YXRpb24YCiABKA4yFi5WZWhpY2xlRGF0YS5PcGVyYXRpb24iSgoSQ3VzdG9t",
-            "RGF0YVR5cGVMaXN0EjQKD0N1c3RvbURhdGFUeXBlcxgBIAMoCzIbLlZlaGlj",
-            "bGVEYXRhLkN1c3RvbURhdGFUeXBlKi8KCU9wZXJhdGlvbhIKCgZDcmVhdGUQ",
-            "ABIKCgZVcGRhdGUQARIKCgZEZWxldGUQAkIhqgIeVmVoaWNsZURhdGEuU2Vy",
-            "dmljZS5Qcm90b0NsYXNzYgZwcm90bzM="));
+            "EQoJVXBkYXRlZE9uGAggASgJEhEKCVVwZGF0ZWRCeRgJIAEoBSJKChJDdXN0",
+            "b21EYXRhVHlwZUxpc3QSNAoPQ3VzdG9tRGF0YVR5cGVzGAEgAygLMhsuVmVo",
+            "aWNsZURhdGEuQ3VzdG9tRGF0YVR5cGVCIaoCHlZlaGljbGVEYXRhLlNlcnZp",
+            "Y2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VehicleData.Service.ProtoClass.Operation), }, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CustomDataType), global::VehicleData.Service.ProtoClass.CustomDataType.Parser, new[]{ "Id", "ItemId", "Name", "Description", "IsActive", "SortOrder", "ValueImportance", "UpdatedOn", "UpdatedBy", "Operation" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CustomDataType), global::VehicleData.Service.ProtoClass.CustomDataType.Parser, new[]{ "Id", "ItemId", "Name", "Description", "IsActive", "SortOrder", "ValueImportance", "UpdatedOn", "UpdatedBy" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CustomDataTypeList), global::VehicleData.Service.ProtoClass.CustomDataTypeList.Parser, new[]{ "CustomDataTypes" }, null, null, null)
           }));
     }
     #endregion
 
   }
-  #region Enums
-  public enum Operation {
-    [pbr::OriginalName("Create")] Create = 0,
-    [pbr::OriginalName("Update")] Update = 1,
-    [pbr::OriginalName("Delete")] Delete = 2,
-  }
-
-  #endregion
-
   #region Messages
   public sealed partial class CustomDataType : pb::IMessage<CustomDataType> {
     private static readonly pb::MessageParser<CustomDataType> _parser = new pb::MessageParser<CustomDataType>(() => new CustomDataType());
@@ -85,7 +74,6 @@ namespace VehicleData.Service.ProtoClass {
       valueImportance_ = other.valueImportance_;
       updatedOn_ = other.updatedOn_;
       updatedBy_ = other.updatedBy_;
-      operation_ = other.operation_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -192,17 +180,6 @@ namespace VehicleData.Service.ProtoClass {
       }
     }
 
-    /// <summary>Field number for the "Operation" field.</summary>
-    public const int OperationFieldNumber = 10;
-    private global::VehicleData.Service.ProtoClass.Operation operation_ = 0;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::VehicleData.Service.ProtoClass.Operation Operation {
-      get { return operation_; }
-      set {
-        operation_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as CustomDataType);
@@ -225,7 +202,6 @@ namespace VehicleData.Service.ProtoClass {
       if (ValueImportance != other.ValueImportance) return false;
       if (UpdatedOn != other.UpdatedOn) return false;
       if (UpdatedBy != other.UpdatedBy) return false;
-      if (Operation != other.Operation) return false;
       return true;
     }
 
@@ -241,7 +217,6 @@ namespace VehicleData.Service.ProtoClass {
       if (ValueImportance != 0D) hash ^= ValueImportance.GetHashCode();
       if (UpdatedOn.Length != 0) hash ^= UpdatedOn.GetHashCode();
       if (UpdatedBy != 0) hash ^= UpdatedBy.GetHashCode();
-      if (Operation != 0) hash ^= Operation.GetHashCode();
       return hash;
     }
 
@@ -288,10 +263,6 @@ namespace VehicleData.Service.ProtoClass {
         output.WriteRawTag(72);
         output.WriteInt32(UpdatedBy);
       }
-      if (Operation != 0) {
-        output.WriteRawTag(80);
-        output.WriteEnum((int) Operation);
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -323,9 +294,6 @@ namespace VehicleData.Service.ProtoClass {
       }
       if (UpdatedBy != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(UpdatedBy);
-      }
-      if (Operation != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Operation);
       }
       return size;
     }
@@ -361,9 +329,6 @@ namespace VehicleData.Service.ProtoClass {
       }
       if (other.UpdatedBy != 0) {
         UpdatedBy = other.UpdatedBy;
-      }
-      if (other.Operation != 0) {
-        Operation = other.Operation;
       }
     }
 
@@ -409,10 +374,6 @@ namespace VehicleData.Service.ProtoClass {
           }
           case 72: {
             UpdatedBy = input.ReadInt32();
-            break;
-          }
-          case 80: {
-            operation_ = (global::VehicleData.Service.ProtoClass.Operation) input.ReadEnum();
             break;
           }
         }
