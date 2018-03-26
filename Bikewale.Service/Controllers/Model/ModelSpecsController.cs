@@ -1,4 +1,6 @@
-﻿using Bikewale.DTO.Model;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.BAL.PriceQuote;
+using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
@@ -9,6 +11,7 @@ using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.AutoMappers.Version;
 using Bikewale.Service.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Http;
@@ -122,6 +125,7 @@ namespace Bikewale.Service.Controllers.Model
                     return BadRequest();
                 }
                 objModelPage = _bikeModelEntity.GetModelPageDetails(modelId);
+                objModelPage.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint>{ 1 });
 
                 if (objModelPage != null)
                 {
@@ -156,10 +160,11 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     return BadRequest();
                 }
-                TransposeModelSpecEntity transposeModelSpecEntity = _versionCacheRepository.GetSpecifications(versionId);
-                if (transposeModelSpecEntity != null)
+                SpecsFeaturesEntity versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { versionId});
+        
+                if (versionSpecsFeatures != null)
                 {
-                    VersionSpecs versionSpecs = VersionListMapper.Convert(transposeModelSpecEntity);
+                    VersionSpecs versionSpecs = VersionListMapper.Convert(versionSpecsFeatures);
                     if (versionSpecs != null)
                     {
                         return Ok(versionSpecs);
@@ -173,5 +178,5 @@ namespace Bikewale.Service.Controllers.Model
                 return InternalServerError();
             }
         }
-    }
+	}
 }

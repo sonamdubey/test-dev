@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -19,6 +20,8 @@ namespace Bikewale.Entities.Compare
         public IEnumerable<BikeSpecification> Specifications { get; set; }
         [DataMember]
         public IEnumerable<BikeFeature> Features { get; set; }
+
+        public SpecsFeaturesEntity VersionSpecsFeatures { get; set; }
         [DataMember]
         public IEnumerable<BikeColor> Color { get; set; }
         [DataMember]

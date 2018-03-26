@@ -94,6 +94,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiGatewayLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\APIGateway\ApiGatewayLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
@@ -228,6 +232,14 @@
     <Compile Include="GrpcFiles\EditCmsGrpc.cs" />
     <Compile Include="GrpcFiles\GrpcMethods.cs" />
     <Compile Include="GrpcFiles\GrpcToBikeWaleConvert.cs" />
+    <Compile Include="GrpcFiles\Specs&amp;Features\Category.cs" />
+    <Compile Include="GrpcFiles\Specs&amp;Features\Customdatatype.cs" />
+    <Compile Include="GrpcFiles\Specs&amp;Features\DataType.cs" />
+    <Compile Include="GrpcFiles\Specs&amp;Features\Item.cs" />
+    <Compile Include="GrpcFiles\Specs&amp;Features\SpecsFeaturesServiceGateway.cs" />
+    <Compile Include="GrpcFiles\Specs&amp;Features\Unittype.cs" />
+    <Compile Include="GrpcFiles\Specs&amp;Features\VehicleData.cs" />
+    <Compile Include="GrpcFiles\Specs&amp;Features\VehicleDataGrpc.cs" />
     <Compile Include="Images\ImageBL.cs" />
     <Compile Include="Location\Cities.cs" />
     <Compile Include="Location\States.cs" />
