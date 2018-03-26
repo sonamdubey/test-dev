@@ -527,6 +527,7 @@ var ModelVideoViewModel = function () {
 var ColorSlugViewModel = function (colorPhotoList) {
 	var self = this;
 
+	self.colorCount = colorPhotoList.length;
 	self.visibilityThreshold = ko.observable(5);
 	self.previewCount = 3;
 

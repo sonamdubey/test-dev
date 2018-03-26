@@ -88,13 +88,13 @@ var ImageGrid = (function () {
 		$(document).on('click', '#viewMoreImageBtn', function () {
 			var listImageCount = $('.image-grid__list .image-grid-list__item').length;
 
-			vmPhotosMore.Loadedphotos(vmModelGallery.photoList().slice(listImageCount + 1, listImageCount + 13));
+			vmPhotosMore.Loadedphotos(vmModelGallery.photoList().slice(listImageCount, listImageCount + 12));
 			$("#imageGridBottom").append($("#photoTemplateWrapper ul li"));
 			ImageGrid.alignRemainderImage();
 
-			var newImageCount = vmModelGallery.photoList().length - $('.image-grid__list .image-grid-list__item').length - 1;
+			var newImageCount = vmModelGallery.photoList().length - $('.image-grid__list .image-grid-list__item').length;
 
-			if (newImageCount) {
+			if (newImageCount > 0) {
 				$('#moreImageCount').html(newImageCount);
 			}
 			else {

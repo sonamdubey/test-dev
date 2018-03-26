@@ -37,6 +37,7 @@
                             <div class="swiper--prev gallery__prev gallery__arrow-btn"></div>
 
                             <div data-bind="with: colorSlug">
+								<!-- ko if : colorCount -->
                                 <div class="model-gallery__color-slide gallery__slide-slug" data-bind="if: $parent.isColorSlugEligible, visible: activeSlug()">
                                     <p class="gallery-slide-slug__title" data-bind="text: modelName + ' Colours'"></p>
                                     <ul class="color-slide__list" data-bind="foreach: colorList">
@@ -54,9 +55,11 @@
                                     </div>
                                 </div>
                                 <p class="gallery__single-color-title" data-bind="visible: activeSingleColorMessage(), text: modelName + ' is available in ' + colorList[0].ImageTitle + ' color only.'"></p>
+								<!-- /ko -->
                             </div>
 
                             <div data-bind="with: videoSlug">
+								<!-- ko if : videoCount -->
                                 <div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoCount, visible: activeSlug(), css: {'video-slug--single-video': videoCount === 1, 'video-slug--video-playing': isPlaying()}">
                                     <p class="gallery-slide-slug__title" data-bind="text: modelName + ' Video' + (videoCount > 1 ? 's' : '')"></p>
                                     <!-- ko if : videoCount === 1 -->
@@ -77,6 +80,7 @@
 
                                     <!-- /ko -->
                                 </div>
+								<!-- /ko -->
                             </div>
 
                         </div>
@@ -320,10 +324,10 @@
                                 i++;
                             }
                         </ul>
-                        @if (i < Model.TotalPhotos-1)
+                        @if (i < Model.TotalPhotos)
                         {
                             <div class="image-grid__list-more">
-                                <button id="viewMoreImageBtn" type="button" class="btn btn-inv-blue image-grid__more-btn">View More (<span id="moreImageCount">@( Model.TotalPhotos - i - 1)</span>)</button>
+                                <button id="viewMoreImageBtn" type="button" class="btn btn-inv-blue image-grid__more-btn">View More (<span id="moreImageCount">@( Model.TotalPhotos - i)</span>)</button>
                             </div>
                         }
                        
