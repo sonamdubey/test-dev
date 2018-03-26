@@ -249,12 +249,8 @@
     display: block
 }
 .specs-features-list .grid-6 p {
+	font-size: 0;
     margin-top: 25px;
-    width: 100%;
-    text-align: left;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
 .specs-features-list .grid-6 p:first-child {
     margin-top: 20px;
@@ -266,6 +262,21 @@
 .specs-features-list.model-features-list .grid-6 p:first-child {
     margin-top: 0;
 }
+
+.specs-features-item__content {
+	font-size: 14px;
+	width: 50%;
+	padding-right: 10px;
+	padding-left: 10px;
+	text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+	display: inline-block;
+	vertical-align: top;
+}
+
+
 #model-more-features-list {
     display: none;
 }
