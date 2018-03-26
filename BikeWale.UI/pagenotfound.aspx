@@ -22,7 +22,7 @@
         IWURFLManager wurflManager;
         if (HttpContext.Current.Cache[WurflManagerCacheKey] == null)																//checked whether cahce already exists
         {
-            string WurflDataFilePath = HttpContext.Current.Server.MapPath("~/wurfl/wurfl.xml");
+            string WurflDataFilePath = HttpContext.Current.Server.MapPath("~/App_Data/wurfl-latest.zip");
             string WurflPatchFilePath = HttpContext.Current.Server.MapPath("~/wurfl/web_browsers_patch.xml");
 
             CacheDependency dependency = new CacheDependency(WurflDataFilePath);													//dependacy of the cache is on wurfl.xml
