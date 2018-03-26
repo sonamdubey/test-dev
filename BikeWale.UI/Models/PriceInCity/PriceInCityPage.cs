@@ -566,7 +566,7 @@ namespace Bikewale.Models
                             NameValueCollection adInfo_OldAd = new NameValueCollection();
                             adInfo_OldAd["adId"] = _adId_SimilarBikes;
                             adInfo_OldAd["adPath"] = _adPath_SimilarBikes;
-                            ads.Add(String.Format("{0}-14", adInfo_OldAd), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._292x399 }, 14, 300, AdSlotSize._292x399));
+                            ads.Add(String.Format("{0}-14", _adId_SimilarBikes), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._292x399 }, 14, 300, AdSlotSize._292x399));
                         }
                     }
 
