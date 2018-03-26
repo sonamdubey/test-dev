@@ -320,7 +320,7 @@
                                 i++;
                             }
                         </ul>
-                        @if (i < Model.TotalPhotos)
+                        @if (i < Model.TotalPhotos-1)
                         {
                             <div class="image-grid__list-more">
                                 <button id="viewMoreImageBtn" type="button" class="btn btn-inv-blue image-grid__more-btn">View More (<span id="moreImageCount">@( Model.TotalPhotos - i - 1)</span>)</button>
