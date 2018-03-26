@@ -158,12 +158,7 @@ namespace Bikewale.Models.BikeModels
                     _objData.VersionId = versionId.HasValue ? versionId.Value : 0;
 
                     _objData.ModelPageEntity = FetchModelPageDetails(_modelId);
-                    _objData.BikeSpecsFeatures = new BikeSpecsFeaturesVM()
-                    {
-                        BikeName = _objData.BikeName,
-                        ModelName = _objData.ModelPageEntity.ModelDetails.ModelName,
-                        VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures( new List<uint>{ (uint)(versionId.HasValue? versionId.Value : 1) } )
-                    };
+                    
                     if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         FetchOnRoadPrice(_objData.ModelPageEntity);
@@ -174,6 +169,12 @@ namespace Bikewale.Models.BikeModels
                     {
                         GetManufacturerCampaign();
                     }
+                    _objData.BikeSpecsFeatures = new BikeSpecsFeaturesVM()
+                    {
+                        BikeName = _objData.BikeName,
+                        ModelName = _objData.ModelPageEntity.ModelDetails.ModelName,
+                        VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { _objData.VersionId })
+                    };
                     BindControls();
 
                     BindColorString();
