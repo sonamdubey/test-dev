@@ -6,7 +6,7 @@
 </script>
 
 <%     fontFile  = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff";
-       fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)
+       fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
 %>
 <style>
     @font-face { 
@@ -17,8 +17,8 @@
     }
 
 </style>
-<%     fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff" %>
-<%       fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion) %>
+<%     fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff"; %>
+<%       fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); %>
 <style>
      @@font-face { 
 	    font-family: 'Open Sans';
