@@ -16,13 +16,14 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
         {
             try
             {
-                CallAggregator ca = new CallAggregator();
+                CallAggregator ca = new CallAggregator();				
+				
                 ca.AddCall(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetVehicleDataForVersionId", new VehicleDataRequest
                 {
                     VersionIds = { new List<int> { 5242, 5150 } },
                     ApplicationId = 1
                 });
-                var apiData = ca.GetResultsFromGateway();
+                var apiData = ca.GetResultsFromGateway();				
 
                 if (apiData != null && apiData.OutputMessages != null && apiData.OutputMessages.Count > 0)
                 {

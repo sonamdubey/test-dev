@@ -79,6 +79,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Interface;
+using Bikewale.Utility.ApiGatewayHelper;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
@@ -182,7 +183,9 @@ namespace Bikewale
             container.RegisterType<IBikeSearchResult, BikeSearchResult>();
             container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
             container.RegisterType<IPageFilters, PageFilters>();
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+			container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+
+			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
 }

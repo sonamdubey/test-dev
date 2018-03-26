@@ -94,8 +94,14 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiGatewayLibrary">
+      <HintPath>..\Libs\APIGateway\ApiGatewayLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\Libs\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\Libs\HtmlAgilityPack.dll</HintPath>
@@ -149,6 +155,9 @@
     <Compile Include="AmpOperations.cs" />
     <Compile Include="Amp\AmpCacheRefresh.cs" />
     <Compile Include="AndroidAppAlert\SubscriptionTypes.cs" />
+    <Compile Include="ApiGatewayHelper\ApiGatewayCaller.cs" />
+    <Compile Include="ApiGatewayHelper\ApiGatewayResponse.cs" />
+    <Compile Include="ApiGatewayHelper\IApiGatewayCaller.cs" />
     <Compile Include="APIHost.cs" />
     <Compile Include="ArticleHelper.cs" />
     <Compile Include="BikeBookingCookie.cs" />
@@ -225,6 +234,10 @@
       <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
