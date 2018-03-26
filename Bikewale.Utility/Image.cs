@@ -1,17 +1,40 @@
 ﻿using System;
 using System.Configuration;
+using System.Text;
 using System.Web;
 
 namespace Bikewale.Utility
 {
     public static class Image
     {
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 26 March 2018
+        /// Description : Added Handling for `//` in Image URL.
+        /// </summary>
         public static string GetPathToShowImages(string originalImagePath, string hostUrl, string size)
         {
             string imgUrl = String.Empty;
             if (!String.IsNullOrEmpty(originalImagePath) && !String.IsNullOrEmpty(hostUrl))
             {
-                imgUrl = String.Format("{0}/{1}/{2}", hostUrl, size, originalImagePath);
+                StringBuilder urlSb = new StringBuilder();
+                if (hostUrl.EndsWith("/")) {
+                    urlSb.Append(string.Format("{0}{1}", hostUrl, size));
+                }
+                else
+                {
+                    urlSb.Append(string.Format("{0}/{1}", hostUrl, size));
+                }
+
+                if (originalImagePath.StartsWith("/"))
+                {
+                    urlSb.Append(string.Format("{0}", originalImagePath));
+                }
+                else
+                {
+                    urlSb.Append(string.Format("/{0}", originalImagePath));
+                }
+
+                imgUrl = urlSb.ToString();
             }
             else
             {
@@ -20,20 +43,47 @@ namespace Bikewale.Utility
             return imgUrl;
         }
 
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 26 March 2018
+        /// Description : Added Handling for `//` in Image URL.
+        /// </summary>
+        /// <param name="originalImagePath"></param>
+        /// <param name="hostUrl"></param>
+        /// <param name="size"></param>
+        /// <param name="quality"></param>
+        /// <returns></returns>
         public static string GetPathToShowImages(string originalImagePath, string hostUrl, string size, string quality)
         {
             string imgUrl = String.Empty;
             if (!String.IsNullOrEmpty(originalImagePath) && !String.IsNullOrEmpty(hostUrl))
             {
+                StringBuilder urlSb = new StringBuilder();
+                if (hostUrl.EndsWith("/"))
+                {
+                    urlSb.Append(string.Format("{0}{1}", hostUrl, size));
+                }
+                else
+                {
+                    urlSb.Append(string.Format("{0}/{1}", hostUrl, size));
+                }
+
+                if (originalImagePath.StartsWith("/"))
+                {
+                    urlSb.Append(string.Format("{0}", originalImagePath));
+                }
+                else
+                {
+                    urlSb.Append(string.Format("/{0}", originalImagePath));
+                }
                 if (!String.IsNullOrEmpty(quality))
                 {
                     if (originalImagePath.IndexOf("?") > -1)
-                        imgUrl = String.Format("{0}/{1}/{2}&q={3}", hostUrl, size, originalImagePath, quality);
+                        urlSb.Append(string.Format("&q={0}", quality));
                     else
-                        imgUrl = String.Format("{0}/{1}/{2}?q={3}", hostUrl, size, originalImagePath, quality);
+                        urlSb.Append(string.Format("?q={0}", quality));
                 }
-                else
-                    imgUrl = String.Format("{0}/{1}/{2}", hostUrl, size, originalImagePath);
+
+                imgUrl = urlSb.ToString();
             }
             else
             {
