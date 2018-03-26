@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PriceQuote
 {
@@ -11,50 +12,53 @@ namespace Bikewale.Entities.PriceQuote
     /// Created on : 15 march 2016
     /// Summary : To wrap response for Dealer Quotation page.
     /// </summary>
+    [Serializable, DataContract]
     public class DealerQuotationEntity
     {
 
-        [JsonProperty("bookingAmount")]
+        [JsonProperty("bookingAmount"), DataMember]
         public uint BookingAmount { get; set; }
 
-        [JsonProperty("isBookingAvailable")]
+        [JsonProperty("isBookingAvailable"), DataMember]
         public bool IsBookingAvailable { get { return (BookingAmount > 0); } }
 
-        [JsonProperty("priceList")]
+        [JsonProperty("priceList"), DataMember]
         public IEnumerable<PQ_Price> PriceList { get; set; }
 
-        [JsonProperty("offerList")]
+        [JsonProperty("offerList"), DataMember]
         public IEnumerable<OfferEntityBase> OfferList { get; set; }
 
-        [JsonProperty("dealerDetails")]
+        [JsonProperty("dealerDetails"), DataMember]
         public NewBikeDealers DealerDetails { get; set; }
 
-        [JsonProperty("bikeAvailability")]
+        [JsonProperty("bikeAvailability"), DataMember]
         public uint BikeAvailability { get; set; }
 
-        [JsonProperty("benefits")]
+        [JsonProperty("benefits"), DataMember]
         public IEnumerable<DealerBenefitEntity> Benefits { get; set; }
 
-        [JsonProperty("emiDetails")]
+        [JsonProperty("emiDetails"), DataMember]
         public EMI EMIDetails { get; set; }
 
-        [JsonProperty("availabilityByColor")]
+        [JsonProperty("availabilityByColor"), DataMember]
         public IEnumerable<BikeWale.Entities.AutoBiz.BikeColorAvailability> AvailabilityByColor { get; set; }
 
-        [JsonProperty("disclaimer")]
+        [JsonProperty("disclaimer"), DataMember]
         public IEnumerable<string> Disclaimer { get; set; }
 
-        [JsonProperty("hasDisclaimer")]
+        [JsonProperty("hasDisclaimer"), DataMember]
         public bool HasDisclaimer { get { return (Disclaimer != null && Disclaimer.Any()); } }
 
-        [JsonProperty("hasBenefits")]
+        [JsonProperty("hasBenefits"), DataMember]
         public bool HasBenefits { get { return (Benefits != null && Benefits.Any()); } }
 
+        [DataMember]
         public bool HasOffers { get { return (OfferList != null && OfferList.Any()); } }
 
-        [JsonProperty("totalPrice")]
+        [JsonProperty("totalPrice"), DataMember]
         public ulong TotalPrice { get { return (PriceList != null ? Convert.ToUInt64(PriceList.Sum(m => Convert.ToInt64(m.Price))) : 0UL); } }
 
+        [DataMember]
         public bool IsPremiumDealer
         {
             get
@@ -66,9 +70,9 @@ namespace Bikewale.Entities.PriceQuote
                     );
             }
         }
-
+        [DataMember]
         public bool IsStandardDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Standard == this.DealerDetails.DealerPackageType); } }
-
+        [DataMember]
         public bool IsDeluxDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Deluxe == this.DealerDetails.DealerPackageType); } }
 
     }
