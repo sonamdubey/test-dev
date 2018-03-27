@@ -2181,6 +2181,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Passed cityid to get used bikes count.     
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Changed SP from 'getgenericbikelisting_03042017' to 'getgenericbikelisting_02102017', to get avg price.
+        /// Modified by : Pratibha Verma on 27 Mar 2018
+        /// Description : Removed MinSpecs code
         /// </summary>
         /// <param name="bodyStyle"></param>
         /// <returns></returns>
@@ -2205,12 +2207,6 @@ namespace Bikewale.DAL.BikeData
                             {
                                 BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
                                 bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
-                                bestBikeObj.MinSpecs = new MinSpecsEntity();
-                                bestBikeObj.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                bestBikeObj.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
-                                bestBikeObj.MinSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["Weight"]);
-                                bestBikeObj.MinSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["Power"]);
-                                bestBikeObj.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 bestBikeObj.HostUrl = Convert.ToString(dr["HostURL"]);
                                 bestBikeObj.OriginalImagePath = Convert.ToString(dr["ImagePath"]);
                                 bestBikeObj.Make = new BikeMakeEntityBase();
@@ -2240,6 +2236,7 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.UsedCity.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 bestBikeObj.UsedCity.CityName = Convert.ToString(dr["CityName"]);
                                 bestBikeObj.PriceInCity = Convert.ToString(dr["PriceInCity"]);
+                                bestBikeObj.VersionId = Convert.ToInt32(dr["TopVersionId"]);
                                 bestBikesList.Add(bestBikeObj);
                             }
                             dr.Close();
@@ -2258,6 +2255,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By  :   Vishnu Teja Yalakuntla on 11 Sep 2017
         /// Description :   Fetches best bikes for particular model in its make
+        /// Modified by : Pratibha Verma on 27 Mar 2018
+        /// Description : Removed MinSpecs code
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -2282,12 +2281,6 @@ namespace Bikewale.DAL.BikeData
                             {
                                 BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
                                 bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
-                                bestBikeObj.MinSpecs = new MinSpecsEntity();
-                                bestBikeObj.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                bestBikeObj.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
-                                bestBikeObj.MinSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["Weight"]);
-                                bestBikeObj.MinSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["Power"]);
-                                bestBikeObj.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 bestBikeObj.HostUrl = Convert.ToString(dr["HostURL"]);
                                 bestBikeObj.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 bestBikeObj.Make = new BikeMakeEntityBase();
@@ -2318,6 +2311,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By  :   Vishnu Teja Yalakuntla on 11 Sep 2017
         /// Description :   Fetches best bikes for particular model in its make with on road price in given city
+        /// Modified by : Pratibha Verma on 27 Mar 2018
+        /// Description : Removed MinSpecs code
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -2343,12 +2338,6 @@ namespace Bikewale.DAL.BikeData
                             {
                                 BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
                                 bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
-                                bestBikeObj.MinSpecs = new MinSpecsEntity();
-                                bestBikeObj.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                bestBikeObj.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
-                                bestBikeObj.MinSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["Weight"]);
-                                bestBikeObj.MinSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["Power"]);
-                                bestBikeObj.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 bestBikeObj.HostUrl = Convert.ToString(dr["HostURL"]);
                                 bestBikeObj.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 bestBikeObj.Make = new BikeMakeEntityBase();
