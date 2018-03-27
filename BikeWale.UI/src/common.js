@@ -1230,7 +1230,8 @@ docReady(function () {
 
             if (!this.options.trendingSearchesLoaded) {
                 if (trendingBikes) {
-                    html = "";
+                    html = '<li data-makeid="0" data-modelid="0" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="Track Day 2018">\
+                            <span class="trending-searches"></span><a href="javascript:void(0)" data-href="/featured/trackday-2018/">Track Day 2018</a>';
                     for (var index in trendingBikes) {
                         item = trendingBikes[index];
                         html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName + '"><span class="trending-searches"></span><a href="javascript:void(0)" data-href="/'
@@ -1426,7 +1427,7 @@ docReady(function () {
     $(document).on("click", ".bw-ga", function () {
         try {
             var obj = $(this);
-            var category = obj.attr("data-cat") || obj.attr("c") || $('body').data('page-name');
+            var category = obj.attr("data-cat") || obj.attr("c") || $('body').data('page-name') || pageName;
             var action = obj.attr("data-act") || obj.attr("a");
             var label = obj.attr("data-lab") || obj.attr("l");
             var variable = obj.attr("data-var") || obj.attr("v");
