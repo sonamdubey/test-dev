@@ -76,7 +76,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BestBikeByBodyStyle.BindMinSpecs()"));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BestBikeByBodyStyle.BindMinSpecs({0})", GenericBikeList));
             }
 
         }
