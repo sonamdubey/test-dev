@@ -118,7 +118,6 @@ class NavigationDrawer extends React.Component {
                             <a href="/m/reviews/" className="nav-item">
                                 <span className="bwmsprite reviews-icon"></span>
                                 <span onClick={this.pushAnalytics}>Reviews</span>
-                                <span class="new-flag"></span>
                             </a>
                         </li>
                         <li>
@@ -137,9 +136,10 @@ class NavigationDrawer extends React.Component {
                             </ul>
                         </li>
                         <li>
-                            <a href="/m/trackday2016/" className="nav-item" onClick={this.pushAnalytics.bind()}>
+                            <a href="/featured/trackday-2018/" className="nav-item" onClick={this.pushAnalytics.bind()}>
                                 <span className="bwmsprite track-day"></span>
-                                <span onClick={this.pushAnalytics}>Track Day 2016</span>
+                                <span onClick={this.pushAnalytics}>Track Day 2018</span>
+								<span class="new-flag"></span>
                             </a>
                         </li>
                         <li>
